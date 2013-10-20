@@ -1,0 +1,23 @@
+
+/* MailChimp for WP - Default Form Styles */
+.mc4wp-form{ margin:1em 0; }
+.mc4wp-form p{ text-align:left; }
+.mc4wp-form label{ display:block; font-weight:bold; margin-bottom:3px; text-align:left;  }
+.mc4wp-form label > span, .mc4wp-form li > label{ font-weight: normal; }
+
+.mc4wp-form input[type="text"],
+.mc4wp-form input[type="email"],
+.mc4wp-form input[type="tel"],
+.mc4wp-form input[type="url"] { display:inline-block; width:100%; height:auto; box-sizing:border-box; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; }
+
+.mc4wp-form input[type="checkbox"] { margin:0 10px 0 0; padding:0; height:13px; width:13px; 
+	display:inline-block; -webkit-appearance: checkbox; border:0; }
+.mc4wp-form input[type="radio"] { margin:0 10px 0 0; padding:0; height:13px; width:13px; 
+	display:inline-block; 	-webkit-appearance: radio; border:0;  }
+.mc4wp-form select, .mc4wp-form input[type="date"] { min-width:35%; }
+.mc4wp-form input[type="submit"], .mc4wp-form button{ display:inline-block; }
+
+.mc4wp-alert{ margin:1em 0; padding: 10px 15px; color: #c09853; background-color: #fcf8e3; border: 1px solid #fbeed5; border-radius: 2px; -moz-border-radius:2px; -webkit-border-radius:2px; display:block;  position:relative;}
+.mc4wp-success { color: #468847; background-color: #dff0d8; border-color: #d6e9c6; }
+.mc4wp-notice { color: #3a87ad; background-color: #d9edf7; border-color: #bce8f1; }
+.mc4wp-error { color: #b94a48; background-color: #f2dede; border-color: #eed3d7;; }
