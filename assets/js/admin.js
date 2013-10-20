@@ -110,6 +110,7 @@
 				// setup values for submit field
 				field['type'] = 'submit';
 				$valueLabel.text("Button text");
+				$value.val("Sign up");
 				$wizardFields.find('p.row').filter('.value, .wrap-p').show();
 				updateCodePreview();
 			} else {
@@ -122,7 +123,11 @@
 
 		function resetFields() {
 			$wizardFields.find('.row :input').each(function() {
-				if($(this).is(":checkbox")) { this.checked = false; } else { this.value = ''; }
+				if($(this).is(":checkbox")) { 
+					this.checked = true; 
+				} else {
+				 	this.value = ''; 
+				}
 			});
 
 			$wizardFields.find('p.row').hide();

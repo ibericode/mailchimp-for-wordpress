@@ -37,7 +37,7 @@
 
 		<p class="row required">
 			<input type="checkbox" id="mc4wp-fw-required" value="1" /> 
-			<label for="mc4wp-fw-required">Required field? <small>(HTML5)</small></label>
+			<label for="mc4wp-fw-required">Required field?</label>
 		</p>
 
 		<p>

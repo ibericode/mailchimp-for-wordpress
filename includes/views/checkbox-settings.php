@@ -52,7 +52,7 @@
 		</tr>
 		<tr valign="top">
 			<th scope="row"><label for="mc4wp_checkbox_label">Checkbox label text</label></th>
-			<td colspan="2"><input type="text"  class="widefat" id="mc4wp_checkbox_label" name="mc4wp_lite_checkbox[label]" value="<?php echo esc_attr($opts['label']); ?>" /></td>
+			<td colspan="2"><input type="text"  class="widefat" id="mc4wp_checkbox_label" name="mc4wp_lite_checkbox[label]" value="<?php echo esc_attr($opts['label']); ?>" required /></td>
 		</tr>
 		<tr valign="top">
 			<th scope="row">Pre-check the checkbox?</th>
@@ -76,13 +76,6 @@
 </div>
 <div id="mc4wp-sidebar">
 	<?php include 'parts/admin-upgrade-to-pro.php'; ?>
-
-	<div class="mc4wp-box">
-		<h3>Styling the Sign-Up Checkbox</h3>
-		<p>Custom or additional styling can be done by applying CSS rules to <b>#mc4wp-checkbox</b> or its child elements.</p>
-		<p>You should add the CSS rules to your theme stylesheet using the <a href="<?php echo admin_url('theme-editor.php?file=style.css'); ?>">Theme Editor</a> or by editing <em><?php echo get_stylesheet_directory(); ?>/style.css</em> over FTP.</p>
-	</div>
-
 	<?php include 'parts/admin-need-support.php'; ?>
 </div>
 

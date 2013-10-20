@@ -6,7 +6,7 @@
 
 		<?php settings_errors(); ?>
 
-		<p>To use the MailChimp for WP sign-up form, configure the form below and then paste <input size="10" type="text" onfocus="this.select();" readonly="readonly" value="[mc4wp-form]" class="mc4wp-shortcode-example"> in a post, page or text widget.</p>
+		<p>To use the MailChimp for WP sign-up form, configure the form below and then paste <input size="10" type="text" onfocus="this.select();" readonly="readonly" value="[mc4wp_form]" class="mc4wp-shortcode-example"> in a post, page or text widget.</p>
 
 			<form action="options.php" method="post">
 				<?php settings_fields( 'mc4wp_lite_form_settings' ); ?>
@@ -27,7 +27,7 @@
 						<?php } ?>
 						</ul>
 				</td>
-				<td class="desc" <?php if(empty($opts['lists'])) { ?>style="color:red;"<?php } ?>>Select at least one MailChimp list for this form</td>
+				<td class="desc" <?php if(empty($opts['lists'])) { ?>style="color:red;"<?php } ?>>Select at least one MailChimp list for this form.</td>
 				<?php
 			} ?>
 
@@ -43,7 +43,7 @@
 						} else {
 							?><textarea class="widefat" cols="160" rows="20" id="mc4wpformmarkup" name="mc4wp_lite_form[markup]"><?php echo esc_textarea($opts['markup']); ?></textarea><?php
 						} ?>
-						<p><small>Use <input type="text" onfocus="this.select();" readonly="readonly" value="[mc4wp-form]" size="10" class="mc4wp-shortcode-example"> to render this form inside a widget, post or page. <u>Do not just copy the form mark-up as that will not work.</u> </small></p>
+						<p><small>Use <input type="text" onfocus="this.select();" readonly="readonly" value="[mc4wp_form]" size="12" class="mc4wp-shortcode-example"> to render this form inside a widget, post or page. <u>Do not just copy the form mark-up as that will not work.</u> </small></p>
 						<p class="submit">
 							<input type="submit" class="button-primary" value="<?php _e('Save All Changes') ?>" id="mc4wp-submit-form-settings" />
 						</p>
@@ -126,19 +126,19 @@
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="mc4wp_form_text_success">Success message</label></th>
-				<td colspan="2" ><input type="text" class="widefat" id="mc4wp_form_text_success" name="mc4wp_lite_form[text_success]" value="<?php echo esc_attr($opts['text_success']); ?>" /></td>
+				<td colspan="2" ><input type="text" class="widefat" id="mc4wp_form_text_success" name="mc4wp_lite_form[text_success]" value="<?php echo esc_attr($opts['text_success']); ?>" required /></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="mc4wp_form_text_error">General error message</label></th>
-				<td colspan="2" ><input type="text" class="widefat" id="mc4wp_form_text_error" name="mc4wp_lite_form[text_error]" value="<?php echo esc_attr($opts['text_error']); ?>" /></td>
+				<td colspan="2" ><input type="text" class="widefat" id="mc4wp_form_text_error" name="mc4wp_lite_form[text_error]" value="<?php echo esc_attr($opts['text_error']); ?>" required /></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="mc4wp_form_text_invalid_email">Invalid email address message</label></th>
-				<td colspan="2" ><input type="text" class="widefat" id="mc4wp_form_text_invalid_email" name="mc4wp_lite_form[text_invalid_email]" value="<?php echo esc_attr($opts['text_invalid_email']); ?>" /></td>
+				<td colspan="2" ><input type="text" class="widefat" id="mc4wp_form_text_invalid_email" name="mc4wp_lite_form[text_invalid_email]" value="<?php echo esc_attr($opts['text_invalid_email']); ?>" required /></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="mc4wp_form_text_already_subscribed">Email address is already on list message</label></th>
-				<td colspan="2" ><input type="text" class="widefat" id="mc4wp_form_text_already_subscribed" name="mc4wp_lite_form[text_already_subscribed]" value="<?php echo esc_attr($opts['text_already_subscribed']); ?>" /></td>
+				<td colspan="2" ><input type="text" class="widefat" id="mc4wp_form_text_already_subscribed" name="mc4wp_lite_form[text_already_subscribed]" value="<?php echo esc_attr($opts['text_already_subscribed']); ?>" required /></td>
 			</tr>
 			<tr>
 				<th></th>
@@ -156,17 +156,16 @@
 
 	<div class="mc4wp-box" id="mc4wp-info-tabs">
 		<h3>Building your sign-up form</h3>
-		<p>At a minimum, your form should include just an <strong>EMAIL</strong> field and a submit button. If your list requires more fields, add those too. 
-		Field names should be uppercased and match your MailChimp list fields merge tags. The field wizard tool does this automatically.</p>
+		<p>At a minimum, your form should include just an <strong>EMAIL</strong> field and a submit button.</p>
+		<p>Add more fields to your form if your list requires more fields. Field names should match your MailChimp list field tags. Use the "Add a new field" tool to have the correct HTML generated for you.</p>
 
 		<p><strong>Styling</strong><br />
 		Alter the visual appearance of the form by applying CSS rules to <b>.mc4wp-form</b> and its child elements.</p>
 		<p>You should add the CSS rules to your theme stylesheet using the <a href="<?php echo admin_url('theme-editor.php?file=style.css'); ?>">Theme Editor</a> or by editing <em><?php echo get_stylesheet_directory(); ?>/style.css</em> over FTP.</p>
 
-			
-		<p>The <a href="http://wordpress.org/plugins/mailchimp-for-wp/faq/" target="_blank">MailChimp for WP FAQ</a> lists the various CSS selectors you can use to target the different elements.</p>
+		<p>The <a href="http://wordpress.org/plugins/mailchimp-for-wp/faq/" target="_blank">FAQ</a> lists the various CSS selectors you can use to target the different elements.</p>
 
-		<p><em>PS: The premium version has a neat CSS builder. <a href="http://dannyvankooten.com/wp-content/uploads/2013/06/form-css-designer.png">Here's a screenshot</a>. Absolutely zero CSS knowledge required to create beautiful forms!</em></p>
+		<p><em>PS: With the premium version, you can design beautiful forms without touching any code. <a href="http://dannyvankooten.com/wp-content/uploads/2013/06/form-css-designer.png">Here's a screenshot</a>.</em></p>
 			
 			<h3>Form variables</h3>
 			<p>Use the following variables to add some dynamic content to your form.</p>

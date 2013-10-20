@@ -12,7 +12,7 @@ class MC4WP_Lite_Widget extends WP_Widget {
 		parent::__construct(
 			'MC4WP_Lite_Widget', // Base ID
 			__( 'MailChimp Sign-Up Form', 'mailchimp-for-wp' ), // Name
-			array( 'description' => __( 'Displays your MailChimp for WP Lite sign-up form', 'mailchimp-for-wp' ), ) // Args
+			array( 'description' => __( 'Displays your MailChimp sign-up form', 'mailchimp-for-wp' ), ) // Args
 		);
 	}
 
