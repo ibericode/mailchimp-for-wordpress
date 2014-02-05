@@ -1,0 +1,23 @@
+.mc4wp-form input[type="submit"], .mc4wp-form button {
+	color: #ffffff !important;
+  	background-color: #333333;
+  	border-color: #2E2E2E;
+}
+
+.mc4wp-form input[type="submit"]:hover, .mc4wp-form button:hover,
+.mc4wp-form input[type="submit"]:active, .mc4wp-form button:active,
+.mc4wp-form input[type="submit"]:focus, .mc4wp-form button:focus {
+	color: #ffffff;
+  	background-color: #2E2E2E;
+  	border-color: #292929;
+}
+
+.mc4wp-form input[type="text"]:focus,
+.mc4wp-form input[type="email"]:focus,
+.mc4wp-form input[type="tel"]:focus,
+.mc4wp-form input[type="url"]:focus,
+.mc4wp-form input[type="date"]:focus,
+.mc4wp-form textarea:focus,
+.mc4wp-form select:focus {
+	border-color: #333333;
+}

@@ -1,12 +1,14 @@
 (function($) { 
 
-	$("tr.pro-feature td :radio").change(function() {
+	$("tr.pro-feature, tr.pro-feature td :radio").change(function() {
 		this.checked = false;
 		alert("This option is only available in the premium version of MailChimp for WordPress.");
+		event.stopPropagation();
 	});
 
-	$("tr.pro-feature label").click(function() {
+	$("tr.pro-feature, tr.pro-feature label").click(function() {
 		alert("This option is only available in the premium version of MailChimp for WordPress.");
+		event.stopPropagation();
 	});
 
 
@@ -48,11 +50,16 @@
 		// set the fields the user can choose from
 		function setFields()
 		{
+			// show notice if no lists selecteed
+			var $selectedLists = $lists.filter(':checked');
+			$(".no-lists-selected").toggle(($selectedLists.length == 0));
+			
+
 			// empty field select
 			$mailchimpFields.find('option').not('.default').remove();
 			
 			// loop through checked lists
-			$lists.filter(':checked').each(function() {
+			$selectedLists.each(function() {
 				var fields = $(this).data('fields');
 				var groupings = $(this).data('groupings');
 
@@ -66,16 +73,8 @@
 						var text = (f.name.length > 40) ? f.name.substring(0, 40) + '..' : f.name;
 						if(f.req) { text += '*'; }
 
-						var include = false;
-						var triggers = [ 'name', 'email', 'website' ];
-						for(var j = 0; j < triggers.length; j++) {
-							if(f.tag.toLowerCase().indexOf(triggers[j]) !== -1) {
-								include = true; 
-								break;
-							}
-						}
-
-						if(include) {
+						// only show first 4 fields
+						if((i <= 3)) {
 							var $option = $("<option />").text(text).val(f.tag).data('field', f);
 						} else {
 							var $option = $("<option />").text("(PRO ONLY) " + text).val(f.tag).attr('disabled', 'disabled');
@@ -88,13 +87,23 @@
 				// loop through interest groupings
 				for(var i = 0, groupingsCount = groupings.length; i < groupingsCount; i++) {
 					var grouping = groupings[i];
-
+					
 					// add field to select if no similar option exists yet
 					if($mailchimpGroupings.find("option[value='"+ grouping.id +"']").length == 0) {
 						var text = (grouping.name.length > 40) ? grouping.name.substring(0, 40) + '..' : grouping.name;
-						var $option = $("<option />").text("(PRO ONLY) " + text).val(grouping.id).attr('disabled', 'disabled');
+
+						// only show 1 grouping
+						if(i < 1) {
+							var $option = $("<option />").text(text).val(grouping.id).data('grouping', grouping);
+						} else {
+							var $option = $("<option />").text("(PRO ONLY) " + text).val(grouping.id).attr('disabled', 'disabled');
+						}
+
 						$mailchimpGroupings.append($option);
 					}
+					
+
+					
 				}
 
 
@@ -110,24 +119,21 @@
 				// setup values for submit field
 				field['type'] = 'submit';
 				$valueLabel.text("Button text");
-				$value.val("Sign up");
 				$wizardFields.find('p.row').filter('.value, .wrap-p').show();
 				updateCodePreview();
 			} else {
 				var data = selected.data('field');
 				if(data) { return setPresetsForField(data); }
+
+				var data = selected.data('grouping');
+				if(data) { return setPresetsForGrouping(data); }
 			}
-			
 			return;
 		}
 
 		function resetFields() {
 			$wizardFields.find('.row :input').each(function() {
-				if($(this).is(":checkbox")) { 
-					this.checked = true; 
-				} else {
-				 	this.value = ''; 
-				}
+				if($(this).is(":checkbox")) { this.checked = true; } else { this.value = ''; }
 			});
 
 			$wizardFields.find('p.row').hide();
@@ -138,6 +144,44 @@
 			field['name'] = '';
 			$valueLabel.html("Initial value <small>(optional)</small>");
 		}
+
+		function addGroupInputs(groups)
+		{
+			// add a text input to $multipleValues for each group
+			for(var i = 0, groupsCount = groups.length; i < groupsCount; i++) {
+				$("<input />").attr('type', 'text').addClass('widefat').data('value', groups[i].name).attr('placeholder', 'Label for "' + groups[i].name + '" (or leave empty)').attr('value', groups[i].name).appendTo($multipleValues);
+			}
+		}
+
+		function setPresetsForGrouping(data)
+		{
+			$wizardFields.find('p.row').filter('.values, .label, .wrap-p').show();
+			$label.val(data.name + ":");
+			field['name'] = 'GROUPINGS['+ data.id + ']';
+			addGroupInputs(data.groups);
+
+			if(data.form_field == 'radio') {
+				field['type'] = 'radio';
+			} else if(data.form_field == 'dropdown') {
+				field['type'] = 'select';
+			} else if(data.form_field == 'hidden') {
+				$wizardFields.find('p.row').filter('.values, .label, .wrap-p').hide();
+				$wizardFields.find('p.row.value').show();
+				field['type'] = 'hidden';
+
+				for(var i = 0, groupsCount = data.groups.length; i < groupsCount; i++) {
+					$value.val($value.val() + data.groups[i].name + ',');
+				}
+
+			} else {
+				field['type'] = 'checkbox';
+				field['name'] = 'GROUPINGS['+ data.id + '][]';
+			}		
+
+			// update code preview
+			updateCodePreview();
+		}
+
 
 		// show available fields and fill it with some values
 		function setPresetsForField(data) 
@@ -152,7 +196,7 @@
 			}
 
 			var fieldTypesMap = {
-				'text': 'text', 'email': 'email', 'phone': 'tel', 'address': 'text', 'number': 'number', 'url': 'url',
+				'text': 'text', 'email': 'email', 'phone': 'tel', 'address': 'text', 'number': 'number',
 				'dropdown': 'select', 'date': 'date', 'birthday': 'date', 'radio': 'radio',  'checkbox': 'checkbox'
 			}
 
@@ -177,8 +221,13 @@
 			field['name'] = data.tag;
 			$placeholder.val("Your " + data.name.toLowerCase());
 			$label.val(data.name + ":");
-			if(data.req) { $required.attr('checked', true); }
-
+			$required.attr('checked', data.req);
+			if($multipleValues.is(":visible") && data.choices) {
+				for(var i = 0, count = data.choices.length; i < count; i++) {
+					$("<input />").attr('type', 'text').addClass('widefat').data('value', data.choices[i]).attr('placeholder', 'Label for "' + data.choices[i] + '" (or leave empty)').attr('value', data.choices[i]).appendTo($multipleValues);
+				}
+			}
+			
 			// update code preview
 			updateCodePreview();
 		}
@@ -190,8 +239,44 @@
 			var $input;
 
 			// build input / select / textarea element
-			$input = $("<input />").attr('type', field['type']);
-			
+			if(field['type'] == 'select') {
+				$input = $("<select />");
+
+				// add options to select
+				$multipleValues.find(":input").each(function() {
+					if($(this).val().length > 0) {
+						$el = $("<option />").val($(this).data("value")).text($(this).val());
+						$el.appendTo($input);
+					}					
+				});
+
+			} else if(field['type'] == 'radio' || field['type'] == 'checkbox') {
+
+				// build multiple input values
+				$multipleValues.find(":input").each(function() {
+					if($(this).val().length > 0) {
+						$input = $("<input />").attr('type', field['type']).attr('name', field.name).val($(this).data('value'));
+
+						if($required.is(':visible:checked')) {
+							$input.attr('required', 'required');
+						}
+
+						$code.append($input);
+
+						$input.wrap("<label />");
+						$("<span />").text($(this).val() + ' ').insertAfter($input);
+					}					
+				});
+
+			} else if(field['type'] == 'textarea') {
+				$input = $("<textarea />");
+			} else {
+				$input = $("<input />").attr('type', field['type']);
+			}
+
+			// only do this piece when we're not adding radio inputs
+			if(field['type'] != 'radio' && field['type'] != 'checkbox') {
+
 				// set name attribute
 				if(field.name.length > 0) {
 					$input.attr('name', field.name);
@@ -219,12 +304,11 @@
 				$code.append($input);
 
 			
-			
+			}
 
 			// build label
 			if($label.is(":visible") && $label.val().length > 0) {
-				var labelTag = (field['type'] == 'radio' || field['type'] == 'checkbox') ? 'h5' : 'label';
-				$("<"+ labelTag +" />").text($label.val()).prependTo($code);
+				$("<label />").text($label.val()).prependTo($code);
 			}
 			
 			// start indenting and tabbing of code
@@ -237,7 +321,21 @@
 				codePreview = $code.html()
 					.replace(/<p>/gi, "<p>\n\t")
 					.replace(/<label><input /gi, "\n\t<label><input ")
-					.replace(/<\/label><input/gi, "</label> \n\t<input");
+					.replace(/<\/label><input/gi, "</label> \n\t<input")
+					.replace(/<select /gi, "\n\t<select ")
+					.replace(/<\/select>/gi, "\n\t</select>")
+					.replace(/<\/span><\/label>/gi, "</span>\n\t</label> \n")
+					.replace(/<option /gi, "\n\t\t<option ")
+					.replace(/<label><input type="radio"/g, "<label>\n\t\t<input type=\"radio\"")
+					.replace(/<label><input type="checkbox"/g, "<label>\n\t\t<input type=\"checkbox\"")
+					.replace(/<span>/gi, "\n\t\t<span>")
+			} else {
+				// indent code, single tab
+				codePreview = codePreview
+					.replace(/<option /gi, "\n\t<option ")
+					.replace(/<label><input type="radio"/g, "<label>\n\t<input type=\"radio\"")
+					.replace(/<label><input type="checkbox"/g, "<label>\n\t<input type=\"checkbox\"")
+					.replace(/<span>/gi, "\n\t<span>");
 			}
 
 			// newline after every closed element

@@ -1,14 +1,33 @@
 <?php
 
+if( ! defined("MC4WP_LITE_VERSION") ) {
+	header( 'Status: 403 Forbidden' );
+	header( 'HTTP/1.1 403 Forbidden' );
+	exit;
+}
+
 class MC4WP_Lite_Checkbox
 {
 	private $showed_checkbox = false;
+	private static $instance = null;
 
-	public function __construct()
+	public static function init() {
+		if(self::$instance) {
+			throw new Exception("Already initialized");
+		} else {
+			self::$instance = new self;
+		}
+	}
+
+	public static function instance() {
+		return self::$instance;
+	}
+
+	private function __construct()
 	{
-		$opts = $this->get_options();
+		$opts = mc4wp_get_options('checkbox');
 
-		add_action('init', array($this, 'on_init')); 
+		add_action('init', array($this, 'initialize')); 
 
 		// load checkbox css if necessary
 		if ( $opts['css'] ) {
@@ -56,37 +75,37 @@ class MC4WP_Lite_Checkbox
 			add_action('bbp_new_reply', array($this, 'subscribe_from_bbpress_new_reply'), 10, 5);
 		}
 
-		/* Other actions... catch-all */
-		if($opts['show_at_other_forms']) {
-			add_action('init', array($this, 'subscribe_from_whatever'));
-		}
-
 	}
 
-	public function get_options()
-	{
-		$options = MC4WP_Lite::instance()->get_options();
-		return $options['checkbox'];
-	}
-
-	public function on_init()
+	public function initialize()
 	{
 		if(function_exists("wpcf7_add_shortcode")) {
 			wpcf7_add_shortcode('mc4wp_checkbox', array($this, 'get_checkbox'));
 			add_action('wpcf7_mail_sent', array($this, 'subscribe_from_cf7'));
 		}
+
+		// catch-all (for manual integrations with third-party forms)
+		if(isset($_POST['mc4wp-try-subscribe']) && $_POST['mc4wp-try-subscribe']) {
+			$this->subscribe_from_whatever();
+		}
 	}
 
 	public function get_checkbox($args = array())
 	{
-		$opts = $this->get_options();
+		$opts = mc4wp_get_options('checkbox');
 		$label = isset($args['labels'][0]) ? $args['labels'][0] : $opts['label'];
 		$checked = $opts['precheck'] ? "checked" : '';
-		$content = "\n<!-- Checkbox by MailChimp for WP plugin v". MC4WP_LITE_VERSION ." - http://dannyvankooten.com/wordpress-plugins/mailchimp-for-wordpress/ -->\n";
+
+		$content = "\n<!-- Checkbox by MailChimp for WordPress plugin v". MC4WP_LITE_VERSION ." - http://dannyvankooten.com/mailchimp-for-wordpress/ -->\n";
+		
+		do_action('mc4wp_before_checkbox');
+
 		$content .= '<p id="mc4wp-checkbox">';
-		$content .= '<input type="checkbox" name="mc4wp-do-subscribe" id="mc4wp-checkbox-input" value="1" '. $checked . ' />';
-		$content .= '<label for="mc4wp-checkbox-input">'. __($label) . '</label>';
+		$content .= '<label><input type="checkbox" name="mc4wp-do-subscribe" value="1" '. $checked . ' /> ' . __($label) . '</label>';
 		$content .= '</p>';
+		
+		do_action('mc4wp_after_checkbox');
+
 		$content .= "\n<!-- / MailChimp for WP Plugin -->\n";
 		return $content;
 	}
@@ -227,7 +246,9 @@ class MC4WP_Lite_Checkbox
 
 		// start running..
 		$email = null;
-		$merge_vars = array();
+		$merge_vars = array(
+			'GROUPINGS' => array()
+		);
 
 		foreach($_POST as $key => $value) {
 
@@ -239,6 +260,33 @@ class MC4WP_Lite_Checkbox
 
 				if($key == 'EMAIL') {
 					$email = $value;
+				} elseif($key == 'GROUPINGS' && is_array($value)) {
+
+					$groupings = $value;
+
+					foreach($groupings as $grouping_id_or_name => $groups) {
+
+						$grouping = array();
+
+						// group ID or group name given?
+						if(is_numeric($grouping_id_or_name)) {
+							$grouping['id'] = $grouping_id_or_name;
+						} else {
+							$grouping['name'] = $grouping_id_or_name;
+						}
+
+						// comma separated list should become an array
+						if(!is_array($groups)) {
+							$grouping['groups'] = explode(',', $groups);
+						} else {
+							$grouping['groups'] = $groups;
+						}
+
+						// add grouping to array
+						$merge_vars['GROUPINGS'][] = $grouping;
+
+					} // end foreach
+
 				} elseif(!isset($merge_vars[$key])) {
 					// if value is array, convert to comma-delimited string
 					if(is_array($value)) { $value = implode(',', $value); }
@@ -249,11 +297,26 @@ class MC4WP_Lite_Checkbox
 			} elseif(!$email && is_email($value)) {
 				// find first email field
 				$email = $value;
-			} elseif(!isset($merge_vars['NAME']) && in_array(strtolower($key), array('name', 'your-name', 'username', 'fullname', 'full-name'))) {
-				// find name field
-				$merge_vars['NAME'] = $value;
-			}
-		}
+
+			} else {
+				$simple_key = str_replace(array('-', '_'), '', strtolower($key));
+
+				if(!isset($merge_vars['NAME']) && in_array($simple_key, array('name', 'yourname', 'username', 'fullname'))) {
+					// find name field
+					$merge_vars['NAME'] = $value;
+				} elseif(!isset($merge_vars['FNAME']) && in_array($simple_key, array('firstname', 'fname', "givenname", "forename"))) {
+					// find first name field
+					$merge_vars['FNAME'] = $value;
+				} elseif(!isset($merge_vars['LNAME']) && in_array($simple_key, array('lastname', 'lname', 'surname', 'familyname'))) {
+					// find last name field
+					$merge_vars['LNAME'] = $value;
+				}
+			} 
+		} // end foreach $_POST
+
+
+		// unset groupings if not used
+		if(empty($merge_vars['GROUPINGS'])) { unset($merge_vars['GROUPINGS']); }
 
 		// if email has not been found by the smart field guessing, return false.. sorry
 		if(!$email) { 
@@ -306,30 +369,40 @@ class MC4WP_Lite_Checkbox
 
 	public function subscribe($email, array $merge_vars = array())
 	{
-		$api = MC4WP_Lite::api();
-		$opts = $this->get_options();
+		$api = mc4wp_get_api();
+		$opts = mc4wp_get_options('checkbox');
 
 		$lists = $opts['lists'];
 		
-		if(empty($lists)) {
+		if(!$lists || empty($lists)) {
+			if( ( !defined("DOING_AJAX") || !DOING_AJAX ) && current_user_can('manage_options')) {
+				wp_die('
+					<h3>MailChimp for WP - Error</h3>
+					<p>Please select a list to subscribe to in the <a href="'. admin_url('admin.php?page=mc4wp-lite-checkbox-settings') .'">checkbox settings</a>.</p>
+					<p style="font-style:italic; font-size:12px;">This message is only visible to administrators for debugging purposes.</p>
+					', "Error - MailChimp for WP", array('back_link' => true));
+			}
+
 			return 'no_lists_selected';
 		}
 
+		
 		// guess FNAME and LNAME
-		if(isset($merge_vars['NAME']) && !isset($merge_vars['FNAME']) && !isset($merge_vars['LNAME'])) {
-			
-			$strpos = strpos($merge_vars['NAME'], ' ');
+		if ( isset( $merge_vars['NAME'] ) && !isset( $merge_vars['FNAME'] ) && !isset( $merge_vars['LNAME'] ) ) {
 
-			if($strpos) {
-				$merge_vars['FNAME'] = substr($merge_vars['NAME'], 0, $strpos);
-				$merge_vars['LNAME'] = substr($merge_vars['NAME'], $strpos);
+			$strpos = strpos( $merge_vars['NAME'], ' ' );
+
+			if ( $strpos ) {
+				$merge_vars['FNAME'] = trim( substr( $merge_vars['NAME'], 0, $strpos ) );
+				$merge_vars['LNAME'] = trim( substr( $merge_vars['NAME'], $strpos ) );
 			} else {
 				$merge_vars['FNAME'] = $merge_vars['NAME'];
 			}
 		}
 
-		$merge_vars = apply_filters('mc4wp_merge_vars', $merge_vars);
+		$merge_vars = apply_filters('mc4wp_merge_vars', $merge_vars, '');
 		$email_type = apply_filters('mc4wp_email_type', 'html');
+		$lists = apply_filters('mc4wp_lists', $lists, $merge_vars);
 		
 		foreach($lists as $list) {
 			$result = $api->subscribe($list, $email, $merge_vars, $email_type, $opts['double_optin']);

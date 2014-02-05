@@ -1,5 +1,11 @@
 <?php
 
+if( ! defined("MC4WP_LITE_VERSION") ) {
+	header( 'Status: 403 Forbidden' );
+	header( 'HTTP/1.1 403 Forbidden' );
+	exit;
+}
+
 class MC4WP_Lite_API {
 	
 	private $api_url = 'https://api.mailchimp.com/2.0/';
@@ -71,7 +77,7 @@ class MC4WP_Lite_API {
 
 	public function get_lists()
 	{
-		$result = $this->call('lists/list');
+		$result = $this->call('lists/list', array('limit' => 100));
 
 		if($result && isset($result->data)) {
 			return $result->data;
@@ -91,17 +97,37 @@ class MC4WP_Lite_API {
 		}
 	}
 
-	private function call($method, array $data = array())
+	public function get_member_info($list_id, $emails) {
+		$result = $this->call('lists/member-info', array('id' => $list_id, 'emails'  => $emails));
+		
+		if($result && isset($result->data)) {
+			return $result->data;
+		} else {
+			return false;
+		}
+	}
+
+	public function list_has_subscriber($list_id, $email) {
+		$member_info = $this->get_member_info($list_id, array( array('email' => $email) ) );
+
+		if( $member_info && is_array($member_info) ) {
+			return ($member_info[0]->status == "subscribed");
+		}
+
+		return false;
+	}
+
+	public function call($method, array $data = array())
 	{	
 		// do not make request when no api key was provided.
 		if(empty($this->api_key)) { return false; }
 
 		$data['apikey'] = $this->api_key;
-		$url = add_query_arg($data, $this->api_url . $method . '.json');
+		$url = $this->api_url . $method . '.json';
 
 		$response = wp_remote_post($url, array( 
 			'body' => $data,
-			'timeout' => 10,
+			'timeout' => 20,
 			'headers' => array('Accept-Encoding' => ''),
 			'sslverify' => false
 			) 

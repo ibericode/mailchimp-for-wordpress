@@ -1,7 +1,24 @@
-
 /* MailChimp for WP - Default Checkbox Styles */
-#mc4wp-checkbox{ clear:both; display:block; }
-#mc4wp-checkbox input{ margin:0 5px 0 0; display:inline-block !important; width:13px; height:13px; }
-#mc4wp-checkbox label{ display:inline-block !important; }
+#mc4wp-checkbox{ 
+	clear:both; 
+	display:block; 
+}
 
-#registerform #mc4wp-checkbox{ margin-bottom:10px; }
+#mc4wp-checkbox input{ 
+	position:relative;
+	margin:0 6px 0 0; 
+	padding:0; 
+	vertical-align: middle;
+	display:inline-block !important; 
+	max-width: 20px;
+}
+
+#mc4wp-checkbox label{ 
+	display:block;
+	cursor:pointer; 
+	width: auto;
+}
+
+#registerform #mc4wp-checkbox{ 
+	margin-bottom:10px; 
+}

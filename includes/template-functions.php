@@ -1,10 +1,16 @@
 <?php
 
+if( ! defined("MC4WP_LITE_VERSION") ) {
+	header( 'Status: 403 Forbidden' );
+	header( 'HTTP/1.1 403 Forbidden' );
+	exit;
+}
+
 /**
 * Echoes a sign-up checkbox.
 */
 function mc4wp_checkbox() {
-	MC4WP_Lite::checkbox()->output_checkbox();
+	MC4WP_Lite_Checkbox::instance()->output_checkbox();
 }
 
 /**
@@ -22,7 +28,7 @@ function mc4wp_form( $id = 0 ) {
 * @return string HTML of given form_id.
 */
 function mc4wp_get_form( $id = 0 ) {
-	return MC4WP_Lite::form()->output_form( array( 'id' => $id ) );
+	return MC4WP_Lite_Form::instance()->output_form( array( 'id' => $id ) );
 }
 
 
@@ -69,7 +75,7 @@ function mc4wp_get_subscriber_count( $list_ids ) {
 
 	if ( !$list_counts ) {
 		// make api call
-		$api = MC4WP_Lite::api();
+		$api = mc4wp_get_api();
 		$lists = $api->get_lists();
 		$list_counts = array();
 
@@ -100,14 +106,29 @@ function mc4wp_get_subscriber_count( $list_ids ) {
 }
 
 /**
-* Retrieves the URL of the current WordPress page
-*
-* @return string current URL
-*/
+ * Retrieves the URL of the current WordPress page
+ *
+ * @return string The current URL, escaped for safe usage inside attributes.
+ */
 function mc4wp_get_current_url() {
-	global $wp;
-	return add_query_arg( $wp->query_string, '', home_url( $wp->request ) );
+	$page_url = 'http';
+
+	if( is_ssl() ) { $page_url .= 's'; }
+
+	$page_url .= '://';
+
+	if (!isset($_SERVER['REQUEST_URI'])) {
+		$request_uri = substr($_SERVER['PHP_SELF'], 1);
+		if (isset($_SERVER['QUERY_STRING'])) { $request_uri .='?'.$_SERVER['QUERY_STRING']; }
+	} else {
+		$request_uri = $_SERVER['REQUEST_URI'];
+	}
+
+	$page_url .= $_SERVER["HTTP_HOST"] . $request_uri;
+
+	return esc_url($page_url);
 }
+
 
 
 /**

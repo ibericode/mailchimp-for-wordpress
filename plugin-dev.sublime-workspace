@@ -1,0 +1,389 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"get",
+				"getElementById"
+			],
+			[
+				"_mc4wp_f",
+				"_mc4wp_form_submit"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 47.0,
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/class-forms.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/includes/class-api.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/includes/class-form.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/class-api.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/functions.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/class-checkboxes.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/assets/img/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/assets/css/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/views/metaboxes/required-form-settings.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/views/metaboxes/optional-form-settings.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/views/metaboxes/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/third-party/EDD_SL_Plugin_Updater.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/third-party/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/tables/class-forms-table.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/tables/class-log-table.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/tables/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/assets/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/assets/js/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/assets/js/third-party/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/views/admin-checkbox-settings.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/views/admin-form-settings.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/views/admin-general-settings.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/views/admin-reports.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/views/form-preview.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/views/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/views/parts/admin-form-css.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/views/parts/admin-forms-settings.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/views/parts/admin-log.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/views/parts/admin-notice.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/views/parts/admin-statistics.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/views/parts/admin-text-variables.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/views/parts/css-styles.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/includes/class-checkbox.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/mailchimp-for-wp-pro.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/template-functions.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/log-functions.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/class-widget.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/uninstall.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/class-admin.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/class-log.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/class-statistics.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/views/parts/admin-footer.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/includes/class-plugin.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/readme.txt",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/includes/template-functions.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/assets/js/admin.js",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/includes/class-admin.php",
+		"/Users/danny/Documents/web/wp/latest/wp-admin/includes/plugin.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/includes/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/includes/functions.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/assets/img/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/includes/class-widget.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/assets/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/assets/js/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/assets/css/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/includes/class-plugin.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/includes/views/checkbox-settings.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/mailchimp-for-wp.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/includes/views/api-settings.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/includes/views/form-settings.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/includes/views/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/includes/views/parts/admin-field-wizard.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/includes/views/parts/admin-footer.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/includes/views/parts/admin-need-support.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/includes/views/parts/admin-upgrade-to-pro.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/includes/views/parts/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/Easy-Digital-Downloads/includes/tax-functions.php",
+		"/Users/danny/Documents/web/sites/mailchimp-for-wordpress/wp-content/plugins/edd-pdf-invoices/includes/templates/template-default.php",
+		"/Users/danny/Documents/web/sites/mailchimp-for-wordpress/wp-config.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/easy-digital-downloads/includes/checkout/template.php",
+		"/Users/danny/Desktop/todo",
+		"/Users/danny/Documents/web/node/angular-phonecat/package.json",
+		"/Users/danny/Documents/web/node/chat/package.json",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/changelog.txt",
+		"/Users/danny/Documents/web/node/todo/views/blog.html",
+		"/Users/danny/Documents/web/node/todo/public/style.css",
+		"/Users/danny/Documents/web/node/todo/app.js",
+		"/Users/danny/Documents/web/node/todo/public/todo-js.js",
+		"/Users/danny/Documents/web/node/todo/views/todo-js.html",
+		"/Users/danny/Documents/web/node/todo/views/todo-angular.html",
+		"/Users/danny/Documents/web/node/todo/public/todo-angular.js",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/scroll-triggered-boxes/includes/views/metabox-options.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/scroll-triggered-boxes/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/scroll-triggered-boxes/readme.txt",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/scroll-triggered-boxes/includes/class-admin.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/scroll-triggered-boxes/includes/class-public.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/scroll-triggered-boxes/assets/js/script.js",
+		"/Users/danny/Documents/web/node/todo/views/todo.html",
+		"/Users/danny/Documents/web/node/blog/index.html",
+		"/Users/danny/Documents/web/node/todo/package.json",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/recent-facebook-posts/includes/class-public.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/assets/js/ajax-forms.js",
+		"/Users/danny/Documents/web/wp/latest/wp-content/themes/twentyfourteen/js/functions.js",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/Easy-Digital-Downloads/includes/emails/functions.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/akismet/legacy.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/woocommerce-pdf-invoices/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/scroll-triggered-boxes/assets/js/admin-script.js",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/dvk-social-sharing/includes/views/settings-page.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/dvk-social-sharing/includes/class-admin.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/dvk-social-sharing/includes/class-public.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/dvk-social-sharing/includes/plugin.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/dvk-social-sharing/includes/template-functions.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/edd-software-licensing/includes/EDD_Software_Licensing.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/wysiwyg-widgets/wysiwyg-widgets.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/wysiwyg-widgets/includes/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/wysiwyg-widgets/includes/plugin.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/wysiwyg-widgets/includes/class-widget.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/wysiwyg-widgets/includes/class-admin.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/edd-download-archive/edd-download-archive.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/wysiwyg-widgets/index.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/wysiwyg-widgets/languages/index.php",
+		"/Users/danny/Documents/MONEY",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro 2/includes/class-forms.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/hardcorewp-spam-blacklist.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp/assets/css/admin.css",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro/assets/css/admin-styles.css",
+		"/private/var/folders/8j/wcsmv9md0vbbc_fj06klx97m0000gn/T/f4c305c9-9587-4a30-9eba-2c2b9ab0183f/domains/dannyvankooten.com/public_html/wp-content/plugins/mailchimp-for-wp-pro/assets/css/css.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/no-spam-but-no-notification/no-spam-but-no-notification.php",
+		"/Users/danny/Documents/web/wp/latest/wp-content/plugins/recent-facebook-posts/recent-facebook-posts.php",
+		"/Users/danny/Documents/web/wp/latest/wp-includes/comment.php",
+		"/Users/danny/Downloads/qoate-scroll-triggered-box/qoate-sb-style.php",
+		"/Users/danny/Documents/web/shared-webserver/site-2/css/main.css",
+		"/Users/danny/Documents/web/shared-webserver/site-1/css/main.css",
+		"/Users/danny/Documents/web/shared-webserver/site-2/index.html",
+		"/Users/danny/Documents/web/shared-webserver/site-1/index.html"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro",
+			"/Users/danny/Documents/web/sites/mailchimp-for-wordpress/wp-content/plugins/easy-digital-downloads",
+			"/Users/danny/Documents/web/wp/latest/wp-content/plugins/easy-digital-downloads",
+			"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro",
+			"/Users/danny/Documents/web/wp/latest/wp-content/plugins/scroll-triggered-boxes",
+			"/Users/danny/Documents/web/wp/latest/wp-content/plugins/recent-facebook-posts",
+			"/Users/danny/Documents/web/wp/latest/wp-content/plugins/scroll-triggered-boxes",
+			"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp",
+			"/Users/danny/Documents/web/wp/latest/wp-content/plugins/Easy-Digital-Downloads",
+			"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro",
+			"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp",
+			"/Users/danny/Documents/web/wp/latest/wp-content/plugins/mailchimp-for-wp-pro"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"apply_filters",
+			"do_action",
+			"output_",
+			"MC4WP_VERSION_NUMBER",
+			"do_action",
+			"apply_filters",
+			"do_action",
+			" );",
+			"tax",
+			"manage_options",
+			"subscribe(",
+			"subscribe(\n",
+			"edd_item_quani",
+			"edd_item_quantities_enabled",
+			"edd_purchase_form_before_submit",
+			"get_checkbox",
+			"output_checkbox",
+			"output_checkbox_comment_form",
+			"output_checkbox",
+			"send_email",
+			"send_email_cop",
+			"subscribe_from_cf7",
+			"die",
+			"var_dump",
+			"console.log",
+			"width",
+			"var_dump",
+			"console.log",
+			"ob_",
+			"wp_mail",
+			"get_mailchimp_lists(",
+			"var_dump",
+			"console.log",
+			"mc4wp_required",
+			"check_license",
+			"STB",
+			"submit",
+			"print_js",
+			"mc4wp_action",
+			"output_checkbox",
+			"do_action",
+			"empty($list",
+			"guess ",
+			"$this->subscribe",
+			"submit()",
+			"loaded_ajax_scripts",
+			"mc4wp_",
+			"$_POST",
+			"subscribe",
+			"$this->error",
+			"scroll_js",
+			"checkbox_settings",
+			"subscribe(",
+			"wp_notify_moderator",
+			"$_POST",
+			"mc4wp_merge_vars",
+			"><",
+			"output_form"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"MC4WP_VERSION",
+			"EDDDA"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "/Users/danny/Documents/web/wp/latest/wp-content/plugins"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "/Users/danny/Documents/web/node"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "/Users/danny/Documents/web/wp/latest/wp-content/themes"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "/Users/danny/Documents/web/sites/mailchimp-for-wordpress"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "/Users/danny/Documents/web"
+		}
+	],
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 235.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
