@@ -1,2 +1,0 @@
-mailchimp-for-wordpress
-=======================
