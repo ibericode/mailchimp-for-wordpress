@@ -19,7 +19,8 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 			<optgroup label="MailChimp merge fields" class="merge-fields"></optgroup>
 			<optgroup label="Interest groupings" class="groupings"></optgroup>
 			<optgroup label="Other" class="other">
-				<option class="default" value="submit">Submit button</option>				
+				<option class="default" value="submit">Submit button</option>
+				<option class="default" disabled>(PRO ONLY) Lists Choice</option>				
 			</optgroup>
 		</select>
 	</p>

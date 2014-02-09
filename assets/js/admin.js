@@ -310,39 +310,19 @@
 			if($label.is(":visible") && $label.val().length > 0) {
 				$("<label />").text($label.val()).prependTo($code);
 			}
-			
-			// start indenting and tabbing of code
-			var codePreview = $code.html();
 
+			// wrap in paragraphs?
 			if($wrapp.is(':visible:checked')) {
 				$code.wrapInner($("<p />"));
-
-				// indent code inside paragraphs (double tab)
-				codePreview = $code.html()
-					.replace(/<p>/gi, "<p>\n\t")
-					.replace(/<label><input /gi, "\n\t<label><input ")
-					.replace(/<\/label><input/gi, "</label> \n\t<input")
-					.replace(/<select /gi, "\n\t<select ")
-					.replace(/<\/select>/gi, "\n\t</select>")
-					.replace(/<\/span><\/label>/gi, "</span>\n\t</label> \n")
-					.replace(/<option /gi, "\n\t\t<option ")
-					.replace(/<label><input type="radio"/g, "<label>\n\t\t<input type=\"radio\"")
-					.replace(/<label><input type="checkbox"/g, "<label>\n\t\t<input type=\"checkbox\"")
-					.replace(/<span>/gi, "\n\t\t<span>")
-			} else {
-				// indent code, single tab
-				codePreview = codePreview
-					.replace(/<option /gi, "\n\t<option ")
-					.replace(/<label><input type="radio"/g, "<label>\n\t<input type=\"radio\"")
-					.replace(/<label><input type="checkbox"/g, "<label>\n\t<input type=\"checkbox\"")
-					.replace(/<span>/gi, "\n\t<span>");
 			}
 
-			// newline after every closed element
-			codePreview = codePreview.replace(/></g, "> \n<");			
+			var html = $code.html();
+			setCodePreview(html);
+		}
 
-			// add code to codePreview textarea
-			$codePreview.val(codePreview);
+		function setCodePreview(html) {
+			html = html_beautify(html);
+			$codePreview.val(html);
 		}
 
 		function addCodeToFormMarkup() {

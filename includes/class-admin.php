@@ -100,8 +100,9 @@ class MC4WP_Lite_Admin
 		wp_enqueue_style( 'mc4wp-admin-css', plugins_url('mailchimp-for-wp/assets/css/admin.css') );
 
 		// js
+		wp_register_script( 'mc4wp-beautifyhtml', plugins_url('mailchimp-for-wp-pro/assets/js/third-party/beautify-html.js'), array('jquery'), MC4WP_VERSION, true);
 		wp_register_script('mc4wp-admin-js',  plugins_url('mailchimp-for-wp/assets/js/admin.js'), array('jquery'), false, true);
-		wp_enqueue_script( array('jquery', 'mc4wp-admin-js') );
+		wp_enqueue_script( array('jquery', 'mc4wp-beautifyhtml', 'mc4wp-admin-js') );
 	}
 
 	public function get_checkbox_compatible_plugins()
