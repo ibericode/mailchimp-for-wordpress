@@ -127,7 +127,7 @@ class MC4WP_Lite {
 		$stylesheets = apply_filters('mc4wp_stylesheets', array());
 
 		if(!empty($stylesheets)) {
-			$stylesheet_url = add_query_arg($stylesheets, plugins_url('mailchimp-for-wp/assets/css/css.php'));
+			$stylesheet_url = add_query_arg($stylesheets, MC4WP_LITE_PLUGIN_URL . 'assets/css/css.php' );
 			wp_enqueue_style( 'mailchimp-for-wp', $stylesheet_url, array(), MC4WP_LITE_VERSION);
 		}
 	}

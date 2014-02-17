@@ -25,7 +25,7 @@ class MC4WP_Lite_Admin
 		add_action( 'admin_enqueue_scripts', array($this, 'load_css_and_js') );
 
 		register_activation_hook( 'mailchimp-for-wp/mailchimp-for-wp.php', array($this, 'delete_transients') );
-		register_deactivation_hook( 'mailchimp-for-wp-pro/mailchimp-for-wp-pro.php', array($this, 'delete_transients') );
+		register_deactivation_hook( 'mailchimp-for-wp/mailchimp-for-wp.php', array($this, 'delete_transients') );
 
 		add_filter("plugin_action_links_mailchimp-for-wp/mailchimp-for-wp.php", array($this, 'add_settings_link'));
 		
@@ -75,12 +75,12 @@ class MC4WP_Lite_Admin
 
 	public function build_menu()
 	{
-		$required_cap = apply_filters('mc4wp_settings_cap', 'manage_options');
-		add_menu_page('MailChimp for WP Lite', 'MailChimp for WP', $required_cap, 'mc4wp-lite', array($this, 'show_api_settings'), plugins_url('mailchimp-for-wp/assets/img/menu-icon.png'));
-		add_submenu_page('mc4wp-lite', 'API Settings - MailChimp for WP Lite', 'MailChimp Settings', $required_cap, 'mc4wp-lite', array($this, 'show_api_settings'));
-		add_submenu_page('mc4wp-lite', 'Checkbox Settings - MailChimp for WP Lite', 'Checkboxes', $required_cap, 'mc4wp-lite-checkbox-settings', array($this, 'show_checkbox_settings'));
-		add_submenu_page('mc4wp-lite', 'Form Settings - MailChimp for WP Lite', 'Forms', $required_cap, 'mc4wp-lite-form-settings', array($this, 'show_form_settings'));
-		add_submenu_page('mc4wp-lite', 'Upgrade to Pro - MailChimp for WP Lite', 'Upgrade to Pro', $required_cap, 'mc4wp-lite-upgrade', array($this, 'redirect_to_pro'));
+		$required_cap = apply_filters( 'mc4wp_settings_cap', 'manage_options' );
+		add_menu_page( 'MailChimp for WP Lite', 'MailChimp for WP', $required_cap, 'mc4wp-lite', array($this, 'show_api_settings'), MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png' );
+		add_submenu_page( 'mc4wp-lite', 'API Settings - MailChimp for WP Lite', 'MailChimp Settings', $required_cap, 'mc4wp-lite', array( $this, 'show_api_settings' ) );
+		add_submenu_page( 'mc4wp-lite', 'Checkbox Settings - MailChimp for WP Lite', 'Checkboxes', $required_cap, 'mc4wp-lite-checkbox-settings', array($this, 'show_checkbox_settings' ) );
+		add_submenu_page( 'mc4wp-lite', 'Form Settings - MailChimp for WP Lite', 'Forms', $required_cap, 'mc4wp-lite-form-settings', array( $this, 'show_form_settings' ) );
+		add_submenu_page( 'mc4wp-lite', 'Upgrade to Pro - MailChimp for WP Lite', 'Upgrade to Pro', $required_cap, 'mc4wp-lite-upgrade', array( $this, 'redirect_to_pro' ) );
 	}
 
 	public function validate_settings( $settings ) {
@@ -92,17 +92,19 @@ class MC4WP_Lite_Admin
 		return $settings;
 	}
 
-	public function load_css_and_js($hook)
+	public function load_css_and_js( $hook )
 	{
-		if(!isset($_GET['page']) || stristr($_GET['page'], 'mc4wp-lite') == false) { return; }
+		if( ! isset( $_GET['page'] ) || stristr( $_GET['page'], 'mc4wp-lite' ) == false ) { 
+			return; 
+		}
 		
 		// css
-		wp_enqueue_style( 'mc4wp-admin-css', plugins_url('mailchimp-for-wp/assets/css/admin.css') );
+		wp_enqueue_style( 'mc4wp-admin-css', MC4WP_LITE_PLUGIN_URL . 'assets/css/admin.css' );
 
 		// js
-		wp_register_script( 'mc4wp-beautifyhtml', plugins_url('mailchimp-for-wp-pro/assets/js/third-party/beautify-html.js'), array('jquery'), MC4WP_LITE_VERSION, true);
-		wp_register_script('mc4wp-admin-js',  plugins_url('mailchimp-for-wp/assets/js/admin.js'), array('jquery'), false, true);
-		wp_enqueue_script( array('jquery', 'mc4wp-beautifyhtml', 'mc4wp-admin-js') );
+		wp_register_script( 'mc4wp-beautifyhtml', MC4WP_LITE_PLUGIN_URL . 'assets/js/beautify-html.js', array( 'jquery' ), MC4WP_LITE_VERSION, true );
+		wp_register_script( 'mc4wp-admin-js', MC4WP_LITE_PLUGIN_URL . 'assets/js/admin.js', array( 'jquery' ), false, true );
+		wp_enqueue_script( array( 'jquery', 'mc4wp-beautifyhtml', 'mc4wp-admin-js' ) );
 	}
 
 	public function get_checkbox_compatible_plugins()

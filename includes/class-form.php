@@ -55,10 +55,10 @@ class MC4WP_Lite_Form {
 	public function initialize()
 	{
 		// register placeholder script, which will later be enqueued for IE only
-		wp_register_script( 'mc4wp-placeholders', plugins_url('mailchimp-for-wp/assets/js/placeholders.min.js'), array(), MC4WP_LITE_VERSION, true );
+		wp_register_script( 'mc4wp-placeholders', MC4WP_LITE_PLUGIN_URL . 'assets/js/placeholders.min.js', array(), MC4WP_LITE_VERSION, true );
 	
 		// register non-AJAX script (that handles form submissions)
-		wp_register_script( 'mc4wp-forms', plugins_url('mailchimp-for-wp/assets/js/forms.js'), array(), MC4WP_LITE_VERSION, true );
+		wp_register_script( 'mc4wp-forms', MC4WP_LITE_PLUGIN_URL . 'assets/js/forms.js', array(), MC4WP_LITE_VERSION, true );
 	}
 
 	public function add_stylesheets($stylesheets) {
