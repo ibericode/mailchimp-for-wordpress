@@ -199,6 +199,7 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 == Changelog ==
 
 = 1.5.5 =
+* Fixed: Field generator only generating text fields
 * Fixed: Now using correct deactivation hook
 * Improved: Plugin now fully compatible with custom folder names
 
@@ -462,6 +463,9 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 * BETA release
 
 == Upgrade Notice ==
+
+= 1.5.5 =
+Fixed field generator only generating `text` input fields.
 
 = 1.5.4 =
 Fixed admin notice and "add to form" button, improved Contact Form 7 integration.

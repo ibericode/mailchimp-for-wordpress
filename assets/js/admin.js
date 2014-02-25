@@ -273,9 +273,9 @@
 			}
 
 			if(fieldTypesMap[data.field_type] != undefined) {
-				var fieldType = fieldTypesMap[data.field_type];
+				fieldType = fieldTypesMap[data.field_type];
 			} else {
-				var fieldType = 'text';
+				fieldType = 'text';
 			}
 
 			if(visibleRowsMap[fieldType] != undefined) {
@@ -288,7 +288,6 @@
 				$wizardFields.find('p.row.' + visibleRows[i]).show();
 			}
 
-			// populate fields with preset values
 			fieldType = fieldType;
 			fieldName = data.tag;
 
