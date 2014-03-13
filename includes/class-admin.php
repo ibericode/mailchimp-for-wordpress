@@ -87,9 +87,9 @@ class MC4WP_Lite_Admin
 	*/
 	public function register_settings()
 	{
-		register_setting('mc4wp_lite_settings', 'mc4wp_lite', array($this, 'validate_settings') );
-		register_setting('mc4wp_lite_checkbox_settings', 'mc4wp_lite_checkbox');
-		register_setting('mc4wp_lite_form_settings', 'mc4wp_lite_form');
+		register_setting( 'mc4wp_lite_settings', 'mc4wp_lite', array( $this, 'validate_settings' ) );
+		register_setting( 'mc4wp_lite_checkbox_settings', 'mc4wp_lite_checkbox');
+		register_setting( 'mc4wp_lite_form_settings', 'mc4wp_lite_form', array( $this, 'validate_form_settings' ) );
 	}
 
 	/**
@@ -107,7 +107,8 @@ class MC4WP_Lite_Admin
 
 
 	/**
-	* Validate the various settings
+	* Validates the General settings
+	*
 	* @param array $settings
 	* @return array
 	*/
@@ -115,6 +116,23 @@ class MC4WP_Lite_Admin
 
 		if( isset( $settings['api_key'] ) ) {
 			$settings['api_key'] = trim( strip_tags( $settings['api_key'] ) );
+		}
+
+		return $settings;
+	}
+
+	/**
+	* Validates the Form settings
+	* @param array $settings
+	* @return array
+	*/
+	public function validate_form_settings( $settings ) {
+
+		if( isset( $settings['markup'] ) ) {
+
+			// strip form tags (to prevent people from adding them)
+			$settings['markup'] = preg_replace( '/<\/?form(.|\s)*?>/i', '', $settings['markup'] );
+
 		}
 
 		return $settings;
