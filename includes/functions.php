@@ -6,10 +6,17 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 	exit;
 }
 
-function mc4wp_get_options($key = null) {
+/**
+* Gets the MailChimp for WP options from the database
+* Uses default values to prevent undefined index notices.
+*
+* @param string $key
+* @return array
+*/
+function mc4wp_get_options( $key = null ) {
 	static $options;
 
-	if(!$options) {
+	if( ! $options ) {
 		$defaults = array(
 			'general' => array(
 				'api_key' => ''
@@ -57,17 +64,21 @@ function mc4wp_get_options($key = null) {
 		}
 	}
 
-	if($key) {
+	if( $key ) {
 		return $options[$key];
 	}
 
 	return $options;
 }
 
+/**
+* Gets the MailChimp for WP API class and injects it with the given API key
+* @return MC4WP_API
+*/
 function mc4wp_get_api() {
 	static $api;
 
-	if(!$api) {
+	if( ! $api ) {
 		require_once MC4WP_LITE_PLUGIN_DIR . 'includes/class-api.php';
 		$opts = mc4wp_get_options();
 		$api = new MC4WP_Lite_API( $opts['general']['api_key'] );

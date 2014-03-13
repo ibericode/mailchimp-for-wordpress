@@ -1,6 +1,6 @@
 <?php
 
-if( ! defined("MC4WP_LITE_VERSION") ) {
+if( ! defined( "MC4WP_LITE_VERSION" ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
@@ -11,10 +11,10 @@ class MC4WP_Lite_Admin
 	private static $instance = null;
 
 	public static function init() {
-		if(!self::$instance) {
+		if( ! self::$instance ) {
 			self::$instance = new self();
 		} else {
-			throw new Exception("Already initalized.");
+			throw new Exception( "Already initalized." );
 		}
 	}
 
@@ -24,21 +24,21 @@ class MC4WP_Lite_Admin
 		add_action('admin_menu', array($this, 'build_menu'));
 		add_action( 'admin_enqueue_scripts', array($this, 'load_css_and_js') );
 
-		register_activation_hook( 'mailchimp-for-wp/mailchimp-for-wp.php', array($this, 'delete_transients') );
-		register_deactivation_hook( 'mailchimp-for-wp/mailchimp-for-wp.php', array($this, 'delete_transients') );
+		register_activation_hook( 'mailchimp-for-wp/mailchimp-for-wp.php', array( $this, 'delete_transients' ) );
+		register_deactivation_hook( 'mailchimp-for-wp/mailchimp-for-wp.php', array( $this, 'delete_transients' ) );
 
-		add_filter("plugin_action_links_mailchimp-for-wp/mailchimp-for-wp.php", array($this, 'add_settings_link'));
+		add_filter( "plugin_action_links_mailchimp-for-wp/mailchimp-for-wp.php", array( $this, 'add_settings_link' ) );
 		
 		// did the user click on upgrade to pro link?
-		if(isset($_GET['page'])) {
+		if( isset( $_GET['page'] ) ) {
 
-			if($_GET['page'] == 'mc4wp-lite-upgrade' && !headers_sent()) {
+			if( $_GET['page'] == 'mc4wp-lite-upgrade' && ! headers_sent() ) {
 				header("Location: http://dannyvankooten.com/mailchimp-for-wordpress/?utm_source=lite-plugin&utm_medium=link&utm_campaign=menu-upgrade-link");
 				exit;
 			}
 
-			if($_GET['page'] == 'mc4wp-lite-form-settings') {
-				add_filter('quicktags_settings', array($this, 'set_quicktags_buttons'), 10, 2 );
+			if( $_GET['page'] == 'mc4wp-lite-form-settings' ) {
+				add_filter( 'quicktags_settings', array( $this, 'set_quicktags_buttons' ), 10, 2 );
 			}
 		}
 	}
@@ -48,8 +48,8 @@ class MC4WP_Lite_Admin
 	*/
 	public function delete_transients()
 	{
-		delete_transient('mc4wp_mailchimp_lists');
-		delete_transient('mc4wp_mailchimp_lists_fallback');
+		delete_transient( 'mc4wp_mailchimp_lists' );
+		delete_transient( 'mc4wp_mailchimp_lists_fallback' );
 	}
 
 	/**
@@ -123,6 +123,7 @@ class MC4WP_Lite_Admin
 
 	/**
 	* Validates the Form settings
+	*
 	* @param array $settings
 	* @return array
 	*/
