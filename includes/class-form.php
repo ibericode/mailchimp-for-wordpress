@@ -77,19 +77,23 @@ class MC4WP_Lite_Form {
 	public function output_form( $atts, $content = null ) {
 		$opts = mc4wp_get_options('form');
 
-		if ( !function_exists( 'mc4wp_replace_variables' ) ) {
+		if ( ! function_exists( 'mc4wp_replace_variables' ) ) {
 			include_once MC4WP_LITE_PLUGIN_DIR . 'includes/template-functions.php';
 		}
 
 		// add some useful css classes
 		$css_classes = 'form mc4wp-form ';
-		if ( $this->error ) $css_classes .= 'mc4wp-form-error ';
-		if ( $this->success ) $css_classes .= 'mc4wp-form-success ';
+
+		if ( $this->error ) {
+			$css_classes .= 'mc4wp-form-error ';
+		}
+
+		if ( $this->success ) {
+			$css_classes .= 'mc4wp-form-success ';
+		}
 
 		// allow developers to add css classes
 		$css_classes = apply_filters( 'mc4wp_form_css_classes', $css_classes );
-
-
 
 		$form_action = apply_filters( 'mc4wp_form_action', mc4wp_get_current_url() );
 
@@ -105,13 +109,13 @@ class MC4WP_Lite_Form {
 			$form_markup = mc4wp_replace_variables( $form_markup, array_values( $opts['lists'] ) );
 
 			// allow plugins to add form fields
-			do_action('mc4wp_before_form_fields', 0);
+			do_action( 'mc4wp_before_form_fields', 0 );
 
 			// allow plugins to alter form content
-			$content .= apply_filters('mc4wp_form_content', $form_markup);
+			$content .= apply_filters( 'mc4wp_form_content', $form_markup );
 
 			// allow plugins to add form fields
-			do_action('mc4wp_after_form_fields', 0);
+			do_action( 'mc4wp_after_form_fields', 0 );
 
 			// hidden fields
 			$content .= '<textarea name="_mc4wp_required_but_not_really" style="display: none !important;"></textarea>';
@@ -158,8 +162,8 @@ class MC4WP_Lite_Form {
 
 		// make sure scripts are enqueued later
 		global $is_IE;
-		if(isset($is_IE) && $is_IE) {
-			wp_enqueue_script('mc4wp-placeholders');
+		if( isset( $is_IE ) && $is_IE ) {
+			wp_enqueue_script( 'mc4wp-placeholders' );
 		}
 
 		return $content;
