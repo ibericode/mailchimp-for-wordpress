@@ -30,6 +30,19 @@ class MC4WP_Lite_API {
 	}
 
 	/**
+	* Show an error message to administrators
+	*
+	* @param string $message
+	*/
+	private function show_error( $message ) {
+		if( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
+			return false;
+		}
+
+		add_settings_error( 'mc4wp-api', 'mc4wp-api-error', $message, 'error' );
+	}
+
+	/**
 	* Pings the MailChimp API
 	* Will store its result to ensure a maximum of 1 ping per page load
 	*
@@ -38,8 +51,18 @@ class MC4WP_Lite_API {
 	public function is_connected()
 	{
 		if( $this->connected == null ) {
+
+			$this->connected = false;
 			$result = $this->call( 'helper/ping' );
-			$this->connected = ( $result && isset( $result->msg ) && $result->msg === "Everything's Chimpy!" );
+
+			if( $result !== false ) {
+				if( isset( $result->msg ) && $result->msg === "Everything's Chimpy!" ) {
+					$this->connected = true;
+				} else {
+					$this->show_error( "MailChimp Error: " . $result->error );
+				}
+			} 
+		
 		}
 		
 		return $this->connected;
@@ -199,7 +222,7 @@ class MC4WP_Lite_API {
 		$data['apikey'] = $this->api_key;
 		$url = $this->api_url . $method . '.json';
 
-		$response = wp_remote_post($url, array( 
+		$response = wp_remote_post( $url, array( 
 			'body' => $data,
 			'timeout' => 20,
 			'headers' => array('Accept-Encoding' => ''),
@@ -208,6 +231,10 @@ class MC4WP_Lite_API {
 		); 
 	
 		if( is_wp_error( $response ) ) {
+			
+			// show error message to admins
+			$this->show_error( "HTTP Error: " . $response->get_error_message() );
+			
 			return false;
 		}
 
@@ -218,6 +245,10 @@ class MC4WP_Lite_API {
 		
 		$body = wp_remote_retrieve_body( $response );
 		return json_decode( $body );
+	}
+
+	public function show_http_error() {
+
 	}
 
 	/**

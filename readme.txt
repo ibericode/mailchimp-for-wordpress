@@ -4,7 +4,7 @@ Donate link: http://dannyvankooten.com/donate/
 Tags: mailchimp,form,shortcode,widget,checkbox,comment,newsletter,buddypress,multisite,bbpress,woocommerce,easy digital downloads,contact form,contact form 7
 Requires at least: 3.1
 Tested up to: 3.8.1
-Stable tag: 1.5.5
+Stable tag: 1.5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -198,6 +198,15 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Changelog ==
 
+= 1.5.6 - March 13, 2014 =
+* Fixed: Honeypot textarea showing in some themes
+* Improved: Plugin will automatically strip duplicate `<form>` tags from form mark-up
+* Improved: Better code documentation
+* Improved: Code is now more adhering to WP code standards
+* Improved: Add custom error type to error message filter to allow developers to show custom error messages
+* Improved: Plugin will now show detailed errors for failed API requests (up to HTTP level)
+* Improved: Better way of loading plugin files
+
 = 1.5.5 - February 25, 2014 =
 * Fixed: Field generator only generating text fields
 * Fixed: Now using correct deactivation hook
@@ -205,7 +214,6 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 = 1.5.4 - February 17, 2014 =
 * Fixed: "Add to form" button not working
-* Improved: Plugin now compatible with custom plugin folder names
 
 = 1.5.3 - February 16, 2014 =
 * Fixed: Undefined constant notice on admin pages

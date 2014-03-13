@@ -3,7 +3,7 @@
 Plugin Name: MailChimp for WordPress Lite
 Plugin URI: http://dannyvankooten.com/mailchimp-for-wordpress/
 Description: Lite version of MailChimp for WordPress. Adds various sign-up methods to your website. 
-Version: 1.5.5
+Version: 1.5.6
 Author: Danny van Kooten
 Author URI: http://dannyvanKooten.com
 License: GPL v3
@@ -25,21 +25,22 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-if( !defined( 'ABSPATH' ) ) {
+if( ! defined( 'ABSPATH' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
 }
 
-if(!function_exists('is_plugin_active')) {
-	include_once( ABSPATH . 'wp-admin/includes/plugin.php' ); 
-}
 
-// only load lite version if Pro is not active or being activated
-if(!is_plugin_active('mailchimp-for-wp-pro/mailchimp-for-wp-pro.php') 
-	&& !(is_admin() && isset($_GET['action']) && $_GET['action'] == 'activate' && isset($_GET['plugin']) && $_GET['plugin'] == 'mailchimp-for-wp-pro/mailchimp-for-wp-pro.php') ) {
+function mc4wp_load_plugin() {
 
-	define("MC4WP_LITE_VERSION", "1.5.5");
+	// don't load plugin if user has the premium version installed and activated
+	if( defined( "MC4WP_VERSION" ) || ( is_admin() && isset( $_GET['action'] ) && $_GET['action'] === 'activate' && isset( $_GET['plugin'] ) && stristr( $_GET['plugin'], 'mailchimp-for-wp-pro' ) !== false ) ) {
+		return;
+	}
+
+	// bootstrap the lite plugin
+	define("MC4WP_LITE_VERSION", "1.5.6");
 	define("MC4WP_LITE_PLUGIN_DIR", plugin_dir_path(__FILE__));
 	define("MC4WP_LITE_PLUGIN_URL", plugins_url( '/' , __FILE__ ) );
 
@@ -54,5 +55,6 @@ if(!is_plugin_active('mailchimp-for-wp-pro/mailchimp-for-wp-pro.php')
 		MC4WP_Lite_Admin::init();
 
 	} 
-	
-} 
+}
+
+add_action( 'plugins_loaded', 'mc4wp_load_plugin', 20 );

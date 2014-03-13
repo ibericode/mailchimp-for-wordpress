@@ -133,11 +133,11 @@ class MC4WP_Lite_Form {
 				$api = mc4wp_get_api();
 				$e = $this->error;
 
-				$error_type = ($e == 'already_subscribed') ? 'notice' : 'error';
+				$error_type = ( $e == 'already_subscribed' ) ? 'notice' : 'error';
 				$error_message = isset($opts['text_' . $e]) ? $opts['text_' . $e] : $opts['text_error'];
 				
 				// allow developers to customize error message
-				$error_message = apply_filters('mc4wp_form_error_message', $error_message);
+				$error_message = apply_filters('mc4wp_form_error_message', $error_message, $e );
 				
 				$content .= '<div class="mc4wp-alert mc4wp-'. $error_type .'">'. __($error_message, 'mailchimp-for-wp') . '</div>';
 
