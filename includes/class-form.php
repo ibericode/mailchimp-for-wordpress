@@ -114,7 +114,7 @@ class MC4WP_Lite_Form {
 			do_action('mc4wp_after_form_fields', 0);
 
 			// hidden fields
-			$content .= '<textarea name="_mc4wp_required_but_not_really" style="display: none;"></textarea>';
+			$content .= '<textarea name="_mc4wp_required_but_not_really" style="display: none !important;"></textarea>';
 			$content .= '<input type="hidden" name="_mc4wp_form_submit" value="1" />';
 			$content .= '<input type="hidden" name="_mc4wp_form_instance" value="'. $this->form_instance_number .'" />';
 			$content .= '<input type="hidden" name="_mc4wp_form_nonce" value="'. wp_create_nonce( '_mc4wp_form_nonce' ) .'" />';

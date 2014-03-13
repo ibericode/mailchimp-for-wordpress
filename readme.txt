@@ -198,7 +198,7 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Changelog ==
 
-= 1.5.5 =
+= 1.5.5 - February 25, 2014 =
 * Fixed: Field generator only generating text fields
 * Fixed: Now using correct deactivation hook
 * Improved: Plugin now fully compatible with custom folder names
