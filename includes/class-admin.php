@@ -8,17 +8,8 @@ if( ! defined( "MC4WP_LITE_VERSION" ) ) {
 
 class MC4WP_Lite_Admin
 {
-	private static $instance = null;
-
-	public static function init() {
-		if( ! self::$instance ) {
-			self::$instance = new self();
-		} else {
-			throw new Exception( "Already initalized." );
-		}
-	}
-
-	private function __construct()
+	
+	public function __construct()
 	{
 		add_action('admin_init', array($this, 'register_settings'));
 		add_action('admin_menu', array($this, 'build_menu'));

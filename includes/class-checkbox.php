@@ -9,21 +9,8 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 class MC4WP_Lite_Checkbox
 {
 	private $showed_checkbox = false;
-	private static $instance = null;
-
-	public static function init() {
-		if(self::$instance) {
-			throw new Exception("Already initialized");
-		} else {
-			self::$instance = new self;
-		}
-	}
-
-	public static function instance() {
-		return self::$instance;
-	}
-
-	private function __construct()
+	
+	public function __construct()
 	{
 		$opts = mc4wp_get_options('checkbox');
 

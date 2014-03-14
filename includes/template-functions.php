@@ -1,6 +1,6 @@
 <?php
 
-if( ! defined("MC4WP_LITE_VERSION") ) {
+if( ! defined( "MC4WP_LITE_VERSION" ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
@@ -10,7 +10,8 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 * Echoes a sign-up checkbox.
 */
 function mc4wp_checkbox() {
-	MC4WP_Lite_Checkbox::instance()->output_checkbox();
+	global $mc4wp;
+	$mc4wp->get_checkbox_manager()->output_checkbox();
 }
 
 /**
@@ -28,7 +29,8 @@ function mc4wp_form( $id = 0 ) {
 * @return string HTML of given form_id.
 */
 function mc4wp_get_form( $id = 0 ) {
-	return MC4WP_Lite_Form::instance()->output_form( array( 'id' => $id ) );
+	global $mc4wp;
+	return $mc4wp->get_form_manager()->output_form( array( 'id' => $id ) );
 }
 
 
@@ -73,7 +75,7 @@ function mc4wp_replace_variables( $text, $list_ids = array() ) {
 function mc4wp_get_subscriber_count( $list_ids ) {
 	$list_counts = get_transient( 'mc4wp_list_counts' );
 
-	if ( !$list_counts ) {
+	if ( ! $list_counts ) {
 		// make api call
 		$api = mc4wp_get_api();
 		$lists = $api->get_lists();
@@ -92,7 +94,7 @@ function mc4wp_get_subscriber_count( $list_ids ) {
 		} else {
 			// use fallback transient
 			$list_counts = get_transient( 'mc4wp_list_counts_fallback' );
-			if ( !$list_counts ) { return 0; }
+			if ( ! $list_counts ) { return 0; }
 		}
 	}
 
@@ -113,20 +115,25 @@ function mc4wp_get_subscriber_count( $list_ids ) {
 function mc4wp_get_current_url() {
 	$page_url = 'http';
 
-	if( is_ssl() ) { $page_url .= 's'; }
+	if( is_ssl() ) { 
+		$page_url .= 's'; 
+	}
 
 	$page_url .= '://';
 
-	if (!isset($_SERVER['REQUEST_URI'])) {
-		$request_uri = substr($_SERVER['PHP_SELF'], 1);
-		if (isset($_SERVER['QUERY_STRING'])) { $request_uri .='?'.$_SERVER['QUERY_STRING']; }
+	if ( ! isset( $_SERVER['REQUEST_URI'] ) ) {
+		$request_uri = substr( $_SERVER['PHP_SELF'], 1 );
+
+		if ( isset( $_SERVER['QUERY_STRING'] ) ) { 
+			$request_uri .='?'.$_SERVER['QUERY_STRING']; 
+		}
 	} else {
 		$request_uri = $_SERVER['REQUEST_URI'];
 	}
 
 	$page_url .= $_SERVER["HTTP_HOST"] . $request_uri;
 
-	return esc_url($page_url);
+	return esc_url( $page_url );
 }
 
 

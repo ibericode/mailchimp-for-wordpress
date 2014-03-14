@@ -7,42 +7,47 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 }
 
 class MC4WP_Lite {
-	private static $instance;
 
-	public static function instance() {
-		return self::$instance;
-	}
+	private $form_manager;
+	private $checkbox_manager;
 
-	public static function init() {
-		if(self::$instance) {
-			throw new Exception("ALready initialized.");
-		} else {
-			self::$instance = new self;
-		}
-	}
+	public function __construct() {
 
-	private function __construct() {
 		$this->backwards_compatibility();
 
 		// checkbox
 		require_once MC4WP_LITE_PLUGIN_DIR . 'includes/class-checkbox.php';
-		MC4WP_Lite_Checkbox::init();
+		$this->checkbox_manager = new MC4WP_Lite_Checkbox();
 
 		// form
 		require_once MC4WP_LITE_PLUGIN_DIR . 'includes/class-form.php';
-		MC4WP_Lite_Form::init();
+		$this->form_manager = new MC4WP_Lite_Form();
 
 		// widget
-		add_action( 'widgets_init', array($this, 'register_widget') );
+		add_action( 'widgets_init', array( $this, 'register_widget' ) );
 
-		if (!is_admin()) {
+		if ( ! is_admin() ) {
 			// frontend only
 			include_once MC4WP_LITE_PLUGIN_DIR . 'includes/template-functions.php';
 
 			// load css
-			add_action( 'wp_enqueue_scripts', array($this, 'load_stylesheets'), 90);
-			add_action( 'login_enqueue_scripts',  array($this, 'load_stylesheets') );
+			add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheets' ), 90 );
+			add_action( 'login_enqueue_scripts',  array( $this, 'load_stylesheets' ) );
 		}
+	}
+
+	/**
+	* @return MC4WP_Checkbox
+	*/
+	public function get_checkbox_manager() {
+		return $this->checkbox_manager;
+	}
+
+	/**
+	* @return MC4WP_Form
+	*/
+	public function get_form_manager() {
+		return $this->form_manager;
 	}
 
 	private function backwards_compatibility() {

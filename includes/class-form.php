@@ -7,25 +7,13 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 }
 
 class MC4WP_Lite_Form {
-	private static $instance = null;
+	
 	private $form_instance_number = 1;
 	private $error = null;
 	private $success = false;
 	private $submitted_form_instance = 0;
 
-	public static function init() {
-		if(self::$instance) {
-			throw new Exception("Already initialized");
-		} else {
-			self::$instance = new self;
-		}
-	}
-
-	public static function instance() {
-		return self::$instance;
-	}
-
-	private function __construct() {
+	public function __construct() {
 
 		add_action('init', array($this, 'initialize') );
 
