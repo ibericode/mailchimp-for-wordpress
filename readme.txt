@@ -198,6 +198,10 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Changelog ==
 
+= 1.5.7 - March 14, 2014 =
+** Improvements**
+- Moved away from Singleton pattern
+
 = 1.5.6 - March 13, 2014 =
 * Fixed: Honeypot textarea showing in some themes
 * Improved: Plugin will automatically strip duplicate `<form>` tags from form mark-up
