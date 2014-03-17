@@ -239,16 +239,12 @@ class MC4WP_Lite_API {
 		}
 
 		// dirty fix for older WP version
-		if($method == 'helper/ping' && isset( $response['headers']['content-length'] ) && (int) $response['headers']['content-length'] == '44' ) { 
+		if($method == 'helper/ping' && isset( $response['headers']['content-length'] ) && (int) $response['headers']['content-length'] == 44 ) { 
 			return (object) array( 'msg' => "Everything's Chimpy!");
 		}
 		
 		$body = wp_remote_retrieve_body( $response );
 		return json_decode( $body );
-	}
-
-	public function show_http_error() {
-
 	}
 
 	/**

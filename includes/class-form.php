@@ -263,6 +263,11 @@ class MC4WP_Lite_Form {
 		return;
 	}
 
+	/**
+	* Act on posted data
+	*
+	* @var array $data
+	*/
 	public function subscribe( array $data ) {
 
 		$email = null;
@@ -271,8 +276,8 @@ class MC4WP_Lite_Form {
 		foreach ( $data as $name => $value ) {
 
 			// uppercase all variables
-			$name = trim(strtoupper($name));
-			$value = (is_scalar($value)) ? trim($value) : $value;
+			$name = trim( strtoupper( $name ) );
+			$value = ( is_scalar( $value ) ) ? trim( $value ) : $value;
 
 			if( $name === 'EMAIL' && is_email($value) ) {
 				// set the email address
@@ -282,7 +287,9 @@ class MC4WP_Lite_Form {
 				$groupings = $value;
 
 				// malformed
-				if ( !is_array( $groupings ) ) { continue; }
+				if ( ! is_array( $groupings ) ) { 
+					continue; 
+				}
 
 				// setup groupings array
 				$merge_vars['GROUPINGS'] = array();
@@ -297,26 +304,29 @@ class MC4WP_Lite_Form {
 						$grouping['name'] = $grouping_id_or_name;
 					}
 
-					if ( !is_array( $groups ) ) {
-						$grouping['groups'] = explode( ',', $groups );
-					} else {
-						$grouping['groups'] = $groups;
+					// comma separated list should become an array
+					if( ! is_array( $groups ) ) {
+						$groups = explode( ',', $groups );
 					}
+					
+					$grouping['groups'] = array_map( 'stripslashes', $groups );
 
 					// add grouping to array
 					$merge_vars['GROUPINGS'][] = $grouping;
 				}
 
-				if ( empty( $merge_vars['GROUPINGS'] ) ) { unset( $merge_vars['GROUPINGS'] ); }
+				if ( empty( $merge_vars['GROUPINGS'] ) ) { 
+					unset( $merge_vars['GROUPINGS'] ); 
+				}
 
 			} else if($name === 'BIRTHDAY') {
 				// format birthdays in the DD/MM format required by MailChimp
-				$merge_vars['BIRTHDAY'] = date('d/m', strtotime( $value ) );
+				$merge_vars['BIRTHDAY'] = date( 'd/m', strtotime( $value ) );
 			} else if($name === 'ADDRESS') {
 
-				if(!isset($value['addr1'])) {
+				if( ! isset( $value['addr1'] ) ) {
 					// addr1, addr2, city, state, zip, country 
-					$addr_pieces = explode(',', $value);
+					$addr_pieces = explode( ',', $value );
 
 					// try to fill it.... this is a long shot
 					$merge_vars['ADDRESS'] = array(
@@ -338,17 +348,17 @@ class MC4WP_Lite_Form {
 		}
 
 		// check if an email address has been found
-		if( !$email ) {
+		if( ! $email ) {
 			$this->error = 'invalid_email';
 			return false;
 		}
 
 		// Try to guess FNAME and LNAME if they are not given, but NAME is
-		if(isset($merge_vars['NAME']) && !isset($merge_vars['FNAME']) && !isset($merge_vars['LNAME'])) {
+		if( isset( $merge_vars['NAME'] ) && !isset( $merge_vars['FNAME'] ) && ! isset( $merge_vars['LNAME'] ) ) {
 
 			$strpos = strpos($merge_vars['NAME'], ' ');
 
-			if($strpos) {
+			if( $strpos !== false ) {
 				$merge_vars['FNAME'] = substr($merge_vars['NAME'], 0, $strpos);
 				$merge_vars['LNAME'] = substr($merge_vars['NAME'], $strpos);
 			} else {
@@ -359,39 +369,106 @@ class MC4WP_Lite_Form {
 		$api = mc4wp_get_api();
 		$opts = mc4wp_get_options('form');
 
-		$lists = $opts['lists'];
+		$lists = $this->get_lists();
 
 		if ( empty( $lists ) ) {
+			$this->error = 'no_lists_selected';
 			return false;
 		}
 
 		do_action('mc4wp_before_subscribe', $email, $merge_vars, 0);
 
 		$result = false;
-		$email_type = apply_filters('mc4wp_email_type', 'html');
-		$lists = apply_filters('mc4wp_lists', $lists, $merge_vars);
+		
+		$email_type = $this->get_email_type();
 
 		foreach ( $lists as $list_id ) {
+			// allow plugins to alter merge vars for each individual list
 			$list_merge_vars = apply_filters('mc4wp_merge_vars', $merge_vars, 0, $list_id);
+
+			// send a subscribe request to MailChimp for each list
 			$result = $api->subscribe( $list_id, $email, $list_merge_vars, $email_type, $opts['double_optin'] );
 		}
 
 		do_action('mc4wp_after_subscribe', $email, $merge_vars, 0, $result);
 
-		// flawed, will only check the result of the last list
-		if ( $result === true ) {
-
-			// do not use... will be removed in 2.0
-			$from_url = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : '';
-			do_action('mc4wp_subscribe_form', $email, $list_id, 0, $merge_vars, $from_url); 
-			
-			$this->success = true;
-		} else {
+		if ( $result !== true ) {
+			// subscribe request failed, store error.
 			$this->success = false;
 			$this->error = $result;
+		} 
+
+		// store user email in a cookie
+		$this->set_email_cookie( $email );
+
+		/**
+		* @deprecated Don't use, will be removed in v2.0
+		*/
+		$from_url = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : '';
+		do_action('mc4wp_subscribe_form', $email, $list_id, 0, $merge_vars, $from_url); 
+		
+		// Store success result
+		$this->success = true;
+
+		return true;
+	}
+
+	/**
+	* Gets the email_type
+	*
+	* @return string The email type to use for subscription coming from this form
+	*/
+	public function get_email_type( ) {
+
+		$email_type = 'html';
+
+		// get email type from form
+		if( isset( $_POST['_mc4wp_email_type'] ) ) {
+			$email_type = trim( $_POST['_mc4wp_email_type'] );
 		}
 
-		return $this->success;
+		// allow plugins to override this email type
+		$email_type = apply_filters( 'mc4wp_email_type', $email_type );
+
+		return $email_type;
+	}
+
+	/**
+	* Get MailChimp Lists to subscribe to
+	* 
+	* @return array Array of selected MailChimp lists
+	*/
+	public function get_lists(  ) {
+
+		$opts = mc4wp_get_options('form');
+
+		$lists = $opts['lists'];
+
+		// get lists from form, if set.
+		if( isset( $_POST['_mc4wp_lists'] ) && ! empty( $_POST['_mc4wp_lists'] ) ) {
+
+			$lists = $_POST['_mc4wp_lists'];
+
+			// make sure lists is an array
+			if( ! is_array( $lists ) ) {
+				$lists = array( $lists );
+			}
+
+		}
+
+		// allow plugins to alter the lists to subscribe to
+		$lists = apply_filters( 'mc4wp_lists', $lists );
+
+		return $lists;
+	}
+
+	/**
+	* Stores the given email in a cookie for 30 days
+	*
+	* @param string $email
+	*/
+	public function set_email_cookie( $email ) {
+		setcookie( 'mc4wp_email', $email, strtotime( '+30 days' ), '/' );
 	}
 
 }

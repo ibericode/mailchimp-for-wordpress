@@ -199,8 +199,19 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 == Changelog ==
 
 = 1.5.7 - March 14, 2014 =
+**Fixes**
+
+- Fixed special characters in group names not working
+
 ** Improvements**
+
 - Moved away from Singleton pattern
+- Added vertical-align to form reset stylesheet to properly align inline fields
+- Added a code version number for upgrade routines
+- Better class documentation
+- MailChimp cached data table improvements
+
+
 
 = 1.5.6 - March 13, 2014 =
 * Fixed: Honeypot textarea showing in some themes

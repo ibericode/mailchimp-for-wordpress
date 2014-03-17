@@ -36,42 +36,84 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 		</form>
 
 	<?php if($connected) { ?>
-	<h3 class="mc4wp-title">Cached MailChimp Settings</h3>
-	<p>The table below shows your cached MailChimp lists configuration.</p>
-	<p>Made changes to your lists? Please renew the cache manually by hitting the "renew cached data" button.</p>
+	
+		<h3 class="mc4wp-title">MailChimp Data</h3>
+		<p>The table below shows your MailChimp lists data. If you applied changes to your MailChimp lists, please use the following button to renew your cached data.</p>
+		
+		<form method="post">
+			<p>
+				<input type="submit" name="renew-cached-data" value="Renew cached data" class="button" />
+			</p>
+		</form>
 
-	<table class="wp-list-table widefat">
-		<thead>
-			<tr>
-				<th scope="col">List Name</th>
-				<th scope="col">Merge fields</th>
-				<th scope="col">Interest groupings</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php 
-			if($lists && is_array($lists)) { ?>
-				<?php foreach($lists as $list) {  ?>
+		<table class="wp-list-table widefat">
+			<thead>
+				<tr>
+					<th class="mc4wp-hide-smallscreens" scope="col">List ID</th>
+					<th scope="col">List Name</th>
+					<th scope="col">Merge fields</th>
+					<th scope="col">Groupings</th>
+					<th scope="col">Subscriber Count</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php 
+				if($lists) { 
+					foreach($lists as $list) { ?>
+
 					<tr valign="top">
+						<td class="mc4wp-hide-smallscreens"><?php echo $list->id; ?></td>
 						<td><?php echo $list->name; ?></td>
-						<td><?php 
-						$first = true;
-						foreach($list->merge_vars as $merge_var) { 
-							echo ($first) ? $merge_var->name : ', '. $merge_var->name;
-							$first = false;
-						} 
-						?>
+						
+						<td>
+							<?php if( ! empty( $list->merge_vars ) ) { ?>
+								<ul class="ul-square" style="margin-top: 0;">
+									<?php foreach( $list->merge_vars as $merge_var ) { ?>
+										<li><?php echo $merge_var->name; ?></li>
+									<?php } ?>
+								</ul>
+							<?php } ?>
 						</td>
-						<td class="pro-feature">Pro Only</td>
-					</tr>
-				<?php } // endforeach ?>
-			<?php } else { ?>
-				<tr><td colspan="4"><p>No lists found, are you connected to MailChimp? If so, try renewing the cache.</p></td></tr>
-			<?php } ?>
-		</tbody>
-	</table>
+						<td>
+						<?php 
+						if( ! empty( $list->interest_groupings ) ) {
+							foreach($list->interest_groupings as $grouping) { ?>
+								<strong><?php echo $grouping->name; ?></strong>
 
-	<p><form method="post"><input type="submit" name="renew-cached-data" value="Renew cached data" class="button" /></form></p>
+								<?php if( ! empty( $grouping->groups ) ) { ?>
+									<ul class="ul-square">
+										<?php foreach( $grouping->groups as $group ) { ?>
+											<li><?php echo $group->name; ?></li>
+										<?php } ?>
+									</ul>
+								<?php } ?>
+							<?php }
+							} else {
+								?>-<?php
+							} ?>
+
+						</td>
+						<td><?php echo $list->subscriber_count; ?></td>
+					</tr>
+					<?php 
+					}  
+				} else { ?>
+					<tr>
+						<td colspan="3">
+							<p>No lists were found in your MailChimp account.</p>
+						</td>
+					</tr>
+				<?php 
+				} 
+				?>
+			</tbody>
+		</table>
+
+		<form method="post">
+			<p>
+				<input type="submit" name="renew-cached-data" value="Renew cached data" class="button" />
+			</p>
+		</form>
 	<?php } ?>
 
 	<?php include 'parts/admin-footer.php'; ?>

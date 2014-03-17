@@ -94,7 +94,10 @@ function mc4wp_get_subscriber_count( $list_ids ) {
 		} else {
 			// use fallback transient
 			$list_counts = get_transient( 'mc4wp_list_counts_fallback' );
-			if ( ! $list_counts ) { return 0; }
+			
+			if ( ! $list_counts ) { 
+				return 0; 
+			}
 		}
 	}
 

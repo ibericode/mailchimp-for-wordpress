@@ -26,6 +26,10 @@
 	margin-top: 10px; 
 }
 
+.mc4wp-form input {
+	vertical-align: baseline;
+}
+
 .mc4wp-form input.placeholdersjs { 
 	color: #aaa !important; 
 }
