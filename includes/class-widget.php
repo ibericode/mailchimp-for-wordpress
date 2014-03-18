@@ -17,7 +17,7 @@ class MC4WP_Lite_Widget extends WP_Widget {
 	function __construct() {
 		parent::__construct(
 			'MC4WP_Widget', // Base ID
-			__( 'MailChimp for WP Form', 'mailchimp-for-wp' ), // Name
+			__( 'MailChimp Sign-Up Form', 'mailchimp-for-wp' ), // Name
 			array( 'description' => __( 'Displays your MailChimp for WordPress sign-up form', 'mailchimp-for-wp' ), ) // Args
 		);
 	}
@@ -34,9 +34,13 @@ class MC4WP_Lite_Widget extends WP_Widget {
 		$title = apply_filters( 'widget_title', $instance['title'] );
 
 		echo $args['before_widget'];
-		if ( ! empty( $title ) )
+
+		if ( ! empty( $title ) ) {
 			echo $args['before_title'] . $title . $args['after_title'];
+		}
+
 		echo mc4wp_get_form(0);
+
 		echo $args['after_widget'];
 	}
 
@@ -55,7 +59,7 @@ class MC4WP_Lite_Widget extends WP_Widget {
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<p class="help">
-			You can edit your form in the <a href="<?php echo admin_url('admin.php?page=mc4wp-lite-form-settings'); ?>">MailChimp for WP Lite form settings.</a>
+			<?php printf( __( 'You can edit your sign-up form in the %sMailChimp for WordPress form settings%s.', 'mailchimp-for-wp' ), '<a href="' . admin_url('admin.php?page=mc4wp-lite-form-settings') . '">', '</a>' ); ?>
 		</p>
 		<?php
 	}

@@ -7,18 +7,24 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 }
 
 class MC4WP_Lite_Checkbox
-{
+{	
+	/**
+	* @var boolean
+	*/
 	private $showed_checkbox = false;
 	
+	/**
+	* Constructor
+	*/
 	public function __construct()
 	{
 		$opts = mc4wp_get_options('checkbox');
 
-		add_action('init', array($this, 'initialize')); 
+		add_action('init', array( $this, 'initialize' ) ); 
 
 		// load checkbox css if necessary
 		if ( $opts['css'] ) {
-			add_filter('mc4wp_stylesheets', array($this, 'add_stylesheet'));
+			add_filter( 'mc4wp_stylesheets', array( $this, 'add_stylesheet' ) );
 		}
 
 		/* Comment Form Actions */

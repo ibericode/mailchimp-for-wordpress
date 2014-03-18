@@ -202,15 +202,16 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 **Fixes**
 
 - Fixed special characters in group names not working
+- Fixed BIRTHDAY field format (mm/dd)
 
 ** Improvements**
 
 - Moved away from Singleton pattern
-- Added vertical-align to form reset stylesheet to properly align inline fields
 - Added a code version number for upgrade routines
 - Better class documentation
-- MailChimp cached data table improvements
-- Base form CSS improvements
+- MailChimp cached data improvements. Now showing subscriber count.
+- Base form CSS improvements, added vertical-align to field elements and removed padding from paragraph elements.
+- Updated Placeholders.js for old IE versions
 
 
 = 1.5.6 - March 13, 2014 =

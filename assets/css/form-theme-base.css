@@ -6,8 +6,8 @@
   -moz-box-shadow: none; 
 }
 
-.mc4wp-form p{ 
-  margin:0 0 15px; 
+.mc4wp-form p { 
+  margin: 0 0 15px !important; 
   padding: 0;
 }
 

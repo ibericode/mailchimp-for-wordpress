@@ -1,10 +1,17 @@
-#mc4wp-content{ float:left; width:65%; }
+
+#mc4wp-content{ 
+	float:left; 
+	width:65%; 
+}
+
 #mc4wp-sidebar{ 
 	float:left; 
 	width:33%; 
 	margin-left:2%; 
 	border-left:1px solid #ccc; 
 	padding:0 0 0 2%; 
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
@@ -15,29 +22,91 @@
 	border-color: #bce8f1;
 }
 
-.valigntop{ vertical-align: top !important; }
+.valigntop{ 
+	vertical-align: top !important; 
+}
 
-.mc4wp-box{ margin-bottom:20px; }
+.mc4wp-box{ 
+	margin-bottom:20px; 
+}
 
-#mc4wp-upgrade-box { background:#222; color:#ddd; padding:20px; }
-#mc4wp-upgrade-box h3{ margin:0; color:white; }
+#mc4wp-upgrade-box { 
+	background:#222; 
+	color:#ddd; 
+	padding:20px; 
+}
 
-#mc4wp-fw h4{ margin-top:0; }
-#mc4wp-fw p{ margin-bottom: 1em; }
-#mc4wp-fw-fields { display:none; }
-#mc4wp-fw-preview { font-family: "Courier New", Courier, monospace; min-height:200px; font-size:11px; background:white; z-index:99; }
-#mc4wp-lists{ margin:0; }
-#mc4wp-lists input{ margin-right:5px; }
+#mc4wp-upgrade-box h3{ 
+	margin:0; 
+	color:white;
+}
 
-.pro-feature, .mc4wp-settings tr.pro-feature th, .mc4wp-settings tr.pro-feature td{ color:#aaa; }
+#mc4wp-fw h4{ 
+	margin-top: 0; 
+}
+#mc4wp-fw p{ 
+	margin-bottom: 1em; 
+}
 
-.mc4wp-settings span.status{ display:inline-block; padding:3px 6px; color:white; font-size:12px; font-weight:bold;  }
-.mc4wp-settings span.positive{ background-color:green; }
-.mc4wp-settings span.negative{ background-color:lightGrey; }
-.mc4wp-settings table th{ text-align:left; }
-.mc4wp-settings table.form-table tr td:first-child, .mc4wp-settings table.form-table tr th:first-child{ padding-left:0; }
-.mc4wp-settings td.nowrap{ white-space: nowrap }
-.mc4wp-settings td.desc{ font-style:italic; font-size:11px; }
+#mc4wp-fw-fields { 
+	display:none; 
+}
+
+#mc4wp-fw-preview { 
+	font-family: "Courier New", Courier, monospace;
+	min-height:200px;
+	font-size:11px;
+	background:white;
+	z-index:99; 
+}
+
+#mc4wp-lists{ 
+	margin:0; 
+}
+
+#mc4wp-lists input{ 
+	margin-right:5px; 
+}
+
+.pro-feature, 
+.mc4wp-settings tr.pro-feature th, 
+.mc4wp-settings tr.pro-feature td{ 
+	color:#aaa;
+}
+
+.mc4wp-settings span.status{ 
+	display:inline-block; 
+	padding:3px 6px; 
+	color:white; 
+	font-size:12px; 
+	font-weight:bold;
+}
+
+.mc4wp-settings span.positive{ 
+	background-color:green; 
+}
+
+.mc4wp-settings span.negative{ 
+	background-color:lightGrey; 
+}
+
+.mc4wp-settings table th{ 
+	text-align:left; 
+}
+
+.mc4wp-settings table.form-table tr td:first-child,
+.mc4wp-settings table.form-table tr th:first-child{ 
+	padding-left:0; 
+}
+
+.mc4wp-settings td.nowrap{ 
+	white-space: nowrap
+}
+
+.mc4wp-settings td.desc{ 
+	font-style:italic; 
+	font-size:11px;
+}
 
 .mc4wp-notice{
 	padding:5px;
@@ -49,14 +118,19 @@
 .mc4wp-col { 
 	float:left;
 	-webkit-box-sizing: border-box; 
-	box-sizing: border-box;
 	-moz-box-sizing:border-box;
+	box-sizing: border-box;
 	width:50%;
 	padding:0 5px;
 }
 
-.mc4wp-first{ padding-left:0; }
-.mc4wp-last{ padding-right:0; }
+.mc4wp-first{ 
+	padding-left:0; 
+}
+
+.mc4wp-last{ 
+	padding-right:0; 
+}
 
 .mc4wp-well{ 
 	background:white; 
@@ -72,11 +146,48 @@
 }
 
 
-table.mc4wp-help, table.mc4wp-help th, table.mc4wp-help td { border: 1px solid #ddd; border-collapse: collapse; font-size: 12px; }
-table.mc4wp-help th, table.mc4wp-help td { vertical-align: text-top; text-align: left; padding: 5px 10px; }
-table.mc4wp-help tr:hover { 	background-color: #ddd; }
+table.mc4wp-help,
+table.mc4wp-help th, 
+table.mc4wp-help td { 
+	border: 1px solid #ddd; 
+	border-collapse: collapse; 
+	font-size: 12px; 
+}
+
+table.mc4wp-help th, 
+table.mc4wp-help td { 
+	vertical-align: text-top; 
+	text-align: left; 
+	padding: 5px 10px; 
+}
+
+table.mc4wp-help tr:hover { 
+	background-color: #ddd; 
+}
 
 @media(max-width: 1279px) {
-	#mc4wp-sidebar, #mc4wp-content{ float: none; width: 100%; padding:0; margin:0; }
-	#mc4wp-sidebar{ border-left:0; border-top: 1px solid #ccc; margin-top:25px; padding-top: 25px; }
+
+	#mc4wp-sidebar, 
+	#mc4wp-content{ 
+		float: none; 
+		width: 100%; 
+		padding:0; 
+		margin:0; 
+	}
+
+	#mc4wp-sidebar{ 
+		border-left:0; 
+		border-top: 1px solid #ccc; 
+		margin-top:25px; 
+		padding-top: 25px; 
+	}
+	
+}
+
+@media(max-width: 719px) {
+
+	.mc4wp-hide-smallscreens{ 
+		display: none;
+	}
+	
 }
