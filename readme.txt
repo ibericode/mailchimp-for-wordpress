@@ -210,7 +210,7 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 - Added a code version number for upgrade routines
 - Better class documentation
 - MailChimp cached data table improvements
-
+- Base form CSS improvements
 
 
 = 1.5.6 - March 13, 2014 =

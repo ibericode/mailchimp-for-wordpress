@@ -8,6 +8,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 /**
 * Takes care of requests to the MailChimp API
+*
 * @uses WP_HTTP
 */ 
 class MC4WP_Lite_API {
@@ -18,6 +19,8 @@ class MC4WP_Lite_API {
 	private $connected = null;
 
 	/**
+	* Constructor
+	*
 	* @param string $api_key MailChimp API key
 	*/
 	public function __construct( $api_key )

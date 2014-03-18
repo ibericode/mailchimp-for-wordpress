@@ -25,18 +25,23 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// Prevent direct file access
 if( ! defined( 'ABSPATH' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
 }
 
-
+/**
+* Loads the MailChimp for WP plugin files
+*
+* @return boolean True if the plugin files were loaded, false otherwise.
+*/
 function mc4wp_load_plugin() {
 
 	// don't load plugin if user has the premium version installed and activated
-	if( defined( "MC4WP_VERSION" ) || ( is_admin() && isset( $_GET['action'] ) && $_GET['action'] === 'activate' && isset( $_GET['plugin'] ) && stristr( $_GET['plugin'], 'mailchimp-for-wp-pro' ) !== false ) ) {
-		return;
+	if( defined( "MC4WP_VERSION" ) ) {
+		return false;
 	}
 
 	// bootstrap the lite plugin
@@ -55,6 +60,8 @@ function mc4wp_load_plugin() {
 		new MC4WP_Lite_Admin();
 
 	} 
+
+	return true;
 }
 
 add_action( 'plugins_loaded', 'mc4wp_load_plugin', 20 );
