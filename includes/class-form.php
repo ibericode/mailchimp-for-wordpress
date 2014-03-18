@@ -321,7 +321,7 @@ class MC4WP_Lite_Form {
 
 			} else if($name === 'BIRTHDAY') {
 				// format birthdays in the DD/MM format required by MailChimp
-				$merge_vars['BIRTHDAY'] = date( 'd/m', strtotime( $value ) );
+				$merge_vars['BIRTHDAY'] = date( 'm/d', strtotime( $value ) );
 			} else if($name === 'ADDRESS') {
 
 				if( ! isset( $value['addr1'] ) ) {
@@ -376,7 +376,7 @@ class MC4WP_Lite_Form {
 			return false;
 		}
 
-		do_action('mc4wp_before_subscribe', $email, $merge_vars, 0);
+		do_action( 'mc4wp_before_subscribe', $email, $merge_vars, 0 );
 
 		$result = false;
 		
