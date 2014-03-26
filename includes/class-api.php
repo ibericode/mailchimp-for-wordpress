@@ -105,11 +105,12 @@ class MC4WP_Lite_API {
 			if( ! isset( $result->error ) ) {
 				return true;
 			} else {
+
 				// check error
 				if( $result->code == 214 ) {  
 					return 'already_subscribed'; 
 				} 
-				
+			
 				// store error message
 				$this->error_message = $result->error;
 				return 'error';

@@ -4,7 +4,7 @@ Donate link: http://dannyvankooten.com/donate/
 Tags: mailchimp,form,shortcode,widget,checkbox,comment,newsletter,buddypress,multisite,bbpress,woocommerce,easy digital downloads,contact form,contact form 7
 Requires at least: 3.1
 Tested up to: 3.8.1
-Stable tag: 1.5.6
+Stable tag: 1.5.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -195,16 +195,21 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 7. **Pro only:** Gain valuable insights which method your visitors used to subscribe for any given time period using beautiful line charts.
 8. **Pro only:** Create your own CSS styles with the form designer in the Pro version.
 
-
 == Changelog ==
 
-= 1.5.7 - March 14, 2014 =
+= 1.5.8 - March 26, 2014 =
+
+**Fixes**
+- Fixed 'call to undefined function' when using Avia Layout Builder.
+- "Already subscribed" message never showing.
+
+= 1.5.7 - March 18, 2014 =
 **Fixes**
 
 - Fixed special characters in group names not working
 - Fixed BIRTHDAY field format (mm/dd)
 
-** Improvements**
+**Improvements**
 
 - Moved away from Singleton pattern
 - Added a code version number for upgrade routines
@@ -212,7 +217,6 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 - MailChimp cached data improvements. Now showing subscriber count.
 - Base form CSS improvements, added vertical-align to field elements and removed padding from paragraph elements.
 - Updated Placeholders.js for old IE versions
-
 
 = 1.5.6 - March 13, 2014 =
 * Fixed: Honeypot textarea showing in some themes
@@ -487,6 +491,9 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 * BETA release
 
 == Upgrade Notice ==
+
+= 1.5.7 =
+Minor improvements and small bug fixes.
 
 = 1.5.5 =
 Fixed field generator only generating `text` input fields.
