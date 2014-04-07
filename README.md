@@ -1,9 +1,6 @@
 MailChimp for WordPress
 ======================
 
-Welcome to the MailChimp for WordPress Github repository
-----------------------------------------------
-
 Here you can browse the source of the [MailChimp for WordPress Plugin](http://wordpress.org/plugins/mailchimp-for-wp/) project, find and discuss open issues or contribute yourself.
 
 Installation
