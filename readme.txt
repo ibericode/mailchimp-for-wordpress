@@ -41,7 +41,9 @@ Add sign-up checkboxes to *any* form on your website. The plugin offers built-in
 
 **More information**
 
-Take a look at some other [WordPress plugins](http://dannyvankooten.com/wordpress-plugins/?utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=more-info-link) by [Danny van Kooten](http://dannyvankooten.com?utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=more-info-link) or contact him on Twitter: [@DannyvanKooten](http://twitter.com/dannyvankooten).
+- Other [WordPress plugins](http://dannyvankooten.com/wordpress-plugins/?utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=more-info-link) by [Danny van Kooten](http://dannyvankooten.com?utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=more-info-link)
+- Contact Danny on Twitter: [@DannyvanKooten](http://twitter.com/dannyvankooten)
+- If you're a dev, follow or contribute to the [MailChimp for WordPress plugin on GitHub](https://github.com/dannyvankooten/mailchimp-for-wordpress)
 
 
 == Installation ==
@@ -200,8 +202,9 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 = 1.5.8 - March 26, 2014 =
 
 **Fixes**
-- Fixed 'call to undefined function' when using Avia Layout Builder.
-- "Already subscribed" message never showing.
+
+- 'call to undefined function' when using Avia Layout Builder
+- "Already subscribed" message never showing
 
 = 1.5.7 - March 18, 2014 =
 **Fixes**
@@ -491,6 +494,9 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 * BETA release
 
 == Upgrade Notice ==
+
+= 1.5.8 =
+Fixed bug where certain errors (like "already subscribed") were not showing up.
 
 = 1.5.7 =
 Minor improvements and small bug fixes.
