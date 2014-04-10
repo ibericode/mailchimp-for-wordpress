@@ -149,7 +149,7 @@ Yes. Just include a checkbox with name attribute `mc4wp-try-subscribe` and value
 
 *Example HTML*
 `
-<label><input type="checkbox" name="mc4wp-try-subscribe" value="1" /> Subscribe to our newsletter?</label>
+<label><input type="checkbox" name="mc4wp-subscribe" value="1" /> Subscribe to our newsletter?</label>
 `
 
 If you need to send more data to your MailChimp list, prefix the name attribute with `mc4wp-`.

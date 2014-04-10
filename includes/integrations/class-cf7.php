@@ -10,24 +10,11 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 	
 	public function __construct() {
-
-        $this->upgrade();
-
 		add_action( 'init', array( $this, 'init') );
 
 		add_action( 'wpcf7_mail_sent', array( $this, 'subscribe_from_cf7' ) );
 		add_action( 'wpcf7_posted_data', array( $this, 'alter_cf7_data') );
 	}
-
-    /**
-     * Preserve backwards compatibility
-     * - Handle name change of $_POST variable that triggers the subscribe functionality: mc4wp-do-subscribe -> _mc4wp_subscribe
-     */
-    private function upgrade() {
-        if( isset( $_POST['mc4wp-do-subscribe'] ) ) {
-            $_POST['_mc4wp_subscribe'] = 1;
-        }
-    }
 
 	/**
 	* Registers the CF7 shortcode
