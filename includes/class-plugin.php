@@ -9,12 +9,12 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 class MC4WP_Lite {
 
 	/**
-	* @var MC4WP_Lite_Form
+	* @var MC4WP_Lite_Form_Manager
 	*/
 	private $form_manager;
 
 	/**
-	* @var MC4WP_Lite_Checkbox
+	* @var MC4WP_Lite_Checkbox_Manager
 	*/
 	private $checkbox_manager;
 
@@ -33,6 +33,8 @@ class MC4WP_Lite {
 	*/
 	public function __construct() {
 
+        spl_autoload_register( array( $this, 'autoload') );
+
 		// Check whether to run the upgrade routine
 		$db_code_version = get_option( 'mc4wp_code_version', 0 );
 		if( version_compare( $this->code_version, $db_code_version, "<" ) ) {
@@ -40,12 +42,10 @@ class MC4WP_Lite {
 		}
 
 		// checkbox
-		require_once MC4WP_LITE_PLUGIN_DIR . 'includes/class-checkbox.php';
-		$this->checkbox_manager = new MC4WP_Lite_Checkbox();
+		$this->checkbox_manager = new MC4WP_Lite_Checkbox_Manager();
 
 		// form
-		require_once MC4WP_LITE_PLUGIN_DIR . 'includes/class-form.php';
-		$this->form_manager = new MC4WP_Lite_Form();
+		$this->form_manager = new MC4WP_Lite_Form_Manager();
 
 		// widget
 		add_action( 'widgets_init', array( $this, 'register_widget' ) );
@@ -59,6 +59,47 @@ class MC4WP_Lite {
 			add_action( 'login_enqueue_scripts',  array( $this, 'load_stylesheets' ) );
 		}
 	}
+
+    /**
+     * @return bool
+     */
+    public function autoload( $class ) {
+
+        static $classes = null;
+
+        if( $classes === null ) {
+
+            $include_path = MC4WP_LITE_PLUGIN_DIR . 'includes/';
+
+            $classes = array(
+                'mc4wp_lite_api' => $include_path . 'class-api.php',
+                'mc4wp_lite_checkbox_manager' => $include_path . 'class-checkbox-manager.php',
+                'mc4wp_lite_form_manager' => $include_path . 'class-form-manager.php',
+                'mc4wp_lite_widget' => $include_path . 'class-widget.php',
+
+                // integrations
+                'mc4wp_integration' => $include_path . 'integrations/class-integration.php',
+                'mc4wp_bbpress_integration' => $include_path . 'integrations/class-bbpress.php',
+                'mc4wp_buddypress_integration' => $include_path . 'integrations/class-buddypress.php',
+                'mc4wp_cf7_integration' => $include_path . 'integrations/class-cf7.php',
+                'mc4wp_comment_form_integration' => $include_path . 'integrations/class-comment-form.php',
+                'mc4wp_general_integration' => $include_path . 'integrations/class-general.php',
+                'mc4wp_multisite_integration' => $include_path . 'integrations/class-multisite.php',
+                'mc4wp_registration_form_integration' => $include_path . 'integrations/class-registration-form.php',
+            );
+        }
+
+        $class_name = strtolower( $class );
+
+        if( isset( $classes[$class_name] ) ) {
+            require_once $classes[$class_name];
+            return true;
+        }
+
+        return false;
+
+
+    }
 
 	/**
 	* @return MC4WP_Lite_Checkbox
@@ -80,7 +121,6 @@ class MC4WP_Lite {
 	public function get_api() {
 
 		if( $this->api === null ) {
-			require_once MC4WP_LITE_PLUGIN_DIR . 'includes/class-api.php';
 			$opts = mc4wp_get_options();
 			$this->api = new MC4WP_Lite_API( $opts['general']['api_key'] );
 		}
@@ -164,17 +204,16 @@ class MC4WP_Lite {
 
 	public function register_widget()
 	{
-		include_once MC4WP_LITE_PLUGIN_DIR . 'includes/class-widget.php';
 		register_widget( 'MC4WP_Lite_Widget' );
 	}
 
 	public function load_stylesheets() 
 	{
-		$stylesheets = apply_filters('mc4wp_stylesheets', array());
+		$stylesheets = apply_filters( 'mc4wp_stylesheets', array() );
 
 		if(!empty($stylesheets)) {
-			$stylesheet_url = add_query_arg($stylesheets, MC4WP_LITE_PLUGIN_URL . 'assets/css/css.php' );
-			wp_enqueue_style( 'mailchimp-for-wp', $stylesheet_url, array(), MC4WP_LITE_VERSION);
+			$stylesheet_url = add_query_arg( $stylesheets, MC4WP_LITE_PLUGIN_URL . 'assets/css/css.php' );
+			wp_enqueue_style( 'mailchimp-for-wp', $stylesheet_url, array(), MC4WP_LITE_VERSION );
 		}
 	}
 

@@ -49,7 +49,7 @@ class MC4WP_Lite_Admin
 	* @param string $editor_id
 	* @return array
 	*/
-	public function set_quicktags_buttons( $settings, $editor_id = '')
+	public function set_quicktags_buttons( $settings, $editor_id = '' )
 	{
 		if( $editor_id !== 'mc4wpformmarkup' ) { 
 			return $settings; 

@@ -6,7 +6,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 	exit;
 }
 
-class MC4WP_Lite_Checkbox
+class MC4WP_Lite_Checkbox_Manager
 {	
 	/**
 	* @var boolean

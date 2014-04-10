@@ -9,7 +9,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 /**
 * This class takes care of all form related functionality
 */ 
-class MC4WP_Lite_Form {
+class MC4WP_Lite_Form_Manager {
 	
 	/**
 	* @var int
