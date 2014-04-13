@@ -23,7 +23,7 @@ class MC4WP_Lite_Admin
 		// did the user click on upgrade to pro link?
 		if( isset( $_GET['page'] ) ) {
 
-			if( $_GET['page'] == 'mc4wp-lite-upgrade' && ! headers_sent() ) {
+			if( $_GET['page'] == 'mc4wp-lite-upgrade' && false == headers_sent() ) {
 				header("Location: http://dannyvankooten.com/mailchimp-for-wordpress/?utm_source=lite-plugin&utm_medium=link&utm_campaign=menu-upgrade-link");
 				exit;
 			}
@@ -121,10 +121,8 @@ class MC4WP_Lite_Admin
 	public function validate_form_settings( $settings ) {
 
 		if( isset( $settings['markup'] ) ) {
-
 			// strip form tags (to prevent people from adding them)
 			$settings['markup'] = preg_replace( '/<\/?form(.|\s)*?>/i', '', $settings['markup'] );
-
 		}
 
 		return $settings;
@@ -150,9 +148,10 @@ class MC4WP_Lite_Admin
 	}
 
 	/**
-	* Returns available checkbox integrations
-	* @return array
-	*/
+     * Returns available checkbox integrations
+     *
+     * @return array
+	 */
 	public function get_checkbox_compatible_plugins()
 	{
 		$checkbox_plugins = array(
@@ -160,12 +159,25 @@ class MC4WP_Lite_Admin
 			"registration_form" => "Registration form"
 		);
 
-		if(is_multisite()) $checkbox_plugins['multisite_form'] = "MultiSite forms";
-		if(class_exists("BuddyPress")) $checkbox_plugins['buddypress_form'] = "BuddyPress registration";
-		if(class_exists('bbPress')) $checkbox_plugins['bbpress_forms'] = "bbPress";
+		if( is_multisite() ) {
+            $checkbox_plugins['multisite_form'] = "MultiSite forms";
+        }
 
-		if ( class_exists( 'Easy_Digital_Downloads' ) ) $checkbox_plugins['_edd_checkout'] = "(PRO ONLY) Easy Digital Downloads checkout";
-		if ( class_exists( 'Woocommerce' ) ) $checkbox_plugins['_woocommerce_checkout'] = "(PRO ONLY) WooCommerce checkout";
+		if( class_exists("BuddyPress") ) {
+            $checkbox_plugins['buddypress_form'] = "BuddyPress registration";
+        }
+
+		if( class_exists('bbPress') ) {
+            $checkbox_plugins['bbpress_forms'] = "bbPress";
+        }
+
+		if ( class_exists( 'Easy_Digital_Downloads' ) ) {
+            $checkbox_plugins['_edd_checkout'] = "(PRO ONLY) Easy Digital Downloads checkout";
+        }
+
+		if ( class_exists( 'Woocommerce' ) ) {
+            $checkbox_plugins['_woocommerce_checkout'] = "(PRO ONLY) WooCommerce checkout";
+        }
 
 		return $checkbox_plugins;
 	}
@@ -175,7 +187,7 @@ class MC4WP_Lite_Admin
 	*/
 	public function redirect_to_pro()
 	{
-		?><script>window.location.replace('http://dannyvankooten.com/mailchimp-for-wordpress/'); </script><?php
+		?><script type="text/javascript">window.location.replace('http://dannyvankooten.com/mailchimp-for-wordpress/'); </script><?php
 	}
 
 	/**

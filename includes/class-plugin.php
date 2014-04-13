@@ -54,9 +54,6 @@ class MC4WP_Lite {
 			// frontend only
 			include_once MC4WP_LITE_PLUGIN_DIR . 'includes/template-functions.php';
 
-			// load css
-			add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheets' ), 90 );
-			add_action( 'login_enqueue_scripts',  array( $this, 'load_stylesheets' ) );
 		}
 	}
 
@@ -205,16 +202,6 @@ class MC4WP_Lite {
 	public function register_widget()
 	{
 		register_widget( 'MC4WP_Lite_Widget' );
-	}
-
-	public function load_stylesheets() 
-	{
-		$stylesheets = apply_filters( 'mc4wp_stylesheets', array() );
-
-		if(!empty($stylesheets)) {
-			$stylesheet_url = add_query_arg( $stylesheets, MC4WP_LITE_PLUGIN_URL . 'assets/css/css.php' );
-			wp_enqueue_style( 'mailchimp-for-wp', $stylesheet_url, array(), MC4WP_LITE_VERSION );
-		}
 	}
 
 }

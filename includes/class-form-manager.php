@@ -44,7 +44,8 @@ class MC4WP_Lite_Form_Manager {
 		add_filter( 'widget_text', 'shortcode_unautop' );
 		add_filter( 'widget_text', 'do_shortcode', 11 );
 
-		add_filter( 'mc4wp_stylesheets', array( $this, 'add_stylesheets' ) );
+        // load checkbox css if necessary
+        add_action('wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
 
 		// has a MC4WP form been submitted?
 		if ( isset( $_POST['_mc4wp_form_submit'] ) ) {
@@ -73,28 +74,27 @@ class MC4WP_Lite_Form_Manager {
 	}
 
 	/**
-	* Adds the form stylesheet to the MailChimp for WP Stylesheets filter
-	*
-	* @param array $stylesheets
-	* @return array
+	* Load the form stylesheet(s)
 	*/
-	public function add_stylesheets( $stylesheets ) {
+	public function load_stylesheet( ) {
 		$opts = mc4wp_get_options('form');
 
-		
-		if( $opts['css'] ) {
+        if( $opts['css'] == false ) {
+            return false;
+        }
 
-			// Load the base form theme
-			$stylesheets['form'] = 1;
+        if( $opts['css'] != 1 && $opts['css'] != 'default' ) {
 
+            $form_theme = $opts['css'];
+            if( in_array( $form_theme, array( 'blue', 'green', 'dark', 'light', 'red' ) ) ) {
+                wp_enqueue_style( 'mailchimp-for-wp-form-theme-' . $opts['css'], MC4WP_LITE_PLUGIN_URL . "assets/css/form-theme-{$opts['css']}.css", array(), MC4WP_LITE_VERSION, 'all' );
+            }
 
-			// Should we load one of the default form themes?
-			if( $opts['css'] != 1 && $opts['css'] != 'default' ) {
-				$stylesheets['form-theme'] = $opts['css'];
-			}
-		}
-				
-		return $stylesheets;
+        } else {
+            wp_enqueue_style( 'mailchimp-for-wp-form', MC4WP_LITE_PLUGIN_URL . "assets/css/form.css", array(), MC4WP_LITE_VERSION, 'all' );
+        }
+
+        return true;
 	}
 
 	/**
