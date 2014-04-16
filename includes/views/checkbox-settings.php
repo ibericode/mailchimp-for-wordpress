@@ -8,40 +8,37 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 ?>
 <div id="mc4wp-<?php echo $tab; ?>" class="wrap mc4wp-settings">
 
-	<h2><img src="<?php echo MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png'; ?>" /> MailChimp for WordPress: Checkbox Settings</h2>	
+	<h2><img src="<?php echo MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png'; ?>" /> MailChimp for WordPress: Checkbox <?php _e( 'Settings' ); ?></h2>
 	
 	<div id="mc4wp-content">
 
 		<?php settings_errors(); ?>
-		<p>To use the MailChimp for WP sign-up checkboxes, select at least one list and one form to add the checkbox to.</p>
+		<p><?php _e( 'To use sign-up checkboxes, select at least one list and one form to add the checkbox to.', 'mailchimp-for-wp' ); ?></p>
 
-		<h3 class="mc4wp-title">MailChimp settings for checkboxes</h3>
+		<h3 class="mc4wp-title"><?php _e( 'MailChimp settings for checkboxes', 'mailchimp-for-wp' ); ?></h3>
 		<form action="options.php" method="post">
 			<?php settings_fields( 'mc4wp_lite_checkbox_settings' ); ?>
 
-			<?php if(empty($opts['lists'])) { ?>
-			<div class="mc4wp-info">
-				<p>If you want to use sign-up checkboxes, select at least one MailChimp list to subscribe people to.</p>
-			</div>
+			<?php if( empty( $opts['lists'] ) ) { ?>
+				<div class="mc4wp-info">
+					<p><?php _e( 'If you want to use sign-up checkboxes, select at least one MailChimp list to subscribe people to.', 'mailchimp-for-wp' ); ?></p>
+				</div>
 			<?php } ?>
 
 			<table class="form-table">
 				<tr valign="top">
-					<th scope="row">Lists</th>
+					<th scope="row">MailChimp list(s)</th>
 					
 					<?php // loop through lists
-					if(empty($lists)) 
-					{ 
-						?><td colspan="2">No lists found, are you connected to MailChimp?</td><?php
-					} 
-					else 
-					{ ?>
+					if(empty($lists)) {
+						?><td colspan="2"><?php printf( __( 'No lists found, %sare you connected to MailChimp?%s', 'mailchimp-for-wp' ), '<a href="'. admin_url( 'admin.php?page=mc4wp-lite' ) .'">', '</a>' ); ?></td><?php
+					} else { ?>
 						<td class="nowrap">
 							<?php foreach($lists as $list) { 
-							?><label><input type="checkbox" name="mc4wp_lite_checkbox[lists][<?php echo $list->id; ?>]" value="<?php echo esc_attr($list->id); ?>" <?php if(array_key_exists($list->id, $opts['lists'])) echo 'checked="checked"'; ?>> <?php echo $list->name; ?></label><br /><?php
+							?><label><input type="checkbox" name="mc4wp_lite_checkbox[lists][<?php echo esc_attr( $list->id ); ?>]" value="<?php echo esc_attr($list->id); ?>" <?php checked( array_key_exists( $list->id, $opts['lists'] ), true ); ?>> <?php echo esc_html( $list->name ); ?></label><br /><?php
 							} ?>
 						</td>
-						<td class="desc">Select the list(s) to which people who tick the checkbox should be subscribed.</td>
+						<td class="desc"><?php _e( 'Select the list(s) to which people who check the checkbox should be subscribed.' ,'mailchimp-for-wp' ); ?></td>
 					<?php 
 					} 
 					?>
@@ -49,42 +46,42 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 				<tr valign="top">
 					<th scope="row">Double opt-in?</th>
 					<td class="nowrap"><label><input type="radio" name="mc4wp_lite_checkbox[double_optin]" value="1" <?php checked($opts['double_optin'], 1); ?> /> Yes</label> &nbsp; <label><input type="radio" id="mc4wp_checkbox_double_optin_0" name="mc4wp_lite_checkbox[double_optin]" value="0" <?php checked($opts['double_optin'], 0); ?> /> No</label></td>
-					<td class="desc">Select "yes" if you want subscribers to have to confirm their email address (recommended)</td>
+					<td class="desc"><?php _e( 'Select "yes" if you want people to confirm their email address before being subscribed (recommended)', 'mailchimp-for-wp' ); ?></td>
 				</tr>
 			</table>
 
-		<h3 class="mc4wp-title">Checkbox settings</h3>
+		<h3 class="mc4wp-title"><?php _e( 'Checkbox settings', 'mailchimp-for-wp' ); ?></h3>
 		<table class="form-table">
 		
 		<tr valign="top">
-			<th scope="row">Add the checkbox to these forms</th>
+			<th scope="row"><?php _e( 'Add the checkbox to these forms', 'mailchimp-for-wp' ); ?></th>
 			<td colspan="2" class="nowrap">
 				<?php foreach($this->get_checkbox_compatible_plugins() as $code => $name) {
 
-					if($code[0] != '_') {
-						?><label><input name="mc4wp_lite_checkbox[show_at_<?php echo $code; ?>]" value="1" type="checkbox" <?php checked($opts['show_at_'.$code], 1); ?>> <?php echo $name; ?></label><br /><?php
+					if($code[0] !== '_') {
+						?><label><input name="mc4wp_lite_checkbox[show_at_<?php echo $code; ?>]" value="1" type="checkbox" <?php checked( $opts['show_at_' . $code], 1 ); ?>> <?php echo esc_html( $name ); ?></label><br /><?php
 					} else {
-						?><label class="pro-feature"><input type="checkbox" disabled> <?php echo $name; ?></label><br /><?php
+						?><label class="pro-feature"><input type="checkbox" disabled> <?php echo esc_html( $name ); ?></label><br /><?php
 					}
 				} ?>
 			</td>
 		</tr>
 		<tr valign="top">
-			<th scope="row"><label for="mc4wp_checkbox_label">Checkbox label text</label></th>
+			<th scope="row"><label for="mc4wp_checkbox_label"><?php _e( 'Checkbox label text', 'mailchimp-for-wp' ); ?></label></th>
 			<td colspan="2">
-				<input type="text"  class="widefat" id="mc4wp_checkbox_label" name="mc4wp_lite_checkbox[label]" value="<?php echo esc_attr($opts['label']); ?>" required />
-				<p class="help">HTML tags like <code>&lt;strong&gt;</code> and <code>&lt;em&gt;</code> are allowed in the label text.</p>
+				<input type="text"  class="widefat" id="mc4wp_checkbox_label" name="mc4wp_lite_checkbox[label]" value="<?php echo esc_attr( $opts['label'] ); ?>" required />
+				<p class="help"><?php printf( __( 'HTML tags like %s are allowed in the label text.', 'mailchimp-for-wp' ), '<code>' . esc_html( '<strong><em><a>' ) . '</code>' ); ?></p>
 			</td>
 		</tr>
 		<tr valign="top">
-			<th scope="row">Pre-check the checkbox?</th>
-			<td class="nowrap"><label><input type="radio" name="mc4wp_lite_checkbox[precheck]" value="1" <?php checked($opts['precheck'], 1); ?> /> Yes</label> &nbsp; <label><input type="radio" name="mc4wp_lite_checkbox[precheck]" value="0" <?php checked($opts['precheck'], 0); ?> /> No</label></td>
+			<th scope="row"><?php _e( 'Pre-check the checkbox?', 'mailchimp-for-wp' ); ?></th>
+			<td class="nowrap"><label><input type="radio" name="mc4wp_lite_checkbox[precheck]" value="1" <?php checked( $opts['precheck'], 1 ); ?> /> <?php _e( 'Yes' ); ?></label> &nbsp; <label><input type="radio" name="mc4wp_lite_checkbox[precheck]" value="0" <?php checked( $opts['precheck'], 0 ); ?> /> <?php _e( 'No' ); ?></label></td>
 			<td class="desc"></td>
 		</tr>
 		<tr valign="top">
-			<th scope="row">Load some default CSS?</th>
-			<td class="nowrap"><label><input type="radio" name="mc4wp_lite_checkbox[css]" value="1" <?php checked($opts['css'], 1); ?> /> Yes</label> &nbsp; <label><input type="radio" name="mc4wp_lite_checkbox[css]" value="0" <?php checked($opts['css'], 0); ?> /> No</label></td>
-			<td class="desc">Select "yes" if the checkbox appears in a weird place.</td>
+			<th scope="row"><?php _e( 'Load some default CSS?', 'mailchimp-for-wp' ); ?></th>
+			<td class="nowrap"><label><input type="radio" name="mc4wp_lite_checkbox[css]" value="1" <?php checked( $opts['css'], 1 ); ?> /> <?php _e( 'Yes' ); ?></label> &nbsp; <label><input type="radio" name="mc4wp_lite_checkbox[css]" value="0" <?php checked( $opts['css'], 0 ); ?> /> <?php _e( 'No' ); ?></label></td>
+			<td class="desc"><?php _e( 'Select "yes" if the checkbox appears in a weird place.', 'mailchimp-for-wp' ); ?></td>
 		</tr>
 		
 		

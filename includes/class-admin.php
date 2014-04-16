@@ -11,14 +11,11 @@ class MC4WP_Lite_Admin
 	
 	public function __construct()
 	{
-		add_action('admin_init', array($this, 'register_settings'));
-		add_action('admin_menu', array($this, 'build_menu'));
-		add_action( 'admin_enqueue_scripts', array($this, 'load_css_and_js') );
-
-		register_activation_hook( 'mailchimp-for-wp/mailchimp-for-wp.php', array( $this, 'delete_transients' ) );
-		register_deactivation_hook( 'mailchimp-for-wp/mailchimp-for-wp.php', array( $this, 'delete_transients' ) );
-
-		add_filter( "plugin_action_links_mailchimp-for-wp/mailchimp-for-wp.php", array( $this, 'add_settings_link' ) );
+		add_action( 'admin_init', array( $this, 'register_settings' ) );
+		add_action( 'admin_menu', array( $this, 'build_menu' ) );
+		add_action( 'init', array( $this, 'load_textdomain' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'load_css_and_js' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename( MC4WP_LITE_PLUGIN_FILE ), array( $this, 'add_settings_link' ) );
 		
 		// did the user click on upgrade to pro link?
 		if( isset( $_GET['page'] ) ) {
@@ -34,21 +31,17 @@ class MC4WP_Lite_Admin
 		}
 	}
 
-	/**
-	* Delete the list transients on plugin (de)activation
-	*/
-	public function delete_transients()
-	{
-		delete_transient( 'mc4wp_mailchimp_lists' );
-		delete_transient( 'mc4wp_mailchimp_lists_fallback' );
+	public function load_textdomain() {
+		load_plugin_textdomain( 'mailchimp-for-wp', false, dirname( plugin_basename( MC4WP_LITE_PLUGIN_FILE ) ) . '/languages/' );
 	}
 
 	/**
-	* Set which Quicktag buttons should appear in the form mark-up editor
-	* @param array $settings
-	* @param string $editor_id
-	* @return array
-	*/
+	 * Set which Quicktag buttons should appear in the form mark-up editor
+	 *
+	 * @param array $settings
+	 * @param string $editor_id
+	 * @return array
+	 */
 	public function set_quicktags_buttons( $settings, $editor_id = '' )
 	{
 		if( $editor_id !== 'mc4wpformmarkup' ) { 
@@ -67,7 +60,7 @@ class MC4WP_Lite_Admin
 	*/
 	public function add_settings_link( $links )
 	{
-		 $settings_link = '<a href="admin.php?page=mc4wp-lite">'. __('Settings') . '</a>';
+		 $settings_link = '<a href="admin.php?page=mc4wp-lite">'. __( 'Settings' ) . '</a>';
 		 $upgrade_link = '<a href="http://dannyvankooten.com/mailchimp-for-wordpress/">Upgrade to Pro</a>';
          array_unshift( $links, $upgrade_link, $settings_link );
          return $links;
@@ -134,7 +127,7 @@ class MC4WP_Lite_Admin
 	public function load_css_and_js( $hook )
 	{
 		// only load files on the MailChimp for WordPress page
-		if( ! isset( $_GET['page'] ) || stristr( $_GET['page'], 'mc4wp-lite' ) == false ) { 
+		if( false === isset( $_GET['page'] ) || false === stristr( $_GET['page'], 'mc4wp-lite' ) ) {
 			return; 
 		}
 		
@@ -240,19 +233,9 @@ class MC4WP_Lite_Admin
 	private function get_mailchimp_lists()
 	{
 		$cached_lists = get_transient( 'mc4wp_mailchimp_lists' );
-		$refresh_cache = ( isset( $_REQUEST['renew-cached-data'] ) );
+		$refresh_cache = ( isset( $_POST['mc4wp-renew-cache'] ) );
 
-		// force cache refresh if merge_vars are not set (deprecated)
-		if( ! $refresh_cache && $cached_lists ) {
-			if( ! is_array( $cached_lists ) ) {
-				$refresh_cache = true;
-			} else {
-				$first_list = reset( $cached_lists );
-				$refresh_cache = ! isset( $first_list->merge_vars );
-			}
-		}
-
-		if( $refresh_cache || !$cached_lists ) {
+		if( true === $refresh_cache || false === $cached_lists || empty( $cached_lists ) ) {
 			// make api request for lists
 			$api = mc4wp_get_api();
 			$lists = array();
@@ -289,11 +272,11 @@ class MC4WP_Lite_Admin
 				}
 
 				// cache renewal triggered manually?
-				if( isset( $_POST['renew-cached-data'] ) ) {
-					if( $lists ) {
-						add_settings_error( "mc4wp", "cache-renewed", 'Renewed MailChimp cache.', 'updated' );
+				if( $refresh_cache ) {
+					if( false === empty( $lists ) ) {
+						add_settings_error( "mc4wp", "cache-renewed", __('MailChimp cache successfully renewed.', 'mailchimp-for-wp' ), 'updated' );
 					} else {
-						add_settings_error( "mc4wp", "cache-renew-failed", 'Failed to renew MailChimp cache - please try again later.' );
+						add_settings_error( "mc4wp", "cache-renew-failed", __('Failed to renew MailChimp cache - please try again later.', 'mailchimp-for-wp' ) );
 					}
 				}
 
