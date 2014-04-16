@@ -3,15 +3,19 @@
 
 
 
-.mc4wp-form input[type="submit"], .mc4wp-form button {
+.mc4wp-form input[type="submit"],
+.mc4wp-form button {
   color: #ffffff !important;
   background-color: #d9534f;
   border-color: #d43f3a;
 }
 
-.mc4wp-form input[type="submit"]:hover, .mc4wp-form button:hover,
-.mc4wp-form input[type="submit"]:active, .mc4wp-form button:active,
-.mc4wp-form input[type="submit"]:focus, .mc4wp-form button:focus {
+.mc4wp-form input[type="submit"]:hover,
+.mc4wp-form button:hover,
+.mc4wp-form input[type="submit"]:active,
+.mc4wp-form button:active,
+.mc4wp-form input[type="submit"]:focus,
+.mc4wp-form button:focus {
   color: #ffffff;
   background-color: #d2322d;
   border-color: #ac2925;
