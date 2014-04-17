@@ -19,6 +19,12 @@ abstract class MC4WP_Integration {
 	* @return boolean
 	*/
 	public function checkbox_was_checked() {
+
+		// Check if honeypot was filled (by spam bots)
+		if( isset( $_POST['_mc4wp_required_but_not_really'] ) && ! empty( $_POST['_mc4wp_required_but_not_really'] ) ) {
+			return false;
+		}
+
 		return ( isset( $_POST[ $this->checkbox_name_value ] ) && $_POST[ $this->checkbox_name_value ] == 1 );
 	}
 
@@ -103,11 +109,6 @@ abstract class MC4WP_Integration {
 	protected function subscribe( $email, array $merge_vars = array(), $signup_type = 'comment' ) {
 		$api = mc4wp_get_api();
 		$opts = mc4wp_get_options( 'checkbox' );
-
-		// Check if honeypot was filled (by spam bots)
-		if( isset( $_POST['_mc4wp_required_but_not_really'] ) && ! empty( $_POST['_mc4wp_required_but_not_really'] ) ) {
-			return 'error';
-		}
 
 		if( ! isset( $opts['lists'] ) || empty( $opts['lists'] ) ) {
 			if( ( ! defined( "DOING_AJAX" ) || ! DOING_AJAX ) && current_user_can( 'manage_options' ) ) {

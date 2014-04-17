@@ -8,8 +8,13 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 }
 
 class MC4WP_CF7_Integration extends MC4WP_General_Integration {
-	
+
+	protected $checkbox_name_value = '_mc4wp_subscribe';
+
 	public function __construct() {
+
+		$this->upgrade();
+
 		add_action( 'init', array( $this, 'init') );
 
 		add_action( 'wpcf7_mail_sent', array( $this, 'subscribe_from_cf7' ) );
@@ -28,10 +33,6 @@ class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 
 		wpcf7_add_shortcode( 'mc4wp_checkbox', array( $this, 'get_checkbox' ) );
 		return true;
-	}
-
-	public function checkbox_was_checked() {
-		return ( isset( $_POST['_mc4wp_subscribe'] ) && $_POST['_mc4wp_subscribe'] == 1 );
 	}
 
 	/**
@@ -56,8 +57,6 @@ class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 		if ( $this->checkbox_was_checked() === false ) { 
 			return false; 
 		}
-
-		$_POST['mc4wp-subscribe'] = 1;
 
 		return $this->try_subscribe( 'cf7' );
 	}

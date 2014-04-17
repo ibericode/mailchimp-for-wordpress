@@ -19,7 +19,7 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 		$this->upgrade();
 
 		// hook actions
-		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'init', array( $this, 'try_subscribe' ) );
 	}
 
 	/**
@@ -32,15 +32,6 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 			$_POST[ $this->checkbox_name_value ] = 1;
 			unset( $_POST['mc4wp-try-subscribe'] );
 		}
-	}
-
-	/**
-	* Initialize
-	*
-	* @uses 'init' action hook
-	*/
-	public function init() {
-		$this->try_subscribe();
 	}
 
 	/**
