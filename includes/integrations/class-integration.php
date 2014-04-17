@@ -81,6 +81,8 @@ abstract class MC4WP_Integration {
 		$content .= '</label>';
 		$content .= '</p>';
 
+		$content .= '<textarea type="text" name="_mc4wp_required_but_not_really" style="display: none !important;"></textarea>';
+
 		do_action( 'mc4wp_after_checkbox' );
 
         // add ending debug marker
@@ -98,9 +100,14 @@ abstract class MC4WP_Integration {
 	* @param int $comment_ID
 	* @return boolean
 	*/
-	protected function subscribe( $email, array $merge_vars = array(), $signup_type = 'comment', $comment_ID = null ) {
+	protected function subscribe( $email, array $merge_vars = array(), $signup_type = 'comment' ) {
 		$api = mc4wp_get_api();
 		$opts = mc4wp_get_options( 'checkbox' );
+
+		// Check if honeypot was filled (by spam bots)
+		if( isset( $_POST['_mc4wp_required_but_not_really'] ) && ! empty( $_POST['_mc4wp_required_but_not_really'] ) ) {
+			return 'error';
+		}
 
 		if( ! isset( $opts['lists'] ) || empty( $opts['lists'] ) ) {
 			if( ( ! defined( "DOING_AJAX" ) || ! DOING_AJAX ) && current_user_can( 'manage_options' ) ) {
@@ -118,7 +125,7 @@ abstract class MC4WP_Integration {
 		if ( isset( $merge_vars['NAME'] ) && ! isset( $merge_vars['FNAME'] ) && ! isset( $merge_vars['LNAME'] ) ) {
 
 			$strpos = strpos( $merge_vars['NAME'], ' ' );
-			if ( $strpos ) {
+			if ( $strpos !== false ) {
 				$merge_vars['FNAME'] = substr( $merge_vars['NAME'], 0, $strpos );
 				$merge_vars['LNAME'] = substr( $merge_vars['NAME'], $strpos );
 			} else {
