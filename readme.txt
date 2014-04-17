@@ -199,6 +199,23 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Changelog ==
 
+= Trunk =
+
+**Improvements**
+
+- CSS is now served as static CSS instead of being served through PHP.
+- The anti-spam honeypot is now added to the sign-up checkbox as well.
+- Improved object-oriented code architecture and better class documentation
+- Better CSS reset for the various form themes to increase theme compatibility
+- Added class autoloading to the plugin
+- Various minor code improvements
+
+**Additions**
+
+- You can now add a captcha field to your sign-up forms by installing the [BWS Captcha](http://wordpress.org/plugins/captcha/) plugin and using `[captcha]` inside your form mark-up.
+- All settings pages are now fully translatable. The plugin has just 2 translations available yet (`en_US` and `nl_NL`) so if you're good at translating, please send me your language pack for the plugin.
+- You can now use tab indentation in the form markup textarea
+
 = 1.5.8 - March 26, 2014 =
 
 **Fixes**
@@ -353,178 +370,3 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 * Improved: huge performance improvements on admin settings pages
 * Improved: usability and responsiveness of form settings page
 * Improved: clean-up
-
-= 1.1.4 =
-* Fixed: usage of textarea elements in the form mark-up for WP3.3+.
-
-= 1.1.3 =
-* Added: first and lastname to registration hook, works with Register Redux Plus for example.
-
-= 1.1.2 =
-* Fixed: field wizard initial value not being set in some browsers
-* Fixed: CF7 checkbox subscribing everyone regardless of checkbox setting
-* Added: bbPress compatibility, you can now add a sign-up checkbox to the new topic and new reply forms
-* Improved: various code and debug improvements
-* Improved: field wizard now wraps radio inputs and checkboxes in a label
-* Improved: Usability when using sign-up checkbox with Contact Form 7
-* Removed: form usage option
-
-= 1.1.1 =
-* Fixed warning for BuddyPress sites
-
-= 1.1 =
-* Fixed: spam comments not being filtered
-* Fixed: Automatic splitting of NAME into FNAME and LNAME
-* Added: HTML 5 url, tel and date fields to field wizard
-* Added: Form variables for usage inside form mark-up.
-* Improved: default form CSS
-* Improved: Contact Form 7 integration
-
-= 1.0.3 =
-* Added HTML quicktags to form markup textarea.
-* Added option to set custom label when using Contact Form 7 shortcode `[mc4wp_checkbox "Your checkbox label"]`
-* Added HTML comments
-* Added upgrade link to plugins overview
-* Improved compatibility with third-party plugins when using checkbox, smarter e-mail field guessing
-* Improved: easier copying of the form shortcode from form settings pages
-* Added: uninstall function
-
-= 1.0.2 =
-* Improved code, less memory usage
-* Added `mc4wp_form()` function for usage inside template files
-
-= 1.0.1 =
-* Changed: format for groups is now somewhat easier. Refer to the FAQ and update your form mark-up please. (Backwards compatibility included)
-* Added: group preset to form field wizard for hidden fields, checkboxes and radio inputs.
-* Added: radio inputs to field wizard
-* Improved: the field wizard will now add labels after the checkbox and radio input elements.
-* Fixed: regular error messages not being shown in some cases.
-
-= 1.0 =
-* Added support for group checkboxes
-* Added support for paragraph elements in error and success messages, the messages are now wrapped in `<div>` instead. Update your custom CSS rules
-* Added some translation filters for qTranslate and WPML compatibility.
-
-= 0.8.3 =
-* Added: Guess first and last name when only using full name field.
-* Added: Links to [MailChimp for WordPress Pro](http://dannyvankooten.com/mailchimp-for-wordpress/)
-* Fixed: Bug where options could not be saved after adding specific HTML tags to the form mark-up.
-
-= 0.8.2 =
-* Improved: Namespaced form CSS classes
-* Improved: Improved error messages
-* Improved: It is now easier to add fields to your form mark-up by using the wizard. You can choose presets etc.
-* Improved: All field names that are of importance for MailChimp should now be uppercased (backwards compatibility is included)
-* Improved: Fields named added through the wizard are now validated and sanitized
-* Improved: Added caching to the backend which makes it way faster
-* Improved: Various usability improvements
-
-= 0.8.1 =
-* Fixed: typo in form success message
-* Improved: various little improvements
-* Added: option to hide the form after a successful sign-up
-
-= 0.8 =
-* Changed links to show your appreciation for this plugin.
-* Improved: CSS reset now works for registration forms as well.
-* Improved: Code, removed unnecessary code, only load classes when not existing yet, etc.
-* Improved: hooked into user_register to allow third-party registration form plugins.
-* Added: Shortcode for usage inside Contact Form 7 form templates `[mc4wp_checkbox]`
-* Added: Catch-all, hook into ANY form using ANY input field with name attribute `mc4wp-try-subscribe` and value `1`.
-* Fixed: Subscribe from Multisite sign-up
-* Fixed: 404 page when no e-mail given.
-
-
-= 0.7 =
-* Improved: small backend JavaScript improvements / fixes
-* Improved: configuration tabs on options page now work with JavaScript disabled as well
-* Added: form and checkbox can now subscribe to different lists
-* Added: Error messages for WP Administrators (for debugging)
-* Added: `mc4wp_checkbox()` function to manually add the checkbox to a comment form.
-
-= 0.6.2 =
-* Fixed: Double quotes now enabled in text labels and success / error messages (which enables the use of JavaScript)
-* Fixed: Sign-up form failing silently without showing error.
-
-= 0.6.1 =
-* Fixed: error notices
-* Added: some default CSS for success and error notices
-* Added: notice when form mark-up does not contain email field
-
-= 0.6 =
-* Fixed: cannot redeclare class MCAPI
-* Fixed: scroll to form element
-* Added: notice when copying the form mark-up instead of using `[mc4wp_form]`
-* Added: CSS classes to form success and error message(s).
-* Removed: Static element ID on form success and error message(s) for W3C validity when more than one form on 1 page.
-
-= 0.5 =
-* Fixed W3C invalid value "true" for attribute "required"
-* Added scroll to form element after form submit.
-* Added option to redirect visitors after they subscribed using the sign-up form.
-
-= 0.4.1 =
-* Fixed correct and more specific error messages
-* Fixed form designer, hidden fields no longer wrapped in paragraph tags
-* Added text fields to form designer
-* Added error message when email address was already on the list
-* Added debug message when there is a problem with one of the (required) merge fields
-
-= 0.4 =
-* Improved dashboard, it now has different tabs for the different settings.
-* Improved guessing of first and last name.
-* Fixed debugging statements on settings page
-* Added settings link on plugins overview page
-* Added form functionality
-* Added form shortcode
-* Added necessary filters for shortcodes to work inside text widgets
-* Added spam honeypot to form to ignore bot sign-ups
-* Added error & success messages to form
-* Added Freddy icon to menu
-
-= 0.3 =
-* Fixed the missing argument bug when submitting a comment for some users.
-* Added support for regular, BuddyPress and MultiSite registration forms.
-
-= 0.2 =
-* Fixed small bug where name of comment author was not correctly assigned
-* Improved CSS reset for checkbox
-
-= 0.1 =
-* BETA release
-
-== Upgrade Notice ==
-
-= 1.5.8 =
-Fixed bug where certain errors (like "already subscribed") were not showing up.
-
-= 1.5.7 =
-Minor improvements and small bug fixes.
-
-= 1.5.5 =
-Fixed field generator only generating `text` input fields.
-
-= 1.5.4 =
-Fixed admin notice and "add to form" button, improved Contact Form 7 integration.
-
-= 1.5.3 =
-Fixed admin notice and improved Contact Form 7 integration.
-
-= 1.4.8 =
-WP 3.8 compatibility, better scroll to form and huge settings page performance improvement
-
-= 1.4.5 =
-Bugfix: fixed invalid email address message after updating to 1.4.4
-
-= 1.4.1 =
-Fixed grouping information not being sent to MailChimp when using sign-up forms.
-
-= 1.4 =
-New: default form themes, more unlocked fields in the "add field" tool and smarter auto-detection of name fields when integrating with Contact Form 7.
-
-= 1.2.5 =
-Fixed CSS issue where the form caused a hue gap in the sidebar for some themes.
-
-= 1.1.1 =
-Bugfix for BuddyPress sites
-
