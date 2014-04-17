@@ -14,9 +14,9 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 * @return array
 */
 function mc4wp_get_options( $key = null ) {
-	static $options;
+	static $options = null;
 
-	if( ! $options ) {
+	if( null === $options ) {
 		$defaults = array(
 			'general' => array(
 				'api_key' => ''
@@ -55,16 +55,18 @@ function mc4wp_get_options( $key = null ) {
 
 		$options = array();
 		foreach ( $db_keys_option_keys as $db_key => $option_key ) {
-			$option = get_option( $db_key );
+			$option = get_option( $db_key, false );
 
 			// add option to database to prevent query on every pageload
-			if ( $option == false ) { add_option( $db_key, $defaults[$option_key] ); }
+			if ( $option === false ) {
+				add_option( $db_key, $defaults[$option_key] );
+			}
 
 			$options[$option_key] = array_merge( $defaults[$option_key], (array) $option );
 		}
 	}
 
-	if( $key ) {
+	if( null !== $key ) {
 		return $options[$key];
 	}
 
