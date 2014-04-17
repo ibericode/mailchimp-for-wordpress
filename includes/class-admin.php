@@ -9,11 +9,6 @@ if( ! defined( "MC4WP_LITE_VERSION" ) ) {
 class MC4WP_Lite_Admin
 {
 
-	/**
-	 * @var string
-	 */
-	private static $plugin_file;
-	
 	public function __construct()
 	{
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
