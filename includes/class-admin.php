@@ -45,6 +45,7 @@ class MC4WP_Lite_Admin
 		// load the plugin text domain
 		load_plugin_textdomain( 'mailchimp-for-wp', false, MC4WP_LITE_PLUGIN_DIR . 'languages/' );
 
+		// store whether this plugin has the BWS captcha plugin running (http://wordpress.org/plugins/captcha/)
 		$this->has_captcha_plugin = function_exists( 'cptch_display_captcha_custom' );
 	}
 
