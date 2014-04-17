@@ -9,11 +9,12 @@ if( ! defined( "MC4WP_LITE_VERSION" ) ) {
 class MC4WP_Lite_Admin
 {
 
+	private $has_captcha_plugin = false;
+
 	public function __construct()
 	{
-		add_action( 'admin_init', array( $this, 'register_settings' ) );
+		add_action( 'admin_init', array( $this, 'initialize' ) );
 		add_action( 'admin_menu', array( $this, 'build_menu' ) );
-		add_action( 'init', array( $this, 'load_textdomain' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_css_and_js' ) );
 
 		add_filter( 'plugin_action_links_' . plugin_basename( MC4WP_LITE_PLUGIN_FILE ), array( $this, 'add_settings_link' ) );
@@ -28,10 +29,23 @@ class MC4WP_Lite_Admin
 	}
 
 	/**
-	 * Load the plugin translation files
+	 * Initializes various stuff used in WP Admin
+	 *
+	 * - Registers settings
+	 * - Checks if the Captcha plugin is activated
+	 * - Loads the plugin text domain
 	 */
-	public function load_textdomain() {
+	public function initialize() {
+
+		// register settings
+		register_setting( 'mc4wp_lite_settings', 'mc4wp_lite', array( $this, 'validate_settings' ) );
+		register_setting( 'mc4wp_lite_checkbox_settings', 'mc4wp_lite_checkbox');
+		register_setting( 'mc4wp_lite_form_settings', 'mc4wp_lite_form', array( $this, 'validate_form_settings' ) );
+
+		// load the plugin text domain
 		load_plugin_textdomain( 'mailchimp-for-wp', false, MC4WP_LITE_PLUGIN_DIR . 'languages/' );
+
+		$this->has_captcha_plugin = function_exists( 'cptch_display_captcha_custom' );
 	}
 
 	/**
@@ -63,16 +77,6 @@ class MC4WP_Lite_Admin
 		 $upgrade_link = '<a href="http://dannyvankooten.com/mailchimp-for-wordpress/#utm_source=lite-plugin&utm_medium=link&utm_campaign=plugins-upgrade-link">Upgrade to Pro</a>';
          array_unshift( $links, $upgrade_link, $settings_link );
          return $links;
-	}
-
-	/**
-	* Register the various MailChimp for WordPress settings
-	*/
-	public function register_settings()
-	{
-		register_setting( 'mc4wp_lite_settings', 'mc4wp_lite', array( $this, 'validate_settings' ) );
-		register_setting( 'mc4wp_lite_checkbox_settings', 'mc4wp_lite_checkbox');
-		register_setting( 'mc4wp_lite_form_settings', 'mc4wp_lite_form', array( $this, 'validate_form_settings' ) );
 	}
 
 	/**

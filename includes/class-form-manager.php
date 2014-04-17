@@ -151,10 +151,16 @@ class MC4WP_Lite_Form_Manager {
 			$form_markup = __( $opts['markup'] );
 
 			// replace special values
-			$form_markup = str_replace( array( '%N%', '{n}' ), $this->form_instance_number, $form_markup );
+			$form_markup = str_ireplace( array( '%N%', '{n}' ), $this->form_instance_number, $form_markup );
 			$form_markup = mc4wp_replace_variables( $form_markup, array_values( $opts['lists'] ) );
 
-			// allow plugins to add form fields
+			// insert captcha
+			if( function_exists( 'cptch_display_captcha_custom' ) ) {
+				$captcha_fields = '<input type="hidden" name="_mc4wp_has_captcha" value="1" /><input type="hidden" name="cntctfrm_contact_action" value="true" />' . cptch_display_captcha_custom();
+				$form_markup = str_ireplace( '[captcha]', $captcha_fields, $form_markup );
+			}
+
+			// allow plugins to add form fieldsq
 			do_action( 'mc4wp_before_form_fields', 0 );
 
 			// allow plugins to alter form content
@@ -234,6 +240,12 @@ class MC4WP_Lite_Form_Manager {
 		// ensure honeypot was not filed
 		if ( isset( $_POST['_mc4wp_required_but_not_really'] ) && ! empty( $_POST['_mc4wp_required_but_not_really'] ) ) {
 			$this->error = 'spam';
+			return false;
+		}
+
+		// check if captcha was present and valid
+		if( isset( $_POST['_mc4wp_has_captcha'] ) && $_POST['_mc4wp_has_captcha'] == 1 && function_exists( 'cptch_check_custom_form' ) && cptch_check_custom_form() !== true ) {
+			$this->error = 'invalid_captcha';
 			return false;
 		}
 

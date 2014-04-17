@@ -40,6 +40,7 @@ function mc4wp_get_options( $key = null ) {
 				'text_error' => 'Oops. Something went wrong. Please try again later.',
 				'text_invalid_email' => 'Please provide a valid email address.',
 				'text_already_subscribed' => "Given email address is already subscribed, thank you!",
+				'text_invalid_captcha' => 'Please complete the CAPTCHA.',
 				'redirect' => '',
 				'lists' => array(),
 				'double_optin' => 1,
