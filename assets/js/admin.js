@@ -33,6 +33,7 @@
 
 	// Add buttons to QTags editor
 	(function() {
+
 		if( window.QTags == undefined ) {
 			return;
 		}
@@ -40,7 +41,9 @@
 		QTags.addButton( 'mc4wp_paragraph', '<p>', '<p>', '</p>', 'p', 'Paragraph tag', 1 );
 		QTags.addButton( 'mc4wp_label', 'label', '<label>', '</label>', 'l', 'Label tag', 2 );
 		QTags.addButton( 'mc4wp_subscriber_count', '# of subscribers', '{subscriber_count}', '', 's', 'Shows number of subscribers of selected list(s)' );
-		QTags.addButton( 'mc4wp_captcha', 'CAPTCHA', '[captcha]', '', 'c', 'Display a CAPTCHA field' );
+		if( window.mc4wp.has_captcha_plugin == true ) {
+			QTags.addButton( 'mc4wp_captcha', 'CAPTCHA', '[captcha]', '', 'c', 'Display a CAPTCHA field' );
+		}
 
 	})();
 

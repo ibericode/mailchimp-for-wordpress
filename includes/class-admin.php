@@ -10,14 +10,18 @@ class MC4WP_Lite_Admin
 {
 
 	private $has_captcha_plugin = false;
+	private $plugin_file = '';
 
 	public function __construct()
 	{
+		$this->plugin_file = plugin_basename( MC4WP_LITE_PLUGIN_FILE );
+
 		add_action( 'admin_init', array( $this, 'initialize' ) );
 		add_action( 'admin_menu', array( $this, 'build_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_css_and_js' ) );
 
-		add_filter( 'plugin_action_links_' . plugin_basename( MC4WP_LITE_PLUGIN_FILE ), array( $this, 'add_settings_link' ) );
+		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 10, 2 );
+		add_filter( 'plugin_row_meta', array( $this, 'add_upgrade_link'), 10, 2 );
 		add_filter( 'quicktags_settings', array( $this, 'set_quicktags_buttons' ), 10, 2 );
 
 		// did the user click on upgrade to pro link?
@@ -72,12 +76,33 @@ class MC4WP_Lite_Admin
 	* @param array $links
 	* @return array
 	*/
-	public function add_settings_link( $links )
+	public function add_settings_link( $links, $file )
 	{
+		if( $file !== $this->plugin_file ) {
+			return $links;
+		}
+
 		 $settings_link = '<a href="admin.php?page=mc4wp-lite">'. __( 'Settings' ) . '</a>';
-		 $upgrade_link = '<a href="http://dannyvankooten.com/mailchimp-for-wordpress/#utm_source=lite-plugin&utm_medium=link&utm_campaign=plugins-upgrade-link">Upgrade to Pro</a>';
-         array_unshift( $links, $upgrade_link, $settings_link );
+         array_unshift( $links, $settings_link );
          return $links;
+	}
+
+	/**
+	 * Adds meta links to the plugin in the WP Admin > Plugins screen
+	 *
+	 * @param array $links
+	 * @param string $file
+	 *
+	 * @return array
+	 */
+	public function add_upgrade_link( $links, $file ) {
+		if( $file !== $this->plugin_file ) {
+			return $links;
+		}
+
+		$links[] = '<a href="http://wordpress.org/plugins/mailchimp-for-wp/faq/">FAQ</a>';
+		$links[] = '<a href="http://dannyvankooten.com/mailchimp-for-wordpress/#utm_source=lite-plugin&utm_medium=link&utm_campaign=plugins-upgrade-link">' . __( 'Upgrade to Pro', 'mailchimp-for-wp' ) . '</a>';
+		return $links;
 	}
 
 	/**
@@ -140,8 +165,13 @@ class MC4WP_Lite_Admin
 
 		// js
 		wp_register_script( 'mc4wp-beautifyhtml', MC4WP_LITE_PLUGIN_URL . 'assets/js/beautify-html.js', array( 'jquery' ), MC4WP_LITE_VERSION, true );
-		wp_register_script( 'mc4wp-admin-js', MC4WP_LITE_PLUGIN_URL . 'assets/js/admin.js', array( 'jquery' ), MC4WP_LITE_VERSION, true );
-		wp_enqueue_script( array( 'jquery', 'mc4wp-beautifyhtml', 'mc4wp-admin-js' ) );
+		wp_register_script( 'mc4wp-admin', MC4WP_LITE_PLUGIN_URL . 'assets/js/admin.js', array( 'jquery' ), MC4WP_LITE_VERSION, true );
+		wp_enqueue_script( array( 'jquery', 'mc4wp-beautifyhtml', 'mc4wp-admin' ) );
+		wp_localize_script( 'mc4wp-admin', 'mc4wp',
+			array(
+				'has_captcha_plugin' => $this->has_captcha_plugin
+			)
+		);
 	}
 
 	/**
