@@ -8,6 +8,11 @@ if( ! defined( "MC4WP_LITE_VERSION" ) ) {
 
 class MC4WP_Lite_Admin
 {
+
+	/**
+	 * @var string
+	 */
+	private static $plugin_file;
 	
 	public function __construct()
 	{
@@ -15,24 +20,23 @@ class MC4WP_Lite_Admin
 		add_action( 'admin_menu', array( $this, 'build_menu' ) );
 		add_action( 'init', array( $this, 'load_textdomain' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_css_and_js' ) );
+
 		add_filter( 'plugin_action_links_' . plugin_basename( MC4WP_LITE_PLUGIN_FILE ), array( $this, 'add_settings_link' ) );
-		
+		add_filter( 'quicktags_settings', array( $this, 'set_quicktags_buttons' ), 10, 2 );
+
 		// did the user click on upgrade to pro link?
-		if( isset( $_GET['page'] ) ) {
-
-			if( $_GET['page'] == 'mc4wp-lite-upgrade' && false == headers_sent() ) {
-				header("Location: http://dannyvankooten.com/mailchimp-for-wordpress/?utm_source=lite-plugin&utm_medium=link&utm_campaign=menu-upgrade-link");
-				exit;
-			}
-
-			if( $_GET['page'] == 'mc4wp-lite-form-settings' ) {
-				add_filter( 'quicktags_settings', array( $this, 'set_quicktags_buttons' ), 10, 2 );
-			}
+		if( isset( $_GET['page'] ) && $_GET['page'] == 'mc4wp-lite-upgrade' && false == headers_sent() ) {
+			header("Location: http://dannyvankooten.com/mailchimp-for-wordpress/#utm_source=lite-plugin&utm_medium=link&utm_campaign=menu-upgrade-link");
+			exit;
 		}
+
 	}
 
+	/**
+	 * Load the plugin translation files
+	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'mailchimp-for-wp', false, dirname( plugin_basename( MC4WP_LITE_PLUGIN_FILE ) ) . '/languages/' );
+		load_plugin_textdomain( 'mailchimp-for-wp', false, MC4WP_LITE_PLUGIN_DIR . 'languages/' );
 	}
 
 	/**
@@ -48,7 +52,7 @@ class MC4WP_Lite_Admin
 			return $settings; 
 		}
 
-		$settings['buttons'] = 'strong,em,link,block,img,ul,ol,li,close';
+		$settings['buttons'] = 'strong,em,link,img,ul,li,close';
 
 		return $settings;
 	}
@@ -61,7 +65,7 @@ class MC4WP_Lite_Admin
 	public function add_settings_link( $links )
 	{
 		 $settings_link = '<a href="admin.php?page=mc4wp-lite">'. __( 'Settings' ) . '</a>';
-		 $upgrade_link = '<a href="http://dannyvankooten.com/mailchimp-for-wordpress/">Upgrade to Pro</a>';
+		 $upgrade_link = '<a href="http://dannyvankooten.com/mailchimp-for-wordpress/#utm_source=lite-plugin&utm_medium=link&utm_campaign=plugins-upgrade-link">Upgrade to Pro</a>';
          array_unshift( $links, $upgrade_link, $settings_link );
          return $links;
 	}
@@ -126,7 +130,7 @@ class MC4WP_Lite_Admin
 	*/
 	public function load_css_and_js( $hook )
 	{
-		// only load files on the MailChimp for WordPress page
+		// only load asset files on the MailChimp for WordPress settings pages
 		if( false === isset( $_GET['page'] ) || false === stristr( $_GET['page'], 'mc4wp-lite' ) ) {
 			return; 
 		}
@@ -136,7 +140,7 @@ class MC4WP_Lite_Admin
 
 		// js
 		wp_register_script( 'mc4wp-beautifyhtml', MC4WP_LITE_PLUGIN_URL . 'assets/js/beautify-html.js', array( 'jquery' ), MC4WP_LITE_VERSION, true );
-		wp_register_script( 'mc4wp-admin-js', MC4WP_LITE_PLUGIN_URL . 'assets/js/admin.js', array( 'jquery' ), false, true );
+		wp_register_script( 'mc4wp-admin-js', MC4WP_LITE_PLUGIN_URL . 'assets/js/admin.js', array( 'jquery' ), MC4WP_LITE_VERSION, true );
 		wp_enqueue_script( array( 'jquery', 'mc4wp-beautifyhtml', 'mc4wp-admin-js' ) );
 	}
 
@@ -180,7 +184,7 @@ class MC4WP_Lite_Admin
 	*/
 	public function redirect_to_pro()
 	{
-		?><script type="text/javascript">window.location.replace('http://dannyvankooten.com/mailchimp-for-wordpress/'); </script><?php
+		?><script type="text/javascript">window.location.replace('http://dannyvankooten.com/mailchimp-for-wordpress/#utm_source=lite-plugin&utm_medium=link&utm_campaign=menu-upgrade-link'); </script><?php
 	}
 
 	/**
@@ -198,7 +202,7 @@ class MC4WP_Lite_Admin
 		}
 
 		$lists = $this->get_mailchimp_lists();
-		include_once MC4WP_LITE_PLUGIN_DIR . 'includes/views/api-settings.php';
+		require MC4WP_LITE_PLUGIN_DIR . 'includes/views/api-settings.php';
 	}
 
 	/**
@@ -210,7 +214,7 @@ class MC4WP_Lite_Admin
 		$lists = $this->get_mailchimp_lists();
 
 		$tab = 'checkbox-settings';
-		include_once MC4WP_LITE_PLUGIN_DIR . 'includes/views/checkbox-settings.php';
+		require MC4WP_LITE_PLUGIN_DIR . 'includes/views/checkbox-settings.php';
 	}
 
 	/**
@@ -221,7 +225,7 @@ class MC4WP_Lite_Admin
 		$opts = mc4wp_get_options( 'form' );
 		$lists = $this->get_mailchimp_lists();
 		$tab = 'form-settings';
-		include_once MC4WP_LITE_PLUGIN_DIR . 'includes/views/form-settings.php';
+		require MC4WP_LITE_PLUGIN_DIR . 'includes/views/form-settings.php';
 	}
 
 	/**
@@ -233,7 +237,7 @@ class MC4WP_Lite_Admin
 	private function get_mailchimp_lists()
 	{
 		$cached_lists = get_transient( 'mc4wp_mailchimp_lists' );
-		$refresh_cache = ( isset( $_POST['mc4wp-renew-cache'] ) );
+		$refresh_cache = ( isset( $_POST['mc4wp-renew-cache'] ) && $_POST['mc4wp-renew-cache'] == 1 );
 
 		if( true === $refresh_cache || false === $cached_lists || empty( $cached_lists ) ) {
 			// make api request for lists
