@@ -12,10 +12,25 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 * @uses WP_HTTP
 */ 
 class MC4WP_Lite_API {
-	
+
+	/**
+	 * @var string
+	 */
 	private $api_url = 'https://api.mailchimp.com/2.0/';
+
+	/**
+	 * @var string
+	 */
 	private $api_key = '';
+
+	/**
+	 * @var string
+	 */
 	private $error_message = '';
+
+	/**
+	 * @var boolean
+	 */
 	private $connected = null;
 
 	/**
@@ -53,7 +68,7 @@ class MC4WP_Lite_API {
 	*/
 	public function is_connected()
 	{
-		if( $this->connected == null ) {
+		if( $this->connected === null ) {
 
 			$this->connected = false;
 			$result = $this->call( 'helper/ping' );
