@@ -9,7 +9,14 @@ if( ! defined( "MC4WP_LITE_VERSION" ) ) {
 class MC4WP_Lite_Admin
 {
 
+	/**
+	 * @var bool True if the BWS Captcha plugin is activated.
+	 */
 	private $has_captcha_plugin = false;
+
+	/**
+	 * @var string The relative path to the main plugin file from the plugins dir
+	 */
 	private $plugin_file = '';
 
 	public function __construct()
@@ -20,8 +27,8 @@ class MC4WP_Lite_Admin
 		add_action( 'admin_menu', array( $this, 'build_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_css_and_js' ) );
 
-		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 10, 2 );
-		add_filter( 'plugin_row_meta', array( $this, 'add_upgrade_link'), 10, 2 );
+		add_filter( 'plugin_action_links', array( $this, 'add_plugin_settings_link' ), 10, 2 );
+		add_filter( 'plugin_row_meta', array( $this, 'add_plugin_meta_links'), 10, 2 );
 		add_filter( 'quicktags_settings', array( $this, 'set_quicktags_buttons' ), 10, 2 );
 
 		// did the user click on upgrade to pro link?
@@ -47,7 +54,7 @@ class MC4WP_Lite_Admin
 		register_setting( 'mc4wp_lite_form_settings', 'mc4wp_lite_form', array( $this, 'validate_form_settings' ) );
 
 		// load the plugin text domain
-		load_plugin_textdomain( 'mailchimp-for-wp', false, MC4WP_LITE_PLUGIN_DIR . 'languages/' );
+		load_plugin_textdomain( 'mailchimp-for-wp', false, dirname( $this->plugin_file ) . '/languages/' );
 
 		// store whether this plugin has the BWS captcha plugin running (http://wordpress.org/plugins/captcha/)
 		$this->has_captcha_plugin = function_exists( 'cptch_display_captcha_custom' );
@@ -76,7 +83,7 @@ class MC4WP_Lite_Admin
 	* @param array $links
 	* @return array
 	*/
-	public function add_settings_link( $links, $file )
+	public function add_plugin_settings_link( $links, $file )
 	{
 		if( $file !== $this->plugin_file ) {
 			return $links;
@@ -95,7 +102,7 @@ class MC4WP_Lite_Admin
 	 *
 	 * @return array
 	 */
-	public function add_upgrade_link( $links, $file ) {
+	public function add_plugin_meta_links( $links, $file ) {
 		if( $file !== $this->plugin_file ) {
 			return $links;
 		}
@@ -182,16 +189,16 @@ class MC4WP_Lite_Admin
 	public function get_checkbox_compatible_plugins()
 	{
 		$checkbox_plugins = array(
-			'comment_form' => "Comment form",
-			"registration_form" => "Registration form"
+			'comment_form' => __( "Comment form", 'mailchimp-for-wp' ),
+			"registration_form" => __( "Registration form", 'mailchimp-for-wp' )
 		);
 
 		if( is_multisite() ) {
-            $checkbox_plugins['multisite_form'] = "MultiSite forms";
+            $checkbox_plugins['multisite_form'] = __( "MultiSite forms", 'mailchimp-for-wp' );
         }
 
 		if( class_exists("BuddyPress") ) {
-            $checkbox_plugins['buddypress_form'] = "BuddyPress registration";
+            $checkbox_plugins['buddypress_form'] = __( "BuddyPress registration", 'mailchimp-for-wp' );
         }
 
 		if( class_exists('bbPress') ) {

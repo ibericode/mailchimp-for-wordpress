@@ -7,6 +7,7 @@ Tested up to: 3.8.1
 Stable tag: 1.5.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: mailchimp-for-wp
 
 The best MailChimp plugin to get more email subscribers. Easily add sign-up forms and sign-up checkboxes to your WordPress website.
 

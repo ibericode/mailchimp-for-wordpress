@@ -44,12 +44,12 @@ function mc4wp_get_form( $id = 0 ) {
 function mc4wp_replace_variables( $text, $list_ids = array() ) {
 	$needles = array( '{ip}', '{current_url}', '{date}', '{time}' );
 	$replacements = array( $_SERVER['REMOTE_ADDR'], mc4wp_get_current_url(), date( "m/d/Y" ), date( "H:i:s" ) );
-	$text = str_replace( $needles, $replacements, $text );
+	$text = str_ireplace( $needles, $replacements, $text );
 
-	// subscriber count?
-	if ( strstr( $text, '{subscriber_count}' ) != false ) {
+	// subscriber count? only fetch these if the tag is actually used
+	if ( stristr( $text, '{subscriber_count}' ) != false ) {
 		$subscriber_count = mc4wp_get_subscriber_count( $list_ids );
-		$text = str_replace( '{subscriber_count}', $subscriber_count, $text );
+		$text = str_ireplace( '{subscriber_count}', $subscriber_count, $text );
 	}
 
 	$needles = array( '{user_email}', '{user_firstname}', '{user_lastname}', '{user_name}', '{user_id}' );
@@ -75,7 +75,7 @@ function mc4wp_replace_variables( $text, $list_ids = array() ) {
 function mc4wp_get_subscriber_count( $list_ids ) {
 	$list_counts = get_transient( 'mc4wp_list_counts' );
 
-	if ( ! $list_counts ) {
+	if ( false === $list_counts ) {
 		// make api call
 		$api = mc4wp_get_api();
 		$lists = $api->get_lists();

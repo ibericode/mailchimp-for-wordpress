@@ -1,0 +1,347 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: MailChimp for WordPress\n"
+"POT-Creation-Date: 2014-04-16 21:47+0100\n"
+"PO-Revision-Date: 2014-04-18 16:35+0100\n"
+"Last-Translator: Danny <hi@dannyvankooten.com>\n"
+"Language-Team: Danny van Kooten <hi@dannyvankooten.com>\n"
+"Language: en_EN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../includes/class-admin.php:63 ../includes/views/api-settings.php:12
+#: ../includes/views/checkbox-settings.php:11
+#: ../includes/views/form-settings.php:91
+msgid "Settings"
+msgstr "Instellingen"
+
+#: ../includes/class-admin.php:277
+msgid "MailChimp cache successfully renewed."
+msgstr "MailChimp cache succesvol geleegd."
+
+#: ../includes/class-admin.php:279
+msgid "Failed to renew MailChimp cache - please try again later."
+msgstr ""
+"Het is niet gelukt om de MailChimp cache te legen - probeer het alsjeblieft "
+"later opnieuw."
+
+#: ../includes/class-widget.php:20
+msgid "MailChimp Sign-Up Form"
+msgstr "MailChimp inschrijfformulier"
+
+#: ../includes/class-widget.php:21
+msgid "Displays your MailChimp for WordPress sign-up form"
+msgstr "Toont je MailChimp for WordPress inschrijfformulier."
+
+#: ../includes/class-widget.php:60
+msgid "Newsletter"
+msgstr "Nieuwsbrief"
+
+#: ../includes/class-widget.php:63
+msgid "Title:"
+msgstr "Titel:"
+
+#: ../includes/class-widget.php:67
+#, php-format
+msgid ""
+"You can edit your sign-up form in the %sMailChimp for WordPress form settings"
+"%s."
+msgstr ""
+"Je kan je inschrijfformulier wijzigen in de %sMailChimp for WordPress "
+"formulier instellingen%s."
+
+#: ../includes/integrations/class-cf7.php:46
+#: ../includes/views/checkbox-settings.php:78
+#: ../includes/views/checkbox-settings.php:83
+#: ../includes/views/form-settings.php:95
+#: ../includes/views/form-settings.php:102
+#: ../includes/views/form-settings.php:112
+#: ../includes/views/form-settings.php:122
+#: ../includes/views/form-settings.php:136
+msgid "Yes"
+msgstr "Ja"
+
+#: ../includes/integrations/class-cf7.php:46
+#: ../includes/views/checkbox-settings.php:78
+#: ../includes/views/checkbox-settings.php:83
+#: ../includes/views/form-settings.php:27
+#: ../includes/views/form-settings.php:95
+#: ../includes/views/form-settings.php:104
+#: ../includes/views/form-settings.php:114
+#: ../includes/views/form-settings.php:124
+#: ../includes/views/form-settings.php:137
+msgid "No"
+msgstr "Nee"
+
+#: ../includes/views/api-settings.php:22
+msgid "API Settings"
+msgstr "API Instellingen"
+
+#: ../includes/views/api-settings.php:24
+msgid "CONNECTED"
+msgstr "VERBONDEN"
+
+#: ../includes/views/api-settings.php:26
+msgid "NOT CONNECTED"
+msgstr "NIET VERBONDEN"
+
+#: ../includes/views/api-settings.php:35
+msgid "Click here to get your MailChimp API Key."
+msgstr "Klik hier om je MailChimp API sleutel op te halen."
+
+#: ../includes/views/api-settings.php:47
+msgid "MailChimp Data"
+msgstr "MailChimp Data"
+
+#: ../includes/views/api-settings.php:48
+msgid ""
+"The table below shows your MailChimp lists data. If you applied changes to "
+"your MailChimp lists, please use the following button to renew your cached "
+"data."
+msgstr ""
+"The tabel hieronder toont je MailChimp lijst configuratie. Wanneer je hier "
+"veranderingen aan hebt doorgevoerd die nog niet weergegeven worden kun je de "
+"volgende button gebruiken om je configuratie opnieuw in te laden."
+
+#: ../includes/views/api-settings.php:54
+#: ../includes/views/api-settings.php:125
+msgid "Renew MailChimp lists"
+msgstr "Vernieuw MailChimp lijsten"
+
+#: ../includes/views/api-settings.php:112
+msgid "No lists were found in your MailChimp account"
+msgstr "Er zijn geen lijsten gevonden in je MailChimp account."
+
+#: ../includes/views/checkbox-settings.php:16
+msgid ""
+"To use sign-up checkboxes, select at least one list and one form to add the "
+"checkbox to."
+msgstr ""
+"Selecteer ten minste 1 MailChimp lijst en 1 formulier om de checkbox aan toe "
+"te voegen om inschrijf checkboxes te gebruiken."
+
+#: ../includes/views/checkbox-settings.php:18
+msgid "MailChimp settings for checkboxes"
+msgstr "MailChimp instellingen voor checkboxes"
+
+#: ../includes/views/checkbox-settings.php:24
+msgid ""
+"If you want to use sign-up checkboxes, select at least one MailChimp list to "
+"subscribe people to."
+msgstr ""
+"Selecteer ten minste 1 MailChimp lijst waar mensen aan toegevoegd moeten "
+"worden."
+
+#: ../includes/views/checkbox-settings.php:34
+#: ../includes/views/form-settings.php:48
+#, php-format
+msgid "No lists found, %sare you connected to MailChimp?%s"
+msgstr "Geen lijsten gevonden. %sBen je verbonden met MailChimp?%s"
+
+#: ../includes/views/checkbox-settings.php:41
+msgid ""
+"Select the list(s) to which people who check the checkbox should be "
+"subscribed."
+msgstr ""
+"Selecteer de lijsten aan welke mensen die checkbox aanvinken toegevoegd "
+"zouden moeten worden."
+
+#: ../includes/views/checkbox-settings.php:49
+#: ../includes/views/form-settings.php:96
+msgid ""
+"Select \"yes\" if you want people to confirm their email address before "
+"being subscribed (recommended)"
+msgstr ""
+"Selecteer \"yes\" wanneer je wilt dat mensen hun emailadres moeten "
+"bevestigen alvorens ze aan je MailChimp lijst worden toegevoegd (aanbevolen)"
+
+#: ../includes/views/checkbox-settings.php:53
+msgid "Checkbox settings"
+msgstr "Checkbox instellingen"
+
+#: ../includes/views/checkbox-settings.php:57
+msgid "Add the checkbox to these forms"
+msgstr "Voeg de checkbox toe aan de volgende formulieren"
+
+#: ../includes/views/checkbox-settings.php:70
+msgid "Checkbox label text"
+msgstr "Checkbox label tekst"
+
+#: ../includes/views/checkbox-settings.php:73
+#, php-format
+msgid "HTML tags like %s are allowed in the label text."
+msgstr "HTML tags als %s zijn toegestaan in de label tekst."
+
+#: ../includes/views/checkbox-settings.php:77
+msgid "Pre-check the checkbox?"
+msgstr "Vink de checkbox standaard aan?"
+
+#: ../includes/views/checkbox-settings.php:82
+msgid "Load some default CSS?"
+msgstr "Laad standaard CSS?"
+
+#: ../includes/views/checkbox-settings.php:84
+msgid "Select \"yes\" if the checkbox appears in a weird place."
+msgstr "Selecteer \"ja\" als de checkbox op een vreemde plaats verschijnt."
+
+#: ../includes/views/form-settings.php:9
+msgid "Form Settings"
+msgstr "Formulier Instellingen"
+
+#: ../includes/views/form-settings.php:15
+#, php-format
+msgid ""
+"To use the MailChimp sign-up form, configure the form below and then either "
+"paste %s in the content of a post or page or use the  widget."
+msgstr ""
+"Om het MailChimp inschrijfformulier te gebruiken kun je hieronder je "
+"formulier configureren. Vervolgens kun je de meegeleverde plugin widget "
+"gebruiken of %s in de inhoud van een bericht of pagina plakken."
+
+#: ../includes/views/form-settings.php:20
+msgid "Required form settings"
+msgstr "Verplichte formulier instellingen"
+
+#: ../includes/views/form-settings.php:24
+msgid "Load form styles?"
+msgstr "Laad formulier stijlen?"
+
+#: ../includes/views/form-settings.php:28
+msgid "Yes, load basic formatting styles"
+msgstr "Ja, laad standaard formulier stijlen"
+
+#: ../includes/views/form-settings.php:29
+msgid "Yes, load my custom form styles"
+msgstr "Ja, laad mijn zelf ontworpen formulier stijlen"
+
+#: ../includes/views/form-settings.php:31
+msgid "Light Theme"
+msgstr "Licht Thema"
+
+#: ../includes/views/form-settings.php:32
+msgid "Red Theme"
+msgstr "Rood Thema"
+
+#: ../includes/views/form-settings.php:33
+msgid "Green Theme"
+msgstr "Groen Thema"
+
+#: ../includes/views/form-settings.php:34
+msgid "Blue Theme"
+msgstr "Blauw Thema"
+
+#: ../includes/views/form-settings.php:35
+msgid "Dark Theme"
+msgstr "Donker Thema"
+
+#: ../includes/views/form-settings.php:36
+msgid "Custom Color Theme"
+msgstr "Aangepaste Kleur Thema"
+
+#: ../includes/views/form-settings.php:41
+msgid ""
+"If you want to load some default CSS styles, select \"basic formatting styles"
+"\" or choose one of the color themes"
+msgstr ""
+"Wanneer je standaard stijlen in wilt laden, selecteer \"standaard formulier "
+"stijlen\" of kies een van de kleurenthema's."
+
+#: ../includes/views/form-settings.php:61
+msgid ""
+"Select the list(s) to which people who submit this form should be subscribed."
+msgstr ""
+"Selecteer de MailChimp lijsten aan welke mensen die het formulier invullen "
+"toegevoegd moeten worden."
+
+#: ../includes/views/form-settings.php:76
+#, php-format
+msgid ""
+"To display your sign-up form, paste %s inside the contents of a post, page "
+"or text widget."
+msgstr ""
+"Plak %s in de inhoud van een bericht of pagina of gebruik de widget om je "
+"inschrijfformulier te tonen."
+
+#: ../includes/views/form-settings.php:106
+msgid ""
+"Select \"yes\" if you want to send your lists Welcome Email if a subscribe "
+"succeeds (only when double opt-in is disabled)."
+msgstr ""
+"Selecteer \"ja\" als je de \"Welcome Email\" wilt sturen naar nieuwe "
+"abonnees (enkel wanneer \"double opt-in\" uitgeschakeld is)"
+
+#: ../includes/views/form-settings.php:116
+msgid ""
+"Select \"yes\" if you want to update existing subscribers (instead of "
+"showing the \"already subscribed\" message)."
+msgstr ""
+"Selecteer \"ja\" wanneer je bestaande abonnees wilt updaten (in plaats van "
+"het tonen van de \"reeds ingeschreven\" melding)"
+
+#: ../includes/views/form-settings.php:126
+msgid ""
+"Select \"yes\" if you want to replace the interest groups with the groups "
+"provided instead of adding the provided groups to the member's interest "
+"groups (only when updating a subscriber)."
+msgstr ""
+"Selecteer \"ja\" wanneer je interest groups wilt verplaatsen met de "
+"verstuurde groepen in plaats van deze aan de bestaande groepen toe te voegen "
+"(enkel bij het updaten van abonnees)."
+
+#: ../includes/views/form-settings.php:130
+msgid "Form Settings & Messages"
+msgstr "Form Instellingen & Meldingen"
+
+#: ../includes/views/form-settings.php:139
+msgid "Select \"yes\" if you want to use AJAX (JavaScript) to submit forms."
+msgstr ""
+"Selecteer \"ja\" wanneer je AJAX (JavaScript) wilt gebruiken voor het "
+"verzenden van formulieren."
+
+#: ../includes/views/form-settings.php:142
+msgid "Hide form after a successful sign-up?"
+msgstr "Verberg formulier na succesvolle inschrijvingen?"
+
+#: ../includes/views/form-settings.php:144
+msgid "Select \"yes\" to hide the form fields after a successful sign-up."
+msgstr ""
+"Selecteer \"ja\" om de formuliervelden te verbergen na elke succesvolle "
+"inschrijving."
+
+#: ../includes/views/form-settings.php:147
+msgid "Redirect to URL after successful sign-ups"
+msgstr "Doorsturen naar URL na succesvolle inschrijving"
+
+#: ../includes/views/form-settings.php:150
+msgid ""
+"Leave empty or enter 0 for no redirection. Use complete (absolute) URLs, "
+"including <code>http://</code>"
+msgstr ""
+"Laat leeg (of geef 0 in) voor geen doorverwijzing. Gebruik complete "
+"(absolute) URLs, inclusief <code>http://</code>"
+
+#: ../includes/views/form-settings.php:154
+msgid "Success message"
+msgstr "Succesmelding"
+
+#: ../includes/views/form-settings.php:158
+msgid "General error message"
+msgstr "Foutmelding"
+
+#: ../includes/views/form-settings.php:162
+msgid "Invalid email address message"
+msgstr "Foutief emailadres"
+
+#: ../includes/views/form-settings.php:166
+msgid "Already subscribed message"
+msgstr "Reeds ingeschreven"
+
+#: ../includes/views/form-settings.php:171
+#, php-format
+msgid "HTML tags like %s are allowed in the message fields."
+msgstr "HTML tags als %s zijn toegestaan in de meldingteksten."
