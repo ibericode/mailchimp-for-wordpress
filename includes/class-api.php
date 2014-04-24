@@ -76,7 +76,7 @@ class MC4WP_Lite_API {
 			if( $result !== false ) {
 				if( isset( $result->msg ) && $result->msg === "Everything's Chimpy!" ) {
 					$this->connected = true;
-				} else {
+				} elseif( isset( $result->error ) ) {
 					$this->show_error( "MailChimp Error: " . $result->error );
 				}
 			} 
@@ -248,18 +248,19 @@ class MC4WP_Lite_API {
 			'sslverify' => false
 			) 
 		); 
-	
+
+		// test for wp errors
 		if( is_wp_error( $response ) ) {
-			
 			// show error message to admins
 			$this->show_error( "HTTP Error: " . $response->get_error_message() );
-			
 			return false;
 		}
 
-		// dirty fix for older WP version
-		if($method == 'helper/ping' && isset( $response['headers']['content-length'] ) && (int) $response['headers']['content-length'] == 44 ) { 
-			return (object) array( 'msg' => "Everything's Chimpy!");
+		// dirty fix for older WP versions
+		if( $method === 'helper/ping' && isset( $response['headers']['content-length'] ) && (int) $response['headers']['content-length'] === 44 ) {
+			return (object) array(
+				'msg' => "Everything's Chimpy!"
+			);
 		}
 		
 		$body = wp_remote_retrieve_body( $response );
