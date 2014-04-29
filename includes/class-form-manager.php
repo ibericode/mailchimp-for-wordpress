@@ -135,7 +135,7 @@ class MC4WP_Lite_Form_Manager {
 		$opts = mc4wp_get_options('form');
 
 		if ( ! function_exists( 'mc4wp_replace_variables' ) ) {
-			include_once MC4WP_LITE_PLUGIN_DIR . 'includes/template-functions.php';
+			include_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/template.php';
 		}
 
 		// allow developers to add css classes
