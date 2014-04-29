@@ -17,6 +17,11 @@ function mc4wp_get_options( $key = null ) {
 	static $options = null;
 
 	if( null === $options ) {
+
+		$email_label = __( 'Email address', 'mailchimp-for-wp' );
+		$email_placeholder = __( 'Your email address', 'mailchimp-for-wp' );
+		$signup_button = __( 'Sign up', 'mailchimp-for-wp' );
+
 		$defaults = array(
 			'general' => array(
 				'api_key' => ''
@@ -35,7 +40,7 @@ function mc4wp_get_options( $key = null ) {
 			),
 			'form' => array(
 				'css' => 'default',
-				'markup' => "<p>\n\t<label for=\"mc4wp_email\">Email address: </label>\n\t<input type=\"email\" id=\"mc4wp_email\" name=\"EMAIL\" required placeholder=\"Your email address\" />\n</p>\n\n<p>\n\t<input type=\"submit\" value=\"Sign up\" />\n</p>",
+				'markup' => "<p>\n\t<label for=\"mc4wp_email\">{$email_label}: </label>\n\t<input type=\"email\" id=\"mc4wp_email\" name=\"EMAIL\" placeholder=\"{$email_placeholder}\" required />\n</p>\n\n<p>\n\t<input type=\"submit\" value=\"{$signup_button}\" />\n</p>",
 				'text_success' => 'Thank you, your sign-up request was successful! Please check your e-mail inbox.',
 				'text_error' => 'Oops. Something went wrong. Please try again later.',
 				'text_invalid_email' => 'Please provide a valid email address.',

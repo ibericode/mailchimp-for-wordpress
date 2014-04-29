@@ -25,9 +25,9 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 						<td class="nowrap valigntop">
 							<select name="mc4wp_lite_form[css]" id="mc4wp_load_stylesheet_select">
 								<option value="0" <?php selected($opts['css'], 0); ?>><?php _e( 'No' ); ?></option>
-								<option value="default" <?php selected($opts['css'], 'default'); ?><?php selected($opts['css'], 1); ?>><?php _e( 'Yes, load basic formatting styles', 'mailchimp-for-wp' ); ?></option>
+								<option value="default" <?php selected($opts['css'], 'default'); ?><?php selected($opts['css'], 1); ?>><?php _e( 'Yes, load basic form styles', 'mailchimp-for-wp' ); ?></option>
 								<option disabled>(PRO ONLY) <?php _e( 'Yes, load my custom form styles', 'mailchimp-for-wp' ); ?></option>
-								<optgroup label="Load a default form theme">
+								<optgroup label="<?php _e( 'Yes, load default form theme', 'mailchimp-for-wp' ); ?>">
 									<option value="light" <?php selected($opts['css'], 'light'); ?>><?php _e( 'Light Theme', 'mailchimp-for-wp' ); ?></option>
 									<option value="red" <?php selected($opts['css'], 'red'); ?>><?php _e( 'Red Theme', 'mailchimp-for-wp' ); ?></option>
 									<option value="green" <?php selected($opts['css'], 'green'); ?>><?php _e( 'Green Theme', 'mailchimp-for-wp' ); ?></option>

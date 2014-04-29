@@ -81,8 +81,8 @@ If you like the plugin, upgrade to [MailChimp for WordPress Pro](http://dannyvan
 > 
 > 1. Multiple forms, each subscribing to one or multiple MailChimp list(s).
 > 1. AJAX - no page reload after submitting a sign-up form.
-> 1. Custom color themes and a custom form styles designer.
-> 1. Statistics & log, learn when, where and how your visitors subscribed. 
+> 1. Custom color themes and a form designer (CSS Builder)
+> 1. Statistics & log. Learn when, where and how your visitors subscribed.
 > 
 > [More Pro features](http://dannyvankooten.com/mailchimp-for-wordpress/?utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=faq-link) | [Demo](http://dannyvankooten.com/mailchimp-for-wordpress/demo/?utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=faq-link)
 
@@ -126,7 +126,7 @@ You can use CSS rules to style the sign-up form, use the following CSS selectors
 
 Add your custom CSS rules to the end of your theme stylesheet, **/wp-content/themes/your-theme-name/style.css**. Do not add them to the plugin stylesheet as they will be automatically overwritten on the next plugin update.
 
-[PS: With the Pro version, you can design beautiful forms without touching any code >>](http://dannyvankooten.com/mailchimp-for-wordpress/?utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=after-css-link)
+[PS: With the Pro version, you can design beautiful forms easily >>](http://dannyvankooten.com/mailchimp-for-wordpress/?utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=after-css-link)
 
 = Where can I find my MailChimp API key? =
 [Here](http://kb.mailchimp.com/article/where-can-i-find-my-api-key)
@@ -146,7 +146,7 @@ If you need more data for your merge fields, prefix the field name with `mc4wp-`
 `
 
 = Can I add a checkbox to third-party forms? =
-Yes. Just include a checkbox with name attribute `mc4wp-try-subscribe` and value `1` in your form.
+Yes. Just include a checkbox with name attribute `mc4wp-subscribe` and value `1` in your form.
 
 *Example HTML*
 `
@@ -180,6 +180,9 @@ When you have double opt-in disabled, new subscribers will be seen as *imports* 
 = Can I add more (hidden) fields to the sign-up checkbox? =
 Not at the moment, but you can add more data using a filter. Here is a code snippet to [add grouping information to comment form sign-ups](https://gist.github.com/dannyvankooten/7120559).
 
+= How do I add a Captcha to my forms? =
+Install the [BWS Captcha](https://wordpress.org/plugins/captcha/) plugin, then use `[captcha]` inside your form mark-up.
+
 = Why does the checkbox not show up at my comment form? =
 Your theme probably does not support the necessary comment hook this plugin uses to add the checkbox to your comment form. You can manually place the checkbox by placing the following code snippet inside the form tags of your theme's comment form.
 
@@ -200,7 +203,7 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Changelog ==
 
-= Trunk =
+= 2.0 - April 29, 2014 =
 
 **Improvements**
 

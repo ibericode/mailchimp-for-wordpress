@@ -231,12 +231,7 @@ class MC4WP_Lite_Admin
 	{
 		$opts = mc4wp_get_options( 'general' );
 		$tab = 'api-settings';
-
-		if( empty( $opts['api_key'] ) ) {
-			$connected = false;
-		} else {
-			$connected = ( mc4wp_get_api()->is_connected() );
-		}
+		$connected = ( mc4wp_get_api()->is_connected() );
 
 		$lists = $this->get_mailchimp_lists();
 		require MC4WP_LITE_PLUGIN_DIR . 'includes/views/api-settings.php';

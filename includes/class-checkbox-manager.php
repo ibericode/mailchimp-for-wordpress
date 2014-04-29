@@ -18,7 +18,7 @@ class MC4WP_Lite_Checkbox_Manager
         $opts = mc4wp_get_options( 'checkbox' );
 
         // load checkbox css if necessary
-        add_action('wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
 		add_action( 'login_enqueue_scripts', array( $this, 'load_stylesheet' ) );
 
         // Load WP Comment Form Integration
@@ -67,7 +67,7 @@ class MC4WP_Lite_Checkbox_Manager
             return false;
         }
 
-        wp_enqueue_style( 'mailchimp-for-wp-checkbox', array(), MC4WP_LITE_PLUGIN_URL . 'assets/css/checkbox.css', MC4WP_LITE_VERSION, 'all' );
+        wp_enqueue_style( 'mailchimp-for-wp-checkbox', MC4WP_LITE_PLUGIN_URL . 'assets/css/checkbox.css', array(), MC4WP_LITE_VERSION, 'all' );
         return true;
 	}
 
