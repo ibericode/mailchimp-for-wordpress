@@ -15,9 +15,10 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 		<?php settings_errors(); ?>
 		<p><?php _e( 'To use sign-up checkboxes, select at least one list and one form to add the checkbox to.', 'mailchimp-for-wp' ); ?></p>
 
-		<h3 class="mc4wp-title"><?php _e( 'MailChimp settings for checkboxes', 'mailchimp-for-wp' ); ?></h3>
 		<form action="options.php" method="post">
 			<?php settings_fields( 'mc4wp_lite_checkbox_settings' ); ?>
+
+			<h3 class="mc4wp-title"><?php _e( 'MailChimp settings for checkboxes', 'mailchimp-for-wp' ); ?></h3>
 
 			<?php if( empty( $opts['lists'] ) ) { ?>
 				<div class="mc4wp-info">
@@ -30,7 +31,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 					<th scope="row">MailChimp list(s)</th>
 					
 					<?php // loop through lists
-					if(empty($lists)) {
+					if( ! $lists || empty( $lists ) ) {
 						?><td colspan="2"><?php printf( __( 'No lists found, %sare you connected to MailChimp?%s', 'mailchimp-for-wp' ), '<a href="'. admin_url( 'admin.php?page=mc4wp-lite' ) .'">', '</a>' ); ?></td><?php
 					} else { ?>
 						<td class="nowrap">
@@ -55,7 +56,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 		
 		<tr valign="top">
 			<th scope="row"><?php _e( 'Add the checkbox to these forms', 'mailchimp-for-wp' ); ?></th>
-			<td colspan="2" class="nowrap">
+			<td class="nowrap">
 				<?php foreach($this->get_checkbox_compatible_plugins() as $code => $name) {
 
 					if($code[0] !== '_') {
@@ -64,6 +65,9 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 						?><label class="pro-feature"><input type="checkbox" disabled> <?php echo esc_html( $name ); ?></label><br /><?php
 					}
 				} ?>
+			</td>
+			<td class="desc">
+				<?php _e( 'Selecting a form will automatically add the sign-up checkbox to it.', 'mailchimp-for-wp' ); ?>
 			</td>
 		</tr>
 		<tr valign="top">

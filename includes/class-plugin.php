@@ -52,7 +52,7 @@ class MC4WP_Lite {
 
 		if ( ! is_admin() ) {
 			// frontend only
-			include_once MC4WP_LITE_PLUGIN_DIR . 'includes/template-functions.php';
+			include_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/template.php';
 
 		}
 	}

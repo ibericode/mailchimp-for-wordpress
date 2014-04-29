@@ -73,7 +73,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 									} else {
 										?><textarea class="widefat" cols="160" rows="20" id="mc4wpformmarkup" name="mc4wp_lite_form[markup]"><?php echo esc_textarea($opts['markup']); ?></textarea><?php
 									} ?>
-									<p class="help"> <?php printf( __( 'To display your sign-up form, paste %s inside the contents of a post, page or text widget.', 'mailchimp-for-wp' ), '<input type="text" onfocus="this.select();" readonly="readonly" value="[mc4wp_form]" size="12" class="mc4wp-shortcode-example">' ); ?></p>
+									<p class="help"><?php printf( __( 'To display your sign-up form, paste %s inside the contents of a post, page or text widget.', 'mailchimp-for-wp' ), '<input type="text" onfocus="this.select();" readonly="readonly" value="[mc4wp_form]" size="12" class="mc4wp-shortcode-example">' ); ?></p>
 
 								</div>
 
@@ -111,7 +111,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 					<input type="radio" readonly /> 
 					<label><?php _e("Yes"); ?></label> &nbsp; 
 					<input type="radio" checked readonly /> 
-					<label><?php _e("No"); ?></label> &nbsp; 
+					<label><?php _e( 'No' ); ?></label> &nbsp;
 				</td>
 				<td class="desc"><?php _e( 'Select "yes" if you want to update existing subscribers (instead of showing the "already subscribed" message).', 'mailchimp-for-wp' ); ?></td>
 			</tr>
@@ -174,7 +174,9 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 			<?php } ?>
 			<tr>
 				<th></th>
-				<td colspan="2"><p class="help"><?php printf( __( 'HTML tags like %s are allowed in the message fields.', 'mailchimp-for-wp' ), '<code>' . esc_html( '<strong><em><a>' ) . '</code>' ); ?></p></td>
+				<td colspan="2">
+					<p class="help"><?php printf( __( 'HTML tags like %s are allowed in the message fields.', 'mailchimp-for-wp' ), '<code>' . esc_html( '<strong><em><a>' ) . '</code>' ); ?></p>
+				</td>
 			</tr>
 		</table>
 

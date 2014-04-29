@@ -19,6 +19,7 @@ class MC4WP_Lite_Checkbox_Manager
 
         // load checkbox css if necessary
         add_action('wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
+		add_action( 'login_enqueue_scripts', array( $this, 'load_stylesheet' ) );
 
         // Load WP Comment Form Integration
         if ( $opts['show_at_comment_form'] ) {
