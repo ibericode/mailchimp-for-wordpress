@@ -1,0 +1,434 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: MailChimp for WordPress\n"
+"POT-Creation-Date: 2014-04-29 22:59+0100\n"
+"PO-Revision-Date: 2014-05-07 12:58+0100\n"
+"Last-Translator: Danny <hi@dannyvankooten.com>\n"
+"Language-Team: Danny van Kooten <hi@dannyvankooten.com>\n"
+"Language: en_EN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../includes/class-admin.php:92 ../includes/views/api-settings.php:12
+#: ../includes/views/checkbox-settings.php:11
+#: ../includes/views/form-settings.php:91
+msgid "Settings"
+msgstr "Configuración"
+
+#: ../includes/class-admin.php:111
+msgid "Upgrade to Pro"
+msgstr "Actualizar a la versión pro"
+
+#: ../includes/class-admin.php:192
+msgid "Comment form"
+msgstr "Formulario de comentarios"
+
+#: ../includes/class-admin.php:193
+msgid "Registration form"
+msgstr "Formulario de registros"
+
+#: ../includes/class-admin.php:197
+msgid "MultiSite forms"
+msgstr "Formularios MultiSite"
+
+#: ../includes/class-admin.php:201
+msgid "BuddyPress registration"
+msgstr "Regitro BuddyPress"
+
+#: ../includes/class-admin.php:313
+msgid "MailChimp cache successfully renewed."
+msgstr "Cache de MailChimp renovada satisfactoriamente."
+
+#: ../includes/class-admin.php:315
+msgid "Failed to renew MailChimp cache - please try again later."
+msgstr ""
+"Fallo al renovar la cache de MailChimp - Por favor, intentelo de nuevo más "
+"tarde."
+
+#: ../includes/class-widget.php:20
+msgid "MailChimp Sign-Up Form"
+msgstr ""
+
+#: ../includes/class-widget.php:21
+msgid "Displays your MailChimp for WordPress sign-up form"
+msgstr ""
+
+#: ../includes/class-widget.php:60
+msgid "Newsletter"
+msgstr "Newsletter"
+
+#: ../includes/class-widget.php:63
+msgid "Title:"
+msgstr "Título:"
+
+#: ../includes/class-widget.php:67
+#, php-format
+msgid ""
+"You can edit your sign-up form in the %sMailChimp for WordPress form settings"
+"%s."
+msgstr ""
+
+#: ../includes/functions/general.php:21
+msgid "Email address"
+msgstr "Tu dirección de correo"
+
+#: ../includes/functions/general.php:22
+msgid "Your email address"
+msgstr "Tu dirección de correo"
+
+#: ../includes/functions/general.php:23
+msgid "Sign up"
+msgstr "Registro"
+
+#: ../includes/integrations/class-cf7.php:47
+#: ../includes/views/checkbox-settings.php:82
+#: ../includes/views/checkbox-settings.php:87
+#: ../includes/views/form-settings.php:95
+#: ../includes/views/form-settings.php:102
+#: ../includes/views/form-settings.php:112
+#: ../includes/views/form-settings.php:122
+#: ../includes/views/form-settings.php:136
+msgid "Yes"
+msgstr "Si"
+
+#: ../includes/integrations/class-cf7.php:47
+#: ../includes/views/checkbox-settings.php:82
+#: ../includes/views/checkbox-settings.php:87
+#: ../includes/views/form-settings.php:27
+#: ../includes/views/form-settings.php:95
+#: ../includes/views/form-settings.php:104
+#: ../includes/views/form-settings.php:114
+#: ../includes/views/form-settings.php:124
+#: ../includes/views/form-settings.php:137
+msgid "No"
+msgstr "No"
+
+#: ../includes/views/api-settings.php:22
+msgid "API Settings"
+msgstr "Configuración de licencia y de la API"
+
+#: ../includes/views/api-settings.php:24
+msgid "CONNECTED"
+msgstr "CONECTADO"
+
+#: ../includes/views/api-settings.php:26
+msgid "NOT CONNECTED"
+msgstr "NO CONECTADO"
+
+#: ../includes/views/api-settings.php:35
+msgid "Get your API key here."
+msgstr "Obtenga su clave de API aquí."
+
+#: ../includes/views/api-settings.php:47
+msgid "MailChimp Data"
+msgstr "Datos de MailChimp"
+
+#: ../includes/views/api-settings.php:48
+msgid ""
+"The table below shows your MailChimp lists data. If you applied changes to "
+"your MailChimp lists, please use the following button to renew your cached "
+"data."
+msgstr ""
+"La siguiente tabla muestra los datos de las listas de MailChimp. Si ha "
+"aplicado cambios en las listas de MailChimp, por favor, utilice el botón "
+"siguiente para renovar sus datos en caché."
+
+#: ../includes/views/api-settings.php:54
+#: ../includes/views/api-settings.php:125
+msgid "Renew MailChimp lists"
+msgstr "Renovar las listas de MailChimp"
+
+#: ../includes/views/api-settings.php:112
+msgid "No lists were found in your MailChimp account"
+msgstr ""
+
+#: ../includes/views/checkbox-settings.php:16
+msgid ""
+"To use sign-up checkboxes, select at least one list and one form to add the "
+"checkbox to."
+msgstr ""
+"Para activar el registro empleando las casillas de verificación de MailChimp "
+"para WordPress, seleccione al menos una lista y un formulario donde añadir "
+"dicha casilla de verificación."
+
+#: ../includes/views/checkbox-settings.php:21
+msgid "MailChimp settings for checkboxes"
+msgstr "Ajustes de MailChimp para casillas de verificación"
+
+#: ../includes/views/checkbox-settings.php:25
+msgid ""
+"If you want to use sign-up checkboxes, select at least one MailChimp list to "
+"subscribe people to."
+msgstr ""
+"Si desea utilizar las casillas de verificación de registro, seleccione al "
+"menos una lista de MailChimp a las que la gente se suscribirá."
+
+#: ../includes/views/checkbox-settings.php:35
+#: ../includes/views/form-settings.php:48
+#, php-format
+msgid "No lists found, %sare you connected to MailChimp?%s"
+msgstr "No se han encontrado listas, %s¿Esta usted conectado a MailChimp?%s"
+
+#: ../includes/views/checkbox-settings.php:42
+msgid ""
+"Select the list(s) to which people who check the checkbox should be "
+"subscribed."
+msgstr ""
+"Seleccione la lista(s) a la que se registrarán las personas que marquen las "
+"casillas de verificación."
+
+#: ../includes/views/checkbox-settings.php:50
+#: ../includes/views/form-settings.php:96
+msgid ""
+"Select \"yes\" if you want people to confirm their email address before "
+"being subscribed (recommended)"
+msgstr ""
+"Marque \"sí \" si quiere que los suscriptores confirmen su dirección de "
+"correo electrónico antes de suscribirse (recomendado)"
+
+#: ../includes/views/checkbox-settings.php:54
+msgid "Checkbox settings"
+msgstr "Configuración de las casillas de verificación"
+
+#: ../includes/views/checkbox-settings.php:58
+msgid "Add the checkbox to these forms"
+msgstr "Añadir casillas de verificación en estos formularios"
+
+#: ../includes/views/checkbox-settings.php:70
+msgid "Selecting a form will automatically add the sign-up checkbox to it."
+msgstr ""
+"Al seleccionar un formulario se añadirá automaticamente la casilla de "
+"verificación de alta al mismo."
+
+#: ../includes/views/checkbox-settings.php:74
+msgid "Checkbox label text"
+msgstr "Texto a mostrar junto a la casilla de verificación."
+
+#: ../includes/views/checkbox-settings.php:77
+#, php-format
+msgid "HTML tags like %s are allowed in the label text."
+msgstr "La etiquetas HTML como %s están permitidas en el texto de la etiqueta."
+
+#: ../includes/views/checkbox-settings.php:81
+msgid "Pre-check the checkbox?"
+msgstr "¿Dejamos pre-marcada la casilla de verificación?"
+
+#: ../includes/views/checkbox-settings.php:86
+msgid "Load some default CSS?"
+msgstr "¿Cargamos algunos CSS por defecto?"
+
+#: ../includes/views/checkbox-settings.php:88
+msgid "Select \"yes\" if the checkbox appears in a weird place."
+msgstr ""
+"Seleccione \"sí \" si la casilla de verificación aparece en un lugar "
+"inapropiado"
+
+#: ../includes/views/form-settings.php:9
+msgid "Form Settings"
+msgstr "Ajustes del formulario"
+
+#: ../includes/views/form-settings.php:15
+#, php-format
+msgid ""
+"To use the MailChimp sign-up form, configure the form below and then either "
+"paste %s in the content of a post or page or use the  widget."
+msgstr ""
+
+#: ../includes/views/form-settings.php:20
+msgid "Required form settings"
+msgstr ""
+
+#: ../includes/views/form-settings.php:24
+msgid "Load form styles?"
+msgstr ""
+
+#: ../includes/views/form-settings.php:28
+msgid "Yes, load basic form styles"
+msgstr ""
+
+#: ../includes/views/form-settings.php:29
+msgid "Yes, load my custom form styles"
+msgstr ""
+
+#: ../includes/views/form-settings.php:30
+msgid "Yes, load default form theme"
+msgstr ""
+
+#: ../includes/views/form-settings.php:31
+msgid "Light Theme"
+msgstr ""
+
+#: ../includes/views/form-settings.php:32
+msgid "Red Theme"
+msgstr ""
+
+#: ../includes/views/form-settings.php:33
+msgid "Green Theme"
+msgstr ""
+
+#: ../includes/views/form-settings.php:34
+msgid "Blue Theme"
+msgstr ""
+
+#: ../includes/views/form-settings.php:35
+msgid "Dark Theme"
+msgstr ""
+
+#: ../includes/views/form-settings.php:36
+msgid "Custom Color Theme"
+msgstr ""
+
+#: ../includes/views/form-settings.php:41
+msgid ""
+"If you want to load some default CSS styles, select \"basic formatting styles"
+"\" or choose one of the color themes"
+msgstr ""
+
+#: ../includes/views/form-settings.php:61
+msgid ""
+"Select the list(s) to which people who submit this form should be subscribed."
+msgstr ""
+
+#: ../includes/views/form-settings.php:76
+#, php-format
+msgid ""
+"To display your sign-up form, paste %s inside the contents of a post, page "
+"or text widget."
+msgstr ""
+
+#: ../includes/views/form-settings.php:106
+msgid ""
+"Select \"yes\" if you want to send your lists Welcome Email if a subscribe "
+"succeeds (only when double opt-in is disabled)."
+msgstr ""
+"Marque \"sí \" si desea enviar a sus listas un correo electrónico de "
+"bienvenida si se realiza una suscripción correctamente (sólo cuando se el "
+"proceso de doble opt-in está desactivado)."
+
+#: ../includes/views/form-settings.php:116
+msgid ""
+"Select \"yes\" if you want to update existing subscribers (instead of "
+"showing the \"already subscribed\" message)."
+msgstr ""
+"Marque \"sí \" si desea actualizar los suscriptores existentes (en lugar de "
+"mostrar el mensaje \"ya suscrito \")."
+
+#: ../includes/views/form-settings.php:126
+msgid ""
+"Select \"yes\" if you want to replace the interest groups with the groups "
+"provided instead of adding the provided groups to the member's interest "
+"groups (only when updating a subscriber)."
+msgstr ""
+"Marque \"sí \" si desea reemplazar los grupos de interés con los grupos "
+"previstos en lugar de añadir los grupos previstos para los grupos de interés "
+"del usuario (sólo cuando se actualiza un suscriptor)."
+
+#: ../includes/views/form-settings.php:130
+msgid "Form Settings & Messages"
+msgstr "Configuración de mesajes y formularios"
+
+#: ../includes/views/form-settings.php:139
+msgid "Select \"yes\" if you want to use AJAX (JavaScript) to submit forms."
+msgstr ""
+"Seleccione \"sí \" si desea utilizar AJAX (JavaScript) en sus formularios"
+
+#: ../includes/views/form-settings.php:142
+msgid "Hide form after a successful sign-up?"
+msgstr "¿Ocultar formulario después de un registro registro satisfactorio?"
+
+#: ../includes/views/form-settings.php:144
+msgid "Select \"yes\" to hide the form fields after a successful sign-up."
+msgstr ""
+"Seleccione \"Sí \" para ocultar los campos de formulario después de un "
+"registro satisfactorio"
+
+#: ../includes/views/form-settings.php:147
+msgid "Redirect to URL after successful sign-ups"
+msgstr "Redireccionar a una URL tras suscribirse satisfactoriamente."
+
+#: ../includes/views/form-settings.php:150
+msgid ""
+"Leave empty or enter 0 for no redirection. Use complete (absolute) URLs, "
+"including <code>http://</code>"
+msgstr ""
+"Dejar en blanco o introduzca 0 para ninguna redirección. Use URLs completas "
+"(absolutas), incluyendo <code>http://</ code>"
+
+#: ../includes/views/form-settings.php:154
+msgid "Success message"
+msgstr "Mensaje correcto"
+
+#: ../includes/views/form-settings.php:158
+msgid "General error message"
+msgstr "Mensaje de error general"
+
+#: ../includes/views/form-settings.php:162
+msgid "Invalid email address message"
+msgstr "Mensaje de correo electrónico inválido"
+
+#: ../includes/views/form-settings.php:166
+msgid "Already subscribed message"
+msgstr "Mensaje de suscripcion listo"
+
+#: ../includes/views/form-settings.php:171
+msgid "Invalid CAPTCHA message"
+msgstr "Mensaje de CAPTCHA no válido"
+
+#: ../includes/views/form-settings.php:178
+#, php-format
+msgid "HTML tags like %s are allowed in the message fields."
+msgstr "Las etiquetas HTML como %s están permitidas en los campos del mensaje."
+
+#: ../includes/views/parts/admin-field-wizard.php:10
+msgid "Add a new field"
+msgstr "Añadir un nuevo campo"
+
+#: ../includes/views/parts/admin-field-wizard.php:14
+msgid "Select at least one list first."
+msgstr "Seleccione en primer lugar, al menos una lista."
+
+#: ../includes/views/parts/admin-field-wizard.php:17
+msgid "Use the tool below to generate the HTML for your form fields."
+msgstr ""
+"Emplear la herramienta inferior para generar el código HTML de los campos "
+"del formulario."
+
+#: ../includes/views/parts/admin-field-wizard.php:20
+msgid "Select MailChimp field.."
+msgstr "Seleccione el campo MailChimp ..."
+
+#: ../includes/views/parts/admin-field-wizard.php:33
+#: ../includes/views/parts/admin-field-wizard.php:38
+#: ../includes/views/parts/admin-field-wizard.php:43
+msgid "(optional)"
+msgstr "(opcional)"
+
+#: ../includes/views/parts/admin-field-wizard.php:43
+msgid "Initial value"
+msgstr "Valor inicial"
+
+#: ../includes/views/parts/admin-field-wizard.php:48
+msgid "(leave empty to hide)"
+msgstr "(dejar en blanco para ocultar)"
+
+#: ../includes/views/parts/admin-field-wizard.php:53
+#, php-format
+msgid "Wrap in paragraph %s tags?"
+msgstr "¿Envolver las etiquetas %s en el párrafo?"
+
+#: ../includes/views/parts/admin-field-wizard.php:58
+msgid "Required field?"
+msgstr "¿Campo obligatorio?"
+
+#: ../includes/views/parts/admin-field-wizard.php:62
+msgid "Add to form"
+msgstr "Añadir al formulario"
+
+#: ../includes/views/parts/admin-field-wizard.php:66
+msgid "Generated HTML"
+msgstr "Generado HTML"
