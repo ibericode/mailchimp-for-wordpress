@@ -2,7 +2,7 @@
 Contributors: DvanKooten
 Donate link: http://dannyvankooten.com/donate/
 Tags: mailchimp,form,shortcode,widget,checkbox,comment,newsletter,buddypress,multisite,bbpress,woocommerce,easy digital downloads,contact form,contact form 7
-Requires at least: 3.1
+Requires at least: 3.5
 Tested up to: 3.9
 Stable tag: 2.0
 License: GPLv2 or later
@@ -37,13 +37,21 @@ Add sign-up checkboxes to *any* form on your website. The plugin offers built-in
 > 
 > Multiple forms, AJAX, form designer, custom themes, detailed statistics, more built-in checkbox integrations and priority support.
 > 
-> [More information](http://dannyvankooten.com/mailchimp-for-wordpress/?utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=after-features-link) | [Form demo's](http://dannyvankooten.com/mailchimp-for-wordpress/demo/?utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=after-features-link) | [Upgrade now >>](http://dannyvankooten.com/mailchimp-for-wordpress/?utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=after-features-link)
+> [More information](http://dannyvankooten.com/mailchimp-for-wordpress/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=after-features-link) | [Form demo's](http://dannyvankooten.com/mailchimp-for-wordpress/demo/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=after-features-link) | [Upgrade now >>](http://dannyvankooten.com/mailchimp-for-wordpress/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=after-features-link)
+
+**Translators**
+
+- English (en_US) - Danny van Kooten
+- Dutch (nl_NL) - Danny van Kooten
+- Spanish (es_ES) - [Paul Benitez - Tecnofilos](http://www.tecnofilos.net/)
+
+If you have created your own language pack (or have an update of an existing one) you can send in your .PO and .MO files so we can bundle it into MailChimp for WordPress. You can [download the latest POT file](http://plugins.svn.wordpress.org/mailchimp-for-wp/trunk/languages/mailchimp-for-wp.po), and [PO files in each language](http://plugins.svn.wordpress.org/mailchimp-for-wp/trunk/languages/).
 
 **More information**
 
-- Other [WordPress plugins](http://dannyvankooten.com/wordpress-plugins/?utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=more-info-link) by [Danny van Kooten](http://dannyvankooten.com?utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=more-info-link)
+- Other [WordPress plugins](http://dannyvankooten.com/wordpress-plugins/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=more-info-link) by [Danny van Kooten](http://dannyvankooten.com#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=more-info-link)
 - Contact Danny on Twitter: [@DannyvanKooten](http://twitter.com/dannyvankooten)
-- If you're a dev, follow or contribute to the [MailChimp for WordPress plugin on GitHub](https://github.com/dannyvankooten/mailchimp-for-wordpress)
+- If you're a dev, follow or contribute to the [MailChimp for WP plugin on GitHub](https://github.com/dannyvankooten/mailchimp-for-wordpress)
 
 
 == Installation ==
@@ -70,7 +78,7 @@ Add sign-up checkboxes to *any* form on your website. The plugin offers built-in
 Need help? Please take a look at the [frequently asked questions](http://wordpress.org/plugins/mailchimp-for-wp/faq/) first
 
 = Upgrade to Pro =
-If you like the plugin, upgrade to [MailChimp for WordPress Pro](http://dannyvankooten.com/mailchimp-for-wordpress/?utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=installation-instructions-link) for an even better plugin.
+If you like the plugin, upgrade to [MailChimp for WordPress Pro](http://dannyvankooten.com/mailchimp-for-wordpress/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=installation-instructions-link) for an even better plugin.
 
 == Frequently Asked Questions ==
 
@@ -83,7 +91,7 @@ If you like the plugin, upgrade to [MailChimp for WordPress Pro](http://dannyvan
 > 1. Custom color themes and a form designer (CSS Builder)
 > 1. Statistics & log. Learn when, where and how your visitors subscribed.
 > 
-> [More Pro features](http://dannyvankooten.com/mailchimp-for-wordpress/?utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=faq-link) | [Demo](http://dannyvankooten.com/mailchimp-for-wordpress/demo/?utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=faq-link)
+> [More Pro features](http://dannyvankooten.com/mailchimp-for-wordpress/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=faq-link) | [Demo](http://dannyvankooten.com/mailchimp-for-wordpress/demo/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=faq-link)
 
 = How to display a form in posts or pages? =
 Use the `[mc4wp_form]` shortcode.
@@ -125,7 +133,7 @@ You can use CSS rules to style the sign-up form, use the following CSS selectors
 
 Add your custom CSS rules to the end of your theme stylesheet, **/wp-content/themes/your-theme-name/style.css**. Do not add them to the plugin stylesheet as they will be automatically overwritten on the next plugin update.
 
-[PS: With the Pro version, you can design beautiful forms easily >>](http://dannyvankooten.com/mailchimp-for-wordpress/?utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=after-css-link)
+[PS: With the Pro version, you can design beautiful forms easily >>](http://dannyvankooten.com/mailchimp-for-wordpress/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=after-css-link)
 
 = Where can I find my MailChimp API key? =
 [Here](http://kb.mailchimp.com/article/where-can-i-find-my-api-key)
@@ -201,6 +209,13 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 8. **Pro only:** Create your own CSS styles with the form designer in the Pro version.
 
 == Changelog ==
+
+= Trunk =
+
+**Improvements**
+
+- More translatable strings.
+- Added Spanish translations, thanks [Paul Benitez - Tecnofilos](http://www.tecnofilos.net/)
 
 = 2.0 - April 29, 2014 =
 
