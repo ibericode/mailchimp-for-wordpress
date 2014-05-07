@@ -9,7 +9,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 ?>
 <div id="mc4wp-<?php echo $tab; ?>" class="wrap mc4wp-settings">
 
-	<h2><img src="<?php echo MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png'; ?>" /> MailChimp for WordPress: MailChimp <?php _e( 'Settings' ); ?></h2>
+	<h2><img src="<?php echo MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png'; ?>" /> <?php _e( 'MailChimp for WordPress', 'mailchimp-for-wp' ); ?>: <?php _e( 'MailChimp Settings', 'mailchimp-for-wp' ); ?></h2>
 
 	<div id="mc4wp-content">
 
@@ -29,9 +29,9 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 			<table class="form-table">
 
 				<tr valign="top">
-					<th scope="row"><label for="mailchimp_api_key">MailChimp API Key</label></th>
+					<th scope="row"><label for="mailchimp_api_key">MailChimp <?php _e( 'API Key', 'mailchimp-for-wp' ); ?></label></th>
 					<td>
-						<input type="text" class="widefat" placeholder="Your MailChimp API key" id="mailchimp_api_key" name="mc4wp_lite[api_key]" value="<?php echo $opts['api_key']; ?>" />
+						<input type="text" class="widefat" placeholder="<?php _e( 'Your MailChimp API key', 'mailchimp-for-wp' ); ?>" id="mailchimp_api_key" name="mc4wp_lite[api_key]" value="<?php echo $opts['api_key']; ?>" />
 						<p class="help"><a target="_blank" href="http://admin.mailchimp.com/account/api"><?php _e( 'Get your API key here.', 'mailchimp-for-wp' ); ?></a></p>
 					</td>
 					

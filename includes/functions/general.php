@@ -27,7 +27,7 @@ function mc4wp_get_options( $key = null ) {
 				'api_key' => ''
 			),
 			'checkbox' => array(
-				'label' => 'Sign me up for the newsletter!',
+				'label' => __( 'Sign me up for the newsletter!', 'mailchimp-for-wp' ),
 				'precheck' => 1,
 				'css' => 1,
 				'show_at_comment_form' => 0,
@@ -41,11 +41,11 @@ function mc4wp_get_options( $key = null ) {
 			'form' => array(
 				'css' => 'default',
 				'markup' => "<p>\n\t<label for=\"mc4wp_email\">{$email_label}: </label>\n\t<input type=\"email\" id=\"mc4wp_email\" name=\"EMAIL\" placeholder=\"{$email_placeholder}\" required />\n</p>\n\n<p>\n\t<input type=\"submit\" value=\"{$signup_button}\" />\n</p>",
-				'text_success' => 'Thank you, your sign-up request was successful! Please check your e-mail inbox.',
-				'text_error' => 'Oops. Something went wrong. Please try again later.',
-				'text_invalid_email' => 'Please provide a valid email address.',
-				'text_already_subscribed' => "Given email address is already subscribed, thank you!",
-				'text_invalid_captcha' => 'Please complete the CAPTCHA.',
+				'text_success' => __( 'Thank you, your sign-up request was successful! Please check your e-mail inbox.', 'mailchimp-for-wp' ),
+				'text_error' => __( 'Oops. Something went wrong. Please try again later.', 'mailchimp-for-wp' ),
+				'text_invalid_email' => __( 'Please provide a valid email address.', 'mailchimp-for-wp' ),
+				'text_already_subscribed' => __( 'Given email address is already subscribed, thank you!', 'mailchimp-for-wp' ),
+				'text_invalid_captcha' => __( 'Please complete the CAPTCHA.', 'mailchimp-for-wp' ),
 				'redirect' => '',
 				'lists' => array(),
 				'double_optin' => 1,

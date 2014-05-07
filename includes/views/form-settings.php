@@ -6,7 +6,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 } ?>
 <div id="mc4wp-<?php echo $tab; ?>" class="wrap mc4wp-settings">
 
-	<h2><img src="<?php echo MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png'; ?>" /> MailChimp for WordPress: <?php _e( 'Form Settings', 'mailchimp-for-wp' ); ?></h2>
+	<h2><img src="<?php echo MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png'; ?>" /> <?php _e( 'MailChimp for WordPress', 'mailchimp-for-wp' ); ?>: <?php _e( 'Form Settings', 'mailchimp-for-wp' ); ?></h2>
 
 	<div id="mc4wp-content">
 
@@ -21,7 +21,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 				<table class="form-table">
 
 					<tr valign="top">
-						<th scope="row"><label for="mc4wp_load_stylesheet_select"><?php _e( 'Load form styles?' ,'mailchimp-for-wp' ); ?></label></th>
+						<th scope="row"><label for="mc4wp_load_stylesheet_select"><?php _e( 'Load form styles (CSS)?' ,'mailchimp-for-wp' ); ?></label></th>
 						<td class="nowrap valigntop">
 							<select name="mc4wp_lite_form[css]" id="mc4wp_load_stylesheet_select">
 								<option value="0" <?php selected($opts['css'], 0); ?>><?php _e( 'No' ); ?></option>
@@ -42,7 +42,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row">MailChimp list(s)</th>
+						<th scope="row"><?php _e( 'Lists this form subscribes to', 'mailchimp-for-wp' ); ?></th>
 					<?php // loop through lists
 					if( empty( $lists ) ) {
 						?><td colspan="2"><?php printf( __( 'No lists found, %sare you connected to MailChimp?%s', 'mailchimp-for-wp' ), '<a href="'. admin_url( 'admin.php?page=mc4wp-lite' ) .'">', '</a>' ); ?></td><?php
@@ -64,7 +64,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 					</tr>
 					<tr valign="top">
 						<td colspan="3">
-							<h4>Form mark-up</h4>
+							<h4><?php _e( 'Form mark-up', 'mailchimp-for-wp' ); ?></h4>
 							<div class="mc4wp-wrapper">
 								<div class="mc4wp-col mc4wp-first">
 									<?php 
@@ -73,8 +73,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 									} else {
 										?><textarea class="widefat" cols="160" rows="20" id="mc4wpformmarkup" name="mc4wp_lite_form[markup]"><?php echo esc_textarea($opts['markup']); ?></textarea><?php
 									} ?>
-									<p class="help"><?php printf( __( 'To display your sign-up form, paste %s inside the contents of a post, page or text widget.', 'mailchimp-for-wp' ), '<input type="text" onfocus="this.select();" readonly="readonly" value="[mc4wp_form]" size="12" class="mc4wp-shortcode-example">' ); ?></p>
-
+									<p class="mc4wp-form-usage"><?php printf( __( 'Use the shortcode %s to display this form inside a post, page or text widget.' ,'mailchimp-for-wp' ), '<input type="text" onfocus="this.select();" readonly="readonly" value="[mc4wp_form]" class="mc4wp-shortcode-example">' ); ?></p>
 								</div>
 
 								<div class="mc4wp-col mc4wp-last">
@@ -88,15 +87,15 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 	<?php submit_button(); ?>
 
-		<h3 class="mc4wp-title">MailChimp <?php _e( 'Settings' ); ?></h3>
+		<h3 class="mc4wp-title"><?php _e( 'MailChimp Settings', 'mailchimp-for-wp' ); ?></h3>
 		<table class="form-table">
 			<tr valign="top">
-				<th scope="row">Double opt-in?</th>
+				<th scope="row"><?php _e( 'Double opt-in?', 'mailchimp-for-wp' ); ?></th>
 				<td class="nowrap"><input type="radio" id="mc4wp_form_double_optin_1" name="mc4wp_lite_form[double_optin]" value="1" <?php checked( $opts['double_optin'], 1 ); ?> /> <label for="mc4wp_form_double_optin_1"><?php _e( 'Yes' ); ?></label> &nbsp; <input type="radio" id="mc4wp_form_double_optin_0" name="mc4wp_lite_form[double_optin]" value="0" <?php checked( $opts['double_optin'], 0); ?> /> <label for="mc4wp_form_double_optin_0"><?php _e( 'No' ); ?></label></td>
 				<td class="desc"><?php _e( 'Select "yes" if you want people to confirm their email address before being subscribed (recommended)', 'mailchimp-for-wp' ); ?></td>
 			</tr>
 			<tr class="pro-feature" valign="top">
-				<th scope="row">Send Welcome Email?</th>
+				<th scope="row"><?php _e( 'Send Welcome Email?', 'mailchimp-for-wp' ); ?></th>
 				<td class="nowrap">
 					<input type="radio" readonly /> 
 					<label><?php _e( "Yes" ); ?></label> &nbsp;
@@ -106,7 +105,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 				<td class="desc"><?php _e( 'Select "yes" if you want to send your lists Welcome Email if a subscribe succeeds (only when double opt-in is disabled).' ,'mailchimp-for-wp' ); ?></td>
 			</tr>
 			<tr class="pro-feature" valign="top">
-				<th scope="row">Update existing subscribers?</th>
+				<th scope="row"><?php _e( 'Update existing subscribers?', 'mailchimp-for-wp' ); ?></th>
 				<td class="nowrap">
 					<input type="radio" readonly /> 
 					<label><?php _e("Yes"); ?></label> &nbsp; 
@@ -116,7 +115,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 				<td class="desc"><?php _e( 'Select "yes" if you want to update existing subscribers (instead of showing the "already subscribed" message).', 'mailchimp-for-wp' ); ?></td>
 			</tr>
 			<tr class="pro-feature" valign="top">
-				<th scope="row">Replace interest groups?</th>
+				<th scope="row"><?php _e( 'Replace interest groups?', 'mailchimp-for-wp' ); ?></th>
 				<td class="nowrap">
 					<input type="radio" checked readonly /> 
 					<label><?php _e("Yes"); ?></label> &nbsp; 
@@ -131,16 +130,16 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 		<table class="form-table mc4wp-form-messages">
 			<tr valign="top" class="pro-feature">
-				<th scope="row">Enable AJAX?</th>
+				<th scope="row"><?php _e( 'Enable AJAX?', 'mailchimp-for-wp' ); ?></th>
 				<td class="nowrap">
 					<input type="radio" readonly /> <label><?php _e("Yes"); ?></label> &nbsp; 
 					<input type="radio" checked readonly /> <label><?php _e("No"); ?></label>
 				</td>
-				<td class="desc"><?php _e( 'Select "yes" if you want to use AJAX (JavaScript) to submit forms.', 'mailchimp-for-wp' ); ?> <a href="http://dannyvankooten.com/mailchimp-for-wordpress/demo/?utm_source=lite-plugin&utm_medium=link&utm_campaign=settings-demo-link">(demo)</a></td>
+				<td class="desc"><?php _e( 'Select "yes" if you want to use AJAX (JavaScript) to submit forms.', 'mailchimp-for-wp' ); ?> <a href="http://dannyvankooten.com/mailchimp-for-wordpress/demo/#utm_source=lite-plugin&utm_medium=link&utm_campaign=settings-demo-link">(demo)</a></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="mc4wp_form_hide_after_success"><?php _e( 'Hide form after a successful sign-up?', 'mailchimp-for-wp' ); ?></label></th>
-				<td class="nowrap"><input type="radio" id="mc4wp_form_hide_after_success_1" name="mc4wp_lite_form[hide_after_success]" value="1" <?php if($opts['hide_after_success'] == 1) echo 'checked="checked"'; ?> /> <label for="mc4wp_form_hide_after_success_1">Yes</label> &nbsp; <input type="radio" id="mc4wp_form_hide_after_success_0" name="mc4wp_lite_form[hide_after_success]" value="0" <?php if($opts['hide_after_success'] == 0) echo 'checked="checked"'; ?> /> <label for="mc4wp_form_hide_after_success_0">No</label></td>
+				<td class="nowrap"><input type="radio" id="mc4wp_form_hide_after_success_1" name="mc4wp_lite_form[hide_after_success]" value="1" <?php if($opts['hide_after_success'] == 1) echo 'checked="checked"'; ?> /> <label for="mc4wp_form_hide_after_success_1"><?php _e( 'Yes'); ?></label> &nbsp; <input type="radio" id="mc4wp_form_hide_after_success_0" name="mc4wp_lite_form[hide_after_success]" value="0" <?php if($opts['hide_after_success'] == 0) echo 'checked="checked"'; ?> /> <label for="mc4wp_form_hide_after_success_0"><?php _e( 'No' ); ?></label></td>
 				<td class="desc"><?php _e( 'Select "yes" to hide the form fields after a successful sign-up.', 'mailchimp-for-wp' ); ?></td>
 			</tr>
 			<tr valign="top">
@@ -199,49 +198,49 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 		<p>The <a href="http://wordpress.org/plugins/mailchimp-for-wp/faq/" target="_blank">FAQ</a> lists the various CSS selectors you can use to target the different elements.</p>
 		
-		<h3 class="mc4wp-title">Form variables</h3>
-		<p>Use the following variables to add some dynamic content to your form.</p>
+		<h3 class="mc4wp-title"><?php _e( 'Form variables', 'mailchimp-for-wp' ); ?></h3>
+		<p><?php _e( 'Use the following variables to add some dynamic content to your form.', 'mailchimp-for-wp' ); ?></p>
 
 		<table class="mc4wp-help">
 			<tr>
 				<th>{subscriber_count}</th>
-				<td>Replaced with the number of subscribers on the selected list(s).</td>
+				<td><?php _e( 'Replaced with the number of subscribers on the selected list(s)', 'mailchimp-for-wp' ); ?></td>
 			</tr>
 			<tr>
 				<th>{ip}</th>
-				<td>Replaced with the visitor's IP address.</td>
+				<td><?php _e( 'Replaced with the visitor\'s IP address', 'mailchimp-for-wp' ); ?></td>
 			</tr>
 			<tr>
 				<th>{date}</th>
-				<td>Replaced with the current date (yyyy/mm/dd eg: <?php echo date("Y/m/d"); ?>)</td>
+				<td><?php printf( __( 'Replaced with the current date (yyyy/mm/dd eg: %s)', 'mailchimp-for-wp' ), date("Y/m/d") ); ?></td>
 			</tr>
 			<tr>
 				<th>{time}</th>
-				<td>Replaced with the current time (hh:mm:ss eg: <?php echo date("H:i:s"); ?>)</td>
+				<td><?php printf( __( 'Replaced with the current time (hh:mm:ss eg: %s)', 'mailchimp-for-wp' ), date("H:i:s") ); ?></td>
 			</tr>
 			<tr>
 				<th>{user_email}</th>
-				<td>Replaced with the logged in user's email (or nothing, if there is no logged in user).</td>
+				<td><?php _e( 'Replaced with the logged in user\'s email (or nothing, if there is no logged in user)', 'mailchimp-for-wp' ); ?></td>
 			</tr>
 			<tr>
 				<th>{user_name}</th>
-				<td>Display name of the current user</td>
+				<td><?php _e( 'Display name of the current user', 'mailchimp-for-wp' ); ?></td>
 			</tr>
 			<tr>
 				<th>{user_firstname}</th>
-				<td>First name of the current user</td>
+				<td><?php _e( 'First name of the current user', 'mailchimp-for-wp' ); ?></td>
 			</tr>
 			<tr>
 				<th>{user_lastname}</th>
-				<td>Last name of the current user</td>
+				<td><?php _e( 'Last name of the current user', 'mailchimp-for-wp' ); ?></td>
 			</tr>
 			<tr>
 				<th>{user_id}</th>
-				<td>Current user ID</td>
+				<td><?php _e( 'Current user ID', 'mailchimp-for-wp' ); ?></td>
 			</tr>
 			<tr>
 				<th>{current_url}</th>
-				<td>Current URL</td>
+				<td><?php _e( 'Current URL', 'mailchimp-for-wp' ); ?></td>
 			</tr>
 		</table>
 	</div>

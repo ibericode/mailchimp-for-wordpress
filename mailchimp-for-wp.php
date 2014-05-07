@@ -6,6 +6,8 @@ Description: Lite version of MailChimp for WordPress. Adds various sign-up metho
 Version: 2.0
 Author: Danny van Kooten
 Author URI: http://dannyvankooten.com
+Text Domain: mailchimp-for-wp
+Domain Path: /languages
 License: GPL v3
 
 MailChimp for WordPress

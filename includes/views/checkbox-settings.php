@@ -8,7 +8,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 ?>
 <div id="mc4wp-<?php echo $tab; ?>" class="wrap mc4wp-settings">
 
-	<h2><img src="<?php echo MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png'; ?>" /> MailChimp for WordPress: Checkbox <?php _e( 'Settings' ); ?></h2>
+	<h2><img src="<?php echo MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png'; ?>" /> <?php _e( 'MailChimp for WordPress', 'mailchimp-for-wp' ); ?>: <?php _e( 'Checkbox Settings', 'mailchimp-for-wp' ); ?></h2>
 	
 	<div id="mc4wp-content">
 
@@ -28,7 +28,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 			<table class="form-table">
 				<tr valign="top">
-					<th scope="row">MailChimp list(s)</th>
+					<th scope="row"><?php _e( 'MailChimp Lists', 'mailchimp-for-wp' ); ?></th>
 					
 					<?php // loop through lists
 					if( ! $lists || empty( $lists ) ) {
@@ -45,8 +45,8 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 					?>
 				</tr>
 				<tr valign="top">
-					<th scope="row">Double opt-in?</th>
-					<td class="nowrap"><label><input type="radio" name="mc4wp_lite_checkbox[double_optin]" value="1" <?php checked($opts['double_optin'], 1); ?> /> Yes</label> &nbsp; <label><input type="radio" id="mc4wp_checkbox_double_optin_0" name="mc4wp_lite_checkbox[double_optin]" value="0" <?php checked($opts['double_optin'], 0); ?> /> No</label></td>
+					<th scope="row"><?php _e( 'Double opt-in?', 'mailchimp-for-wp' ); ?></th>
+					<td class="nowrap"><label><input type="radio" name="mc4wp_lite_checkbox[double_optin]" value="1" <?php checked($opts['double_optin'], 1); ?> /> <?php _e( 'Yes' ); ?></label> &nbsp; <label><input type="radio" id="mc4wp_checkbox_double_optin_0" name="mc4wp_lite_checkbox[double_optin]" value="0" <?php checked($opts['double_optin'], 0); ?> /> <?php _e( 'No' ); ?></label></td>
 					<td class="desc"><?php _e( 'Select "yes" if you want people to confirm their email address before being subscribed (recommended)', 'mailchimp-for-wp' ); ?></td>
 				</tr>
 			</table>
