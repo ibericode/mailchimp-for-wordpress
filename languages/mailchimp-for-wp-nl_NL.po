@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"POT-Creation-Date: 2014-05-07 19:45+0100\n"
-"PO-Revision-Date: 2014-05-07 22:55+0100\n"
+"POT-Creation-Date: 2014-05-14 22:11+0100\n"
+"PO-Revision-Date: 2014-05-14 22:19+0100\n"
 "Last-Translator: Danny <hi@dannyvankooten.com>\n"
 "Language-Team: Danny van Kooten <hi@dannyvankooten.com>\n"
 "Language: en_EN\n"
@@ -56,7 +56,6 @@ msgid "Form saved."
 msgstr "Formulier opgeslagen"
 
 #: ../includes/class-admin.php:321
-#, fuzzy
 msgid "Form settings"
 msgstr "Formulier Instellingen"
 
@@ -172,6 +171,44 @@ msgstr ""
 "Het is niet gelukt om de MailChimp cache te legen - probeer het alsjeblieft "
 "later opnieuw."
 
+#: ../includes/class-form-manager.php:248
+#, php-format
+msgid "<strong>Error:</strong> Please specify a form ID. Example: %s."
+msgstr "<strong>Fout:</strong> Geef aub een formulier ID in. Example: %s"
+
+#: ../includes/class-form-manager.php:261
+msgid ""
+"<strong>Error:</strong> Sign-up form not found. Please check if you used the "
+"correct form ID."
+msgstr ""
+"<strong>Fout:</strong> Inschrijfformulier niet gevonden. Check aub of je het "
+"correcte formulier ID gebruikt hebt."
+
+#: ../includes/class-form-manager.php:370
+#, php-format
+msgid ""
+"<strong>Admin notice:</strong> you have not yet selected a MailChimp list(s) "
+"for this form. <a target=\"_top\" href=\"%s\">Edit this sign-up form</a> and "
+"select at least one list."
+msgstr ""
+"<strong>Admin melding:</strong> je hebt nog geen MailChimp lijst(en) "
+"geselecteerd voor dit formulier. <a target=\"_top\" href=\"%s\">Wijzig dit "
+"formulier</a> en selecteer ten minste 1 lijst."
+
+#: ../includes/class-form-manager.php:833
+msgid "New Sign-Up"
+msgstr "Nieuwe inschrijving"
+
+#: ../includes/class-form-manager.php:834
+#, php-format
+msgid "<strong>%s</strong> signed-up at %s on %s using the form \"%s\"."
+msgstr ""
+"<strong>%s</strong> schreef zich om %s op %s in met het formulier \"%s\""
+
+#: ../includes/class-form-manager.php:873
+msgid "This email was auto-sent by the MailChimp for WordPress plugin."
+msgstr "Deze email is gestuurd door de MailChimp for WordPress plugin."
+
 #: ../includes/class-widget.php:20
 msgid "MailChimp for WP Form"
 msgstr "MailChimp voor WP formulier"
@@ -180,17 +217,35 @@ msgstr "MailChimp voor WP formulier"
 msgid "Displays one of your MailChimp for WordPress sign-up forms"
 msgstr "Toont een van je MailChimp for WordPress inschrijfformulieren"
 
-#: ../includes/class-widget.php:71
+#: ../includes/class-widget.php:39
+#, php-format
+msgid ""
+"Please select the sign-up form you'd like to show here in the <a href=\"%s"
+"\">widget settings</a>."
+msgstr ""
+"Selecteer aub het inschrijfformulier dat je hier wilt laten zien in de <a "
+"href=\"%s\">widget instellingen</a>."
+
+#: ../includes/class-widget.php:68
 msgid "Newsletter"
 msgstr "Nieuwsbrief"
 
-#: ../includes/class-widget.php:80
+#: ../includes/class-widget.php:79
 msgid "Title:"
 msgstr "Titel:"
 
-#: ../includes/class-widget.php:84
+#: ../includes/class-widget.php:83
 msgid "Form:"
 msgstr "Formulier:"
+
+#: ../includes/class-widget.php:85
+msgid "Select the form to show"
+msgstr "Selecteer het formulier om te tonen"
+
+#: ../includes/class-widget.php:93
+#, php-format
+msgid "You don't have any sign-up forms. <a href=\"%s\">Create one now.</a>"
+msgstr "Je hebt nog geen inschrijfformulieren. <a href=\"%s\">Maak er een.</a>"
 
 #: ../includes/functions/general.php:20
 msgid "Sign me up for the newsletter!"
@@ -235,6 +290,8 @@ msgstr "Vul aub een geldige CAPTCHA in."
 #: ../includes/views/tabs/admin-forms-general-settings.php:69
 #: ../includes/views/tabs/admin-forms-general-settings.php:79
 #: ../includes/views/tabs/admin-forms-general-settings.php:90
+#: ../includes/views/tabs/admin-forms-general-settings.php:104
+#: ../includes/views/tabs/admin-forms-general-settings.php:109
 msgid "Yes"
 msgstr "Ja"
 
@@ -255,6 +312,8 @@ msgstr "Ja"
 #: ../includes/views/tabs/admin-forms-general-settings.php:71
 #: ../includes/views/tabs/admin-forms-general-settings.php:81
 #: ../includes/views/tabs/admin-forms-general-settings.php:92
+#: ../includes/views/tabs/admin-forms-general-settings.php:104
+#: ../includes/views/tabs/admin-forms-general-settings.php:109
 msgid "No"
 msgstr "Nee"
 
@@ -412,9 +471,8 @@ msgid "%sRenew your license now%s."
 msgstr "%sVernieuw je licentie nu%s"
 
 #: ../includes/tables/class-forms-table.php:19
-#, fuzzy
 msgid "Sign-Up Form"
-msgstr "MailChimp inschrijfformulier"
+msgstr "Inschrijfformulier"
 
 #: ../includes/tables/class-forms-table.php:20
 msgid "Sign-up Forms"
@@ -740,9 +798,8 @@ msgid "MailChimp for WordPress"
 msgstr "MailChimp voor WordPress"
 
 #: ../includes/views/pages/admin-checkbox-settings.php:11
-#, fuzzy
 msgid "Checkbox Settings"
-msgstr "Checkbox instellingen"
+msgstr "Checkbox Instellingen"
 
 #: ../includes/views/pages/admin-checkbox-settings.php:14
 msgid ""
@@ -887,7 +944,6 @@ msgid "Renew MailChimp lists"
 msgstr "Vernieuw MailChimp lijsten"
 
 #: ../includes/views/pages/admin-general-settings.php:120
-#, fuzzy
 msgid "No lists were found in your MailChimp account."
 msgstr "Er zijn geen lijsten gevonden in je MailChimp account."
 
@@ -981,7 +1037,6 @@ msgid "Load form styles (CSS)?"
 msgstr "Laad formulier stijlen (CSS)?"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:23
-#, fuzzy
 msgid "Yes, load basic form styles"
 msgstr "Ja, laad standaard formulier stijlen"
 
@@ -994,32 +1049,26 @@ msgid "Yes, load default form theme"
 msgstr "Ja, laad 'n standaard thema"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:26
-#, fuzzy
 msgid "Light Theme"
 msgstr "Licht Thema"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:27
-#, fuzzy
 msgid "Red Theme"
 msgstr "Rood Thema"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:28
-#, fuzzy
 msgid "Green Theme"
 msgstr "Groen Thema"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:29
-#, fuzzy
 msgid "Blue Theme"
 msgstr "Blauw Thema"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:30
-#, fuzzy
 msgid "Dark Theme"
 msgstr "Donker Thema"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:31
-#, fuzzy
 msgid "Custom Color Theme"
 msgstr "Aangepaste Kleur Thema"
 

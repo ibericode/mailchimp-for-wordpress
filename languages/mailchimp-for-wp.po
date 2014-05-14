@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"POT-Creation-Date: 2014-05-07 22:48+0100\n"
-"PO-Revision-Date: 2014-05-07 22:48+0100\n"
+"POT-Creation-Date: 2014-05-14 22:11+0100\n"
+"PO-Revision-Date: 2014-05-14 22:11+0100\n"
 "Last-Translator: Danny <hi@dannyvankooten.com>\n"
 "Language-Team: Danny van Kooten <hi@dannyvankooten.com>\n"
 "Language: en_EN\n"
@@ -156,6 +156,38 @@ msgstr ""
 msgid "Failed to renew MailChimp cache - please try again later."
 msgstr ""
 
+#: ../includes/class-form-manager.php:248
+#, php-format
+msgid "<strong>Error:</strong> Please specify a form ID. Example: %s."
+msgstr ""
+
+#: ../includes/class-form-manager.php:261
+msgid ""
+"<strong>Error:</strong> Sign-up form not found. Please check if you used the "
+"correct form ID."
+msgstr ""
+
+#: ../includes/class-form-manager.php:370
+#, php-format
+msgid ""
+"<strong>Admin notice:</strong> you have not yet selected a MailChimp list(s) "
+"for this form. <a target=\"_top\" href=\"%s\">Edit this sign-up form</a> and "
+"select at least one list."
+msgstr ""
+
+#: ../includes/class-form-manager.php:833
+msgid "New Sign-Up"
+msgstr ""
+
+#: ../includes/class-form-manager.php:834
+#, php-format
+msgid "<strong>%s</strong> signed-up at %s on %s using the form \"%s\"."
+msgstr ""
+
+#: ../includes/class-form-manager.php:873
+msgid "This email was auto-sent by the MailChimp for WordPress plugin."
+msgstr ""
+
 #: ../includes/class-widget.php:20
 msgid "MailChimp for WP Form"
 msgstr ""
@@ -164,16 +196,32 @@ msgstr ""
 msgid "Displays one of your MailChimp for WordPress sign-up forms"
 msgstr ""
 
-#: ../includes/class-widget.php:71
+#: ../includes/class-widget.php:39
+#, php-format
+msgid ""
+"Please select the sign-up form you'd like to show here in the <a href=\"%s"
+"\">widget settings</a>."
+msgstr ""
+
+#: ../includes/class-widget.php:68
 msgid "Newsletter"
 msgstr ""
 
-#: ../includes/class-widget.php:80
+#: ../includes/class-widget.php:79
 msgid "Title:"
 msgstr ""
 
-#: ../includes/class-widget.php:84
+#: ../includes/class-widget.php:83
 msgid "Form:"
+msgstr ""
+
+#: ../includes/class-widget.php:85
+msgid "Select the form to show"
+msgstr ""
+
+#: ../includes/class-widget.php:93
+#, php-format
+msgid "You don't have any sign-up forms. <a href=\"%s\">Create one now.</a>"
 msgstr ""
 
 #: ../includes/functions/general.php:20
@@ -218,6 +266,8 @@ msgstr ""
 #: ../includes/views/tabs/admin-forms-general-settings.php:69
 #: ../includes/views/tabs/admin-forms-general-settings.php:79
 #: ../includes/views/tabs/admin-forms-general-settings.php:90
+#: ../includes/views/tabs/admin-forms-general-settings.php:104
+#: ../includes/views/tabs/admin-forms-general-settings.php:109
 msgid "Yes"
 msgstr ""
 
@@ -238,6 +288,8 @@ msgstr ""
 #: ../includes/views/tabs/admin-forms-general-settings.php:71
 #: ../includes/views/tabs/admin-forms-general-settings.php:81
 #: ../includes/views/tabs/admin-forms-general-settings.php:92
+#: ../includes/views/tabs/admin-forms-general-settings.php:104
+#: ../includes/views/tabs/admin-forms-general-settings.php:109
 msgid "No"
 msgstr ""
 

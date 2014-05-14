@@ -150,8 +150,26 @@ class MC4WP_Lite_Admin
 	public function validate_form_settings( $settings ) {
 
 		if( isset( $settings['markup'] ) ) {
+
 			// strip form tags (to prevent people from adding them)
 			$settings['markup'] = preg_replace( '/<\/?form(.|\s)*?>/i', '', $settings['markup'] );
+
+			// check if form contains EMAIL field
+			// <(input|textarea)(?=[^>]*name="EMAIL")[^>]*>
+			$search = preg_match( '/<(input|textarea)(?=[^>]*name="EMAIL")[^>]*>/i', $settings['markup'] );
+			if( ! $search) {
+				add_settings_error( 'mc4wp', 'mc4wp-form', sprintf( __( 'Your form should contain an EMAIL field. Example: <code>%s</code>', 'mailchimp-for-wp' ), '&lt;input type="email" name="EMAIL" /&gt;' ), 'updated' );
+			}
+
+			// check if form contains submit button
+			// <(input|button)(?=[^>]*type="submit")[^>]*>
+			$search = preg_match( '/<(input|button)(?=[^>]*type="submit")[^>]*>/i', $settings['markup'] );
+			if( ! $search ) {
+				add_settings_error( 'mc4wp', 'mc4wp-form', sprintf( __( 'Your form should contain a submit button. Example: <code>%s</code>', 'mailchimp-for-wp' ), '&lt;input type="submit" value="'. __( 'Sign Up', 'mailchimp-for-wp' ) .'" /&gt;' ), 'updated' );
+			}
+
+			// TODO: Check if form contains all the required form fields
+
 		}
 
 		return $settings;

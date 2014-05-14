@@ -83,7 +83,7 @@ class MC4WP_Lite_Form_Manager {
             return false;
         }
 
-        if( $opts['css'] != 1 && $opts['css'] != 'default' ) {
+        if( $opts['css'] != 1 && $opts['css'] !== 'default' ) {
 
             $form_theme = $opts['css'];
             if( in_array( $form_theme, array( 'blue', 'green', 'dark', 'light', 'red' ) ) ) {
@@ -459,7 +459,7 @@ class MC4WP_Lite_Form_Manager {
 		}
 
 		$api = mc4wp_get_api();
-		$opts = mc4wp_get_options('form');
+		$opts = mc4wp_get_options( 'form' );
 
 		$lists = $this->get_lists();
 
@@ -476,13 +476,13 @@ class MC4WP_Lite_Form_Manager {
 
 		foreach ( $lists as $list_id ) {
 			// allow plugins to alter merge vars for each individual list
-			$list_merge_vars = apply_filters('mc4wp_merge_vars', $merge_vars, 0, $list_id);
+			$list_merge_vars = apply_filters( 'mc4wp_merge_vars', $merge_vars, 0, $list_id );
 
 			// send a subscribe request to MailChimp for each list
 			$result = $api->subscribe( $list_id, $email, $list_merge_vars, $email_type, $opts['double_optin'] );
 		}
 
-		do_action('mc4wp_after_subscribe', $email, $merge_vars, 0, $result);
+		do_action( 'mc4wp_after_subscribe', $email, $merge_vars, 0, $result );
 
 		if ( $result !== true ) {
 			// subscribe request failed, store error.
@@ -494,12 +494,6 @@ class MC4WP_Lite_Form_Manager {
 		// store user email in a cookie
 		$this->set_email_cookie( $email );
 
-		/**
-		* @deprecated Don't use, will be removed in v2.0
-		*/
-		$from_url = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : '';
-		do_action('mc4wp_subscribe_form', $email, $list_id, 0, $merge_vars, $from_url); 
-		
 		// Store success result
 		$this->success = true;
 
@@ -544,7 +538,7 @@ class MC4WP_Lite_Form_Manager {
 
 			// make sure lists is an array
 			if( ! is_array( $lists ) ) {
-				$lists = array( $lists );
+				$lists = array( trim( $lists ) );
 			}
 
 		}

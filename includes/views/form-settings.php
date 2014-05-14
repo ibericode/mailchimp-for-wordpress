@@ -4,7 +4,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
 } ?>
-<div id="mc4wp-<?php echo $tab; ?>" class="wrap mc4wp-settings">
+<div id="mc4wp-<?php echo esc_attr( $tab ); ?>" class="wrap mc4wp-settings">
 
 	<h2><img src="<?php echo MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png'; ?>" /> <?php _e( 'MailChimp for WordPress', 'mailchimp-for-wp' ); ?>: <?php _e( 'Form Settings', 'mailchimp-for-wp' ); ?></h2>
 
@@ -52,7 +52,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 						<?php foreach($lists as $list) { ?>
 							<li>
 								<label>
-									<input type="checkbox" name="mc4wp_lite_form[lists][<?php echo esc_attr($list->id); ?>]" value="<?php echo esc_attr($list->id); ?>" data-list-groupings="<?php echo esc_attr(json_encode($list->interest_groupings)); ?>" data-list-fields="<?php echo esc_attr(json_encode($list->merge_vars)); ?>" <?php if(array_key_exists($list->id, $opts['lists'])) echo 'checked="checked"'; ?>> <?php echo esc_html( $list->name ); ?>
+									<input type="checkbox" name="mc4wp_lite_form[lists][<?php echo esc_attr( $list->id ); ?>]" value="<?php echo esc_attr($list->id); ?>" data-list-groupings="<?php echo esc_attr(json_encode($list->interest_groupings)); ?>" data-list-fields="<?php echo esc_attr(json_encode($list->merge_vars)); ?>" <?php if(array_key_exists($list->id, $opts['lists'])) echo 'checked="checked"'; ?>> <?php echo esc_html( $list->name ); ?>
 								</label>
 							</li>
 						<?php } ?>
@@ -130,7 +130,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 		<table class="form-table mc4wp-form-messages">
 			<tr valign="top" class="pro-feature">
-				<th scope="row"><?php _e( 'Enable AJAX?', 'mailchimp-for-wp' ); ?></th>
+				<th scope="row"><?php _e( 'Enable AJAX form submission?', 'mailchimp-for-wp' ); ?></th>
 				<td class="nowrap">
 					<input type="radio" readonly /> <label><?php _e("Yes"); ?></label> &nbsp; 
 					<input type="radio" checked readonly /> <label><?php _e("No"); ?></label>

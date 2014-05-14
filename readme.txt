@@ -1,10 +1,10 @@
 === MailChimp for WordPress ===
 Contributors: DvanKooten
-Donate link: http://dannyvankooten.com/donate/
+Donate link: http://dannyvankooten.com/mailchimp-for-wordpress/
 Tags: mailchimp,form,shortcode,widget,checkbox,comment,newsletter,buddypress,multisite,bbpress,woocommerce,easy digital downloads,contact form,contact form 7
 Requires at least: 3.5
-Tested up to: 3.9
-Stable tag: 2.0
+Tested up to: 3.9.1
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -210,12 +210,17 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Changelog ==
 
-= Trunk =
+= 2.0.1 =
 
 **Improvements**
 
-- More translatable strings.
+- Allowed translation of more strings in the settings screens.
 - Added Spanish translations, thanks [Paul Benitez - Tecnofilos](http://www.tecnofilos.net/)
+- Minor code improvements
+
+**Additions**
+
+- Saving forms without an `EMAIL` field or submit button will show a notice.
 
 = 2.0 - April 29, 2014 =
 
@@ -391,5 +396,5 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Upgrade Notice ==
 
-= 2.0 =
-Support for Captcha's, translated settings pages, improved CSS serving and various code improvements.
+= 2.0.1 =
+Added Spanish translation and updated others. Minor code & usability improvements.
