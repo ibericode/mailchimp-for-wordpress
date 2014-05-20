@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "POT-Creation-Date: 2014-05-14 22:19+0100\n"
-"PO-Revision-Date: 2014-05-14 22:19+0100\n"
+"PO-Revision-Date: 2014-05-19 12:38+0100\n"
 "Last-Translator: Danny <hi@dannyvankooten.com>\n"
 "Language-Team: Danny van Kooten <hi@dannyvankooten.com>\n"
 "Language: en_EN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.5\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: ..\n"
@@ -20,23 +20,23 @@ msgstr "Configuración"
 
 #: ../includes/class-admin.php:197
 msgid "Documentation"
-msgstr ""
+msgstr "Documentacion"
 
 #: ../includes/class-admin.php:209
 msgid "Save Form"
-msgstr ""
+msgstr "Guardar formulario"
 
 #: ../includes/class-admin.php:211
 msgid "Update Form"
-msgstr ""
+msgstr "Actualizar formulario"
 
 #: ../includes/class-admin.php:248
 msgid "Your email address"
-msgstr "Tu dirección de correo"
+msgstr "Tu dirección de correo electrónico"
 
 #: ../includes/class-admin.php:249
 msgid "Email address"
-msgstr "Tu dirección de correo"
+msgstr "Dirección de correo electrónico"
 
 #: ../includes/class-admin.php:250
 msgid "Sign up"
@@ -44,33 +44,33 @@ msgstr "Registro"
 
 #: ../includes/class-admin.php:261
 msgid "Back to general form settings"
-msgstr ""
+msgstr "Volver a las opciones de configuracion generales"
 
 #: ../includes/class-admin.php:263
 msgid "Form updated."
-msgstr ""
+msgstr "Formulario actualizado."
 
 #: ../includes/class-admin.php:264
 msgid "Form saved."
-msgstr ""
+msgstr "Formulario guardado."
 
 #: ../includes/class-admin.php:321
-#, fuzzy
 msgid "Form settings"
-msgstr "Ajustes del formulario"
+msgstr "Ajustes de formularios"
 
 #: ../includes/class-admin.php:322
-#, fuzzy
 msgid "Optional settings"
-msgstr "Ajustes del formulario"
+msgstr "Ajustes opcionales"
 
 #: ../includes/class-admin.php:323
 msgid "Form variables"
-msgstr ""
+msgstr "Variables de formulario."
 
 #: ../includes/class-admin.php:357
 msgid "Use the following variables to add some dynamic content to your form."
 msgstr ""
+"Utiliza las siguientes variables para añadir algo de contenido dinámico a tu "
+"formulario"
 
 #: ../includes/class-admin.php:497
 #, php-format
@@ -78,11 +78,14 @@ msgid ""
 "Couldn't create the stylesheet. Manually add the generated CSS to your theme "
 "stylesheet by using the %sTheme Editor%s or use FTP and edit <em>%s</em>."
 msgstr ""
+"No se pudo crear la hoja de estilo. Agrega manualmente el CSS generado a tu "
+"hoja de estilo del tema utilizando el %sEditor del Temas%s s o utiliza FTP y "
+"edita <em>%s</ em>."
 
 #: ../includes/class-admin.php:498
 #, php-format
 msgid "%sShow CSS%s"
-msgstr ""
+msgstr "%sMostrar CSS%s"
 
 #: ../includes/class-admin.php:507
 #, php-format
@@ -90,31 +93,31 @@ msgid ""
 "To apply these styles on your website, select \"load custom form styles\" in "
 "the %sform settings%s"
 msgstr ""
+"Para aplicar estos estilos en tu sitio web, selecciona \"cargar estilos de "
+"formulario personalizado\" en los %sajustes de formulario%s"
 
 #: ../includes/class-admin.php:508
 #, php-format
 msgid "The %sCSS Stylesheet%s has been created."
-msgstr ""
+msgstr "La  %shoja de estilos CSS%s ha sido creada."
 
 #: ../includes/class-admin.php:524
-#, fuzzy
 msgid "General Settings"
-msgstr "Ajustes del formulario"
+msgstr "Ajustes generales"
 
 #: ../includes/class-admin.php:525
-#, fuzzy
 msgid "Checkboxes"
-msgstr "Configuración de las casillas de verificación"
+msgstr "Casillas de verificación"
 
 #: ../includes/class-admin.php:526
 #: ../includes/views/pages/admin-form-settings.php:10
 msgid "Forms"
-msgstr ""
+msgstr "Formularios"
 
 #: ../includes/class-admin.php:527
 #: ../includes/views/pages/admin-reports.php:10
 msgid "Reports"
-msgstr ""
+msgstr "Informes"
 
 #: ../includes/class-admin.php:596
 msgid "Comment form"
@@ -135,7 +138,7 @@ msgstr "Regitro BuddyPress"
 #: ../includes/class-admin.php:613 ../includes/class-admin.php:617
 #, php-format
 msgid "%s checkout"
-msgstr ""
+msgstr "verificación de %s"
 
 #: ../includes/class-admin.php:653
 #, php-format
@@ -143,6 +146,8 @@ msgid ""
 "Please make sure the plugin is connected to MailChimp. <a href=\"%s"
 "\">Provide a valid API key.</a>"
 msgstr ""
+"Por favor, asegúrrate de que el plugin está conectado a MailChimp. <a href="
+"\"%s\"> Proporciona una clave de API válida. </a>"
 
 #: ../includes/class-admin.php:792
 #, php-format
@@ -151,11 +156,13 @@ msgid ""
 "settings you had set in the Lite version, please <a href=\"%s\">deactivate "
 "it now</a> to prevent problems"
 msgstr ""
+"<strong> ¡Bienvenido a MailChimp para WordPress Pro! </ strong> Hemos "
+"transferido los ajustes que habías establecido en la versión Lite, por favor "
+"<a href=\"%s\">desactívala ahora</a> para evitar problemas."
 
 #: ../includes/class-admin.php:865
-#, fuzzy
 msgid "Renewed MailChimp cache."
-msgstr "Renovar las listas de MailChimp"
+msgstr "Renovar cache de MailChimp"
 
 #: ../includes/class-admin.php:867
 msgid "Failed to renew MailChimp cache - please try again later."
@@ -167,12 +174,16 @@ msgstr ""
 #, php-format
 msgid "<strong>Error:</strong> Please specify a form ID. Example: %s."
 msgstr ""
+"<strong>Error:</strong> Por favor, especifica un ID de formulario. Ejemplo: "
+"%s."
 
 #: ../includes/class-form-manager.php:261
 msgid ""
 "<strong>Error:</strong> Sign-up form not found. Please check if you used the "
 "correct form ID."
 msgstr ""
+"<strong> Error: </strong> formulario de registro no encontrado. Por favor, "
+"comprueba si has utilizado el ID de formulario correcto."
 
 #: ../includes/class-form-manager.php:370
 #, php-format
@@ -181,27 +192,32 @@ msgid ""
 "for this form. <a target=\"_top\" href=\"%s\">Edit this sign-up form</a> and "
 "select at least one list."
 msgstr ""
+"<strong> Aviso Admin: </ strong> que todavía no ha seleccionado una lista de "
+"MailChimp (s) para este formulario. <a target=\"_top\" href=\"%s\"> Editar "
+"este formulario de inscripción </ a> y seleccionar al menos una lista."
 
 #: ../includes/class-form-manager.php:833
 msgid "New Sign-Up"
-msgstr ""
+msgstr "Nuevo registro"
 
 #: ../includes/class-form-manager.php:834
 #, php-format
 msgid "<strong>%s</strong> signed-up at %s on %s using the form \"%s\"."
 msgstr ""
+"<strong>%s</strong> fomulario de alta en %s en %s está utilizando el formato "
+"\"%s \"."
 
 #: ../includes/class-form-manager.php:873
 msgid "This email was auto-sent by the MailChimp for WordPress plugin."
-msgstr ""
+msgstr "Este correo fue auto-enviado por el plugin MailChimp para WordPress"
 
 #: ../includes/class-widget.php:20
 msgid "MailChimp for WP Form"
-msgstr ""
+msgstr "MailChimp para el Formulario de WP"
 
 #: ../includes/class-widget.php:21
 msgid "Displays one of your MailChimp for WordPress sign-up forms"
-msgstr ""
+msgstr "Muestra uno de tus formularios de MailChimp para Wordpress"
 
 #: ../includes/class-widget.php:39
 #, php-format
@@ -209,6 +225,8 @@ msgid ""
 "Please select the sign-up form you'd like to show here in the <a href=\"%s"
 "\">widget settings</a>."
 msgstr ""
+"Por favor, seleccione el formulario de registro que te gustaría mostrar aquí "
+"en los<a href=\"%s\"> ajustes del widget</ a>."
 
 #: ../includes/class-widget.php:68
 msgid "Newsletter"
@@ -220,42 +238,47 @@ msgstr "Título:"
 
 #: ../includes/class-widget.php:83
 msgid "Form:"
-msgstr ""
+msgstr "Fomulario:"
 
 #: ../includes/class-widget.php:85
 msgid "Select the form to show"
-msgstr ""
+msgstr "Seleccione el formulario a mostrar"
 
 #: ../includes/class-widget.php:93
 #, php-format
 msgid "You don't have any sign-up forms. <a href=\"%s\">Create one now.</a>"
 msgstr ""
+"No tienes ningún formulario de inscripción. <a href=\"%s\">Crea uno ahora.</ "
+"a>"
 
 #: ../includes/functions/general.php:20
 msgid "Sign me up for the newsletter!"
-msgstr ""
+msgstr "¡Suscríbeme a la lista de suscriptores!"
 
 #: ../includes/functions/general.php:42
 msgid ""
 "Thank you, your sign-up request was successful! Please check your e-mail "
 "inbox."
 msgstr ""
+"Gracias, su solicitud de inscripción se ha realizado correctamente! Por "
+"favor, revise su buzón de correo electrónico."
 
 #: ../includes/functions/general.php:43
 msgid "Oops. Something went wrong. Please try again later."
-msgstr ""
+msgstr "Ups. Algo salió mal. Por favor, intentalo otra vez más tarde. "
 
 #: ../includes/functions/general.php:44
 msgid "Please provide a valid email address."
-msgstr ""
+msgstr "Por favor, introduce una cuenta de correo valida"
 
 #: ../includes/functions/general.php:45
 msgid "Given email address is already subscribed, thank you!"
 msgstr ""
+"La dirección de correo electrónico facilitada ya está suscrita, ¡gracias!"
 
 #: ../includes/functions/general.php:46
 msgid "Please complete the CAPTCHA."
-msgstr ""
+msgstr "Por favor, introduce el código de seguridad"
 
 #: ../includes/integrations/class-cf7.php:44
 #: ../includes/views/metaboxes/optional-form-settings.php:16
@@ -306,21 +329,24 @@ msgid ""
 "<b>Warning!</b> You're blocking external requests which means you won't be "
 "able to get %s updates. Please add %s to %s."
 msgstr ""
+"<b>Advertencia!</ b> Esta bloqueando solicitudes externas lo que significa "
+"que no será capaz de obtener las actualizaciones de %s. Por favor, añada %s "
+"para %s."
 
 #: ../includes/library/license-manager/class-license-manager.php:175
 #, php-format
 msgid "Your %s license has been activated. You have an unlimited license. "
-msgstr ""
+msgstr "Su licencia de %s ha sido activada. Tiene una licencia ilimitada."
 
 #: ../includes/library/license-manager/class-license-manager.php:177
 #, php-format
 msgid "Your %s license has been activated. You have used %d/%d activations. "
-msgstr ""
+msgstr "Su licencia de %s ha sido activada. Ha utilizado %d/%d activaciones."
 
 #: ../includes/library/license-manager/class-license-manager.php:182
 #, php-format
 msgid "<a href=\"%s\">Did you know you can upgrade your license?</a>"
-msgstr ""
+msgstr "<a href=\"%s\">¿Sabía que usted puede actualizar su licencia?</a>"
 
 #: ../includes/library/license-manager/class-license-manager.php:186
 #, php-format
@@ -328,6 +354,7 @@ msgid ""
 "<a href=\"%s\">Your license is expiring in %d days, would you like to extend "
 "it?</a>"
 msgstr ""
+"<a href=\"%s\">Su licencia expira en %d días, ¿le gustaría ampliarla?</a>"
 
 #: ../includes/library/license-manager/class-license-manager.php:195
 #, php-format
@@ -335,6 +362,8 @@ msgid ""
 "You've reached your activation limit. You must <a href=\"%s\">upgrade your "
 "license</a> to use it on this site."
 msgstr ""
+"Has alcanzado el límite de activaciones. Debe <a href=\"%s\"> actualizar su "
+"licencia</ a> para utilizarlo en este sitio."
 
 #: ../includes/library/license-manager/class-license-manager.php:198
 #, php-format
@@ -342,30 +371,32 @@ msgid ""
 "Your license has expired. You must <a href=\"%s\">extend your license</a> in "
 "order to use it again."
 msgstr ""
+"Su licencia ha expirado. Debes <a href=\"%s\">ampliar la licencia</ a> con "
+"el fin de utilizarlo de nuevo."
 
 #: ../includes/library/license-manager/class-license-manager.php:201
 msgid "Failed to activate your license, your license key seems to be invalid."
-msgstr ""
+msgstr "No se pudo activar la licencia, la clave de licencia parece inválida."
 
 #: ../includes/library/license-manager/class-license-manager.php:225
 #, php-format
 msgid "Your %s license has been deactivated."
-msgstr ""
+msgstr "Su licencia de %s se ha desactivado."
 
 #: ../includes/library/license-manager/class-license-manager.php:227
 #, php-format
 msgid "Failed to deactivate your %s license."
-msgstr ""
+msgstr "No se pudo desactivar su licencia de %s"
 
 #: ../includes/library/license-manager/class-license-manager.php:262
 #, php-format
 msgid "Request error: \"%s\""
-msgstr ""
+msgstr "Error de solicitud: \"%s\""
 
 #: ../includes/library/license-manager/class-license-manager.php:420
 #, php-format
 msgid "%s: License Settings"
-msgstr ""
+msgstr "%s: Configuración de licencia"
 
 #: ../includes/library/license-manager/class-plugin-license-manager.php:72
 #, php-format
@@ -373,6 +404,8 @@ msgid ""
 "%s is network activated, you can manage your license in the <a href=\"%s"
 "\">network admin license page</a>."
 msgstr ""
+"%s está activada por red, usted puede administrar su licencia en la<a ref "
+"href=\"%s\">página de red de administración de licencia</ a>."
 
 #: ../includes/library/license-manager/class-plugin-license-manager.php:74
 #, php-format
@@ -380,12 +413,16 @@ msgid ""
 "%s is network activated, please contact your site administrator to manage "
 "the license."
 msgstr ""
+"%s si la red está activada, por favor póngase en contacto con el "
+"administrador del sitio para gestionar la licencia."
 
 #: ../includes/library/license-manager/class-update-manager.php:83
 #, php-format
 msgid ""
 "%s failed to check for updates because of the following error: <em>%s</em>"
 msgstr ""
+"%s fallo al comprobar las actualizaciones debido al siguiente error: <em>"
+"%s</ em>"
 
 #: ../includes/library/license-manager/class-update-manager.php:148
 msgid ""
@@ -393,112 +430,116 @@ msgid ""
 "cannot check for future updates. Please activate your site with a valid "
 "license key."
 msgstr ""
+"Este sitio no se ha activado correctamente en dannyvankooten.com y por lo "
+"tanto no se puede comprobar si hay actualizaciones. Por favor, active su "
+"sitio con una clave de licencia válida."
 
 #: ../includes/library/license-manager/views/form.php:23
 msgid "License status"
-msgstr ""
+msgstr "Estado de la licencia"
 
 #: ../includes/library/license-manager/views/form.php:33
 msgid "Toggle license status"
-msgstr ""
+msgstr "Estado de la licencia"
 
 #: ../includes/library/license-manager/views/form.php:38
 msgid ""
 "(deactivate your license so you can activate it on another WordPress site)"
 msgstr ""
+"(desactivar la licencia para que pueda activarla en otro sitio de WordPress)"
 
 #: ../includes/library/license-manager/views/form.php:44
 msgid "Please enter a license key in the field below first."
-msgstr ""
+msgstr "Por favor, primero introduce una clave de licencia en campo de abajo"
 
 #: ../includes/library/license-manager/views/form.php:52
 msgid "License Key"
-msgstr ""
+msgstr "Llave de licencia"
 
 #: ../includes/library/license-manager/views/form.php:54
-#, fuzzy, php-format
+#, php-format
 msgid "Paste your %s license key here.."
-msgstr "Obtenga su clave de API aquí."
+msgstr "Pega tu %s clave de licencia aquí..."
 
 #: ../includes/library/license-manager/views/form.php:56
 #, php-format
 msgid "You defined your license key using the %s PHP constant."
-msgstr ""
+msgstr "Ha definido la clave de licencia utilizando el %s PHP constante."
 
 #: ../includes/library/license-manager/views/form.php:73
 #, php-format
 msgid "Your %s license will expire on %s."
-msgstr ""
+msgstr "Tu %s licencia expirará el %s."
 
 #: ../includes/library/license-manager/views/form.php:76
 #, php-format
 msgid "%sRenew your license now%s."
-msgstr ""
+msgstr "%sRenovar licencia ahora%s."
 
 #: ../includes/tables/class-forms-table.php:19
 msgid "Sign-Up Form"
-msgstr ""
+msgstr "Formmulario de alta"
 
 #: ../includes/tables/class-forms-table.php:20
-#, fuzzy
 msgid "Sign-up Forms"
-msgstr "Registro"
+msgstr "Formularios de registro"
 
 #: ../includes/tables/class-forms-table.php:36
 msgid "Form"
-msgstr ""
+msgstr "Formulario"
 
 #: ../includes/tables/class-forms-table.php:37
 msgid "Shortcode"
-msgstr ""
+msgstr "Código corto"
 
 #: ../includes/tables/class-forms-table.php:38
 msgid "List(s)"
-msgstr ""
+msgstr "Lista(s)"
 
 #: ../includes/tables/class-forms-table.php:39
 msgid "Last edited"
-msgstr ""
+msgstr "Ultima edición"
 
 #: ../includes/tables/class-forms-table.php:103
 msgid "You have not created any sign-up forms yet. Time to do so!"
 msgstr ""
+"No has creado ningún formulario de registro todavía. ¡Es hora de hacerlo!"
 
 #: ../includes/tables/class-log-table.php:23
 msgid "Subscriber"
-msgstr ""
+msgstr "Suscriptor"
 
 #: ../includes/tables/class-log-table.php:24
 msgid "Subscribers"
-msgstr ""
+msgstr "Suscriptores"
 
 #: ../includes/tables/class-log-table.php:44
 msgid "Email"
-msgstr ""
+msgstr "Correo"
 
 #: ../includes/tables/class-log-table.php:45
 msgid "List"
-msgstr ""
+msgstr "Lista"
 
 #: ../includes/tables/class-log-table.php:46
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: ../includes/tables/class-log-table.php:47
 msgid "Source"
-msgstr ""
+msgstr "Origen"
 
 #: ../includes/tables/class-log-table.php:48
 msgid "Extra data"
-msgstr ""
+msgstr "Datos adicionales"
 
 #: ../includes/tables/class-log-table.php:49
 msgid "Subscribed"
-msgstr ""
+msgstr "Suscrito"
 
 #: ../includes/tables/class-log-table.php:258
 msgid "No subscribe requests found."
-msgstr ""
+msgstr "Ninguna solicitud de suscripcion encontrada"
 
 #: ../includes/views/metaboxes/optional-form-settings.php:8
 #, php-format
@@ -507,17 +548,19 @@ msgid ""
 "settings</a>. If no setting is specified, the corresponding general setting "
 "value will be used."
 msgstr ""
+"Los ajustes que especifiques aquí anularán la <a href=\"%s\"> configuración "
+"general de los formularios</ a>. Si no se especifica ningún valor, se "
+"utilizará el valor de ajuste general correspondiente."
 
 #: ../includes/views/metaboxes/optional-form-settings.php:10
-#, fuzzy
 msgid "MailChimp Settings"
-msgstr "Datos de MailChimp"
+msgstr "Configuración de MailChimp"
 
 #: ../includes/views/metaboxes/optional-form-settings.php:13
 #: ../includes/views/pages/admin-checkbox-settings.php:51
 #: ../includes/views/tabs/admin-forms-general-settings.php:55
 msgid "Double opt-in?"
-msgstr ""
+msgstr "¿Doble opt-in?"
 
 #: ../includes/views/metaboxes/optional-form-settings.php:20
 #: ../includes/views/metaboxes/optional-form-settings.php:34
@@ -526,7 +569,7 @@ msgstr ""
 #: ../includes/views/metaboxes/optional-form-settings.php:79
 #: ../includes/views/metaboxes/optional-form-settings.php:91
 msgid "Inherit"
-msgstr ""
+msgstr "Heredado"
 
 #: ../includes/views/metaboxes/optional-form-settings.php:22
 #: ../includes/views/pages/admin-checkbox-settings.php:53
@@ -535,13 +578,13 @@ msgid ""
 "Select \"yes\" if you want people to confirm their email address before "
 "being subscribed (recommended)"
 msgstr ""
-"Marque \"sí \" si quiere que los suscriptores confirmen su dirección de "
+"Selecciona \"sí \" si quieres que los suscriptores confirmen su dirección de "
 "correo electrónico antes de suscribirse (recomendado)"
 
 #: ../includes/views/metaboxes/optional-form-settings.php:27
 #: ../includes/views/tabs/admin-forms-general-settings.php:76
 msgid "Update existing subscribers?"
-msgstr ""
+msgstr "¿Actualizar los suscriptores existentes?"
 
 #: ../includes/views/metaboxes/optional-form-settings.php:36
 #: ../includes/views/tabs/admin-forms-general-settings.php:83
@@ -549,13 +592,13 @@ msgid ""
 "Select \"yes\" if you want to update existing subscribers (instead of "
 "showing the \"already subscribed\" message)."
 msgstr ""
-"Marque \"sí \" si desea actualizar los suscriptores existentes (en lugar de "
-"mostrar el mensaje \"ya suscrito \")."
+"Selecciona \"sí \" si quieres actualizar los suscriptores existentes (en "
+"lugar de mostrar el mensaje \"ya suscrito \")."
 
 #: ../includes/views/metaboxes/optional-form-settings.php:41
 #: ../includes/views/tabs/admin-forms-general-settings.php:87
 msgid "Replace interest groups?"
-msgstr ""
+msgstr "¿Se sustituyen los grupos de interés?"
 
 #: ../includes/views/metaboxes/optional-form-settings.php:50
 #: ../includes/views/tabs/admin-forms-general-settings.php:94
@@ -564,7 +607,7 @@ msgid ""
 "provided instead of adding the provided groups to the member's interest "
 "groups (only when updating a subscriber)."
 msgstr ""
-"Marque \"sí \" si desea reemplazar los grupos de interés con los grupos "
+"Selecciona \"sí \" si deseas reemplazar los grupos de interés con los grupos "
 "previstos en lugar de añadir los grupos previstos para los grupos de interés "
 "del usuario (sólo cuando se actualiza un suscriptor)."
 
@@ -572,7 +615,7 @@ msgstr ""
 #: ../includes/views/pages/admin-checkbox-settings.php:57
 #: ../includes/views/tabs/admin-forms-general-settings.php:66
 msgid "Send Welcome Email?"
-msgstr ""
+msgstr "¿Enviar email de bienvenida?"
 
 #: ../includes/views/metaboxes/optional-form-settings.php:64
 #: ../includes/views/pages/admin-checkbox-settings.php:64
@@ -581,8 +624,8 @@ msgid ""
 "Select \"yes\" if you want to send your lists Welcome Email if a subscribe "
 "succeeds (only when double opt-in is disabled)."
 msgstr ""
-"Marque \"sí \" si desea enviar a sus listas un correo electrónico de "
-"bienvenida si se realiza una suscripción correctamente (sólo cuando se el "
+"Selecciona \"sí \" si deseas enviar a tus listas un correo electrónico de "
+"bienvenida si se realiza una suscripción correctamente (sólo cuando el "
 "proceso de doble opt-in está desactivado)."
 
 #: ../includes/views/metaboxes/optional-form-settings.php:69
@@ -592,7 +635,7 @@ msgstr "Configuración de mesajes y formularios"
 #: ../includes/views/metaboxes/optional-form-settings.php:72
 #: ../includes/views/tabs/admin-forms-general-settings.php:103
 msgid "Enable AJAX form submission?"
-msgstr ""
+msgstr "¿Habilitar AJAX para el envío de formularios?"
 
 #: ../includes/views/metaboxes/optional-form-settings.php:80
 #: ../includes/views/tabs/admin-forms-general-settings.php:105
@@ -609,8 +652,8 @@ msgstr "¿Ocultar formulario después de un registro registro satisfactorio?"
 #: ../includes/views/tabs/admin-forms-general-settings.php:110
 msgid "Select \"yes\" to hide the form fields after a successful sign-up."
 msgstr ""
-"Seleccione \"Sí \" para ocultar los campos de formulario después de un "
-"registro satisfactorio"
+"Selecciona \"Sí \" para ocultar los campos de formulario después de un "
+"registro satisfactorio."
 
 #: ../includes/views/metaboxes/optional-form-settings.php:97
 #: ../includes/views/tabs/admin-forms-general-settings.php:113
@@ -628,17 +671,19 @@ msgstr ""
 
 #: ../includes/views/metaboxes/optional-form-settings.php:104
 msgid "Send an email copy of the form data?"
-msgstr ""
+msgstr "¿Quieres una copia de los datos del formulario por email?"
 
 #: ../includes/views/metaboxes/optional-form-settings.php:108
 msgid ""
 "Tick \"yes\" if you want to receive an email with the form data for every "
 "sign-up request."
 msgstr ""
+"Marca \"sí \" si deseas recibir un correo electrónico con los datos del "
+"formulario para cada solicitud de registro."
 
 #: ../includes/views/metaboxes/optional-form-settings.php:111
 msgid "Send the copy to this email:"
-msgstr ""
+msgstr "Envia una copia a este email: "
 
 #: ../includes/views/metaboxes/optional-form-settings.php:117
 #: ../includes/views/tabs/admin-forms-general-settings.php:119
@@ -673,7 +718,7 @@ msgstr "Las etiquetas HTML como %s están permitidas en los campos del mensaje."
 
 #: ../includes/views/metaboxes/required-form-settings.php:14
 msgid "Lists this form subscribes to"
-msgstr ""
+msgstr "Los formularios de esta lista suscriben a"
 
 #: ../includes/views/metaboxes/required-form-settings.php:17
 #: ../includes/views/pages/admin-checkbox-settings.php:38
@@ -687,19 +732,19 @@ msgstr "Añadir un nuevo campo"
 
 #: ../includes/views/metaboxes/required-form-settings.php:32
 msgid "Select MailChimp field.."
-msgstr "Seleccione el campo MailChimp ..."
+msgstr "Seleccione el campo de MailChimp ..."
 
 #: ../includes/views/metaboxes/required-form-settings.php:36
 msgid "Submit Button"
-msgstr ""
+msgstr "Botón de alta"
 
 #: ../includes/views/metaboxes/required-form-settings.php:37
 msgid "Lists Choice"
-msgstr ""
+msgstr "Seleccionar listas"
 
 #: ../includes/views/metaboxes/required-form-settings.php:45
 msgid "Label"
-msgstr ""
+msgstr "Etiqueta"
 
 #: ../includes/views/metaboxes/required-form-settings.php:45
 #: ../includes/views/metaboxes/required-form-settings.php:50
@@ -709,7 +754,7 @@ msgstr "(opcional)"
 
 #: ../includes/views/metaboxes/required-form-settings.php:50
 msgid "Placeholder"
-msgstr ""
+msgstr "Marcador de posición"
 
 #: ../includes/views/metaboxes/required-form-settings.php:55
 msgid "Initial value"
@@ -717,7 +762,7 @@ msgstr "Valor inicial"
 
 #: ../includes/views/metaboxes/required-form-settings.php:60
 msgid "Labels"
-msgstr ""
+msgstr "Etiquetas"
 
 #: ../includes/views/metaboxes/required-form-settings.php:60
 msgid "(leave empty to hide)"
@@ -742,26 +787,26 @@ msgstr "Generado HTML"
 
 #: ../includes/views/metaboxes/required-form-settings.php:86
 msgid "Form usage"
-msgstr ""
+msgstr "Formulario a emplear"
 
 #: ../includes/views/metaboxes/required-form-settings.php:87
 #, php-format
 msgid ""
 "Use the shortcode %s to display this form inside a post, page or text widget."
 msgstr ""
+"Utiliza el código corto %s para mistrar este formulario dentro de una "
+"entrada, artículo o un widget de texto."
 
 #: ../includes/views/pages/admin-checkbox-settings.php:11
 #: ../includes/views/pages/admin-form-settings.php:10
 #: ../includes/views/pages/admin-general-settings.php:10
 #: ../includes/views/pages/admin-reports.php:10
-#, fuzzy
 msgid "MailChimp for WordPress"
-msgstr "Ajustes de MailChimp para casillas de verificación"
+msgstr "MailChimp para WordPress"
 
 #: ../includes/views/pages/admin-checkbox-settings.php:11
-#, fuzzy
 msgid "Checkbox Settings"
-msgstr "Configuración de las casillas de verificación"
+msgstr "Ajustes de las casillas de verificación"
 
 #: ../includes/views/pages/admin-checkbox-settings.php:14
 msgid ""
@@ -785,16 +830,15 @@ msgstr ""
 "menos una lista de MailChimp a las que la gente se suscribirá."
 
 #: ../includes/views/pages/admin-checkbox-settings.php:34
-#, fuzzy
 msgid "MailChimp Lists"
-msgstr "Renovar las listas de MailChimp"
+msgstr "Listas de MailChimp"
 
 #: ../includes/views/pages/admin-checkbox-settings.php:45
 msgid ""
 "Select the list(s) to which people who check the checkbox should be "
 "subscribed."
 msgstr ""
-"Seleccione la lista(s) a la que se registrarán las personas que marquen las "
+"Selecciona la lista(s) a la que se registrarán las personas que marquen las "
 "casillas de verificación."
 
 #: ../includes/views/pages/admin-checkbox-settings.php:68
@@ -840,36 +884,35 @@ msgstr ""
 #: ../includes/views/tabs/admin-forms-general-settings.php:48
 #: ../includes/views/tabs/admin-forms-general-settings.php:146
 msgid "Save all changes"
-msgstr ""
+msgstr "Guardar todos los cambios"
 
 #: ../includes/views/pages/admin-checkbox-settings.php:103
-#, fuzzy
 msgid "Custom label texts"
-msgstr "Texto a mostrar junto a la casilla de verificación."
+msgstr "Etiquetas personalizadas de textos"
 
 #: ../includes/views/pages/admin-checkbox-settings.php:104
 msgid ""
 "Override the default checkbox label text for any given checkbox using the "
 "fields below."
 msgstr ""
+"Sobreescribir la casilla de verificación por defecto en cualquier casilla de "
+"verificación  empleando los campos de abajo"
 
 #: ../includes/views/pages/admin-form-settings.php:13
-#, fuzzy
 msgid "Forms & Settings"
-msgstr "Ajustes del formulario"
+msgstr "Ajustes de los formularios"
 
 #: ../includes/views/pages/admin-form-settings.php:14
 msgid "CSS Styles Builder"
-msgstr ""
+msgstr "Creador de estilos CSS"
 
 #: ../includes/views/pages/admin-general-settings.php:10
-#, fuzzy
 msgid "License & API Settings"
-msgstr "Configuración de licencia y de la API"
+msgstr "Ajustes de licencia y API"
 
 #: ../includes/views/pages/admin-general-settings.php:19
 msgid "API Settings"
-msgstr "Configuración de licencia y de la API"
+msgstr "Configuración de la API"
 
 #: ../includes/views/pages/admin-general-settings.php:21
 msgid "CONNECTED"
@@ -881,11 +924,11 @@ msgstr "NO CONECTADO"
 
 #: ../includes/views/pages/admin-general-settings.php:29
 msgid "API Key"
-msgstr ""
+msgstr "Llave API"
 
 #: ../includes/views/pages/admin-general-settings.php:31
 msgid "Your MailChimp API key"
-msgstr ""
+msgstr "Tu clave API de MailChimp"
 
 #: ../includes/views/pages/admin-general-settings.php:32
 msgid "Get your API key here."
@@ -912,15 +955,15 @@ msgstr "Renovar las listas de MailChimp"
 
 #: ../includes/views/pages/admin-general-settings.php:120
 msgid "No lists were found in your MailChimp account."
-msgstr ""
+msgstr "No se han encontrado listas en tu cuenta de MailChimp"
 
 #: ../includes/views/pages/admin-reports.php:14
 msgid "Statistics"
-msgstr ""
+msgstr "Estadísticas"
 
 #: ../includes/views/pages/admin-reports.php:15
 msgid "Log"
-msgstr ""
+msgstr "Log"
 
 #: ../includes/views/parts/admin-footer.php:8
 #, php-format
@@ -928,115 +971,118 @@ msgid ""
 "Need help? Email me directly at <a href=\"%s\">support@dannyvankooten.com</"
 "a>. Please include your website URL and as many details as possible."
 msgstr ""
+"¿Necesitas ayuda? Envíame un correo electrónico directamente a <a href=\"%s"
+"\"> support@dannyvankooten.com</a>. Por favor, incluye la URL de tu sitio "
+"web y el mayor número de detalles posible."
 
 #: ../includes/views/parts/admin-text-variables.php:11
 msgid "Replaced with the number of subscribers on the selected list(s)"
 msgstr ""
+"Se sustituye con el número de suscriptores de la lista seleccionada (s)"
 
 #: ../includes/views/parts/admin-text-variables.php:15
 msgid "Replaced with the visitor's IP address"
-msgstr ""
+msgstr "Se sustituye por la dirección IP del visitante"
 
 #: ../includes/views/parts/admin-text-variables.php:19
 #, php-format
 msgid "Replaced with the current date (yyyy/mm/dd eg: %s)"
-msgstr ""
+msgstr "Se sustituye con la fecha actual (aaaa/mm/dd ejemplo: %s)"
 
 #: ../includes/views/parts/admin-text-variables.php:23
 #, php-format
 msgid "Replaced with the current time (hh:mm:ss eg: %s)"
-msgstr ""
+msgstr "Se susitutiye con la hora actual (hh:mm:ss  por ejemplo: %s)"
 
 #: ../includes/views/parts/admin-text-variables.php:27
 msgid ""
 "Replaced with the logged in user's email (or nothing, if there is no logged "
 "in user)"
 msgstr ""
+"Se sustituye con la cuenta de correo del usuario que ha iniciado sesión (o "
+"ninguna, si no hay un usuario que ha iniciado sesión)"
 
 #: ../includes/views/parts/admin-text-variables.php:31
 msgid "Display name of the current user"
-msgstr ""
+msgstr "Mostrar nombre del usuario actual"
 
 #: ../includes/views/parts/admin-text-variables.php:35
 msgid "First name of the current user"
-msgstr ""
+msgstr "Apellido del usuario actual"
 
 #: ../includes/views/parts/admin-text-variables.php:39
 msgid "Last name of the current user"
-msgstr ""
+msgstr "Segundo apellido del usuario actual"
 
 #: ../includes/views/parts/admin-text-variables.php:43
 msgid "Current user ID"
-msgstr ""
+msgstr "ID de usuario actual"
 
 #: ../includes/views/parts/admin-text-variables.php:47
 msgid "Current URL"
-msgstr ""
+msgstr "URL actual"
 
 #: ../includes/views/tabs/admin-forms-css-builder.php:10
-#, fuzzy
 msgid "Use the fields below to create custom styling rules for your forms."
 msgstr ""
-"Emplear la herramienta inferior para generar el código HTML de los campos "
-"del formulario."
+"Utiliza los campos inferiores para crear reglas de estilo personalizadas "
+"para tus formularios."
 
 #: ../includes/views/tabs/admin-forms-css-builder.php:214
 msgid "Build CSS File"
-msgstr ""
+msgstr "Crear archivo CSS"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:8
 msgid "Sign-Up Forms"
-msgstr ""
+msgstr "Formularios de suscripción"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:8
 msgid "Create New Form"
-msgstr ""
+msgstr "Crear nuevo formulario"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:16
-#, fuzzy
 msgid "General form settings"
-msgstr "Ajustes del formulario"
+msgstr "Configuración general para los formularios"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:19
-#, fuzzy
 msgid "Load form styles (CSS)?"
-msgstr "¿Cargamos algunos CSS por defecto?"
+msgstr "¿Cargamos los estilos CSS por defecto?"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:23
 msgid "Yes, load basic form styles"
-msgstr ""
+msgstr "Si, carga los estilos de formulario básicos"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:24
 msgid "Yes, load my custom form styles"
-msgstr ""
+msgstr "Si, carga mis estilos de formulario personalizados"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:25
 msgid "Yes, load default form theme"
-msgstr ""
+msgstr "Si, carga los ajustes de formulario del tema por defecto"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:26
 msgid "Light Theme"
-msgstr ""
+msgstr "Tema claro"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:27
 msgid "Red Theme"
-msgstr ""
+msgstr "Tema rojo"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:28
 msgid "Green Theme"
-msgstr ""
+msgstr "Tema verde"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:29
 msgid "Blue Theme"
-msgstr ""
+msgstr "Tema azul"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:30
 msgid "Dark Theme"
-msgstr ""
+msgstr "Tema oscuro"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:31
 msgid "Custom Color Theme"
-msgstr ""
+msgstr "Color de tema personalizado"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:36
 #, php-format
@@ -1045,15 +1091,17 @@ msgid ""
 "\"custom form styles\". Otherwise, choose the basic formatting styles or one "
 "of the default themes."
 msgstr ""
+"Si %screaste una hoja de estilo personalizada%s y deseas que se cargue, "
+"selecciona \"estilos de formulario personalizados \". De lo contrario, elije "
+"los estilos de formato básico o uno de los temas por defecto."
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:40
 msgid "Select Color"
-msgstr ""
+msgstr "Selección de color"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:50
-#, fuzzy
 msgid "Default MailChimp settings"
-msgstr "Renovar las listas de MailChimp"
+msgstr "Ajustes de MailChimp por defecto"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:51
 #: ../includes/views/tabs/admin-forms-general-settings.php:99
@@ -1061,11 +1109,12 @@ msgid ""
 "The following settings apply to <strong>all</strong> forms but can be "
 "overridden on a per-form basis."
 msgstr ""
+"Los siguientes ajustes se aplican a<strong> todos </ strong>los formularios "
+"pero pueden reemplazarse uno a uno."
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:98
-#, fuzzy
 msgid "Default form settings"
-msgstr "Ajustes del formulario"
+msgstr "Ajustes de formulario por defecto"
 
 #~ msgid "Upgrade to Pro"
 #~ msgstr "Actualizar a la versión pro"
