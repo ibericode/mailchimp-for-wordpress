@@ -9,11 +9,6 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 	<h4 class="mc4wp-title"><?php _e( 'Add a new field', 'mailchimp-for-wp' ); ?></h4>
 
-	
-	<p class="mc4wp-notice no-lists-selected" <?php if(!empty($opts['lists'])) { ?>style="display: none;" <?php } ?>>
-		<?php _e( 'Select at least one list first.', 'mailchimp-for-wp' ); ?>
-	</p>
-
 	<p><?php _e( 'Use the tool below to generate the HTML for your form fields.', 'mailchimp-for-wp' ); ?></p>
 	<p>
 		<select class="widefat" id="mc4wp-fw-mailchimp-fields">
@@ -68,4 +63,9 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 		</p>
 
 	</div>
+
+	<p class="mc4wp-notice no-lists-selected" <?php if(!empty($opts['lists'])) { ?>style="display: none;" <?php } ?>>
+		<?php _e( 'Select at least one list first.', 'mailchimp-for-wp' ); ?>
+	</p>
+
 </div>

@@ -11,6 +11,17 @@
 		event.stopPropagation();
 	});
 
+	(function() {
+		$lists = $("#mc4wp-lists :input");
+		$lists.change( toggleNotices );
+
+		function toggleNotices() {
+			var hasListSelected = $lists.filter(':checked').length > 0;
+			$(".mc4wp-notice.no-lists-selected").toggle( ! hasListSelected );
+			$('#mc4wp-fw-mailchimp-fields').toggle( hasListSelected );
+		}
+	})();
+
 	$(document).delegate('#mc4wpformmarkup', 'keydown', function(e) {
 		var keyCode = e.keyCode || e.which;
 

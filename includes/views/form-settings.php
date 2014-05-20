@@ -48,15 +48,17 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 						?><td colspan="2"><?php printf( __( 'No lists found, %sare you connected to MailChimp?%s', 'mailchimp-for-wp' ), '<a href="'. admin_url( 'admin.php?page=mc4wp-lite' ) .'">', '</a>' ); ?></td><?php
 					} else { ?>
 					<td>
+
 						<ul id="mc4wp-lists">
 						<?php foreach($lists as $list) { ?>
 							<li>
 								<label>
-									<input type="checkbox" name="mc4wp_lite_form[lists][<?php echo esc_attr( $list->id ); ?>]" value="<?php echo esc_attr($list->id); ?>" data-list-groupings="<?php echo esc_attr(json_encode($list->interest_groupings)); ?>" data-list-fields="<?php echo esc_attr(json_encode($list->merge_vars)); ?>" <?php if(array_key_exists($list->id, $opts['lists'])) echo 'checked="checked"'; ?>> <?php echo esc_html( $list->name ); ?>
+									<input type="checkbox" name="mc4wp_lite_form[lists][<?php echo esc_attr( $list->id ); ?>]" value="<?php echo esc_attr( $list->id ); ?>" data-list-groupings="<?php echo esc_attr(json_encode($list->interest_groupings)); ?>" data-list-fields="<?php echo esc_attr(json_encode($list->merge_vars)); ?>" <?php if(array_key_exists($list->id, $opts['lists'])) echo 'checked="checked"'; ?>> <?php echo esc_html( $list->name ); ?>
 								</label>
 							</li>
 						<?php } ?>
 						</ul>
+
 					</td>
 					<td class="desc"><?php _e( 'Select the list(s) to which people who submit this form should be subscribed.' ,'mailchimp-for-wp' ); ?></td>
 					<?php } ?>
@@ -65,13 +67,27 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 					<tr valign="top">
 						<td colspan="3">
 							<h4><?php _e( 'Form mark-up', 'mailchimp-for-wp' ); ?></h4>
+
+							<?php if ( ! empty( $missing_form_fields ) ) {
+
+								?><p class="mc4wp-notice missing-form-fields"><?php
+
+								_e( 'Your form is missing the following (required) form fields:', 'mailchimp-for-wp') . ' <br /><br />';
+
+								foreach( $missing_form_fields as $missing_field ) {
+									echo '- ' . $missing_field . '<br />';
+								}
+								?></p><?php
+
+							} ?>
+
 							<div class="mc4wp-wrapper">
 								<div class="mc4wp-col mc4wp-first">
 									<?php 
 									if( function_exists( 'wp_editor' ) ) {
 										wp_editor( esc_textarea( $opts['markup'] ), 'mc4wpformmarkup', array( 'tinymce' => false, 'media_buttons' => true, 'textarea_name' => 'mc4wp_lite_form[markup]'));
 									} else {
-										?><textarea class="widefat" cols="160" rows="20" id="mc4wpformmarkup" name="mc4wp_lite_form[markup]"><?php echo esc_textarea($opts['markup']); ?></textarea><?php
+										?><textarea class="widefat" cols="160" rows="20" id="mc4wpformmarkup" name="mc4wp_lite_form[markup]"><?php echo esc_textarea( $opts['markup'] ); ?></textarea><?php
 									} ?>
 									<p class="mc4wp-form-usage"><?php printf( __( 'Use the shortcode %s to display this form inside a post, page or text widget.' ,'mailchimp-for-wp' ), '<input type="text" onfocus="this.select();" readonly="readonly" value="[mc4wp_form]" class="mc4wp-shortcode-example">' ); ?></p>
 								</div>

@@ -154,22 +154,6 @@ class MC4WP_Lite_Admin
 			// strip form tags (to prevent people from adding them)
 			$settings['markup'] = preg_replace( '/<\/?form(.|\s)*?>/i', '', $settings['markup'] );
 
-			// check if form contains EMAIL field
-			// <(input|textarea)(?=[^>]*name="EMAIL")[^>]*>
-			$search = preg_match( '/<(input|textarea)(?=[^>]*name="EMAIL")[^>]*>/i', $settings['markup'] );
-			if( ! $search) {
-				add_settings_error( 'mc4wp', 'mc4wp-form', sprintf( __( 'Your form should contain an EMAIL field. Example: <code>%s</code>', 'mailchimp-for-wp' ), '&lt;input type="email" name="EMAIL" /&gt;' ), 'updated' );
-			}
-
-			// check if form contains submit button
-			// <(input|button)(?=[^>]*type="submit")[^>]*>
-			$search = preg_match( '/<(input|button)(?=[^>]*type="submit")[^>]*>/i', $settings['markup'] );
-			if( ! $search ) {
-				add_settings_error( 'mc4wp', 'mc4wp-form', sprintf( __( 'Your form should contain a submit button. Example: <code>%s</code>', 'mailchimp-for-wp' ), '&lt;input type="submit" value="'. __( 'Sign Up', 'mailchimp-for-wp' ) .'" /&gt;' ), 'updated' );
-			}
-
-			// TODO: Check if form contains all the required form fields
-
 		}
 
 		return $settings;
@@ -275,6 +259,52 @@ class MC4WP_Lite_Admin
 		$opts = mc4wp_get_options( 'form' );
 		$lists = $this->get_mailchimp_lists();
 		$tab = 'form-settings';
+
+		// create array of missing form fields
+		$missing_form_fields = array();
+
+		// check if form contains EMAIL field
+		$search = preg_match( '/<(input|textarea)(?=[^>]*name="EMAIL")[^>]*>/i', $opts['markup'] );
+		if( ! $search) {
+			$missing_form_fields[] = sprintf( __( 'An EMAIL field. Example: <code>%s</code>', 'mailchimp-for-wp' ), '&lt;input type="email" name="EMAIL" /&gt;' );
+		}
+
+		// check if form contains submit button
+		$search = preg_match( '/<(input|button)(?=[^>]*type="submit")[^>]*>/i', $opts['markup'] );
+		if( ! $search ) {
+			$missing_form_fields[] = sprintf( __( 'A submit button. Example: <code>%s</code>', 'mailchimp-for-wp' ), '&lt;input type="submit" value="'. __( 'Sign Up', 'mailchimp-for-wp' ) .'" /&gt;' );
+		}
+
+		// loop through selected list ids
+		if( isset( $opts['lists'] ) && is_array( $opts['lists'] ) ) {
+
+			foreach( $opts['lists'] as $list_id ) {
+
+				// get list object
+				$list = $this->get_mailchimp_list( $list_id );
+				if( ! is_object( $list ) ) {
+					continue;
+				}
+
+				// loop through merge vars of this list
+				foreach( $list->merge_vars as $merge_var ) {
+
+					// if field is required, make sure it's in the form mark-up
+					if( ! $merge_var->req || $merge_var->tag === 'EMAIL' ) {
+						continue;
+					}
+
+					// search for field tag in form mark-up
+					$search = stristr( $opts['markup'], 'name="'. $merge_var->tag .'"' );
+					if( false === $search ) {
+						$missing_form_fields[] = sprintf( __( 'A \'%s\' field', 'mailchimp-for-wp' ), $merge_var->tag );
+					}
+
+				}
+
+			}
+		}
+
 		require MC4WP_LITE_PLUGIN_DIR . 'includes/views/form-settings.php';
 	}
 
@@ -350,6 +380,23 @@ class MC4WP_Lite_Admin
 		}
 
 		return $cached_lists;
+	}
+
+	/**
+	 * @param $list_id
+	 *
+	 * @return bool
+	 */
+	private function get_mailchimp_list( $list_id ) {
+		$lists = $this->get_mailchimp_lists();
+
+		foreach( $lists as $list ) {
+			if( $list->id === $list_id ) {
+				return $list;
+			}
+		}
+
+		return false;
 	}
 
 	/**

@@ -15,13 +15,6 @@
 	box-sizing: border-box;
 }
 
-.mc4wp-info {
-	padding: 5px 15px;
-	color: #3a87ad;
-	background-color: #d9edf7;
-	border-color: #bce8f1;
-}
-
 .valigntop{ 
 	vertical-align: top !important; 
 }
@@ -109,10 +102,11 @@
 }
 
 .mc4wp-notice{
-	padding:5px;
+	padding: 6px 8px;
 	color: #31708f;
-	background-color: #d9edf7;
-	border:1px solid #bce8f1;
+	background: #d9edf7;
+	border: 1px solid #bce8f1;
+	margin: 1em 0 !important;
 }
 
 .mc4wp-col { 
