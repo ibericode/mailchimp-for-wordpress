@@ -72,7 +72,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 								?><p class="mc4wp-notice missing-form-fields"><?php
 
-								_e( 'Your form is missing the following (required) form fields:', 'mailchimp-for-wp') . ' <br /><br />';
+								echo __( 'Your form is missing the following (required) form fields:', 'mailchimp-for-wp') . ' <br /><br />';
 
 								foreach( $missing_form_fields as $missing_field ) {
 									echo '- ' . $missing_field . '<br />';
