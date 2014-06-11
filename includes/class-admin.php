@@ -32,7 +32,7 @@ class MC4WP_Lite_Admin
 		add_filter( 'quicktags_settings', array( $this, 'set_quicktags_buttons' ), 10, 2 );
 
 		// did the user click on upgrade to pro link?
-		if( isset( $_GET['page'] ) && $_GET['page'] == 'mc4wp-lite-upgrade' && false == headers_sent() ) {
+		if( isset( $_GET['page'] ) && $_GET['page'] === 'mc4wp-lite-upgrade' && false === headers_sent() ) {
 			header("Location: http://dannyvankooten.com/mailchimp-for-wordpress/#utm_source=lite-plugin&utm_medium=link&utm_campaign=menu-upgrade-link");
 			exit;
 		}
