@@ -9,12 +9,9 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 
-	protected $checkbox_name_value = '_mc4wp_subscribe';
+	protected $type = 'contact_form_7';
 
 	public function __construct() {
-
-		$this->upgrade();
-
 		add_action( 'init', array( $this, 'init') );
 
 		add_action( 'wpcf7_mail_sent', array( $this, 'subscribe_from_cf7' ) );
@@ -38,13 +35,13 @@ class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 	/**
 	* Alter Contact Form 7 data.
 	* 
-	* Adds mc4wp_checkbox to post data so users can use `mcwp_checkbox` in their email templates
+	* Adds mc4wp_checkbox to post data so users can use `mc4wp_checkbox` in their email templates
 	*
 	* @param array $data
 	* @return array
 	*/
 	public function alter_cf7_data( $data = array() ) {
-		$data['mc4wp_checkbox'] = $this->checkbox_was_checked() ? __("Yes") : __("No");
+		$data['mc4wp_checkbox'] = $this->checkbox_was_checked() ? __( 'Yes' ) : __( 'No' );
 		return $data;
 	}
 
@@ -53,6 +50,7 @@ class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 	* @param array $args
 	*/
 	public function subscribe_from_cf7( $args = null ) {
+
 		// was sign-up checkbox checked?
 		if ( $this->checkbox_was_checked() === false ) { 
 			return false; 

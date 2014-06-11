@@ -8,7 +8,9 @@ if( ! defined("MC4WP_LITE_VERSION" ) ) {
 }
 
 class MC4WP_MultiSite_Integration extends MC4WP_Integration {
-	
+
+	protected $type = 'multisite_form';
+
 	public function __construct() {
 		add_action( 'signup_extra_fields', array( $this, 'output_checkbox' ), 20 );
 		add_action( 'signup_blogform', array( $this, 'add_multisite_hidden_checkbox' ), 20 );
@@ -16,13 +18,6 @@ class MC4WP_MultiSite_Integration extends MC4WP_Integration {
 		add_action( 'wpmu_activate_user', array( $this, 'on_multisite_user_signup' ), 20, 3 );
 
 		add_filter( 'add_signup_meta', array( $this, 'add_multisite_usermeta' ) );
-	}
-
-	/**
-	* Output sign-up checkbox for MultiSite registration form
-	*/
-	public function output_checkbox( $hook = '' ) {
-		return parent::output_checkbox( 'multsite_form' );
 	}
 
 	/**

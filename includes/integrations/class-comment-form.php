@@ -7,7 +7,9 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 }
 
 class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
-	
+
+	protected $type = 'comment_form';
+
 	public function __construct() {
 		// hooks for outputting the checkbox
 		add_action( 'thesis_hook_after_comment_box', array( $this, 'output_checkbox' ), 10 );
@@ -15,13 +17,6 @@ class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 
 		// hooks for checking if we should subscribe the commenter
 		add_action( 'comment_post', array( $this, 'subscribe_from_comment' ), 40, 2 );
-	}
-
-	/**
-	* Outputs the checkbox for the comment form
-	*/
-	public function output_checkbox( $hook = '' ) {
-		return parent::output_checkbox( 'comment_form' );
 	}
 
 	/**
@@ -50,6 +45,6 @@ class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 			'OPTIN_IP' => $comment->comment_author_IP
 		);
 
-		return $this->subscribe( $email, $merge_vars, 'comment' );
+		return $this->subscribe( $email, $merge_vars, 'comment', $comment_ID );
 	}
 }

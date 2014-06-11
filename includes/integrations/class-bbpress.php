@@ -8,17 +8,15 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 }
 
 class MC4WP_bbPress_Integration extends MC4WP_Integration {
-	
+
+	protected $type = 'bbpress_forms';
+
 	public function __construct() {
 		add_action( 'bbp_theme_after_topic_form_subscriptions', array( $this, 'output_checkbox' ), 10 );
 		add_action( 'bbp_theme_after_reply_form_subscription', array( $this, 'output_checkbox' ), 10 );
 		add_action( 'bbp_theme_anonymous_form_extras_bottom', array( $this, 'output_checkbox' ), 10 );
 		add_action( 'bbp_new_topic', array( $this, 'subscribe_from_bbpress_new_topic' ), 10, 4 );
 		add_action( 'bbp_new_reply', array( $this, 'subscribe_from_bbpress_new_reply' ), 10, 5 );
-	}
-
-	public function output_checkbox( $hook = '' ) {
-		return parent::output_checkbox( 'bbpress_forms' );
 	}
 
 	/**

@@ -8,17 +8,12 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 }
 
 class MC4WP_Registration_Form_Integration extends MC4WP_Integration {
-	
+
+	protected $type = 'registration_form';
+
 	public function __construct() {
 		add_action( 'register_form', array( $this, 'output_checkbox' ), 20 );
 		add_action( 'user_register', array( $this, 'subscribe_from_registration' ), 90, 1 );
-	}
-
-	/**
-	* Outputs the registration form checkbox
-	*/
-	public function output_checkbox( $hook = '' ) {
-		return parent::output_checkbox( 'registration_form' );
 	}
 
 	/**

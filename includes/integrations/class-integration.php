@@ -8,8 +8,10 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 abstract class MC4WP_Integration {
 
-    protected $checkbox_name_value = '_mc4wp_subscribe';
-	
+	protected $checkbox_name_value = '_mc4wp_subscribe';
+
+	protected $type = 'integration';
+
 	/**
 	* Constructor
 	*/
@@ -33,28 +35,27 @@ abstract class MC4WP_Integration {
 	*
 	* @param string $hook
 	*/
-	public function output_checkbox( $hook = '' ) {
-		echo $this->get_checkbox( $hook );
+	public function output_checkbox() {
+		echo $this->get_checkbox();
 	}
 
 	/**
 	* @param mixed $hook Array or string
 	* @return string
 	*/
-	public function get_checkbox( $hook = '' ) {
+	public function get_checkbox( $args = array() ) {
 
-		$args = $hook;
 		$opts = mc4wp_get_options( 'checkbox' );
 
 		$checked = $opts['precheck'] ? "checked" : '';
 
 		// set label text
-		if ( $hook && is_string( $hook ) && isset( $opts['text_'.$hook.'_label'] ) && !empty( $opts['text_'.$hook.'_label'] ) ) {
-			// custom label text was set
-			$label = __( $opts['text_' . $hook . '_label'] );
-		} elseif ( $args && is_array( $args ) && isset( $args['labels'][0] ) ) {
+		if ( isset( $args['labels'][0] ) ) {
 			// cf 7 shortcode
 			$label = $args['labels'][0];
+		} else if ( isset( $opts['text_' . $this->type . '_label'] ) && ! empty( $opts['text_' . $this->type . '_label'] ) ) {
+			// custom label text was set
+			$label = __( $opts['text_' . $this->type . '_label'] );
 		} else {
 			// default label text
 			$label = __( $opts['label'] );
@@ -75,11 +76,11 @@ abstract class MC4WP_Integration {
 		 	
 		}
 
-        // add starting debug marker
-		$content = "\n<!-- MailChimp for WordPress v". MC4WP_LITE_VERSION ." - http://wordpress.org/plugins/mailchimp-for-wp/ -->\n";
+		$content = "\n<!-- MailChimp for WP v". MC4WP_LITE_VERSION ." -->\n";
 
 		do_action( 'mc4wp_before_checkbox' ); 
 
+		// checkbox
 		$content .= '<p id="mc4wp-checkbox">';
 		$content .= '<label>';
 		$content .= '<input type="checkbox" name="' . esc_attr( $this->checkbox_name_value ) . '" value="1" '. $checked . ' /> ';
@@ -87,14 +88,39 @@ abstract class MC4WP_Integration {
 		$content .= '</label>';
 		$content .= '</p>';
 
+		// honeypot
 		$content .= '<textarea type="text" name="_mc4wp_required_but_not_really" style="display: none !important;"></textarea>';
 
 		do_action( 'mc4wp_after_checkbox' );
 
-        // add ending debug marker
-        $content .= "\n<!-- / MailChimp for WordPress -->\n";
-
 		return $content;
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function get_lists() {
+
+		// get checkbox lists options
+		$opts = mc4wp_get_options( 'checkbox' );
+		$lists = $opts['lists'];
+
+		// get lists from form, if set.
+		if( isset( $_POST['_mc4wp_lists'] ) && ! empty( $_POST['_mc4wp_lists'] ) ) {
+
+			$lists = $_POST['_mc4wp_lists'];
+
+			// make sure lists is an array
+			if( ! is_array( $lists ) ) {
+				$lists = array( $lists );
+			}
+
+		}
+
+		// allow plugins to filter final
+		$lists = apply_filters( 'mc4wp_lists', $lists );
+
+		return $lists;
 	}
 
 	/**
@@ -106,24 +132,26 @@ abstract class MC4WP_Integration {
 	* @param int $comment_ID
 	* @return boolean
 	*/
-	protected function subscribe( $email, array $merge_vars = array(), $signup_type = 'comment' ) {
+	protected function subscribe( $email, array $merge_vars = array(), $signup_type = 'comment', $comment_id = null ) {
+
 		$api = mc4wp_get_api();
 		$opts = mc4wp_get_options( 'checkbox' );
+		$lists = $this->get_lists();
 
-		if( ! isset( $opts['lists'] ) || empty( $opts['lists'] ) ) {
-			if( ( ! defined( "DOING_AJAX" ) || ! DOING_AJAX ) && current_user_can( 'manage_options' ) ) {
+		if( empty( $lists) ) {
+			if( ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) && current_user_can( 'manage_options' ) ) {
 				wp_die('
-					<h3>MailChimp for WordPress - Error</h3>
-					<p>Please select a list to subscribe to in the <a href="'. admin_url( 'admin.php?page=mc4wp-lite-checkbox-settings' ) .'">checkbox settings</a>.</p>
+					<h3>MailChimp for WP - Error</h3>
+					<p>Please select a list to subscribe to in the <a href="'. admin_url( 'admin.php?page=mc4wp-checkbox-settings' ) .'">checkbox settings</a>.</p>
 					<p style="font-style:italic; font-size:12px;">This message is only visible to administrators for debugging purposes.</p>
-					', "Error - MailChimp for WP", array( 'back_link' => true ) );
+					', 'Error - MailChimp for WP', array( 'back_link' => true ) );
 			}
 
 			return 'no_lists_selected';
 		}
 
 		// maybe guess first and last name
-		if ( isset( $merge_vars['NAME'] ) && ! isset( $merge_vars['FNAME'] ) && ! isset( $merge_vars['LNAME'] ) ) {
+		if ( isset( $merge_vars['NAME'] ) && !isset( $merge_vars['FNAME'] ) && !isset( $merge_vars['LNAME'] ) ) {
 
 			$strpos = strpos( $merge_vars['NAME'], ' ' );
 			if ( $strpos !== false ) {
@@ -137,18 +165,22 @@ abstract class MC4WP_Integration {
 		$result = false;
 		$merge_vars = apply_filters( 'mc4wp_merge_vars', $merge_vars, $signup_type );
 		$email_type = apply_filters( 'mc4wp_email_type', 'html' );
-		$lists = apply_filters( 'mc4wp_lists', $opts['lists'], $merge_vars );
 
 		do_action( 'mc4wp_before_subscribe', $email, $merge_vars );
 
-		foreach( $lists as $list_ID ) {
-			$result = $api->subscribe( $list_ID, $email, $merge_vars, $email_type, $opts['double_optin'], false, true, $opts['send_welcome'] );
+		foreach( $lists as $list_id ) {
+			$result = $api->subscribe( $list_id, $email, $merge_vars, $email_type, $opts['double_optin'], false, true, $opts['send_welcome'] );
 		}
 
 		do_action( 'mc4wp_after_subscribe', $email, $merge_vars, $result );
 
+		if ( $result === true ) {
+			$from_url = ( isset($_SERVER['HTTP_REFERER'] ) ) ? $_SERVER['HTTP_REFERER'] : '';
+			do_action( 'mc4wp_subscribe_checkbox', $email, $lists, $signup_type, $merge_vars, $comment_id, $from_url );
+		}
+
 		// check if result succeeded, show debug message to administrators (only in NON-AJAX requests)
-		if ( $result !== true && $api->has_error() && current_user_can( 'manage_options' ) && ( ! defined( "DOING_AJAX" ) || ! DOING_AJAX ) ) {
+		if ( $result !== true && $api->has_error() && current_user_can( 'manage_options' ) && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) && ( ! isset( $_POST['_wpcf7_is_ajax_call'] ) || $_POST['_wpcf7_is_ajax_call'] != 1 ) ) {
 			wp_die( "<h3>MailChimp for WP - Error</h3>
 					<p>The MailChimp server returned the following error message as a response to our sign-up request:</p>
 					<pre>" . $api->get_error_message() . "</pre>
@@ -157,10 +189,9 @@ abstract class MC4WP_Integration {
 					<pre>{$email}</pre>
 					<strong>Merge variables</strong>
 					<pre>" . print_r( $merge_vars, true ) . "</pre>
-					<p style=\"font-style:italic; font-size:12px; \">This message is only visible to administrators for debugging purposes.</p>
+					<p><small>This message is only visible to administrators for debugging purposes.</small></p>
 					", "Error - MailChimp for WP", array( 'back_link' => true ) );
 		}
-
 
 		return $result;
 	}
