@@ -367,7 +367,7 @@ class MC4WP_Lite_Form_Manager {
 
 			// uppercase all variables
 			$name = trim( strtoupper( $name ) );
-			$value = ( is_scalar( $value ) ) ? trim( $value ) : $value;
+			$value = ( is_scalar( $value ) ) ? trim( stripslashes( $value ) ) : $value;
 
 			if( $name === 'EMAIL' && is_email($value) ) {
 				// set the email address
@@ -391,7 +391,7 @@ class MC4WP_Lite_Form_Manager {
 					if ( is_numeric( $grouping_id_or_name ) ) {
 						$grouping['id'] = $grouping_id_or_name;
 					} else {
-						$grouping['name'] = $grouping_id_or_name;
+						$grouping['name'] = stripslashes( $grouping_id_or_name );
 					}
 
 					// comma separated list should become an array
@@ -447,7 +447,6 @@ class MC4WP_Lite_Form_Manager {
 		if( isset( $merge_vars['NAME'] ) && !isset( $merge_vars['FNAME'] ) && ! isset( $merge_vars['LNAME'] ) ) {
 
 			$strpos = strpos($merge_vars['NAME'], ' ');
-
 			if( $strpos !== false ) {
 				$merge_vars['FNAME'] = substr($merge_vars['NAME'], 0, $strpos);
 				$merge_vars['LNAME'] = substr($merge_vars['NAME'], $strpos);
