@@ -12,5 +12,5 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 	<p>Pro features include better and multiple forms, advanced and easy form styling, more default themes, detailed statistics and priority support.</p>
 
-	<p><a href="http://dannyvankooten.com/mailchimp-for-wordpress/?utm_source=lite-plugin&utm_medium=link&utm_campaign=upgrade-box">More information about MailChimp for WP Pro &raquo;</a></p>
+	<p><a href="http://dannyvankooten.com/mailchimp-for-wordpress/#utm_source=lite-plugin&utm_medium=link&utm_campaign=upgrade-box">More information about MailChimp for WP Pro &raquo;</a></p>
 </div>
