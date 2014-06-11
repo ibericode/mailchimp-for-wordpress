@@ -49,12 +49,6 @@ class MC4WP_Lite {
 
 		// widget
 		add_action( 'widgets_init', array( $this, 'register_widget' ) );
-
-		if ( ! is_admin() ) {
-			// frontend only
-			include_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/template.php';
-
-		}
 	}
 
     /**
