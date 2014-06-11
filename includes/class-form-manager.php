@@ -104,21 +104,19 @@ class MC4WP_Lite_Form_Manager {
 	*/
 	private function get_css_classes() {
 
-		$css_classes = array(
-			'form',
-			'mc4wp-form' 
-		);
+		// Allow devs to add CSS classes
+		$css_classes = apply_filters( 'mc4wp_form_css_classes', array( 'form' ) );
+
+		// the following classes MUST be used
+		$css_classes[] = 'mc4wp-form';
 
 		if( $this->error !== '' ) {
 			$css_classes[] = 'mc4wp-form-error';
 		}
 
-		if( $this->success ) {
+		if( $this->success === true ) {
 			$css_classes[] = 'mc4wp-form-success';
 		}
-
-		// Allow devs to add CSS classes
-		$css_classes = apply_filters( 'mc4wp_form_css_classes', $css_classes );
 
 		return implode( ' ', $css_classes );
 	}
