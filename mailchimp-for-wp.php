@@ -53,6 +53,7 @@ function mc4wp_load_plugin() {
 	define( "MC4WP_LITE_PLUGIN_FILE", __FILE__ );
 
 	require_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/general.php';
+	require_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/template.php';
 	require_once MC4WP_LITE_PLUGIN_DIR . 'includes/class-plugin.php';
 	$GLOBALS['mc4wp'] = new MC4WP_Lite();
 
