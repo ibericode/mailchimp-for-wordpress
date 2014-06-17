@@ -2,9 +2,9 @@
 Contributors: DvanKooten
 Donate link: http://dannyvankooten.com/mailchimp-for-wordpress/
 Tags: mailchimp,form,shortcode,widget,checkbox,comment,newsletter,buddypress,multisite,bbpress,woocommerce,easy digital downloads,contact form,contact form 7
-Requires at least: 3.5
+Requires at least: 3.6
 Tested up to: 3.9.1
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -210,21 +210,33 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Changelog ==
 
-= 2.0.2 =
+= 2.0.3 - June 17, 2014 =
 
 **Fixes**
-	- Fix usage of `[mc4wp_checkbox]` function
-	- No more double subscription request when integration with Contact Form 7
+
+- Fixed undefined index notice in Contact Form 7 integration class
 
 **Improvements**
-	- Make sure template functions are loaded when they're needed
-	- Show a warning when required fields are missing in the form mark-up
-	- Updated Spanish translations
-	- Make sure required form classes can't be removed
-	- Various checkbox integration improvements
-	- Various improvements to colored form themes
 
-= 2.0.1 =
+- Reset form width in all stylesheets
+
+= 2.0.2 - June 12, 2014 =
+
+**Fixes**
+
+- Fix fatal error when using `mc4wp_checkbox()` function
+- No more double API request when integrating with Contact Form 7
+
+**Improvements**
+
+- Template functions are now always loaded when needed
+- A warning will now show when required fields are missing in the form mark-up
+- Required form classes can no longer be accidentally removed
+- Various checkbox integration improvements
+- Various CSS improvements to colored form themes
+- Updated Spanish translations
+
+= 2.0.1 - May 15, 2014 =
 
 **Improvements**
 
@@ -410,5 +422,5 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Upgrade Notice ==
 
-= 2.0.2 =
-Various fixes and improvements regarding form fields, checkbox integrations and form colours
+= 2.0.3 =
+Fix undefined index notice in Contact Form 7 integrations.
