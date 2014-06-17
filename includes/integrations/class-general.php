@@ -80,10 +80,6 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 	*/	
 	public function try_subscribe( $trigger = 'other_form' ) {
 
-		if ( $this->checkbox_was_checked() === false ) {
-			return false; 
-		}
-
 		// start running..
 		$email = null;
 		$merge_vars = array(

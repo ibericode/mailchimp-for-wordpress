@@ -8,8 +8,9 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 abstract class MC4WP_Integration {
 
-	protected $checkbox_name_value = '_mc4wp_subscribe';
-
+	/**
+	 * @var string
+	 */
 	protected $type = 'integration';
 
 	/**
@@ -27,7 +28,7 @@ abstract class MC4WP_Integration {
 			return false;
 		}
 
-		return ( isset( $_POST[ $this->checkbox_name_value ] ) && $_POST[ $this->checkbox_name_value ] == 1 );
+		return ( isset( $_POST[ '_mc4wp_subscribe' ] ) && $_POST[ '_mc4wp_subscribe' ] == 1 );
 	}
 
 	/**
@@ -83,7 +84,7 @@ abstract class MC4WP_Integration {
 		// checkbox
 		$content .= '<p id="mc4wp-checkbox">';
 		$content .= '<label>';
-		$content .= '<input type="checkbox" name="' . esc_attr( $this->checkbox_name_value ) . '" value="1" '. $checked . ' /> ';
+		$content .= '<input type="checkbox" name="_mc4wp_subscribe" value="1" '. $checked . ' /> ';
 		$content .= $label;
 		$content .= '</label>';
 		$content .= '</p>';
@@ -140,11 +141,11 @@ abstract class MC4WP_Integration {
 
 		if( empty( $lists) ) {
 			if( ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) && current_user_can( 'manage_options' ) ) {
-				wp_die('
-					<h3>MailChimp for WP - Error</h3>
-					<p>Please select a list to subscribe to in the <a href="'. admin_url( 'admin.php?page=mc4wp-checkbox-settings' ) .'">checkbox settings</a>.</p>
-					<p style="font-style:italic; font-size:12px;">This message is only visible to administrators for debugging purposes.</p>
-					', 'Error - MailChimp for WP', array( 'back_link' => true ) );
+				wp_die(
+					'<h3>MailChimp for WP - Error</h3>
+					<p>Please select a list to subscribe to in the <a href="'. admin_url( 'admin.php?page=mc4wp-lite-checkbox-settings' ) .'">checkbox settings</a>.</p>
+					<p style="font-style:italic; font-size:12px;">This message is only visible to administrators for debugging purposes.</p>',
+					'Error - MailChimp for WP', array( 'back_link' => true ) );
 			}
 
 			return 'no_lists_selected';
@@ -169,7 +170,7 @@ abstract class MC4WP_Integration {
 		do_action( 'mc4wp_before_subscribe', $email, $merge_vars );
 
 		foreach( $lists as $list_id ) {
-			$result = $api->subscribe( $list_id, $email, $merge_vars, $email_type, $opts['double_optin'], false, true, $opts['send_welcome'] );
+			$result = $api->subscribe( $list_id, $email, $merge_vars, $email_type, $opts['double_optin'], false, true );
 		}
 
 		do_action( 'mc4wp_after_subscribe', $email, $merge_vars, $result );
