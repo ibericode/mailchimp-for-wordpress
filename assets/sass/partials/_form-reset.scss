@@ -4,6 +4,11 @@
   margin: 1em 0;
 }
 
+form.mc4wp-form,
+.mc4wp-form form {
+	width: auto;
+}
+
 .mc4wp-form label{
   display: block;
   font-weight: bold;

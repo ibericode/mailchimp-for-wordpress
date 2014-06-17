@@ -1,8 +1,10 @@
 /* Form base theme */
-.mc4wp-form {
-  box-shadow: none !important;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
+form.mc4wp-form,
+.mc4wp-form form {
+	box-shadow: none !important;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	width: auto;
 }
 
 .mc4wp-form p {
