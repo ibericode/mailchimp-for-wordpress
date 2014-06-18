@@ -151,7 +151,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 					<input type="radio" readonly /> <label><?php _e("Yes"); ?></label> &nbsp; 
 					<input type="radio" checked readonly /> <label><?php _e("No"); ?></label>
 				</td>
-				<td class="desc"><?php _e( 'Select "yes" if you want to use AJAX (JavaScript) to submit forms.', 'mailchimp-for-wp' ); ?> <a href="http://dannyvankooten.com/mailchimp-for-wordpress/demo/#utm_source=lite-plugin&utm_medium=link&utm_campaign=settings-demo-link">(demo)</a></td>
+				<td class="desc"><?php _e( 'Select "yes" if you want to use AJAX (JavaScript) to submit forms.', 'mailchimp-for-wp' ); ?> <a href="https://dannyvankooten.com/mailchimp-for-wordpress/demo/#utm_source=lite-plugin&utm_medium=link&utm_campaign=settings-demo-link">(demo)</a></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="mc4wp_form_hide_after_success"><?php _e( 'Hide form after a successful sign-up?', 'mailchimp-for-wp' ); ?></label></th>

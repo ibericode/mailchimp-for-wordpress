@@ -24,7 +24,7 @@ Support
 This is a developer's portal for the MailChimp for WordPress plugin and should not be used for support. Please visit the
 [plugin support forums on WordPress.org](http://wordpress.org/support/plugin/mailchimp-for-wp).
 
-If you need priority support, please consider upgrading to [MailChimp for WordPress Pro](http://dannyvankooten.com/mailchimp-for-wordpress/).
+If you need priority support, please consider upgrading to [MailChimp for WordPress Pro](https://dannyvankooten.com/mailchimp-for-wordpress/).
 
 Contributions
 -------------

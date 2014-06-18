@@ -141,7 +141,7 @@ class MC4WP_Lite_Form_Manager {
 
 		$form_action = apply_filters( 'mc4wp_form_action', mc4wp_get_current_url() );
 
-		$content = "\n<!-- Form by MailChimp for WordPress plugin v". MC4WP_LITE_VERSION ." - http://dannyvankooten.com/mailchimp-for-wordpress/ -->\n";
+		$content = "\n<!-- Form by MailChimp for WordPress plugin v". MC4WP_LITE_VERSION ." - https://dannyvankooten.com/mailchimp-for-wordpress/ -->\n";
 		$content .= '<form method="post" action="'. $form_action .'" id="mc4wp-form-'.$this->form_instance_number.'" class="'.$css_classes.'">';
 
 		// maybe hide the form

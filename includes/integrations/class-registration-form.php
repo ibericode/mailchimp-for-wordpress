@@ -9,8 +9,14 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 class MC4WP_Registration_Form_Integration extends MC4WP_Integration {
 
+	/**
+	 * @var string
+	 */
 	protected $type = 'registration_form';
 
+	/**
+	 * Constructor, adds the registration hooks
+	 */
 	public function __construct() {
 		add_action( 'register_form', array( $this, 'output_checkbox' ), 20 );
 		add_action( 'user_register', array( $this, 'subscribe_from_registration' ), 90, 1 );
