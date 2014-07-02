@@ -7,7 +7,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 }
 
 ?>
-<div id="mc4wp-<?php echo $tab; ?>" class="wrap mc4wp-settings">
+<div id="mc4wp" class="wrap mc4wp-settings">
 
 	<h2><img src="<?php echo MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png'; ?>" /> <?php _e( 'MailChimp for WordPress', 'mailchimp-for-wp' ); ?>: <?php _e( 'MailChimp Settings', 'mailchimp-for-wp' ); ?></h2>
 

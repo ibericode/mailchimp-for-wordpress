@@ -233,7 +233,6 @@ class MC4WP_Lite_Admin
 	{
 		$mailchimp = new MC4WP_MailChimp();
 		$opts = mc4wp_get_options( 'general' );
-		$tab = 'api-settings';
 		$connected = ( mc4wp_get_api()->is_connected() );
 
 		$lists = $mailchimp->get_lists();
@@ -248,8 +247,6 @@ class MC4WP_Lite_Admin
 		$mailchimp = new MC4WP_MailChimp();
 		$opts = mc4wp_get_options( 'checkbox' );
 		$lists = $mailchimp->get_lists();
-
-		$tab = 'checkbox-settings';
 		require MC4WP_LITE_PLUGIN_DIR . 'includes/views/checkbox-settings.php';
 	}
 
@@ -261,7 +258,6 @@ class MC4WP_Lite_Admin
 		$opts = mc4wp_get_options( 'form' );
 		$mailchimp = new MC4WP_MailChimp();
 		$lists = $mailchimp->get_lists();
-		$tab = 'form-settings';
 
 		// create array of missing form fields
 		$missing_form_fields = array();
