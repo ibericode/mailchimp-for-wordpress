@@ -217,10 +217,16 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 		<h3 class="mc4wp-title"><?php _e( 'Form variables', 'mailchimp-for-wp' ); ?></h3>
 		<p><?php _e( 'Use the following variables to add some dynamic content to your form.', 'mailchimp-for-wp' ); ?></p>
 
+		<?php $language = defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : get_locale(); ?>
+
 		<table class="mc4wp-help">
 			<tr>
 				<th>{subscriber_count}</th>
 				<td><?php _e( 'Replaced with the number of subscribers on the selected list(s)', 'mailchimp-for-wp' ); ?></td>
+			</tr>
+			<tr>
+				<th>{language}</th>
+				<td><?php printf( __( 'Replaced with the current site language, eg: %s', 'mailchimp-for-wp' ), '<em>' . $language . '</em>' ); ?></td>
 			</tr>
 			<tr>
 				<th>{ip}</th>
@@ -228,19 +234,15 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 			</tr>
 			<tr>
 				<th>{date}</th>
-				<td><?php printf( __( 'Replaced with the current date (yyyy/mm/dd eg: %s)', 'mailchimp-for-wp' ), date("Y/m/d") ); ?></td>
+				<td><?php printf( __( 'Replaced with the current date (yyyy/mm/dd eg: %s)', 'mailchimp-for-wp' ), '<em>' . date("Y/m/d") . '</em>' ); ?></td>
 			</tr>
 			<tr>
 				<th>{time}</th>
-				<td><?php printf( __( 'Replaced with the current time (hh:mm:ss eg: %s)', 'mailchimp-for-wp' ), date("H:i:s") ); ?></td>
+				<td><?php printf( __( 'Replaced with the current time (hh:mm:ss eg: %s)', 'mailchimp-for-wp' ), '<em>' . date("H:i:s") . '</em>' ); ?></td>
 			</tr>
 			<tr>
 				<th>{user_email}</th>
 				<td><?php _e( 'Replaced with the logged in user\'s email (or nothing, if there is no logged in user)', 'mailchimp-for-wp' ); ?></td>
-			</tr>
-			<tr>
-				<th>{user_name}</th>
-				<td><?php _e( 'Display name of the current user', 'mailchimp-for-wp' ); ?></td>
 			</tr>
 			<tr>
 				<th>{user_firstname}</th>
