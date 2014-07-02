@@ -12,6 +12,9 @@ class MC4WP_BuddyPress_Integration extends MC4WP_Integration {
 	protected $type = 'buddypress_form';
 
 	public function __construct() {
+
+		parent::__construct();
+
 		add_action( 'bp_before_registration_submit_buttons', array( $this, 'output_checkbox' ), 20 );
 		add_action( 'bp_core_signup_user', array( $this, 'subscribe_from_buddypress' ), 10, 4 );
 	}

@@ -14,21 +14,42 @@ abstract class MC4WP_Integration {
 	protected $type = 'integration';
 
 	/**
-	* Constructor
-	*/
-	public function __construct() {}
+	 * @var string
+	 */
+	protected $checkbox_name = '_mc4wp_subscribe';
 
 	/**
-	* @return boolean
+	* Constructor
 	*/
-	public function checkbox_was_checked() {
+	public function __construct() {
+		$this->checkbox_name = '_mc4wp_subscribe' . '_' . $this->type;
+	}
+
+	/**
+	 * Was the honeypot filled?
+	 *
+	 * @return bool
+	 */
+	protected function is_honeypot_filled() {
 
 		// Check if honeypot was filled (by spam bots)
 		if( isset( $_POST['_mc4wp_required_but_not_really'] ) && ! empty( $_POST['_mc4wp_required_but_not_really'] ) ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	* @return bool
+	*/
+	public function checkbox_was_checked() {
+
+		if( $this->is_honeypot_filled() ) {
 			return false;
 		}
 
-		return ( isset( $_POST[ '_mc4wp_subscribe' ] ) && $_POST[ '_mc4wp_subscribe' ] == 1 );
+		return ( isset( $_POST[ $this->checkbox_name ] ) && $_POST[ $this->checkbox_name ] == 1 );
 	}
 
 	/**
@@ -77,14 +98,14 @@ abstract class MC4WP_Integration {
 		 	
 		}
 
-		$content = "\n<!-- MailChimp for WP v". MC4WP_LITE_VERSION ." -->\n";
+		$content = "\n<!-- MailChimp for WP v". MC4WP_LITE_VERSION ." - https://dannyvankooten.com/mailchimp-for-wordpress/ -->\n";
 
 		do_action( 'mc4wp_before_checkbox' ); 
 
 		// checkbox
 		$content .= '<p id="mc4wp-checkbox">';
 		$content .= '<label>';
-		$content .= '<input type="checkbox" name="_mc4wp_subscribe" value="1" '. $checked . ' /> ';
+		$content .= '<input type="checkbox" name="'. $this->checkbox_name .'" value="1" '. $checked . ' /> ';
 		$content .= $label;
 		$content .= '</label>';
 		$content .= '</p>';

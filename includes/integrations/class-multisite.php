@@ -12,6 +12,9 @@ class MC4WP_MultiSite_Integration extends MC4WP_Integration {
 	protected $type = 'multisite_form';
 
 	public function __construct() {
+
+		parent::__construct();
+
 		add_action( 'signup_extra_fields', array( $this, 'output_checkbox' ), 20 );
 		add_action( 'signup_blogform', array( $this, 'add_multisite_hidden_checkbox' ), 20 );
 		add_action( 'wpmu_activate_blog', array( $this, 'on_multisite_blog_signup' ), 20, 5 );
