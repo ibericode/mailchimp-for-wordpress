@@ -62,7 +62,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 					<th scope="col">List Name</th>
 					<th scope="col">Merge Fields</th>
 					<th scope="col">Groupings</th>
-					<th scope="col">Subscriber Count</th>
+					<th class="mc4wp-hide-smallscreens" scope="col">Subscribers</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -78,7 +78,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 							<?php if( ! empty( $list->merge_vars ) && is_array( $list->merge_vars ) ) { ?>
 								<ul class="ul-square" style="margin-top: 0;">
 									<?php foreach( $list->merge_vars as $merge_var ) { ?>
-										<li><?php echo esc_html( $merge_var->name ); ?></li>
+										<li><?php echo esc_html( $merge_var->name ); ?> <code><?php echo esc_html( $merge_var->tag ); ?></code></li>
 									<?php } ?>
 								</ul>
 							<?php } ?>
@@ -102,7 +102,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 							} ?>
 
 						</td>
-						<td><?php echo esc_html( $list->subscriber_count ); ?></td>
+						<td class="mc4wp-hide-smallscreens"><?php echo esc_html( $list->subscriber_count ); ?></td>
 					</tr>
 					<?php 
 					}  
