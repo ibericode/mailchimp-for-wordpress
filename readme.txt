@@ -232,6 +232,7 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 **Additions**
 
 - Added `{language}` text variable to print the current site language.
+- Added merge tag names to list overview table
 
 = 2.0.3 - June 17, 2014 =
 
