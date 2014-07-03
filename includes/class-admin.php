@@ -231,11 +231,22 @@ class MC4WP_Lite_Admin
 	*/
 	public function show_api_settings()
 	{
-		$mailchimp = new MC4WP_MailChimp();
 		$opts = mc4wp_get_options( 'general' );
 		$connected = ( mc4wp_get_api()->is_connected() );
 
-		$lists = $mailchimp->get_lists();
+		// cache renewal triggered manually?
+		$force_cache_refresh = isset( $_POST['mc4wp-renew-cache'] ) && $_POST['mc4wp-renew-cache'] == 1;
+		$mailchimp = new MC4WP_MailChimp();
+		$lists = $mailchimp->get_lists( $force_cache_refresh );
+
+		if ( $force_cache_refresh ) {
+			if ( false === empty ( $lists ) ) {
+				add_settings_error( "mc4wp", "mc4wp-cache-success", __( 'Renewed MailChimp cache.', 'mailchimp-for-wp' ), 'updated' );
+			} else {
+				add_settings_error( "mc4wp", "mc4wp-cache-error", __( 'Failed to renew MailChimp cache - please try again later.', 'mailchimp-for-wp' ) );
+			}
+		}
+
 		require MC4WP_LITE_PLUGIN_DIR . 'includes/views/api-settings.php';
 	}
 
