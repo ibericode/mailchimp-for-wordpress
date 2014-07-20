@@ -287,20 +287,24 @@ class MC4WP_Lite_Form_Manager {
 	}
 
 	/**
-	* Get posted form data
-	*
-	* Strips internal MailChimp for WP variables from the posted data array
-	*
-	* @return array
-	*/
+	 * Get posted form data
+	 *
+	 * Strips internal MailChimp for WP variables from the posted data array
+	 *
+	 * @return array
+	 */
 	public function get_posted_form_data() {
 
 		$data = array();
+		$ignored_fields = array( 'CPTCH_NUMBER', 'CNTCTFRM_CONTACT_ACTION', 'CPTCH_RESULT', 'CPTCH_TIME' );
 
 		foreach( $_POST as $name => $value ) {
-			if( $name[0] !== '_' ) {
-				$data[$name] = $value;
+
+			if( $name[0] === '_' || in_array( strtoupper( $name ), $ignored_fields ) ) {
+				continue;
 			}
+
+			$data[$name] = $value;
 		}
 
 		// store data somewhere safe
