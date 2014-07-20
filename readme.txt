@@ -1,10 +1,10 @@
 === MailChimp for WordPress ===
-Contributors: DvanKooten
+Contributors: DvanKooten, 12notions
 Donate link: https://dannyvankooten.com/mailchimp-for-wordpress/
 Tags: mailchimp,form,shortcode,widget,checkbox,comment,newsletter,buddypress,multisite,bbpress,woocommerce,easy digital downloads,contact form,contact form 7
 Requires at least: 3.6
 Tested up to: 3.9.1
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -216,6 +216,18 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 8. **Pro only:** Create your own CSS styles with the form designer in the Pro version.
 
 == Changelog ==
+
+= 2.0.5 - July 21, 2014 =
+
+**Improvements**
+- Ignore Captcha fields in sign-up data
+- Updated Spanish translations
+- Minor improvements to Admin and MailChimp API class
+- Show field tag and required status in Lists overview table
+
+**Additions**
+- Add visitor IP address to sign-up data
+
 
 = 2.0.4 - July 2, 2014 =
 
@@ -446,5 +458,5 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Upgrade Notice ==
 
-= 2.0.4 =
-Recommended update! Fixes double subscription requests for checkbox sign-ups.
+= 2.0.5 =
+Various minor improvements code and usability improvements.
