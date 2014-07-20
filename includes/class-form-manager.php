@@ -455,6 +455,11 @@ class MC4WP_Lite_Form_Manager {
 			}
 		}
 
+		// set ip address
+		if( ! isset( $merge_vars['OPTIN_IP'] ) && isset( $_SERVER['REMOTE_ADDR'] ) ) {
+			$merge_vars['OPTIN_IP'] = $_SERVER['REMOTE_ADDR'];
+		}
+
 		$api = mc4wp_get_api();
 		$opts = mc4wp_get_options( 'form' );
 

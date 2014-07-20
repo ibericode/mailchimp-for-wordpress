@@ -184,6 +184,11 @@ abstract class MC4WP_Integration {
 			}
 		}
 
+		// set ip address
+		if( ! isset( $merge_vars['OPTIN_IP'] ) && isset( $_SERVER['REMOTE_ADDR'] ) ) {
+			$merge_vars['OPTIN_IP'] = $_SERVER['REMOTE_ADDR'];
+		}
+
 		$result = false;
 		$merge_vars = apply_filters( 'mc4wp_merge_vars', $merge_vars, $signup_type );
 		$email_type = apply_filters( 'mc4wp_email_type', 'html' );
