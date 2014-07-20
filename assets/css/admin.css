@@ -158,6 +158,10 @@ table.mc4wp-help tr:hover {
 	background-color: #ddd; 
 }
 
+#mc4wp .wp-list-table code {
+	float:right;
+}
+
 @media(max-width: 1279px) {
 
 	#mc4wp-sidebar, 
@@ -173,6 +177,9 @@ table.mc4wp-help tr:hover {
 		border-top: 1px solid #ccc; 
 		margin-top:25px; 
 		padding-top: 25px; 
+	}
+	#mc4wp .wp-list-table code {
+		float: none;
 	}
 	
 }
