@@ -21,9 +21,9 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 	</ul>
 </div>
 <div class="mc4wp-box">
-	<h4 class="mc4wp-title">About the developer</h4>
-	<p>My name is <a href="http://dannyvankooten.com/?utm_source=lite-plugin&utm_medium=link&utm_campaign=about">Danny van Kooten</a>. I develop WordPress plugins which help you build your websites. I love simplicity, happy customers and clean code.</p>
-	<p>Take a look at my other <a href="http://dannyvankooten.com/wordpress-plugins/#utm_source=lite-plugin&utm_medium=link&utm_campaign=about">plugins for WordPress</a> or <em>like</em> my Facebook page to stay updated.</p>
-	<p><iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2FCodeToTheChase&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=false&amp;appId=225994527565061" scrolling="no" frameborder="0" style="border:none; width: 100%; overflow:hidden; height: 80px;" allowTransparency="true"></iframe></p>
-	<p>You should follow me on Twitter <a href="http://twitter.com/dannyvankooten">here</a>.</p>
+	<h4 class="mc4wp-title">About 12notions</h4>
+	<p>12notions is the brand new company with which <a href="http://dannyvankooten.com/?utm_source=lite-plugin&utm_medium=link&utm_campaign=about">Danny van Kooten</a>, the developer of this plugin, strives to develop more and even better plugins.</p>
+	<p>If you like Danny's work, please "like" the 12notions Facebook page to stay updated or have a look at <a href="http://dannyvankooten.com/wordpress-plugins/#utm_source=lite-plugin&utm_medium=link&utm_campaign=about">his other WordPress plugins</a>.</p>
+	<p><iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2F12notions&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=false&amp;appId=225994527565061" scrolling="no" frameborder="0" style="border:none; width: 100%; overflow:hidden; height: 80px;" allowTransparency="true"></iframe></p>
+	<p>You should follow <a href="http://twitter.com/12notions">@12notions</a> or <a href="http://twitter.com/dannyvankooten">@DannyvanKooten</a> on Twitter.</p>
 </div>
