@@ -220,12 +220,14 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 = 2.0.5 - July 21, 2014 =
 
 **Improvements**
+
 - Ignore Captcha fields in sign-up data
 - Updated Spanish translations
 - Minor improvements to Admin and MailChimp API class
 - Show field tag and required status in Lists overview table
 
 **Additions**
+
 - Add visitor IP address to sign-up data
 
 
