@@ -214,34 +214,85 @@ class MC4WP_Lite_Form_Manager {
 	 */
 	private function get_form_messages() {
 
-		$opts = mc4wp_get_options('form');
-		$html = '';
+		// don't show message if form wasn't submitted
+		if( false === $this->success && $this->error === '' ) {
+			return '';
+		}
 
-		if( $this->success ) {
-			$html .= '<div class="mc4wp-alert mc4wp-success">' . __( $opts['text_success'] ) . '</div>';
-		} elseif( '' !== $this->error) {
+		// retrieve correct message
+		$type = ( $this->success ) ? 'success' : $this->error;
+		$message = $this->get_form_message( $type );
 
-			// set class to `notice` if the error is a "soft error"
-			$error_class = ( $this->error === 'already_subscribed' ) ? 'notice' : 'error';
+		/**
+		 * @filter mc4wp_form_error_message
+		 * @deprecated 2.0.5
+		 * @use mc4wp_form_messages
+		 *
+		 * Used to alter the error message, don't use. Use `mc4wp_form_messages` instead.
+		 */
+		$message['text'] = apply_filters('mc4wp_form_error_message', $message['text'], $this->error );
 
-			// set error message
-			$error_message = isset( $opts['text_' . $this->error] ) ? $opts['text_' . $this->error] : $opts['text_error'];
+		$html = '<div class="mc4wp-alert mc4wp-'. $message['type'].'">' . $message['text'] . '</div>';
 
-			// allow developers to customize error message
-			$error_message = apply_filters('mc4wp_form_error_message', $error_message, $this->error );
-
-			$html .= '<div class="mc4wp-alert mc4wp-'. $error_class .'">'. __( $error_message, 'mailchimp-for-wp' ) . '</div>';
-
+		if( '' !== $this->error && current_user_can( 'manage_options' ) ) {
 			// show MailChimp error message (if any) to administrators
-			if ( current_user_can( 'manage_options' ) ) {
-				$api = mc4wp_get_api();
-				if( $api->has_error() ) {
-					$html .= '<div class="mc4wp-alert mc4wp-error"><strong>Admin notice:</strong> '. $api->get_error_message() . '</div>';
-				}
+			$api = mc4wp_get_api();
+			if( $api->has_error() ) {
+				$html .= '<div class="mc4wp-alert mc4wp-error"><strong>Admin notice:</strong> '. $api->get_error_message() . '</div>';
 			}
 		}
 
 		return $html;
+	}
+
+	/**
+	 * Returns a single error message in Array form
+	 *
+	 * Example:
+	 * {
+	 *  type: "css-class-of-message",
+	 *  text: "The message text"
+	 * }
+	 *
+	 * @param $type Defines which message to retrieve, should be a valid index of the messages array
+	 *
+	 * @return array
+	 */
+	public function get_form_message( $type ) {
+
+		$opts = mc4wp_get_options( 'form' );
+
+		$messages = array(
+			'already_subscribed' => array(
+				'type' => 'notice',
+				'text' => $opts['text_already_subscribed']
+			),
+			'error' => array(
+				'type' => 'error',
+				'text' => $opts['text_error']
+			),
+			'invalid_email' => array(
+				'type' => 'error',
+				'text' => $opts['text_invalid_email']
+			),
+			'success' => array(
+				'type' => 'success',
+				'text' => $opts['text_success']
+			)
+		);
+
+		/**
+		 * @filter mc4wp_form_messages
+		 *
+		 * Allows registering custom form messages, useful if you're using custom validation using the `mc4wp_valid_form_request` filter.
+		 */
+		$messages = apply_filters( 'mc4wp_form_messages', $messages );
+
+		if( ! isset( $messages[ $type ] ) ) {
+			return $messages['error'];
+		}
+
+		return $messages[ $type ];
 	}
 
 	/**
@@ -272,7 +323,13 @@ class MC4WP_Lite_Form_Manager {
 			return false;
 		}
 
-		// allow plugins to add additional validation
+		/**
+		 * @filter mc4wp_valid_form_request
+		 *
+		 * Use this to perform custom form validation.
+		 * Return true if the form is valid or an error string if it isn't.
+		 * Use the `mc4wp_form_messages` filter to register custom error messages.
+		 */
 		$valid_form_request = apply_filters( 'mc4wp_valid_form_request', true );
 		if( $valid_form_request !== true ) {
 			$this->error = $valid_form_request;
