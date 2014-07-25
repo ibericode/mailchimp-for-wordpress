@@ -69,7 +69,9 @@ class MC4WP_Lite_Checkbox_Manager
             return false;
         }
 
-        wp_enqueue_style( 'mailchimp-for-wp-checkbox', MC4WP_LITE_PLUGIN_URL . 'assets/css/checkbox.css', array(), MC4WP_LITE_VERSION, 'all' );
+		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
+		wp_enqueue_style( 'mailchimp-for-wp-checkbox', MC4WP_LITE_PLUGIN_URL . 'assets/css/checkbox' . $suffix . '.css', array(), MC4WP_LITE_VERSION, 'all' );
         return true;
 	}
 
