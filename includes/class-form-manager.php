@@ -152,7 +152,7 @@ class MC4WP_Lite_Form_Manager {
 
 		// show message if form was submitted and message position is before
 		if( $message_position === 'before' && $this->form_instance_number === $this->submitted_form_instance) {
-			$content .= $this->get_form_messages();
+			$content .= $this->get_form_message_html();
 		}
 
 		// do not add form fields if form was submitted and hide_after_success is enabled
@@ -189,7 +189,7 @@ class MC4WP_Lite_Form_Manager {
 
 		// show message if form was submitted and message position is after
 		if( $message_position === 'after' && $this->form_instance_number === $this->submitted_form_instance) {
-			$content .= $this->get_form_messages();
+			$content .= $this->get_form_message_html();
 		}
 
 		if ( current_user_can( 'manage_options' ) && empty( $opts['lists'] ) ) {
@@ -216,16 +216,19 @@ class MC4WP_Lite_Form_Manager {
 	 *
 	 * @return string
 	 */
-	private function get_form_messages() {
+	private function get_form_message_html( $form_id = 0 ) {
 
 		// don't show message if form wasn't submitted
 		if( false === $this->success && $this->error === '' ) {
 			return '';
 		}
 
+		// get all form messages
+		$messages = $this->get_form_messages( $form_id );
+
 		// retrieve correct message
 		$type = ( $this->success ) ? 'success' : $this->error;
-		$message = $this->get_form_message( $type );
+		$message = ( isset( $messages[ $type ] ) ) ? $messages[ $type ] : $messages['error'];
 
 		/**
 		 * @filter mc4wp_form_error_message
@@ -250,19 +253,20 @@ class MC4WP_Lite_Form_Manager {
 	}
 
 	/**
-	 * Returns a single error message in Array form
+	 * Returns the various error and success messages in array format
 	 *
 	 * Example:
-	 * {
-	 *  type: "css-class-of-message",
-	 *  text: "The message text"
-	 * }
-	 *
-	 * @param $type Defines which message to retrieve, should be a valid index of the messages array
+	 * array(
+	 *      'invalid_email' => array(
+	 *          'type' => 'css-class',
+	 *          'text' => 'Message text'
+	 *      ),
+	 *      ...
+	 * );
 	 *
 	 * @return array
 	 */
-	public function get_form_message( $type ) {
+	public function get_form_messages( $form_id = 0 ) {
 
 		$opts = mc4wp_get_options( 'form' );
 
@@ -282,6 +286,10 @@ class MC4WP_Lite_Form_Manager {
 			'success' => array(
 				'type' => 'success',
 				'text' => $opts['text_success']
+			),
+			'invalid_captcha' => array(
+				'type' => 'error',
+				'text' => $opts['text_invalid_captcha']
 			)
 		);
 
@@ -292,11 +300,7 @@ class MC4WP_Lite_Form_Manager {
 		 */
 		$messages = apply_filters( 'mc4wp_form_messages', $messages );
 
-		if( ! isset( $messages[ $type ] ) ) {
-			return $messages['error'];
-		}
-
-		return $messages[ $type ];
+		return $messages;
 	}
 
 	/**
