@@ -130,6 +130,7 @@ class MC4WP_Lite_Form_Manager {
 	* @return string
 	*/
 	public function form( $atts, $content = null ) {
+
 		$opts = mc4wp_get_options('form');
 
 		if ( ! function_exists( 'mc4wp_replace_variables' ) ) {
@@ -140,12 +141,20 @@ class MC4WP_Lite_Form_Manager {
 		$css_classes = $this->get_css_classes();
 
 		$form_action = apply_filters( 'mc4wp_form_action', mc4wp_get_current_url() );
+		$message_position = apply_filters( 'mc4wp_form_message_position', 'after' );
 
 		$content = "\n<!-- Form by MailChimp for WordPress plugin v". MC4WP_LITE_VERSION ." - https://dannyvankooten.com/mailchimp-for-wordpress/ -->\n";
 		$content .= '<form method="post" action="'. $form_action .'" id="mc4wp-form-'.$this->form_instance_number.'" class="'.$css_classes.'">';
 
-		// maybe hide the form
+		// show message if form was submitted and message position is before
+		if( $message_position === 'before' && $this->form_instance_number === $this->submitted_form_instance) {
+			$content .= $this->get_form_messages();
+		}
+
+		// do not add form fields if form was submitted and hide_after_success is enabled
 		if ( !( $this->success && $opts['hide_after_success'] ) ) {
+
+			// add form fields
 			$form_markup = __( $opts['markup'] );
 
 			// replace special values
@@ -174,30 +183,9 @@ class MC4WP_Lite_Form_Manager {
 			$content .= '<input type="hidden" name="_mc4wp_form_nonce" value="'. wp_create_nonce( '_mc4wp_form_nonce' ) .'" />';
 		}
 
-		if ( $this->form_instance_number === $this->submitted_form_instance ) {
-
-			if ( $this->success ) {
-				$content .= '<div class="mc4wp-alert mc4wp-success">' . __( $opts['text_success'] ) . '</div>';
-			} elseif ( $this->error !== '' ) {
-
-				$api = mc4wp_get_api();
-				$e = $this->error;
-
-				$error_type = ( $e === 'already_subscribed' ) ? 'notice' : 'error';
-				$error_message = isset( $opts['text_' . $e] ) ? $opts['text_' . $e] : $opts['text_error'];
-				
-				// allow developers to customize error message
-				$error_message = apply_filters('mc4wp_form_error_message', $error_message, $e );
-				
-				$content .= '<div class="mc4wp-alert mc4wp-'. $error_type .'">'. __( $error_message, 'mailchimp-for-wp' ) . '</div>';
-
-				// show the eror returned by MailChimp?
-				if ( $api->has_error() && current_user_can( 'manage_options' ) ) {
-					$content .= '<div class="mc4wp-alert mc4wp-error"><strong>Admin notice:</strong> '. $api->get_error_message() . '</div>';
-				}
-
-			}
-			// endif
+		// show message if form was submitted and message position is after
+		if( $message_position === 'after' && $this->form_instance_number === $this->submitted_form_instance) {
+			$content .= $this->get_form_messages();
 		}
 
 		if ( current_user_can( 'manage_options' ) && empty( $opts['lists'] ) ) {
@@ -217,6 +205,43 @@ class MC4WP_Lite_Form_Manager {
 		}
 
 		return $content;
+	}
+
+	/**
+	 * Returns the HTML for success or error messages
+	 *
+	 * @return string
+	 */
+	private function get_form_messages() {
+
+		$opts = mc4wp_get_options('form');
+		$html = '';
+
+		if( $this->success ) {
+			$html .= '<div class="mc4wp-alert mc4wp-success">' . __( $opts['text_success'] ) . '</div>';
+		} elseif( '' !== $this->error) {
+
+			// set class to `notice` if the error is a "soft error"
+			$error_class = ( $this->error === 'already_subscribed' ) ? 'notice' : 'error';
+
+			// set error message
+			$error_message = isset( $opts['text_' . $this->error] ) ? $opts['text_' . $this->error] : $opts['text_error'];
+
+			// allow developers to customize error message
+			$error_message = apply_filters('mc4wp_form_error_message', $error_message, $this->error );
+
+			$html .= '<div class="mc4wp-alert mc4wp-'. $error_class .'">'. __( $error_message, 'mailchimp-for-wp' ) . '</div>';
+
+			// show MailChimp error message (if any) to administrators
+			if ( current_user_can( 'manage_options' ) ) {
+				$api = mc4wp_get_api();
+				if( $api->has_error() ) {
+					$html .= '<div class="mc4wp-alert mc4wp-error"><strong>Admin notice:</strong> '. $api->get_error_message() . '</div>';
+				}
+			}
+		}
+
+		return $html;
 	}
 
 	/**
