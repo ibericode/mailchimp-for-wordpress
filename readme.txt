@@ -51,6 +51,7 @@ Add sign-up checkboxes to *any* form on your website. The plugin offers built-in
 - English (en_US) - Danny van Kooten
 - Dutch (nl_NL) - Danny van Kooten
 - Spanish (es_ES) - [Paul Benitez - Tecnofilos](http://www.tecnofilos.net/)
+- Brazilian (pt_BR) - [Felipe Scuissiatto - Evonline](http://www.evonline.com.br/)
 
 If you have created your own language pack (or have an update of an existing one) you can send in your .PO and .MO files so we can bundle it into MailChimp for WordPress. You can [download the latest POT file](http://plugins.svn.wordpress.org/mailchimp-for-wp/trunk/languages/mailchimp-for-wp.po), and [PO files in each language](http://plugins.svn.wordpress.org/mailchimp-for-wp/trunk/languages/).
 
@@ -216,6 +217,12 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 8. **Pro only:** Create your own CSS styles with the form designer in the Pro version.
 
 == Changelog ==
+
+= Trunk =
+
+**Additions**
+
+- Added Brazilian translations, thanks to [Felipe Scuissiatto of Evonline](http://www.evonline.com.br/)
 
 = 2.0.5 - July 21, 2014 =
 
