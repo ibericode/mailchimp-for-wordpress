@@ -290,6 +290,12 @@ class MC4WP_Lite_Form_Manager {
 			'invalid_captcha' => array(
 				'type' => 'error',
 				'text' => $opts['text_invalid_captcha']
+			),
+			// TODO: Make this an option, include a placeholder for the actual field that is missing
+			// Example: The field %s is required. Please provide it and try again.
+			'required_field_missing' => array(
+				'type' => 'error',
+				'text' => 'A required field is missing. Please try again.'
 			)
 		);
 
@@ -310,6 +316,7 @@ class MC4WP_Lite_Form_Manager {
 	* @return boolean
 	*/
 	public function submit() {
+
 		// store number of submitted form
 		$this->submitted_form_instance = absint( $_POST['_mc4wp_form_instance'] );
 
@@ -563,6 +570,28 @@ class MC4WP_Lite_Form_Manager {
 			$this->error = 'no_lists_selected';
 			return false;
 		}
+
+		// validate other form fields
+		$mailchimp = new MC4WP_MailChimp();
+		foreach( $lists as $list_id ) {
+
+			$list = $mailchimp->get_list( $list_id, false, true );
+			foreach( $list->merge_vars as $merge_var ) {
+
+				// skip optional fields
+				if( ! $merge_var->req ) {
+					continue;
+				}
+
+				// check if field is given
+				if( ! isset( $merge_vars[ $merge_var->tag ] ) || '' === $merge_vars[ $merge_var->tag ] ) {
+					$this->error = 'required_field_missing';
+					return false;
+				}
+
+			}
+		}
+
 
 		do_action( 'mc4wp_before_subscribe', $email, $merge_vars, 0 );
 
