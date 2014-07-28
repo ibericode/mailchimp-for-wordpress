@@ -1,0 +1,18 @@
+{
+	"name": "dannyvankooten/mailchimp-for-wordpress",
+	"description": "Easily add sign-up methods for your MailChimp lists to your WordPress site using this WP plugin",
+	"keywords": ["wordpress", "mailchimp"],
+	"homepage": "http://wordpress.org/plugins/mailchimp-for-wp/",
+	"license": "GPL-2.0+",
+	"authors": [
+		{
+			"name": "Danny van Kooten",
+			"email": "hi@dannyvankooten.com",
+			"homepage": "http://dannyvankooten.com"
+		}
+	],
+	"type": "wordpress-plugin",
+	"require": {
+		"php": ">=5.3.0"
+	}
+}
