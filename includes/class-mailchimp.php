@@ -13,9 +13,14 @@ class MC4WP_MailChimp {
 	 *
 	 * @return array
 	 */
-	public function get_lists( $force_renewal = false ) {
+	public function get_lists( $force_renewal = false, $force_fallback = false ) {
 
 		$cached_lists = get_transient( 'mc4wp_mailchimp_lists' );
+
+		// if force_fallback is true, get lists from older transient
+		if( true === $force_fallback ) {
+			$cached_lists = get_transient( 'mc4wp_mailchimp_lists_fallback' );
+		}
 
 		if ( true === $force_renewal || false === $cached_lists || empty( $cached_lists ) ) {
 
@@ -80,8 +85,8 @@ class MC4WP_MailChimp {
 	 *
 	 * @return bool
 	 */
-	public function get_list( $list_id ) {
-		$lists = $this->get_lists();
+	public function get_list( $list_id, $force_renewal = false, $force_fallback = false ) {
+		$lists = $this->get_lists( $force_renewal, $force_fallback );
 
 		if( isset( $lists[$list_id] ) ) {
 			return $lists[$list_id];
