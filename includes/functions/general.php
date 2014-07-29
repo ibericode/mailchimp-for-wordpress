@@ -46,6 +46,7 @@ function mc4wp_get_options( $key = null ) {
 				'text_invalid_email' => __( 'Please provide a valid email address.', 'mailchimp-for-wp' ),
 				'text_already_subscribed' => __( 'Given email address is already subscribed, thank you!', 'mailchimp-for-wp' ),
 				'text_invalid_captcha' => __( 'Please complete the CAPTCHA.', 'mailchimp-for-wp' ),
+				'text_required_field_missing' => __( 'Please fill in the required fields.', 'mailchimp-for-wp' ),
 				'redirect' => '',
 				'lists' => array(),
 				'double_optin' => 1,
