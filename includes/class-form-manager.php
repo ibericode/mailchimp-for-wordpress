@@ -192,7 +192,13 @@ class MC4WP_Lite_Form_Manager {
 			// allow plugins to add form fieldsq
 			do_action( 'mc4wp_before_form_fields', 0 );
 
-			// allow plugins to alter form content
+			/**
+			 * @filter mc4wp_form_content
+			 * @param int $form_id The ID of the form that is being shown
+			 * @expects string
+			 *
+			 * Can be used to customize the content of the form mark-up, eg adding additional fields.
+			 */
 			$content .= apply_filters( 'mc4wp_form_content', $form_markup );
 
 			// allow plugins to add form fields
@@ -232,6 +238,7 @@ class MC4WP_Lite_Form_Manager {
 	 */
 	private function get_form_message_html( $form_id = 0 ) {
 
+		// don't show message if form wasn't submitted
 		if( ! is_object( $this->form_request ) ) {
 			return '';
 		}

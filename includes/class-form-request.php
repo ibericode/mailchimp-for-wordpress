@@ -175,7 +175,7 @@ class MC4WP_Lite_Form_Request {
 			if ( is_numeric( $grouping_id_or_name ) ) {
 				$grouping['id'] = $grouping_id_or_name;
 			} else {
-				$grouping['name'] = stripslashes( $grouping_id_or_name );
+				$grouping['name'] = $grouping_id_or_name;
 			}
 
 			// comma separated list should become an array
@@ -183,7 +183,7 @@ class MC4WP_Lite_Form_Request {
 				$groups = explode( ',', $groups );
 			}
 
-			$grouping['groups'] = array_map( 'stripslashes', $groups );
+			$grouping['groups'] = $groups;
 
 			// add grouping to array
 			$sanitized_data[] = $grouping;
