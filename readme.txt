@@ -4,7 +4,7 @@ Donate link: https://dannyvankooten.com/mailchimp-for-wordpress/
 Tags: mailchimp,form,shortcode,widget,checkbox,comment,newsletter,buddypress,multisite,bbpress,woocommerce,easy digital downloads,contact form,contact form 7
 Requires at least: 3.6
 Tested up to: 3.9.1
-Stable tag: 2.0.5
+Stable tag: 2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -218,11 +218,25 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Changelog ==
 
-= Trunk =
+= 2.1 - July 29, 2014 =
+
+**Fixes**
+
+- Some fields lost its value when a form error occured
+
+**Improvements**
+
+- Minified all CSS and JS files
+- Required MailChimp fields are now validated server side as well.
+- Birthday and address fields are now automatically formatted in the correct format
+- Improved code, memory usage and class documentation
 
 **Additions**
 
-- Added Brazilian translations, thanks to [Felipe Scuissiatto of Evonline](http://www.evonline.com.br/)
+- Brazilian translations, thanks to [Felipe Scuissiatto of Evonline](http://www.evonline.com.br/)
+- `mc4wp_form_messages` filter to register custom error messages
+- `mc4wp_form_message_position` filter to set position of error messages (before or after fields)
+- Option to set the text for when a required field is missing
 
 = 2.0.5 - July 21, 2014 =
 
@@ -467,5 +481,5 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Upgrade Notice ==
 
-= 2.0.5 =
-Various minor improvements code and usability improvements.
+= 2.1 =
+Improved server-side field validation, minified all assets, added Brazilian translations.
