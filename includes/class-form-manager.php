@@ -8,28 +8,18 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 /**
 * This class takes care of all form related functionality
-*/ 
+*/
 class MC4WP_Lite_Form_Manager {
-	
+
 	/**
 	* @var int
 	*/
 	private $form_instance_number = 1;
 
 	/**
-	* @var string
-	*/
-	private $error = '';
-
-	/**
-	* @var boolean
-	*/
-	private $success = false;
-
-	/**
-	* @var int
-	*/
-	private $submitted_form_instance = 0;
+	 * @var MC4WP_Form_Request|boolean
+	 */
+	private $form_request = false;
 
 	/**
 	* Constructor
@@ -49,8 +39,7 @@ class MC4WP_Lite_Form_Manager {
 
 		// has a MC4WP form been submitted?
 		if ( isset( $_POST['_mc4wp_form_submit'] ) ) {
-			$this->ensure_backwards_compatibility();
-			add_action( 'init', array( $this, 'submit' ) );
+			$this->form_request = new MC4WP_Lite_Form_Request;
 		}
 
 		/**
@@ -70,7 +59,7 @@ class MC4WP_Lite_Form_Manager {
 
 		// register placeholder script, which will later be enqueued for IE only
 		wp_register_script( 'mc4wp-placeholders', MC4WP_LITE_PLUGIN_URL . 'assets/js/placeholders.min.js', array(), MC4WP_LITE_VERSION, true );
-	
+
 		// register non-AJAX script (that handles form submissions)
 		wp_register_script( 'mc4wp-forms', MC4WP_LITE_PLUGIN_URL . 'assets/js/forms' . $suffix . '.js', array(), MC4WP_LITE_VERSION, true );
 	}
@@ -114,12 +103,15 @@ class MC4WP_Lite_Form_Manager {
 		// the following classes MUST be used
 		$css_classes[] = 'mc4wp-form';
 
-		if( $this->error !== '' ) {
-			$css_classes[] = 'mc4wp-form-error';
-		}
+		// Add form classes
+		if( is_object( $this->form_request ) ) {
 
-		if( $this->success === true ) {
-			$css_classes[] = 'mc4wp-form-success';
+			if( $this->form_request->is_successful() ) {
+				$css_classes[] = 'mc4wp-form-success';
+			} else {
+				$css_classes[] = 'mc4wp-form-error';
+			}
+
 		}
 
 		return implode( ' ', $css_classes );
@@ -133,9 +125,12 @@ class MC4WP_Lite_Form_Manager {
 	*
 	* @return string
 	*/
-	public function form( $atts, $content = null ) {
+	public function form( $atts = array(), $content = '' ) {
 
 		$opts = mc4wp_get_options('form');
+
+		// was this form submitted?
+		$was_submitted = ( is_object( $this->form_request ) && $this->form_request->get_form_instance_number() === $this->form_instance_number );
 
 		if ( ! function_exists( 'mc4wp_replace_variables' ) ) {
 			include_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/template.php';
@@ -151,13 +146,12 @@ class MC4WP_Lite_Form_Manager {
 		$content .= '<form method="post" action="'. $form_action .'" id="mc4wp-form-'.$this->form_instance_number.'" class="'.$css_classes.'">';
 
 		// show message if form was submitted and message position is before
-		if( $message_position === 'before' && $this->form_instance_number === $this->submitted_form_instance) {
+		if( $was_submitted && $message_position === 'before' ) {
 			$content .= $this->get_form_message_html();
 		}
 
 		// do not add form fields if form was submitted and hide_after_success is enabled
-		if ( !( $this->success && $opts['hide_after_success'] ) ) {
-
+		if( ! ( $opts['hide_after_success'] && $was_submitted && $this->form_request->is_successful() ) ) {
 			// add form fields
 			$form_markup = __( $opts['markup'] );
 
@@ -188,12 +182,8 @@ class MC4WP_Lite_Form_Manager {
 		}
 
 		// show message if form was submitted and message position is after
-		if( $message_position === 'after' && $this->form_instance_number === $this->submitted_form_instance) {
+		if( $was_submitted && $message_position === 'after' ) {
 			$content .= $this->get_form_message_html();
-		}
-
-		if ( current_user_can( 'manage_options' ) && empty( $opts['lists'] ) ) {
-			$content .= '<div class="mc4wp-alert mc4wp-error"><strong>Admin notice:</strong> you have not selected a MailChimp list for this sign-up form to subscribe to yet. <a href="'. admin_url( 'admin.php?page=mc4wp-lite-form-settings' ) .'">Edit your form settings</a> and select at least 1 list.</div>';
 		}
 
 		$content .= "</form>";
@@ -218,8 +208,7 @@ class MC4WP_Lite_Form_Manager {
 	 */
 	private function get_form_message_html( $form_id = 0 ) {
 
-		// don't show message if form wasn't submitted
-		if( false === $this->success && $this->error === '' ) {
+		if( ! is_object( $this->form_request ) ) {
 			return '';
 		}
 
@@ -227,7 +216,7 @@ class MC4WP_Lite_Form_Manager {
 		$messages = $this->get_form_messages( $form_id );
 
 		// retrieve correct message
-		$type = ( $this->success ) ? 'success' : $this->error;
+		$type = ( $this->form_request->is_successful() ) ? 'success' : $this->form_request->get_error_code();
 		$message = ( isset( $messages[ $type ] ) ) ? $messages[ $type ] : $messages['error'];
 
 		/**
@@ -237,11 +226,12 @@ class MC4WP_Lite_Form_Manager {
 		 *
 		 * Used to alter the error message, don't use. Use `mc4wp_form_messages` instead.
 		 */
-		$message['text'] = apply_filters('mc4wp_form_error_message', $message['text'], $this->error );
+		$message['text'] = apply_filters('mc4wp_form_error_message', $message['text'], $this->form_request->get_error_code() );
 
 		$html = '<div class="mc4wp-alert mc4wp-'. $message['type'].'">' . $message['text'] . '</div>';
 
-		if( '' !== $this->error && current_user_can( 'manage_options' ) ) {
+		// show additional MailChimp API errors to administrators
+		if( false === $this->form_request->is_successful() && current_user_can( 'manage_options' ) ) {
 			// show MailChimp error message (if any) to administrators
 			$api = mc4wp_get_api();
 			if( $api->has_error() ) {
@@ -291,11 +281,9 @@ class MC4WP_Lite_Form_Manager {
 				'type' => 'error',
 				'text' => $opts['text_invalid_captcha']
 			),
-			// TODO: Make this an option, include a placeholder for the actual field that is missing
-			// Example: The field %s is required. Please provide it and try again.
 			'required_field_missing' => array(
 				'type' => 'error',
-				'text' => 'A required field is missing. Please try again.'
+				'text' => $opts['text_required_field_missing']
 			)
 		);
 
@@ -307,380 +295,6 @@ class MC4WP_Lite_Form_Manager {
 		$messages = apply_filters( 'mc4wp_form_messages', $messages );
 
 		return $messages;
-	}
-
-	/**
-	* Submits the form
-	* Creates a subscribe request from the posted data
-	*
-	* @return boolean
-	*/
-	public function submit() {
-
-		// store number of submitted form
-		$this->submitted_form_instance = absint( $_POST['_mc4wp_form_instance'] );
-
-		// validate form nonce
-		if ( ! isset( $_POST['_mc4wp_form_nonce'] ) || ! wp_verify_nonce( $_POST['_mc4wp_form_nonce'], '_mc4wp_form_nonce' ) ) {
-			$this->error = 'invalid_nonce';
-			return false;
-		}
-
-		// ensure honeypot was not filed
-		if ( isset( $_POST['_mc4wp_required_but_not_really'] ) && ! empty( $_POST['_mc4wp_required_but_not_really'] ) ) {
-			$this->error = 'spam';
-			return false;
-		}
-
-		// check if captcha was present and valid
-		if( isset( $_POST['_mc4wp_has_captcha'] ) && $_POST['_mc4wp_has_captcha'] == 1 && function_exists( 'cptch_check_custom_form' ) && cptch_check_custom_form() !== true ) {
-			$this->error = 'invalid_captcha';
-			return false;
-		}
-
-		/**
-		 * @filter mc4wp_valid_form_request
-		 *
-		 * Use this to perform custom form validation.
-		 * Return true if the form is valid or an error string if it isn't.
-		 * Use the `mc4wp_form_messages` filter to register custom error messages.
-		 */
-		$valid_form_request = apply_filters( 'mc4wp_valid_form_request', true );
-		if( $valid_form_request !== true ) {
-			$this->error = $valid_form_request;
-			return false;
-		}
-
-		// setup array of data entered by user
-		// not manipulating anything yet.
-		$data = $this->get_posted_form_data();
-
-		$success = $this->subscribe($data);
-
-		// enqueue scripts (in footer)
-		wp_enqueue_script( 'mc4wp-forms' );
-		wp_localize_script( 'mc4wp-forms', 'mc4wp', array(
-			'success' => ( $success ) ? 1 : 0,
-			'submittedFormId' => $this->submitted_form_instance,
-			'postData' => $data
-			)
-		);
-
-		if ($success) {
-
-			$opts = mc4wp_get_options('form');
-
-			// check if we want to redirect the visitor
-			if ( ! empty( $opts['redirect'] ) ) {
-				wp_redirect( $opts['redirect'] );
-				exit;
-			}
-
-			return true;
-		} else {
-
-			return false;
-		}
-	}
-
-	/**
-	 * Get posted form data
-	 *
-	 * Strips internal MailChimp for WP variables from the posted data array
-	 *
-	 * @return array
-	 */
-	public function get_posted_form_data() {
-
-		$data = array();
-		$ignored_fields = array( 'CPTCH_NUMBER', 'CNTCTFRM_CONTACT_ACTION', 'CPTCH_RESULT', 'CPTCH_TIME' );
-
-		foreach( $_POST as $name => $value ) {
-
-			if( $name[0] === '_' || in_array( strtoupper( $name ), $ignored_fields ) ) {
-				continue;
-			}
-
-			$data[$name] = $value;
-		}
-
-		// store data somewhere safe
-		$this->posted_data = $data;
-
-		return $data;
-	}
-
-	/*
-		Ensure backwards compatibility so sign-up forms that contain old form mark-up rules don't break
-		- Uppercase $_POST variables that should be sent to MailChimp
-		- Format GROUPINGS in one of the following formats.
-			$_POST[GROUPINGS][$group_id] = "Group 1, Group 2"
-			$_POST[GROUPINGS][$group_name] = array("Group 1", "Group 2")
-	*/
-	public function ensure_backwards_compatibility() {
-
-		// detect old style GROUPINGS, then fix it.
-		if ( isset( $_POST['GROUPINGS'] ) && is_array( $_POST['GROUPINGS'] ) && isset( $_POST['GROUPINGS'][0] ) ) {
-
-			$old_groupings = $_POST['GROUPINGS'];
-			unset( $_POST['GROUPINGS'] );
-			$new_groupings = array();
-
-			foreach ( $old_groupings as $grouping ) {
-
-				if( ! isset( $grouping['groups'] ) ) { 
-					continue; 
-				}
-
-				if ( isset( $grouping['id'] ) ) {
-					$key = $grouping['id'];
-				} elseif( isset( $grouping['name'] ) ) { 
-					$key = $grouping['name'];
-				} else { 
-					continue; 
-				}
-
-				$new_groupings[$key] = $grouping['groups'];
-
-			}
-
-			// re-fill $_POST array with new groupings
-			if ( ! empty( $new_groupings ) ) { 
-				$_POST['GROUPINGS'] = $new_groupings; 
-			}
-
-		}
-
-		return;
-	}
-
-	/**
-	* Act on posted data
-	*
-	* @var array $data
-	*/
-	public function subscribe( array $data ) {
-
-		$email = null;
-		$merge_vars = array();
-
-		foreach ( $data as $name => $value ) {
-
-			// uppercase all variables
-			$name = trim( strtoupper( $name ) );
-			$value = ( is_scalar( $value ) ) ? trim( stripslashes( $value ) ) : $value;
-
-			if( $name === 'EMAIL' && is_email($value) ) {
-				// set the email address
-				$email = $value;
-			} else if ( $name === 'GROUPINGS' ) {
-
-				$groupings = $value;
-
-				// malformed
-				if ( ! is_array( $groupings ) ) { 
-					continue; 
-				}
-
-				// setup groupings array
-				$merge_vars['GROUPINGS'] = array();
-
-				foreach ( $groupings as $grouping_id_or_name => $groups ) {
-
-					$grouping = array();
-
-					if ( is_numeric( $grouping_id_or_name ) ) {
-						$grouping['id'] = $grouping_id_or_name;
-					} else {
-						$grouping['name'] = stripslashes( $grouping_id_or_name );
-					}
-
-					// comma separated list should become an array
-					if( ! is_array( $groups ) ) {
-						$groups = explode( ',', $groups );
-					}
-					
-					$grouping['groups'] = array_map( 'stripslashes', $groups );
-
-					// add grouping to array
-					$merge_vars['GROUPINGS'][] = $grouping;
-				}
-
-				if ( empty( $merge_vars['GROUPINGS'] ) ) { 
-					unset( $merge_vars['GROUPINGS'] ); 
-				}
-
-			} else if( $name === 'BIRTHDAY' ) {
-				// format birthdays in the DD/MM format required by MailChimp
-				$merge_vars['BIRTHDAY'] = date( 'm/d', strtotime( $value ) );
-			} else if( $name === 'ADDRESS' ) {
-
-				if( ! isset( $value['addr1'] ) ) {
-					// addr1, addr2, city, state, zip, country 
-					$addr_pieces = explode( ',', $value );
-
-					// try to fill it.... this is a long shot
-					$merge_vars['ADDRESS'] = array(
-						'addr1' => $addr_pieces[0],
-						'city' => (isset($addr_pieces[1])) ? $addr_pieces[1] : '',
-						'state' => (isset($addr_pieces[2])) ? $addr_pieces[2] : '',
-						'zip' => (isset($addr_pieces[3])) ? $addr_pieces[3] : ''
-					);
-
-				} else {
-					// form contains the necessary fields already: perfection
-					$merge_vars['ADDRESS'] = $value;
-				}
-
-			} else {
-				// just add to merge vars array
-				$merge_vars[$name] = $value;
-			}	
-		}
-
-		// check if an email address has been found
-		if( ! $email ) {
-			$this->error = 'invalid_email';
-			return false;
-		}
-
-		// Try to guess FNAME and LNAME if they are not given, but NAME is
-		if( isset( $merge_vars['NAME'] ) && !isset( $merge_vars['FNAME'] ) && ! isset( $merge_vars['LNAME'] ) ) {
-
-			$strpos = strpos($merge_vars['NAME'], ' ');
-			if( $strpos !== false ) {
-				$merge_vars['FNAME'] = substr($merge_vars['NAME'], 0, $strpos);
-				$merge_vars['LNAME'] = substr($merge_vars['NAME'], $strpos);
-			} else {
-				$merge_vars['FNAME'] = $merge_vars['NAME'];
-			}
-		}
-
-		// set ip address
-		if( ! isset( $merge_vars['OPTIN_IP'] ) && isset( $_SERVER['REMOTE_ADDR'] ) ) {
-			$merge_vars['OPTIN_IP'] = $_SERVER['REMOTE_ADDR'];
-		}
-
-		$api = mc4wp_get_api();
-		$opts = mc4wp_get_options( 'form' );
-
-		$lists = $this->get_lists();
-
-		if ( empty( $lists ) ) {
-			$this->error = 'no_lists_selected';
-			return false;
-		}
-
-		// validate other form fields
-		$mailchimp = new MC4WP_MailChimp();
-		foreach( $lists as $list_id ) {
-
-			$list = $mailchimp->get_list( $list_id, false, true );
-			foreach( $list->merge_vars as $merge_var ) {
-
-				// skip optional fields
-				if( ! $merge_var->req ) {
-					continue;
-				}
-
-				// check if field is given
-				if( ! isset( $merge_vars[ $merge_var->tag ] ) || '' === $merge_vars[ $merge_var->tag ] ) {
-					$this->error = 'required_field_missing';
-					return false;
-				}
-
-			}
-		}
-
-
-		do_action( 'mc4wp_before_subscribe', $email, $merge_vars, 0 );
-
-		$result = false;
-		
-		$email_type = $this->get_email_type();
-
-		foreach ( $lists as $list_id ) {
-			// allow plugins to alter merge vars for each individual list
-			$list_merge_vars = apply_filters( 'mc4wp_merge_vars', $merge_vars, 0, $list_id );
-
-			// send a subscribe request to MailChimp for each list
-			$result = $api->subscribe( $list_id, $email, $list_merge_vars, $email_type, $opts['double_optin'] );
-		}
-
-		do_action( 'mc4wp_after_subscribe', $email, $merge_vars, 0, $result );
-
-		if ( $result !== true ) {
-			// subscribe request failed, store error.
-			$this->success = false;
-			$this->error = $result;
-			return false;
-		} 
-
-		// store user email in a cookie
-		$this->set_email_cookie( $email );
-
-		// Store success result
-		$this->success = true;
-
-		return true;
-	}
-
-	/**
-	* Gets the email_type
-	*
-	* @return string The email type to use for subscription coming from this form
-	*/
-	public function get_email_type( ) {
-
-		$email_type = 'html';
-
-		// get email type from form
-		if( isset( $_POST['_mc4wp_email_type'] ) ) {
-			$email_type = trim( $_POST['_mc4wp_email_type'] );
-		}
-
-		// allow plugins to override this email type
-		$email_type = apply_filters( 'mc4wp_email_type', $email_type );
-
-		return $email_type;
-	}
-
-	/**
-	* Get MailChimp Lists to subscribe to
-	* 
-	* @return array Array of selected MailChimp lists
-	*/
-	public function get_lists(  ) {
-
-		$opts = mc4wp_get_options('form');
-
-		$lists = $opts['lists'];
-
-		// get lists from form, if set.
-		if( isset( $_POST['_mc4wp_lists'] ) && ! empty( $_POST['_mc4wp_lists'] ) ) {
-
-			$lists = $_POST['_mc4wp_lists'];
-
-			// make sure lists is an array
-			if( ! is_array( $lists ) ) {
-				$lists = array( trim( $lists ) );
-			}
-
-		}
-
-		// allow plugins to alter the lists to subscribe to
-		$lists = apply_filters( 'mc4wp_lists', $lists );
-
-		return $lists;
-	}
-
-	/**
-	* Stores the given email in a cookie for 30 days
-	*
-	* @param string $email
-	*/
-	public function set_email_cookie( $email ) {
-		setcookie( 'mc4wp_email', $email, strtotime( '+30 days' ), '/' );
 	}
 
 }

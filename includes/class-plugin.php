@@ -67,6 +67,7 @@ class MC4WP_Lite {
                 'mc4wp_lite_checkbox_manager' => $include_path . 'class-checkbox-manager.php',
                 'mc4wp_lite_form_manager' => $include_path . 'class-form-manager.php',
                 'mc4wp_lite_widget' => $include_path . 'class-widget.php',
+                'mc4wp_lite_form_request' => $include_path . 'class-form-request.php',
 	            'mc4wp_mailchimp' => $include_path . 'class-mailchimp.php',
 
                 // integrations
