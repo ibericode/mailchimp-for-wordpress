@@ -61,7 +61,7 @@ class MC4WP_Lite_Form_Manager {
 		wp_register_script( 'mc4wp-placeholders', MC4WP_LITE_PLUGIN_URL . 'assets/js/placeholders.min.js', array(), MC4WP_LITE_VERSION, true );
 
 		// register non-AJAX script (that handles form submissions)
-		wp_register_script( 'mc4wp-forms', MC4WP_LITE_PLUGIN_URL . 'assets/js/forms' . $suffix . '.js', array(), MC4WP_LITE_VERSION, true );
+		wp_register_script( 'mc4wp-form-request', MC4WP_LITE_PLUGIN_URL . 'assets/js/form-request' . $suffix . '.js', array(), MC4WP_LITE_VERSION, true );
 	}
 
 	/**
@@ -103,7 +103,7 @@ class MC4WP_Lite_Form_Manager {
 		// the following classes MUST be used
 		$css_classes[] = 'mc4wp-form';
 
-		// Add form classes
+		// Add form classes if a Form Request was captured
 		if( is_object( $this->form_request ) ) {
 
 			if( $this->form_request->is_successful() ) {
@@ -132,18 +132,41 @@ class MC4WP_Lite_Form_Manager {
 		// was this form submitted?
 		$was_submitted = ( is_object( $this->form_request ) && $this->form_request->get_form_instance_number() === $this->form_instance_number );
 
+		// enqueue scripts (in footer) if form was submitted
+		if( $was_submitted ) {
+			wp_enqueue_script( 'mc4wp-form-request' );
+			wp_localize_script( 'mc4wp-form-request', 'mc4wpFormRequestData', array(
+					'success' => ( $this->form_request->is_successful() ) ? 1 : 0,
+					'submittedFormId' => $this->form_request->get_form_instance_number(),
+					'postData' => stripslashes_deep( $_POST )
+				)
+			);
+		}
+
 		if ( ! function_exists( 'mc4wp_replace_variables' ) ) {
 			include_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/template.php';
 		}
 
-		// allow developers to add css classes
-		$css_classes = $this->get_css_classes();
-
+		/**
+		 * @filter mc4wp_form_action
+		 * @expects string
+		 *
+		 * Sets the `action` attribute of the form element. Defaults to the current URL.
+		 */
 		$form_action = apply_filters( 'mc4wp_form_action', mc4wp_get_current_url() );
+
+		/**
+		 * @filter mc4wp_form_message_position
+		 * @expects string before|after
+		 *
+		 * Can be used to change the position of the form success & error messages.
+		 * Valid options are 'before' or 'after'
+		 */
 		$message_position = apply_filters( 'mc4wp_form_message_position', 'after' );
 
+		// Start building content string
 		$content = "\n<!-- Form by MailChimp for WordPress plugin v". MC4WP_LITE_VERSION ." - https://dannyvankooten.com/mailchimp-for-wordpress/ -->\n";
-		$content .= '<form method="post" action="'. $form_action .'" id="mc4wp-form-'.$this->form_instance_number.'" class="'.$css_classes.'">';
+		$content .= '<form method="post" action="'. $form_action .'" id="mc4wp-form-'.$this->form_instance_number.'" class="'. $this->get_css_classes() .'">';
 
 		// show message if form was submitted and message position is before
 		if( $was_submitted && $message_position === 'before' ) {
@@ -152,7 +175,8 @@ class MC4WP_Lite_Form_Manager {
 
 		// do not add form fields if form was submitted and hide_after_success is enabled
 		if( ! ( $opts['hide_after_success'] && $was_submitted && $this->form_request->is_successful() ) ) {
-			// add form fields
+
+			// add form fields from settings
 			$form_markup = __( $opts['markup'] );
 
 			// replace special values

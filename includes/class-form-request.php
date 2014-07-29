@@ -113,7 +113,8 @@ class MC4WP_Lite_Form_Request {
 		}
 
 		// get entered form data (sanitized)
-		$data = $this->get_posted_form_data();
+		$this->sanitize_form_data();
+		$data = $this->get_posted_data();
 
 		// validate email
 		if( ! isset( $data['EMAIL'] ) || ! is_email( $data['EMAIL'] ) ) {
@@ -130,23 +131,11 @@ class MC4WP_Lite_Form_Request {
 
 		// validate groupings
 		if( isset( $data['GROUPINGS'] ) && is_array( $data['GROUPINGS'] ) ) {
-			$data['GROUPINGS'] = $this->format_groupings_data( $data['GROUPINGS'] );
-		} else {
-			// make sure GROUPINGS index is not set
-			unset( $data['GROUPINGS'] );
+			$merge_vars['GROUPINGS'] = $this->format_groupings_data( $data['GROUPINGS'] );
 		}
 
 		// subscribe the given email / data combination
-		$this->success = $this->subscribe( $email, $data );
-
-		// enqueue scripts (in footer)
-		wp_enqueue_script( 'mc4wp-forms' );
-		wp_localize_script( 'mc4wp-forms', 'mc4wp', array(
-				'success' => ( $this->success ) ? 1 : 0,
-				'submittedFormId' => $this->form_instance_number,
-				'postData' => $data
-			)
-		);
+		$this->success = $this->subscribe( $email, $merge_vars );
 
 		// do stuff on success
 		if( true === $this->success ) {
@@ -213,7 +202,7 @@ class MC4WP_Lite_Form_Request {
 	 *
 	 * @return array
 	 */
-	private function get_posted_form_data() {
+	private function sanitize_form_data() {
 
 		$data = array();
 
@@ -231,14 +220,17 @@ class MC4WP_Lite_Form_Request {
 			}
 
 			// Sanitize value
-			$value = ( is_scalar( $value ) ) ? trim( stripslashes( $value ) ) : $value;
+			$value = ( is_scalar( $value ) ) ? trim( $value ) : $value;
+
+			// Add value to array
 			$data[ $key ] = $value;
 		}
 
+		// strip slashes on everything
+		$data = stripslashes_deep( $data );
+
 		// store data somewhere safe
 		$this->posted_data = $data;
-
-		return $data;
 	}
 
 	/**
