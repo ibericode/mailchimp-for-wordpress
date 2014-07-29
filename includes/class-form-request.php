@@ -53,14 +53,29 @@ class MC4WP_Lite_Form_Request {
 		return $this->error_code;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function get_posted_data() {
 		return $this->posted_data;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function get_form_instance_number() {
 		return $this->form_instance_number;
 	}
 
+	/**
+	 * Acts on the submitted data
+	 * - Validates internal fields
+	 * - Formats email and merge_vars
+	 * - Sends off the subscribe request to MailChimp
+	 * - Returns state
+	 *
+	 * @return bool True on success, false on failure.
+	 */
 	public function act() {
 
 		// store number of submitted form
@@ -97,9 +112,32 @@ class MC4WP_Lite_Form_Request {
 			return false;
 		}
 
-		// setup array of data entered by user
+		// get entered form data (sanitized)
 		$data = $this->get_posted_form_data();
-		$this->success = $this->subscribe( $data );
+
+		// validate email
+		if( ! isset( $data['EMAIL'] ) || ! is_email( $data['EMAIL'] ) ) {
+			$this->error_code = 'invalid_email';
+			return false;
+		}
+
+		// setup merge_vars array
+		$merge_vars = $data;
+
+		// take email out of $data array, use the rest as merge_vars
+		$email = $merge_vars['EMAIL'];
+		unset( $merge_vars['EMAIL'] );
+
+		// validate groupings
+		if( isset( $data['GROUPINGS'] ) && is_array( $data['GROUPINGS'] ) ) {
+			$data['GROUPINGS'] = $this->format_groupings_data( $data['GROUPINGS'] );
+		} else {
+			// make sure GROUPINGS index is not set
+			unset( $data['GROUPINGS'] );
+		}
+
+		// subscribe the given email / data combination
+		$this->success = $this->subscribe( $email, $data );
 
 		// enqueue scripts (in footer)
 		wp_enqueue_script( 'mc4wp-forms' );
@@ -111,7 +149,7 @@ class MC4WP_Lite_Form_Request {
 		);
 
 		// do stuff on success
-		if( $this->success ) {
+		if( true === $this->success ) {
 
 			$opts = mc4wp_get_options('form');
 
@@ -125,30 +163,76 @@ class MC4WP_Lite_Form_Request {
 			return true;
 		}
 
-
 		// return false on failure
 		return false;
 	}
 
 	/**
-	 * Get posted form data
+	 * Format GROUPINGS data according to the MailChimp API requirements
 	 *
-	 * Strips internal MailChimp for WP variables from the posted data array
+	 * @param $data
+	 *
+	 * @return array
+	 */
+	private function format_groupings_data( $data ) {
+
+		$sanitized_data = array();
+
+		foreach ( $data as $grouping_id_or_name => $groups ) {
+
+			$grouping = array();
+
+			// set key: grouping id or name
+			if ( is_numeric( $grouping_id_or_name ) ) {
+				$grouping['id'] = $grouping_id_or_name;
+			} else {
+				$grouping['name'] = stripslashes( $grouping_id_or_name );
+			}
+
+			// comma separated list should become an array
+			if( ! is_array( $groups ) ) {
+				$groups = explode( ',', $groups );
+			}
+
+			$grouping['groups'] = array_map( 'stripslashes', $groups );
+
+			// add grouping to array
+			$sanitized_data[] = $grouping;
+		}
+
+		return $sanitized_data;
+	}
+
+	/**
+	 * Get and sanitize posted form data
+	 *
+	 * - Strips internal MailChimp for WP variables from the posted data array
+	 * - Strips ignored fields
+	 * - Converts keys to uppercase
+	 * - Trims scalar values and strips slashes
 	 *
 	 * @return array
 	 */
 	private function get_posted_form_data() {
 
 		$data = array();
+
+		// Ignore those fields, we don't need them
 		$ignored_fields = array( 'CPTCH_NUMBER', 'CNTCTFRM_CONTACT_ACTION', 'CPTCH_RESULT', 'CPTCH_TIME' );
 
-		foreach( $_POST as $name => $value ) {
+		foreach( $_POST as $key => $value ) {
 
-			if( $name[0] === '_' || in_array( strtoupper( $name ), $ignored_fields ) ) {
+			// Sanitize key
+			$key = trim( strtoupper( $key ) );
+
+			// Skip field if it starts with _ or if it's in ignored_fields array
+			if( $key[0] === '_' || in_array( strtoupper( $key ), $ignored_fields ) ) {
 				continue;
 			}
 
-			$data[$name] = $value;
+			// Sanitize value
+			$value = ( is_scalar( $value ) ) ? trim( stripslashes( $value ) ) : $value;
+			$data[ $key ] = $value;
 		}
 
 		// store data somewhere safe
@@ -158,72 +242,19 @@ class MC4WP_Lite_Form_Request {
 	}
 
 	/**
-	 * Act on posted data
+	 * Subscribes the given email and additional list fields
 	 *
-	 * @var array $data
+	 * - Guesses FNAME and LNAME, if not set but NAME is.
+	 * - Adds OPTIN_IP field
+	 * - Validates merge_vars according to selected list(s) requirements
+	 * - Checks if a list was selected or given in form
+	 *
+	 * @param string $email
+	 * @param array $merge_vars
+	 *
+	 * @return bool
 	 */
-	private function subscribe( array $data ) {
-
-		$email = null;
-		$merge_vars = array();
-
-		foreach ( $data as $name => $value ) {
-
-			// uppercase all variables
-			$name = trim( strtoupper( $name ) );
-			$value = ( is_scalar( $value ) ) ? trim( stripslashes( $value ) ) : $value;
-
-			if( $name === 'EMAIL' && is_email($value) ) {
-				// set the email address
-				$email = $value;
-			} else if ( $name === 'GROUPINGS' ) {
-
-				$groupings = $value;
-
-				// malformed
-				if ( ! is_array( $groupings ) ) {
-					continue;
-				}
-
-				// setup groupings array
-				$merge_vars['GROUPINGS'] = array();
-
-				foreach ( $groupings as $grouping_id_or_name => $groups ) {
-
-					$grouping = array();
-
-					if ( is_numeric( $grouping_id_or_name ) ) {
-						$grouping['id'] = $grouping_id_or_name;
-					} else {
-						$grouping['name'] = stripslashes( $grouping_id_or_name );
-					}
-
-					// comma separated list should become an array
-					if( ! is_array( $groups ) ) {
-						$groups = explode( ',', $groups );
-					}
-
-					$grouping['groups'] = array_map( 'stripslashes', $groups );
-
-					// add grouping to array
-					$merge_vars['GROUPINGS'][] = $grouping;
-				}
-
-				if ( empty( $merge_vars['GROUPINGS'] ) ) {
-					unset( $merge_vars['GROUPINGS'] );
-				}
-
-			} else {
-				// just add to merge vars array
-				$merge_vars[$name] = $value;
-			}
-		}
-
-		// check if an email address has been found
-		if( ! $email ) {
-			$this->error_code = 'invalid_email';
-			return false;
-		}
+	private function subscribe( $email, $merge_vars = array() ) {
 
 		// Try to guess FNAME and LNAME if they are not given, but NAME is
 		if( isset( $merge_vars['NAME'] ) && !isset( $merge_vars['FNAME'] ) && ! isset( $merge_vars['LNAME'] ) ) {
@@ -314,6 +345,7 @@ class MC4WP_Lite_Form_Request {
 			// loop through list fields
 			foreach( $list->merge_vars as $merge_var ) {
 
+				// skip email field, it's validated elsewhere
 				if( $merge_var->tag === 'EMAIL' ) {
 					continue;
 				}
