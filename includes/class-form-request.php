@@ -31,6 +31,11 @@ class MC4WP_Lite_Form_Request {
 	private $error_code = 'error';
 
 	/**
+	 * @var array The form options
+	 */
+	private $options;
+
+	/**
 	 * Constructor
 	 *
 	 * Hooks into the `init` action to start the process of subscribing the person who filled out the form
@@ -80,6 +85,9 @@ class MC4WP_Lite_Form_Request {
 
 		// store number of submitted form
 		$this->form_instance_number = absint( $_POST['_mc4wp_form_instance'] );
+
+		// store form options
+		$this->form_options = mc4wp_get_options( 'form' );
 
 		// validate form nonce
 		if ( ! isset( $_POST['_mc4wp_form_nonce'] ) || ! wp_verify_nonce( $_POST['_mc4wp_form_nonce'], '_mc4wp_form_nonce' ) ) {
@@ -140,11 +148,9 @@ class MC4WP_Lite_Form_Request {
 		// do stuff on success
 		if( true === $this->success ) {
 
-			$opts = mc4wp_get_options('form');
-
 			// check if we want to redirect the visitor
-			if ( ! empty( $opts['redirect'] ) ) {
-				wp_redirect( $opts['redirect'] );
+			if ( ! empty( $this->form_options['redirect'] ) ) {
+				wp_redirect( $this->form_options['redirect'] );
 				exit;
 			}
 
@@ -266,7 +272,6 @@ class MC4WP_Lite_Form_Request {
 		}
 
 		$api = mc4wp_get_api();
-		$opts = mc4wp_get_options( 'form' );
 
 		// get lists to subscribe to
 		$lists = $this->get_lists();
@@ -292,7 +297,7 @@ class MC4WP_Lite_Form_Request {
 			$list_merge_vars = apply_filters( 'mc4wp_merge_vars', $merge_vars, 0, $list_id );
 
 			// send a subscribe request to MailChimp for each list
-			$result = $api->subscribe( $list_id, $email, $list_merge_vars, $email_type, $opts['double_optin'] );
+			$result = $api->subscribe( $list_id, $email, $list_merge_vars, $email_type, $this->form_options['double_optin'] );
 		}
 
 		do_action( 'mc4wp_after_subscribe', $email, $merge_vars, 0, $result );
@@ -411,9 +416,7 @@ class MC4WP_Lite_Form_Request {
 	 */
 	private function get_lists() {
 
-		$opts = mc4wp_get_options('form');
-
-		$lists = $opts['lists'];
+		$lists = $this->form_options['lists'];
 
 		// get lists from form, if set.
 		if( isset( $_POST['_mc4wp_lists'] ) && ! empty( $_POST['_mc4wp_lists'] ) ) {
