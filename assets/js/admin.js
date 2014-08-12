@@ -45,17 +45,18 @@
 	// Add buttons to QTags editor
 	(function() {
 
-		if( window.QTags == undefined ) {
+		if ( typeof(QTags) == 'undefined' ) {
 			return;
 		}
 
-		QTags.addButton( 'mc4wp_paragraph', '<p>', '<p>', '</p>', 'p', 'Paragraph tag', 1 );
-		QTags.addButton( 'mc4wp_label', 'label', '<label>', '</label>', 'l', 'Label tag', 2 );
-		QTags.addButton( 'mc4wp_subscriber_count', '# of subscribers', '{subscriber_count}', '', 's', 'Shows number of subscribers of selected list(s)' );
-		if( window.mc4wp.has_captcha_plugin == true ) {
-			QTags.addButton( 'mc4wp_captcha', 'CAPTCHA', '[captcha]', '', 'c', 'Display a CAPTCHA field' );
-		}
+		QTags.addButton( 'mc4wp_paragraph', '<p>', '<p>', '</p>', 'paragraph', 'Paragraph tag', 1 );
+		QTags.addButton( 'mc4wp_label', 'label', '<label>', '</label>', 'label', 'Label tag', 2 );
+		QTags.addButton( 'mc4wp_response', 'form response', '{response}', '', 'response', 'Shows the form response' );
+		QTags.addButton( 'mc4wp_subscriber_count', '# of subscribers', '{subscriber_count}', '', 'subscribers', 'Shows number of subscribers of selected list(s)' );
 
+		if( window.mc4wp.has_captcha_plugin == true ) {
+			QTags.addButton( 'mc4wp_captcha', 'CAPTCHA', '{captcha}', '', 'captcha', 'Display a CAPTCHA field' );
+		}
 	})();
 
 
