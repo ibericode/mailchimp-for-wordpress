@@ -143,6 +143,7 @@ class MC4WP_Lite_Form_Manager {
 			);
 		}
 
+		// make sure template functions are loaded
 		if ( ! function_exists( 'mc4wp_replace_variables' ) ) {
 			include_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/template.php';
 		}
@@ -155,69 +156,83 @@ class MC4WP_Lite_Form_Manager {
 		 */
 		$form_action = apply_filters( 'mc4wp_form_action', mc4wp_get_current_url() );
 
-		/**
-		 * @filter mc4wp_form_message_position
-		 * @expects string before|after
-		 *
-		 * Can be used to change the position of the form success & error messages.
-		 * Valid options are 'before' or 'after'
-		 */
-		$message_position = apply_filters( 'mc4wp_form_message_position', 'after' );
+		// Generate opening HTML
+		$opening_html = "\n<!-- Form by MailChimp for WordPress plugin v". MC4WP_LITE_VERSION ." - https://dannyvankooten.com/mailchimp-for-wordpress/ -->\n";
+		$opening_html .= '<form method="post" action="'. $form_action .'" id="mc4wp-form-'.$this->form_instance_number.'" class="'. $this->get_css_classes() .'">';
 
-		// Start building content string
-		$content = "\n<!-- Form by MailChimp for WordPress plugin v". MC4WP_LITE_VERSION ." - https://dannyvankooten.com/mailchimp-for-wordpress/ -->\n";
-		$content .= '<form method="post" action="'. $form_action .'" id="mc4wp-form-'.$this->form_instance_number.'" class="'. $this->get_css_classes() .'">';
+		// Generate before & after fields HTML
+		$before_fields = apply_filters( 'mc4wp_form_before_fields', '' );
+		$after_fields = apply_filters( 'mc4wp_form_after_fields', '' );
 
-		// show message if form was submitted and message position is before
-		if( $was_submitted && $message_position === 'before' ) {
-			$content .= $this->get_form_message_html();
-		}
-
-		// do not add form fields if form was submitted and hide_after_success is enabled
-		if( ! ( $opts['hide_after_success'] && $was_submitted && $this->form_request->is_successful() ) ) {
-
+		// Process fields, if not submitted or not successfull or hide_after_success disabled
+		if( ! $was_submitted || ! $opts['hide_after_success'] || ! $this->form_request->is_successful() ) {
 			// add form fields from settings
-			$form_markup = __( $opts['markup'] );
+			$visible_fields = __( $opts['markup'] );
 
 			// replace special values
-			$form_markup = str_ireplace( array( '%N%', '{n}' ), $this->form_instance_number, $form_markup );
-			$form_markup = mc4wp_replace_variables( $form_markup, array_values( $opts['lists'] ) );
+			$visible_fields = str_ireplace( array( '%N%', '{n}' ), $this->form_instance_number, $visible_fields );
+			$visible_fields = mc4wp_replace_variables( $visible_fields, array_values( $opts['lists'] ) );
 
 			// insert captcha
 			if( function_exists( 'cptch_display_captcha_custom' ) ) {
 				$captcha_fields = '<input type="hidden" name="_mc4wp_has_captcha" value="1" /><input type="hidden" name="cntctfrm_contact_action" value="true" />' . cptch_display_captcha_custom();
-				$form_markup = str_ireplace( '[captcha]', $captcha_fields, $form_markup );
+				$form_markup = str_ireplace( array( '{captcha}', '[captcha]' ), $captcha_fields, $visible_fields );
 			}
-
-			// allow plugins to add form fieldsq
-			do_action( 'mc4wp_before_form_fields', 0 );
 
 			/**
 			 * @filter mc4wp_form_content
-			 * @param int $form_id The ID of the form that is being shown
-			 * @expects string
+			 * @param       int     $form_id    The ID of the form that is being shown
+			 * @expects     string
 			 *
 			 * Can be used to customize the content of the form mark-up, eg adding additional fields.
 			 */
-			$content .= apply_filters( 'mc4wp_form_content', $form_markup );
-
-			// allow plugins to add form fields
-			do_action( 'mc4wp_after_form_fields', 0 );
+			$visible_fields = apply_filters( 'mc4wp_form_content', $visible_fields );
 
 			// hidden fields
-			$content .= '<textarea name="_mc4wp_required_but_not_really" style="display: none !important;"></textarea>';
-			$content .= '<input type="hidden" name="_mc4wp_form_submit" value="1" />';
-			$content .= '<input type="hidden" name="_mc4wp_form_instance" value="'. $this->form_instance_number .'" />';
-			$content .= '<input type="hidden" name="_mc4wp_form_nonce" value="'. wp_create_nonce( '_mc4wp_form_nonce' ) .'" />';
+			$hidden_fields = '<textarea name="_mc4wp_required_but_not_really" style="display: none !important;"></textarea>';
+			$hidden_fields .= '<input type="hidden" name="_mc4wp_form_submit" value="1" />';
+			$hidden_fields .= '<input type="hidden" name="_mc4wp_form_instance" value="'. $this->form_instance_number .'" />';
+			$hidden_fields .= '<input type="hidden" name="_mc4wp_form_nonce" value="'. wp_create_nonce( '_mc4wp_form_nonce' ) .'" />';
+		} else {
+			$visible_fields = '';
+			$hidden_fields = '';
 		}
 
-		// show message if form was submitted and message position is after
-		if( $was_submitted && $message_position === 'after' ) {
-			$content .= $this->get_form_message_html();
+
+		// Add form response to content, in correct position
+		if( $was_submitted ) {
+
+			$response = $this->get_form_message_html();
+
+			if( stristr( $opts['markup'], '{response}' ) !== false ) {
+				$visible_fields = str_ireplace( '{response}', $response, $visible_fields );
+			} else {
+
+				/**
+				 * @filter mc4wp_form_message_position
+				 * @expects string before|after
+				 *
+				 * Can be used to change the position of the form success & error messages.
+				 * Valid options are 'before' or 'after'
+				 */
+				$message_position = apply_filters( 'mc4wp_form_message_position', 'after' );
+
+				switch( $message_position ) {
+					case 'before':
+						$before_fields = $before_fields . $response;
+						break;
+
+					case 'after':
+						$after_fields = $response . $after_fields;
+						break;
+				}
+			}
+
 		}
 
-		$content .= "</form>";
-		$content .= "\n<!-- / MailChimp for WP Plugin -->\n";
+		// Generate closing HTML
+		$closing_html = "</form>";
+		$closing_html .= "\n<!-- / MailChimp for WP Plugin -->\n";
 
 		// increase form instance number in case there is more than one form on a page
 		$this->form_instance_number++;
@@ -228,7 +243,8 @@ class MC4WP_Lite_Form_Manager {
 			wp_enqueue_script( 'mc4wp-placeholders' );
 		}
 
-		return $content;
+		// concatenate and return the HTML parts
+		return $opening_html . $before_fields . $visible_fields . $hidden_fields . $after_fields . $closing_html;
 	}
 
 	/**
@@ -285,6 +301,7 @@ class MC4WP_Lite_Form_Manager {
 	 *      ...
 	 * );
 	 *
+	 * @param   int     $form_id
 	 * @return array
 	 */
 	public function get_form_messages( $form_id = 0 ) {

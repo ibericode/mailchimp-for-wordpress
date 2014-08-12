@@ -225,6 +225,16 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 		<table class="mc4wp-help">
 			<tr>
+				<th>{response}</th>
+				<td><?php _e( 'Replaced with the form response (error or success messages).', 'mailchimp-for-wp' ); ?></td>
+			</tr>
+			<?php if( $this->has_captcha_plugin ) { ?>
+				<tr>
+					<th>{captcha}</th>
+					<td><?php _e( 'Replaced with a captcha field.', 'mailchimp-for-wp' ); ?></td>
+				</tr>
+			<?php } ?>
+			<tr>
 				<th>{subscriber_count}</th>
 				<td><?php _e( 'Replaced with the number of subscribers on the selected list(s)', 'mailchimp-for-wp' ); ?></td>
 			</tr>
