@@ -188,7 +188,8 @@ class MC4WP_Lite_Form_Manager {
 			$hidden_fields = '';
 		}
 
-
+		// empty string for response
+		$response_html = '';
 
 		if( $was_submitted ) {
 
@@ -201,13 +202,11 @@ class MC4WP_Lite_Form_Manager {
 				)
 			);
 
-			// Add form response to content
-			$response = $this->get_form_message_html();
+			// get actual response html
+			$response_html = $this->get_form_message_html();
 
-			// check if form contains {response} tag
-			if( stristr( $visible_fields, '{response}' ) !== false ) {
-				$visible_fields = str_ireplace( '{response}', $response, $visible_fields );
-			} else {
+			// add form response after or before fields if no {response} tag
+			if( stristr( $visible_fields, '{response}' ) === false ) {
 
 				/**
 				 * @filter mc4wp_form_message_position
@@ -220,16 +219,19 @@ class MC4WP_Lite_Form_Manager {
 
 				switch( $message_position ) {
 					case 'before':
-						$before_fields = $before_fields . $response;
+						$before_fields = $before_fields . $response_html;
 						break;
 
 					case 'after':
-						$after_fields = $response . $after_fields;
+						$after_fields = $response_html . $after_fields;
 						break;
 				}
 			}
 
 		}
+
+		// Always replace {response} tag, either with empty string or actual response
+		$visible_fields = str_ireplace( '{response}', $response_html, $visible_fields );
 
 		// Generate closing HTML
 		$closing_html = "</form>";
