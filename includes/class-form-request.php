@@ -158,6 +158,23 @@ class MC4WP_Lite_Form_Request {
 			return true;
 		}
 
+		/**
+		 * @action mc4wp_form_error_{ERROR_CODE}
+		 *
+		 * Use to hook into various sign-up errors. Hook names are:
+		 *
+		 * - mc4wp_form_error_error                     General errors
+		 * - mc4wp_form_error_invalid_email             Invalid email address
+		 * - mc4wp_form_error_already_subscribed        Email is already on selected list(s)
+		 * - mc4wp_form_error_required_field_missing    One or more required fields are missing
+		 * - mc4wp_form_error_no_lists_selected         No MailChimp lists were selected
+		 *
+		 * @param   int     $form_id        The ID of the submitted form
+		 * @param   string  $email          The email of the subscriber
+		 * @param   array   $merge_vars     Additional list fields, like FNAME etc (if any)
+		 */
+		do_action( 'mc4wp_form_error_' . $this->get_error_code(), 0, $email, $merge_vars );
+
 		// return false on failure
 		return false;
 	}
@@ -255,7 +272,7 @@ class MC4WP_Lite_Form_Request {
 	private function subscribe( $email, $merge_vars = array() ) {
 
 		// Try to guess FNAME and LNAME if they are not given, but NAME is
-		if( isset( $merge_vars['NAME'] ) && !isset( $merge_vars['FNAME'] ) && ! isset( $merge_vars['LNAME'] ) ) {
+		if( isset( $merge_vars['NAME'] ) && ! isset( $merge_vars['FNAME'] ) && ! isset( $merge_vars['LNAME'] ) ) {
 
 			$strpos = strpos($merge_vars['NAME'], ' ');
 			if( $strpos !== false ) {
