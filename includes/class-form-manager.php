@@ -127,26 +127,16 @@ class MC4WP_Lite_Form_Manager {
 	*/
 	public function form( $atts = array(), $content = '' ) {
 
-		$opts = mc4wp_get_options('form');
-
-		// was this form submitted?
-		$was_submitted = ( is_object( $this->form_request ) && $this->form_request->get_form_instance_number() === $this->form_instance_number );
-
-		// enqueue scripts (in footer) if form was submitted
-		if( $was_submitted ) {
-			wp_enqueue_script( 'mc4wp-form-request' );
-			wp_localize_script( 'mc4wp-form-request', 'mc4wpFormRequestData', array(
-					'success' => ( $this->form_request->is_successful() ) ? 1 : 0,
-					'submittedFormId' => $this->form_request->get_form_instance_number(),
-					'postData' => stripslashes_deep( $_POST )
-				)
-			);
-		}
-
 		// make sure template functions are loaded
 		if ( ! function_exists( 'mc4wp_replace_variables' ) ) {
 			include_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/template.php';
 		}
+
+		// Get form options
+		$opts = mc4wp_get_options('form');
+
+		// was this form submitted?
+		$was_submitted = ( is_object( $this->form_request ) && $this->form_request->get_form_instance_number() === $this->form_instance_number );
 
 		/**
 		 * @filter mc4wp_form_action
@@ -157,7 +147,7 @@ class MC4WP_Lite_Form_Manager {
 		$form_action = apply_filters( 'mc4wp_form_action', mc4wp_get_current_url() );
 
 		// Generate opening HTML
-		$opening_html = "\n<!-- Form by MailChimp for WordPress plugin v". MC4WP_LITE_VERSION ." - https://dannyvankooten.com/mailchimp-for-wordpress/ -->\n";
+		$opening_html = "<!-- Form by MailChimp for WordPress plugin v". MC4WP_LITE_VERSION ." - https://dannyvankooten.com/mailchimp-for-wordpress/ -->";
 		$opening_html .= '<form method="post" action="'. $form_action .'" id="mc4wp-form-'.$this->form_instance_number.'" class="'. $this->get_css_classes() .'">';
 
 		// Generate before & after fields HTML
@@ -176,7 +166,7 @@ class MC4WP_Lite_Form_Manager {
 			// insert captcha
 			if( function_exists( 'cptch_display_captcha_custom' ) ) {
 				$captcha_fields = '<input type="hidden" name="_mc4wp_has_captcha" value="1" /><input type="hidden" name="cntctfrm_contact_action" value="true" />' . cptch_display_captcha_custom();
-				$form_markup = str_ireplace( array( '{captcha}', '[captcha]' ), $captcha_fields, $visible_fields );
+				$visible_fields = str_ireplace( array( '{captcha}', '[captcha]' ), $captcha_fields, $visible_fields );
 			}
 
 			/**
@@ -199,12 +189,23 @@ class MC4WP_Lite_Form_Manager {
 		}
 
 
-		// Add form response to content, in correct position
+
 		if( $was_submitted ) {
 
+			// Enqueue script (only after submit)
+			wp_enqueue_script( 'mc4wp-form-request' );
+			wp_localize_script( 'mc4wp-form-request', 'mc4wpFormRequestData', array(
+					'success' => ( $this->form_request->is_successful() ) ? 1 : 0,
+					'submittedFormId' => $this->form_request->get_form_instance_number(),
+					'postData' => stripslashes_deep( $_POST )
+				)
+			);
+
+			// Add form response to content
 			$response = $this->get_form_message_html();
 
-			if( stristr( $opts['markup'], '{response}' ) !== false ) {
+			// check if form contains {response} tag
+			if( stristr( $visible_fields, '{response}' ) !== false ) {
 				$visible_fields = str_ireplace( '{response}', $response, $visible_fields );
 			} else {
 
@@ -232,7 +233,7 @@ class MC4WP_Lite_Form_Manager {
 
 		// Generate closing HTML
 		$closing_html = "</form>";
-		$closing_html .= "\n<!-- / MailChimp for WP Plugin -->\n";
+		$closing_html .= "<!-- / MailChimp for WP Plugin -->";
 
 		// increase form instance number in case there is more than one form on a page
 		$this->form_instance_number++;
