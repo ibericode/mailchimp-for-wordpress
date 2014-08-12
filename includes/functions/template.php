@@ -13,6 +13,7 @@ if( ! defined( "MC4WP_LITE_VERSION" ) ) {
 function mc4wp_checkbox() {
 	global $mc4wp;
 
+	// manually instantiate comment form integration class
 	if( ! isset( $mc4wp->get_checkbox_manager()->integrations['comment_form'] ) ) {
 		$mc4wp->get_checkbox_manager()->integrations['comment_form'] = new MC4WP_Comment_Form_Integration();
 	}
@@ -21,9 +22,10 @@ function mc4wp_checkbox() {
 }
 
 /**
-* Echoes sign-up form with given $form_id.
-* @param int $form_id.
-*/
+ * Echoes a MailChimp for WordPress form
+ *
+ * @param   int     $id     The form ID
+ */
 function mc4wp_form( $id = 0 ) {
 	echo mc4wp_get_form( $id );
 }
@@ -31,8 +33,8 @@ function mc4wp_form( $id = 0 ) {
 /**
 * Returns HTML for sign-up form with the given $form_id.
 *
-* @param int $form_id.
-* @return string HTML of given form_id.
+* @param    int     $form_id.
+* @return   string  HTML of given form_id.
 */
 function mc4wp_get_form( $id = 0 ) {
 	global $mc4wp;
@@ -43,9 +45,9 @@ function mc4wp_get_form( $id = 0 ) {
 /**
 * Returns text with {variables} replaced.
 *
-* @param string $text
-* @param array $list_ids Array of list id's
-* @return string $text with {variables} replaced.
+* @param    string  $text
+* @param    array   $list_ids   Array of list id's
+* @return   string  $text       The text with {variables} replaced.
 */
 function mc4wp_replace_variables( $text, $list_ids = array() ) {
 
@@ -81,14 +83,11 @@ function mc4wp_replace_variables( $text, $list_ids = array() ) {
 /**
  * Retrieves the URL of the current WordPress page
  *
- * @return string The current URL, escaped for safe usage inside attributes.
+ * @return  string  The current URL, escaped for safe usage inside attributes.
  */
 function mc4wp_get_current_url() {
-	$current_url  = is_ssl() ? 'https://' : 'http://';
-	$current_url .= $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-	return esc_url( $current_url );
+	return esc_url( home_url( add_query_arg( array() ) ) );
 }
-
 
 
 /**
@@ -98,6 +97,7 @@ function mc4wp_get_current_url() {
 * @see mc4wp_form()
 */
 function mc4wp_show_form( $id = 0 ) {
+	_deprecated_function( __FUNCTION__, 'MailChimp for WP v1.3.1', 'mc4wp_form' );
 	mc4wp_form( $id );
 }
 
@@ -108,5 +108,6 @@ function mc4wp_show_form( $id = 0 ) {
 * @see mc4wp_checkbox()
 */
 function mc4wp_show_checkbox() {
+	_deprecated_function( __FUNCTION__, 'MailChimp for WP v1.3.1', 'mc4wp_form' );
 	mc4wp_checkbox();
 }
