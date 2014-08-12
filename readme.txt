@@ -233,6 +233,7 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 - Improved CSS reset for the sign-up checkbox
 - Added deprecated warning to some functions
+- Improvements to third-party forms integration for the sign-up checkbox. Integrating with the [Events Manager](https://wordpress.org/plugins/events-manager/) plugin should work now.
 - Updated Dutch translations
 - Updated English translations
 

@@ -143,10 +143,12 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 					break;
 				}
 
-
 			} elseif( ! $email && is_email( $value ) ) {
-				// find first email field
+				// if no email is found yet, check if current field value is an email
 				$email = $value;
+			} elseif( ! $email && is_array( $value ) && isset( $value[0] ) && is_email( $value[0] ) ) {
+				// if no email is found yet, check if current value is an array and if first array value is an email
+				$email = $value[0];
 			} else {
 				$simple_key = str_replace( array( '-', '_' ), '', strtolower( $key ) );
 
