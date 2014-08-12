@@ -86,7 +86,14 @@ function mc4wp_replace_variables( $text, $list_ids = array() ) {
  * @return  string  The current URL, escaped for safe usage inside attributes.
  */
 function mc4wp_get_current_url() {
-	return esc_url( home_url( add_query_arg( array() ) ) );
+	global $wp;
+	$url = home_url( $wp->request );
+
+	if( substr( $_SERVER['REQUEST_URI'], -1 ) === '/' ) {
+		$url = trailingslashit( $url );
+	}
+
+	return esc_url( $url );
 }
 
 
