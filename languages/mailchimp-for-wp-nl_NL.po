@@ -1,147 +1,148 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"POT-Creation-Date: 2014-05-14 22:11+0100\n"
-"PO-Revision-Date: 2014-05-14 22:19+0100\n"
+"POT-Creation-Date: 2014-08-12 15:12+0100\n"
+"PO-Revision-Date: 2014-08-12 15:17+0100\n"
 "Last-Translator: Danny <hi@dannyvankooten.com>\n"
 "Language-Team: Danny van Kooten <hi@dannyvankooten.com>\n"
 "Language: en_EN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.5\n"
+"X-Generator: Poedit 1.6.7\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-Bookmarks: 90,-1,-1,-1,-1,-1,-1,-1,-1,-1\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../includes/class-admin.php:178
+#: ../includes/admin/class-admin.php:183
 msgid "Settings"
 msgstr "Instellingen"
 
-#: ../includes/class-admin.php:197
+#: ../includes/admin/class-admin.php:202
 msgid "Documentation"
 msgstr "Documentatie"
 
-#: ../includes/class-admin.php:209
+#: ../includes/admin/class-admin.php:245
 msgid "Save Form"
 msgstr "Formulier opslaan"
 
-#: ../includes/class-admin.php:211
+#: ../includes/admin/class-admin.php:249
 msgid "Update Form"
 msgstr "Formulier updaten"
 
-#: ../includes/class-admin.php:248
+#: ../includes/admin/class-admin.php:282
 msgid "Your email address"
 msgstr "Jouw emailadres"
 
-#: ../includes/class-admin.php:249
+#: ../includes/admin/class-admin.php:283
 msgid "Email address"
 msgstr "Emailadres"
 
-#: ../includes/class-admin.php:250
+#: ../includes/admin/class-admin.php:284
 msgid "Sign up"
 msgstr "Inschrijven"
 
-#: ../includes/class-admin.php:261
+#: ../includes/admin/class-admin.php:300
 msgid "Back to general form settings"
 msgstr "Terug naar generieke formulier instellingen."
 
-#: ../includes/class-admin.php:263
+#: ../includes/admin/class-admin.php:302
 msgid "Form updated."
 msgstr "Formulier geupdate"
 
-#: ../includes/class-admin.php:264
+#: ../includes/admin/class-admin.php:303
 msgid "Form saved."
 msgstr "Formulier opgeslagen"
 
-#: ../includes/class-admin.php:321
-msgid "Form settings"
+#: ../includes/admin/class-admin.php:311
+#, php-format
+msgid "An EMAIL field. Example: <code>%s</code>"
+msgstr "Een EMAIL veld. Voorbeeld: <code>%s</code>"
+
+#: ../includes/admin/class-admin.php:317
+#, php-format
+msgid "A submit button. Example: <code>%s</code>"
+msgstr "Een verzendknop. Voorbeeld: <code>%s</code>"
+
+#: ../includes/admin/class-admin.php:317
+#, fuzzy
+msgid "Sign Up"
+msgstr "Inschrijven"
+
+#: ../includes/admin/class-admin.php:345
+#, php-format
+msgid "A '%s' field"
+msgstr "Een '%s' veld"
+
+#: ../includes/admin/class-admin.php:357
+msgid "Your form is missing the following (required) form fields:"
+msgstr "Je formulier mist de volgende (verplichte) velden:"
+
+#: ../includes/admin/class-admin.php:429
+#, fuzzy
+msgid "Form Settings"
 msgstr "Formulier Instellingen"
 
-#: ../includes/class-admin.php:322
-msgid "Optional settings"
+#: ../includes/admin/class-admin.php:430
+#, fuzzy
+msgid "Optional Settings"
 msgstr "Optionele Instellingen"
 
-#: ../includes/class-admin.php:323
-msgid "Form variables"
+#: ../includes/admin/class-admin.php:431
+#, fuzzy
+msgid "Form Variables"
 msgstr "Formulier variabelen"
 
-#: ../includes/class-admin.php:357
+#: ../includes/admin/class-admin.php:465
 msgid "Use the following variables to add some dynamic content to your form."
 msgstr ""
 "Gebruik de volgende variabelen om wat dynamische inhoud aan je formulier toe "
 "te voegen"
 
-#: ../includes/class-admin.php:497
-#, php-format
-msgid ""
-"Couldn't create the stylesheet. Manually add the generated CSS to your theme "
-"stylesheet by using the %sTheme Editor%s or use FTP and edit <em>%s</em>."
-msgstr ""
-"De stylesheet kon niet worden gecreëerd. Voeg de gegenereerde CSS manueel "
-"toe aan je thema stylesheet door de %sThema Editor%s te gebruiken, of "
-"gebruik FTP en wijzig <em>%s</em>"
+#: ../includes/admin/class-admin.php:547
+#, fuzzy
+msgid "MailChimp & License"
+msgstr "MailChimp Lijsten"
 
-#: ../includes/class-admin.php:498
-#, php-format
-msgid "%sShow CSS%s"
-msgstr "%sToon CSS%s"
-
-#: ../includes/class-admin.php:507
-#, php-format
-msgid ""
-"To apply these styles on your website, select \"load custom form styles\" in "
-"the %sform settings%s"
-msgstr ""
-"Selecteer \"laad custom formulier stijlen\" in de %sformulier instellingen%s "
-"om deze stijlen op je website te gebruiken"
-
-#: ../includes/class-admin.php:508
-#, php-format
-msgid "The %sCSS Stylesheet%s has been created."
-msgstr "De %sCSS Stylesheet%s is gecreëerd. "
-
-#: ../includes/class-admin.php:524
-msgid "General Settings"
-msgstr "Algemeen"
-
-#: ../includes/class-admin.php:525
+#: ../includes/admin/class-admin.php:548
 msgid "Checkboxes"
 msgstr "Checkboxes"
 
-#: ../includes/class-admin.php:526
+#: ../includes/admin/class-admin.php:549
+#: ../includes/tables/class-forms-table.php:20
 #: ../includes/views/pages/admin-form-settings.php:10
 msgid "Forms"
 msgstr "Formulieren"
 
-#: ../includes/class-admin.php:527
+#: ../includes/admin/class-admin.php:550
 #: ../includes/views/pages/admin-reports.php:10
 msgid "Reports"
 msgstr "Rapporten"
 
-#: ../includes/class-admin.php:596
+#: ../includes/admin/class-admin.php:634
 msgid "Comment form"
 msgstr "Reactieformulier"
 
-#: ../includes/class-admin.php:597
+#: ../includes/admin/class-admin.php:635
 msgid "Registration form"
 msgstr "Registratieformulier"
 
-#: ../includes/class-admin.php:601
+#: ../includes/admin/class-admin.php:639
 msgid "MultiSite forms"
 msgstr "MultiSite formulieren"
 
-#: ../includes/class-admin.php:605
+#: ../includes/admin/class-admin.php:643
+#: ../includes/tables/class-log-table.php:212
 msgid "BuddyPress registration"
 msgstr "BuddyPress registratie"
 
-#: ../includes/class-admin.php:613 ../includes/class-admin.php:617
+#: ../includes/admin/class-admin.php:651 ../includes/admin/class-admin.php:655
 #, php-format
 msgid "%s checkout"
 msgstr "%s checkout"
 
-#: ../includes/class-admin.php:653
+#: ../includes/admin/class-admin.php:689
 #, php-format
 msgid ""
 "Please make sure the plugin is connected to MailChimp. <a href=\"%s"
@@ -150,7 +151,30 @@ msgstr ""
 "Zorg aub dat de plugin een connectie met MailChimp heeft. <a href=\"%s"
 "\">Geef een geldige API sleutel in.</a>"
 
-#: ../includes/class-admin.php:792
+#: ../includes/admin/class-admin.php:699
+msgid "Renewed MailChimp cache."
+msgstr "MailChimp cache met succes vernieuwd."
+
+#: ../includes/admin/class-admin.php:701
+msgid "Failed to renew MailChimp cache - please try again later."
+msgstr ""
+"Het is niet gelukt om de MailChimp cache te legen - probeer het alsjeblieft "
+"later opnieuw."
+
+#: ../includes/admin/class-admin.php:779
+msgid "End date can't be before the start date"
+msgstr "Einddatum kan niet vóór de startdatum liggen"
+
+#: ../includes/admin/class-admin.php:811
+#, php-format
+msgid ""
+"You disabled logging using the %s filter. Re-enable it to use the Reports "
+"page."
+msgstr ""
+"Je hebt logging uitgeschakeld met behulp van de %s filter. Om de Reports "
+"pagina te kunnen gebruiken moet logging ingeschakeld zijn."
+
+#: ../includes/admin/class-admin.php:827
 #, php-format
 msgid ""
 "<strong>Welcome to MailChimp for WordPress Pro!</strong> We transfered the "
@@ -161,22 +185,41 @@ msgstr ""
 "uit de Lite versie zijn overgezet, deactiveer <a href=\"%s\">de Lite plugin</"
 "a> om problemen te voorkomen."
 
-#: ../includes/class-admin.php:865
-msgid "Renewed MailChimp cache."
-msgstr "MailChimp cache met succes vernieuwd."
-
-#: ../includes/class-admin.php:867
-msgid "Failed to renew MailChimp cache - please try again later."
+#: ../includes/admin/class-css-builder.php:270
+#, php-format
+msgid ""
+"Couldn't create the stylesheet. Manually add the generated CSS to your theme "
+"stylesheet by using the %sTheme Editor%s or use FTP and edit <em>%s</em>."
 msgstr ""
-"Het is niet gelukt om de MailChimp cache te legen - probeer het alsjeblieft "
-"later opnieuw."
+"De stylesheet kon niet worden gecreëerd. Voeg de gegenereerde CSS manueel "
+"toe aan je thema stylesheet door de %sThema Editor%s te gebruiken, of "
+"gebruik FTP en wijzig <em>%s</em>"
 
-#: ../includes/class-form-manager.php:248
+#: ../includes/admin/class-css-builder.php:271
+#, fuzzy, php-format
+msgid "%sShow generated CSS%s"
+msgstr "%sToon CSS%s"
+
+#: ../includes/admin/class-css-builder.php:281
+#, php-format
+msgid ""
+"To apply these styles on your website, select \"load custom form styles\" in "
+"the %sform settings%s"
+msgstr ""
+"Selecteer \"laad custom formulier stijlen\" in de %sformulier instellingen%s "
+"om deze stijlen op je website te gebruiken"
+
+#: ../includes/admin/class-css-builder.php:282
+#, php-format
+msgid "The %sCSS Stylesheet%s has been created."
+msgstr "De %sCSS Stylesheet%s is gecreëerd. "
+
+#: ../includes/class-form-manager.php:238
 #, php-format
 msgid "<strong>Error:</strong> Please specify a form ID. Example: %s."
 msgstr "<strong>Fout:</strong> Geef aub een formulier ID in. Example: %s"
 
-#: ../includes/class-form-manager.php:261
+#: ../includes/class-form-manager.php:252
 msgid ""
 "<strong>Error:</strong> Sign-up form not found. Please check if you used the "
 "correct form ID."
@@ -184,28 +227,17 @@ msgstr ""
 "<strong>Fout:</strong> Inschrijfformulier niet gevonden. Check aub of je het "
 "correcte formulier ID gebruikt hebt."
 
-#: ../includes/class-form-manager.php:370
-#, php-format
-msgid ""
-"<strong>Admin notice:</strong> you have not yet selected a MailChimp list(s) "
-"for this form. <a target=\"_top\" href=\"%s\">Edit this sign-up form</a> and "
-"select at least one list."
-msgstr ""
-"<strong>Admin melding:</strong> je hebt nog geen MailChimp lijst(en) "
-"geselecteerd voor dit formulier. <a target=\"_top\" href=\"%s\">Wijzig dit "
-"formulier</a> en selecteer ten minste 1 lijst."
-
-#: ../includes/class-form-manager.php:833
+#: ../includes/class-form-request.php:453
 msgid "New Sign-Up"
 msgstr "Nieuwe inschrijving"
 
-#: ../includes/class-form-manager.php:834
+#: ../includes/class-form-request.php:454
 #, php-format
 msgid "<strong>%s</strong> signed-up at %s on %s using the form \"%s\"."
 msgstr ""
 "<strong>%s</strong> schreef zich om %s op %s in met het formulier \"%s\""
 
-#: ../includes/class-form-manager.php:873
+#: ../includes/class-form-request.php:493
 msgid "This email was auto-sent by the MailChimp for WordPress plugin."
 msgstr "Deze email is gestuurd door de MailChimp for WordPress plugin."
 
@@ -252,9 +284,10 @@ msgid "Sign me up for the newsletter!"
 msgstr "Schrijf me in voor de nieuwsbrief!"
 
 #: ../includes/functions/general.php:42
+#, fuzzy
 msgid ""
-"Thank you, your sign-up request was successful! Please check your e-mail "
-"inbox."
+"Thank you, your sign-up request was successful! Please check your email "
+"inbox to confirm."
 msgstr ""
 "Dankjewel, je inschrijfverzoek was succesvol. Controleer aub uw email inbox."
 
@@ -274,6 +307,10 @@ msgstr "Dit emailadres is reeds ingeschreven, dankjewel!"
 msgid "Please complete the CAPTCHA."
 msgstr "Vul aub een geldige CAPTCHA in."
 
+#: ../includes/functions/general.php:47
+msgid "Please fill in the required fields."
+msgstr "Vul aub de verplichte velden in."
+
 #: ../includes/integrations/class-cf7.php:44
 #: ../includes/views/metaboxes/optional-form-settings.php:16
 #: ../includes/views/metaboxes/optional-form-settings.php:30
@@ -284,8 +321,8 @@ msgstr "Vul aub een geldige CAPTCHA in."
 #: ../includes/views/metaboxes/optional-form-settings.php:106
 #: ../includes/views/pages/admin-checkbox-settings.php:52
 #: ../includes/views/pages/admin-checkbox-settings.php:60
-#: ../includes/views/pages/admin-checkbox-settings.php:90
-#: ../includes/views/pages/admin-checkbox-settings.php:95
+#: ../includes/views/pages/admin-checkbox-settings.php:98
+#: ../includes/views/pages/admin-checkbox-settings.php:103
 #: ../includes/views/tabs/admin-forms-general-settings.php:58
 #: ../includes/views/tabs/admin-forms-general-settings.php:69
 #: ../includes/views/tabs/admin-forms-general-settings.php:79
@@ -305,8 +342,8 @@ msgstr "Ja"
 #: ../includes/views/metaboxes/optional-form-settings.php:107
 #: ../includes/views/pages/admin-checkbox-settings.php:52
 #: ../includes/views/pages/admin-checkbox-settings.php:62
-#: ../includes/views/pages/admin-checkbox-settings.php:90
-#: ../includes/views/pages/admin-checkbox-settings.php:95
+#: ../includes/views/pages/admin-checkbox-settings.php:98
+#: ../includes/views/pages/admin-checkbox-settings.php:103
 #: ../includes/views/tabs/admin-forms-general-settings.php:22
 #: ../includes/views/tabs/admin-forms-general-settings.php:60
 #: ../includes/views/tabs/admin-forms-general-settings.php:71
@@ -317,7 +354,7 @@ msgstr "Ja"
 msgid "No"
 msgstr "Nee"
 
-#: ../includes/library/license-manager/class-license-manager.php:132
+#: ../includes/library/license-manager/class-license-manager.php:158
 #, php-format
 msgid ""
 "<b>Warning!</b> You're blocking external requests which means you won't be "
@@ -326,22 +363,22 @@ msgstr ""
 "<b>Waarschuwing!</b> Je blokkeert externe requests wat betekent dat je geen "
 "updates voor %s kunt ontvangen. Voeg aub %s toe aan %s."
 
-#: ../includes/library/license-manager/class-license-manager.php:175
+#: ../includes/library/license-manager/class-license-manager.php:201
 #, php-format
 msgid "Your %s license has been activated. You have an unlimited license. "
 msgstr "Je %s licentie is geactiveerd. Je hebt een ongelimiteerde licentie"
 
-#: ../includes/library/license-manager/class-license-manager.php:177
+#: ../includes/library/license-manager/class-license-manager.php:203
 #, php-format
 msgid "Your %s license has been activated. You have used %d/%d activations. "
 msgstr "Je %s licentie is geactiveerd. Je hebt %d/%d activaties gebruikt."
 
-#: ../includes/library/license-manager/class-license-manager.php:182
+#: ../includes/library/license-manager/class-license-manager.php:208
 #, php-format
 msgid "<a href=\"%s\">Did you know you can upgrade your license?</a>"
 msgstr "<a href=\"%s\">Wist je dat je je licentie kon upgraden?</a>"
 
-#: ../includes/library/license-manager/class-license-manager.php:186
+#: ../includes/library/license-manager/class-license-manager.php:212
 #, php-format
 msgid ""
 "<a href=\"%s\">Your license is expiring in %d days, would you like to extend "
@@ -349,7 +386,7 @@ msgid ""
 msgstr ""
 "<a href=\"%s\">Je licentie verloopt in %d dagen, wil je deze verlengen?</a>"
 
-#: ../includes/library/license-manager/class-license-manager.php:195
+#: ../includes/library/license-manager/class-license-manager.php:221
 #, php-format
 msgid ""
 "You've reached your activation limit. You must <a href=\"%s\">upgrade your "
@@ -358,7 +395,7 @@ msgstr ""
 "Je zit aan je activatie limiet. Je moet je <a href=\"%s\">licentie upgraden</"
 "a> om deze op deze website te kunnen gebruiken."
 
-#: ../includes/library/license-manager/class-license-manager.php:198
+#: ../includes/library/license-manager/class-license-manager.php:224
 #, php-format
 msgid ""
 "Your license has expired. You must <a href=\"%s\">extend your license</a> in "
@@ -367,40 +404,31 @@ msgstr ""
 "Je licentie is verlopen. Je moet je <a href=\"%s\">licentie verlengen</a> om "
 "deze weer te kunnen gebruiken."
 
-#: ../includes/library/license-manager/class-license-manager.php:201
+#: ../includes/library/license-manager/class-license-manager.php:227
 msgid "Failed to activate your license, your license key seems to be invalid."
 msgstr "Je licentie lijkt invalide te zijn."
 
-#: ../includes/library/license-manager/class-license-manager.php:225
+#: ../includes/library/license-manager/class-license-manager.php:251
 #, php-format
 msgid "Your %s license has been deactivated."
 msgstr "Je %s licentie is gedeactiveerd."
 
-#: ../includes/library/license-manager/class-license-manager.php:227
+#: ../includes/library/license-manager/class-license-manager.php:253
 #, php-format
 msgid "Failed to deactivate your %s license."
 msgstr "Het is niet gelukt je %s licentie te deactiveren."
 
-#: ../includes/library/license-manager/class-license-manager.php:262
+#: ../includes/library/license-manager/class-license-manager.php:289
 #, php-format
 msgid "Request error: \"%s\""
 msgstr "Request fout: \"%s\""
 
-#: ../includes/library/license-manager/class-license-manager.php:420
+#: ../includes/library/license-manager/class-license-manager.php:447
 #, php-format
 msgid "%s: License Settings"
 msgstr "%s: Licentie Instellingen"
 
-#: ../includes/library/license-manager/class-plugin-license-manager.php:72
-#, php-format
-msgid ""
-"%s is network activated, you can manage your license in the <a href=\"%s"
-"\">network admin license page</a>."
-msgstr ""
-"%s is netwerk-geactiveerd. Je kunt je licenties beheren in de <a href=\"%s"
-"\">network admin licentie pagina</a>."
-
-#: ../includes/library/license-manager/class-plugin-license-manager.php:74
+#: ../includes/library/license-manager/class-plugin-license-manager.php:67
 #, php-format
 msgid ""
 "%s is network activated, please contact your site administrator to manage "
@@ -409,7 +437,7 @@ msgstr ""
 "%s is netwerk-geactiveerd. Neem aub contact op met je site admin om je "
 "licentie te beheren."
 
-#: ../includes/library/license-manager/class-update-manager.php:83
+#: ../includes/library/license-manager/class-update-manager.php:69
 #, php-format
 msgid ""
 "%s failed to check for updates because of the following error: <em>%s</em>"
@@ -417,7 +445,7 @@ msgstr ""
 "Het lukte %s niet om voor updates te checken door de volgende fout: <em>%s</"
 "em>"
 
-#: ../includes/library/license-manager/class-update-manager.php:148
+#: ../includes/library/license-manager/class-update-manager.php:138
 msgid ""
 "This site has not been activated properly on dannyvankooten.com and thus "
 "cannot check for future updates. Please activate your site with a valid "
@@ -450,8 +478,8 @@ msgid "License Key"
 msgstr "Licentiecode"
 
 #: ../includes/library/license-manager/views/form.php:54
-#, php-format
-msgid "Paste your %s license key here.."
+#, fuzzy
+msgid "Paste your license key here, as found in the email receipt."
 msgstr "Plak je %s licentie hier.."
 
 #: ../includes/library/license-manager/views/form.php:56
@@ -471,16 +499,14 @@ msgid "%sRenew your license now%s."
 msgstr "%sVernieuw je licentie nu%s"
 
 #: ../includes/tables/class-forms-table.php:19
-msgid "Sign-Up Form"
-msgstr "Inschrijfformulier"
-
-#: ../includes/tables/class-forms-table.php:20
-msgid "Sign-up Forms"
-msgstr "MailChimp inschrijfformulieren"
-
 #: ../includes/tables/class-forms-table.php:36
+#: ../includes/tables/class-log-table.php:207
 msgid "Form"
 msgstr "Formulier"
+
+#: ../includes/tables/class-forms-table.php:35
+msgid "ID"
+msgstr "ID"
 
 #: ../includes/tables/class-forms-table.php:37
 msgid "Shortcode"
@@ -494,43 +520,100 @@ msgstr "Lijst(en)"
 msgid "Last edited"
 msgstr "Laatst gewijzigd"
 
-#: ../includes/tables/class-forms-table.php:103
+#: ../includes/tables/class-forms-table.php:76
+#: ../includes/tables/class-forms-table.php:80
+#, fuzzy
+msgid "Edit Form"
+msgstr "Formulier updaten"
+
+#: ../includes/tables/class-forms-table.php:77
+msgid "Delete"
+msgstr "Verwijder"
+
+#: ../includes/tables/class-forms-table.php:98
+msgid "No MailChimp list(s) selected yet."
+msgstr "Geen MailChimp lijst(en) geselecteerd."
+
+#: ../includes/tables/class-forms-table.php:105
 msgid "You have not created any sign-up forms yet. Time to do so!"
 msgstr "Je hebt nog geen inschrijfformulieren gemaakt. Ga 'ns wat doen!"
 
-#: ../includes/tables/class-log-table.php:23
+#: ../includes/tables/class-log-table.php:33
 msgid "Subscriber"
-msgstr ""
+msgstr "Subscriber"
 
-#: ../includes/tables/class-log-table.php:24
+#: ../includes/tables/class-log-table.php:34
 msgid "Subscribers"
-msgstr ""
+msgstr "Subscribers"
 
-#: ../includes/tables/class-log-table.php:44
+#: ../includes/tables/class-log-table.php:53
 msgid "Email"
 msgstr "Emailadres"
 
-#: ../includes/tables/class-log-table.php:45
+#: ../includes/tables/class-log-table.php:54
 msgid "List"
 msgstr "Lijst"
 
-#: ../includes/tables/class-log-table.php:46
+#: ../includes/tables/class-log-table.php:55
 msgid "Type"
 msgstr "Type"
 
-#: ../includes/tables/class-log-table.php:47
+#: ../includes/tables/class-log-table.php:56
 msgid "Source"
 msgstr "Bron"
 
-#: ../includes/tables/class-log-table.php:48
+#: ../includes/tables/class-log-table.php:57
 msgid "Extra data"
 msgstr "Extra data"
 
-#: ../includes/tables/class-log-table.php:49
+#: ../includes/tables/class-log-table.php:58
 msgid "Subscribed"
 msgstr "Ingeschreven"
 
-#: ../includes/tables/class-log-table.php:258
+#: ../includes/tables/class-log-table.php:192
+#: ../includes/tables/class-log-table.php:196
+#, fuzzy
+msgid "Comment"
+msgstr "Reactieformulier"
+
+#: ../includes/tables/class-log-table.php:192
+msgid "deleted"
+msgstr "verwijderd"
+
+#: ../includes/tables/class-log-table.php:200
+#, fuzzy
+msgid "Registration"
+msgstr "Registratieformulier"
+
+#: ../includes/tables/class-log-table.php:216
+#, fuzzy
+msgid "MultiSite registration"
+msgstr "BuddyPress registratie"
+
+#: ../includes/tables/class-log-table.php:220
+#: ../includes/tables/class-log-table.php:224
+#, fuzzy
+msgid "Checkout"
+msgstr "%s checkout"
+
+#: ../includes/tables/class-log-table.php:229
+msgid "Contact Form 7"
+msgstr "Contact Form 7"
+
+#: ../includes/tables/class-log-table.php:233
+msgid "bbPress: New Topic"
+msgstr "bbPress: Nieuw Onderwerp"
+
+#: ../includes/tables/class-log-table.php:237
+msgid "bbPress: New Reply"
+msgstr "bbPress: Nieuwe Reactie"
+
+#: ../includes/tables/class-log-table.php:243
+#, fuzzy
+msgid "Other Form"
+msgstr "Formulier updaten"
+
+#: ../includes/tables/class-log-table.php:283
 msgid "No subscribe requests found."
 msgstr "Geen inschrijfverzoeken gevonden."
 
@@ -684,27 +767,33 @@ msgid "Success message"
 msgstr "Succesmelding"
 
 #: ../includes/views/metaboxes/optional-form-settings.php:121
-#: ../includes/views/tabs/admin-forms-general-settings.php:123
-msgid "General error message"
-msgstr "Foutmelding"
-
-#: ../includes/views/metaboxes/optional-form-settings.php:125
-#: ../includes/views/tabs/admin-forms-general-settings.php:127
+#: ../includes/views/tabs/admin-forms-general-settings.php:124
 msgid "Invalid email address message"
 msgstr "Foutief emailadres"
 
+#: ../includes/views/metaboxes/optional-form-settings.php:125
+#: ../includes/views/tabs/admin-forms-general-settings.php:128
+#, fuzzy
+msgid "Required field missing message"
+msgstr "Verplicht veld?"
+
 #: ../includes/views/metaboxes/optional-form-settings.php:129
-#: ../includes/views/tabs/admin-forms-general-settings.php:131
+#: ../includes/views/tabs/admin-forms-general-settings.php:132
 msgid "Already subscribed message"
 msgstr "Reeds ingeschreven"
 
 #: ../includes/views/metaboxes/optional-form-settings.php:134
-#: ../includes/views/tabs/admin-forms-general-settings.php:136
+#: ../includes/views/tabs/admin-forms-general-settings.php:138
 msgid "Invalid CAPTCHA message"
 msgstr "Foutieve CAPTCHA melding"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:141
-#: ../includes/views/tabs/admin-forms-general-settings.php:142
+#: ../includes/views/metaboxes/optional-form-settings.php:139
+#: ../includes/views/tabs/admin-forms-general-settings.php:143
+msgid "General error message"
+msgstr "Foutmelding"
+
+#: ../includes/views/metaboxes/optional-form-settings.php:145
+#: ../includes/views/tabs/admin-forms-general-settings.php:148
 #, php-format
 msgid "HTML tags like %s are allowed in the message fields."
 msgstr "HTML tags als %s zijn toegestaan in de meldingteksten."
@@ -747,7 +836,7 @@ msgstr "(optioneel)"
 
 #: ../includes/views/metaboxes/required-form-settings.php:50
 msgid "Placeholder"
-msgstr ""
+msgstr "Placeholder"
 
 #: ../includes/views/metaboxes/required-form-settings.php:55
 msgid "Initial value"
@@ -755,7 +844,7 @@ msgstr "Initiële waarde"
 
 #: ../includes/views/metaboxes/required-form-settings.php:60
 msgid "Labels"
-msgstr ""
+msgstr "Labels"
 
 #: ../includes/views/metaboxes/required-form-settings.php:60
 msgid "(leave empty to hide)"
@@ -847,40 +936,49 @@ msgstr ""
 "Aan de formulieren die je hier selecteert wordt automatisch een \"schrijf je "
 "in\" checkbox toegevoegd."
 
-#: ../includes/views/pages/admin-checkbox-settings.php:82
+#: ../includes/views/pages/admin-checkbox-settings.php:85
+#, php-format
+msgid ""
+"Use %s in your Contact Form 7 mark-up to add a sign-up checkbox to your CF7 "
+"forms.</p>"
+msgstr ""
+"Gebruik %s in je Contact Form 7 mark-up om een inschrijf checkbox aan je CF7 "
+"formulieren toe te voegen."
+
+#: ../includes/views/pages/admin-checkbox-settings.php:90
 msgid "Checkbox label text"
 msgstr "Checkbox label tekst"
 
-#: ../includes/views/pages/admin-checkbox-settings.php:85
-#: ../includes/views/pages/admin-checkbox-settings.php:115
+#: ../includes/views/pages/admin-checkbox-settings.php:93
+#: ../includes/views/pages/admin-checkbox-settings.php:123
 #, php-format
 msgid "HTML tags like %s are allowed in the label text."
 msgstr "HTML tags als %s zijn toegestaan in de label tekst."
 
-#: ../includes/views/pages/admin-checkbox-settings.php:89
+#: ../includes/views/pages/admin-checkbox-settings.php:97
 msgid "Pre-check the checkbox?"
 msgstr "Vink de checkbox standaard aan?"
 
-#: ../includes/views/pages/admin-checkbox-settings.php:94
+#: ../includes/views/pages/admin-checkbox-settings.php:102
 msgid "Load some default CSS?"
 msgstr "Laad standaard CSS?"
 
-#: ../includes/views/pages/admin-checkbox-settings.php:96
+#: ../includes/views/pages/admin-checkbox-settings.php:104
 msgid "Select \"yes\" if the checkbox appears in a weird place."
 msgstr "Selecteer \"ja\" als de checkbox op een vreemde plaats verschijnt."
 
-#: ../includes/views/pages/admin-checkbox-settings.php:100
-#: ../includes/views/pages/admin-checkbox-settings.php:120
+#: ../includes/views/pages/admin-checkbox-settings.php:108
+#: ../includes/views/pages/admin-checkbox-settings.php:128
 #: ../includes/views/tabs/admin-forms-general-settings.php:48
-#: ../includes/views/tabs/admin-forms-general-settings.php:146
+#: ../includes/views/tabs/admin-forms-general-settings.php:152
 msgid "Save all changes"
 msgstr "Alle wijzigingen opslaan"
 
-#: ../includes/views/pages/admin-checkbox-settings.php:103
+#: ../includes/views/pages/admin-checkbox-settings.php:111
 msgid "Custom label texts"
 msgstr "Custom label teksten"
 
-#: ../includes/views/pages/admin-checkbox-settings.php:104
+#: ../includes/views/pages/admin-checkbox-settings.php:112
 msgid ""
 "Override the default checkbox label text for any given checkbox using the "
 "fields below."
@@ -939,11 +1037,11 @@ msgstr ""
 "volgende button gebruiken om je configuratie opnieuw in te laden."
 
 #: ../includes/views/pages/admin-general-settings.php:55
-#: ../includes/views/pages/admin-general-settings.php:133
+#: ../includes/views/pages/admin-general-settings.php:126
 msgid "Renew MailChimp lists"
 msgstr "Vernieuw MailChimp lijsten"
 
-#: ../includes/views/pages/admin-general-settings.php:120
+#: ../includes/views/pages/admin-general-settings.php:113
 msgid "No lists were found in your MailChimp account."
 msgstr "Er zijn geen lijsten gevonden in je MailChimp account."
 
@@ -955,34 +1053,47 @@ msgstr "Statistieken"
 msgid "Log"
 msgstr "Log"
 
-#: ../includes/views/parts/admin-footer.php:8
+#: ../includes/views/parts/admin-footer.php:9
 #, php-format
 msgid ""
-"Need help? Email me directly at <a href=\"%s\">support@dannyvankooten.com</"
-"a>. Please include your website URL and as many details as possible."
+"Need help? Have a look at the <a href=\"%s\">plugin documentation</a> or "
+"email me directly at <a href=\"%s\">support@dannyvankooten.com</a>."
 msgstr ""
-"Hulp nodig? Email me rechtstreeks op <a href=\"%s\">support@dannyvankooten."
-"com</a>. Vermeld aub je website URL en zoveel mogelijk details."
+"Hulp nodig? Doorzoek de <a href=\"%s\">plugin documentatie</a> of email me "
+"rechtstreeks op <a href=\"%s\">support@dannyvankooten.com</a>."
 
-#: ../includes/views/parts/admin-text-variables.php:11
+#: ../includes/views/parts/admin-text-variables.php:13
+msgid "Replaced with the form response (error or success messages)."
+msgstr "Wordt vervangen door de formulier response (fout- en succesmeldingen)."
+
+#: ../includes/views/parts/admin-text-variables.php:18
+msgid "Replaced with a captcha field."
+msgstr "Wordt vervangen door een Captcha veld."
+
+#: ../includes/views/parts/admin-text-variables.php:23
 msgid "Replaced with the number of subscribers on the selected list(s)"
 msgstr "Vervangen door het aantal subscribers op de geselecteerde lijst(en)"
 
-#: ../includes/views/parts/admin-text-variables.php:15
+#: ../includes/views/parts/admin-text-variables.php:27
+#, fuzzy, php-format
+msgid "Replaced with the current site language, eg: %s"
+msgstr "Vervangen door de huidige tijd (uu:mm:ss bijv: %s)"
+
+#: ../includes/views/parts/admin-text-variables.php:31
 msgid "Replaced with the visitor's IP address"
 msgstr "Vervangen door het IP-adres van de bezoeker"
 
-#: ../includes/views/parts/admin-text-variables.php:19
+#: ../includes/views/parts/admin-text-variables.php:35
 #, php-format
 msgid "Replaced with the current date (yyyy/mm/dd eg: %s)"
 msgstr "Vervangen door de huidige datum (jjjj/mm/dd bijv: %s)"
 
-#: ../includes/views/parts/admin-text-variables.php:23
+#: ../includes/views/parts/admin-text-variables.php:39
 #, php-format
 msgid "Replaced with the current time (hh:mm:ss eg: %s)"
 msgstr "Vervangen door de huidige tijd (uu:mm:ss bijv: %s)"
 
-#: ../includes/views/parts/admin-text-variables.php:27
+#: ../includes/views/parts/admin-text-variables.php:43
 msgid ""
 "Replaced with the logged in user's email (or nothing, if there is no logged "
 "in user)"
@@ -990,23 +1101,19 @@ msgstr ""
 "Vervangen door het emailadres van de ingelogde gebruiker (of niets wanneer "
 "de bezoeker niet ingelogd is)"
 
-#: ../includes/views/parts/admin-text-variables.php:31
-msgid "Display name of the current user"
-msgstr "Naam van de ingelogde bezoeker"
-
-#: ../includes/views/parts/admin-text-variables.php:35
+#: ../includes/views/parts/admin-text-variables.php:47
 msgid "First name of the current user"
 msgstr "Voornaam van de ingelogde bezoeker"
 
-#: ../includes/views/parts/admin-text-variables.php:39
+#: ../includes/views/parts/admin-text-variables.php:51
 msgid "Last name of the current user"
 msgstr "Achternaam van de ingelogde bezoeker"
 
-#: ../includes/views/parts/admin-text-variables.php:43
+#: ../includes/views/parts/admin-text-variables.php:55
 msgid "Current user ID"
 msgstr "ID van de ingelogde bezoeker"
 
-#: ../includes/views/parts/admin-text-variables.php:47
+#: ../includes/views/parts/admin-text-variables.php:59
 msgid "Current URL"
 msgstr "Huidige URL"
 
@@ -1019,6 +1126,16 @@ msgstr ""
 #: ../includes/views/tabs/admin-forms-css-builder.php:214
 msgid "Build CSS File"
 msgstr "Genereer CSS Stylesheet"
+
+#: ../includes/views/tabs/admin-forms-css-builder.php:230
+#, php-format
+msgid "Please <a href=\"%s\">create at least 1 form</a> first."
+msgstr "<a href=\"%s\">Maak eerst ten minste 1 formulier</a>."
+
+#: ../includes/views/tabs/admin-forms-css-builder.php:232
+#, fuzzy
+msgid "Select form for preview"
+msgstr "Selecteer het formulier om te tonen"
 
 #: ../includes/views/tabs/admin-forms-general-settings.php:8
 msgid "Sign-Up Forms"
@@ -1103,6 +1220,42 @@ msgstr ""
 #: ../includes/views/tabs/admin-forms-general-settings.php:98
 msgid "Default form settings"
 msgstr "Standaard formulier instellingen"
+
+#~ msgid "General Settings"
+#~ msgstr "Algemeen"
+
+#~ msgid ""
+#~ "<strong>Admin notice:</strong> you have not yet selected a MailChimp "
+#~ "list(s) for this form. <a target=\"_top\" href=\"%s\">Edit this sign-up "
+#~ "form</a> and select at least one list."
+#~ msgstr ""
+#~ "<strong>Admin melding:</strong> je hebt nog geen MailChimp lijst(en) "
+#~ "geselecteerd voor dit formulier. <a target=\"_top\" href=\"%s\">Wijzig "
+#~ "dit formulier</a> en selecteer ten minste 1 lijst."
+
+#~ msgid ""
+#~ "%s is network activated, you can manage your license in the <a href=\"%s"
+#~ "\">network admin license page</a>."
+#~ msgstr ""
+#~ "%s is netwerk-geactiveerd. Je kunt je licenties beheren in de <a href=\"%s"
+#~ "\">network admin licentie pagina</a>."
+
+#~ msgid "Sign-Up Form"
+#~ msgstr "Inschrijfformulier"
+
+#~ msgid "Sign-up Forms"
+#~ msgstr "MailChimp inschrijfformulieren"
+
+#~ msgid ""
+#~ "Need help? Email me directly at <a href=\"%s\">support@dannyvankooten."
+#~ "com</a>. Please include your website URL and as many details as possible."
+#~ msgstr ""
+#~ "Hulp nodig? Email me rechtstreeks op <a href=\"%s"
+#~ "\">support@dannyvankooten.com</a>. Vermeld aub je website URL en zoveel "
+#~ "mogelijk details."
+
+#~ msgid "Display name of the current user"
+#~ msgstr "Naam van de ingelogde bezoeker"
 
 #, fuzzy
 #~ msgid "Load styles or theme?"
