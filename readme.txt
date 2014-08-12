@@ -507,5 +507,5 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Upgrade Notice ==
 
-= 2.1 =
-Improved server-side field validation, minified all assets, added Brazilian translations.
+= 2.1.1 =
+Added {response} tag to set a custom response position. Added German and Italian translations. Some minor fixes and improvements.
