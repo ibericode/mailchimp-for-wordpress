@@ -201,7 +201,7 @@ Install the [BWS Captcha](https://wordpress.org/plugins/captcha/) plugin, then u
 = Why does the checkbox not show up at my comment form? =
 Your theme probably does not support the necessary comment hook this plugin uses to add the checkbox to your comment form. You can manually place the checkbox by placing the following code snippet inside the form tags of your theme's comment form.
 
-`<?php if(function_exists('mc4wp_checkbox')) { mc4wp_checkbox(); }?>`
+`<?php if( function_exists( 'mc4wp_checkbox' ) ) { mc4wp_checkbox(); }?>`
 
 Your theme folder can be found by browsing to `/wp-content/themes/your-theme-name/`.
 
@@ -218,11 +218,27 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Changelog ==
 
+= 2.1.1 - August 12, 2014 =
+
+**Fixes**
+
+- `mc4wp_get_current_url()` now takes ports and the WP site url option into account
+
+**Improvements**
+
+- Added deprecated warning to some functions
+
+**Additions**
+
+- Added `mc4wp_form_error_{ERROR_CODE}` action hook to allow hooking into all form errors.
+- Added `{response}` tag to allow setting a custom response position
+- Added various filters to customize form HTML
+
 = 2.1 - July 29, 2014 =
 
 **Fixes**
 
-- Some fields lost its value when a form error occured
+- Some fields lost its value when a form error occurred
 
 **Improvements**
 
