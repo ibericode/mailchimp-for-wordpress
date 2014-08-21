@@ -96,6 +96,9 @@ function mc4wp_get_current_url() {
 	return esc_url( $url );
 }
 
+/****************************~***
+ *      Deprecated functions    *
+ ********************************/
 
 /**
 * Echoes a sign-up form.
