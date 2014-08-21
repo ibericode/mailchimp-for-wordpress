@@ -325,8 +325,8 @@ class MC4WP_Lite_Admin
 						continue;
 					}
 
-					// search for field tag in form mark-up
-					$search = stristr( $opts['markup'], 'name="'. $merge_var->tag .'"' );
+					// search for field tag in form mark-up using 'name="FIELD_NAME' without closing " because of array fields
+					$search = stristr( $opts['markup'], 'name="'. $merge_var->tag );
 					if( false === $search ) {
 						$missing_form_fields[] = sprintf( __( 'A \'%s\' field', 'mailchimp-for-wp' ), $merge_var->tag );
 					}
