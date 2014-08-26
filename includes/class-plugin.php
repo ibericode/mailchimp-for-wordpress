@@ -75,6 +75,7 @@ class MC4WP_Lite {
                 'mc4wp_bbpress_integration' => $include_path . 'integrations/class-bbpress.php',
                 'mc4wp_buddypress_integration' => $include_path . 'integrations/class-buddypress.php',
                 'mc4wp_cf7_integration' => $include_path . 'integrations/class-cf7.php',
+                'mc4wp_events_manager_integration' => $include_path . 'integrations/class-events-manager.php',
                 'mc4wp_comment_form_integration' => $include_path . 'integrations/class-comment-form.php',
                 'mc4wp_general_integration' => $include_path . 'integrations/class-general.php',
                 'mc4wp_multisite_integration' => $include_path . 'integrations/class-multisite.php',

@@ -54,6 +54,11 @@ class MC4WP_Lite_Checkbox_Manager
             $this->integrations['contact_form_7'] = new MC4WP_CF7_Integration();
         }
 
+		// Load Events Manager integration
+		if( defined( 'EM_VERSION' ) ) {
+			$this->integrations['events_manager'] = new MC4WP_Events_Manager_Integration();
+		}
+
         // Always load General Integration
 		$this->integrations['general'] = new MC4WP_General_Integration();
 	}
