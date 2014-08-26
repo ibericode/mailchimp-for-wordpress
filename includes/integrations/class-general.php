@@ -61,7 +61,12 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 			return false;
 		}
 
-		$this->try_subscribe( 'other_form' );
+		// don't run if this is an events manager request
+		if( isset( $_POST['action'] ) && $_POST['action'] === 'booking_add' && isset( $_POST['event_id'] ) ) {
+			return false;
+		}
+
+		$this->try_subscribe();
 	}
 
 	/**
@@ -85,7 +90,7 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 	*
 	* @param string $trigger
 	*/	
-	public function try_subscribe( $trigger = 'other_form' ) {
+	public function try_subscribe() {
 
 		// start running..
 		$email = null;
@@ -175,7 +180,7 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 			return false;
 		}
 
-		return $this->subscribe( $email, $merge_vars, $trigger );
+		return $this->subscribe( $email, $merge_vars, $this->type );
 	}
 
 
