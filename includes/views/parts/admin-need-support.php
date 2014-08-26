@@ -21,8 +21,9 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 	</ul>
 </div>
 <div class="mc4wp-box">
-	<h4 class="mc4wp-title">About Danny van Kooten</h4>
-	<p>I am a relatively young Dutch guy writing code and emails for a living. I developed a few WordPress plugins together totaling well over a million downloads, one of which you're using right now.</p>
+	<h4 class="mc4wp-title">About <a href="http://dannyvankooten.com/">Danny van Kooten</a></h4>
+	<p>A twenty-something Dutch guy writing code and emails for a living.</p>
+	<p>I developed <a href="http://dannyvankooten.com/wordpress-plugins/">a few WordPress plugins</a> together totaling well over a million downloads, one of which you're using right now.</p>
 	<p>If you like to stay updated of what I'm doing, consider following <a href="http://twitter.com/dannyvankooten">@DannyvanKooten</a> on Twitter.</p>
 	<p>Hope you enjoy the plugin!</p>
 </div>

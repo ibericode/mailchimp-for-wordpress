@@ -407,7 +407,7 @@ msgstr ""
 
 #: ../includes/library/license-manager/class-update-manager.php:138
 msgid ""
-"This site has not been activated properly on dannyvankooten.com and thus "
+"This site has not been activated properly on mc4wp.com and thus "
 "cannot check for future updates. Please activate your site with a valid "
 "license key."
 msgstr ""

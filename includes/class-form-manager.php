@@ -147,7 +147,7 @@ class MC4WP_Lite_Form_Manager {
 		$form_action = apply_filters( 'mc4wp_form_action', mc4wp_get_current_url() );
 
 		// Generate opening HTML
-		$opening_html = "<!-- Form by MailChimp for WordPress plugin v". MC4WP_LITE_VERSION ." - https://dannyvankooten.com/mailchimp-for-wordpress/ -->";
+		$opening_html = "<!-- Form by MailChimp for WordPress plugin v". MC4WP_LITE_VERSION ." - https://mc4wp.com/ -->";
 		$opening_html .= '<form method="post" action="'. $form_action .'" id="mc4wp-form-'.$this->form_instance_number.'" class="'. $this->get_css_classes() .'">';
 
 		// Generate before & after fields HTML

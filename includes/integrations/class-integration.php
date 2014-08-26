@@ -98,7 +98,7 @@ abstract class MC4WP_Integration {
 		 	
 		}
 
-		$content = "<!-- MailChimp for WP v". MC4WP_LITE_VERSION ." - https://dannyvankooten.com/mailchimp-for-wordpress/ -->";
+		$content = "<!-- MailChimp for WP v". MC4WP_LITE_VERSION ." - https://mc4wp.com/ -->";
 
 		do_action( 'mc4wp_before_checkbox' ); 
 

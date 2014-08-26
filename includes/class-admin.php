@@ -244,7 +244,7 @@ class MC4WP_Lite_Admin
 	*/
 	public function redirect_to_pro()
 	{
-		?><script type="text/javascript">window.location.replace('https://dannyvankooten.com/mailchimp-for-wordpress/#utm_source=lite-plugin&utm_medium=link&utm_campaign=menu-upgrade-link'); </script><?php
+		?><script type="text/javascript">window.location.replace('https://mc4wp.com/#utm_source=lite-plugin&utm_medium=link&utm_campaign=menu-upgrade-link'); </script><?php
 	}
 
 	/**
