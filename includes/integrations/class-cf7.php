@@ -56,7 +56,7 @@ class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 			return false; 
 		}
 
-		return $this->try_subscribe( 'cf7' );
+		return $this->try_subscribe();
 	}
 
 }
