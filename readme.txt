@@ -257,6 +257,7 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 - Added `-webkit-appearance` reset to checkbox CSS
 - Updated Italian translations
 - Updated links to point to the new [MailChimp for WordPress Pro](https://mc4wp.com/) site.
+- Don't use `{response}` tag if form is hidden after successful submissions
 
 **Additions**
 
