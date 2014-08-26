@@ -206,7 +206,7 @@ class MC4WP_Lite_Form_Manager {
 			$response_html = $this->get_form_message_html();
 
 			// add form response after or before fields if no {response} tag
-			if( stristr( $visible_fields, '{response}' ) === false ) {
+			if( stristr( $visible_fields, '{response}' ) === false || $opts['hide_after_success']) {
 
 				/**
 				 * @filter mc4wp_form_message_position
