@@ -50,12 +50,12 @@ Add sign-up checkboxes to *any* form on your website. The plugin offers built-in
 
 The MailChimp for WordPress plugin is fully translated into the following languages.
 
-- English (en_US) - Danny van Kooten
-- Dutch (nl_NL) - Danny van Kooten
+- English (en_US) - [Danny van Kooten](http://dannyvankooten.com)
+- Dutch (nl_NL) - ]Danny van Kooten](http://dannyvankooten.com)
 - Spanish (es_ES) - [Paul Benitez - Tecnofilos](http://www.tecnofilos.net/)
 - Brazilian (pt_BR) - [Felipe Scuissiatto - Evonline](http://www.evonline.com.br/)
 - German (de_DE) - [Jochen Gererstorfer](http://slotnerd.de/)
-- Italian (it_IT) - [Gianpaolo Rolando]([Gianpaolo Rolando](http://www.gianpaolorolando.eu/))
+- Italian (it_IT) - [Gianpaolo Rolando](http://www.gianpaolorolando.eu/)
 
 If you have created your own language pack (or have an update of an existing one) you can send in your .PO and .MO files so we can bundle it into MailChimp for WordPress. You can [download the latest POT file](http://plugins.svn.wordpress.org/mailchimp-for-wp/trunk/languages/mailchimp-for-wp.po), and [PO files in each language](http://plugins.svn.wordpress.org/mailchimp-for-wp/trunk/languages/).
 
@@ -548,5 +548,5 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Upgrade Notice ==
 
-= 2.1.1 =
-Added {response} tag to set a custom response position. Added German and Italian translations. Some minor fixes and improvements.
+= 2.1.2 =
+Added Events Manager integration and other minor improvements & edge case bug fixes.
