@@ -108,7 +108,7 @@ class MC4WP_Lite_Admin
 			return $links;
 		}
 
-		 $settings_link = '<a href="admin.php?page=mc4wp-lite">'. __( 'Settings' ) . '</a>';
+		 $settings_link = '<a href="admin.php?page=mc4wp-lite">'. __( 'Settings', 'mailchimp-for-wp' ) . '</a>';
          array_unshift( $links, $settings_link );
          return $links;
 	}

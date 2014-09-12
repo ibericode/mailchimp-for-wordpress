@@ -157,7 +157,7 @@ class MC4WP_Lite_Form_Manager {
 		// Process fields, if not submitted or not successfull or hide_after_success disabled
 		if( ! $was_submitted || ! $opts['hide_after_success'] || ! $this->form_request->is_successful() ) {
 			// add form fields from settings
-			$visible_fields = __( $opts['markup'] );
+			$visible_fields = __( $opts['markup'], 'mailchimp-for-wp' );
 
 			// replace special values
 			$visible_fields = str_ireplace( array( '%N%', '{n}' ), $this->form_instance_number, $visible_fields );

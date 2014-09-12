@@ -46,7 +46,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 				</tr>
 				<tr valign="top">
 					<th scope="row"><?php _e( 'Double opt-in?', 'mailchimp-for-wp' ); ?></th>
-					<td class="nowrap"><label><input type="radio" name="mc4wp_lite_checkbox[double_optin]" value="1" <?php checked($opts['double_optin'], 1); ?> /> <?php _e( 'Yes' ); ?></label> &nbsp; <label><input type="radio" id="mc4wp_checkbox_double_optin_0" name="mc4wp_lite_checkbox[double_optin]" value="0" <?php checked($opts['double_optin'], 0); ?> /> <?php _e( 'No' ); ?></label></td>
+					<td class="nowrap"><label><input type="radio" name="mc4wp_lite_checkbox[double_optin]" value="1" <?php checked($opts['double_optin'], 1); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp; <label><input type="radio" id="mc4wp_checkbox_double_optin_0" name="mc4wp_lite_checkbox[double_optin]" value="0" <?php checked($opts['double_optin'], 0); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?></label></td>
 					<td class="desc"><?php _e( 'Select "yes" if you want people to confirm their email address before being subscribed (recommended)', 'mailchimp-for-wp' ); ?></td>
 				</tr>
 			</table>
@@ -79,12 +79,12 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 		</tr>
 		<tr valign="top">
 			<th scope="row"><?php _e( 'Pre-check the checkbox?', 'mailchimp-for-wp' ); ?></th>
-			<td class="nowrap"><label><input type="radio" name="mc4wp_lite_checkbox[precheck]" value="1" <?php checked( $opts['precheck'], 1 ); ?> /> <?php _e( 'Yes' ); ?></label> &nbsp; <label><input type="radio" name="mc4wp_lite_checkbox[precheck]" value="0" <?php checked( $opts['precheck'], 0 ); ?> /> <?php _e( 'No' ); ?></label></td>
+			<td class="nowrap"><label><input type="radio" name="mc4wp_lite_checkbox[precheck]" value="1" <?php checked( $opts['precheck'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp; <label><input type="radio" name="mc4wp_lite_checkbox[precheck]" value="0" <?php checked( $opts['precheck'], 0 ); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?></label></td>
 			<td class="desc"></td>
 		</tr>
 		<tr valign="top">
 			<th scope="row"><?php _e( 'Load some default CSS?', 'mailchimp-for-wp' ); ?></th>
-			<td class="nowrap"><label><input type="radio" name="mc4wp_lite_checkbox[css]" value="1" <?php checked( $opts['css'], 1 ); ?> /> <?php _e( 'Yes' ); ?></label> &nbsp; <label><input type="radio" name="mc4wp_lite_checkbox[css]" value="0" <?php checked( $opts['css'], 0 ); ?> /> <?php _e( 'No' ); ?></label></td>
+			<td class="nowrap"><label><input type="radio" name="mc4wp_lite_checkbox[css]" value="1" <?php checked( $opts['css'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp; <label><input type="radio" name="mc4wp_lite_checkbox[css]" value="0" <?php checked( $opts['css'], 0 ); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?></label></td>
 			<td class="desc"><?php _e( 'Select "yes" if the checkbox appears in a weird place.', 'mailchimp-for-wp' ); ?></td>
 		</tr>
 		

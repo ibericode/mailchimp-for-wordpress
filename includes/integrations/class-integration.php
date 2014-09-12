@@ -77,10 +77,10 @@ abstract class MC4WP_Integration {
 			$label = $args['labels'][0];
 		} else if ( isset( $opts['text_' . $this->type . '_label'] ) && ! empty( $opts['text_' . $this->type . '_label'] ) ) {
 			// custom label text was set
-			$label = __( $opts['text_' . $this->type . '_label'] );
+			$label = __( $opts['text_' . $this->type . '_label'], 'mailchimp-for-wp' );
 		} else {
 			// default label text
-			$label = __( $opts['label'] );
+			$label = __( $opts['label'], 'mailchimp-for-wp' );
 		}
 
 		// replace label variables
