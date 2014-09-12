@@ -38,6 +38,20 @@ module.exports = function(grunt) {
 			}
 		},
 
+		// I18n
+		addtextdomain: {
+			options: {
+				textdomain: 'mailchimp-for-wp'
+			},
+			php: {
+				files: {
+					src: [
+						'*php', '**/*.php', '!node_modules/**', '!includes/library/**'
+					]
+				}
+			}
+		},
+
 		watch: {
 			js:  {
 				files: 'assets/js/*.js',
@@ -59,8 +73,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-wp-i18n');
 
 	// register at least this one task
-	grunt.registerTask('default', [ 'uglify', 'sass', 'cssmin' ]);
+	grunt.registerTask('default', [ 'uglify', 'sass', 'cssmin', 'addtextdomain' ]);
 
 };
