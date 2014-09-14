@@ -28,7 +28,24 @@ class MC4WP_Lite_Admin
 			header("Location: https://mc4wp.com/#utm_source=lite-plugin&utm_medium=link&utm_campaign=menu-upgrade-link");
 			exit;
 		}
+	}
 
+	/**
+	 * Upgrade routine
+	 */
+	private function upgrade() {
+
+		// Only run if db option is at older version than code constant
+		$db_version = get_option( 'mc4wp_lite_version', 0 );
+		if( version_compare( MC4WP_LITE_VERSION, $db_version, '<=' ) ) {
+			return false;
+		}
+
+		// define a constant that we're running an upgrade
+		define( 'MC4WP_DOING_UPGRADE', true );
+
+		// update code version
+		update_option( 'mc4wp_lite_version', MC4WP_LITE_VERSION );
 	}
 
 	/**
@@ -77,6 +94,8 @@ class MC4WP_Lite_Admin
 
 		// store whether this plugin has the BWS captcha plugin running (http://wordpress.org/plugins/captcha/)
 		$this->has_captcha_plugin = function_exists( 'cptch_display_captcha_custom' );
+
+		$this->upgrade();
 	}
 
 	/**
@@ -154,7 +173,7 @@ class MC4WP_Lite_Admin
 	public function validate_settings( $settings ) {
 
 		if( isset( $settings['api_key'] ) ) {
-			$settings['api_key'] = trim( strip_tags( $settings['api_key'] ) );
+			$settings['api_key'] = sanitize_text_field( $settings['api_key'] );
 		}
 
 		return $settings;
@@ -174,6 +193,9 @@ class MC4WP_Lite_Admin
 			$settings['markup'] = preg_replace( '/<\/?form(.|\s)*?>/i', '', $settings['markup'] );
 
 		}
+
+
+
 
 		return $settings;
 	}
@@ -229,11 +251,11 @@ class MC4WP_Lite_Admin
         }
 
 		if ( class_exists( 'Easy_Digital_Downloads' ) ) {
-            $checkbox_plugins['_edd_checkout'] = "(PRO ONLY) Easy Digital Downloads checkout";
+            $checkbox_plugins['_edd_checkout'] = __( '(PRO ONLY)', 'mailchimp-for-wp' ) . ' ' . "Easy Digital Downloads checkout";
         }
 
 		if ( class_exists( 'Woocommerce' ) ) {
-            $checkbox_plugins['_woocommerce_checkout'] = "(PRO ONLY) WooCommerce checkout";
+            $checkbox_plugins['_woocommerce_checkout'] = __( '(PRO ONLY)', 'mailchimp-for-wp' ) . ' ' . "WooCommerce checkout";
         }
 
 		return $checkbox_plugins;

@@ -196,13 +196,14 @@ class MC4WP_Lite_Form_Request {
 
 			// set key: grouping id or name
 			if ( is_numeric( $grouping_id_or_name ) ) {
-				$grouping['id'] = $grouping_id_or_name;
+				$grouping['id'] = absint( $grouping_id_or_name );
 			} else {
-				$grouping['name'] = $grouping_id_or_name;
+				$grouping['name'] = sanitize_text_field( $grouping_id_or_name );
 			}
 
 			// comma separated list should become an array
 			if( ! is_array( $groups ) ) {
+				$groups = sanitize_text_field( $groups );
 				$groups = explode( ',', $groups );
 			}
 
@@ -238,12 +239,12 @@ class MC4WP_Lite_Form_Request {
 			$key = trim( strtoupper( $key ) );
 
 			// Skip field if it starts with _ or if it's in ignored_fields array
-			if( $key[0] === '_' || in_array( strtoupper( $key ), $ignored_fields ) ) {
+			if( $key[0] === '_' || in_array( $key, $ignored_fields ) ) {
 				continue;
 			}
 
-			// Sanitize value
-			$value = ( is_scalar( $value ) ) ? trim( $value ) : $value;
+			// Sanitize value if it's scalar
+			$value = ( is_scalar( $value ) ) ? sanitize_text_field( $value ) : $value;
 
 			// Add value to array
 			$data[ $key ] = $value;
@@ -276,8 +277,8 @@ class MC4WP_Lite_Form_Request {
 
 			$strpos = strpos($merge_vars['NAME'], ' ');
 			if( $strpos !== false ) {
-				$merge_vars['FNAME'] = substr($merge_vars['NAME'], 0, $strpos);
-				$merge_vars['LNAME'] = substr($merge_vars['NAME'], $strpos);
+				$merge_vars['FNAME'] = substr( $merge_vars['NAME'], 0, $strpos );
+				$merge_vars['LNAME'] = substr( $merge_vars['NAME'], $strpos );
 			} else {
 				$merge_vars['FNAME'] = $merge_vars['NAME'];
 			}
@@ -417,7 +418,7 @@ class MC4WP_Lite_Form_Request {
 
 		// get email type from form
 		if( isset( $_POST['_mc4wp_email_type'] ) ) {
-			$email_type = trim( $_POST['_mc4wp_email_type'] );
+			$email_type = sanitize_text_field( $_POST['_mc4wp_email_type'] );
 		}
 
 		// allow plugins to override this email type
@@ -442,7 +443,8 @@ class MC4WP_Lite_Form_Request {
 
 			// make sure lists is an array
 			if( ! is_array( $lists ) ) {
-				$lists = array( trim( $lists ) );
+				$lists = sanitize_text_field( $lists );
+				$lists = array( $lists );
 			}
 
 		}

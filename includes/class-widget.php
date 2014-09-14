@@ -31,6 +31,7 @@ class MC4WP_Lite_Widget extends WP_Widget {
 	 * @param array   $instance Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
+
 		$title = apply_filters( 'widget_title', $instance['title'] );
 
 		echo $args['before_widget'];
@@ -57,7 +58,7 @@ class MC4WP_Lite_Widget extends WP_Widget {
 	 * @param array   $instance Previously saved values from database.
 	 */
 	public function form( $instance ) {
-		$title = isset($instance['title']) ? $instance['title'] : __('Newsletter', 'mailchimp-for-wp');
+		$title = isset( $instance['title'] ) ? $instance['title'] : __( 'Newsletter', 'mailchimp-for-wp' );
 		?>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'mailchimp-for-wp' ); ?></label>
@@ -81,7 +82,7 @@ class MC4WP_Lite_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
-		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? sanitize_text_field( $new_instance['title'] ) : '';
 		return $instance;
 	}
 

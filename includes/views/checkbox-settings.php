@@ -35,7 +35,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 						?><td colspan="2"><?php printf( __( 'No lists found, %sare you connected to MailChimp?%s', 'mailchimp-for-wp' ), '<a href="'. admin_url( 'admin.php?page=mc4wp-lite' ) .'">', '</a>' ); ?></td><?php
 					} else { ?>
 						<td class="nowrap">
-							<?php foreach($lists as $list) { 
+							<?php foreach( $lists as $list ) {
 							?><label><input type="checkbox" name="mc4wp_lite_checkbox[lists][<?php echo esc_attr( $list->id ); ?>]" value="<?php echo esc_attr($list->id); ?>" <?php checked( array_key_exists( $list->id, $opts['lists'] ), true ); ?>> <?php echo esc_html( $list->name ); ?></label><br /><?php
 							} ?>
 						</td>
@@ -46,7 +46,16 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 				</tr>
 				<tr valign="top">
 					<th scope="row"><?php _e( 'Double opt-in?', 'mailchimp-for-wp' ); ?></th>
-					<td class="nowrap"><label><input type="radio" name="mc4wp_lite_checkbox[double_optin]" value="1" <?php checked($opts['double_optin'], 1); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp; <label><input type="radio" id="mc4wp_checkbox_double_optin_0" name="mc4wp_lite_checkbox[double_optin]" value="0" <?php checked($opts['double_optin'], 0); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?></label></td>
+					<td class="nowrap">
+						<label>
+							<input type="radio" name="mc4wp_lite_checkbox[double_optin]" value="1" <?php checked( $opts['double_optin'], 1 ); ?> />
+							<?php _e( 'Yes', 'mailchimp-for-wp' ); ?>
+						</label> &nbsp;
+						<label>
+							<input type="radio" id="mc4wp_checkbox_double_optin_0" name="mc4wp_lite_checkbox[double_optin]" value="0" <?php checked( $opts['double_optin'], 0 ); ?> />
+							<?php _e( 'No', 'mailchimp-for-wp' ); ?>
+						</label>
+					</td>
 					<td class="desc"><?php _e( 'Select "yes" if you want people to confirm their email address before being subscribed (recommended)', 'mailchimp-for-wp' ); ?></td>
 				</tr>
 			</table>
@@ -57,9 +66,9 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 		<tr valign="top">
 			<th scope="row"><?php _e( 'Add the checkbox to these forms', 'mailchimp-for-wp' ); ?></th>
 			<td class="nowrap">
-				<?php foreach($this->get_checkbox_compatible_plugins() as $code => $name) {
+				<?php foreach( $this->get_checkbox_compatible_plugins() as $code => $name ) {
 
-					if($code[0] !== '_') {
+					if( $code[0] !== '_' ) {
 						?><label><input name="mc4wp_lite_checkbox[show_at_<?php echo $code; ?>]" value="1" type="checkbox" <?php checked( $opts['show_at_' . $code], 1 ); ?>> <?php echo esc_html( $name ); ?></label><br /><?php
 					} else {
 						?><label class="pro-feature"><input type="checkbox" disabled> <?php echo esc_html( $name ); ?></label><br /><?php
