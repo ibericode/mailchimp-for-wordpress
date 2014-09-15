@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/
 Tags: mailchimp,newsletter,optin,mailinglist,sign-up form,subscribe,form,shortcode,widget,checkbox,comment,buddypress,multisite,bbpress,woocommerce,easy digital downloads,contact form,contact form 7,events manager,comment form,registration form,captcha
 Requires at least: 3.6
 Tested up to: 4.0
-Stable tag: 2.1.2
+Stable tag: 2.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,13 +51,13 @@ The MailChimp for WordPress plugin is fully translated into the following langua
 
 - English (en_US) - [Danny van Kooten](http://dannyvankooten.com)
 - Dutch (nl_NL) - [Danny van Kooten](http://dannyvankooten.com)
-- Spanish (es_ES) - [Paul Benitez - Tecnofilos](http://www.tecnofilos.net/)
-- Brazilian (pt_BR) - [Felipe Scuissiatto - Evonline](http://www.evonline.com.br/)
+- Spanish (es_ES) - [Paul Benitez ](http://www.tecnofilos.net/) & [Enrique Pinto](http://www.thehivecluster.com/en)
+- Brazilian (pt_BR) - [Felipe Scuissiatto](http://www.evonline.com.br/)
 - German (de_DE) - [Jochen Gererstorfer](http://slotnerd.de/)
-- Italian (it_IT) - [Gianpaolo Rolando](http://www.gianpaolorolando.eu/)
-- Slovak (sk_SK) - [Henrich Koszegi - Webworks.sk](http://www.webworks.sk/)
+- Italian (it_IT) - [Gianpaolo Rolando](http://www.gianpaolorolando.eu/) & [Tiziano D'Angelo](http://www.dangelos.it/)
+- Slovak (sk_SK) - [Henrich Koszegi](http://www.webworks.sk/)
 
-If you want to help [translating the MailChimp for WordPress plugin](http://docs.mc4wp.com/article/41-translating-mailchimp-for-wordpress), head over to [translate.mc4wp.com](http://translate.mc4wp.com) .
+If you want to help [translating the MailChimp for WordPress plugin](http://docs.mc4wp.com/article/41-translating-mailchimp-for-wordpress), head over to [translate.mc4wp.com](http://translate.mc4wp.com).
 
 **More information**
 
@@ -244,6 +244,19 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 8. **Pro only:** Create your own CSS styles with the form designer in the Pro version.
 
 == Changelog ==
+
+= 2.1.3 - September 15, 2014 =
+
+**Improvements**
+
+- Updated Spanish and Dutch translations
+- Fixed missing text domains
+- Removed obsolete code in upgrade routine
+- All settings are now properly sanitized before being stored.
+
+**Additions**
+
+- Added Slovak language files, thanks to [Henrich Koszegi - Webworks.sk](http://www.webworks.sk/).
 
 
 = 2.1.2 - August, 26, 2014 =
