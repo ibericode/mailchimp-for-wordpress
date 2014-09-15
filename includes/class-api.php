@@ -53,6 +53,7 @@ class MC4WP_Lite_API {
 	* @param string $message
 	*/
 	private function show_error( $message ) {
+
 		if( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
 			return false;
 		}

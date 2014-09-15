@@ -25,7 +25,7 @@ class MC4WP_Lite_Admin
 
 		// did the user click on upgrade to pro link?
 		if( isset( $_GET['page'] ) && $_GET['page'] === 'mc4wp-lite-upgrade' && false === headers_sent() ) {
-			header("Location: https://mc4wp.com/#utm_source=lite-plugin&utm_medium=link&utm_campaign=menu-upgrade-link");
+			wp_redirect( 'https://mc4wp.com/#utm_source=lite-plugin&utm_medium=link&utm_campaign=menu-upgrade-link' );
 			exit;
 		}
 	}
@@ -86,7 +86,7 @@ class MC4WP_Lite_Admin
 
 		// register settings
 		register_setting( 'mc4wp_lite_settings', 'mc4wp_lite', array( $this, 'validate_settings' ) );
-		register_setting( 'mc4wp_lite_checkbox_settings', 'mc4wp_lite_checkbox');
+		register_setting( 'mc4wp_lite_checkbox_settings', 'mc4wp_lite_checkbox', array( $this, 'validate_checkbox_settings' ) );
 		register_setting( 'mc4wp_lite_form_settings', 'mc4wp_lite_form', array( $this, 'validate_form_settings' ) );
 
 		// load the plugin text domain
@@ -187,15 +187,88 @@ class MC4WP_Lite_Admin
 	*/
 	public function validate_form_settings( $settings ) {
 
-		if( isset( $settings['markup'] ) ) {
+		// If settings is malformed, just store an empty array.
+		if( ! is_array( $settings ) ) {
+			return array();
+		}
 
-			// strip form tags (to prevent people from adding them)
-			$settings['markup'] = preg_replace( '/<\/?form(.|\s)*?>/i', '', $settings['markup'] );
+		// Loop through new settings
+		foreach( $settings as $key => $value ) {
+
+			// sanitize text fields
+			if( substr( $key, 0, 5 ) === 'text_' ) {
+				$settings[ $key ] = strip_tags( trim( $value ), '<a><b><strong><em><br><i><u><pre><script><abbr><strike>' );
+				continue;
+			}
+
+			switch( $key ) {
+
+				// sanitize markup textarea
+				case 'markup' :
+					$settings[ $key ] = preg_replace( '/<\/?form(.|\s)*?>/i', '', $value );
+					break;
+
+				// sanitize select
+				case 'css':
+					$settings[ $key ] = sanitize_text_field( $value );
+					break;
+
+				// sanitize radio & checkbox inputs
+				case 'double_optin':
+				case 'hide_after_success':
+					$settings[ $key ] = ( $value == 1 )  ? 1 : 0;
+					break;
+			}
 
 		}
 
+		return $settings;
+	}
 
+	/**
+	 * Validates the Checkbox settings
+	 *
+	 * @param array $settings
+	 * @return array
+	 */
+	public function validate_checkbox_settings( $settings ) {
 
+		// If settings is malformed, just store an empty array.
+		if( ! is_array( $settings ) ) {
+			return array();
+		}
+
+		// Loop through new settings
+		foreach( $settings as $key => $value ) {
+
+			switch( $key ) {
+
+				case 'lists':
+					if( ! is_array( $value ) ) {
+						$settings[ $key ] = array();
+					} else {
+						foreach( $settings[ $key ] as $list_key => $list_value ) {
+							$settings[ $key ][$list_key] = sanitize_text_field( $list_value );
+						}
+					}
+					break;
+
+				// sanitize text inputs
+				case 'label' :
+					$settings[ $key ] = strip_tags( trim( $value ), '<a><b><strong><em><br><i><u><pre><script><abbr><strike>' );
+					break;
+
+				// sanitize radio & checkbox inputs
+				case 'double_optin':
+				case 'show_at_comment_form':
+				case 'show_at_registration_form':
+				case 'precheck':
+				case 'css':
+					$settings[ $key ] = ( $value == 1 )  ? 1 : 0;
+					break;
+			}
+
+		}
 
 		return $settings;
 	}
