@@ -43,39 +43,36 @@ class MC4WP_Lite {
     /**
      * @return bool
      */
-    public function autoload( $class ) {
+    public function autoload( $class_name ) {
 
         static $classes = null;
 
         if( $classes === null ) {
 
-            $include_path = MC4WP_LITE_PLUGIN_DIR . 'includes/';
+	        $classes = array(
+		        'MC4WP_Lite_API'                             => 'class-api.php',
+		        'MC4WP_Lite_Checkbox_Manager'                => 'class-checkbox-manager.php',
+		        'MC4WP_Lite_Form_Manager'                    => 'class-form-manager.php',
+		        'MC4WP_Lite_Form_Request'                    => 'class-form-request.php',
+		        'MC4WP_Lite_Widget'                          => 'class-widget.php',
+		        'MC4WP_MailChimp'                            => 'class-mailchimp.php',
 
-            $classes = array(
-                'mc4wp_lite_api' => $include_path . 'class-api.php',
-                'mc4wp_lite_checkbox_manager' => $include_path . 'class-checkbox-manager.php',
-                'mc4wp_lite_form_manager' => $include_path . 'class-form-manager.php',
-                'mc4wp_lite_widget' => $include_path . 'class-widget.php',
-                'mc4wp_lite_form_request' => $include_path . 'class-form-request.php',
-	            'mc4wp_mailchimp' => $include_path . 'class-mailchimp.php',
+		        // integrations
+		        'MC4WP_Integration'                     => 'integrations/class-integration.php',
+		        'MC4WP_bbPress_Integration'             => 'integrations/class-bbpress.php',
+		        'MC4WP_BuddyPress_Integration'          => 'integrations/class-buddypress.php',
+		        'MC4WP_CF7_Integration'                 => 'integrations/class-cf7.php',
+		        'MC4WP_Events_Manager_Integration'      => 'integrations/class-events-manager.php',
+		        'MC4WP_Comment_Form_Integration'        => 'integrations/class-comment-form.php',
+		        'MC4WP_General_Integration'             => 'integrations/class-general.php',
+		        'MC4WP_MultiSite_Integration'           => 'integrations/class-multisite.php',
+		        'MC4WP_Registration_Form_Integration'   => 'integrations/class-registration-form.php',
+	        );
 
-                // integrations
-                'mc4wp_integration' => $include_path . 'integrations/class-integration.php',
-                'mc4wp_bbpress_integration' => $include_path . 'integrations/class-bbpress.php',
-                'mc4wp_buddypress_integration' => $include_path . 'integrations/class-buddypress.php',
-                'mc4wp_cf7_integration' => $include_path . 'integrations/class-cf7.php',
-                'mc4wp_events_manager_integration' => $include_path . 'integrations/class-events-manager.php',
-                'mc4wp_comment_form_integration' => $include_path . 'integrations/class-comment-form.php',
-                'mc4wp_general_integration' => $include_path . 'integrations/class-general.php',
-                'mc4wp_multisite_integration' => $include_path . 'integrations/class-multisite.php',
-                'mc4wp_registration_form_integration' => $include_path . 'integrations/class-registration-form.php',
-            );
         }
 
-        $class_name = strtolower( $class );
-
         if( isset( $classes[$class_name] ) ) {
-            require_once $classes[$class_name];
+            require_once MC4WP_LITE_PLUGIN_DIR . 'includes/' . $classes[$class_name];
             return true;
         }
 
