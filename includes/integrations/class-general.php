@@ -105,7 +105,7 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 			} elseif( strtolower( substr( $key, 0, 6 ) ) === 'mc4wp-' ) {
 				// find extra fields which should be sent to MailChimp
 				$key = strtoupper( substr( $key, 6 ) );
-				$value = ( is_scalar( $value ) ) ? trim( $value ) : $value;
+				$value = ( is_scalar( $value ) ) ? sanitize_text_field( $value ) : $value;
 
 				switch( $key ) {
 					case 'EMAIL':
@@ -120,15 +120,15 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 							$grouping = array();
 
 							// group ID or group name given?
-							if(is_numeric($grouping_id_or_name)) {
-								$grouping['id'] = $grouping_id_or_name;
+							if(is_numeric( $grouping_id_or_name ) ) {
+								$grouping['id'] = absint( $grouping_id_or_name );
 							} else {
-								$grouping['name'] = stripslashes( $grouping_id_or_name );
+								$grouping['name'] = sanitize_text_field( stripslashes( $grouping_id_or_name ) );
 							}
 
 							// comma separated list should become an array
 							if( ! is_array( $groups ) ) {
-								$groups = explode( ',', $groups );
+								$groups = explode( ',', sanitize_text_field( $groups ) );
 							}
 						
 							$grouping['groups'] = array_map( 'stripslashes', $groups );
