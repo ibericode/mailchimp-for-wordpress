@@ -97,14 +97,21 @@ class MC4WP_Lite_Form_Manager {
 	*/
 	private function get_css_classes() {
 
-		// Allow devs to add CSS classes
+		/**
+		 * @filter mc4wp_form_css_classes
+		 * @expects array
+		 *
+		 * Can be used to add additional CSS classes to the form container
+		 */
 		$css_classes = apply_filters( 'mc4wp_form_css_classes', array( 'form' ) );
 
 		// the following classes MUST be used
 		$css_classes[] = 'mc4wp-form';
 
 		// Add form classes if a Form Request was captured
-		if( is_object( $this->form_request ) ) {
+		if( is_object( $this->form_request ) && $this->form_request->get_form_instance_number() === $this->form_instance_number ) {
+
+			$css_classes[] = 'mc4wp-form-submitted';
 
 			if( $this->form_request->is_successful() ) {
 				$css_classes[] = 'mc4wp-form-success';
@@ -246,6 +253,9 @@ class MC4WP_Lite_Form_Manager {
 			wp_enqueue_script( 'mc4wp-placeholders' );
 		}
 
+		// Print small JS snippet later on in the footer.
+		add_action( 'wp_footer', array( $this, 'print_js' ) );
+
 		// concatenate and return the HTML parts
 		return $opening_html . $before_fields . $visible_fields . $hidden_fields . $after_fields . $closing_html;
 	}
@@ -346,6 +356,37 @@ class MC4WP_Lite_Form_Manager {
 		$messages = apply_filters( 'mc4wp_form_messages', $messages );
 
 		return $messages;
+	}
+
+	/**
+	 * Prints some JavaScript to enhance the form functionality
+	 *
+	 * This is only printed on pages that actually contain a form.
+	 * Uses jQuery if its loaded, otherwise falls back to vanilla JS.
+	 */
+	public function print_js() {
+		if( wp_script_is( 'jquery', 'done' ) ) {
+			// print jQuery
+			?><script type="text/javascript">
+				jQuery('.mc4wp-form').find('[type="submit"]').click(function () {
+					jQuery(this).parents('.mc4wp-form').addClass('mc4wp-form-submitted');
+				});
+			</script><?php
+		} else {
+			// Print vanilla JavaScript
+			?><script type="text/javascript">
+				(function() {
+					var forms = document.querySelectorAll('.mc4wp-form');
+					for (var i = 0; i < forms.length; i++) {
+						(function(el) {
+							el.querySelector('[type="submit"]').addEventListener( 'click', function( event ) {
+								el.classList.toggle('mc4wp-form-submitted');
+							});
+						})(forms[i]);
+					}
+				})();
+			</script><?php
+		}
 	}
 
 }
