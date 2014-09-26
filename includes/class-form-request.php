@@ -89,8 +89,11 @@ class MC4WP_Lite_Form_Request {
 		// store form options
 		$this->form_options = mc4wp_get_options( 'form' );
 
+		// detect caching plugin
+		$using_caching = ( defined( 'WP_CACHE' ) && WP_CACHE );
+
 		// validate form nonce
-		if ( ! isset( $_POST['_mc4wp_form_nonce'] ) || ! wp_verify_nonce( $_POST['_mc4wp_form_nonce'], '_mc4wp_form_nonce' ) ) {
+		if ( ! $using_caching && ( ! isset( $_POST['_mc4wp_form_nonce'] ) || ! wp_verify_nonce( $_POST['_mc4wp_form_nonce'], '_mc4wp_form_nonce' ) ) ) {
 			$this->error_code = 'invalid_nonce';
 			return false;
 		}
