@@ -128,7 +128,7 @@ class MC4WP_Lite_Form_Request {
 		$data = $this->get_posted_data();
 
 		// validate email
-		if( ! isset( $data['EMAIL'] ) || ! is_email( $data['EMAIL'] ) ) {
+		if( ! isset( $data['EMAIL'] ) || ! is_string( $data['EMAIL'] ) || ! is_email( $data['EMAIL'] ) ) {
 			$this->error_code = 'invalid_email';
 			return false;
 		}

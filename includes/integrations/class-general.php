@@ -140,18 +140,18 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 					break;
 
 					default:
-						if( is_array( $value ) ) { 
-							$value = implode( ',', $value ); 
+						if( is_array( $value ) ) {
+							$value = sanitize_text_field( implode( ',', $value ) );
 						}
 
 						$merge_vars[$key] = $value;
 					break;
 				}
 
-			} elseif( ! $email && is_email( $value ) ) {
+			} elseif( ! $email && is_string( $value ) && is_email( $value ) ) {
 				// if no email is found yet, check if current field value is an email
 				$email = $value;
-			} elseif( ! $email && is_array( $value ) && isset( $value[0] ) && is_email( $value[0] ) ) {
+			} elseif( ! $email && is_array( $value ) && isset( $value[0] ) && is_string( $value[0] ) && is_email( $value[0] ) ) {
 				// if no email is found yet, check if current value is an array and if first array value is an email
 				$email = $value[0];
 			} else {
