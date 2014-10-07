@@ -31,7 +31,7 @@ Add sign-up checkboxes to *any* form on your website. The plugin offers built-in
 - Beautiful. Choose one of the default form themes or use your own styles.
 - Developer friendly.
 
-[Installation](http://wordpress.org/plugins/mailchimp-for-wp/installation/) | [Frequently Asked Questions](http://wordpress.org/plugins/mailchimp-for-wp/faq/) | [Screenshots](http://wordpress.org/plugins/mailchimp-for-wp/screenshots/)
+[Installation](https://wordpress.org/plugins/mailchimp-for-wp/installation/) | [Frequently Asked Questions](https://wordpress.org/plugins/mailchimp-for-wp/faq/) | [Screenshots](https://wordpress.org/plugins/mailchimp-for-wp/screenshots/)
 
 > #### MailChimp for WordPress Pro
 > This plugin has a premium version which comes with the following features.<br />
@@ -43,15 +43,15 @@ Add sign-up checkboxes to *any* form on your website. The plugin offers built-in
 > WooCommerce and Easy Digital Downloads checkout integration.<br />
 > Priority Support<br />
 >
-> [More information](https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=after-features-link) | [Demo](https://mc4wp.com/demo/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=after-features-link)
+> [More information](https://mc4wp.com/features/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=after-features-link) | [Demo](https://mc4wp.com/demo/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=after-features-link)
 
 **Translations**
 
 The MailChimp for WordPress plugin is fully translated into the following languages.
 
-- English (en_US) - [Danny van Kooten](http://dannyvankooten.com)
-- Dutch (nl_NL) - [Danny van Kooten](http://dannyvankooten.com)
-- Spanish (es_ES) - [Paul Benitez ](http://www.tecnofilos.net/) & [Enrique Pinto](http://www.thehivecluster.com/en)
+- English (en_US) - [Danny van Kooten](https://dannyvankooten.com)
+- Dutch (nl_NL) - [Danny van Kooten](https://dannyvankooten.com)
+- Spanish (es_ES) - [Paul Benitez ](http://www.administrandowp.com/) & [Enrique Pinto](http://www.thehivecluster.com/en)
 - Brazilian (pt_BR) - [Felipe Scuissiatto](http://www.evonline.com.br/)
 - German (de_DE) - [Jochen Gererstorfer](http://slotnerd.de/)
 - Italian (it_IT) - [Gianpaolo Rolando](http://www.gianpaolorolando.eu/) & [Tiziano D'Angelo](http://www.dangelos.it/)
@@ -61,9 +61,9 @@ If you want to help [translating the MailChimp for WordPress plugin](http://docs
 
 **More information**
 
-- [MailChimp for WordPress Pro](https://mc4wp.com/), containing additional features.
-- Other [WordPress plugins](http://dannyvankooten.com/wordpress-plugins/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=more-info-link) by [Danny van Kooten](http://dannyvankooten.com#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=more-info-link)
-- [@DannyvanKooten](http://twitter.com/dannyvankooten) on Twitter
+- [MailChimp for WordPress Pro](https://mc4wp.com/), containing [additional features](https://mc4wp.com/features/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=more-info-link).
+- Other [WordPress plugins](https://dannyvankooten.com/wordpress-plugins/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=more-info-link) by [Danny van Kooten](http://dannyvankooten.com#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=more-info-link)
+- [@DannyvanKooten](https://twitter.com/dannyvankooten) on Twitter
 - Developers; follow or contribute to the [MailChimp for WP plugin on GitHub](https://github.com/dannyvankooten/mailchimp-for-wordpress)
 
 
@@ -105,7 +105,7 @@ if( function_exists( 'mc4wp_form' ) ) {
 }
 `
 
-Need help? Please take a look at the [frequently asked questions](http://wordpress.org/plugins/mailchimp-for-wp/faq/) first. If you can't find your answer there, start a topic in the [MailChimp for WordPress plugin support forums](http://wordpress.org/support/plugin/mailchimp-for-wp).
+Need help? Please take a look at the [frequently asked questions](https://wordpress.org/plugins/mailchimp-for-wp/faq/) first. If you can't find your answer there, start a topic in the [MailChimp for WordPress plugin support forums](http://wordpress.org/support/plugin/mailchimp-for-wp).
 
 = Upgrade to Pro =
 If you like the plugin, [get the Pro version of MailChimp for WordPress](https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=installation-instructions-link) for an even better plugin!
@@ -121,7 +121,8 @@ If you like the plugin, [get the Pro version of MailChimp for WordPress](https:/
 > **AJAX Forms.** Submitting forms does not require a page reload.<br />
 > **Styles Builder..** Alter the design of your forms and have the styling rules generated for you.<br />
 > **Statistics & Logging.** Beautiful line charts and log tables, providing useful insights.<br /><br />
-> [Have a look](https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=faq-link) | [Demo](https://mc4wp.com/demo/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=faq-link)
+>
+> [Differences Lite & Pro](https://mc4wp.com/features/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=faq-link) | [Demo](https://mc4wp.com/demo/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=faq-link) | [Upgrade Now](https://mc4wp.com/checkout/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=faq-link)
 
 = How to display a form in posts or pages? =
 Use the `[mc4wp_form]` shortcode.
@@ -382,7 +383,7 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 **Improvements**
 
 - Allowed translation of more strings in the settings screens.
-- Added Spanish translations, thanks [Paul Benitez - Tecnofilos](http://www.tecnofilos.net/)
+- Added Spanish translations, thanks [Paul Benitez - Tecnofilos](http://www.administrandowp.com/)
 - Minor code improvements
 
 **Additions**
