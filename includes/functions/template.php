@@ -93,7 +93,7 @@ function mc4wp_get_current_url() {
 	$site_request_uri = $wp->request;
 
 	// fix for IIS servers using index.php in the URL
-	if( stripos( $_SERVER['REQUEST_URI'], 'index.php/' . $site_request_uri ) ) {
+	if( false !== stripos( $_SERVER['REQUEST_URI'], '/index.php/' . $site_request_uri ) ) {
 		$site_request_uri = 'index.php/' . $site_request_uri;
 	}
 
