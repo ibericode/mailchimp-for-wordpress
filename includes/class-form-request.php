@@ -33,7 +33,7 @@ class MC4WP_Lite_Form_Request {
 	/**
 	 * @var array The form options
 	 */
-	private $options;
+	private $form_options;
 
 	/**
 	 * Constructor
@@ -41,6 +41,13 @@ class MC4WP_Lite_Form_Request {
 	 * Hooks into the `init` action to start the process of subscribing the person who filled out the form
 	 */
 	public function __construct() {
+
+		// store number of submitted form
+		$this->form_instance_number = absint( $_POST['_mc4wp_form_instance'] );
+
+		// store form options
+		$this->form_options = mc4wp_get_options( 'form' );
+
 		add_action( 'init', array( $this, 'act' ) );
 	}
 
@@ -82,12 +89,6 @@ class MC4WP_Lite_Form_Request {
 	 * @return bool True on success, false on failure.
 	 */
 	public function act() {
-
-		// store number of submitted form
-		$this->form_instance_number = absint( $_POST['_mc4wp_form_instance'] );
-
-		// store form options
-		$this->form_options = mc4wp_get_options( 'form' );
 
 		// detect caching plugin
 		$using_caching = ( defined( 'WP_CACHE' ) && WP_CACHE );
@@ -464,7 +465,16 @@ class MC4WP_Lite_Form_Request {
 	 * @param string $email
 	 */
 	private function set_email_cookie( $email ) {
-		setcookie( 'mc4wp_email', $email, strtotime( '+30 days' ), '/' );
+		
+		/**
+		 * @filter `mc4wp_cookie_expiration_time`
+		 * @expects timestamp
+		 *
+		 * Timestamp indicating when the email cookie expires, defaults to 30 days
+		 */
+		$expiration_time = apply_filters( 'mc4wp_cookie_expiration_time', strtotime( '+30 days' ) );
+
+		setcookie( 'mc4wp_email', $email, $expiration_time, '/' );
 	}
 
 }
