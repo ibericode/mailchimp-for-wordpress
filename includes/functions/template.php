@@ -56,7 +56,7 @@ function mc4wp_replace_variables( $text, $list_ids = array() ) {
 
 	// replace general vars
 	$needles = array( '{ip}', '{current_url}', '{date}', '{time}', '{language}' );
-	$replacements = array( $_SERVER['REMOTE_ADDR'], mc4wp_get_current_url(), date( "m/d/Y" ), date( "H:i:s" ), $language );
+	$replacements = array( $_SERVER['REMOTE_ADDR'], wp_guess_url(), date( "m/d/Y" ), date( "H:i:s" ), $language );
 	$text = str_ireplace( $needles, $replacements, $text );
 
 	// subscriber count? only fetch these if the tag is actually used
@@ -80,25 +80,19 @@ function mc4wp_replace_variables( $text, $list_ids = array() ) {
 	return $text;
 }
 
-/**
- * Retrieves the URL of the current WordPress page
- *
- * @return  string  The current URL, escaped for safe usage inside attributes.
- */
-function mc4wp_get_current_url() {
-	global $wp;
-	$url = home_url( $wp->request );
-
-	if( substr( $_SERVER['REQUEST_URI'], -1 ) === '/' ) {
-		$url = trailingslashit( $url );
-	}
-
-	return esc_url( $url );
-}
-
 /****************************~***
  *      Deprecated functions    *
  ********************************/
+
+/**
+ * Retrieves the URL of the current WordPress page
+ *
+ * @deprecated 2.1.3
+ * @return  string  The current URL, escaped for safe usage inside attributes.
+ */
+function mc4wp_get_current_url() {
+	return wp_guess_url();
+}
 
 /**
 * Echoes a sign-up form.
