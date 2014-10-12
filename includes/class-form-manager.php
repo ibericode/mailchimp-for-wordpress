@@ -210,7 +210,7 @@ class MC4WP_Lite_Form_Manager {
 			);
 
 			// get actual response html
-			$response_html = $this->get_form_message_html();
+			$response_html = $this->form_request->get_response_html();
 
 			// add form response after or before fields if no {response} tag
 			if( stristr( $visible_fields, '{response}' ) === false || $opts['hide_after_success']) {
@@ -258,104 +258,6 @@ class MC4WP_Lite_Form_Manager {
 
 		// concatenate and return the HTML parts
 		return $opening_html . $before_fields . $visible_fields . $hidden_fields . $after_fields . $closing_html;
-	}
-
-	/**
-	 * Returns the HTML for success or error messages
-	 *
-	 * @return string
-	 */
-	private function get_form_message_html( $form_id = 0 ) {
-
-		// don't show message if form wasn't submitted
-		if( ! is_object( $this->form_request ) ) {
-			return '';
-		}
-
-		// get all form messages
-		$messages = $this->get_form_messages( $form_id );
-
-		// retrieve correct message
-		$type = ( $this->form_request->is_successful() ) ? 'success' : $this->form_request->get_error_code();
-		$message = ( isset( $messages[ $type ] ) ) ? $messages[ $type ] : $messages['error'];
-
-		/**
-		 * @filter mc4wp_form_error_message
-		 * @deprecated 2.0.5
-		 * @use mc4wp_form_messages
-		 *
-		 * Used to alter the error message, don't use. Use `mc4wp_form_messages` instead.
-		 */
-		$message['text'] = apply_filters('mc4wp_form_error_message', $message['text'], $this->form_request->get_error_code() );
-
-		$html = '<div class="mc4wp-alert mc4wp-'. $message['type'].'">' . $message['text'] . '</div>';
-
-		// show additional MailChimp API errors to administrators
-		if( false === $this->form_request->is_successful() && current_user_can( 'manage_options' ) ) {
-			// show MailChimp error message (if any) to administrators
-			$api = mc4wp_get_api();
-			if( $api->has_error() ) {
-				$html .= '<div class="mc4wp-alert mc4wp-error"><strong>Admin notice:</strong> '. $api->get_error_message() . '</div>';
-			}
-		}
-
-		return $html;
-	}
-
-	/**
-	 * Returns the various error and success messages in array format
-	 *
-	 * Example:
-	 * array(
-	 *      'invalid_email' => array(
-	 *          'type' => 'css-class',
-	 *          'text' => 'Message text'
-	 *      ),
-	 *      ...
-	 * );
-	 *
-	 * @param   int     $form_id
-	 * @return array
-	 */
-	public function get_form_messages( $form_id = 0 ) {
-
-		$opts = mc4wp_get_options( 'form' );
-
-		$messages = array(
-			'already_subscribed' => array(
-				'type' => 'notice',
-				'text' => $opts['text_already_subscribed']
-			),
-			'error' => array(
-				'type' => 'error',
-				'text' => $opts['text_error']
-			),
-			'invalid_email' => array(
-				'type' => 'error',
-				'text' => $opts['text_invalid_email']
-			),
-			'success' => array(
-				'type' => 'success',
-				'text' => $opts['text_success']
-			),
-			'invalid_captcha' => array(
-				'type' => 'error',
-				'text' => $opts['text_invalid_captcha']
-			),
-			'required_field_missing' => array(
-				'type' => 'error',
-				'text' => $opts['text_required_field_missing']
-			)
-		);
-
-		/**
-		 * @filter mc4wp_form_messages
-		 *
-		 * Allows registering custom form messages, useful if you're using custom validation using the `mc4wp_valid_form_request` filter.
-		 */
-		$messages = apply_filters( 'mc4wp_form_messages', $messages );
-
-		return $messages;
 	}
 
 	/**
