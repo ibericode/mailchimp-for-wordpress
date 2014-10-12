@@ -246,6 +246,25 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Changelog ==
 
+= Trunk =
+
+**Fixes**
+
+- Fixed `mc4wp_get_current_url()` function for IIS servers using `index.php` in URL's.
+- Nonce verification failing with aggressive caching
+- Only call `is_email()` on strings.
+
+**Improvements**
+
+- Minor improvements to memory usage and performance
+- Improved sanitization on third-party integrations
+
+**Additions**
+
+- Submitted form now get `mc4wp-form-submitted` class.
+- Added `mc4wp_cookie_expiration_time` to alter expiration time of email cookie. Defaults to 30 days.
+
+
 = 2.1.3 - September 15, 2014 =
 
 **Improvements**
