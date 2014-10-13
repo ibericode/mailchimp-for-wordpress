@@ -1,1209 +1,1327 @@
+# Translation of MailChimp for WordPress in Slovak
+# This file is distributed under the same license as the MailChimp for WordPress package.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailChimp for WordPress\n"
-"POT-Creation-Date: 2014-08-12 15:11+0100\n"
-"PO-Revision-Date: 2014-09-06 01:25+0100\n"
-"Last-Translator: Henrich Kőszegi <info@webworks.sk>\n"
-"Language-Team: Danny van Kooten <hi@dannyvankooten.com>\n"
+"PO-Revision-Date: 2014-09-22 22:13:09+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.8\n"
-"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
-"X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"Language: sk_SK\n"
-"X-Poedit-SearchPath-0: ..\n"
+"X-Generator: GlotPress/0.1\n"
+"Project-Id-Version: MailChimp for WordPress\n"
 
-#: ../includes/admin/class-admin.php:183
-msgid "Settings"
-msgstr "Nastavenia"
-
-#: ../includes/admin/class-admin.php:202
-msgid "Documentation"
-msgstr "Dokumentácia"
-
-#: ../includes/admin/class-admin.php:245
-msgid "Save Form"
-msgstr "Uložiť formulár"
-
-#: ../includes/admin/class-admin.php:249
-msgid "Update Form"
-msgstr "Aktualizovať formulár"
-
-#: ../includes/admin/class-admin.php:282
-msgid "Your email address"
-msgstr "Vaša e-mailová adresa"
-
-#: ../includes/admin/class-admin.php:283
-msgid "Email address"
-msgstr "E-mailová adresa"
-
-#: ../includes/admin/class-admin.php:284
-msgid "Sign up"
-msgstr "Zaregistrovať sa"
-
-#: ../includes/admin/class-admin.php:300
-msgid "Back to general form settings"
-msgstr "Späť na všeobecné nastavenia formulára"
-
-#: ../includes/admin/class-admin.php:302
-msgid "Form updated."
-msgstr "Formulár sa aktualizoval."
-
-#: ../includes/admin/class-admin.php:303
-msgid "Form saved."
-msgstr "Formulár bol uložený."
-
-#: ../includes/admin/class-admin.php:311
-#, php-format
-msgid "An EMAIL field. Example: <code>%s</code>"
-msgstr "Pole E-MAIL. Príklad: <code>%s</code>"
-
-#: ../includes/admin/class-admin.php:317
-#, php-format
-msgid "A submit button. Example: <code>%s</code>"
-msgstr "Potvrdzovacie tlačidlo. Príklad: <code>%s</code>"
-
-#: ../includes/admin/class-admin.php:317
-msgid "Sign Up"
-msgstr "Registrácia"
-
-#: ../includes/admin/class-admin.php:345
-#, php-format
-msgid "A '%s' field"
-msgstr "Pole '%s'"
-
-#: ../includes/admin/class-admin.php:357
-msgid "Your form is missing the following (required) form fields:"
-msgstr "Vo Vašom formulári chýbajú nasledujúce (povinné) polia:"
-
-#: ../includes/admin/class-admin.php:429
-msgid "Form Settings"
-msgstr "Nastavenia formulára"
-
-#: ../includes/admin/class-admin.php:430
-msgid "Optional Settings"
-msgstr "Voliteľné nastavenia"
-
-#: ../includes/admin/class-admin.php:431
-msgid "Form Variables"
-msgstr "Premenné formulára"
-
-#: ../includes/admin/class-admin.php:465
-msgid "Use the following variables to add some dynamic content to your form."
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:26
+msgid "ACTIVE"
 msgstr ""
-"Použite nasledujúce premenné na pridanie dynamického obsahu do formulára."
 
-#: ../includes/admin/class-admin.php:547
-msgid "MailChimp & License"
-msgstr "MailChimp a licencia"
-
-#: ../includes/admin/class-admin.php:548
-msgid "Checkboxes"
-msgstr "Zaškrtávacie políčka"
-
-#: ../includes/admin/class-admin.php:549
-#: ../includes/tables/class-forms-table.php:20
-#: ../includes/views/pages/admin-form-settings.php:10
-msgid "Forms"
-msgstr "Formuláre"
-
-#: ../includes/admin/class-admin.php:550
-#: ../includes/views/pages/admin-reports.php:10
-msgid "Reports"
-msgstr "Správy"
-
-#: ../includes/admin/class-admin.php:634
-msgid "Comment form"
-msgstr "Komentárový formulár"
-
-#: ../includes/admin/class-admin.php:635
-msgid "Registration form"
-msgstr "Registračný formulár"
-
-#: ../includes/admin/class-admin.php:639
-msgid "MultiSite forms"
-msgstr "MultiSite formuláre"
-
-#: ../includes/admin/class-admin.php:643
-#: ../includes/tables/class-log-table.php:212
-msgid "BuddyPress registration"
-msgstr "BuddyPress registrácia"
-
-#: ../includes/admin/class-admin.php:651 ../includes/admin/class-admin.php:655
-#, php-format
-msgid "%s checkout"
-msgstr "%s pokladňa"
-
-#: ../includes/admin/class-admin.php:689
-#, php-format
-msgid ""
-"Please make sure the plugin is connected to MailChimp. <a href=\"%s"
-"\">Provide a valid API key.</a>"
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:26
+msgid "you are receiving updates"
 msgstr ""
-"Prosím uistite sa, že rozšírenie je pripojené k MailChimpu. <a href=\"%s"
-"\">Zadajte platný API kľúč.</a>"
 
-#: ../includes/admin/class-admin.php:699
-msgid "Renewed MailChimp cache."
-msgstr "Vyrovnávacia pamäť MailChimpu bola obnovená."
-
-#: ../includes/admin/class-admin.php:701
-msgid "Failed to renew MailChimp cache - please try again later."
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:28
+msgid "INACTIVE"
 msgstr ""
-"Nepodarilo sa obnoviť vyrovnávaciu pamäť MailChimpu - skúste to znova neskôr."
 
-#: ../includes/admin/class-admin.php:779
-msgid "End date can't be before the start date"
-msgstr "Dátum ukončenia nemôže byť pred dátumom začatia"
-
-#: ../includes/admin/class-admin.php:811
-#, php-format
-msgid ""
-"You disabled logging using the %s filter. Re-enable it to use the Reports "
-"page."
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:28
+msgid "you are <strong>not</strong> receiving updates."
 msgstr ""
-"Zakázali ste zapisovanie pomocou filtra %s. Znovu ho povoľte, aby ste mohli "
-"používať stránku Správ."
 
-#: ../includes/admin/class-admin.php:827
-#, php-format
-msgid ""
-"<strong>Welcome to MailChimp for WordPress Pro!</strong> We transfered the "
-"settings you had set in the Lite version, please <a href=\"%s\">deactivate "
-"it now</a> to prevent problems"
+#: mailchimp-for-wordpress/includes/class-widget.php:68
+msgid "You can edit your sign-up form in the %sMailChimp for WordPress form settings%s."
 msgstr ""
-"<strong>Vitajte na MailChimp pre WordPress Pro!</strong> Prevzali sme Vaše "
-"nastavenia z Lite verzie, prosím <a href=\"%s\">deaktivujte ju teraz</a>, "
-"aby sa zabránilo problémom"
 
-#: ../includes/admin/class-css-builder.php:270
-#, php-format
-msgid ""
-"Couldn't create the stylesheet. Manually add the generated CSS to your theme "
-"stylesheet by using the %sTheme Editor%s or use FTP and edit <em>%s</em>."
+#: mailchimp-for-wordpress/includes/functions/general.php:44
+msgid "Thank you, your sign-up request was successful! Please check your e-mail inbox."
 msgstr ""
-"Nepodarilo sa vytvoriť štýly. Pridajte si vytvorené CSS do Vašich štýlov "
-"ručne pomocou %sEditora tém%s, alebo použite FTP a editujte <em>%s</em>."
 
-#: ../includes/admin/class-css-builder.php:271
-#, php-format
-msgid "%sShow generated CSS%s"
-msgstr "%sZobraziť vygenerované CSS%s"
-
-#: ../includes/admin/class-css-builder.php:281
-#, php-format
-msgid ""
-"To apply these styles on your website, select \"load custom form styles\" in "
-"the %sform settings%s"
+#: mailchimp-for-wordpress/includes/views/api-settings.php:112
+msgid "No lists were found in your MailChimp account"
 msgstr ""
-"Ak si prajete použiť tieto štýly na svojej webovej stránke, vyberte "
-"\"načítať vlastné štýly formulára\" v %snastaveniach formulára%s"
 
-#: ../includes/admin/class-css-builder.php:282
-#, php-format
-msgid "The %sCSS Stylesheet%s has been created."
-msgstr "%sCSS štýly%s boli vytvorené."
-
-#: ../includes/class-form-manager.php:238
-#, php-format
-msgid "<strong>Error:</strong> Please specify a form ID. Example: %s."
-msgstr "<strong>Chyba:</strong> Zadajte prosím ID formulára. Príklad: %s."
-
-#: ../includes/class-form-manager.php:252
-msgid ""
-"<strong>Error:</strong> Sign-up form not found. Please check if you used the "
-"correct form ID."
+#: mailchimp-for-wordpress/includes/views/form-settings.php:15
+msgid "To use the MailChimp sign-up form, configure the form below and then either paste %s in the content of a post or page or use the  widget."
 msgstr ""
-"<strong>Chyba:</strong> Registračný formulár sa nenašiel. Skontrolujte, či "
-"ste zadali správne ID formulára."
 
-#: ../includes/class-form-request.php:453
-msgid "New Sign-Up"
-msgstr "Nová registrácia"
-
-#: ../includes/class-form-request.php:454
-#, php-format
-msgid "<strong>%s</strong> signed-up at %s on %s using the form \"%s\"."
-msgstr "<strong>%s</strong> registrovaný o %s dňa %s pomocou formulára \"%s\"."
-
-#: ../includes/class-form-request.php:493
-msgid "This email was auto-sent by the MailChimp for WordPress plugin."
+#: mailchimp-for-wordpress/includes/views/form-settings.php:20
+msgid "Required form settings"
 msgstr ""
-"Tento e-mail bol odoslaný automaticky z rozšírenia MailChimp pre WordPress."
 
-#: ../includes/class-widget.php:20
-msgid "MailChimp for WP Form"
-msgstr "MailChimp pre WP formulár"
-
-#: ../includes/class-widget.php:21
-msgid "Displays one of your MailChimp for WordPress sign-up forms"
+#: mailchimp-for-wordpress/includes/views/form-settings.php:41
+msgid "If you want to load some default CSS styles, select \"basic formatting styles\" or choose one of the color themes"
 msgstr ""
-"Zobrazuje jeden z Vašich MailChimp pre WordPress registračných formulárov"
 
-#: ../includes/class-widget.php:39
-#, php-format
-msgid ""
-"Please select the sign-up form you'd like to show here in the <a href=\"%s"
-"\">widget settings</a>."
+#: mailchimp-for-wordpress/includes/views/form-settings.php:63
+msgid "Select the list(s) to which people who submit this form should be subscribed."
 msgstr ""
-"Zvoľte prosím registračný formulár v <a href=\"%s\">nastaveniach widgetu</"
-"a>, ktorý by ste chceli zobraziť."
 
-#: ../includes/class-widget.php:68
-msgid "Newsletter"
-msgstr "Odber noviniek"
-
-#: ../includes/class-widget.php:79
-msgid "Title:"
-msgstr "Nadpis:"
-
-#: ../includes/class-widget.php:83
-msgid "Form:"
-msgstr "Formulár:"
-
-#: ../includes/class-widget.php:85
-msgid "Select the form to show"
-msgstr "Zvoľte formulár, ktorý chcete zobraziť"
-
-#: ../includes/class-widget.php:93
-#, php-format
-msgid "You don't have any sign-up forms. <a href=\"%s\">Create one now.</a>"
+#: mailchimp-for-wordpress/includes/views/form-settings.php:69
+msgid "Form mark-up"
 msgstr ""
-"Nemáte žiadne registračné formuláre. <a href=\"%s\">Vytvoriť teraz.</a>"
 
-#: ../includes/functions/general.php:20
-msgid "Sign me up for the newsletter!"
-msgstr "Prihlásiť ma na odber noviniek!"
-
-#: ../includes/functions/general.php:42
-msgid ""
-"Thank you, your sign-up request was successful! Please check your email "
-"inbox to confirm."
+#: mailchimp-for-wordpress/includes/views/form-settings.php:158
+msgid "Form Settings & Messages"
 msgstr ""
-"Ďakujeme, Vaša požiadavka o registráciu prebehla úspešne! Skontrolujte si "
-"prosím Vašu e-mailovú schránku pre jej potvrdenie."
 
-#: ../includes/functions/general.php:43
-msgid "Oops. Something went wrong. Please try again later."
-msgstr "Ups. Niečo sa pokazilo. Skúste to znova neskôr."
-
-#: ../includes/functions/general.php:44
-msgid "Please provide a valid email address."
-msgstr "Prosím, zadajte platnú e-mailovú adresu."
-
-#: ../includes/functions/general.php:45
-msgid "Given email address is already subscribed, thank you!"
-msgstr "Zadaná e-mailová adresa je už prihlásená na odber, ďakujeme!"
-
-#: ../includes/functions/general.php:46
-msgid "Please complete the CAPTCHA."
-msgstr "Prosím, opíšte kód CAPTCHA."
-
-#: ../includes/functions/general.php:47
-msgid "Please fill in the required fields."
-msgstr "Prosím, vyplňte povinné polia."
-
-#: ../includes/integrations/class-cf7.php:44
-#: ../includes/views/metaboxes/optional-form-settings.php:16
-#: ../includes/views/metaboxes/optional-form-settings.php:30
-#: ../includes/views/metaboxes/optional-form-settings.php:44
-#: ../includes/views/metaboxes/optional-form-settings.php:58
-#: ../includes/views/metaboxes/optional-form-settings.php:75
-#: ../includes/views/metaboxes/optional-form-settings.php:87
-#: ../includes/views/metaboxes/optional-form-settings.php:106
-#: ../includes/views/pages/admin-checkbox-settings.php:52
-#: ../includes/views/pages/admin-checkbox-settings.php:60
-#: ../includes/views/pages/admin-checkbox-settings.php:98
-#: ../includes/views/pages/admin-checkbox-settings.php:103
-#: ../includes/views/tabs/admin-forms-general-settings.php:58
-#: ../includes/views/tabs/admin-forms-general-settings.php:69
-#: ../includes/views/tabs/admin-forms-general-settings.php:79
-#: ../includes/views/tabs/admin-forms-general-settings.php:90
-#: ../includes/views/tabs/admin-forms-general-settings.php:104
-#: ../includes/views/tabs/admin-forms-general-settings.php:109
-msgid "Yes"
-msgstr "Áno"
-
-#: ../includes/integrations/class-cf7.php:44
-#: ../includes/views/metaboxes/optional-form-settings.php:18
-#: ../includes/views/metaboxes/optional-form-settings.php:32
-#: ../includes/views/metaboxes/optional-form-settings.php:46
-#: ../includes/views/metaboxes/optional-form-settings.php:60
-#: ../includes/views/metaboxes/optional-form-settings.php:77
-#: ../includes/views/metaboxes/optional-form-settings.php:89
-#: ../includes/views/metaboxes/optional-form-settings.php:107
-#: ../includes/views/pages/admin-checkbox-settings.php:52
-#: ../includes/views/pages/admin-checkbox-settings.php:62
-#: ../includes/views/pages/admin-checkbox-settings.php:98
-#: ../includes/views/pages/admin-checkbox-settings.php:103
-#: ../includes/views/tabs/admin-forms-general-settings.php:22
-#: ../includes/views/tabs/admin-forms-general-settings.php:60
-#: ../includes/views/tabs/admin-forms-general-settings.php:71
-#: ../includes/views/tabs/admin-forms-general-settings.php:81
-#: ../includes/views/tabs/admin-forms-general-settings.php:92
-#: ../includes/views/tabs/admin-forms-general-settings.php:104
-#: ../includes/views/tabs/admin-forms-general-settings.php:109
-msgid "No"
-msgstr "Nie"
-
-#: ../includes/library/license-manager/class-license-manager.php:158
-#, php-format
-msgid ""
-"<b>Warning!</b> You're blocking external requests which means you won't be "
-"able to get %s updates. Please add %s to %s."
+#: mailchimp-for-wordpress/includes/views/form-settings.php:192
+msgid "Example: %s"
 msgstr ""
-"<b>Upozornenie!</b> Blokujete vonkajšie požiadavky, čo znamená, že nebudete "
-"môcť prijímať %s aktualizácie. Pridajte prosím %s do %s."
 
-#: ../includes/library/license-manager/class-license-manager.php:201
-#, php-format
-msgid "Your %s license has been activated. You have an unlimited license. "
-msgstr "Vaša %s licencia bola aktivovaná. Máte neobmedzenú licenciu."
-
-#: ../includes/library/license-manager/class-license-manager.php:203
-#, php-format
-msgid "Your %s license has been activated. You have used %d/%d activations. "
-msgstr "Vaša %s licencia bola aktivovaná. Použili ste %d/%d aktivácií."
-
-#: ../includes/library/license-manager/class-license-manager.php:208
-#, php-format
-msgid "<a href=\"%s\">Did you know you can upgrade your license?</a>"
-msgstr "<a href=\"%s\">Vedeli ste, že Vašu licenciu môžete aktualizovať?</a>"
-
-#: ../includes/library/license-manager/class-license-manager.php:212
-#, php-format
-msgid ""
-"<a href=\"%s\">Your license is expiring in %d days, would you like to extend "
-"it?</a>"
+#: mailchimp-for-wordpress/includes/views/form-settings.php:197
+msgid "Success message"
 msgstr ""
-"<a href=\"%s\">Vaša licencia vyprší za % dní, prajete si ju predĺžiť?</a>"
 
-#: ../includes/library/license-manager/class-license-manager.php:221
-#, php-format
-msgid ""
-"You've reached your activation limit. You must <a href=\"%s\">upgrade your "
-"license</a> to use it on this site."
+#: mailchimp-for-wordpress/includes/views/form-settings.php:201
+msgid "Invalid email address message"
 msgstr ""
-"Dosiahli ste aktivačný limit. Musíte si <a href=\"%s\">obnoviť Vašu "
-"licenciu</a>pre ďalšie použitie na tejto stránke."
 
-#: ../includes/library/license-manager/class-license-manager.php:224
-#, php-format
-msgid ""
-"Your license has expired. You must <a href=\"%s\">extend your license</a> in "
-"order to use it again."
+#: mailchimp-for-wordpress/includes/views/form-settings.php:205
+msgid "Required field missing message"
 msgstr ""
-"Vaša licencia vypršala. Musíte jej <a href=\"%s\">platnosť predĺžiť</a> pre "
-"ďalšie používanie."
 
-#: ../includes/library/license-manager/class-license-manager.php:227
-msgid "Failed to activate your license, your license key seems to be invalid."
+#: mailchimp-for-wordpress/includes/views/form-settings.php:209
+msgid "Already subscribed message"
 msgstr ""
-"Aktivácia Vašej licencie zlyhala. Zdá sa, že licenčný kľúč je neplatný."
 
-#: ../includes/library/license-manager/class-license-manager.php:251
-#, php-format
-msgid "Your %s license has been deactivated."
-msgstr "Vaša %s licencia bola deaktivovaná."
-
-#: ../includes/library/license-manager/class-license-manager.php:253
-#, php-format
-msgid "Failed to deactivate your %s license."
-msgstr "Deaktivácia Vašej licencie %s zlyhala."
-
-#: ../includes/library/license-manager/class-license-manager.php:289
-#, php-format
-msgid "Request error: \"%s\""
-msgstr "Chyba požiadavky: \"%s\""
-
-#: ../includes/library/license-manager/class-license-manager.php:447
-#, php-format
-msgid "%s: License Settings"
-msgstr "%s: Nastavenia licencie"
-
-#: ../includes/library/license-manager/class-plugin-license-manager.php:67
-#, php-format
-msgid ""
-"%s is network activated, please contact your site administrator to manage "
-"the license."
+#: mailchimp-for-wordpress/includes/views/form-settings.php:214
+msgid "Invalid CAPTCHA message"
 msgstr ""
-"%s je sieť aktivovaná, obráťte sa prosím na správcu Vašej stránky ohľadom "
-"správy licencie."
 
-#: ../includes/library/license-manager/class-update-manager.php:69
-#, php-format
-msgid ""
-"%s failed to check for updates because of the following error: <em>%s</em>"
+#: mailchimp-for-wordpress/includes/views/form-settings.php:219
+msgid "General error message"
 msgstr ""
-"%s sa nepodarilo skontrolovať aktualizácie z dôvodu nasledujúcej chyby: <em>"
-"%s</em>"
 
-#: ../includes/library/license-manager/class-update-manager.php:138
-msgid ""
-"This site has not been activated properly on dannyvankooten.com and thus "
-"cannot check for future updates. Please activate your site with a valid "
-"license key."
+#: mailchimp-for-wordpress/includes/views/form-settings.php:249
+msgid "Form variables"
 msgstr ""
-"Táto stránka nebola riadne aktivovaná na dannyvankooten.com a preto nebude "
-"možné prijímať budúce aktualizácie. Aktivujte si prosím Vašu stránku s "
-"platným licenčným kľúčom."
 
-#: ../includes/library/license-manager/views/form.php:23
-msgid "License status"
-msgstr "Stav licencie"
-
-#: ../includes/library/license-manager/views/form.php:33
-msgid "Toggle license status"
-msgstr "Prepnúť stav licencie"
-
-#: ../includes/library/license-manager/views/form.php:38
-msgid ""
-"(deactivate your license so you can activate it on another WordPress site)"
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:12
+msgid "Use the tool below to generate the HTML for your form fields."
 msgstr ""
-"(deaktivujte Vašu licenciu, aby ste ju mohli znova aktivovať na inej "
-"WordPress stránke)"
 
-#: ../includes/library/license-manager/views/form.php:44
-msgid "Please enter a license key in the field below first."
-msgstr "Prosím, zadajte licenčný kľúč do poľa nižšie."
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:68
+msgid "Select at least one list first."
+msgstr ""
 
-#: ../includes/library/license-manager/views/form.php:52
-msgid "License Key"
-msgstr "Licenčný kľúč"
+#: mailchimp-for-wordpress/includes/views/parts/admin-footer.php:9
+msgid "Enjoying this plugin? <a href=\"%s\">Upgrade to MailChimp for WordPress Pro now</a> for an even better plugin, you will love it."
+msgstr ""
 
-#: ../includes/library/license-manager/views/form.php:54
-msgid "Paste your license key here, as found in the email receipt."
-msgstr "Sem vložte Váš licenčný kľúč, ktorý ste obdržali e-mailom."
+#: mailchimp-for-wordpress/includes/views/parts/admin-footer.php:10
+msgid "This plugin is not developed by or affiliated with MailChimp in any way."
+msgstr ""
 
-#: ../includes/library/license-manager/views/form.php:56
-#, php-format
-msgid "You defined your license key using the %s PHP constant."
-msgstr "Vašu licenciu ste zadefinovali pomocou %s PHP konštanty."
+msgid "Adds various sign-up methods to your website."
+msgstr ""
 
-#: ../includes/library/license-manager/views/form.php:73
-#, php-format
+#: mailchimp-for-wordpress/includes/class-admin.php:149
+#: mailchimp-for-wordpress/includes/class-admin.php:163
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/class-admin.php:327
+#: mailchimp-for-wordpress/includes/class-admin.php:331
+#: mailchimp-for-wordpress/includes/views/form-settings.php:29
+#: mailchimp-for-wordpress/includes/views/form-settings.php:36
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:20
+msgid "(PRO ONLY)"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/class-widget.php:20
+msgid "MailChimp Sign-Up Form"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/class-widget.php:21
+msgid "Displays your MailChimp for WordPress sign-up form"
+msgstr ""
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:33
+msgid "Subscriber Log"
+msgstr ""
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:34
+msgid "Subscriber Logs"
+msgstr ""
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:116
+msgid "Log items deleted."
+msgstr ""
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:73
 msgid "Your %s license will expire on %s."
-msgstr "Platnosť %s Vašej licencie vyprší dňa %s."
+msgstr "Platnosť Vašej licencie %s vyprší dňa %s."
 
-#: ../includes/library/license-manager/views/form.php:76
-#, php-format
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:76
 msgid "%sRenew your license now%s."
 msgstr "%sObnovte si Vašu licenciu teraz%s."
 
-#: ../includes/tables/class-forms-table.php:19
-#: ../includes/tables/class-forms-table.php:36
-#: ../includes/tables/class-log-table.php:207
-msgid "Form"
-msgstr "Formulár"
-
-#: ../includes/tables/class-forms-table.php:35
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:35
 msgid "ID"
 msgstr "ID"
 
-#: ../includes/tables/class-forms-table.php:37
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:36
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:228
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:343
+msgid "Form"
+msgstr "Formulár"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:37
 msgid "Shortcode"
 msgstr "Shortcode"
 
-#: ../includes/tables/class-forms-table.php:38
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:38
 msgid "List(s)"
 msgstr "Zoznam(y)"
 
-#: ../includes/tables/class-forms-table.php:39
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:39
 msgid "Last edited"
 msgstr "Naposledy upravené"
 
-#: ../includes/tables/class-forms-table.php:76
-#: ../includes/tables/class-forms-table.php:80
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:76
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:80
 msgid "Edit Form"
 msgstr "Upraviť formulár"
 
-#: ../includes/tables/class-forms-table.php:77
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:77
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:188
 msgid "Delete"
 msgstr "Vymazať"
 
-#: ../includes/tables/class-forms-table.php:98
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:98
 msgid "No MailChimp list(s) selected yet."
 msgstr "Zatiaľ nebol zvolený žiadny MailChimp zoznam."
 
-#: ../includes/tables/class-forms-table.php:105
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:105
 msgid "You have not created any sign-up forms yet. Time to do so!"
-msgstr ""
-"Zatiaľ ste nevytvorili žiadne registračné formuláre. Teraz je čas vytvoriť "
-"jeden!"
+msgstr "Zatiaľ ste nevytvorili žiadne registračné formuláre. Teraz je čas vytvoriť jeden!"
 
-#: ../includes/tables/class-log-table.php:33
-msgid "Subscriber"
-msgstr "Odberateľ"
-
-#: ../includes/tables/class-log-table.php:34
-msgid "Subscribers"
-msgstr "Odberatelia"
-
-#: ../includes/tables/class-log-table.php:53
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:53
 msgid "Email"
 msgstr "E-mail"
 
-#: ../includes/tables/class-log-table.php:54
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:54
 msgid "List"
 msgstr "Zoznam"
 
-#: ../includes/tables/class-log-table.php:55
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:55
 msgid "Type"
 msgstr "Typ"
 
-#: ../includes/tables/class-log-table.php:56
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:56
 msgid "Source"
 msgstr "Zdroj"
 
-#: ../includes/tables/class-log-table.php:57
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:57
 msgid "Extra data"
 msgstr "Dodatočné údaje"
 
-#: ../includes/tables/class-log-table.php:58
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:58
 msgid "Subscribed"
 msgstr "Prihlásený na odber"
 
-#: ../includes/tables/class-log-table.php:192
-#: ../includes/tables/class-log-table.php:196
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:209
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:217
 msgid "Comment"
 msgstr "Komentár"
 
-#: ../includes/tables/class-log-table.php:192
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:209
 msgid "deleted"
 msgstr "odstránený"
 
-#: ../includes/tables/class-log-table.php:200
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:221
 msgid "Registration"
 msgstr "Registrácia"
 
-#: ../includes/tables/class-log-table.php:216
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:237
 msgid "MultiSite registration"
 msgstr "MultiSite registrácia"
 
-#: ../includes/tables/class-log-table.php:220
-#: ../includes/tables/class-log-table.php:224
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:241
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:245
 msgid "Checkout"
 msgstr "Pokladňa"
 
-#: ../includes/tables/class-log-table.php:229
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:250
 msgid "Contact Form 7"
 msgstr "Contact Form 7"
 
-#: ../includes/tables/class-log-table.php:233
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:254
 msgid "bbPress: New Topic"
 msgstr "bbPress: Nová téma"
 
-#: ../includes/tables/class-log-table.php:237
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:258
 msgid "bbPress: New Reply"
 msgstr "bbPress: Nová odpoveď"
 
-#: ../includes/tables/class-log-table.php:243
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:264
 msgid "Other Form"
 msgstr "Iný formulár"
 
-#: ../includes/tables/class-log-table.php:283
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:314
 msgid "No subscribe requests found."
 msgstr "Nenašli sa žiadne požiadavky na odber."
 
-#: ../includes/views/metaboxes/optional-form-settings.php:8
-#, php-format
-msgid ""
-"Any settings you specify here will override the <a href=\"%s\">general form "
-"settings</a>. If no setting is specified, the corresponding general setting "
-"value will be used."
-msgstr ""
-"Nastavenia, ktoré tu zadáte prepíšu <a href=\"%s\">všeobecné nastavenia "
-"formulára</a>. Ak nešpecifikujete žiadne nastavenia, použije sa "
-"zodpovedajúca všeobecne nastavená hodnota."
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:337
+msgid "All"
+msgstr "Všetky"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:10
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:349
+msgid "Checkbox"
+msgstr "Zaškrtávacie políčko"
+
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:8
+msgid "Any settings you specify here will override the <a href=\"%s\">general form settings</a>. If no setting is specified, the corresponding general setting value will be used."
+msgstr "Nastavenia, ktoré tu zadáte prepíšu <a href=\"%s\">všeobecné nastavenia formulára</a>. Ak nešpecifikujete žiadne nastavenia, použije sa zodpovedajúca všeobecne nastavená hodnota."
+
+#: mailchimp-for-wordpress/includes/class-admin.php:160
+#: mailchimp-for-wordpress/includes/views/api-settings.php:12
+#: mailchimp-for-wordpress/includes/views/form-settings.php:106
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:10
 msgid "MailChimp Settings"
 msgstr "Nastavenia MailChimpu"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:13
-#: ../includes/views/pages/admin-checkbox-settings.php:51
-#: ../includes/views/tabs/admin-forms-general-settings.php:55
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:48
+#: mailchimp-for-wordpress/includes/views/form-settings.php:109
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:13
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:51
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:55
 msgid "Double opt-in?"
 msgstr "Dvojitý opt-in?"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:20
-#: ../includes/views/metaboxes/optional-form-settings.php:34
-#: ../includes/views/metaboxes/optional-form-settings.php:48
-#: ../includes/views/metaboxes/optional-form-settings.php:62
-#: ../includes/views/metaboxes/optional-form-settings.php:79
-#: ../includes/views/metaboxes/optional-form-settings.php:91
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:25
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:45
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:64
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:83
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:106
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:124
 msgid "Inherit"
 msgstr "Dediť"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:22
-#: ../includes/views/pages/admin-checkbox-settings.php:53
-#: ../includes/views/tabs/admin-forms-general-settings.php:62
-msgid ""
-"Select \"yes\" if you want people to confirm their email address before "
-"being subscribed (recommended)"
-msgstr ""
-"Zvoľte \"áno\", ak si želáte, aby potvrdenie e-mailovej adresy bolo povinné "
-"pre odberateľov (odporúčané)"
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:59
+#: mailchimp-for-wordpress/includes/views/form-settings.php:120
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:28
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:53
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:66
+msgid "Select \"yes\" if you want people to confirm their email address before being subscribed (recommended)"
+msgstr "Zvoľte \"áno\", ak si želáte, aby potvrdenie e-mailovej adresy bolo povinné pre odberateľov (odporúčané)"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:27
-#: ../includes/views/tabs/admin-forms-general-settings.php:76
+#: mailchimp-for-wordpress/includes/views/form-settings.php:133
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:33
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:78
 msgid "Update existing subscribers?"
 msgstr "Aktualizovať súčasných odberateľov?"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:36
-#: ../includes/views/tabs/admin-forms-general-settings.php:83
-msgid ""
-"Select \"yes\" if you want to update existing subscribers (instead of "
-"showing the \"already subscribed\" message)."
-msgstr ""
-"Zvoľte \"áno\", ak si želáte aktualizovať súčasných odberateľov (namiesto "
-"zobrazenia hlásenia \"už ste odberateľom\")."
+#: mailchimp-for-wordpress/includes/views/form-settings.php:140
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:47
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:89
+msgid "Select \"yes\" if you want to update existing subscribers (instead of showing the \"already subscribed\" message)."
+msgstr "Zvoľte \"áno\", ak si želáte aktualizovať súčasných odberateľov (namiesto zobrazenia hlásenia \"už ste odberateľom\")."
 
-#: ../includes/views/metaboxes/optional-form-settings.php:41
-#: ../includes/views/tabs/admin-forms-general-settings.php:87
+#: mailchimp-for-wordpress/includes/views/form-settings.php:143
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:52
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:93
 msgid "Replace interest groups?"
 msgstr "Vymeniť záujmové skupiny?"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:50
-#: ../includes/views/tabs/admin-forms-general-settings.php:94
-msgid ""
-"Select \"yes\" if you want to replace the interest groups with the groups "
-"provided instead of adding the provided groups to the member's interest "
-"groups (only when updating a subscriber)."
-msgstr ""
-"Zvoľte \"áno\", ak si želáte nahradiť záujmové skupiny poskytovanými "
-"skupinami, namiesto pridania poskytovaných skupín do záujmových skupín člena "
-"(iba pri aktualizácii odberateľa)."
+#: mailchimp-for-wordpress/includes/views/form-settings.php:154
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:66
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:104
+msgid "Select \"yes\" if you want to replace the interest groups with the groups provided instead of adding the provided groups to the member's interest groups (only when updating a subscriber)."
+msgstr "Zvoľte \"áno\", ak si želáte nahradiť záujmové skupiny poskytovanými skupinami, namiesto pridania poskytovaných skupín do záujmových skupín člena (iba pri aktualizácii odberateľa)."
 
-#: ../includes/views/metaboxes/optional-form-settings.php:55
-#: ../includes/views/pages/admin-checkbox-settings.php:57
-#: ../includes/views/tabs/admin-forms-general-settings.php:66
+#: mailchimp-for-wordpress/includes/views/form-settings.php:123
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:71
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:57
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:70
 msgid "Send Welcome Email?"
 msgstr "Poslať uvítací e-mail?"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:64
-#: ../includes/views/pages/admin-checkbox-settings.php:64
-#: ../includes/views/tabs/admin-forms-general-settings.php:73
-msgid ""
-"Select \"yes\" if you want to send your lists Welcome Email if a subscribe "
-"succeeds (only when double opt-in is disabled)."
-msgstr ""
-"Zvoľte \"áno\", ak si želáte poslať Vašim zoznamom uvítací e-mail, keď "
-"prihlásenie na odber bude úspešné (iba ak dvojitý opt-in je zakázaný)."
+#: mailchimp-for-wordpress/includes/views/form-settings.php:130
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:86
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:64
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:75
+msgid "Select \"yes\" if you want to send your lists Welcome Email if a subscribe succeeds (only when double opt-in is disabled)."
+msgstr "Zvoľte \"áno\", ak si želáte poslať Vašim zoznamom uvítací e-mail, keď prihlásenie na odber bude úspešné (iba ak dvojitý opt-in je zakázaný)."
 
-#: ../includes/views/metaboxes/optional-form-settings.php:69
-msgid "Form Settings & Messages"
-msgstr "Nastavenia formulára a správy"
-
-#: ../includes/views/metaboxes/optional-form-settings.php:72
-#: ../includes/views/tabs/admin-forms-general-settings.php:103
+#: mailchimp-for-wordpress/includes/views/form-settings.php:162
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:94
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:113
 msgid "Enable AJAX form submission?"
 msgstr "Povoliť AJAXové odosielanie formulárov?"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:80
-#: ../includes/views/tabs/admin-forms-general-settings.php:105
+#: mailchimp-for-wordpress/includes/views/form-settings.php:173
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:108
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:118
 msgid "Select \"yes\" if you want to use AJAX (JavaScript) to submit forms."
-msgstr ""
-"Zvoľte \"áno\", ak si želáte používať AJAX (JavaScript) na odosielanie "
-"formulárov."
+msgstr "Zvoľte \"áno\", ak si želáte používať AJAX (JavaScript) na odosielanie formulárov."
 
-#: ../includes/views/metaboxes/optional-form-settings.php:84
-#: ../includes/views/tabs/admin-forms-general-settings.php:108
+#: mailchimp-for-wordpress/includes/views/form-settings.php:176
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:112
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:121
 msgid "Hide form after a successful sign-up?"
 msgstr "Skryť formulár po úspešnej registrácii?"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:93
-#: ../includes/views/tabs/admin-forms-general-settings.php:110
+#: mailchimp-for-wordpress/includes/views/form-settings.php:187
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:126
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:126
 msgid "Select \"yes\" to hide the form fields after a successful sign-up."
-msgstr ""
-"Zvoľte \"áno\", ak si želáte skryť polia formulára po úspešnej registrácii."
+msgstr "Zvoľte \"áno\", ak si želáte skryť polia formulára po úspešnej registrácii."
 
-#: ../includes/views/metaboxes/optional-form-settings.php:97
-#: ../includes/views/tabs/admin-forms-general-settings.php:113
+#: mailchimp-for-wordpress/includes/views/form-settings.php:190
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:130
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:129
 msgid "Redirect to URL after successful sign-ups"
 msgstr "Presmerovať na URL po úspešnej registrácii"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:100
-#: ../includes/views/tabs/admin-forms-general-settings.php:116
-msgid ""
-"Leave empty or enter 0 for no redirection. Use complete (absolute) URLs, "
-"including <code>http://</code>"
-msgstr ""
-"Ak si neželáte presmerovanie, nechajte prázdne alebo zadajte 0. Používajte "
-"úplné (absolútne) URL adresy, vrátane <code>http://</code>"
+#: mailchimp-for-wordpress/includes/views/form-settings.php:193
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:133
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:132
+msgid "Leave empty or enter 0 for no redirection. Use complete (absolute) URLs, including <code>http://</code>"
+msgstr "Ak si neželáte presmerovanie, nechajte prázdne alebo zadajte 0. Používajte úplné (absolútne) URL adresy, vrátane <code>http://</code>"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:104
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:137
 msgid "Send an email copy of the form data?"
 msgstr "Poslať údaje formulára e-mailom?"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:108
-msgid ""
-"Tick \"yes\" if you want to receive an email with the form data for every "
-"sign-up request."
-msgstr ""
-"Zaškrtnite \"áno\", ak si želáte prijať e-mail s údajmi formulára pri každej "
-"požiadavke o registráciu."
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:141
+msgid "Tick \"yes\" if you want to receive an email with the form data for every sign-up request."
+msgstr "Zaškrtnite \"áno\", ak si želáte prijať e-mail s údajmi formulára pri každej požiadavke o registráciu."
 
-#: ../includes/views/metaboxes/optional-form-settings.php:111
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:144
 msgid "Send the copy to this email:"
 msgstr "Odoslať kópiu na túto e-mailovú adresu:"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:117
-#: ../includes/views/tabs/admin-forms-general-settings.php:119
-msgid "Success message"
-msgstr "Hlásenie o úspešnosti"
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:150
+msgid "Messages"
+msgstr "Správy"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:121
-#: ../includes/views/tabs/admin-forms-general-settings.php:124
-msgid "Invalid email address message"
-msgstr "Hlásenie o neplatnej e-mailovej adrese"
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:153
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:140
+msgid "Success"
+msgstr "Úspech"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:125
-#: ../includes/views/tabs/admin-forms-general-settings.php:128
-msgid "Required field missing message"
-msgstr "Hlásenie o chýbajúcom povinnom poli"
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:157
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:145
+msgid "Invalid email address"
+msgstr "Neplatná e-mailová adresa"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:129
-#: ../includes/views/tabs/admin-forms-general-settings.php:132
-msgid "Already subscribed message"
-msgstr "Hlásenie o už aktívnom odberaní"
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:161
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:149
+msgid "Required field missing"
+msgstr "Chýbajúce povinné pole"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:134
-#: ../includes/views/tabs/admin-forms-general-settings.php:138
-msgid "Invalid CAPTCHA message"
-msgstr "Hlásenie o neplatnom kóde CAPTCHA"
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:165
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:153
+msgid "Already subscribed"
+msgstr "Už ste odberateľom"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:139
-#: ../includes/views/tabs/admin-forms-general-settings.php:143
-msgid "General error message"
-msgstr "Všeobecné chybové hlásenie"
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:170
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:159
+msgid "Invalid CAPTCHA"
+msgstr "Neplatný kód CAPTCHA"
 
-#: ../includes/views/metaboxes/optional-form-settings.php:145
-#: ../includes/views/tabs/admin-forms-general-settings.php:148
-#, php-format
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:175
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:164
+msgid "Other errors"
+msgstr "Ostatné chyby"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:225
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:181
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:169
 msgid "HTML tags like %s are allowed in the message fields."
 msgstr "HTML značky ako %s sú povolené v poliach správ."
 
-#: ../includes/views/metaboxes/required-form-settings.php:14
+#: mailchimp-for-wordpress/includes/views/form-settings.php:45
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:14
 msgid "Lists this form subscribes to"
 msgstr "Zoznamy, ktorých je tento formulár odberateľom"
 
-#: ../includes/views/metaboxes/required-form-settings.php:17
-#: ../includes/views/pages/admin-checkbox-settings.php:38
-#, php-format
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:35
+#: mailchimp-for-wordpress/includes/views/form-settings.php:48
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:17
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:38
 msgid "No lists found, %sare you connected to MailChimp?%s"
 msgstr "Nenašli sa žiadne zoznamy, %sste pripojený k MailChimpu?%s"
 
-#: ../includes/views/metaboxes/required-form-settings.php:29
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:10
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:29
 msgid "Add a new field"
 msgstr "Pridať nové pole"
 
-#: ../includes/views/metaboxes/required-form-settings.php:32
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:15
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:32
 msgid "Select MailChimp field.."
 msgstr "Zvoľte pole MailChimpu.."
 
-#: ../includes/views/metaboxes/required-form-settings.php:36
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:19
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:36
 msgid "Submit Button"
 msgstr "Tlačidlo na odosielanie"
 
-#: ../includes/views/metaboxes/required-form-settings.php:37
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:20
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:37
 msgid "Lists Choice"
 msgstr "Výberový zoznam"
 
-#: ../includes/views/metaboxes/required-form-settings.php:45
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:28
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:45
 msgid "Label"
 msgstr "Štítok"
 
-#: ../includes/views/metaboxes/required-form-settings.php:45
-#: ../includes/views/metaboxes/required-form-settings.php:50
-#: ../includes/views/metaboxes/required-form-settings.php:55
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:28
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:33
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:38
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:45
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:50
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:55
 msgid "(optional)"
 msgstr "(voliteľné)"
 
-#: ../includes/views/metaboxes/required-form-settings.php:50
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:33
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:50
 msgid "Placeholder"
 msgstr "Zástupný text"
 
-#: ../includes/views/metaboxes/required-form-settings.php:55
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:38
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:55
 msgid "Initial value"
 msgstr "Počiatočná hodnota"
 
-#: ../includes/views/metaboxes/required-form-settings.php:60
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:43
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:60
 msgid "Labels"
 msgstr "Štítky"
 
-#: ../includes/views/metaboxes/required-form-settings.php:60
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:43
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:60
 msgid "(leave empty to hide)"
 msgstr "(ponechajte prázdne)"
 
-#: ../includes/views/metaboxes/required-form-settings.php:65
-#, php-format
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:48
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:65
 msgid "Wrap in paragraph %s tags?"
 msgstr "Vložiť do značiek odseku %s ?"
 
-#: ../includes/views/metaboxes/required-form-settings.php:69
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:53
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:69
 msgid "Required field?"
 msgstr "Povinné pole?"
 
-#: ../includes/views/metaboxes/required-form-settings.php:73
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:57
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:73
 msgid "Add to form"
 msgstr "Pridať do formulára"
 
-#: ../includes/views/metaboxes/required-form-settings.php:77
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:61
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:77
 msgid "Generated HTML"
 msgstr "Vygenerované HTML"
 
-#: ../includes/views/metaboxes/required-form-settings.php:86
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:86
 msgid "Form usage"
 msgstr "Použitie formulára"
 
-#: ../includes/views/metaboxes/required-form-settings.php:87
-#, php-format
-msgid ""
-"Use the shortcode %s to display this form inside a post, page or text widget."
-msgstr ""
-"Použite shortcode %s pre zobrazenie tohto formulára v rámci článku, stránky, "
-"alebo textového widgetu."
+#: mailchimp-for-wordpress/includes/views/form-settings.php:92
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:87
+msgid "Use the shortcode %s to display this form inside a post, page or text widget."
+msgstr "Použite shortcode %s pre zobrazenie tohto formulára v rámci článku, stránky, alebo textového widgetu."
 
-#: ../includes/views/pages/admin-checkbox-settings.php:11
-#: ../includes/views/pages/admin-form-settings.php:10
-#: ../includes/views/pages/admin-general-settings.php:10
-#: ../includes/views/pages/admin-reports.php:10
 msgid "MailChimp for WordPress"
 msgstr "MailChimp pre WordPress"
 
-#: ../includes/views/pages/admin-checkbox-settings.php:11
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:11
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:11
 msgid "Checkbox Settings"
 msgstr "Nastavenia zaškrtávacích políčok"
 
-#: ../includes/views/pages/admin-checkbox-settings.php:14
-msgid ""
-"To use sign-up checkboxes, select at least one list and one form to add the "
-"checkbox to."
-msgstr ""
-"Na používanie registračných zaškrtávacích políčok vyberte aspoň jeden zoznam "
-"a jeden formulár, do ktorého ho chcete pridať."
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:16
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:14
+msgid "To use sign-up checkboxes, select at least one list and one form to add the checkbox to."
+msgstr "Na používanie registračných zaškrtávacích políčok vyberte aspoň jeden zoznam a jeden formulár, do ktorého ho chcete pridať."
 
-#: ../includes/views/pages/admin-checkbox-settings.php:21
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:21
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:21
 msgid "MailChimp settings for checkboxes"
 msgstr "Nastavenia MailChimpu pre zaškrtávacie políčka"
 
-#: ../includes/views/pages/admin-checkbox-settings.php:26
-msgid ""
-"If you want to use sign-up checkboxes, select at least one MailChimp list to "
-"subscribe people to."
-msgstr ""
-"Ak si želáte používať registračné zaškrtávacie políčka, vyberte aspoň jeden "
-"MailChimp zoznam, na ktorý chcete ľudí prihlásiť."
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:25
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:26
+msgid "If you want to use sign-up checkboxes, select at least one MailChimp list to subscribe people to."
+msgstr "Ak si želáte používať registračné zaškrtávacie políčka, vyberte aspoň jeden MailChimp zoznam, na ktorý chcete ľudí prihlásiť."
 
-#: ../includes/views/pages/admin-checkbox-settings.php:34
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:31
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:34
 msgid "MailChimp Lists"
 msgstr "MailChimp zoznamy"
 
-#: ../includes/views/pages/admin-checkbox-settings.php:45
-msgid ""
-"Select the list(s) to which people who check the checkbox should be "
-"subscribed."
-msgstr ""
-"Zvoľte zoznam(y), ktorý by mali odoberať ľudia, ktorí si zaškrtnú políčko."
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:42
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:45
+msgid "Select the list(s) to which people who check the checkbox should be subscribed."
+msgstr "Zvoľte zoznam(y), ktorý by mali odoberať ľudia, ktorí si zaškrtnú políčko."
 
-#: ../includes/views/pages/admin-checkbox-settings.php:68
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:63
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:68
 msgid "Checkbox settings"
 msgstr "Nastavenia zaškrtávacích políčok"
 
-#: ../includes/views/pages/admin-checkbox-settings.php:71
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:67
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:71
 msgid "Add the checkbox to these forms"
 msgstr "Pridať zaškrtávacie políčko do týchto formulárov"
 
-#: ../includes/views/pages/admin-checkbox-settings.php:78
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:79
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:78
 msgid "Selecting a form will automatically add the sign-up checkbox to it."
-msgstr ""
-"Vybratím formulára sa doň automaticky pridá aj registračné zaškrtávacie "
-"políčko."
+msgstr "Vybratím formulára sa doň automaticky pridá aj registračné zaškrtávacie políčko."
 
-#: ../includes/views/pages/admin-checkbox-settings.php:85
-#, php-format
-msgid ""
-"Use %s in your Contact Form 7 mark-up to add a sign-up checkbox to your CF7 "
-"forms.</p>"
-msgstr ""
-"Používajte %s vo Vašom Contact Form 7 kóde na pridanie registračného "
-"zaškrtávacieho políčka do Vašich CF7 formulárov.</p>"
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:86
+msgid "Use %s in your Contact Form 7 mark-up to add a sign-up checkbox to your CF7 forms.</p>"
+msgstr "Používajte %s vo Vašom Contact Form 7 kóde na pridanie registračného zaškrtávacieho políčka do Vašich CF7 formulárov.</p>"
 
-#: ../includes/views/pages/admin-checkbox-settings.php:90
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:83
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:91
 msgid "Checkbox label text"
 msgstr "Text zaškrtávacieho políčka"
 
-#: ../includes/views/pages/admin-checkbox-settings.php:93
-#: ../includes/views/pages/admin-checkbox-settings.php:123
-#, php-format
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:86
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:94
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:134
 msgid "HTML tags like %s are allowed in the label text."
 msgstr "HTML značky ako %s sú povolené v texte štítku."
 
-#: ../includes/views/pages/admin-checkbox-settings.php:97
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:90
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:98
 msgid "Pre-check the checkbox?"
 msgstr "Predznačiť zaškrtávacie políčko?"
 
-#: ../includes/views/pages/admin-checkbox-settings.php:102
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:95
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:103
 msgid "Load some default CSS?"
 msgstr "Načítať predvolené CSS?"
 
-#: ../includes/views/pages/admin-checkbox-settings.php:104
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:97
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:105
 msgid "Select \"yes\" if the checkbox appears in a weird place."
 msgstr "Zvoľte \"áno\", ak sa zaškrtávacie políčko objaví na podivnom mieste."
 
-#: ../includes/views/pages/admin-checkbox-settings.php:108
-#: ../includes/views/pages/admin-checkbox-settings.php:128
-#: ../includes/views/tabs/admin-forms-general-settings.php:48
-#: ../includes/views/tabs/admin-forms-general-settings.php:152
-msgid "Save all changes"
-msgstr "Uložiť všetky zmeny"
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:108
+msgid "WooCommerce checkbox position"
+msgstr "Pozícia zaškrtávacieho políčka WooCommerce"
 
-#: ../includes/views/pages/admin-checkbox-settings.php:111
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:111
+msgid "After the billing details"
+msgstr "Po platobných údajoch"
+
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:112
+msgid "After the additional information"
+msgstr "Po doplňujúcej informácii"
+
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:115
+msgid "Choose the position for the checkbox in your WooCommerce checkout form."
+msgstr "Vyberte umiestnenie vo svojom WooCommerce nákupnom formulári pre zaškrtávacie políčko."
+
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:122
 msgid "Custom label texts"
 msgstr "Vlastné texty štítkov"
 
-#: ../includes/views/pages/admin-checkbox-settings.php:112
-msgid ""
-"Override the default checkbox label text for any given checkbox using the "
-"fields below."
-msgstr ""
-"Nahradiť predvolený text štítku pri každom zaškrtávacom políčku pomocou "
-"nižšie uvedených polí."
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:123
+msgid "Override the default checkbox label text for any given checkbox using the fields below."
+msgstr "Nahradiť predvolený text štítku pri každom zaškrtávacom políčku pomocou nižšie uvedených polí."
 
-#: ../includes/views/pages/admin-form-settings.php:13
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-form-settings.php:13
 msgid "Forms & Settings"
 msgstr "Formuláre a nastavenia"
 
-#: ../includes/views/pages/admin-form-settings.php:14
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-form-settings.php:14
 msgid "CSS Styles Builder"
 msgstr "Staviteľ CSS štýlov"
 
-#: ../includes/views/pages/admin-general-settings.php:10
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:10
 msgid "License & API Settings"
 msgstr "Licencia a nastavenia API"
 
-#: ../includes/views/pages/admin-general-settings.php:19
+#: mailchimp-for-wordpress/includes/views/api-settings.php:22
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:19
 msgid "API Settings"
 msgstr "Nastavenia API"
 
-#: ../includes/views/pages/admin-general-settings.php:21
+#: mailchimp-for-wordpress/includes/views/api-settings.php:24
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:21
 msgid "CONNECTED"
 msgstr "PRIPOJENÉ"
 
-#: ../includes/views/pages/admin-general-settings.php:23
+#: mailchimp-for-wordpress/includes/views/api-settings.php:26
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:23
 msgid "NOT CONNECTED"
 msgstr "NEPRIPOJENÉ"
 
-#: ../includes/views/pages/admin-general-settings.php:29
+#: mailchimp-for-wordpress/includes/views/api-settings.php:32
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:29
 msgid "API Key"
 msgstr "API kľúč"
 
-#: ../includes/views/pages/admin-general-settings.php:31
+#: mailchimp-for-wordpress/includes/views/api-settings.php:34
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:31
 msgid "Your MailChimp API key"
 msgstr "Váš MailChimp API kľúč"
 
-#: ../includes/views/pages/admin-general-settings.php:32
+#: mailchimp-for-wordpress/includes/views/api-settings.php:35
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:32
 msgid "Get your API key here."
 msgstr "Zaobstarajte si Váš API kľúč tu."
 
-#: ../includes/views/pages/admin-general-settings.php:48
+#: mailchimp-for-wordpress/includes/views/api-settings.php:47
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:48
 msgid "MailChimp Data"
 msgstr "MailChimp údaje"
 
-#: ../includes/views/pages/admin-general-settings.php:49
-msgid ""
-"The table below shows your MailChimp lists data. If you applied changes to "
-"your MailChimp lists, please use the following button to renew your cached "
-"data."
-msgstr ""
-"Nižšie uvedená tabuľka zobrazuje dáta zoznamov MailChimpu. Ak ste vykonali "
-"zmeny vo Vašich MailChimp zoznamoch, použite prosím nasledujúce tlačidlo na "
-"obnovenie dát uložených vo vyrovnávacej pamäti."
+#: mailchimp-for-wordpress/includes/views/api-settings.php:48
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:49
+msgid "The table below shows your MailChimp lists data. If you applied changes to your MailChimp lists, please use the following button to renew your cached data."
+msgstr "Nižšie uvedená tabuľka zobrazuje dáta zoznamov MailChimpu. Ak ste vykonali zmeny vo Vašich MailChimp zoznamoch, použite prosím nasledujúce tlačidlo na obnovenie dát uložených vo vyrovnávacej pamäti."
 
-#: ../includes/views/pages/admin-general-settings.php:55
-#: ../includes/views/pages/admin-general-settings.php:126
+#: mailchimp-for-wordpress/includes/views/api-settings.php:54
+#: mailchimp-for-wordpress/includes/views/api-settings.php:125
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:55
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:126
 msgid "Renew MailChimp lists"
 msgstr "Obnoviť MailChimp zoznamy"
 
-#: ../includes/views/pages/admin-general-settings.php:113
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:113
 msgid "No lists were found in your MailChimp account."
 msgstr "Nenašli sa žiadne zoznamy vo Vašom účte MailChimp."
 
-#: ../includes/views/pages/admin-reports.php:14
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-reports.php:14
 msgid "Statistics"
 msgstr "Štatistiky"
 
-#: ../includes/views/pages/admin-reports.php:15
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-reports.php:15
 msgid "Log"
 msgstr "Záznam"
 
-#: ../includes/views/parts/admin-footer.php:9
-#, php-format
-msgid ""
-"Need help? Have a look at the <a href=\"%s\">plugin documentation</a> or "
-"email me directly at <a href=\"%s\">support@dannyvankooten.com</a>."
-msgstr ""
-"Potrebujete pomoc? Prečítajte si <a href=\"%s\">dokumentáciu rozšírenia</a>, "
-"alebo mi napíšte e-mail na <a href=\"%s\">support@dannyvankooten.com</a>."
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-footer.php:9
+msgid "Need help? Have a look at the <a href=\"%s\">plugin documentation</a> or email me directly at <a href=\"%s\">support@mc4wp.com</a>."
+msgstr "Potrebujete pomoc? Prečítajte si <a href=\"%s\">dokumentáciu rozšírenia</a>, alebo mi napíšte e-mail na <a href=\"%s\">support@mc4wp.com</a>."
 
-#: ../includes/views/parts/admin-text-variables.php:13
+#: mailchimp-for-wordpress/includes/views/form-settings.php:257
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:13
 msgid "Replaced with the form response (error or success messages)."
 msgstr "Nahradí sa odozvou formulára (správa o úspešnosti požiadavky)."
 
-#: ../includes/views/parts/admin-text-variables.php:18
+#: mailchimp-for-wordpress/includes/views/form-settings.php:262
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:18
 msgid "Replaced with a captcha field."
 msgstr "Nahradí sa poľom captcha."
 
-#: ../includes/views/parts/admin-text-variables.php:23
+#: mailchimp-for-wordpress/includes/views/form-settings.php:267
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:23
 msgid "Replaced with the number of subscribers on the selected list(s)"
 msgstr "Nahradí sa počtom odberateľov na zvolenom zozname"
 
-#: ../includes/views/parts/admin-text-variables.php:27
-#, php-format
+#: mailchimp-for-wordpress/includes/views/form-settings.php:271
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:27
 msgid "Replaced with the current site language, eg: %s"
 msgstr "Nahradí sa aktuálnym jazykom stránky, napr.: %s"
 
-#: ../includes/views/parts/admin-text-variables.php:31
+#: mailchimp-for-wordpress/includes/views/form-settings.php:275
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:31
 msgid "Replaced with the visitor's IP address"
 msgstr "Nahradí sa IP adresou návštevníka"
 
-#: ../includes/views/parts/admin-text-variables.php:35
-#, php-format
+#: mailchimp-for-wordpress/includes/views/form-settings.php:279
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:35
 msgid "Replaced with the current date (yyyy/mm/dd eg: %s)"
 msgstr "Nahradí sa aktuálnym dátumom (yyyy/mm/dd napr.: %s)"
 
-#: ../includes/views/parts/admin-text-variables.php:39
-#, php-format
+#: mailchimp-for-wordpress/includes/views/form-settings.php:283
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:39
 msgid "Replaced with the current time (hh:mm:ss eg: %s)"
 msgstr "Nahradí sa aktuálnym časom (hh:mm:ss napr.: %s)"
 
-#: ../includes/views/parts/admin-text-variables.php:43
-msgid ""
-"Replaced with the logged in user's email (or nothing, if there is no logged "
-"in user)"
-msgstr ""
-"Nahradí sa e-mailom prihláseného používateľa (alebo ničím, ak sa žiadny "
-"používateľ neprihlásil)"
+#: mailchimp-for-wordpress/includes/views/form-settings.php:287
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:43
+msgid "Replaced with the logged in user's email (or nothing, if there is no logged in user)"
+msgstr "Nahradí sa e-mailom prihláseného používateľa (alebo ničím, ak sa žiadny používateľ neprihlásil)"
 
-#: ../includes/views/parts/admin-text-variables.php:47
+#: mailchimp-for-wordpress/includes/views/form-settings.php:291
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:47
 msgid "First name of the current user"
 msgstr "Meno aktuálneho používateľa"
 
-#: ../includes/views/parts/admin-text-variables.php:51
+#: mailchimp-for-wordpress/includes/views/form-settings.php:295
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:51
 msgid "Last name of the current user"
 msgstr "Priezvisko aktuálneho používateľa"
 
-#: ../includes/views/parts/admin-text-variables.php:55
+#: mailchimp-for-wordpress/includes/views/form-settings.php:299
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:55
 msgid "Current user ID"
 msgstr "ID aktuálneho používateľa"
 
-#: ../includes/views/parts/admin-text-variables.php:59
+#: mailchimp-for-wordpress/includes/views/form-settings.php:303
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:59
 msgid "Current URL"
 msgstr "Aktuálna URL"
 
-#: ../includes/views/tabs/admin-forms-css-builder.php:10
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:10
 msgid "Use the fields below to create custom styling rules for your forms."
-msgstr ""
-"Nižšie uvedené polia použite na vytvorenie vlastných štýlov pre Vaše "
-"formuláre."
+msgstr "Nižšie uvedené polia použite na vytvorenie vlastných štýlov pre Vaše formuláre."
 
-#: ../includes/views/tabs/admin-forms-css-builder.php:214
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:15
+msgid "Select form to build styles for:"
+msgstr "Zvoľte formulár pre ktorý si prajete vybudovať štýly:"
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:26
+msgid "Create at least one form first."
+msgstr "Vytvorte aspoň jeden formulár."
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:41
+msgid "You need to have JavaScript enabled to see a preview of your form."
+msgstr "Pre nahliadnutie Vášho formulára, musíte mať povolený JavaScript."
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:223
+msgid "Are you sure you want to delete all custom styles for this form?"
+msgstr "Naozaj chcete odstrániť všetky vlastné štýly pre tento formulár?"
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:223
+msgid "Delete Form Styles"
+msgstr "Odstrániť štýly formulára"
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:224
+msgid "Use to delete all styles for this form"
+msgstr "Použite na odstránenie všetkých štýlov pre tento formulár"
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:231
 msgid "Build CSS File"
 msgstr "Vybudovať súbor CSS"
 
-#: ../includes/views/tabs/admin-forms-css-builder.php:230
-#, php-format
-msgid "Please <a href=\"%s\">create at least 1 form</a> first."
-msgstr "Prosím, <a href=\"%s\">vytvorte aspoň jeden formulár</a>."
-
-#: ../includes/views/tabs/admin-forms-css-builder.php:232
-msgid "Select form for preview"
-msgstr "Zvoľte formulár k nahliadnutiu"
-
-#: ../includes/views/tabs/admin-forms-general-settings.php:8
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:8
 msgid "Sign-Up Forms"
 msgstr "Formuláre registrácie"
 
-#: ../includes/views/tabs/admin-forms-general-settings.php:8
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:8
 msgid "Create New Form"
 msgstr "Vytvoriť nový formulár"
 
-#: ../includes/views/tabs/admin-forms-general-settings.php:16
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:16
 msgid "General form settings"
 msgstr "Všeobecné nastavenia formulára"
 
-#: ../includes/views/tabs/admin-forms-general-settings.php:19
+#: mailchimp-for-wordpress/includes/views/form-settings.php:24
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:19
 msgid "Load form styles (CSS)?"
 msgstr "Načítať štýly formulára (CSS)?"
 
-#: ../includes/views/tabs/admin-forms-general-settings.php:23
+#: mailchimp-for-wordpress/includes/views/form-settings.php:28
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:23
 msgid "Yes, load basic form styles"
 msgstr "Áno, načítať základné štýly formulára"
 
-#: ../includes/views/tabs/admin-forms-general-settings.php:24
+#: mailchimp-for-wordpress/includes/views/form-settings.php:29
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:24
 msgid "Yes, load my custom form styles"
 msgstr "Áno, načítať moje vlastné štýly formulára"
 
-#: ../includes/views/tabs/admin-forms-general-settings.php:25
+#: mailchimp-for-wordpress/includes/views/form-settings.php:30
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:25
 msgid "Yes, load default form theme"
 msgstr "Áno, načítať predvolenú tému formulára"
 
-#: ../includes/views/tabs/admin-forms-general-settings.php:26
+#: mailchimp-for-wordpress/includes/views/form-settings.php:31
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:26
 msgid "Light Theme"
 msgstr "Svetlá téma"
 
-#: ../includes/views/tabs/admin-forms-general-settings.php:27
+#: mailchimp-for-wordpress/includes/views/form-settings.php:32
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:27
 msgid "Red Theme"
 msgstr "Červená téma"
 
-#: ../includes/views/tabs/admin-forms-general-settings.php:28
+#: mailchimp-for-wordpress/includes/views/form-settings.php:33
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:28
 msgid "Green Theme"
 msgstr "Zelená téma"
 
-#: ../includes/views/tabs/admin-forms-general-settings.php:29
+#: mailchimp-for-wordpress/includes/views/form-settings.php:34
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:29
 msgid "Blue Theme"
 msgstr "Modrá téma"
 
-#: ../includes/views/tabs/admin-forms-general-settings.php:30
+#: mailchimp-for-wordpress/includes/views/form-settings.php:35
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:30
 msgid "Dark Theme"
 msgstr "Tmavá téma"
 
-#: ../includes/views/tabs/admin-forms-general-settings.php:31
+#: mailchimp-for-wordpress/includes/views/form-settings.php:36
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:31
 msgid "Custom Color Theme"
 msgstr "Vlastná farba témy"
 
-#: ../includes/views/tabs/admin-forms-general-settings.php:36
-#, php-format
-msgid ""
-"If you %screated a custom stylesheet%s and want it to be loaded, select "
-"\"custom form styles\". Otherwise, choose the basic formatting styles or one "
-"of the default themes."
-msgstr ""
-"Ak ste si %svytvorili vlastné štýly%s a chcete ich načítať, vyberte "
-"\"vlastné štýly formulára\". V opačnom prípade zvoľte základné štýly "
-"formátovania alebo niektorý z predvolených tém."
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:36
+msgid "If you %screated a custom stylesheet%s and want it to be loaded, select \"custom form styles\". Otherwise, choose the basic formatting styles or one of the default themes."
+msgstr "Ak ste si %svytvorili vlastné štýly%s a chcete ich načítať, vyberte \"vlastné štýly formulára\". V opačnom prípade zvoľte základné štýly formátovania alebo niektorý z predvolených tém."
 
-#: ../includes/views/tabs/admin-forms-general-settings.php:40
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:40
 msgid "Select Color"
 msgstr "Vyberte farbu"
 
-#: ../includes/views/tabs/admin-forms-general-settings.php:50
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:48
+msgid "Save all changes"
+msgstr "Uložiť všetky zmeny"
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:50
 msgid "Default MailChimp settings"
 msgstr "Predvolené nastavenia MailChimpu"
 
-#: ../includes/views/tabs/admin-forms-general-settings.php:51
-#: ../includes/views/tabs/admin-forms-general-settings.php:99
-msgid ""
-"The following settings apply to <strong>all</strong> forms but can be "
-"overridden on a per-form basis."
-msgstr ""
-"Nasledujúce nastavenia sa vzťahujú na <strong>všetky</strong> formuláre, ale "
-"pri jednotlivých formulároch môžu byť nahradené."
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:51
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:109
+msgid "The following settings apply to <strong>all</strong> forms but can be overridden on a per-form basis."
+msgstr "Nasledujúce nastavenia sa vzťahujú na <strong>všetky</strong> formuláre, ale pri jednotlivých formulároch môžu byť nahradené."
 
-#: ../includes/views/tabs/admin-forms-general-settings.php:98
-msgid "Default form settings"
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:108
+msgid "Default Form Settings"
 msgstr "Predvolené nastavenia formulára"
 
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:137
+msgid "Default Messages"
+msgstr "Predvolené správy"
+
+msgid "https://mc4wp.com/"
+msgstr "https://mc4wp.com/"
+
+msgid "Danny van Kooten"
+msgstr "Danny van Kooten"
+
+msgid "http://dannyvankooten.com"
+msgstr "http://dannyvankooten.com"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:130
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:172
+msgid "Settings"
+msgstr "Nastavenia"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:191
+msgid "Documentation"
+msgstr "Dokumentácia"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:234
+msgid "Save Form"
+msgstr "Uložiť formulár"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:238
+msgid "Update Form"
+msgstr "Aktualizovať formulár"
+
+#: mailchimp-for-wordpress/includes/functions/general.php:22
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:271
+msgid "Your email address"
+msgstr "Vaša e-mailová adresa"
+
+#: mailchimp-for-wordpress/includes/functions/general.php:21
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:272
+msgid "Email address"
+msgstr "E-mailová adresa"
+
+#: mailchimp-for-wordpress/includes/functions/general.php:23
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:273
+msgid "Sign up"
+msgstr "Zaregistrovať sa"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:289
+msgid "Back to general form settings"
+msgstr "Späť na všeobecné nastavenia formulára"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:291
+msgid "Form updated."
+msgstr "Formulár sa aktualizoval."
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:292
+msgid "Form saved."
+msgstr "Formulár bol uložený."
+
+#: mailchimp-for-wordpress/includes/class-admin.php:395
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:300
+msgid "An EMAIL field. Example: <code>%s</code>"
+msgstr "Pole E-MAIL. Príklad: <code>%s</code>"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:401
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:306
+msgid "A submit button. Example: <code>%s</code>"
+msgstr "Potvrdzovacie tlačidlo. Príklad: <code>%s</code>"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:401
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:306
+msgid "Sign Up"
+msgstr "Registrácia"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:426
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:334
+msgid "A '%s' field"
+msgstr "Pole '%s'"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:75
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:346
+msgid "Your form is missing the following (required) form fields:"
+msgstr "Vo Vašom formulári chýbajú nasledujúce (povinné) polia:"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:9
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:418
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:91
+msgid "Form Settings"
+msgstr "Nastavenia formulára"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:419
+msgid "Optional Settings"
+msgstr "Voliteľné nastavenia"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:420
+msgid "Form Variables"
+msgstr "Premenné formulára"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:250
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:460
+msgid "Use the following variables to add some dynamic content to your form."
+msgstr "Použite nasledujúce premenné na pridanie dynamického obsahu do formulára."
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:558
+msgid "MailChimp & License"
+msgstr "MailChimp a licencia"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:161
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:559
+msgid "Checkboxes"
+msgstr "Zaškrtávacie políčka"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:162
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:560
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-form-settings.php:10
+msgid "Forms"
+msgstr "Formuláre"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:561
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-reports.php:10
+msgid "Reports"
+msgstr "Správy"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:310
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:658
+msgid "Comment form"
+msgstr "Komentárový formulár"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:311
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:659
+msgid "Registration form"
+msgstr "Registračný formulár"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:315
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:663
+msgid "MultiSite forms"
+msgstr "MultiSite formuláre"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:319
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:667
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:233
+msgid "BuddyPress registration"
+msgstr "BuddyPress registrácia"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:675
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:679
+msgid "%s checkout"
+msgstr "%s pokladňa"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:715
+msgid "Please make sure the plugin is connected to MailChimp. <a href=\"%s\">Provide a valid API key.</a>"
+msgstr "Prosím uistite sa, že rozšírenie je pripojené k MailChimpu. <a href=\"%s\">Zadajte platný API kľúč.</a>"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:360
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:725
+msgid "Renewed MailChimp cache."
+msgstr "Vyrovnávacia pamäť MailChimpu bola obnovená."
+
+#: mailchimp-for-wordpress/includes/class-admin.php:362
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:727
+msgid "Failed to renew MailChimp cache - please try again later."
+msgstr "Nepodarilo sa obnoviť vyrovnávaciu pamäť MailChimpu - skúste to znova neskôr."
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:817
+msgid "End date can't be before the start date"
+msgstr "Dátum ukončenia nemôže byť pred dátumom začatia"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:849
+msgid "You disabled logging using the %s filter. Re-enable it to use the Reports page."
+msgstr "Zakázali ste zapisovanie pomocou filtra %s. Znovu ho povoľte, aby ste mohli používať stránku Správ."
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:865
+msgid "<strong>Welcome to MailChimp for WordPress Pro!</strong> We transfered the settings you had set in the Lite version, please <a href=\"%s\">deactivate it now</a> to prevent problems"
+msgstr "<strong>Vitajte na MailChimp pre WordPress Pro!</strong> Prevzali sme Vaše nastavenia z Lite verzie, prosím <a href=\"%s\">deaktivujte ju teraz</a>, aby sa zabránilo problémom"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-styles-builder.php:319
+msgid "Couldn't create the stylesheet. Manually add the generated CSS to your theme stylesheet by using the %sTheme Editor%s or use FTP and edit <em>%s</em>."
+msgstr "Nepodarilo sa vytvoriť štýly. Pridajte si vytvorené CSS do Vašich štýlov ručne pomocou %sEditora tém%s, alebo použite FTP a editujte <em>%s</em>."
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-styles-builder.php:320
+msgid "%sShow generated CSS%s"
+msgstr "%sZobraziť vygenerované CSS%s"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-styles-builder.php:330
+msgid "To apply these styles on your website, select \"load custom form styles\" in the %sform settings%s"
+msgstr "Ak si prajete použiť tieto štýly na svojej webovej stránke, vyberte \"načítať vlastné štýly formulára\" v %snastaveniach formulára%s"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-styles-builder.php:331
+msgid "The %sCSS Stylesheet%s has been created."
+msgstr "%sCSS štýly%s boli vytvorené."
+
+#: mailchimp-for-wordpress-pro/includes/class-form-manager.php:241
+msgid "<strong>Error:</strong> Please specify a form ID. Example: %s."
+msgstr "<strong>Chyba:</strong> Zadajte prosím ID formulára. Príklad: %s."
+
+#: mailchimp-for-wordpress-pro/includes/class-form-manager.php:255
+msgid "<strong>Error:</strong> Sign-up form not found. Please check if you used the correct form ID."
+msgstr "<strong>Chyba:</strong> Registračný formulár sa nenašiel. Skontrolujte, či ste zadali správne ID formulára."
+
+#: mailchimp-for-wordpress-pro/includes/class-form-request.php:453
+msgid "New Sign-Up"
+msgstr "Nová registrácia"
+
+#: mailchimp-for-wordpress-pro/includes/class-form-request.php:454
+msgid "<strong>%s</strong> signed-up at %s on %s using the form \"%s\"."
+msgstr "<strong>%s</strong> registrovaný o %s dňa %s pomocou formulára \"%s\"."
+
+#: mailchimp-for-wordpress-pro/includes/class-form-request.php:495
+msgid "Note that you've enabled double opt-in for the \"%s\" form. The user won't be added to the selected MailChimp lists until they confirm their email address."
+msgstr "Všimnite si, že ste povolili dvojitý opt-in pre formulár \"%s\". Používateľ nebude pridaný do zvoleného MailChimp zoznamu, kým si svoju e-mailovú adresu nepotvrdí."
+
+#: mailchimp-for-wordpress-pro/includes/class-form-request.php:498
+msgid "This email was auto-sent by the MailChimp for WordPress plugin."
+msgstr "Tento e-mail bol odoslaný automaticky z rozšírenia MailChimp pre WordPress."
+
+#: mailchimp-for-wordpress-pro/includes/class-widget.php:20
+msgid "MailChimp for WP Form"
+msgstr "MailChimp pre WP formulár"
+
+#: mailchimp-for-wordpress-pro/includes/class-widget.php:21
+msgid "Displays one of your MailChimp for WordPress sign-up forms"
+msgstr "Zobrazuje jeden z Vašich MailChimp pre WordPress registračných formulárov"
+
+#: mailchimp-for-wordpress-pro/includes/class-widget.php:39
+msgid "Please select the sign-up form you'd like to show here in the <a href=\"%s\">widget settings</a>."
+msgstr "Zvoľte prosím registračný formulár v <a href=\"%s\">nastaveniach widgetu</a>, ktorý by ste chceli zobraziť."
+
+#: mailchimp-for-wordpress/includes/class-widget.php:61
+#: mailchimp-for-wordpress-pro/includes/class-widget.php:65
+msgid "Newsletter"
+msgstr "Odber noviniek"
+
+#: mailchimp-for-wordpress/includes/class-widget.php:64
+#: mailchimp-for-wordpress-pro/includes/class-widget.php:76
+msgid "Title:"
+msgstr "Nadpis:"
+
+#: mailchimp-for-wordpress-pro/includes/class-widget.php:80
+msgid "Form:"
+msgstr "Formulár:"
+
+#: mailchimp-for-wordpress-pro/includes/class-widget.php:82
+msgid "Select the form to show"
+msgstr "Zvoľte formulár, ktorý chcete zobraziť"
+
+#: mailchimp-for-wordpress-pro/includes/class-widget.php:90
+msgid "You don't have any sign-up forms. <a href=\"%s\">Create one now.</a>"
+msgstr "Nemáte žiadne registračné formuláre. <a href=\"%s\">Vytvoriť teraz.</a>"
+
+#: mailchimp-for-wordpress/includes/functions/general.php:30
+#: mailchimp-for-wordpress-pro/includes/functions/general.php:20
+msgid "Sign me up for the newsletter!"
+msgstr "Prihlásiť ma na odber noviniek!"
+
+#: mailchimp-for-wordpress-pro/includes/functions/general.php:43
+msgid "Thank you, your sign-up request was successful! Please check your email inbox to confirm."
+msgstr "Ďakujeme, Vaša požiadavka o registráciu prebehla úspešne! Skontrolujte si prosím Vašu e-mailovú schránku pre jej potvrdenie."
+
+#: mailchimp-for-wordpress/includes/functions/general.php:45
+#: mailchimp-for-wordpress-pro/includes/functions/general.php:44
+msgid "Oops. Something went wrong. Please try again later."
+msgstr "Ups. Niečo sa pokazilo. Skúste to znova neskôr."
+
+#: mailchimp-for-wordpress/includes/functions/general.php:46
+#: mailchimp-for-wordpress-pro/includes/functions/general.php:45
+msgid "Please provide a valid email address."
+msgstr "Prosím, zadajte platnú e-mailovú adresu."
+
+#: mailchimp-for-wordpress/includes/functions/general.php:47
+#: mailchimp-for-wordpress-pro/includes/functions/general.php:46
+msgid "Given email address is already subscribed, thank you!"
+msgstr "Zadaná e-mailová adresa je už prihlásená na odber, ďakujeme!"
+
+#: mailchimp-for-wordpress/includes/functions/general.php:48
+#: mailchimp-for-wordpress-pro/includes/functions/general.php:47
+msgid "Please complete the CAPTCHA."
+msgstr "Prosím, opíšte kód CAPTCHA."
+
+#: mailchimp-for-wordpress/includes/functions/general.php:49
+#: mailchimp-for-wordpress-pro/includes/functions/general.php:48
+msgid "Please fill in the required fields."
+msgstr "Prosím, vyplňte povinné polia."
+
+#: mailchimp-for-wordpress/includes/integrations/class-cf7.php:44
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:52
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:91
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:96
+#: mailchimp-for-wordpress/includes/views/form-settings.php:113
+#: mailchimp-for-wordpress/includes/views/form-settings.php:126
+#: mailchimp-for-wordpress/includes/views/form-settings.php:136
+#: mailchimp-for-wordpress/includes/views/form-settings.php:147
+#: mailchimp-for-wordpress/includes/views/form-settings.php:166
+#: mailchimp-for-wordpress/includes/views/form-settings.php:180
+#: mailchimp-for-wordpress-pro/includes/integrations/class-cf7.php:44
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:17
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:37
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:56
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:75
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:98
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:116
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:139
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:52
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:60
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:99
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:104
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:59
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:72
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:82
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:97
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:115
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:123
+msgid "Yes"
+msgstr "Áno"
+
+#: mailchimp-for-wordpress/includes/integrations/class-cf7.php:44
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:56
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:91
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:96
+#: mailchimp-for-wordpress/includes/views/form-settings.php:27
+#: mailchimp-for-wordpress/includes/views/form-settings.php:117
+#: mailchimp-for-wordpress/includes/views/form-settings.php:128
+#: mailchimp-for-wordpress/includes/views/form-settings.php:138
+#: mailchimp-for-wordpress/includes/views/form-settings.php:151
+#: mailchimp-for-wordpress/includes/views/form-settings.php:170
+#: mailchimp-for-wordpress/includes/views/form-settings.php:184
+#: mailchimp-for-wordpress-pro/includes/integrations/class-cf7.php:44
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:21
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:41
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:60
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:79
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:102
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:120
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:140
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:52
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:62
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:99
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:104
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:22
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:63
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:73
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:86
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:101
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:116
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:124
+msgid "No"
+msgstr "Nie"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:152
+msgid "I know. Don't bug me."
+msgstr "Ja viem. Nie je to moja chyba."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:171
+msgid "<b>Warning!</b> You're blocking external requests which means you won't be able to get %s updates. Please add %s to %s."
+msgstr "<b>Upozornenie!</b> Blokujete vonkajšie požiadavky, čo znamená, že nebudete môcť prijímať %s aktualizácie. Pridajte prosím %s do %s."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:213
+msgid "Your %s license has been activated. You have an unlimited license. "
+msgstr "Vaša %s licencia bola aktivovaná. Máte neobmedzenú licenciu."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:215
+msgid "Your %s license has been activated. You have used %d/%d activations. "
+msgstr "Vaša %s licencia bola aktivovaná. Použili ste %d/%d aktivácií."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:220
+msgid "<a href=\"%s\">Did you know you can upgrade your license?</a>"
+msgstr "<a href=\"%s\">Vedeli ste, že Vašu licenciu môžete aktualizovať?</a>"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:224
+msgid "<a href=\"%s\">Your license is expiring in %d days, would you like to extend it?</a>"
+msgstr "<a href=\"%s\">Vaša licencia vyprší za % dní, prajete si ju predĺžiť?</a>"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:233
+msgid "You've reached your activation limit. You must <a href=\"%s\">reset</a> or <a href=\"%s\">upgrade your license</a> to use it on this site."
+msgstr "Dosiahli ste aktivačný limit. Musíte si Vašu licenciu <a href=\"%s\">vynulovať</a> alebo <a href=\"%s\">obnoviť</a> pre ďalšie použitie na tejto stránke."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:236
+msgid "Your license has expired. You must <a href=\"%s\">extend your license</a> in order to use it again."
+msgstr "Vaša licencia vypršala. Musíte jej <a href=\"%s\">platnosť predĺžiť</a> pre ďalšie používanie."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:239
+msgid "Failed to activate your license, your license key seems to be invalid."
+msgstr "Aktivácia Vašej licencie zlyhala. Zdá sa, že licenčný kľúč je neplatný."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:264
+msgid "Your %s license has been deactivated."
+msgstr "Vaša %s licencia bola deaktivovaná."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:266
+msgid "Failed to deactivate your %s license."
+msgstr "Deaktivácia Vašej licencie %s zlyhala."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:304
+msgid "Request error: \"%s\""
+msgstr "Chyba požiadavky: \"%s\""
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:463
+msgid "%s: License Settings"
+msgstr "%s: Nastavenia licencie"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-plugin-license-manager.php:67
+msgid "%s is network activated, please contact your site administrator to manage the license."
+msgstr "%s je sieť aktivovaná, obráťte sa prosím na správcu Vašej stránky ohľadom správy licencie."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-update-manager.php:69
+msgid "%s failed to check for updates because of the following error: <em>%s</em>"
+msgstr "%s sa nepodarilo skontrolovať aktualizácie z dôvodu nasledujúcej chyby: <em>%s</em>"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-update-manager.php:131
+msgid "This site has not been activated properly on dannyvankooten.com and thus cannot check for future updates. Please activate your site with a valid license key."
+msgstr "Táto stránka nebola riadne aktivovaná na dannyvankooten.com a preto nebude možné prijímať budúce aktualizácie. Aktivujte si prosím Vašu stránku s platným licenčným kľúčom."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:23
+msgid "License status"
+msgstr "Stav licencie"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:33
+msgid "Toggle license status"
+msgstr "Prepnúť stav licencie"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:37
+msgid "Deactivate License"
+msgstr "Deaktivácia licencie"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:38
+msgid "(deactivate your license so you can activate it on another WordPress site)"
+msgstr "(deaktivujte Vašu licenciu, aby ste ju mohli znova aktivovať na inej WordPress stránke)"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:42
+msgid "Activate License"
+msgstr "Aktivácia licencie"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:44
+msgid "Please enter a license key in the field below first."
+msgstr "Prosím, zadajte licenčný kľúč do poľa nižšie."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:52
+msgid "License Key"
+msgstr "Licenčný kľúč"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:54
+msgid "Paste your license key here, as found in the email receipt."
+msgstr "Sem vložte Váš licenčný kľúč, ktorý ste obdržali e-mailom."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:56
+msgid "You defined your license key using the %s PHP constant."
+msgstr "Vašu licenciu ste zadefinovali pomocou %s PHP konštanty."
