@@ -1,122 +1,122 @@
-# Translation of MailChimp for WordPress in Italian
+# Translation of MailChimp for WordPress in French (France)
 # This file is distributed under the same license as the MailChimp for WordPress package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2014-09-12 15:44:29+0000\n"
+"PO-Revision-Date: 2014-10-06 09:26:30+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: GlotPress/0.1\n"
 "Project-Id-Version: MailChimp for WordPress\n"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:26
 msgid "ACTIVE"
-msgstr ""
+msgstr "ACTIF"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:26
 msgid "you are receiving updates"
-msgstr ""
+msgstr "vous recevez des mises à jour"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:28
 msgid "INACTIVE"
-msgstr ""
+msgstr "INACTIF"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:28
 msgid "you are <strong>not</strong> receiving updates."
-msgstr ""
+msgstr "vous ne recevez <strong>pas</strong> de mise à jour"
 
 #: mailchimp-for-wordpress/includes/class-widget.php:68
 msgid "You can edit your sign-up form in the %sMailChimp for WordPress form settings%s."
-msgstr ""
+msgstr "Vous pouvez éditer votre formulaire d'enregistrement dans le %sMailChimp for WordPress form settings%s."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:44
 msgid "Thank you, your sign-up request was successful! Please check your e-mail inbox."
-msgstr ""
+msgstr "Merci, votre enregistrement est un succès! Veuillez vérifier votre boite e-mail."
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:112
 msgid "No lists were found in your MailChimp account"
-msgstr ""
+msgstr "Nous n'avons pas trouvé de liste dans votre compte MailChimp"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:15
 msgid "To use the MailChimp sign-up form, configure the form below and then either paste %s in the content of a post or page or use the  widget."
-msgstr ""
+msgstr "Afin d'utiliser le formulaire d'enregistrement de MailChimp, configurez le formulaire ci-dessous et ensuite, soit vous collez %s dans le contenu d'un article, soit dans le contenu d'une page ou vous utilisez le widget à cet effet."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:20
 msgid "Required form settings"
-msgstr ""
+msgstr "Paramètre de formulaire requis"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:41
 msgid "If you want to load some default CSS styles, select \"basic formatting styles\" or choose one of the color themes"
-msgstr ""
+msgstr "Si vous voulez charger certain style CSS par défaut, selectionnez \"basic formatting styles\" ou choisissez un des thèmes couleurs."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:63
 msgid "Select the list(s) to which people who submit this form should be subscribed."
-msgstr ""
+msgstr "Sélectionnez la liste(s) à laquelle, les utilisateurs seront inscrits une fois le formulaire validé."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:69
 msgid "Form mark-up"
-msgstr ""
+msgstr "Formulaire de balisage"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:158
 msgid "Form Settings & Messages"
-msgstr ""
+msgstr "Formulaire de configuration et de messages"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:192
 msgid "Example: %s"
-msgstr ""
+msgstr "Exemple : %s"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:197
 msgid "Success message"
-msgstr ""
+msgstr "Message de réussite"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:201
 msgid "Invalid email address message"
-msgstr ""
+msgstr "Message d’adresse email invalide "
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:205
 msgid "Required field missing message"
-msgstr ""
+msgstr "Message de Champs obligatoire non rempli"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:209
 msgid "Already subscribed message"
-msgstr ""
+msgstr "Message de souscription déjà existante"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:214
 msgid "Invalid CAPTCHA message"
-msgstr ""
+msgstr "Message de Champs CAPTCHA invalide"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:219
 msgid "General error message"
-msgstr ""
+msgstr "Message d'erreur général"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:249
 msgid "Form variables"
-msgstr ""
+msgstr "Variables de formulaire"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:12
 msgid "Use the tool below to generate the HTML for your form fields."
-msgstr ""
+msgstr "Utilisez l'outils si dessous pour générer le code HTML de vos champs de formulaire."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:68
 msgid "Select at least one list first."
-msgstr ""
+msgstr "Sélectionnez au moins une première liste."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-footer.php:9
 msgid "Enjoying this plugin? <a href=\"%s\">Upgrade to MailChimp for WordPress Pro now</a> for an even better plugin, you will love it."
-msgstr ""
+msgstr "Ce plugin vous plait ? <a href=\"%s\"> Passez maintenant à la version pro de MailChimp for WordPress Pro</a> pour avoir un plugin encore plus puissant, vous allez l'adorer."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-footer.php:10
 msgid "This plugin is not developed by or affiliated with MailChimp in any way."
-msgstr ""
+msgstr "Ce plugin n'est aucunement développé ou affilié à la marque MailChimp déposée par le groupe \"The Rocket Science\"."
 
 msgid "Adds various sign-up methods to your website."
-msgstr ""
+msgstr "Ajouter différentes méthodes d’enregistrement à votre site internet."
 
 #: mailchimp-for-wordpress/includes/class-admin.php:149
 #: mailchimp-for-wordpress/includes/class-admin.php:163
 msgid "Upgrade to Pro"
-msgstr ""
+msgstr "Passer à la version Pro"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:327
 #: mailchimp-for-wordpress/includes/class-admin.php:331
@@ -124,35 +124,35 @@ msgstr ""
 #: mailchimp-for-wordpress/includes/views/form-settings.php:36
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:20
 msgid "(PRO ONLY)"
-msgstr ""
+msgstr "(Seulement pour les pros)"
 
 #: mailchimp-for-wordpress/includes/class-widget.php:20
 msgid "MailChimp Sign-Up Form"
-msgstr ""
+msgstr "Formulaire d’enregistrement de MailChimp"
 
 #: mailchimp-for-wordpress/includes/class-widget.php:21
 msgid "Displays your MailChimp for WordPress sign-up form"
-msgstr ""
+msgstr "Affiche votre formulaire d'inscription de \"MailChimp for WordPress\""
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:33
 msgid "Subscriber Log"
-msgstr ""
+msgstr "Journal de l'abonné"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:34
 msgid "Subscriber Logs"
-msgstr ""
+msgstr "Journaux des abonnés"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:116
 msgid "Log items deleted."
-msgstr ""
+msgstr "Entrées de journal supprimées"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:73
 msgid "Your %s license will expire on %s."
-msgstr "La tua %s licenza scadrà il %s."
+msgstr "Votre %s licence expirera le %s"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:76
 msgid "%sRenew your license now%s."
-msgstr "%sRinnova ora la tua licenza%s."
+msgstr "%s Renouvelez votre licence dès maintenant%s"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:35
 msgid "ID"
@@ -162,122 +162,122 @@ msgstr "ID"
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:228
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:343
 msgid "Form"
-msgstr "Modulo"
+msgstr "Formulaire"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:37
 msgid "Shortcode"
-msgstr ""
+msgstr "Shortcode"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:38
 msgid "List(s)"
-msgstr "Lista/e"
+msgstr "Liste(s)"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:39
 msgid "Last edited"
-msgstr "Ultima modifica"
+msgstr "Dernière modification"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:76
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:80
 msgid "Edit Form"
-msgstr "Modifica Modulo"
+msgstr "Modifier le formulaire"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:77
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:188
 msgid "Delete"
-msgstr "Cancella"
+msgstr "Supprimer"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:98
 msgid "No MailChimp list(s) selected yet."
-msgstr "Nessuna lista\\e MailChimp ancora selezionata\\e."
+msgstr "Aucun liste(s) MailChimp est sélectionnée(s)."
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:105
 msgid "You have not created any sign-up forms yet. Time to do so!"
-msgstr "Non hai ancora creato alcun modulo di iscrizione. È ora di farlo!"
+msgstr "Vous n'avez pas encore créé de formulaire d'inscription, c'est le moment de le faire !"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:53
 msgid "Email"
-msgstr "E-M@il"
+msgstr "Email"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:54
 msgid "List"
-msgstr "Lista"
+msgstr "Liste"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:55
 msgid "Type"
-msgstr "Tipo"
+msgstr "Type"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:56
 msgid "Source"
-msgstr "Origine"
+msgstr "Source"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:57
 msgid "Extra data"
-msgstr "Dati Extra"
+msgstr "Donnée supplémentaire "
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:58
 msgid "Subscribed"
-msgstr "Iscritto"
+msgstr "Inscrit"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:209
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:217
 msgid "Comment"
-msgstr "Commento"
+msgstr "Commentaire"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:209
 msgid "deleted"
-msgstr "cancellato"
+msgstr "Supprimé"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:221
 msgid "Registration"
-msgstr "Registrazione"
+msgstr "inscription"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:237
 msgid "MultiSite registration"
-msgstr "Registrazione MultiSito"
+msgstr "Inscription MultiSite"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:241
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:245
 msgid "Checkout"
-msgstr "Cassa"
+msgstr "Vérification"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:250
 msgid "Contact Form 7"
-msgstr "Modulo Contatti 7"
+msgstr "Contact Form 7"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:254
 msgid "bbPress: New Topic"
-msgstr "bbPress: Nuovo argomento"
+msgstr "bbPress: Nouveau sujet"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:258
 msgid "bbPress: New Reply"
-msgstr "bbPress: Nuova risposta"
+msgstr "bbPress: Nouvelle réponse"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:264
 msgid "Other Form"
-msgstr "Altro modulo"
+msgstr "Autre formulaire"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:314
 msgid "No subscribe requests found."
-msgstr "Richieste iscritti non trovate."
+msgstr "Aucune requête d'inscription trouvée."
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:337
 msgid "All"
-msgstr "Tutto"
+msgstr "Tous"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:349
 msgid "Checkbox"
-msgstr "Controllo a selezione multipla"
+msgstr "Case à cocher"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:8
 msgid "Any settings you specify here will override the <a href=\"%s\">general form settings</a>. If no setting is specified, the corresponding general setting value will be used."
-msgstr "Le impostazioni specificate qui sostituiranno la <a href=\"%s\"> impostazioni generali del modulo </a>. Se non viene specificata alcuna impostazione, verrà utilizzato il corrispondente valore di impostazione standard."
+msgstr "Tous les paramètres que vous spécifiez ici, écraseront les <a href=\"%s\">paramètres du formulaire général</a>. Si aucun paramètre n'est spécifié, la valeur par défaut correspondante sera utilisée."
 
 #: mailchimp-for-wordpress/includes/class-admin.php:160
 #: mailchimp-for-wordpress/includes/views/api-settings.php:12
 #: mailchimp-for-wordpress/includes/views/form-settings.php:106
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:10
 msgid "MailChimp Settings"
-msgstr "Impostazioni MailChimp"
+msgstr "Réglages MailChimp"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:48
 #: mailchimp-for-wordpress/includes/views/form-settings.php:109
@@ -285,7 +285,7 @@ msgstr "Impostazioni MailChimp"
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:51
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:55
 msgid "Double opt-in?"
-msgstr "Doppia conferma?"
+msgstr "double opt-in (validation de l'adresse du destinataire par e-mail) ?"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:25
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:45
@@ -294,7 +294,7 @@ msgstr "Doppia conferma?"
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:106
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:124
 msgid "Inherit"
-msgstr "Ereditare"
+msgstr "hérite"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:59
 #: mailchimp-for-wordpress/includes/views/form-settings.php:120
@@ -302,170 +302,170 @@ msgstr "Ereditare"
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:53
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:66
 msgid "Select \"yes\" if you want people to confirm their email address before being subscribed (recommended)"
-msgstr "Selezionare \"si\" se si desidera che i clienti debbano confermare il loro indirizzo email, prima di essere iscritti (consigliato)."
+msgstr "Sélectionnez \"oui\" si vous souhaitez que vos internautes soit obligé de leur email après s’être inscrit (recommandé)"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:133
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:33
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:78
 msgid "Update existing subscribers?"
-msgstr "Aggiornare iscritti esistenti?"
+msgstr "Voulez-vous que les données des internautes déjà inscrit soit mise à jour ?"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:140
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:47
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:89
 msgid "Select \"yes\" if you want to update existing subscribers (instead of showing the \"already subscribed\" message)."
-msgstr "Selezionare \"si \" se si desidera aggiornare gli abbonati esistenti (invece di mostrare il messaggio \"già iscritto\")."
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:143
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:52
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:93
 msgid "Replace interest groups?"
-msgstr "Sostituire gruppi di interesse?"
+msgstr "Remplacer les groupes d'intérêt"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:154
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:66
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:104
 msgid "Select \"yes\" if you want to replace the interest groups with the groups provided instead of adding the provided groups to the member's interest groups (only when updating a subscriber)."
-msgstr "Selezionare \"si\" se si desidera sostituire i gruppi di interesse con i gruppi previsti invece di aggiungere i gruppi previsti per i gruppi di interesse del membro (solo quando si aggiorna un abbonato)."
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:123
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:71
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:57
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:70
 msgid "Send Welcome Email?"
-msgstr "Inviare mail di Benvenuto ?"
+msgstr "Voulez-vous envoyer un email de bienvenue ?"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:130
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:86
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:64
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:75
 msgid "Select \"yes\" if you want to send your lists Welcome Email if a subscribe succeeds (only when double opt-in is disabled)."
-msgstr "Selezionare \"si\" se si desidera inviare \\\"il Benvenuto\\\" alle vostre liste Email (solo se opzione doppia conferma è disabilitata)."
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:162
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:94
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:113
 msgid "Enable AJAX form submission?"
-msgstr "Abilitare il modulo di iscrizione AJAX ?"
+msgstr "Activer soumission du formulaire grâce à la technologie AJAX ?"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:173
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:108
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:118
 msgid "Select \"yes\" if you want to use AJAX (JavaScript) to submit forms."
-msgstr "Selezionare \"si\" se si desidera utilizzare AJAX (JavaScript) per inviare i moduli."
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:176
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:112
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:121
 msgid "Hide form after a successful sign-up?"
-msgstr "Nascondere il modulo dopo l'avvenuta iscrizione?"
+msgstr "Voulez vous cacher le formulaire après un enregistrement réussi ?"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:187
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:126
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:126
 msgid "Select \"yes\" to hide the form fields after a successful sign-up."
-msgstr "Selezionare \"si\" per nascondere i campi del modulo dopo l'avvenuta iscrizione."
+msgstr "Sélectionnez \"oui\" afin de cacher les champs du formulaire après un enregistrement réussi."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:190
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:130
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:129
 msgid "Redirect to URL after successful sign-ups"
-msgstr "Redirect ad URL dopo iscrizione"
+msgstr "redirection vers une URL après une inscription réussite."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:193
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:133
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:132
 msgid "Leave empty or enter 0 for no redirection. Use complete (absolute) URLs, including <code>http://</code>"
-msgstr "Lasciare vuoto o inserire 0 per nessun reindirizzamento. Utilizzare URL completi (assoluti), incluso <code>http://</code>"
+msgstr "laissez vide ou entrer 0 pour ne pas avoir de redirection. Utilisez une URL complète(Absolue), n'oubliez pas d'inclure devant l'url <code>http://</code>"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:137
 msgid "Send an email copy of the form data?"
-msgstr "Invia una copia dell'email con i dati del modulo?"
+msgstr "Voulez-vous envoyez une copie des données du formulaire par email ?"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:141
 msgid "Tick \"yes\" if you want to receive an email with the form data for every sign-up request."
-msgstr "Seleziona \"si\" se vuoi ricevere una mail con i dati del modulo per ogni richiesta d'iscrizione."
+msgstr "Cocher \"oui\" si vous souhaitez recevoir pour chaque enregistrement réussi, un email contenant les donnée de l'enregistrement"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:144
 msgid "Send the copy to this email:"
-msgstr "Invia una copia a questa E-M@il:"
+msgstr "Envoyez la copie de cet email :"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:150
 msgid "Messages"
-msgstr "Messaggi"
+msgstr "Messages"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:153
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:140
 msgid "Success"
-msgstr "Successo"
+msgstr "Reussite"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:157
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:145
 msgid "Invalid email address"
-msgstr "Indirizzo email non valido"
+msgstr "Adresse email invalide"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:161
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:149
 msgid "Required field missing"
-msgstr "Campo richiesto mancante"
+msgstr "Vous avez oublié de remplir un champs obligatoire. "
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:165
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:153
 msgid "Already subscribed"
-msgstr "Già iscritto"
+msgstr "Déjà inscrit"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:170
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:159
 msgid "Invalid CAPTCHA"
-msgstr "CAPTCHA non valido"
+msgstr "CAPTCHA invalide"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:175
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:164
 msgid "Other errors"
-msgstr "Altri errori"
+msgstr "Autres erreurs "
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:225
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:181
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:169
 msgid "HTML tags like %s are allowed in the message fields."
-msgstr "I tag HTML come %s sono ammessi nel campo messaggio."
+msgstr "Les balises HTML tel que %s sont acceptées dans les champs."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:45
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:14
 msgid "Lists this form subscribes to"
-msgstr "Elenca questo modulo agli iscritti a"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:35
 #: mailchimp-for-wordpress/includes/views/form-settings.php:48
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:17
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:38
 msgid "No lists found, %sare you connected to MailChimp?%s"
-msgstr "Nessun elenco trovato, %ssei connesso a MailChimp?%s"
+msgstr "Pas de listes trouvées,%sare êtes vous sure d'avoir connecté MailChimp ?%s"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:10
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:29
 msgid "Add a new field"
-msgstr "Aggiungi un nuovo campo"
+msgstr "Ajouter un nouveau champ "
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:15
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:32
 msgid "Select MailChimp field.."
-msgstr "Seleziona i campi MailChimp.."
+msgstr "Sélectionnez le champ MailChimp ..."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:19
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:36
 msgid "Submit Button"
-msgstr "Pulsante Invio"
+msgstr "Bouton de validation"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:20
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:37
 msgid "Lists Choice"
-msgstr "Lista scelte"
+msgstr "Listes de choix"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:28
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:45
 msgid "Label"
-msgstr "Etichetta"
+msgstr "Etiquette"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:28
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:33
@@ -474,134 +474,134 @@ msgstr "Etichetta"
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:50
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:55
 msgid "(optional)"
-msgstr "(opzionale)"
+msgstr "(Optionnel) "
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:33
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:50
 msgid "Placeholder"
-msgstr "Segnaposto"
+msgstr "Texte par défaut"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:38
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:55
 msgid "Initial value"
-msgstr "Valore iniziale"
+msgstr "Valeur initiale"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:43
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:60
 msgid "Labels"
-msgstr "Etichette"
+msgstr "Labels"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:43
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:60
 msgid "(leave empty to hide)"
-msgstr "(lascia vuoto per nascondere)"
+msgstr "(laissez vide pour cacher)"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:48
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:65
 msgid "Wrap in paragraph %s tags?"
-msgstr "Inserisce nel paragrafo %s tags?"
+msgstr "Voulez-vous activer les tags %s dans les paragraphes"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:53
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:69
 msgid "Required field?"
-msgstr "Campi obbligatori?"
+msgstr "est-ce un champ obligatoire ?"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:57
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:73
 msgid "Add to form"
-msgstr "Aggiungi al modulo"
+msgstr "Ajouter au formulaire"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:61
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:77
 msgid "Generated HTML"
-msgstr "Generato HTML"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:86
 msgid "Form usage"
-msgstr "Utilizza modulo"
+msgstr "Utilisation des formulaires"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:92
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:87
 msgid "Use the shortcode %s to display this form inside a post, page or text widget."
-msgstr "Utilizzare lo shortcode %s per visualizzare questo form all'interno di un post, pagina o il testo del widget."
+msgstr "Utilisez le shortcode %s pour afficher ce formulaire dans vos billet, page ou widget avec texte"
 
 msgid "MailChimp for WordPress"
-msgstr "MailChimp per Wordpress"
+msgstr "MailChimp pour WordPress"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:11
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:11
 msgid "Checkbox Settings"
-msgstr "Impostazioni Checkbox"
+msgstr "Paramètres de case à cocher"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:16
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:14
 msgid "To use sign-up checkboxes, select at least one list and one form to add the checkbox to."
-msgstr "Per abilitare l'iscrizione, selezionare almeno una lista e un modulo per aggiungere l'opzione."
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:21
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:21
 msgid "MailChimp settings for checkboxes"
-msgstr "Impostazioni MailChimp per le checkboxes"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:25
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:26
 msgid "If you want to use sign-up checkboxes, select at least one MailChimp list to subscribe people to."
-msgstr "Se si desidera utilizzare l'opzione di iscrizione, selezionare almeno una lista MailChimp per l'iscrizione delle persone."
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:31
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:34
 msgid "MailChimp Lists"
-msgstr "Liste MailChimp"
+msgstr "Listes MailChimp"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:42
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:45
 msgid "Select the list(s) to which people who check the checkbox should be subscribed."
-msgstr "Selezionare gli elenchi a cui le persone che selezionano la checkbox devono essere iscritte."
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:63
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:68
 msgid "Checkbox settings"
-msgstr "Impostazioni Checkbox"
+msgstr "Paramètres de case à cocher"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:67
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:71
 msgid "Add the checkbox to these forms"
-msgstr "Aggiungi la checkbox a questi moduli"
+msgstr "Ajoutez la case à cocher à ces formulaires"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:79
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:78
 msgid "Selecting a form will automatically add the sign-up checkbox to it."
-msgstr "Selezionare il modulo dove si aggiungerà automaticamente la checkbox di iscrizione."
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:86
 msgid "Use %s in your Contact Form 7 mark-up to add a sign-up checkbox to your CF7 forms.</p>"
-msgstr "Usa %s nel tuo Modulo Contatti 7 per aggiungere una l'opzione d'iscrizione al MC7</p>"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:83
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:91
 msgid "Checkbox label text"
-msgstr "Etichetta di testo della Checkbox"
+msgstr "Texte de l'etiquette de la case à cocher"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:86
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:94
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:134
 msgid "HTML tags like %s are allowed in the label text."
-msgstr "I tag HTML come %s sono ammessi nel testo dell'etichetta."
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:90
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:98
 msgid "Pre-check the checkbox?"
-msgstr "Pre-selezionare l'iscrizione?"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:95
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:103
 msgid "Load some default CSS?"
-msgstr "Caricare i file CSS di default?"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:97
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:105
 msgid "Select \"yes\" if the checkbox appears in a weird place."
-msgstr "Selezionare \"si\" se la casella di controllo deve apparire in un posto bizzarro."
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:108
 msgid "WooCommerce checkbox position"
@@ -609,482 +609,482 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:111
 msgid "After the billing details"
-msgstr "Dopo i dettagli di pagamento"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:112
 msgid "After the additional information"
-msgstr "Dopo le informazioni aggiuntive"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:115
 msgid "Choose the position for the checkbox in your WooCommerce checkout form."
-msgstr "Scegli la posizione per il controllo a selezione multipla nel tuo modulo di pagamento di WooCommerce"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:122
 msgid "Custom label texts"
-msgstr "Etichetta personalizzata"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:123
 msgid "Override the default checkbox label text for any given checkbox using the fields below."
-msgstr "Sostituisci il testo dell'etichetta della checkbox di default per ogni checkboxutilizzando i campi sottostanti."
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-form-settings.php:13
 msgid "Forms & Settings"
-msgstr "Moduli & Settaggi"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-form-settings.php:14
 msgid "CSS Styles Builder"
-msgstr "Creare stili CSS"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:10
 msgid "License & API Settings"
-msgstr "Licenze & Settaggi API"
+msgstr "Paramètres de licence et de l'API"
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:22
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:19
 msgid "API Settings"
-msgstr "Settaggi API"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:24
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:21
 msgid "CONNECTED"
-msgstr "CONNESSO"
+msgstr "CONNECTÉ"
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:26
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:23
 msgid "NOT CONNECTED"
-msgstr "DISCONNESSO"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:32
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:29
 msgid "API Key"
-msgstr "Chiave API"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:34
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:31
 msgid "Your MailChimp API key"
-msgstr "La tua chaive API MailChimp"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:35
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:32
 msgid "Get your API key here."
-msgstr "Ottieni la tua chiave API qui."
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:47
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:48
 msgid "MailChimp Data"
-msgstr "Dati MailChimp"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:48
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:49
 msgid "The table below shows your MailChimp lists data. If you applied changes to your MailChimp lists, please use the following button to renew your cached data."
-msgstr "La seguente tabella mostra i vostri elenchi in MailChimp. Se applicate le modifichealle vostre liste MailChimp, si prega di utilizzare il seguente pulsante perrinnovare la vostra cache."
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:54
 #: mailchimp-for-wordpress/includes/views/api-settings.php:125
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:55
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:126
 msgid "Renew MailChimp lists"
-msgstr "Aggiorna liste MailChimp"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:113
 msgid "No lists were found in your MailChimp account."
-msgstr "Nessuna lista trovata nel tuo account MailChimp"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-reports.php:14
 msgid "Statistics"
-msgstr "Statistiche"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-reports.php:15
 msgid "Log"
-msgstr "Log"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-footer.php:9
 msgid "Need help? Have a look at the <a href=\"%s\">plugin documentation</a> or email me directly at <a href=\"%s\">support@mc4wp.com</a>."
-msgstr "Hai bisogno di aiuto? Dai un'occhiata alla <a href=\"%s\">documentazione del plugin</a> o scrivimi direttamente a <a href=\"%s\">support@mc4wp.com</a>."
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:257
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:13
 msgid "Replaced with the form response (error or success messages)."
-msgstr "Sostituite con il Modulo di Risposta (messaggi di errore o di successo)."
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:262
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:18
 msgid "Replaced with a captcha field."
-msgstr "Sostituite con il campo captcha."
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:267
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:23
 msgid "Replaced with the number of subscribers on the selected list(s)"
-msgstr "Sostituite con il numero di abbonati della lista/liste selezionata/e"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:271
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:27
 msgid "Replaced with the current site language, eg: %s"
-msgstr "Sostituite con la lingua corrente del sito, eg: %s"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:275
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:31
 msgid "Replaced with the visitor's IP address"
-msgstr "Sostituite con 'indirizzo IP del visitatore"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:279
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:35
 msgid "Replaced with the current date (yyyy/mm/dd eg: %s)"
-msgstr "Sostituite con la data corrente (yyyy/mm/dd eg: %s)"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:283
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:39
 msgid "Replaced with the current time (hh:mm:ss eg: %s)"
-msgstr "Sostituite con l'ora corrente (hh:mm:ss eg: %s)"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:287
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:43
 msgid "Replaced with the logged in user's email (or nothing, if there is no logged in user)"
-msgstr "Sostituite con l'E-M@il dell'utente (o niente, se non vi è alcun utente collegato)"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:291
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:47
 msgid "First name of the current user"
-msgstr "Nome dell'utente corrente"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:295
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:51
 msgid "Last name of the current user"
-msgstr "Cognome dell'utente corrente"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:299
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:55
 msgid "Current user ID"
-msgstr "Username Corrente"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:303
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:59
 msgid "Current URL"
-msgstr "URL Corrente"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:10
 msgid "Use the fields below to create custom styling rules for your forms."
-msgstr "Utilizzare i campi qui sotto per creare regole di stile personalizzato per i vostri moduli."
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:15
 msgid "Select form to build styles for:"
-msgstr "Seleziona il modulo per il quale creare gli stili:"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:26
 msgid "Create at least one form first."
-msgstr "Prima di tutto crea almeno un modulo."
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:41
 msgid "You need to have JavaScript enabled to see a preview of your form."
-msgstr "Devi avere JavaScript abilitato per vedere l'anteprima del tuo modulo."
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:223
 msgid "Are you sure you want to delete all custom styles for this form?"
-msgstr "Sei sicuro di voler eliminare tutti gli stili personalizzati per questo modulo?"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:223
 msgid "Delete Form Styles"
-msgstr "Elimina gli stili del modulo"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:224
 msgid "Use to delete all styles for this form"
-msgstr "Usa per eliminare tutti gli stili per questo modulo"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:231
 msgid "Build CSS File"
-msgstr "Crea il file CSS"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:8
 msgid "Sign-Up Forms"
-msgstr "Moduli iscrizione"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:8
 msgid "Create New Form"
-msgstr "Crea nuovo modulo"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:16
 msgid "General form settings"
-msgstr "Modulo impostazioni generali"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:24
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:19
 msgid "Load form styles (CSS)?"
-msgstr "Caricare stili dei moduli (CSS)?"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:28
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:23
 msgid "Yes, load basic form styles"
-msgstr "Si, carica il foglio di stile di base"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:29
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:24
 msgid "Yes, load my custom form styles"
-msgstr "Si, carica il foglio di stile personalizzato"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:30
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:25
 msgid "Yes, load default form theme"
-msgstr "Si, carica il modulo con il tema stardard"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:31
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:26
 msgid "Light Theme"
-msgstr "Tema Chiaro"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:32
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:27
 msgid "Red Theme"
-msgstr "Tema Rosso"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:33
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:28
 msgid "Green Theme"
-msgstr "Tema Verde"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:34
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:29
 msgid "Blue Theme"
-msgstr "Tema Blu"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:35
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:30
 msgid "Dark Theme"
-msgstr "Tema Scuro"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:36
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:31
 msgid "Custom Color Theme"
-msgstr "Colore tema personalizzato"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:36
 msgid "If you %screated a custom stylesheet%s and want it to be loaded, select \"custom form styles\". Otherwise, choose the basic formatting styles or one of the default themes."
-msgstr "Se e' stato %screato un foglio di stile personalizzato%s e si vuole che sia caricato,selezionare \"modulo stili personalizzato\". Altrimenti, scegliere uno stile di base o di uno dei temi di default."
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:40
 msgid "Select Color"
-msgstr "Seleziona il colore"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:48
 msgid "Save all changes"
-msgstr "Salva le modifiche"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:50
 msgid "Default MailChimp settings"
-msgstr "Impostazioni MailChimp iniziali"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:51
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:109
 msgid "The following settings apply to <strong>all</strong> forms but can be overridden on a per-form basis."
-msgstr "Le seguenti impostazioni si applicano a <strong> tutti </ strong> i moduli,ma possono essere sovrascritte su un modulo base."
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:108
 msgid "Default Form Settings"
-msgstr "Impostazioni modulo predefinite"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:137
 msgid "Default Messages"
-msgstr "Messaggi predefiniti"
+msgstr ""
 
 msgid "https://mc4wp.com/"
-msgstr "https://mc4wp.com/"
+msgstr ""
 
 msgid "Danny van Kooten"
-msgstr "Danny van Kooten"
+msgstr ""
 
 msgid "http://dannyvankooten.com"
-msgstr "http://dannyvankooten.com"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/class-admin.php:130
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:172
 msgid "Settings"
-msgstr "Impostazioni"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:191
 msgid "Documentation"
-msgstr "Documentazione"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:234
 msgid "Save Form"
-msgstr "Salva Modulo"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:238
 msgid "Update Form"
-msgstr "Aggiorna Modulo"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/functions/general.php:22
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:271
 msgid "Your email address"
-msgstr "Il tuo indirizzo E-M@il"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/functions/general.php:21
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:272
 msgid "Email address"
-msgstr "Indirizzo E-M@il"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/functions/general.php:23
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:273
 msgid "Sign up"
-msgstr "Iscriviti"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:289
 msgid "Back to general form settings"
-msgstr "Torna alle impostazioni generali"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:291
 msgid "Form updated."
-msgstr "Modulo aggiornato."
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:292
 msgid "Form saved."
-msgstr "Modulo salvato."
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/class-admin.php:395
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:300
 msgid "An EMAIL field. Example: <code>%s</code>"
-msgstr "Un campo E-M@il. Esempio: <code>%s</code>"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/class-admin.php:401
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:306
 msgid "A submit button. Example: <code>%s</code>"
-msgstr "Pulsante di conferma. Esempio: <code>%s</code>"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/class-admin.php:401
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:306
 msgid "Sign Up"
-msgstr "Iscriviti"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/class-admin.php:426
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:334
 msgid "A '%s' field"
-msgstr "Un '%s' campo"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:75
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:346
 msgid "Your form is missing the following (required) form fields:"
-msgstr "Nel modulo mancano i seguenti campi obbligatori:"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:9
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:418
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:91
 msgid "Form Settings"
-msgstr "Settaggi Modulo"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:419
 msgid "Optional Settings"
-msgstr "Settaggi Opzionali"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:420
 msgid "Form Variables"
-msgstr "Variabili Modulo"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:250
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:460
 msgid "Use the following variables to add some dynamic content to your form."
-msgstr "Utilizzare le seguenti variabili per aggiungere alcuni contenuti dinamici al form."
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:558
 msgid "MailChimp & License"
-msgstr "MailChimp & Licenza"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/class-admin.php:161
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:559
 msgid "Checkboxes"
-msgstr "Caselle di controllo a selezione multipla"
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/class-admin.php:162
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:560
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-form-settings.php:10
 msgid "Forms"
-msgstr "Moduli"
+msgstr "Formulaires"
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:561
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-reports.php:10
 msgid "Reports"
-msgstr "Rapporti"
+msgstr "Rapports"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:310
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:658
 msgid "Comment form"
-msgstr "Modulo Commenti"
+msgstr "Formulaire de commentaires"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:311
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:659
 msgid "Registration form"
-msgstr "Modulo Registrazione"
+msgstr "Formulaire d'inscription"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:315
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:663
 msgid "MultiSite forms"
-msgstr "Modulo MultiSite"
+msgstr "Formulaires multisite"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:319
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:667
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:233
 msgid "BuddyPress registration"
-msgstr "Registrazione BuddyPress"
+msgstr "Inscription à BuddyPress"
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:675
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:679
 msgid "%s checkout"
-msgstr "%s cassa"
+msgstr "%s achat"
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:715
 msgid "Please make sure the plugin is connected to MailChimp. <a href=\"%s\">Provide a valid API key.</a>"
-msgstr "Si prega di assicurarsi che il plugin sia collegato a MailChimp. <a href=\"%s\">Inserire una chiave API valida.</a>"
+msgstr "Veuillez-vous assurer que le plugin est bien connecté à MailChimp. <a href=\"%s\">fournissez une clef d'API valide.</a>"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:360
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:725
 msgid "Renewed MailChimp cache."
-msgstr "Aggiorna la cache di MailChimp"
+msgstr "Renouvellement du cache MailChimp"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:362
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:727
 msgid "Failed to renew MailChimp cache - please try again later."
-msgstr "Impossibile aggiornare la cache MailChimp - si prega di riprovare piu' tardi."
+msgstr "Le renouvellement du cache MailChimp a échoué - veuillez ressayer plus-tard."
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:817
 msgid "End date can't be before the start date"
-msgstr "La data di fine non puo' essere antecedente alla data di inizio"
+msgstr "La date de fin ne peut plus ancienne que la date de début."
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:849
 msgid "You disabled logging using the %s filter. Re-enable it to use the Reports page."
-msgstr "Hai disattivato il log utilizzando il %s filtro. Riattivalo per utilizzare le relazioni di pagina."
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:865
 msgid "<strong>Welcome to MailChimp for WordPress Pro!</strong> We transfered the settings you had set in the Lite version, please <a href=\"%s\">deactivate it now</a> to prevent problems"
-msgstr "\"<strong>Benvenuti a MailChimp per WordPress Pro!</strong> Abbiamo trasferito le impostazioni inserite nella versione Lite, perfavore <a href=\"%s\">disattivarlo </a> per prevenire problemi\""
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-styles-builder.php:319
 msgid "Couldn't create the stylesheet. Manually add the generated CSS to your theme stylesheet by using the %sTheme Editor%s or use FTP and edit <em>%s</em>."
-msgstr "Impossibile creare il foglio di stile. Aggiungere manualmente il CSS generato per il vostro foglio di stile utilizzando il %sTheme Editor%s o utilizzare FTP e modificare <em>%s</ em>."
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-styles-builder.php:320
 msgid "%sShow generated CSS%s"
-msgstr "%sMostra CSS generato%s"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-styles-builder.php:330
 msgid "To apply these styles on your website, select \"load custom form styles\" in the %sform settings%s"
-msgstr "Per applicare questi stili sul tuo sito web, selezionare \"caricare stili di modulo personalizzato\" nel %s moduloimpostazioni di %s"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-styles-builder.php:331
 msgid "The %sCSS Stylesheet%s has been created."
-msgstr "Il %sCSS foglio di stile%s è stato creato."
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/class-form-manager.php:241
 msgid "<strong>Error:</strong> Please specify a form ID. Example: %s."
-msgstr "<strong> Errore: </ strong> Si prega di specificare un ID del modulo. Esempio: %s."
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/class-form-manager.php:255
 msgid "<strong>Error:</strong> Sign-up form not found. Please check if you used the correct form ID."
-msgstr "<strong> Errore: </ strong> modulo di iscrizione non trovato. Si prega di verificare se è stato utilizzato l'ID di modulo corretto."
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/class-form-request.php:453
 msgid "New Sign-Up"
-msgstr "Nuova iscrizione"
+msgstr "Nouvelle Inscription"
 
 #: mailchimp-for-wordpress-pro/includes/class-form-request.php:454
 msgid "<strong>%s</strong> signed-up at %s on %s using the form \"%s\"."
-msgstr "<strong>%s</ strong> firmato a %s su %s utilizzando il modulo \"%s\"."
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/class-form-request.php:495
 msgid "Note that you've enabled double opt-in for the \"%s\" form. The user won't be added to the selected MailChimp lists until they confirm their email address."
@@ -1092,75 +1092,75 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/class-form-request.php:498
 msgid "This email was auto-sent by the MailChimp for WordPress plugin."
-msgstr "Questa email è stata auto-inviata da MailChimp per WordPress."
+msgstr "Cet email a été envoyé automatiquement par le plugin \" MailChimp pour WordPress \""
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:20
 msgid "MailChimp for WP Form"
-msgstr "Modulo MailChimp per WP"
+msgstr "MailChimp pour WP Form"
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:21
 msgid "Displays one of your MailChimp for WordPress sign-up forms"
-msgstr "Visualizza uno dei tuoi moduli di iscrizione di MailChimp per WordPress"
+msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:39
 msgid "Please select the sign-up form you'd like to show here in the <a href=\"%s\">widget settings</a>."
-msgstr "Si prega di selezionare il modulo di iscrizione che vuoi mostrare qui in <a href=\"%s\"> impostazioni dei widget </a>."
+msgstr ""
 
 #: mailchimp-for-wordpress/includes/class-widget.php:61
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:65
 msgid "Newsletter"
-msgstr ""
+msgstr "Newsletter"
 
 #: mailchimp-for-wordpress/includes/class-widget.php:64
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:76
 msgid "Title:"
-msgstr "Titolo:"
+msgstr "Titre :"
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:80
 msgid "Form:"
-msgstr "Modulo:"
+msgstr "Formulaire :"
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:82
 msgid "Select the form to show"
-msgstr "Selezionatre il modulo da visualizzare"
+msgstr "Sélectionnez le formulaire pour l'afficher"
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:90
 msgid "You don't have any sign-up forms. <a href=\"%s\">Create one now.</a>"
-msgstr "Non hai alcun modulo di iscrizione. <a href=\"%s\"> Creane uno adesso. </a>"
+msgstr "Vous n'avez aucuns formulaires d’inscription. <a href=\"%s\">Créez en un maintenant.</a>"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:30
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:20
 msgid "Sign me up for the newsletter!"
-msgstr "Iscrivimi alla newsletter!"
+msgstr "Inscrivez-vous pour recevoir notre newsletter!"
 
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:43
 msgid "Thank you, your sign-up request was successful! Please check your email inbox to confirm."
-msgstr "Grazie, la tua richiesta di iscrizione ha avuto successo! Controlla la tua E-M@il per confermare."
+msgstr "Merci, votre inscription a réussi! Veuillez regarder votre boite email, et cliquez sur le lien de confirmation."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:45
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:44
 msgid "Oops. Something went wrong. Please try again later."
-msgstr "Oops. Qualcosa è andato storto. Riprova più tardi."
+msgstr "Oops, Une erreur s'est produite. Veuillez réessayer plus-tard "
 
 #: mailchimp-for-wordpress/includes/functions/general.php:46
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:45
 msgid "Please provide a valid email address."
-msgstr "Si prega di fornire un indirizzo E-M@il valido."
+msgstr "Veuillez fournir une adresse email valide."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:47
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:46
 msgid "Given email address is already subscribed, thank you!"
-msgstr "Indirizzo E-M@il inserito è già iscritto, grazie!"
+msgstr "L'adresse email fourni est déjà inscrit, merci !"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:48
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:47
 msgid "Please complete the CAPTCHA."
-msgstr "Si prega di compilare il CAPTCHA."
+msgstr "Veuillez retranscrire le code CAPTCHA"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:49
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:48
 msgid "Please fill in the required fields."
-msgstr "Si prega di compilare i campi obbligatori."
+msgstr "Veuillez remplir les champs obligatoires."
 
 #: mailchimp-for-wordpress/includes/integrations/class-cf7.php:44
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:52
@@ -1191,7 +1191,7 @@ msgstr "Si prega di compilare i campi obbligatori."
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:115
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:123
 msgid "Yes"
-msgstr ""
+msgstr "Oui"
 
 #: mailchimp-for-wordpress/includes/integrations/class-cf7.php:44
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:56
@@ -1224,106 +1224,104 @@ msgstr ""
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:116
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:124
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:152
 msgid "I know. Don't bug me."
-msgstr "Lo so."
+msgstr "Je sais. Ne me dérangez pas."
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:171
 msgid "<b>Warning!</b> You're blocking external requests which means you won't be able to get %s updates. Please add %s to %s."
-msgstr "<b> Attenzione! </ b> Stai bloccando le richieste esterne, il che significa che non sarai in grado di ottenere gli aggiornamenti %s. Si prega di aggiungere %s in %s."
+msgstr "<b>Attention</b> Vous avez bloquez les requêtes externes, ce qui implique que vous ne serez pas en mesure d'optenir les mises à jours de %s, Veuillez ajouter %s de %s."
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:213
 msgid "Your %s license has been activated. You have an unlimited license. "
-msgstr "È stata attivata la tua licenza %s. Hai una licenza illimitata."
+msgstr "Votre %s licence a été activé. Vous avez une licence illimitée."
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:215
 msgid "Your %s license has been activated. You have used %d/%d activations. "
-msgstr "È stata attivata la tua licenza %s. È stato utilizzato %d/%d attivazioni."
+msgstr "Votre %s licence a été activé. Vous avez utilisé à ce jour %d/%d activations. "
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:220
 msgid "<a href=\"%s\">Did you know you can upgrade your license?</a>"
-msgstr "<a href=\"%s\"> Lo sapevate che è possibile aggiornare la licenza? </a>"
+msgstr "<a href=\"%s\">Saviez-vous qu'il vous est possible de mettre à jour votre licence ?</a>"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:224
 msgid "<a href=\"%s\">Your license is expiring in %d days, would you like to extend it?</a>"
-msgstr "<a href=\"%s\">La licenza è in scadenza in %d giorni, volete rinnovarla? </a>"
+msgstr "<a href=\"%s\">Votre licence expire dans %d jours, Voulez-vous vous réengager ?</a>"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:233
 msgid "You've reached your activation limit. You must <a href=\"%s\">reset</a> or <a href=\"%s\">upgrade your license</a> to use it on this site."
-msgstr ""
+msgstr "Vous avez atteint votre limite d'activation . Vous devez <a href=\"%s\"> réinitialiser </a> ou <a href=\"%s\"> mettre à jour votre </a> licence pour utiliser le plugin sur ce site ."
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:236
 msgid "Your license has expired. You must <a href=\"%s\">extend your license</a> in order to use it again."
-msgstr "La licenza è scaduta. È necessario <a href=\"%s\"> estendere la licenza </a> al fine di utilizzarlo di nuovo."
+msgstr "Votre licence a expiré . Vous devez <a href=\"%s\"> vous réengager  </a> afin d'utiliser de pouvoir continuer à utiliser la version pro du plugin ."
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:239
 msgid "Failed to activate your license, your license key seems to be invalid."
-msgstr "Impossibile attivare la licenza, la chiave di licenza sembra non essere valida."
+msgstr "L'activation de votre licence a échoué , votre clé de licence semble être invalide ."
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:264
 msgid "Your %s license has been deactivated."
-msgstr "La vostra licenza %s non è attiva."
+msgstr "Votre %s licence a été desactivé"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:266
 msgid "Failed to deactivate your %s license."
-msgstr "Impossibile disattivare la licenza %s."
+msgstr "La désactivation de votre %s licence a echoué"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:304
 msgid "Request error: \"%s\""
-msgstr "Richiesta di errore: \"%s\""
+msgstr "La demande a echoué: %s"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:463
 msgid "%s: License Settings"
-msgstr "%s: Impostazioni licenza"
+msgstr "%s: Paramètres de Licence"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-plugin-license-manager.php:67
 msgid "%s is network activated, please contact your site administrator to manage the license."
-msgstr "%s la rete è attiva, contattare l'amministratore del sito per gestire la licenza."
+msgstr "%s est activé sur le réseau, veuillez contacter votre webmaster pour gérer votre licence."
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-update-manager.php:69
 msgid "%s failed to check for updates because of the following error: <em>%s</em>"
-msgstr "%s non è riuscito a controllare gli aggiornamenti a causa del seguente errore: <em>%s</ em>"
+msgstr "%s la vérification des mises à jours a échoué à cause de l'erreur suivante : <em>%s</em>"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-update-manager.php:131
 msgid "This site has not been activated properly on dannyvankooten.com and thus cannot check for future updates. Please activate your site with a valid license key."
-msgstr "Questo sito non è stato attivato correttamente su dannyvankooten.com e quindi non in grado di controllare gli aggiornamenti futuri. Si prega di attivare il tuo sito con una chiave di licenza valida."
+msgstr "Ce site n'a pas été activé correctement sur dannyvankooten.com, ce qui rend impossible la vérification des mises à jours et donc ne peut pas vérifier les mises à jour futures . Veuillez  vous rendre sur dannyvankooten.com et activer votre site avec une clé de licence valide."
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:23
 msgid "License status"
-msgstr "Stato licenza"
+msgstr "Status de la licence"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:33
 msgid "Toggle license status"
-msgstr "Toggle stato licenza"
+msgstr "Basculez l'état de la License "
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:37
 msgid "Deactivate License"
-msgstr "Disattivare Licenza"
+msgstr "Désactiver la licence"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:38
 msgid "(deactivate your license so you can activate it on another WordPress site)"
-msgstr "(disattivare la licenza in modo da poterla attivare su un altro sito WordPress)"
+msgstr "(En désactivant votre License, vous pourrez réutiliser votre licence sur un autre site wordpress)"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:42
 msgid "Activate License"
-msgstr "Attivare Licenza"
+msgstr "Activer la licence"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:44
 msgid "Please enter a license key in the field below first."
-msgstr "Prima inserisci una chiave di licenza nel campo sottostante."
+msgstr "Entrez une clef de licence dans le champs ci-dessous"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:52
 msgid "License Key"
-msgstr "Chiave Licenza"
+msgstr "Clef de licence"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:54
 msgid "Paste your license key here, as found in the email receipt."
-msgstr ""
-"\n"
-"Incollare la chiave di licenza qui, come si trova nella ricevuta email."
+msgstr "Collez votre clef de licence que vous avez reçus par email ici."
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:56
 msgid "You defined your license key using the %s PHP constant."
-msgstr "Definisci la tua chiave di licenza usando la %s costante PHP."
+msgstr "Utilisez la constante PHP %s pour définir votre clef de licence."
