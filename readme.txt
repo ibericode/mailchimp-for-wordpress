@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/
 Tags: mailchimp,newsletter,optin,mailinglist,sign-up form,subscribe,form,shortcode,widget,checkbox,comment,buddypress,multisite,bbpress,woocommerce,easy digital downloads,contact form,contact form 7,events manager,comment form,registration form,captcha
 Requires at least: 3.6
 Tested up to: 4.0
-Stable tag: 2.1.3
+Stable tag: 2.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -246,7 +246,7 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Changelog ==
 
-= Trunk =
+= 2.1.4 - October 13, 2014 =
 
 **Fixes**
 
@@ -258,10 +258,11 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 - Minor improvements to memory usage and performance
 - Improved sanitization on third-party integrations
+- Translate debug messages for checkbox integrations
 
 **Additions**
 
-- Submitted form now get `mc4wp-form-submitted` class.
+- Submitted form now get `mc4wp-form-submitted` CSS class.
 - Added `mc4wp_cookie_expiration_time` to alter expiration time of email cookie. Defaults to 30 days.
 
 
