@@ -163,10 +163,12 @@ abstract class MC4WP_Integration {
 		if( empty( $lists) ) {
 			if( ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) && current_user_can( 'manage_options' ) ) {
 				wp_die(
-					'<h3>MailChimp for WP - Error</h3>
-					<p>Please select a list to subscribe to in the <a href="'. admin_url( 'admin.php?page=mc4wp-lite-checkbox-settings' ) .'">checkbox settings</a>.</p>
-					<p style="font-style:italic; font-size:12px;">This message is only visible to administrators for debugging purposes.</p>',
-					'Error - MailChimp for WP', array( 'back_link' => true ) );
+					'<h3>' . __( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ) . '</h3>' .
+					'<p>' . sprintf( __( 'Please select a list to subscribe to in the <a href="%s">checkbox settings</a>.', 'mailchimp-for-wp' ), admin_url( 'admin.php?page=mc4wp-lite-checkbox-settings' ) ) . '</p>' .
+					'<p style="font-style:italic; font-size:12px;">' . __( 'This message is only visible to administrators for debugging purposes.', 'mailchimp-for-wp' ) . '</p>',
+					__( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ),
+					array( 'back_link' => true )
+				);
 			}
 
 			return 'no_lists_selected';
@@ -208,16 +210,16 @@ abstract class MC4WP_Integration {
 
 		// check if result succeeded, show debug message to administrators (only in NON-AJAX requests)
 		if ( $result !== true && $api->has_error() && current_user_can( 'manage_options' ) && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) && ( ! isset( $_POST['_wpcf7_is_ajax_call'] ) || $_POST['_wpcf7_is_ajax_call'] != 1 ) ) {
-			wp_die( "<h3>MailChimp for WP - Error</h3>
-					<p>The MailChimp server returned the following error message as a response to our sign-up request:</p>
-					<pre>" . $api->get_error_message() . "</pre>
-					<p>This is the data that was sent to MailChimp: </p>
-					<strong>Email</strong>
-					<pre>{$email}</pre>
-					<strong>Merge variables</strong>
-					<pre>" . print_r( $merge_vars, true ) . "</pre>
-					<p><small>This message is only visible to administrators for debugging purposes.</small></p>
-					", "Error - MailChimp for WP", array( 'back_link' => true ) );
+			wp_die( '<h3>' . __( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ) . '</h3>' .
+					'<p>' . __( 'The MailChimp server returned the following error message as a response to our sign-up request:', 'mailchimp-for-wp' ) . '</p>' .
+					'<pre>' . $api->get_error_message() . '</pre>' .
+					'<p>' . __( 'This is the data that was sent to MailChimp:', 'mailchimp-for-wp' ) . '</p>' .
+					'<strong>' . __( 'Email address:', 'mailchimp-for-wp' ) . '</strong>' .
+					'<pre>' . esc_html( $email ) . '</pre>' .
+					'<strong>' . __( 'Merge variables:', 'mailchimp-for-wp' ) . '</strong>' .
+					'<pre>' . esc_html( print_r( $merge_vars, true ) ) . '</pre>' .
+			        '<p style="font-style:italic; font-size:12px;">' . __( 'This message is only visible to administrators for debugging purposes.', 'mailchimp-for-wp' ) . '</p>',
+					__( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ), array( 'back_link' => true ) );
 		}
 
 		return $result;
