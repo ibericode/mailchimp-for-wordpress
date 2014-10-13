@@ -1,0 +1,1327 @@
+# Translation of MailChimp for WordPress in Hungarian
+# This file is distributed under the same license as the MailChimp for WordPress package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2014-09-19 11:32:49+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/0.1\n"
+"Project-Id-Version: MailChimp for WordPress\n"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:26
+msgid "ACTIVE"
+msgstr ""
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:26
+msgid "you are receiving updates"
+msgstr ""
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:28
+msgid "INACTIVE"
+msgstr ""
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:28
+msgid "you are <strong>not</strong> receiving updates."
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/class-widget.php:68
+msgid "You can edit your sign-up form in the %sMailChimp for WordPress form settings%s."
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/functions/general.php:44
+msgid "Thank you, your sign-up request was successful! Please check your e-mail inbox."
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/api-settings.php:112
+msgid "No lists were found in your MailChimp account"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:15
+msgid "To use the MailChimp sign-up form, configure the form below and then either paste %s in the content of a post or page or use the  widget."
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:20
+msgid "Required form settings"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:41
+msgid "If you want to load some default CSS styles, select \"basic formatting styles\" or choose one of the color themes"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:63
+msgid "Select the list(s) to which people who submit this form should be subscribed."
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:69
+msgid "Form mark-up"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:158
+msgid "Form Settings & Messages"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:192
+msgid "Example: %s"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:197
+msgid "Success message"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:201
+msgid "Invalid email address message"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:205
+msgid "Required field missing message"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:209
+msgid "Already subscribed message"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:214
+msgid "Invalid CAPTCHA message"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:219
+msgid "General error message"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:249
+msgid "Form variables"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:12
+msgid "Use the tool below to generate the HTML for your form fields."
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:68
+msgid "Select at least one list first."
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/parts/admin-footer.php:9
+msgid "Enjoying this plugin? <a href=\"%s\">Upgrade to MailChimp for WordPress Pro now</a> for an even better plugin, you will love it."
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/views/parts/admin-footer.php:10
+msgid "This plugin is not developed by or affiliated with MailChimp in any way."
+msgstr ""
+
+msgid "Adds various sign-up methods to your website."
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/class-admin.php:149
+#: mailchimp-for-wordpress/includes/class-admin.php:163
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/class-admin.php:327
+#: mailchimp-for-wordpress/includes/class-admin.php:331
+#: mailchimp-for-wordpress/includes/views/form-settings.php:29
+#: mailchimp-for-wordpress/includes/views/form-settings.php:36
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:20
+msgid "(PRO ONLY)"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/class-widget.php:20
+msgid "MailChimp Sign-Up Form"
+msgstr ""
+
+#: mailchimp-for-wordpress/includes/class-widget.php:21
+msgid "Displays your MailChimp for WordPress sign-up form"
+msgstr ""
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:33
+msgid "Subscriber Log"
+msgstr ""
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:34
+msgid "Subscriber Logs"
+msgstr ""
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:116
+msgid "Log items deleted."
+msgstr ""
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:73
+msgid "Your %s license will expire on %s."
+msgstr "%s licensz lejár ekkor: %s."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:76
+msgid "%sRenew your license now%s."
+msgstr "%slicensz frissítése most%s."
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:35
+msgid "ID"
+msgstr "azonosító"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:36
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:228
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:343
+msgid "Form"
+msgstr "Űrlap"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:37
+msgid "Shortcode"
+msgstr "Gyorskód"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:38
+msgid "List(s)"
+msgstr "Lista"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:39
+msgid "Last edited"
+msgstr "Utoljára módosítva"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:76
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:80
+msgid "Edit Form"
+msgstr "Űrlap szerkesztése"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:77
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:188
+msgid "Delete"
+msgstr "Törlés"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:98
+msgid "No MailChimp list(s) selected yet."
+msgstr "Nincsen(ek) MailChimp listá(k) kiválasztva."
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:105
+msgid "You have not created any sign-up forms yet. Time to do so!"
+msgstr "Még nem hozott létre feliratkozás űrlapot. Épp itt az ideje!"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:53
+msgid "Email"
+msgstr "Email"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:54
+msgid "List"
+msgstr "Lista"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:55
+msgid "Type"
+msgstr "Típus"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:56
+msgid "Source"
+msgstr "Forrás"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:57
+msgid "Extra data"
+msgstr "Extra adat"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:58
+msgid "Subscribed"
+msgstr "Feliratkozva"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:209
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:217
+msgid "Comment"
+msgstr "Megjegyzés"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:209
+msgid "deleted"
+msgstr "törölve"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:221
+msgid "Registration"
+msgstr "Regisztráció"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:237
+msgid "MultiSite registration"
+msgstr "MultiSite regisztráció"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:241
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:245
+msgid "Checkout"
+msgstr "Pénztár"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:250
+msgid "Contact Form 7"
+msgstr "Contact Form 7"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:254
+msgid "bbPress: New Topic"
+msgstr "bbPress: új téma"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:258
+msgid "bbPress: New Reply"
+msgstr "bbPress: új válasz"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:264
+msgid "Other Form"
+msgstr "Egyéb űrlap"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:314
+msgid "No subscribe requests found."
+msgstr "Nem találtam feliratkozási kéréseket."
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:337
+msgid "All"
+msgstr "Mind"
+
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:349
+msgid "Checkbox"
+msgstr "Jelölőnégyzet"
+
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:8
+msgid "Any settings you specify here will override the <a href=\"%s\">general form settings</a>. If no setting is specified, the corresponding general setting value will be used."
+msgstr "Az itt megadott beállítások felülbírálják az <a href=\"%s\">általános űrlap beállítások</a>nál megadottakat. Ha itt nincs megadva valami, akkor a megfelelő általános beállítás lesz használva."
+
+#: mailchimp-for-wordpress/includes/class-admin.php:160
+#: mailchimp-for-wordpress/includes/views/api-settings.php:12
+#: mailchimp-for-wordpress/includes/views/form-settings.php:106
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:10
+msgid "MailChimp Settings"
+msgstr "MailChimp beállítások"
+
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:48
+#: mailchimp-for-wordpress/includes/views/form-settings.php:109
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:13
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:51
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:55
+msgid "Double opt-in?"
+msgstr "Dupla megerősítés?"
+
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:25
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:45
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:64
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:83
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:106
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:124
+msgid "Inherit"
+msgstr "Örököl"
+
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:59
+#: mailchimp-for-wordpress/includes/views/form-settings.php:120
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:28
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:53
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:66
+msgid "Select \"yes\" if you want people to confirm their email address before being subscribed (recommended)"
+msgstr "Válassza az „Igen”-t, ha a feliratkozóknak meg kell erősíteniük az emailcímüket (ajánlott)"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:133
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:33
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:78
+msgid "Update existing subscribers?"
+msgstr "Meglévő feliratkozók frissítése?"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:140
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:47
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:89
+msgid "Select \"yes\" if you want to update existing subscribers (instead of showing the \"already subscribed\" message)."
+msgstr "Ha „Igen”, akkor a „Már feliratkozott” üzenet megjelenítése helyett a meglévő feliratkozó adatai frissülnek."
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:143
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:52
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:93
+msgid "Replace interest groups?"
+msgstr "Érdeklődési körök cseréje?"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:154
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:66
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:104
+msgid "Select \"yes\" if you want to replace the interest groups with the groups provided instead of adding the provided groups to the member's interest groups (only when updating a subscriber)."
+msgstr "Ha „Igen”-t választ, akkor a feliratkozó érdeklődési körei az újonnan megadott(ak)ra lesz cserélve, és nem a meglévő(k)höz lesz hozzáadva (csak a feliratkozók frissítése estén)."
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:123
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:71
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:57
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:70
+msgid "Send Welcome Email?"
+msgstr "Üdvözlő email küldése?"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:130
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:86
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:64
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:75
+msgid "Select \"yes\" if you want to send your lists Welcome Email if a subscribe succeeds (only when double opt-in is disabled)."
+msgstr "Ha „Igen”-t választ, akkor a feliratkozók kapnak egy üdvözlő email (csak ha nincs dupla megerősítés)."
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:162
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:94
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:113
+msgid "Enable AJAX form submission?"
+msgstr "Legyen AJAX alapú a beküldés?"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:173
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:108
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:118
+msgid "Select \"yes\" if you want to use AJAX (JavaScript) to submit forms."
+msgstr "Ha „Igen”-t választ, akkor az űrlap adatai AJAX (JavaScript) segítéségvel lesznek elküldve."
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:176
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:112
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:121
+msgid "Hide form after a successful sign-up?"
+msgstr "Űrlap elrejtése a sikeres feliratkozás után?"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:187
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:126
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:126
+msgid "Select \"yes\" to hide the form fields after a successful sign-up."
+msgstr "Ha „Igen”,  akkor sikeres feliratkozás után el lesznek rejtve az űrlap mezői."
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:190
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:130
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:129
+msgid "Redirect to URL after successful sign-ups"
+msgstr "Átirányítás az URL-re sikeres feliratkozás után"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:193
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:133
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:132
+msgid "Leave empty or enter 0 for no redirection. Use complete (absolute) URLs, including <code>http://</code>"
+msgstr "Maradjon üres, vagy legyen benn 0, ha nem kell átirányítás. Használjon teljes (abszolút) URLeket, az elején legyen <code>http://</code>"
+
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:137
+msgid "Send an email copy of the form data?"
+msgstr "Kell email másolat az űrlap adataival?"
+
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:141
+msgid "Tick \"yes\" if you want to receive an email with the form data for every sign-up request."
+msgstr "Ha „Igen”, akkor minden feliratkozási kérésről kap egy emailt az űrlap adataival."
+
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:144
+msgid "Send the copy to this email:"
+msgstr "Az email másolat ide menjen:"
+
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:150
+msgid "Messages"
+msgstr "Üzenetek"
+
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:153
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:140
+msgid "Success"
+msgstr "Siker"
+
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:157
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:145
+msgid "Invalid email address"
+msgstr "Érvénytelen emailcím"
+
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:161
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:149
+msgid "Required field missing"
+msgstr "Kötelező mező nincs kitöltve"
+
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:165
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:153
+msgid "Already subscribed"
+msgstr "Már feliratkozott"
+
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:170
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:159
+msgid "Invalid CAPTCHA"
+msgstr "Érvénytelen CAPTCHA"
+
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:175
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:164
+msgid "Other errors"
+msgstr "Egyéb hibák"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:225
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:181
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:169
+msgid "HTML tags like %s are allowed in the message fields."
+msgstr "HTML elemek (például: %s) lehetnek az üzenet mezőkben."
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:45
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:14
+msgid "Lists this form subscribes to"
+msgstr "Ez az űrlap ezekre a listákra iratkoztat fel"
+
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:35
+#: mailchimp-for-wordpress/includes/views/form-settings.php:48
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:17
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:38
+msgid "No lists found, %sare you connected to MailChimp?%s"
+msgstr "Nem találtam listát, %sössze van kötve a MailChimppel?%s"
+
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:10
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:29
+msgid "Add a new field"
+msgstr "Új mező hozzáadása"
+
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:15
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:32
+msgid "Select MailChimp field.."
+msgstr "Válasszon MailChimp mezőt..."
+
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:19
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:36
+msgid "Submit Button"
+msgstr "Elküldés gomb"
+
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:20
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:37
+msgid "Lists Choice"
+msgstr "Listás kiválasztó elem"
+
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:28
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:45
+msgid "Label"
+msgstr "Címke"
+
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:28
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:33
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:38
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:45
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:50
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:55
+msgid "(optional)"
+msgstr "(opcionális)"
+
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:33
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:50
+msgid "Placeholder"
+msgstr "Helyőrző"
+
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:38
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:55
+msgid "Initial value"
+msgstr "Kezdeti érték"
+
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:43
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:60
+msgid "Labels"
+msgstr "Címkék"
+
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:43
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:60
+msgid "(leave empty to hide)"
+msgstr "(ha üres, akkor nem jelenik meg)"
+
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:48
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:65
+msgid "Wrap in paragraph %s tags?"
+msgstr "Legyen bekezdés elembe (%s) foglalva?"
+
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:53
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:69
+msgid "Required field?"
+msgstr "Kötelező mező?"
+
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:57
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:73
+msgid "Add to form"
+msgstr "Űrlapra rak"
+
+#: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:61
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:77
+msgid "Generated HTML"
+msgstr "Generált HTML"
+
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:86
+msgid "Form usage"
+msgstr "Űrlap használat"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:92
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:87
+msgid "Use the shortcode %s to display this form inside a post, page or text widget."
+msgstr "Használja a %s gyorskódot az űrlap megjelenítéséhez bejegyzésben, oldalon vagy widgetben."
+
+msgid "MailChimp for WordPress"
+msgstr "MailChimp for WordPress"
+
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:11
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:11
+msgid "Checkbox Settings"
+msgstr "Jelölőnégyzet beállítások"
+
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:16
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:14
+msgid "To use sign-up checkboxes, select at least one list and one form to add the checkbox to."
+msgstr "A feliratkozás jelölőnégyzet használatához válasszon legalább egy listát és egy űrlapot."
+
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:21
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:21
+msgid "MailChimp settings for checkboxes"
+msgstr "MailChimp beállítások a jelölőnégyzetekhez"
+
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:25
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:26
+msgid "If you want to use sign-up checkboxes, select at least one MailChimp list to subscribe people to."
+msgstr "Ha használni szeretné a feliratkozás jelölőnégyzetet, válasszon ki legalább egy MailChimp listát a feliratkoztatáshoz."
+
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:31
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:34
+msgid "MailChimp Lists"
+msgstr "MailChimp listák"
+
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:42
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:45
+msgid "Select the list(s) to which people who check the checkbox should be subscribed."
+msgstr "Válassza ki a listá(ka)t, amelyre az űrlapot kitöltők fel lesznek iratva."
+
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:63
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:68
+msgid "Checkbox settings"
+msgstr "Jelölőnégyzet beállítások"
+
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:67
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:71
+msgid "Add the checkbox to these forms"
+msgstr "Legyen jelölőnégyzet ezeken az űrlapokon"
+
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:79
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:78
+msgid "Selecting a form will automatically add the sign-up checkbox to it."
+msgstr "A kijelölt űrlapokhoz automatikusan hozzá lesz adva a feliratkozás jelölőnégyzet."
+
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:86
+msgid "Use %s in your Contact Form 7 mark-up to add a sign-up checkbox to your CF7 forms.</p>"
+msgstr "Használja ezt: %s a Contact Form 7 kódot, a feliratkozás jelölőnégyzet CF7 űrlap(ok)ba való berakásához.</p>"
+
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:83
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:91
+msgid "Checkbox label text"
+msgstr "Jelölőnégyzethez tartozó felirat."
+
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:86
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:94
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:134
+msgid "HTML tags like %s are allowed in the label text."
+msgstr "HTML elemek (például %s) lehetnek a címkék szövegeiben."
+
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:90
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:98
+msgid "Pre-check the checkbox?"
+msgstr "Jelölőnégyzet bejelölése előre?"
+
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:95
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:103
+msgid "Load some default CSS?"
+msgstr "Kell némi alap CSS?"
+
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:97
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:105
+msgid "Select \"yes\" if the checkbox appears in a weird place."
+msgstr "Válassza az „Igen”-t, ha a jelölő négyzet fura helyen jelenik meg."
+
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:108
+msgid "WooCommerce checkbox position"
+msgstr "WooCommerce jelölőnégyzet helye"
+
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:111
+msgid "After the billing details"
+msgstr "A számlázási adatok után"
+
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:112
+msgid "After the additional information"
+msgstr "A további információk után"
+
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:115
+msgid "Choose the position for the checkbox in your WooCommerce checkout form."
+msgstr "Válassza ki a jelölőnégyzet helyét a WooCommerce fizetési űrlapon."
+
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:122
+msgid "Custom label texts"
+msgstr "Egyedi címke szövegek"
+
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:123
+msgid "Override the default checkbox label text for any given checkbox using the fields below."
+msgstr "Bármely jelölőnégyzet alap szövege felülbírálható az alábbi mezők segítségével."
+
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-form-settings.php:13
+msgid "Forms & Settings"
+msgstr "Űrlapok és beállítások"
+
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-form-settings.php:14
+msgid "CSS Styles Builder"
+msgstr "CSS stílus készítő"
+
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:10
+msgid "License & API Settings"
+msgstr "Licensz és API beállítások"
+
+#: mailchimp-for-wordpress/includes/views/api-settings.php:22
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:19
+msgid "API Settings"
+msgstr "API beállítások"
+
+#: mailchimp-for-wordpress/includes/views/api-settings.php:24
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:21
+msgid "CONNECTED"
+msgstr "ÖSSZEKÖTVE"
+
+#: mailchimp-for-wordpress/includes/views/api-settings.php:26
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:23
+msgid "NOT CONNECTED"
+msgstr "NINCS ÖSSZEKÖTVE"
+
+#: mailchimp-for-wordpress/includes/views/api-settings.php:32
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:29
+msgid "API Key"
+msgstr "API kulcs"
+
+#: mailchimp-for-wordpress/includes/views/api-settings.php:34
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:31
+msgid "Your MailChimp API key"
+msgstr "A MailChimp API kulcs"
+
+#: mailchimp-for-wordpress/includes/views/api-settings.php:35
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:32
+msgid "Get your API key here."
+msgstr "API kulcsot itt szerezhet."
+
+#: mailchimp-for-wordpress/includes/views/api-settings.php:47
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:48
+msgid "MailChimp Data"
+msgstr "MailChimp adatok"
+
+#: mailchimp-for-wordpress/includes/views/api-settings.php:48
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:49
+msgid "The table below shows your MailChimp lists data. If you applied changes to your MailChimp lists, please use the following button to renew your cached data."
+msgstr "Az alábbi táblázatban láthatók a MailChimp listáinak adatai. Ha változtatott a MailChimp listáin, akkor használja az alábbi gombot a gyorsítótárban lévő adatok frissítéséhez."
+
+#: mailchimp-for-wordpress/includes/views/api-settings.php:54
+#: mailchimp-for-wordpress/includes/views/api-settings.php:125
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:55
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:126
+msgid "Renew MailChimp lists"
+msgstr "MailChimp listák frissítése"
+
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:113
+msgid "No lists were found in your MailChimp account."
+msgstr "Nem találtam listá(ka)t a MailChimp fiókjában."
+
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-reports.php:14
+msgid "Statistics"
+msgstr "Statisztika"
+
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-reports.php:15
+msgid "Log"
+msgstr "Napló"
+
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-footer.php:9
+msgid "Need help? Have a look at the <a href=\"%s\">plugin documentation</a> or email me directly at <a href=\"%s\">support@mc4wp.com</a>."
+msgstr "Segítség kell? Nézzen bele a <a href=\"%s\">bővítmény dokumentáció</a>jába vagy írjon emailt nekem a <a href=\"%s\">support@mc4wp.com</a> címre!"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:257
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:13
+msgid "Replaced with the form response (error or success messages)."
+msgstr "Lecserélve az űrlap válasz üzenetére (hiba vagy siker üzenet)."
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:262
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:18
+msgid "Replaced with a captcha field."
+msgstr "Lecserélve egy captcha mezőre."
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:267
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:23
+msgid "Replaced with the number of subscribers on the selected list(s)"
+msgstr "Lecserélve a feliratkozók számára a kijelölt listá(k)ban."
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:271
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:27
+msgid "Replaced with the current site language, eg: %s"
+msgstr "Lecserélve a weboldal aktuális nyelvére, pl.: %s"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:275
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:31
+msgid "Replaced with the visitor's IP address"
+msgstr "Lecserélve a látogató IP címére."
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:279
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:35
+msgid "Replaced with the current date (yyyy/mm/dd eg: %s)"
+msgstr "Lecserélve az aktuális dátumra (éééé/hh/nn, pl.: %s)."
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:283
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:39
+msgid "Replaced with the current time (hh:mm:ss eg: %s)"
+msgstr "Lecserélve az aktuális időre (óó:pp:mm, pl.: %s)."
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:287
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:43
+msgid "Replaced with the logged in user's email (or nothing, if there is no logged in user)"
+msgstr "Lecserélve a belépett felhasználó emailcímére (vagy üres lesz, ha nincs belépett felhasználó)."
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:291
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:47
+msgid "First name of the current user"
+msgstr "Aktuális felhasználó keresztneve"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:295
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:51
+msgid "Last name of the current user"
+msgstr "Aktuális felhasználó vezetékneve"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:299
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:55
+msgid "Current user ID"
+msgstr "Aktuális felhasználó azonosító"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:303
+#: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:59
+msgid "Current URL"
+msgstr "Aktuális URL"
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:10
+msgid "Use the fields below to create custom styling rules for your forms."
+msgstr "Használja az alábbi mezőket, hogy egyedi stílus-szabályokat adjon meg az űrlapokhoz."
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:15
+msgid "Select form to build styles for:"
+msgstr "Válasszon űrlapot a stílusokhoz:"
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:26
+msgid "Create at least one form first."
+msgstr "Előbb legalább egy űrlapot hozzon létre."
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:41
+msgid "You need to have JavaScript enabled to see a preview of your form."
+msgstr "Szükség van JavaScriptre az űrlap előnézetének megtekintéséhez."
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:223
+msgid "Are you sure you want to delete all custom styles for this form?"
+msgstr "Biztosan minden egyedi stílust törölni akar erről az űrlapról?"
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:223
+msgid "Delete Form Styles"
+msgstr "Űrlap stílusok törlése"
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:224
+msgid "Use to delete all styles for this form"
+msgstr "Ezzel az összes stílust törölheti erről az űrlapról"
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:231
+msgid "Build CSS File"
+msgstr "Alap CSS fájl"
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:8
+msgid "Sign-Up Forms"
+msgstr "Feliratkozás űrlapok"
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:8
+msgid "Create New Form"
+msgstr "Új űrlap létrehozása"
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:16
+msgid "General form settings"
+msgstr "Általános űrlap beállítások"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:24
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:19
+msgid "Load form styles (CSS)?"
+msgstr "Űrlap stílusok betöltése (CSS)?"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:28
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:23
+msgid "Yes, load basic form styles"
+msgstr "Igen, alap űrlap stílusok betöltése"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:29
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:24
+msgid "Yes, load my custom form styles"
+msgstr "Igen, egyedi űrlap stílusok betöltése"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:30
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:25
+msgid "Yes, load default form theme"
+msgstr "Igen, alap űrlap stílusok betöltése"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:31
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:26
+msgid "Light Theme"
+msgstr "Világos sablon"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:32
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:27
+msgid "Red Theme"
+msgstr "Piros sablon"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:33
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:28
+msgid "Green Theme"
+msgstr "Zöld sablon"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:34
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:29
+msgid "Blue Theme"
+msgstr "Kék sablon"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:35
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:30
+msgid "Dark Theme"
+msgstr "Sötét sablon"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:36
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:31
+msgid "Custom Color Theme"
+msgstr "Egyedi színű sablon"
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:36
+msgid "If you %screated a custom stylesheet%s and want it to be loaded, select \"custom form styles\". Otherwise, choose the basic formatting styles or one of the default themes."
+msgstr "Ha %skészített egyedi stíluslapot%s és használni szeretné, válassza „Igen, egyedi űrlap stílusok betöltése” opciót. Egyébként, válassza az alap stílust vagy az alap sablonok egyikét."
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:40
+msgid "Select Color"
+msgstr "Válasszon színt"
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:48
+msgid "Save all changes"
+msgstr "Változások mentése"
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:50
+msgid "Default MailChimp settings"
+msgstr "Alap MailChimp beállítások"
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:51
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:109
+msgid "The following settings apply to <strong>all</strong> forms but can be overridden on a per-form basis."
+msgstr "Az alábbi beállítások <strong>minden</strong> űrlapra vonatkoznak, de mindnél egyesével felülbírálható."
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:108
+msgid "Default Form Settings"
+msgstr "Alap űrlap beállítások"
+
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:137
+msgid "Default Messages"
+msgstr "Alap üzenetek"
+
+msgid "https://mc4wp.com/"
+msgstr "https://mc4wp.com/"
+
+msgid "Danny van Kooten"
+msgstr "Danny van Kooten"
+
+msgid "http://dannyvankooten.com"
+msgstr "http://dannyvankooten.com"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:130
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:172
+msgid "Settings"
+msgstr "Beállítások"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:191
+msgid "Documentation"
+msgstr "Dokumentáció"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:234
+msgid "Save Form"
+msgstr "Űrlap mentése"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:238
+msgid "Update Form"
+msgstr "Űrlap frissítése"
+
+#: mailchimp-for-wordpress/includes/functions/general.php:22
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:271
+msgid "Your email address"
+msgstr "Az emailcímed"
+
+#: mailchimp-for-wordpress/includes/functions/general.php:21
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:272
+msgid "Email address"
+msgstr "Emailcím"
+
+#: mailchimp-for-wordpress/includes/functions/general.php:23
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:273
+msgid "Sign up"
+msgstr "Feliratkozás"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:289
+msgid "Back to general form settings"
+msgstr "Vissza az általános űrlap beállításokhoz"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:291
+msgid "Form updated."
+msgstr "Űrlap frissítve."
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:292
+msgid "Form saved."
+msgstr "Űrlap mentve."
+
+#: mailchimp-for-wordpress/includes/class-admin.php:395
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:300
+msgid "An EMAIL field. Example: <code>%s</code>"
+msgstr "Egy EMAIL mező. Például: <code>%s</code>"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:401
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:306
+msgid "A submit button. Example: <code>%s</code>"
+msgstr "Egy elküldés gomb. Például: <code>%s</code>"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:401
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:306
+msgid "Sign Up"
+msgstr "Feliratkozás"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:426
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:334
+msgid "A '%s' field"
+msgstr "Egy „%s” mező"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:75
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:346
+msgid "Your form is missing the following (required) form fields:"
+msgstr "Hiányoznak az űrlapról a következő (kötelező) mezők:"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:9
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:418
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:91
+msgid "Form Settings"
+msgstr "Űrlap beállítások"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:419
+msgid "Optional Settings"
+msgstr "Opcionális beállítások"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:420
+msgid "Form Variables"
+msgstr "Űrlap változók"
+
+#: mailchimp-for-wordpress/includes/views/form-settings.php:250
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:460
+msgid "Use the following variables to add some dynamic content to your form."
+msgstr "Az alábbi változókkal dinamikus tartalom kerülhet az űrlapba."
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:558
+msgid "MailChimp & License"
+msgstr "MailChimp és licensz"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:161
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:559
+msgid "Checkboxes"
+msgstr "Jelölőnégyzetek"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:162
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:560
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-form-settings.php:10
+msgid "Forms"
+msgstr "Űrlapok"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:561
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-reports.php:10
+msgid "Reports"
+msgstr "Jelentések"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:310
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:658
+msgid "Comment form"
+msgstr "Hozzászólás űrlap"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:311
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:659
+msgid "Registration form"
+msgstr "Regisztréciós űrlap"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:315
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:663
+msgid "MultiSite forms"
+msgstr "MultiSite űrlap"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:319
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:667
+#: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:233
+msgid "BuddyPress registration"
+msgstr "BuddyPress regisztráció"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:675
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:679
+msgid "%s checkout"
+msgstr "%s kifizetése"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:715
+msgid "Please make sure the plugin is connected to MailChimp. <a href=\"%s\">Provide a valid API key.</a>"
+msgstr "Kérjük kösse össze a bővítményt a MailChimppel. <a href=\"%s\">Adjon meg érvényes API kulcsot!</a>"
+
+#: mailchimp-for-wordpress/includes/class-admin.php:360
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:725
+msgid "Renewed MailChimp cache."
+msgstr "MailChimp gyorstár frissítve."
+
+#: mailchimp-for-wordpress/includes/class-admin.php:362
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:727
+msgid "Failed to renew MailChimp cache - please try again later."
+msgstr "Nem sikerült a MailChimp gyorsítótár frissítése - kérjük, próbálja később."
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:817
+msgid "End date can't be before the start date"
+msgstr "A befejezés dátuma nem lehet a kézdés dátuma előtt."
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:849
+msgid "You disabled logging using the %s filter. Re-enable it to use the Reports page."
+msgstr "Kikapcsolta a naplózást a %s szűrővel. Engedélyezze újra a Jelentések oldal használatához."
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:865
+msgid "<strong>Welcome to MailChimp for WordPress Pro!</strong> We transfered the settings you had set in the Lite version, please <a href=\"%s\">deactivate it now</a> to prevent problems"
+msgstr "<strong>Üdvözli a MailChimp for WordPress Pro!</strong> Átvettük a Lite verzó beállításait. Kérjük, <a href=\"%s\">kapcsolja ki a Lite verziót most</a>, hogy elkerülje a későbbi problémákat."
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-styles-builder.php:319
+msgid "Couldn't create the stylesheet. Manually add the generated CSS to your theme stylesheet by using the %sTheme Editor%s or use FTP and edit <em>%s</em>."
+msgstr "Nem sikerült létrehozni a stíluslapot. Adja kézzel a generált CSS kódot a sablon stíluslapjához a %sSablon szerkesztő%svel vagy használjon FTPt és szerkessze ezt: <em>%s</em>."
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-styles-builder.php:320
+msgid "%sShow generated CSS%s"
+msgstr "%sLétrehozott CSS megjelenítése%s"
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-styles-builder.php:330
+msgid "To apply these styles on your website, select \"load custom form styles\" in the %sform settings%s"
+msgstr "Ezen stílusok alkalmazásához a weboldalon, válassza „Igen, egyedi űrlap stílusok betöltése” opciót az %sŰrlap beállítások%snál."
+
+#: mailchimp-for-wordpress-pro/includes/admin/class-styles-builder.php:331
+msgid "The %sCSS Stylesheet%s has been created."
+msgstr "A %sCSS stíluslap%s létrehozva."
+
+#: mailchimp-for-wordpress-pro/includes/class-form-manager.php:241
+msgid "<strong>Error:</strong> Please specify a form ID. Example: %s."
+msgstr "<strong>Hiba:</strong> kérjük, adjon meg egy űrlap azonosítót. Példa: %s."
+
+#: mailchimp-for-wordpress-pro/includes/class-form-manager.php:255
+msgid "<strong>Error:</strong> Sign-up form not found. Please check if you used the correct form ID."
+msgstr "<strong>Hiba:</strong> nem találtam feliratkozás űrlapot. Kérjük, ellenőrizze, hogy a jó űrlap azonosítót adott meg."
+
+#: mailchimp-for-wordpress-pro/includes/class-form-request.php:453
+msgid "New Sign-Up"
+msgstr "Új feliratkozás"
+
+#: mailchimp-for-wordpress-pro/includes/class-form-request.php:454
+msgid "<strong>%s</strong> signed-up at %s on %s using the form \"%s\"."
+msgstr "<strong>%s</strong> feliratkozott %s weboldalon %s napon a(z) „%s” űrlap segítségével."
+
+#: mailchimp-for-wordpress-pro/includes/class-form-request.php:495
+msgid "Note that you've enabled double opt-in for the \"%s\" form. The user won't be added to the selected MailChimp lists until they confirm their email address."
+msgstr "Engedélyezte a dupla megerősítést a(z) „%s” űrlaphoz. A feliratkozók nem kerülnek be a MailChimp listákba, amíg nem erősítik meg az emailcímüket."
+
+#: mailchimp-for-wordpress-pro/includes/class-form-request.php:498
+msgid "This email was auto-sent by the MailChimp for WordPress plugin."
+msgstr "Ezt az emailt a MailChimp for WordPress bővítmény automatikusan küldte."
+
+#: mailchimp-for-wordpress-pro/includes/class-widget.php:20
+msgid "MailChimp for WP Form"
+msgstr "MailChimp for WP űrlap"
+
+#: mailchimp-for-wordpress-pro/includes/class-widget.php:21
+msgid "Displays one of your MailChimp for WordPress sign-up forms"
+msgstr "Megjeleníti az egyik MailChimp for WordPress feliratkozás űrlapot"
+
+#: mailchimp-for-wordpress-pro/includes/class-widget.php:39
+msgid "Please select the sign-up form you'd like to show here in the <a href=\"%s\">widget settings</a>."
+msgstr "Válassza ki az itt megjelenítendő feliratkozás űrlapot a <a href=\"%s\">widget beállításainál</a>."
+
+#: mailchimp-for-wordpress/includes/class-widget.php:61
+#: mailchimp-for-wordpress-pro/includes/class-widget.php:65
+msgid "Newsletter"
+msgstr "Hírlevél"
+
+#: mailchimp-for-wordpress/includes/class-widget.php:64
+#: mailchimp-for-wordpress-pro/includes/class-widget.php:76
+msgid "Title:"
+msgstr "Cím:"
+
+#: mailchimp-for-wordpress-pro/includes/class-widget.php:80
+msgid "Form:"
+msgstr "Űrlap:"
+
+#: mailchimp-for-wordpress-pro/includes/class-widget.php:82
+msgid "Select the form to show"
+msgstr "Válassza ki a megjelenítendő űrlapot"
+
+#: mailchimp-for-wordpress-pro/includes/class-widget.php:90
+msgid "You don't have any sign-up forms. <a href=\"%s\">Create one now.</a>"
+msgstr "Nincsen feliratkozás űrlap. <a href=\"%s\">Készítsen egyet most!</a>"
+
+#: mailchimp-for-wordpress/includes/functions/general.php:30
+#: mailchimp-for-wordpress-pro/includes/functions/general.php:20
+msgid "Sign me up for the newsletter!"
+msgstr "Irj fel a hírlevél címlistára!"
+
+#: mailchimp-for-wordpress-pro/includes/functions/general.php:43
+msgid "Thank you, your sign-up request was successful! Please check your email inbox to confirm."
+msgstr "Köszönjük, a feliratkozás kérés sikeres volt. Kérjük, nézze meg a bejövő leveleit!"
+
+#: mailchimp-for-wordpress/includes/functions/general.php:45
+#: mailchimp-for-wordpress-pro/includes/functions/general.php:44
+msgid "Oops. Something went wrong. Please try again later."
+msgstr "Hoppá! Valami nem működött. Kérjük, próbálja újra később!"
+
+#: mailchimp-for-wordpress/includes/functions/general.php:46
+#: mailchimp-for-wordpress-pro/includes/functions/general.php:45
+msgid "Please provide a valid email address."
+msgstr "Kérjük, érvényes emailcímet adjon meg."
+
+#: mailchimp-for-wordpress/includes/functions/general.php:47
+#: mailchimp-for-wordpress-pro/includes/functions/general.php:46
+msgid "Given email address is already subscribed, thank you!"
+msgstr "Ez az emailcím már feliratkozott. Köszönjük."
+
+#: mailchimp-for-wordpress/includes/functions/general.php:48
+#: mailchimp-for-wordpress-pro/includes/functions/general.php:47
+msgid "Please complete the CAPTCHA."
+msgstr "Kérjük, töltse ki a CAPTCHA-t."
+
+#: mailchimp-for-wordpress/includes/functions/general.php:49
+#: mailchimp-for-wordpress-pro/includes/functions/general.php:48
+msgid "Please fill in the required fields."
+msgstr "Kérjük, töltse ki a kötelező mezőket."
+
+#: mailchimp-for-wordpress/includes/integrations/class-cf7.php:44
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:52
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:91
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:96
+#: mailchimp-for-wordpress/includes/views/form-settings.php:113
+#: mailchimp-for-wordpress/includes/views/form-settings.php:126
+#: mailchimp-for-wordpress/includes/views/form-settings.php:136
+#: mailchimp-for-wordpress/includes/views/form-settings.php:147
+#: mailchimp-for-wordpress/includes/views/form-settings.php:166
+#: mailchimp-for-wordpress/includes/views/form-settings.php:180
+#: mailchimp-for-wordpress-pro/includes/integrations/class-cf7.php:44
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:17
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:37
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:56
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:75
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:98
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:116
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:139
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:52
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:60
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:99
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:104
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:59
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:72
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:82
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:97
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:115
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:123
+msgid "Yes"
+msgstr "Igen"
+
+#: mailchimp-for-wordpress/includes/integrations/class-cf7.php:44
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:56
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:91
+#: mailchimp-for-wordpress/includes/views/checkbox-settings.php:96
+#: mailchimp-for-wordpress/includes/views/form-settings.php:27
+#: mailchimp-for-wordpress/includes/views/form-settings.php:117
+#: mailchimp-for-wordpress/includes/views/form-settings.php:128
+#: mailchimp-for-wordpress/includes/views/form-settings.php:138
+#: mailchimp-for-wordpress/includes/views/form-settings.php:151
+#: mailchimp-for-wordpress/includes/views/form-settings.php:170
+#: mailchimp-for-wordpress/includes/views/form-settings.php:184
+#: mailchimp-for-wordpress-pro/includes/integrations/class-cf7.php:44
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:21
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:41
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:60
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:79
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:102
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:120
+#: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:140
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:52
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:62
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:99
+#: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:104
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:22
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:63
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:73
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:86
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:101
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:116
+#: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:124
+msgid "No"
+msgstr "Nem"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:152
+msgid "I know. Don't bug me."
+msgstr "Tudom. Ne zavaj ezzel!"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:171
+msgid "<b>Warning!</b> You're blocking external requests which means you won't be able to get %s updates. Please add %s to %s."
+msgstr "<b>Figyelem!</b> A külső kérések blokkolva vannak, így nem lehet letölteni %s frissítéseket. Kérjük, adja ezt: %s ide: %s."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:213
+msgid "Your %s license has been activated. You have an unlimited license. "
+msgstr "%s licensz aktiválva. Korlátlan licensszel rendelkezik. "
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:215
+msgid "Your %s license has been activated. You have used %d/%d activations. "
+msgstr "%s licensz aktiválva. %d/%d aktivációt használt fel eddig."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:220
+msgid "<a href=\"%s\">Did you know you can upgrade your license?</a>"
+msgstr "<a href=\"%s\">Tudta, hogy bővítheti a licenszét?</a>"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:224
+msgid "<a href=\"%s\">Your license is expiring in %d days, would you like to extend it?</a>"
+msgstr "<a href=\"%s\">A licensze %d nap múlva lejár, szeretné meghosszabítani?</a>"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:233
+msgid "You've reached your activation limit. You must <a href=\"%s\">reset</a> or <a href=\"%s\">upgrade your license</a> to use it on this site."
+msgstr "Elérte az aktivációs korlátját. Vagy <a href=\"%s\">alapra kell állítani</a> vagy <a href=\"%s\">frissíteni kell</a> a licenszet, hogy használhassa ezen az oldalon."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:236
+msgid "Your license has expired. You must <a href=\"%s\">extend your license</a> in order to use it again."
+msgstr "A licensze lejárt. <a href=\"%s\">Hosszabbítsa meg licenszét</a>, ha újra használni szeretné."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:239
+msgid "Failed to activate your license, your license key seems to be invalid."
+msgstr "Nem sikerült aktiválni a licenszét. A licensz kulcs érvénytelennek tűnik."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:264
+msgid "Your %s license has been deactivated."
+msgstr "%s licensz kikapcsolva."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:266
+msgid "Failed to deactivate your %s license."
+msgstr "Nem sikerült kikapcsolat a licenszet: %s."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:304
+msgid "Request error: \"%s\""
+msgstr "Kérés hiba: „%s”"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-license-manager.php:463
+msgid "%s: License Settings"
+msgstr "%s: licensz beállítások"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-plugin-license-manager.php:67
+msgid "%s is network activated, please contact your site administrator to manage the license."
+msgstr "%s hálózatban van, csak a szuper adminisztrátor kezelheti a licenszet."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-update-manager.php:69
+msgid "%s failed to check for updates because of the following error: <em>%s</em>"
+msgstr "%s frissítések keresése sikertelen volt a következő hiba miatt: <em>%s</em>"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/class-update-manager.php:131
+msgid "This site has not been activated properly on dannyvankooten.com and thus cannot check for future updates. Please activate your site with a valid license key."
+msgstr "Ez az oldal nem lett megfelelően aktiválva a dannyvankooten.com oldalon, így nem tud frissítéseket keresni. Kérjük aktiválja az oldalát egy érvényes licensz kulccsal."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:23
+msgid "License status"
+msgstr "Licensz állapot"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:33
+msgid "Toggle license status"
+msgstr "Licensz állapot módosítása"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:37
+msgid "Deactivate License"
+msgstr "Licensz kikapcsolása"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:38
+msgid "(deactivate your license so you can activate it on another WordPress site)"
+msgstr "(licensz kikapcsolása, hogy egy másik WordPress oldalon aktiválni lehessen)"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:42
+msgid "Activate License"
+msgstr "Licensz aktiválása"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:44
+msgid "Please enter a license key in the field below first."
+msgstr "Előbb adja meg az alábbi mezőbe a licensz kulcsot."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:52
+msgid "License Key"
+msgstr "Licensz kulcs"
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:54
+msgid "Paste your license key here, as found in the email receipt."
+msgstr "Másolja ide a licensz kulcsot, a kapott emailből másolva."
+
+#: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:56
+msgid "You defined your license key using the %s PHP constant."
+msgstr "A licnesz kulcsot %s PHP állandó segítségével adta meg."
