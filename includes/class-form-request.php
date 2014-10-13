@@ -509,7 +509,7 @@ class MC4WP_Lite_Form_Request {
 			$api = mc4wp_get_api();
 
 			if( $api->has_error() ) {
-				$html .= '<div class="mc4wp-alert mc4wp-error"><strong>Admin notice:</strong> '. $api->get_error_message() . '</div>';
+				$html .= '<div class="mc4wp-alert mc4wp-error"><strong>' . __( 'MailChimp Error:', 'mailchimp-for-wp' ) . '</strong><br />'. $api->get_error_message() . '</div>';
 			}
 		}
 
