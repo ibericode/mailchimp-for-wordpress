@@ -51,9 +51,8 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 	 * Maybe fire a general subscription request
 	 */
 	public function maybe_subscribe() {
-
 		if ( $this->checkbox_was_checked() === false ) {
-			return;
+			return false;
 		}
 
 		// don't run if this is a CF7 request
