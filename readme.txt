@@ -260,11 +260,13 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 - Minor improvements to memory usage and performance
 - Improved sanitization on third-party integrations
 - Translate debug messages for checkbox integrations
+- Updated Dutch translations
 
 **Additions**
 
 - Submitted form now get `mc4wp-form-submitted` CSS class.
-- Added `mc4wp_cookie_expiration_time` to alter expiration time of email cookie. Defaults to 30 days.
+- Filter: `mc4wp_cookie_expiration_time` to alter expiration time of email cookie. Defaults to 30 days.
+- Hungarian translation, thanks to Németh Balázs
 
 
 = 2.1.3 - September 15, 2014 =

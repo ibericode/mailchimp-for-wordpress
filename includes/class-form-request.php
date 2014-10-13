@@ -557,6 +557,10 @@ class MC4WP_Lite_Form_Request {
 			'required_field_missing' => array(
 				'type' => 'error',
 				'text' => $this->form_options['text_required_field_missing']
+			),
+			'no_lists_selected' => array(
+				'type' => 'error',
+				'text' => __( 'Please select at least one list to subscribe to.', 'mailchimp-for-wp' )
 			)
 		);
 
