@@ -32,7 +32,8 @@ class MC4WP_Lite_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
-		$title = apply_filters( 'widget_title', $instance['title'] );
+		$title = isset( $instance['title'] ) ? $instance['title'] : '';
+		$title = apply_filters( 'widget_title', $title );
 
 		echo $args['before_widget'];
 
@@ -45,7 +46,7 @@ class MC4WP_Lite_Widget extends WP_Widget {
 			include_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/template.php';
 		}
 
-		echo mc4wp_get_form(0);
+		echo mc4wp_get_form();
 
 		echo $args['after_widget'];
 	}

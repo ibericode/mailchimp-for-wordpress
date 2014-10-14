@@ -247,26 +247,39 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Changelog ==
 
+= Trunk =
+
+**Fixes**
+
+- Notice in `class-widget.php` when widget options are never saved.
+
+= 2.1.5 - October 13, 2014 =
+
+**Fixes**
+
+- Notice in `class-mailchimp.php` when fetching lists from MailChimp.
+
 = 2.1.4 - October 13, 2014 =
 
 **Fixes**
 
 - Fixed `mc4wp_get_current_url()` function for IIS servers using `index.php` in URL's.
-- Nonce verification failing with aggressive caching
+- Nonce verification was failing with aggressive caching
 - Only call `is_email()` on strings.
 
 **Improvements**
 
-- Minor improvements to memory usage and performance
-- Improved sanitization on third-party integrations
-- Translate debug messages for checkbox integrations
+- Minor improvements to memory usage and overall performance
+- Improved sanitization for third-party integrations
+- Wrapped debug messages for checkbox integrations in gettext calls so they can be translated
 - Updated Dutch translations
 
 **Additions**
 
-- Submitted form now get `mc4wp-form-submitted` CSS class.
+- Submitted forms now get `mc4wp-form-submitted` CSS class.
 - Filter: `mc4wp_cookie_expiration_time` to alter expiration time of email cookie. Defaults to 30 days.
 - Hungarian translation, thanks to Németh Balázs
+- Partial French translations
 
 
 = 2.1.3 - September 15, 2014 =
@@ -586,5 +599,5 @@ Your theme folder can be found by browsing to `/wp-content/themes/your-theme-nam
 
 == Upgrade Notice ==
 
-= 2.1.2 =
-Added Events Manager integration and other minor improvements & edge case bug fixes.
+= 2.1.4 =
+Updated & improved translations. Edge case bug fixes. Minor improvements and added filter hooks.

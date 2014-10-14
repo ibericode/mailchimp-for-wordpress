@@ -50,7 +50,6 @@ class MC4WP_MailChimp {
 
 				}
 
-
 				// get merge vars for all lists at once
 				$merge_vars_data = $api->get_lists_with_merge_vars( array_keys($lists) );
 				if ( $merge_vars_data ) {
@@ -63,6 +62,7 @@ class MC4WP_MailChimp {
 				// store lists in transients
 				set_transient( 'mc4wp_mailchimp_lists', $lists, ( 24 * 3600 ) ); // 1 day
 				set_transient( 'mc4wp_mailchimp_lists_fallback', $lists, 1209600 ); // 2 weeks
+
 				return $lists;
 			} else {
 				// api request failed, get fallback data (with longer lifetime)
