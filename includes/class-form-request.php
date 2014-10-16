@@ -293,6 +293,11 @@ class MC4WP_Lite_Form_Request {
 			$merge_vars['OPTIN_IP'] = $_SERVER['REMOTE_ADDR'];
 		}
 
+		// set correct mc_language field
+		if( isset( $merge_vars['MC_LANGUAGE'] ) && strlen( $merge_vars['MC_LANGUAGE'] ) > 2 && ! in_array( $merge_vars['MC_LANGUAGE'] , array( 'fr_CA', 'es_ES', 'pt_PT' ) ) ) {
+			$merge_vars['MC_LANGUAGE'] = strtolower( substr( $merge_vars['MC_LANGUAGE'], 0, 2 ) );
+		}
+
 		$api = mc4wp_get_api();
 
 		// get lists to subscribe to
