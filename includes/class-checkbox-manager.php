@@ -58,6 +58,11 @@ class MC4WP_Lite_Checkbox_Manager
 		if( defined( 'EM_VERSION' ) ) {
 			$this->integrations['events_manager'] = new MC4WP_Events_Manager_Integration();
 		}
+		
+		// Load User Meta integration
+		if( class_exists( 'userMeta' ) ) {
+			$this->integrations['user_meta'] = new MC4WP_User_Meta_Integration();
+		}
 
         // Always load General Integration
 		$this->integrations['general'] = new MC4WP_General_Integration();
