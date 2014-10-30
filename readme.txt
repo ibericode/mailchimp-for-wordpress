@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/
 Tags: mailchimp,newsletter,optin,mailinglist,sign-up form,subscribe,form,shortcode,widget,checkbox,comment,buddypress,multisite,bbpress,woocommerce,easy digital downloads,contact form,contact form 7,events manager,comment form,registration form,captcha
 Requires at least: 3.6
 Tested up to: 4.0
-Stable tag: 2.1.4
+Stable tag: 2.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,18 +47,12 @@ Add sign-up checkboxes to *any* form on your website. The plugin offers built-in
 
 **Translations**
 
-The MailChimp for WordPress plugin is fully translated into the following languages.
+The plugin is fully translated into the following languages: English, Dutch, Spanish, Brazilian, German, Italian, Slovak and Hungarian.
 
-- English (en_US) - [Danny van Kooten](https://dannyvankooten.com)
-- Dutch (nl_NL) - [Danny van Kooten](https://dannyvankooten.com)
-- Spanish (es_ES) - [Paul Benitez ](http://www.administrandowp.com/) & [Enrique Pinto](http://www.thehivecluster.com/en)
-- Brazilian (pt_BR) - [Felipe Scuissiatto](http://www.evonline.com.br/)
-- German (de_DE) - [Jochen Gererstorfer](http://slotnerd.de/)
-- Italian (it_IT) - [Gianpaolo Rolando](http://www.gianpaolorolando.eu/) & [Tiziano D'Angelo](http://www.dangelos.it/)
-- Slovak (sk_SK) - [Henrich Koszegi](http://www.webworks.sk/)
-- Hungarian (hu_HU) - Németh Balázs
+The [MailChimp for WordPress translations](https://wordpress.org/plugins/mailchimp-for-wp/other_notes/) page lists all the wonderful people that helped translate the plugin.
 
-If you want to help [translating the MailChimp for WordPress plugin](http://docs.mc4wp.com/article/41-translating-mailchimp-for-wordpress), head over to [translate.mc4wp.com](http://translate.mc4wp.com).
+Want to [translate the plugin into your own language](https://www.transifex.com/projects/p/mailchimp-for-wordpress/)?
+
 
 **More information**
 
@@ -233,6 +227,21 @@ Your theme probably does not support the necessary comment hook this plugin uses
 `<?php if( function_exists( 'mc4wp_checkbox' ) ) { mc4wp_checkbox(); }?>`
 
 Your theme folder can be found by browsing to `/wp-content/themes/your-theme-name/`.
+
+== Translations ==
+
+The MailChimp for WordPress plugin is translated into the following languages.
+
+- English (en_US) - [Danny van Kooten](https://dannyvankooten.com)
+- Dutch (nl_NL) - [Danny van Kooten](https://dannyvankooten.com)
+- Spanish (es_ES) - [Paul Benitez ](http://www.administrandowp.com/) & [Enrique Pinto](http://www.thehivecluster.com/en)
+- Brazilian (pt_BR) - [Felipe Scuissiatto](http://www.evonline.com.br/)
+- German (de_DE) - [Jochen Gererstorfer](http://slotnerd.de/)
+- Italian (it_IT) - [Gianpaolo Rolando](http://www.gianpaolorolando.eu/) & [Tiziano D'Angelo](http://www.dangelos.it/)
+- Slovak (sk_SK) - [Henrich Koszegi](http://www.webworks.sk/)
+- Hungarian (hu_HU) - Németh Balázs
+
+It's easy to translate the plugin into your own language. Head over to the [translation project on Transifex](https://www.transifex.com/projects/p/mailchimp-for-wordpress/) and click on "[Help translate MailChimp for WordPress](https://www.transifex.com/signup/?join_project=mailchimp-for-wordpress)".
 
 == Screenshots ==
 
