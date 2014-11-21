@@ -154,14 +154,22 @@ class MC4WP_Lite_API {
 	}
 
 	/**
-	* Gets the lists for the current API Key
-	* @return array|boolean
-	*/
-	public function get_lists()
+	 * @param array $list_ids Array of ID's of the lists to fetch. (optional)
+	 *
+	 * @return bool
+	 */
+	public function get_lists( $list_ids = array() )
 	{
 		$args = array(
 			'limit' => 100
 		);
+
+		// set filter if the $list_ids parameter was set
+		if( count( $list_ids ) > 0 ) {
+			$args['filters'] = array(
+				'list_id' => implode( ',', $list_ids )
+			);
+		}
 
 		$result = $this->call( 'lists/list', $args );
 
