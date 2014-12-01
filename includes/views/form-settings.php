@@ -236,16 +236,16 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 	<?php include 'parts/admin-upgrade-to-pro.php'; ?>
 
 	<div class="mc4wp-box" id="mc4wp-info-tabs">
-		<h3 class="mc4wp-title">Building your sign-up form</h3>
-		<p>At a minimum, your form should include just an <strong>EMAIL</strong> field and a submit button.</p>
-		<p>Add more fields to your form if your list requires more fields. Field names should match your MailChimp list field tags. Use the "Add a new field" tool to have the correct HTML generated for you.</p>
+		<h3 class="mc4wp-title"><?php _e( 'Building your sign-up form', 'mailchimp-for-wp' ); ?></h3>
+		<p><?php printf( __( 'At a minimum, your form should include just an %s field and a submit button.', 'mailchimp-for-wp' ), '<strong>EMAIL</strong>' ); ?></p>
+		<p><?php _e( 'Add more form fields if your selected lists require more fields. Field names should match the field tags of the selected lists. Use the "Add a new field" tool to have the HTML generated for you.', 'mailchimp-for-wp'); ?></p>
 
-		<h3 class="mc4wp-title">Form Styling</h3>
-		<p>Alter the visual appearance of the form by applying CSS rules to <b>.mc4wp-form</b> and its child elements.</p>
-		<p>You should add the CSS rules to your theme stylesheet using the <a href="<?php echo admin_url('theme-editor.php?file=style.css'); ?>">Theme Editor</a> or by editing <em><?php echo get_stylesheet_directory(); ?>/style.css</em> over FTP.</p>
+		<h3 class="mc4wp-title"><?php _e( 'Form Styling', 'mailchimp-for-wp' ); ?></h3>
+		<p><?php printf( __( 'Alter the visual appearance of the form by applying CSS rules to %s.', 'mailchimp-for-wp' ), '<b>.mc4wp-form</b>' ); ?></p>
+		<p><?php printf( __( 'You can add the CSS rules to your theme stylesheet using the <a href="%s">Theme Editor</a> or by editing %s over FTP. Alternatively, use a plugin like %s', 'mailchimp-for-wp' ), admin_url('theme-editor.php?file=style.css'), '<em>' . get_stylesheet_directory() . '/style.css</em>', '<a href="https://wordpress.org/plugins/simple-custom-css/">Simple Custom CSS</a>' ); ?>.</p>
+		<p><?php printf( __( 'The <a href="%s" target="_blank">plugin FAQ</a> lists the various CSS selectors you can use to target the different form elements.', 'mailchimp-for-wp' ), 'http://wordpress.org/plugins/mailchimp-for-wp/faq/' ); ?></p>
+		<p><?php printf( __( 'If you need an easier way to style your forms, <a href="%s">upgrade to MailChimp for WordPress Pro</a>. It comes with a "Styles Builder" that lets you customize form styles without writing any code.', 'mailchimp-for-wp' ), 'https://mc4wp.com/' ); ?></p>
 
-		<p>The <a href="http://wordpress.org/plugins/mailchimp-for-wp/faq/" target="_blank">FAQ</a> lists the various CSS selectors you can use to target the different elements.</p>
-		
 		<h3 class="mc4wp-title"><?php _e( 'Form variables', 'mailchimp-for-wp' ); ?></h3>
 		<p><?php _e( 'Use the following variables to add some dynamic content to your form.', 'mailchimp-for-wp' ); ?></p>
 
