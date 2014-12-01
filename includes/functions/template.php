@@ -81,7 +81,7 @@ function mc4wp_replace_variables( $text, $list_ids = array() ) {
 	$needles = array( '{user_email}', '{user_firstname}', '{user_lastname}', '{user_name}', '{user_id}' );
 	if ( is_user_logged_in() && ( $user = wp_get_current_user() ) && ( $user instanceof WP_User ) ) {
 		// logged in user, replace vars by user vars
-		$replacements = array( $user->user_email, $user->user_firstname, $user->user_lastname, $user->display_name, $user->ID );
+		$replacements = array( $user->user_email, $user->first_name, $user->last_name, $user->display_name, $user->ID );
 		$text = str_replace( $needles, $replacements, $text );
 	} else {
 		// no logged in user, replace vars with empty string
