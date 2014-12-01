@@ -253,6 +253,10 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 		<table class="mc4wp-help">
 			<tr>
+				<th>{email}</th>
+				<td><?php _e( 'Replaced with the visitor\'s email (if set in URL or cookie).', 'mailchimp-for-wp' ); ?></td>
+			</tr>
+			<tr>
 				<th>{response}</th>
 				<td><?php _e( 'Replaced with the form response (error or success messages).', 'mailchimp-for-wp' ); ?></td>
 			</tr>
