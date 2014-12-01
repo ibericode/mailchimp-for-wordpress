@@ -614,5 +614,5 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 
 == Upgrade Notice ==
 
-= 2.1.4 =
-Updated & improved translations. Edge case bug fixes. Minor improvements and added filter hooks.
+= 2.1.6 =
+Updated translation files. Upgrading has never been safer. :)
