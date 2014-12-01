@@ -3,8 +3,8 @@ Contributors: DvanKooten
 Donate link: https://mc4wp.com/
 Tags: mailchimp,newsletter,optin,mailinglist,sign-up form,subscribe,form,shortcode,widget,checkbox,comment,buddypress,multisite,bbpress,woocommerce,easy digital downloads,contact form,contact form 7,events manager,comment form,registration form,captcha
 Requires at least: 3.6
-Tested up to: 4.0
-Stable tag: 2.1.6
+Tested up to: 4.0.1
+Stable tag: 2.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -256,6 +256,21 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 8. **Pro only:** Create your own CSS styles with the form designer in the Pro version.
 
 == Changelog ==
+
+= 2.1.7 - December 1, 2014 =
+
+**Fixes**
+
+- Fixes onclick event in older versions of IE, props [Simon Schick](https://github.com/SimonSimCity)
+
+**Improvements**
+
+- Updated Dutch, French, Hungarian, Italian, Norwegian, Swedish and Taiwanese translations.
+- Some textual improvements.
+
+**Additions**
+
+- {email} shortcode to use in form mark-up.
 
 = 2.1.6 - November 18, 2014 =
 
@@ -614,5 +629,5 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 
 == Upgrade Notice ==
 
-= 2.1.6 =
-Updated translation files. Upgrading has never been safer. :)
+= 2.1.7 =
+JS bugfix for older versions of IE. Updated translations & minor textual improvements.
