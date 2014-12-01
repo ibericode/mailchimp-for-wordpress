@@ -281,9 +281,16 @@ class MC4WP_Lite_Form_Manager {
 					var forms = document.querySelectorAll('.mc4wp-form');
 					for (var i = 0; i < forms.length; i++) {
 						(function(el) {
-							el.querySelector('[type="submit"]').addEventListener( 'click', function( event ) {
+							var onclick = function( event ) {
 								el.classList.toggle('mc4wp-form-submitted');
-							});
+							};
+							var button = el.querySelector('[type="submit"]');
+
+							if (button.addEventListener) {
+								button.addEventListener( 'click', onclick);
+							} else {
+								button.attachEvent( 'onclick', onclick);
+							}
 						})(forms[i]);
 					}
 				})();
