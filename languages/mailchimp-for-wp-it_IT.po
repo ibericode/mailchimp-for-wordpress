@@ -2,13 +2,14 @@
 # This file is distributed under the GPL v3.
 # Translators:
 # Adriano <adrygese@gmail.com>, 2014
+# Dan <d.murtas@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2014-11-14 12:24:24+00:00\n"
-"PO-Revision-Date: 2014-11-14 12:25+0000\n"
-"Last-Translator: Danny van Kooten <dannyvankooten@gmail.com>\n"
+"PO-Revision-Date: 2014-11-28 21:13+0000\n"
+"Last-Translator: Dan <d.murtas@gmail.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/mailchimp-for-wordpress/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -841,31 +842,31 @@ msgstr "Questo plugin non è sviluppato da o affiliato con MailChimp in alcun mo
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:9
 msgid "Looking for support?"
-msgstr ""
+msgstr "Hai bisogno di assistenza?"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:10
 msgid ""
 "Make sure to look at the <a href=\"%s\">frequently asked questions</a> or "
 "use the <a href=\"%s\">support forums</a> on WordPress.org."
-msgstr ""
+msgstr "Assicurati di dare un occhio alla sezione sulle <a href=\"%s\">FAQ (domande frequenti) </a> oppure usa il  <a href=\"%s\"> supporto del forum </a> su WordPress.org."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:11
 msgid ""
 "If you need priority support, please <a href=\"%s\">upgrade to the premium "
 "version</a>."
-msgstr ""
+msgstr "Se necessiti di un supporto prioritario, fai  <a href=\"%s\">l'aggiornamento alla versione premium</a>."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:15
 msgid "Show a token of your appreciation"
-msgstr ""
+msgstr "Dimostra il tuo apprezzamento"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:17
 msgid "Leave a %s plugin review on WordPress.org"
-msgstr ""
+msgstr "Lascia una recensione del plugin %s su WordPress.org"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:18
 msgid "I am using MailChimp for WordPress by @DannyvanKooten - it is great!"
-msgstr ""
+msgstr "Sto usando MailChimp per WordPress di @DannyvanKooten - E' fantastico!"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:18
 msgid "Tweet about MailChimp for WordPress"
@@ -884,7 +885,7 @@ msgstr ""
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:11
 msgid ""
 "This plugin has an even better premium version, I am sure you will love it."
-msgstr ""
+msgstr "Esiste anche una versione premium di questo plugin. Sono sicuro che ti piacerà."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:12
 msgid ""

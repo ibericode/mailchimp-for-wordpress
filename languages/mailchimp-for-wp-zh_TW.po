@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2014-11-14 12:24:24+00:00\n"
-"PO-Revision-Date: 2014-11-16 15:21+0000\n"
+"PO-Revision-Date: 2014-11-19 17:10+0000\n"
 "Last-Translator: Andrea Swemmer Huang <maarten.swemmer@apprique.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/mailchimp-for-wordpress/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -66,7 +66,7 @@ msgstr ""
 #: mailchimp-for-wordpress/includes/class-admin.php:315
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:663
 msgid "MultiSite forms"
-msgstr ""
+msgstr "MultiSite 表格"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:319
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:667
@@ -118,7 +118,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress/includes/class-form-request.php:568
 msgid "Please select at least one list to subscribe to."
-msgstr ""
+msgstr "請至少選擇一個列表訂閱。"
 
 #: mailchimp-for-wordpress/includes/class-widget.php:20
 msgid "MailChimp Sign-Up Form"
@@ -131,12 +131,12 @@ msgstr ""
 #: mailchimp-for-wordpress/includes/class-widget.php:62
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:69
 msgid "Newsletter"
-msgstr ""
+msgstr "通訊"
 
 #: mailchimp-for-wordpress/includes/class-widget.php:65
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:80
 msgid "Title:"
-msgstr ""
+msgstr "標題："
 
 #: mailchimp-for-wordpress/includes/class-widget.php:69
 msgid ""
@@ -147,53 +147,53 @@ msgstr ""
 #: mailchimp-for-wordpress/includes/functions/general.php:21
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:272
 msgid "Email address"
-msgstr ""
+msgstr "電子郵件地址"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:22
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:271
 msgid "Your email address"
-msgstr ""
+msgstr "您的電子郵件地址"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:23
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:273
 msgid "Sign up"
-msgstr ""
+msgstr "報名"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:30
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:20
 msgid "Sign me up for the newsletter!"
-msgstr ""
+msgstr "我要註冊為通訊！"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:44
 msgid ""
 "Thank you, your sign-up request was successful! Please check your e-mail "
 "inbox."
-msgstr ""
+msgstr "謝謝您的註冊請求是成功的！請檢查您的電子郵件收件箱。"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:45
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:44
 msgid "Oops. Something went wrong. Please try again later."
-msgstr ""
+msgstr "哎呀。出事了。請稍後再試。"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:46
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:45
 msgid "Please provide a valid email address."
-msgstr ""
+msgstr "請提供一個有效的電子郵件地址。"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:47
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:46
 msgid "Given email address is already subscribed, thank you!"
-msgstr ""
+msgstr "指定的電子郵件地址已訂閱，謝謝！"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:48
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:47
 msgid "Please complete the CAPTCHA."
-msgstr ""
+msgstr "請填寫驗證碼。"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:49
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:48
 msgid "Please fill in the required fields."
-msgstr ""
+msgstr "請填寫必填字段。"
 
 #: mailchimp-for-wordpress/includes/integrations/class-cf7.php:44
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:52
@@ -275,25 +275,25 @@ msgstr ""
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:168
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:221
 msgid "This message is only visible to administrators for debugging purposes."
-msgstr ""
+msgstr "此消息時，才能看到管理員用於調試目的。"
 
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:214
 msgid ""
 "The MailChimp server returned the following error message as a response to "
 "our sign-up request:"
-msgstr ""
+msgstr "在MailChimp服務器返回以下錯誤消息對我們的註冊請求的響應："
 
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:216
 msgid "This is the data that was sent to MailChimp:"
-msgstr ""
+msgstr "這是被發送到MailChimp的數據："
 
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:217
 msgid "Email address:"
-msgstr ""
+msgstr "電子郵件地址："
 
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:219
 msgid "Merge variables:"
-msgstr ""
+msgstr "合併變量："
 
 #. Plugin Name of the plugin/theme
 msgid "MailChimp for WordPress"
@@ -340,7 +340,7 @@ msgid ""
 "The table below shows your MailChimp lists data. If you applied changes to "
 "your MailChimp lists, please use the following button to renew your cached "
 "data."
-msgstr ""
+msgstr "下表顯示了您的MailChimp列表中的數據。如果你申請更改您的MailChimp列表，請使用下面的按鈕來更新你的緩存數據。"
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:54
 #: mailchimp-for-wordpress/includes/views/api-settings.php:125
@@ -351,7 +351,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:112
 msgid "No lists were found in your MailChimp account"
-msgstr ""
+msgstr "沒有名單中發現您的MailChimp帳戶"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:11
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:11
@@ -363,7 +363,7 @@ msgstr ""
 msgid ""
 "To use sign-up checkboxes, select at least one list and one form to add the "
 "checkbox to."
-msgstr ""
+msgstr "要使用的註冊複選框，選擇至少一個列表和一個表單的複選框中添加。"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:21
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:21
@@ -375,7 +375,7 @@ msgstr ""
 msgid ""
 "If you want to use sign-up checkboxes, select at least one MailChimp list to"
 " subscribe people to."
-msgstr ""
+msgstr "如果你想使用的註冊複選框，選擇至少一個MailChimp列表認購人。"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:31
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:34
@@ -394,7 +394,7 @@ msgstr ""
 msgid ""
 "Select the list(s) to which people who check the checkbox should be "
 "subscribed."
-msgstr ""
+msgstr "選擇哪個人誰選中複選框應訂閱的列表。"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:48
 #: mailchimp-for-wordpress/includes/views/form-settings.php:109
@@ -412,7 +412,7 @@ msgstr ""
 msgid ""
 "Select \"yes\" if you want people to confirm their email address before "
 "being subscribed (recommended)"
-msgstr ""
+msgstr "選擇“是”，如果你希望人們以確認他們的電子郵件地址被認購前（推薦）"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:63
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:68
@@ -427,7 +427,7 @@ msgstr ""
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:79
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:78
 msgid "Selecting a form will automatically add the sign-up checkbox to it."
-msgstr ""
+msgstr "選擇表格將在註冊的複選框會自動添加到它。"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:83
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:91

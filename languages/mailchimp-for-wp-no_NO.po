@@ -1,13 +1,14 @@
 # Copyright (C) 2014 Danny van Kooten
 # This file is distributed under the GPL v3.
 # Translators:
+# Linus Alsing <linusoskar@outlook.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2014-11-14 12:24:24+00:00\n"
-"PO-Revision-Date: 2014-11-14 12:25+0000\n"
-"Last-Translator: Danny van Kooten <dannyvankooten@gmail.com>\n"
+"PO-Revision-Date: 2014-12-01 14:55+0000\n"
+"Last-Translator: Linus Alsing <linusoskar@outlook.com>\n"
 "Language-Team: Norwegian (Norway) (http://www.transifex.com/projects/p/mailchimp-for-wordpress/language/no_NO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,51 +28,51 @@ msgstr ""
 #: mailchimp-for-wordpress/includes/class-admin.php:130
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:172
 msgid "Settings"
-msgstr ""
+msgstr "Innstillinger"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:149
 #: mailchimp-for-wordpress/includes/class-admin.php:163
 msgid "Upgrade to Pro"
-msgstr ""
+msgstr "Oppgrader til Pro"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:160
 #: mailchimp-for-wordpress/includes/views/api-settings.php:12
 #: mailchimp-for-wordpress/includes/views/form-settings.php:106
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:10
 msgid "MailChimp Settings"
-msgstr ""
+msgstr "MailChimp innstillinger"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:161
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:559
 msgid "Checkboxes"
-msgstr ""
+msgstr "Avkrysningsbokser"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:162
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:560
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-form-settings.php:10
 msgid "Forms"
-msgstr ""
+msgstr "Skjemaer"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:310
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:658
 msgid "Comment form"
-msgstr ""
+msgstr "Kommentar skjema"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:311
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:659
 msgid "Registration form"
-msgstr ""
+msgstr "Påmeldingsskjema"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:315
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:663
 msgid "MultiSite forms"
-msgstr ""
+msgstr "Multi-Site skjemaer"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:319
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:667
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:233
 msgid "BuddyPress registration"
-msgstr ""
+msgstr "BuddyPress registrering"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:327
 #: mailchimp-for-wordpress/includes/class-admin.php:331
@@ -79,120 +80,120 @@ msgstr ""
 #: mailchimp-for-wordpress/includes/views/form-settings.php:36
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:20
 msgid "(PRO ONLY)"
-msgstr ""
+msgstr "(KUN PRO)"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:360
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:725
 msgid "Renewed MailChimp cache."
-msgstr ""
+msgstr "Fornyet MailChimp cache"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:362
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:727
 msgid "Failed to renew MailChimp cache - please try again later."
-msgstr ""
+msgstr "Klarte ikke å fornye MailChimp cache - vennligst prøv igjen senere."
 
 #: mailchimp-for-wordpress/includes/class-admin.php:395
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:300
 msgid "An EMAIL field. Example: <code>%s</code>"
-msgstr ""
+msgstr "Et E-POST felt"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:401
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:306
 msgid "A submit button. Example: <code>%s</code>"
-msgstr ""
+msgstr "En send knapp"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:401
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:306
 msgid "Sign Up"
-msgstr ""
+msgstr "Meld på"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:426
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:334
 msgid "A '%s' field"
-msgstr ""
+msgstr "Et '%s' felt"
 
 #: mailchimp-for-wordpress/includes/class-form-request.php:517
 msgid "MailChimp Error:"
-msgstr ""
+msgstr "MailChimp Feil:"
 
 #: mailchimp-for-wordpress/includes/class-form-request.php:568
 msgid "Please select at least one list to subscribe to."
-msgstr ""
+msgstr "Velg minst én liste å abonnere på."
 
 #: mailchimp-for-wordpress/includes/class-widget.php:20
 msgid "MailChimp Sign-Up Form"
-msgstr ""
+msgstr "MailChimp Påmeldingsskjema"
 
 #: mailchimp-for-wordpress/includes/class-widget.php:21
 msgid "Displays your MailChimp for WordPress sign-up form"
-msgstr ""
+msgstr "Viser ditt MailChimp WorPress påmeldingsskjema"
 
 #: mailchimp-for-wordpress/includes/class-widget.php:62
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:69
 msgid "Newsletter"
-msgstr ""
+msgstr "Nyhetsbrev"
 
 #: mailchimp-for-wordpress/includes/class-widget.php:65
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:80
 msgid "Title:"
-msgstr ""
+msgstr "Titel:"
 
 #: mailchimp-for-wordpress/includes/class-widget.php:69
 msgid ""
 "You can edit your sign-up form in the %sMailChimp for WordPress form "
 "settings%s."
-msgstr ""
+msgstr "Du kan redigere ditt påmeldingsskjema i %s MailChimp for WordPress skjema instillinger %s."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:21
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:272
 msgid "Email address"
-msgstr ""
+msgstr "E-post adresse"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:22
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:271
 msgid "Your email address"
-msgstr ""
+msgstr "Din e-post adresse"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:23
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:273
 msgid "Sign up"
-msgstr ""
+msgstr "Registrer"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:30
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:20
 msgid "Sign me up for the newsletter!"
-msgstr ""
+msgstr "Meld meg på nyhetsbrevet!"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:44
 msgid ""
 "Thank you, your sign-up request was successful! Please check your e-mail "
 "inbox."
-msgstr ""
+msgstr "Takk, din registrering er vellykket! Vennligst sjekk e-posten din."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:45
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:44
 msgid "Oops. Something went wrong. Please try again later."
-msgstr ""
+msgstr "Oops. Noe gikk galt. Vennligst prøv på nytt senere."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:46
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:45
 msgid "Please provide a valid email address."
-msgstr ""
+msgstr "Vennligst oppgi en gyldig e-post adresse."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:47
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:46
 msgid "Given email address is already subscribed, thank you!"
-msgstr ""
+msgstr "Den angitte e-postadressen er allerede registrert, takk!"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:48
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:47
 msgid "Please complete the CAPTCHA."
-msgstr ""
+msgstr "Vennligst fyll ut CAPTCHA."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:49
 #: mailchimp-for-wordpress-pro/includes/functions/general.php:48
 msgid "Please fill in the required fields."
-msgstr ""
+msgstr "Vennligst fyll ut de obligatoriske feltene."
 
 #: mailchimp-for-wordpress/includes/integrations/class-cf7.php:44
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:52
@@ -223,7 +224,7 @@ msgstr ""
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:115
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:123
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: mailchimp-for-wordpress/includes/integrations/class-cf7.php:44
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:56
@@ -256,82 +257,82 @@ msgstr ""
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:116
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:124
 msgid "No"
-msgstr ""
+msgstr "Nei"
 
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:166
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:169
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:213
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:222
 msgid "MailChimp for WordPress - Error"
-msgstr ""
+msgstr "MailChimp for WordPress - Feil"
 
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:167
 msgid ""
 "Please select a list to subscribe to in the <a href=\"%s\">checkbox "
 "settings</a>."
-msgstr ""
+msgstr "Vennligst velg en liste å abonnere på i <a href=\"%s\"> sjekkboks instillinger."
 
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:168
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:221
 msgid "This message is only visible to administrators for debugging purposes."
-msgstr ""
+msgstr "Denne meldingen er bare synlig for administratorer for \"debugging\" formål."
 
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:214
 msgid ""
 "The MailChimp server returned the following error message as a response to "
 "our sign-up request:"
-msgstr ""
+msgstr "MailChimp- serveren returnerte følgende feilmelding som et svar på vår \"sign-up\" forespørsel.   "
 
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:216
 msgid "This is the data that was sent to MailChimp:"
-msgstr ""
+msgstr "Dette er den data som ble sendt til MailChimp:"
 
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:217
 msgid "Email address:"
-msgstr ""
+msgstr "E-post adresse:"
 
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:219
 msgid "Merge variables:"
-msgstr ""
+msgstr "Flett variabler:"
 
 #. Plugin Name of the plugin/theme
 msgid "MailChimp for WordPress"
-msgstr ""
+msgstr "MailChimp for WordPress"
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:22
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:19
 msgid "API Settings"
-msgstr ""
+msgstr "API innstillinger"
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:24
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:21
 msgid "CONNECTED"
-msgstr ""
+msgstr "TILKOBLET"
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:26
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:23
 msgid "NOT CONNECTED"
-msgstr ""
+msgstr "IKKE TILKOBLET"
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:32
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:29
 msgid "API Key"
-msgstr ""
+msgstr "API Nøkkel"
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:34
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:31
 msgid "Your MailChimp API key"
-msgstr ""
+msgstr "Din MailChimp API Nøkkel"
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:35
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:32
 msgid "Get your API key here."
-msgstr ""
+msgstr "Få din API Nøkkel her."
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:47
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:48
 msgid "MailChimp Data"
-msgstr ""
+msgstr "MailChimp Data"
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:48
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:49
@@ -339,47 +340,47 @@ msgid ""
 "The table below shows your MailChimp lists data. If you applied changes to "
 "your MailChimp lists, please use the following button to renew your cached "
 "data."
-msgstr ""
+msgstr "Tabellen nedenfor viser dataene for dine MailChimp lister. Hvis du har foretatt endringer i dine MailChimp lister, vennligst bruk følgende knapp for å fornye bufrede data."
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:54
 #: mailchimp-for-wordpress/includes/views/api-settings.php:125
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:55
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:126
 msgid "Renew MailChimp lists"
-msgstr ""
+msgstr "Forny MailChimp lister"
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:112
 msgid "No lists were found in your MailChimp account"
-msgstr ""
+msgstr "Ingen lister funnet i din MailChimp konto"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:11
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:11
 msgid "Checkbox Settings"
-msgstr ""
+msgstr "Sjekkboks Innstillinger"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:16
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:14
 msgid ""
 "To use sign-up checkboxes, select at least one list and one form to add the "
 "checkbox to."
-msgstr ""
+msgstr "For å bruke sjekkbokser for påmelding, velg minst én liste og ett skjema for å legge til en sjekkboks."
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:21
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:21
 msgid "MailChimp settings for checkboxes"
-msgstr ""
+msgstr "MailChimp innstillinger for sjekkbokser"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:25
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:26
 msgid ""
 "If you want to use sign-up checkboxes, select at least one MailChimp list to"
 " subscribe people to."
-msgstr ""
+msgstr "Om du ønsker å bruke sjekkbokser for påmelding, velg minst én MailChimp liste for å registrere brukere til."
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:31
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:34
 msgid "MailChimp Lists"
-msgstr ""
+msgstr "MailChimp lister"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:35
 #: mailchimp-for-wordpress/includes/views/form-settings.php:48
