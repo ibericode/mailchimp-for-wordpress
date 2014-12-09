@@ -24,7 +24,7 @@
 		function() {
 			var hasListSelected = $listInputs.filter(':checked').length > 0;
 			$(".mc4wp-notice.no-lists-selected").toggle( ! hasListSelected );
-			$('#mc4wp-fw-mailchimp-fields').toggle( hasListSelected );
+			$('#mc4wp-fw-fields, #mc4wp-fw-mailchimp-fields').toggle( hasListSelected );
 		}
 	);
 
