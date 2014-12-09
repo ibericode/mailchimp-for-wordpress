@@ -67,8 +67,8 @@ function mc4wp_replace_variables( $text, $list_ids = array() ) {
 	}
 
 	// replace {email} tag
-	if( isset( $_GET['email'] ) ) {
-		$email = esc_attr( $_GET['email'] );
+	if( isset( $_GET['mc4wp_email'] ) ) {
+		$email = esc_attr( $_GET['mc4wp_email'] );
 	} elseif( isset( $_COOKIE['mc4wp_email'] ) ) {
 		$email = esc_attr( $_COOKIE['mc4wp_email'] );
 	} else {

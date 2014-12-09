@@ -50,7 +50,10 @@ function mc4wp_get_options( $key = null ) {
 				'redirect' => '',
 				'lists' => array(),
 				'double_optin' => 1,
-				'hide_after_success' => 0
+				'hide_after_success' => 0,
+				'update_existing' => false,
+				'replace_interests' => true,
+				'send_welcome' => false
 			)
 		);
 
@@ -62,14 +65,14 @@ function mc4wp_get_options( $key = null ) {
 
 		$options = array();
 		foreach ( $db_keys_option_keys as $db_key => $option_key ) {
-			$option = get_option( $db_key, false );
+			$option = (array) get_option( $db_key, array() );
 
 			// add option to database to prevent query on every pageload
-			if ( $option === false ) {
+			if ( count( $option ) === 0 ) {
 				add_option( $db_key, $defaults[$option_key] );
 			}
 
-			$options[$option_key] = array_merge( $defaults[$option_key], (array) $option );
+			$options[$option_key] = array_merge( $defaults[$option_key], $option );
 		}
 	}
 

@@ -37,11 +37,6 @@ class MC4WP_Lite_Form_Manager {
         // load checkbox css if necessary
         add_action('wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
 
-		// has a MC4WP form been submitted?
-		if ( isset( $_POST['_mc4wp_form_submit'] ) ) {
-			$this->form_request = new MC4WP_Lite_Form_Request;
-		}
-
 		/**
 		* @deprecated
 		*/
@@ -57,11 +52,20 @@ class MC4WP_Lite_Form_Manager {
 	{
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		// register placeholder script, which will later be enqueued for IE only
-		wp_register_script( 'mc4wp-placeholders', MC4WP_LITE_PLUGIN_URL . 'assets/js/placeholders.min.js', array(), MC4WP_LITE_VERSION, true );
+		// has a MC4WP form been submitted?
+		if ( isset( $_POST['_mc4wp_form_submit'] ) ) {
+			$this->form_request = new MC4WP_Lite_Form_Request;
+		}
 
-		// register non-AJAX script (that handles form submissions)
-		wp_register_script( 'mc4wp-form-request', MC4WP_LITE_PLUGIN_URL . 'assets/js/form-request' . $suffix . '.js', array(), MC4WP_LITE_VERSION, true );
+		// frontend only
+		if( ! is_admin() ) {
+			// register placeholder script, which will later be enqueued for IE only
+			wp_register_script( 'mc4wp-placeholders', MC4WP_LITE_PLUGIN_URL . 'assets/js/placeholders.min.js', array(), MC4WP_LITE_VERSION, true );
+
+			// register non-AJAX script (that handles form submissions)
+			wp_register_script( 'mc4wp-form-request', MC4WP_LITE_PLUGIN_URL . 'assets/js/form-request' . $suffix . '.js', array(), MC4WP_LITE_VERSION, true );
+		}
+
 	}
 
 	/**
@@ -205,7 +209,7 @@ class MC4WP_Lite_Form_Manager {
 			wp_localize_script( 'mc4wp-form-request', 'mc4wpFormRequestData', array(
 					'success' => ( $this->form_request->is_successful() ) ? 1 : 0,
 					'submittedFormId' => $this->form_request->get_form_instance_number(),
-					'postData' => stripslashes_deep( $_POST )
+					'postData' => $this->form_request->get_data()
 				)
 			);
 

@@ -18,17 +18,17 @@ class MC4WP_Lite_Form_Request {
 	/**
 	 * @var array
 	 */
-	private $posted_data = array();
+	private $data = array();
 
 	/**
-	 * @var bool
+	 * @var bool Guilty until proven otherwise.
 	 */
 	private $success = false;
 
 	/**
-	 * @var string
+	 * @var bool Guilty until proven otherwise.
 	 */
-	private $error_code = 'error';
+	private $is_valid = false;
 
 	/**
 	 * @var array The form options
@@ -36,40 +36,30 @@ class MC4WP_Lite_Form_Request {
 	private $form_options;
 
 	/**
-	 * Constructor
-	 *
-	 * Hooks into the `init` action to start the process of subscribing the person who filled out the form
+	 * @var array
 	 */
-	public function __construct() {
+	private $lists_fields_map = array();
 
-		// store number of submitted form
-		$this->form_instance_number = absint( $_POST['_mc4wp_form_instance'] );
+	/**
+	 * @var array
+	 */
+	private $unmapped_fields = array();
 
-		// store form options
-		$this->form_options = mc4wp_get_options( 'form' );
+	/**
+	 * @var string
+	 */
+	private $error_code = 'error';
 
-		add_action( 'init', array( $this, 'act' ) );
-	}
+	/**
+	 * @var string
+	 */
+	private $mailchimp_error = '';
 
 	/**
 	 * @return bool
 	 */
 	public function is_successful() {
 		return $this->success;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_error_code() {
-		return $this->error_code;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function get_posted_data() {
-		return $this->posted_data;
 	}
 
 	/**
@@ -80,34 +70,94 @@ class MC4WP_Lite_Form_Request {
 	}
 
 	/**
-	 * Acts on the submitted data
-	 * - Validates internal fields
-	 * - Formats email and merge_vars
-	 * - Sends off the subscribe request to MailChimp
-	 * - Returns state
-	 *
-	 * @return bool True on success, false on failure.
+	 * @return array
 	 */
-	public function act() {
+	public function get_data() {
+		return $this->data;
+	}
+
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+
+		// uppercase all POST keys
+		$this->data = array_change_key_case( $_POST, CASE_UPPER );
+
+		// store number of submitted form
+		$this->form_instance_number = absint( $this->data['_MC4WP_FORM_INSTANCE'] );
+		$this->form_options = mc4wp_get_options( 'form' );
+
+		$this->is_valid = $this->validate();
+
+		// normalize posted data
+		$this->data = $this->sanitize();
+
+		if( $this->is_valid ) {
+
+			// add some data to the posted data, like FNAME and LNAME
+			$this->guess_missing_fields( $this->data );
+
+			// map fields to corresponding MailChimp lists
+			if( $this->map_data() ) {
+
+				// subscribe using the processed data
+				$this->success = $this->subscribe( $this->lists_fields_map );
+			}
+		}
+
+		// send HTTP response
+		$this->send_http_response();
+
+		return $this->success;
+	}
+
+	/**
+	 * Validates the request
+	 *
+	 * - Nonce validity
+	 * - Honeypot
+	 * - Captcha
+	 * - Email address
+	 * - Lists (POST and options)
+	 * - Additional validation using a filter.
+	 *
+	 * @return bool
+	 */
+	private function validate() {
 
 		// detect caching plugin
 		$using_caching = ( defined( 'WP_CACHE' ) && WP_CACHE );
 
-		// validate form nonce
-		if ( ! $using_caching && ( ! isset( $_POST['_mc4wp_form_nonce'] ) || ! wp_verify_nonce( $_POST['_mc4wp_form_nonce'], '_mc4wp_form_nonce' ) ) ) {
+		// validate form nonce, but only if not using caching
+		if ( ! $using_caching && ( ! isset( $this->data['_MC4WP_FORM_NONCE'] ) || ! wp_verify_nonce( $this->data['_MC4WP_FORM_NONCE'], '_mc4wp_form_nonce' ) ) ) {
 			$this->error_code = 'invalid_nonce';
 			return false;
 		}
 
 		// ensure honeypot was not filed
-		if ( isset( $_POST['_mc4wp_required_but_not_really'] ) && ! empty( $_POST['_mc4wp_required_but_not_really'] ) ) {
+		if ( isset( $this->data['_MC4WP_REQUIRED_BUT_NOT_REALLY'] ) && ! empty( $this->data['_MC4WP_REQUIRED_BUT_NOT_REALLY'] ) ) {
 			$this->error_code = 'spam';
 			return false;
 		}
 
 		// check if captcha was present and valid
-		if( isset( $_POST['_mc4wp_has_captcha'] ) && $_POST['_mc4wp_has_captcha'] == 1 && function_exists( 'cptch_check_custom_form' ) && cptch_check_custom_form() !== true ) {
+		if( isset( $this->data['_MC4WP_HAS_CAPTCHA'] ) && $this->data['_MC4WP_HAS_CAPTCHA'] == 1 && function_exists( 'cptch_check_custom_form' ) && cptch_check_custom_form() !== true ) {
 			$this->error_code = 'invalid_captcha';
+			return false;
+		}
+
+		// validate email
+		if( ! isset( $this->data['EMAIL'] ) || ! is_string( $this->data['EMAIL'] ) || ! is_email( $this->data['EMAIL'] ) ) {
+			$this->error_code = 'invalid_email';
+			return false;
+		}
+
+		// get lists to subscribe to
+		$lists = $this->get_lists();
+
+		if ( empty( $lists ) ) {
+			$this->error_code = 'no_lists_selected';
 			return false;
 		}
 
@@ -118,138 +168,42 @@ class MC4WP_Lite_Form_Request {
 		 * Return true if the form is valid or an error string if it isn't.
 		 * Use the `mc4wp_form_messages` filter to register custom error messages.
 		 */
-		$valid_form_request = apply_filters( 'mc4wp_valid_form_request', true );
+		$valid_form_request = apply_filters( 'mc4wp_valid_form_request', true, $this->data );
 		if( $valid_form_request !== true ) {
 			$this->error_code = $valid_form_request;
 			return false;
 		}
 
-		// get entered form data (sanitized)
-		$this->sanitize_form_data();
-		$data = $this->get_posted_data();
-
-		// validate email
-		if( ! isset( $data['EMAIL'] ) || ! is_string( $data['EMAIL'] ) || ! is_email( $data['EMAIL'] ) ) {
-			$this->error_code = 'invalid_email';
-			return false;
-		}
-
-		// setup merge_vars array
-		$merge_vars = $data;
-
-		// take email out of $data array, use the rest as merge_vars
-		$email = $merge_vars['EMAIL'];
-		unset( $merge_vars['EMAIL'] );
-
-		// validate groupings
-		if( isset( $data['GROUPINGS'] ) && is_array( $data['GROUPINGS'] ) ) {
-			$merge_vars['GROUPINGS'] = $this->format_groupings_data( $data['GROUPINGS'] );
-		}
-
-		// subscribe the given email / data combination
-		$this->success = $this->subscribe( $email, $merge_vars );
-
-		// do stuff on success
-		if( true === $this->success ) {
-
-			// check if we want to redirect the visitor
-			if ( ! empty( $this->form_options['redirect'] ) ) {
-
-				$redirect_url = add_query_arg( array( 'mc4wp_email' => urlencode( $email ) ), $this->form_options['redirect'] );
-				wp_redirect( $redirect_url );
-				exit;
-			}
-
-			// return true on success
-			return true;
-		}
-
-		/**
-		 * @action mc4wp_form_error_{ERROR_CODE}
-		 *
-		 * Use to hook into various sign-up errors. Hook names are:
-		 *
-		 * - mc4wp_form_error_error                     General errors
-		 * - mc4wp_form_error_invalid_email             Invalid email address
-		 * - mc4wp_form_error_already_subscribed        Email is already on selected list(s)
-		 * - mc4wp_form_error_required_field_missing    One or more required fields are missing
-		 * - mc4wp_form_error_no_lists_selected         No MailChimp lists were selected
-		 *
-		 * @param   int     $form_id        The ID of the submitted form
-		 * @param   string  $email          The email of the subscriber
-		 * @param   array   $merge_vars     Additional list fields, like FNAME etc (if any)
-		 */
-		do_action( 'mc4wp_form_error_' . $this->get_error_code(), 0, $email, $merge_vars );
-
-		// return false on failure
-		return false;
+		return true;
 	}
 
 	/**
-	 * Format GROUPINGS data according to the MailChimp API requirements
+	 * Sanitize the request data.
 	 *
-	 * @param $data
-	 *
-	 * @return array
-	 */
-	private function format_groupings_data( $data ) {
-
-		$sanitized_data = array();
-
-		foreach ( $data as $grouping_id_or_name => $groups ) {
-
-			$grouping = array();
-
-			// set key: grouping id or name
-			if ( is_numeric( $grouping_id_or_name ) ) {
-				$grouping['id'] = absint( $grouping_id_or_name );
-			} else {
-				$grouping['name'] = sanitize_text_field( $grouping_id_or_name );
-			}
-
-			// comma separated list should become an array
-			if( ! is_array( $groups ) ) {
-				$groups = sanitize_text_field( $groups );
-				$groups = explode( ',', $groups );
-			}
-
-			$grouping['groups'] = $groups;
-
-			// add grouping to array
-			$sanitized_data[] = $grouping;
-		}
-
-		return $sanitized_data;
-	}
-
-	/**
-	 * Get and sanitize posted form data
-	 *
-	 * - Strips internal MailChimp for WP variables from the posted data array
-	 * - Strips ignored fields
-	 * - Converts keys to uppercase
-	 * - Trims scalar values and strips slashes
+	 * - Strips internal variables
+	 * - Strip ignored fields
+	 * - Sanitize scalar values
+	 * - Strip slashes on everything
 	 *
 	 * @return array
 	 */
-	private function sanitize_form_data() {
-
+	private function sanitize() {
 		$data = array();
 
 		// Ignore those fields, we don't need them
 		$ignored_fields = array( 'CPTCH_NUMBER', 'CNTCTFRM_CONTACT_ACTION', 'CPTCH_RESULT', 'CPTCH_TIME' );
 
-		foreach( $_POST as $key => $value ) {
+		foreach( $this->data as $key => $value ) {
 
 			// Sanitize key
-			$key = trim( strtoupper( $key ) );
+			$key = trim( $key );
 
 			// Skip field if it starts with _ or if it's in ignored_fields array
 			if( $key[0] === '_' || in_array( $key, $ignored_fields ) ) {
 				continue;
 			}
 
-			// Sanitize value if it's scalar
+			// Sanitize value
 			$value = ( is_scalar( $value ) ) ? sanitize_text_field( $value ) : $value;
 
 			// Add value to array
@@ -260,86 +214,236 @@ class MC4WP_Lite_Form_Request {
 		$data = stripslashes_deep( $data );
 
 		// store data somewhere safe
-		$this->posted_data = $data;
+		return $data;
+	}
+
+	/**
+	 * Guesses the value of some fields.
+	 *
+	 * - FNAME and LNAME, if NAME is given
+	 *
+	 * @param array $data
+	 * @return array
+	 */
+	public function guess_missing_fields( $data ) {
+
+		// fill FNAME and LNAME if they're not set, but NAME is.
+		if( isset( $data['NAME'] ) && ! isset( $data['FNAME'] ) && ! isset( $data['LNAME'] ) ) {
+
+			$strpos = strpos( $data['NAME'], ' ' );
+			if( $strpos !== false ) {
+				$data['FNAME'] = substr( $data['NAME'], 0, $strpos );
+				$data['LNAME'] = substr( $data['NAME'], $strpos );
+			} else {
+				$data['FNAME'] = $data['NAME'];
+			}
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Send HTTP response
+	 */
+	public function send_http_response() {
+
+		// do stuff on success, non-AJAX only
+		if( $this->success ) {
+
+			// check if we want to redirect the visitor
+			if ( ! empty( $this->form_options['redirect'] ) ) {
+
+				$redirect_url = add_query_arg( array( 'mc4wp_email' => urlencode( $this->data['EMAIL'] ) ), $this->form_options['redirect'] );
+				wp_redirect( $redirect_url );
+				exit;
+			}
+
+		} else {
+
+			/**
+			 * @action mc4wp_form_error_{ERROR_CODE}
+			 *
+			 * Use to hook into various sign-up errors. Hook names are:
+			 *
+			 * - mc4wp_form_error_error                     General errors
+			 * - mc4wp_form_error_invalid_email             Invalid email address
+			 * - mc4wp_form_error_already_subscribed        Email is already on selected list(s)
+			 * - mc4wp_form_error_required_field_missing    One or more required fields are missing
+			 * - mc4wp_form_error_no_lists_selected         No MailChimp lists were selected
+			 *
+			 * @param   int     $form_id        The ID of the submitted form (PRO ONLY)
+			 * @param   string  $email          The email of the subscriber
+			 * @param   array   $data           Additional list fields, like FNAME etc (if any)
+			 */
+			do_action( 'mc4wp_form_error_' . $this->error_code, 0, $this->data['EMAIL'], $this->data );
+		}
+
+	}
+
+	/**
+	 * Maps the received data to MailChimp lists
+	 *
+	 * @return array
+	 */
+	private function map_data() {
+
+		$data = $this->data;
+
+		$map = array();
+		$mapped_fields = array( 'EMAIL' );
+		$unmapped_fields = array();
+
+		$mailchimp = new MC4WP_MailChimp();
+
+		// loop through selected lists
+		foreach( $this->get_lists() as $list_id ) {
+
+			$list = $mailchimp->get_list( $list_id, false, true );
+
+			// skip this list if it's unexisting
+			if( ! is_object( $list ) || ! isset( $list->merge_vars ) ) {
+				continue;
+			}
+
+			// start with empty list map
+			$list_map = array();
+
+			// loop through other list fields
+			foreach( $list->merge_vars as $field ) {
+
+				// skip EMAIL field
+				if( $field->tag === 'EMAIL' ) {
+					continue;
+				}
+
+				// check if field is required
+				if( $field->req ) {
+					if( ! isset( $data[ $field->tag ] ) || '' === $data[ $field->tag ] ) {
+						$this->error_code = 'required_field_missing';
+						return false;
+					}
+				}
+
+				// if field is not set, continue.
+				if( ! isset( $data[ $field->tag ] ) ) {
+					continue;
+				}
+
+				// grab field value from data
+				$field_value = $data[ $field->tag ];
+
+				$field_value = $this->format_field_value( $field_value, $field->field_type );
+
+				// add field value to map
+				$mapped_fields[] = $field->tag;
+				$list_map[ $field->tag ] = $field_value;
+			}
+
+			// loop through list groupings if GROUPINGS data was sent
+			if( isset( $data['GROUPINGS'] ) && is_array( $data['GROUPINGS'] ) && ! empty( $list->interest_groupings ) ) {
+
+				$list_map['GROUPINGS'] = array();
+
+				foreach( $list->interest_groupings as $grouping ) {
+
+					// check if data for this group was sent
+					if( isset( $data['GROUPINGS'][$grouping->id] ) ) {
+						$group_data = $data['GROUPINGS'][$grouping->id];
+					} elseif( isset( $data['GROUPINGS'][$grouping->name] ) ) {
+						$group_data = $data['GROUPINGS'][$grouping->name];
+					} else {
+						// no data for this grouping was sent, just continue.
+						continue;
+					}
+
+					// format new grouping
+					$grouping = array(
+						'id' => $grouping->id,
+						'groups' => $group_data
+					);
+
+					// make sure groups is an array
+					if( ! is_array( $grouping['groups'] ) ) {
+						$grouping['groups'] = sanitize_text_field( $grouping['groups'] );
+						$grouping['groups'] = explode( ',', $grouping['groups'] );
+					}
+
+					$list_map['GROUPINGS'][] = $grouping;
+
+				}
+
+				// unset GROUPINGS if no grouping data was found for this list
+				if( 0 === count( $list_map['GROUPINGS'] ) ) {
+					unset( $list_map['GROUPINGS'] );
+				}
+			}
+
+			// add to total map
+			$map[ $list_id ] = $list_map;
+
+
+		}
+
+		// loop through data to find unmapped fields
+		if( count( $mapped_fields ) < count( $data ) ) {
+			foreach( $data as $field_key => $field_value ) {
+				if( ! in_array( $field_key, $mapped_fields ) ) {
+					$unmapped_fields[ $field_key ] = $field_value;
+				}
+			}
+		}
+
+		$this->unmapped_fields = $unmapped_fields;
+		$this->lists_fields_map = $map;
+		return true;
 	}
 
 	/**
 	 * Subscribes the given email and additional list fields
 	 *
-	 * - Guesses FNAME and LNAME, if not set but NAME is.
-	 * - Adds OPTIN_IP field
-	 * - Validates merge_vars according to selected list(s) requirements
-	 * - Checks if a list was selected or given in form
-	 *
-	 * @param string $email
-	 * @param array $merge_vars
-	 *
+	 * @param array $lists_data
 	 * @return bool
 	 */
-	private function subscribe( $email, $merge_vars = array() ) {
-
-		// Try to guess FNAME and LNAME if they are not given, but NAME is
-		if( isset( $merge_vars['NAME'] ) && ! isset( $merge_vars['FNAME'] ) && ! isset( $merge_vars['LNAME'] ) ) {
-
-			$strpos = strpos($merge_vars['NAME'], ' ');
-			if( $strpos !== false ) {
-				$merge_vars['FNAME'] = substr( $merge_vars['NAME'], 0, $strpos );
-				$merge_vars['LNAME'] = substr( $merge_vars['NAME'], $strpos );
-			} else {
-				$merge_vars['FNAME'] = $merge_vars['NAME'];
-			}
-		}
-
-		// set ip address
-		if( ! isset( $merge_vars['OPTIN_IP'] ) && isset( $_SERVER['REMOTE_ADDR'] ) ) {
-			$merge_vars['OPTIN_IP'] = $_SERVER['REMOTE_ADDR'];
-		}
-
-		// set correct mc_language field
-		if( isset( $merge_vars['MC_LANGUAGE'] ) && strlen( $merge_vars['MC_LANGUAGE'] ) > 2 && ! in_array( $merge_vars['MC_LANGUAGE'] , array( 'fr_CA', 'es_ES', 'pt_PT' ) ) ) {
-			$merge_vars['MC_LANGUAGE'] = strtolower( substr( $merge_vars['MC_LANGUAGE'], 0, 2 ) );
-		}
+	private function subscribe( $lists_data ) {
 
 		$api = mc4wp_get_api();
 
-		// get lists to subscribe to
-		$lists = $this->get_lists();
-
-		if ( empty( $lists ) ) {
-			$this->error_code = 'no_lists_selected';
-			return false;
-		}
-
-		// validate fields according to mailchimp list field types
-		$merge_vars = $this->validate_merge_vars( $merge_vars );
-		if( false === $merge_vars ) {
-			return false;
-		}
-
-		do_action( 'mc4wp_before_subscribe', $email, $merge_vars, 0 );
+		do_action( 'mc4wp_before_subscribe', $this->data['EMAIL'], $this->data, 0 );
 
 		$result = false;
 		$email_type = $this->get_email_type();
 
-		foreach ( $lists as $list_id ) {
+		foreach ( $lists_data as $list_id => $list_field_data ) {
+
 			// allow plugins to alter merge vars for each individual list
-			$list_merge_vars = apply_filters( 'mc4wp_merge_vars', $merge_vars, 0, $list_id );
+			$list_merge_vars = $this->get_list_merge_vars( $list_field_data );
+			$list_merge_vars = apply_filters( 'mc4wp_merge_vars', $list_merge_vars, 0, $list_id );
 
 			// send a subscribe request to MailChimp for each list
-			$result = $api->subscribe( $list_id, $email, $list_merge_vars, $email_type, $this->form_options['double_optin'] );
+			$result = $api->subscribe( $list_id, $this->data['EMAIL'], $list_merge_vars, $email_type, $this->form_options['double_optin'], $this->form_options['update_existing'], $this->form_options['replace_interests'], $this->form_options['send_welcome'] );
 		}
 
-		do_action( 'mc4wp_after_subscribe', $email, $merge_vars, 0, $result );
+		do_action( 'mc4wp_after_subscribe', $this->data['EMAIL'], $this->data, 0, $result );
 
 		if ( $result !== true ) {
 			// subscribe request failed, store error.
 			$this->success = false;
 			$this->error_code = $result;
+			$this->mailchimp_error = $api->get_error_message();
 			return false;
 		}
 
+		// subscription succeeded
+
 		// store user email in a cookie
-		$this->set_email_cookie( $email );
+		$this->set_email_cookie( $this->data['EMAIL'] );
+
+		/**
+		 * @deprecated Don't use, will be removed in v2.0
+		 * TODO: remove this
+		 */
+		$from_url = ( isset( $_SERVER['HTTP_REFERER'] ) ) ? $_SERVER['HTTP_REFERER'] : '';
+		do_action( 'mc4wp_subscribe_form', $this->data['EMAIL'], array_keys( $lists_data ), 0, $this->data, $from_url );
 
 		// Store success result
 		$this->success = true;
@@ -348,74 +452,78 @@ class MC4WP_Lite_Form_Request {
 	}
 
 	/**
-	 * Validates the posted fields against merge_vars of selected list(s)
+	 * Format field value according to its type
 	 *
-	 * @param array $data
+	 * @param $field_type
+	 * @param $field_value
 	 *
-	 * @return array|boolean Array of data on success, false on error
+	 * @return array|string
 	 */
-	private function validate_merge_vars( array $data ) {
+	private function format_field_value( $field_value, $field_type ) {
 
-		$list_ids = $this->get_lists();
-		$mailchimp = new MC4WP_MailChimp();
+		$field_type = strtolower( $field_type );
 
-		foreach( $list_ids as $list_id ) {
+		switch( $field_type ) {
 
-			$list = $mailchimp->get_list( $list_id, false, true );
+			// birthday fields need to be MM/DD for the MailChimp API
+			case 'birthday':
+				$field_value = (string) date( 'm/d', strtotime( $field_value ) );
+				break;
 
-			// make sure list was found
-			if( ! is_object( $list ) ) {
-				continue;
-			}
+			case 'address':
 
-			// loop through list fields
-			foreach( $list->merge_vars as $merge_var ) {
+				// auto-format if addr1 is not set
+				if( ! isset( $field_value['addr1'] ) ) {
 
-				// skip email field, it's validated elsewhere
-				if( $merge_var->tag === 'EMAIL' ) {
-					continue;
+					// addr1, addr2, city, state, zip, country
+					$address_pieces = explode( ',', $field_value );
+
+					// try to fill it.... this is a long shot
+					$field_value = array(
+						'addr1' => $address_pieces[0],
+						'city'  => ( isset( $address_pieces[1] ) ) ?   $address_pieces[1] : '',
+						'state' => ( isset( $address_pieces[2] ) ) ?   $address_pieces[2] : '',
+						'zip'   => ( isset( $address_pieces[3] ) ) ?   $address_pieces[3] : ''
+					);
+
 				}
 
-				$posted_value = ( isset( $data[ $merge_var->tag ] ) && '' !== $data[ $merge_var->tag ] ) ? $data[ $merge_var->tag ] : '';
-
-				// check if required field is given
-				if( $merge_var->req && '' === $posted_value ) {
-					$this->error_code = 'required_field_missing';
-					return false;
-				}
-
-				// format birthday fields in MM/DD format, required by MailChimp
-				if( $merge_var->field_type === 'birthday' && $posted_value !== '' ) {
-					$data[ $merge_var->tag ] = date( 'm/d', strtotime( $data[ $merge_var->tag ] ) );
-				}
-
-				// format address fields
-				if( $merge_var->field_type === 'address' && $posted_value !== '' ) {
-
-					if( ! isset( $posted_value['addr1'] ) ) {
-
-						// addr1, addr2, city, state, zip, country
-						$address_pieces = explode( ',', $posted_value );
-
-						// try to fill it.... this is a long shot
-						$data[ $merge_var->tag ] = array(
-							'addr1' => $address_pieces[0],
-							'city'  => ( isset( $address_pieces[1] ) ) ?   $address_pieces[1] : '',
-							'state' => ( isset( $address_pieces[2] ) ) ?   $address_pieces[2] : '',
-							'zip'   => ( isset( $address_pieces[3] ) ) ?   $address_pieces[3] : ''
-						);
-
-					} else {
-						// form contains the necessary fields already: perfection
-						$data[ $merge_var->tag ] = $posted_value;
-					}
-				}
-
-
-			}
+				break;
 		}
 
-		return $data;
+		/**
+		 * @filter `mc4wp_format_field_value`
+		 * @param mixed $field_value
+		 * @param string $field_type
+		 * @expects mixed
+		 *
+		 *          Format a field value according to its MailChimp field type
+		 */
+		$field_value = apply_filters( 'mc4wp_format_field_value', $field_value, $field_type );
+
+		return $field_value;
+	}
+
+
+	/**
+	 * Adds global fields like OPTIN_IP, MC_LANGUAGE, OPTIN_DATE, etc to the list of user-submitted field data.
+	 *
+	 * @param $field_data
+	 * @return array
+	 */
+	private function get_list_merge_vars( $field_data ) {
+
+		$merge_vars = array(
+			'OPTIN_IP' => sanitize_text_field( $_SERVER['REMOTE_ADDR'] )
+		);
+
+		// add MC_LANGUAGE
+		if( isset( $field_data['MC_LANGUAGE'] ) ) {
+			$field_data['MC_LANGUAGE'] = strtolower( substr( $field_data['MC_LANGUAGE'], 0, 2 ) );
+		}
+
+		$merge_vars = array_merge( $merge_vars, $field_data );
+		return $merge_vars;
 	}
 
 	/**
@@ -435,7 +543,7 @@ class MC4WP_Lite_Form_Request {
 		// allow plugins to override this email type
 		$email_type = apply_filters( 'mc4wp_email_type', $email_type );
 
-		return $email_type;
+		return (string) $email_type;
 	}
 
 	/**
@@ -463,7 +571,7 @@ class MC4WP_Lite_Form_Request {
 		// allow plugins to alter the lists to subscribe to
 		$lists = apply_filters( 'mc4wp_lists', $lists );
 
-		return $lists;
+		return (array) $lists;
 	}
 
 	/**
@@ -476,6 +584,7 @@ class MC4WP_Lite_Form_Request {
 		/**
 		 * @filter `mc4wp_cookie_expiration_time`
 		 * @expects timestamp
+		 * @default timestamp for 30 days from now
 		 *
 		 * Timestamp indicating when the email cookie expires, defaults to 30 days
 		 */
@@ -489,13 +598,13 @@ class MC4WP_Lite_Form_Request {
 	 *
 	 * @return string
 	 */
-	public function get_response_html() {
+	public function get_response_html( ) {
 
 		// get all form messages
 		$messages = $this->get_form_messages();
 
 		// retrieve correct message
-		$type = ( $this->is_successful() ) ? 'success' : $this->get_error_code();
+		$type = ( $this->success ) ? 'success' : $this->error_code;
 		$message = ( isset( $messages[ $type ] ) ) ? $messages[ $type ] : $messages['error'];
 
 		/**
@@ -505,18 +614,15 @@ class MC4WP_Lite_Form_Request {
 		 *
 		 * Used to alter the error message, don't use. Use `mc4wp_form_messages` instead.
 		 */
-		$message['text'] = apply_filters('mc4wp_form_error_message', $message['text'], $this->get_error_code() );
+		$message['text'] = apply_filters('mc4wp_form_error_message', $message['text'], $this->error_code );
 
 		$html = '<div class="mc4wp-alert mc4wp-'. $message['type'].'">' . $message['text'] . '</div>';
 
 		// show additional MailChimp API errors to administrators
-		if( false === $this->is_successful() && current_user_can( 'manage_options' ) ) {
+		if( ! $this->success && current_user_can( 'manage_options' ) ) {
 
-			// show MailChimp error message (if any) to administrators
-			$api = mc4wp_get_api();
-
-			if( $api->has_error() ) {
-				$html .= '<div class="mc4wp-alert mc4wp-error"><strong>' . __( 'MailChimp Error:', 'mailchimp-for-wp' ) . '</strong><br />'. $api->get_error_message() . '</div>';
+			if( '' !== $this->mailchimp_error ) {
+				$html .= '<div class="mc4wp-alert mc4wp-error"><strong>Admin notice:</strong> '. $this->mailchimp_error . '</div>';
 			}
 		}
 
@@ -535,7 +641,6 @@ class MC4WP_Lite_Form_Request {
 	 *      ...
 	 * );
 	 *
-	 * @param   int     $form_id
 	 * @return array
 	 */
 	public function get_form_messages() {
@@ -573,12 +678,13 @@ class MC4WP_Lite_Form_Request {
 
 		/**
 		 * @filter mc4wp_form_messages
+		 * @expects array
 		 *
 		 * Allows registering custom form messages, useful if you're using custom validation using the `mc4wp_valid_form_request` filter.
 		 */
-		$messages = apply_filters( 'mc4wp_form_messages', $messages );
+		$messages = apply_filters( 'mc4wp_form_messages', $messages, 0 );
 
-		return $messages;
+		return (array) $messages;
 	}
 
 

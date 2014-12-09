@@ -11,6 +11,9 @@ class MC4WP_MailChimp {
 	 * Get MailChimp lists
 	 * Try cache first, then try API, then try fallback cache.
 	 *
+	 * @param bool $force_renewal
+	 * @param bool $force_fallback
+	 *
 	 * @return array
 	 */
 	public function get_lists( $force_renewal = false, $force_fallback = false ) {
@@ -82,6 +85,8 @@ class MC4WP_MailChimp {
 	 * Get a given MailChimp list
 	 *
 	 * @param int $list_id
+	 * @param bool $force_renewal
+	 * @param bool $force_fallback
 	 *
 	 * @return bool
 	 */
@@ -104,7 +109,7 @@ class MC4WP_MailChimp {
 	public function get_list_name( $id ) {
 		$list = $this->get_list( $id );
 
-		if( is_object( $list ) ) {
+		if( is_object( $list ) && isset( $list->name ) ) {
 			return $list->name;
 		}
 
@@ -114,7 +119,7 @@ class MC4WP_MailChimp {
 	/**
 	 * Returns number of subscribers on given lists.
 	 *
-	 * @param array $list_ids of list id's.
+	 * @param array $list_ids Array of list id's.
 	 * @return int Sum of subscribers for given lists.
 	 */
 	public function get_subscriber_count( $list_ids ) {
@@ -162,6 +167,8 @@ class MC4WP_MailChimp {
 
 	/**
 	 * Build the group array object which will be stored in cache
+	 *
+	 * @param object $group
 	 * @return object
 	 */
 	public function strip_unnecessary_group_properties( $group ) {
@@ -172,6 +179,8 @@ class MC4WP_MailChimp {
 
 	/**
 	 * Build the groupings array object which will be stored in cache
+	 *
+	 * @param object $grouping
 	 * @return object
 	 */
 	public function strip_unnecessary_grouping_properties( $grouping ) {
@@ -185,6 +194,8 @@ class MC4WP_MailChimp {
 
 	/**
 	 * Build the merge_var array object which will be stored in cache
+	 *
+	 * @param object $merge_var
 	 * @return object
 	 */
 	public function strip_unnecessary_merge_vars_properties( $merge_var ) {
