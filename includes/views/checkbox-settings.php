@@ -6,7 +6,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 }
 
 ?>
-<div id="mc4wp" class="wrap mc4wp-settings">
+<div id="mc4wp-admin" class="wrap mc4wp-settings">
 
 	<h2><img src="<?php echo MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png'; ?>" /> <?php _e( 'MailChimp for WordPress', 'mailchimp-for-wp' ); ?>: <?php _e( 'Checkbox Settings', 'mailchimp-for-wp' ); ?></h2>
 	
@@ -96,7 +96,16 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 			<td class="nowrap"><label><input type="radio" name="mc4wp_lite_checkbox[css]" value="1" <?php checked( $opts['css'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp; <label><input type="radio" name="mc4wp_lite_checkbox[css]" value="0" <?php checked( $opts['css'], 0 ); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?></label></td>
 			<td class="desc"><?php _e( 'Select "yes" if the checkbox appears in a weird place.', 'mailchimp-for-wp' ); ?></td>
 		</tr>
-		
+		<tr valign="top" id="woocommerce-settings" <?php if( ! $opts['show_at_woocommerce_checkout'] ) { ?>style="display: none;"<?php } ?>>
+			<th scope="row"><?php _e( 'WooCommerce checkbox position', 'mailchimp-for-wp' ); ?></th>
+			<td class="nowrap">
+				<select name="mc4wp_lite_checkbox[woocommerce_position]">
+					<option value="billing" <?php selected( $opts['woocommerce_position'], 'billing' ); ?>><?php _e( 'After the billing details', 'mailchimp-for-wp' ); ?></option>
+					<option value="order" <?php selected( $opts['woocommerce_position'], 'order' ); ?>><?php _e( 'After the additional information', 'mailchimp-for-wp' ); ?></option>
+				</select>
+			</td>
+			<td class="desc"><?php _e( 'Choose the position for the checkbox in your WooCommerce checkout form.', 'mailchimp-for-wp' ); ?></td>
+		</tr>
 		
 	</table>
 

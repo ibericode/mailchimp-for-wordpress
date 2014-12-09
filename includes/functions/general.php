@@ -35,8 +35,10 @@ function mc4wp_get_options( $key = null ) {
 				'show_at_multisite_form' => 0,
 				'show_at_buddypress_form' => 0,
 				'show_at_bbpress_forms' => 0,
+				'show_at_woocommerce_checkout' => 0,
 				'lists' => array(),
-				'double_optin' => 1
+				'double_optin' => 1,
+				'woocommerce_position' => 'order'
 			),
 			'form' => array(
 				'css' => 'default',

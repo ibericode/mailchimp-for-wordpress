@@ -59,6 +59,11 @@ class MC4WP_Lite_Checkbox_Manager
 			$this->integrations['events_manager'] = new MC4WP_Events_Manager_Integration();
 		}
 
+		// Load WooCommerce Integration
+		if ( $opts['show_at_woocommerce_checkout'] ) {
+			$this->integrations['woocommerce'] = new MC4WP_WooCommerce_Integration();
+		}
+
         // Always load General Integration
 		$this->integrations['general'] = new MC4WP_General_Integration();
 	}

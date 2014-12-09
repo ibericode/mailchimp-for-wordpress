@@ -19,7 +19,7 @@
 	vertical-align: top !important; 
 }
 
-#mc4wp .mc4wp-box{
+#mc4wp-admin .mc4wp-box{
 	margin-bottom:20px; 
 }
 
@@ -67,7 +67,7 @@
 	color:#aaa;
 }
 
-#mc4wp span.status{
+#mc4wp-admin span.status{
 	display:inline-block; 
 	padding:3px 6px; 
 	color:white; 
@@ -75,28 +75,28 @@
 	font-weight:bold;
 }
 
-#mc4wp span.positive{
+#mc4wp-admin span.positive{
 	background-color:green; 
 }
 
-#mc4wp span.negative{
+#mc4wp-admin span.negative{
 	background-color:lightGrey; 
 }
 
-#mc4wp table th{
+#mc4wp-admin table th{
 	text-align:left; 
 }
 
-#mc4wp table.form-table tr td:first-child,
-#mc4wp table.form-table tr th:first-child{
+#mc4wp-admin table.form-table tr td:first-child,
+#mc4wp-admin table.form-table tr th:first-child{
 	padding-left:0; 
 }
 
-#mc4wptd.nowrap{
+#mc4wp-admin td.nowrap{
 	white-space: nowrap
 }
 
-#mc4wp td.desc{
+#mc4wp-admin td.desc{
 	font-style:italic; 
 	font-size:11px;
 }
@@ -109,7 +109,7 @@
 	margin: 1em 0 !important;
 }
 
-#mc4wp .mc4wp-col {
+#mc4wp-admin .mc4wp-col {
 	float:left;
 	-webkit-box-sizing: border-box; 
 	-moz-box-sizing:border-box;
@@ -118,11 +118,11 @@
 	padding:0 5px;
 }
 
-#mc4wp .mc4wp-first{
+#mc4wp-admin .mc4wp-first{
 	padding-left:0; 
 }
 
-#mc4wp .mc4wp-last{
+#mc4wp-admin .mc4wp-last{
 	padding-right:0; 
 }
 
@@ -158,7 +158,7 @@ table.mc4wp-help tr:hover {
 	background-color: #ddd; 
 }
 
-#mc4wp .wp-list-table code {
+#mc4wp-admin .wp-list-table code {
 	float:right;
 }
 
@@ -178,7 +178,7 @@ table.mc4wp-help tr:hover {
 		margin-top:25px; 
 		padding-top: 25px; 
 	}
-	#mc4wp .wp-list-table code {
+	#mc4wp-admin .wp-list-table code {
 		float: none;
 	}
 	

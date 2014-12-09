@@ -19,10 +19,63 @@ abstract class MC4WP_Integration {
 	protected $checkbox_name = '_mc4wp_subscribe';
 
 	/**
+	 * @var array
+	 */
+	private $options;
+
+	/**
 	* Constructor
 	*/
 	public function __construct() {
 		$this->checkbox_name = '_mc4wp_subscribe' . '_' . $this->type;
+	}
+
+	/**
+	 * Get the checkbox options
+	 *
+	 * @return array
+	 */
+	public function get_options() {
+
+		if( $this->options === null ) {
+			$this->options = mc4wp_get_options( 'checkbox' );
+		}
+
+		return $this->options;
+	}
+
+	/**
+	 * Should the checkbox be pre-checked?
+	 *
+	 * @return bool
+	 */
+	public function is_prechecked() {
+		$opts = $this->get_options();
+		return (bool) $opts['precheck'];
+	}
+
+	/**
+	 * Get the text for the label element
+	 *
+	 * @return string
+	 */
+	public function get_label_text() {
+
+		$opts = $this->get_options();
+
+		// Get general label text
+		$label = $opts['label'];
+
+		// Override label text if a specific text for this integration is set
+		if ( isset( $opts['text_' . $this->type . '_label'] ) && ! empty( $opts['text_' . $this->type . '_label'] ) ) {
+			// custom label text was set
+			$label = $opts['text_' . $this->type . '_label'];
+		}
+
+		// replace label variables
+		$label = mc4wp_replace_variables( $label, $opts['lists'] );
+
+		return $label;
 	}
 
 	/**
@@ -54,8 +107,6 @@ abstract class MC4WP_Integration {
 
 	/**
 	* Outputs a checkbox
-	*
-	* @param string $hook
 	*/
 	public function output_checkbox() {
 		echo $this->get_checkbox();
@@ -67,24 +118,15 @@ abstract class MC4WP_Integration {
 	*/
 	public function get_checkbox( $args = array() ) {
 
-		$opts = mc4wp_get_options( 'checkbox' );
-
-		$checked = $opts['precheck'] ? "checked" : '';
+		$checked = ( $this->is_prechecked() ) ? 'checked ' : '';
 
 		// set label text
 		if ( isset( $args['labels'][0] ) ) {
 			// cf 7 shortcode
 			$label = $args['labels'][0];
-		} else if ( isset( $opts['text_' . $this->type . '_label'] ) && ! empty( $opts['text_' . $this->type . '_label'] ) ) {
-			// custom label text was set
-			$label = __( $opts['text_' . $this->type . '_label'], 'mailchimp-for-wp' );
 		} else {
-			// default label text
-			$label = __( $opts['label'], 'mailchimp-for-wp' );
+			$label = $this->get_label_text();
 		}
-
-		// replace label variables
-		$label = mc4wp_replace_variables( $label, $opts['lists'] );
 
 		// CF7 checkbox?
 		if( is_array( $args ) && isset( $args['type'] ) ) {
@@ -105,7 +147,7 @@ abstract class MC4WP_Integration {
 		// checkbox
 		$content .= '<p id="mc4wp-checkbox">';
 		$content .= '<label>';
-		$content .= '<input type="checkbox" name="'. $this->checkbox_name .'" value="1" '. $checked . ' /> ';
+		$content .= '<input type="checkbox" name="'. esc_attr( $this->checkbox_name ) .'" value="1" '. $checked . ' /> ';
 		$content .= $label;
 		$content .= '</label>';
 		$content .= '</p>';
@@ -124,7 +166,7 @@ abstract class MC4WP_Integration {
 	protected function get_lists() {
 
 		// get checkbox lists options
-		$opts = mc4wp_get_options( 'checkbox' );
+		$opts = $this->get_options();
 		$lists = $opts['lists'];
 
 		// get lists from form, if set.
@@ -134,6 +176,9 @@ abstract class MC4WP_Integration {
 
 			// make sure lists is an array
 			if( ! is_array( $lists ) ) {
+
+				// sanitize value
+				$lists = sanitize_text_field( $lists );
 				$lists = array( $lists );
 			}
 
@@ -145,19 +190,20 @@ abstract class MC4WP_Integration {
 		return $lists;
 	}
 
+
 	/**
 	* Makes a subscription request
 	*
 	* @param string $email
 	* @param array $merge_vars
 	* @param string $signup_type
-	* @param int $comment_ID
+	* @param int $comment_id
 	* @return boolean
 	*/
 	protected function subscribe( $email, array $merge_vars = array(), $signup_type = 'comment', $comment_id = null ) {
 
 		$api = mc4wp_get_api();
-		$opts = mc4wp_get_options( 'checkbox' );
+		$opts = $this->get_options();
 		$lists = $this->get_lists();
 
 		if( empty( $lists) ) {
@@ -192,19 +238,53 @@ abstract class MC4WP_Integration {
 		}
 
 		$result = false;
+
+		/**
+		 * @filter `mc4wp_merge_vars`
+		 * @expects array
+		 * @param array $merge_vars
+		 * @param string $signup_type
+		 *
+		 * Use this to filter the final merge vars before the request is sent to MailChimp
+		 */
 		$merge_vars = apply_filters( 'mc4wp_merge_vars', $merge_vars, $signup_type );
+
+		/**
+		 * @filter `mc4wp_merge_vars`
+		 * @expects string
+		 * @param string $email_type
+		 *
+		 * Use this to change the email type this users should receive
+		 */
 		$email_type = apply_filters( 'mc4wp_email_type', 'html' );
 
+		/**
+		 * @action `mc4wp_before_subscribe`
+		 * @param string $email
+		 * @param array $merge_vars
+		 *
+		 * Runs before the request is sent to MailChimp
+		 */
 		do_action( 'mc4wp_before_subscribe', $email, $merge_vars );
 
 		foreach( $lists as $list_id ) {
 			$result = $api->subscribe( $list_id, $email, $merge_vars, $email_type, $opts['double_optin'], false, true );
 		}
 
+		/**
+		 * @action `mc4wp_after_subscribe`
+		 * @param string $email
+		 * @param array $merge_vars
+		 * @param boolean $result
+		 *
+		 * Runs after the request is sent to MailChimp
+		 */
 		do_action( 'mc4wp_after_subscribe', $email, $merge_vars, $result );
 
 		if ( $result === true ) {
-			$from_url = ( isset($_SERVER['HTTP_REFERER'] ) ) ? $_SERVER['HTTP_REFERER'] : '';
+
+			// TODO: Remove this
+			$from_url = ( isset( $_SERVER['HTTP_REFERER'] ) ) ? sanitize_text_field( $_SERVER['HTTP_REFERER'] ) : '';
 			do_action( 'mc4wp_subscribe_checkbox', $email, $lists, $signup_type, $merge_vars, $comment_id, $from_url );
 		}
 

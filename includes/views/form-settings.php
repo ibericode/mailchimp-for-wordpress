@@ -4,7 +4,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
 } ?>
-<div id="mc4wp" class="wrap mc4wp-settings">
+<div id="mc4wp-admin" class="wrap mc4wp-settings">
 
 	<h2><img src="<?php echo MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png'; ?>" /> <?php _e( 'MailChimp for WordPress', 'mailchimp-for-wp' ); ?>: <?php _e( 'Form Settings', 'mailchimp-for-wp' ); ?></h2>
 

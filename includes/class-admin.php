@@ -323,12 +323,12 @@ class MC4WP_Lite_Admin
             $checkbox_plugins['bbpress_forms'] = "bbPress";
         }
 
-		if ( class_exists( 'Easy_Digital_Downloads' ) ) {
-            $checkbox_plugins['_edd_checkout'] = __( '(PRO ONLY)', 'mailchimp-for-wp' ) . ' ' . "Easy Digital Downloads checkout";
-        }
+		if ( class_exists( 'WooCommerce' ) ) {
+			$checkbox_plugins['woocommerce_checkout'] = sprintf( __( '%s checkout', 'mailchimp-for-wp' ), 'WooCommerce' );
+		}
 
-		if ( class_exists( 'Woocommerce' ) ) {
-            $checkbox_plugins['_woocommerce_checkout'] = __( '(PRO ONLY)', 'mailchimp-for-wp' ) . ' ' . "WooCommerce checkout";
+		if ( class_exists( 'Easy_Digital_Downloads' ) ) {
+            $checkbox_plugins['_edd_checkout'] = __( '(PRO ONLY)', 'mailchimp-for-wp' ) . ' ' . sprintf( __( '%s checkout', 'mailchimp-for-wp' ), 'Easy Digital Downloads' );
         }
 
 		return $checkbox_plugins;

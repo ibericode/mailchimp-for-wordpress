@@ -1,27 +1,35 @@
-(function($) { 
+(function($) {
 
-	$("tr.pro-feature, tr.pro-feature td :radio").change(function() {
+	var $context = $('#mc4wp-admin');
+
+	$context.find("tr.pro-feature, tr.pro-feature td :radio").change(function() {
 		this.checked = false;
 		alert("This option is only available in the premium version of MailChimp for WordPress.");
 		event.stopPropagation();
 	});
 
-	$("tr.pro-feature, tr.pro-feature label").click(function() {
+	$context.find("tr.pro-feature, tr.pro-feature label").click(function() {
 		alert("This option is only available in the premium version of MailChimp for WordPress.");
 		event.stopPropagation();
 	});
 
-	(function() {
-		$lists = $("#mc4wp-lists :input");
-		$lists.change( toggleNotices );
+	$context.find('input[name$="[show_at_woocommerce_checkout]"]').change(function() {
+		$context.find('tr#woocommerce-settings').toggle( $(this).prop( 'checked') );
+	});
 
-		function toggleNotices() {
-			var hasListSelected = $lists.filter(':checked').length > 0;
+	var $listInputs = $("#mc4wp-lists").find(':input');
+	$listInputs.change(
+		function() {
+			var hasListSelected = $listInputs.filter(':checked').length > 0;
 			$(".mc4wp-notice.no-lists-selected").toggle( ! hasListSelected );
 			$('#mc4wp-fw-mailchimp-fields').toggle( hasListSelected );
 		}
-	})();
+	);
 
+
+
+
+	// Allow tabs inside the form mark-up
 	$(document).delegate('#mc4wpformmarkup', 'keydown', function(e) {
 		var keyCode = e.keyCode || e.which;
 
@@ -302,13 +310,13 @@
 				'select': [ 'label', 'required', 'wrap-p', 'values'],
 				'radio': [ 'label', 'required', 'wrap-p', 'values'],
 				'date':  [ 'label', 'required', 'wrap-p', 'value']
-			}
+			};
 
 			// map MailChimp field types to HTML5 field type
 			var fieldTypesMap = {
 				'text': 'text', 'email': 'email', 'phone': 'tel', 'address': 'text', 'number': 'number',
 				'dropdown': 'select', 'date': 'date', 'birthday': 'date', 'radio': 'radio',  'checkbox': 'checkbox'
-			}
+			};
 
 			if(fieldTypesMap[data.field_type] != undefined) {
 				fieldType = fieldTypesMap[data.field_type];
@@ -322,7 +330,7 @@
 				var visibleRows = visibleRowsMap["default"];
 			}
 
-			for(var i = 0, count = visibleRows.length; i < count; i++) {
+			for(var i = 0; i < visibleRows.length; i++) {
 				$wizardFields.find('p.row.' + visibleRows[i]).show();
 			}
 
@@ -339,7 +347,7 @@
 			$required.attr('checked', data.req);
 
 			if($multipleValues.is(":visible") && data.choices) {
-				for(var i = 0, count = data.choices.length; i < count; i++) {
+				for(var i = 0; i < data.choices.length; i++) {
 					$("<input />").attr('type', 'text').addClass('widefat').data('value', data.choices[i]).attr('placeholder', 'Label for "' + data.choices[i] + '" (or leave empty)').attr('value', data.choices[i]).appendTo($multipleValues);
 				}
 			}
@@ -364,7 +372,6 @@
 		function updateCodePreview()
 		{
 			var $code = $("<div></div>");
-			var inputs = [];
 			var $input;
 
 			switch(fieldType) {
@@ -386,8 +393,7 @@
 					// add options to select
 					$multipleValues.find(":input").each(function() {
 						if($(this).val().length > 0) {
-							$el = $("<option />").val($(this).data("value")).text($(this).val());
-							$el.appendTo($input);
+							$("<option />").val($(this).data("value")).text($(this).val()).appendTo($input);
 						}					
 					});
 					break;
@@ -480,8 +486,8 @@
 			
 			// fallback, just append
 			if(!result) {
-				$formContent = $("#mc4wpformmarkup");
-				$formContent.val($formContent.val() + "\n" + $codePreview.val());
+				var $formContent = $("#mc4wpformmarkup");
+				$("#mc4wpformmarkup").val($formContent.val() + "\n" + $codePreview.val());
 			}
 		}
 

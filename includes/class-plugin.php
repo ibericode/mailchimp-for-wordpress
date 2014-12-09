@@ -67,6 +67,7 @@ class MC4WP_Lite {
 		        'MC4WP_General_Integration'             => 'integrations/class-general.php',
 		        'MC4WP_MultiSite_Integration'           => 'integrations/class-multisite.php',
 		        'MC4WP_Registration_Form_Integration'   => 'integrations/class-registration-form.php',
+		        'MC4WP_WooCommerce_Integration'         => 'integrations/class-woocommerce.php'
 	        );
 
         }
