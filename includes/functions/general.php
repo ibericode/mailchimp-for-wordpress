@@ -1,6 +1,6 @@
 <?php
 
-if( ! defined("MC4WP_LITE_VERSION") ) {
+if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
@@ -13,7 +13,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 * @param string $key
 * @return array
 */
-function mc4wp_get_options( $key = null ) {
+function mc4wp_get_options( $key = '' ) {
 	static $options = null;
 
 	if( null === $options ) {
@@ -79,7 +79,7 @@ function mc4wp_get_options( $key = null ) {
 		}
 	}
 
-	if( null !== $key ) {
+	if( '' !== $key ) {
 		return $options[$key];
 	}
 

@@ -113,7 +113,7 @@ abstract class MC4WP_Integration {
 	}
 
 	/**
-	* @param mixed $hook Array or string
+	* @param mixed $args Array or string
 	* @return string
 	*/
 	public function get_checkbox( $args = array() ) {
@@ -187,7 +187,7 @@ abstract class MC4WP_Integration {
 		// allow plugins to filter final
 		$lists = apply_filters( 'mc4wp_lists', $lists );
 
-		return $lists;
+		return (array) $lists;
 	}
 
 
@@ -234,7 +234,7 @@ abstract class MC4WP_Integration {
 
 		// set ip address
 		if( ! isset( $merge_vars['OPTIN_IP'] ) && isset( $_SERVER['REMOTE_ADDR'] ) ) {
-			$merge_vars['OPTIN_IP'] = $_SERVER['REMOTE_ADDR'];
+			$merge_vars['OPTIN_IP'] = sanitize_text_field( $_SERVER['REMOTE_ADDR'] );
 		}
 
 		$result = false;
