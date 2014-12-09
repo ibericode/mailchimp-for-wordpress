@@ -1,11 +1,14 @@
 <?php
 
-if( ! defined("MC4WP_LITE_VERSION") ) {
+if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
 }
 
+/**
+ * Takes care of all the sign-up checkboxes
+ */
 class MC4WP_Lite_Checkbox_Manager
 {
 	/**
@@ -14,38 +17,43 @@ class MC4WP_Lite_Checkbox_Manager
 	public $integrations = array();
 
 	/**
+	 * @var array Array of checkbox options
+	 */
+	private $options;
+
+	/**
 	* Constructor
 	*/
 	public function __construct()
 	{
-        $opts = mc4wp_get_options( 'checkbox' );
+       $this->options = mc4wp_get_options( 'checkbox' );
 
         // load checkbox css if necessary
         add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
 		add_action( 'login_enqueue_scripts', array( $this, 'load_stylesheet' ) );
 
         // Load WP Comment Form Integration
-        if ( $opts['show_at_comment_form'] ) {
+        if ( $this->options['show_at_comment_form'] ) {
             $this->integrations['comment_form'] = new MC4WP_Comment_Form_Integration();
         }
 
         // Load WordPress Registration Form Integration
-        if ( $opts['show_at_registration_form'] ) {
+        if ( $this->options['show_at_registration_form'] ) {
             $this->integrations['registration_form'] = new MC4WP_Registration_Form_Integration();
         }
 
         // Load BuddyPress Integration
-        if ( $opts['show_at_buddypress_form'] ) {
+        if ( $this->options['show_at_buddypress_form'] ) {
             $this->integrations['buddypress_form'] = new MC4WP_BuddyPress_Integration();
         }
 
         // Load MultiSite Integration
-        if ( $opts['show_at_multisite_form'] ) {
+        if ( $this->options['show_at_multisite_form'] ) {
             $this->integrations['multisite_form'] = new MC4WP_MultiSite_Integration();
         }
 
         // Load bbPress Integration
-        if ( $opts['show_at_bbpress_forms'] ) {
+        if ( $this->options['show_at_bbpress_forms'] ) {
             $this->integrations['bbpress_forms'] = new MC4WP_bbPress_Integration();
         }
 
@@ -60,8 +68,13 @@ class MC4WP_Lite_Checkbox_Manager
 		}
 
 		// Load WooCommerce Integration
-		if ( $opts['show_at_woocommerce_checkout'] ) {
+		if ( $this->options['show_at_woocommerce_checkout'] ) {
 			$this->integrations['woocommerce'] = new MC4WP_WooCommerce_Integration();
+		}
+
+		// Load EDD Integration
+		if ( $this->options['show_at_edd_checkout'] ) {
+			$this->integrations['easy_digital_downloads'] = new MC4WP_EDD_Integration();
 		}
 
         // Always load General Integration
@@ -73,9 +86,7 @@ class MC4WP_Lite_Checkbox_Manager
 	*/
 	public function load_stylesheet( ) {
 
-        $opts = mc4wp_get_options( 'checkbox' );
-
-        if( $opts['css'] == false ) {
+        if( $this->options['css'] == false ) {
             return false;
         }
 
