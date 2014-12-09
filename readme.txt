@@ -262,13 +262,13 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 **Fixes**
 
 - "Select at least one list" notice appearing when unselecting any MailChimp list in Form settings
-- If an error occured, textareas would lose their value
+- If an error occurs, textareas will no longer lose their value
 
 **Improvements**
 
 - Improved the way form submissions are handled
 - Minor code & documentation improvements
-- Updated French, Portugese and Spanish translations
+- Updated Dutch, French, Portugese and Spanish translations
 
 **Additions**
 
