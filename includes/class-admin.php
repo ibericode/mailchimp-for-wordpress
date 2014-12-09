@@ -328,8 +328,8 @@ class MC4WP_Lite_Admin
 		}
 
 		if ( class_exists( 'Easy_Digital_Downloads' ) ) {
-            $checkbox_plugins['_edd_checkout'] = __( '(PRO ONLY)', 'mailchimp-for-wp' ) . ' ' . sprintf( __( '%s checkout', 'mailchimp-for-wp' ), 'Easy Digital Downloads' );
-        }
+			$checkbox_plugins['edd_checkout'] = sprintf( __( '%s checkout', 'mailchimp-for-wp' ), 'Easy Digital Downloads' );
+		}
 
 		return $checkbox_plugins;
 	}
