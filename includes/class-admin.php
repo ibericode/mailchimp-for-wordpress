@@ -294,7 +294,10 @@ class MC4WP_Lite_Admin
 		wp_enqueue_script( array( 'jquery', 'mc4wp-beautifyhtml', 'mc4wp-admin' ) );
 		wp_localize_script( 'mc4wp-admin', 'mc4wp',
 			array(
-				'has_captcha_plugin' => $this->has_captcha_plugin
+				'has_captcha_plugin' => $this->has_captcha_plugin,
+				'strings' => array(
+					'pro_only' => __( 'This option is only available in MailChimp for WordPress Pro.', 'mailchimp-for-wp' )
+				)
 			)
 		);
 	}

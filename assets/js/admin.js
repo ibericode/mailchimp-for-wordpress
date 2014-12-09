@@ -2,16 +2,18 @@
 
 	var $context = $('#mc4wp-admin');
 
-	$context.find("tr.pro-feature, tr.pro-feature td :radio").change(function() {
-		this.checked = false;
-		alert("This option is only available in the premium version of MailChimp for WordPress.");
-		event.stopPropagation();
-	});
+	function proOnlyNotice() {
 
-	$context.find("tr.pro-feature, tr.pro-feature label").click(function() {
-		alert("This option is only available in the premium version of MailChimp for WordPress.");
+		// prevent checking of radio buttons
+		if( typeof this.checked === 'boolean' ) {
+			this.checked = false;
+		}
+
+		alert( mc4wp.strings.pro_only );
 		event.stopPropagation();
-	});
+	}
+
+	$context.find(".pro-feature, .pro-feature label, .pro-feature :radio").click(proOnlyNotice);
 
 	$context.find('input[name$="[show_at_woocommerce_checkout]"]').change(function() {
 		$context.find('tr#woocommerce-settings').toggle( $(this).prop( 'checked') );
