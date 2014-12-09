@@ -154,7 +154,9 @@ class MC4WP_Lite_Form_Request {
 
 			// check if we want to redirect the visitor
 			if ( ! empty( $this->form_options['redirect'] ) ) {
-				wp_redirect( $this->form_options['redirect'] );
+
+				$redirect_url = add_query_arg( array( 'mc4wp_email' => urlencode( $email ) ), $this->form_options['redirect'] );
+				wp_redirect( $redirect_url );
 				exit;
 			}
 
