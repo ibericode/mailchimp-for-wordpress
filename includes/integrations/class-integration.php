@@ -79,6 +79,28 @@ abstract class MC4WP_Integration {
 	}
 
 	/**
+	 * Is this a spam request?
+	 *
+	 * @return bool
+	 */
+	protected function is_spam() {
+
+		// check if honeypot was filled
+		if( $this->is_honeypot_filled() ) {
+			return true;
+		}
+
+		// check user agent
+		$user_agent = substr( $_SERVER['HTTP_USER_AGENT'], 0, 254 );
+		if( strlen( $user_agent ) < 2 ) {
+			return true;
+		}
+
+		// probably not spam
+		return false;
+	}
+
+	/**
 	 * Was the honeypot filled?
 	 *
 	 * @return bool
@@ -97,11 +119,6 @@ abstract class MC4WP_Integration {
 	* @return bool
 	*/
 	public function checkbox_was_checked() {
-
-		if( $this->is_honeypot_filled() ) {
-			return false;
-		}
-
 		return ( isset( $_POST[ $this->checkbox_name ] ) && $_POST[ $this->checkbox_name ] == 1 );
 	}
 

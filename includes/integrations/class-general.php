@@ -24,11 +24,15 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 	*/
 	public function __construct() {
 
-		// run backwards compatibility routine
-		$this->upgrade();
-
 		// hook actions
-		add_action( 'init', array( $this, 'maybe_subscribe'), 90 );
+		if( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+
+			// run backwards compatibility routine
+			$this->upgrade();
+
+			add_action( 'init', array( $this, 'maybe_subscribe'), 90 );
+		}
+
 	}
 
 	/**
@@ -51,6 +55,11 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 	 * Maybe fire a general subscription request
 	 */
 	public function maybe_subscribe() {
+
+		if( $this->is_spam() ) {
+			return false;
+		}
+
 		if ( $this->checkbox_was_checked() === false ) {
 			return false;
 		}
@@ -65,17 +74,13 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 			return false;
 		}
 
-		$this->try_subscribe();
+		return $this->try_subscribe();
 	}
 
 	/**
 	 * @return boolean
 	 */
 	public function checkbox_was_checked() {
-
-		if( $this->is_honeypot_filled() ) {
-			return false;
-		}
 
 		if( isset( $_POST[ '_mc4wp_subscribe' ] ) && $_POST[ '_mc4wp_subscribe' ] == 1 ) {
 			return true;
@@ -85,10 +90,8 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 	}
 
 	/**
-	* Tries to subscribe from any third-party form (and CF7)
-	*
-	* @param string $trigger
-	*/	
+	 * @return bool|string
+	 */
 	public function try_subscribe() {
 
 		// start running..
@@ -112,9 +115,10 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 					break;
 
 					case 'GROUPINGS':
-						$groupings = $value;
 
-						foreach($groupings as $grouping_id_or_name => $groups) {
+						$groupings = (array) $value;
+
+						foreach( $groupings as $grouping_id_or_name => $groups ) {
 
 							$grouping = array();
 

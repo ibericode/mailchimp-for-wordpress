@@ -1,7 +1,7 @@
 <?php
 
 // prevent direct file access
-if( ! defined("MC4WP_LITE_VERSION") ) {
+if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
@@ -9,9 +9,16 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 
+	/**
+	 * @var string
+	 */
 	protected $type = 'contact_form_7';
 
+	/**
+	 * Constructor
+	 */
 	public function __construct() {
+
 		add_action( 'init', array( $this, 'init') );
 
 		add_action( 'wpcf7_mail_sent', array( $this, 'subscribe_from_cf7' ) );
@@ -20,6 +27,7 @@ class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 
 	/**
 	* Registers the CF7 shortcode
+	 *
 	* @return boolean
 	*/
 	public function init() {
@@ -47,9 +55,8 @@ class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 
 	/**
 	* Subscribe from Contact Form 7 Forms
-	* @param array $args
 	*/
-	public function subscribe_from_cf7( $args = null ) {
+	public function subscribe_from_cf7() {
 
 		// was sign-up checkbox checked?
 		if ( $this->checkbox_was_checked() === false ) { 

@@ -9,8 +9,14 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 class MC4WP_Registration_Form_Integration extends MC4WP_Integration {
 
+	/**
+	 * @var string
+	 */
 	protected $type = 'registration_form';
 
+	/**
+	 * Constructor
+	 */
 	public function __construct() {
 
 		parent::__construct();
@@ -20,11 +26,17 @@ class MC4WP_Registration_Form_Integration extends MC4WP_Integration {
 	}
 
 	/**
-	* Subscribes from WP Registration Form
-	*
-	* @param int $user_id
-	*/
+	 * Subscribe from WP Registration form
+	 *
+	 * @param $user_id
+	 *
+	 * @return bool|string
+	 */
 	public function subscribe_from_registration( $user_id ) {
+
+		if( $this->is_spam() ) {
+			return false;
+		}
 
 		// was sign-up checkbox checked?
 		if ( $this->checkbox_was_checked() === false ) { 
@@ -35,7 +47,7 @@ class MC4WP_Registration_Form_Integration extends MC4WP_Integration {
 		$user = get_userdata( $user_id );
 
 		// was a user found with the given ID?
-		if ( ! $user ) { 
+		if ( ! is_object( $user ) || ! isset( $user->user_email ) ) {
 			return false; 
 		}
 
@@ -43,16 +55,16 @@ class MC4WP_Registration_Form_Integration extends MC4WP_Integration {
 		$merge_vars = array( 'NAME' => $user->user_login );
 
 		// try to add first name
-		if ( isset( $user->user_firstname ) && !empty( $user->user_firstname ) ) {
-			$merge_vars['FNAME'] = $user->user_firstname;
+		if ( isset( $user->first_name ) && !empty( $user->first_name ) ) {
+			$merge_vars['FNAME'] = $user->first_name;
 		}
 
 		// try to add last name
-		if ( isset( $user->user_lastname ) && !empty( $user->user_lastname ) ) {
-			$merge_vars['LNAME'] = $user->user_lastname;
+		if ( isset( $user->last_name ) && !empty( $user->last_name ) ) {
+			$merge_vars['LNAME'] = $user->last_name;
 		}
 
-		return $this->subscribe( $email, $merge_vars, 'registration' );
+		return $this->subscribe( $email, $merge_vars, $this->type );
 	}
 	/* End registration form functions */
 

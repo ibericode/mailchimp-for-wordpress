@@ -30,7 +30,11 @@ class MC4WP_bbPress_Integration extends MC4WP_Integration {
 	*/
 	public function subscribe_from_bbpress( $anonymous_data, $user_id, $trigger ) {
 
-		if ( $this->checkbox_was_checked === false ) { 
+		if( $this->is_spam() ) {
+			return false;
+		}
+
+		if ( $this->checkbox_was_checked() === false ) {
 			return false; 
 		}
 

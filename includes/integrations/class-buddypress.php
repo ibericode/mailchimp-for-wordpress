@@ -28,8 +28,12 @@ class MC4WP_BuddyPress_Integration extends MC4WP_Integration {
 	* @param array $usermeta
 	*/
 	public function subscribe_from_buddypress( $user_id, $user_login, $user_password, $user_email ) {
-		
-		if ( $this->checkbox_was_checked === false ) { 
+
+		if( $this->is_spam() ) {
+			return false;
+		}
+
+		if ( $this->checkbox_was_checked() === false ) {
 			return false; 
 		}
 
