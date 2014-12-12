@@ -56,6 +56,11 @@ class MC4WP_Lite_Form_Request {
 	private $mailchimp_error = '';
 
 	/**
+	 * @var array
+	 */
+	private $global_fields = array();
+
+	/**
 	 * @return bool
 	 */
 	public function is_successful() {
@@ -380,12 +385,19 @@ class MC4WP_Lite_Form_Request {
 
 			// add to total map
 			$map[ $list_id ] = $list_map;
-
-
 		}
 
-		// loop through data to find unmapped fields
-		if( count( $mapped_fields ) < count( $data ) ) {
+		// map global fields
+		$global_field_names = array( 'MC_LOCATION', 'MC_NOTES', 'MC_LANGUAGE' );
+		foreach( $global_field_names as $field_name ) {
+			if( isset( $data[ $field_name ] ) ) {
+				$this->global_fields[ $field_name ] = $data[ $field_name ];
+			}
+		}
+
+		// is there still unmapped data left?
+		$total_fields_mapped = count( $mapped_fields ) + count( $this->global_fields );
+		if( $total_fields_mapped < count( $data ) ) {
 			foreach( $data as $field_key => $field_value ) {
 				if( ! in_array( $field_key, $mapped_fields ) ) {
 					$unmapped_fields[ $field_key ] = $field_value;
@@ -393,6 +405,7 @@ class MC4WP_Lite_Form_Request {
 			}
 		}
 
+		// add built arrays to instance properties
 		$this->unmapped_fields = $unmapped_fields;
 		$this->lists_fields_map = $map;
 		return true;
@@ -416,8 +429,7 @@ class MC4WP_Lite_Form_Request {
 		foreach ( $lists_data as $list_id => $list_field_data ) {
 
 			// allow plugins to alter merge vars for each individual list
-			$list_merge_vars = $this->get_list_merge_vars( $list_field_data );
-			$list_merge_vars = apply_filters( 'mc4wp_merge_vars', $list_merge_vars, 0, $list_id );
+			$list_merge_vars = $this->get_list_merge_vars( $list_id, $list_field_data );
 
 			// send a subscribe request to MailChimp for each list
 			$result = $api->subscribe( $list_id, $this->data['EMAIL'], $list_merge_vars, $email_type, $this->form_options['double_optin'], $this->form_options['update_existing'], $this->form_options['replace_interests'], $this->form_options['send_welcome'] );
@@ -508,22 +520,35 @@ class MC4WP_Lite_Form_Request {
 	/**
 	 * Adds global fields like OPTIN_IP, MC_LANGUAGE, OPTIN_DATE, etc to the list of user-submitted field data.
 	 *
-	 * @param $field_data
+	 * @param string $list_id
+	 * @param array $list_field_data
 	 * @return array
 	 */
-	private function get_list_merge_vars( $field_data ) {
+	private function get_list_merge_vars( $list_id, $list_field_data ) {
 
-		$merge_vars = array(
-			'OPTIN_IP' => sanitize_text_field( $_SERVER['REMOTE_ADDR'] )
-		);
+		$merge_vars = array();
 
-		// add MC_LANGUAGE
-		if( isset( $field_data['MC_LANGUAGE'] ) ) {
-			$field_data['MC_LANGUAGE'] = strtolower( substr( $field_data['MC_LANGUAGE'], 0, 2 ) );
+		// add OPTIN_IP, we do this here as the user shouldn't be allowed to set this
+		$merge_vars['OPTIN_IP'] = sanitize_text_field( $_SERVER['REMOTE_ADDR'] );
+
+		// make sure MC_LANGUAGE matches the requested format. Useful when getting the language from WPML etc.
+		if( isset( $this->global_fields['MC_LANGUAGE'] ) ) {
+			$merge_vars['MC_LANGUAGE'] = strtolower( substr( $this->global_fields['MC_LANGUAGE'], 0, 2 ) );
 		}
 
-		$merge_vars = array_merge( $merge_vars, $field_data );
-		return $merge_vars;
+		$merge_vars = array_merge( $merge_vars, $list_field_data );
+
+		/**
+		 * @filter `mc4wp_merge_vars`
+		 * @expects array
+		 * @param int $form_id
+		 * @param string $list_id
+		 *
+		 * Can be used to filter the merge variables sent to a given list
+		 */
+		$merge_vars = apply_filters( 'mc4wp_merge_vars', $merge_vars, 0, $list_id );
+
+		return (array) $merge_vars;
 	}
 
 	/**
