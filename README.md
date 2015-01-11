@@ -20,7 +20,7 @@ Bugs
 If you think you've found a bug, [please raise an issue here](https://github.com/dannyvankooten/mailchimp-for-wordpress/issues?state=open)!
 
 Translations
-____________
+-------------
 It's easy to translate the plugin into your own language. Head over to the [translation project on Transifex](https://www.transifex.com/projects/p/mailchimp-for-wordpress/) and click on "[Help translate MailChimp for WordPress](https://www.transifex.com/signup/?join_project=mailchimp-for-wordpress)".
 
 Support
