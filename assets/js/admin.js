@@ -100,12 +100,12 @@
 			
 			// loop through checked lists
 			$lists.filter(':checked').each(function() {
-				var listFields = $(this).data('list-fields');
-				var listGroupings = $(this).data('list-groupings');
+				var listId = $(this).val();
+				var list = mc4wp.mailchimpLists[listId];
 
 				// loop through merge fields from this list
-				for(var i = 0, fieldCount = listFields.length; i < fieldCount; i++) {
-					var listField = listFields[i];
+				for(var i = 0, fieldCount = list.merge_vars.length; i < fieldCount; i++) {
+					var listField = list.merge_vars[i];
 
 					// add field to select if no similar option exists yet
 					if($mailchimpMergeFields.find("option[value='"+ listField.tag +"']").length == 0) {
@@ -130,8 +130,8 @@
 				}
 
 				// loop through interest groupings
-				for(var i = 0, groupingsCount = listGroupings.length; i < groupingsCount; i++) {
-					var listGrouping = listGroupings[i];
+				for(var i = 0, groupingsCount = list.interest_groupings.length; i < groupingsCount; i++) {
+					var listGrouping = list.interest_groupings[i];
 
 					// add field to select if no similar option exists yet
 					if($mailchimpGroupings.find("option[value='"+ listGrouping.id +"']").length == 0) {
@@ -177,7 +177,6 @@
 				case 'lists':
 					fieldType = 'lists';
 					$wizardFields.find('.wrap-p').show();
-					updateCodePreview();
 					break;
 
 				default:
@@ -381,7 +380,7 @@
 				case 'lists':
 					var html = getListChoiceHTML();
 
-					if($wrapp.is(':visible:checked')) {
+					if( wrapInParagraph() ) {
 						html = "<p>" + html + "</p>";
 					}
 
@@ -466,7 +465,7 @@
 			}
 
 			// wrap in paragraphs?
-			if($wrapp.is(':visible:checked')) {
+			if( wrapInParagraph() ) {
 				$code.wrapInner($("<p />"));
 			}
 			
@@ -491,6 +490,15 @@
 				var $formContent = $("#mc4wpformmarkup");
 				$("#mc4wpformmarkup").val($formContent.val() + "\n" + $codePreview.val());
 			}
+		}
+
+		/**
+		 * Should we wrap the HTML in paragraph tags?
+		 *
+		 * @returns {boolean}
+		 */
+		function wrapInParagraph() {
+			return ( $wrapp.is(':visible:checked') ) ? true: false;
 		}
 
 		// setup events

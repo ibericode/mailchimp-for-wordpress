@@ -19,6 +19,9 @@ class MC4WP_Lite_Admin
 	 */
 	private $plugin_file = 'mailchimp-for-wp/mailchimp-for-wp.php';
 
+	/**
+	 * Constructor
+	 */
 	public function __construct()
 	{
 		$this->setup_hooks();
@@ -153,9 +156,16 @@ class MC4WP_Lite_Admin
 	/**
 	* Register the setting pages and their menu items
  	*/
-	public function build_menu()
-	{
+	public function build_menu() {
+
+		/**
+		 * @filter mc4wp_settings_cap
+		 * @expects     string      A valid WP capability like 'manage_options' (default)
+		 *
+		 * Use to customize the required user capability to access the MC4WP settings pages
+		 */
 		$required_cap = apply_filters( 'mc4wp_settings_cap', 'manage_options' );
+
 		add_menu_page( 'MailChimp for WP Lite', 'MailChimp for WP', $required_cap, 'mc4wp-lite', array($this, 'show_api_settings'), MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png' );
 		add_submenu_page( 'mc4wp-lite', 'API Settings - MailChimp for WP Lite', __( 'MailChimp Settings', 'mailchimp-for-wp' ), $required_cap, 'mc4wp-lite', array( $this, 'show_api_settings' ) );
 		add_submenu_page( 'mc4wp-lite', 'Checkbox Settings - MailChimp for WP Lite', __( 'Checkboxes', 'mailchimp-for-wp' ), $required_cap, 'mc4wp-lite-checkbox-settings', array($this, 'show_checkbox_settings' ) );
@@ -284,6 +294,7 @@ class MC4WP_Lite_Admin
 		}
 
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+		$mailchimp = new MC4WP_MailChimp();
 
 		// css
 		wp_enqueue_style( 'mc4wp-admin-css', MC4WP_LITE_PLUGIN_URL . 'assets/css/admin' . $suffix . '.css' );
@@ -297,7 +308,8 @@ class MC4WP_Lite_Admin
 				'has_captcha_plugin' => $this->has_captcha_plugin,
 				'strings' => array(
 					'pro_only' => __( 'This option is only available in MailChimp for WordPress Pro.', 'mailchimp-for-wp' )
-				)
+				),
+				'mailchimpLists' => $mailchimp->get_lists()
 			)
 		);
 	}
@@ -309,6 +321,12 @@ class MC4WP_Lite_Admin
 	 */
 	public function get_checkbox_compatible_plugins()
 	{
+		static $checkbox_plugins;
+
+		if( is_array( $checkbox_plugins ) ) {
+			return $checkbox_plugins;
+		}
+
 		$checkbox_plugins = array(
 			'comment_form' => __( "Comment form", 'mailchimp-for-wp' ),
 			"registration_form" => __( "Registration form", 'mailchimp-for-wp' )
