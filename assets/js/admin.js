@@ -172,6 +172,7 @@
 				case 'submit':
 					fieldType = 'submit';
 					$valueLabel.text( strings.buttonText );
+					$value.val( strings.subscribe );
 					$wizardFields.find('p.row').filter('.value, .wrap-p').show();
 					break;
 
