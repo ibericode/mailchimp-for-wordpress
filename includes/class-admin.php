@@ -305,9 +305,17 @@ class MC4WP_Lite_Admin
 		wp_enqueue_script( array( 'jquery', 'mc4wp-beautifyhtml', 'mc4wp-admin' ) );
 		wp_localize_script( 'mc4wp-admin', 'mc4wp',
 			array(
-				'has_captcha_plugin' => $this->has_captcha_plugin,
+				'hasCaptchaPlugin' => $this->has_captcha_plugin,
 				'strings' => array(
-					'pro_only' => __( 'This option is only available in MailChimp for WordPress Pro.', 'mailchimp-for-wp' )
+					'proOnlyNotice' => __( 'This option is only available in MailChimp for WordPress Pro.', 'mailchimp-for-wp' ),
+					'fieldWizard' => array(
+						'proOnly' => __( '(PRO ONLY)', 'mailchimp-for-wp' ),
+						'buttonText' => __( 'Button text', 'mailchimp-for-wp' ),
+						'initialValue' => __( 'Initial value', 'mailchimp-for-wp' ),
+						'optional' => __( '(optional)', 'mailchimp-for-wp' ),
+						'labelFor' => __( 'Label for', 'mailchimp-for-wp' ),
+						'orLeaveEmpty' => __( '(or leave empty)', 'mailchimp-for-wp' )
+					)
 				),
 				'mailchimpLists' => $mailchimp->get_lists()
 			)

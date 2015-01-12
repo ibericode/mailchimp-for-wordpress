@@ -9,7 +9,7 @@
 			this.checked = false;
 		}
 
-		alert( mc4wp.strings.pro_only );
+		alert( mc4wp.strings.proOnlyNotice );
 		event.stopPropagation();
 	}
 
@@ -64,7 +64,7 @@
 		QTags.addButton( 'mc4wp_response', 'form response', '{response}', '', 'response', 'Shows the form response' );
 		QTags.addButton( 'mc4wp_subscriber_count', '# of subscribers', '{subscriber_count}', '', 'subscribers', 'Shows number of subscribers of selected list(s)' );
 
-		if( window.mc4wp.has_captcha_plugin == true ) {
+		if( window.mc4wp.hasCaptchaPlugin == true ) {
 			QTags.addButton( 'mc4wp_captcha', 'CAPTCHA', '{captcha}', '', 'captcha', 'Display a CAPTCHA field' );
 		}
 	})();
@@ -90,6 +90,7 @@
 		var $wrapp = $("#mc4wp-fw-wrap-p");
 		var fieldType, fieldName;
 		var $codePreview = $("#mc4wp-fw-preview");
+		var strings = mc4wp.strings.fieldWizard;
 		// functions
 
 		// set the fields the user can choose from
@@ -119,8 +120,8 @@
 							.data('list-field', listField);
 
 						// only enable 3 fields
-						if(i > 3) {
-							$option.text("(PRO ONLY) " + text)
+						if( i > 3 ) {
+							$option.text( strings.proOnly + " " + text)
 								.attr('disabled', 'disabled')
 								.data('field', null);
 						}
@@ -145,7 +146,7 @@
 
 						// only show 1 grouping
 						if(i >= 1) {
-							$option.text("(PRO ONLY) " + text)
+							$option.text( strings.proOnly + " " + text)
 								.attr('disabled', 'disabled')
 								.data('list-grouping', null);
 						}
@@ -170,7 +171,7 @@
 
 				case 'submit':
 					fieldType = 'submit';
-					$valueLabel.text("Button text");
+					$valueLabel.text( strings.buttonText );
 					$wizardFields.find('p.row').filter('.value, .wrap-p').show();
 					break;
 
@@ -212,7 +213,7 @@
 
 			fieldType = 'text';
 			fieldName = '';
-			$valueLabel.html("Initial value <small>(optional)</small>");
+			$valueLabel.html( strings.initialValue + " <small>" + strings.optional + "</small>" );
 		}
 
 		/**
@@ -224,7 +225,7 @@
 			for(var i = 0, groupsCount = groups.length; i < groupsCount; i++) {
 				$("<input />").attr('type', 'text')
 					.addClass('widefat').data('value', groups[i].name)
-					.attr('placeholder', 'Label for "' + groups[i].name + '" (or leave empty)')
+					.attr('placeholder', strings.labelFor + ' "' + groups[i].name + '" ' + strings.orLeaveEmpty )
 					.attr('value', groups[i].name)
 					.appendTo($multipleValues);
 			}
@@ -349,7 +350,13 @@
 
 			if($multipleValues.is(":visible") && data.choices) {
 				for(var i = 0; i < data.choices.length; i++) {
-					$("<input />").attr('type', 'text').addClass('widefat').data('value', data.choices[i]).attr('placeholder', 'Label for "' + data.choices[i] + '" (or leave empty)').attr('value', data.choices[i]).appendTo($multipleValues);
+					$("<input />")
+						.attr('type', 'text')
+						.addClass('widefat')
+						.data('value', data.choices[i])
+						.attr('placeholder', strings.labelFor + ' "' + data.choices[i] + '" ' + strings.orLeaveEmpty )
+						.attr('value', data.choices[i])
+						.appendTo($multipleValues);
 				}
 			}
 			
