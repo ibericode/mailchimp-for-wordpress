@@ -8,7 +8,6 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 <div class="mc4wp-box">
 	<h4 class="mc4wp-title"><?php _e('Looking for support?', 'mailchimp-for-wp' ); ?></h4>
 	<p><?php printf( __( 'Make sure to look at the <a href="%s">frequently asked questions</a> or use the <a href="%s">support forums</a> on WordPress.org.', 'mailchimp-for-wp' ), 'https://wordpress.org/plugins/mailchimp-for-wp/faq/', 'http://wordpress.org/support/plugin/mailchimp-for-wp' ); ?></p>
-	<p><?php printf( __( 'If you need priority support, please <a href="%s">upgrade to the premium version</a>.', 'mailchimp-for-wp' ), 'https://mc4wp.com/#utm_source=lite-plugin&utm_medium=link&utm_campaign=support-link' ); ?></p>
 </div>
 
 <div class="mc4wp-box">
