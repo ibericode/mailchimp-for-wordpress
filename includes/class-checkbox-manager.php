@@ -77,8 +77,11 @@ class MC4WP_Lite_Checkbox_Manager
 			$this->integrations['easy_digital_downloads'] = new MC4WP_EDD_Integration();
 		}
 
-        // Always load General Integration
-		$this->integrations['general'] = new MC4WP_General_Integration();
+		// load General Integration on POST requests
+		if( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+			$this->integrations['general'] = new MC4WP_General_Integration();
+		}
+
 	}
 
 	/**

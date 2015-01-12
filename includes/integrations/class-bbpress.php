@@ -9,6 +9,9 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 class MC4WP_bbPress_Integration extends MC4WP_Integration {
 
+	/**
+	 * @var string
+	 */
 	protected $type = 'bbpress_forms';
 
 	public function __construct() {

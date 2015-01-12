@@ -24,14 +24,11 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 	*/
 	public function __construct() {
 
+		// run backwards compatibility routine
+		$this->upgrade();
+
 		// hook actions
-		if( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
-
-			// run backwards compatibility routine
-			$this->upgrade();
-
-			add_action( 'init', array( $this, 'maybe_subscribe'), 90 );
-		}
+		add_action( 'init', array( $this, 'maybe_subscribe'), 90 );
 
 	}
 
@@ -49,6 +46,11 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 			$_POST[ $this->checkbox_name ] = 1;
 			unset( $_POST['mc4wp-do-subscribe'] );
 		}
+
+		if( isset( $_POST['_mc4wp_subscribe'] ) ) {
+			$_POST[ $this->checkbox_name ] = 1;
+			unset( $_POST['_mc4wp_subscribe'] );
+		}
 	}
 
 	/**
@@ -60,7 +62,7 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 			return false;
 		}
 
-		if ( $this->checkbox_was_checked() === false ) {
+		if ( ! $this->checkbox_was_checked() ) {
 			return false;
 		}
 
@@ -69,7 +71,7 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 			return false;
 		}
 
-		// don't run if this is an events manager request
+		// don't run if this is an Events Manager request
 		if( isset( $_POST['action'] ) && $_POST['action'] === 'booking_add' && isset( $_POST['event_id'] ) ) {
 			return false;
 		}
@@ -78,19 +80,7 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 	}
 
 	/**
-	 * @return boolean
-	 */
-	public function checkbox_was_checked() {
-
-		if( isset( $_POST[ '_mc4wp_subscribe' ] ) && $_POST[ '_mc4wp_subscribe' ] == 1 ) {
-			return true;
-		}
-
-		return ( isset( $_POST[ $this->checkbox_name ] ) && $_POST[ $this->checkbox_name ] == 1 );
-	}
-
-	/**
-	 * @return bool|string
+	 * Tries to create a sign-up request from the current $_POST data
 	 */
 	public function try_subscribe() {
 

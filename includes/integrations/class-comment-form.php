@@ -23,11 +23,13 @@ class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 	}
 
 	/**
-	* Grabs data from WP Comment Form
-	*
-	* @param int $comment_id
-	* @param string $comment_approved 
-	*/
+	 * Grabs data from WP Comment Form
+	 *
+	 * @param int    $comment_id
+	 * @param string $comment_approved
+	 *
+	 * @return bool|string
+	 */
 	public function subscribe_from_comment( $comment_id, $comment_approved = '' ) {
 
 		if( $this->is_spam() ) {
