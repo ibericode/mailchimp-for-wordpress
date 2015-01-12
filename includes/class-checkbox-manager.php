@@ -77,11 +77,6 @@ class MC4WP_Lite_Checkbox_Manager
 			$this->integrations['easy_digital_downloads'] = new MC4WP_EDD_Integration();
 		}
 
-		// Load User Meta integration
-		if( class_exists( 'userMeta' ) ) {
-			$this->integrations['user_meta'] = new MC4WP_User_Meta_Integration();
-		}
-
 		// load General Integration on POST requests
 		if( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 			$this->integrations['general'] = new MC4WP_General_Integration();
