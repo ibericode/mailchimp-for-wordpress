@@ -1,13 +1,14 @@
 # Copyright (C) 2014 Danny van Kooten
 # This file is distributed under the GPL v3.
 # Translators:
+# Rasmus Larsen <rasmus@rblarsen.dk>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2014-12-09 19:20:27+00:00\n"
-"PO-Revision-Date: 2014-12-09 19:20+0000\n"
-"Last-Translator: Danny van Kooten <dannyvankooten@gmail.com>\n"
+"PO-Revision-Date: 2014-12-10 09:42+0000\n"
+"Last-Translator: Rasmus Larsen <rasmus@rblarsen.dk>\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/mailchimp-for-wordpress/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,24 +28,24 @@ msgstr ""
 #: mailchimp-for-wordpress/includes/class-admin.php:130
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:185
 msgid "Settings"
-msgstr ""
+msgstr "Indstillinger"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:149
 #: mailchimp-for-wordpress/includes/class-admin.php:163
 msgid "Upgrade to Pro"
-msgstr ""
+msgstr "Opgrader til Pro"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:160
 #: mailchimp-for-wordpress/includes/views/api-settings.php:12
 #: mailchimp-for-wordpress/includes/views/form-settings.php:106
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:10
 msgid "MailChimp Settings"
-msgstr ""
+msgstr "MailChimp Indstillinger"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:161
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:572
 msgid "Checkboxes"
-msgstr ""
+msgstr "Checkboxe"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:162
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:573
@@ -54,7 +55,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress/includes/class-admin.php:299
 msgid "This option is only available in MailChimp for WordPress Pro."
-msgstr ""
+msgstr "Denne mulighed er kun tilgængelig i MailChimp for WordPress Pro."
 
 #: mailchimp-for-wordpress/includes/class-admin.php:313
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:671
@@ -1165,7 +1166,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:26
 msgid "ACTIVE"
-msgstr ""
+msgstr "AKTIV"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:26
 msgid "you are receiving updates"
@@ -1173,7 +1174,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:28
 msgid "EXPIRED"
-msgstr ""
+msgstr "UDLØBET"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:28
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:30
@@ -1182,7 +1183,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:30
 msgid "INACTIVE"
-msgstr ""
+msgstr "INAKTIV"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:35
 msgid "Toggle license status"
@@ -1199,7 +1200,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:44
 msgid "Activate License"
-msgstr ""
+msgstr "Aktiver licens"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:46
 msgid "Please enter a license key in the field below first."
@@ -1250,7 +1251,7 @@ msgstr ""
 #: mailchimp-for-wordpress-pro/includes/class-form-request.php:635
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:54
 msgid "List"
-msgstr ""
+msgstr "Liste"
 
 #: mailchimp-for-wordpress-pro/includes/class-form-request.php:675
 msgid "Other fields"
@@ -1328,12 +1329,12 @@ msgstr ""
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:76
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:80
 msgid "Edit Form"
-msgstr ""
+msgstr "Rediger form"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:77
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:188
 msgid "Delete"
-msgstr ""
+msgstr "Slet"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:98
 msgid "No MailChimp list(s) selected yet."
@@ -1361,7 +1362,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:56
 msgid "Source"
-msgstr ""
+msgstr "Kilde"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:57
 msgid "Data"
@@ -1378,15 +1379,15 @@ msgstr ""
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:209
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:215
 msgid "Comment"
-msgstr ""
+msgstr "Kommentar"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:209
 msgid "deleted"
-msgstr ""
+msgstr "slettet"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:219
 msgid "Registration"
-msgstr ""
+msgstr "Registrering"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:235
 msgid "MultiSite registration"
@@ -1419,7 +1420,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:335
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:347
 msgid "Checkbox"
@@ -1457,7 +1458,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:150
 msgid "Messages"
-msgstr ""
+msgstr "Beskeder"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:153
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:140
@@ -1487,7 +1488,7 @@ msgstr ""
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:175
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:164
 msgid "Other errors"
-msgstr ""
+msgstr "Andre fejl"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:86
 msgid "Form usage"
@@ -1592,7 +1593,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:40
 msgid "Select Color"
-msgstr ""
+msgstr "Vælg farve"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:48
 msgid "Save all changes"
@@ -1619,7 +1620,7 @@ msgstr ""
 
 #. Plugin URI of the plugin/theme
 msgid "https://mc4wp.com/"
-msgstr ""
+msgstr "https://mc4wp.com/"
 
 #. Description of the plugin/theme
 msgid "Adds various sign-up methods to your website."
@@ -1627,8 +1628,8 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "Danny van Kooten"
-msgstr ""
+msgstr "Danny von Kooten"
 
 #. Author URI of the plugin/theme
 msgid "http://dannyvankooten.com"
-msgstr ""
+msgstr "http://dannyvankooten.com"
