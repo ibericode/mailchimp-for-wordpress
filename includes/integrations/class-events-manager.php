@@ -19,18 +19,19 @@ class MC4WP_Events_Manager_Integration extends MC4WP_General_Integration {
 	 * Subscribe from Events Manager booking forms.
 	 *
 	 * @param array $args
+	 * @return bool
 	 */
-	public function subscribe_from_events_manager( $em_booking ) {
+	public function subscribe_from_events_manager( $args ) {
 
 		// was sign-up checkbox checked?
-		if( ! isset( $em_booking->booking_meta['booking']['mc4wp-subscribe'] ) || $em_booking->booking_meta['booking']['mc4wp-subscribe'] != 1 ) {
+		if( ! isset( $args->booking_meta['booking']['mc4wp-subscribe'] ) || $args->booking_meta['booking']['mc4wp-subscribe'] != 1 ) {
 			return false;
 		}
 
 		// find email field
-		if( isset( $em_booking->booking_meta['registration']['user_email'] ) ) {
+		if( isset( $args->booking_meta['registration']['user_email'] ) ) {
 
-			$meta = $em_booking->booking_meta;
+			$meta = $args->booking_meta;
 
 			$email = $meta['registration']['user_email'];
 			$merge_vars = array();
@@ -67,7 +68,7 @@ class MC4WP_Events_Manager_Integration extends MC4WP_General_Integration {
 			return $this->subscribe( $email, $merge_vars );
 		}
 
-		// try general fallback
+		// try general fallback to get the email and stuff.
 		return $this->try_subscribe();
 	}
 
