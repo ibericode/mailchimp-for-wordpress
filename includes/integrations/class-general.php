@@ -35,7 +35,7 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 	/**
 	* Upgrade routine
 	*/
-	private function upgrade() {
+	protected function upgrade() {
 		// set new $_POST trigger value
 		if( isset( $_POST['mc4wp-try-subscribe'] ) ) {
 			$_POST[ $this->checkbox_name ] = 1;

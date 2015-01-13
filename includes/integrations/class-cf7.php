@@ -19,6 +19,9 @@ class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 	 */
 	public function __construct() {
 
+		// make sure older checkbox names work for CF7 too
+		$this->upgrade();
+
 		add_action( 'init', array( $this, 'init') );
 
 		add_action( 'wpcf7_mail_sent', array( $this, 'subscribe_from_cf7' ) );
