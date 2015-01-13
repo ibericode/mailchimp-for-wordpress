@@ -1,14 +1,14 @@
 # Copyright (C) 2014 Danny van Kooten
 # This file is distributed under the GPL v3.
 # Translators:
-# Jan Toman <toman.jan@gmail.com>, 2014
+# Jan Toman <toman.jan@gmail.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2014-12-09 19:20:27+00:00\n"
-"PO-Revision-Date: 2014-12-09 19:21+0000\n"
-"Last-Translator: Danny van Kooten <dannyvankooten@gmail.com>\n"
+"PO-Revision-Date: 2015-01-13 10:43+0000\n"
+"Last-Translator: Jan Toman <toman.jan@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/projects/p/mailchimp-for-wordpress/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,7 +55,7 @@ msgstr "Formuláře"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:299
 msgid "This option is only available in MailChimp for WordPress Pro."
-msgstr ""
+msgstr "Tato možnost je dostupná pouze v Pro verzi pluginu."
 
 #: mailchimp-for-wordpress/includes/class-admin.php:313
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:671
@@ -721,7 +721,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:243
 msgid "Form Styling"
-msgstr ""
+msgstr "Vzhled formuláře"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:244
 msgid "Alter the visual appearance of the form by applying CSS rules to %s."
@@ -927,7 +927,7 @@ msgstr "Tento plugin není vyvíjen ve spolupráci s MailChimpem."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:9
 msgid "Looking for support?"
-msgstr ""
+msgstr "Potřebujete pomoc s nastavením?"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:10
 msgid ""
@@ -947,7 +947,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:17
 msgid "Upgrade to MailChimp for WordPress Pro"
-msgstr ""
+msgstr "Upgrade na Pro verzi pluginu."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:18
 msgid "Leave a %s plugin review on WordPress.org"
@@ -959,7 +959,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:19
 msgid "Tweet about MailChimp for WordPress"
-msgstr ""
+msgstr "Sdílej MailChimp pro WordPress na Twitteru"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:20
 msgid ""
@@ -973,7 +973,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:25
 msgid "About the developer"
-msgstr ""
+msgstr "O vývojáři"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:11
 msgid ""
@@ -1174,7 +1174,7 @@ msgstr "aktualizace pluginu budou stahovány"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:28
 msgid "EXPIRED"
-msgstr ""
+msgstr "VYPRŠENO"
 
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:28
 #: mailchimp-for-wordpress-pro/includes/admin/license-manager/views/form.php:30
@@ -1255,7 +1255,7 @@ msgstr "Seznam"
 
 #: mailchimp-for-wordpress-pro/includes/class-form-request.php:675
 msgid "Other fields"
-msgstr ""
+msgstr "Ostatní políčka"
 
 #: mailchimp-for-wordpress-pro/includes/class-form-request.php:692
 msgid ""
@@ -1270,7 +1270,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/class-mailchimp.php:140
 msgid "IP Address"
-msgstr ""
+msgstr "IP adresa"
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:20
 msgid "MailChimp for WP Form"
@@ -1366,7 +1366,7 @@ msgstr "Zdroj"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:57
 msgid "Data"
-msgstr ""
+msgstr "Data"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:58
 msgid "Subscribed"
@@ -1383,7 +1383,7 @@ msgstr "Komentář"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:209
 msgid "deleted"
-msgstr ""
+msgstr "smazáno"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:219
 msgid "Registration"
