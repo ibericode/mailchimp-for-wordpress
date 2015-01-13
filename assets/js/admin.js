@@ -24,7 +24,8 @@
 		function() {
 			var hasListSelected = $listInputs.filter(':checked').length > 0;
 			$(".mc4wp-notice.no-lists-selected").toggle( ! hasListSelected );
-			$('#mc4wp-fw-fields, #mc4wp-fw-mailchimp-fields').toggle( hasListSelected );
+			$( document.getElementById( 'mc4wp-fw-fields')).toggle( hasListSelected );
+			$( document.getElementById( 'mc4wp-fw-mailchimp-fields' )).toggle( hasListSelected );
 		}
 	);
 
@@ -75,11 +76,13 @@
 	* Created by Danny van Kooten
 	*/
 	(function() {
+		'use strict';
+
 		// setup variables
 		var $lists = $("#mc4wp-lists :input");
 		var $mailchimpFields = $("#mc4wp-fw-mailchimp-fields");
-		var $mailchimpMergeFields = $("#mc4wp-fw-mailchimp-fields .merge-fields");
-		var $mailchimpGroupings = $("#mc4wp-fw-mailchimp-fields .groupings");
+		var $mailchimpMergeFields = $mailchimpFields.find('.merge-fields');
+		var $mailchimpGroupings = $mailchimpFields.find(".groupings");
 		var $wizardFields = $("#mc4wp-fw-fields");
 		var $value = $("#mc4wp-fw-value");
 		var $valueLabel = $("#mc4wp-fw-value-label");
@@ -341,10 +344,10 @@
 			fieldName = data.tag;
 
 			// set placeholder text
-			$placeholder.val("Your " + data.name.toLowerCase());
+			$placeholder.val( "Your " + data.name.toLowerCase());
 
 			// set label text
-			$label.val(data.name + ":");
+			$label.val( data.name + ":" );
 
 			// set required attribute
 			$required.attr('checked', data.req);
@@ -402,8 +405,10 @@
 					// add options to select
 					$multipleValues.find(":input").each(function() {
 						if($(this).val().length > 0) {
-							$("<option />").val($(this).data("value")).text($(this).val()).appendTo($input);
-						}					
+							$("<option />")
+								.val($(this).data("value"))
+								.text($(this).val())
+								.appendTo($input);						}
 					});
 					break;
 
@@ -495,8 +500,8 @@
 			
 			// fallback, just append
 			if(!result) {
-				var $formContent = $("#mc4wpformmarkup");
-				$("#mc4wpformmarkup").val($formContent.val() + "\n" + $codePreview.val());
+				var $formContent = $( document.getElementById('mc4wpformmarkup') );
+				$formContent.val($formContent.val() + "\n" + $codePreview.val());
 			}
 		}
 
