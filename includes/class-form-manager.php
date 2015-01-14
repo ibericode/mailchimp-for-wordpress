@@ -149,24 +149,35 @@ class MC4WP_Lite_Form_Manager {
 		// was this form submitted?
 		$was_submitted = ( is_object( $this->form_request ) && $this->form_request->get_form_instance_number() === $this->form_instance_number );
 
-		/**
-		 * @filter mc4wp_form_action
-		 * @expects string
-		 *
-		 * Sets the `action` attribute of the form element. Defaults to the current URL.
-		 */
-		$form_action = apply_filters( 'mc4wp_form_action', mc4wp_get_current_url() );
-
 		// Generate opening HTML
 		$opening_html = "<!-- Form by MailChimp for WordPress plugin v". MC4WP_LITE_VERSION ." - https://mc4wp.com/ -->";
-		$opening_html .= '<form method="post" action="'. $form_action .'" id="mc4wp-form-'.$this->form_instance_number.'" class="'. $this->get_css_classes() .'">';
+		$opening_html .= '<div id="mc4wp-form-' . $this->form_instance_number . '" class="' . $this->get_css_classes() . '">';
 
 		// Generate before & after fields HTML
+		$before_form = apply_filters( 'mc4wp_form_before_form', '' );
+		$after_form = apply_filters( 'mc4wp_form_after_form', '' );
+
+		$form_opening_html = '';
+		$form_closing_html = '';
+
+		$visible_fields = '';
+		$hidden_fields = '';
+
 		$before_fields = apply_filters( 'mc4wp_form_before_fields', '' );
 		$after_fields = apply_filters( 'mc4wp_form_after_fields', '' );
 
 		// Process fields, if not submitted or not successfull or hide_after_success disabled
 		if( ! $was_submitted || ! $opts['hide_after_success'] || ! $this->form_request->is_successful() ) {
+
+			/**
+			 * @filter mc4wp_form_action
+			 * @expects string
+			 *
+			 * Sets the `action` attribute of the form element. Defaults to the current URL.
+			 */
+			$form_action = apply_filters( 'mc4wp_form_action', mc4wp_get_current_url() );
+			$form_opening_html = '<form method="post" action="'. $form_action .'">';
+
 			// add form fields from settings
 			$visible_fields = __( $opts['markup'], 'mailchimp-for-wp' );
 
@@ -194,9 +205,8 @@ class MC4WP_Lite_Form_Manager {
 			$hidden_fields .= '<input type="hidden" name="_mc4wp_form_submit" value="1" />';
 			$hidden_fields .= '<input type="hidden" name="_mc4wp_form_instance" value="'. $this->form_instance_number .'" />';
 			$hidden_fields .= '<input type="hidden" name="_mc4wp_form_nonce" value="'. wp_create_nonce( '_mc4wp_form_nonce' ) .'" />';
-		} else {
-			$visible_fields = '';
-			$hidden_fields = '';
+
+			$form_closing_html = '</form>';
 		}
 
 		// empty string for response
@@ -230,11 +240,11 @@ class MC4WP_Lite_Form_Manager {
 
 				switch( $message_position ) {
 					case 'before':
-						$before_fields = $before_fields . $response_html;
+						$before_form = $before_form . $response_html;
 						break;
 
 					case 'after':
-						$after_fields = $response_html . $after_fields;
+						$after_form = $response_html . $after_form;
 						break;
 				}
 			}
@@ -245,8 +255,7 @@ class MC4WP_Lite_Form_Manager {
 		$visible_fields = str_ireplace( '{response}', $response_html, $visible_fields );
 
 		// Generate closing HTML
-		$closing_html = "</form>";
-		$closing_html .= "<!-- / MailChimp for WP Plugin -->";
+		$closing_html = "</div><!-- / MailChimp for WP Plugin -->";
 
 		// increase form instance number in case there is more than one form on a page
 		$this->form_instance_number++;
@@ -261,7 +270,7 @@ class MC4WP_Lite_Form_Manager {
 		add_action( 'wp_footer', array( $this, 'print_js' ) );
 
 		// concatenate and return the HTML parts
-		return $opening_html . $before_fields . $visible_fields . $hidden_fields . $after_fields . $closing_html;
+		return $opening_html . $before_form . $form_opening_html . $before_fields . $visible_fields . $hidden_fields . $after_fields . $form_closing_html . $after_form . $closing_html;
 	}
 
 	/**
