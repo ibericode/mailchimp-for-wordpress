@@ -234,20 +234,31 @@ class MC4WP_Lite_API {
 	}
 
 	/**
-	 * Unsubscribes the given email from the given MailChimp list
+	 * Unsubscribes the given email or luid from the given MailChimp list
 	 *
-	 * @param string $list_id
-	 * @param string $email
+	 * @param string       $list_id
+	 * @param array|string $struct
+	 * @param bool         $delete_member
+	 * @param bool         $send_goodbye
+	 * @param bool         $send_notification
 	 *
 	 * @return bool
 	 */
-	public function unsubscribe( $list_id, $email ) {
+	public function unsubscribe( $list_id, $struct, $delete_member = false, $send_goodbye = true, $send_notification = false ) {
+
+		if( ! is_array( $struct ) ) {
+			// assume $struct is an email
+			$struct = array(
+				'email' => $struct
+			);
+		}
 
 		$response = $this->call( 'lists/unsubscribe', array(
 				'id' => $list_id,
-				'email' => array(
-					'email' => $email
-				)
+				'email' => $struct,
+				'delete_member' => $delete_member,
+				'send_goodbye' => $send_goodbye,
+				'send_notify' => $send_notification
 			)
 		);
 
