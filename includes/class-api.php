@@ -1,6 +1,6 @@
 <?php
 
-if( ! defined("MC4WP_LITE_VERSION") ) {
+if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
@@ -34,25 +34,30 @@ class MC4WP_Lite_API {
 	private $connected = null;
 
 	/**
+	 * @var object The full response object of the latest API call
+	 */
+	private $last_response;
+
+	/**
 	* Constructor
 	*
 	* @param string $api_key MailChimp API key
 	*/
-	public function __construct( $api_key )
-	{
+	public function __construct( $api_key ) {
 		$this->api_key = $api_key;
-		$dash_position = strpos( $api_key, '-' );
 
+		$dash_position = strpos( $api_key, '-' );
 		if( $dash_position !== false ) {
 			$this->api_url = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/';
 		}
 	}
 
-	/**
-	* Show an error message to administrators
-	*
-	* @param string $message
-	*/
+	 /**
+	 * Show an error message to administrators
+	 *
+	 * @param string $message
+	 * @return bool
+	 */
 	private function show_error( $message ) {
 
 		if( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
@@ -60,6 +65,7 @@ class MC4WP_Lite_API {
 		}
 
 		add_settings_error( 'mc4wp-api', 'mc4wp-api-error', $message, 'error' );
+		return true;
 	}
 
 	/**
@@ -68,8 +74,7 @@ class MC4WP_Lite_API {
 	*
 	* @return boolean
 	*/
-	public function is_connected()
-	{
+	public function is_connected() {
 		if( $this->connected === null ) {
 
 			$this->connected = false;
@@ -102,8 +107,7 @@ class MC4WP_Lite_API {
 	*
 	* @return boolean|string True if success, 'error' if error
 	*/
-	public function subscribe( $list_id, $email, array $merge_vars = array(), $email_type = 'html', $double_optin = true, $update_existing = false, $replace_interests = true, $send_welcome = false )
-	{	
+	public function subscribe( $list_id, $email, array $merge_vars = array(), $email_type = 'html', $double_optin = true, $update_existing = false, $replace_interests = true, $send_welcome = false ) {
 		$data = array(
 			'id' => $list_id,
 			'email' => array( 'email' => $email),
@@ -115,22 +119,25 @@ class MC4WP_Lite_API {
 			'send_welcome' => $send_welcome
 		);
 
-		$result = $this->call( 'lists/subscribe', $data );
+		$response = $this->call( 'lists/subscribe', $data );
 
-		if( is_object( $result ) ) {
+		if( is_object( $response ) ) {
 
-			if( ! isset( $result->error ) ) {
-				return true;
-			} else {
+			// store response
+			$this->last_response = $response;
+
+			if( isset( $response->error ) ) {
 
 				// check error
-				if( (int) $result->code === 214 ) {
-					return 'already_subscribed'; 
-				} 
-			
+				if( (int) $response->code === 214 ) {
+					return 'already_subscribed';
+				}
+
 				// store error message
-				$this->error_message = $result->error;
+				$this->error_message = $response->error;
 				return 'error';
+			} else {
+				return true;
 			}
 
 		}
@@ -143,8 +150,7 @@ class MC4WP_Lite_API {
 	* @param string $list_id
 	* @return array|boolean 
 	*/
-	public function get_list_groupings( $list_id )
-	{
+	public function get_list_groupings( $list_id ) {
 		$result = $this->call( 'lists/interest-groupings', array( 'id' => $list_id ) );
 
 		if( is_array( $result ) ) {
@@ -157,10 +163,9 @@ class MC4WP_Lite_API {
 	/**
 	 * @param array $list_ids Array of ID's of the lists to fetch. (optional)
 	 *
-	 * @return bool
+	 * @return array|bool
 	 */
-	public function get_lists( $list_ids = array() )
-	{
+	public function get_lists( $list_ids = array() ) {
 		$args = array(
 			'limit' => 100
 		);
@@ -183,11 +188,11 @@ class MC4WP_Lite_API {
 
 	/**
 	* Get lists with their merge_vars for a given array of list id's
+	 *
 	* @param array $list_ids
 	* @return array|boolean
 	*/
-	public function get_lists_with_merge_vars( $list_ids ) 
-	{
+	public function get_lists_with_merge_vars( $list_ids ) {
 		$result = $this->call( 'lists/merge-vars', array('id' => $list_ids ) );
 		
 		if( is_object( $result ) && isset( $result->data ) ) {
@@ -202,7 +207,7 @@ class MC4WP_Lite_API {
 	* 
 	* @param string $list_id
 	* @param array $emails
-	* @return array
+	* @return array|bool
 	*/
 	public function get_member_info( $list_id, $emails ) {
 		$result = $this->call( 'lists/member-info', array( 'id' => $list_id, 'emails'  => $emails ) );
@@ -225,7 +230,7 @@ class MC4WP_Lite_API {
 		$member_info = $this->get_member_info( $list_id, array( array( 'email' => $email ) ) );
 
 		if( is_array( $member_info ) && isset( $member_info[0] ) ) {
-			return ( $member_info[0]->status == "subscribed" );
+			return ( $member_info[0]->status === "subscribed" );
 		}
 
 		return false;
@@ -241,7 +246,7 @@ class MC4WP_Lite_API {
 	 */
 	public function unsubscribe( $list_id, $email ) {
 
-		$result = $this->call( 'lists/unsubscribe', array(
+		$response = $this->call( 'lists/unsubscribe', array(
 				'id' => $list_id,
 				'email' => array(
 					'email' => $email
@@ -249,14 +254,17 @@ class MC4WP_Lite_API {
 			)
 		);
 
-		if( is_object( $result ) ) {
+		if( is_object( $response ) ) {
 
-			if ( isset( $result->complete ) && $result->complete ) {
+			// store response
+			$this->last_response = $response;
+
+			if ( isset( $response->complete ) && $response->complete ) {
 				return true;
 			}
 
-			if( isset( $result->error ) ) {
-				$this->error_message = $result->error;
+			if( isset( $response->error ) ) {
+				$this->error_message = $response->error;
 			}
 		}
 
@@ -273,8 +281,7 @@ class MC4WP_Lite_API {
 	*
 	* @return object
 	*/
-	public function call( $method, array $data = array() )
-	{	
+	public function call( $method, array $data = array() ) {
 		// do not make request when no api key was provided.
 		if( empty( $this->api_key ) ) { 
 			return false; 
@@ -310,21 +317,30 @@ class MC4WP_Lite_API {
 	}
 
 	/**
-	* Checks if an error occured in the most recent request
-	* @return boolean
-	*/
-	public function has_error()
-	{
+	 * Checks if an error occurred in the most recent API request
+	 *
+	 * @return bool
+	 */
+	public function has_error() {
 		return ( ! empty( $this->error_message ) );
 	}
 
 	/**
-	* Gets the most recent error message
+	* Get the most recent error message
+	 *
 	* @return string
 	*/
-	public function get_error_message()
-	{
+	public function get_error_message() {
 		return $this->error_message;
+	}
+
+	/**
+	 * Get the most recent response object
+	 *
+	 * @return object
+	 */
+	public function get_last_response() {
+		return $this->last_response;
 	}
 
 }
