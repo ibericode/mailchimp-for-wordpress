@@ -206,11 +206,56 @@ class MC4WP_Lite_API {
 	* @param array $emails
 	* @return array|bool
 	*/
-	public function get_member_info( $list_id, $emails ) {
-		$result = $this->call( 'lists/member-info', array( 'id' => $list_id, 'emails'  => $emails ) );
+	public function get_subscriber_info( $list_id, $emails ) {
+		$result = $this->call( 'lists/member-info', array(
+				'id' => $list_id,
+				'emails'  => $emails
+			)
+		);
 
 		if( is_object( $result ) && isset( $result->data ) ) {
 			return $result->data;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param        $list_id
+	 * @param array|string $email
+	 * @param array  $merge_vars
+	 * @param string $email_type
+	 * @param bool   $replace_interests
+	 *
+	 * @return bool
+	 */
+	public function update_subscriber( $list_id, $email, $merge_vars = array(), $email_type = 'html', $replace_interests = false ) {
+
+		// default to using email for updating
+		if( ! is_array( $email ) ) {
+			$email = array(
+				'email' => $email
+			);
+		}
+
+		$result = $this->call( 'lists/update-member', array(
+				'id' => $list_id,
+				'email'  => $email,
+				'merge_vars' => $merge_vars,
+				'email_type' => $email_type,
+				'replace_interests' => $replace_interests
+			)
+		);
+
+		if( is_object( $result ) ) {
+
+			if( isset( $result->error ) ) {
+				$this->error_message = $result->error;
+				return false;
+			} else {
+				return true;
+			}
+
 		}
 
 		return false;
@@ -224,7 +269,7 @@ class MC4WP_Lite_API {
 	* @return boolean
 	*/
 	public function list_has_subscriber( $list_id, $email ) {
-		$member_info = $this->get_member_info( $list_id, array( array( 'email' => $email ) ) );
+		$member_info = $this->get_subscriber_info( $list_id, array( array( 'email' => $email ) ) );
 
 		if( is_array( $member_info ) && isset( $member_info[0] ) ) {
 			return ( $member_info[0]->status === "subscribed" );
@@ -244,7 +289,7 @@ class MC4WP_Lite_API {
 	 *
 	 * @return bool
 	 */
-	public function unsubscribe( $list_id, $struct, $delete_member = false, $send_goodbye = true, $send_notification = false ) {
+	public function unsubscribe( $list_id, $struct, $send_goodbye = true, $send_notification = false, $delete_member = false ) {
 
 		if( ! is_array( $struct ) ) {
 			// assume $struct is an email
