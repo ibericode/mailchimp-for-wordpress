@@ -62,25 +62,29 @@
 }
 
 .pro-feature, 
-.mc4wp-settings tr.pro-feature th, 
-.mc4wp-settings tr.pro-feature td{ 
+.mc4wp-settings tr.pro-feature th,
+.mc4wp-settings tr.pro-feature td{
 	color:#aaa;
 }
 
-#mc4wp-admin span.status{
-	display:inline-block; 
-	padding:3px 6px; 
-	color:white; 
-	font-size:12px; 
+#mc4wp-admin .status{
+	display:inline-block;
+	margin-left:1em;
+	padding:3px 6px;
+	color:white;
+	font-size:12px;
 	font-weight:bold;
 }
-
-#mc4wp-admin span.positive{
-	background-color:green; 
+#mc4wp-admin .positive{
+	background-color:limeGreen;
 }
 
-#mc4wp-admin span.negative{
-	background-color:lightGrey; 
+#mc4wp-admin .negative{
+	background-color: red;
+}
+
+#mc4wp-admin .neutral{
+	background: gray;
 }
 
 #mc4wp-admin table th{
