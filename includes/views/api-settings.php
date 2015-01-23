@@ -23,7 +23,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 				<?php if($connected) { ?>
 					<span class="status positive"><?php _e( 'CONNECTED' ,'mailchimp-for-wp' ); ?></span>
 				<?php } else { ?>
-					<span class="status negative"><?php _e( 'NOT CONNECTED', 'mailchimp-for-wp' ); ?></span>
+					<span class="status neutral"><?php _e( 'NOT CONNECTED', 'mailchimp-for-wp' ); ?></span>
 				<?php } ?>
 			</h3>
 			<table class="form-table">

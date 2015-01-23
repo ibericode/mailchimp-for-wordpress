@@ -45,7 +45,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 						<th scope="row"><?php _e( 'Lists this form subscribes to', 'mailchimp-for-wp' ); ?></th>
 					<?php // loop through lists
 					if( empty( $lists ) ) {
-						?><td colspan="2"><?php printf( __( 'No lists found, %sare you connected to MailChimp?%s', 'mailchimp-for-wp' ), '<a href="'. admin_url( 'admin.php?page=mc4wp-lite' ) .'">', '</a>' ); ?></td><?php
+						?><td colspan="2"><?php printf( __( 'No lists found, %sare you connected to MailChimp?%s', 'mailchimp-for-wp' ), '<a href="'. admin_url( 'admin.php?page=mailchimp-for-wp' ) .'">', '</a>' ); ?></td><?php
 					} else { ?>
 					<td>
 

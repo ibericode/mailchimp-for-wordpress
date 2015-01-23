@@ -231,7 +231,7 @@ abstract class MC4WP_Integration {
 			if( $this->show_error_messages() ) {
 				wp_die(
 					'<h3>' . __( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ) . '</h3>' .
-					'<p>' . sprintf( __( 'Please select a list to subscribe to in the <a href="%s">checkbox settings</a>.', 'mailchimp-for-wp' ), admin_url( 'admin.php?page=mc4wp-lite-checkbox-settings' ) ) . '</p>' .
+					'<p>' . sprintf( __( 'Please select a list to subscribe to in the <a href="%s">checkbox settings</a>.', 'mailchimp-for-wp' ), admin_url( 'admin.php?page=mailchimp-for-wp-checkbox-settings' ) ) . '</p>' .
 					'<p style="font-style:italic; font-size:12px;">' . __( 'This message is only visible to administrators for debugging purposes.', 'mailchimp-for-wp' ) . '</p>',
 					__( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ),
 					array( 'back_link' => true )
