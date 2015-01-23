@@ -123,9 +123,6 @@ class MC4WP_Lite_API {
 
 		if( is_object( $response ) ) {
 
-			// store response
-			$this->last_response = $response;
-
 			if( isset( $response->error ) ) {
 
 				// check error
@@ -256,9 +253,6 @@ class MC4WP_Lite_API {
 
 		if( is_object( $response ) ) {
 
-			// store response
-			$this->last_response = $response;
-
 			if ( isset( $response->complete ) && $response->complete ) {
 				return true;
 			}
@@ -311,9 +305,16 @@ class MC4WP_Lite_API {
 				'msg' => "Everything's Chimpy!"
 			);
 		}
-		
+
 		$body = wp_remote_retrieve_body( $response );
-		return json_decode( $body );
+		$response = json_decode( $body );
+
+		// store response
+		if( is_object( $response ) ) {
+			$this->last_response = $response;
+		}
+
+		return $response;
 	}
 
 	/**
