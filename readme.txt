@@ -3,8 +3,8 @@ Contributors: DvanKooten
 Donate link: https://mc4wp.com/
 Tags: mailchimp,newsletter,optin,mailinglist,sign-up form,subscribe,form,shortcode,widget,checkbox,comment,buddypress,multisite,bbpress,woocommerce,easy digital downloads,contact form,contact form 7,events manager,comment form,registration form,captcha
 Requires at least: 3.6
-Tested up to: 4.1
-Stable tag: 2.2.2
+Tested up to: 4.1.1
+Stable tag: 2.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -263,6 +263,10 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 8. **Pro only:** Create your own CSS styles with the form designer in the Pro version.
 
 == Changelog ==
+
+= 2.2.3 - January 24, 2014 =
+
+Minor improvements and additions for compatibility with the [MailChimp Sync plugin](https://wordpress.org/plugins/mailchimp-sync/).
 
 = 2.2.2 - January 13, 2014 =
 
@@ -677,5 +681,6 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 
 == Upgrade Notice ==
 
-= 2.2.2 =
-Fix for users on MailChimp server us10. Anti-spam improvements for checkbox integrations. Updated translations.
+= 2.2.3 =
+
+Minor improvements and additions for compatibility with the [MailChimp Sync plugin](https://wordpress.org/plugins/mailchimp-sync/).
