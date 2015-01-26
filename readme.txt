@@ -1,14 +1,14 @@
 === MailChimp for WordPress ===
 Contributors: DvanKooten
 Donate link: https://mc4wp.com/
-Tags: mailchimp,newsletter,optin,mailinglist,sign-up form,subscribe,form,shortcode,widget,checkbox,comment,buddypress,multisite,bbpress,woocommerce,easy digital downloads,contact form,contact form 7,events manager,comment form,registration form,captcha
+Tags: MailChimp,newsletter,optin,mailinglist,sign-up form,subscribe,form,shortcode,widget,checkbox,comment,buddypress,multisite,bbpress,woocommerce,easy digital downloads,contact form,contact form 7,events manager,comment form,registration form,captcha
 Requires at least: 3.6
 Tested up to: 4.1.1
 Stable tag: 2.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The best MailChimp plugin to get more email subscribers. Easily add sign-up forms and sign-up checkboxes to your WordPress website.
+The best MailChimp plugin to get more email subscribers. Easily add MailChimp sign-up forms and sign-up checkboxes to your WordPress site.
 
 == Description ==
 
@@ -16,13 +16,13 @@ The best MailChimp plugin to get more email subscribers. Easily add sign-up form
 
 *Adding sign-up methods for your MailChimp lists to your WordPress site should be easy. With this plugin, it finally is.*
 
-MailChimp for WordPress lets you create a highly customizable sign-up form which you can display wherever you want it to display using a simple shortcode, widget or template function.  You can also add sign-up checkboxes to various forms on your site, like your comment or contact forms.
+MailChimp for WordPress lets you create a highly customizable sign-up form which you can display wherever you want it to display using a simple shortcode, widget or template function. You can also add MailChimp sign-up checkboxes to various forms on your site, like your comment or contact forms.
 
-= Sign-Up Forms =
+= MailChimp Sign-Up Forms =
 Easily create sign-up forms for your MailChimp list and display it using a simple shortcode, a widget or PHP function.
 
 = Sign-Up Checkboxes =
-Add sign-up checkboxes to *any* form on your website. The plugin offers built-in integration with comment forms, registration forms, Contact Form 7, BuddyPress, bbPress and WordPress MultiSite.
+Add MailChimp sign-up checkboxes to *any* form on your website. The plugin offers built-in integration with comment forms, registration forms, Contact Form 7, BuddyPress, bbPress and WordPress MultiSite.
 
 **MailChimp for WordPress, at a glance..**
 
@@ -253,11 +253,11 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 
 == Screenshots ==
 
-1. Simple or advanced sign-up forms that blend in with your theme.
+1. Simple or advanced MailChimp sign-up forms that blend in with your theme.
 2. A sign-up checkbox in your comment form is an amazing conversion booster.
 3. A simple form in the footer of the Twenty Thirteen theme.
 4. Add sign-up checkboxes to various places on your site.
-5. Creating sign-up forms is easy. The Pro version allows you to create as many form as you like.
+5. Creating sign-up forms for your MailChimp lists is easy. The Pro version allows you to create as many form as you like.
 6. Write your own HTML or have it generated for you. Many (optional) customization settings are availabl.
 7. **Pro only:** Gain valuable insights which method your visitors used to subscribe for any given time period using beautiful line charts.
 8. **Pro only:** Create your own CSS styles with the form designer in the Pro version.
