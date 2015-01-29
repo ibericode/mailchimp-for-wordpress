@@ -45,6 +45,13 @@ Add MailChimp sign-up checkboxes to *any* form on your website. The plugin offer
 >
 > [Upgrade to MailChimp for WordPress Pro](https://mc4wp.com/features/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=after-features-link)
 
+**Add-on plugins**
+
+There are several add-on plugins available for MailChimp for WordPress, which help you get even more out of your site.
+
+- [MailChimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/) - Adds a top bar  to your site, asking visitors to subscribe.
+- [MailChimp Sync](https://wordpress.org/plugins/mailchimp-sync/) -  Synchronizes your WordPress users with a MailChimp list.
+
 **Translations**
 
 New or improved [translations of the MailChimp for WordPress plugin are welcomed on Transifex](https://www.transifex.com/projects/p/mailchimp-for-wordpress/).
