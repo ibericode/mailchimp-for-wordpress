@@ -166,11 +166,43 @@ class MC4WP_Lite_Admin
 		 */
 		$required_cap = apply_filters( 'mc4wp_settings_cap', 'manage_options' );
 
+		$menu_items = array(
+			array(
+				'title' => __( 'MailChimp API Settings', 'mailchimp-for-wp' ),
+				'text' => __( 'MailChimp', 'mailchimp-for-wp' ),
+				'slug' => '',
+				'callback' => array( $this, 'show_api_settings' )
+			),
+			array(
+				'title' => __( 'Checkbox Settings', 'mailchimp-for-wp' ),
+				'text' => __( 'Checkboxes', 'mailchimp-for-wp' ),
+				'slug' => 'checkbox-settings',
+				'callback' => array( $this, 'show_checkbox_settings' )
+			),
+			array(
+				'title' => __( 'Form Settings', 'mailchimp-for-wp' ),
+				'text' => __( 'Forms', 'mailchimp-for-wp' ),
+				'slug' => 'form-settings',
+				'callback' => array( $this, 'show_form_settings' ) ),
+			array(
+				'title' => __( 'Upgrade to Pro', 'mailchimp-for-wp' ),
+				'text' => '<span style="line-height: 20px;"><span class="dashicons dashicons-external"></span> ' .__( 'Upgrade to Pro', 'mailchimp-for-wp' ),
+				'slug' => 'upgrade',
+				'callback' => array( $this, 'redirect_to_pro' )
+			)
+		);
+
+		$menu_items = apply_filters( 'mc4wp_menu_items', $menu_items );
+
+		// add top menu item
 		add_menu_page( 'MailChimp for WP Lite', 'MailChimp for WP', $required_cap, 'mailchimp-for-wp', array($this, 'show_api_settings'), MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png' );
-		add_submenu_page( 'mailchimp-for-wp', 'API Settings - MailChimp for WP Lite', __( 'MailChimp Settings', 'mailchimp-for-wp' ), $required_cap, 'mailchimp-for-wp', array( $this, 'show_api_settings' ) );
-		add_submenu_page( 'mailchimp-for-wp', 'Checkbox Settings - MailChimp for WP Lite', __( 'Checkboxes', 'mailchimp-for-wp' ), $required_cap, 'mailchimp-for-wp-checkbox-settings', array($this, 'show_checkbox_settings' ) );
-		add_submenu_page( 'mailchimp-for-wp', 'Form Settings - MailChimp for WP Lite', __( 'Forms', 'mailchimp-for-wp' ), $required_cap, 'mailchimp-for-wp-form-settings', array( $this, 'show_form_settings' ) );
-		add_submenu_page( 'mailchimp-for-wp', 'Upgrade to Pro - MailChimp for WP Lite', __( 'Upgrade to Pro', 'mailchimp-for-wp' ), $required_cap, 'mailchimp-for-wp-upgrade', array( $this, 'redirect_to_pro' ) );
+
+		// add submenu pages
+		foreach( $menu_items as $item ) {
+			$slug = ( '' !== $item['slug'] ) ? "mailchimp-for-wp-{$item['slug']}" : 'mailchimp-for-wp';
+			add_submenu_page( 'mailchimp-for-wp', $item['title'] . ' - MailChimp for WordPress Lite', $item['text'], $required_cap, $slug, $item['callback'] );
+		}
+
 	}
 
 
@@ -284,13 +316,13 @@ class MC4WP_Lite_Admin
 	}
 
 	/**
-	* @param string $hook
+	 * Load scripts and stylesheet on MailChimp for WP Admin pages
+	 * @return bool
 	*/
-	public function load_css_and_js( $hook )
-	{
+	public function load_css_and_js() {
 		// only load asset files on the MailChimp for WordPress settings pages
-		if( false === isset( $_GET['page'] ) || false === stristr( $_GET['page'], 'mailchimp-for-wp' ) ) {
-			return; 
+		if( ! isset( $_GET['page'] ) || strpos( $_GET['page'], 'mailchimp-for-wp' ) !== 0 ) {
+			return false;
 		}
 
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
@@ -321,6 +353,8 @@ class MC4WP_Lite_Admin
 				'mailchimpLists' => $mailchimp->get_lists()
 			)
 		);
+
+		return true;
 	}
 
 	/**
