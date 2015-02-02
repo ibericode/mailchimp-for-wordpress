@@ -120,12 +120,14 @@ class MC4WP_Lite_Admin
 	}
 
 	/**
-	* Add the settings link to the Plugins overview
-	* @param array $links
-	* @return array
-	*/
-	public function add_plugin_settings_link( $links, $file )
-	{
+	 * Add the settings link to the Plugins overview
+	 *
+	 * @param array $links
+	 * @param       $file
+	 *
+	 * @return array
+	 */
+	public function add_plugin_settings_link( $links, $file ) {
 		if( $file !== $this->plugin_file ) {
 			return $links;
 		}
