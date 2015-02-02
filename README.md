@@ -1,5 +1,9 @@
 MailChimp for WordPress
 ======================
+[![Build Status](https://api.travis-ci.org/dannyvankooten/mailchimp-for-wordpress.png?branch=master)](https://travis-ci.org/dannyvankooten/mailchimp-for-wordpress)
+[![Stable Version](https://poser.pugx.org/dannyvankooten/mailchimp-for-wordpress/v/stable.svg)](https://packagist.org/packages/dannyvankooten/mailchimp-for-wordpress)
+[![License](https://poser.pugx.org/dannyvankooten/mailchimp-for-wordpress/license.svg)](https://packagist.org/packages/dannyvankooten/mailchimp-for-wordpress)
+
 
 Here, you can browse the source of the [MailChimp for WordPress Plugin](https://wordpress.org/plugins/mailchimp-for-wp/) project, find and discuss open issues or contribute code to the plugin yourself.
 
