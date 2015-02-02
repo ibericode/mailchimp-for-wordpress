@@ -41,7 +41,7 @@ class MC4WP_BuddyPress_Integration extends MC4WP_Integration {
 		$email = $user_email;
 
 		$merge_vars = array(
-			'NAME' => $user_login
+			'NAME' => $user_login,
 		);
 
 		return $this->subscribe( $email, $merge_vars, 'buddypress_registration' );

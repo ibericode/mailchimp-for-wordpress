@@ -24,7 +24,7 @@ function mc4wp_get_options( $key = '' ) {
 
 		$defaults = array(
 			'general' => array(
-				'api_key' => ''
+				'api_key' => '',
 			),
 			'checkbox' => array(
 				'label' => __( 'Sign me up for the newsletter!', 'mailchimp-for-wp' ),
@@ -39,7 +39,7 @@ function mc4wp_get_options( $key = '' ) {
 				'show_at_edd_checkout' => 0,
 				'lists' => array(),
 				'double_optin' => 1,
-				'woocommerce_position' => 'order'
+				'woocommerce_position' => 'order',
 			),
 			'form' => array(
 				'css' => 'default',
@@ -56,14 +56,14 @@ function mc4wp_get_options( $key = '' ) {
 				'hide_after_success' => 0,
 				'update_existing' => false,
 				'replace_interests' => true,
-				'send_welcome' => false
-			)
+				'send_welcome' => false,
+			),
 		);
 
 		$db_keys_option_keys = array(
 			'mc4wp_lite' => 'general',
 			'mc4wp_lite_checkbox' => 'checkbox',
-			'mc4wp_lite_form' => 'form'
+			'mc4wp_lite_form' => 'form',
 		);
 
 		$options = array();

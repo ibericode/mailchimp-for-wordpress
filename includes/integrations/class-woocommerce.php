@@ -78,7 +78,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 			$merge_vars = array(
 				'NAME' => "{$order->billing_first_name} {$order->billing_last_name}",
 				'FNAME' => $order->billing_first_name,
-				'LNAME' => $order->billing_last_name
+				'LNAME' => $order->billing_last_name,
 
 			);
 

@@ -45,7 +45,7 @@ class MC4WP_bbPress_Integration extends MC4WP_Integration {
 
 			$email = $anonymous_data['bbp_anonymous_email'];
 			$merge_vars = array(
-				'NAME' => $anonymous_data['bbp_anonymous_name']
+				'NAME' => $anonymous_data['bbp_anonymous_name'],
 			);
 
 		} elseif ( $user_id ) {
@@ -55,7 +55,7 @@ class MC4WP_bbPress_Integration extends MC4WP_Integration {
 			$merge_vars = array(
 				'NAME' => $user_info->first_name . ' ' . $user_info->last_name,
 				'FNAME' => $user_info->first_name,
-				'LNAME' => $user_info->last_name
+				'LNAME' => $user_info->last_name,
 			);
 
 		} else {
