@@ -1,0 +1,9 @@
+<phpunit
+	colors="true"
+	verbose="true">
+	<testsuites>
+		<testsuite name="mailchimp-for-wordpress">
+			<directory>./tests/</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>

@@ -13,3 +13,4 @@ before_script:
 
 script:
   - if [[ "$PHPLINT" == "1" ]]; then ~/phpcs/scripts/phpcs . -p -s -v -n --standard=./codesniffer.xml --extensions=php; fi
+  - phpunit -c phpunit.xml
