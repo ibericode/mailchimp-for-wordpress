@@ -18,6 +18,7 @@
 		<exclude name="WordPress.PHP.YodaConditions"/>
 		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing" />
 
+		<exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.NoSpacesAroundArrayKeys" />
 		<!-- Turned off because of known & reported bugs in the Sniffs, should be turned on once the bugs are fixed. -->
 		<exclude name="WordPress.VIP.ValidatedSanitizedInput"/>
 	</rule>

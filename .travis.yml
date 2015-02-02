@@ -12,4 +12,4 @@ before_script:
   - ~/phpcs/scripts/phpcs --config-set installed_paths ~/wpcs
 
 script:
-  - if [[ "$PHPLINT" == "1" ]]; then ~/phpcs/scripts/phpcs -p -s -v -n . --standard=./codesniffer.xml --extensions=php; fi
+  - if [[ "$PHPLINT" == "1" ]]; then ~/phpcs/scripts/phpcs . -p -s -v -n --standard=./codesniffer.xml --extensions=php; fi
