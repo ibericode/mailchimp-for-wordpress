@@ -1,7 +1,7 @@
 <?php
 
 // prevent direct file access
-if( ! defined("MC4WP_LITE_VERSION") ) {
+if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
@@ -38,7 +38,7 @@ class MC4WP_bbPress_Integration extends MC4WP_Integration {
 		}
 
 		if ( $this->checkbox_was_checked() === false ) {
-			return false; 
+			return false;
 		}
 
 		if ( $anonymous_data ) {

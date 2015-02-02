@@ -1,6 +1,6 @@
 <?php
 
-if( ! defined("MC4WP_LITE_VERSION") ) {
+if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
@@ -28,7 +28,7 @@ class MC4WP_Lite {
 	*/
 	public function __construct() {
 
-        spl_autoload_register( array( $this, 'autoload') );
+		spl_autoload_register( array( $this, 'autoload') );
 
 		// checkbox
 		$this->checkbox_manager = new MC4WP_Lite_Checkbox_Manager();
@@ -40,14 +40,14 @@ class MC4WP_Lite {
 		add_action( 'widgets_init', array( $this, 'register_widget' ) );
 	}
 
-    /**
-     * @return bool
-     */
-    public function autoload( $class_name ) {
+	/**
+	 * @return bool
+	 */
+	public function autoload( $class_name ) {
 
-        static $classes = null;
+		static $classes = null;
 
-        if( $classes === null ) {
+		if( $classes === null ) {
 
 	        $classes = array(
 		        'MC4WP_Lite_API'                             => 'class-api.php',
@@ -71,17 +71,17 @@ class MC4WP_Lite {
 		        'MC4WP_EDD_Integration'                 => 'integrations/class-edd.php'
 	        );
 
-        }
+		}
 
-        if( isset( $classes[$class_name] ) ) {
-            require_once MC4WP_LITE_PLUGIN_DIR . 'includes/' . $classes[$class_name];
-            return true;
-        }
+		if( isset( $classes[$class_name] ) ) {
+			require_once MC4WP_LITE_PLUGIN_DIR . 'includes/' . $classes[$class_name];
+			return true;
+		}
 
-        return false;
+		return false;
 
 
-    }
+	}
 
 	/**
 	* @return MC4WP_Lite_Checkbox
@@ -106,7 +106,7 @@ class MC4WP_Lite {
 			$opts = mc4wp_get_options();
 			$this->api = new MC4WP_Lite_API( $opts['general']['api_key'] );
 		}
-		
+
 		return $this->api;
 	}
 

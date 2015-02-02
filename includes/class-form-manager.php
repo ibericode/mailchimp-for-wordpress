@@ -1,6 +1,6 @@
 <?php
 
-if( ! defined("MC4WP_LITE_VERSION") ) {
+if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
@@ -34,8 +34,8 @@ class MC4WP_Lite_Form_Manager {
 		add_filter( 'widget_text', 'shortcode_unautop' );
 		add_filter( 'widget_text', 'do_shortcode', 11 );
 
-        // load checkbox css if necessary
-        add_action('wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
+		// load checkbox css if necessary
+		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
 
 		/**
 		* @deprecated
@@ -72,26 +72,26 @@ class MC4WP_Lite_Form_Manager {
 	* Load the form stylesheet(s)
 	*/
 	public function load_stylesheet( ) {
-		$opts = mc4wp_get_options('form');
+		$opts = mc4wp_get_options( 'form' );
 
-        if( $opts['css'] == false ) {
-            return false;
-        }
+		if( $opts['css'] == false ) {
+			return false;
+		}
 
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-        if( $opts['css'] != 1 && $opts['css'] !== 'default' ) {
+		if( $opts['css'] != 1 && $opts['css'] !== 'default' ) {
 
-            $form_theme = $opts['css'];
-            if( in_array( $form_theme, array( 'blue', 'green', 'dark', 'light', 'red' ) ) ) {
-                wp_enqueue_style( 'mailchimp-for-wp-form-theme-' . $opts['css'], MC4WP_LITE_PLUGIN_URL . 'assets/css/form-theme-' . $opts['css'] . $suffix . '.css', array(), MC4WP_LITE_VERSION, 'all' );
-            }
+			$form_theme = $opts['css'];
+			if( in_array( $form_theme, array( 'blue', 'green', 'dark', 'light', 'red' ) ) ) {
+				wp_enqueue_style( 'mailchimp-for-wp-form-theme-' . $opts['css'], MC4WP_LITE_PLUGIN_URL . 'assets/css/form-theme-' . $opts['css'] . $suffix . '.css', array(), MC4WP_LITE_VERSION, 'all' );
+			}
 
-        } else {
-            wp_enqueue_style( 'mailchimp-for-wp-form', MC4WP_LITE_PLUGIN_URL . 'assets/css/form' . $suffix . '.css', array(), MC4WP_LITE_VERSION, 'all' );
-        }
+		} else {
+			wp_enqueue_style( 'mailchimp-for-wp-form', MC4WP_LITE_PLUGIN_URL . 'assets/css/form' . $suffix . '.css', array(), MC4WP_LITE_VERSION, 'all' );
+		}
 
-        return true;
+		return true;
 	}
 
 	/**
@@ -144,13 +144,13 @@ class MC4WP_Lite_Form_Manager {
 		}
 
 		// Get form options
-		$opts = mc4wp_get_options('form');
+		$opts = mc4wp_get_options( 'form' );
 
 		// was this form submitted?
 		$was_submitted = ( is_object( $this->form_request ) && $this->form_request->get_form_instance_number() === $this->form_instance_number );
 
 		// Generate opening HTML
-		$opening_html = "<!-- Form by MailChimp for WordPress plugin v". MC4WP_LITE_VERSION ." - https://mc4wp.com/ -->";
+		$opening_html = '<!-- Form by MailChimp for WordPress plugin v'. MC4WP_LITE_VERSION .' - https://mc4wp.com/ -->';
 		$opening_html .= '<div id="mc4wp-form-' . $this->form_instance_number . '" class="' . $this->get_css_classes() . '">';
 
 		// Generate before & after fields HTML
@@ -255,7 +255,7 @@ class MC4WP_Lite_Form_Manager {
 		$visible_fields = str_ireplace( '{response}', $response_html, $visible_fields );
 
 		// Generate closing HTML
-		$closing_html = "</div><!-- / MailChimp for WP Plugin -->";
+		$closing_html = '</div><!-- / MailChimp for WP Plugin -->';
 
 		// increase form instance number in case there is more than one form on a page
 		$this->form_instance_number++;

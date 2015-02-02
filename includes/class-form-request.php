@@ -639,7 +639,7 @@ class MC4WP_Lite_Form_Request {
 		 *
 		 * Used to alter the error message, don't use. Use `mc4wp_form_messages` instead.
 		 */
-		$message['text'] = apply_filters('mc4wp_form_error_message', $message['text'], $this->error_code );
+		$message['text'] = apply_filters( 'mc4wp_form_error_message', $message['text'], $this->error_code );
 
 		$html = '<div class="mc4wp-alert mc4wp-'. $message['type'].'">' . $message['text'] . '</div>';
 

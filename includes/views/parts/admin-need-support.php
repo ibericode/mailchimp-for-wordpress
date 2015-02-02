@@ -1,12 +1,12 @@
-<?php 
-if( ! defined("MC4WP_LITE_VERSION") ) {
+<?php
+if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
 }
 ?>
 <div class="mc4wp-box">
-	<h4 class="mc4wp-title"><?php _e('Looking for support?', 'mailchimp-for-wp' ); ?></h4>
+	<h4 class="mc4wp-title"><?php _e( 'Looking for support?', 'mailchimp-for-wp' ); ?></h4>
 	<p><?php printf( __( 'Make sure to look at the <a href="%s">frequently asked questions</a> or use the <a href="%s">support forums</a> on WordPress.org.', 'mailchimp-for-wp' ), 'https://wordpress.org/plugins/mailchimp-for-wp/faq/', 'http://wordpress.org/support/plugin/mailchimp-for-wp' ); ?></p>
 </div>
 

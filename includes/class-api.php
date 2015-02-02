@@ -10,7 +10,7 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 * Takes care of requests to the MailChimp API
 *
 * @uses WP_HTTP
-*/ 
+*/
 class MC4WP_Lite_API {
 
 	/**
@@ -84,12 +84,12 @@ class MC4WP_Lite_API {
 				if( isset( $result->msg ) && $result->msg === "Everything's Chimpy!" ) {
 					$this->connected = true;
 				} elseif( isset( $result->error ) ) {
-					$this->show_error( "MailChimp Error: " . $result->error );
+					$this->show_error( 'MailChimp Error: ' . $result->error );
 				}
-			} 
-		
+			}
+
 		}
-		
+
 		return $this->connected;
 	}
 
@@ -145,7 +145,7 @@ class MC4WP_Lite_API {
 	/**
 	* Gets the Groupings for a given List
 	* @param string $list_id
-	* @return array|boolean 
+	* @return array|boolean
 	*/
 	public function get_list_groupings( $list_id ) {
 		$result = $this->call( 'lists/interest-groupings', array( 'id' => $list_id ) );
@@ -191,7 +191,7 @@ class MC4WP_Lite_API {
 	*/
 	public function get_lists_with_merge_vars( $list_ids ) {
 		$result = $this->call( 'lists/merge-vars', array('id' => $list_ids ) );
-		
+
 		if( is_object( $result ) && isset( $result->data ) ) {
 			return $result->data;
 		}
@@ -201,7 +201,7 @@ class MC4WP_Lite_API {
 
 	/**
 	* Gets the member info for one or multiple emails on a list
-	* 
+	*
 	* @param string $list_id
 	* @param array $emails
 	* @return array|bool
@@ -272,7 +272,7 @@ class MC4WP_Lite_API {
 		$member_info = $this->get_subscriber_info( $list_id, array( array( 'email' => $email ) ) );
 
 		if( is_array( $member_info ) && isset( $member_info[0] ) ) {
-			return ( $member_info[0]->status === "subscribed" );
+			return ( $member_info[0]->status === 'subscribed' );
 		}
 
 		return false;
@@ -333,25 +333,25 @@ class MC4WP_Lite_API {
 	*/
 	public function call( $method, array $data = array() ) {
 		// do not make request when no api key was provided.
-		if( empty( $this->api_key ) ) { 
-			return false; 
+		if( empty( $this->api_key ) ) {
+			return false;
 		}
 
 		$data['apikey'] = $this->api_key;
 		$url = $this->api_url . $method . '.json';
 
-		$response = wp_remote_post( $url, array( 
+		$response = wp_remote_post( $url, array(
 			'body' => $data,
 			'timeout' => 15,
 			'headers' => array('Accept-Encoding' => ''),
 			'sslverify' => false
-			) 
-		); 
+			)
+		);
 
 		// test for wp errors
 		if( is_wp_error( $response ) ) {
 			// show error message to admins
-			$this->show_error( "HTTP Error: " . $response->get_error_message() );
+			$this->show_error( 'HTTP Error: ' . $response->get_error_message() );
 			return false;
 		}
 

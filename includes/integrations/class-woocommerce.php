@@ -70,7 +70,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 	public function subscribe_from_woocommerce_checkout( $order_id ) {
 
 		$do_optin = get_post_meta( $order_id, '_mc4wp_optin', true );
-		
+
 		if( $do_optin ) {
 
 			$order = new WC_Order( $order_id );

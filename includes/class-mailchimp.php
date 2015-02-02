@@ -1,5 +1,5 @@
 <?php
-if( ! defined("MC4WP_LITE_VERSION") ) {
+if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
@@ -54,7 +54,7 @@ class MC4WP_MailChimp {
 				}
 
 				// get merge vars for all lists at once
-				$merge_vars_data = $api->get_lists_with_merge_vars( array_keys($lists) );
+				$merge_vars_data = $api->get_lists_with_merge_vars( array_keys( $lists ) );
 				if ( $merge_vars_data ) {
 					foreach ( $merge_vars_data as $list ) {
 						// add merge vars to list
@@ -207,11 +207,11 @@ class MC4WP_MailChimp {
 		);
 
 		if ( isset( $merge_var->choices ) ) {
-			$array["choices"] = $merge_var->choices;
+			$array['choices'] = $merge_var->choices;
 		}
 
 		return (object) $array;
 
 	}
 
-} 
+}

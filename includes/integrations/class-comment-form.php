@@ -1,6 +1,6 @@
 <?php
 
-if( ! defined("MC4WP_LITE_VERSION") ) {
+if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
@@ -37,13 +37,13 @@ class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 		}
 
 		// was sign-up checkbox checked?
-		if ( $this->checkbox_was_checked() === false ) { 
-			return false; 
+		if ( $this->checkbox_was_checked() === false ) {
+			return false;
 		}
 
 		// is this a spam comment?
-		if ( $comment_approved === 'spam' ) { 
-			return false; 
+		if ( $comment_approved === 'spam' ) {
+			return false;
 		}
 
 		$comment = get_comment( $comment_id );

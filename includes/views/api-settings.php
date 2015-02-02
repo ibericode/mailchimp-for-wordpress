@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-if( ! defined("MC4WP_LITE_VERSION") ) {
+if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
@@ -66,7 +66,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 				</tr>
 			</thead>
 			<tbody>
-				<?php 
+				<?php
 				if( ! empty( $lists ) && is_array( $lists ) ) {
 					foreach($lists as $list) { ?>
 
@@ -78,13 +78,13 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 							<?php if( ! empty( $list->merge_vars ) && is_array( $list->merge_vars ) ) { ?>
 								<ul class="ul-square" style="margin-top: 0;">
 									<?php foreach( $list->merge_vars as $merge_var ) { ?>
-										<li><?php echo esc_html( $merge_var->name ); if( $merge_var->req ) echo '<span style="color:red;">*</span>'; ?> <code><?php echo esc_html( $merge_var->tag ); ?></code></li>
+										<li><?php echo esc_html( $merge_var->name ); if( $merge_var->req ) { echo '<span style="color:red;">*</span>'; } ?> <code><?php echo esc_html( $merge_var->tag ); ?></code></li>
 									<?php } ?>
 								</ul>
 							<?php } ?>
 						</td>
 						<td>
-						<?php 
+						<?php
 						if( ! empty( $list->interest_groupings ) && is_array( $list->interest_groupings ) ) {
 							foreach($list->interest_groupings as $grouping) { ?>
 								<strong><?php echo esc_html( $grouping->name ); ?></strong>
@@ -97,23 +97,23 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 									</ul>
 								<?php } ?>
 							<?php }
-							} else {
-								?>-<?php
-							} ?>
+						} else {
+							?>-<?php
+						} ?>
 
 						</td>
 						<td class="mc4wp-hide-smallscreens"><?php echo esc_html( $list->subscriber_count ); ?></td>
 					</tr>
-					<?php 
-					}  
+					<?php
+					}
 				} else { ?>
 					<tr>
 						<td colspan="5">
 							<p><?php _e( 'No lists were found in your MailChimp account', 'mailchimp-for-wp' ); ?>.</p>
 						</td>
 					</tr>
-				<?php 
-				} 
+				<?php
+				}
 				?>
 			</tbody>
 		</table>

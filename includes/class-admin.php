@@ -1,6 +1,6 @@
 <?php
 
-if( ! defined( "MC4WP_LITE_VERSION" ) ) {
+if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
@@ -110,8 +110,8 @@ class MC4WP_Lite_Admin
 	 */
 	public function set_quicktags_buttons( $settings, $editor_id = '' )
 	{
-		if( $editor_id !== 'mc4wpformmarkup' ) { 
-			return $settings; 
+		if( $editor_id !== 'mc4wpformmarkup' ) {
+			return $settings;
 		}
 
 		$settings['buttons'] = 'strong,em,link,img,ul,li,close';
@@ -133,8 +133,8 @@ class MC4WP_Lite_Admin
 		}
 
 		 $settings_link = '<a href="admin.php?page=mailchimp-for-wp">'. __( 'Settings', 'mailchimp-for-wp' ) . '</a>';
-         array_unshift( $links, $settings_link );
-         return $links;
+		 array_unshift( $links, $settings_link );
+		 return $links;
 	}
 
 	/**
@@ -157,7 +157,7 @@ class MC4WP_Lite_Admin
 
 	/**
 	* Register the setting pages and their menu items
- 	*/
+		*/
 	public function build_menu() {
 
 		/**
@@ -360,9 +360,9 @@ class MC4WP_Lite_Admin
 	}
 
 	/**
-     * Returns available checkbox integrations
-     *
-     * @return array
+	 * Returns available checkbox integrations
+	 *
+	 * @return array
 	 */
 	public function get_checkbox_compatible_plugins()
 	{
@@ -373,21 +373,21 @@ class MC4WP_Lite_Admin
 		}
 
 		$checkbox_plugins = array(
-			'comment_form' => __( "Comment form", 'mailchimp-for-wp' ),
-			"registration_form" => __( "Registration form", 'mailchimp-for-wp' )
+			'comment_form' => __( 'Comment form', 'mailchimp-for-wp' ),
+			'registration_form' => __( 'Registration form', 'mailchimp-for-wp' )
 		);
 
 		if( is_multisite() ) {
-            $checkbox_plugins['multisite_form'] = __( "MultiSite forms", 'mailchimp-for-wp' );
-        }
+			$checkbox_plugins['multisite_form'] = __( 'MultiSite forms', 'mailchimp-for-wp' );
+		}
 
-		if( class_exists("BuddyPress") ) {
-            $checkbox_plugins['buddypress_form'] = __( "BuddyPress registration", 'mailchimp-for-wp' );
-        }
+		if( class_exists( 'BuddyPress' ) ) {
+			$checkbox_plugins['buddypress_form'] = __( 'BuddyPress registration', 'mailchimp-for-wp' );
+		}
 
-		if( class_exists('bbPress') ) {
-            $checkbox_plugins['bbpress_forms'] = "bbPress";
-        }
+		if( class_exists( 'bbPress' ) ) {
+			$checkbox_plugins['bbpress_forms'] = 'bbPress';
+		}
 
 		if ( class_exists( 'WooCommerce' ) ) {
 			$checkbox_plugins['woocommerce_checkout'] = sprintf( __( '%s checkout', 'mailchimp-for-wp' ), 'WooCommerce' );
@@ -423,9 +423,9 @@ class MC4WP_Lite_Admin
 
 		if ( $force_cache_refresh ) {
 			if ( false === empty ( $lists ) ) {
-				add_settings_error( "mc4wp", "mc4wp-cache-success", __( 'Renewed MailChimp cache.', 'mailchimp-for-wp' ), 'updated' );
+				add_settings_error( 'mc4wp', 'mc4wp-cache-success', __( 'Renewed MailChimp cache.', 'mailchimp-for-wp' ), 'updated' );
 			} else {
-				add_settings_error( "mc4wp", "mc4wp-cache-error", __( 'Failed to renew MailChimp cache - please try again later.', 'mailchimp-for-wp' ) );
+				add_settings_error( 'mc4wp', 'mc4wp-cache-error', __( 'Failed to renew MailChimp cache - please try again later.', 'mailchimp-for-wp' ) );
 			}
 		}
 

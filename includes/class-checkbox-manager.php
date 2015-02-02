@@ -26,41 +26,41 @@ class MC4WP_Lite_Checkbox_Manager
 	*/
 	public function __construct()
 	{
-       $this->options = mc4wp_get_options( 'checkbox' );
+		$this->options = mc4wp_get_options( 'checkbox' );
 
-        // load checkbox css if necessary
-        add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
+		// load checkbox css if necessary
+		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
 		add_action( 'login_enqueue_scripts', array( $this, 'load_stylesheet' ) );
 
-        // Load WP Comment Form Integration
-        if ( $this->options['show_at_comment_form'] ) {
-            $this->integrations['comment_form'] = new MC4WP_Comment_Form_Integration();
-        }
+		// Load WP Comment Form Integration
+		if ( $this->options['show_at_comment_form'] ) {
+			$this->integrations['comment_form'] = new MC4WP_Comment_Form_Integration();
+		}
 
-        // Load WordPress Registration Form Integration
-        if ( $this->options['show_at_registration_form'] ) {
-            $this->integrations['registration_form'] = new MC4WP_Registration_Form_Integration();
-        }
+		// Load WordPress Registration Form Integration
+		if ( $this->options['show_at_registration_form'] ) {
+			$this->integrations['registration_form'] = new MC4WP_Registration_Form_Integration();
+		}
 
-        // Load BuddyPress Integration
-        if ( $this->options['show_at_buddypress_form'] ) {
-            $this->integrations['buddypress_form'] = new MC4WP_BuddyPress_Integration();
-        }
+		// Load BuddyPress Integration
+		if ( $this->options['show_at_buddypress_form'] ) {
+			$this->integrations['buddypress_form'] = new MC4WP_BuddyPress_Integration();
+		}
 
-        // Load MultiSite Integration
-        if ( $this->options['show_at_multisite_form'] ) {
-            $this->integrations['multisite_form'] = new MC4WP_MultiSite_Integration();
-        }
+		// Load MultiSite Integration
+		if ( $this->options['show_at_multisite_form'] ) {
+			$this->integrations['multisite_form'] = new MC4WP_MultiSite_Integration();
+		}
 
-        // Load bbPress Integration
-        if ( $this->options['show_at_bbpress_forms'] ) {
-            $this->integrations['bbpress_forms'] = new MC4WP_bbPress_Integration();
-        }
+		// Load bbPress Integration
+		if ( $this->options['show_at_bbpress_forms'] ) {
+			$this->integrations['bbpress_forms'] = new MC4WP_bbPress_Integration();
+		}
 
-        // Load CF7 Integration
-        if( function_exists( 'wpcf7_add_shortcode' ) ) {
-            $this->integrations['contact_form_7'] = new MC4WP_CF7_Integration();
-        }
+		// Load CF7 Integration
+		if( function_exists( 'wpcf7_add_shortcode' ) ) {
+			$this->integrations['contact_form_7'] = new MC4WP_CF7_Integration();
+		}
 
 		// Load Events Manager integration
 		if( defined( 'EM_VERSION' ) ) {
@@ -89,14 +89,14 @@ class MC4WP_Lite_Checkbox_Manager
 	*/
 	public function load_stylesheet( ) {
 
-        if( $this->options['css'] == false ) {
-            return false;
-        }
+		if( $this->options['css'] == false ) {
+			return false;
+		}
 
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		wp_enqueue_style( 'mailchimp-for-wp-checkbox', MC4WP_LITE_PLUGIN_URL . 'assets/css/checkbox' . $suffix . '.css', array(), MC4WP_LITE_VERSION, 'all' );
-        return true;
+		return true;
 	}
 
 }

@@ -1,5 +1,5 @@
-<?php 
-if( ! defined("MC4WP_LITE_VERSION") ) {
+<?php
+if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
@@ -25,7 +25,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 	<div id="mc4wp-fw-fields">
 
 		<p class="row label">
-			<label for="mc4wp-fw-label"><?php _e('Label', 'mailchimp-for-wp' ); ?> <small><?php _e( '(optional)', 'mailchimp-for-wp' ); ?></small></label>
+			<label for="mc4wp-fw-label"><?php _e( 'Label', 'mailchimp-for-wp' ); ?> <small><?php _e( '(optional)', 'mailchimp-for-wp' ); ?></small></label>
 			<input class="widefat" type="text" id="mc4wp-fw-label" />
 		</p>
 
@@ -64,7 +64,7 @@ if( ! defined("MC4WP_LITE_VERSION") ) {
 
 	</div>
 
-	<p class="mc4wp-notice no-lists-selected" <?php if(!empty($opts['lists'])) { ?>style="display: none;" <?php } ?>>
+	<p class="mc4wp-notice no-lists-selected" <?php if( ! empty($opts['lists'])) { ?>style="display: none;" <?php } ?>>
 		<?php _e( 'Select at least one list first.', 'mailchimp-for-wp' ); ?>
 	</p>
 

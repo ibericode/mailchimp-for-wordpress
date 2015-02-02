@@ -1,6 +1,6 @@
 <?php
 
-if( ! defined( "MC4WP_LITE_VERSION" ) ) {
+if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 	header( 'Status: 403 Forbidden' );
 	header( 'HTTP/1.1 403 Forbidden' );
 	exit;
@@ -56,7 +56,7 @@ function mc4wp_replace_variables( $text, $list_ids = array() ) {
 
 	// replace general vars
 	$needles = array( '{ip}', '{current_url}', '{date}', '{time}', '{language}' );
-	$replacements = array( $_SERVER['REMOTE_ADDR'], mc4wp_get_current_url(), date( "m/d/Y" ), date( "H:i:s" ), $language );
+	$replacements = array( $_SERVER['REMOTE_ADDR'], mc4wp_get_current_url(), date( 'm/d/Y' ), date( 'H:i:s' ), $language );
 	$text = str_ireplace( $needles, $replacements, $text );
 
 	// subscriber count? only fetch these if the tag is actually used

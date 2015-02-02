@@ -45,7 +45,7 @@ class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 
 	/**
 	* Alter Contact Form 7 data.
-	* 
+	*
 	* Adds mc4wp_checkbox to post data so users can use `mc4wp_checkbox` in their email templates
 	*
 	* @param array $data
@@ -62,8 +62,8 @@ class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 	public function subscribe_from_cf7() {
 
 		// was sign-up checkbox checked?
-		if ( $this->checkbox_was_checked() === false ) { 
-			return false; 
+		if ( $this->checkbox_was_checked() === false ) {
+			return false;
 		}
 
 		return $this->try_subscribe();
