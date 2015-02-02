@@ -1,0 +1,17 @@
+<wpml-config>
+	<admin-texts>
+		<key name="mc4wp_lite_checkbox">
+			<key name="label" />
+		</key>
+		<key name="mc4wp_lite_form">
+			<key name="text_success" />
+			<key name="text_error" />
+			<key name="text_invalid_email" />
+			<key name="text_already_subscribed" />
+			<key name="text_invalid_captcha" />
+			<key name="text_required_field_missing" />
+		</key>
+	</admin-texts>
+</wpml-config>
+
+
