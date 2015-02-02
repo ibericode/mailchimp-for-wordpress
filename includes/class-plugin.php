@@ -19,7 +19,7 @@ class MC4WP_Lite {
 	private $checkbox_manager;
 
 	/**
-	* @var MC4WP_Lite_API
+	* @var MC4WP_API
 	*/
 	private $api = null;
 
@@ -50,7 +50,7 @@ class MC4WP_Lite {
 		if( $classes === null ) {
 
 	        $classes = array(
-		        'MC4WP_Lite_API'                             => 'class-api.php',
+		        'MC4WP_API'                             => 'class-api.php',
 		        'MC4WP_Lite_Checkbox_Manager'                => 'class-checkbox-manager.php',
 		        'MC4WP_Lite_Form_Manager'                    => 'class-form-manager.php',
 		        'MC4WP_Lite_Form_Request'                    => 'class-form-request.php',
@@ -98,13 +98,13 @@ class MC4WP_Lite {
 	}
 
 	/**
-	* @return MC4WP_Lite_API
+	* @return MC4WP_API
 	*/
 	public function get_api() {
 
 		if( $this->api === null ) {
 			$opts = mc4wp_get_options();
-			$this->api = new MC4WP_Lite_API( $opts['general']['api_key'] );
+			$this->api = new MC4WP_API( $opts['general']['api_key'] );
 		}
 
 		return $this->api;

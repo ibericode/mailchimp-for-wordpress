@@ -89,7 +89,7 @@ function mc4wp_get_options( $key = '' ) {
 /**
 * Gets the MailChimp for WP API class and injects it with the given API key
 *
-* @return MC4WP_Lite_API
+* @return MC4WP_API
 */
 function mc4wp_get_api() {
 	global $mc4wp;

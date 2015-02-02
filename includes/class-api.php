@@ -11,7 +11,7 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 *
 * @uses WP_HTTP
 */
-class MC4WP_Lite_API {
+class MC4WP_API {
 
 	/**
 	 * @var string
