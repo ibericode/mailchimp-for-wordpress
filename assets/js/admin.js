@@ -36,15 +36,13 @@
 	$(document).delegate('#mc4wpformmarkup', 'keydown', function(e) {
 		var keyCode = e.keyCode || e.which;
 
-		if (keyCode == 9) {
+		if (keyCode === 9) {
 			e.preventDefault();
 			var start = this.selectionStart;
 			var end = this.selectionEnd;
 
 			// set textarea value to: text before caret + tab + text after caret
-			$(this).val($(this).val().substring(0, start)
-			+ "\t"
-			+ $(this).val().substring(end));
+			$(this).val($(this).val().substring(0, start) + "\t" + $(this).val().substring(end));
 
 			// put caret at right position again
 			this.selectionStart =
@@ -56,7 +54,7 @@
 	// Add buttons to QTags editor
 	(function() {
 
-		if ( typeof(QTags) == 'undefined' ) {
+		if ( typeof(QTags) === 'undefined' ) {
 			return;
 		}
 
@@ -65,7 +63,7 @@
 		QTags.addButton( 'mc4wp_response', 'form response', '{response}', '', 'response', 'Shows the form response' );
 		QTags.addButton( 'mc4wp_subscriber_count', '# of subscribers', '{subscriber_count}', '', 'subscribers', 'Shows number of subscribers of selected list(s)' );
 
-		if( window.mc4wp.hasCaptchaPlugin == true ) {
+		if( window.mc4wp.hasCaptchaPlugin === true ) {
 			QTags.addButton( 'mc4wp_captcha', 'CAPTCHA', '{captcha}', '', 'captcha', 'Display a CAPTCHA field' );
 		}
 	})();
@@ -112,7 +110,7 @@
 					var listField = list.merge_vars[i];
 
 					// add field to select if no similar option exists yet
-					if($mailchimpMergeFields.find("option[value='"+ listField.tag +"']").length == 0) {
+					if($mailchimpMergeFields.find("option[value='"+ listField.tag +"']").length === 0) {
 
 						var text = (listField.name.length > 25) ? listField.name.substring(0, 25) + '..' : listField.name;
 						if(listField.req) { text += '*'; }
@@ -138,7 +136,7 @@
 					var listGrouping = list.interest_groupings[i];
 
 					// add field to select if no similar option exists yet
-					if($mailchimpGroupings.find("option[value='"+ listGrouping.id +"']").length == 0) {
+					if($mailchimpGroupings.find("option[value='"+ listGrouping.id +"']").length === 0) {
 						var text = (listGrouping.name.length > 25) ? listGrouping.name.substring(0, 25) + '..' : listGrouping.name;
 						
 						// build option HTML
@@ -324,13 +322,13 @@
 				'dropdown': 'select', 'date': 'date', 'birthday': 'date', 'radio': 'radio',  'checkbox': 'checkbox'
 			};
 
-			if(fieldTypesMap[data.field_type] != undefined) {
+			if( typeof(fieldTypesMap[data.field_type]) !== "undefined") {
 				fieldType = fieldTypesMap[data.field_type];
 			} else {
 				fieldType = 'text';
 			}
-
-			if(visibleRowsMap[fieldType] != undefined) {
+			
+			if( typeof(visibleRowsMap[fieldType]) !== "undefined") {
 				var visibleRows = visibleRowsMap[fieldType];
 			} else {
 				var visibleRows = visibleRowsMap["default"];
@@ -443,7 +441,7 @@
 			}
 
 			// only do this piece when we're not adding radio inputs
-			if(fieldType != 'radio' && fieldType != 'checkbox') {
+			if(fieldType !== 'radio' && fieldType !== 'checkbox') {
 
 				// set name attribute
 				if(fieldName.length > 0) {
@@ -452,7 +450,7 @@
 
 				// set value
 				if($value.is(":visible") && $value.val().length > 0) {
-					if(fieldType == 'textarea') {
+					if(fieldType === 'textarea') {
 						$input.text($value.val());
 					} else {
 						$input.attr('value', $value.val());
@@ -482,8 +480,7 @@
 				$code.wrapInner($("<p />"));
 			}
 			
-			var html = $code.html();
-			setCodePreview(html);
+			setCodePreview($code.html());
 		}
 
 		/**
@@ -494,7 +491,7 @@
 			var result = false;
 
 			// try to insert in QuickTags editor at cursor position
-			if(typeof wpActiveEditor != 'undefined' && typeof QTags != 'undefined' && QTags.insertContent) {
+			if(typeof wpActiveEditor !== 'undefined' && typeof QTags !== 'undefined' && QTags.insertContent) {
 				result = QTags.insertContent($codePreview.val());
 			}
 			
