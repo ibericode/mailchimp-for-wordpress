@@ -2,7 +2,10 @@
 <ruleset name="MailChimp for WordPress">
 	<description>MailChimp for WordPress rules for PHP_CodeSniffer</description>
 
+	<exclude-pattern>assets/*</exclude-pattern>
+	<exclude-pattern>languages/*</exclude-pattern>
 	<exclude-pattern>node_modules/*</exclude-pattern>
+	<exclude-pattern>tests/*</exclude-pattern>
 
 	<rule ref="WordPress-VIP">
 		<exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines" />
