@@ -9,20 +9,16 @@
 
 	<rule ref="WordPress-VIP">
 		<exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines" />
-
+		<exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.NoSpacesAroundArrayKeys" />
+		<exclude name="WordPress.PHP.YodaConditions"/>
 		<exclude name="WordPress.VIP.DirectDatabaseQuery" />
 		<exclude name="WordPress.VIP.FileSystemWritesDisallow"/>
 		<exclude name="WordPress.VIP.RestrictedFunctions.user_meta" />
 		<exclude name="WordPress.VIP.RestrictedVariables.user_meta"/>
 		<exclude name="WordPress.VIP.RestrictedFunctions.switch_to_blog"/>
-
+		<exclude name="WordPress.VIP.ValidatedSanitizedInput"/>
+		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing" />
 		<exclude name="WordPress.WhiteSpace.ScopeIndent.Incorrect" />
 		<exclude name="WordPress.XSS.EscapeOutput" />
-		<exclude name="WordPress.PHP.YodaConditions"/>
-		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing" />
-
-		<exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.NoSpacesAroundArrayKeys" />
-		<!-- Turned off because of known & reported bugs in the Sniffs, should be turned on once the bugs are fixed. -->
-		<exclude name="WordPress.VIP.ValidatedSanitizedInput"/>
 	</rule>
 </ruleset>
