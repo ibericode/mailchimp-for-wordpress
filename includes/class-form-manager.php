@@ -60,7 +60,7 @@ class MC4WP_Lite_Form_Manager {
 		// frontend only
 		if( ! is_admin() ) {
 			// register placeholder script, which will later be enqueued for IE only
-			wp_register_script( 'mc4wp-placeholders', MC4WP_LITE_PLUGIN_URL . 'assets/js/placeholders.min.js', array(), MC4WP_LITE_VERSION, true );
+			wp_register_script( 'mc4wp-placeholders', MC4WP_LITE_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), MC4WP_LITE_VERSION, true );
 
 			// register non-AJAX script (that handles form submissions)
 			wp_register_script( 'mc4wp-form-request', MC4WP_LITE_PLUGIN_URL . 'assets/js/form-request' . $suffix . '.js', array(), MC4WP_LITE_VERSION, true );
