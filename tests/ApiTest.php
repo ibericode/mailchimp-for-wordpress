@@ -152,7 +152,7 @@ class ApiTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_API::get_error
+	 * @covers MC4WP_API::get_error_message
 	 */
 	public function test_get_error_message() {
 		// no error by default
