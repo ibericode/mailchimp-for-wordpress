@@ -243,7 +243,7 @@ foreach( $missing_form_fields as $missing_field ) {
 		<h3 class="mc4wp-title"><?php _e( 'Form Styling', 'mailchimp-for-wp' ); ?></h3>
 		<p><?php printf( __( 'Alter the visual appearance of the form by applying CSS rules to %s.', 'mailchimp-for-wp' ), '<b>.mc4wp-form</b>' ); ?></p>
 		<p><?php printf( __( 'You can add the CSS rules to your theme stylesheet using the <a href="%s">Theme Editor</a> or by editing %s over FTP. Alternatively, use a plugin like %s', 'mailchimp-for-wp' ), admin_url( 'theme-editor.php?file=style.css' ), '<em>' . get_stylesheet_directory() . '/style.css</em>', '<a href="https://wordpress.org/plugins/simple-custom-css/">Simple Custom CSS</a>' ); ?>.</p>
-		<p><?php printf( __( 'The <a href="%s" target="_blank">plugin FAQ</a> lists the various CSS selectors you can use to target the different form elements.', 'mailchimp-for-wp' ), 'http://wordpress.org/plugins/mailchimp-for-wp/faq/' ); ?></p>
+		<p><?php printf( __( 'The <a href="%s" target="_blank">plugin FAQ</a> lists the various CSS selectors you can use to target the different form elements.', 'mailchimp-for-wp' ), 'https://wordpress.org/plugins/mailchimp-for-wp/faq/' ); ?></p>
 		<p><?php printf( __( 'If you need an easier way to style your forms, <a href="%s">upgrade to MailChimp for WordPress Pro</a>. It comes with a "Styles Builder" that lets you customize form styles without writing any code.', 'mailchimp-for-wp' ), 'https://mc4wp.com/' ); ?></p>
 
 		<h3 class="mc4wp-title"><?php _e( 'Form variables', 'mailchimp-for-wp' ); ?></h3>

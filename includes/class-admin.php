@@ -95,7 +95,7 @@ class MC4WP_Lite_Admin
 		// load the plugin text domain
 		load_plugin_textdomain( 'mailchimp-for-wp', false, dirname( $this->plugin_file ) . '/languages/' );
 
-		// store whether this plugin has the BWS captcha plugin running (http://wordpress.org/plugins/captcha/)
+		// store whether this plugin has the BWS captcha plugin running (https://wordpress.org/plugins/captcha/)
 		$this->has_captcha_plugin = function_exists( 'cptch_display_captcha_custom' );
 
 		$this->upgrade();
@@ -150,7 +150,7 @@ class MC4WP_Lite_Admin
 			return $links;
 		}
 
-		$links[] = '<a href="http://wordpress.org/plugins/mailchimp-for-wp/faq/">FAQ</a>';
+		$links[] = '<a href="https://wordpress.org/plugins/mailchimp-for-wp/faq/">FAQ</a>';
 		$links[] = '<a href="https://mc4wp.com/#utm_source=lite-plugin&utm_medium=link&utm_campaign=plugins-upgrade-link">' . __( 'Upgrade to Pro', 'mailchimp-for-wp' ) . '</a>';
 		return $links;
 	}
@@ -420,7 +420,7 @@ class MC4WP_Lite_Admin
 		$force_cache_refresh = isset( $_POST['mc4wp-renew-cache'] ) && $_POST['mc4wp-renew-cache'] == 1;
 		$mailchimp = new MC4WP_MailChimp();
 		$lists = $mailchimp->get_lists( $force_cache_refresh );
-		
+
 		if( $lists && count( $lists ) === 100 ) {
 			add_settings_error( 'mc4wp', 'mc4wp-lists-at-limit', __( 'The plugin can only fetch a maximum of 100 lists from MailChimp, only your first 100 lists are shown.', 'mailchimp-for-wp' ) );
 		}
