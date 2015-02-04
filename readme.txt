@@ -2,11 +2,12 @@
 Contributors: DvanKooten
 Donate link: https://mc4wp.com/
 Tags: MailChimp,newsletter,optin,mailinglist,sign-up form,subscribe,form,shortcode,widget,checkbox,comment,buddypress,multisite,bbpress,woocommerce,easy digital downloads,contact form,contact form 7,events manager,comment form,registration form,captcha
-Requires at least: 3.6
+Requires at least: 3.7
 Tested up to: 4.1.1
-Stable tag: 2.2.3
+Stable tag: 2.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+GitHub Plugin URI: https://github.com/dannyvankooten/mailchimp-for-wordpress
 
 The best MailChimp plugin to get more email subscribers. Easily add MailChimp sign-up forms and sign-up checkboxes to your WordPress site.
 
@@ -271,17 +272,27 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 
 == Changelog ==
 
-= 2.2.3 - January 24, 2014 =
+= 2.2.4 - February 4, 2015 =
+
+**Improvements**
+
+- Moved third-party scripts to their own directory for easier exclusion
+- Added `wpml-config.xml` file for better WPML compatibility
+- Added filter `mc4wp_menu_items` for adding & removing menu items from add-ons
+- All code is now following the WP Code Standards
+- Now showing a heads up when at limit of 100 MailChimp lists.
+
+= 2.2.3 - January 24, 2015 =
 
 Minor improvements and additions for compatibility with the [MailChimp Sync plugin](https://wordpress.org/plugins/mailchimp-sync/).
 
-= 2.2.2 - January 13, 2014 =
+= 2.2.2 - January 13, 2015 =
 
 **Fixes**
 
 - Plugin wasn't connecting to MailChimp for users on MailChimp server `us10` (API keys ending in `-us10`)
 
-= 2.2.1 - January 12, 2014 =
+= 2.2.1 - January 12, 2015 =
 
 **Improvements**
 
