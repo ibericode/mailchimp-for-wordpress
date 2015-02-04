@@ -420,6 +420,10 @@ class MC4WP_Lite_Admin
 		$force_cache_refresh = isset( $_POST['mc4wp-renew-cache'] ) && $_POST['mc4wp-renew-cache'] == 1;
 		$mailchimp = new MC4WP_MailChimp();
 		$lists = $mailchimp->get_lists( $force_cache_refresh );
+		
+		if( $lists && count( $lists ) === 100 ) {
+			add_settings_error( 'mc4wp', 'mc4wp-lists-at-limit', __( 'The plugin can only fetch a maximum of 100 lists from MailChimp, only your first 100 lists are shown.', 'mailchimp-for-wp' ) );
+		}
 
 		if ( $force_cache_refresh ) {
 			if ( false === empty ( $lists ) ) {
