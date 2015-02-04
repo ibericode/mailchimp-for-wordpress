@@ -7,7 +7,6 @@ Tested up to: 4.1.1
 Stable tag: 2.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-GitHub Plugin URI: https://github.com/dannyvankooten/mailchimp-for-wordpress
 
 The best MailChimp plugin to get more email subscribers. Easily add MailChimp sign-up forms and sign-up checkboxes to your WordPress site.
 
@@ -274,13 +273,21 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 
 = 2.2.4 - February 4, 2015 =
 
+**Fixed**
+
+- Textual fix as entering "0" for no redirection does not work.
+
 **Improvements**
 
 - Moved third-party scripts to their own directory for easier exclusion
+- All code is now adhering to the WP Code Standards
+- Updated [Dutch, German, Spanish, Hungarian, French, Italian and Turkish translations](https://www.transifex.com/projects/p/mailchimp-for-wordpress/).
+
+**Additions**
+
+- Now showing a heads up when at limit of 100 MailChimp lists. ([#71](https://github.com/dannyvankooten/mailchimp-for-wordpress/issues/71))
 - Added `wpml-config.xml` file for better WPML compatibility
 - Added filter `mc4wp_menu_items` for adding & removing menu items from add-ons
-- All code is now following the WP Code Standards
-- Now showing a heads up when at limit of 100 MailChimp lists.
 
 = 2.2.3 - January 24, 2015 =
 
