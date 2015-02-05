@@ -92,9 +92,6 @@ class MC4WP_Lite_Admin
 		register_setting( 'mc4wp_lite_checkbox_settings', 'mc4wp_lite_checkbox', array( $this, 'validate_checkbox_settings' ) );
 		register_setting( 'mc4wp_lite_form_settings', 'mc4wp_lite_form', array( $this, 'validate_form_settings' ) );
 
-		// load the plugin text domain
-		load_plugin_textdomain( 'mailchimp-for-wp', false, dirname( $this->plugin_file ) . '/languages/' );
-
 		// store whether this plugin has the BWS captcha plugin running (https://wordpress.org/plugins/captcha/)
 		$this->has_captcha_plugin = function_exists( 'cptch_display_captcha_custom' );
 
