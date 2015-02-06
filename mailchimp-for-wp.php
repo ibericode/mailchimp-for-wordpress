@@ -52,15 +52,14 @@ function mc4wp_load_plugin() {
 	define( 'MC4WP_LITE_PLUGIN_URL', plugins_url( '/' , __FILE__ ) );
 	define( 'MC4WP_LITE_PLUGIN_FILE', __FILE__ );
 
-	// load translations
-	load_plugin_textdomain( 'mailchimp-for-wp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-
 	require_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/general.php';
 	require_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/template.php';
 	require_once MC4WP_LITE_PLUGIN_DIR . 'includes/class-plugin.php';
 	$GLOBALS['mc4wp'] = new MC4WP_Lite();
 
 	if( is_admin() && ( false === defined( 'DOING_AJAX' ) || false === DOING_AJAX ) ) {
+		// load translations
+		load_plugin_textdomain( 'mailchimp-for-wp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
 		// ADMIN
 		require_once MC4WP_LITE_PLUGIN_DIR . 'includes/class-admin.php';
