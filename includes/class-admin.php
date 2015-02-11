@@ -53,7 +53,7 @@ class MC4WP_Lite_Admin
 	private function setup_hooks() {
 
 		global $pagenow;
-		$pagenow = isset( $pagenow ) ? $pagenow : '';
+		$current_page = isset( $pagenow ) ? $pagenow : '';
 
 		// Actions used globally throughout WP Admin
 		add_action( 'admin_init', array( $this, 'initialize' ) );
@@ -61,7 +61,7 @@ class MC4WP_Lite_Admin
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_css_and_js' ) );
 
 		// Hooks for Plugins overview page
-		if( $pagenow === 'plugins.php' ) {
+		if( $current_page === 'plugins.php' ) {
 			$this->plugin_file = plugin_basename( MC4WP_LITE_PLUGIN_FILE );
 
 			add_filter( 'plugin_action_links_' . $this->plugin_file, array( $this, 'add_plugin_settings_link' ), 10, 2 );
