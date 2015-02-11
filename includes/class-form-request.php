@@ -426,6 +426,7 @@ class MC4WP_Lite_Form_Request {
 		$result = false;
 		$email_type = $this->get_email_type();
 
+		// loop through selected lists
 		foreach ( $lists_data as $list_id => $list_field_data ) {
 
 			// allow plugins to alter merge vars for each individual list
@@ -433,6 +434,7 @@ class MC4WP_Lite_Form_Request {
 
 			// send a subscribe request to MailChimp for each list
 			$result = $api->subscribe( $list_id, $this->data['EMAIL'], $list_merge_vars, $email_type, $this->form_options['double_optin'], $this->form_options['update_existing'], $this->form_options['replace_interests'], $this->form_options['send_welcome'] );
+			do_action( 'mc4wp_subscribe', $this->data['EMAIL'], $list_id, $list_merge_vars, $result, 'form', 'form', 0 );
 		}
 
 		do_action( 'mc4wp_after_subscribe', $this->data['EMAIL'], $this->data, 0, $result );
@@ -449,13 +451,6 @@ class MC4WP_Lite_Form_Request {
 
 		// store user email in a cookie
 		$this->set_email_cookie( $this->data['EMAIL'] );
-
-		/**
-		 * @deprecated Don't use, will be removed in v2.0
-		 * TODO: remove this
-		 */
-		$from_url = ( isset( $_SERVER['HTTP_REFERER'] ) ) ? $_SERVER['HTTP_REFERER'] : '';
-		do_action( 'mc4wp_subscribe_form', $this->data['EMAIL'], array_keys( $lists_data ), 0, $this->data, $from_url );
 
 		// Store success result
 		$this->success = true;

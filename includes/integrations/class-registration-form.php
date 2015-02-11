@@ -64,7 +64,7 @@ class MC4WP_Registration_Form_Integration extends MC4WP_Integration {
 			$merge_vars['LNAME'] = $user->last_name;
 		}
 
-		return $this->subscribe( $email, $merge_vars, $this->type );
+		return $this->subscribe( $email, $merge_vars, $this->type, $user_id );
 	}
 	/* End registration form functions */
 

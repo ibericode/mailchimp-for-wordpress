@@ -21,12 +21,40 @@ class MC4WP_Lite {
 	/**
 	* @var MC4WP_API
 	*/
-	private $api = null;
+	private $api;
+
+	/**
+	 * @var MC4WP_Lite The one and only true plugin instance
+	 */
+	private static $instance;
+
+	/**
+	 * @return MC4WP_Lite
+	 */
+	public static function instance() {
+		return self::$instance;
+	}
+
+	/**
+	 * Instantiates the plugin
+	 *
+	 * @return bool
+	 */
+	public static function init() {
+
+		if( self::$instance instanceof MC4WP_Lite ) {
+			return false;
+		}
+
+		self::$instance = new MC4WP_Lite;
+		return true;
+	}
+
 
 	/**
 	* Constructor
 	*/
-	public function __construct() {
+	private function __construct() {
 
 		spl_autoload_register( array( $this, 'autoload') );
 
@@ -110,8 +138,7 @@ class MC4WP_Lite {
 		return $this->api;
 	}
 
-	public function register_widget()
-	{
+	public function register_widget() {
 		register_widget( 'MC4WP_Lite_Widget' );
 	}
 
