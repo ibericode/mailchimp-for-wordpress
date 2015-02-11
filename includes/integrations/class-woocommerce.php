@@ -24,7 +24,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 		add_filter( 'woocommerce_checkout_fields', array( $this, 'add_checkout_field' ), 20 );
 
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save_woocommerce_checkout_checkbox_value' ) );
-		add_action( 'woocommerce_payment_complete', array( $this, 'subscribe_from_woocommerce_checkout' ) );
+		add_action( 'woocommerce_checkout_order_processed', array( $this, 'subscribe_from_woocommerce_checkout' ) );
 	}
 
 	/**
@@ -79,10 +79,9 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 				'NAME' => "{$order->billing_first_name} {$order->billing_last_name}",
 				'FNAME' => $order->billing_first_name,
 				'LNAME' => $order->billing_last_name,
-
 			);
 
-			return $this->subscribe( $email, $merge_vars, $this->type );
+			return $this->subscribe( $email, $merge_vars, $this->type, $order_id );
 		}
 
 		return false;
