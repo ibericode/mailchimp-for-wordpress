@@ -17,12 +17,14 @@ class MC4WP_Lite_Admin
 	/**
 	 * @var string The relative path to the main plugin file from the plugins dir
 	 */
-	private $plugin_file = 'mailchimp-for-wp/mailchimp-for-wp.php';
+	private $plugin_file;
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
+
+		$this->plugin_file = plugin_basename( MC4WP_LITE_PLUGIN_FILE );
 
 		$this->load_translations();
 		$this->setup_hooks();
