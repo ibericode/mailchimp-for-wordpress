@@ -271,6 +271,25 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 
 == Changelog ==
 
+= Trunk =
+
+**Fixed**
+
+- Issue where WooCommerce checkout sign-up was not working for orders that did not require a payment.
+- Translation were loaded too late to properly translate some strings, like the admin menu items.
+
+**Improvements**
+
+- Make sure there is only one plugin instance.
+- Updated all translations, German is now at 100% thanks to [Stefan Oderbolz](http://metaodi.ch/).
+- Various other code improvements.
+
+**Additions**
+
+- Added support for [GitHub Updater Plugin](https://github.com/afragen/github-updater).
+- You can now specify whether you want to send a welcome email, if you have double opt-in disabled.
+
+
 = 2.2.4 - February 4, 2015 =
 
 **Fixed**
