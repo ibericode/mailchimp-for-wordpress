@@ -56,7 +56,10 @@ function mc4wp_load_plugin() {
 	require_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/general.php';
 	require_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/template.php';
 	require_once MC4WP_LITE_PLUGIN_DIR . 'includes/class-plugin.php';
-	$GLOBALS['mc4wp'] = new MC4WP_Lite();
+
+	// Initialize the plugin and store an instance in the global scope
+	MC4WP_Lite::init();
+	$GLOBALS['mc4wp'] = MC4WP_Lite::instance();
 
 	if( is_admin() && ( false === defined( 'DOING_AJAX' ) || false === DOING_AJAX ) ) {
 

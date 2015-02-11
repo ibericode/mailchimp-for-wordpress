@@ -92,6 +92,5 @@ function mc4wp_get_options( $key = '' ) {
 * @return MC4WP_API
 */
 function mc4wp_get_api() {
-	global $mc4wp;
-	return $mc4wp->get_api();
+	MC4WP::instance()->get_api();
 }
