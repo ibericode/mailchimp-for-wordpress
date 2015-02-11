@@ -13,10 +13,21 @@
 		event.stopPropagation();
 	}
 
+	// show a notice when clicking a pro feature
 	$context.find(".pro-feature, .pro-feature label, .pro-feature :radio").click(proOnlyNotice);
 
+	// Show send-welcome field only when double opt-in is disabled
+	$context.find('input[name$="[double_optin]"]').change(function() {
+		if($(this).val() == 0) {
+			$context.find("#mc4wp-send-welcome").removeClass('hidden').find(':input').removeAttr('disabled');
+		} else {
+			$context.find("#mc4wp-send-welcome").addClass('hidden').find(':input').attr('disabled', 'disabled').attr('checked', false);
+		}
+	});
+
+	// show woocommerce settings only when `show at woocommerce checkout` is checked.
 	$context.find('input[name$="[show_at_woocommerce_checkout]"]').change(function() {
-		$context.find('tr#woocommerce-settings').toggle( $(this).prop( 'checked') );
+		$context.find('#woocommerce-settings').toggle( $(this).prop( 'checked') );
 	});
 
 	var $listInputs = $("#mc4wp-lists").find(':input');

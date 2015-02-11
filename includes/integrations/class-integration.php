@@ -292,9 +292,8 @@ abstract class MC4WP_Integration {
 		do_action( 'mc4wp_before_subscribe', $email, $merge_vars );
 
 		foreach( $lists as $list_id ) {
-			$result = $api->subscribe( $list_id, $email, $merge_vars, $email_type, $opts['double_optin'], false, true );
+			$result = $api->subscribe( $list_id, $email, $merge_vars, $email_type, $opts['double_optin'], false, true, $opts['send_welcome'] );
 			do_action( 'mc4wp_subscribe', $email, $list_id, $merge_vars, $result, 'checkbox', $type, $related_object_id );
-
 		}
 
 		/**
