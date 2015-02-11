@@ -58,6 +58,8 @@ function mc4wp_load_plugin() {
 	$GLOBALS['mc4wp'] = new MC4WP_Lite();
 
 	if( is_admin() && ( false === defined( 'DOING_AJAX' ) || false === DOING_AJAX ) ) {
+		// load translations
+		load_plugin_textdomain( 'mailchimp-for-wp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
 		// ADMIN
 		require_once MC4WP_LITE_PLUGIN_DIR . 'includes/class-admin.php';
