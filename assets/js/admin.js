@@ -1,8 +1,16 @@
 (function($) {
+	'use strict';
 
-	var $context = $('#mc4wp-admin');
+	/**
+	 * Variables
+	 */
+	var $context = $(document.getElementById('mc4wp-admin'));
+	var $listInputs = $(document.getElementById('mc4wp-lists')).find(':input');
 
-	function proOnlyNotice() {
+	/**
+	 * Functions
+	 */
+	function showProNotice() {
 
 		// prevent checking of radio buttons
 		if( typeof this.checked === 'boolean' ) {
@@ -13,38 +21,30 @@
 		event.stopPropagation();
 	}
 
-	// show a notice when clicking a pro feature
-	$context.find(".pro-feature, .pro-feature label, .pro-feature :radio").click(proOnlyNotice);
+	function toggleSendWelcomeFields() {
 
-	// Show send-welcome field only when double opt-in is disabled
-	$context.find('input[name$="[double_optin]"]').change(function() {
+		var $el = $(document.getElementById('mc4wp-send-welcome'));
+
 		if($(this).val() == 0) {
-			$context.find("#mc4wp-send-welcome").removeClass('hidden').find(':input').removeAttr('disabled');
+			$el.removeClass('hidden').find(':input').removeAttr('disabled');
 		} else {
-			$context.find("#mc4wp-send-welcome").addClass('hidden').find(':input').attr('disabled', 'disabled').attr('checked', false);
+			$el.addClass('hidden').find(':input').attr('disabled', 'disabled').prop('checked', false);
 		}
-	});
+	}
 
-	// show woocommerce settings only when `show at woocommerce checkout` is checked.
-	$context.find('input[name$="[show_at_woocommerce_checkout]"]').change(function() {
-		$context.find('#woocommerce-settings').toggle( $(this).prop( 'checked') );
-	});
+	function toggleWooCommerceSettings() {
+		var $el = $(document.getElementById('woocommerce-settings'));
+		$el.toggle( $(this).prop('checked'));
+	}
 
-	var $listInputs = $("#mc4wp-lists").find(':input');
-	$listInputs.change(
-		function() {
-			var hasListSelected = $listInputs.filter(':checked').length > 0;
-			$(".mc4wp-notice.no-lists-selected").toggle( ! hasListSelected );
-			$( document.getElementById( 'mc4wp-fw-fields')).toggle( hasListSelected );
-			$( document.getElementById( 'mc4wp-fw-mailchimp-fields' )).toggle( hasListSelected );
-		}
-	);
+	function toggleFieldWizard() {
+		var hasListSelected = $listInputs.filter(':checked').length > 0;
+		$(".mc4wp-notice.no-lists-selected").toggle( ! hasListSelected );
+		$( document.getElementById( 'mc4wp-fw-fields')).toggle( hasListSelected );
+		$( document.getElementById( 'mc4wp-fw-mailchimp-fields' )).toggle( hasListSelected );
+	}
 
-
-
-
-	// Allow tabs inside the form mark-up
-	$(document).delegate('#mc4wpformmarkup', 'keydown', function(e) {
+	function allowTabKey(e) {
 		var keyCode = e.keyCode || e.which;
 
 		if (keyCode === 9) {
@@ -56,15 +56,11 @@
 			$(this).val($(this).val().substring(0, start) + "\t" + $(this).val().substring(end));
 
 			// put caret at right position again
-			this.selectionStart =
-				this.selectionEnd = start + 1;
+			this.selectionStart = this.selectionEnd = start + 1;
 		}
-	});
+	}
 
-
-	// Add buttons to QTags editor
-	(function() {
-
+	function addQTagsButtons() {
 		if ( typeof(QTags) === 'undefined' ) {
 			return;
 		}
@@ -77,7 +73,28 @@
 		if( window.mc4wp.hasCaptchaPlugin === true ) {
 			QTags.addButton( 'mc4wp_captcha', 'CAPTCHA', '{captcha}', '', 'captcha', 'Display a CAPTCHA field' );
 		}
-	})();
+	}
+
+	/**
+	 * Bind Event Handlers
+	 */
+
+	// show a notice when clicking a pro feature
+	$context.find(".pro-feature, .pro-feature label, .pro-feature :radio").click(showProNotice);
+
+	// Show send-welcome field only when double opt-in is disabled
+	$context.find('input[name$="[double_optin]"]').change(toggleSendWelcomeFields);
+
+	// show woocommerce settings only when `show at woocommerce checkout` is checked.
+	$context.find('input[name$="[show_at_woocommerce_checkout]"]').change(toggleWooCommerceSettings());
+
+	// only show fieldwizard when a list is selected
+	$listInputs.change(toggleFieldWizard);
+
+	// Allow tabs inside the form mark-up
+	$(document).delegate('#mc4wpformmarkup', 'keydown', allowTabKey);
+
+	addQTagsButtons();
 
 
 	/**

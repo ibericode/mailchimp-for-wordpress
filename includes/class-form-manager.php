@@ -218,8 +218,8 @@ class MC4WP_Lite_Form_Manager {
 			wp_enqueue_script( 'mc4wp-form-request' );
 			wp_localize_script( 'mc4wp-form-request', 'mc4wpFormRequestData', array(
 					'success' => ( $this->form_request->is_successful() ) ? 1 : 0,
-					'submittedFormId' => $this->form_request->get_form_instance_number(),
-					'postData' => $this->form_request->get_data()
+					'formId' => $this->form_request->get_form_instance_number(),
+					'data' => $this->form_request->get_data()
 				)
 			);
 

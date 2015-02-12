@@ -1,57 +1,79 @@
-window.mc4wpFormRequest = (function() {
-
-	var formElement;
+(function() {
 
 	/**
-	 * Initializes the stuff to do
+	 * A formrequest. Should be passed an array of data in the following format.
+	 *
+	 * {
+	 * 	formId: 0,
+	 * 	success: 1,
+	 * 	data: {}
+	 * }
+	 *
+	 * @param request
 	 */
-	function init() {
-		addEvent( window, 'load', act );
-	}
+	var formRequest = function( request ) {
 
-	function act() {
+		// vars
+		var self = this;
 
-		// Find element of submitted form
-		formElement = document.getElementById('mc4wp-form-' + mc4wpFormRequestData.submittedFormId);
-		if( ! formElement ) {
-			return;
+		// Functions
+		function init() {
+
+			self.element = document.getElementById('mc4wp-form-' + request.formId );
+
+			if( request.success != 1 ) {
+				self.repopulate();
+			}
+
+			self.scrollTo();
 		}
 
-		// If an error occured, re-populate form fields
-		// only populate fields on error
-		if( mc4wpFormRequestData.success == false ) {
-			populateFields( formElement, mc4wpFormRequestData.postData );
-		}
+		/**
+		 * Scrolls to the form element
+		 */
+		this.scrollTo = function() {
+			// Scroll to form element
+			var formElement = self.element;
+			var scrollToHeight = 0;
+			var obj = formElement;
+			var windowHeight = window.innerHeight;
 
-		// Scroll to form element
-		var scrollToHeight = 0;
-		var obj = formElement;
-		var windowHeight = window.innerHeight;
+			if (obj.offsetParent) {
+				do {
+					scrollToHeight += obj.offsetTop;
+				} while (obj = obj.offsetParent);
+			} else {
+				scrollToHeight = formElement.offsetTop;
+			}
 
-		if (obj.offsetParent) {
-			do {
-				scrollToHeight += obj.offsetTop;
-			} while (obj = obj.offsetParent);
-		} else {
-			scrollToHeight = formElement.offsetTop;
-		}
+			if((windowHeight - 80) > formElement.clientHeight) {
+				// vertically center the form, but only if there's enough space for a decent margin
+				scrollToHeight = scrollToHeight - ((windowHeight - formElement.clientHeight) / 2);
+			} else {
+				// the form doesn't fit, scroll a little above the form
+				scrollToHeight = scrollToHeight - 80;
+			}
 
-		if((windowHeight - 80) > formElement.clientHeight) {
-			// vertically center the form, but only if there's enough space for a decent margin
-			scrollToHeight = scrollToHeight - ((windowHeight - formElement.clientHeight) / 2);
-		} else {
-			// the form doesn't fit, scroll a little above the form
-			scrollToHeight = scrollToHeight - 80;
-		}
+			// scroll there. if jQuery is loaded, do it with an animation.
+			if(window.jQuery !== undefined) {
+				jQuery('html, body').animate({ scrollTop: scrollToHeight }, 800);
+			} else {
+				window.scrollTo(0, scrollToHeight);
+			}
+		};
 
-		// scroll there. if jQuery is loaded, do it with an animation.
-		if(window.jQuery !== undefined) {
-			jQuery('html, body').animate({ scrollTop: scrollToHeight }, 800);
-		} else {
-			window.scrollTo(0, scrollToHeight);
-		}
+		/**
+		 * Repopulates the form fields
+		 */
+		this.repopulate = function() {
+			populateFields( self.element, request.data );
+		};
 
-	}
+		// Call "init" on window.load event
+		addEvent( window, 'load', init );
+	};
+
+	window.mc4wpFormRequest = new formRequest( mc4wpFormRequestData );
 
 	/**
 	 * Adds a browser event, IE compatible.
@@ -171,11 +193,4 @@ window.mc4wpFormRequest = (function() {
 
 	}
 
-	return {
-		init: function() {
-			init();
-		}
-	}
-
 })();
-mc4wpFormRequest.init();
