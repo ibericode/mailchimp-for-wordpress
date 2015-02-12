@@ -161,6 +161,9 @@
 		{
 			// empty field select
 			$mailchimpFields.find('option').not('.default').remove();
+
+			// empty required fields array
+			requiredFields = [];
 			
 			// loop through checked lists
 			$lists.filter(':checked').each(function() {
@@ -225,6 +228,9 @@
 
 
 			});
+
+			// check required fields with new selected lists
+			checkRequiredFields();
 		}
 
 		/**
