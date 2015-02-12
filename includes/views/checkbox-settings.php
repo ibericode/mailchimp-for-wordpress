@@ -32,7 +32,7 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 					
 					<?php // loop through lists
 					if( ! $lists || empty( $lists ) ) {
-						?><td colspan="2"><?php printf( __( 'No lists found, %sare you connected to MailChimp?%s', 'mailchimp-for-wp' ), '<a href="'. admin_url( 'admin.php?page=mailchimp-for-wp' ) .'">', '</a>' ); ?></td><?php
+						?><td colspan="2"><?php printf( __( 'No lists found, <a href="%s">are you connected to MailChimp</a>?', 'mailchimp-for-wp' ), admin_url( 'admin.php?page=mailchimp-for-wp' ) ); ?></td><?php
 					} else { ?>
 						<td class="nowrap">
 							<?php foreach( $lists as $list ) {
