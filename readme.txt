@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/
 Tags: MailChimp,newsletter,optin,mailinglist,sign-up form,subscribe,form,shortcode,widget,checkbox,comment,buddypress,multisite,bbpress,woocommerce,easy digital downloads,contact form,contact form 7,events manager,comment form,registration form,captcha
 Requires at least: 3.7
 Tested up to: 4.1.1
-Stable tag: 2.2.4
+Stable tag: 2.2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -277,23 +277,27 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 
 == Changelog ==
 
-= Trunk =
+= 2.2.5 - February 13, 2015 =
 
 **Fixed**
 
-- Issue where WooCommerce checkout sign-up was not working for orders that did not require a payment.
+- Issue where WooCommerce checkout sign-up was not working for cheque payments.
 - Translation were loaded too late to properly translate some strings, like the admin menu items.
 
 **Improvements**
 
+- The presence of required list fields in form mark-up is now checked as you type.
+- Number fields will now repopulate if an error occurred.
+- Updated all translations.
 - Make sure there is only one plugin instance.
-- Updated all translations, German is now at 100% thanks to [Stefan Oderbolz](http://metaodi.ch/).
 - Various other code improvements.
 
 **Additions**
 
 - Added support for [GitHub Updater Plugin](https://github.com/afragen/github-updater).
-- You can now specify whether you want to send a welcome email, if you have double opt-in disabled.
+- You can now specify whether you want to send a welcome email (only with double opt-in disabled).
+
+A huge thank you to [Stefan Oderbolz](http://metaodi.ch/) for various fixed and improvements related to translations in this release.
 
 
 = 2.2.4 - February 4, 2015 =
@@ -731,6 +735,6 @@ Minor improvements and additions for compatibility with the [MailChimp Sync plug
 
 == Upgrade Notice ==
 
-= 2.2.3 =
+= 2.2.5 =
 
-Minor improvements and additions for compatibility with the [MailChimp Sync plugin](https://wordpress.org/plugins/mailchimp-sync/).
+Various code & usability improvements. Fixed WooCommerce checkout sign-up for cheque payments. Added option to send Welcome Email.
