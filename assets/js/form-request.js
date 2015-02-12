@@ -140,6 +140,7 @@
 					case 'email':
 					case 'date':
 					case 'tel':
+					case 'number':
 						element.value = value;
 
 						// remove IE placeholder fallback class
