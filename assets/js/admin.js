@@ -140,20 +140,20 @@
 			// do nothing if no fields are missing
 			if($.isEmptyObject(missingFields)) {
 				$missingFieldsNotice.hide();
-				return false;
+				return;
 			}
 
 			// show notice
 			$missingFieldsList.html('');
 			for( var key in missingFields ) {
 				var field = missingFields[key];
-				var $listItem = $("<li />");
+				var $listItem = $("<li></li>");
 				$listItem.html( field.name + " (<code>" + field.tag + "</code>)");
 				$listItem.appendTo( $missingFieldsList );
 			}
 
 			$missingFieldsNotice.show();
-			return true;
+			return;
 		}
 
 		// set the fields the user can choose from
@@ -593,7 +593,13 @@
 		$("#mc4wp-fw-add-to-form").click(addCodeToFormMarkup);
 
 		// Validate the form fields after every change
-		$formMarkup.on('input', checkRequiredFields);
+		$formMarkup.bind({
+			'input': function() {
+				$formMarkup.unbind('keydown');
+				checkRequiredFields.call(this);
+			},
+			'keydown': checkRequiredFields
+		});
 
 		// init
 		setMailChimpFields();
