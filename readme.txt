@@ -114,7 +114,6 @@ If you like the plugin, [get the Pro version of MailChimp for WordPress](https:/
 
 == Frequently Asked Questions ==
 
-
 > **What are the main differences between Pro and Lite?**<br />
 >
 > MailChimp for WordPress Pro comes with some additional features.<br />
@@ -141,13 +140,20 @@ if( function_exists( 'mc4wp_form' ) ) {
 }
 `
 
+= I am getting spam sign-ups =
+
+To prevent bots from subscribing, you can take the following anti-spam measures.
+
+- Enable double opt-in in the plugin settings.
+- Install the [Goodbye Captcha](https://wordpress.org/plugins/goodbye-captcha/) plugin.
+
 = Oops. Something went wrong. =
 `Admin notice: FNAME must be provided - Please enter a value`
 
 Your selected MailChimp list requires a field named **FNAME**. Either go into your MailChimp list settings and make the FNAME field optional or add it to your form (using the *Add MailChimp field** select box).
 
 = The form shows a success message but subscribers are not added to my list(s)? =
-If the form shows a success message, it means MailChimp accepted the sign-up request and will take over from there. MailChimp could have a slight delay sending the confirmation email though, just be patient.
+If the form shows a success message, it means MailChimp accepted the sign-up request and will take over from there. MailChimp could have a slight delay sending the confirmation email though, please just be patient.
 
 = How can I style the sign-up form? =
 You can use CSS rules to style the sign-up form, use the following CSS selectors to target the various form elements.
