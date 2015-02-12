@@ -6,6 +6,9 @@
 	 */
 	var $context = $(document.getElementById('mc4wp-admin'));
 	var $listInputs = $(document.getElementById('mc4wp-lists')).find(':input');
+	var $formMarkup = $(document.getElementById('mc4wpformmarkup'));
+	var $missingFieldsNotice = $(document.getElementById('missing-fields-notice'));
+	var $missingFieldsList = $(document.getElementById('missing-fields-list'));
 
 	/**
 	 * Functions
@@ -75,6 +78,48 @@
 		}
 	}
 
+	function checkRequiredFields() {
+		// find required fields of selected lists
+		var selectedLists = $listInputs.filter(':checked');
+		var requiredFields = [];
+		selectedLists.each( function() {
+			var listId = $(this).val();
+			var list = mc4wp.mailchimpLists[listId];
+			for(var i=0; i<list.merge_vars.length; i++) {
+				if(list.merge_vars[i].req) {
+					requiredFields.push(list.merge_vars[i]);
+				}
+			}
+		});
+
+		// check presence of reach required field
+		var missingFields = {};
+		for(var i=0; i<requiredFields.length; i++) {
+			var htmlString = 'name="' + requiredFields[i].tag.toLowerCase();
+			if( $formMarkup.val().toLowerCase().indexOf( htmlString ) == -1 ) {
+				missingFields[requiredFields[i].tag] = requiredFields[i];
+			}
+		}
+
+		// do nothing if no fields are missing
+		if($.isEmptyObject(missingFields)) {
+			$missingFieldsNotice.hide();
+			return false;
+		}
+
+		// show notice
+		$missingFieldsList.html('');
+		for( var key in missingFields ) {
+			var field = missingFields[key];
+			var $listItem = $("<li />");
+			$listItem.html( field.name + " (<code>" + field.tag + "</code>)");
+			$listItem.appendTo( $missingFieldsList );
+		}
+
+		$missingFieldsNotice.show();
+		return true;
+	}
+
 	/**
 	 * Bind Event Handlers
 	 */
@@ -94,7 +139,11 @@
 	// Allow tabs inside the form mark-up
 	$(document).delegate('#mc4wpformmarkup', 'keydown', allowTabKey);
 
+	// Validate the form fields after every change
+	$formMarkup.change(checkRequiredFields);
+
 	addQTagsButtons();
+	checkRequiredFields();
 
 
 	/**
@@ -120,6 +169,8 @@
 		var fieldType, fieldName;
 		var $codePreview = $("#mc4wp-fw-preview");
 		var strings = mc4wp.strings.fieldWizard;
+		var $formContent = $( document.getElementById('mc4wpformmarkup') );
+
 		// functions
 
 		// set the fields the user can choose from
@@ -525,9 +576,11 @@
 			
 			// fallback, just append
 			if(!result) {
-				var $formContent = $( document.getElementById('mc4wpformmarkup') );
 				$formContent.val($formContent.val() + "\n" + $codePreview.val());
 			}
+
+			// trigger change event
+			$formContent.change();
 		}
 
 		/**

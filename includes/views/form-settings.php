@@ -68,18 +68,12 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 						<td colspan="3">
 							<h4><?php _e( 'Form mark-up', 'mailchimp-for-wp' ); ?></h4>
 
-							<?php if ( ! empty( $missing_form_fields ) ) {
-
-								?><p class="mc4wp-notice missing-form-fields"><?php
-
-								echo __( 'Your form is missing the following (required) form fields:', 'mailchimp-for-wp' ) . ' <br /><br />';
-
-foreach( $missing_form_fields as $missing_field ) {
-	echo '- ' . $missing_field . '<br />';
-}
-								?></p><?php
-
-} ?>
+							<div id="missing-fields-notice" class="mc4wp-notice" style="display: none;">
+								<p>
+									<?php echo __( 'Your form is missing the following (required) form fields:', 'mailchimp-for-wp' ); ?>
+								</p>
+								<ul id="missing-fields-list" class="ul-square"></ul>
+							</div>
 
 							<div class="mc4wp-wrapper">
 								<div class="mc4wp-col mc4wp-first">
