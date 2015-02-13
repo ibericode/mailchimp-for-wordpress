@@ -140,11 +140,18 @@ class MC4WP_Lite_Form_Request {
 			return false;
 		}
 
-		// ensure honeypot was not filed
-		if ( isset( $this->data['_MC4WP_REQUIRED_BUT_NOT_REALLY'] ) && ! empty( $this->data['_MC4WP_REQUIRED_BUT_NOT_REALLY'] ) ) {
+		// ensure honeypot was given but not filled
+		if ( ! isset( $this->data['_MC4WP_REQUIRED_BUT_NOT_REALLY'] ) || '' !== $this->data['_MC4WP_REQUIRED_BUT_NOT_REALLY'] ) {
 			$this->error_code = 'spam';
 			return false;
 		}
+
+		// check timestamp difference
+		if( ! isset( $this->data['_MC4WP_TIMESTAMP' ] ) || time() < ( intval( $this->data['_MC4WP_TIMESTAMP'] ) + 2 ) ) {
+			$this->error_code = 'spam';
+			return false;
+		}
+
 
 		// check if captcha was present and valid
 		if( isset( $this->data['_MC4WP_HAS_CAPTCHA'] ) && $this->data['_MC4WP_HAS_CAPTCHA'] == 1 && function_exists( 'cptch_check_custom_form' ) && cptch_check_custom_form() !== true ) {

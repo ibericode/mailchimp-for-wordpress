@@ -201,7 +201,8 @@ class MC4WP_Lite_Form_Manager {
 			$visible_fields = apply_filters( 'mc4wp_form_content', $visible_fields );
 
 			// hidden fields
-			$hidden_fields = '<textarea name="_mc4wp_required_but_not_really" style="display: none !important;"></textarea>';
+			$hidden_fields = '<input type="url" name="_mc4wp_required_but_not_really" value="" />';
+			$hidden_fields .= '<input type="hidden" name="_mc4wp_timestamp" value="'. time() . '" />';
 			$hidden_fields .= '<input type="hidden" name="_mc4wp_form_submit" value="1" />';
 			$hidden_fields .= '<input type="hidden" name="_mc4wp_form_instance" value="'. $this->form_instance_number .'" />';
 			$hidden_fields .= '<input type="hidden" name="_mc4wp_form_nonce" value="'. wp_create_nonce( '_mc4wp_form_nonce' ) .'" />';
@@ -280,35 +281,37 @@ class MC4WP_Lite_Form_Manager {
 	 * Uses jQuery if its loaded, otherwise falls back to vanilla JS.
 	 */
 	public function print_js() {
-		if( wp_script_is( 'jquery', 'done' ) ) {
-			// print jQuery
-			?><script type="text/javascript">
-				jQuery('.mc4wp-form').find('[type="submit"]').click(function () {
-					jQuery(this).parents('.mc4wp-form').addClass('mc4wp-form-submitted');
-				});
-			</script><?php
-		} else {
-			// Print vanilla JavaScript
-			?><script type="text/javascript">
-				(function() {
-					var forms = document.querySelectorAll('.mc4wp-form');
-					for (var i = 0; i < forms.length; i++) {
-						(function(el) {
-							var onclick = function( event ) {
-								el.classList.toggle('mc4wp-form-submitted');
-							};
-							var button = el.querySelector('[type="submit"]');
+		?><script type="text/javascript">
+			(function() {
 
-							if (button.addEventListener) {
-								button.addEventListener( 'click', onclick);
-							} else {
-								button.attachEvent( 'onclick', onclick);
-							}
-						})(forms[i]);
-					}
-				})();
-			</script><?php
-		}
+				function addSubmittedClass(f) {
+					f.classList.toggle('mc4wp-form-submitted');
+				}
+
+				var forms = document.querySelectorAll('.mc4wp-form');
+				for (var i = 0; i < forms.length; i++) {
+					(function(f) {
+
+						// hide honeypot
+						var honeypot = f.querySelector('input[name="_mc4wp_required_but_not_really"]');
+						honeypot.style.display = 'none';
+
+						// add class on submit
+						var button = f.querySelector('[type="submit"]');
+						if (button.addEventListener) {
+							button.addEventListener( 'click', addSubmittedClass.bind(f));
+						} else {
+							button.attachEvent( 'onclick', addSubmittedClass.bind(f));
+						}
+
+						// update timestamp field
+						var timestamp = f.querySelector('input[name="_mc4wp_timestamp"]');
+						timestamp.value = Math.round( new Date().getTime() / 1000 );
+
+					})(forms[i]);
+				}
+			})();
+		</script><?php
 	}
 
 }
