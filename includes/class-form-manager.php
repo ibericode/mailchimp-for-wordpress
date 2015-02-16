@@ -299,11 +299,13 @@ class MC4WP_Lite_Form_Manager {
 			return false;
 		}
 
+		// Print vanilla JavaScript
 		?><script type="text/javascript">
 			(function() {
 
-				function addSubmittedClass(f) {
-					f.classList.toggle('mc4wp-form-submitted');
+				function addSubmittedClass() {
+					var className = 'mc4wp-form-submitted';
+					(this.classList) ? this.classList.add(className) : this.className += ' ' + className;
 				}
 
 				var forms = document.querySelectorAll('.mc4wp-form');
