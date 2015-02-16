@@ -22,11 +22,6 @@
         color: #aaa !important;
     }
 
-    // hide honeypot field
-    &[name="_mc4wp_required_but_not_really"] {
-      position: absolute;
-      top: -10000000px;
-    }
   }
 
   input[type="text"],

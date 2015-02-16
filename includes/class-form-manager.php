@@ -40,6 +40,7 @@ class MC4WP_Lite_Form_Manager {
 		add_filter( 'widget_text', 'do_shortcode', 11 );
 
 		// load checkbox css if necessary
+		add_action( 'wp_head', array( $this, 'print_css' ), 90 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
 
 		/**
@@ -277,6 +278,14 @@ class MC4WP_Lite_Form_Manager {
 
 		// concatenate and return the HTML parts
 		return $opening_html . $before_form . $form_opening_html . $before_fields . $visible_fields . $hidden_fields . $after_fields . $form_closing_html . $after_form . $closing_html;
+	}
+
+	/**
+	 * Prints some inline CSS that does the following
+	 * - Hides the honeypot field through CSS
+	 */
+	public function print_css() {
+		?><style type="text/css">.mc4wp-form input[name="_mc4wp_required_but_not_really"] { position: absolute; top: -1000000px; }</style><?php
 	}
 
 	/**
