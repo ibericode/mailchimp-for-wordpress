@@ -22,6 +22,11 @@ class MC4WP_Lite_Form_Manager {
 	private $form_request = false;
 
 	/**
+	 * @var bool
+	 */
+	private $inline_js_printed = false;
+
+	/**
 	* Constructor
 	*/
 	public function __construct() {
@@ -201,7 +206,7 @@ class MC4WP_Lite_Form_Manager {
 			$visible_fields = apply_filters( 'mc4wp_form_content', $visible_fields );
 
 			// hidden fields
-			$hidden_fields = '<input type="url" name="_mc4wp_required_but_not_really" value="" />';
+			$hidden_fields = '<input type="text" name="_mc4wp_required_but_not_really" value="" />';
 			$hidden_fields .= '<input type="hidden" name="_mc4wp_timestamp" value="'. time() . '" />';
 			$hidden_fields .= '<input type="hidden" name="_mc4wp_form_submit" value="1" />';
 			$hidden_fields .= '<input type="hidden" name="_mc4wp_form_instance" value="'. $this->form_instance_number .'" />';
@@ -278,9 +283,13 @@ class MC4WP_Lite_Form_Manager {
 	 * Prints some JavaScript to enhance the form functionality
 	 *
 	 * This is only printed on pages that actually contain a form.
-	 * Uses jQuery if its loaded, otherwise falls back to vanilla JS.
 	 */
 	public function print_js() {
+
+		if( $this->inline_js_printed === true ) {
+			return false;
+		}
+
 		?><script type="text/javascript">
 			(function() {
 
@@ -312,6 +321,9 @@ class MC4WP_Lite_Form_Manager {
 				}
 			})();
 		</script><?php
+
+		// make sure this function only runs once
+		$this->inline_js_printed = true;
 	}
 
 }

@@ -147,7 +147,7 @@ class MC4WP_Lite_Form_Request {
 		}
 
 		// check timestamp difference
-		if( ! isset( $this->data['_MC4WP_TIMESTAMP'] ) || time() < ( intval( $this->data['_MC4WP_TIMESTAMP'] ) + 2 ) ) {
+		if( ! isset( $this->data['_MC4WP_TIMESTAMP'] ) || time() < ( intval( $this->data['_MC4WP_TIMESTAMP'] ) + 1.5 ) ) {
 			$this->error_code = 'spam';
 			return false;
 		}
