@@ -2,83 +2,90 @@
 /* MailChimp for WP - Default Form Styles */
 .mc4wp-form{
   margin: 1em 0;
-}
 
-form.mc4wp-form,
-.mc4wp-form form {
-	width: auto;
-}
+  /* Form Elements */
+  form{
+    width: auto;
+  }
 
-.mc4wp-form label{
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
 
-.mc4wp-form ul,
-.mc4wp-form li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+  input {
+    vertical-align: baseline;
 
-.mc4wp-form label > span,
-.mc4wp-form li > label {
-  font-weight: normal;
-}
+    // style placeholder polyfill
+    &.placeholdersjs {
+        color: #aaa !important;
+    }
 
-.mc4wp-form p > label:nth-child(2) {
-  margin-top: 10px;
-}
+    // hide honeypot field
+    &[name="_mc4wp_required_but_not_really"] {
+      position: absolute;
+      top: -10000000px;
+    }
+  }
 
-.mc4wp-form input {
-  vertical-align: baseline;
-}
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="date"],
+  textarea,
+  select {
+    cursor: auto;
+    display: block;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  }
 
-.mc4wp-form input.placeholdersjs {
-  color: #aaa !important;
-}
+  input[type="checkbox"],
+  input[type="radio"] {
+    position: relative;
+    margin: 0 6px 0 0;
+    padding: 0;
+    height: 13px;
+    width: 13px;
+    display: inline-block;
+    border: 0;
+  }
 
-.mc4wp-form input[type="text"],
-.mc4wp-form input[type="email"],
-.mc4wp-form input[type="tel"],
-.mc4wp-form input[type="url"],
-.mc4wp-form input[type="date"],
-.mc4wp-form textarea,
-.mc4wp-form select {
-  cursor: auto;
-  display: block;
-  width: 100%;
-  height: auto;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-}
+  input[type="checkbox"] {
+    -webkit-appearance: checkbox;
+  }
 
-.mc4wp-form input[type="checkbox"],
-.mc4wp-form input[type="radio"] {
-  position: relative;
-  margin: 0 6px 0 0;
-  padding: 0;
-  height: 13px;
-  width: 13px;
-  display: inline-block;
-  border: 0;
-}
+  input[type="radio"] {
+    -webkit-appearance: radio;
+  }
 
-.mc4wp-form input[type="checkbox"] {
-  -webkit-appearance: checkbox;
-}
 
-.mc4wp-form input[type="radio"] {
-  -webkit-appearance: radio;
-}
+  input[type="submit"],
+  button,
+  input[type="button"] {
+    cursor: pointer;
+    display: inline-block;
+  }
 
-.mc4wp-form input[type="submit"],
-.mc4wp-form button,
-.mc4wp-form input[type="button"] {
-  cursor: pointer;
-  display: inline-block;
+  /* Other elements */
+  ul,
+  li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  label > span,
+  li > label {
+    font-weight: normal;
+  }
+
+
 }
 
 .mc4wp-alert{
