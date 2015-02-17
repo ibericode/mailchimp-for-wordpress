@@ -208,7 +208,7 @@ class MC4WP_Lite_Form_Manager {
 
 			// hidden fields
 			$hidden_fields = '<input type="text" name="_mc4wp_required_but_not_really" value="" />';
-			$hidden_fields .= '<input type="hidden" name="_mc4wp_timestamp" value="'. time() . '" />';
+			$hidden_fields .= '<input type="hidden" name="_mc4wp_token" value="'. time() . '" />';
 			$hidden_fields .= '<input type="hidden" name="_mc4wp_form_submit" value="1" />';
 			$hidden_fields .= '<input type="hidden" name="_mc4wp_form_instance" value="'. $this->form_instance_number .'" />';
 			$hidden_fields .= '<input type="hidden" name="_mc4wp_form_nonce" value="'. wp_create_nonce( '_mc4wp_form_nonce' ) .'" />';
@@ -324,10 +324,6 @@ class MC4WP_Lite_Form_Manager {
 							button.attachEvent( 'onclick', addSubmittedClass.bind(f));
 						}
 
-						// update timestamp field
-						var timestamp = f.querySelector('input[name="_mc4wp_timestamp"]');
-						timestamp.value = Math.round( new Date().getTime() / 1000 );
-
 					})(forms[i]);
 				}
 			})();
@@ -335,6 +331,7 @@ class MC4WP_Lite_Form_Manager {
 
 		// make sure this function only runs once
 		$this->inline_js_printed = true;
+		return true;
 	}
 
 }

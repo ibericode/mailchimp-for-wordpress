@@ -146,8 +146,8 @@ class MC4WP_Lite_Form_Request {
 			return false;
 		}
 
-		// check timestamp difference
-		if( ! isset( $this->data['_MC4WP_TIMESTAMP'] ) || time() < ( intval( $this->data['_MC4WP_TIMESTAMP'] ) + 1.5 ) ) {
+		// check timestamp difference, token should be generated at least 2 seconds before form submit
+		if( ! isset( $this->data['_MC4WP_TOKEN'] ) || time() < ( intval( $this->data['_MC4WP_TIMESTAMP'] ) + 2 ) ) {
 			$this->error_code = 'spam';
 			return false;
 		}
