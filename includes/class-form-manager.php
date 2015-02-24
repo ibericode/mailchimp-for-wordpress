@@ -22,9 +22,14 @@ class MC4WP_Lite_Form_Manager {
 	private $form_request = false;
 
 	/**
-	 * @var bool
+	 * @var bool Is the inline JavaScript printed to the page already?
 	 */
 	private $inline_js_printed = false;
+
+	/**
+	 * @var bool Whether to print the JS snippet "fixing" date fields
+	 */
+	private $print_date_fallback = false;
 
 	/**
 	* Constructor
@@ -175,14 +180,7 @@ class MC4WP_Lite_Form_Manager {
 		// Process fields, if not submitted or not successfull or hide_after_success disabled
 		if( ! $was_submitted || ! $opts['hide_after_success'] || ! $this->form_request->is_successful() ) {
 
-			/**
-			 * @filter mc4wp_form_action
-			 * @expects string
-			 *
-			 * Sets the `action` attribute of the form element. Defaults to the current URL.
-			 */
-			$form_action = apply_filters( 'mc4wp_form_action', mc4wp_get_current_url() );
-			$form_opening_html = '<form method="post" action="'. $form_action .'">';
+			$form_opening_html = '<form method="post">';
 
 			// add form fields from settings
 			$visible_fields = __( $opts['markup'], 'mailchimp-for-wp' );
@@ -205,6 +203,10 @@ class MC4WP_Lite_Form_Manager {
 			 * Can be used to customize the content of the form mark-up, eg adding additional fields.
 			 */
 			$visible_fields = apply_filters( 'mc4wp_form_content', $visible_fields );
+
+			if( $this->form_contains_field_type( $visible_fields, 'date' ) ) {
+				$this->print_date_fallback = true;
+			}
 
 			// hidden fields
 			$hidden_fields = '<input type="text" name="_mc4wp_required_but_not_really" value="" />';
@@ -231,7 +233,7 @@ class MC4WP_Lite_Form_Manager {
 			);
 
 			// get actual response html
-			$response_html = $this->form_request->get_response_html();
+			$response_html .= $this->form_request->get_response_html();
 
 			// add form response after or before fields if no {response} tag
 			if( stristr( $visible_fields, '{response}' ) === false || $opts['hide_after_success']) {
@@ -281,6 +283,17 @@ class MC4WP_Lite_Form_Manager {
 	}
 
 	/**
+	 * @param $form
+	 * @param $field_type
+	 *
+	 * @return bool
+	 */
+	private function form_contains_field_type( $form, $field_type ) {
+		$html = sprintf( ' type="%s" ', $field_type );
+		return stristr( $form, $html ) !== false;
+	}
+
+	/**
 	 * Prints some inline CSS that does the following
 	 * - Hides the honeypot field through CSS
 	 */
@@ -327,6 +340,27 @@ class MC4WP_Lite_Form_Manager {
 					})(forms[i]);
 				}
 			})();
+
+			<?php if( $this->print_date_fallback ) { ?>
+			(function() {
+				// test if browser supports date fields
+				var testInput = document.createElement('input');
+				testInput.setAttribute('type', 'date');
+				if( testInput.type !== 'date') {
+
+					// add placeholder & pattern to all date fields
+					var dateFields = document.querySelectorAll('.mc4wp-form input[type="date"]');
+					for(var i=0; i<dateFields.length; i++) {
+						if(!dateFields[i].placeholder) {
+							dateFields[i].placeholder = 'yyyy/mm/dd';
+						}
+						if(!dateFields[i].pattern) {
+							dateFields[i].pattern = '(?:19|20)[0-9]{2}/(?:(?:0[1-9]|1[0-2])/(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])/(?:30))|(?:(?:0[13578]|1[02])-31))';
+						}
+					}
+				}
+			})();
+			<?php } ?>
 		</script><?php
 
 		// make sure this function only runs once
