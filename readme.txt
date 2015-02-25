@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/
 Tags: MailChimp,newsletter,optin,mailinglist,sign-up form,subscribe,form,shortcode,widget,checkbox,comment,buddypress,multisite,bbpress,woocommerce,easy digital downloads,contact form,contact form 7,events manager,comment form,registration form,captcha
 Requires at least: 3.7
 Tested up to: 4.1.1
-Stable tag: 2.2.5
+Stable tag: 2.2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,13 +16,13 @@ The best MailChimp plugin to get more email subscribers. Easily add MailChimp si
 
 *Adding sign-up methods for your MailChimp lists to your WordPress site should be easy. With this plugin, it finally is.*
 
-MailChimp for WordPress lets you create a highly customizable sign-up form which you can display wherever you want it to display using a simple shortcode, widget or template function. You can also add MailChimp sign-up checkboxes to various forms on your site, like your comment or contact forms.
+MailChimp for WordPress lets you create a highly customizable sign-up form. You can show the form anywhere you want using a simple shortcode, widget or template function. You can also add MailChimp sign-up checkboxes to various other forms on your site, like your comment or contact forms.
 
 = MailChimp Sign-Up Forms =
-Easily create sign-up forms for your MailChimp list and display it using a simple shortcode, a widget or PHP function.
+Easily create sign-up forms for your MailChimp list(s). Display the form using a simple shortcode, widget or PHP function.
 
-= Sign-Up Checkboxes =
-Add MailChimp sign-up checkboxes to *any* form on your website. The plugin offers built-in integration with comment forms, registration forms, Contact Form 7, BuddyPress, bbPress and WordPress MultiSite.
+= Newsletter Sign-Up Checkboxes =
+Add MailChimp sign-up checkboxes to *any* form on your site. The plugin comes with built-in integration for your comment form, Contact Form 7, WooCommerce checkout and many more..
 
 **MailChimp for WordPress, at a glance..**
 
@@ -37,11 +37,12 @@ Add MailChimp sign-up checkboxes to *any* form on your website. The plugin offer
 > #### MailChimp for WordPress Pro
 > This plugin has a premium version which comes with the following features.<br />
 >
-> Multiple Forms. Each form can subscribe to one or multiple MailChimp lists<br />
-> Easy CSS Styles Builder & Custom Color Themes.<br />
-> AJAX Forms. Forms do not require a page reload.<br />
-> Log & Statistics. Useful insights.<br />
-> Priority Support<br />
+> - As many forms as you want, each subscribing to one or multiple of your MailChimp lists.<br />
+> - AJAX Forms. Forms do not require a full page reload.<br />
+> - Visual Styles Builder, create your own style without the need for code.<br />
+> - Custom Color Themes, a quick way to blend-in with your theme.<br />
+> - Log & Statistics, providing you with useful insights like where people subscribed from.<br />
+> - Priority support over email.<br />
 >
 > [Upgrade to MailChimp for WordPress Pro](https://mc4wp.com/features/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=after-features-link)
 
@@ -272,11 +273,30 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 3. A simple form in the footer of the Twenty Thirteen theme.
 4. Add sign-up checkboxes to various places on your site.
 5. Creating sign-up forms for your MailChimp lists is easy. The Pro version allows you to create as many form as you like.
-6. Write your own HTML or have it generated for you. Many (optional) customization settings are availabl.
+6. Write your own HTML or have it generated for you. Many (optional) customization settings are available.
 7. **Pro only:** Gain valuable insights which method your visitors used to subscribe for any given time period using beautiful line charts.
 8. **Pro only:** Create your own CSS styles with the form designer in the Pro version.
 
 == Changelog ==
+
+= 2.2.6 - February 26, 2015 =
+
+**Fixes**
+
+- CSS reset wasn't working for WooCommerce checkout sign-up checkbox.
+- `mc4wp-submitted` class was not added in IE8
+- Incorrect `action` attribute on form element for some server configurations
+
+**Improvements**
+
+- Anti-SPAM improvements: a better honeypot field and a timestamp field to prevent instant form submissions.
+- Reset `background-image` on submit buttons when using CSS themes
+- Smarter email detection when integrating with third-party forms
+
+**Additions**
+
+- Custom polyfill for browsers not supporting `input[type="date"]`
+
 
 = 2.2.5 - February 13, 2015 =
 
@@ -736,6 +756,6 @@ Minor improvements and additions for compatibility with the [MailChimp Sync plug
 
 == Upgrade Notice ==
 
-= 2.2.5 =
+= 2.2.6 =
 
-Various code & usability improvements. Fixed WooCommerce checkout sign-up for cheque payments. Added option to send Welcome Email.
+Various minor fixes & anti-SPAM improvements. Updating is safe as ever!
