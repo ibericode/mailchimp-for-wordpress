@@ -295,7 +295,7 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 
 **Additions**
 
-- Custom polyfill for browsers not supporting `input[type="date"]`
+- Custom fallback for browsers not supporting `input[type="date"]`
 
 
 = 2.2.5 - February 13, 2015 =
