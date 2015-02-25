@@ -292,6 +292,7 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 - Anti-SPAM improvements: a better honeypot field and a timestamp field to prevent instant form submissions.
 - Reset `background-image` on submit buttons when using CSS themes
 - Smarter email detection when integrating with third-party forms
+- Updated all translations
 
 **Additions**
 
