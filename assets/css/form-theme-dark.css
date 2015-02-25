@@ -18,10 +18,6 @@
 .mc4wp-form input.placeholdersjs {
   color: #aaa !important;
 }
-.mc4wp-form input[name="_mc4wp_required_but_not_really"] {
-  position: absolute;
-  top: -10000000;
-}
 .mc4wp-form input[type="text"],
 .mc4wp-form input[type="email"],
 .mc4wp-form input[type="tel"],
@@ -58,6 +54,7 @@
 .mc4wp-form input[type="button"] {
   cursor: pointer;
   display: inline-block;
+  background-image: none;
 }
 .mc4wp-form ul,
 .mc4wp-form li {
