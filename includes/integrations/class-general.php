@@ -150,7 +150,9 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 			} else {
 				$simple_key = str_replace( array( '-', '_' ), '', strtolower( $key ) );
 
-				if( ! isset( $merge_vars['NAME'] ) && in_array( $simple_key, array( 'name', 'yourname', 'username', 'fullname' ) ) ) {
+				if( ! $email && in_array( $simple_key, array( 'email', 'emailaddress' ) ) ) {
+					$email = $value;
+				} elseif( ! isset( $merge_vars['NAME'] ) && in_array( $simple_key, array( 'name', 'yourname', 'username', 'fullname' ) ) ) {
 					// find name field
 					$merge_vars['NAME'] = $value;
 				} elseif( ! isset( $merge_vars['FNAME'] ) && in_array( $simple_key, array( 'firstname', 'fname', 'givenname', 'forename' ) ) ) {
