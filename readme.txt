@@ -1,7 +1,7 @@
 === MailChimp for WordPress ===
 Contributors: DvanKooten, iMazed
 Donate link: https://mc4wp.com/
-Tags: MailChimp,newsletter,optin,mailinglist,sign-up form,subscribe,form,shortcode,widget,checkbox,comment,buddypress,multisite,bbpress,woocommerce,easy digital downloads,contact form,contact form 7,events manager,comment form,registration form,captcha
+Tags: mailchimp,contact form 7,woocommerce,buddypress,newsletter,newsletter form,mailchimp form,widget,contact form,subscribe,shortcode,form,multisite,events manager,easy digital downloads,registration form,captcha,newsletter sign up,mailchimp for wordpress,mailchimp for wp,mailchimp sign-up,mailchimp subscribe,email
 Requires at least: 3.7
 Tested up to: 4.1.1
 Stable tag: 2.2.6
@@ -22,12 +22,12 @@ MailChimp for WordPress lets you create a highly customizable sign-up form. You 
 Easily create sign-up forms for your MailChimp list(s). Display the form using a simple shortcode, widget or PHP function.
 
 = Newsletter Sign-Up Checkboxes =
-Add MailChimp sign-up checkboxes to *any* form on your site. The plugin comes with built-in integration for your comment form, Contact Form 7, WooCommerce checkout and many more..
+Add MailChimp sign-up checkboxes to *any* form on your site. The plugin comes with built-in integration for your comment form, Contact Form 7, WooCommerce checkout and many more so people can subscribe to your MailChimp list from any form on your site.
 
 **MailChimp for WordPress, at a glance..**
 
 - Simple. All you need is your MailChimp API key.
-- Customizable. Have the form fields generated for you or use your own customized HTML.
+- Customizable. Have the MailChimp form fields generated for you or use your own customized HTML.
 - Beautiful. Choose one of the default form themes or use your own styles.
 - Integrates with Contact Form 7, WooCommerce checkout and other popular form plugins.
 - Developer friendly.
@@ -41,7 +41,7 @@ Add MailChimp sign-up checkboxes to *any* form on your site. The plugin comes wi
 > - AJAX Forms. Forms do not require a full page reload.<br />
 > - Visual Styles Builder, create your own style without the need for code.<br />
 > - Custom Color Themes, a quick way to blend-in with your theme.<br />
-> - Log & Statistics, providing you with useful insights like where people subscribed from.<br />
+> - Log & Statistics, providing you with useful insights like your new MailChimp subscribers came from.<br />
 > - Priority support over email.<br />
 >
 > [Upgrade to MailChimp for WordPress Pro](https://mc4wp.com/features/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=after-features-link)
@@ -50,7 +50,7 @@ Add MailChimp sign-up checkboxes to *any* form on your site. The plugin comes wi
 
 There are several add-on plugins available for MailChimp for WordPress, which help you get even more out of your site.
 
-- [MailChimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/) - Adds a top bar  to your site, asking visitors to subscribe.
+- [MailChimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/) - Adds an eye-catching sticky top bar  to your site, asking people to subscribe to your MailChimp list.
 - [MailChimp Sync](https://wordpress.org/plugins/mailchimp-sync/) -  Synchronizes your WordPress users with a MailChimp list.
 
 **Translations**
@@ -69,6 +69,13 @@ Bug reports for [MailChimp for WordPress are welcomed on GitHub](https://github.
 - Other [WordPress plugins](https://dannyvankooten.com/wordpress-plugins/#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=more-info-link) by [Danny van Kooten](https://dannyvankooten.com#utm_source=wp-plugin-repo&utm_medium=link&utm_campaign=more-info-link)
 - [@DannyvanKooten](https://twitter.com/dannyvankooten) on Twitter
 
+**What is MailChimp?**
+
+As this plugin is an integration for MailChimp, you need to have a MailChimp account to be able to use it. MailChimp is a newsletter service that allows you to send out email campaigns to lists of email subscribers.
+
+MailChimp is free for lists up to 2000 subscribers, which is why MailChimp is the go-to choice for small businesses or starting entrepeneurs. That doesn't mean MailChimp is not a great choice for bigger businesses though.
+
+If you do not yet have a MailChimp account, [registering for MailChimp is free and only takes you about 30 seconds](https://login.mailchimp.com/signup).
 
 == Installation ==
 
