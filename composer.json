@@ -21,6 +21,8 @@
         "codeclimate/php-test-reporter": "dev-master"
     },
     "scripts": {
-        "test": "vendor/bin/phpunit"
+        "test": "vendor/bin/phpunit",
+        "check-codestyle": "vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs && vendor/bin/phpcs ./includes -p -s -v -n --standard=./codesniffer.xml --extensions=php",
+        "test-coverage-reporter": "if [ $CODECLIMATE_REPO_TOKEN ]; then vendor/bin/test-reporter; else echo 'Error: define CODECLIMATE_REPO_TOKEN before running this command.'; fi"
     }
 }

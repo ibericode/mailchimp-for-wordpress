@@ -7,13 +7,10 @@ matrix:
   - php: hhvm
 install:
 - composer install --dev
-before_script:
-- REPO_DIR=$(pwd)
 script:
-- ./vendor/bin/phpunit
-- if [[ "$PHPLINT" == "1" ]]; then ./vendor/bin/test-reporter; fi
-- if [[ "$PHPLINT" == "1" ]]; then ./vendor/bin/phpcs --config-set installed_paths $REPO_DIR/vendor/wp-coding-standards/wpcs; fi
-- if [[ "$PHPLINT" == "1" ]]; then ./vendor/bin/phpcs ./includes -p -s -v -n --standard=./codesniffer.xml --extensions=php; fi
+- composer run-script test
+- if [[ "$PHPLINT" == "1" ]]; then composer run-script test-coverage-reporter; fi
+- if [[ "$PHPLINT" == "1" ]]; then composer run-script check-codestyle; fi
 env:
   global:
     secure: iYWazyvp/sBhqW4GMiOrPHXrUQTGVVNIPVTUU3mSvRmFSEvZRbL0NbfFEUJhfqNITrEoPxQxoDaf6MJ9UNPqfcARuChrUybHKFv9Ouvd05kmH4vwPJroJdl3iawQzeZBXpxg/Wn8ciW79bVuCH2/LMZWk1bcKS87VbjG6CwUF8s=
