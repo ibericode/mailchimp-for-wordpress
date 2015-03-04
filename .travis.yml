@@ -6,10 +6,12 @@ matrix:
   - php: hhvm
 install:
 - composer install --dev
+before_script:
+- REPO_DIR=$(pwd)
 script:
 - "./vendor/bin/phpunit"
 after_script:
-- "./vendor/bin/phpcs --config-set installed_paths ../../wp-coding-standards/wpcs"
+- "./vendor/bin/phpcs --config-set installed_paths $REPO_DIR/vendor/wp-coding-standards/wpcs"
 - "./vendor/bin/phpcs . -p -s -v -n --standard=./codesniffer.xml --extensions=php"
 - "./vendor/bin/test-reporter"
 env:
