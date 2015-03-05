@@ -83,10 +83,12 @@ class MC4WP_Lite_Form_Request {
 
 	/**
 	 * Constructor
+	 *
+	 * @param array $form_data
 	 */
 	public function __construct( $form_data ) {
 
-		$this->data = $this->get_form_data( $form_data );
+		$this->data = $this->normalize_form_data( $form_data );
 
 		// store number of submitted form
 		$this->form_instance_number = absint( $this->data['_MC4WP_FORM_INSTANCE'] );
@@ -94,16 +96,13 @@ class MC4WP_Lite_Form_Request {
 
 		$this->is_valid = $this->validate();
 
-		// normalize posted data
-		$this->data = $this->sanitize();
-
 		if( $this->is_valid ) {
 
 			// add some data to the posted data, like FNAME and LNAME
-			$this->guess_missing_fields( $this->data );
+			$this->data = $this->guess_missing_fields( $this->data );
 
 			// map fields to corresponding MailChimp lists
-			if( $this->map_data() ) {
+			if( $this->map_data( $this->data ) ) {
 
 				// subscribe using the processed data
 				$this->success = $this->subscribe( $this->lists_fields_map );
@@ -121,9 +120,20 @@ class MC4WP_Lite_Form_Request {
 	 *
 	 * @return array
 	 */
-	private function get_form_data( array $data ) {
+	private function normalize_form_data( array $data ) {
+
 		// uppercase all data keys
 		$data = array_change_key_case( $data, CASE_UPPER );
+
+		// strip slashes on everything
+		$data = stripslashes_deep( $data );
+
+		// sanitize all scalar values
+		foreach( $data as $key => $value ) {
+			if( is_scalar( $value ) ) {
+				$data[ $key ] = sanitize_text_field( $value );
+			}
+		}
 
 		/**
 		 * @filter `mc4wp_form_data`
@@ -314,9 +324,7 @@ class MC4WP_Lite_Form_Request {
 	 *
 	 * @return array
 	 */
-	private function map_data() {
-
-		$data = $this->data;
+	private function map_data( $data ) {
 
 		$map = array();
 		$mapped_fields = array( 'EMAIL' );
@@ -361,6 +369,7 @@ class MC4WP_Lite_Form_Request {
 				// grab field value from data
 				$field_value = $data[ $field->tag ];
 
+				// format field value according to its type
 				$field_value = $this->format_field_value( $field_value, $field->field_type );
 
 				// add field value to map
@@ -423,6 +432,11 @@ class MC4WP_Lite_Form_Request {
 		$total_fields_mapped = count( $mapped_fields ) + count( $this->global_fields );
 		if( $total_fields_mapped < count( $data ) ) {
 			foreach( $data as $field_key => $field_value ) {
+
+				if( $this->is_internal_var( $field_key ) ) {
+					continue;
+				}
+
 				if( ! in_array( $field_key, $mapped_fields ) ) {
 					$unmapped_fields[ $field_key ] = $field_value;
 				}
@@ -729,6 +743,26 @@ class MC4WP_Lite_Form_Request {
 		$messages = apply_filters( 'mc4wp_form_messages', $messages, 0 );
 
 		return (array) $messages;
+	}
+
+	/**
+	 * @param $var
+	 *
+	 * @return bool
+	 */
+	protected function is_internal_var( $var ) {
+
+		if( $var[0] === '_' ) {
+			return true;
+		}
+
+		// Ignore those fields, we don't need them
+		$ignored_vars = array( 'CPTCH_NUMBER', 'CNTCTFRM_CONTACT_ACTION', 'CPTCH_RESULT', 'CPTCH_TIME' );
+		if( in_array( $var, $ignored_vars ) ) {
+			return true;;
+		}
+
+		return false;
 	}
 
 
