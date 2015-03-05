@@ -298,7 +298,7 @@ class MC4WP_Lite_Form_Manager {
 	 * - Hides the honeypot field through CSS
 	 */
 	public function print_css() {
-		?><style type="text/css">.mc4wp-form input[name="_mc4wp_required_but_not_really"] { position: absolute; top: -1000000px; }</style><?php
+		?><style type="text/css">.mc4wp-form input[name="_mc4wp_required_but_not_really"] { display: none !important; }</style><?php
 	}
 
 	/**
