@@ -84,10 +84,9 @@ class MC4WP_Lite_Form_Request {
 	/**
 	 * Constructor
 	 */
-	public function __construct() {
+	public function __construct( $form_data ) {
 
-		// uppercase all POST keys
-		$this->data = array_change_key_case( $_POST, CASE_UPPER );
+		$this->data = $this->get_form_data( $form_data );
 
 		// store number of submitted form
 		$this->form_instance_number = absint( $this->data['_MC4WP_FORM_INSTANCE'] );
@@ -115,6 +114,24 @@ class MC4WP_Lite_Form_Request {
 		$this->send_http_response();
 
 		return $this->success;
+	}
+
+	/**
+	 * @param array $data
+	 *
+	 * @return array
+	 */
+	private function get_form_data( array $data ) {
+		// uppercase all data keys
+		$data = array_change_key_case( $data, CASE_UPPER );
+
+		/**
+		 * @filter `mc4wp_form_data`
+		 * @expects array
+		 */
+		$data = apply_filters( 'mc4wp_form_data', $data );
+
+		return (array) $data;
 	}
 
 	/**

@@ -65,7 +65,7 @@ class MC4WP_Lite_Form_Manager {
 
 		// has a MC4WP form been submitted?
 		if ( isset( $_POST['_mc4wp_form_submit'] ) ) {
-			$this->form_request = new MC4WP_Lite_Form_Request;
+			$this->form_request = new MC4WP_Lite_Form_Request( $_POST );
 		}
 
 		// frontend only
