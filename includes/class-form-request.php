@@ -289,6 +289,17 @@ class MC4WP_Lite_Form_Request {
 		// do stuff on success, non-AJAX only
 		if( $this->success ) {
 
+			/**
+			 * @action mc4wp_form_success
+			 *
+			 * Use to hook into successful form sign-ups
+			 *
+			 * @param   int     $form_id        The ID of the submitted form (PRO ONLY)
+			 * @param   string  $email          The email of the subscriber
+			 * @param   array   $data           Additional list fields, like FNAME etc (if any)
+			 */
+			do_action( 'mc4wp_form_success', 0, $this->data['EMAIL'], $this->data );
+
 			// check if we want to redirect the visitor
 			if ( ! empty( $this->form_options['redirect'] ) ) {
 

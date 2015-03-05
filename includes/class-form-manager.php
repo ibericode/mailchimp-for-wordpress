@@ -49,7 +49,7 @@ class MC4WP_Lite_Form_Manager {
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
 
 		/**
-		* @deprecated
+		* @deprecated, use [mc4wp_form] instead
 		*/
 		add_shortcode( 'mc4wp-form', array( $this, 'form' ) );
 	}
