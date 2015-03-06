@@ -35,23 +35,7 @@ class MC4WP_Lite_Form_Manager {
 	* Constructor
 	*/
 	public function __construct() {
-
 		add_action( 'init', array( $this, 'initialize' ) );
-
-		add_shortcode( 'mc4wp_form', array( $this, 'form' ) );
-
-		// enable shortcodes in text widgets
-		add_filter( 'widget_text', 'shortcode_unautop' );
-		add_filter( 'widget_text', 'do_shortcode', 11 );
-
-		// load checkbox css if necessary
-		add_action( 'wp_head', array( $this, 'print_css' ), 90 );
-		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
-
-		/**
-		* @deprecated, use [mc4wp_form] instead
-		*/
-		add_shortcode( 'mc4wp-form', array( $this, 'form' ) );
 	}
 
 	/**
@@ -59,9 +43,9 @@ class MC4WP_Lite_Form_Manager {
 	*
 	* - Registers scripts so developers can override them, should they want to.
 	*/
-	public function initialize()
-	{
-		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+	public function initialize() {
+
+		$this->register_shortcodes();
 
 		// has a MC4WP form been submitted?
 		if ( isset( $_POST['_mc4wp_form_submit'] ) ) {
@@ -70,13 +54,42 @@ class MC4WP_Lite_Form_Manager {
 
 		// frontend only
 		if( ! is_admin() ) {
-			// register placeholder script, which will later be enqueued for IE only
-			wp_register_script( 'mc4wp-placeholders', MC4WP_LITE_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), MC4WP_LITE_VERSION, true );
 
-			// register non-AJAX script (that handles form submissions)
-			wp_register_script( 'mc4wp-form-request', MC4WP_LITE_PLUGIN_URL . 'assets/js/form-request' . $suffix . '.js', array(), MC4WP_LITE_VERSION, true );
+			// load checkbox css if necessary
+			add_action( 'wp_head', array( $this, 'print_css' ), 90 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
+
+			$this->register_scripts();
 		}
 
+	}
+
+	/**
+	 * Registers the [mc4wp_form] shortcode
+	 */
+	protected function register_shortcodes() {
+		// register shortcodes
+		add_shortcode( 'mc4wp_form', array( $this, 'output_form' ) );
+
+		// @deprecated, use [mc4wp_form] instead
+		add_shortcode( 'mc4wp-form', array( $this, 'output_form' ) );
+
+		// enable shortcodes in text widgets
+		add_filter( 'widget_text', 'shortcode_unautop' );
+		add_filter( 'widget_text', 'do_shortcode', 11 );
+	}
+
+	/**
+	 * Register the various JS files used by the plugin
+	 */
+	protected function register_scripts() {
+		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
+		// register placeholder script, which will later be enqueued for IE only
+		wp_register_script( 'mc4wp-placeholders', MC4WP_LITE_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), MC4WP_LITE_VERSION, true );
+
+		// register non-AJAX script (that handles form submissions)
+		wp_register_script( 'mc4wp-form-request', MC4WP_LITE_PLUGIN_URL . 'assets/js/form-request' . $suffix . '.js', array(), MC4WP_LITE_VERSION, true );
 	}
 
 	/**
@@ -147,7 +160,7 @@ class MC4WP_Lite_Form_Manager {
 	*
 	* @return string
 	*/
-	public function form( $atts = array(), $content = '' ) {
+	public function output_form( $atts = array(), $content = '' ) {
 
 		// make sure template functions are loaded
 		if ( ! function_exists( 'mc4wp_replace_variables' ) ) {

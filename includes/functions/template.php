@@ -38,7 +38,7 @@ function mc4wp_form( $id = 0 ) {
 */
 function mc4wp_get_form( $id = 0 ) {
 	global $mc4wp;
-	return $mc4wp->get_form_manager()->form( array( 'id' => $id ) );
+	return $mc4wp->get_form_manager()->output_form( array( 'id' => $id ) );
 }
 
 
