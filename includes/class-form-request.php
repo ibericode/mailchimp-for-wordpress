@@ -217,46 +217,6 @@ class MC4WP_Lite_Form_Request {
 	}
 
 	/**
-	 * Sanitize the request data.
-	 *
-	 * - Strips internal variables
-	 * - Strip ignored fields
-	 * - Sanitize scalar values
-	 * - Strip slashes on everything
-	 *
-	 * @return array
-	 */
-	private function sanitize() {
-		$data = array();
-
-		// Ignore those fields, we don't need them
-		$ignored_fields = array( 'CPTCH_NUMBER', 'CNTCTFRM_CONTACT_ACTION', 'CPTCH_RESULT', 'CPTCH_TIME' );
-
-		foreach( $this->data as $key => $value ) {
-
-			// Sanitize key
-			$key = trim( $key );
-
-			// Skip field if it starts with _ or if it's in ignored_fields array
-			if( $key[0] === '_' || in_array( $key, $ignored_fields ) ) {
-				continue;
-			}
-
-			// Sanitize value
-			$value = ( is_scalar( $value ) ) ? sanitize_text_field( $value ) : $value;
-
-			// Add value to array
-			$data[ $key ] = $value;
-		}
-
-		// strip slashes on everything
-		$data = stripslashes_deep( $data );
-
-		// store data somewhere safe
-		return $data;
-	}
-
-	/**
 	 * Guesses the value of some fields.
 	 *
 	 * - FNAME and LNAME, if NAME is given
