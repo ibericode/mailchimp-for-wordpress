@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/
 Tags: mailchimp,contact form 7,woocommerce,buddypress,newsletter,newsletter form,mailchimp form,widget,contact form,subscribe,shortcode,form,multisite,events manager,easy digital downloads,registration form,captcha,newsletter sign up,mailchimp for wordpress,mailchimp for wp,mailchimp sign-up,mailchimp subscribe,email
 Requires at least: 3.7
 Tested up to: 4.1.1
-Stable tag: 2.2.6
+Stable tag: 2.2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -285,6 +285,23 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 8. **Pro only:** Create your own CSS styles with the form designer in the Pro version.
 
 == Changelog ==
+
+= 2.2.7 - March 11, 2015 =
+
+**Fixes**
+
+- Honeypot field was visible for themes or templates not calling `wp_head()` and `wp_footer()`
+
+**Improvements**
+
+- Various minor code improvements
+- Updated German, Spanish, Brazilian, French, Hungarian and Russian translations.
+
+**Additions**
+
+- Added [mc4wp_form_success](https://github.com/dannyvankooten/mailchimp-for-wordpress/blob/06f0c833027f347a288d2cb9805e0614767409b6/includes/class-form-request.php#L292-L301) action hook to hook into successful sign-ups
+- Added [mc4wp_form_data](https://github.com/dannyvankooten/mailchimp-for-wordpress/blob/06f0c833027f347a288d2cb9805e0614767409b6/includes/class-form-request.php#L138-L142) filter hook to modify all form data before processing
+
 
 = 2.2.6 - February 26, 2015 =
 
@@ -764,6 +781,6 @@ Minor improvements and additions for compatibility with the [MailChimp Sync plug
 
 == Upgrade Notice ==
 
-= 2.2.6 =
+= 2.2.7 =
 
-Various minor fixes & anti-SPAM improvements. Updating is safe as ever!
+Fixes an issue where an additional (honeypot) field is visible for some themes or plugin templates. Updated translations.
