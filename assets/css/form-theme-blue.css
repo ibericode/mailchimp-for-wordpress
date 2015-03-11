@@ -49,6 +49,9 @@
 .mc4wp-form input[type="radio"] {
   -webkit-appearance: radio;
 }
+.mc4wp-form input[name="_mc4wp_required_but_not_really"] {
+  display: none !important;
+}
 .mc4wp-form input[type="submit"],
 .mc4wp-form button,
 .mc4wp-form input[type="button"] {
