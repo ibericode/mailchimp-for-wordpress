@@ -6,13 +6,14 @@
 # jose Miranda <joseamirandavelez@gmail.com>, 2014
 # Oscar Islas <oislas@gmail.com>, 2015
 # Tane <yosoytane@gmail.com>, 2014
+# violeta gau <violetagau@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-02-25 06:33:40+00:00\n"
-"PO-Revision-Date: 2015-02-25 06:47+0000\n"
-"Last-Translator: Danny van Kooten <dannyvankooten@gmail.com>\n"
+"PO-Revision-Date: 2015-02-25 18:51+0000\n"
+"Last-Translator: violeta gau <violetagau@gmail.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/mailchimp-for-wordpress/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1391,7 +1392,7 @@ msgstr "Log"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:47
 msgid "Log Items"
-msgstr ""
+msgstr "Ingresar artículos"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:76
 msgid "Email"
@@ -1425,7 +1426,7 @@ msgstr "Artículos de registro borrados."
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:297
 msgid "Top Bar"
-msgstr ""
+msgstr "Barra superior"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:305
 msgid "MultiSite registration"
@@ -1467,7 +1468,7 @@ msgstr "Registro"
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:489
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:503
 msgid "Order"
-msgstr ""
+msgstr "Ordenar"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:492
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:506
@@ -1674,107 +1675,107 @@ msgstr "Mensajes por defecto"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:15
 msgid "Today"
-msgstr ""
+msgstr "Hoy"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:16
 msgid "Yesterday"
-msgstr ""
+msgstr "Ayer"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:17
 msgid "Last Week"
-msgstr ""
+msgstr "Última semana"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:18
 msgid "Last Month"
-msgstr ""
+msgstr "Último mes"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:19
 msgid "Last Quarter"
-msgstr ""
+msgstr "Último cuatrimestre"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:20
 msgid "Last Year"
-msgstr ""
+msgstr "Último año"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:21
 msgid "Custom"
-msgstr ""
+msgstr "Personalizado"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:25
 msgid "From"
-msgstr ""
+msgstr "De"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:32
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:57
 msgid "Jan"
-msgstr ""
+msgstr "Ene"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:33
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:58
 msgid "Feb"
-msgstr ""
+msgstr "Feb"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:34
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:59
 msgid "Mar"
-msgstr ""
+msgstr "Mar"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:35
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:60
 msgid "Apr"
-msgstr ""
+msgstr "Abr"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:36
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:61
 msgid "May"
-msgstr ""
+msgstr "May"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:37
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:62
 msgid "Jun"
-msgstr ""
+msgstr "Jun"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:38
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:63
 msgid "Jul"
-msgstr ""
+msgstr "Ju"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:39
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:64
 msgid "Aug"
-msgstr ""
+msgstr "Ago"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:40
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:65
 msgid "Sep"
-msgstr ""
+msgstr "Sep"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:41
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:66
 msgid "Oct"
-msgstr ""
+msgstr "Oct"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:42
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:67
 msgid "Nov"
-msgstr ""
+msgstr "Nov"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:43
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:68
 msgid "Dec"
-msgstr ""
+msgstr "Dic"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:50
 msgid "To"
-msgstr ""
+msgstr "Para"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:76
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:83
 msgid "Show these lines:"
-msgstr ""
+msgstr "Mostrar estas líneas:"
 
 #. Plugin URI of the plugin/theme
 msgid "https://mc4wp.com/"
