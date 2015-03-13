@@ -96,8 +96,8 @@ class MC4WP_Lite_Admin
 
 		// register settings
 		register_setting( 'mc4wp_lite_settings', 'mc4wp_lite', array( $this, 'validate_settings' ) );
-		register_setting( 'mc4wp_lite_checkbox_settings', 'mc4wp_lite_checkbox', array( $this, 'validate_checkbox_settings' ) );
-		register_setting( 'mc4wp_lite_form_settings', 'mc4wp_lite_form', array( $this, 'validate_form_settings' ) );
+		register_setting( 'mc4wp_lite_checkbox_settings', 'mc4wp_lite_checkbox', array( $this, 'validate_settings' ) );
+		register_setting( 'mc4wp_lite_form_settings', 'mc4wp_lite_form', array( $this, 'validate_settings' ) );
 
 		// store whether this plugin has the BWS captcha plugin running (https://wordpress.org/plugins/captcha/)
 		$this->has_captcha_plugin = function_exists( 'cptch_display_captcha_custom' );
@@ -229,104 +229,37 @@ class MC4WP_Lite_Admin
 	* @param array $settings
 	* @return array
 	*/
-	public function validate_settings( $settings ) {
+	public function validate_settings( array $settings ) {
 
-		if( isset( $settings['api_key'] ) ) {
-			$settings['api_key'] = sanitize_text_field( $settings['api_key'] );
-		}
-
-		return $settings;
-	}
-
-	/**
-	* Validates the Form settings
-	*
-	* @param array $settings
-	* @return array
-	*/
-	public function validate_form_settings( $settings ) {
-
-		// If settings is malformed, just store an empty array.
-		if( ! is_array( $settings ) ) {
-			return array();
-		}
-
-		// Loop through new settings
-		foreach( $settings as $key => $value ) {
-
-			// sanitize text fields
-			if( substr( $key, 0, 5 ) === 'text_' ) {
-				$settings[ $key ] = strip_tags( trim( $value ), '<a><b><strong><em><br><i><u><pre><script><abbr><strike>' );
-				continue;
+		// sanitize simple text fields (no HTML, just chars & numbers)
+		$simple_text_fields = array( 'api_key', 'redirect', 'css' );
+		foreach( $simple_text_fields as $field ) {
+			if( isset( $settings[ $field ] ) ) {
+				$settings[ $field ] = sanitize_text_field( $settings[ $field ] );
 			}
-
-			switch( $key ) {
-
-				// sanitize markup textarea
-				case 'markup' :
-					$settings[ $key ] = preg_replace( '/<\/?form(.|\s)*?>/i', '', $value );
-					break;
-
-				// sanitize select
-				case 'css':
-					$settings[ $key ] = sanitize_text_field( $value );
-					break;
-
-				// sanitize radio & checkbox inputs
-				case 'double_optin':
-				case 'hide_after_success':
-					$settings[ $key ] = ( $value == 1 )  ? 1 : 0;
-					break;
-			}
-
 		}
 
-		return $settings;
-	}
-
-	/**
-	 * Validates the Checkbox settings
-	 *
-	 * @param array $settings
-	 * @return array
-	 */
-	public function validate_checkbox_settings( $settings ) {
-
-		// If settings is malformed, just store an empty array.
-		if( ! is_array( $settings ) ) {
-			return array();
+		// validate woocommerce checkbox position
+		if( isset( $settings['woocommerce_position'] ) ) {
+			// make sure position is either 'order' or 'billing'
+			if( ! in_array( $settings['woocommerce_position'], array( 'order', 'billing' ) ) ) {
+				$settings['woocommerce_position'] = 'billing';
+			}
 		}
 
-		// Loop through new settings
-		foreach( $settings as $key => $value ) {
-
-			switch( $key ) {
-
-				case 'lists':
-					if( ! is_array( $value ) ) {
-						$settings[ $key ] = array();
-					} else {
-						foreach( $settings[ $key ] as $list_key => $list_value ) {
-							$settings[ $key ][$list_key] = sanitize_text_field( $list_value );
-						}
-					}
-					break;
-
-				// sanitize text inputs
-				case 'label' :
-					$settings[ $key ] = strip_tags( trim( $value ), '<a><b><strong><em><br><i><u><pre><script><abbr><strike>' );
-					break;
-
-				// sanitize radio & checkbox inputs
-				case 'double_optin':
-				case 'show_at_comment_form':
-				case 'show_at_registration_form':
-				case 'precheck':
-				case 'css':
-					$settings[ $key ] = ( $value == 1 )  ? 1 : 0;
-					break;
+		// dynamic sanitization
+		foreach( $settings as $setting => $value ) {
+			// strip special tags from text settings
+			if( substr( $setting, 0, 5 ) === 'text_' || $setting === 'label' ) {
+				$value = trim( $value );
+				$value = strip_tags( $value, '<a><b><strong><em><i><br><u><script><span><abbr><strike>' );
+				$settings[ $setting ] = $value;
 			}
+		}
 
+		// strip <form> from form mark-up
+		if( isset( $settings[ 'markup'] ) ) {
+			$settings[ 'markup' ] = preg_replace( '/<\/?form(.|\s)*?>/i', '', $settings[ 'markup'] );
 		}
 
 		return $settings;
