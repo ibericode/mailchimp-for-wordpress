@@ -112,14 +112,14 @@ class MC4WP_Lite {
 	}
 
 	/**
-	* @return MC4WP_Lite_Checkbox
+	* @return MC4WP_Lite_Checkbox_Manager
 	*/
 	public function get_checkbox_manager() {
 		return $this->checkbox_manager;
 	}
 
 	/**
-	* @return MC4WP_Lite_Form
+	* @return MC4WP_Lite_Form_Manager
 	*/
 	public function get_form_manager() {
 		return $this->form_manager;

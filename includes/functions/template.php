@@ -11,14 +11,14 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 * Echoes a sign-up checkbox.
 */
 function mc4wp_checkbox() {
-	global $mc4wp;
+	$checkbox_manager = MC4WP_Lite::instance()->get_checkbox_manager();
 
 	// manually instantiate comment form integration class
-	if( ! isset( $mc4wp->get_checkbox_manager()->integrations['comment_form'] ) ) {
-		$mc4wp->get_checkbox_manager()->integrations['comment_form'] = new MC4WP_Comment_Form_Integration();
+	if( ! isset( $checkbox_manager->integrations['comment_form'] ) ) {
+		$checkbox_manager->integrations['comment_form'] = new MC4WP_Comment_Form_Integration();
 	}
 
-	$mc4wp->get_checkbox_manager()->integrations['comment_form']->output_checkbox();
+	$checkbox_manager->integrations['comment_form']->output_checkbox();
 }
 
 /**
@@ -37,8 +37,8 @@ function mc4wp_form( $id = 0 ) {
 * @return   string  HTML of given form_id.
 */
 function mc4wp_get_form( $id = 0 ) {
-	global $mc4wp;
-	return $mc4wp->get_form_manager()->output_form( array( 'id' => $id ) );
+	$form_manager = MC4WP_Lite::instance()->get_form_manager();
+	return $form_manager->output_form( array( 'id' => $id ) );
 }
 
 
