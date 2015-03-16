@@ -3,13 +3,14 @@
 # Translators:
 # Jan Toman <toman.jan@gmail.com>, 2014-2015
 # Libor Matějka <libor.matejka@hotmail.cz>, 2015
+# Ondra <subrt.ondra@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-02-25 06:33:40+00:00\n"
-"PO-Revision-Date: 2015-02-25 06:47+0000\n"
-"Last-Translator: Danny van Kooten <dannyvankooten@gmail.com>\n"
+"PO-Revision-Date: 2015-03-16 09:54+0000\n"
+"Last-Translator: Ondra <subrt.ondra@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/projects/p/mailchimp-for-wordpress/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -122,7 +123,7 @@ msgstr "(nebo nechte prázdné)"
 #: mailchimp-for-wordpress/includes/class-admin.php:367
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:639
 msgid "Subscribe"
-msgstr ""
+msgstr "Přihlásit se k odběru"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:391
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:677
@@ -156,7 +157,7 @@ msgstr ""
 msgid ""
 "The plugin can only fetch a maximum of 100 lists from MailChimp, only your "
 "first 100 lists are shown."
-msgstr ""
+msgstr "Plugin může z Mailchimpu \"natáhnout\" jen 100 listů. Bude zobrazeno prvních 100 listů."
 
 #: mailchimp-for-wordpress/includes/class-admin.php:445
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:742
@@ -210,7 +211,7 @@ msgstr "Titulek:"
 msgid ""
 "You can edit your sign-up form in the <a href=\"%s\">MailChimp for WordPress"
 " form settings</a>."
-msgstr ""
+msgstr "Editovat nastavení přihlašovacích formulářů pluginu \"Mailchimp for Wordpress\" můžete <a href=\"%s\">zde</a>."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:21
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:292
@@ -365,7 +366,7 @@ msgstr "E-mailová adresa:"
 
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:317
 msgid "Merge variables:"
-msgstr ""
+msgstr "Proměnné pro registrační formulář"
 
 #. Plugin Name of the plugin/theme
 msgid "MailChimp for WordPress"
@@ -460,7 +461,7 @@ msgstr "Seznam adres z MailChimpu"
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:17
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:38
 msgid "No lists found, <a href=\"%s\">are you connected to MailChimp</a>?"
-msgstr ""
+msgstr "Žádné seznamy odběratelů (listy) nebyly nalezeny. %sOpravdu jste přihlášení k MailChimpu?%s"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:42
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:45
