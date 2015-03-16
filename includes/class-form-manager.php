@@ -209,7 +209,7 @@ class MC4WP_Lite_Form_Manager {
 				$this->print_date_fallback = true;
 			}
 
-			$hidden_fields = $this->get_hidden_form_fields();
+			$hidden_fields = $this->get_hidden_form_fields( $atts );
 			$form_closing_html = '</form>';
 		}
 
@@ -327,15 +327,23 @@ class MC4WP_Lite_Form_Manager {
 	}
 
 	/**
+	 * @param array $atts Attributes passed to the shortcode
 	 * @return string
 	 */
-	private function get_hidden_form_fields() {
+	private function get_hidden_form_fields( $atts = array() ) {
 		$hidden_fields = '';
 		$hidden_fields .= '<input type="text" name="_mc4wp_required_but_not_really" value="" />';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_timestamp" value="'. time() . '" />';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_submit" value="1" />';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_instance" value="'. $this->form_instance_number .'" />';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_nonce" value="'. wp_create_nonce( '_mc4wp_form_nonce' ) .'" />';
+
+		// was "lists" parameter passed in shortcode arguments?
+		if( isset( $atts['lists'] ) && ! empty( $atts['lists'] ) ) {
+			$lists_string = ( is_array( $atts['lists'] ) ) ? join( ',', $atts['lists'] ) : $atts['lists'];
+			$hidden_fields .= '<input type="hidden" name="_mc4wp_lists" value="'. $lists_string . '" />';
+		}
+
 		return (string) $hidden_fields;
 	}
 
