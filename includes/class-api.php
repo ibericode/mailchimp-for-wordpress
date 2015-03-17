@@ -29,6 +29,11 @@ class MC4WP_API {
 	private $error_message = '';
 
 	/**
+	 * @var int
+	 */
+	private $error_code = 0;
+
+	/**
 	 * @var boolean
 	 */
 	private $connected = null;
@@ -130,8 +135,6 @@ class MC4WP_API {
 					return 'already_subscribed';
 				}
 
-				// store error message
-				$this->error_message = $response->error;
 				return 'error';
 			} else {
 				return true;
@@ -250,7 +253,6 @@ class MC4WP_API {
 		if( is_object( $result ) ) {
 
 			if( isset( $result->error ) ) {
-				$this->error_message = $result->error;
 				return false;
 			} else {
 				return true;
@@ -332,6 +334,9 @@ class MC4WP_API {
 	* @return object
 	*/
 	public function call( $method, array $data = array() ) {
+
+		$this->empty_last_response();
+
 		// do not make request when no api key was provided.
 		if( empty( $this->api_key ) ) {
 			return false;
@@ -370,6 +375,14 @@ class MC4WP_API {
 		// store response
 		if( is_object( $response ) ) {
 			$this->last_response = $response;
+
+			if( isset( $response->error ) ) {
+				$this->error_message = $response->error;
+			}
+
+			if( isset( $response->code ) ) {
+				$this->error_code = (int) $response->code;
+			}
 		}
 
 		return $response;
@@ -394,12 +407,30 @@ class MC4WP_API {
 	}
 
 	/**
+	 * Gets the most recent error code
+	 *
+	 * @return int
+	 */
+	public function get_error_code() {
+		return $this->error_code;
+	}
+
+	/**
 	 * Get the most recent response object
 	 *
 	 * @return object
 	 */
 	public function get_last_response() {
 		return $this->last_response;
+	}
+
+	/**
+	 * Empties all data from previous response
+	 */
+	private function empty_last_response() {
+		$this->last_response = null;
+		$this->error_code = 0;
+		$this->error_message = '';
 	}
 
 }
