@@ -70,6 +70,7 @@ form.mc4wp-form,
 }
 
 .mc4wp-form input[type="submit"],
+.mc4wp-form input[type="button"],
 .mc4wp-form button {
   display: inline-block;
   padding: 6px 12px;
@@ -97,6 +98,7 @@ form.mc4wp-form,
 }
 
 .mc4wp-form input[type="submit"]:focus,
+.mc4wp-form input[type="button"]:focus,
 .mc4wp-form button:focus {
   outline: thin dotted #333;
   outline: 5px auto -webkit-focus-ring-color;
@@ -104,8 +106,10 @@ form.mc4wp-form,
 }
 
 .mc4wp-form input[type="submit"]:hover,
+.mc4wp-form input[type="button"]:hover,
 .mc4wp-form button:hover,
 .mc4wp-form input[type="submit"]:focus,
+.mc4wp-form input[type="button"]:focus,
 .mc4wp-form button:focus {
   color: #333333;
   text-decoration: none;
@@ -113,6 +117,7 @@ form.mc4wp-form,
 }
 
 .mc4wp-form input[type="submit"]:active,
+.mc4wp-form input[type="button"]:active,
 .mc4wp-form button:active {
   background-image: none;
   outline: 0;
