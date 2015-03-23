@@ -161,24 +161,24 @@ abstract class MC4WP_Integration {
 
 		}
 
-		$content = '<!-- MailChimp for WP v'. MC4WP_LITE_VERSION .' - https://mc4wp.com/ -->';
-
-		do_action( 'mc4wp_before_checkbox' );
+		// before checkbox HTML (comment, ...)
+		$before = '<!-- MailChimp for WordPress v'. MC4WP_LITE_VERSION .' - https://mc4wp.com/ -->';
+		$before .= apply_filters( 'mc4wp_before_checkbox', '', $this->type );
 
 		// checkbox
-		$content .= '<p id="mc4wp-checkbox">';
+		$content = '<p id="mc4wp-checkbox" class="mc4wp-checkbox-' . $this->type .'">';
 		$content .= '<label>';
 		$content .= '<input type="checkbox" name="'. esc_attr( $this->checkbox_name ) .'" value="1" '. $checked . ' /> ';
 		$content .= $label;
 		$content .= '</label>';
 		$content .= '</p>';
 
-		// honeypot
-		$content .= '<textarea name="_mc4wp_required_but_not_really" style="display: none !important;"></textarea>';
+		// after checkbox HTML (..., honeypot, closing comment)
+		$after = apply_filters( 'mc4wp_after_checkbox', '', $this->type );
+		$after .= '<textarea name="_mc4wp_required_but_not_really" style="display: none !important;"></textarea>';
+		$after .= '<!-- / MailChimp for WordPress -->';
 
-		do_action( 'mc4wp_after_checkbox' );
-
-		return $content;
+		return $before . $content . $after;
 	}
 
 	/**
