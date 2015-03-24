@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-02-25 06:33:40+00:00\n"
-"PO-Revision-Date: 2015-03-16 09:54+0000\n"
+"PO-Revision-Date: 2015-03-17 08:45+0000\n"
 "Last-Translator: Ondra <subrt.ondra@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/projects/p/mailchimp-for-wordpress/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
@@ -151,7 +151,7 @@ msgstr "Registrace do BuddyPress"
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:694
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:698
 msgid "%s checkout"
-msgstr ""
+msgstr "%s pokladna"
 
 #: mailchimp-for-wordpress/includes/class-admin.php:440
 msgid ""
@@ -548,7 +548,7 @@ msgstr "Za doplňkovými informacemi"
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:129
 msgid ""
 "Choose the position for the checkbox in your WooCommerce checkout form."
-msgstr ""
+msgstr "Zvolte polohu pro checkbox v platební stránce ve WooVommerce "
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:15
 msgid ""
@@ -1672,27 +1672,27 @@ msgstr "Výchozí hlášky"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:15
 msgid "Today"
-msgstr ""
+msgstr "Dnes"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:16
 msgid "Yesterday"
-msgstr ""
+msgstr "Včera"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:17
 msgid "Last Week"
-msgstr ""
+msgstr "Poslední týden"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:18
 msgid "Last Month"
-msgstr ""
+msgstr "Poslední měsíc"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:19
 msgid "Last Quarter"
-msgstr ""
+msgstr "Poslední  čtvrtletí"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:20
 msgid "Last Year"
-msgstr ""
+msgstr "Poslední rok"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:21
 msgid "Custom"
@@ -1700,67 +1700,67 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:25
 msgid "From"
-msgstr ""
+msgstr "Od"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:32
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:57
 msgid "Jan"
-msgstr ""
+msgstr "Leden"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:33
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:58
 msgid "Feb"
-msgstr ""
+msgstr "Únor"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:34
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:59
 msgid "Mar"
-msgstr ""
+msgstr "Březen"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:35
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:60
 msgid "Apr"
-msgstr ""
+msgstr "Duben"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:36
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:61
 msgid "May"
-msgstr ""
+msgstr "Květen"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:37
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:62
 msgid "Jun"
-msgstr ""
+msgstr "Červen"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:38
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:63
 msgid "Jul"
-msgstr ""
+msgstr "Červenec"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:39
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:64
 msgid "Aug"
-msgstr ""
+msgstr "Srpen"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:40
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:65
 msgid "Sep"
-msgstr ""
+msgstr "Září"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:41
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:66
 msgid "Oct"
-msgstr ""
+msgstr "Říjen"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:42
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:67
 msgid "Nov"
-msgstr ""
+msgstr "Listopad"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:43
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:68
 msgid "Dec"
-msgstr ""
+msgstr "Prosinec"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:50
 msgid "To"
@@ -1768,11 +1768,11 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:76
 msgid "Filter"
-msgstr ""
+msgstr "Filtr"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:83
 msgid "Show these lines:"
-msgstr ""
+msgstr "Ukázat tyto řádky:"
 
 #. Plugin URI of the plugin/theme
 msgid "https://mc4wp.com/"
@@ -1780,7 +1780,7 @@ msgstr "https://mc4wp.com/"
 
 #. Description of the plugin/theme
 msgid "Adds various sign-up methods to your website."
-msgstr ""
+msgstr "Přidá na váš web různé registrační metody"
 
 #. Author of the plugin/theme
 msgid "Danny van Kooten"
