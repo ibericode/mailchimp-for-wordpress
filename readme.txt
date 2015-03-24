@@ -3,8 +3,8 @@ Contributors: DvanKooten, iMazed
 Donate link: https://mc4wp.com/
 Tags: mailchimp,contact form 7,woocommerce,buddypress,newsletter,newsletter form,mailchimp form,widget,contact form,subscribe,shortcode,form,multisite,events manager,easy digital downloads,registration form,captcha,newsletter sign up,mailchimp for wordpress,mailchimp for wp,mailchimp sign-up,mailchimp subscribe,email
 Requires at least: 3.7
-Tested up to: 4.1.1
-Stable tag: 2.2.7
+Tested up to: 4.2
+Stable tag: 2.2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -285,6 +285,24 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 8. **Pro only:** Create your own CSS styles with the form designer in the Pro version.
 
 == Changelog ==
+
+= 2.2.8 - March 24, 2015 =
+
+**Fixes**
+
+- API key field value was not properly escaped.
+- Background images were stripped from submit buttons.
+
+**Improvements**
+
+- Better sanitising of all settings
+- Updated all translations
+
+**Additions**
+
+- Added `mc4wp_before_checkbox` and `mc4wp_after_checkbox` filters to easily add more fields to sign-up checkbox integrations.
+- Added some helper methods related to interest groupings to `MC4WP_MailChimp` class.
+- Allow setting custom MailChimp lists to subscribe to using `lists` attribute on shortcode.
 
 = 2.2.7 - March 11, 2015 =
 
@@ -781,6 +799,6 @@ Minor improvements and additions for compatibility with the [MailChimp Sync plug
 
 == Upgrade Notice ==
 
-= 2.2.7 =
+= 2.2.8 =
 
-Fixes an issue where an additional (honeypot) field is visible for some themes or plugin templates. Updated translations.
+Updated translations & addition of some convenient helper methods & filters.
