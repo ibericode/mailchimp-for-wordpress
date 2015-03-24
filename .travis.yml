@@ -9,7 +9,6 @@ install:
 - composer install --dev
 script:
 - composer run-script test
-- if [[ "$PHPLINT" == "1" ]]; then composer run-script test-coverage-reporter; fi
 - if [[ "$PHPLINT" == "1" ]]; then composer run-script check-codestyle; fi
 env:
   global:
