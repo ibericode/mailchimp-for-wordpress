@@ -108,8 +108,8 @@ class MC4WP_Lite_Form_Manager {
 	* Load the form stylesheet(s)
 	*/
 	public function load_stylesheet( ) {
-		
-		if( $this->options['css'] == false ) {
+
+		if ( $this->options['css'] == false ) {
 			return false;
 		}
 

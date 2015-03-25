@@ -26,12 +26,12 @@ class MC4WP_API {
 	/**
 	 * @var string
 	 */
-	private $error_message = '';
+	protected $error_message = '';
 
 	/**
 	 * @var int
 	 */
-	private $error_code = 0;
+	protected $error_code = 0;
 
 	/**
 	 * @var boolean

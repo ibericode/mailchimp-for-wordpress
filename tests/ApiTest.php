@@ -18,6 +18,15 @@ class ApiDebug extends MC4WP_API {
 	 * Overwrite `call` method to just store test reponse right away.
 	 */
 	public function call( $method, array $data = array() ) {
+
+		if( isset( $this->response->error ) ) {
+			$this->error_message = $this->response->error;
+		}
+
+		if( isset( $this->response->code ) ) {
+			$this->error_code = (int) $this->response->code;
+		}
+
 		return $this->response;
 	}
 
@@ -146,7 +155,7 @@ class ApiTest extends PHPUnit_Framework_TestCase {
 		$this->assertFalse( $this->api->has_error() );
 
 		// error should be stored after failed API request
-		$this->api->set_response( (object) array( 'error' => 'error message', 'code' => '-99' ) );
+		$this->api->set_response( (object) array( 'error' => 'error message', 'code' => -99 ) );
 		$this->api->subscribe( 'sample_list_id', 'sample_email' );
 		$this->assertTrue( $this->api->has_error() );
 	}
@@ -159,7 +168,7 @@ class ApiTest extends PHPUnit_Framework_TestCase {
 		$this->assertEmpty( $this->api->get_error_message() );
 
 		// error should be stored after failed API request
-		$this->api->set_response( (object) array( 'error' => 'error message', 'code' => '-99' ) );
+		$this->api->set_response( (object) array( 'error' => 'error message', 'code' => -99 ) );
 		$this->api->subscribe( 'sample_list_id', 'sample_email' );
 		$this->assertEquals( $this->api->get_error_message(), 'error message' );
 	}
