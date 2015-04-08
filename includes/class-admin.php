@@ -212,7 +212,7 @@ class MC4WP_Lite_Admin
 		$menu_items = apply_filters( 'mc4wp_menu_items', $menu_items );
 
 		// add top menu item
-		add_menu_page( 'MailChimp for WP Lite', 'MailChimp for WP', $required_cap, 'mailchimp-for-wp', array($this, 'show_api_settings'), MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png' );
+		add_menu_page( 'MailChimp for WP Lite', 'MailChimp for WP', $required_cap, 'mailchimp-for-wp', array( $this, 'show_api_settings' ), MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png', '99.68491' );
 
 		// add submenu pages
 		foreach( $menu_items as $item ) {
