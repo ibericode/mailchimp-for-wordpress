@@ -7,3 +7,8 @@
 /tests              export-ignore
 /Gruntfile.js       export-ignore
 /codesniffer.xml    export-ignore
+/composer.lock		export-ignore
+/README.md			export-ignore
+/vendor				export-ignore
+/build				export-ignore
+/node_modules/*		export-ignore
