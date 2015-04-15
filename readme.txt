@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/
 Tags: mailchimp,contact form 7,woocommerce,buddypress,newsletter,newsletter form,mailchimp form,widget,contact form,subscribe,shortcode,form,multisite,events manager,easy digital downloads,registration form,captcha,newsletter sign up,mailchimp for wordpress,mailchimp for wp,mailchimp sign-up,mailchimp subscribe,email
 Requires at least: 3.7
 Tested up to: 4.2
-Stable tag: 2.2.8
+Stable tag: 2.2.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,7 @@ There are several add-on plugins available for MailChimp for WordPress, which he
 
 - [MailChimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/) - Adds an eye-catching sticky top bar  to your site, asking people to subscribe to your MailChimp list.
 - [MailChimp Sync](https://wordpress.org/plugins/mailchimp-sync/) -  Synchronizes your WordPress users with a MailChimp list.
+- [Scroll Triggered Boxes](https://wordpress.org/plugins/scroll-triggered-boxes/) - Unobtrusive boxes which slide-in once visitors scroll past a certain point, asking visitors to sign-up to your MailChimp list.
 
 **Translations**
 
@@ -285,6 +286,16 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 8. **Pro only:** Create your own CSS styles with the form designer in the Pro version.
 
 == Changelog ==
+
+= 2.2.9 - April 15, 2015 =
+
+**Fixes**
+
+- Menu item for settings page not appearing on Google App Engine
+
+**Improvements**
+
+- Updated Italian, Russian & Turkish translations. [Want to help translate the plugin? Full translations get a free Pro license](https://www.transifex.com/projects/p/mailchimp-for-wordpress/).
 
 = 2.2.8 - March 24, 2015 =
 
@@ -799,6 +810,5 @@ Minor improvements and additions for compatibility with the [MailChimp Sync plug
 
 == Upgrade Notice ==
 
-= 2.2.8 =
-
-Updated translations & addition of some convenient helper methods & filters.
+= 2.2.9 =
+Updated Italian, Russian & Turkish translations.
