@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-02-25 06:33:40+00:00\n"
-"PO-Revision-Date: 2015-02-25 10:40+0000\n"
+"PO-Revision-Date: 2015-03-28 11:35+0000\n"
 "Last-Translator: Adriano <adrygese@gmail.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/mailchimp-for-wordpress/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
@@ -1388,7 +1388,7 @@ msgstr "Log"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:47
 msgid "Log Items"
-msgstr ""
+msgstr "Voci di Registro"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:76
 msgid "Email"
@@ -1422,7 +1422,7 @@ msgstr "Log elementi eliminati."
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:297
 msgid "Top Bar"
-msgstr ""
+msgstr "Barra Superiore"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:305
 msgid "MultiSite registration"
@@ -1695,7 +1695,7 @@ msgstr "Scorso Anno"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:21
 msgid "Custom"
-msgstr ""
+msgstr "Personalizzato"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:25
 msgid "From"
