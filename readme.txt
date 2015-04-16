@@ -291,7 +291,7 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 
 **Fixes**
 
-- Menu item for settings page not appearing on Google App Engine
+- Menu item for settings page not appearing on Google App Engine ([#88](https://github.com/dannyvankooten/mailchimp-for-wordpress/issues/88))
 
 **Improvements**
 
