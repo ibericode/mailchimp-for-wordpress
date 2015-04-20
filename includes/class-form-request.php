@@ -99,7 +99,7 @@ class MC4WP_Lite_Form_Request {
 		if( $this->is_valid ) {
 
 			// add some data to the posted data, like FNAME and LNAME
-			$this->data = $this->guess_missing_fields( $this->data );
+			$this->data = MC4WP_Tools::guess_merge_vars( $this->data );
 
 			// map fields to corresponding MailChimp lists
 			if( $this->map_data( $this->data ) ) {
