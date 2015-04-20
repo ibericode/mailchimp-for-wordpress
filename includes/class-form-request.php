@@ -217,28 +217,23 @@ class MC4WP_Lite_Form_Request {
 	}
 
 	/**
-	 * Guesses the value of some fields.
+	 * Get the final Redirect URL with replaced variables
 	 *
-	 * - FNAME and LNAME, if NAME is given
-	 *
-	 * @param array $data
-	 * @return array
+	 * @return string
 	 */
-	public function guess_missing_fields( $data ) {
+	protected function get_redirect_url() {
 
-		// fill FNAME and LNAME if they're not set, but NAME is.
-		if( isset( $data['NAME'] ) && ! isset( $data['FNAME'] ) && ! isset( $data['LNAME'] ) ) {
+		$needles = array(
+			'{form_id}',
+			'{email}',
+		);
+		$replacements = array(
+			$this->data['_MC4WP_FORM_ID'],
+			$this->data['EMAIL'],
+		);
+		$url = str_ireplace( $needles, $replacements, $this->form_options['redirect'] );
 
-			$strpos = strpos( $data['NAME'], ' ' );
-			if( $strpos !== false ) {
-				$data['FNAME'] = substr( $data['NAME'], 0, $strpos );
-				$data['LNAME'] = substr( $data['NAME'], $strpos );
-			} else {
-				$data['FNAME'] = $data['NAME'];
-			}
-		}
-
-		return $data;
+		return $url;
 	}
 
 	/**
@@ -261,10 +256,8 @@ class MC4WP_Lite_Form_Request {
 			do_action( 'mc4wp_form_success', 0, $this->data['EMAIL'], $this->data );
 
 			// check if we want to redirect the visitor
-			if ( ! empty( $this->form_options['redirect'] ) ) {
-
-				$redirect_url = add_query_arg( array( 'mc4wp_email' => urlencode( $this->data['EMAIL'] ) ), $this->form_options['redirect'] );
-				wp_redirect( $redirect_url );
+			if ( '' !== $this->form_options['redirect'] ) {
+				wp_redirect( $this->get_redirect_url() );
 				exit;
 			}
 
