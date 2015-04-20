@@ -18,7 +18,7 @@ abstract class MC4WP_User_Integration extends MC4WP_Integration {
 
 		// start with user_login as name, since that's always known
 		$merge_vars = array(
-			'NAME' => $user->user_login
+			'NAME' => $user->user_login,
 		);
 
 		if( '' !== $user->firstname ) {

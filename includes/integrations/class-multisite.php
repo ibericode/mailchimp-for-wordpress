@@ -38,7 +38,7 @@ class MC4WP_MultiSite_Integration extends MC4WP_User_Integration {
 	 * @param int $user_id
 	 * @return boolean
 	 */
-	public function on_multisite_blog_signup( $blog_id, $user_id, $a, $b , $meta = null ) {
+	public function on_multisite_blog_signup( $blog_id, $user_id, $a, $b, $meta = null ) {
 		// was sign-up checkbox checked?
 		if ( ! isset( $meta['_mc4wp_subscribe'] ) || $meta['_mc4wp_subscribe'] !== 1 ) {
 			return false;

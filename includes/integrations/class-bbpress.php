@@ -48,7 +48,7 @@ class MC4WP_bbPress_Integration extends MC4WP_User_Integration {
 
 			$email = $anonymous_data['bbp_anonymous_email'];
 			$merge_vars = array(
-				'NAME' => $anonymous_data['bbp_anonymous_name']
+				'NAME' => $anonymous_data['bbp_anonymous_name'],
 			);
 
 		} elseif ( $user_id ) {
