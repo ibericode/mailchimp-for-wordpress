@@ -7,7 +7,7 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 	exit;
 }
 
-class MC4WP_BuddyPress_Integration extends MC4WP_Integration {
+class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 
 	protected $type = 'buddypress_form';
 
@@ -20,13 +20,13 @@ class MC4WP_BuddyPress_Integration extends MC4WP_Integration {
 	}
 
 	/**
-	* Subscribes from BuddyPress Registration Form
-	* @param int $user_id
-	* @param string $user_login
-	* @param string $user_password
-	* @param string $user_email
-	* @param array $usermeta
-	*/
+	 * Subscribes from BuddyPress Registration Form
+	 * @param int $user_id
+	 * @param string $user_login
+	 * @param string $user_password
+	 * @param string $user_email
+	 * @param array $usermeta
+	 */
 	public function subscribe_from_buddypress( $user_id, $user_login, $user_password, $user_email ) {
 
 		if( $this->is_spam() ) {
@@ -37,14 +37,18 @@ class MC4WP_BuddyPress_Integration extends MC4WP_Integration {
 			return false;
 		}
 
+		$user = get_userdata( $user_id );
+
+		// was a user found with the given ID?
+		if ( ! $user ) {
+			return false;
+		}
+
 		// gather emailadress and name from user who BuddyPress registered
-		$email = $user_email;
+		$email = $user->user_email;
+		$merge_vars = $this->user_merge_vars( $user );
 
-		$merge_vars = array(
-			'NAME' => $user_login,
-		);
-
-		return $this->subscribe( $email, $merge_vars, 'buddypress_registration' );
+		return $this->subscribe( $email, $merge_vars, 'buddypress_registration', $user_id );
 	}
 	/* End BuddyPress functions */
 

@@ -79,14 +79,16 @@ class MC4WP_Lite {
 
 	        $classes = array(
 		        'MC4WP_API'                             => 'class-api.php',
-		        'MC4WP_Lite_Checkbox_Manager'                => 'class-checkbox-manager.php',
-		        'MC4WP_Lite_Form_Manager'                    => 'class-form-manager.php',
-		        'MC4WP_Lite_Form_Request'                    => 'class-form-request.php',
-		        'MC4WP_Lite_Widget'                          => 'class-widget.php',
-		        'MC4WP_MailChimp'                            => 'class-mailchimp.php',
+		        'MC4WP_Lite_Checkbox_Manager'           => 'class-checkbox-manager.php',
+		        'MC4WP_Lite_Form_Manager'               => 'class-form-manager.php',
+		        'MC4WP_Lite_Form_Request'               => 'class-form-request.php',
+		        'MC4WP_Lite_Widget'                     => 'class-widget.php',
+		        'MC4WP_MailChimp'                       => 'class-mailchimp.php',
+		        'MC4WP_Tools'                           => 'class-tools.php',
 
 		        // integrations
 		        'MC4WP_Integration'                     => 'integrations/class-integration.php',
+		        'MC4WP_User_Integration'                => 'integrations/class-user-integration.php',
 		        'MC4WP_bbPress_Integration'             => 'integrations/class-bbpress.php',
 		        'MC4WP_BuddyPress_Integration'          => 'integrations/class-buddypress.php',
 		        'MC4WP_CF7_Integration'                 => 'integrations/class-cf7.php',

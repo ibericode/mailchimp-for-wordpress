@@ -21,11 +21,11 @@ abstract class MC4WP_Integration {
 	/**
 	 * @var array
 	 */
-	private $options;
+	protected $options;
 
 	/**
-	* Constructor
-	*/
+	 * Constructor
+	 */
 	public function __construct() {
 		$this->checkbox_name = '_mc4wp_subscribe' . '_' . $this->type;
 	}
@@ -120,23 +120,23 @@ abstract class MC4WP_Integration {
 	}
 
 	/**
-	* @return bool
-	*/
+	 * @return bool
+	 */
 	public function checkbox_was_checked() {
 		return ( isset( $_POST[ $this->checkbox_name ] ) && $_POST[ $this->checkbox_name ] == 1 );
 	}
 
 	/**
-	* Outputs a checkbox
-	*/
+	 * Outputs a checkbox
+	 */
 	public function output_checkbox() {
 		echo $this->get_checkbox();
 	}
 
 	/**
-	* @param mixed $args Array or string
-	* @return string
-	*/
+	 * @param mixed $args Array or string
+	 * @return string
+	 */
 	public function get_checkbox( $args = array() ) {
 
 		$checked = ( $this->is_prechecked() ) ? 'checked ' : '';
@@ -150,14 +150,14 @@ abstract class MC4WP_Integration {
 		}
 
 		// CF7 checkbox?
-		if( is_array( $args ) && isset( $args['type'] ) ) {
+		if( is_array( $args ) && isset( $args['options'] ) ) {
 
 			// check for default:0 or default:1 to set the checked attribute
-		 	if( in_array( 'default:1', $args['options'] ) ) {
-		 		$checked = 'checked';
-		 	} else if( in_array( 'default:0', $args['options'] ) ) {
-		 		$checked = '';
-		 	}
+			if( in_array( 'default:1', $args['options'] ) ) {
+				$checked = 'checked';
+			} else if( in_array( 'default:0', $args['options'] ) ) {
+				$checked = '';
+			}
 
 		}
 
@@ -168,7 +168,7 @@ abstract class MC4WP_Integration {
 		// checkbox
 		$content = '<p id="mc4wp-checkbox" class="mc4wp-checkbox-' . $this->type .'">';
 		$content .= '<label>';
-		$content .= '<input type="checkbox" name="'. esc_attr( $this->checkbox_name ) .'" value="1" '. $checked . ' /> ';
+		$content .= '<input type="checkbox" name="'. esc_attr( $this->checkbox_name ) .'" value="1" '. $checked . '/> ';
 		$content .= $label;
 		$content .= '</label>';
 		$content .= '</p>';
@@ -208,21 +208,18 @@ abstract class MC4WP_Integration {
 		// allow plugins to filter final
 		$lists = apply_filters( 'mc4wp_lists', $lists );
 
-		return (array) $lists;
+		return $lists;
 	}
-
 
 	/**
 	 * Makes a subscription request
 	 *
 	 * @param string $email
-	 * @param array  $merge_vars
-	 * @param string $type
-	 * @param null   $related_object_id
-	 *
-	 * @return bool
+	 * @param array $merge_vars
+	 * @param int $related_object_ID
+	 * @return string|boolean
 	 */
-	protected function subscribe( $email, array $merge_vars = array(), $type = '', $related_object_id = null ) {
+	protected function subscribe( $email, array $merge_vars = array(), $type = '', $related_object_id = 0 ) {
 
 		$type = ( '' !== $type ) ? $type : $this->type;
 
@@ -231,6 +228,8 @@ abstract class MC4WP_Integration {
 		$lists = $this->get_lists();
 
 		if( empty( $lists) ) {
+
+			// show helpful error message to admins, but only if not using ajax
 			if( $this->show_error_messages() ) {
 				wp_die(
 					'<h3>' . __( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ) . '</h3>' .
@@ -244,17 +243,7 @@ abstract class MC4WP_Integration {
 			return 'no_lists_selected';
 		}
 
-		// maybe guess first and last name
-		if ( isset( $merge_vars['NAME'] ) && ! isset( $merge_vars['FNAME'] ) && ! isset( $merge_vars['LNAME'] ) ) {
-
-			$strpos = strpos( $merge_vars['NAME'], ' ' );
-			if ( $strpos !== false ) {
-				$merge_vars['FNAME'] = substr( $merge_vars['NAME'], 0, $strpos );
-				$merge_vars['LNAME'] = substr( $merge_vars['NAME'], $strpos );
-			} else {
-				$merge_vars['FNAME'] = $merge_vars['NAME'];
-			}
-		}
+		$merge_vars = MC4WP_Tools::guess_merge_vars( $merge_vars );
 
 		// set ip address
 		if( ! isset( $merge_vars['OPTIN_IP'] ) && isset( $_SERVER['REMOTE_ADDR'] ) ) {
@@ -292,7 +281,7 @@ abstract class MC4WP_Integration {
 		do_action( 'mc4wp_before_subscribe', $email, $merge_vars );
 
 		foreach( $lists as $list_id ) {
-			$result = $api->subscribe( $list_id, $email, $merge_vars, $email_type, $opts['double_optin'], false, true, $opts['send_welcome'] );
+			$result = $api->subscribe( $list_id, $email, $merge_vars, $email_type, $opts['double_optin'], $opts['update_existing'], true, $opts['send_welcome'] );
 			do_action( 'mc4wp_subscribe', $email, $list_id, $merge_vars, $result, 'checkbox', $type, $related_object_id );
 		}
 
@@ -306,7 +295,7 @@ abstract class MC4WP_Integration {
 		 */
 		do_action( 'mc4wp_after_subscribe', $email, $merge_vars, $result );
 
-		// check if result succeeded, show debug message to administrators (only in NON-AJAX requests)
+		// if result failed, show error message (only to admins for non-AJAX)
 		if ( $result !== true && $api->has_error() && $this->show_error_messages() ) {
 			wp_die( '<h3>' . __( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ) . '</h3>' .
 				'<p>' . __( 'The MailChimp server returned the following error message as a response to our sign-up request:', 'mailchimp-for-wp' ) . '</p>' .
