@@ -87,6 +87,7 @@ class MC4WP_Lite {
 		        'MC4WP_Tools'                           => 'class-tools.php',
 		        'MC4WP_Form'                            => 'class-form.php',
 		        'MC4WP_Form_Validator'                  => 'class-form-validator.php',
+		        'MC4WP_Field_Mapper'                    => 'class-field-mapper.php',
 
 		        // integrations
 		        'MC4WP_Integration'                     => 'integrations/class-integration.php',
