@@ -110,7 +110,7 @@ class MC4WP_Lite_Form_Request {
 			$this->data = MC4WP_Tools::guess_merge_vars( $this->data );
 
 			// map fields to MailChimp list(s) and proceed if successful
-			if( $this->map_data( $this->data ) ) {
+			if( $this->map_data() ) {
 
 				// subscribe using the processed data
 				$this->success = $this->subscribe( $this->list_fields_map );
