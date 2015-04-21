@@ -1,0 +1,384 @@
+<?php
+
+class MC4WP_Form {
+
+	/**
+	 * @var MC4WP_Form
+	 */
+	private static $instance;
+
+	/**
+	 * @param MC4WP_Lite_Form_Request $request
+	 * @return MC4WP_Form|null
+	 */
+	public static function get( MC4WP_Lite_Form_Request $request = null ) {
+
+		// has instance been created already?
+		if( self::$instance ) {
+			$form = self::$instance;
+		} else {
+			// create a new instance
+			$form = new MC4WP_Form( $request );
+			self::$instance = $form;
+		}
+
+		// attach request to form
+		if( $request && ! $form->has_request( $request ) ) {
+			$form->attach_request( $request );
+		}
+
+		return $form;
+
+	}
+
+	/**
+	 * @var int
+	 */
+	public $ID = 0;
+
+	/**
+	 * @var string
+	 */
+	public $content = '';
+
+	/**
+	 * @var array
+	 */
+	public $settings = array();
+
+	/**
+	 * @var MC4WP_Lite_Form_Request
+	 */
+	public $request;
+
+	/**
+	 * @param MC4WP_Lite_Form_Request $request
+	 */
+	private function __construct( MC4WP_Lite_Form_Request $request = null ) {
+		$this->ID = 0;
+		$this->name = 'Default Form';
+		$this->settings = $this->load_settings();
+		$this->content = $this->settings['markup'];
+		$this->request = $request;
+	}
+
+	/**
+	 * Simple check to see if form contains a given field type
+	 *
+	 * @param $field_type
+	 *
+	 * @return bool
+	 */
+	public function contains_field_type( $field_type ) {
+		$html = sprintf( ' type="%s" ', $field_type );
+		return stristr( $this->content, $html ) !== false;
+	}
+
+
+	/**
+	 * @param string $element_id
+	 * @param array $attributes
+	 * @return string
+	 */
+	public function get_visible_fields( $element_id, array $attributes = array() ) {
+
+		$replacements = array(
+			'{n}' => $element_id
+		);
+
+		$visible_fields = MC4WP_Tools::replace_variables( $this->content, $replacements );
+
+		// subscriber count? only fetch these if the tag is actually used
+		if ( stristr( $visible_fields, '{subscriber_count}' ) !== false ) {
+			$mailchimp = new MC4WP_MailChimp();
+			$subscriber_count = $mailchimp->get_subscriber_count( array_values( $this->settings['lists'] ) );
+			$visible_fields = str_ireplace( '{subscriber_count}', $subscriber_count, $visible_fields );
+		}
+
+		// insert captcha
+		if( function_exists( 'cptch_display_captcha_custom' ) ) {
+			$captcha_fields = '<input type="hidden" name="_mc4wp_has_captcha" value="1" /><input type="hidden" name="cntctfrm_contact_action" value="true" />' . cptch_display_captcha_custom();
+			$visible_fields = str_ireplace( array( '{captcha}', '[captcha]' ), $captcha_fields, $visible_fields );
+		}
+
+		/**
+		 * @filter mc4wp_form_content
+		 * @param int $form_id The ID of the form that is being shown
+		 * @expects string
+		 *
+		 * Can be used to customize the content of the form mark-up, eg adding additional fields.
+		 */
+		$visible_fields = (string) apply_filters( 'mc4wp_form_content', $visible_fields, $this->ID );
+
+		return $visible_fields;
+	}
+
+	/**
+	 * @param string $element_id
+	 * @param array $attributes Attributes passed to the shortcode
+	 * @return string
+	 */
+	public function get_hidden_fields( $element_id, $attributes = array() ) {
+
+		// hidden fields
+		$hidden_fields = '<input type="text" name="_mc4wp_required_but_not_really" value="" />';
+		$hidden_fields .= '<input type="hidden" name="_mc4wp_timestamp" value="'. time() . '" />';
+		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_id" value="'. $this->ID .'" />';
+		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_element_id" value="'. esc_attr( $element_id ) .'" />';
+		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_submit" value="1" />';
+		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_nonce" value="'. wp_create_nonce( '_mc4wp_form_nonce' ) .'" />';
+
+
+		// was "lists" parameter passed in shortcode arguments?
+		if( isset( $attributes['lists'] ) && ! empty( $attributes['lists'] ) ) {
+			$lists_string = ( is_array( $attributes['lists'] ) ) ? join( ',', $attributes['lists'] ) : $attributes['lists'];
+			$hidden_fields .= '<input type="hidden" name="_mc4wp_lists" value="'. $lists_string . '" />';
+		}
+
+		return (string) $hidden_fields;
+	}
+
+	/**
+	 * Is this form submitted?
+	 * @param string $element_id
+	 * @return bool
+	 */
+	public function is_submitted( $element_id = null ) {
+
+		// is this form (any instance) submitted)
+		$form_submitted = $this->request instanceof MC4WP_Lite_Form_Request;
+
+		// if an element ID is given, only return true if that specific element is submitted
+		if( $element_id ) {
+			return ( $form_submitted && $this->request->get_form_element_id() == $element_id );
+		}
+
+		return $form_submitted;
+	}
+
+	/**
+	 * @param string $element_id
+	 * @param array $attributes
+	 * @return string
+	 */
+	public function generate_html( $element_id = 'mc4wp-form', array $attributes = array() ) {
+
+		// Start building content string
+		$opening_html = '<!-- MailChimp for WordPress v' . MC4WP_LITE_VERSION . ' - https://wordpress.org/plugins/mailchimp-for-wp/ -->';
+		$opening_html .= '<div id="' . esc_attr( $element_id ) . '" class="' . esc_attr( $this->get_css_classes( $element_id ) ) . '">';
+
+		// Generate before & after fields HTML
+		$before_form = apply_filters( 'mc4wp_form_before_form', '' );
+		$after_form = apply_filters( 'mc4wp_form_after_form', '' );
+
+		$form_opening_html = '';
+		$form_closing_html = '';
+
+		$visible_fields = '';
+		$hidden_fields = '';
+
+		$before_fields = apply_filters( 'mc4wp_form_before_fields', '' );
+		$after_fields = apply_filters( 'mc4wp_form_after_fields', '' );
+
+		$response_html = '';
+
+		// only generate form & fields HTML if necessary
+		if( ! $this->is_submitted( $element_id )
+		    || ! $this->settings['hide_after_success']
+		    || ! $this->request->is_successful() ) {
+
+			$form_opening_html = '<form method="post">';
+			$visible_fields = $this->get_visible_fields( $element_id, $attributes );
+			$hidden_fields = $this->get_hidden_fields( $element_id, $attributes );
+			$form_closing_html = '</form>';
+		}
+
+		if( $this->is_submitted( $element_id ) ) {
+			$response_html .= $this->request->get_response_html();
+		}
+
+		// add form response to content, if no {response} tag present
+		if( '' !== $response_html
+		    && ( stristr( $visible_fields, '{response}' ) === false
+		         || $this->settings['hide_after_success'] ) ) {
+
+			/**
+			 * @filter mc4wp_form_message_position
+			 * @expects string before|after
+			 *
+			 * Can be used to change the position of the form success & error messages.
+			 * Valid options are 'before' or 'after'
+			 */
+			$message_position = apply_filters( 'mc4wp_form_message_position', 'after' );
+
+			switch( $message_position ) {
+				case 'before':
+					$before_form = $before_form . $response_html;
+					break;
+
+				case 'after':
+					$after_form = $response_html . $after_form;
+					break;
+			}
+
+			// reset response html, we only need it once
+			$response_html = '';
+		}
+
+		// Always replace {response} tag, either with empty string or actual response
+		$visible_fields = str_ireplace( '{response}', $response_html, $visible_fields );
+
+		$closing_html = '</div><!-- / MailChimp for WP Pro Plugin -->';
+
+		ob_start();
+
+		// echo HTML parts of form
+		echo $opening_html;
+		echo $before_form;
+		echo $form_opening_html;
+		echo $before_fields;
+		echo $visible_fields;
+		echo $hidden_fields;
+		echo $after_fields;
+		echo $form_closing_html;
+		echo $after_form;
+		echo $closing_html;
+
+		$output = ob_get_contents();
+		ob_end_clean();
+
+		return $output;
+	}
+
+	/**
+	 * @param string $element_id
+	 * @param array $attributes
+	 * @param bool  $echo
+	 *
+	 * @return string
+	 */
+	public function output( $element_id = 'mc4wp-form', array $attributes = array(), $echo = true ) {
+
+		$html = $this->generate_html( $element_id, $attributes );
+
+		if( $echo ) {
+			echo $html;
+		}
+
+		return $html;
+	}
+
+
+	/**
+	 * Get a space separated list of CSS classes for this form
+	 *
+	 * @param string $element_id
+	 * @return string
+	 */
+	public function get_css_classes( $element_id ) {
+
+		/**
+		 * @filter mc4wp_form_css_classes
+		 * @expects array
+		 *
+		 * Can be used to add additional CSS classes to the form container
+		 */
+		$css_classes = apply_filters( 'mc4wp_form_css_classes', array( 'form' ) );
+
+		// the following classes MUST be used
+		$css_classes[] = 'mc4wp-form';
+
+		// Add form classes if this specific form instance was submitted
+		if( $this->is_submitted( $element_id ) ) {
+
+			$css_classes[] = 'mc4wp-form-submitted';
+
+			if( $this->request->is_successful() ) {
+				$css_classes[] = 'mc4wp-form-success';
+			} else {
+				$css_classes[] = 'mc4wp-form-error';
+			}
+
+		}
+
+		return implode( ' ', $css_classes );
+	}
+
+	/**
+	 * @return array
+	 */
+	public function load_settings() {
+		return mc4wp_get_options( 'form' );
+	}
+
+	/**
+	 * Returns the various error and success messages in array format
+	 *
+	 * Example:
+	 * array(
+	 *      'invalid_email' => array(
+	 *          'type' => 'css-class',
+	 *          'text' => 'Message text'
+	 *      ),
+	 *      ...
+	 * );
+	 *
+	 * @return array
+	 */
+	public function get_messages() {
+
+		$messages = array(
+			'already_subscribed' => array(
+				'type' => 'notice',
+				'text' => $this->settings['text_already_subscribed']
+			),
+			'error' => array(
+				'type' => 'error',
+				'text' => $this->settings['text_error']
+			),
+			'invalid_email' => array(
+				'type' => 'error',
+				'text' => $this->settings['text_invalid_email']
+			),
+			'success' => array(
+				'type' => 'success',
+				'text' => $this->settings['text_success']
+			),
+			'invalid_captcha' => array(
+				'type' => 'error',
+				'text' => $this->settings['text_invalid_captcha']
+			),
+			'required_field_missing' => array(
+				'type' => 'error',
+				'text' => $this->settings['text_required_field_missing']
+			)
+		);
+
+		/**
+		 * @filter mc4wp_form_messages
+		 * @expects array
+		 *
+		 * Allows registering custom form messages, useful if you're using custom validation using the `mc4wp_valid_form_request` filter.
+		 */
+		$messages = apply_filters( 'mc4wp_form_messages', $messages, $this->ID );
+
+		return (array) $messages;
+	}
+
+	/**
+	 * @param MC4WP_Form_Request $request
+	 *
+	 * @return bool
+	 */
+	protected function has_request( MC4WP_Lite_Form_Request $request ) {
+		return $this->request === $request;
+	}
+
+	/**
+	 * @param MC4WP_Form_Request $request
+	 */
+	protected function attach_request( MC4WP_Lite_Form_Request $request ) {
+		$this->request = $request;
+	}
+
+}

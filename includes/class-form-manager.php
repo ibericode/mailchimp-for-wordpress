@@ -19,7 +19,7 @@ class MC4WP_Lite_Form_Manager {
 	/**
 	* @var int
 	*/
-	private $form_instance_number = 1;
+	private $outputted_forms_count = 0;
 
 	/**
 	 * @var MC4WP_Form_Request|boolean
@@ -109,7 +109,7 @@ class MC4WP_Lite_Form_Manager {
 	*/
 	public function load_stylesheet( ) {
 
-		if ( $this->options['css'] == false ) {
+		if ( ! $this->options['css'] ) {
 			return false;
 		}
 
@@ -130,242 +130,61 @@ class MC4WP_Lite_Form_Manager {
 	}
 
 	/**
-	* Gets CSS classess to add to the form element
-	*
-	* @return string
-	*/
-	private function get_css_classes() {
-
-		/**
-		 * @filter mc4wp_form_css_classes
-		 * @expects array
-		 *
-		 * Can be used to add additional CSS classes to the form container
-		 */
-		$css_classes = apply_filters( 'mc4wp_form_css_classes', array( 'form' ) );
-
-		// the following classes MUST be used
-		$css_classes[] = 'mc4wp-form';
-
-		// Add form classes if a Form Request was captured
-		if( is_object( $this->form_request ) && $this->form_request->get_form_instance_number() === $this->form_instance_number ) {
-
-			$css_classes[] = 'mc4wp-form-submitted';
-
-			if( $this->form_request->is_successful() ) {
-				$css_classes[] = 'mc4wp-form-success';
-			} else {
-				$css_classes[] = 'mc4wp-form-error';
-			}
-
-		}
-
-		return implode( ' ', $css_classes );
-	}
-
-	/**
 	* Returns the MailChimp for WP form mark-up
 	*
-	* @param array $atts
+	* @param array $attributes
 	* @param string $content
 	*
 	* @return string
 	*/
-	public function output_form( $atts = array(), $content = '' ) {
+	public function output_form( $attributes = array(), $content = '' ) {
 
-		// make sure template functions are loaded
-		if ( ! function_exists( 'mc4wp_replace_variables' ) ) {
-			include_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/template.php';
+		global $is_IE;
+
+		// increase count of outputted forms
+		$this->outputted_forms_count++;
+
+		$attributes = shortcode_atts(
+			array(
+				'id' => 0,
+				'element_id' => 'mc4wp-form-' . $this->outputted_forms_count
+			),
+			$attributes,
+			'mc4wp_form'
+		);
+
+		// create or retrieve form instance
+		$form = MC4WP_Form::get();
+
+		// make sure to print date fallback later on if form contains a date field
+		if( $form->contains_field_type( 'date' ) ) {
+			$this->print_date_fallback = true;
 		}
 
-		// was this form submitted?
-		$was_submitted = ( is_object( $this->form_request ) && $this->form_request->get_form_instance_number() === $this->form_instance_number );
+		// was form submited?
+		if( $form->is_submitted( $attributes['element_id'] ) ) {
 
-		// Generate opening HTML
-		$opening_html = '<!-- Form by MailChimp for WordPress plugin v'. MC4WP_LITE_VERSION .' - https://mc4wp.com/ -->';
-		$opening_html .= '<div id="mc4wp-form-' . $this->form_instance_number . '" class="' . $this->get_css_classes() . '">';
-
-		// Generate before & after fields HTML
-		$before_form = apply_filters( 'mc4wp_form_before_form', '' );
-		$after_form = apply_filters( 'mc4wp_form_after_form', '' );
-
-		$form_opening_html = '';
-		$form_closing_html = '';
-
-		$visible_fields = '';
-		$hidden_fields = '';
-
-		$before_fields = apply_filters( 'mc4wp_form_before_fields', '' );
-		$after_fields = apply_filters( 'mc4wp_form_after_fields', '' );
-
-		// Process fields, if not submitted or not successfull or hide_after_success disabled
-		if( ! $was_submitted || ! $this->options['hide_after_success'] || ! $this->form_request->is_successful() ) {
-
-			$form_opening_html = '<form method="post">';
-			$visible_fields = $this->get_visible_form_fields();
-
-			// make sure to print date fallback later on if form contains a date field
-			if( $this->form_contains_field_type( $visible_fields, 'date' ) ) {
-				$this->print_date_fallback = true;
-			}
-
-			$hidden_fields = $this->get_hidden_form_fields( $atts );
-			$form_closing_html = '</form>';
-		}
-
-		// empty string for response
-		$response_html = '';
-
-		if( $was_submitted ) {
-
-			// Enqueue script (only after submit)
+			// enqueue scripts (in footer) if form was submited
 			wp_enqueue_script( 'mc4wp-form-request' );
 			wp_localize_script( 'mc4wp-form-request', 'mc4wpFormRequestData', array(
-					'success' => ( $this->form_request->is_successful() ) ? 1 : 0,
-					'formId' => $this->form_request->get_form_instance_number(),
-					'data' => $this->form_request->get_data()
+					'success' => ( $form->request->is_successful() ) ? 1 : 0,
+					'formElementId' => $form->request->get_form_element_id(),
+					'data' => $form->request->get_data()
 				)
 			);
 
-			// get actual response html
-			$response_html .= $this->form_request->get_response_html();
-
-			// add form response after or before fields if no {response} tag
-			if( stristr( $visible_fields, '{response}' ) === false || $this->options['hide_after_success']) {
-
-				/**
-				 * @filter mc4wp_form_message_position
-				 * @expects string before|after
-				 *
-				 * Can be used to change the position of the form success & error messages.
-				 * Valid options are 'before' or 'after'
-				 */
-				$message_position = apply_filters( 'mc4wp_form_message_position', 'after' );
-
-				switch( $message_position ) {
-					case 'before':
-						$before_form = $before_form . $response_html;
-						break;
-
-					case 'after':
-						$after_form = $response_html . $after_form;
-						break;
-				}
-			}
-
-		}
-
-		// Always replace {response} tag, either with empty string or actual response
-		$visible_fields = str_ireplace( '{response}', $response_html, $visible_fields );
-
-		// Generate closing HTML
-		$closing_html = '</div><!-- / MailChimp for WP Plugin -->';
-
-		// increase form instance number in case there is more than one form on a page
-		$this->form_instance_number++;
-
-		// make sure scripts are enqueued later
-		global $is_IE;
-		if( isset( $is_IE ) && $is_IE ) {
-			wp_enqueue_script( 'mc4wp-placeholders' );
 		}
 
 		// Print small JS snippet later on in the footer.
 		add_action( 'wp_footer', array( $this, 'print_js' ) );
 
-		ob_start();
-
-		// echo HTML parts of form
-		echo $opening_html;
-		echo $before_form;
-		echo $form_opening_html;
-		echo $before_fields;
-		echo $visible_fields;
-		echo $hidden_fields;
-		echo $after_fields;
-		echo $form_closing_html;
-		echo $after_form;
-		echo $closing_html;
-
-		// print css to hide honeypot, if not printed already
+		// Print CSS to hide honeypot (should be printed in `wp_head` by now)
 		$this->print_css();
 
-		$output = ob_get_contents();
-		ob_end_clean();
+		// output form
+		$html = $form->output( $attributes['element_id'], $attributes, false );
 
-		return $output;
-	}
-
-	/**
-	 * @return string
-	 */
-	private function get_visible_form_fields() {
-
-		// add form fields from settings
-		$visible_fields = $this->options['markup'];
-
-		$replacements = array(
-			'{n}' => $this->form_instance_number
-		);
-
-		// replace special values
-		$visible_fields = MC4WP_Tools::replace_variables( $visible_fields, $replacements );
-
-		// subscriber count? only fetch these if the tag is actually used
-		if ( stristr( $visible_fields, '{subscriber_count}' ) !== false ) {
-			$mailchimp = new MC4WP_MailChimp();
-			$subscriber_count = $mailchimp->get_subscriber_count( array_values( $this->options['lists'] ) );
-			$visible_fields = str_ireplace( '{subscriber_count}', $subscriber_count, $visible_fields );
-		}
-
-		// insert captcha
-		if( function_exists( 'cptch_display_captcha_custom' ) ) {
-			$captcha_fields = '<input type="hidden" name="_mc4wp_has_captcha" value="1" /><input type="hidden" name="cntctfrm_contact_action" value="true" />' . cptch_display_captcha_custom();
-			$visible_fields = str_ireplace( array( '{captcha}', '[captcha]' ), $captcha_fields, $visible_fields );
-		}
-
-		/**
-		 * @filter mc4wp_form_content
-		 * @param       int     $form_id    The ID of the form that is being shown
-		 * @expects     string
-		 *
-		 * Can be used to customize the content of the form mark-up, eg adding additional fields.
-		 */
-		$visible_fields = apply_filters( 'mc4wp_form_content', $visible_fields, 0 );
-
-		return (string) $visible_fields;
-	}
-
-	/**
-	 * @param array $atts Attributes passed to the shortcode
-	 * @return string
-	 */
-	private function get_hidden_form_fields( $atts = array() ) {
-		$hidden_fields = '';
-		$hidden_fields .= '<input type="text" name="_mc4wp_required_but_not_really" value="" />';
-		$hidden_fields .= '<input type="hidden" name="_mc4wp_timestamp" value="'. time() . '" />';
-		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_submit" value="1" />';
-		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_instance" value="'. $this->form_instance_number .'" />';
-		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_nonce" value="'. wp_create_nonce( '_mc4wp_form_nonce' ) .'" />';
-
-		// was "lists" parameter passed in shortcode arguments?
-		if( isset( $atts['lists'] ) && ! empty( $atts['lists'] ) ) {
-			$lists_string = ( is_array( $atts['lists'] ) ) ? join( ',', $atts['lists'] ) : $atts['lists'];
-			$hidden_fields .= '<input type="hidden" name="_mc4wp_lists" value="'. $lists_string . '" />';
-		}
-
-		return (string) $hidden_fields;
-	}
-
-	/**
-	 * @param $form
-	 * @param $field_type
-	 *
-	 * @return bool
-	 */
-	private function form_contains_field_type( $form, $field_type ) {
-		$html = sprintf( ' type="%s" ', $field_type );
-		return stristr( $form, $html ) !== false;
+		return $html;
 	}
 
 	/**

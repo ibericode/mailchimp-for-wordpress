@@ -85,6 +85,7 @@ class MC4WP_Lite {
 		        'MC4WP_Lite_Widget'                     => 'class-widget.php',
 		        'MC4WP_MailChimp'                       => 'class-mailchimp.php',
 		        'MC4WP_Tools'                           => 'class-tools.php',
+		        'MC4WP_Form'                            => 'class-form.php',
 
 		        // integrations
 		        'MC4WP_Integration'                     => 'integrations/class-integration.php',

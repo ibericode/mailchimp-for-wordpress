@@ -11,9 +11,9 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 class MC4WP_Lite_Form_Request {
 
 	/**
-	 * @var int
+	 * @var string
 	 */
-	private $form_instance_number = 0;
+	private $form_element_id = '';
 
 	/**
 	 * @var array
@@ -61,6 +61,11 @@ class MC4WP_Lite_Form_Request {
 	private $global_fields = array();
 
 	/**
+	 * @var MC4WP_Form
+	 */
+	private $form;
+
+	/**
 	 * @return bool
 	 */
 	public function is_successful() {
@@ -70,8 +75,8 @@ class MC4WP_Lite_Form_Request {
 	/**
 	 * @return int
 	 */
-	public function get_form_instance_number() {
-		return $this->form_instance_number;
+	public function get_form_element_id() {
+		return $this->form_element_id;
 	}
 
 	/**
@@ -91,8 +96,10 @@ class MC4WP_Lite_Form_Request {
 		$this->data = $this->normalize_form_data( $form_data );
 
 		// store number of submitted form
-		$this->form_instance_number = absint( $this->data['_MC4WP_FORM_INSTANCE'] );
+		$this->form_element_id = (string) $this->data['_MC4WP_FORM_ELEMENT_ID'];
 		$this->form_options = mc4wp_get_options( 'form' );
+
+		$this->form = MC4WP_Form::get( $this );
 
 		$this->is_valid = $this->validate();
 
@@ -256,7 +263,7 @@ class MC4WP_Lite_Form_Request {
 			do_action( 'mc4wp_form_success', 0, $this->data['EMAIL'], $this->data );
 
 			// check if we want to redirect the visitor
-			if ( '' !== $this->form_options['redirect'] ) {
+			if ( '' !== $this->form->settings['redirect'] ) {
 				wp_redirect( $this->get_redirect_url() );
 				exit;
 			}
@@ -435,7 +442,7 @@ class MC4WP_Lite_Form_Request {
 			$list_merge_vars = $this->get_list_merge_vars( $list_id, $list_field_data );
 
 			// send a subscribe request to MailChimp for each list
-			$result = $api->subscribe( $list_id, $this->data['EMAIL'], $list_merge_vars, $email_type, $this->form_options['double_optin'], $this->form_options['update_existing'], $this->form_options['replace_interests'], $this->form_options['send_welcome'] );
+			$result = $api->subscribe( $list_id, $this->data['EMAIL'], $list_merge_vars, $email_type, $this->form->settings['double_optin'], $this->form->settings['update_existing'], $this->form->settings['replace_interests'], $this->form->settings['send_welcome'] );
 			do_action( 'mc4wp_subscribe', $this->data['EMAIL'], $list_id, $list_merge_vars, $result, 'form', 'form', 0 );
 		}
 
@@ -575,7 +582,7 @@ class MC4WP_Lite_Form_Request {
 	 */
 	private function get_lists() {
 
-		$lists = $this->form_options['lists'];
+		$lists = $this->form->settings['lists'];
 
 		// get lists from form, if set.
 		if( isset( $_POST['_mc4wp_lists'] ) && ! empty( $_POST['_mc4wp_lists'] ) ) {
@@ -623,7 +630,7 @@ class MC4WP_Lite_Form_Request {
 	public function get_response_html( ) {
 
 		// get all form messages
-		$messages = $this->get_form_messages();
+		$messages = $this->form->get_messages();
 
 		// retrieve correct message
 		$type = ( $this->success ) ? 'success' : $this->error_code;
@@ -649,64 +656,6 @@ class MC4WP_Lite_Form_Request {
 		}
 
 		return $html;
-	}
-
-	/**
-	 * Returns the various error and success messages in array format
-	 *
-	 * Example:
-	 * array(
-	 *      'invalid_email' => array(
-	 *          'type' => 'css-class',
-	 *          'text' => 'Message text'
-	 *      ),
-	 *      ...
-	 * );
-	 *
-	 * @return array
-	 */
-	public function get_form_messages() {
-
-		$messages = array(
-			'already_subscribed' => array(
-				'type' => 'notice',
-				'text' => $this->form_options['text_already_subscribed'],
-			),
-			'error' => array(
-				'type' => 'error',
-				'text' => $this->form_options['text_error'],
-			),
-			'invalid_email' => array(
-				'type' => 'error',
-				'text' => $this->form_options['text_invalid_email'],
-			),
-			'success' => array(
-				'type' => 'success',
-				'text' => $this->form_options['text_success'],
-			),
-			'invalid_captcha' => array(
-				'type' => 'error',
-				'text' => $this->form_options['text_invalid_captcha'],
-			),
-			'required_field_missing' => array(
-				'type' => 'error',
-				'text' => $this->form_options['text_required_field_missing'],
-			),
-			'no_lists_selected' => array(
-				'type' => 'error',
-				'text' => __( 'Please select at least one list to subscribe to.', 'mailchimp-for-wp' ),
-			),
-		);
-
-		/**
-		 * @filter mc4wp_form_messages
-		 * @expects array
-		 *
-		 * Allows registering custom form messages, useful if you're using custom validation using the `mc4wp_valid_form_request` filter.
-		 */
-		$messages = apply_filters( 'mc4wp_form_messages', $messages, 0 );
-
-		return (array) $messages;
 	}
 
 	/**

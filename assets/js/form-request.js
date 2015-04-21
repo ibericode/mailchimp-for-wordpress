@@ -4,7 +4,7 @@
 	 * A formrequest. Should be passed an array of data in the following format.
 	 *
 	 * {
-	 * 	formId: 0,
+	 * 	formElementId: 0,
 	 * 	success: 1,
 	 * 	data: {}
 	 * }
@@ -19,13 +19,18 @@
 		// Functions
 		function init() {
 
-			self.element = document.getElementById('mc4wp-form-' + request.formId );
+			self.element = document.getElementById( request.formElementId );
+
+			if( ! self.element ) {
+				return false;
+			}
 
 			if( request.success != 1 ) {
 				self.repopulate();
 			}
 
 			self.scrollTo();
+			return true;
 		}
 
 		/**
