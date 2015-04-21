@@ -565,8 +565,8 @@ class MC4WP_Lite_Form_Request {
 		$email_type = 'html';
 
 		// get email type from form
-		if( isset( $_POST['_mc4wp_email_type'] ) ) {
-			$email_type = sanitize_text_field( $_POST['_mc4wp_email_type'] );
+		if( isset( $this->data['_MC4WP_EMAIL_TYPE'] ) ) {
+			$email_type = sanitize_text_field( $this->data['_MC4WP_EMAIL_TYPE'] );
 		}
 
 		// allow plugins to override this email type
@@ -585,9 +585,9 @@ class MC4WP_Lite_Form_Request {
 		$lists = $this->form->settings['lists'];
 
 		// get lists from form, if set.
-		if( isset( $_POST['_mc4wp_lists'] ) && ! empty( $_POST['_mc4wp_lists'] ) ) {
+		if( isset( $this->data['_MC4WP_LISTS'] ) && ! empty( $this->data['_MC4WP_LISTS'] ) ) {
 
-			$lists = $_POST['_mc4wp_lists'];
+			$lists = $this->data['_MC4WP_LISTS'];
 
 			// make sure lists is an array
 			if( ! is_array( $lists ) ) {

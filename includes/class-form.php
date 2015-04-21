@@ -78,12 +78,14 @@ class MC4WP_Form {
 	/**
 	 * @param string $element_id
 	 * @param array $attributes
+	 * @param string $response_html
 	 * @return string
 	 */
-	public function get_visible_fields( $element_id, array $attributes = array() ) {
+	public function get_visible_fields( $element_id, array $attributes = array(), $response_html = '' ) {
 
 		$replacements = array(
-			'{n}' => $element_id
+			'{n}' => $element_id,
+			'{response}' => $response_html
 		);
 
 		$visible_fields = MC4WP_Tools::replace_variables( $this->content, $replacements );
@@ -157,30 +159,86 @@ class MC4WP_Form {
 	}
 
 	/**
+	 * @return string
+	 */
+	protected function get_response_position() {
+
+		/**
+		 * @deprecated
+		 * @use `mc4wp_form_response_position` instead
+		 */
+		$message_position = (string) apply_filters( 'mc4wp_form_message_position', 'after' );
+
+		/**
+		 * @filter mc4wp_form_message_position
+		 * @expects string before|after
+		 *
+		 * Can be used to change the position of the form success & error messages.
+		 * Valid options are 'before' or 'after'
+		 */
+		$response_position = (string) apply_filters( 'mc4wp_form_response_position', $message_position );
+
+		// check if content contains {response} tag
+		if( stripos( $this->content, '{response}' ) !== false ) {
+			$response_position = '';
+		}
+
+		return $response_position;
+	}
+
+	/**
+	 * @param string $response_html
+	 * @return string
+	 */
+	protected function get_html_before_fields( $response_html = '' ) {
+		$before_fields = (string) apply_filters( 'mc4wp_form_before_fields', '' );
+
+		if( $this->get_response_position() === 'before' ) {
+			$before_fields = $response_html . '{response}';
+		}
+
+		return $before_fields;
+	}
+
+	/**
+	 * @param string $response_html
+	 * @return string
+	 */
+	protected function get_html_after_fields( $response_html = '' ) {
+		$after_fields = (string) apply_filters( 'mc4wp_form_after_fields', '' );
+
+		if( $this->get_response_position() === 'after' ) {
+			$after_fields = $response_html . $after_fields;
+		}
+
+		return $after_fields;
+	}
+
+	/**
 	 * @param string $element_id
 	 * @param array $attributes
 	 * @return string
 	 */
 	public function generate_html( $element_id = 'mc4wp-form', array $attributes = array() ) {
 
+		// generate response html
+		$response_html = ( $this->is_submitted( $element_id ) ) ? $this->request->get_response_html() : '';
+
 		// Start building content string
 		$opening_html = '<!-- MailChimp for WordPress v' . MC4WP_LITE_VERSION . ' - https://wordpress.org/plugins/mailchimp-for-wp/ -->';
 		$opening_html .= '<div id="' . esc_attr( $element_id ) . '" class="' . esc_attr( $this->get_css_classes( $element_id ) ) . '">';
 
-		// Generate before & after fields HTML
-		$before_form = apply_filters( 'mc4wp_form_before_form', '' );
-		$after_form = apply_filters( 'mc4wp_form_after_form', '' );
 
+		// Generate before & after fields HTML
 		$form_opening_html = '';
 		$form_closing_html = '';
-
 		$visible_fields = '';
 		$hidden_fields = '';
-
 		$before_fields = apply_filters( 'mc4wp_form_before_fields', '' );
 		$after_fields = apply_filters( 'mc4wp_form_after_fields', '' );
-
-		$response_html = '';
+		$before_form = $this->get_html_before_fields( $response_html );
+		$after_form = $this->get_html_after_fields( $response_html );
+		$closing_html = '</div><!-- / MailChimp for WP Pro Plugin -->';
 
 		// only generate form & fields HTML if necessary
 		if( ! $this->is_submitted( $element_id )
@@ -188,47 +246,10 @@ class MC4WP_Form {
 		    || ! $this->request->is_successful() ) {
 
 			$form_opening_html = '<form method="post">';
-			$visible_fields = $this->get_visible_fields( $element_id, $attributes );
+			$visible_fields = $this->get_visible_fields( $element_id, $attributes, $response_html );
 			$hidden_fields = $this->get_hidden_fields( $element_id, $attributes );
 			$form_closing_html = '</form>';
 		}
-
-		if( $this->is_submitted( $element_id ) ) {
-			$response_html .= $this->request->get_response_html();
-		}
-
-		// add form response to content, if no {response} tag present
-		if( '' !== $response_html
-		    && ( stristr( $visible_fields, '{response}' ) === false
-		         || $this->settings['hide_after_success'] ) ) {
-
-			/**
-			 * @filter mc4wp_form_message_position
-			 * @expects string before|after
-			 *
-			 * Can be used to change the position of the form success & error messages.
-			 * Valid options are 'before' or 'after'
-			 */
-			$message_position = apply_filters( 'mc4wp_form_message_position', 'after' );
-
-			switch( $message_position ) {
-				case 'before':
-					$before_form = $before_form . $response_html;
-					break;
-
-				case 'after':
-					$after_form = $response_html . $after_form;
-					break;
-			}
-
-			// reset response html, we only need it once
-			$response_html = '';
-		}
-
-		// Always replace {response} tag, either with empty string or actual response
-		$visible_fields = str_ireplace( '{response}', $response_html, $visible_fields );
-
-		$closing_html = '</div><!-- / MailChimp for WP Pro Plugin -->';
 
 		ob_start();
 
