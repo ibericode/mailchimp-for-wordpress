@@ -14,8 +14,8 @@ class MC4WP_Tools {
 			if( ! isset( $merge_vars['FNAME'] ) && ! isset( $merge_vars['LNAME'] ) ) {
 				$strpos = strpos( $merge_vars['NAME'], ' ' );
 				if ( $strpos !== false ) {
-					$merge_vars['FNAME'] = substr( $merge_vars['NAME'], 0, $strpos );
-					$merge_vars['LNAME'] = substr( $merge_vars['NAME'], $strpos );
+					$merge_vars['FNAME'] = trim( substr( $merge_vars['NAME'], 0, $strpos ) );
+					$merge_vars['LNAME'] = trim( substr( $merge_vars['NAME'], $strpos ) );
 				} else {
 					$merge_vars['FNAME'] = $merge_vars['NAME'];
 				}
