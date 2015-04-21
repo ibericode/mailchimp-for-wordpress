@@ -21,17 +21,17 @@ abstract class MC4WP_User_Integration extends MC4WP_Integration {
 			'NAME' => $user->user_login,
 		);
 
-		if( '' !== $user->firstname ) {
-			$merge_vars['NAME'] = $user->firstname;
-			$merge_vars['FNAME'] = $user->firstname;
+		if( '' !== $user->first_name ) {
+			$merge_vars['NAME'] = $user->first_name;
+			$merge_vars['FNAME'] = $user->first_name;
 		}
 
-		if( '' !== $user->lastname ) {
-			$merge_vars['LNAME'] = $user->lastname;
+		if( '' !== $user->last_name ) {
+			$merge_vars['LNAME'] = $user->last_name;
 		}
 
-		if( '' !== $user->firstname && '' !== $user->lastname ) {
-			$merge_vars['NAME'] = sprintf( '%s %s', $user->firstname, $user->lastname );
+		if( '' !== $user->first_name && '' !== $user->last_name ) {
+			$merge_vars['NAME'] = sprintf( '%s %s', $user->first_name, $user->last_name );
 		}
 
 		/**
