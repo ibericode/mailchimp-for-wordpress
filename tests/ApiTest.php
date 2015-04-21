@@ -1,7 +1,8 @@
 <?php
 
+require_once __DIR__ . '/mock.php';
+
 // Load class into memory
-define( 'MC4WP_LITE_VERSION', 1 );
 require_once __DIR__ . '/../includes/class-api.php';
 
 // Debug class used for testing, no remote requests..

@@ -16,6 +16,13 @@ class MC4WP_Form_Validator {
 	}
 
 	/**
+	 * @param $data
+	 */
+	public function set_data( $data ) {
+		$this->data = $data;
+	}
+
+	/**
 	 * Validate form nonce
 	 *
 	 * @return bool
