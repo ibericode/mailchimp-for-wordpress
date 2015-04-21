@@ -79,15 +79,15 @@ class MC4WP_Lite {
 
 	        $classes = array(
 		        'MC4WP_API'                             => 'class-api.php',
+		        'MC4WP_Form'                            => 'class-form.php',
+		        'MC4WP_Form_Validator'                  => 'class-form-validator.php',
+		        'MC4WP_Field_Mapper'                    => 'class-field-mapper.php',
 		        'MC4WP_Lite_Checkbox_Manager'           => 'class-checkbox-manager.php',
 		        'MC4WP_Lite_Form_Manager'               => 'class-form-manager.php',
 		        'MC4WP_Lite_Form_Request'               => 'class-form-request.php',
 		        'MC4WP_Lite_Widget'                     => 'class-widget.php',
 		        'MC4WP_MailChimp'                       => 'class-mailchimp.php',
 		        'MC4WP_Tools'                           => 'class-tools.php',
-		        'MC4WP_Form'                            => 'class-form.php',
-		        'MC4WP_Form_Validator'                  => 'class-form-validator.php',
-		        'MC4WP_Field_Mapper'                    => 'class-field-mapper.php',
 
 		        // integrations
 		        'MC4WP_Integration'                     => 'integrations/class-integration.php',
