@@ -237,7 +237,7 @@ class MC4WP_Form {
 		$after_fields = apply_filters( 'mc4wp_form_after_fields', '' );
 		$before_form = $this->get_html_before_fields( $response_html );
 		$after_form = $this->get_html_after_fields( $response_html );
-		$closing_html = '</div><!-- / MailChimp for WP Pro Plugin -->';
+		$closing_html = '</div><!-- / MailChimp for WordPress Plugin -->';
 
 		// only generate form & fields HTML if necessary
 		if( ! $this->is_submitted( $element_id )
