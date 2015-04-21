@@ -41,56 +41,6 @@ function mc4wp_get_form( $id = 0 ) {
 	return $form_manager->output_form( array( 'id' => $id ) );
 }
 
-
-/**
-* Returns text with {variables} replaced.
-*
-* @param    string  $text
-* @param    array   $list_ids   Array of list id's
-* @return   string  $text       The text with {variables} replaced.
-*/
-function mc4wp_replace_variables( $text, $list_ids = array() ) {
-
-	// get current WPML language or general site language
-	$language = defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : get_locale();
-
-	// replace general vars
-	$needles = array( '{ip}', '{current_url}', '{date}', '{time}', '{language}' );
-	$replacements = array( $_SERVER['REMOTE_ADDR'], mc4wp_get_current_url(), date( 'm/d/Y' ), date( 'H:i:s' ), $language );
-	$text = str_ireplace( $needles, $replacements, $text );
-
-	// subscriber count? only fetch these if the tag is actually used
-	if ( stristr( $text, '{subscriber_count}' ) !== false ) {
-		$mailchimp = new MC4WP_MailChimp();
-		$subscriber_count = $mailchimp->get_subscriber_count( $list_ids );
-		$text = str_ireplace( '{subscriber_count}', $subscriber_count, $text );
-	}
-
-	// replace {email} tag
-	if( isset( $_GET['mc4wp_email'] ) ) {
-		$email = esc_attr( $_GET['mc4wp_email'] );
-	} elseif( isset( $_COOKIE['mc4wp_email'] ) ) {
-		$email = esc_attr( $_COOKIE['mc4wp_email'] );
-	} else {
-		$email = '';
-	}
-
-	$text = str_ireplace( '{email}', $email, $text );
-
-	// replace user variables
-	$needles = array( '{user_email}', '{user_firstname}', '{user_lastname}', '{user_name}', '{user_id}' );
-	if ( is_user_logged_in() && ( $user = wp_get_current_user() ) && ( $user instanceof WP_User ) ) {
-		// logged in user, replace vars by user vars
-		$replacements = array( $user->user_email, $user->first_name, $user->last_name, $user->display_name, $user->ID );
-		$text = str_replace( $needles, $replacements, $text );
-	} else {
-		// no logged in user, replace vars with empty string
-		$text = str_replace( $needles, '', $text );
-	}
-
-	return $text;
-}
-
 /**
  * Retrieves the URL of the current WordPress page
  *

@@ -302,11 +302,21 @@ class MC4WP_Lite_Form_Manager {
 	private function get_visible_form_fields() {
 
 		// add form fields from settings
-		$visible_fields = __( $this->options['markup'], 'mailchimp-for-wp' );
+		$visible_fields = $this->options['markup'];
+
+		$replacements = array(
+			'{n}' => $this->form_instance_number
+		);
 
 		// replace special values
-		$visible_fields = str_ireplace( array( '%N%', '{n}' ), $this->form_instance_number, $visible_fields );
-		$visible_fields = mc4wp_replace_variables( $visible_fields, array_values( $this->options['lists'] ) );
+		$visible_fields = MC4WP_Tools::replace_variables( $visible_fields, $replacements );
+
+		// subscriber count? only fetch these if the tag is actually used
+		if ( stristr( $visible_fields, '{subscriber_count}' ) !== false ) {
+			$mailchimp = new MC4WP_MailChimp();
+			$subscriber_count = $mailchimp->get_subscriber_count( array_values( $this->options['lists'] ) );
+			$visible_fields = str_ireplace( '{subscriber_count}', $subscriber_count, $visible_fields );
+		}
 
 		// insert captcha
 		if( function_exists( 'cptch_display_captcha_custom' ) ) {
