@@ -1,5 +1,5 @@
 === MailChimp for WordPress ===
-Contributors: DvanKooten, iMazed
+Contributors: DvanKooten, iMazed, hchouhan
 Donate link: https://mc4wp.com/
 Tags: mailchimp,contact form 7,woocommerce,buddypress,newsletter,newsletter form,mailchimp form,widget,contact form,subscribe,shortcode,form,multisite,events manager,easy digital downloads,registration form,captcha,newsletter sign up,mailchimp for wordpress,mailchimp for wp,mailchimp sign-up,mailchimp subscribe,email
 Requires at least: 3.7
