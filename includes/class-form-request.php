@@ -10,25 +10,6 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 */
 class MC4WP_Lite_Form_Request {
 
-	/**
-	 * @var string
-	 */
-	private $form_element_id = '';
-
-	/**
-	 * @var array
-	 */
-	private $data = array();
-
-	/**
-	 * @var bool Guilty until proven otherwise.
-	 */
-	private $success = false;
-
-	/**
-	 * @var bool Guilty until proven otherwise.
-	 */
-	private $is_valid = false;
 
 	/**
 	 * @var array The form options
@@ -46,6 +27,11 @@ class MC4WP_Lite_Form_Request {
 	private $unmapped_fields = array();
 
 	/**
+	 * @var array
+	 */
+	private $global_fields = array();
+
+	/**
 	 * @var string
 	 */
 	private $error_code = 'error';
@@ -56,35 +42,30 @@ class MC4WP_Lite_Form_Request {
 	private $mailchimp_error = '';
 
 	/**
-	 * @var array
-	 */
-	private $global_fields = array();
-
-	/**
 	 * @var MC4WP_Form
 	 */
 	private $form;
 
 	/**
-	 * @return bool
+	 * @var string
 	 */
-	public function is_successful() {
-		return $this->success;
-	}
+	public $form_element_id = '';
 
 	/**
-	 * @return int
+	 * @var array
 	 */
-	public function get_form_element_id() {
-		return $this->form_element_id;
-	}
+	public $data = array();
 
 	/**
-	 * @return array
+	 * @var bool Guilty until proven otherwise.
 	 */
-	public function get_data() {
-		return $this->data;
-	}
+	public $success = false;
+
+	/**
+	 * @var bool
+	 */
+	public $ready = false;
+
 
 	/**
 	 * Constructor
@@ -98,29 +79,23 @@ class MC4WP_Lite_Form_Request {
 		// store number of submitted form
 		$this->form_element_id = (string) $this->data['_MC4WP_FORM_ELEMENT_ID'];
 		$this->form_options = mc4wp_get_options( 'form' );
-
 		$this->form = MC4WP_Form::get( $this );
+	}
 
-		$this->is_valid = $this->validate();
+	/**
+	 * Prepare data for MailChimp API request
+	 */
+	public function prepare() {
+		$this->guess_fields();
+		$this->map_data();
+	}
 
-		// proceed if request is valid
-		if( $this->is_valid ) {
-
-			// add some data to the posted data, like FNAME and LNAME
-			$this->data = MC4WP_Tools::guess_merge_vars( $this->data );
-
-			// map fields to MailChimp list(s) and proceed if successful
-			if( $this->map_data() ) {
-
-				// subscribe using the processed data
-				$this->success = $this->subscribe( $this->list_fields_map );
-			}
-		}
-
-		// send HTTP response
-		$this->send_http_response();
-
-		return $this->success;
+	/**
+	 * Try to guess the values of various fields, if not given.
+	 */
+	protected function guess_fields() {
+		// add some data to the posted data, like FNAME and LNAME
+		$this->data = MC4WP_Tools::guess_merge_vars( $this->data );
 	}
 
 	/**
@@ -128,7 +103,7 @@ class MC4WP_Lite_Form_Request {
 	 *
 	 * @return array
 	 */
-	private function normalize_form_data( array $data ) {
+	protected function normalize_form_data( array $data ) {
 
 		// uppercase all data keys
 		$data = array_change_key_case( $data, CASE_UPPER );
@@ -164,7 +139,7 @@ class MC4WP_Lite_Form_Request {
 	 *
 	 * @return bool
 	 */
-	private function validate() {
+	public function validate() {
 
 		$validator = new MC4WP_Form_Validator( $this->data );
 
@@ -287,7 +262,7 @@ class MC4WP_Lite_Form_Request {
 	 *
 	 * @return array
 	 */
-	private function map_data() {
+	protected function map_data() {
 
 		$mapper = new MC4WP_Field_Mapper( $this->data, $this->get_lists() );
 
@@ -299,15 +274,14 @@ class MC4WP_Lite_Form_Request {
 			$this->error_code = $mapper->get_error_code();
 		}
 
+		$this->ready = $mapper->success;
 		return $mapper->success;
 	}
 	/**
 	 * Subscribes the given email and additional list fields
-	 *
-	 * @param array $lists_data
 	 * @return bool
 	 */
-	private function subscribe( $lists_data ) {
+	public function subscribe() {
 
 		$api = mc4wp_get_api();
 
@@ -317,7 +291,7 @@ class MC4WP_Lite_Form_Request {
 		$email_type = $this->get_email_type();
 
 		// loop through selected lists
-		foreach ( $lists_data as $list_id => $list_field_data ) {
+		foreach ( $this->list_fields_map as $list_id => $list_field_data ) {
 
 			// allow plugins to alter merge vars for each individual list
 			$list_merge_vars = $this->get_list_merge_vars( $list_id, $list_field_data );
@@ -356,7 +330,7 @@ class MC4WP_Lite_Form_Request {
 	 * @param array $list_field_data
 	 * @return array
 	 */
-	private function get_list_merge_vars( $list_id, $list_field_data ) {
+	protected function get_list_merge_vars( $list_id, $list_field_data ) {
 
 		$merge_vars = array();
 
@@ -388,7 +362,7 @@ class MC4WP_Lite_Form_Request {
 	 *
 	 * @return string The email type to use for subscription coming from this form
 	 */
-	private function get_email_type( ) {
+	protected function get_email_type( ) {
 
 		$email_type = 'html';
 
@@ -408,7 +382,7 @@ class MC4WP_Lite_Form_Request {
 	 *
 	 * @return array Array of selected MailChimp lists
 	 */
-	private function get_lists() {
+	protected function get_lists() {
 
 		$lists = $this->form->settings['lists'];
 
@@ -436,7 +410,7 @@ class MC4WP_Lite_Form_Request {
 	 *
 	 * @param string $email
 	 */
-	private function set_email_cookie( $email ) {
+	protected function set_email_cookie( $email ) {
 
 		/**
 		 * @filter `mc4wp_cookie_expiration_time`

@@ -22,11 +22,6 @@ class MC4WP_Lite_Form_Manager {
 	private $outputted_forms_count = 0;
 
 	/**
-	 * @var MC4WP_Form_Request|boolean
-	 */
-	private $form_request = false;
-
-	/**
 	 * @var bool Is the inline CSS printed already?
 	 */
 	private $inline_css_printed = false;
@@ -42,38 +37,30 @@ class MC4WP_Lite_Form_Manager {
 	private $print_date_fallback = false;
 
 	/**
-	* Constructor
-	*/
+	 * Constructor
+	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'initialize' ) );
+		$this->options = mc4wp_get_options( 'form' );
 	}
 
 	/**
-	* Initializes the Form functionality
-	*
-	* - Registers scripts so developers can override them, should they want to.
-	*/
-	public function initialize() {
-
-		$this->options = mc4wp_get_options( 'form' );
-
+	 * Init all form related functionality
+	 */
+	public function init() {
+		$this->add_hooks();
+		$this->register_scripts();
 		$this->register_shortcodes();
+	}
 
-		// has a MC4WP form been submitted?
-		if ( isset( $_POST['_mc4wp_form_submit'] ) ) {
-			$this->form_request = new MC4WP_Lite_Form_Request( $_POST );
-		}
 
-		// frontend only
-		if( ! is_admin() ) {
+	public function add_hooks() {
+		// load checkbox css if necessary
+		add_action( 'wp_head', array( $this, 'print_css' ), 90 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
 
-			// load checkbox css if necessary
-			add_action( 'wp_head', array( $this, 'print_css' ), 90 );
-			add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
-
-			$this->register_scripts();
-		}
-
+		// enable shortcodes in text widgets
+		add_filter( 'widget_text', 'shortcode_unautop' );
+		add_filter( 'widget_text', 'do_shortcode', 11 );
 	}
 
 	/**
@@ -85,10 +72,6 @@ class MC4WP_Lite_Form_Manager {
 
 		// @deprecated, use [mc4wp_form] instead
 		add_shortcode( 'mc4wp-form', array( $this, 'output_form' ) );
-
-		// enable shortcodes in text widgets
-		add_filter( 'widget_text', 'shortcode_unautop' );
-		add_filter( 'widget_text', 'do_shortcode', 11 );
 	}
 
 	/**
@@ -167,9 +150,9 @@ class MC4WP_Lite_Form_Manager {
 			// enqueue scripts (in footer) if form was submited
 			wp_enqueue_script( 'mc4wp-form-request' );
 			wp_localize_script( 'mc4wp-form-request', 'mc4wpFormRequestData', array(
-					'success' => ( $form->request->is_successful() ) ? 1 : 0,
-					'formElementId' => $form->request->get_form_element_id(),
-					'data' => $form->request->get_data()
+					'success' => ( $form->request->success ) ? 1 : 0,
+					'formElementId' => $form->request->form_element_id,
+					'data' => $form->request->data
 				)
 			);
 

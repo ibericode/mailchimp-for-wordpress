@@ -58,17 +58,38 @@ class MC4WP_Lite {
 
 		spl_autoload_register( array( $this, 'autoload') );
 
-		// checkbox
+		// checkboxes
 		$this->checkbox_manager = new MC4WP_Lite_Checkbox_Manager();
 
-		// form
-		$this->form_manager = new MC4WP_Lite_Form_Manager();
+		// forms
+		add_action( 'init', array( $this, 'init_form_listener' ) );
+		add_action( 'template_redirect', array( $this, 'init_form_manager' ) );
 
 		// widget
 		add_action( 'widgets_init', array( $this, 'register_widget' ) );
 	}
 
 	/**
+	 * Initialise the form listener
+	 * @hooked `init`
+	 */
+	public function init_form_listener() {
+		$listener = new MC4WP_Form_Listener();
+		$listener->listen();
+	}
+
+	/**
+	 * Initialise the form manager
+	 * @hooked `template_redirect`
+	 */
+	public function init_form_manager() {
+		$this->form_manager = new MC4WP_Lite_Form_Manager();
+		$this->form_manager->init();
+	}
+
+	/**
+	 * Autoloader for all MailChimp for WP plugin classes
+	 *
 	 * @return bool
 	 */
 	public function autoload( $class_name ) {
@@ -83,6 +104,7 @@ class MC4WP_Lite {
 		        'MC4WP_Form_Validator'                  => 'class-form-validator.php',
 		        'MC4WP_Field_Mapper'                    => 'class-field-mapper.php',
 		        'MC4WP_Lite_Checkbox_Manager'           => 'class-checkbox-manager.php',
+		        'MC4WP_Form_Listener'                   => 'class-form-listener.php',
 		        'MC4WP_Lite_Form_Manager'               => 'class-form-manager.php',
 		        'MC4WP_Lite_Form_Request'               => 'class-form-request.php',
 		        'MC4WP_Lite_Widget'                     => 'class-widget.php',

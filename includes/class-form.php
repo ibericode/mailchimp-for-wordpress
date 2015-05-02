@@ -152,7 +152,7 @@ class MC4WP_Form {
 
 		// if an element ID is given, only return true if that specific element is submitted
 		if( $element_id ) {
-			return ( $form_submitted && $this->request->get_form_element_id() == $element_id );
+			return ( $form_submitted && $this->request->form_element_id == $element_id );
 		}
 
 		return $form_submitted;
@@ -242,7 +242,7 @@ class MC4WP_Form {
 		// only generate form & fields HTML if necessary
 		if( ! $this->is_submitted( $element_id )
 		    || ! $this->settings['hide_after_success']
-		    || ! $this->request->is_successful() ) {
+		    || ! $this->request->success ) {
 
 			$form_opening_html = '<form method="post" role="form">';
 			$visible_fields = $this->get_visible_fields( $element_id, $attributes, $response_html );
@@ -313,7 +313,7 @@ class MC4WP_Form {
 
 			$css_classes[] = 'mc4wp-form-submitted';
 
-			if( $this->request->is_successful() ) {
+			if( $this->request->success ) {
 				$css_classes[] = 'mc4wp-form-success';
 			} else {
 				$css_classes[] = 'mc4wp-form-error';
@@ -386,7 +386,7 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * @param MC4WP_Form_Request $request
+	 * @param MC4WP_Lite_Form_Request $request
 	 *
 	 * @return bool
 	 */
@@ -395,7 +395,7 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * @param MC4WP_Form_Request $request
+	 * @param MC4WP_Lite_Form_Request $request
 	 */
 	protected function attach_request( MC4WP_Lite_Form_Request $request ) {
 		$this->request = $request;
