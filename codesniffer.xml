@@ -4,7 +4,9 @@
 
 	<rule ref="WordPress-VIP">
 		<exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines" />
+		<exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterKeyword" />
 		<exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.NoSpacesAroundArrayKeys" />
+		<exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.SpacesAroundArrayKeys" />
 		<exclude name="WordPress.PHP.YodaConditions"/>
 		<exclude name="WordPress.VIP.DirectDatabaseQuery" />
 		<exclude name="WordPress.VIP.FileSystemWritesDisallow"/>

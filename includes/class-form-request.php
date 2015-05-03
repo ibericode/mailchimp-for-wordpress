@@ -162,7 +162,7 @@ class MC4WP_Lite_Form_Request {
 		}
 
 		// check if captcha was present and valid
-		if(! $validator->validate_timestamp() ) {
+		if( ! $validator->validate_timestamp() ) {
 			$this->error_code = 'invalid_captcha';
 			return false;
 		}
