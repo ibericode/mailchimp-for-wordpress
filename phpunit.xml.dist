@@ -1,6 +1,7 @@
 <phpunit
 	colors="true"
-	verbose="true">
+	verbose="true"
+	bootstrap="tests/bootstrap.php">
 	<testsuites>
 		<testsuite name="mailchimp-for-wordpress">
 			<directory>./tests/</directory>

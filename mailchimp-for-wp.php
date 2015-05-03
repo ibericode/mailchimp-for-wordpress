@@ -49,13 +49,13 @@ function mc4wp_load_plugin() {
 
 	// bootstrap the lite plugin
 	define( 'MC4WP_LITE_VERSION', '2.2.9' );
-	define( 'MC4WP_LITE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+	define( 'MC4WP_LITE_PLUGIN_DIR', dirname( __FILE__ ) . '/' );
 	define( 'MC4WP_LITE_PLUGIN_URL', plugins_url( '/' , __FILE__ ) );
 	define( 'MC4WP_LITE_PLUGIN_FILE', __FILE__ );
 
+	require_once MC4WP_LITE_PLUGIN_DIR . 'vendor/autoload_52.php';
 	require_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/general.php';
 	require_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/template.php';
-	require_once MC4WP_LITE_PLUGIN_DIR . 'includes/class-plugin.php';
 
 	// Initialize the plugin and store an instance in the global scope
 	MC4WP_Lite::init();

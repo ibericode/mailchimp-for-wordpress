@@ -1,7 +1,13 @@
 .DS_Store
-.sass-cache
-/vendor/
-/build/
-/node_modules/*
+.sass-cache/
+node_modules/
+build/
 phpunit.xml
 composer.lock
+
+# Exclude everything in /vendor except our autoload stuff
+vendor/*
+!vendor/composer
+!vendor/autoload_52.php
+vendor/composer/installers
+

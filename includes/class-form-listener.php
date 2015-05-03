@@ -7,7 +7,10 @@ class MC4WP_Form_Listener {
 		if ( isset( $_POST['_mc4wp_form_submit'] ) ) {
 			$request = new MC4WP_Lite_Form_Request( $_POST );
 			$this->process( $request );
+			return true;
 		}
+
+		return false;
 	}
 
 	/**

@@ -56,8 +56,6 @@ class MC4WP_Lite {
 	*/
 	private function __construct() {
 
-		spl_autoload_register( array( $this, 'autoload') );
-
 		// checkboxes
 		$this->checkbox_manager = new MC4WP_Lite_Checkbox_Manager();
 
@@ -85,57 +83,6 @@ class MC4WP_Lite {
 	public function init_form_manager() {
 		$this->form_manager = new MC4WP_Lite_Form_Manager();
 		$this->form_manager->init();
-	}
-
-	/**
-	 * Autoloader for all MailChimp for WP plugin classes
-	 *
-	 * @return bool
-	 */
-	public function autoload( $class_name ) {
-
-		static $classes = null;
-
-		if( $classes === null ) {
-
-	        $classes = array(
-		        'MC4WP_API'                             => 'class-api.php',
-		        'MC4WP_Form'                            => 'class-form.php',
-		        'MC4WP_Form_Validator'                  => 'class-form-validator.php',
-		        'MC4WP_Field_Mapper'                    => 'class-field-mapper.php',
-		        'MC4WP_Lite_Checkbox_Manager'           => 'class-checkbox-manager.php',
-		        'MC4WP_Form_Listener'                   => 'class-form-listener.php',
-		        'MC4WP_Lite_Form_Manager'               => 'class-form-manager.php',
-		        'MC4WP_Lite_Form_Request'               => 'class-form-request.php',
-		        'MC4WP_Lite_Widget'                     => 'class-widget.php',
-		        'MC4WP_MailChimp'                       => 'class-mailchimp.php',
-		        'MC4WP_Tools'                           => 'class-tools.php',
-
-		        // integrations
-		        'MC4WP_Integration'                     => 'integrations/class-integration.php',
-		        'MC4WP_User_Integration'                => 'integrations/class-user-integration.php',
-		        'MC4WP_bbPress_Integration'             => 'integrations/class-bbpress.php',
-		        'MC4WP_BuddyPress_Integration'          => 'integrations/class-buddypress.php',
-		        'MC4WP_CF7_Integration'                 => 'integrations/class-cf7.php',
-		        'MC4WP_Events_Manager_Integration'      => 'integrations/class-events-manager.php',
-		        'MC4WP_Comment_Form_Integration'        => 'integrations/class-comment-form.php',
-		        'MC4WP_General_Integration'             => 'integrations/class-general.php',
-		        'MC4WP_MultiSite_Integration'           => 'integrations/class-multisite.php',
-		        'MC4WP_Registration_Form_Integration'   => 'integrations/class-registration-form.php',
-		        'MC4WP_WooCommerce_Integration'         => 'integrations/class-woocommerce.php',
-		        'MC4WP_EDD_Integration'                 => 'integrations/class-edd.php',
-	        );
-
-		}
-
-		if( isset( $classes[$class_name] ) ) {
-			require_once MC4WP_LITE_PLUGIN_DIR . 'includes/' . $classes[$class_name];
-			return true;
-		}
-
-		return false;
-
-
 	}
 
 	/**
