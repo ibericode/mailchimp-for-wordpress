@@ -6,7 +6,8 @@ matrix:
     env: PHPLINT=1
   - php: hhvm
 install:
-- composer install --dev
+- composer selfupdate --no-interaction
+- composer install --no-interaction
 script:
 - composer run-script test
 - if [[ "$PHPLINT" == "1" ]]; then composer run-script check-codestyle; fi
