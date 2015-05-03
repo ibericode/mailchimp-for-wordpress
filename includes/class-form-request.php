@@ -57,7 +57,7 @@ class MC4WP_Lite_Form_Request {
 	public $data = array();
 
 	/**
-	 * @var bool Guilty until proven otherwise.
+	 * @var bool
 	 */
 	public $success = false;
 
