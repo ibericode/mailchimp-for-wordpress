@@ -130,7 +130,7 @@ class MC4WP_Lite_Form_Manager {
 		$attributes = shortcode_atts(
 			array(
 				'id' => 0,
-				'element_id' => 'mc4wp-form-' . $this->outputted_forms_count
+				'element_id' => 'mc4wp-form-' . $this->outputted_forms_count,
 			),
 			$attributes,
 			'mc4wp_form'
@@ -152,7 +152,7 @@ class MC4WP_Lite_Form_Manager {
 			wp_localize_script( 'mc4wp-form-request', 'mc4wpFormRequestData', array(
 					'success' => ( $form->request->success ) ? 1 : 0,
 					'formElementId' => $form->request->form_element_id,
-					'data' => $form->request->data
+					'data' => $form->request->data,
 				)
 			);
 

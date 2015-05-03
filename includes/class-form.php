@@ -85,7 +85,7 @@ class MC4WP_Form {
 
 		$replacements = array(
 			'{n}' => $element_id,
-			'{response}' => $response_html
+			'{response}' => $response_html,
 		);
 
 		$visible_fields = MC4WP_Tools::replace_variables( $this->content, $replacements );
@@ -350,28 +350,28 @@ class MC4WP_Form {
 		$messages = array(
 			'already_subscribed' => array(
 				'type' => 'notice',
-				'text' => $this->settings['text_already_subscribed']
+				'text' => $this->settings['text_already_subscribed'],
 			),
 			'error' => array(
 				'type' => 'error',
-				'text' => $this->settings['text_error']
+				'text' => $this->settings['text_error'],
 			),
 			'invalid_email' => array(
 				'type' => 'error',
-				'text' => $this->settings['text_invalid_email']
+				'text' => $this->settings['text_invalid_email'],
 			),
 			'success' => array(
 				'type' => 'success',
-				'text' => $this->settings['text_success']
+				'text' => $this->settings['text_success'],
 			),
 			'invalid_captcha' => array(
 				'type' => 'error',
-				'text' => $this->settings['text_invalid_captcha']
+				'text' => $this->settings['text_invalid_captcha'],
 			),
 			'required_field_missing' => array(
 				'type' => 'error',
-				'text' => $this->settings['text_required_field_missing']
-			)
+				'text' => $this->settings['text_required_field_missing'],
+			),
 		);
 
 		/**

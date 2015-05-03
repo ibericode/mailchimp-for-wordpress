@@ -57,7 +57,7 @@ class MC4WP_Tools {
 			date( 'm/d/Y' ),
 			date( 'H:i:s' ),
 			defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : get_locale(),
-			self::get_known_email()
+			self::get_known_email(),
 		);
 
 		// setup replacements for logged-in users
