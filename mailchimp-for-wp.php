@@ -61,12 +61,9 @@ function mc4wp_load_plugin() {
 	MC4WP_Lite::init();
 	$GLOBALS['mc4wp'] = MC4WP_Lite::instance();
 
-	if( is_admin() && ( false === defined( 'DOING_AJAX' ) || false === DOING_AJAX ) ) {
-
-		// ADMIN
-		require_once MC4WP_LITE_PLUGIN_DIR . 'includes/class-admin.php';
+	if( is_admin()
+	    && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 		new MC4WP_Lite_Admin();
-
 	}
 
 	return true;
