@@ -61,7 +61,7 @@ class MC4WP_Lite {
 
 		// forms
 		add_action( 'init', array( $this, 'init_form_listener' ) );
-		add_action( 'template_redirect', array( $this, 'init_form_manager' ) );
+		add_action( 'init', array( $this, 'init_form_manager' ) );
 
 		// widget
 		add_action( 'widgets_init', array( $this, 'register_widget' ) );
