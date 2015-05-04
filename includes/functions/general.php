@@ -54,6 +54,7 @@ function mc4wp_get_options( $key = '' ) {
 				'text_invalid_captcha' => __( 'Please complete the CAPTCHA.', 'mailchimp-for-wp' ),
 				'text_required_field_missing' => __( 'Please fill in the required fields.', 'mailchimp-for-wp' ),
 				'text_unsubscribed' => __( 'You were successfully unsubscribed.', 'mailchimp-for-wp' ),
+				'text_not_subscribed' => __( 'Given email address is not subscribed.', 'mailchimp-for-wp' ),
 				'redirect' => '',
 				'lists' => array(),
 				'hide_after_success' => 0,

@@ -110,7 +110,7 @@ class MC4WP_API {
 	* @param boolean $replace_interests
 	* @param boolean $send_welcome
 	*
-	* @return boolean|string True if success, 'error' if error
+	* @return boolean Successful?
 	*/
 	public function subscribe( $list_id, $email, array $merge_vars = array(), $email_type = 'html', $double_optin = true, $update_existing = false, $replace_interests = true, $send_welcome = false ) {
 		$data = array(
@@ -129,13 +129,7 @@ class MC4WP_API {
 		if( is_object( $response ) ) {
 
 			if( isset( $response->error ) ) {
-
-				// check error
-				if( (int) $response->code === 214 ) {
-					return 'already_subscribed';
-				}
-
-				return 'error';
+				return false;
 			} else {
 				return true;
 			}
@@ -310,13 +304,8 @@ class MC4WP_API {
 		);
 
 		if( is_object( $response ) ) {
-
 			if ( isset( $response->complete ) && $response->complete ) {
 				return true;
-			}
-
-			if( isset( $response->error ) ) {
-				$this->error_message = $response->error;
 			}
 		}
 

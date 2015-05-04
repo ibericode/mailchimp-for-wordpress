@@ -2,38 +2,55 @@
 
 class MC4WP_Form_Listener {
 
-	public function listen() {
-		// has a MC4WP form been submitted?
-		if ( isset( $_POST['_mc4wp_form_submit'] ) ) {
-			$request = new MC4WP_Lite_Form_Request( $_POST );
-			$this->process( $request );
-			return true;
-		}
-
-		return false;
-	}
-
 	/**
-	 * @param MC4WP_Lite_Form_Request $request
+	 * @param $data
 	 *
 	 * @return bool
 	 */
-	public function process( MC4WP_Lite_Form_Request $request ) {
+	public function listen( array $data ) {
 
-		if( $request->validate() ) {
+		if( ! isset( $data['_mc4wp_form_submit'] ) ) {
+			return false;
+		}
+
+		if ( ! isset( $data['_mc4wp_action'] ) || $data['_mc4wp_action'] === 'subscribe' ) {
+			$request = new MC4WP_Subscribe_Request( $data );
+			$this->process( $request );
+		}
+
+
+		if ( isset( $data['_mc4wp_action'] ) && $data['_mc4wp_action'] === 'unsubscribe' ) {
+			$request = new MC4WP_Unsubscribe_Request( $data );
+			$this->process( $request );
+		}
+
+		return true;
+	}
+
+	/**
+	 * @param iMC4WP_Request $request
+	 *
+	 * @return bool
+	 */
+	public function process( iMC4WP_Request $request ) {
+
+		$valid = $request->validate();
+		$success = false;
+
+		if( $valid ) {
 
 			// prepare request data
-			$request->prepare();
+			$ready = $request->prepare();
 
 			// if request is ready, send an API call to MailChimp
-			if( $request->ready ) {
-				$request->process();
+			if( $ready ) {
+				$success = $request->process();
 			}
 		}
 
-		$request->send_http_response();
+		$request->respond( $success );
 
-		return $request->success;
+		return $success;
 	}
 
 }

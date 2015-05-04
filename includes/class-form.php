@@ -8,10 +8,10 @@ class MC4WP_Form {
 	private static $instance;
 
 	/**
-	 * @param MC4WP_Lite_Form_Request $request
+	 * @param iMC4WP_Request $request
 	 * @return MC4WP_Form|null
 	 */
-	public static function get( MC4WP_Lite_Form_Request $request = null ) {
+	public static function get( iMC4WP_Request $request = null ) {
 
 		// has instance been created already?
 		if( self::$instance ) {
@@ -47,14 +47,14 @@ class MC4WP_Form {
 	public $settings = array();
 
 	/**
-	 * @var MC4WP_Lite_Form_Request
+	 * @var iMC4WP_Request
 	 */
 	public $request;
 
 	/**
-	 * @param MC4WP_Lite_Form_Request $request
+	 * @param iMC4WP_Request $request
 	 */
-	private function __construct( MC4WP_Lite_Form_Request $request = null ) {
+	private function __construct( iMC4WP_Request $request = null ) {
 		$this->ID = 0;
 		$this->name = 'Default Form';
 		$this->settings = $this->load_settings();
@@ -148,7 +148,7 @@ class MC4WP_Form {
 	public function is_submitted( $element_id = null ) {
 
 		// is this form (any instance) submitted)
-		$form_submitted = $this->request instanceof MC4WP_Lite_Form_Request;
+		$form_submitted = $this->request instanceof iMC4WP_Request;
 
 		// if an element ID is given, only return true if that specific element is submitted
 		if( $element_id ) {
@@ -348,33 +348,53 @@ class MC4WP_Form {
 	public function get_messages() {
 
 		$messages = array(
+
+			// email was successfully subscribed to the selected list(s)
 			'subscribed' => array(
 				'type' => 'success',
 				'text' => $this->settings['text_subscribed'],
 			),
-			'already_subscribed' => array(
-				'type' => 'notice',
-				'text' => $this->settings['text_already_subscribed'],
-			),
+
+			// email was successfully unsubscribed from the selected list(s)
 			'unsubscribed' => array(
 				'type' => 'success',
 				'text' => $this->settings['text_unsubscribed']
 			),
+
+			// a general (unknown) error occurred
 			'error' => array(
 				'type' => 'error',
 				'text' => $this->settings['text_error'],
 			),
+
+			// an invalid email was given
 			'invalid_email' => array(
 				'type' => 'error',
 				'text' => $this->settings['text_invalid_email'],
 			),
+
+			// the captcha was not filled correctly
 			'invalid_captcha' => array(
 				'type' => 'error',
 				'text' => $this->settings['text_invalid_captcha'],
 			),
+
+			// a required field is missing for the selected list(s)
 			'required_field_missing' => array(
 				'type' => 'error',
 				'text' => $this->settings['text_required_field_missing'],
+			),
+
+			// email is already subscribed to the selected list(s)
+			'already_subscribed' => array(
+				'type' => 'notice',
+				'text' => $this->settings['text_already_subscribed'],
+			),
+
+			// email is not subscribed on the selected list(s)
+			'not_subscribed' => array(
+				'type' => 'notice',
+				'text' => $this->settings['text_not_subscribed']
 			),
 		);
 
@@ -390,18 +410,18 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * @param MC4WP_Lite_Form_Request $request
+	 * @param iMC4WP_Request $request
 	 *
 	 * @return bool
 	 */
-	protected function has_request( MC4WP_Lite_Form_Request $request ) {
+	protected function has_request( iMC4WP_Request $request ) {
 		return $this->request === $request;
 	}
 
 	/**
-	 * @param MC4WP_Lite_Form_Request $request
+	 * @param iMC4WP_Request $request
 	 */
-	protected function attach_request( MC4WP_Lite_Form_Request $request ) {
+	protected function attach_request( iMC4WP_Request $request ) {
 		$this->request = $request;
 	}
 
