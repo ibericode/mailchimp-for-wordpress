@@ -78,7 +78,7 @@ class MC4WP_Lite_Admin
 		}
 
 		// Hooks for Form settings page
-		if( isset( $_GET['page'] ) && $_GET['page'] === 'mailchimp-for-wp-form-settings' ) {
+		if( $this->get_current_page() === 'mailchimp-for-wp-form-settings' ) {
 			add_filter( 'quicktags_settings', array( $this, 'set_quicktags_buttons' ), 10, 2 );
 		}
 
@@ -117,7 +117,7 @@ class MC4WP_Lite_Admin
 	 */
 	private function listen() {
 		// did the user click on upgrade to pro link?
-		if( isset( $_GET['page'] ) && $_GET['page'] === 'mailchimp-for-wp-upgrade' && false === headers_sent() ) {
+		if( $this->get_current_page() === 'mailchimp-for-wp-upgrade' && false === headers_sent() ) {
 			wp_redirect( 'https://mc4wp.com/#utm_source=lite-plugin&utm_medium=link&utm_campaign=menu-upgrade-link' );
 			exit;
 		}
@@ -278,7 +278,7 @@ class MC4WP_Lite_Admin
 	*/
 	public function load_css_and_js() {
 		// only load asset files on the MailChimp for WordPress settings pages
-		if( ! isset( $_GET['page'] ) || strpos( $_GET['page'], 'mailchimp-for-wp' ) !== 0 ) {
+		if( strpos( $this->get_current_page(), 'mailchimp-for-wp' ) !== 0 ) {
 			return false;
 		}
 
@@ -412,52 +412,14 @@ class MC4WP_Lite_Admin
 		$mailchimp = new MC4WP_MailChimp();
 		$lists = $mailchimp->get_lists();
 
-		// create array of missing form fields
-		$missing_form_fields = array();
-
-		// check if form contains EMAIL field
-		$search = preg_match( '/<(input|textarea)(?=[^>]*name="EMAIL")[^>]*>/i', $opts['markup'] );
-		if( ! $search) {
-			$missing_form_fields[] = sprintf( __( 'An EMAIL field. Example: <code>%s</code>', 'mailchimp-for-wp' ), '&lt;input type="email" name="EMAIL" /&gt;' );
-		}
-
-		// check if form contains submit button
-		$search = preg_match( '/<(input|button)(?=[^>]*type="submit")[^>]*>/i', $opts['markup'] );
-		if( ! $search ) {
-			$missing_form_fields[] = sprintf( __( 'A submit button. Example: <code>%s</code>', 'mailchimp-for-wp' ), '&lt;input type="submit" value="'. __( 'Sign Up', 'mailchimp-for-wp' ) .'" /&gt;' );
-		}
-
-		// loop through selected list ids
-		if( isset( $opts['lists'] ) && is_array( $opts['lists'] ) ) {
-
-			foreach( $opts['lists'] as $list_id ) {
-
-				// get list object
-				$list = $mailchimp->get_list( $list_id );
-				if( ! is_object( $list ) ) {
-					continue;
-				}
-
-				// loop through merge vars of this list
-				foreach( $list->merge_vars as $merge_var ) {
-
-					// if field is required, make sure it's in the form mark-up
-					if( ! $merge_var->req || $merge_var->tag === 'EMAIL' ) {
-						continue;
-					}
-
-					// search for field tag in form mark-up using 'name="FIELD_NAME' without closing " because of array fields
-					$search = stristr( $opts['markup'], 'name="'. $merge_var->tag );
-					if( false === $search ) {
-						$missing_form_fields[] = sprintf( __( 'A \'%s\' field', 'mailchimp-for-wp' ), $merge_var->tag );
-					}
-
-				}
-
-			}
-		}
-
 		require MC4WP_LITE_PLUGIN_DIR . 'includes/views/form-settings.php';
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function get_current_page() {
+		return isset( $_GET['page'] ) ? $_GET['page'] : '';
 	}
 
 }
