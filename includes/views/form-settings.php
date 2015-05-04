@@ -192,30 +192,34 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><label for="mc4wp_form_text_success"><?php _e( 'Success message', 'mailchimp-for-wp' ); ?></label></th>
-				<td colspan="2" ><input type="text" class="widefat" id="mc4wp_form_text_success" name="mc4wp_lite_form[text_success]" value="<?php echo esc_attr( $opts['text_success'] ); ?>" required /></td>
+				<th scope="row"><label for="mc4wp_form_text_subscribed"><?php _e( 'Successfully subscribed', 'mailchimp-for-wp' ); ?></label></th>
+				<td colspan="2" ><input type="text" class="widefat" id="mc4wp_form_text_subscribed" name="mc4wp_lite_form[text_subscribed]" value="<?php echo esc_attr( $opts['text_subscribed'] ); ?>" required /></td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><label for="mc4wp_form_text_invalid_email"><?php _e( 'Invalid email address message', 'mailchimp-for-wp' ); ?></label></th>
+				<th scope="row"><label for="mc4wp_form_text_invalid_email"><?php _e( 'Invalid email address', 'mailchimp-for-wp' ); ?></label></th>
 				<td colspan="2" ><input type="text" class="widefat" id="mc4wp_form_text_invalid_email" name="mc4wp_lite_form[text_invalid_email]" value="<?php echo esc_attr( $opts['text_invalid_email'] ); ?>" required /></td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><label for="mc4wp_form_text_required_field_missing"><?php _e( 'Required field missing message', 'mailchimp-for-wp' ); ?></label></th>
+				<th scope="row"><label for="mc4wp_form_text_required_field_missing"><?php _e( 'Required field missing', 'mailchimp-for-wp' ); ?></label></th>
 				<td colspan="2" ><input type="text" class="widefat" id="mc4wp_form_text_required_field_missing" name="mc4wp_lite_form[text_required_field_missing]" value="<?php echo esc_attr( $opts['text_required_field_missing'] ); ?>" required /></td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><label for="mc4wp_form_text_already_subscribed"><?php _e( 'Already subscribed message', 'mailchimp-for-wp' ); ?></label></th>
+				<th scope="row"><label for="mc4wp_form_text_already_subscribed"><?php _e( 'Already subscribed', 'mailchimp-for-wp' ); ?></label></th>
 				<td colspan="2" ><input type="text" class="widefat" id="mc4wp_form_text_already_subscribed" name="mc4wp_lite_form[text_already_subscribed]" value="<?php echo esc_attr( $opts['text_already_subscribed'] ); ?>" required /></td>
 			</tr>
 			<?php if( true === $this->has_captcha_plugin ) { ?>
 				<tr valign="top">
-					<th scope="row"><label for="mc4wp_form_text_invalid_captcha"><?php _e( 'Invalid CAPTCHA message', 'mailchimp-for-wp' ); ?></label></th>
+					<th scope="row"><label for="mc4wp_form_text_invalid_captcha"><?php _e( 'Invalid CAPTCHA', 'mailchimp-for-wp' ); ?></label></th>
 					<td colspan="2" ><input type="text" class="widefat" id="mc4wp_form_text_invalid_captcha" name="mc4wp_lite_form[text_invalid_captcha]" value="<?php echo esc_attr( $opts['text_invalid_captcha'] ); ?>" required /></td>
 				</tr>
 			<?php } ?>
 			<tr valign="top">
-				<th scope="row"><label for="mc4wp_form_text_error"><?php _e( 'General error message' ,'mailchimp-for-wp' ); ?></label></th>
+				<th scope="row"><label for="mc4wp_form_text_error"><?php _e( 'General error' ,'mailchimp-for-wp' ); ?></label></th>
 				<td colspan="2" ><input type="text" class="widefat" id="mc4wp_form_text_error" name="mc4wp_lite_form[text_error]" value="<?php echo esc_attr( $opts['text_error'] ); ?>" required /></td>
+			</tr>
+			<tr valign="top">
+				<th scope="row"><label for="mc4wp_form_text_unsubscribed"><?php _e( 'Unsubscribed', 'mailchimp-for-wp' ); ?></label></th>
+				<td colspan="2" ><input type="text" class="widefat" id="mc4wp_form_text_unsubscribed" name="mc4wp_lite_form[text_unsubscribed]" value="<?php echo esc_attr( $opts['text_unsubscribed'] ); ?>" required /></td>
 			</tr>
 			<tr>
 				<th></th>

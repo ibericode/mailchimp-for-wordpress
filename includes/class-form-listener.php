@@ -27,7 +27,7 @@ class MC4WP_Form_Listener {
 
 			// if request is ready, send an API call to MailChimp
 			if( $request->ready ) {
-				$request->subscribe();
+				$request->process();
 			}
 		}
 

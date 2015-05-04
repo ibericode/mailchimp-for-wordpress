@@ -34,11 +34,6 @@ class MC4WP_Lite_Form_Request {
 	/**
 	 * @var string
 	 */
-	private $error_code = 'error';
-
-	/**
-	 * @var string
-	 */
 	private $mailchimp_error = '';
 
 	/**
@@ -66,6 +61,16 @@ class MC4WP_Lite_Form_Request {
 	 */
 	public $ready = false;
 
+	/**
+	 * @var string
+	 */
+	public $action = 'subscribe';
+
+	/**
+	 * @var string
+	 */
+	protected $message_type = '';
+
 
 	/**
 	 * Constructor
@@ -80,14 +85,21 @@ class MC4WP_Lite_Form_Request {
 		$this->form_element_id = (string) $this->data['_MC4WP_FORM_ELEMENT_ID'];
 		$this->form_options = mc4wp_get_options( 'form' );
 		$this->form = MC4WP_Form::get( $this );
+		$this->action = $this->get_action();
 	}
 
 	/**
 	 * Prepare data for MailChimp API request
 	 */
 	public function prepare() {
-		$this->guess_fields();
-		$this->map_data();
+
+		if( $this->action === 'subscribe' ) {
+			$this->guess_fields();
+			$this->ready = $this->map_data();
+		} else {
+			$this->ready = true;
+		}
+
 	}
 
 	/**
@@ -145,44 +157,44 @@ class MC4WP_Lite_Form_Request {
 
 		// validate nonce
 		if( ! $validator->validate_nonce() ) {
-			$this->error_code = 'invalid_nonce';
+			$this->message_type = 'invalid_nonce';
 			return false;
 		}
 
 		// ensure honeypot was given but not filled
 		if( ! $validator->validate_honeypot() ) {
-			$this->error_code = 'spam';
+			$this->message_type = 'spam';
 			return false;
 		}
 
 		// check timestamp difference, token should be generated at least 2 seconds before form submit
 		if( ! $validator->validate_timestamp() ) {
-			$this->error_code = 'spam';
+			$this->message_type = 'spam';
 			return false;
 		}
 
 		// check if captcha was present and valid
 		if( ! $validator->validate_timestamp() ) {
-			$this->error_code = 'invalid_captcha';
+			$this->message_type = 'invalid_captcha';
 			return false;
 		}
 
 		// validate email
 		if( ! $validator->validate_email() ) {
-			$this->error_code = 'invalid_email';
+			$this->message_type = 'invalid_email';
 			return false;
 		}
 
 		// validate selected or submitted lists
 		if( ! $validator->validate_lists( $this->get_lists() ) ) {
-			$this->error_code = 'no_lists_selected';
+			$this->message_type = 'no_lists_selected';
 			return false;
 		}
 
 		// run custom validation (using filter)
 		$custom_validation = $validator->custom_validation();
 		if( $custom_validation !== true ) {
-			$this->error_code = $custom_validation;
+			$this->message_type = $custom_validation;
 			return false;
 		}
 
@@ -252,7 +264,7 @@ class MC4WP_Lite_Form_Request {
 			 * @param   string  $email          The email of the subscriber
 			 * @param   array   $data           Additional list fields, like FNAME etc (if any)
 			 */
-			do_action( 'mc4wp_form_error_' . $this->error_code, 0, $this->data['EMAIL'], $this->data );
+			do_action( 'mc4wp_form_error_' . $this->message_type, 0, $this->data['EMAIL'], $this->data );
 		}
 
 	}
@@ -271,18 +283,37 @@ class MC4WP_Lite_Form_Request {
 			$this->global_fields = $mapper->get_global_fields();
 			$this->unmapped_fields = $mapper->get_unmapped_fields();
 		} else {
-			$this->error_code = $mapper->get_error_code();
+			$this->message_type = $mapper->get_error_code();
 		}
 
-		$this->ready = $mapper->success;
 		return $mapper->success;
 	}
 	/**
-	 * Subscribes the given email and additional list fields
+	 * Processes the actual prepared data, sends off a "subscribe" or "unsubscribe" request to MailChimp.
+	 *
 	 * @return bool
 	 */
-	public function subscribe() {
+	public function process() {
 
+		switch( $this->action ) {
+			default:
+			case 'subscribe':
+				$success = $this->subscribe();
+				break;
+
+			case 'unsubscribe';
+				$success = $this->unsubscribe();
+				break;
+		}
+
+		$this->success = $success;
+		return $success;
+	}
+
+	/**
+	 * @return bool
+	 */
+	protected function subscribe() {
 		$api = mc4wp_get_api();
 
 		do_action( 'mc4wp_before_subscribe', $this->data['EMAIL'], $this->data, 0 );
@@ -303,23 +334,40 @@ class MC4WP_Lite_Form_Request {
 
 		do_action( 'mc4wp_after_subscribe', $this->data['EMAIL'], $this->data, 0, $result );
 
-		if ( $result !== true ) {
-			// subscribe request failed, store error.
-			$this->success = false;
-			$this->error_code = $result;
+		// did we succeed in subscribing with the parsed data?
+		if( ! $result ) {
+			$this->message_type = $result;
 			$this->mailchimp_error = $api->get_error_message();
-			return false;
+		} else {
+			$this->message_type = 'subscribed';
+
+			// store user email in a cookie
+			$this->set_email_cookie( $this->data['EMAIL'] );
 		}
 
-		// subscription succeeded
+		return $result === true;
+	}
 
-		// store user email in a cookie
-		$this->set_email_cookie( $this->data['EMAIL'] );
+	/**
+	 * @return bool
+	 */
+	protected function unsubscribe() {
 
-		// Store success result
-		$this->success = true;
+		$api = mc4wp_get_api();
+		$result = false;
 
-		return true;
+		foreach( $this->get_lists() as $list_id ) {
+			$result = $api->unsubscribe( $list_id, $this->data['EMAIL'] );
+		}
+
+		if( ! $result ) {
+			$this->mailchimp_error = $api->get_error_message();
+			$this->message_type = 'error';
+		} else {
+			$this->message_type = 'unsubscribed';
+		}
+
+		return $result;
 	}
 
 
@@ -435,19 +483,9 @@ class MC4WP_Lite_Form_Request {
 		$messages = $this->form->get_messages();
 
 		// retrieve correct message
-		$type = ( $this->success ) ? 'success' : $this->error_code;
-		$message = ( isset( $messages[ $type ] ) ) ? $messages[ $type ] : $messages['error'];
+		$message = ( isset( $messages[ $this->message_type ] ) ) ? $messages[ $this->message_type ] : $messages['error'];
 
-		/**
-		 * @filter mc4wp_form_error_message
-		 * @deprecated 2.0.5
-		 * @use mc4wp_form_messages
-		 *
-		 * Used to alter the error message, don't use. Use `mc4wp_form_messages` instead.
-		 */
-		$message['text'] = apply_filters( 'mc4wp_form_error_message', $message['text'], $this->error_code );
-
-		$html = '<div class="mc4wp-alert mc4wp-'. $message['type'].'">' . $message['text'] . '</div>';
+		$html = '<div class="mc4wp-alert mc4wp-' . esc_attr( $message['type'] ) . '">' . $message['text'] . '</div>';
 
 		// show additional MailChimp API errors to administrators
 		if( ! $this->success && current_user_can( 'manage_options' ) ) {
@@ -458,6 +496,21 @@ class MC4WP_Lite_Form_Request {
 		}
 
 		return $html;
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function get_action() {
+
+		$action = 'subscribe';
+		$available_actions = array( 'subscribe', 'unsubscribe' );
+
+		if( isset( $this->data['_MC4WP_ACTION'] ) && in_array( $this->data['_MC4WP_ACTION'], $available_actions ) ) {
+			$action = $this->data['_MC4WP_ACTION'];
+		}
+
+		return $action;
 	}
 
 }

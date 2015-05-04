@@ -348,9 +348,17 @@ class MC4WP_Form {
 	public function get_messages() {
 
 		$messages = array(
+			'subscribed' => array(
+				'type' => 'success',
+				'text' => $this->settings['text_subscribed'],
+			),
 			'already_subscribed' => array(
 				'type' => 'notice',
 				'text' => $this->settings['text_already_subscribed'],
+			),
+			'unsubscribed' => array(
+				'type' => 'success',
+				'text' => $this->settings['text_unsubscribed']
 			),
 			'error' => array(
 				'type' => 'error',
@@ -359,10 +367,6 @@ class MC4WP_Form {
 			'invalid_email' => array(
 				'type' => 'error',
 				'text' => $this->settings['text_invalid_email'],
-			),
-			'success' => array(
-				'type' => 'success',
-				'text' => $this->settings['text_success'],
 			),
 			'invalid_captcha' => array(
 				'type' => 'error',

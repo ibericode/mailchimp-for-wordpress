@@ -45,6 +45,13 @@ class MC4WP_Lite_Admin
 		// define a constant that we're running an upgrade
 		define( 'MC4WP_DOING_UPGRADE', true );
 
+		// update to new message keys
+		if( version_compare( $db_version, '2.2.9', '<=' ) ) {
+			$options = get_option( 'mc4wp_lite_form' );
+			$options['text_subscribed'] = $options['text_success'];
+			update_option( 'mc4wp_lite_form',$options );
+		}
+
 		// update code version
 		update_option( 'mc4wp_lite_version', MC4WP_LITE_VERSION );
 	}
