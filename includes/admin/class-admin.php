@@ -28,7 +28,7 @@ class MC4WP_Lite_Admin
 	/**
 	 * Upgrade routine
 	 */
-	private function upgrade() {
+	private function load_upgrader() {
 
 		// Only run if db option is at older version than code constant
 		$db_version = get_option( 'mc4wp_lite_version', 0 );
@@ -36,18 +36,8 @@ class MC4WP_Lite_Admin
 			return false;
 		}
 
-		// define a constant that we're running an upgrade
-		define( 'MC4WP_DOING_UPGRADE', true );
-
-		// update to new message keys
-		if( version_compare( $db_version, '2.2.9', '<=' ) ) {
-			$options = get_option( 'mc4wp_lite_form' );
-			$options['text_subscribed'] = $options['text_success'];
-			update_option( 'mc4wp_lite_form',$options );
-		}
-
-		// update code version
-		update_option( 'mc4wp_lite_version', MC4WP_LITE_VERSION );
+		$upgrader = new MC4WP_DB_Upgrader( MC4WP_LITE_VERSION, $db_version );
+		$upgrader->run();
 	}
 
 	/**
@@ -103,7 +93,7 @@ class MC4WP_Lite_Admin
 		// store whether this plugin has the BWS captcha plugin running (https://wordpress.org/plugins/captcha/)
 		$this->has_captcha_plugin = function_exists( 'cptch_display_captcha_custom' );
 
-		$this->upgrade();
+		$this->load_upgrader();
 	}
 
 	/**
