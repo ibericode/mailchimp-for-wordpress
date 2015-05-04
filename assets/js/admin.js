@@ -243,6 +243,11 @@
 			var selected = $(this).find(':selected');
 			switch( selected.val() ) {
 
+				case '_action':
+					fieldType = 'action';
+					$wizardFields.find('.wrap-p').show();
+					break;
+
 				case 'submit':
 					fieldType = 'submit';
 					$valueLabel.text( strings.buttonText );
@@ -373,6 +378,24 @@
 			return html;
 		}
 
+		function getActionChoiceHTML() {
+			var actions = [
+				{ name: "subscribe", label: strings.subscribe, checked: true },
+				{ name: "unsubscribe", label: strings.unsubscribe, checked: false }
+			];
+
+			var html = '';
+			for( var i=0; i<actions.length; i++ ) {
+				var action = actions[i];
+
+				html += '<label>' + "\n";
+				html += "\t" + '<input type="radio" name="_mc4wp_action" value="' + action.name + '" '+ ( ( action.checked ) ? 'checked' : '' ) +' > ' + action.label + "\n";
+				html += '</label>' + "\n";
+			}
+
+			return html;
+		}
+
 
 
 		/**
@@ -458,6 +481,17 @@
 			var $input;
 
 			switch(fieldType) {
+
+				case 'action':
+					var html = getActionChoiceHTML();
+
+					if( wrapInParagraph() ) {
+						html = "<p>" + html + "</p>";
+					}
+
+					return setCodePreview(html);
+					break;
+
 				// MailChimp lists
 				case 'lists':
 					var html = getListChoiceHTML();

@@ -304,7 +304,8 @@ class MC4WP_Lite_Admin
 						'optional' => __( '(optional)', 'mailchimp-for-wp' ),
 						'labelFor' => __( 'Label for', 'mailchimp-for-wp' ),
 						'orLeaveEmpty' => __( '(or leave empty)', 'mailchimp-for-wp' ),
-						'subscribe' => __( 'Subscribe', 'mailchimp-for-wp' )
+						'subscribe' => __( 'Subscribe', 'mailchimp-for-wp' ),
+						'unsubscribe' => __( 'Unsubscribe', 'mailchimp-for-wp' )
 					)
 				),
 				'mailchimpLists' => $mailchimp->get_lists()
