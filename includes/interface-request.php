@@ -29,4 +29,11 @@ interface iMC4WP_Request {
 	 * @return bool
 	 */
 	public function respond();
+
+	/**
+	 * Return the response string for this request (is added to the corresponding form element)
+	 *
+	 * @return string
+	 */
+	public function get_response_html();
 }
