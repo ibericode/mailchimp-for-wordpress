@@ -126,17 +126,11 @@ class MC4WP_API {
 
 		$response = $this->call( 'lists/subscribe', $data );
 
-		if( is_object( $response ) ) {
-
-			if( isset( $response->error ) ) {
-				return false;
-			} else {
-				return true;
-			}
-
+		if( is_object( $response ) && isset( $response->email ) ) {
+			return true;
 		}
 
-		return 'error';
+		return false;
 	}
 
 	/**

@@ -16,7 +16,7 @@ class ApiDebug extends MC4WP_API {
 	private $response = false;
 
 	/**
-	 * Overwrite `call` method to just store test reponse right away.
+	 * Overwrite `call` method to just store test response right away.
 	 */
 	public function call( $method, array $data = array() ) {
 
@@ -79,15 +79,15 @@ class ApiTest extends PHPUnit_Framework_TestCase {
 	public function test_subscribe() {
 		// test request error
 		$this->api->set_response( false );
-		$this->assertEquals( $this->api->subscribe( 'sample_list_id', 'sample_email' ), 'error' );
+		$this->assertFalse( $this->api->subscribe( 'sample_list_id', 'sample_email' ) );
 
 		// test "already_subscribed" API error
 		$this->api->set_response( (object) array( 'error' => 'error message', 'code' => '214' ) );
-		$this->assertEquals( $this->api->subscribe( 'sample_list_id', 'sample_email' ), 'already_subscribed' );
+		$this->assertFalse( $this->api->subscribe( 'sample_list_id', 'sample_email' ) );
 
 		// test general API errors
 		$this->api->set_response( (object) array( 'error' => 'error message', 'code' => '-99' ) );
-		$this->assertEquals( $this->api->subscribe( 'sample_list_id', 'sample_email' ), 'error' );
+		$this->assertFalse( $this->api->subscribe( 'sample_list_id', 'sample_email' ) );
 
 		// test success
 		$this->api->set_response( (object) array( 'email' => 'sample_email', 'euid' => 'sample_euid', 'leid' => 'sample_leid' ) );
@@ -172,6 +172,14 @@ class ApiTest extends PHPUnit_Framework_TestCase {
 		$this->api->set_response( (object) array( 'error' => 'error message', 'code' => -99 ) );
 		$this->api->subscribe( 'sample_list_id', 'sample_email' );
 		$this->assertEquals( $this->api->get_error_message(), 'error message' );
+	}
+
+	public function test_get_error_code() {
+		$this->api->set_response( (object) array( 'error' => 'error message', 'code' => "-99" ) );
+		$this->api->subscribe( 'sample_list_id', 'sample_email' );
+
+		$this->assertEquals( $this->api->get_error_code(), -99 );
+
 	}
 
 	/**
