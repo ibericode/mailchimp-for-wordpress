@@ -17,5 +17,8 @@
 		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing" />
 		<exclude name="WordPress.WhiteSpace.ScopeIndent.Incorrect" />
 		<exclude name="WordPress.XSS.EscapeOutput" />
+
+		<!-- Our interfaces do not require CamelCaps -->
+		<exclude name="WordPress.Classes.ValidClassName.NotCamelCaps" />
 	</rule>
 </ruleset>

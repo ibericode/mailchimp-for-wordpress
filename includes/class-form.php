@@ -358,7 +358,7 @@ class MC4WP_Form {
 			// email was successfully unsubscribed from the selected list(s)
 			'unsubscribed' => array(
 				'type' => 'success',
-				'text' => $this->settings['text_unsubscribed']
+				'text' => $this->settings['text_unsubscribed'],
 			),
 
 			// a general (unknown) error occurred
@@ -394,7 +394,7 @@ class MC4WP_Form {
 			// email is not subscribed on the selected list(s)
 			'not_subscribed' => array(
 				'type' => 'notice',
-				'text' => $this->settings['text_not_subscribed']
+				'text' => $this->settings['text_not_subscribed'],
 			),
 		);
 
