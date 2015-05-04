@@ -215,7 +215,7 @@ class MC4WP_Lite_Form_Manager {
 						// hide honeypot
 						var honeypot = f.querySelector('input[name="_mc4wp_required_but_not_really"]');
 						honeypot.style.display = 'none';
-						honeypot.setAttribute('type','hidden');
+						honeypot.type = 'hidden'; 
 
 						// add class on submit
 						var b = f.querySelector('[type="submit"]');
