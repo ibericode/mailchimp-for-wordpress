@@ -6,11 +6,6 @@
 abstract class MC4WP_Request implements iMC4WP_Request {
 
 	/**
-	 * @var array The form options
-	 */
-	protected $form_options;
-
-	/**
 	 * @var string
 	 */
 	protected $mailchimp_error = '';
@@ -52,7 +47,6 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 
 		// store number of submitted form
 		$this->form_element_id = (string) $this->data['_MC4WP_FORM_ELEMENT_ID'];
-		$this->form_options = mc4wp_get_options( 'form' );
 		$this->form = MC4WP_Form::get( $this );
 	}
 
@@ -164,7 +158,7 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 			$this->data['_MC4WP_FORM_ID'],
 			$this->data['EMAIL'],
 		);
-		$url = str_ireplace( $needles, $replacements, $this->form_options['redirect'] );
+		$url = str_ireplace( $needles, $replacements, $this->form->settings['redirect'] );
 
 		return $url;
 	}
