@@ -1,10 +1,10 @@
 === MailChimp for WordPress ===
 Contributors: DvanKooten, iMazed, hchouhan
 Donate link: https://mc4wp.com/
-Tags: mailchimp,contact form 7,woocommerce,buddypress,newsletter,newsletter form,mailchimp form,widget,contact form,subscribe,shortcode,form,multisite,events manager,easy digital downloads,registration form,captcha,newsletter sign up,mailchimp for wordpress,mailchimp for wp,mailchimp sign-up,mailchimp subscribe,email
+Tags: mailchimp,newsletter,sign-up,contact form 7,woocommerce,buddypress,widget,form
 Requires at least: 3.7
-Tested up to: 4.2
-Stable tag: 2.2.9
+Tested up to: 4.2.1
+Stable tag: 2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -250,6 +250,10 @@ Your theme probably does not support the necessary comment hook this plugin uses
 
 Your theme folder can be found by browsing to `/wp-content/themes/your-theme-name/`.
 
+= More documentation =
+
+More detailed documentation can be found on the [MailChimp for WordPress documentation](https://mc4wp.com/kb/) site.
+
 == Other Notes ==
 
 = Bug Reports =
@@ -286,6 +290,28 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 8. **Pro only:** Create your own CSS styles with the form designer in the Pro version.
 
 == Changelog ==
+
+= 2.3 - May 6, 2015 =
+
+**Fixes**
+
+- The email address is no longer automatically added to the Redirect URL as this is against Google Analytics policy. To add it again, use `?email={email}` in your URL setting.
+- Registration type integrations were not correctly picking up on first- and last names.
+- JavaScript error in IE8 because of `setAttribute` call on honeypot field.
+- API class `subscribe` method now always returns a boolean.
+
+**Improvements**
+
+- Add `role` attribute to form elements
+- Major code refactoring for easier unit testing and improved code readability.
+- Use Composer for autoloading all plugin classes (PHP 5.2 compatible)
+
+**Additions**
+
+- You can now handle unsubscribe calls with our forms too.
+- Added Portugese, Indonesian, German (CH) and Spanish (PR) translations.
+
+
 
 = 2.2.9 - April 15, 2015 =
 
