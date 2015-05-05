@@ -270,7 +270,9 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 		<p><?php printf( __( 'If you need an easier way to style your forms, consider <a href="%s">upgrading to MailChimp for WordPress Pro</a> which comes with an easy Styles Builder.', 'mailchimp-for-wp' ), 'https://mc4wp.com/' ); ?></p>
 
 		<h3 class="mc4wp-title"><?php _e( 'Variables', 'mailchimp-for-wp' ); ?></h3>
-		<p><?php echo __( 'Use the following variables to add some dynamic content to your form or messages.', 'mailchimp-for-wp' ) . ' ' . __( 'This allows you to personalise your form or response messages.', 'mailchimp-for-wp' ); ?></p>
+		<p>
+			<?php echo sprintf( __( 'The following list of variables can be used to <a href="%s">add some dynamic content to your form or success and error messages</a>.', 'mailchimp-for-wp' ), 'https://mc4wp.com/kb/using-variables-in-your-form-or-messages/' ) . ' ' . __( 'This allows you to personalise your form or response messages.', 'mailchimp-for-wp' ); ?>
+		</p>
 
 		<?php $language = defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : get_locale(); ?>
 
