@@ -266,6 +266,12 @@ Development of the plugin happens on GitHub: [dannyvankooten/mailchimp-for-wordp
 
 == Changelog ==
 
+= 2.3.1 - May 6, 2015 =
+
+**Fixes**
+
+- PHP notice in `includes/class-tools.php`, introduced by version 2.3.
+
 = 2.3 - May 6, 2015 =
 
 **Fixes**
@@ -810,5 +816,5 @@ Minor improvements and additions for compatibility with the [MailChimp Sync plug
 
 == Upgrade Notice ==
 
-= 2.3 =
+= 2.3.1 =
 Handle unsubscribe calls from your forms and use dynamic variables everywhere. Updated translations.
