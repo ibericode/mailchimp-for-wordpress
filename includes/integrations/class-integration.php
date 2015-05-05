@@ -114,14 +114,7 @@ abstract class MC4WP_Integration {
 		}
 
 		// replace label variables
-		$label = MC4WP_Tools::replace_variables( $label, $opts['lists'] );
-
-		// subscriber count? only fetch these if the tag is actually used
-		if ( stristr( $label, '{subscriber_count}' ) !== false ) {
-			$mailchimp = new MC4WP_MailChimp();
-			$subscriber_count = $mailchimp->get_subscriber_count( array_values( $opts['lists'] ) );
-			$label = str_ireplace( '{subscriber_count}', $subscriber_count, $label );
-		}
+		$label = MC4WP_Tools::replace_variables( $label, array(), array_values( $opts['lists'] ) );
 
 		return $label;
 	}

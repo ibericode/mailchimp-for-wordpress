@@ -252,6 +252,9 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 		// retrieve correct message
 		$message = ( isset( $messages[ $this->message_type ] ) ) ? $messages[ $this->message_type ] : $messages['error'];
 
+		// replace variables in message text
+		$message['text'] = MC4WP_Tools::replace_variables( $message['text'], array(), array_values( $this->get_lists() ) );
+
 		$html = '<div class="mc4wp-alert mc4wp-' . esc_attr( $message['type'] ) . '">' . $message['text'] . '</div>';
 
 		// show additional MailChimp API errors to administrators

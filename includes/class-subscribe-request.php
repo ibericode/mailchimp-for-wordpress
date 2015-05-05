@@ -94,7 +94,7 @@ class MC4WP_Subscribe_Request extends MC4WP_Request {
 			$this->message_type = 'subscribed';
 
 			// store user email in a cookie
-			$this->set_email_cookie( $this->data['EMAIL'] );
+			MC4WP_Tools::remember_email( $this->data['EMAIL'] );
 		}
 
 		$this->success = $result;
@@ -135,25 +135,6 @@ class MC4WP_Subscribe_Request extends MC4WP_Request {
 		$merge_vars = apply_filters( 'mc4wp_merge_vars', $merge_vars, 0, $list_id );
 
 		return (array) $merge_vars;
-	}
-
-	/**
-	 * Stores the given email in a cookie for 30 days
-	 *
-	 * @param string $email
-	 */
-	protected function set_email_cookie( $email ) {
-
-		/**
-		 * @filter `mc4wp_cookie_expiration_time`
-		 * @expects timestamp
-		 * @default timestamp for 30 days from now
-		 *
-		 * Timestamp indicating when the email cookie expires, defaults to 30 days
-		 */
-		$expiration_time = apply_filters( 'mc4wp_cookie_expiration_time', strtotime( '+30 days' ) );
-
-		setcookie( 'mc4wp_email', $email, $expiration_time, '/' );
 	}
 
 

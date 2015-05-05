@@ -3,6 +3,11 @@
 class MC4WP_Tools {
 
 	/**
+	 * @var string
+	 */
+	public static $remembered_email = '';
+
+	/**
 	 * @param array $merge_vars
 	 *
 	 * @return mixed
@@ -30,11 +35,12 @@ class MC4WP_Tools {
 	 *
 	 * @param    string $string
 	 * @param array     $additional_replacements
+	 * @param array Array of list ID's (needed if {subscriber_count} is set
 	 *
 	 * @return string $text       The text with {variables} replaced.
 	 * replaced.
 	 */
-	public static function replace_variables( $string, $additional_replacements = array() ) {
+	public static function replace_variables( $string, $additional_replacements = array(), $list_ids = array() ) {
 
 		// replace general vars
 		$needles = array(
@@ -52,7 +58,7 @@ class MC4WP_Tools {
 		);
 
 		$replacements = array(
-			$_SERVER['REMOTE_ADDR'],
+			self::get_client_ip(),
 			mc4wp_get_current_url(),
 			date( 'm/d/Y' ),
 			date( 'H:i:s' ),
@@ -83,6 +89,14 @@ class MC4WP_Tools {
 		$needles = array_merge( $needles, array_keys( $additional_replacements ) );
 		$replacements = array_merge( $replacements, array_values( $additional_replacements ) );
 
+		// subscriber count? only fetch these if the tag is actually used
+		if ( stristr( $string, '{subscriber_count}' ) !== false ) {
+			$mailchimp = new MC4WP_MailChimp();
+			$subscriber_count = $mailchimp->get_subscriber_count( $list_ids );
+			$needles[] = '{subscriber_count}';
+			$replacements[] = $subscriber_count;
+		}
+
 		// perform the replacement
 		$string = str_ireplace( $needles, $replacements, $string );
 
@@ -90,19 +104,50 @@ class MC4WP_Tools {
 	}
 
 	/**
+	 * Returns the email address of the visitor if it is known to us
+	 *
 	 * @return string
 	 */
 	public static function get_known_email() {
 
-		if( isset( $_GET['mc4wp_email'] ) ) {
-			$email = $_GET['mc4wp_email'];
+		if( isset( self::$remembered_email ) ) {
+			$email = strip_tags( self::$remembered_email );
+		} elseif( isset( $_GET['mc4wp_email'] ) ) {
+			$email = strip_tags( $_GET['mc4wp_email'] );
 		} elseif( isset( $_COOKIE['mc4wp_email'] ) ) {
-			$email = $_COOKIE['mc4wp_email'];
+			$email = strip_tags( $_COOKIE['mc4wp_email'] );
 		} else {
 			$email = '';
 		}
 
 		return $email;
+	}
+
+	/**
+	 * Returns the IP address of the visitor, does not take proxies into account.
+	 *
+	 * @return string
+	 */
+	public static function get_client_ip() {
+		return strip_tags( $_SERVER['REMOTE_ADDR'] );
+	}
+
+	/**
+	 * @param $email
+	 */
+	public static function remember_email( $email ) {
+		/**
+		 * @filter `mc4wp_cookie_expiration_time`
+		 * @expects timestamp
+		 * @default timestamp for 30 days from now
+		 *
+		 * Timestamp indicating when the email cookie expires, defaults to 90 days
+		 */
+		$expiration_time = apply_filters( 'mc4wp_cookie_expiration_time', strtotime( '+90 days' ) );
+
+		setcookie( 'mc4wp_email', $email, $expiration_time, '/' );
+
+		self::$remembered_email = $email;
 	}
 
 
