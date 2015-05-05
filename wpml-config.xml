@@ -11,6 +11,7 @@
 			<key name="text_invalid_captcha" />
 			<key name="text_required_field_missing" />
 			<key name="text_unsubscribed" />
+			<key name="text_not_subscribed" />
 		</key>
 	</admin-texts>
 </wpml-config>
