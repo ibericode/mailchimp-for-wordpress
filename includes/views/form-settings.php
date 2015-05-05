@@ -333,6 +333,10 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 				<th>{current_url}</th>
 				<td><?php _e( 'Current URL', 'mailchimp-for-wp' ); ?></td>
 			</tr>
+			<tr>
+				<th>{data_FNAME}</th>
+				<td><?php _e( 'The value of the <strong>FNAME</strong> field, if set.', 'mailchimp-for-wp' ); ?></td>
+			</tr>
 		</table>
 	</div>
 

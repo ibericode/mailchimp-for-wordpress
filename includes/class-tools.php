@@ -3,11 +3,6 @@
 class MC4WP_Tools {
 
 	/**
-	 * @var string
-	 */
-	public static $remembered_email = '';
-
-	/**
 	 * @param array $merge_vars
 	 *
 	 * @return mixed
@@ -100,7 +95,28 @@ class MC4WP_Tools {
 		// perform the replacement
 		$string = str_ireplace( $needles, $replacements, $string );
 
+		// replace dynamic variables
+		if( stristr( $string, '{data_' ) !== false ) {
+			$string = preg_replace_callback('/\{data_(.+)\}/', array( 'MC4WP_Tools', 'replace_request_data_variables' ), $string );
+		}
+
 		return $string;
+	}
+
+	/**
+	 * @param $matches
+	 *
+	 * @return string
+	 */
+	public static function replace_request_data_variables( $matches ) {
+
+		$variable = $matches[1];
+
+		if( isset( $_REQUEST[ $variable ] ) ) {
+			return esc_html( $_REQUEST[ $variable ] );
+		}
+
+		return '';
 	}
 
 	/**
@@ -110,17 +126,17 @@ class MC4WP_Tools {
 	 */
 	public static function get_known_email() {
 
-		if( isset( self::$remembered_email ) ) {
-			$email = strip_tags( self::$remembered_email );
-		} elseif( isset( $_GET['mc4wp_email'] ) ) {
-			$email = strip_tags( $_GET['mc4wp_email'] );
-		} elseif( isset( $_COOKIE['mc4wp_email'] ) ) {
-			$email = strip_tags( $_COOKIE['mc4wp_email'] );
+		if( isset( $_REQUEST['EMAIL'] ) ) {
+			$email = $_REQUEST['EMAIL'];
+		} elseif( isset( $_REQUEST['mc4wp_email'] ) ) {
+			$email = $_REQUEST['mc4wp_email'];
+		} elseif( $_COOKIE['mc4wp_email'] ) {
+			$email = $_COOKIE['mc4wp_email'];
 		} else {
 			$email = '';
 		}
 
-		return $email;
+		return strip_tags( $email );
 	}
 
 	/**
@@ -136,20 +152,17 @@ class MC4WP_Tools {
 	 * @param $email
 	 */
 	public static function remember_email( $email ) {
+
 		/**
 		 * @filter `mc4wp_cookie_expiration_time`
 		 * @expects timestamp
-		 * @default timestamp for 30 days from now
+		 * @default timestamp for 90 days from now
 		 *
 		 * Timestamp indicating when the email cookie expires, defaults to 90 days
 		 */
 		$expiration_time = apply_filters( 'mc4wp_cookie_expiration_time', strtotime( '+90 days' ) );
 
 		setcookie( 'mc4wp_email', $email, $expiration_time, '/' );
-
-		self::$remembered_email = $email;
 	}
-
-
 
 }
