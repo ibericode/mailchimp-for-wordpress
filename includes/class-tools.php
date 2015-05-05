@@ -115,7 +115,7 @@ class MC4WP_Tools {
 			$email = $_REQUEST['EMAIL'];
 		} elseif( isset( $_REQUEST['mc4wp_email'] ) ) {
 			$email = $_REQUEST['mc4wp_email'];
-		} elseif( $_COOKIE['mc4wp_email'] ) {
+		} elseif( isset( $_COOKIE['mc4wp_email'] ) ) {
 			$email = $_COOKIE['mc4wp_email'];
 		} else {
 			$email = '';
