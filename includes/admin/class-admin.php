@@ -102,7 +102,7 @@ class MC4WP_Lite_Admin
 	private function listen() {
 		// did the user click on upgrade to pro link?
 		if( $this->get_current_page() === 'mailchimp-for-wp-upgrade' && false === headers_sent() ) {
-			wp_redirect( 'https://mc4wp.com/#utm_source=lite-plugin&utm_medium=link&utm_campaign=menu-upgrade-link' );
+			wp_redirect( 'https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=menu-upgrade-link' );
 			exit;
 		}
 	}
@@ -157,7 +157,7 @@ class MC4WP_Lite_Admin
 		}
 
 		$links[] = '<a href="https://wordpress.org/plugins/mailchimp-for-wp/faq/">FAQ</a>';
-		$links[] = '<a href="https://mc4wp.com/#utm_source=lite-plugin&utm_medium=link&utm_campaign=plugins-upgrade-link">' . __( 'Upgrade to MailChimp for WordPress Pro', 'mailchimp-for-wp' ) . '</a>';
+		$links[] = '<a href="https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=plugins-upgrade-link">' . __( 'Upgrade to MailChimp for WordPress Pro', 'mailchimp-for-wp' ) . '</a>';
 		return $links;
 	}
 
@@ -345,7 +345,7 @@ class MC4WP_Lite_Admin
 	*/
 	public function redirect_to_pro()
 	{
-		?><script type="text/javascript">window.location.replace('https://mc4wp.com/#utm_source=lite-plugin&utm_medium=link&utm_campaign=menu-upgrade-link'); </script><?php
+		?><script type="text/javascript">window.location.replace('https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=menu-upgrade-link'); </script><?php
 	}
 
 	/**
