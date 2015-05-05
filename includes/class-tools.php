@@ -38,62 +38,45 @@ class MC4WP_Tools {
 	public static function replace_variables( $string, $additional_replacements = array(), $list_ids = array() ) {
 
 		// replace general vars
-		$needles = array(
-			'{ip}',
-			'{current_url}',
-			'{date}',
-			'{time}',
-			'{language}',
-			'{email}',
-			'{user_email}',
-			'{user_firstname}',
-			'{user_lastname}',
-			'{user_name}',
-			'{user_id}',
-		);
-
 		$replacements = array(
-			self::get_client_ip(),
-			mc4wp_get_current_url(),
-			date( 'm/d/Y' ),
-			date( 'H:i:s' ),
-			defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : get_locale(),
-			self::get_known_email(),
+			'{ip}' => self::get_client_ip(),
+			'{current_url}' => mc4wp_get_current_url(),
+			'{date}' => date( 'm/d/Y' ),
+			'{time}' => date( 'H:i:s' ),
+			'{language}' => defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : get_locale(),
+			'{email}' => self::get_known_email(),
+			'{user_email}' => '',
+			'{user_firstname}' => '',
+			'{user_lastname}' => '',
+			'{user_name}' => '',
+			'{user_id}' => '',
 		);
 
 		// setup replacements for logged-in users
 		if ( is_user_logged_in()
 		     && ( $user = wp_get_current_user() )
 		     && ( $user instanceof WP_User ) ) {
+
 			// logged in user, replace vars by user vars
-			$user_replacements = array(
-				$user->user_email,
-				$user->first_name,
-				$user->last_name,
-				$user->display_name,
-				$user->ID,
-			);
-		} else {
-			$user_replacements = array_fill( 0, 5, '' );
+			$replacements['{user_email}'] = $user->user_email;
+			$replacements['{user_firstname}'] = $user->first_name;
+			$replacements['{user_lastname}'] = $user->last_name;
+			$replacements['{user_name}'] = $user->display_name;
+			$replacements['{user_id}'] = $user->ID;
 		}
 
-		// merge user replacements
-		$replacements = array_merge( $replacements, $user_replacements );
-
-		// merge both with additional replacements
-		$needles = array_merge( $needles, array_keys( $additional_replacements ) );
-		$replacements = array_merge( $replacements, array_values( $additional_replacements ) );
+		// merge with additional replacements
+		$replacements = array_merge( $replacements, $additional_replacements );
 
 		// subscriber count? only fetch these if the tag is actually used
 		if ( stristr( $string, '{subscriber_count}' ) !== false ) {
 			$mailchimp = new MC4WP_MailChimp();
 			$subscriber_count = $mailchimp->get_subscriber_count( $list_ids );
-			$needles[] = '{subscriber_count}';
-			$replacements[] = $subscriber_count;
+			$replacements['{subscriber_count}'] = $subscriber_count;
 		}
 
 		// perform the replacement
-		$string = str_ireplace( $needles, $replacements, $string );
+		$string = str_ireplace( array_keys( $replacements ), array_values( $replacements ), $string );
 
 		// replace dynamic variables
 		if( stristr( $string, '{data_' ) !== false ) {
@@ -112,7 +95,7 @@ class MC4WP_Tools {
 
 		$variable = $matches[1];
 
-		if( isset( $_REQUEST[ $variable ] ) ) {
+		if( isset( $_REQUEST[ $variable ] ) && is_scalar( $_REQUEST[ $variable ] ) ) {
 			return esc_html( $_REQUEST[ $variable ] );
 		}
 

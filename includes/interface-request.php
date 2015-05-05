@@ -36,4 +36,14 @@ interface iMC4WP_Request {
 	 * @return string
 	 */
 	public function get_response_html();
+
+	/**
+	 * @return array
+	 */
+	public function get_lists();
+
+	/**
+	 * @return array
+	 */
+	public function get_data();
 }

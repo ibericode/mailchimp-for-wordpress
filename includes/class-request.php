@@ -149,17 +149,12 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 	 * @return string
 	 */
 	protected function get_redirect_url() {
-
-		$needles = array(
-			'{form_id}',
-			'{email}',
+		$additional_replacements = array(
+			'{form_id}' => $this->form->ID,
+			'{form_element}' => $this->form_element_id,
+			'{email}' => urlencode( $this->data['EMAIL'] )
 		);
-		$replacements = array(
-			$this->data['_MC4WP_FORM_ID'],
-			$this->data['EMAIL'],
-		);
-		$url = str_ireplace( $needles, $replacements, $this->form->settings['redirect'] );
-
+		$url = MC4WP_Tools::replace_variables( $this->form->settings['redirect'], $additional_replacements );
 		return $url;
 	}
 
@@ -216,7 +211,7 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 	 *
 	 * @return array Array of selected MailChimp lists
 	 */
-	protected function get_lists() {
+	public function get_lists() {
 
 		$lists = $this->form->settings['lists'];
 
@@ -266,6 +261,13 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 		}
 
 		return $html;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_data() {
+		return $this->data;
 	}
 
 }
