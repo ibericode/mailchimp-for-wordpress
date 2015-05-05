@@ -36,8 +36,9 @@
 	}
 
 	function toggleWooCommerceSettings() {
+		console.log( $(this).prop('checked'));
 		var $el = $(document.getElementById('woocommerce-settings'));
-		$el.toggle( $(this).prop('checked'));
+		$el.toggle(this.checked);
 	}
 
 	function toggleFieldWizard() {
@@ -89,7 +90,7 @@
 	$context.find('input[name$="[double_optin]"]').change(toggleSendWelcomeFields);
 
 	// show woocommerce settings only when `show at woocommerce checkout` is checked.
-	$context.find('input[name$="[show_at_woocommerce_checkout]"]').change(toggleWooCommerceSettings());
+	$context.find('input[name$="[show_at_woocommerce_checkout]"]').change(toggleWooCommerceSettings);
 
 	// only show fieldwizard when a list is selected
 	$listInputs.change(toggleFieldWizard);
