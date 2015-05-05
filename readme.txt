@@ -89,22 +89,14 @@ If you do not yet have a MailChimp account, [registering for MailChimp is free a
 = Configuring Sign-Up Checkboxes =
 1. Go to *MailChimp for WP > Checkboxes*
 2. Select at least one of your MailChimp lists to subscribe to.
-3. Select the forms you want to add a sign-up checkbox to, eg your comment form.
-4. Integrate the sign-up checkbox with any other form by using the following HTML.
-
-`
-<label><input type="checkbox" name="mc4wp-subscribe" value="1" /> Subscribe to our newsletter.</label>
-`
+3. Select the forms you want to [add a sign-up checkbox to your, like your comment form or WooCommerce checkout](https://mc4wp.com/kb/add-sign-checkbox-form-another-plugin/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=installation-instructions-link).
+4. Optionally, [add a sign-up checkbox to a Contact Form 7](https://mc4wp.com/kb/add-sign-checkbox-contact-form-7/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=installation-instructions-link) form or [any other form](https://mc4wp.com/kb/add-sign-checkbox-custom-form/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=installation-instructions-link).
 
 = Configuring Sign-Up Form(s) =
 1. Go to *MailChimp for WP > Forms*
-2. Select at least one of your MailChimp lists to subscribe to.
-3. *(Optional)* Add more fields or dynamic content to your form using the **add MailChimp field** dropdown.
-4. Embed a sign-up form in pages or posts by using the following shortcode.
-
-`
-[mc4wp_form]
-`
+2. Select at least one MailChimp list to subscribe people to.
+3. *(Optional)* Add more fields to your form using the **add MailChimp field** dropdown.
+4. Embed a sign-up form in pages or posts by using the `[mc4wp_form]` shortcode.
 5. Show a sign-up form in your widget areas using the "MailChimp Sign-Up Form" widget.
 6. Show a sign-up form from your theme files by using the following PHP function.
 
@@ -116,10 +108,11 @@ if( function_exists( 'mc4wp_form' ) ) {
 }
 `
 
-Need help? Please take a look at the [frequently asked questions](https://wordpress.org/plugins/mailchimp-for-wp/faq/) first. If you can't find your answer there, start a topic in the [MailChimp for WordPress plugin support forums](https://wordpress.org/support/plugin/mailchimp-for-wp).
+= Need help? =
+Please take a look at the [MailChimp for WordPress documentation](https://mc4wp.com/kb/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=installation-instructions-link) or [plugin FAQ](https://wordpress.org/plugins/mailchimp-for-wp/faq/) first. If you can't find your answer there, please look through the [MailChimp for WordPress plugin support forums](https://wordpress.org/support/plugin/mailchimp-for-wp) or start your own topic.
 
 = Upgrade to MailChimp for WordPress Pro =
-If you like the plugin, [get the Pro version of MailChimp for WordPress](https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=installation-instructions-link) for an even better plugin!
+If you like the plugin, consider [upgrading to the Pro version of MailChimp for WordPress](https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=installation-instructions-link) for an even better plugin!
 
 == Frequently Asked Questions ==
 
