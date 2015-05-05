@@ -86,6 +86,7 @@ class MC4WP_Tools {
 		return $string;
 	}
 
+
 	/**
 	 * @param $matches
 	 *
@@ -93,10 +94,11 @@ class MC4WP_Tools {
 	 */
 	public static function replace_request_data_variables( $matches ) {
 
-		$variable = $matches[1];
+		$variable = strtoupper( $matches[1] );
+		$request_data = array_change_key_case( $_REQUEST, CASE_UPPER );
 
-		if( isset( $_REQUEST[ $variable ] ) && is_scalar( $_REQUEST[ $variable ] ) ) {
-			return esc_html( $_REQUEST[ $variable ] );
+		if( isset( $request_data[ $variable ] ) && is_scalar( $request_data[ $variable ] ) ) {
+			return esc_html( $request_data[ $variable ] );
 		}
 
 		return '';
