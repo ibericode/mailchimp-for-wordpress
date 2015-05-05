@@ -223,6 +223,10 @@ _Example (hidden field):_
 <input type="hidden" name="GROUPINGS[###]" value="Groupname 1,Groupname 2,Groupname 3" />
 `
 
+= I'm getting an "HTTP Error" when trying to connect to MailChimp =
+If you're getting an `HTTP Error` when trying to connect to your MailChimp account, please contact your webhost and ask them if they have PHP CURL installed and updated to the latest version (7.40.x).
+Also, please ask them to allow requests to `https://api.mailchimp.com/`.
+
 = What are the main differences between MailChimp for WordPress Pro and Lite? =
 Please have a look at the [MailChimp for WordPress Pro vs MailChimp for WordPress lite comparision](https://mc4wp.com/features/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=faq) page on our site.
 
