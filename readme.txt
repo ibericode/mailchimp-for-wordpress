@@ -1,6 +1,6 @@
 === MailChimp for WordPress ===
 Contributors: DvanKooten, iMazed, hchouhan
-Donate link: https://mc4wp.com/
+Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm-medium=mailchimp-for-wp&utm_campaign=donate-link
 Tags: mailchimp,newsletter,sign-up,contact form 7,woocommerce,buddypress,widget,form
 Requires at least: 3.7
 Tested up to: 4.2.1
@@ -270,7 +270,7 @@ Development of the plugin happens on GitHub: [dannyvankooten/mailchimp-for-wordp
 
 **Fixes**
 
-- The email address is no longer automatically added to the Redirect URL as this is against Google Analytics policy. To add it again, use `?email={email}` in your URL setting.
+- The email address is no longer automatically added to the Redirect URL as this is against Google Analytics policy. To add it again, use `?email={email}` in your Redirect URL setting.
 - Registration type integrations were not correctly picking up on first- and last names.
 - JavaScript error in IE8 because of `setAttribute` call on honeypot field.
 - API class `subscribe` method now always returns a boolean.
@@ -280,13 +280,12 @@ Development of the plugin happens on GitHub: [dannyvankooten/mailchimp-for-wordp
 - Add `role` attribute to form elements
 - Major code refactoring for easier unit testing and improved code readability.
 - Use Composer for autoloading all plugin classes (PHP 5.2 compatible)
+- You can now use [form variables in both forms, messages as checkbox label texts](https://mc4wp.com/kb/using-variables-in-your-form-or-messages/).
 
 **Additions**
 
 - You can now handle unsubscribe calls with our forms too.
 - Added Portugese, Indonesian, German (CH) and Spanish (PR) translations.
-
-
 
 = 2.2.9 - April 15, 2015 =
 
@@ -811,5 +810,5 @@ Minor improvements and additions for compatibility with the [MailChimp Sync plug
 
 == Upgrade Notice ==
 
-= 2.2.9 =
-Updated Italian, Russian & Turkish translations.
+= 2.3 =
+Handle unsubscribe calls from your forms and use dynamic variables everywhere. Updated translations.
