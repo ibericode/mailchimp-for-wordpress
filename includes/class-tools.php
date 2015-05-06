@@ -80,7 +80,7 @@ class MC4WP_Tools {
 
 		// replace dynamic variables
 		if( stristr( $string, '{data_' ) !== false ) {
-			$string = preg_replace_callback('/\{data_(.+)\}/', array( 'MC4WP_Tools', 'replace_request_data_variables' ), $string );
+			$string = preg_replace_callback('/\{data_([^}]+)\}/', array( 'MC4WP_Tools', 'replace_request_data_variables' ), $string );
 		}
 
 		return $string;
