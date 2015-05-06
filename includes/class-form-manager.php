@@ -156,30 +156,37 @@ class MC4WP_Lite_Form_Manager {
 		add_action( 'wp_footer', array( $this, 'print_js' ) );
 
 		// Print CSS to hide honeypot (should be printed in `wp_head` by now)
-		$this->print_css();
+		$html = '';
+
+		// add inline css if it was not printed yet
+		$html .= $this->print_css( false );
 
 		// output form
-		$html = $form->output( $attributes['element_id'], $attributes, false );
+		$html .= $form->output( $attributes['element_id'], $attributes, false );
 
 		return $html;
 	}
 
 	/**
 	 * Prints some inline CSS that hides the honeypot field
-	 *
+	 * @param bool $echo
 	 * @return bool
 	 */
-	public function print_css() {
+	public function print_css( $echo = true ) {
 
 		if( $this->inline_css_printed ) {
 			return false;
 		}
 
-		?><style type="text/css">.mc4wp-form input[name="_mc4wp_required_but_not_really"] { display: none !important; }</style><?php
+		$html = '<style type="text/css">.mc4wp-form input[name="_mc4wp_required_but_not_really"] { display: none !important; }</style>';
+
+		if( $echo ) {
+			echo $html;
+		}
 
 		// make sure this function only runs once
 		$this->inline_css_printed = true;
-		return true;
+		return $html;
 	}
 
 	/**
