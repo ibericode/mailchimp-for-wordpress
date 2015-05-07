@@ -33,7 +33,7 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 	/**
 	 * @var bool
 	 */
-	public $success = true;
+	public $success = false;
 
 
 	/**
