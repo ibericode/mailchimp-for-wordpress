@@ -203,27 +203,37 @@ class MC4WP_Lite_Form_Manager {
 		// Print vanilla JavaScript
 		?><script type="text/javascript">
 			(function() {
-
-				function addSubmittedClass() {
+				function addSubmittedClassToFormContainer(e) {
+					var form = e.target.form.parentNode;
 					var className = 'mc4wp-form-submitted';
-					(this.classList) ? this.classList.add(className) : this.className += ' ' + className;
+					(form.classList) ? form.classList.add(className) : form.className += ' ' + className;
+				}
+
+				function hideHoneypot(h) {
+					var n = document.createElement('input');
+					n.type = 'hidden';
+					n.name = h.name;
+					n.style.display = 'none';
+					n.value = h.value;
+					h.parentNode.replaceChild(n,h);
 				}
 
 				var forms = document.querySelectorAll('.mc4wp-form');
 				for (var i = 0; i < forms.length; i++) {
 					(function(f) {
 
-						// hide honeypot
-						var honeypot = f.querySelector('input[name="_mc4wp_required_but_not_really"]');
-						honeypot.style.display = 'none';
-						honeypot.style.cssText += '; display: none !important;';
+						// make sure honeypot is hidden
+						var h = f.querySelector('input[name="_mc4wp_required_but_not_really"]');
+						if(h) {
+							hideHoneypot(h);
+						}
 
 						// add class on submit
 						var b = f.querySelector('[type="submit"]');
 						if(b.addEventListener) {
-							b.addEventListener( 'click', addSubmittedClass.bind(f));
+							b.addEventListener('click', addSubmittedClassToFormContainer);
 						} else {
-							b.attachEvent( 'onclick', addSubmittedClass.bind(f));
+							b.attachEvent('click', addSubmittedClassToFormContainer);
 						}
 
 					})(forms[i]);
