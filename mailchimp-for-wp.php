@@ -9,7 +9,7 @@ Author URI: https://dannyvankooten.com
 Text Domain: mailchimp-for-wp
 Domain Path: /languages
 License: GPL v3
-GitHub Plugin URI: https://github.com/dannyvankooten/mailchimp-for-wordpress
+GitHub Plugin URI: https://github.com/ibericode/mailchimp-for-wordpress
 
 MailChimp for WordPress
 Copyright (C) 2012-2015, Danny van Kooten, hi@dannyvankooten.com

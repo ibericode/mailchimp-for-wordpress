@@ -14,7 +14,7 @@ Installation
 Here's a [guide on how to install the plugin in your WordPress site](https://wordpress.org/plugins/mailchimp-for-wp/installation/).
 If you want to run the latest development version, you have two options:
 
-* You can download the repository .zip file: [mailchimp-for-wordpress.zip](https://github.com/dannyvankooten/mailchimp-for-wordpress/archive/master.zip)
+* You can download the repository .zip file: [mailchimp-for-wordpress.zip](https://github.com/ibericode/mailchimp-for-wordpress/archive/master.zip)
 * You can clone the GitHub repository using Git
 
 This will download the latest development version of the MailChimp for WordPress plugin. While this version is usually stable,
@@ -22,7 +22,7 @@ it is not recommended for use in a production environment.
 
 Bugs
 ----
-If you think you've found a bug, [please raise an issue here](https://github.com/dannyvankooten/mailchimp-for-wordpress/issues?state=open)!
+If you think you've found a bug, [please raise an issue here](https://github.com/ibericode/mailchimp-for-wordpress/issues?state=open)!
 
 Translations
 -------------
@@ -39,6 +39,6 @@ Contributions
 -------------
 Anyone is welcome to contribute to the plugin. There are various ways you can contribute:
 
-* [Raise an issue](https://github.com/dannyvankooten/mailchimp-for-wordpress/issues) on GitHub.
+* [Raise an issue](https://github.com/ibericode/mailchimp-for-wordpress/issues) on GitHub.
 * Send us a Pull Request with your bug fixes and/or new features.
-* Provide feedback and [suggestions on enhancements](https://github.com/dannyvankooten/mailchimp-for-wordpress/issues?direction=desc&labels=Enhancement&page=1&sort=created&state=open).
+* Provide feedback and [suggestions on enhancements](https://github.com/ibericode/mailchimp-for-wordpress/issues?direction=desc&labels=Enhancement&page=1&sort=created&state=open).

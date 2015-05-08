@@ -13,9 +13,9 @@
     }
   ],
   "support": {
-    "issues": "https://github.com/dannyvankooten/mailchimp-for-wordpress/issues",
+    "issues": "https://github.com/ibericode/mailchimp-for-wordpress/issues",
     "forum": "https://wordpress.org/support/plugin/mailchimp-for-wp",
-    "source": "https://github.com/dannyvankooten/mailchimp-for-wordpress"
+    "source": "https://github.com/ibericode/mailchimp-for-wordpress"
   },
   "require": {
     "php": ">=5.3.0",

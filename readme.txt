@@ -60,13 +60,13 @@ New or improved [translations of the MailChimp for WordPress plugin are welcomed
 
 **Bug Reports**
 
-Bug reports for [MailChimp for WordPress are welcomed on GitHub](https://github.com/dannyvankooten/mailchimp-for-wordpress). Please note that GitHub is _not_ a support forum.
+Bug reports for [MailChimp for WordPress are welcomed on GitHub](https://github.com/ibericode/mailchimp-for-wordpress). Please note that GitHub is _not_ a support forum.
 
 **More information**
 
 - [MailChimp for WordPress Pro](https://mc4wp.com/), containing [additional features](https://mc4wp.com/features/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=more-info-link).
 - [Translate the MailChimp for WordPress plugin into your language](https://www.transifex.com/projects/p/mailchimp-for-wordpress/)
-- Developers; follow or contribute to the [MailChimp for WP plugin on GitHub](https://github.com/dannyvankooten/mailchimp-for-wordpress)
+- Developers; follow or contribute to the [MailChimp for WP plugin on GitHub](https://github.com/ibericode/mailchimp-for-wordpress)
 - Other [WordPress plugins](https://dannyvankooten.com/wordpress-plugins/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=more-info-link) by [Danny van Kooten](https://dannyvankooten.com#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=more-info-link)
 - [@DannyvanKooten](https://twitter.com/dannyvankooten) on Twitter
 
@@ -230,7 +230,7 @@ More detailed documentation can be found on the [MailChimp for WordPress documen
 
 = Bug Reports =
 
-Bug reports for [MailChimp for WordPress are welcomed on GitHub](https://github.com/dannyvankooten/mailchimp-for-wordpress). Please note that GitHub is _not_ a support forum.
+Bug reports for [MailChimp for WordPress are welcomed on GitHub](https://github.com/ibericode/mailchimp-for-wordpress). Please note that GitHub is _not_ a support forum.
 
 = Translations =
 
@@ -251,7 +251,7 @@ It's easy to translate the plugin into your own language. Head over to the [tran
 
 = Development =
 
-Development of the plugin happens on GitHub: [dannyvankooten/mailchimp-for-wordpress](https://github.com/dannyvankooten/mailchimp-for-wordpress)
+Development of the plugin happens on GitHub: [dannyvankooten/mailchimp-for-wordpress](https://github.com/ibericode/mailchimp-for-wordpress)
 
 == Screenshots ==
 
@@ -297,7 +297,7 @@ Development of the plugin happens on GitHub: [dannyvankooten/mailchimp-for-wordp
 
 **Fixes**
 
-- Menu item for settings page not appearing on Google App Engine ([#88](https://github.com/dannyvankooten/mailchimp-for-wordpress/issues/88))
+- Menu item for settings page not appearing on Google App Engine ([#88](https://github.com/ibericode/mailchimp-for-wordpress/issues/88))
 
 **Improvements**
 
@@ -334,8 +334,8 @@ Development of the plugin happens on GitHub: [dannyvankooten/mailchimp-for-wordp
 
 **Additions**
 
-- Added [mc4wp_form_success](https://github.com/dannyvankooten/mailchimp-for-wordpress/blob/06f0c833027f347a288d2cb9805e0614767409b6/includes/class-form-request.php#L292-L301) action hook to hook into successful sign-ups
-- Added [mc4wp_form_data](https://github.com/dannyvankooten/mailchimp-for-wordpress/blob/06f0c833027f347a288d2cb9805e0614767409b6/includes/class-form-request.php#L138-L142) filter hook to modify all form data before processing
+- Added [mc4wp_form_success](https://github.com/ibericode/mailchimp-for-wordpress/blob/06f0c833027f347a288d2cb9805e0614767409b6/includes/class-form-request.php#L292-L301) action hook to hook into successful sign-ups
+- Added [mc4wp_form_data](https://github.com/ibericode/mailchimp-for-wordpress/blob/06f0c833027f347a288d2cb9805e0614767409b6/includes/class-form-request.php#L138-L142) filter hook to modify all form data before processing
 
 
 = 2.2.6 - February 26, 2015 =
@@ -395,7 +395,7 @@ A huge thank you to [Stefan Oderbolz](http://metaodi.ch/) for various fixed and 
 
 **Additions**
 
-- Now showing a heads up when at limit of 100 MailChimp lists. ([#71](https://github.com/dannyvankooten/mailchimp-for-wordpress/issues/71))
+- Now showing a heads up when at limit of 100 MailChimp lists. ([#71](https://github.com/ibericode/mailchimp-for-wordpress/issues/71))
 - Added `wpml-config.xml` file for better WPML compatibility
 - Added filter `mc4wp_menu_items` for adding & removing menu items from add-ons
 
