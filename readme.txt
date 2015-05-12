@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm-medium=mailchimp-f
 Tags: mailchimp,newsletter,sign-up,contact form 7,woocommerce,buddypress,widget,form
 Requires at least: 3.7
 Tested up to: 4.2.1
-Stable tag: 2.3.1
+Stable tag: 2.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -265,6 +265,18 @@ Development of the plugin happens on GitHub: [dannyvankooten/mailchimp-for-wordp
 8. **Pro only:** Create your own CSS styles with the form designer in the Pro version.
 
 == Changelog ==
+
+= 2.3.2 - May 12, 2015 =
+
+**Fixes**
+
+- Groupings not being sent to MailChimp
+- Get correct IP address when using proxy like Cloudflare or Sucuri WAF.
+- Issue when using more than one `{data_xx}` replacement
+
+**Improvements**
+
+- IE8 compatibility for honeypot fallback script.
 
 = 2.3.1 - May 6, 2015 =
 
@@ -816,5 +828,5 @@ Minor improvements and additions for compatibility with the [MailChimp Sync plug
 
 == Upgrade Notice ==
 
-= 2.3.1 =
-Handle unsubscribe calls from your forms and use dynamic variables everywhere. Updated translations.
+= 2.3.2 =
+Fixes issue with GROUPINGS not being sent to MailChimp.
