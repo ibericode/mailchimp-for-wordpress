@@ -201,7 +201,7 @@ class MC4WP_Field_Mapper {
 		}
 
 		// loop through list groupings if GROUPINGS data was sent
-		if( isset( $data['GROUPINGS'] ) && is_array( $data['GROUPINGS'] ) && ! empty( $list->interest_groupings ) ) {
+		if( isset( $this->form_data['GROUPINGS'] ) && is_array( $this->form_data['GROUPINGS'] ) && ! empty( $list->interest_groupings ) ) {
 
 			$list_map['GROUPINGS'] = array();
 
