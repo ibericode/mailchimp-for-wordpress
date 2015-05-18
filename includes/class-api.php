@@ -63,6 +63,10 @@ class MC4WP_API {
 			return false;
 		}
 
+		if( ! function_exists( 'add_settings_error' ) ) {
+			return false;
+		}
+
 		add_settings_error( 'mc4wp-api', 'mc4wp-api-error', $message, 'error' );
 		return true;
 	}
