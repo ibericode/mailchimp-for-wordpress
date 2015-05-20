@@ -9,17 +9,22 @@ class MC4WP_Form_Listener {
 	 */
 	public function listen( array $data ) {
 
+		// only act on POST requests
+		if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
+			return false;
+		}
+
+		// is form submitted?
 		if( ! isset( $data['_mc4wp_form_submit'] ) ) {
 			return false;
 		}
 
-		if ( ! isset( $data['_mc4wp_action'] ) || $data['_mc4wp_action'] === 'subscribe' ) {
+		// determine action
+		if ( ! isset( $data['_mc4wp_action'] )
+		     || $data['_mc4wp_action'] === 'subscribe' ) {
 			$request = new MC4WP_Subscribe_Request( $data );
 			$this->process( $request );
-		}
-
-
-		if ( isset( $data['_mc4wp_action'] ) && $data['_mc4wp_action'] === 'unsubscribe' ) {
+		} elseif ( $data['_mc4wp_action'] === 'unsubscribe' ) {
 			$request = new MC4WP_Unsubscribe_Request( $data );
 			$this->process( $request );
 		}
@@ -48,7 +53,7 @@ class MC4WP_Form_Listener {
 			}
 		}
 
-		$request->respond( $success );
+		$request->respond();
 
 		return $success;
 	}

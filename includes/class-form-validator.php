@@ -5,21 +5,30 @@ class MC4WP_Form_Validator {
 	/**
 	 * @var array
 	 */
-	protected $data = array();
+	protected $internal_data = array();
+
+	/**
+	 * @var array
+	 */
+	protected $user_data = array();
 
 
 	/**
-	 * @param $data Array of fields with their values
+	 * @param array $internal_data Array of fields with their values
+	 * @param array $user_data
 	 */
-	public function __construct( $data ) {
-		$this->data = $data;
+	public function __construct( $internal_data, $user_data = array() ) {
+		$this->internal_data = $internal_data;
+		$this->user_data = $user_data;
 	}
 
 	/**
-	 * @param $data
+	 * @param array $internal_data Array of fields with their values
+	 * @param array $user_data
 	 */
-	public function set_data( $data ) {
-		$this->data = $data;
+	public function set_data( $internal_data, $user_data = array() ) {
+		$this->internal_data = $internal_data;
+		$this->user_data = $user_data;
 	}
 
 	/**
@@ -32,7 +41,7 @@ class MC4WP_Form_Validator {
 		$using_caching = ( defined( 'WP_CACHE' ) && WP_CACHE );
 
 		// validate form nonce, but only if not using caching
-		if ( ! $using_caching && ( ! isset( $this->data['_MC4WP_FORM_NONCE'] ) || ! wp_verify_nonce( $this->data['_MC4WP_FORM_NONCE'], '_mc4wp_form_nonce' ) ) ) {
+		if ( ! $using_caching && ( ! isset( $this->internal_data['form_nonce'] ) || ! wp_verify_nonce( $this->internal_data['form_nonce'], '_mc4wp_form_nonce' ) ) ) {
 			return false;
 		}
 
@@ -46,7 +55,7 @@ class MC4WP_Form_Validator {
 	 */
 	public function validate_honeypot() {
 		// ensure honeypot was given but not filled
-		if ( ! isset( $this->data['_MC4WP_REQUIRED_BUT_NOT_REALLY'] ) || '' !== $this->data['_MC4WP_REQUIRED_BUT_NOT_REALLY'] ) {
+		if ( ! isset( $this->internal_data['required_but_not_really'] ) || '' !== $this->internal_data['required_but_not_really'] ) {
 			return false;
 		}
 
@@ -60,7 +69,7 @@ class MC4WP_Form_Validator {
 	 */
 	public function validate_timestamp() {
 		// check timestamp difference, token should be generated at least 2 seconds before form submit
-		if( ! isset( $this->data['_MC4WP_TIMESTAMP'] ) || time() < ( intval( $this->data['_MC4WP_TIMESTAMP'] ) + 1.5 ) ) {
+		if( ! isset( $this->internal_data['timestamp'] ) || time() < ( intval( $this->internal_data['timestamp'] ) + 1.5 ) ) {
 			return false;
 		}
 
@@ -74,7 +83,7 @@ class MC4WP_Form_Validator {
 	 */
 	public function validate_captcha() {
 		// check if captcha was present and valid
-		if( isset( $this->data['_MC4WP_HAS_CAPTCHA'] ) && $this->data['_MC4WP_HAS_CAPTCHA'] == 1 && function_exists( 'cptch_check_custom_form' ) && cptch_check_custom_form() !== true ) {
+		if( isset( $this->internal_data['has_captcha'] ) && $this->internal_data['has_captcha'] == 1 && function_exists( 'cptch_check_custom_form' ) && cptch_check_custom_form() !== true ) {
 			return false;
 		}
 
@@ -88,7 +97,7 @@ class MC4WP_Form_Validator {
 	 */
 	public function validate_email() {
 		// validate email
-		if( ! isset( $this->data['EMAIL'] ) || ! is_string( $this->data['EMAIL'] ) || ! is_email( $this->data['EMAIL'] ) ) {
+		if( ! isset( $this->user_data['EMAIL'] ) || ! is_string( $this->user_data['EMAIL'] ) || ! is_email( $this->user_data['EMAIL'] ) ) {
 			return false;
 		}
 
@@ -119,7 +128,7 @@ class MC4WP_Form_Validator {
 		 * Return true if the form is valid or an error string if it isn't.
 		 * Use the `mc4wp_form_messages` filter to register custom error messages.
 		 */
-		$valid_form_request = apply_filters( 'mc4wp_valid_form_request', true, $this->data );
+		$valid_form_request = apply_filters( 'mc4wp_valid_form_request', true, $this->user_data );
 
 		return $valid_form_request;
 	}

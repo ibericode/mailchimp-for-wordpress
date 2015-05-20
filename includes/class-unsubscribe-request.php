@@ -17,12 +17,12 @@ class MC4WP_Unsubscribe_Request extends MC4WP_Request {
 		$result = false;
 
 		foreach( $this->get_lists() as $list_id ) {
-			$result = $api->unsubscribe( $list_id, $this->data['EMAIL'] );
+			$result = $api->unsubscribe( $list_id, $this->user_data['EMAIL'] );
 		}
 
 		if( ! $result ) {
 			$this->mailchimp_error = $api->get_error_message();
-			$this->message_type = ( $api->get_error_code() === 215 ) ? 'not_subscribed' : 'error';
+			$this->message_type =  ( in_array( $api->get_error_code(), array( 215, 232 ) ) ) ? 'not_subscribed' : 'error';
 		} else {
 			$this->message_type = 'unsubscribed';
 		}

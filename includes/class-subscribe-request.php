@@ -39,7 +39,7 @@ class MC4WP_Subscribe_Request extends MC4WP_Request {
 	 */
 	protected function guess_fields() {
 		// add some data to the posted data, like FNAME and LNAME
-		$this->data = MC4WP_Tools::guess_merge_vars( $this->data );
+		$this->user_data = MC4WP_Tools::guess_merge_vars( $this->user_data );
 	}
 
 	/**
@@ -49,7 +49,7 @@ class MC4WP_Subscribe_Request extends MC4WP_Request {
 	 */
 	protected function map_data() {
 
-		$mapper = new MC4WP_Field_Mapper( $this->data, $this->get_lists() );
+		$mapper = new MC4WP_Field_Mapper( $this->user_data, $this->get_lists() );
 
 		if( $mapper->success ) {
 			$this->list_fields_map = $mapper->get_list_fields_map();
@@ -68,7 +68,7 @@ class MC4WP_Subscribe_Request extends MC4WP_Request {
 	public function process() {
 		$api = mc4wp_get_api();
 
-		do_action( 'mc4wp_before_subscribe', $this->data['EMAIL'], $this->data, 0 );
+		do_action( 'mc4wp_before_subscribe', $this->user_data['EMAIL'], $this->user_data, 0 );
 
 		$result = false;
 		$email_type = $this->get_email_type();
@@ -80,11 +80,11 @@ class MC4WP_Subscribe_Request extends MC4WP_Request {
 			$list_merge_vars = $this->get_list_merge_vars( $list_id, $list_field_data );
 
 			// send a subscribe request to MailChimp for each list
-			$result = $api->subscribe( $list_id, $this->data['EMAIL'], $list_merge_vars, $email_type, $this->form->settings['double_optin'], $this->form->settings['update_existing'], $this->form->settings['replace_interests'], $this->form->settings['send_welcome'] );
-			do_action( 'mc4wp_subscribe', $this->data['EMAIL'], $list_id, $list_merge_vars, $result, 'form', 'form', 0 );
+			$result = $api->subscribe( $list_id, $this->user_data['EMAIL'], $list_merge_vars, $email_type, $this->form->settings['double_optin'], $this->form->settings['update_existing'], $this->form->settings['replace_interests'], $this->form->settings['send_welcome'] );
+			do_action( 'mc4wp_subscribe', $this->user_data['EMAIL'], $list_id, $list_merge_vars, $result, 'form', 'form', 0 );
 		}
 
-		do_action( 'mc4wp_after_subscribe', $this->data['EMAIL'], $this->data, 0, $result );
+		do_action( 'mc4wp_after_subscribe', $this->user_data['EMAIL'], $this->user_data, 0, $result );
 
 		// did we succeed in subscribing with the parsed data?
 		if( ! $result ) {
@@ -94,7 +94,7 @@ class MC4WP_Subscribe_Request extends MC4WP_Request {
 			$this->message_type = 'subscribed';
 
 			// store user email in a cookie
-			MC4WP_Tools::remember_email( $this->data['EMAIL'] );
+			MC4WP_Tools::remember_email( $this->user_data['EMAIL'] );
 		}
 
 		$this->success = $result;
@@ -148,8 +148,8 @@ class MC4WP_Subscribe_Request extends MC4WP_Request {
 		$email_type = 'html';
 
 		// get email type from form
-		if( isset( $this->data['_MC4WP_EMAIL_TYPE'] ) ) {
-			$email_type = sanitize_text_field( $this->data['_MC4WP_EMAIL_TYPE'] );
+		if( isset( $this->user_data['_MC4WP_EMAIL_TYPE'] ) ) {
+			$email_type = sanitize_text_field( $this->user_data['_MC4WP_EMAIL_TYPE'] );
 		}
 
 		// allow plugins to override this email type

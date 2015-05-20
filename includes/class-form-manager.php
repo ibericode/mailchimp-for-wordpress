@@ -146,7 +146,7 @@ class MC4WP_Lite_Form_Manager {
 			wp_localize_script( 'mc4wp-form-request', 'mc4wpFormRequestData', array(
 					'success' => ( $form->request->success ) ? 1 : 0,
 					'formElementId' => $form->request->form_element_id,
-					'data' => $form->request->data,
+					'data' => $form->request->user_data,
 				)
 			);
 
