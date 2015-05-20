@@ -111,10 +111,13 @@ class MC4WP_Tools {
 	 */
 	public static function get_known_email() {
 
-		if( isset( $_REQUEST['EMAIL'] ) ) {
-			$email = $_REQUEST['EMAIL'];
-		} elseif( isset( $_REQUEST['mc4wp_email'] ) ) {
-			$email = $_REQUEST['mc4wp_email'];
+		// case insensitive check in $_REQUEST
+		$request_data = array_change_key_case( $_REQUEST, CASE_LOWER );
+
+		if( isset( $request_data['email'] ) ) {
+			$email = $request_data['email'];
+		} elseif( isset( $request_data['mc4wp_email'] ) ) {
+			$email = $request_data['mc4wp_email'];
 		} elseif( isset( $_COOKIE['mc4wp_email'] ) ) {
 			$email = $_COOKIE['mc4wp_email'];
 		} else {

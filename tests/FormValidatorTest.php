@@ -31,11 +31,11 @@ class FormValidatorTest extends PHPUnit_Framework_TestCase {
 		$this->assertFalse( $this->validator->validate_honeypot() );
 
 		// honeypot filled
-		$this->validator->set_data( array( '_MC4WP_REQUIRED_BUT_NOT_REALLY' => 'some string' ) );
+		$this->validator->set_data( array( 'required_but_not_really' => 'some string' ) );
 		$this->assertFalse( $this->validator->validate_honeypot() );
 
 		// honeypot submitted but not filled
-		$this->validator->set_data( array( '_MC4WP_REQUIRED_BUT_NOT_REALLY' => '' ) );
+		$this->validator->set_data( array( 'required_but_not_really' => '' ) );
 		$this->assertTrue( $this->validator->validate_honeypot() );
 	}
 
@@ -48,15 +48,15 @@ class FormValidatorTest extends PHPUnit_Framework_TestCase {
 		$this->assertFalse( $this->validator->validate_timestamp() );
 
 		// timestamp in future
-		$this->validator->set_data( array( '_MC4WP_TIMESTAMP' => time() + 10 ) );
+		$this->validator->set_data( array( 'timestamp' => time() + 10 ) );
 		$this->assertFalse( $this->validator->validate_timestamp() );
 
 		// timestamp just 1 second ago
-		$this->validator->set_data( array( '_MC4WP_TIMESTAMP' => time() - 1 ) );
+		$this->validator->set_data( array( 'timestamp' => time() - 1 ) );
 		$this->assertFalse( $this->validator->validate_timestamp() );
 
 		// timestamp more than 2 seconds ago
-		$this->validator->set_data( array( '_MC4WP_TIMESTAMP' => time() - 2 ) );
+		$this->validator->set_data( array( 'timestamp' => time() - 2 ) );
 		$this->assertTrue( $this->validator->validate_timestamp() );
 	}
 
@@ -67,7 +67,7 @@ class FormValidatorTest extends PHPUnit_Framework_TestCase {
 		$this->validator->set_data( array() );
 		$this->assertTrue( $this->validator->validate_captcha() );
 
-		$this->validator->set_data( array( 'MC4WP_HAS_CAPTCHA' => 1 ) );
+		$this->validator->set_data( array( 'has_captcha' => 1 ) );
 		$this->assertTrue( $this->validator->validate_captcha() );
 	}
 
@@ -78,7 +78,7 @@ class FormValidatorTest extends PHPUnit_Framework_TestCase {
 		$this->validator->set_data( array() );
 		$this->assertFalse( $this->validator->validate_email() );
 
-		$this->validator->set_data( array( 'EMAIL' => array() ) );
+		$this->validator->set_data( array(), array( 'EMAIL' => array() ) );
 		$this->assertFalse( $this->validator->validate_email() );
 
 //		$this->validator->set_data( array( 'EMAIL' => 'invalid@email') );

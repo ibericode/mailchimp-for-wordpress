@@ -62,7 +62,7 @@ class ToolsTest extends PHPUnit_Framework_TestCase {
 		$this->assertEmpty( MC4WP_Tools::get_known_email() );
 
 		// Test: Email given in query string
-		$_GET['mc4wp_email'] = 'johndoe@email.com';
-		$this->assertEquals( MC4WP_Tools::get_known_email(), $_GET['mc4wp_email'] );
+		$_REQUEST['mc4wp_email'] = 'johndoe@email.com';
+		$this->assertEquals( MC4WP_Tools::get_known_email(), $_REQUEST['mc4wp_email'] );
 	}
 }
