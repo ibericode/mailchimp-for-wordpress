@@ -328,11 +328,10 @@ class MC4WP_API {
 
 		$response = wp_remote_post( $url, array(
 				'body' => $data,
-				'timeout' => 15,
+				'timeout' => 10,
 				'headers' => array(
 					'Accept-Encoding' => '',
 				),
-				'sslverify' => false,
 			)
 		);
 
