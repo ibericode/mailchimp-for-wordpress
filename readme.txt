@@ -3,8 +3,8 @@ Contributors: ibericode, DvanKooten, iMazed, hchouhan
 Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm-medium=mailchimp-for-wp&utm_campaign=donate-link
 Tags: mailchimp,newsletter,sign-up,contact form 7,woocommerce,buddypress,widget,form
 Requires at least: 3.7
-Tested up to: 4.2.1
-Stable tag: 2.3.2
+Tested up to: 4.2.2
+Stable tag: 2.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -266,12 +266,23 @@ Development of the plugin happens on GitHub: [dannyvankooten/mailchimp-for-wordp
 
 == Changelog ==
 
+= 2.3.3 - May 27, 2015 =
+
+**Fixes**
+
+- Get correct IP address when using proxy like Cloudflare or Sucuri WAF.
+- Use strict type check for printing inline CSS that hides honeypot field
+
+**Improvements**
+
+- Add `contactemail` and `contactname` to field name guesses when integrating with third-party form.
+- Re-enable sslverify
+
 = 2.3.2 - May 12, 2015 =
 
 **Fixes**
 
 - Groupings not being sent to MailChimp
-- Get correct IP address when using proxy like Cloudflare or Sucuri WAF.
 - Issue when using more than one `{data_xx}` replacement
 
 **Improvements**
