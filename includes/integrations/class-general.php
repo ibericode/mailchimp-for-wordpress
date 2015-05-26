@@ -76,6 +76,7 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 			return false;
 		}
 
+		// run!
 		return $this->try_subscribe();
 	}
 
@@ -150,9 +151,9 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 			} else {
 				$simple_key = str_replace( array( '-', '_' ), '', strtolower( $key ) );
 
-				if( ! $email && in_array( $simple_key, array( 'email', 'emailaddress' ) ) ) {
+				if( ! $email && in_array( $simple_key, array( 'email', 'emailaddress', 'contactemail' ) ) ) {
 					$email = $value;
-				} elseif( ! isset( $merge_vars['NAME'] ) && in_array( $simple_key, array( 'name', 'yourname', 'username', 'fullname' ) ) ) {
+				} elseif( ! isset( $merge_vars['NAME'] ) && in_array( $simple_key, array( 'name', 'yourname', 'username', 'fullname', 'contactname' ) ) ) {
 					// find name field
 					$merge_vars['NAME'] = $value;
 				} elseif( ! isset( $merge_vars['FNAME'] ) && in_array( $simple_key, array( 'firstname', 'fname', 'givenname', 'forename' ) ) ) {
