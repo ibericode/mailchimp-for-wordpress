@@ -246,8 +246,8 @@ abstract class MC4WP_Integration {
 		$merge_vars = MC4WP_Tools::guess_merge_vars( $merge_vars );
 
 		// set ip address
-		if( ! isset( $merge_vars['OPTIN_IP'] ) && isset( $_SERVER['REMOTE_ADDR'] ) ) {
-			$merge_vars['OPTIN_IP'] = sanitize_text_field( $_SERVER['REMOTE_ADDR'] );
+		if( ! isset( $merge_vars['OPTIN_IP'] ) ) {
+			$merge_vars['OPTIN_IP'] = MC4WP_tools::get_client_ip();
 		}
 
 		$result = false;

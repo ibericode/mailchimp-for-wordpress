@@ -115,7 +115,7 @@ class MC4WP_Subscribe_Request extends MC4WP_Request {
 		$merge_vars = array();
 
 		// add OPTIN_IP, we do this here as the user shouldn't be allowed to set this
-		$merge_vars['OPTIN_IP'] = sanitize_text_field( $_SERVER['REMOTE_ADDR'] );
+		$merge_vars['OPTIN_IP'] = MC4WP_tools::get_client_ip();
 
 		// make sure MC_LANGUAGE matches the requested format. Useful when getting the language from WPML etc.
 		if( isset( $this->global_fields['MC_LANGUAGE'] ) ) {
