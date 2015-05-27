@@ -1,6 +1,6 @@
 === MailChimp for WordPress ===
 Contributors: ibericode, DvanKooten, iMazed, hchouhan
-Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm-medium=mailchimp-for-wp&utm_campaign=donate-link
+Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=donate-link
 Tags: mailchimp,newsletter,sign-up,contact form 7,woocommerce,buddypress,widget,form
 Requires at least: 3.7
 Tested up to: 4.2.2
@@ -236,8 +236,8 @@ Bug reports for [MailChimp for WordPress are welcomed on GitHub](https://github.
 
 The MailChimp for WordPress plugin is translated into the following languages.
 
-- English (en_US) - [Danny van Kooten](https://dannyvankooten.com)
-- Dutch (nl_NL) - [Danny van Kooten](https://dannyvankooten.com)
+- English (en_US) - [Danny van Kooten](https://dannyvankooten.com#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=other-notes)
+- Dutch (nl_NL) - [Danny van Kooten](https://dannyvankooten.com#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=other-notes)
 - German (de_DE) - [Stefan Oderbolz](http://metaodi.ch/)
 - Spanish (es_ES) - [Paul Benitez ](http://www.administrandowp.com/) & [Enrique Pinto](http://www.thehivecluster.com/en)
 - Brazilian (pt_BR) - [Felipe Scuissiatto](http://www.evonline.com.br/)
@@ -276,7 +276,7 @@ Development of the plugin happens on GitHub: [dannyvankooten/mailchimp-for-wordp
 **Improvements**
 
 - Add `contactemail` and `contactname` to field name guesses when integrating with third-party form.
-- Re-enable sslverify
+- Re-enable `sslverify`
 
 = 2.3.2 - May 12, 2015 =
 
