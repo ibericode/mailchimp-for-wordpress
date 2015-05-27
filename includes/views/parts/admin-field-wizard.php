@@ -60,7 +60,7 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 
 		<p>
 			<label for="mc4wp-fw-preview"><?php _e( 'Generated HTML', 'mailchimp-for-wp' ); ?></label>
-			<textarea class="widefat" id="mc4wp-fw-preview" rows="5"></textarea>
+			<textarea class="widefat" id="mc4wp-fw-preview" rows="5" readonly></textarea>
 		</p>
 
 	</div>
