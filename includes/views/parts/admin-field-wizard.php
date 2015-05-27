@@ -11,7 +11,7 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 
 	<p><?php _e( 'Use the tool below to generate the HTML for your form fields.', 'mailchimp-for-wp' ); ?></p>
 	<p>
-		<select class="widefat" id="mc4wp-fw-mailchimp-fields">
+		<select class="widefat" id="mc4wp-fw-mailchimp-fields" style="<?php if( empty( $opts['lists'] ) ) { echo 'display: none;'; } ?>">
 			<option class="default" value="" disabled selected><?php _e( 'Select MailChimp field..', 'mailchimp-for-wp' ); ?></option>
 			<optgroup label="MailChimp merge fields" class="merge-fields"></optgroup>
 			<optgroup label="Interest groupings" class="groupings"></optgroup>
