@@ -159,7 +159,7 @@
 		function setMailChimpFields()
 		{
 			// empty field select
-			$mailchimpFields.children('option').not('.default').remove();
+			$mailchimpFields.find('option').not('.default').remove();
 
 			// empty required fields array
 			requiredFields = [];
@@ -189,13 +189,6 @@
 							.val(listField.tag)
 							.data('list-field', listField);
 
-						// only enable 3 fields
-						if( i > 3 ) {
-							$option.text( strings.proOnly + " " + text)
-								.attr('disabled', 'disabled')
-								.data('field', null);
-						}
-
 						$mailchimpMergeFields.append($option);
 					}
 				}
@@ -214,7 +207,7 @@
 							.val(listGrouping.id)
 							.data('list-grouping', listGrouping);
 
-						// only show 1 grouping
+						// only show 1 grouping per list
 						if(i >= 1) {
 							$option.text( strings.proOnly + " " + text)
 								.attr('disabled', 'disabled')
