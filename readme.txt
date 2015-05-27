@@ -839,5 +839,5 @@ Minor improvements and additions for compatibility with the [MailChimp Sync plug
 
 == Upgrade Notice ==
 
-= 2.3.2 =
-Fixes issue with GROUPINGS not being sent to MailChimp.
+= 2.3.3 =
+Updated translations & minor edge-case bugfixes.
