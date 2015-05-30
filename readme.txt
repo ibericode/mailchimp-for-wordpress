@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp,newsletter,sign-up,contact form 7,woocommerce,buddypress,widget,form
 Requires at least: 3.7
 Tested up to: 4.2.2
-Stable tag: 2.3.3
+Stable tag: 2.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -265,6 +265,16 @@ Development of the plugin happens on GitHub: [dannyvankooten/mailchimp-for-wordp
 8. **Pro only:** Create your own CSS styles with the form designer in the Pro version.
 
 == Changelog ==
+
+= 2.3.4 - May 29, 2015 =
+
+**Fixes**
+
+- Issue with GROUPINGS not being sent to MailChimp
+
+**Improvements**
+
+- Code preview in Field Builder is now read-only
 
 = 2.3.3 - May 27, 2015 =
 
