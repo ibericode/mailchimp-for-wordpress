@@ -111,6 +111,8 @@ class MC4WP_API {
 	* @return boolean Successful?
 	*/
 	public function subscribe( $list_id, $email, array $merge_vars = array(), $email_type = 'html', $double_optin = true, $update_existing = false, $replace_interests = true, $send_welcome = false ) {
+		$merge_vars['MC_LANGUAGE'] = defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : get_locale();
+
 		$data = array(
 			'id' => $list_id,
 			'email' => array( 'email' => $email),
