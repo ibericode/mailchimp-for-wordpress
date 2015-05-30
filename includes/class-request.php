@@ -97,7 +97,7 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 		$data = stripslashes_deep( $data );
 
 		// sanitize all scalar values
-		$data = $this->sanitize_data_array( $data );
+		$data = $this->sanitize_deep( $data );
 
 		/**
 		 * @filter `mc4wp_form_data`
@@ -109,22 +109,24 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 	}
 
 	/**
-	 * @param $dirty
+	 * @param $value
 	 *
-	 * @return array
+	 * @return array|string
 	 */
-	public function sanitize_data_array( $dirty ) {
-		$clean = array();
+	public function sanitize_deep( $value ) {
 
-		foreach( $dirty as $field => $value ) {
-			if ( is_scalar( $value ) ) {
-				$clean[ $field ] = sanitize_text_field( $value );
-			} elseif( is_array( $value ) ) {
-				$clean[ $field ] = array_map( array( $this, 'sanitize_data_array' ), $value );
+		if ( is_scalar( $value ) ) {
+			$value = sanitize_text_field( $value );
+		} elseif( is_array( $value ) ) {
+			$value = array_map( array( $this, 'sanitize_deep' ), $value );
+		} elseif ( is_object($value) ) {
+			$vars = get_object_vars( $value );
+			foreach ($vars as $key=>$data) {
+				$value->{$key} = $this->sanitize_deep( $data );
 			}
 		}
 
-		return $clean;
+		return $value;
 	}
 
 	/**
