@@ -65,6 +65,7 @@ class MC4WP_Field_Mapper {
 			$this->global_fields = $this->map_global_fields();
 			$this->unmapped_fields = $this->find_unmapped_fields();
 		}
+
 	}
 
 	public function get_list_fields_map() {
@@ -196,6 +197,9 @@ class MC4WP_Field_Mapper {
 			// format field value according to its type
 			$field_value = $this->format_field_value( $field_value, $field->field_type );
 
+			// add to mapped fields
+			$this->mapped_fields[] = $field->tag;
+
 			// add field value to map
 			$list_map[ $field->tag ] = $field_value;
 		}
@@ -229,6 +233,7 @@ class MC4WP_Field_Mapper {
 					$grouping['groups'] = explode( ',', $grouping['groups'] );
 				}
 
+				$this->mapped_fields[] = 'GROUPINGS';
 				$list_map['GROUPINGS'][] = $grouping;
 			}
 

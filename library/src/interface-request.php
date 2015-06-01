@@ -41,4 +41,5 @@ interface iMC4WP_Request {
 	 * @return array
 	 */
 	public function get_lists();
+
 }

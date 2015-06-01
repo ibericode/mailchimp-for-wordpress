@@ -1,22 +1,9 @@
 <?php
 
-// prevent direct file access
-if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
-
 class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 
-	/**
-	 * @var string
-	 */
 	protected $type = 'woocommerce_checkout';
 
-	/**
-	 * Constructor
-	 */
 	public function __construct() {
 
 		parent::__construct();
@@ -58,8 +45,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 	/**
 	* @param int $order_id
 	*/
-	public function save_woocommerce_checkout_checkbox_value( $order_id )
-	{
+	public function save_woocommerce_checkout_checkbox_value( $order_id ) {
 		update_post_meta( $order_id, '_mc4wp_optin', $this->checkbox_was_checked() );
 	}
 
@@ -78,7 +64,8 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 			$merge_vars = array(
 				'NAME' => "{$order->billing_first_name} {$order->billing_last_name}",
 				'FNAME' => $order->billing_first_name,
-				'LNAME' => $order->billing_last_name,
+				'LNAME' => $order->billing_last_name
+
 			);
 
 			return $this->subscribe( $email, $merge_vars, $this->type, $order_id );

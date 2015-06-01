@@ -1,12 +1,5 @@
 <?php
 
-// prevent direct file access
-if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
-
 class MC4WP_EDD_Integration extends MC4WP_Integration {
 
 	/**
@@ -72,8 +65,6 @@ class MC4WP_EDD_Integration extends MC4WP_Integration {
 		if( isset( $user_info['last_name'] ) ) {
 			$merge_vars['LNAME'] = $user_info['last_name'];
 		}
-
-
 
 		return $this->subscribe( $email, $merge_vars, $this->type, $payment_id );
 	}

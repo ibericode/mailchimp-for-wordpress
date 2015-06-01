@@ -1,12 +1,5 @@
 <?php
 
-// prevent direct file access
-if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
-
 class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 
 	protected $type = 'buddypress_form';
@@ -20,13 +13,13 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 	}
 
 	/**
-	 * Subscribes from BuddyPress Registration Form
-	 * @param int $user_id
-	 * @param string $user_login
-	 * @param string $user_password
-	 * @param string $user_email
-	 * @param array $usermeta
-	 */
+	* Subscribes from BuddyPress Registration Form
+	* @param int $user_id
+	* @param string $user_login
+	* @param string $user_password
+	* @param string $user_email
+	* @param array $usermeta
+	*/
 	public function subscribe_from_buddypress( $user_id, $user_login, $user_password, $user_email ) {
 
 		if( $this->is_spam() ) {
