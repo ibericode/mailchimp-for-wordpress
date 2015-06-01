@@ -50,6 +50,7 @@ class MC4WP_Subscribe_Request extends MC4WP_Request {
 	protected function map_data() {
 
 		$mapper = new MC4WP_Field_Mapper( $this->user_data, $this->get_lists() );
+		$mapper->work();
 
 		if( $mapper->success ) {
 			$this->list_fields_map = $mapper->get_list_fields_map();

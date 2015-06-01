@@ -109,18 +109,18 @@ class MC4WP_API {
 	* @param boolean $replace_interests Replace interest groupings, only if update_existing is true.
 	* @param boolean $send_welcome Send a welcome e-mail, only if double_optin is false.
 	*
-	* @return boolean|string True if success, 'error' if error
+	* @return boolean
 	*/
 	public function subscribe($list_id, $email, array $merge_vars = array(), $email_type = 'html', $double_optin = true, $update_existing = false, $replace_interests = true, $send_welcome = false ) {
 		$data = array(
 			'id' => $list_id,
-			'email' => array( 'email' => $email),
+			'email' => array( 'email' => $email ),
 			'merge_vars' => $merge_vars,
 			'email_type' => $email_type,
 			'double_optin' => $double_optin,
 			'update_existing' => $update_existing,
 			'replace_interests' => $replace_interests,
-			'send_welcome' => $send_welcome
+			'send_welcome' => $send_welcome,
 		);
 
 		$response = $this->call( 'lists/subscribe', $data );
@@ -153,13 +153,13 @@ class MC4WP_API {
 	 */
 	public function get_lists( $list_ids = array() ) {
 		$args = array(
-			'limit' => 100
+			'limit' => 100,
 		);
 
 		// set filter if the $list_ids parameter was set
 		if( count( $list_ids ) > 0 ) {
 			$args['filters'] = array(
-				'list_id' => implode( ',', $list_ids )
+				'list_id' => implode( ',', $list_ids ),
 			);
 		}
 
@@ -197,7 +197,7 @@ class MC4WP_API {
 	public function get_subscriber_info( $list_id, array $struct ) {
 		$result = $this->call( 'lists/member-info', array(
 				'id' => $list_id,
-				'emails'  => $struct
+				'emails'  => $struct,
 			)
 		);
 
@@ -239,7 +239,7 @@ class MC4WP_API {
 		// default to using email for updating
 		if( ! is_array( $email ) ) {
 			$email = array(
-				'email' => $email
+				'email' => $email,
 			);
 		}
 
@@ -248,7 +248,7 @@ class MC4WP_API {
 				'email'  => $email,
 				'merge_vars' => $merge_vars,
 				'email_type' => $email_type,
-				'replace_interests' => $replace_interests
+				'replace_interests' => $replace_interests,
 			)
 		);
 
@@ -290,7 +290,7 @@ class MC4WP_API {
 				'email' => $struct,
 				'delete_member' => $delete_member,
 				'send_goodbye' => $send_goodbye,
-				'send_notify' => $send_notification
+				'send_notify' => $send_notification,
 			)
 		);
 

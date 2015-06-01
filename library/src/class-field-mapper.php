@@ -54,18 +54,7 @@ class MC4WP_Field_Mapper {
 	public function __construct( array $form_data, array $lists ) {
 		$this->form_data = $form_data;
 		$this->lists = $lists;
-
 		$this->mailchimp = new MC4WP_MailChimp();
-
-		$this->list_fields_map = $this->map_lists_fields();
-
-		// only proceed if successful
-		if( $this->list_fields_map ) {
-			$this->success = true;
-			$this->global_fields = $this->map_global_fields();
-			$this->unmapped_fields = $this->find_unmapped_fields();
-		}
-
 	}
 
 	public function get_list_fields_map() {
@@ -86,6 +75,24 @@ class MC4WP_Field_Mapper {
 
 	public function get_error_code() {
 		return $this->error_code;
+	}
+
+	/**
+	 * Work the magic
+	 *
+	 * - Maps given data array to lists which have these fields
+	 * - Maps global fields like OPTIN_IP and MC_LANGUAGE
+	 * - Creates an array of additional fields, not found on any list
+	 */
+	public function work() {
+		$this->list_fields_map = $this->map_lists_fields();
+
+		// only proceed if successful
+		if( $this->list_fields_map ) {
+			$this->success = true;
+			$this->global_fields = $this->map_global_fields();
+			$this->unmapped_fields = $this->find_unmapped_fields();
+		}
 	}
 
 	/**
@@ -279,7 +286,7 @@ class MC4WP_Field_Mapper {
 						'addr1' => $address_pieces[0],
 						'city'  => ( isset( $address_pieces[1] ) ) ?   $address_pieces[1] : '',
 						'state' => ( isset( $address_pieces[2] ) ) ?   $address_pieces[2] : '',
-						'zip'   => ( isset( $address_pieces[3] ) ) ?   $address_pieces[3] : ''
+						'zip'   => ( isset( $address_pieces[3] ) ) ?   $address_pieces[3] : '',
 					);
 
 				}

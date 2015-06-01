@@ -45,7 +45,7 @@ class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 		$email = $comment->comment_author_email;
 		$merge_vars = array(
 			'NAME' => $comment->comment_author,
-			'OPTIN_IP' => $comment->comment_author_IP
+			'OPTIN_IP' => $comment->comment_author_IP,
 		);
 
 		return $this->subscribe( $email, $merge_vars, 'comment', $comment_id );

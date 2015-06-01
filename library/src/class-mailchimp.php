@@ -37,7 +37,7 @@ class MC4WP_MailChimp {
 						'name' => $list->name,
 						'subscriber_count' => $list->stats->member_count,
 						'merge_vars' => array(),
-						'interest_groupings' => array()
+						'interest_groupings' => array(),
 					);
 
 					// get interest groupings
@@ -298,7 +298,7 @@ class MC4WP_MailChimp {
 			'id' => $grouping->id,
 			'name' => $grouping->name,
 			'groups' => array_map( array( $this, 'strip_unnecessary_group_properties' ), $grouping->groups ),
-			'form_field' => $grouping->form_field
+			'form_field' => $grouping->form_field,
 		);
 	}
 
@@ -311,7 +311,7 @@ class MC4WP_MailChimp {
 			'name' => $merge_var->name,
 			'field_type' => $merge_var->field_type,
 			'req' => $merge_var->req,
-			'tag' => $merge_var->tag
+			'tag' => $merge_var->tag,
 		);
 
 		if ( isset( $merge_var->choices ) ) {
