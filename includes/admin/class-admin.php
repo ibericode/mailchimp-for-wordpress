@@ -17,46 +17,27 @@ class MC4WP_Lite_Admin
 	 * Constructor
 	 */
 	public function __construct() {
-
 		$this->plugin_file = plugin_basename( MC4WP_PLUGIN_FILE );
 
-		$this->load_translations();
-		$this->setup_hooks();
-		$this->listen();
-	}
-
-	/**
-	 * Upgrade routine
-	 */
-	private function load_upgrader() {
-
-		// Only run if db option is at older version than code constant
-		$db_version = get_option( 'mc4wp_lite_version', 0 );
-		if( version_compare( MC4WP_VERSION, $db_version, '<=' ) ) {
-			return false;
-		}
-
-		$upgrader = new MC4WP_DB_Upgrader( MC4WP_VERSION, $db_version );
-		$upgrader->run();
+		// store whether this plugin has the BWS captcha plugin running (https://wordpress.org/plugins/captcha/)
+		$this->has_captcha_plugin = function_exists( 'cptch_display_captcha_custom' );
 	}
 
 	/**
 	 * Registers all hooks
 	 */
-	private function setup_hooks() {
+	public function add_hooks() {
 
 		global $pagenow;
 		$current_page = isset( $pagenow ) ? $pagenow : '';
 
 		// Actions used globally throughout WP Admin
-		add_action( 'admin_init', array( $this, 'initialize' ) );
+		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( 'admin_menu', array( $this, 'build_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_css_and_js' ) );
 
 		// Hooks for Plugins overview page
 		if( $current_page === 'plugins.php' ) {
-			$this->plugin_file = plugin_basename( MC4WP_PLUGIN_FILE );
-
 			add_filter( 'plugin_action_links_' . $this->plugin_file, array( $this, 'add_plugin_settings_link' ), 10, 2 );
 			add_filter( 'plugin_row_meta', array( $this, 'add_plugin_meta_links'), 10, 2 );
 		}
@@ -71,9 +52,9 @@ class MC4WP_Lite_Admin
 	/**
 	 * Load the plugin translations
 	 */
-	private function load_translations() {
+	public function load_translations() {
 		// load the plugin text domain
-		load_plugin_textdomain( 'mailchimp-for-wp', false, dirname( $this->plugin_file ) . '/languages' );
+		return load_plugin_textdomain( 'mailchimp-for-wp', false, dirname( $this->plugin_file ) . '/languages' );
 	}
 
 	/**
@@ -83,25 +64,38 @@ class MC4WP_Lite_Admin
 	 * - Checks if the Captcha plugin is activated
 	 * - Loads the plugin text domain
 	 */
-	public function initialize() {
+	public function init() {
 
 		// register settings
 		register_setting( 'mc4wp_lite_settings', 'mc4wp_lite', array( $this, 'validate_settings' ) );
 		register_setting( 'mc4wp_lite_checkbox_settings', 'mc4wp_lite_checkbox', array( $this, 'validate_settings' ) );
 		register_setting( 'mc4wp_lite_form_settings', 'mc4wp_lite_form', array( $this, 'validate_settings' ) );
 
-		// store whether this plugin has the BWS captcha plugin running (https://wordpress.org/plugins/captcha/)
-		$this->has_captcha_plugin = function_exists( 'cptch_display_captcha_custom' );
-
 		$this->load_upgrader();
+		$this->listen();
+	}
+
+	/**
+	 * Upgrade routine
+	 */
+	protected function load_upgrader() {
+
+		// Only run if db option is at older version than code constant
+		$db_version = get_option( 'mc4wp_lite_version', 0 );
+		if( version_compare( MC4WP_VERSION, $db_version, '<=' ) ) {
+			return false;
+		}
+
+		$upgrader = new MC4WP_DB_Upgrader( MC4WP_VERSION, $db_version );
+		$upgrader->run();
 	}
 
 	/**
 	 * Listen to various mc4wp actions
 	 */
-	private function listen() {
+	protected function listen() {
 		// did the user click on upgrade to pro link?
-		if( $this->get_current_page() === 'mailchimp-for-wp-upgrade' && false === headers_sent() ) {
+		if( $this->get_current_page() === 'mailchimp-for-wp-upgrade' && ! headers_sent() ) {
 			wp_redirect( 'https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=menu-upgrade-link' );
 			exit;
 		}
