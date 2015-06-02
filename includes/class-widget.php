@@ -10,7 +10,7 @@ if( ! defined( 'ABSPATH' ) ) {
 /**
  * Adds MC4WP_Widget widget.
  */
-class MC4WP_Lite_Widget extends WP_Widget {
+class MC4WP_Widget extends WP_Widget {
 
 	/**
 	 * Register widget with WordPress.
@@ -42,11 +42,6 @@ class MC4WP_Lite_Widget extends WP_Widget {
 
 		if ( ! empty( $title ) ) {
 			echo $args['before_title'] . $title . $args['after_title'];
-		}
-
-		// make sure template functions exist (for usage in avia layout builder)
-		if ( ! function_exists( 'mc4wp_get_form' ) ) {
-			include_once MC4WP_PLUGIN_DIR . 'includes/functions/template.php';
 		}
 
 		echo mc4wp_get_form();

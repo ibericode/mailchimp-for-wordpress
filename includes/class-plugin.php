@@ -6,17 +6,17 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 	exit;
 }
 
-class MC4WP_Lite {
+class MC4WP {
 
 	/**
-	* @var MC4WP_Lite_Form_Manager
+	* @var MC4WP_Form_Manager
 	*/
-	private $form_manager;
+	public $form_manager;
 
 	/**
-	* @var MC4WP_Lite_Checkbox_Manager
+	* @var MC4WP_Checkbox_Manager
 	*/
-	private $checkbox_manager;
+	public $checkbox_manager;
 
 
 	/**
@@ -30,12 +30,12 @@ class MC4WP_Lite {
 	private $api;
 
 	/**
-	 * @var MC4WP_Lite The one and only true plugin instance
+	 * @var MC4WP The one and only true plugin instance
 	 */
 	private static $instance;
 
 	/**
-	 * @return MC4WP_Lite
+	 * @return MC4WP
 	 */
 	public static function instance() {
 		return self::$instance;
@@ -48,11 +48,11 @@ class MC4WP_Lite {
 	 */
 	public static function init() {
 
-		if( self::$instance instanceof MC4WP_Lite ) {
+		if( self::$instance instanceof MC4WP ) {
 			return false;
 		}
 
-		self::$instance = new MC4WP_Lite;
+		self::$instance = new MC4WP;
 		return true;
 	}
 
@@ -85,8 +85,8 @@ class MC4WP_Lite {
 	 * @hooked `init`
 	 */
 	public function init_form_listener() {
-		$listener = new MC4WP_Form_Listener();
-		$listener->listen( $_REQUEST );
+		$form_listener = new MC4WP_Form_Listener();
+		$form_listener->listen( $_REQUEST );
 	}
 
 	/**
@@ -94,22 +94,8 @@ class MC4WP_Lite {
 	 * @hooked `template_redirect`
 	 */
 	public function init_form_manager() {
-		$this->form_manager = new MC4WP_Lite_Form_Manager();
+		$this->form_manager = new MC4WP_Form_Manager();
 		$this->form_manager->init();
-	}
-
-	/**
-	* @return MC4WP_Lite_Checkbox_Manager
-	*/
-	public function get_checkbox_manager() {
-		return $this->checkbox_manager;
-	}
-
-	/**
-	* @return MC4WP_Lite_Form_Manager
-	*/
-	public function get_form_manager() {
-		return $this->form_manager;
 	}
 
 	/**
@@ -126,7 +112,7 @@ class MC4WP_Lite {
 	}
 
 	public function register_widget() {
-		register_widget( 'MC4WP_Lite_Widget' );
+		register_widget( 'MC4WP_Widget' );
 	}
 
 }
