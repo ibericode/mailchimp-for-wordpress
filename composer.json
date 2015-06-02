@@ -17,17 +17,10 @@
     "forum": "https://wordpress.org/support/plugin/mailchimp-for-wp",
     "source": "https://github.com/ibericode/mailchimp-for-wordpress"
   },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/ibericode/mc4wp-library"
-    }
-  ],
   "require": {
     "php": ">=5.3.0",
     "xrstf/composer-php52": "1.*",
-    "composer/installers": "~1.0",
-    "ibericode/mc4wp-library": "dev-master"
+    "composer/installers": "~1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "4.5.*",
@@ -51,12 +44,8 @@
   "autoload": {
     "classmap": [
       "includes/"
-    ]
-  },
-  "extra": {
-    "installer-paths": {
-      "library": ["ibericode/mc4wp-library"]
-    }
+    ],
+    "files": ["includes/functions/template.php" ]
   },
   "config": {
     "preferred-install": "dist"
