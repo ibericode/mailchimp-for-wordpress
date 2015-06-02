@@ -18,7 +18,7 @@ class MC4WP_Lite_Admin
 	 */
 	public function __construct() {
 
-		$this->plugin_file = plugin_basename( MC4WP_LITE_PLUGIN_FILE );
+		$this->plugin_file = plugin_basename( MC4WP_PLUGIN_FILE );
 
 		$this->load_translations();
 		$this->setup_hooks();
@@ -32,11 +32,11 @@ class MC4WP_Lite_Admin
 
 		// Only run if db option is at older version than code constant
 		$db_version = get_option( 'mc4wp_lite_version', 0 );
-		if( version_compare( MC4WP_LITE_VERSION, $db_version, '<=' ) ) {
+		if( version_compare( MC4WP_VERSION, $db_version, '<=' ) ) {
 			return false;
 		}
 
-		$upgrader = new MC4WP_DB_Upgrader( MC4WP_LITE_VERSION, $db_version );
+		$upgrader = new MC4WP_DB_Upgrader( MC4WP_VERSION, $db_version );
 		$upgrader->run();
 	}
 
@@ -55,7 +55,7 @@ class MC4WP_Lite_Admin
 
 		// Hooks for Plugins overview page
 		if( $current_page === 'plugins.php' ) {
-			$this->plugin_file = plugin_basename( MC4WP_LITE_PLUGIN_FILE );
+			$this->plugin_file = plugin_basename( MC4WP_PLUGIN_FILE );
 
 			add_filter( 'plugin_action_links_' . $this->plugin_file, array( $this, 'add_plugin_settings_link' ), 10, 2 );
 			add_filter( 'plugin_row_meta', array( $this, 'add_plugin_meta_links'), 10, 2 );
@@ -203,7 +203,7 @@ class MC4WP_Lite_Admin
 		$menu_items = apply_filters( 'mc4wp_menu_items', $menu_items );
 
 		// add top menu item
-		add_menu_page( 'MailChimp for WP Lite', 'MailChimp for WP', $required_cap, 'mailchimp-for-wp', array( $this, 'show_api_settings' ), MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png', '99.68491' );
+		add_menu_page( 'MailChimp for WP Lite', 'MailChimp for WP', $required_cap, 'mailchimp-for-wp', array( $this, 'show_api_settings' ), MC4WP_PLUGIN_URL . 'assets/img/menu-icon.png', '99.68491' );
 
 		// add submenu pages
 		foreach( $menu_items as $item ) {
@@ -270,11 +270,11 @@ class MC4WP_Lite_Admin
 		$mailchimp = new MC4WP_MailChimp();
 
 		// css
-		wp_enqueue_style( 'mc4wp-admin-css', MC4WP_LITE_PLUGIN_URL . 'assets/css/admin' . $suffix . '.css' );
+		wp_enqueue_style( 'mc4wp-admin-css', MC4WP_PLUGIN_URL . 'assets/css/admin' . $suffix . '.css' );
 
 		// js
-		wp_register_script( 'mc4wp-beautifyhtml', MC4WP_LITE_PLUGIN_URL . 'assets/js/third-party/beautify-html'. $suffix .'.js', array( 'jquery' ), MC4WP_LITE_VERSION, true );
-		wp_register_script( 'mc4wp-admin', MC4WP_LITE_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array( 'jquery', 'quicktags' ), MC4WP_LITE_VERSION, true );
+		wp_register_script( 'mc4wp-beautifyhtml', MC4WP_PLUGIN_URL . 'assets/js/third-party/beautify-html'. $suffix .'.js', array( 'jquery' ), MC4WP_VERSION, true );
+		wp_register_script( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array( 'jquery', 'quicktags' ), MC4WP_VERSION, true );
 		wp_enqueue_script( array( 'jquery', 'mc4wp-beautifyhtml', 'mc4wp-admin' ) );
 		wp_localize_script( 'mc4wp-admin', 'mc4wp',
 			array(
@@ -373,7 +373,7 @@ class MC4WP_Lite_Admin
 			}
 		}
 
-		require MC4WP_LITE_PLUGIN_DIR . 'includes/views/api-settings.php';
+		require MC4WP_PLUGIN_DIR . 'includes/views/api-settings.php';
 	}
 
 	/**
@@ -384,7 +384,7 @@ class MC4WP_Lite_Admin
 		$mailchimp = new MC4WP_MailChimp();
 		$opts = mc4wp_get_options( 'checkbox' );
 		$lists = $mailchimp->get_lists();
-		require MC4WP_LITE_PLUGIN_DIR . 'includes/views/checkbox-settings.php';
+		require MC4WP_PLUGIN_DIR . 'includes/views/checkbox-settings.php';
 	}
 
 	/**
@@ -396,7 +396,7 @@ class MC4WP_Lite_Admin
 		$mailchimp = new MC4WP_MailChimp();
 		$lists = $mailchimp->get_lists();
 
-		require MC4WP_LITE_PLUGIN_DIR . 'includes/views/form-settings.php';
+		require MC4WP_PLUGIN_DIR . 'includes/views/form-settings.php';
 	}
 
 	/**

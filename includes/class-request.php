@@ -58,7 +58,7 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 		$this->form_element_id = (string) $this->internal_data['form_element_id'];
 
 		// get form
-		$this->form = MC4WP_Form::get( $this );
+		$this->form = MC4WP_Form::get( 0, $this );
 	}
 
 	/**

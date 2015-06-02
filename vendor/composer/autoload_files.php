@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    $baseDir . '/library/src/functions.php',
+    $baseDir . '/includes/functions/template.php',
 );

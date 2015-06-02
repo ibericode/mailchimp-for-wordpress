@@ -91,27 +91,32 @@ if( ! function_exists( 'mc4wp_get_form' ) ) {
  *      Deprecated functions    *
  ********************************/
 
-/**
- * Echoes a sign-up form.
- *
- * @param   int     form ID
- *
- * @deprecated 1.3.1 Use mc4wp_form() instead.
- * @see mc4wp_form()
- */
-function mc4wp_show_form( $form_id ) {
-	_deprecated_function( __FUNCTION__, 'MailChimp for WordPress v1.3.1', 'mc4wp_form' );
-	echo mc4wp_get_form( $form_id );
+if( ! function_exists( 'mc4wp_show_form' ) ) {
+	/**
+	 * Echoes a sign-up form.
+	 *
+	 * @param   int     form ID
+	 *
+	 * @deprecated 1.3.1 Use mc4wp_form() instead.
+	 * @see        mc4wp_form()
+	 */
+	function mc4wp_show_form( $form_id ) {
+		_deprecated_function( __FUNCTION__, 'MailChimp for WordPress v1.3.1', 'mc4wp_form' );
+		echo mc4wp_get_form( $form_id );
+	}
+
 }
 
-/**
- * Echoes a sign-up checkbox.
- *
- * @deprecated 1.3.1 Use mc4wp_checkbox() instead
- * @see mc4wp_checkbox()
- */
-function mc4wp_show_checkbox() {
-	_deprecated_function( __FUNCTION__, 'MailChimp for WordPress v1.3.1', 'mc4wp_checkbox' );
-	mc4wp_checkbox();
+if( ! function_exists( 'mc4wp_show_checkbox' ) ) {
+	/**
+	 * Echoes a sign-up checkbox.
+	 *
+	 * @deprecated 1.3.1 Use mc4wp_checkbox() instead
+	 * @see        mc4wp_checkbox()
+	 */
+	function mc4wp_show_checkbox() {
+		_deprecated_function( __FUNCTION__, 'MailChimp for WordPress v1.3.1', 'mc4wp_checkbox' );
+		mc4wp_checkbox();
+	}
 }
 

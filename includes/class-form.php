@@ -8,10 +8,11 @@ class MC4WP_Form {
 	private static $instance;
 
 	/**
+	 * @param int $form_id
 	 * @param iMC4WP_Request $request
 	 * @return MC4WP_Form|null
 	 */
-	public static function get( iMC4WP_Request $request = null ) {
+	public static function get( $form_id = 0, iMC4WP_Request $request = null ) {
 
 		// has instance been created already?
 		if( self::$instance ) {
@@ -224,7 +225,7 @@ class MC4WP_Form {
 		$hidden_fields = '';
 
 		// Start building content string
-		$opening_html = '<!-- MailChimp for WordPress v' . MC4WP_LITE_VERSION . ' - https://wordpress.org/plugins/mailchimp-for-wp/ -->';
+		$opening_html = '<!-- MailChimp for WordPress v' . MC4WP_VERSION . ' - https://wordpress.org/plugins/mailchimp-for-wp/ -->';
 		$opening_html .= '<div id="' . esc_attr( $element_id ) . '" class="' . esc_attr( $this->get_css_classes( $element_id ) ) . '">';
 		$before_fields = apply_filters( 'mc4wp_form_before_fields', '' );
 		$after_fields = apply_filters( 'mc4wp_form_after_fields', '' );

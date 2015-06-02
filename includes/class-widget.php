@@ -46,7 +46,7 @@ class MC4WP_Lite_Widget extends WP_Widget {
 
 		// make sure template functions exist (for usage in avia layout builder)
 		if ( ! function_exists( 'mc4wp_get_form' ) ) {
-			include_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/template.php';
+			include_once MC4WP_PLUGIN_DIR . 'includes/functions/template.php';
 		}
 
 		echo mc4wp_get_form();

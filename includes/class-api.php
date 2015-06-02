@@ -44,7 +44,6 @@ class MC4WP_API {
 	*/
 	public function __construct( $api_key ) {
 		$this->api_key = $api_key;
-
 		$dash_position = strpos( $api_key, '-' );
 		if( $dash_position !== false ) {
 			$this->api_url = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/';
