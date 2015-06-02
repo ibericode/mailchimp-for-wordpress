@@ -40,7 +40,7 @@ class MC4WP_Tools {
 		// replace general vars
 		$replacements = array(
 			'{ip}' => self::get_client_ip(),
-			'{current_url}' => mc4wp_get_current_url(),
+			'{current_url}' => self::get_current_url(),
 			'{date}' => date( 'm/d/Y' ),
 			'{time}' => date( 'H:i:s' ),
 			'{language}' => defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : get_locale(),
@@ -161,6 +161,33 @@ class MC4WP_Tools {
 		$expiration_time = apply_filters( 'mc4wp_cookie_expiration_time', strtotime( '+90 days' ) );
 
 		setcookie( 'mc4wp_email', $email, $expiration_time, '/' );
+	}
+
+	/**
+	 * Get the current request URL
+	 *
+	 * @return string
+	 */
+	public static function get_current_url() {
+		global $wp;
+
+		// get requested url from global $wp object
+		$site_request_uri = $wp->request;
+
+		// fix for IIS servers using index.php in the URL
+		if( false !== stripos( $_SERVER['REQUEST_URI'], '/index.php/' . $site_request_uri ) ) {
+			$site_request_uri = 'index.php/' . $site_request_uri;
+		}
+
+		// concatenate request url to home url
+		$url = home_url( $site_request_uri );
+
+		// add trailing slash, if necessary
+		if( substr( $_SERVER['REQUEST_URI'] , -1 ) === '/' ) {
+			$url = trailingslashit( $url );
+		}
+
+		return esc_url( $url );
 	}
 	
 }
