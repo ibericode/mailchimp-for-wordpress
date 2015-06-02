@@ -24,6 +24,12 @@ abstract class MC4WP_Integration {
 		$this->checkbox_name = '_mc4wp_subscribe' . '_' . $this->type;
 	}
 
+	public function init() {
+		$this->add_hooks();
+	}
+
+	protected function add_hooks() {}
+
 	/**
 	 * Get the checkbox options
 	 *

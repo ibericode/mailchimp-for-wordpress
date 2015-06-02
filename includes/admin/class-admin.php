@@ -1,7 +1,6 @@
 <?php
 
-class MC4WP_Lite_Admin
-{
+class MC4WP_Admin {
 
 	/**
 	 * @var bool True if the BWS Captcha plugin is activated.

@@ -15,12 +15,22 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 	/**
 	* Constructor
 	*/
-	public function __construct() {
+	public function __construct() {}
+
+	/**
+	 * Init
+	 */
+	public function init() {
+		parent::init();
 
 		// run backwards compatibility routine
 		$this->upgrade();
+	}
 
-		// hook actions
+	/**
+	 * Add hooks
+	 */
+	public function add_hooks() {
 		add_action( 'init', array( $this, 'maybe_subscribe'), 90 );
 	}
 

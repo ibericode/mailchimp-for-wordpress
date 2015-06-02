@@ -19,13 +19,9 @@ if( ! function_exists( 'mc4wp_checkbox' ) ) {
 	 * Echoes a sign-up checkbox.
 	 */
 	function mc4wp_checkbox() {
-		$checkbox_manager = $GLOBALS['mc4wp']->get_checkbox_manager();
-
-		if( ! isset( $checkbox_manager->integrations['comment_form'] ) ) {
-			$checkbox_manager->integrations['comment_form'] = new MC4WP_Comment_Form_Integration();
-		}
-
-		$checkbox_manager->integrations['comment_form']->output_checkbox();
+		/** @var MC4WP */
+		global $mc4wp;
+		$mc4wp->integrations->comment_form->output_checkbox();
 	}
 
 }

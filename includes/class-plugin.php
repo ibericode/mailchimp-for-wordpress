@@ -18,6 +18,12 @@ class MC4WP_Lite {
 	*/
 	private $checkbox_manager;
 
+
+	/**
+	 * @var MC4WP_Integrations
+	 */
+	public $integrations;
+
 	/**
 	* @var MC4WP_API
 	*/
@@ -56,8 +62,15 @@ class MC4WP_Lite {
 	*/
 	private function __construct() {
 
+		$opts = mc4wp_get_options( 'checkbox' );
+
 		// checkboxes
-		$this->checkbox_manager = new MC4WP_Lite_Checkbox_Manager();
+		$this->checkbox_manager = new MC4WP_Checkbox_Manager( $opts );
+		$this->checkbox_manager->add_hooks();
+
+		// load integrations
+		$this->integrations = new MC4WP_Integrations( $opts );
+		$this->integrations->load();
 
 		// forms
 		add_action( 'init', array( $this, 'init_form_listener' ) );

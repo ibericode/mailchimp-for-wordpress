@@ -64,7 +64,7 @@ function mc4wp_load_plugin() {
 
 	if( is_admin()
 	    && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-		$admin = new MC4WP_Lite_Admin();
+		$admin = new MC4WP_Admin();
 		$admin->add_hooks();
 		$admin->load_translations();
 	}

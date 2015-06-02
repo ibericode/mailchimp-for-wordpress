@@ -10,13 +10,24 @@ class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 	/**
 	 * Constructor
 	 */
-	public function __construct() {
+	public function __construct() {}
+
+	/**
+	 * Init
+	 */
+	public function init() {
+		parent::init();
 
 		// make sure older checkbox names work for CF7 too
 		$this->upgrade();
+	}
 
+	/**
+	 * Add hooks
+	 */
+	public function add_hooks() {
 		// register shortcode on a later hook
-		add_action( 'init', array( $this, 'init') );
+		add_action( 'init', array( $this, 'add_shortcode') );
 
 		// hook into cf7 success
 		add_action( 'wpcf7_mail_sent', array( $this, 'subscribe_from_cf7' ) );
@@ -28,7 +39,7 @@ class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 	 *
 	* @return boolean
 	*/
-	public function init() {
+	public function add_shortcode() {
 
 		if( ! function_exists( 'wpcf7_add_shortcode' ) ) {
 			return false;

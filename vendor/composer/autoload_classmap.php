@@ -7,8 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'MC4WP_API' => $baseDir . '/includes/class-api.php',
+    'MC4WP_Admin' => $baseDir . '/includes/admin/class-admin.php',
     'MC4WP_BuddyPress_Integration' => $baseDir . '/includes/integrations/class-buddypress.php',
     'MC4WP_CF7_Integration' => $baseDir . '/includes/integrations/class-cf7.php',
+    'MC4WP_Checkbox_Manager' => $baseDir . '/includes/class-checkbox-manager.php',
     'MC4WP_Comment_Form_Integration' => $baseDir . '/includes/integrations/class-comment-form.php',
     'MC4WP_DB_Upgrader' => $baseDir . '/includes/admin/class-db-upgrader.php',
     'MC4WP_EDD_Integration' => $baseDir . '/includes/integrations/class-edd.php',
@@ -19,9 +21,8 @@ return array(
     'MC4WP_Form_Validator' => $baseDir . '/includes/class-form-validator.php',
     'MC4WP_General_Integration' => $baseDir . '/includes/integrations/class-general.php',
     'MC4WP_Integration' => $baseDir . '/includes/integrations/class-integration.php',
+    'MC4WP_Integrations' => $baseDir . '/includes/class-integrations.php',
     'MC4WP_Lite' => $baseDir . '/includes/class-plugin.php',
-    'MC4WP_Lite_Admin' => $baseDir . '/includes/admin/class-admin.php',
-    'MC4WP_Lite_Checkbox_Manager' => $baseDir . '/includes/class-checkbox-manager.php',
     'MC4WP_Lite_Form_Manager' => $baseDir . '/includes/class-form-manager.php',
     'MC4WP_Lite_Widget' => $baseDir . '/includes/class-widget.php',
     'MC4WP_MailChimp' => $baseDir . '/includes/class-mailchimp.php',
