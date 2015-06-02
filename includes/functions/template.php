@@ -19,7 +19,7 @@ if( ! function_exists( 'mc4wp_checkbox' ) ) {
 	 * Echoes a sign-up checkbox.
 	 */
 	function mc4wp_checkbox() {
-		/** @var MC4WP */
+		/** @var MC4WP $mc4wp */
 		global $mc4wp;
 		$mc4wp->integrations->comment_form->output_checkbox();
 	}
@@ -44,12 +44,15 @@ if( ! function_exists( 'mc4wp_get_form' ) ) {
 	/**
 	 * Returns HTML for sign-up form with the given $form_id.
 	 *
-	 * @param array $atts
+	 * @param array|int $atts
 	 * @return string HTML of given form_id.
 	 */
 	function mc4wp_get_form( $atts = array() ) {
+		/** @var MC4WP $mc4wp */
+		global $mc4wp;
 
-		$form_manager = $GLOBALS['mc4wp']->get_form_manager();
+		/** @var MC4WP_Form_Manager $form_manager */
+		$form_manager = $mc4wp->form_manager;
 
 		if( is_numeric( $atts ) ) {
 			$id = $atts;
@@ -72,7 +75,7 @@ if( ! function_exists( 'mc4wp_show_form' ) ) {
 	/**
 	 * Echoes a sign-up form.
 	 *
-	 * @param   int     form ID
+	 * @param int $form_id form ID
 	 *
 	 * @deprecated 1.3.1 Use mc4wp_form() instead.
 	 * @see        mc4wp_form()

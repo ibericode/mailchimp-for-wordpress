@@ -1,11 +1,5 @@
 <?php
 
-if( ! defined( 'MC4WP_VERSION' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
-
 class MC4WP {
 
 	/**
@@ -18,7 +12,6 @@ class MC4WP {
 	*/
 	public $checkbox_manager;
 
-
 	/**
 	 * @var MC4WP_Integrations
 	 */
@@ -27,12 +20,12 @@ class MC4WP {
 	/**
 	* @var MC4WP_API
 	*/
-	private $api;
+	protected $api;
 
 	/**
 	 * @var MC4WP The one and only true plugin instance
 	 */
-	private static $instance;
+	protected static $instance;
 
 	/**
 	 * @return MC4WP
@@ -60,7 +53,7 @@ class MC4WP {
 	/**
 	* Constructor
 	*/
-	private function __construct() {
+	protected function __construct() {
 
 		$checkbox_opts = mc4wp_get_options( 'checkbox' );
 
