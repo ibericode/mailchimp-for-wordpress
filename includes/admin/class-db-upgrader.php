@@ -34,7 +34,7 @@ class MC4WP_DB_Upgrader {
 		}
 
 		// update code version
-		update_option( 'mc4wp_lite_version', MC4WP_LITE_VERSION );
+		update_option( 'mc4wp_lite_version', MC4WP_VERSION );
 	}
 
 	protected function change_success_message_key() {

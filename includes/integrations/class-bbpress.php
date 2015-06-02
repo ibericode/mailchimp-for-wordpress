@@ -1,12 +1,5 @@
 <?php
 
-// prevent direct file access
-if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
-
 class MC4WP_bbPress_Integration extends MC4WP_User_Integration {
 
 	/**
@@ -14,13 +7,7 @@ class MC4WP_bbPress_Integration extends MC4WP_User_Integration {
 	 */
 	protected $type = 'bbpress_forms';
 
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-
-		parent::__construct();
-
+	protected function add_hooks() {
 		add_action( 'bbp_theme_after_topic_form_subscriptions', array( $this, 'output_checkbox' ), 10 );
 		add_action( 'bbp_theme_after_reply_form_subscription', array( $this, 'output_checkbox' ), 10 );
 		add_action( 'bbp_theme_anonymous_form_extras_bottom', array( $this, 'output_checkbox' ), 10 );
@@ -29,11 +16,11 @@ class MC4WP_bbPress_Integration extends MC4WP_User_Integration {
 	}
 
 	/**
-	 * @param array $anonymous_data
-	 * @param int $user_id
-	 * @param string $trigger
-	 * @return boolean
-	 */
+	* @param array $anonymous_data
+	* @param int $user_id
+	* @param string $trigger
+	* @return boolean
+	*/
 	public function subscribe_from_bbpress( $anonymous_data, $user_id, $trigger ) {
 
 		if( $this->is_spam() ) {

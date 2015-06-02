@@ -17,14 +17,14 @@ interface iMC4WP_Request {
 	public function validate();
 
 	/**
-	 * Process the request any way you like
+	 * Process the request
 	 *
 	 * @return bool
 	 */
 	public function process();
 
 	/**
-	 * Respond to the request any way you see fit
+	 * Respond to the request
 	 *
 	 * @return bool
 	 */
@@ -41,4 +41,5 @@ interface iMC4WP_Request {
 	 * @return array
 	 */
 	public function get_lists();
+
 }

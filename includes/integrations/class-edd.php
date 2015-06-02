@@ -1,12 +1,5 @@
 <?php
 
-// prevent direct file access
-if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
-
 class MC4WP_EDD_Integration extends MC4WP_Integration {
 
 	/**
@@ -15,12 +8,9 @@ class MC4WP_EDD_Integration extends MC4WP_Integration {
 	protected $type = 'edd_checkout';
 
 	/**
-	 * Constructor
+	 * Add hooks
 	 */
-	public function __construct() {
-
-		parent::__construct();
-
+	protected function add_hooks() {
 		add_action( 'edd_purchase_form_user_info', array( $this, 'output_checkbox' ) );
 		add_action( 'edd_payment_meta', array( $this, 'save_checkbox_value' ) );
 		add_action( 'edd_complete_purchase', array( $this, 'subscribe_from_edd'), 50 );
@@ -72,8 +62,6 @@ class MC4WP_EDD_Integration extends MC4WP_Integration {
 		if( isset( $user_info['last_name'] ) ) {
 			$merge_vars['LNAME'] = $user_info['last_name'];
 		}
-
-
 
 		return $this->subscribe( $email, $merge_vars, $this->type, $payment_id );
 	}

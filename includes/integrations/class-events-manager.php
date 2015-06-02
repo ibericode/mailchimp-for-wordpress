@@ -1,25 +1,24 @@
 <?php
 
-// prevent direct file access
-if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
-
 class MC4WP_Events_Manager_Integration extends MC4WP_General_Integration {
 
 	protected $type = 'events_manager';
 
-	public function __construct() {
+	public function __construct() {}
+
+	/**
+	 * Add hooks
+	 */
+	protected function add_hooks() {
 		add_action( 'em_bookings_added', array( $this, 'subscribe_from_events_manager' ) );
 	}
 
 	/**
 	 * Subscribe from Events Manager booking forms.
 	 *
-	 * @param array $args
-	 * @return bool
+	 * @param object $args
+	 *
+	 * @return bool|string
 	 */
 	public function subscribe_from_events_manager( $args ) {
 

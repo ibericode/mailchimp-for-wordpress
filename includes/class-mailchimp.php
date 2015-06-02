@@ -37,7 +37,7 @@ class MC4WP_MailChimp {
 						'name' => $list->name,
 						'subscriber_count' => $list->stats->member_count,
 						'merge_vars' => array(),
-						'interest_groupings' => array()
+						'interest_groupings' => array(),
 					);
 
 					// get interest groupings
@@ -47,6 +47,7 @@ class MC4WP_MailChimp {
 					}
 
 				}
+
 
 				// get merge vars for all lists at once
 				$merge_vars_data = $api->get_lists_with_merge_vars( array_keys( $lists ) );
@@ -60,7 +61,6 @@ class MC4WP_MailChimp {
 				// store lists in transients
 				set_transient( 'mc4wp_mailchimp_lists', $lists, ( 24 * 3600 ) ); // 1 day
 				set_transient( 'mc4wp_mailchimp_lists_fallback', $lists, 1209600 ); // 2 weeks
-
 				return $lists;
 			} else {
 				// api request failed, get fallback data (with longer lifetime)
@@ -86,6 +86,7 @@ class MC4WP_MailChimp {
 	 * @return bool
 	 */
 	public function get_list( $list_id, $force_renewal = false, $force_fallback = false ) {
+
 		$lists = $this->get_lists( $force_renewal, $force_fallback );
 
 		if( isset( $lists[$list_id] ) ) {
@@ -102,10 +103,54 @@ class MC4WP_MailChimp {
 	 * @return string
 	 */
 	public function get_list_name( $id ) {
-		$list = $this->get_list( $id );
+
+		$list = $this->get_list( $id, false, true );
 
 		if( is_object( $list ) && isset( $list->name ) ) {
 			return $list->name;
+		}
+
+		return '';
+	}
+
+	/**
+	 * Get the name of a list field by its merge tag
+	 *
+	 * @param $list_id
+	 * @param $tag
+	 *
+	 * @return string
+	 */
+	public function get_list_field_name_by_tag( $list_id, $tag ) {
+
+		// try default fields
+		switch( $tag ) {
+
+			case 'EMAIL':
+				return __( 'Email address', 'mailchimp-for-wp' );
+				break;
+
+
+			case 'OPTIN_IP':
+				return __( 'IP Address', 'mailchimp-for-wp' );
+				break;
+		}
+
+		// try to find field in list
+		$list = $this->get_list( $list_id, false, true );
+
+		if( is_object( $list ) && isset( $list->merge_vars ) ) {
+
+			// try list merge vars first
+			foreach( $list->merge_vars as $field ) {
+
+				if( $field->tag !== $tag ) {
+					continue;
+				}
+
+				return $field->name;
+			}
+
 		}
 
 		return '';
@@ -180,7 +225,7 @@ class MC4WP_MailChimp {
 	/**
 	 * Returns number of subscribers on given lists.
 	 *
-	 * @param array $list_ids Array of list id's.
+	 * @param array $list_ids of list id's.
 	 * @return int Sum of subscribers for given lists.
 	 */
 	public function get_subscriber_count( $list_ids ) {
@@ -193,6 +238,7 @@ class MC4WP_MailChimp {
 		$list_counts = get_transient( 'mc4wp_list_counts' );
 
 		if ( false === $list_counts ) {
+
 			// make api call
 			$api = mc4wp_get_api();
 			$lists = $api->get_lists();
@@ -204,6 +250,12 @@ class MC4WP_MailChimp {
 					$list_counts["{$list->id}"] = $list->stats->member_count;
 				}
 
+				/**
+				 * @filter `mc4wp_lists_count_cache_time`
+				 * @expects int
+				 *
+				 * Sets the amount of time the subscriber count for lists should be stored
+				 */
 				$transient_lifetime = apply_filters( 'mc4wp_lists_count_cache_time', 1200 ); // 20 mins by default
 
 				set_transient( 'mc4wp_list_counts', $list_counts, $transient_lifetime );
@@ -215,6 +267,7 @@ class MC4WP_MailChimp {
 					return 0;
 				}
 			}
+
 		}
 
 		// start calculating subscribers count for all list combined
@@ -228,20 +281,16 @@ class MC4WP_MailChimp {
 
 	/**
 	 * Build the group array object which will be stored in cache
-	 *
-	 * @param object $group
 	 * @return object
 	 */
 	public function strip_unnecessary_group_properties( $group ) {
 		return (object) array(
-			'name' => $group->name,
+			'name' => $group->name
 		);
 	}
 
 	/**
 	 * Build the groupings array object which will be stored in cache
-	 *
-	 * @param object $grouping
 	 * @return object
 	 */
 	public function strip_unnecessary_grouping_properties( $grouping ) {
@@ -255,8 +304,6 @@ class MC4WP_MailChimp {
 
 	/**
 	 * Build the merge_var array object which will be stored in cache
-	 *
-	 * @param object $merge_var
 	 * @return object
 	 */
 	public function strip_unnecessary_merge_vars_properties( $merge_var ) {

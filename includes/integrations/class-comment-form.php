@@ -1,22 +1,13 @@
 <?php
 
-if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
-
 class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 
 	protected $type = 'comment_form';
 
-	public function __construct() {
-
-		parent::__construct();
-
+	protected function add_hooks() {
 		// hooks for outputting the checkbox
 		add_action( 'thesis_hook_after_comment_box', array( $this, 'output_checkbox' ), 10 );
-		add_action( 'comment_form', array( $this, 'output_checkbox' ) );
+		add_action( 'comment_form', array( $this, 'output_checkbox' ), 10 );
 
 		// hooks for checking if we should subscribe the commenter
 		add_action( 'comment_post', array( $this, 'subscribe_from_comment' ), 40, 2 );

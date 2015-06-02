@@ -1,12 +1,5 @@
 <?php
 
-// prevent direct file access
-if( ! defined( 'ABSPATH' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
-
 class MC4WP_Unsubscribe_Request extends MC4WP_Request {
 	/**
 	 * @return bool
@@ -22,7 +15,7 @@ class MC4WP_Unsubscribe_Request extends MC4WP_Request {
 
 		if( ! $result ) {
 			$this->mailchimp_error = $api->get_error_message();
-			$this->message_type =  ( in_array( $api->get_error_code(), array( 215, 232 ) ) ) ? 'not_subscribed' : 'error';
+			$this->message_type = ( in_array( $api->get_error_code(), array( 215, 232 ) ) ) ? 'not_subscribed' : 'error';
 		} else {
 			$this->message_type = 'unsubscribed';
 		}

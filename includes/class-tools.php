@@ -14,8 +14,8 @@ class MC4WP_Tools {
 			if( ! isset( $merge_vars['FNAME'] ) && ! isset( $merge_vars['LNAME'] ) ) {
 				$strpos = strpos( $merge_vars['NAME'], ' ' );
 				if ( $strpos !== false ) {
-					$merge_vars['FNAME'] = trim( substr( $merge_vars['NAME'], 0, $strpos ) );
-					$merge_vars['LNAME'] = trim( substr( $merge_vars['NAME'], $strpos ) );
+					$merge_vars['FNAME'] = substr( $merge_vars['NAME'], 0, $strpos );
+					$merge_vars['LNAME'] = substr( $merge_vars['NAME'], $strpos );
 				} else {
 					$merge_vars['FNAME'] = $merge_vars['NAME'];
 				}
@@ -40,7 +40,7 @@ class MC4WP_Tools {
 		// replace general vars
 		$replacements = array(
 			'{ip}' => self::get_client_ip(),
-			'{current_url}' => mc4wp_get_current_url(),
+			'{current_url}' => self::get_current_url(),
 			'{date}' => date( 'm/d/Y' ),
 			'{time}' => date( 'H:i:s' ),
 			'{language}' => defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : get_locale(),
@@ -86,7 +86,6 @@ class MC4WP_Tools {
 		return $string;
 	}
 
-
 	/**
 	 * @param $matches
 	 *
@@ -94,8 +93,8 @@ class MC4WP_Tools {
 	 */
 	public static function replace_request_data_variables( $matches ) {
 
-		$variable = strtoupper( $matches[1] );
-		$request_data = array_change_key_case( $_REQUEST, CASE_UPPER );
+		$variable = strtolower( $matches[1] );
+		$request_data = array_change_key_case( $_REQUEST, CASE_LOWER );
 
 		if( isset( $request_data[ $variable ] ) && is_scalar( $request_data[ $variable ] ) ) {
 			return esc_html( $request_data[ $variable ] );
@@ -110,7 +109,6 @@ class MC4WP_Tools {
 	 * @return string
 	 */
 	public static function get_known_email() {
-
 		// case insensitive check in $_REQUEST
 		$request_data = array_change_key_case( $_REQUEST, CASE_LOWER );
 
@@ -147,6 +145,7 @@ class MC4WP_Tools {
 		return $ip;
 	}
 
+
 	/**
 	 * @param $email
 	 */
@@ -164,4 +163,31 @@ class MC4WP_Tools {
 		setcookie( 'mc4wp_email', $email, $expiration_time, '/' );
 	}
 
+	/**
+	 * Get the current request URL
+	 *
+	 * @return string
+	 */
+	public static function get_current_url() {
+		global $wp;
+
+		// get requested url from global $wp object
+		$site_request_uri = $wp->request;
+
+		// fix for IIS servers using index.php in the URL
+		if( false !== stripos( $_SERVER['REQUEST_URI'], '/index.php/' . $site_request_uri ) ) {
+			$site_request_uri = 'index.php/' . $site_request_uri;
+		}
+
+		// concatenate request url to home url
+		$url = home_url( $site_request_uri );
+
+		// add trailing slash, if necessary
+		if( substr( $_SERVER['REQUEST_URI'] , -1 ) === '/' ) {
+			$url = trailingslashit( $url );
+		}
+
+		return esc_url( $url );
+	}
+	
 }

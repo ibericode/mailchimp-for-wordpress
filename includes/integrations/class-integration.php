@@ -1,11 +1,5 @@
 <?php
 
-if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
-
 abstract class MC4WP_Integration {
 
 	/**
@@ -24,11 +18,17 @@ abstract class MC4WP_Integration {
 	protected $options;
 
 	/**
-	 * Constructor
-	 */
+	* Constructor
+	*/
 	public function __construct() {
 		$this->checkbox_name = '_mc4wp_subscribe' . '_' . $this->type;
 	}
+
+	public function init() {
+		$this->add_hooks();
+	}
+
+	protected function add_hooks() {}
 
 	/**
 	 * Get the checkbox options
@@ -120,23 +120,23 @@ abstract class MC4WP_Integration {
 	}
 
 	/**
-	 * @return bool
-	 */
+	* @return bool
+	*/
 	public function checkbox_was_checked() {
 		return ( isset( $_POST[ $this->checkbox_name ] ) && $_POST[ $this->checkbox_name ] == 1 );
 	}
 
 	/**
-	 * Outputs a checkbox
-	 */
+	* Outputs a checkbox
+	*/
 	public function output_checkbox() {
 		echo $this->get_checkbox();
 	}
 
 	/**
-	 * @param mixed $args Array or string
-	 * @return string
-	 */
+	* @param mixed $args Array or string
+	* @return string
+	*/
 	public function get_checkbox( $args = array() ) {
 
 		$checked = ( $this->is_prechecked() ) ? 'checked ' : '';
@@ -153,16 +153,16 @@ abstract class MC4WP_Integration {
 		if( is_array( $args ) && isset( $args['options'] ) ) {
 
 			// check for default:0 or default:1 to set the checked attribute
-			if( in_array( 'default:1', $args['options'] ) ) {
-				$checked = 'checked';
-			} else if( in_array( 'default:0', $args['options'] ) ) {
-				$checked = '';
-			}
+		 	if( in_array( 'default:1', $args['options'] ) ) {
+		 		$checked = 'checked';
+		 	} else if( in_array( 'default:0', $args['options'] ) ) {
+		 		$checked = '';
+		 	}
 
 		}
 
 		// before checkbox HTML (comment, ...)
-		$before = '<!-- MailChimp for WordPress v'. MC4WP_LITE_VERSION .' - https://mc4wp.com/ -->';
+		$before = '<!-- MailChimp for WordPress Pro v'. MC4WP_VERSION .' - https://mc4wp.com/ -->';
 		$before .= apply_filters( 'mc4wp_before_checkbox', '', $this->type );
 
 		// checkbox
@@ -176,7 +176,7 @@ abstract class MC4WP_Integration {
 		// after checkbox HTML (..., honeypot, closing comment)
 		$after = apply_filters( 'mc4wp_after_checkbox', '', $this->type );
 		$after .= '<textarea name="_mc4wp_required_but_not_really" style="display: none !important;"></textarea>';
-		$after .= '<!-- / MailChimp for WordPress -->';
+		$after .= '<!-- / MailChimp for WordPress Pro -->';
 
 		return $before . $content . $after;
 	}
@@ -212,13 +212,13 @@ abstract class MC4WP_Integration {
 	}
 
 	/**
-	 * Makes a subscription request
-	 *
-	 * @param string $email
-	 * @param array $merge_vars
-	 * @param int $related_object_ID
-	 * @return string|boolean
-	 */
+	* Makes a subscription request
+	*
+	* @param string $email
+	* @param array $merge_vars
+	* @param int $related_object_ID
+	* @return string|boolean
+	*/
 	protected function subscribe( $email, array $merge_vars = array(), $type = '', $related_object_id = 0 ) {
 
 		$type = ( '' !== $type ) ? $type : $this->type;
@@ -298,15 +298,15 @@ abstract class MC4WP_Integration {
 		// if result failed, show error message (only to admins for non-AJAX)
 		if ( $result !== true && $api->has_error() && $this->show_error_messages() ) {
 			wp_die( '<h3>' . __( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ) . '</h3>' .
-				'<p>' . __( 'The MailChimp server returned the following error message as a response to our sign-up request:', 'mailchimp-for-wp' ) . '</p>' .
-				'<pre>' . $api->get_error_message() . '</pre>' .
-				'<p>' . __( 'This is the data that was sent to MailChimp:', 'mailchimp-for-wp' ) . '</p>' .
-				'<strong>' . __( 'Email address:', 'mailchimp-for-wp' ) . '</strong>' .
-				'<pre>' . esc_html( $email ) . '</pre>' .
-				'<strong>' . __( 'Merge variables:', 'mailchimp-for-wp' ) . '</strong>' .
-				'<pre>' . esc_html( print_r( $merge_vars, true ) ) . '</pre>' .
-				'<p style="font-style:italic; font-size:12px;">' . __( 'This message is only visible to administrators for debugging purposes.', 'mailchimp-for-wp' ) . '</p>',
-			__( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ), array( 'back_link' => true ) );
+			        '<p>' . __( 'The MailChimp server returned the following error message as a response to our sign-up request:', 'mailchimp-for-wp' ) . '</p>' .
+			        '<pre>' . $api->get_error_message() . '</pre>' .
+			        '<p>' . __( 'This is the data that was sent to MailChimp:', 'mailchimp-for-wp' ) . '</p>' .
+			        '<strong>' . __( 'Email address:', 'mailchimp-for-wp' ) . '</strong>' .
+			        '<pre>' . esc_html( $email ) . '</pre>' .
+			        '<strong>' . __( 'Merge variables:', 'mailchimp-for-wp' ) . '</strong>' .
+			        '<pre>' . esc_html( print_r( $merge_vars, true ) ) . '</pre>' .
+			        '<p style="font-style:italic; font-size:12px;">' . __( 'This message is only visible to administrators for debugging purposes.', 'mailchimp-for-wp' ) . '</p>',
+				__( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ), array( 'back_link' => true ) );
 		}
 
 		return $result;

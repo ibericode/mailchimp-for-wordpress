@@ -1,35 +1,35 @@
 <?php
 
 /**
-* Takes care of requests to the MailChimp API
-*
-* @uses WP_HTTP
-*/
+ * Takes care of requests to the MailChimp API
+ *
+ * @uses WP_HTTP
+ */
 class MC4WP_API {
 
 	/**
-	 * @var string
-	 */
+	* @var string The URL to the MailChimp API
+	*/
 	private $api_url = 'https://api.mailchimp.com/2.0/';
 
 	/**
-	 * @var string
-	 */
+	* @var string The API key to use
+	*/
 	private $api_key = '';
 
 	/**
-	 * @var string
-	 */
-	protected $error_message = '';
+	* @var string The error message of the latest API request (if any)
+	*/
+	private $error_message = '';
 
 	/**
-	 * @var int
+	 * @var int The error code of the lastest API request (if any)
 	 */
-	protected $error_code = 0;
+	private $error_code = 0;
 
 	/**
-	 * @var boolean
-	 */
+	* @var boolean Boolean indicating whether the user is connected with MailChimp
+	*/
 	private $connected = null;
 
 	/**
@@ -40,25 +40,24 @@ class MC4WP_API {
 	/**
 	* Constructor
 	*
-	* @param string $api_key MailChimp API key
+	* @param string $api_key
 	*/
 	public function __construct( $api_key ) {
 		$this->api_key = $api_key;
-
 		$dash_position = strpos( $api_key, '-' );
 		if( $dash_position !== false ) {
 			$this->api_url = 'https://' . substr( $api_key, $dash_position + 1 ) . '.api.mailchimp.com/2.0/';
 		}
 	}
 
-	 /**
+	/**
 	 * Show an error message to administrators
 	 *
 	 * @param string $message
+	 *
 	 * @return bool
 	 */
 	private function show_error( $message ) {
-
 		if( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
 			return false;
 		}
@@ -72,25 +71,26 @@ class MC4WP_API {
 	}
 
 	/**
-	* Pings the MailChimp API
-	* Will store its result to ensure a maximum of 1 ping per page load
+	* Pings the MailChimp API to see if we're connected
+	*
+	* The result is cached to ensure a maximum of 1 API call per page load
 	*
 	* @return boolean
 	*/
 	public function is_connected() {
-		if( $this->connected === null ) {
+		if( $this->connected !== null ) {
+			return $this->connected;
+		}
 
-			$this->connected = false;
-			$result = $this->call( 'helper/ping' );
+		$this->connected = false;
+		$result = $this->call( 'helper/ping' );
 
-			if( $result !== false ) {
-				if( isset( $result->msg ) && $result->msg === "Everything's Chimpy!" ) {
-					$this->connected = true;
-				} elseif( isset( $result->error ) ) {
-					$this->show_error( 'MailChimp Error: ' . $result->error );
-				}
+		if( $result !== false ) {
+			if( isset( $result->msg ) && $result->msg === "Everything's Chimpy!" ) {
+				$this->connected = true;
+			} else {
+				$this->show_error( 'MailChimp Error: ' . $result->error );
 			}
-
 		}
 
 		return $this->connected;
@@ -99,21 +99,21 @@ class MC4WP_API {
 	/**
 	* Sends a subscription request to the MailChimp API
 	*
-	* @param string $list_id
-	* @param string $email
-	* @param array $merge_vars
-	* @param string $email_type
-	* @param boolean $double_optin
-	* @param boolean $update_existing
-	* @param boolean $replace_interests
-	* @param boolean $send_welcome
+	* @param string $list_id The list id to subscribe to
+	* @param string $email The email address to subscribe
+	* @param array $merge_vars Array of extra merge variables
+	* @param string $email_type The email type to send to this email address. Possible values are `html` and `text`.
+	* @param boolean $double_optin Should this email be confirmed via double opt-in?
+	* @param boolean $update_existing Update information if this email is already on list?
+	* @param boolean $replace_interests Replace interest groupings, only if update_existing is true.
+	* @param boolean $send_welcome Send a welcome e-mail, only if double_optin is false.
 	*
-	* @return boolean Successful?
+	* @return boolean
 	*/
-	public function subscribe( $list_id, $email, array $merge_vars = array(), $email_type = 'html', $double_optin = true, $update_existing = false, $replace_interests = true, $send_welcome = false ) {
+	public function subscribe($list_id, $email, array $merge_vars = array(), $email_type = 'html', $double_optin = true, $update_existing = false, $replace_interests = true, $send_welcome = false ) {
 		$data = array(
 			'id' => $list_id,
-			'email' => array( 'email' => $email),
+			'email' => array( 'email' => $email ),
 			'merge_vars' => $merge_vars,
 			'email_type' => $email_type,
 			'double_optin' => $double_optin,
@@ -133,12 +133,11 @@ class MC4WP_API {
 
 	/**
 	* Gets the Groupings for a given List
-	* @param string $list_id
+	* @param int $list_id
 	* @return array|boolean
 	*/
 	public function get_list_groupings( $list_id ) {
 		$result = $this->call( 'lists/interest-groupings', array( 'id' => $list_id ) );
-
 		if( is_array( $result ) ) {
 			return $result;
 		}
@@ -149,7 +148,7 @@ class MC4WP_API {
 	/**
 	 * @param array $list_ids Array of ID's of the lists to fetch. (optional)
 	 *
-	 * @return array|bool
+	 * @return bool
 	 */
 	public function get_lists( $list_ids = array() ) {
 		$args = array(
@@ -174,7 +173,6 @@ class MC4WP_API {
 
 	/**
 	* Get lists with their merge_vars for a given array of list id's
-	 *
 	* @param array $list_ids
 	* @return array|boolean
 	*/
@@ -192,18 +190,35 @@ class MC4WP_API {
 	* Gets the member info for one or multiple emails on a list
 	*
 	* @param string $list_id
-	* @param array $emails
-	* @return array|bool
+	* @param array $struct
+	* @return array
 	*/
-	public function get_subscriber_info( $list_id, $emails ) {
+	public function get_subscriber_info( $list_id, array $struct ) {
 		$result = $this->call( 'lists/member-info', array(
 				'id' => $list_id,
-				'emails'  => $emails,
+				'emails'  => $struct,
 			)
 		);
 
 		if( is_object( $result ) && isset( $result->data ) ) {
 			return $result->data;
+		}
+
+		return false;
+	}
+
+	/**
+	* Checks if an email address is on a given list
+	*
+	* @param string $list_id
+	* @param string $email
+	* @return boolean
+	*/
+	public function list_has_subscriber( $list_id, $email ) {
+		$member_info = $this->get_subscriber_info( $list_id, array( array( 'email' => $email ) ) );
+
+		if( is_array( $member_info ) && isset( $member_info[0] ) ) {
+			return ( $member_info[0]->status === 'subscribed' );
 		}
 
 		return false;
@@ -250,23 +265,6 @@ class MC4WP_API {
 	}
 
 	/**
-	* Checks if an email address is on a given list
-	*
-	* @param string $list_id
-	* @param string $email
-	* @return boolean
-	*/
-	public function list_has_subscriber( $list_id, $email ) {
-		$member_info = $this->get_subscriber_info( $list_id, array( array( 'email' => $email ) ) );
-
-		if( is_array( $member_info ) && isset( $member_info[0] ) ) {
-			return ( $member_info[0]->status === 'subscribed' );
-		}
-
-		return false;
-	}
-
-	/**
 	 * Unsubscribes the given email or luid from the given MailChimp list
 	 *
 	 * @param string       $list_id
@@ -282,7 +280,7 @@ class MC4WP_API {
 		if( ! is_array( $struct ) ) {
 			// assume $struct is an email
 			$struct = array(
-				'email' => $struct,
+				'email' => $struct
 			);
 		}
 
@@ -296,6 +294,7 @@ class MC4WP_API {
 		);
 
 		if( is_object( $response ) ) {
+
 			if ( isset( $response->complete ) && $response->complete ) {
 				return true;
 			}
@@ -369,17 +368,15 @@ class MC4WP_API {
 	}
 
 	/**
-	 * Checks if an error occurred in the most recent API request
-	 *
-	 * @return bool
-	 */
+	* Checks if an error occured in the most recent request
+	* @return boolean
+	*/
 	public function has_error() {
 		return ( ! empty( $this->error_message ) );
 	}
 
 	/**
-	* Get the most recent error message
-	 *
+	* Gets the most recent error message
 	* @return string
 	*/
 	public function get_error_message() {
@@ -412,5 +409,4 @@ class MC4WP_API {
 		$this->error_code = 0;
 		$this->error_message = '';
 	}
-
 }

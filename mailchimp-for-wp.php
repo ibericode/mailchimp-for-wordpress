@@ -3,7 +3,7 @@
 Plugin Name: MailChimp for WordPress Lite
 Plugin URI: https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=plugins-page
 Description: Lite version of MailChimp for WordPress. Adds various sign-up methods to your website.
-Version: 2.3.4
+Version: 3.0
 Author: ibericode
 Author URI: http://ibericode.com/
 Text Domain: mailchimp-for-wp
@@ -48,14 +48,15 @@ function mc4wp_load_plugin() {
 	}
 
 	// bootstrap the lite plugin
-	define( 'MC4WP_LITE_VERSION', '2.3.4' );
-	define( 'MC4WP_LITE_PLUGIN_DIR', dirname( __FILE__ ) . '/' );
-	define( 'MC4WP_LITE_PLUGIN_URL', plugins_url( '/' , __FILE__ ) );
-	define( 'MC4WP_LITE_PLUGIN_FILE', __FILE__ );
+	define( 'MC4WP_VERSION', '3.0' );
+	define( 'MC4WP_PLUGIN_DIR', dirname( __FILE__ ) . '/' );
+	define( 'MC4WP_PLUGIN_URL', plugins_url( '/' , __FILE__ ) );
+	define( 'MC4WP_PLUGIN_FILE', __FILE__ );
 
-	require_once MC4WP_LITE_PLUGIN_DIR . 'vendor/autoload_52.php';
-	require_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/general.php';
-	require_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/template.php';
+	// load autoloader
+	require_once MC4WP_PLUGIN_DIR . 'vendor/autoload_52.php';
+
+	require_once MC4WP_PLUGIN_DIR . 'includes/functions/general.php';
 
 	// Initialize the plugin and store an instance in the global scope
 	MC4WP_Lite::init();
@@ -63,7 +64,9 @@ function mc4wp_load_plugin() {
 
 	if( is_admin()
 	    && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-		new MC4WP_Lite_Admin();
+		$admin = new MC4WP_Admin();
+		$admin->add_hooks();
+		$admin->load_translations();
 	}
 
 	return true;
