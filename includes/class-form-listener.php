@@ -40,6 +40,7 @@ class MC4WP_Form_Listener {
 	public function process( iMC4WP_Request $request ) {
 
 		$valid = $request->validate();
+
 		$success = false;
 
 		if( $valid ) {
