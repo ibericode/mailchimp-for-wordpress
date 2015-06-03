@@ -104,6 +104,9 @@
 	border-bottom:1px solid #ddd;
 }
 
+.mc4wp-help {
+	border-collapse: collapse;
+}
 .mc4wp-help th,
 .mc4wp-help td {
 	border: 1px solid #ddd; 

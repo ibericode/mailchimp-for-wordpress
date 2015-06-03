@@ -65,6 +65,9 @@ function mc4wp_load_plugin() {
 		$admin = new MC4WP_Admin( __FILE__ );
 		$admin->add_hooks();
 		$admin->load_translations();
+
+		$promotional_elements = new MC4WP_Promotional_Elements();
+		$promotional_elements->add_hooks();
 	}
 
 	return true;

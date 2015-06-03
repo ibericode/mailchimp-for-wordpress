@@ -34,7 +34,7 @@ class MC4WP_Admin {
 		// Actions used globally throughout WP Admin
 		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( 'admin_menu', array( $this, 'build_menu' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'load_assets' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
 
 		// Hooks for Plugins overview page
 		if( $current_page === 'plugins.php' ) {
@@ -62,7 +62,6 @@ class MC4WP_Admin {
 	public function init() {
 		$this->register_settings();
 		$this->load_upgrader();
-		$this->listen();
 	}
 
 	protected function register_settings() {
@@ -84,17 +83,6 @@ class MC4WP_Admin {
 
 		$upgrader = new MC4WP_DB_Upgrader( MC4WP_VERSION, $db_version );
 		$upgrader->run();
-	}
-
-	/**
-	 * Listen to various mc4wp actions
-	 */
-	protected function listen() {
-		// did the user click on upgrade to pro link?
-		if( $this->get_current_page() === 'mailchimp-for-wp-upgrade' && ! headers_sent() ) {
-			wp_redirect( 'https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=menu-upgrade-link' );
-			exit;
-		}
 	}
 
 	/**
@@ -146,31 +134,30 @@ class MC4WP_Admin {
 		$required_cap = apply_filters( 'mc4wp_settings_cap', 'manage_options' );
 
 		$menu_items = array(
-			array(
+			'general' => array(
 				'title' => __( 'MailChimp API Settings', 'mailchimp-for-wp' ),
 				'text' => __( 'MailChimp', 'mailchimp-for-wp' ),
 				'slug' => '',
 				'callback' => array( $this, 'show_api_settings' ),
 			),
-			array(
+			'checkbox' => array(
 				'title' => __( 'Checkbox Settings', 'mailchimp-for-wp' ),
 				'text' => __( 'Checkboxes', 'mailchimp-for-wp' ),
 				'slug' => 'checkbox-settings',
 				'callback' => array( $this, 'show_checkbox_settings' ),
 			),
-			array(
+			'form' => array(
 				'title' => __( 'Form Settings', 'mailchimp-for-wp' ),
 				'text' => __( 'Forms', 'mailchimp-for-wp' ),
 				'slug' => 'form-settings',
-				'callback' => array( $this, 'show_form_settings' ) ),
-			array(
-				'title' => __( 'Upgrade to Pro', 'mailchimp-for-wp' ),
-				'text' => '<span style="line-height: 20px;"><span class="dashicons dashicons-external"></span> ' .__( 'Upgrade to Pro', 'mailchimp-for-wp' ),
-				'slug' => 'upgrade',
-				'callback' => array( $this, 'redirect_to_pro' ),
-			),
+				'callback' => array( $this, 'show_form_settings' ) )
 		);
 
+		/**
+		 * @api
+		 * @filter 'mc4wp_menu_items'
+		 * @expects array
+		 */
 		$menu_items = apply_filters( 'mc4wp_menu_items', $menu_items );
 
 		// add top menu item
@@ -231,46 +218,38 @@ class MC4WP_Admin {
 	 * Load scripts and stylesheet on MailChimp for WP Admin pages
 	 * @return bool
 	*/
-	public function load_assets() {
-
-		// only load asset files on the MailChimp for WordPress settings pages
-		if( strpos( $this->get_current_page(), 'mailchimp-for-wp' ) !== 0 ) {
-			return false;
-		}
+	public function assets() {
 
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-		$mailchimp = new MC4WP_MailChimp();
 
-		// css
-		wp_enqueue_style( 'mc4wp-admin-css', MC4WP_PLUGIN_URL . 'assets/css/admin' . $suffix . '.css' );
-
-		// js
+		// register scripts which are also used by add-on plugins
+		wp_register_style( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/css/admin' . $suffix . '.css' );
 		wp_register_script( 'mc4wp-beautifyhtml', MC4WP_PLUGIN_URL . 'assets/js/third-party/beautify-html'. $suffix .'.js', array( 'jquery' ), MC4WP_VERSION, true );
 		wp_register_script( 'mc4wp-form-helper', MC4WP_PLUGIN_URL . 'assets/js/form-helper' . $suffix . '.js', array( 'jquery', 'mc4wp-beautifyhtml' ), MC4WP_VERSION, true );
 		wp_register_script( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array( 'jquery', 'quicktags', 'mc4wp-form-helper' ), MC4WP_VERSION, true );
 
-		wp_enqueue_script( 'mc4wp-admin' );
-		wp_localize_script( 'mc4wp-admin', 'mc4wp',
-			array(
-				'hasCaptchaPlugin' => $this->has_captcha_plugin,
-				'strings' => array(
-					'proOnlyNotice' => __( 'This option is only available in MailChimp for WordPress Pro.', 'mailchimp-for-wp' ),
-					'fieldWizard' => array(
-						'proOnly' => __( '(PRO ONLY)', 'mailchimp-for-wp' ),
-						'buttonText' => __( 'Button text', 'mailchimp-for-wp' ),
-						'initialValue' => __( 'Initial value', 'mailchimp-for-wp' ),
-						'optional' => __( '(optional)', 'mailchimp-for-wp' ),
-						'labelFor' => __( 'Label for', 'mailchimp-for-wp' ),
-						'orLeaveEmpty' => __( '(or leave empty)', 'mailchimp-for-wp' ),
-						'subscribe' => __( 'Subscribe', 'mailchimp-for-wp' ),
-						'unsubscribe' => __( 'Unsubscribe', 'mailchimp-for-wp' ),
-					)
-				),
-				'mailchimpLists' => $mailchimp->get_lists()
-			)
-		);
+		// only load asset files on the MailChimp for WordPress settings pages
+		if( strpos( $this->get_current_page(), 'mailchimp-for-wp' ) === 0 ) {
+			$mailchimp = new MC4WP_MailChimp();
+			$strings = include MC4WP_PLUGIN_DIR . 'config/js-strings.php';
 
-		return true;
+			// css
+			wp_enqueue_style( 'mc4wp-admin' );
+
+			// js
+			wp_enqueue_script( 'mc4wp-admin' );
+			wp_localize_script( 'mc4wp-admin', 'mc4wp',
+				array(
+					'hasCaptchaPlugin' => $this->has_captcha_plugin,
+					'strings' => $strings,
+					'mailchimpLists' => $mailchimp->get_lists()
+				)
+			);
+
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -278,8 +257,7 @@ class MC4WP_Admin {
 	 *
 	 * @return array
 	 */
-	public function get_checkbox_compatible_plugins()
-	{
+	public function get_checkbox_compatible_plugins() {
 		static $checkbox_plugins;
 
 		if( is_array( $checkbox_plugins ) ) {
@@ -315,20 +293,12 @@ class MC4WP_Admin {
 	}
 
 	/**
-	* Redirects to the premium version of MailChimp for WordPress (uses JS)
-	*/
-	public function redirect_to_pro()
-	{
-		?><script type="text/javascript">window.location.replace('https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=menu-upgrade-link'); </script><?php
-	}
-
-	/**
 	* Show the API settings page
 	*/
 	public function show_api_settings()
 	{
 		$opts = mc4wp_get_options( 'general' );
-		$connected = ( mc4wp_get_api()->is_connected() );
+		$connected = ( mc4wp()->get_api()->is_connected() );
 
 		// cache renewal triggered manually?
 		$force_cache_refresh = isset( $_POST['mc4wp-renew-cache'] ) && $_POST['mc4wp-renew-cache'] == 1;

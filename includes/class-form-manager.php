@@ -100,7 +100,7 @@ class MC4WP_Form_Manager {
 			}
 
 		} else {
-			wp_enqueue_style( 'mailchimp-for-wp-form', MC4WP_PLUGIN_URL . 'assets/css/form' . $suffix . '.css', array(), MC4WP_VERSION, 'all' );
+			wp_enqueue_style( 'mailchimp-for-wp-form', MC4WP_PLUGIN_URL . 'assets/css/form-reset' . $suffix . '.css', array(), MC4WP_VERSION, 'all' );
 		}
 
 		return true;
