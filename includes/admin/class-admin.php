@@ -5,18 +5,19 @@ class MC4WP_Admin {
 	/**
 	 * @var bool True if the BWS Captcha plugin is activated.
 	 */
-	private $has_captcha_plugin = false;
+	protected $has_captcha_plugin = false;
 
 	/**
 	 * @var string The relative path to the main plugin file from the plugins dir
 	 */
-	private $plugin_file;
+	protected $plugin_slug;
 
 	/**
 	 * Constructor
+	 * @param string $plugin_file
 	 */
-	public function __construct() {
-		$this->plugin_file = plugin_basename( MC4WP_PLUGIN_FILE );
+	public function __construct( $plugin_file ) {
+		$this->plugin_slug = plugin_basename( $plugin_file );
 
 		// store whether this plugin has the BWS captcha plugin running (https://wordpress.org/plugins/captcha/)
 		$this->has_captcha_plugin = function_exists( 'cptch_display_captcha_custom' );
@@ -33,17 +34,12 @@ class MC4WP_Admin {
 		// Actions used globally throughout WP Admin
 		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( 'admin_menu', array( $this, 'build_menu' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'load_css_and_js' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'load_assets' ) );
 
 		// Hooks for Plugins overview page
 		if( $current_page === 'plugins.php' ) {
-			add_filter( 'plugin_action_links_' . $this->plugin_file, array( $this, 'add_plugin_settings_link' ), 10, 2 );
+			add_filter( 'plugin_action_links_' . $this->plugin_slug, array( $this, 'add_plugin_settings_link' ), 10, 2 );
 			add_filter( 'plugin_row_meta', array( $this, 'add_plugin_meta_links'), 10, 2 );
-		}
-
-		// Hooks for Form settings page
-		if( $this->get_current_page() === 'mailchimp-for-wp-form-settings' ) {
-			add_filter( 'quicktags_settings', array( $this, 'set_quicktags_buttons' ), 10, 2 );
 		}
 
 	}
@@ -53,7 +49,7 @@ class MC4WP_Admin {
 	 */
 	public function load_translations() {
 		// load the plugin text domain
-		return load_plugin_textdomain( 'mailchimp-for-wp', false, dirname( $this->plugin_file ) . '/languages' );
+		return load_plugin_textdomain( 'mailchimp-for-wp', false, dirname( MC4WP_PLUGIN_FILE ) . '/languages' );
 	}
 
 	/**
@@ -64,14 +60,15 @@ class MC4WP_Admin {
 	 * - Loads the plugin text domain
 	 */
 	public function init() {
-
-		// register settings
-		register_setting( 'mc4wp_lite_settings', 'mc4wp_lite', array( $this, 'validate_settings' ) );
-		register_setting( 'mc4wp_lite_checkbox_settings', 'mc4wp_lite_checkbox', array( $this, 'validate_settings' ) );
-		register_setting( 'mc4wp_lite_form_settings', 'mc4wp_lite_form', array( $this, 'validate_settings' ) );
-
+		$this->register_settings();
 		$this->load_upgrader();
 		$this->listen();
+	}
+
+	protected function register_settings() {
+		register_setting( 'mc4wp_settings', 'mc4wp', array( $this, 'validate_settings' ) );
+		register_setting( 'mc4wp_checkbox_settings', 'mc4wp_checkbox', array( $this, 'validate_settings' ) );
+		register_setting( 'mc4wp_form_settings', 'mc4wp_form', array( $this, 'validate_settings' ) );
 	}
 
 	/**
@@ -80,7 +77,7 @@ class MC4WP_Admin {
 	protected function load_upgrader() {
 
 		// Only run if db option is at older version than code constant
-		$db_version = get_option( 'mc4wp_lite_version', 0 );
+		$db_version = get_option( 'mc4wp_version', 0 );
 		if( version_compare( MC4WP_VERSION, $db_version, '<=' ) ) {
 			return false;
 		}
@@ -101,33 +98,15 @@ class MC4WP_Admin {
 	}
 
 	/**
-	 * Set which Quicktag buttons should appear in the form mark-up editor
-	 *
-	 * @param array $settings
-	 * @param string $editor_id
-	 * @return array
-	 */
-	public function set_quicktags_buttons( $settings, $editor_id = '' )
-	{
-		if( $editor_id !== 'mc4wpformmarkup' ) {
-			return $settings;
-		}
-
-		$settings['buttons'] = 'strong,em,link,img,ul,li,close';
-
-		return $settings;
-	}
-
-	/**
 	 * Add the settings link to the Plugins overview
 	 *
 	 * @param array $links
-	 * @param       $file
+	 * @param       $slug
 	 *
 	 * @return array
 	 */
-	public function add_plugin_settings_link( $links, $file ) {
-		if( $file !== $this->plugin_file ) {
+	public function add_plugin_settings_link( $links, $slug ) {
+		if( $slug !== $this->plugin_slug ) {
 			return $links;
 		}
 
@@ -140,17 +119,16 @@ class MC4WP_Admin {
 	 * Adds meta links to the plugin in the WP Admin > Plugins screen
 	 *
 	 * @param array $links
-	 * @param string $file
+	 * @param string $slug
 	 *
 	 * @return array
 	 */
-	public function add_plugin_meta_links( $links, $file ) {
-		if( $file !== $this->plugin_file ) {
+	public function add_plugin_meta_links( $links, $slug ) {
+		if( $slug !== $this->plugin_slug ) {
 			return $links;
 		}
 
-		$links[] = '<a href="https://wordpress.org/plugins/mailchimp-for-wp/faq/">FAQ</a>';
-		$links[] = '<a href="https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=plugins-upgrade-link">' . __( 'Upgrade to MailChimp for WordPress Pro', 'mailchimp-for-wp' ) . '</a>';
+		$links[] = '<a href="https://mc4wp.com/kb/">' . __( 'Documentation', 'mailchimp-for-wp' ) . '</a>';
 		return $links;
 	}
 
@@ -196,7 +174,7 @@ class MC4WP_Admin {
 		$menu_items = apply_filters( 'mc4wp_menu_items', $menu_items );
 
 		// add top menu item
-		add_menu_page( 'MailChimp for WP Lite', 'MailChimp for WP', $required_cap, 'mailchimp-for-wp', array( $this, 'show_api_settings' ), MC4WP_PLUGIN_URL . 'assets/img/menu-icon.png', '99.68491' );
+		add_menu_page( 'MailChimp for WP', 'MailChimp for WP', $required_cap, 'mailchimp-for-wp', array( $this, 'show_api_settings' ), MC4WP_PLUGIN_URL . 'assets/img/menu-icon.png', '99.68491' );
 
 		// add submenu pages
 		foreach( $menu_items as $item ) {
@@ -253,7 +231,8 @@ class MC4WP_Admin {
 	 * Load scripts and stylesheet on MailChimp for WP Admin pages
 	 * @return bool
 	*/
-	public function load_css_and_js() {
+	public function load_assets() {
+
 		// only load asset files on the MailChimp for WordPress settings pages
 		if( strpos( $this->get_current_page(), 'mailchimp-for-wp' ) !== 0 ) {
 			return false;
@@ -267,8 +246,10 @@ class MC4WP_Admin {
 
 		// js
 		wp_register_script( 'mc4wp-beautifyhtml', MC4WP_PLUGIN_URL . 'assets/js/third-party/beautify-html'. $suffix .'.js', array( 'jquery' ), MC4WP_VERSION, true );
-		wp_register_script( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array( 'jquery', 'quicktags' ), MC4WP_VERSION, true );
-		wp_enqueue_script( array( 'jquery', 'mc4wp-beautifyhtml', 'mc4wp-admin' ) );
+		wp_register_script( 'mc4wp-form-helper', MC4WP_PLUGIN_URL . 'assets/js/form-helper' . $suffix . '.js', array( 'jquery', 'mc4wp-beautifyhtml' ), MC4WP_VERSION, true );
+		wp_register_script( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array( 'jquery', 'quicktags', 'mc4wp-form-helper' ), MC4WP_VERSION, true );
+
+		wp_enqueue_script( 'mc4wp-admin' );
 		wp_localize_script( 'mc4wp-admin', 'mc4wp',
 			array(
 				'hasCaptchaPlugin' => $this->has_captcha_plugin,
@@ -366,7 +347,7 @@ class MC4WP_Admin {
 			}
 		}
 
-		require MC4WP_PLUGIN_DIR . 'includes/views/api-settings.php';
+		require MC4WP_PLUGIN_DIR . 'includes/views/general-settings.php';
 	}
 
 	/**

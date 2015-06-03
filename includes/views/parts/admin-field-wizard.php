@@ -5,7 +5,7 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 	exit;
 }
 ?>
-<div id="mc4wp-fw" class="mc4wp-well">
+<div id="mc4wp-field-wizard" class="well">
 
 	<h4 class="mc4wp-title"><?php _e( 'Add a new field', 'mailchimp-for-wp' ); ?></h4>
 
@@ -60,7 +60,7 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 
 		<p>
 			<label for="mc4wp-fw-preview"><?php _e( 'Generated HTML', 'mailchimp-for-wp' ); ?></label>
-			<textarea class="widefat" id="mc4wp-fw-preview" rows="5" readonly></textarea>
+			<textarea class="widefat code-preview" id="mc4wp-fw-preview" rows="5" readonly></textarea>
 		</p>
 
 	</div>

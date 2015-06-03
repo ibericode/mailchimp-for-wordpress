@@ -15,10 +15,6 @@
 	box-sizing: border-box;
 }
 
-.valigntop{ 
-	vertical-align: top !important; 
-}
-
 #mc4wp-admin .mc4wp-box{
 	margin-bottom:20px; 
 }
@@ -32,33 +28,6 @@
 #mc4wp-upgrade-box h3{ 
 	margin:0; 
 	color:white;
-}
-
-#mc4wp-fw h4{ 
-	margin-top: 0; 
-}
-#mc4wp-fw p{ 
-	margin-bottom: 1em; 
-}
-
-#mc4wp-fw-fields { 
-	display:none; 
-}
-
-#mc4wp-fw-preview { 
-	font-family: "Courier New", Courier, monospace;
-	min-height:200px;
-	font-size:11px;
-	background:white;
-	z-index:99; 
-}
-
-#mc4wp-lists{ 
-	margin:0; 
-}
-
-#mc4wp-lists input{ 
-	margin-right:5px; 
 }
 
 .pro-feature, 
@@ -113,27 +82,19 @@
 	margin: 1em 0 !important;
 }
 
-#mc4wp-admin .mc4wp-col {
-	float:left;
+#mc4wp-admin .col {
+	float: left;
 	-webkit-box-sizing: border-box; 
 	-moz-box-sizing:border-box;
 	box-sizing: border-box;
-	width:50%;
+	width: 50%;
 	padding:0 5px;
 }
 
-#mc4wp-admin .mc4wp-first{
-	padding-left:0; 
-}
-
-#mc4wp-admin .mc4wp-last{
-	padding-right:0; 
-}
-
-.mc4wp-well{ 
-	background:white; 
-	padding:10px; 
-	border:1px solid #ccc;
+#mc4wp-admin .well{
+	background: white;
+	padding: 10px;
+	border: 1px solid #ccc;
 }
 
 .mc4wp-title{ 
@@ -143,27 +104,36 @@
 	border-bottom:1px solid #ddd;
 }
 
-table.mc4wp-help,
-table.mc4wp-help th, 
-table.mc4wp-help td { 
+.mc4wp-help th,
+.mc4wp-help td {
 	border: 1px solid #ddd; 
 	border-collapse: collapse; 
-	font-size: 12px; 
+	font-size: 12px;
+	vertical-align: top;
+	text-align: left;
+	padding: 5px 10px;
 }
 
-table.mc4wp-help th, 
-table.mc4wp-help td { 
-	vertical-align: text-top; 
-	text-align: left; 
-	padding: 5px 10px; 
-}
-
-table.mc4wp-help tr:hover { 
+.mc4wp-help tr:hover {
 	background-color: #ddd; 
 }
 
+#mc4wp-admin th#ID {
+	width: 60px;
+}
 #mc4wp-admin .wp-list-table code {
 	float:right;
+}
+
+#mc4wp-admin .shortcode-example {
+	min-width: 120px;
+}
+
+/**
+Field Wizard
+*/
+#mc4wp-field-wizard .code-preview {
+	font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
 
 @media(max-width: 1279px) {
@@ -190,7 +160,7 @@ table.mc4wp-help tr:hover {
 
 @media(max-width: 719px) {
 
-	.mc4wp-hide-smallscreens{ 
+	#mc4pw-admin .sm-hide{
 		display: none;
 	}
 	

@@ -23,37 +23,9 @@ class MC4WP {
 	protected $api;
 
 	/**
-	 * @var MC4WP The one and only true plugin instance
-	 */
-	protected static $instance;
-
-	/**
-	 * @return MC4WP
-	 */
-	public static function instance() {
-		return self::$instance;
-	}
-
-	/**
-	 * Instantiates the plugin
-	 *
-	 * @return bool
-	 */
-	public static function init() {
-
-		if( self::$instance instanceof MC4WP ) {
-			return false;
-		}
-
-		self::$instance = new MC4WP;
-		return true;
-	}
-
-
-	/**
 	* Constructor
 	*/
-	protected function __construct() {
+	public function __construct() {
 
 		$checkbox_opts = mc4wp_get_options( 'checkbox' );
 
@@ -104,6 +76,9 @@ class MC4WP {
 		return $this->api;
 	}
 
+	/**
+	 * Register widget
+	 */
 	public function register_widget() {
 		register_widget( 'MC4WP_Widget' );
 	}

@@ -16,7 +16,7 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 		<?php settings_errors(); ?>
 
 		<form action="options.php" method="post">
-			<?php settings_fields( 'mc4wp_lite_settings' ); ?>
+			<?php settings_fields( 'mc4wp_settings' ); ?>
 			
 			<h3 class="mc4wp-title">
 				MailChimp <?php _e( 'API Settings', 'mailchimp-for-wp' ); ?>
@@ -31,7 +31,7 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 				<tr valign="top">
 					<th scope="row"><label for="mailchimp_api_key">MailChimp <?php _e( 'API Key', 'mailchimp-for-wp' ); ?></label></th>
 					<td>
-						<input type="text" class="widefat" placeholder="<?php _e( 'Your MailChimp API key', 'mailchimp-for-wp' ); ?>" id="mailchimp_api_key" name="mc4wp_lite[api_key]" value="<?php echo esc_attr( $opts['api_key'] ); ?>" />
+						<input type="text" class="widefat" placeholder="<?php _e( 'Your MailChimp API key', 'mailchimp-for-wp' ); ?>" id="mailchimp_api_key" name="mc4wp[api_key]" value="<?php echo esc_attr( $opts['api_key'] ); ?>" />
 						<p class="help"><a target="_blank" href="https://admin.mailchimp.com/account/api"><?php _e( 'Get your API key here.', 'mailchimp-for-wp' ); ?></a></p>
 					</td>
 					
@@ -41,6 +41,8 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 
 			<?php submit_button(); ?>
 		</form>
+
+		<?php do_action( 'mc4wp_after_general_settings' ); ?>
 
 	<?php if($connected) { ?>
 
@@ -58,11 +60,11 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 		<table class="wp-list-table widefat">
 			<thead>
 				<tr>
-					<th class="mc4wp-hide-smallscreens" scope="col">List ID</th>
+					<th class="sm-hide" scope="col">List ID</th>
 					<th scope="col">List Name</th>
 					<th scope="col">Merge Fields <code>TAG</code></th>
 					<th scope="col">Groupings</th>
-					<th class="mc4wp-hide-smallscreens" scope="col">Subscribers</th>
+					<th class="sm-hide" scope="col">Subscribers</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -71,7 +73,7 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 					foreach($lists as $list) { ?>
 
 					<tr valign="top">
-						<td class="mc4wp-hide-smallscreens"><?php echo esc_html( $list->id ); ?></td>
+						<td class="sm-hide"><?php echo esc_html( $list->id ); ?></td>
 						<td><?php echo esc_html( $list->name ); ?></td>
 						
 						<td>
@@ -102,7 +104,7 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 						} ?>
 
 						</td>
-						<td class="mc4wp-hide-smallscreens"><?php echo esc_html( $list->subscriber_count ); ?></td>
+						<td class="sm-hide"><?php echo esc_html( $list->subscriber_count ); ?></td>
 					</tr>
 					<?php
 					}

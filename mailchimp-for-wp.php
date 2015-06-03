@@ -47,24 +47,22 @@ function mc4wp_load_plugin() {
 		return false;
 	}
 
-	// bootstrap the lite plugin
-	define( 'MC4WP_VERSION', '3.0' );
-	define( 'MC4WP_PLUGIN_DIR', dirname( __FILE__ ) . '/' );
-	define( 'MC4WP_PLUGIN_URL', plugins_url( '/' , __FILE__ ) );
-	define( 'MC4WP_PLUGIN_FILE', __FILE__ );
-
 	// load autoloader
-	require_once MC4WP_PLUGIN_DIR . 'vendor/autoload_52.php';
+	require_once dirname( __FILE__ ) . '/vendor/autoload_52.php';
 
+	// define some constants
+	require dirname( __FILE__ ) . '/constants.php';
+
+	// load general functions
+	// todo: move to autoloader
 	require_once MC4WP_PLUGIN_DIR . 'includes/functions/general.php';
 
 	// Initialize the plugin and store an instance in the global scope
-	MC4WP::init();
-	$GLOBALS['mc4wp'] = MC4WP::instance();
+	$mc4wp = mc4wp();
 
 	if( is_admin()
 	    && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-		$admin = new MC4WP_Admin();
+		$admin = new MC4WP_Admin( __FILE__ );
 		$admin->add_hooks();
 		$admin->load_translations();
 	}
