@@ -46,7 +46,10 @@ return array(
 		'text_not_subscribed' => __( 'Given email address is not subscribed.', 'mailchimp-for-wp' ),
 		'redirect' => '',
 		'hide_after_success' => 0,
-		'send_email_copy' => 0
+		'send_email_copy' => 0,
+
+		// comma separated string of required fields (name attributes)
+		'required_fields' => 'EMAIL'
 	)
 
 );

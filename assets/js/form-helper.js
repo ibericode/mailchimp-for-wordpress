@@ -8,6 +8,7 @@ var FormHelper = (function() {
 	var $formMarkup = $(document.getElementById('content'));
 	var $missingFieldsNotice = $(document.getElementById('missing-fields-notice'));
 	var $missingFieldsList = $(document.getElementById('missing-fields-list'));
+	var $requiredFieldsInput = $(document.getElementById('input-required-fields'));
 
 	/**
 	 * Functions
@@ -30,8 +31,26 @@ var FormHelper = (function() {
 		}
 	}
 
+	/**
+	 * Build comma-separated string of required fields
+	 *
+	 * @param e
+	 */
+	function updateRequiredFields(e) {
+		var $form = $('<div />').html( $(this).val() );
+		var $requiredFields = $form.find('[required]');
+		var requiredFields = [];
+
+		for(var i=0; i<$requiredFields.length; i++) {
+			requiredFields.push( $requiredFields[i].name );
+		}
+
+		$requiredFieldsInput.val( requiredFields.join(',') );
+	}
+
 	// allow TABS \t
-	$(document).delegate('#content', 'keydown', allowTabKey);
+	$(document.body).delegate('#content', 'keydown', allowTabKey);
+	$(document.body).delegate('#content', 'change', updateRequiredFields);
 
 	/**
 	 * Helper functions

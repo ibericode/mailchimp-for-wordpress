@@ -9,10 +9,10 @@ final class MC4WP_Form extends MC4WP_Form_Base {
 
 	/**
 	 * @param int $form_id Unused
-	 * @param iMC4WP_Request $request
+	 * @param MC4WP_Form_Request $request
 	 * @return MC4WP_Form
 	 */
-	public static function get( $form_id = 0, iMC4WP_Request $request = null ) {
+	public static function get( $form_id = 0, MC4WP_Form_Request $request = null ) {
 
 		// has instance been created already?
 		if( self::$instance instanceof MC4WP_Form ) {
@@ -32,9 +32,9 @@ final class MC4WP_Form extends MC4WP_Form_Base {
 	}
 
 	/**
-	 * @param iMC4WP_Request $request
+	 * @param MC4WP_Form_Request $request
 	 */
-	public function __construct( iMC4WP_Request $request = null ) {
+	public function __construct( MC4WP_Form_Request $request = null ) {
 		parent::__construct( $request );
 
 		$this->content = $this->settings['markup'];

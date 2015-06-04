@@ -18,16 +18,23 @@ abstract class MC4WP_Form_Base {
 	public $settings = array();
 
 	/**
-	 * @var iMC4WP_Request
+	 * @var MC4WP_Form_Request
 	 */
 	public $request;
 
 	/**
-	 * @param iMC4WP_Request $request
+	 * @param MC4WP_Form_Request $request
 	 */
-	public function __construct( iMC4WP_Request $request = null ) {
+	public function __construct( MC4WP_Form_Request $request = null ) {
 		$this->settings = $this->load_settings();
 		$this->request = $request;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_required_fields() {
+		return explode(',', strtoupper( $this->settings['required_fields'] ) );
 	}
 
 	/**
@@ -109,11 +116,11 @@ abstract class MC4WP_Form_Base {
 	public function is_submitted( $element_id = null ) {
 
 		// is this form (any instance) submitted)
-		$form_submitted = $this->request instanceof iMC4WP_Request;
+		$form_submitted = $this->request instanceof MC4WP_Form_Request;
 
 		// if an element ID is given, only return true if that specific element is submitted
 		if( $element_id ) {
-			return ( $form_submitted && $this->request->form_element_id == $element_id );
+			return ( $form_submitted && $this->request->config['form_element_id'] == $element_id );
 		}
 
 		return $form_submitted;
@@ -376,14 +383,14 @@ abstract class MC4WP_Form_Base {
 	 *
 	 * @return bool
 	 */
-	protected function has( iMC4WP_Request $request ) {
+	protected function has( MC4WP_Form_Request $request ) {
 		return $this->request === $request;
 	}
 
 	/**
 	 * @param iMC4WP_Request $request
 	 */
-	protected function attach( iMC4WP_Request $request ) {
+	protected function attach( MC4WP_Form_Request $request ) {
 		$this->request = $request;
 	}
 

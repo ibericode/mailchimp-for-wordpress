@@ -6,9 +6,6 @@
 	 */
 	var $context = $(document.getElementById('mc4wp-admin'));
 	var $listInputs = $(document.getElementById('mc4wp-lists')).find(':input');
-	var $formMarkup = $(document.getElementById('mc4wpformmarkup'));
-	var $missingFieldsNotice = $(document.getElementById('missing-fields-notice'));
-	var $missingFieldsList = $(document.getElementById('missing-fields-list'));
 
 	/**
 	 * Functions

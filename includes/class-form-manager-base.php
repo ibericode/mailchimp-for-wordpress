@@ -179,8 +179,8 @@ abstract class MC4WP_Form_Manager_Base {
 			wp_enqueue_script( 'mc4wp-form-request' );
 			wp_localize_script( 'mc4wp-form-request', 'mc4wpFormRequestData', array(
 					'success' => ( $form->request->success ) ? 1 : 0,
-					'formElementId' => $form->request->form_element_id,
-					'data' => $form->request->user_data,
+					'formElementId' => $form->request->config['form_element_id'],
+					'data' => $form->request->data,
 				)
 			);
 

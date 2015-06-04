@@ -1,12 +1,5 @@
 <?php
 
-// prevent direct file access
-if( ! defined( 'ABSPATH' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
-
 class MC4WP_Subscribe_Request extends MC4WP_Request {
 
 	/**
@@ -24,23 +17,9 @@ class MC4WP_Subscribe_Request extends MC4WP_Request {
 	 */
 	private $global_fields = array();
 
-	/**
-	 * Prepare data for MailChimp API request
-	 * @return bool
-	 */
-	public function prepare() {
-		$this->guess_fields();
-		$mapped = $this->map_data();
-		return $mapped;
-	}
 
-	/**
-	 * Try to guess the values of various fields, if not given.
-	 */
-	protected function guess_fields() {
-		// add some data to the posted data, like FNAME and LNAME
-		$this->user_data = MC4WP_Tools::guess_merge_vars( $this->user_data );
-	}
+
+
 
 	/**
 	 * Maps the received data to MailChimp lists
@@ -138,25 +117,5 @@ class MC4WP_Subscribe_Request extends MC4WP_Request {
 		return (array) $merge_vars;
 	}
 
-
-	/**
-	 * Gets the email_type
-	 *
-	 * @return string The email type to use for subscription coming from this form
-	 */
-	protected function get_email_type( ) {
-
-		$email_type = 'html';
-
-		// get email type from form
-		if( isset( $this->user_data['_MC4WP_EMAIL_TYPE'] ) ) {
-			$email_type = sanitize_text_field( $this->user_data['_MC4WP_EMAIL_TYPE'] );
-		}
-
-		// allow plugins to override this email type
-		$email_type = apply_filters( 'mc4wp_email_type', $email_type );
-
-		return (string) $email_type;
-	}
 
 }

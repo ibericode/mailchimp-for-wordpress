@@ -19,25 +19,18 @@ class MC4WP_Form_Listener {
 			return false;
 		}
 
-		// determine action
-		if ( ! isset( $data['_mc4wp_action'] )
-		     || $data['_mc4wp_action'] === 'subscribe' ) {
-			$request = new MC4WP_Subscribe_Request( $data );
-			$this->process( $request );
-		} elseif ( $data['_mc4wp_action'] === 'unsubscribe' ) {
-			$request = new MC4WP_Unsubscribe_Request( $data );
-			$this->process( $request );
-		}
+		$request = new MC4WP_Form_Request( $data );
+		$this->process( $request );
 
 		return true;
 	}
 
 	/**
-	 * @param iMC4WP_Request $request
+	 * @param MC4WP_Form_Request $request
 	 *
 	 * @return bool
 	 */
-	public function process( iMC4WP_Request $request ) {
+	public function process( MC4WP_Form_Request $request ) {
 
 		$valid = $request->validate();
 

@@ -16,6 +16,7 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 
 			<form action="options.php" method="post">
 				<?php settings_fields( 'mc4wp_form_settings' ); ?>
+				<input type="hidden" name="mc4wp_form[required_fields]" value="<?php echo esc_attr( $opts['required_fields'] ); ?>" id="input-required-fields" />
 				
 				<h3 class="mc4wp-title"><?php _e( 'Required form settings', 'mailchimp-for-wp' ); ?></h3>
 				<table class="form-table">
