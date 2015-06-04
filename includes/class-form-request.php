@@ -11,11 +11,6 @@ class MC4WP_Form_Request {
 	protected $form;
 
 	/**
-	 * @var bool
-	 */
-	public $success = false;
-
-	/**
 	 * @var array
 	 */
 	public $config = array();
@@ -36,6 +31,16 @@ class MC4WP_Form_Request {
 	 * @var array Array of responses received from MailChimp
 	 */
 	public $responses = array();
+
+	/**
+	 * @var bool
+	 */
+	public $success;
+
+	/**
+	 * @var string The
+	 */
+	public $status = '';
 
 	/**
 	 * Constructor
@@ -147,7 +152,7 @@ class MC4WP_Form_Request {
 		foreach( $this->data as $field => $value ) {
 			// check required fields
 			if( in_array( $field, $required_fields ) && empty( $value ) ) {
-				$this->message_type = 'required_field_missing';
+				$this->status = 'required_field_missing';
 				return false;
 			}
 		}
@@ -156,42 +161,42 @@ class MC4WP_Form_Request {
 
 		// validate nonce
 		if ( ! $validator->validate_nonce() ) {
-			$this->message_type = 'invalid_nonce';
+			$this->status = 'invalid_nonce';
 
 			return false;
 		}
 
 		// ensure honeypot was given but not filled
 		if ( ! $validator->validate_honeypot() ) {
-			$this->message_type = 'spam';
+			$this->status = 'spam';
 
 			return false;
 		}
 
 		// check timestamp difference, token should be generated at least 2 seconds before form submit
 		if ( ! $validator->validate_timestamp() ) {
-			$this->message_type = 'spam';
+			$this->status = 'spam';
 
 			return false;
 		}
 
 		// check if captcha was present and valid
 		if ( ! $validator->validate_captcha() ) {
-			$this->message_type = 'invalid_captcha';
+			$this->status = 'invalid_captcha';
 
 			return false;
 		}
 
 		// validate email
 		if ( ! $validator->validate_email() ) {
-			$this->message_type = 'invalid_email';
+			$this->status = 'invalid_email';
 
 			return false;
 		}
 
 		// validate selected or submitted lists
 		if ( ! $validator->validate_lists( $this->get_lists() ) ) {
-			$this->message_type = 'no_lists_selected';
+			$this->status = 'no_lists_selected';
 
 			return false;
 		}
@@ -199,7 +204,7 @@ class MC4WP_Form_Request {
 		// run custom validation (using filter)
 		$custom_validation = $validator->custom_validation();
 		if ( $custom_validation !== true ) {
-			$this->message_type = $custom_validation;
+			$this->status = $custom_validation;
 
 			return false;
 		}
@@ -266,7 +271,7 @@ class MC4WP_Form_Request {
 			 * @param   string $email   The email of the subscriber
 			 * @param   array  $data    Additional list fields, like FNAME etc (if any)
 			 */
-			do_action( 'mc4wp_form_error_' . $this->responses[0]->code, 0, $this->data['EMAIL'], $this->data );
+			do_action( 'mc4wp_form_error_' . $this->status, 0, $this->data['EMAIL'], $this->data );
 		}
 
 	}
@@ -311,7 +316,7 @@ class MC4WP_Form_Request {
 		$messages = $this->form->get_messages();
 
 		// retrieve correct message
-		$message = ( isset( $messages[ $this->responses[0]->code ] ) ) ? $messages[ $this->responses[0]->code ] : $messages['error'];
+		$message = ( isset( $messages[ $this->status ] ) ) ? $messages[ $this->status ] : $messages['error'];
 
 		// replace variables in message text
 		$message['text'] = MC4WP_Tools::replace_variables( $message['text'], array(), array_values( $this->get_lists() ) );
@@ -321,8 +326,11 @@ class MC4WP_Form_Request {
 		// show additional MailChimp API errors to administrators
 		if ( ! $this->success && current_user_can( 'manage_options' ) ) {
 
-			if ( ! empty( $this->responses[0]->message ) ) {
-				$html .= '<div class="mc4wp-alert mc4wp-error"><strong>Admin notice:</strong> ' . $this->responses[0]->message . '</div>';
+			if ( ! empty( $this->responses[0]->error ) ) {
+				$html .= '<div class="mc4wp-alert mc4wp-error">';
+				$html .= $this->responses[0]->error;
+				$html .= '<br /><small>' . __( 'This message is only visible to logged-in administrators.', 'mailchimp-for-wp' ) . '</small>';
+				$html .= '</div>';
 			}
 		}
 
@@ -350,10 +358,13 @@ class MC4WP_Form_Request {
 	}
 
 	/**
+	 * Parse an array of Merge Variables from the form data
+	 *
 	 * @return array
 	 */
 	protected function parse_merge_vars() {
 
+		// no need to parse fields when action is unsubscribe
 		if( $this->config['action'] === 'unsubscribe' ) {
 			return array();
 		}
@@ -405,6 +416,14 @@ class MC4WP_Form_Request {
 			$merge_vars['GROUPINGS'] = $formatted_groupings;
 		}
 
+		// add OPTIN_IP, we do this here as the user shouldn't be allowed to set this
+		$merge_vars['OPTIN_IP'] = MC4WP_Tools::get_client_ip();
+
+		// make sure MC_LANGUAGE matches the requested format. Useful when getting the language from WPML etc.
+		if( isset( $merge_vars['MC_LANGUAGE'] ) ) {
+			$merge_vars['MC_LANGUAGE'] = strtolower( substr( $merge_vars['MC_LANGUAGE'], 0, 2 ) );
+		}
+
 		// allow filtering of merge vars
 		/**
 		 * @api
@@ -419,6 +438,8 @@ class MC4WP_Form_Request {
 
 	/**
 	 * Prepare the requests this form creates
+	 *
+	 * @return bool
 	 */
 	public function prepare() {
 
@@ -429,7 +450,7 @@ class MC4WP_Form_Request {
 			'email_type' => $this->get_email_type(),
 			'ip' => MC4WP_Tools::get_client_ip()
 		);
-		
+
 		// create a request object for each list
 		foreach( $lists as $list ) {
 			$request = MC4WP_API_Request::create( $this->config['action'], $list, $email, $merge_vars, $config );
@@ -440,6 +461,8 @@ class MC4WP_Form_Request {
 	}
 
 	/**
+	 * Process the prepared API requests (if any)
+	 *
 	 * @return bool
 	 */
 	public function process() {
@@ -448,13 +471,20 @@ class MC4WP_Form_Request {
 			return false;
 		}
 
+		/** @var MC4WP_API_Request $request */
 		foreach( $this->requests as $request ) {
-			$this->responses[] = $request->process();
+
+			/** @var MC4WP_API_Response $response */
+			$response = $request->process();
+			$this->responses[] = $response;
 		}
 
+		// use status from first result
 		$this->success = $this->responses[0]->success;
+		$this->status = $this->responses[0]->code;
 
-		// return result of first response
+		do_action( 'mc4wp_form_request_processed', $this );
+
 		return $this->success;
 	}
 

@@ -51,7 +51,7 @@ class MC4WP {
 	 */
 	public function init_form_listener() {
 		$form_listener = new MC4WP_Form_Listener();
-		$form_listener->listen( $_REQUEST );
+		$form_listener->listen( $_POST );
 	}
 
 	/**

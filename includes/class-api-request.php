@@ -10,27 +10,27 @@ class MC4WP_API_Request {
 	/**
 	 * @var string Either "subscribe" or "unsubscribe"
 	 */
-	protected $type;
+	public $type;
 
 	/**
 	 * @var string MailChimp list ID
 	 */
-	protected $list_id;
+	public $list_id;
 
 	/**
 	 * @var string Email address
 	 */
-	protected $email;
+	public $email;
 
 	/**
 	 * @var array Additional merge fields (optional, only for "subscribe" types)
 	 */
-	protected $merge_vars = array();
+	public $merge_vars = array();
 
 	/**
 	 * @var array Additional config settings (optional)
 	 */
-	protected $config = array(
+	public $config = array(
 		'email_type' => 'html',
 		'double_optin' => true,
 		'send_welcome' => false,
@@ -44,7 +44,12 @@ class MC4WP_API_Request {
 	/**
 	 * @var MC4WP_API_Response|null
 	 */
-	protected $response;
+	public $response;
+
+	/**
+	 * @var array Additional info to bind to this request (internal)
+	 */
+	public $extra;
 
 	/**
 	 * @param       $type
@@ -52,13 +57,15 @@ class MC4WP_API_Request {
 	 * @param       $email
 	 * @param array $data
 	 * @param array $config
+	 * @param array $extra
 	 */
-	public function __construct( $type, $list_id, $email, array $data, array $config ) {
+	public function __construct( $type, $list_id, $email, array $data, array $config, $extra = array() ) {
 		$this->type = $type;
 		$this->list_id = $list_id;
 		$this->email = $email;
 		$this->data = $data;
 		$this->config = array_merge( $this->config, $config );
+		$this->extra = $extra;
 	}
 
 	/**
@@ -76,23 +83,25 @@ class MC4WP_API_Request {
 			$success = $api->unsubscribe( $this->list_id, $this->email, $this->config['send_goodbye'], $this->config['send_notification'], $this->config['delete_member'] );
 		}
 
-		$response = new MC4WP_API_Response( $this->type, $success, $api->get_last_response() );
-		$this->response = $response;
-		return $response;
-	}
-
-
-	/**
-	 * Respond to the request
-	 *
-	 * @return bool
-	 */
-	public function get_response() {
-		if( $this->response ) {
-			return $this->response;
+		if( $success ) {
+			// store user email in a cookie
+			MC4WP_Tools::remember_email( $this->email );
 		}
 
-		return null;
+		// convert API response to our own response object
+		$response = new MC4WP_API_Response( $this->type, $success, $api->get_last_response() );
+		$this->response = $response;
+
+		/**
+		 * @api
+		 * @action 'mc4wp_request_processed'
+		 *
+		 * @param Request
+		 * @param Response
+		 */
+		do_action( 'mc4wp_request_processed', $this, $response );
+
+		return $response;
 	}
 
 	/**

@@ -3,12 +3,12 @@
 class MC4WP_API_Response {
 
 	/**
-	 * @var string
+	 * @var string subscribe|unsubscribe
 	 */
 	public $type;
 
 	/**
-	 * @var
+	 * @var bool
 	 */
 	public $success;
 
@@ -20,12 +20,12 @@ class MC4WP_API_Response {
 	/**
 	 * @var string subscribed|unsubscribed|already_subscribed|not_subscribed
 	 */
-	public $code = 'error';
+	public $code = '';
 
 	/**
 	 * @var string
 	 */
-	public $message = '';
+	public $error = '';
 
 	/**
 	 * @param string $type
@@ -37,7 +37,7 @@ class MC4WP_API_Response {
 		$this->success = $success;
 		$this->response_raw = $response;
 		$this->code = $this->translate_response_code( $response );
-		$this->message = ( isset( $response->message ) ) ? $response->message : '';
+		$this->error = ( $this->code === 'error' && isset( $response->error ) ) ? $response->error : '';
 	}
 
 	/**
@@ -53,6 +53,7 @@ class MC4WP_API_Response {
 			return $this->type . 'd';
 		}
 
+		// convert response codes
 		if( isset( $response->code ) ) {
 			switch( $response->code ) {
 

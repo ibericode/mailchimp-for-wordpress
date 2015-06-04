@@ -9,13 +9,8 @@ class MC4WP_Form_Listener {
 	 */
 	public function listen( array $data ) {
 
-		// only act on POST requests
-		if( $_SERVER['REQUEST_METHOD'] !== 'POST' ) {
-			return false;
-		}
-
 		// is form submitted?
-		if( ! isset( $data['_mc4wp_form_submit'] ) ) {
+		if( ! isset( $_POST['_mc4wp_form_submit'] ) ) {
 			return false;
 		}
 
