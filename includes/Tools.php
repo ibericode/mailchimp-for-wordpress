@@ -70,8 +70,7 @@ class MC4WP_Tools {
 
 		// subscriber count? only fetch these if the tag is actually used
 		if ( stristr( $string, '{subscriber_count}' ) !== false ) {
-			$mailchimp = new MC4WP_MailChimp();
-			$subscriber_count = $mailchimp->get_subscriber_count( $list_ids );
+			$subscriber_count = MC4WP_MailChimp_Tools::get_subscriber_count( $list_ids );
 			$replacements['{subscriber_count}'] = $subscriber_count;
 		}
 

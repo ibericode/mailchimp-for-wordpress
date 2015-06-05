@@ -231,7 +231,6 @@ class MC4WP_Admin {
 
 		// only load asset files on the MailChimp for WordPress settings pages
 		if( strpos( $this->get_current_page(), 'mailchimp-for-wp' ) === 0 ) {
-			$mailchimp = new MC4WP_MailChimp();
 			$strings = include MC4WP_PLUGIN_DIR . 'config/js-strings.php';
 
 			// css
@@ -243,7 +242,7 @@ class MC4WP_Admin {
 				array(
 					'hasCaptchaPlugin' => $this->has_captcha_plugin,
 					'strings' => $strings,
-					'mailchimpLists' => $mailchimp->get_lists()
+					'mailchimpLists' => MC4WP_MailChimp_Tools::get_lists()
 				)
 			);
 
@@ -303,8 +302,7 @@ class MC4WP_Admin {
 
 		// cache renewal triggered manually?
 		$force_cache_refresh = isset( $_POST['mc4wp-renew-cache'] ) && $_POST['mc4wp-renew-cache'] == 1;
-		$mailchimp = new MC4WP_MailChimp();
-		$lists = $mailchimp->get_lists( $force_cache_refresh );
+		$lists = MC4WP_MailChimp_Tools::get_lists( $force_cache_refresh );
 
 		// show notice if 100 lists were fetched
 		if( $lists && count( $lists ) >= 100 ) {
@@ -327,9 +325,8 @@ class MC4WP_Admin {
 	*/
 	public function show_integration_settings()
 	{
-		$mailchimp = new MC4WP_MailChimp();
 		$opts = mc4wp_get_options( 'checkbox' );
-		$lists = $mailchimp->get_lists();
+		$lists = MC4WP_MailChimp_Tools::get_lists();
 		require MC4WP_PLUGIN_DIR . 'includes/views/checkbox-settings.php';
 	}
 
@@ -339,8 +336,7 @@ class MC4WP_Admin {
 	public function show_form_settings()
 	{
 		$opts = mc4wp_get_options( 'form' );
-		$mailchimp = new MC4WP_MailChimp();
-		$lists = $mailchimp->get_lists();
+		$lists = MC4WP_MailChimp_Tools::get_lists();
 
 		require MC4WP_PLUGIN_DIR . 'includes/views/form-settings.php';
 	}

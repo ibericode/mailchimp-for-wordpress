@@ -150,8 +150,7 @@ class MC4WP_MailChimp_List {
 	 * @return MC4WP_MailChimp_List
 	 */
 	public static function make( $list_id ) {
-		$mailchimp = new MC4WP_MailChimp();
-		return $mailchimp->get_list( $list_id, false, true );
+		return MC4WP_MailChimp_Tools::get_list( $list_id, false, true );
 	}
 
 }

@@ -10,6 +10,11 @@ abstract class MC4WP_Form_Base {
 	/**
 	 * @var string
 	 */
+	public $name = '';
+
+	/**
+	 * @var string
+	 */
 	public $content = '';
 
 	/**
@@ -23,11 +28,35 @@ abstract class MC4WP_Form_Base {
 	public $request;
 
 	/**
+	 * @var null|array Array of lists this form subscribes to
+	 */
+	protected $lists;
+
+	/**
 	 * @param MC4WP_Form_Request $request
 	 */
 	public function __construct( MC4WP_Form_Request $request = null ) {
 		$this->settings = $this->load_settings();
 		$this->request = $request;
+	}
+
+	/**
+	 * Get array of list objects this form subscribes to
+	 *
+	 * @return array
+	 */
+	public function get_lists() {
+
+		if( is_null( $this->lists ) ) {
+			$this->lists = array();
+
+			foreach( $this->settings['lists'] as $list_id ) {
+				$this->lists[ $list_id ] = MC4WP_MailChimp_List::make( $list_id );
+			}
+
+		}
+
+		return $this->lists;
 	}
 
 	/**
