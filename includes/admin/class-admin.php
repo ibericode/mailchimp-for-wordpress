@@ -140,17 +140,18 @@ class MC4WP_Admin {
 				'slug' => '',
 				'callback' => array( $this, 'show_api_settings' ),
 			),
-			'checkbox' => array(
-				'title' => __( 'Checkbox Settings', 'mailchimp-for-wp' ),
-				'text' => __( 'Checkboxes', 'mailchimp-for-wp' ),
-				'slug' => 'checkbox-settings',
-				'callback' => array( $this, 'show_checkbox_settings' ),
-			),
-			'form' => array(
+			'forms' => array(
 				'title' => __( 'Form Settings', 'mailchimp-for-wp' ),
 				'text' => __( 'Forms', 'mailchimp-for-wp' ),
 				'slug' => 'form-settings',
-				'callback' => array( $this, 'show_form_settings' ) )
+				'callback' => array( $this, 'show_form_settings' )
+			),
+			'integrations' => array(
+				'title' => __( 'Integration Settings', 'mailchimp-for-wp' ),
+				'text' => __( 'Integrations', 'mailchimp-for-wp' ),
+				'slug' => 'integration-settings',
+				'callback' => array( $this, 'show_integration_settings' ),
+			),
 		);
 
 		/**
@@ -305,7 +306,8 @@ class MC4WP_Admin {
 		$mailchimp = new MC4WP_MailChimp();
 		$lists = $mailchimp->get_lists( $force_cache_refresh );
 
-		if( $lists && count( $lists ) === 100 ) {
+		// show notice if 100 lists were fetched
+		if( $lists && count( $lists ) >= 100 ) {
 			add_settings_error( 'mc4wp', 'mc4wp-lists-at-limit', __( 'The plugin can only fetch a maximum of 100 lists from MailChimp, only your first 100 lists are shown.', 'mailchimp-for-wp' ) );
 		}
 
@@ -323,7 +325,7 @@ class MC4WP_Admin {
 	/**
 	* Show the Checkbox settings page
 	*/
-	public function show_checkbox_settings()
+	public function show_integration_settings()
 	{
 		$mailchimp = new MC4WP_MailChimp();
 		$opts = mc4wp_get_options( 'checkbox' );

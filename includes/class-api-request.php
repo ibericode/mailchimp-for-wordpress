@@ -38,7 +38,8 @@ class MC4WP_API_Request {
 		'replace_interests' => false,
 		'send_goodbye' => true,
 		'send_notification' => false,
-		'delete_member' => false
+		'delete_member' => false,
+		'auto_format_fields' => true
 	);
 
 	/**
@@ -55,17 +56,62 @@ class MC4WP_API_Request {
 	 * @param       $type
 	 * @param       $list_id
 	 * @param       $email
-	 * @param array $data
+	 * @param array $merge_vars
 	 * @param array $config
 	 * @param array $extra
 	 */
-	public function __construct( $type, $list_id, $email, array $data, array $config, $extra = array() ) {
+	public function __construct( $type, $list_id, $email, array $merge_vars, array $config, $extra = array() ) {
 		$this->type = $type;
 		$this->list_id = $list_id;
 		$this->email = $email;
-		$this->data = $data;
+		$this->merge_vars = $merge_vars;
 		$this->config = array_merge( $this->config, $config );
 		$this->extra = $extra;
+
+		if( $this->config['auto_format_fields'] ) {
+			$this->format_fields();
+		}
+	}
+
+	/**
+	 * Fix field formatting for special fields like "birthday" and "address"
+	 */
+	public function format_fields() {
+		$list = MC4WP_MailChimp_List::make( $this->list_id );
+
+		foreach( $this->merge_vars as $field_tag => $field_value ) {
+			$field_type = $list->get_field_type_by_tag( $field_tag );
+
+			switch( $field_type ) {
+
+				// birthday fields need to be MM/DD for the MailChimp API
+				case 'birthday':
+					$field_value = (string) date( 'm/d', strtotime( $field_value ) );
+					break;
+
+				// auto-format if addr1 is not set (ie: field was not broken up in multiple fields)
+				case 'address':
+					if( ! isset( $field_value['addr1'] ) ) {
+
+						// addr1, addr2, city, state, zip, country
+						$address_pieces = explode( ',', $field_value );
+
+						// try to fill it.... this is a long shot
+						$field_value = array(
+							'addr1' => $address_pieces[0],
+							'city'  => ( isset( $address_pieces[1] ) ) ?   $address_pieces[1] : '',
+							'state' => ( isset( $address_pieces[2] ) ) ?   $address_pieces[2] : '',
+							'zip'   => ( isset( $address_pieces[3] ) ) ?   $address_pieces[3] : '',
+						);
+
+					}
+
+					break;
+			}
+
+			// update field value
+			$this->merge_vars[ $field_tag ] = $field_value;
+		}
 	}
 
 	/**
@@ -108,13 +154,13 @@ class MC4WP_API_Request {
 	 * @param string $type
 	 * @param string $email
 	 * @param string $list_id
-	 * @param array  $data
+	 * @param array  $merge_vars
 	 * @param array  $config
 	 *
-	 * @return iMC4WP_Request
+	 * @return MC4WP_API_Request
 	 */
-	public static function create( $type, $list_id, $email, array $data, array $config ) {
-		$request = new self( $type, $list_id, $email, $data, $config );
+	public static function create( $type, $list_id, $email, array $merge_vars, array $config ) {
+		$request = new self( $type, $list_id, $email, $merge_vars, $config );
 		return $request;
 	}
 
