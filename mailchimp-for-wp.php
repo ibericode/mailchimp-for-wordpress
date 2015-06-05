@@ -58,6 +58,7 @@ function mc4wp_load_plugin() {
 
 	// Initialize the plugin and store an instance in the global scope
 	$mc4wp = mc4wp();
+	$mc4wp->add_hooks();
 
 	if( is_admin()
 	    && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {

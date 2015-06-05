@@ -1,6 +1,6 @@
 <?php
 
-class MC4WP_EDD_Integration extends MC4WP_Integration {
+class MC4WP_EDD_Integration extends MC4WP_Integration_Base {
 
 	/**
 	 * @var string

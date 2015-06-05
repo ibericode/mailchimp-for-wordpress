@@ -1,6 +1,6 @@
 <?php
 
-abstract class MC4WP_User_Integration extends MC4WP_Integration {
+abstract class MC4WP_User_Integration extends MC4WP_Integration_Base {
 
 	/**
 	 * @param WP_User $user

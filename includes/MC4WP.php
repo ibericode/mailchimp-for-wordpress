@@ -8,11 +8,6 @@ class MC4WP {
 	public $form_manager;
 
 	/**
-	* @var MC4WP_Checkbox_Manager
-	*/
-	public $checkbox_manager;
-
-	/**
 	 * @var MC4WP_Integrations
 	 */
 	public $integrations;
@@ -29,20 +24,23 @@ class MC4WP {
 
 		$checkbox_opts = mc4wp_get_options( 'checkbox' );
 
-		// checkboxes
-		$this->checkbox_manager = new MC4WP_Checkbox_Manager( $checkbox_opts );
-		$this->checkbox_manager->add_hooks();
-
 		// load integrations
 		$this->integrations = new MC4WP_Integrations( $checkbox_opts );
 		$this->integrations->load();
+	}
 
+	/**
+	 * Add hooks
+	 */
+	public function add_hooks() {
 		// forms
 		add_action( 'init', array( $this, 'init_form_listener' ) );
 		add_action( 'init', array( $this, 'init_form_manager' ) );
 
 		// widget
 		add_action( 'widgets_init', array( $this, 'register_widget' ) );
+
+		$this->integrations->add_hooks();
 	}
 
 	/**

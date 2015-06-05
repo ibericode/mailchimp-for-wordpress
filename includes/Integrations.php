@@ -23,6 +23,8 @@ class MC4WP_Integrations {
 	 */
 	protected $options = array();
 
+	protected $assets;
+
 	/**
 	 * @param array $options
 	 */
@@ -50,6 +52,27 @@ class MC4WP_Integrations {
 		return null;
 	}
 
+	/**
+	 * Add hooks
+	 */
+	public function add_hooks() {
+		add_action( 'template_redirect', array( $this, 'init_assets' ) );
+	}
+
+	/**
+	 * Initialise Asset Manager
+	 *
+	 * @internal
+	 * @hooked `template_redirect`
+	 */
+	public function init_assets() {
+		$this->assets = new MC4WP_Integration_Assets( $this->options );
+		$this->assets->add_hooks();
+	}
+
+	/**
+	 * Init the various integrations
+	 */
 	public function load() {
 
 		// Load WP Comment Form Integration
