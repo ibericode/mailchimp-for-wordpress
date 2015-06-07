@@ -317,7 +317,7 @@ class MC4WP_Admin {
 			}
 		}
 
-		require MC4WP_PLUGIN_DIR . 'includes/views/general-settings.php';
+		require MC4WP_PLUGIN_DIR . 'src/views/general-settings.php';
 	}
 
 	/**
@@ -327,7 +327,7 @@ class MC4WP_Admin {
 	{
 		$opts = mc4wp_get_options( 'checkbox' );
 		$lists = MC4WP_MailChimp_Tools::get_lists();
-		require MC4WP_PLUGIN_DIR . 'includes/views/checkbox-settings.php';
+		require MC4WP_PLUGIN_DIR . 'src/views/checkbox-settings.php';
 	}
 
 	/**
@@ -338,7 +338,7 @@ class MC4WP_Admin {
 		$opts = mc4wp_get_options( 'form' );
 		$lists = MC4WP_MailChimp_Tools::get_lists();
 
-		require MC4WP_PLUGIN_DIR . 'includes/views/form-settings.php';
+		require MC4WP_PLUGIN_DIR . 'src/views/form-settings.php';
 	}
 
 	/**
