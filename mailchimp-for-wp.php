@@ -52,10 +52,6 @@ function mc4wp_load_plugin() {
 	// define some constants
 	require dirname( __FILE__ ) . '/constants.php';
 
-	// load general functions
-	// todo: move to autoloader
-	require_once MC4WP_PLUGIN_DIR . 'includes/functions/general.php';
-
 	// Initialize the plugin and store an instance in the global scope
 	$mc4wp = mc4wp();
 	$mc4wp->add_hooks();

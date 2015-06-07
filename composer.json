@@ -43,9 +43,9 @@
   },
   "autoload": {
     "classmap": [
-      "includes/"
+      "src/"
     ],
-    "files": ["includes/functions/template.php" ]
+    "files": ["src/functions.php" ]
   },
   "config": {
     "preferred-install": "dist"
