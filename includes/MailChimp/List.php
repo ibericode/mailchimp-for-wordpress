@@ -87,7 +87,8 @@ class MC4WP_MailChimp_List {
 			return $field->name;
 		}
 
-		return '';
+		// field unknown, fall back to field tag
+		return $tag;
 	}
 
 	/**
