@@ -8,7 +8,7 @@ class MC4WP_Form_Request {
 	/**
 	 * @var MC4WP_Form
 	 */
-	protected $form;
+	public $form;
 
 	/**
 	 * @var array
@@ -234,6 +234,8 @@ class MC4WP_Form_Request {
 	 */
 	public function respond() {
 
+		do_action( 'mc4wp_form_request_respond', $this );
+
 		// do stuff on success, non-AJAX only
 		if ( $this->success ) {
 
@@ -452,8 +454,8 @@ class MC4WP_Form_Request {
 		);
 
 		// create a request object for each list
-		foreach( $lists as $list ) {
-			$request = MC4WP_API_Request::create( $this->config['action'], $list, $email, $merge_vars, $config );
+		foreach( $lists as $list_id ) {
+			$request = MC4WP_API_Request::create( $this->config['action'], $list_id, $email, $merge_vars, $config );
 			$this->requests[] = $request;
 		}
 
