@@ -61,7 +61,7 @@ class MC4WP_Admin {
 	 */
 	public function init() {
 		$this->register_settings();
-		$this->load_upgrader();
+		$this->load_upgrade_routine();
 	}
 
 	protected function register_settings() {
@@ -73,7 +73,7 @@ class MC4WP_Admin {
 	/**
 	 * Upgrade routine
 	 */
-	protected function load_upgrader() {
+	protected function load_upgrade_routine() {
 
 		// Only run if db option is at older version than code constant
 		$db_version = get_option( 'mc4wp_version', 0 );
@@ -81,7 +81,7 @@ class MC4WP_Admin {
 			return false;
 		}
 
-		$upgrader = new MC4WP_DB_Upgrader( MC4WP_VERSION, $db_version );
+		$upgrader = new MC4WP_Upgrade_Routine( MC4WP_VERSION, $db_version );
 		$upgrader->run();
 	}
 
@@ -116,7 +116,7 @@ class MC4WP_Admin {
 			return $links;
 		}
 
-		$links[] = '<a href="https://mc4wp.com/kb/">' . __( 'Documentation', 'mailchimp-for-wp' ) . '</a>';
+		$links[] = '<a href="https://mc4wp.com/kb/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=plugins-page">' . __( 'Documentation', 'mailchimp-for-wp' ) . '</a>';
 		return $links;
 	}
 
@@ -295,8 +295,7 @@ class MC4WP_Admin {
 	/**
 	* Show the API settings page
 	*/
-	public function show_api_settings()
-	{
+	public function show_api_settings() {
 		$opts = mc4wp_get_options( 'general' );
 		$connected = ( mc4wp()->get_api()->is_connected() );
 
@@ -323,8 +322,7 @@ class MC4WP_Admin {
 	/**
 	* Show the Checkbox settings page
 	*/
-	public function show_integration_settings()
-	{
+	public function show_integration_settings() {
 		$opts = mc4wp_get_options( 'checkbox' );
 		$lists = MC4WP_MailChimp_Tools::get_lists();
 		require MC4WP_PLUGIN_DIR . 'src/views/checkbox-settings.php';
@@ -333,8 +331,7 @@ class MC4WP_Admin {
 	/**
 	* Show the forms settings page
 	*/
-	public function show_form_settings()
-	{
+	public function show_form_settings() {
 		$opts = mc4wp_get_options( 'form' );
 		$lists = MC4WP_MailChimp_Tools::get_lists();
 

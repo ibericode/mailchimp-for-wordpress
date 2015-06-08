@@ -1,6 +1,6 @@
 <?php
 
-class MC4WP_DB_Upgrader {
+class MC4WP_Upgrade_Routine {
 
 	/**
 	 * @var int
@@ -33,13 +33,28 @@ class MC4WP_DB_Upgrader {
 			$this->change_success_message_key();
 		}
 
+		// upgrade to 3.0
+		if( ! $this->installing && version_compare( $this->database_version, '3.0', '<' ) ) {
+			$this->change_option_keys();
+		}
+
+		// fire action for other plugins to hook into
+		do_action( 'mc4wp_upgrade_routine', $this->database_version, $this->code_version, $this->installing );
+
 		// update code version
-		update_option( 'mc4wp_lite_version', MC4WP_VERSION );
+		update_option( 'mc4wp_version', MC4WP_VERSION );
 	}
 
+	protected function change_option_keys() {
+		// todo
+	}
+
+	/**
+	 * Change key of option name holding the "subscribed" message
+	 */
 	protected function change_success_message_key() {
 		$options = get_option( 'mc4wp_lite_form' );
-		if( isset( $options['text_success'] ) ) {
+		if( ! empty( $options['text_success'] ) && empty( $options['text_subscribed'] ) ) {
 			$options['text_subscribed'] = $options['text_success'];
 			unset( $options['text_success'] );
 		}
