@@ -7,7 +7,7 @@ class MC4WP_bbPress_Integration extends MC4WP_User_Integration {
 	 */
 	protected $type = 'bbpress_forms';
 
-	protected function add_hooks() {
+	public function add_hooks() {
 		add_action( 'bbp_theme_after_topic_form_subscriptions', array( $this, 'output_checkbox' ), 10 );
 		add_action( 'bbp_theme_after_reply_form_subscription', array( $this, 'output_checkbox' ), 10 );
 		add_action( 'bbp_theme_anonymous_form_extras_bottom', array( $this, 'output_checkbox' ), 10 );

@@ -28,7 +28,7 @@ abstract class MC4WP_Integration_Base {
 		$this->add_hooks();
 	}
 
-	protected function add_hooks() {}
+	public function add_hooks() {}
 
 	/**
 	 * Get the checkbox options

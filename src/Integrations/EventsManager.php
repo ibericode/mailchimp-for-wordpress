@@ -9,7 +9,7 @@ class MC4WP_Events_Manager_Integration extends MC4WP_General_Integration {
 	/**
 	 * Add hooks
 	 */
-	protected function add_hooks() {
+	public function add_hooks() {
 		add_action( 'em_bookings_added', array( $this, 'subscribe_from_events_manager' ) );
 	}
 

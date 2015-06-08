@@ -7,7 +7,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration_Base {
 	/**
 	 * Add hooks
 	 */
-	protected function add_hooks() {
+	public function add_hooks() {
 		add_filter( 'woocommerce_checkout_fields', array( $this, 'add_checkout_field' ), 20 );
 
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save_woocommerce_checkout_checkbox_value' ) );
