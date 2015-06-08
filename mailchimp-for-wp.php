@@ -41,6 +41,8 @@ if( ! defined( 'ABSPATH' ) ) {
 */
 function mc4wp_load_plugin() {
 
+	global $mc4wp;
+
 	// don't load plugin if user has the premium version installed and activated
 	if( defined( 'MC4WP_VERSION' ) ) {
 		return false;
@@ -58,10 +60,13 @@ function mc4wp_load_plugin() {
 
 	if( is_admin()
 	    && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
+
+		// load admin class
 		$admin = new MC4WP_Admin( __FILE__ );
 		$admin->add_hooks();
 		$admin->load_translations();
 
+		// load promotional elements
 		$promotional_elements = new MC4WP_Promotional_Elements();
 		$promotional_elements->add_hooks();
 	}
