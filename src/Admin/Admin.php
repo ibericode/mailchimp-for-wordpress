@@ -300,7 +300,7 @@ class MC4WP_Admin {
 		$connected = ( mc4wp()->get_api()->is_connected() );
 
 		// cache renewal triggered manually?
-		$force_cache_refresh = isset( $_POST['mc4wp-renew-cache'] ) && $_POST['mc4wp-renew-cache'] == 1;
+		$force_cache_refresh = isset( $_REQUEST['mc4wp-renew-cache'] ) && $_REQUEST['mc4wp-renew-cache'] == 1;
 		$lists = MC4WP_MailChimp_Tools::get_lists( $force_cache_refresh );
 
 		// show notice if 100 lists were fetched
