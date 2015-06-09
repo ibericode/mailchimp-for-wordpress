@@ -52,7 +52,7 @@ function mc4wp_load_plugin() {
 	require_once dirname( __FILE__ ) . '/vendor/autoload_52.php';
 
 	// define some constants
-	require dirname( __FILE__ ) . '/constants.php';
+	require dirname( __FILE__ ) . '/bootstrap.php';
 
 	// Initialize the plugin and store an instance in the global scope
 	$mc4wp = mc4wp();
