@@ -1,10 +1,16 @@
 <?php
 
-class MC4WP_Events_Manager_Integration extends MC4WP_General_Integration {
+class MC4WP_Events_Manager_Integration extends MC4WP_Custom_Integration {
 
-	protected $type = 'events_manager';
+	/**
+	 * @var string
+	 */
+	public $type = 'events_manager';
 
-	public function __construct() {}
+	/**
+	 * @var string
+	 */
+	public $name = 'Events Manager';
 
 	/**
 	 * Add hooks

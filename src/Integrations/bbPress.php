@@ -5,7 +5,9 @@ class MC4WP_bbPress_Integration extends MC4WP_User_Integration {
 	/**
 	 * @var string
 	 */
-	protected $type = 'bbpress_forms';
+	public $type = 'bbpress_forms';
+
+	public $name = 'bbPress';
 
 	public function add_hooks() {
 		add_action( 'bbp_theme_after_topic_form_subscriptions', array( $this, 'output_checkbox' ), 10 );
@@ -21,7 +23,7 @@ class MC4WP_bbPress_Integration extends MC4WP_User_Integration {
 	* @param string $trigger
 	* @return boolean
 	*/
-	public function subscribe_from_bbpress( $anonymous_data, $user_id, $trigger ) {
+	public function subscribe_from_bbpress( $anonymous_data, $user_id = null, $trigger ) {
 
 		if( $this->is_spam() ) {
 			return false;
@@ -38,10 +40,10 @@ class MC4WP_bbPress_Integration extends MC4WP_User_Integration {
 				'NAME' => $anonymous_data['bbp_anonymous_name'],
 			);
 
-		} elseif ( $user_id ) {
+		} elseif( $user_id ) {
 
 			$user = get_userdata( $user_id );
-			if( ! $user ) {
+			if( ! $user instanceof WP_User ) {
 				return false;
 			}
 
@@ -52,7 +54,7 @@ class MC4WP_bbPress_Integration extends MC4WP_User_Integration {
 			return false;
 		}
 
-		return $this->subscribe( $email, $merge_vars, $trigger );
+		return $this->subscribe( $email, $merge_vars, $user_id );
 	}
 
 	public function subscribe_from_bbpress_new_topic( $topic_id, $forum_id, $anonymous_data, $topic_author_id ) {

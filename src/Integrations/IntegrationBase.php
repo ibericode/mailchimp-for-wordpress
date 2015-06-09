@@ -5,7 +5,12 @@ abstract class MC4WP_Integration_Base {
 	/**
 	 * @var string
 	 */
-	protected $type = 'integration';
+	public $name = 'Integration';
+
+	/**
+	 * @var string
+	 */
+	public $type ='integration';
 
 	/**
 	 * @var string
@@ -22,27 +27,20 @@ abstract class MC4WP_Integration_Base {
 	*/
 	public function __construct() {
 		$this->checkbox_name = '_mc4wp_subscribe' . '_' . $this->type;
+		$this->options = mc4wp_get_options( 'checkbox' );
 	}
 
+	/**
+	 * Called upon loading the integration
+	 */
 	public function init() {
 		$this->add_hooks();
 	}
 
-	public function add_hooks() {}
-
 	/**
-	 * Get the checkbox options
-	 *
-	 * @return array
+	 * Adds the various hooks for this integration
 	 */
-	public function get_options() {
-
-		if( $this->options === null ) {
-			$this->options = mc4wp_get_options( 'checkbox' );
-		}
-
-		return $this->options;
-	}
+	public function add_hooks() {}
 
 	/**
 	 * Is this a spam request?
@@ -91,8 +89,7 @@ abstract class MC4WP_Integration_Base {
 	 * @return bool
 	 */
 	public function is_prechecked() {
-		$opts = $this->get_options();
-		return (bool) $opts['precheck'];
+		return (bool) $this->options['precheck'];
 	}
 
 	/**
@@ -102,7 +99,7 @@ abstract class MC4WP_Integration_Base {
 	 */
 	public function get_label_text() {
 
-		$opts = $this->get_options();
+		$opts = $this->options;
 
 		// Get general label text
 		$label = $opts['label'];
@@ -187,8 +184,7 @@ abstract class MC4WP_Integration_Base {
 	protected function get_lists() {
 
 		// get checkbox lists options
-		$opts = $this->get_options();
-		$lists = $opts['lists'];
+		$lists = $this->options['lists'];
 
 		// get lists from form, if set.
 		if( isset( $_POST['_mc4wp_lists'] ) && ! empty( $_POST['_mc4wp_lists'] ) ) {
@@ -216,113 +212,46 @@ abstract class MC4WP_Integration_Base {
 	*
 	* @param string $email
 	* @param array $merge_vars
-	* @param int $related_object_ID
+	 * @param int $related_object_id
 	* @return string|boolean
 	*/
-	protected function subscribe( $email, array $merge_vars = array(), $type = '', $related_object_id = 0 ) {
+	protected function subscribe( $email, array $merge_vars = array(), $related_object_id = null ) {
 
-		$type = ( '' !== $type ) ? $type : $this->type;
-
-		$api = mc4wp_get_api();
-		$opts = $this->get_options();
 		$lists = $this->get_lists();
-
 		if( empty( $lists) ) {
-
-			// show helpful error message to admins, but only if not using ajax
-			if( $this->show_error_messages() ) {
-				wp_die(
-					'<h3>' . __( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ) . '</h3>' .
-					'<p>' . sprintf( __( 'Please select a list to subscribe to in the <a href="%s">checkbox settings</a>.', 'mailchimp-for-wp' ), admin_url( 'admin.php?page=mailchimp-for-wp-checkbox-settings' ) ) . '</p>' .
-					'<p style="font-style:italic; font-size:12px;">' . __( 'This message is only visible to administrators for debugging purposes.', 'mailchimp-for-wp' ) . '</p>',
-					__( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ),
-					array( 'back_link' => true )
-				);
-			}
-
-			return 'no_lists_selected';
+			error_log( sprintf( "MailChimp for WordPress: No lists selected for the %s integration.", $this->name ) );
+			return false;
 		}
 
 		$merge_vars = MC4WP_Tools::guess_merge_vars( $merge_vars );
-
-		// set ip address
 		if( ! isset( $merge_vars['OPTIN_IP'] ) ) {
 			$merge_vars['OPTIN_IP'] = MC4WP_tools::get_client_ip();
 		}
 
 		$result = false;
-
-		/**
-		 * @filter `mc4wp_merge_vars`
-		 * @expects array
-		 * @param array $merge_vars
-		 * @param string $type
-		 *
-		 * Use this to filter the final merge vars before the request is sent to MailChimp
-		 */
-		$merge_vars = apply_filters( 'mc4wp_merge_vars', $merge_vars, $type );
-
-		/**
-		 * @filter `mc4wp_merge_vars`
-		 * @expects string
-		 * @param string $email_type
-		 *
-		 * Use this to change the email type this users should receive
-		 */
-		$email_type = apply_filters( 'mc4wp_email_type', 'html' );
-
-		/**
-		 * @action `mc4wp_before_subscribe`
-		 * @param string $email
-		 * @param array $merge_vars
-		 *
-		 * Runs before the request is sent to MailChimp
-		 */
-		do_action( 'mc4wp_before_subscribe', $email, $merge_vars );
+		$config = array(
+			'double_optin' => $this->options['double_optin'],
+			'update_existing' => $this->options['update_existing'],
+			'send_welcome' => $this->options['send_welcome']
+		);
+		$extra = array(
+			'related_object_id' => $related_object_id,
+			'referer' => $_SERVER['HTTP_REFERER'],
+			'type' => 'integration',
+			'integration' => $this->name
+		);
 
 		foreach( $lists as $list_id ) {
-			$result = $api->subscribe( $list_id, $email, $merge_vars, $email_type, $opts['double_optin'], $opts['update_existing'], true, $opts['send_welcome'] );
-			do_action( 'mc4wp_subscribe', $email, $list_id, $merge_vars, $result, 'checkbox', $type, $related_object_id );
+			$request = new MC4WP_API_Request( 'subscribe', $list_id, $email, $merge_vars, $config, $extra );
+
+			/** @var MC4WP_API_Response $response */
+			$response = $request->process();
 		}
 
-		/**
-		 * @action `mc4wp_after_subscribe`
-		 * @param string $email
-		 * @param array $merge_vars
-		 * @param boolean $result
-		 *
-		 * Runs after the request is sent to MailChimp
-		 */
-		do_action( 'mc4wp_after_subscribe', $email, $merge_vars, $result );
-
-		// if result failed, show error message (only to admins for non-AJAX)
-		if ( $result !== true && $api->has_error() && $this->show_error_messages() ) {
-			wp_die( '<h3>' . __( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ) . '</h3>' .
-			        '<p>' . __( 'The MailChimp server returned the following error message as a response to our sign-up request:', 'mailchimp-for-wp' ) . '</p>' .
-			        '<pre>' . $api->get_error_message() . '</pre>' .
-			        '<p>' . __( 'This is the data that was sent to MailChimp:', 'mailchimp-for-wp' ) . '</p>' .
-			        '<strong>' . __( 'Email address:', 'mailchimp-for-wp' ) . '</strong>' .
-			        '<pre>' . esc_html( $email ) . '</pre>' .
-			        '<strong>' . __( 'Merge variables:', 'mailchimp-for-wp' ) . '</strong>' .
-			        '<pre>' . esc_html( print_r( $merge_vars, true ) ) . '</pre>' .
-			        '<p style="font-style:italic; font-size:12px;">' . __( 'This message is only visible to administrators for debugging purposes.', 'mailchimp-for-wp' ) . '</p>',
-				__( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ), array( 'back_link' => true ) );
+		if( ! $response->success ) {
+			error_log( sprintf( 'MailChimp for WP: Subscribe request from %s integration failed. The following error was returned by the MailChimp API. "%s"', $this->name, $response->error ) );
 		}
 
 		return $result;
-	}
-
-	/**
-	 * Should we show error messages?
-	 * - Not for AJAX requests
-	 * - Not for non-admins
-	 * - Not for CF7 requests (which uses a different AJAX mechanism)
-	 *
-	 * @return bool
-	 */
-	protected function show_error_messages() {
-		return ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX )
-		       && ( ! isset( $_POST['_wpcf7_is_ajax_call'] ) || $_POST['_wpcf7_is_ajax_call'] != 1 )
-		       && current_user_can( 'manage_options' );
 	}
 }

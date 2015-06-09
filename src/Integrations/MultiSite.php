@@ -2,7 +2,9 @@
 
 class MC4WP_MultiSite_Integration extends MC4WP_User_Integration {
 
-	protected $type = 'multisite_form';
+	public $type = 'multisite_form';
+
+	public $name = 'MultiSite';
 
 	/**
 	 * Add hooks

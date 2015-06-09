@@ -14,7 +14,7 @@ class MC4WP_Integrations {
 		'contact_form_7'  => 'CF7',
 		'events_manager'  => 'Events_Manager',
 		'multisite' => 'MultiSite',
-		'custom'  => 'General',
+		'custom'  => 'Custom',
 
 	);
 

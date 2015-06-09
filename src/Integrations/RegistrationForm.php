@@ -2,7 +2,9 @@
 
 class MC4WP_Registration_Form_Integration extends MC4WP_User_Integration {
 
-	protected $type = 'registration_form';
+	public $type = 'registration_form';
+
+	public $name = 'Registration Form';
 
 	public function add_hooks() {
 		add_action( 'register_form', array( $this, 'output_checkbox' ), 20 );

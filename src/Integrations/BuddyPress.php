@@ -2,7 +2,9 @@
 
 class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 
-	protected $type = 'buddypress_form';
+	public $type = 'buddypress_form';
+
+	public $name = 'BuddyPress';
 
 	public function add_hooks() {
 		add_action( 'bp_before_registration_submit_buttons', array( $this, 'output_checkbox' ), 20 );
@@ -30,15 +32,15 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 		$user = get_userdata( $user_id );
 
 		// was a user found with the given ID?
-		if ( ! $user ) {
+		if ( ! $user instanceof WP_User ) {
 			return false;
 		}
 
-		// gather emailadress and name from user who BuddyPress registered
+		// gather email address and name from user who BuddyPress registered
 		$email = $user->user_email;
 		$merge_vars = $this->user_merge_vars( $user );
 
-		return $this->subscribe( $email, $merge_vars, 'buddypress_registration', $user_id );
+		return $this->subscribe( $email, $merge_vars, $user_id );
 	}
 	/* End BuddyPress functions */
 

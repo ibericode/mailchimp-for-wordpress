@@ -2,7 +2,9 @@
 
 class MC4WP_WooCommerce_Integration extends MC4WP_Integration_Base {
 
-	protected $type = 'woocommerce_checkout';
+	public $type = 'woocommerce_checkout';
+
+	public $name = 'WooCommerce';
 
 	/**
 	 * Add hooks
@@ -15,14 +17,6 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration_Base {
 	}
 
 	/**
-	 * @return string
-	 */
-	public function get_position() {
-		$opts = $this->get_options();
-		return $opts['woocommerce_position'];
-	}
-
-	/**
 	 * @param $fields
 	 *
 	 * @return mixed
@@ -31,7 +25,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration_Base {
 
 		$default = ( $this->is_prechecked() ) ? 1 : 0;
 		$label = $this->get_label_text();
-		$position = $this->get_position();
+		$position = $this->options['woocommerce_position'];
 
 		$fields[ $position ]['_mc4wp_subscribe_woocommerce_checkout'] = array(
 			'type'    => 'checkbox',

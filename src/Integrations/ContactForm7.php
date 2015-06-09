@@ -5,7 +5,9 @@ class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 	/**
 	 * @var string
 	 */
-	protected $type = 'contact_form_7';
+	public $type = 'contact_form_7';
+
+	public $name = 'Contact Form 7';
 
 	/**
 	 * Constructor

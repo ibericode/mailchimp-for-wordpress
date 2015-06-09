@@ -5,7 +5,9 @@ class MC4WP_EDD_Integration extends MC4WP_Integration_Base {
 	/**
 	 * @var string
 	 */
-	protected $type = 'edd_checkout';
+	public $type = 'edd_checkout';
+
+	public $name = 'Easy Digital Downloads';
 
 	/**
 	 * Add hooks

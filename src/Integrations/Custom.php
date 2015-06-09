@@ -1,11 +1,16 @@
 <?php
 
-class MC4WP_General_Integration extends MC4WP_Integration_Base {
+class MC4WP_Custom_Integration extends MC4WP_Integration_Base {
 
 	/**
 	 * @var string
 	 */
-	protected $type = 'general';
+	public $type = 'custom';
+
+	/**
+	 * @var string
+	 */
+	public $name = 'Custom';
 
 	/**
 	 * @var string
