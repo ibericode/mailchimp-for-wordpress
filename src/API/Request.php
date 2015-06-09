@@ -48,7 +48,7 @@ class MC4WP_API_Request {
 	public $response;
 
 	/**
-	 * @var array Additional info to bind to this request (internal)
+	 * @var array Additional info to bind to this request
 	 */
 	public $extra;
 
@@ -60,7 +60,7 @@ class MC4WP_API_Request {
 	 * @param array $config
 	 * @param array $extra
 	 */
-	public function __construct( $type, $list_id, $email, array $merge_vars, array $config, $extra = array() ) {
+	public function __construct( $type, $list_id, $email, array $merge_vars, array $config, array $extra = array() ) {
 		$this->type = $type;
 		$this->list_id = $list_id;
 		$this->email = $email;
@@ -131,6 +131,7 @@ class MC4WP_API_Request {
 
 		if( $success ) {
 			// store user email in a cookie
+			// todo: decouple this
 			MC4WP_Tools::remember_email( $this->email );
 		}
 
@@ -159,8 +160,8 @@ class MC4WP_API_Request {
 	 *
 	 * @return MC4WP_API_Request
 	 */
-	public static function create( $type, $list_id, $email, array $merge_vars, array $config ) {
-		$request = new self( $type, $list_id, $email, $merge_vars, $config );
+	public static function create( $type, $list_id, $email, array $merge_vars, array $config, array $extra = array() ) {
+		$request = new self( $type, $list_id, $email, $merge_vars, $config, $extra );
 		return $request;
 	}
 
@@ -168,7 +169,7 @@ class MC4WP_API_Request {
 	/**
 	 * @return array
 	 */
-	public function __toArray() {
+	public function toArray() {
 		return (array) $this;
 	}
 
@@ -177,10 +178,12 @@ class MC4WP_API_Request {
 	 *
 	 * @return MC4WP_API_Request
 	 */
-	public static function __fromArray( $data ) {
+	public static function fromArray( $data ) {
 		$request = new self( $data['type'], $data['list_id'], $data['email'], $data['data'], $data['config'] );
 		return $request;
 	}
+
+
 
 
 }

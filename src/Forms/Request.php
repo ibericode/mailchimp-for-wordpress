@@ -452,10 +452,15 @@ class MC4WP_Form_Request {
 			'email_type' => $this->get_email_type(),
 			'ip' => MC4WP_Tools::get_client_ip()
 		);
+		$extra = array(
+			'related_object_id' => $this->form->ID,
+			'referer' => $_SERVER['HTTP_REFERER'],
+			'type' => 'form'
+		);
 
 		// create a request object for each list
 		foreach( $lists as $list_id ) {
-			$request = MC4WP_API_Request::create( $this->config['action'], $list_id, $email, $merge_vars, $config );
+			$request = MC4WP_API_Request::create( $this->config['action'], $list_id, $email, $merge_vars, $config, $extra );
 			$this->requests[] = $request;
 		}
 
