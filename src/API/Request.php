@@ -39,11 +39,11 @@ class MC4WP_API_Request {
 		'send_goodbye' => true,
 		'send_notification' => false,
 		'delete_member' => false,
-		'auto_format_fields' => true
+		'auto_format_merge_vars' => true
 	);
 
 	/**
-	 * @var MC4WP_API_Response|null
+	 * @var MC4WP_API_Response (or null, is request unprocessed)
 	 */
 	public $response;
 
@@ -64,19 +64,56 @@ class MC4WP_API_Request {
 		$this->type = $type;
 		$this->list_id = $list_id;
 		$this->email = $email;
-		$this->merge_vars = $merge_vars;
-		$this->config = array_merge( $this->config, $config );
-		$this->extra = $extra;
+		$this->merge_vars = $this->filter_merge_vars( $merge_vars );
+		$this->config = $this->filter_config( $config );
+		$this->extra = $this->filter_extra( $extra );
 
-		if( $this->config['auto_format_fields'] ) {
-			$this->format_fields();
+		if( $this->config['auto_format_merge_vars'] ) {
+			$this->auto_format_merge_vars();
 		}
+	}
+
+	/**
+	 * @param $merge_vars
+	 *
+	 * @return array
+	 */
+	protected function filter_merge_vars( array $merge_vars ) {
+		$merge_vars = (array) apply_filters( 'mc4wp_request_merge_vars', $merge_vars, $this );
+		return $merge_vars;
+	}
+
+	/**
+	 * @param array $config
+	 *
+	 * @return array
+	 */
+	protected function filter_config( array $config ) {
+
+		// parse with default config
+		$config = array_merge( $this->config, $config );
+
+		// filter config
+		// @api
+		$config = (array) apply_filters( 'mc4wp_request_config', $config, $this);
+
+		return $config;
+	}
+
+	/**
+	 * @param array $extra
+	 *
+	 * @return array
+	 */
+	protected function filter_extra( array $extra ) {
+		$extra = (array) apply_filters( 'mc4wp_request_extra', $extra, $this );
+		return $extra;
 	}
 
 	/**
 	 * Fix field formatting for special fields like "birthday" and "address"
 	 */
-	public function format_fields() {
+	public function auto_format_merge_vars() {
 		$list = MC4WP_MailChimp_List::make( $this->list_id );
 
 		foreach( $this->merge_vars as $field_tag => $field_value ) {
