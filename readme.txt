@@ -76,7 +76,7 @@ As this plugin is an integration for MailChimp, you need to have a MailChimp acc
 
 MailChimp is free for lists up to 2000 subscribers, which is why MailChimp is the go-to choice for small businesses or starting entrepeneurs. That doesn't mean MailChimp is not a great choice for bigger businesses though.
 
-If you do not yet have a MailChimp account, [registering for MailChimp is free and only takes you about 30 seconds](https://login.mailchimp.com/signup).
+If you do not yet have a MailChimp account, [registering for MailChimp is free and only takes you about 30 seconds](https://mc4wp.com/out/mailchimp).
 
 == Installation ==
 
@@ -84,6 +84,7 @@ If you do not yet have a MailChimp account, [registering for MailChimp is free a
 1. In your WordPress admin panel, go to *Plugins > New Plugin*, search for **MailChimp for WordPress** and click "*Install now*"
 1. Alternatively, download the plugin and upload the contents of `mailchimp-for-wp.zip` to your plugins directory, which usually is `/wp-content/plugins/`.
 1. Activate the plugin
+1. If you don't have a MailChimp account yet, [create one for free](https://mc4wp.com/out/mailchimp).
 1. Set [your MailChimp API key](https://admin.mailchimp.com/account/api) in the plugin settings.
 
 = Configuring Sign-Up Checkboxes =
