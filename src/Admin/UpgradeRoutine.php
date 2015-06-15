@@ -45,8 +45,30 @@ class MC4WP_Upgrade_Routine {
 		update_option( 'mc4wp_version', MC4WP_VERSION );
 	}
 
+	/**
+	 * Change option keys
+	 *
+	 * mc4wp_lite > mc4wp
+	 * mc4wp_lite_checkbox > mc4wp_checkbox
+	 * mc4wp_lite_form > mc4wp_form
+	 */
 	protected function change_option_keys() {
-		// todo
+		$keys = array(
+			'mc4wp_lite' => 'mc4wp',
+			'mc4wp_lite_checkbox' => 'mc4wp_checkbox',
+			'mc4wp_lite_form' => 'mc4wp_form'
+		);
+
+		foreach( $keys as $old_key => $new_key ) {
+			$old_option = get_option( $old_key, false );
+			$new_option = get_option( $new_key, false );
+
+			// only transfer if new option is not set
+			if( $old_option && ! $new_option ) {
+				update_option( $new_key, $old_option );
+				delete_option( $old_key );
+			}
+		}
 	}
 
 	/**
