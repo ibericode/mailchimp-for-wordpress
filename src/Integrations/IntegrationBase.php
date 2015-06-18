@@ -1,6 +1,6 @@
 <?php
 
-abstract class MC4WP_Integration_Base {
+abstract class MC4WP_Integration_Base implements MC4WP_Integration_Interface {
 
 	/**
 	 * @var string
@@ -13,21 +13,31 @@ abstract class MC4WP_Integration_Base {
 	public $type ='integration';
 
 	/**
-	 * @var string
+	 * @var string Name attribute of the checkbox for this integration
 	 */
-	protected $checkbox_name = '_mc4wp_subscribe';
+	protected $checkbox_name = '';
 
 	/**
-	 * @var array
+	 * @var array Final array of options for this integration
 	 */
-	protected $options;
+	public $options;
+
+	/**
+	 * @var array Array of defaults for this integration
+	 */
+	public $default_options = array();
 
 	/**
 	* Constructor
 	*/
-	public function __construct() {
-		$this->checkbox_name = '_mc4wp_subscribe' . '_' . $this->type;
-		$this->options = mc4wp_get_options( 'integrations' );
+	public function __construct( array $general_options ) {
+
+		// set custom checkbox name attribute
+		if( '' === $this->checkbox_name ) {
+			$this->checkbox_name = '_mc4wp_subscribe' . '_' . $this->type;
+		}
+
+		$this->options = array_merge( $this->default_options, $general_options );
 	}
 
 	/**

@@ -66,13 +66,10 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 		<tr valign="top">
 			<th scope="row"><?php _e( 'Add the checkbox to these forms', 'mailchimp-for-wp' ); ?></th>
 			<td class="nowrap">
-				<?php foreach( $this->get_checkbox_compatible_plugins() as $code => $name ) {
+				<?php foreach( $integrations->get_available_integrations() as $type => $name ) {
 
-					if( $code[0] !== '_' ) {
-						?><label><input name="mc4wp_integrations[show_at_<?php echo $code; ?>]" value="1" type="checkbox" <?php checked( $opts['show_at_' . $code], 1 ); ?>> <?php echo esc_html( $name ); ?></label><br /><?php
-					} else {
-						?><label class="pro-feature"><input type="checkbox" disabled> <?php echo esc_html( $name ); ?></label><br /><?php
-					}
+					?><label><input name="mc4wp_integrations[custom_settings][<?php echo $type; ?>][enabled]" value="1" type="checkbox" <?php checked( $integrations->is_enabled( $type ) ); ?>> <?php echo esc_html( $name ); ?></label><br /><?php
+
 } ?>
 			</td>
 			<td class="desc">
@@ -96,7 +93,7 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 			<td class="nowrap"><label><input type="radio" name="mc4wp_integrations[css]" value="1" <?php checked( $opts['css'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp; <label><input type="radio" name="mc4wp_integrations[css]" value="0" <?php checked( $opts['css'], 0 ); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?></label></td>
 			<td class="desc"><?php _e( 'Select "yes" if the checkbox appears in a weird place.', 'mailchimp-for-wp' ); ?></td>
 		</tr>
-		<tr valign="top" id="woocommerce-settings" <?php if( ! $opts['show_at_woocommerce_checkout'] ) { ?>style="display: none;"<?php } ?>>
+		<tr valign="top" id="woocommerce-settings" <?php if( ! $integrations->is_enabled('woocommerce') ) { ?>style="display: none;"<?php } ?>>
 			<th scope="row"><?php _e( 'WooCommerce checkbox position', 'mailchimp-for-wp' ); ?></th>
 			<td class="nowrap">
 				<select name="mc4wp_integrations[woocommerce_position]">

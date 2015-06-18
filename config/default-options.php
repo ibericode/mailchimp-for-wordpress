@@ -9,21 +9,18 @@ return array(
 	),
 
 	'integrations' => array(
+
+		// placeholder for integration specific settings ( type => array of settings )
+		'custom_settings' => array(),
+
+		// general integration settings
 		'label' => __( 'Sign me up for the newsletter!', 'mailchimp-for-wp' ),
 		'precheck' => 1,
 		'css' => 0,
-		'show_at_comment_form' => 0,
-		'show_at_registration_form' => 0,
-		'show_at_multisite_form' => 0,
-		'show_at_buddypress_form' => 0,
-		'show_at_edd_checkout' => 0,
-		'show_at_woocommerce_checkout' => 0,
-		'show_at_bbpress_forms' => 0,
 		'lists' => array(),
 		'double_optin' => 1,
 		'send_welcome' => 0,
-		'update_existing' => 0,
-		'woocommerce_position' => 'order'
+		'update_existing' => 0
 	),
 
 	'form' => array(

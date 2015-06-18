@@ -253,46 +253,6 @@ class MC4WP_Admin {
 	}
 
 	/**
-	 * Returns available checkbox integrations
-	 *
-	 * @return array
-	 */
-	public function get_checkbox_compatible_plugins() {
-		static $checkbox_plugins;
-
-		if( is_array( $checkbox_plugins ) ) {
-			return $checkbox_plugins;
-		}
-
-		$checkbox_plugins = array(
-			'comment_form' => __( 'Comment form', 'mailchimp-for-wp' ),
-			'registration_form' => __( 'Registration form', 'mailchimp-for-wp' )
-		);
-
-		if( is_multisite() ) {
-			$checkbox_plugins['multisite_form'] = __( 'MultiSite forms', 'mailchimp-for-wp' );
-		}
-
-		if( class_exists( 'BuddyPress' ) ) {
-			$checkbox_plugins['buddypress_form'] = __( 'BuddyPress registration', 'mailchimp-for-wp' );
-		}
-
-		if( class_exists( 'bbPress' ) ) {
-			$checkbox_plugins['bbpress_forms'] = 'bbPress';
-		}
-
-		if ( class_exists( 'WooCommerce' ) ) {
-			$checkbox_plugins['woocommerce_checkout'] = sprintf( __( '%s checkout', 'mailchimp-for-wp' ), 'WooCommerce' );
-		}
-
-		if ( class_exists( 'Easy_Digital_Downloads' ) ) {
-			$checkbox_plugins['edd_checkout'] = sprintf( __( '%s checkout', 'mailchimp-for-wp' ), 'Easy Digital Downloads' );
-		}
-
-		return $checkbox_plugins;
-	}
-
-	/**
 	* Show the API settings page
 	*/
 	public function show_api_settings() {
@@ -323,7 +283,8 @@ class MC4WP_Admin {
 	* Show the Checkbox settings page
 	*/
 	public function show_integration_settings() {
-		$opts = mc4wp_get_options( 'integrations' );
+		$integrations = mc4wp()->integrations;
+		$opts = $integrations->options;
 		$lists = MC4WP_MailChimp_Tools::get_lists();
 		require MC4WP_PLUGIN_DIR . 'src/views/integration-settings.php';
 	}

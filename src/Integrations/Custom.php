@@ -18,11 +18,6 @@ class MC4WP_Custom_Integration extends MC4WP_Integration_Base {
 	protected $checkbox_name = 'mc4wp-subscribe';
 
 	/**
-	* Constructor
-	*/
-	public function __construct() {}
-
-	/**
 	 * Init
 	 */
 	public function init() {
@@ -45,6 +40,7 @@ class MC4WP_Custom_Integration extends MC4WP_Integration_Base {
 	 * Makes sure older `name` attributes still work
 	 */
 	protected function upgrade() {
+
 		// set new $_POST trigger value
 		if( isset( $_POST['mc4wp-try-subscribe'] ) ) {
 			$_POST[ $this->checkbox_name ] = 1;

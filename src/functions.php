@@ -14,27 +14,30 @@ function mc4wp_get_options( $key = '' ) {
 
 		$defaults = include MC4WP_PLUGIN_DIR . '/config/default-options.php';
 
-		$db_keys_option_keys = array(
+		$keys = array(
 			'mc4wp' => 'general',
-			'mc4wp_checkbox' => 'checkbox',
+			'mc4wp_integrations' => 'integrations',
 			'mc4wp_form' => 'form',
 		);
 
 		$options = array();
-		foreach ( $db_keys_option_keys as $db_key => $option_key ) {
-			$option = (array) get_option( $db_key, array() );
+		foreach ( $keys as $database_key => $option_key ) {
+			// fetch option
+			$option_group = (array) get_option( $database_key, array() );
 
-			// add option to database to prevent query on every pageload
-			if ( count( $option ) === 0 ) {
-				add_option( $db_key, $defaults[$option_key] );
-			}
-
-			$options[$option_key] = array_merge( $defaults[$option_key], $option );
+			// merge with default options to prevent "undefined index" notices
+			$options[$option_key] = array_merge( $defaults[$option_key], $option_group );
 		}
 	}
 
+	// was a specific option group provided?
 	if( '' !== $key ) {
-		return $options[$key];
+
+		if( isset( $options[ $key] ) ) {
+			return $options[ $key ];
+		}
+
+		return null;
 	}
 
 	return $options;

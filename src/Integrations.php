@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Class MC4WP_Integrations
+ *
+ * todo: Change old "show_at_xxx_" to new option structure
+ * todo: Upgrade integration types in database log table
+ */
 class MC4WP_Integrations {
 
 	protected $integrations = array();
@@ -21,7 +27,7 @@ class MC4WP_Integrations {
 	/**
 	 * @var array
 	 */
-	protected $options = array();
+	public $options = array();
 
 	protected $assets;
 
@@ -29,7 +35,7 @@ class MC4WP_Integrations {
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->options = mc4wp_get_options( 'integrations' );
+		$this->options = $this->load_options();
 	}
 
 	/**
@@ -45,7 +51,7 @@ class MC4WP_Integrations {
 
 		if( isset( $this->registered_integrations[ $name ] ) ) {
 			$classname = 'MC4WP_' . $this->registered_integrations[ $name ] .'_Integration';
-			$this->integrations[ $name ] = new $classname;
+			$this->integrations[ $name ] = new $classname( $this->options );
 			return $this->integrations[ $name ];
 		}
 
@@ -71,32 +77,41 @@ class MC4WP_Integrations {
 	}
 
 	/**
+	 * @param $type
+	 *
+	 * @return bool
+	 */
+	public function is_enabled( $type ) {
+		return ( isset( $this->options[ 'custom_settings'][ $type ]['enabled'] ) && $this->options[ 'custom_settings'][ $type ]['enabled'] );
+	}
+
+	/**
 	 * Init the various integrations
 	 */
 	public function load() {
 
 		// Load WP Comment Form Integration
-		if ( $this->options['show_at_comment_form'] ) {
+		if( $this->is_enabled( 'comment_form' ) ) {
 			$this->comment_form->init();
 		}
 
 		// Load WordPress Registration Form Integration
-		if ( $this->options['show_at_registration_form'] ) {
+		if( $this->is_enabled( 'registration_form' ) ) {
 			$this->registration_form->init();
 		}
 
 		// Load BuddyPress Integration
-		if ( $this->options['show_at_buddypress_form'] ) {
+		if( $this->is_enabled( 'buddypress' ) ) {
 			$this->buddypress->init();
 		}
 
 		// Load MultiSite Integration
-		if ( $this->options['show_at_multisite_form'] ) {
+		if( $this->is_enabled( 'multisite' ) ) {
 			$this->multisite->init();
 		}
 
 		// Load bbPress Integration
-		if ( $this->options['show_at_bbpress_forms'] ) {
+		if( $this->is_enabled( 'bbpress' ) ) {
 			$this->bbpress->init();
 		}
 
@@ -111,12 +126,12 @@ class MC4WP_Integrations {
 		}
 
 		// Load WooCommerce Integration
-		if ( $this->options['show_at_woocommerce_checkout'] ) {
+		if( $this->is_enabled( 'woocommerce' ) ) {
 			$this->woocommerce->init();
 		}
 
 		// Load EDD Integration
-		if ( $this->options['show_at_edd_checkout'] ) {
+		if( $this->is_enabled( 'easy_digital_downloads' ) ) {
 			$this->easy_digital_downloads->init();
 		}
 
@@ -124,6 +139,56 @@ class MC4WP_Integrations {
 		if( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 			$this->custom->init();
 		}
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function load_options() {
+		$options = (array) get_option( 'mc4wp_integrations', array() );
+		$defaults = include MC4WP_PLUGIN_DIR . '/config/default-options.php';
+		$options = array_merge( $defaults['integrations'], $options );
+		return $options;
+	}
+
+	/**
+	 * Returns available checkbox integrations
+	 *
+	 * @return array
+	 */
+	public function get_available_integrations() {
+		static $checkbox_plugins;
+
+		if( is_array( $checkbox_plugins ) ) {
+			return $checkbox_plugins;
+		}
+
+		$checkbox_plugins = array(
+			'comment_form'          => __( 'Comment form', 'mailchimp-for-wp' ),
+			'registration_form'     => __( 'Registration form', 'mailchimp-for-wp' )
+		);
+
+		if( is_multisite() ) {
+			$checkbox_plugins['multisite'] = __( 'MultiSite forms', 'mailchimp-for-wp' );
+		}
+
+		if( class_exists( 'BuddyPress' ) ) {
+			$checkbox_plugins['buddypress'] = __( 'BuddyPress registration', 'mailchimp-for-wp' );
+		}
+
+		if( class_exists( 'bbPress' ) ) {
+			$checkbox_plugins['bbpress'] = 'bbPress';
+		}
+
+		if ( class_exists( 'WooCommerce' ) ) {
+			$checkbox_plugins['woocommerce'] = sprintf( __( '%s checkout', 'mailchimp-for-wp' ), 'WooCommerce' );
+		}
+
+		if ( class_exists( 'Easy_Digital_Downloads' ) ) {
+			$checkbox_plugins['easy_digital_downloads'] = sprintf( __( '%s checkout', 'mailchimp-for-wp' ), 'Easy Digital Downloads' );
+		}
+
+		return $checkbox_plugins;
 	}
 
 }

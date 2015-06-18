@@ -2,9 +2,11 @@
 
 class MC4WP_WooCommerce_Integration extends MC4WP_Integration_Base {
 
-	public $type = 'woocommerce_checkout';
-
+	public $type = 'woocommerce';
 	public $name = 'WooCommerce';
+	public $default_options = array(
+		'position' => 'order'
+	);
 
 	/**
 	 * Add hooks

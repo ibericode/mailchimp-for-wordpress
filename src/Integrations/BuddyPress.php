@@ -2,7 +2,7 @@
 
 class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 
-	public $type = 'buddypress_form';
+	public $type = 'buddypress';
 
 	public $name = 'BuddyPress';
 

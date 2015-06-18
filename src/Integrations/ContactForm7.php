@@ -9,10 +9,7 @@ class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 
 	public $name = 'Contact Form 7';
 
-	/**
-	 * Constructor
-	 */
-	public function __construct() {}
+	protected $checkbox_name = 'mc4wp-subscribe';
 
 	/**
 	 * Init
