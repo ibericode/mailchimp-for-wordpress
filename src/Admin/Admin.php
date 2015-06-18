@@ -286,6 +286,7 @@ class MC4WP_Admin {
 		$integrations = mc4wp()->integrations;
 		$opts = $integrations->options;
 		$lists = MC4WP_MailChimp_Tools::get_lists();
+		$current_tab = ( isset( $_GET['tab'] ) ) ? $_GET['tab'] : 'general';
 		require MC4WP_PLUGIN_DIR . 'src/views/integration-settings.php';
 	}
 

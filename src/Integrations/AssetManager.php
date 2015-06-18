@@ -3,7 +3,7 @@
 /**
  * Takes care of all the sign-up checkboxes
  */
-class MC4WP_Integration_Assets {
+class MC4WP_Integration_AssetManager {
 
 	/**
 	 * @var array Array of checkbox options

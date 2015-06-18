@@ -29,7 +29,10 @@ class MC4WP_Integrations {
 	 */
 	public $options = array();
 
-	protected $assets;
+	/**
+	 * @var MC4WP_Integration_AssetManager
+	 */
+	public $asset_manager;
 
 	/**
 	 * Constructor
@@ -62,6 +65,7 @@ class MC4WP_Integrations {
 	 * Add hooks
 	 */
 	public function add_hooks() {
+		// load asset manager on "template_redirect"
 		add_action( 'template_redirect', array( $this, 'init_assets' ) );
 	}
 
@@ -72,8 +76,8 @@ class MC4WP_Integrations {
 	 * @hooked `template_redirect`
 	 */
 	public function init_assets() {
-		$this->assets = new MC4WP_Integration_Assets( $this->options );
-		$this->assets->add_hooks();
+		$this->asset_manager = new MC4WP_Integration_AssetManager( $this->options );
+		$this->asset_manager->add_hooks();
 	}
 
 	/**
@@ -144,7 +148,7 @@ class MC4WP_Integrations {
 	/**
 	 * @return array
 	 */
-	protected function load_options() {
+	public function load_options() {
 		$options = (array) get_option( 'mc4wp_integrations', array() );
 		$defaults = include MC4WP_PLUGIN_DIR . '/config/default-options.php';
 		$options = array_merge( $defaults['integrations'], $options );
@@ -169,11 +173,11 @@ class MC4WP_Integrations {
 		);
 
 		if( is_multisite() ) {
-			$checkbox_plugins['multisite'] = __( 'MultiSite forms', 'mailchimp-for-wp' );
+			$checkbox_plugins['multisite'] = __( 'MultiSite', 'mailchimp-for-wp' );
 		}
 
 		if( class_exists( 'BuddyPress' ) ) {
-			$checkbox_plugins['buddypress'] = __( 'BuddyPress registration', 'mailchimp-for-wp' );
+			$checkbox_plugins['buddypress'] = __( 'BuddyPress', 'mailchimp-for-wp' );
 		}
 
 		if( class_exists( 'bbPress' ) ) {
@@ -181,11 +185,11 @@ class MC4WP_Integrations {
 		}
 
 		if ( class_exists( 'WooCommerce' ) ) {
-			$checkbox_plugins['woocommerce'] = sprintf( __( '%s checkout', 'mailchimp-for-wp' ), 'WooCommerce' );
+			$checkbox_plugins['woocommerce'] = 'WooCommerce';
 		}
 
 		if ( class_exists( 'Easy_Digital_Downloads' ) ) {
-			$checkbox_plugins['easy_digital_downloads'] = sprintf( __( '%s checkout', 'mailchimp-for-wp' ), 'Easy Digital Downloads' );
+			$checkbox_plugins['easy_digital_downloads'] = 'Easy Digital Downloads';
 		}
 
 		return $checkbox_plugins;

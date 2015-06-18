@@ -79,5 +79,61 @@
 	// init Field Wizard
 	FormHelper();
 
+	// Tabs
+	(function() {
+
+		var $tabs = $context.find('.mc4wp-tab');
+		var $tabNav = $context.find('.nav-tab');
+		var $refererField = $context.find('input[name="_wp_http_referer"]');
+
+		function switchTab() {
+
+			var urlParams = parseQuery( this.href );
+			if( typeof(urlParams.tab) === "undefined" ) {
+				return;
+			}
+
+			// hide all tabs & remove active class
+			$tabs.hide();
+			$tabNav.removeClass('nav-tab-active');
+
+			// add `nav-tab-active` to this tab
+			$(this).addClass('nav-tab-active');
+
+			// show target tab
+			var targetId = "tab-" + urlParams.tab;
+			document.getElementById(targetId).style.display = 'block';
+
+			// remove tab focus
+			$(this).blur();
+
+			// update hash
+			if( history.pushState ) {
+				history.pushState( '', '', this.href );
+			}
+
+			// update referer field
+			$refererField.val(this.href);
+
+			// prevent page jump
+			return false;
+		}
+
+		function parseQuery(qstr) {
+			var query = {};
+			var a = qstr.split('&');
+			for (var i in a) {
+				var b = a[i].split('=');
+				query[decodeURIComponent(b[0])] = decodeURIComponent(b[1]);
+			}
+
+			return query;
+		}
+
+		// add tab listener
+		$tabNav.click(switchTab);
+
+	})();
+
 })(jQuery);
 
