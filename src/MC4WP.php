@@ -21,11 +21,8 @@ class MC4WP {
 	* Constructor
 	*/
 	public function __construct() {
-
-		$checkbox_opts = mc4wp_get_options( 'checkbox' );
-
 		// load integrations
-		$this->integrations = new MC4WP_Integrations( $checkbox_opts );
+		$this->integrations = new MC4WP_Integrations();
 		$this->integrations->load();
 	}
 

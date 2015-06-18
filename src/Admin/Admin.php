@@ -66,7 +66,7 @@ class MC4WP_Admin {
 
 	protected function register_settings() {
 		register_setting( 'mc4wp_settings', 'mc4wp', array( $this, 'validate_settings' ) );
-		register_setting( 'mc4wp_checkbox_settings', 'mc4wp_checkbox', array( $this, 'validate_settings' ) );
+		register_setting( 'mc4wp_integrations_settings', 'mc4wp_integrations', array( $this, 'validate_settings' ) );
 		register_setting( 'mc4wp_form_settings', 'mc4wp_form', array( $this, 'validate_settings' ) );
 	}
 
@@ -323,9 +323,9 @@ class MC4WP_Admin {
 	* Show the Checkbox settings page
 	*/
 	public function show_integration_settings() {
-		$opts = mc4wp_get_options( 'checkbox' );
+		$opts = mc4wp_get_options( 'integrations' );
 		$lists = MC4WP_MailChimp_Tools::get_lists();
-		require MC4WP_PLUGIN_DIR . 'src/views/checkbox-settings.php';
+		require MC4WP_PLUGIN_DIR . 'src/views/integration-settings.php';
 	}
 
 	/**

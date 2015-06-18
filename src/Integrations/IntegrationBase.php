@@ -27,7 +27,7 @@ abstract class MC4WP_Integration_Base {
 	*/
 	public function __construct() {
 		$this->checkbox_name = '_mc4wp_subscribe' . '_' . $this->type;
-		$this->options = mc4wp_get_options( 'checkbox' );
+		$this->options = mc4wp_get_options( 'integrations' );
 	}
 
 	/**

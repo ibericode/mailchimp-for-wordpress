@@ -49,14 +49,16 @@ class MC4WP_Upgrade_Routine {
 	 * Change option keys
 	 *
 	 * mc4wp_lite > mc4wp
-	 * mc4wp_lite_checkbox > mc4wp_checkbox
+	 * mc4wp_lite_checkbox > mc4wp_integrations
 	 * mc4wp_lite_form > mc4wp_form
+	 * mc4wp_checkbox > mc4wp_integrations
 	 */
 	protected function change_option_keys() {
 		$keys = array(
 			'mc4wp_lite' => 'mc4wp',
-			'mc4wp_lite_checkbox' => 'mc4wp_checkbox',
-			'mc4wp_lite_form' => 'mc4wp_form'
+			'mc4wp_lite_checkbox' => 'mc4wp_integrations',
+			'mc4wp_lite_form' => 'mc4wp_form',
+			'mc4wp_checkbox' => 'mc4wp_integrations'
 		);
 
 		foreach( $keys as $old_key => $new_key ) {
@@ -64,7 +66,7 @@ class MC4WP_Upgrade_Routine {
 			$new_option = get_option( $new_key, false );
 
 			// only transfer if new option is not set
-			if( $old_option && ! $new_option ) {
+			if( is_array( $old_option ) && ! $new_option ) {
 				update_option( $new_key, $old_option );
 				delete_option( $old_key );
 			}

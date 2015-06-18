@@ -16,7 +16,7 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 		<p><?php _e( 'To use sign-up checkboxes, select at least one list and one form to add the checkbox to.', 'mailchimp-for-wp' ); ?></p>
 
 		<form action="options.php" method="post">
-			<?php settings_fields( 'mc4wp_checkbox_settings' ); ?>
+			<?php settings_fields( 'mc4wp_integrations_settings' ); ?>
 
 			<h3 class="mc4wp-title"><?php _e( 'MailChimp settings for checkboxes', 'mailchimp-for-wp' ); ?></h3>
 
@@ -36,7 +36,7 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 					} else { ?>
 						<td class="nowrap">
 							<?php foreach( $lists as $list ) {
-							?><label><input type="checkbox" name="mc4wp_checkbox[lists][<?php echo esc_attr( $list->id ); ?>]" value="<?php echo esc_attr( $list->id ); ?>" <?php checked( array_key_exists( $list->id, $opts['lists'] ), true ); ?>> <?php echo esc_html( $list->name ); ?></label><br /><?php
+							?><label><input type="checkbox" name="mc4wp_integrations[lists][<?php echo esc_attr( $list->id ); ?>]" value="<?php echo esc_attr( $list->id ); ?>" <?php checked( array_key_exists( $list->id, $opts['lists'] ), true ); ?>> <?php echo esc_html( $list->name ); ?></label><br /><?php
 } ?>
 						</td>
 						<td class="desc"><?php _e( 'Select the list(s) to which people who check the checkbox should be subscribed.' ,'mailchimp-for-wp' ); ?></td>
@@ -48,11 +48,11 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 					<th scope="row"><?php _e( 'Double opt-in?', 'mailchimp-for-wp' ); ?></th>
 					<td class="nowrap">
 						<label>
-							<input type="radio" name="mc4wp_checkbox[double_optin]" value="1" <?php checked( $opts['double_optin'], 1 ); ?> />
+							<input type="radio" name="mc4wp_integrations[double_optin]" value="1" <?php checked( $opts['double_optin'], 1 ); ?> />
 							<?php _e( 'Yes', 'mailchimp-for-wp' ); ?>
 						</label> &nbsp;
 						<label>
-							<input type="radio" id="mc4wp_checkbox_double_optin_0" name="mc4wp_checkbox[double_optin]" value="0" <?php checked( $opts['double_optin'], 0 ); ?> />
+							<input type="radio" id="mc4wp_checkbox_double_optin_0" name="mc4wp_integrations[double_optin]" value="0" <?php checked( $opts['double_optin'], 0 ); ?> />
 							<?php _e( 'No', 'mailchimp-for-wp' ); ?>
 						</label>
 					</td>
@@ -69,7 +69,7 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 				<?php foreach( $this->get_checkbox_compatible_plugins() as $code => $name ) {
 
 					if( $code[0] !== '_' ) {
-						?><label><input name="mc4wp_checkbox[show_at_<?php echo $code; ?>]" value="1" type="checkbox" <?php checked( $opts['show_at_' . $code], 1 ); ?>> <?php echo esc_html( $name ); ?></label><br /><?php
+						?><label><input name="mc4wp_integrations[show_at_<?php echo $code; ?>]" value="1" type="checkbox" <?php checked( $opts['show_at_' . $code], 1 ); ?>> <?php echo esc_html( $name ); ?></label><br /><?php
 					} else {
 						?><label class="pro-feature"><input type="checkbox" disabled> <?php echo esc_html( $name ); ?></label><br /><?php
 					}
@@ -82,24 +82,24 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 		<tr valign="top">
 			<th scope="row"><label for="mc4wp_checkbox_label"><?php _e( 'Checkbox label text', 'mailchimp-for-wp' ); ?></label></th>
 			<td colspan="2">
-				<input type="text"  class="widefat" id="mc4wp_checkbox_label" name="mc4wp_checkbox[label]" value="<?php echo esc_attr( $opts['label'] ); ?>" required />
+				<input type="text"  class="widefat" id="mc4wp_checkbox_label" name="mc4wp_integrations[label]" value="<?php echo esc_attr( $opts['label'] ); ?>" required />
 				<p class="help"><?php printf( __( 'HTML tags like %s are allowed in the label text.', 'mailchimp-for-wp' ), '<code>' . esc_html( '<strong><em><a>' ) . '</code>' ); ?></p>
 			</td>
 		</tr>
 		<tr valign="top">
 			<th scope="row"><?php _e( 'Pre-check the checkbox?', 'mailchimp-for-wp' ); ?></th>
-			<td class="nowrap"><label><input type="radio" name="mc4wp_checkbox[precheck]" value="1" <?php checked( $opts['precheck'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp; <label><input type="radio" name="mc4wp_checkbox[precheck]" value="0" <?php checked( $opts['precheck'], 0 ); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?></label></td>
+			<td class="nowrap"><label><input type="radio" name="mc4wp_integrations[precheck]" value="1" <?php checked( $opts['precheck'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp; <label><input type="radio" name="mc4wp_integrations[precheck]" value="0" <?php checked( $opts['precheck'], 0 ); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?></label></td>
 			<td class="desc"></td>
 		</tr>
 		<tr valign="top">
 			<th scope="row"><?php _e( 'Load some default CSS?', 'mailchimp-for-wp' ); ?></th>
-			<td class="nowrap"><label><input type="radio" name="mc4wp_checkbox[css]" value="1" <?php checked( $opts['css'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp; <label><input type="radio" name="mc4wp_checkbox[css]" value="0" <?php checked( $opts['css'], 0 ); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?></label></td>
+			<td class="nowrap"><label><input type="radio" name="mc4wp_integrations[css]" value="1" <?php checked( $opts['css'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp; <label><input type="radio" name="mc4wp_integrations[css]" value="0" <?php checked( $opts['css'], 0 ); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?></label></td>
 			<td class="desc"><?php _e( 'Select "yes" if the checkbox appears in a weird place.', 'mailchimp-for-wp' ); ?></td>
 		</tr>
 		<tr valign="top" id="woocommerce-settings" <?php if( ! $opts['show_at_woocommerce_checkout'] ) { ?>style="display: none;"<?php } ?>>
 			<th scope="row"><?php _e( 'WooCommerce checkbox position', 'mailchimp-for-wp' ); ?></th>
 			<td class="nowrap">
-				<select name="mc4wp_checkbox[woocommerce_position]">
+				<select name="mc4wp_integrations[woocommerce_position]">
 					<option value="billing" <?php selected( $opts['woocommerce_position'], 'billing' ); ?>><?php _e( 'After the billing details', 'mailchimp-for-wp' ); ?></option>
 					<option value="order" <?php selected( $opts['woocommerce_position'], 'order' ); ?>><?php _e( 'After the additional information', 'mailchimp-for-wp' ); ?></option>
 				</select>

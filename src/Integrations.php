@@ -26,10 +26,10 @@ class MC4WP_Integrations {
 	protected $assets;
 
 	/**
-	 * @param array $options
+	 * Constructor
 	 */
-	public function __construct( array $options ) {
-		$this->options = $options;
+	public function __construct() {
+		$this->options = mc4wp_get_options( 'integrations' );
 	}
 
 	/**

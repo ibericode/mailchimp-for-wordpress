@@ -8,7 +8,7 @@ return array(
 		'api_key' => ''
 	),
 
-	'checkbox' => array(
+	'integrations' => array(
 		'label' => __( 'Sign me up for the newsletter!', 'mailchimp-for-wp' ),
 		'precheck' => 1,
 		'css' => 0,
