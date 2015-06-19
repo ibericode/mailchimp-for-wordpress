@@ -156,6 +156,13 @@ class MC4WP_Integrations {
 	}
 
 	/**
+	 * @param $type
+	 */
+	public function get_integration_options( $type ) {
+		return $this->{$type}->options;
+	}
+
+	/**
 	 * Returns available checkbox integrations
 	 *
 	 * @return array

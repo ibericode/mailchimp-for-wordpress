@@ -121,7 +121,7 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 
 	<?php foreach( $integrations->get_available_integrations() as $type => $name ) { ?>
 	<div id="tab-<?php echo $type; ?>" class="mc4wp-tab" style="<?php if( $current_tab === $type ) { echo 'display: block;'; } ?>">
-		<p>Custom integration settings go here.. <?php // todo ?></p>
+		<?php include MC4WP_PLUGIN_DIR . 'src/views/parts/integration-specific-settings.php'; ?>
 	</div>
 	<?php } ?>
 

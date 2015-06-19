@@ -28,7 +28,8 @@ abstract class MC4WP_Integration_Base implements MC4WP_Integration_Interface {
 	public $default_options = array();
 
 	/**
-	* Constructor
+	 * Constructor
+	 * @param array $general_options
 	*/
 	public function __construct( array $general_options ) {
 
@@ -37,7 +38,8 @@ abstract class MC4WP_Integration_Base implements MC4WP_Integration_Interface {
 			$this->checkbox_name = '_mc4wp_subscribe' . '_' . $this->type;
 		}
 
-		$this->options = array_merge( $this->default_options, $general_options );
+		$custom_settings = ( isset( $general_options['custom_settings'][ $this->type ] ) ) ? $general_options['custom_settings'][ $this->type ] : array();
+		$this->options = array_merge( $general_options, $this->default_options, $custom_settings );
 	}
 
 	/**
