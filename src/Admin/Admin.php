@@ -291,6 +291,18 @@ class MC4WP_Admin {
 	}
 
 	/**
+	 * @param $type
+	 * @param $name
+	 */
+	public function show_integration_specific_settings( $type, $name ) {
+		$integrations = mc4wp()->integrations;
+		$opts = $integrations->get_integration_options( $type, false );
+		$inherited = $integrations->get_integration_options( $type );
+		$lists = MC4WP_MailChimp_Tools::get_lists();
+		include MC4WP_PLUGIN_DIR . 'src/views/parts/integration-specific-settings.php';
+	}
+
+	/**
 	* Show the forms settings page
 	*/
 	public function show_form_settings() {

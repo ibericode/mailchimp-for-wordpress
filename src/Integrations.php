@@ -157,8 +157,16 @@ class MC4WP_Integrations {
 
 	/**
 	 * @param $type
+	 * @param bool $inherit
+	 *
+	 * @return array
 	 */
-	public function get_integration_options( $type ) {
+	public function get_integration_options( $type, $inherit = true ) {
+
+		if( ! $inherit ) {
+			return $this->{$type}->custom_options;
+		}
+
 		return $this->{$type}->options;
 	}
 

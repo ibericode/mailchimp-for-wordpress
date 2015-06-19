@@ -28,6 +28,11 @@ abstract class MC4WP_Integration_Base implements MC4WP_Integration_Interface {
 	public $default_options = array();
 
 	/**
+	 * @var array Array of custom options for this integration
+	 */
+	public $custom_options = array();
+
+	/**
 	 * Constructor
 	 * @param array $general_options
 	*/
@@ -38,8 +43,9 @@ abstract class MC4WP_Integration_Base implements MC4WP_Integration_Interface {
 			$this->checkbox_name = '_mc4wp_subscribe' . '_' . $this->type;
 		}
 
-		$custom_settings = ( isset( $general_options['custom_settings'][ $this->type ] ) ) ? $general_options['custom_settings'][ $this->type ] : array();
-		$this->options = array_merge( $general_options, $this->default_options, $custom_settings );
+		$this->custom_options = ( isset( $general_options['custom_settings'][ $this->type ] ) ) ? $general_options['custom_settings'][ $this->type ] : array();
+		$this->custom_options = array_merge( $this->default_options, $this->custom_options );
+		$this->options = array_merge( $general_options, $this->custom_options );
 	}
 
 	/**
