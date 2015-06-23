@@ -256,7 +256,7 @@ class MC4WP_Admin {
 	* Show the API settings page
 	*/
 	public function show_api_settings() {
-		$opts = mc4wp_get_options( 'general' );
+		$opts = mc4wp()->options;
 		$connected = ( mc4wp()->get_api()->is_connected() );
 
 		// cache renewal triggered manually?
@@ -306,7 +306,7 @@ class MC4WP_Admin {
 	* Show the forms settings page
 	*/
 	public function show_form_settings() {
-		$opts = mc4wp_get_options( 'form' );
+		$opts = mc4wp()->forms->options;
 		$lists = MC4WP_MailChimp_Tools::get_lists();
 
 		require MC4WP_PLUGIN_DIR . 'src/views/form-settings.php';

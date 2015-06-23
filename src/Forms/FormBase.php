@@ -326,7 +326,7 @@ abstract class MC4WP_Form_Base {
 	 * @return array
 	 */
 	public function load_settings() {
-		return mc4wp_get_options( 'form' );
+		return mc4wp()->forms->options;
 	}
 
 	/**

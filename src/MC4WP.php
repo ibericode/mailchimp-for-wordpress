@@ -60,8 +60,7 @@ class MC4WP {
 	public function get_api() {
 
 		if( $this->api === null ) {
-			$opts = mc4wp_get_options();
-			$this->api = new MC4WP_API( $opts['general']['api_key'] );
+			$this->api = new MC4WP_API( $this->options['api_key'] );
 		}
 
 		return $this->api;
