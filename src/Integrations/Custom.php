@@ -156,12 +156,12 @@ class MC4WP_Custom_Integration extends MC4WP_Integration_Base {
 				$email = $value[0];
 			} else {
 
-				// simplify the key
-				$simple_key = str_replace( array( '-', '_' ), '', strtolower( $key ) );
+				// simplify the key by stripping space-like characters
+				$simple_key = str_replace( array( '-', '_', ' ' ), '', strtolower( $key ) );
 
 				if( ! $email && in_array( $simple_key, array( 'email', 'emailaddress', 'contactemail' ) ) ) {
 					$email = $value;
-				} else if( ! isset( $merge_vars['NAME'] ) && in_array( $simple_key, array( 'name', 'yourname', 'username', 'fullname', 'contactname' ) ) ) {
+				} else if( ! isset( $merge_vars['NAME'] ) && in_array( $simple_key, array( 'name', 'yourname', 'username', 'fullname', 'contactname', 'author' ) ) ) {
 					// find name field
 					$merge_vars['NAME'] = $value;
 				} elseif( ! isset( $merge_vars['FNAME'] ) && in_array( $simple_key, array( 'firstname', 'fname', 'givenname', 'forename' ) ) ) {
