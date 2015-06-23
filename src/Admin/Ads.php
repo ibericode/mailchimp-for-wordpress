@@ -1,6 +1,6 @@
 <?php
 
-class MC4WP_Promotional_Elements {
+class MC4WP_Admin_Ads {
 
 	public function add_hooks() {
 		add_action( 'admin_init', array( $this, 'listen' ) );

@@ -5,11 +5,18 @@
  *
  * todo: Change old "show_at_xxx_" to new option structure
  * todo: Upgrade integration types in database log table
+ * todo: Upgrade from custom text options
  */
-class MC4WP_Integrations {
+class MC4WP_Integrations_Manager {
 
+	/**
+	 * @var array
+	 */
 	protected $integrations = array();
 
+	/**
+	 * @var array
+	 */
 	protected $registered_integrations = array(
 		'comment_form' => 'Comment_Form',
 		'registration_form' => 'Registration_Form',
@@ -30,7 +37,7 @@ class MC4WP_Integrations {
 	public $options = array();
 
 	/**
-	 * @var MC4WP_Integration_AssetManager
+	 * @var MC4WP_Integrations_Assets
 	 */
 	public $asset_manager;
 
@@ -62,6 +69,14 @@ class MC4WP_Integrations {
 	}
 
 	/**
+	 *
+	 */
+	public function init() {
+		$this->add_hooks();
+		$this->init_integrations();
+	}
+
+	/**
 	 * Add hooks
 	 */
 	public function add_hooks() {
@@ -76,7 +91,7 @@ class MC4WP_Integrations {
 	 * @hooked `template_redirect`
 	 */
 	public function init_assets() {
-		$this->asset_manager = new MC4WP_Integration_AssetManager( $this->options );
+		$this->asset_manager = new MC4WP_Integrations_Assets( $this->options );
 		$this->asset_manager->add_hooks();
 	}
 
@@ -92,7 +107,7 @@ class MC4WP_Integrations {
 	/**
 	 * Init the various integrations
 	 */
-	public function load() {
+	public function init_integrations() {
 
 		// Load WP Comment Form Integration
 		if( $this->is_enabled( 'comment_form' ) ) {

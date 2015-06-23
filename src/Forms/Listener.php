@@ -1,6 +1,6 @@
 <?php
 
-class MC4WP_Form_Listener {
+class MC4WP_Forms_Listener {
 
 	/**
 	 * @param $data

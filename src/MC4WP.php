@@ -3,59 +3,55 @@
 class MC4WP {
 
 	/**
-	* @var MC4WP_Form_Manager
+	* @var MC4WP_Forms_Manager
 	*/
-	public $form_manager;
+	public $forms;
 
 	/**
-	 * @var MC4WP_Integrations
+	 * @var MC4WP_Integrations_Manager
 	 */
 	public $integrations;
 
 	/**
 	* @var MC4WP_API
 	*/
-	protected $api;
+	public $api;
+
+	/**
+	 * @var array
+	 */
+	public $options;
 
 	/**
 	* Constructor
 	*/
 	public function __construct() {
+
+		$this->options = $this->load_options();
+
 		// load integrations
-		$this->integrations = new MC4WP_Integrations();
-		$this->integrations->load();
+		$this->integrations = new MC4WP_Integrations_Manager();
+
+		// load forms
+		$this->forms = new MC4WP_Forms_Manager();
+	}
+
+	/**
+	 * Initialise plugin and sub-functionality
+	 */
+	public function init() {
+		$this->add_hooks();
+
+		$this->integrations->init();
+		$this->forms->init();
 	}
 
 	/**
 	 * Add hooks
 	 */
-	public function add_hooks() {
-		// forms
-		add_action( 'init', array( $this, 'init_form_listener' ) );
-		add_action( 'init', array( $this, 'init_form_manager' ) );
-
+	protected function add_hooks() {
 		// widget
 		add_action( 'widgets_init', array( $this, 'register_widget' ) );
-
-		$this->integrations->add_hooks();
-	}
-
-	/**
-	 * Initialise the form listener
-	 * @hooked `init`
-	 */
-	public function init_form_listener() {
-		$form_listener = new MC4WP_Form_Listener();
-		$form_listener->listen( $_POST );
-	}
-
-	/**
-	 * Initialise the form manager
-	 * @hooked `template_redirect`
-	 */
-	public function init_form_manager() {
-		$this->form_manager = new MC4WP_Form_Manager();
-		$this->form_manager->init();
 	}
 
 	/**
@@ -76,6 +72,16 @@ class MC4WP {
 	 */
 	public function register_widget() {
 		register_widget( 'MC4WP_Widget' );
+	}
+
+	/**
+	 * @return array
+	 */
+	public function load_options() {
+		$options = (array) get_option( 'mc4wp', array() );
+		$defaults = include MC4WP_PLUGIN_DIR . '/config/default-options.php';
+		$options = array_merge( $defaults['general'], $options );
+		return $options;
 	}
 
 }

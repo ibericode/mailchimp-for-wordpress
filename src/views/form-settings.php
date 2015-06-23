@@ -1,9 +1,7 @@
 <?php
-if( ! defined( 'MC4WP_VERSION' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-} ?>
+// die if accessed directly
+defined( 'ABSPATH' ) or exit;
+?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
 	<h2><img src="<?php echo MC4WP_PLUGIN_URL . 'assets/img/menu-icon.png'; ?>" /> <?php _e( 'MailChimp for WordPress', 'mailchimp-for-wp' ); ?>: <?php _e( 'Form Settings', 'mailchimp-for-wp' ); ?></h2>

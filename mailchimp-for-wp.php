@@ -56,7 +56,7 @@ function mc4wp_load_plugin() {
 
 	// Initialize the plugin and store an instance in the global scope
 	$mc4wp = mc4wp();
-	$mc4wp->add_hooks();
+	$mc4wp->init();
 
 	if( is_admin()
 	    && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
@@ -67,7 +67,7 @@ function mc4wp_load_plugin() {
 		$admin->load_translations();
 
 		// load promotional elements
-		$promotional_elements = new MC4WP_Promotional_Elements();
+		$promotional_elements = new MC4WP_Admin_Ads();
 		$promotional_elements->add_hooks();
 	}
 

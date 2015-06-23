@@ -3,12 +3,12 @@
 /**
 * This class takes care of all form related functionality
 */
-abstract class MC4WP_Form_Manager_Base {
+abstract class MC4WP_Forms_Manager_Base {
 
 	/**
 	 * @var array
 	 */
-	protected $options = array();
+	public $options = array();
 
 	/**
 	* @var int
@@ -16,25 +16,15 @@ abstract class MC4WP_Form_Manager_Base {
 	protected $outputted_forms_count = 0;
 
 	/**
-	 * @var bool Is the inline CSS printed already?
+	 * @var MC4WP_Forms_Assets
 	 */
-	protected $inline_css_printed = false;
-
-	/**
-	 * @var bool Is the inline JavaScript printed to the page already?
-	 */
-	protected $inline_js_printed = false;
-
-	/**
-	 * @var bool Whether to print the JS snippet "fixing" date fields
-	 */
-	protected $print_date_fallback = false;
+	public $assets;
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->options = mc4wp_get_options( 'form' );
+		$this->options = $this->load_options();
 	}
 
 	/**
@@ -42,92 +32,33 @@ abstract class MC4WP_Form_Manager_Base {
 	 */
 	public function init() {
 		$this->add_hooks();
-		$this->register_scripts();
-		$this->register_shortcodes();
 	}
 
 	/**
 	 * Adds the necessary hooks
 	 */
-	public function add_hooks() {
+	protected function add_hooks() {
 		// load checkbox css if necessary
-		add_action( 'wp_head', array( $this, 'print_css' ), 90 );
-		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
-
-		// enable shortcodes in text widgets
-		add_filter( 'widget_text', 'shortcode_unautop' );
-		add_filter( 'widget_text', 'do_shortcode', 11 );
+		add_action( 'init', array( $this, 'init_listener' ) );
+		add_action( 'template_redirect', array( $this, 'init_assets') );
 	}
 
 	/**
-	 * Registers the [mc4wp_form] shortcode
+	 * Initialise form assets
 	 */
-	protected function register_shortcodes() {
-		// register shortcodes
-		add_shortcode( 'mc4wp_form', array( $this, 'output_form' ) );
-
-		// @deprecated, use [mc4wp_form] instead
-		add_shortcode( 'mc4wp-form', array( $this, 'output_form' ) );
+	public function init_assets() {
+		$this->assets = new MC4WP_Forms_Assets( $this->options );
+		$this->assets->add_hooks();
 	}
 
 	/**
-	 * Register the various JS files used by the plugin
-	 */
-	protected function register_scripts() {
-		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-
-		// register placeholder script, which will later be enqueued for IE only
-		wp_register_script( 'mc4wp-placeholders', MC4WP_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), MC4WP_VERSION, true );
-
-		// register non-AJAX script (that handles form submissions)
-		wp_register_script( 'mc4wp-form-request', MC4WP_PLUGIN_URL . 'assets/js/form-request' . $suffix . '.js', array(), MC4WP_VERSION, true );
-	}
-
-	/**
-	* Load the form stylesheet(s)
-	*/
-	public function load_stylesheet( ) {
-
-		if ( ! $this->options['css'] ) {
-			return false;
-		}
-
-		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-
-		switch( $this->options['css'] ) {
-			case 'blue':
-			case 'red':
-			case 'green':
-			case 'dark':
-			case 'light':
-				return $this->load_theme_stylesheet( $suffix );
-				break;
-
-			default:
-			case 'default':
-			case 1:
-				wp_enqueue_style( 'mailchimp-for-wp-form', MC4WP_PLUGIN_URL . 'assets/css/form-reset' . $suffix . '.css', array(), MC4WP_VERSION, 'all' );
-			break;
-
-		}
-
-		return true;
-	}
-
-	/**
-	 * @param string $suffix
+	 * Initialise the form listener
 	 *
-	 * @return bool
+	 * @hooked `init`
 	 */
-	protected function load_theme_stylesheet( $suffix = '' ) {
-		// load one of the default form themes
-		$theme = $this->options['css'];
-		if( in_array( $theme, array( 'blue', 'green', 'dark', 'light', 'red' ) ) ) {
-			wp_enqueue_style( 'mailchimp-for-wp-form-theme-' . $theme, MC4WP_PLUGIN_URL . 'assets/css/form-theme-' . $theme . $suffix . '.css', array(), MC4WP_VERSION, 'all' );
-			return true;
-		}
-
-		return false;
+	public function init_listener() {
+		$listener = new MC4WP_Forms_Listener();
+		$listener->listen( $_POST );
 	}
 
 	/**
@@ -139,8 +70,6 @@ abstract class MC4WP_Form_Manager_Base {
 	* @return string
 	*/
 	public function output_form( $attributes = array(), $content = '' ) {
-
-		global $is_IE;
 
 		// increase count of outputted forms
 		$this->outputted_forms_count++;
@@ -169,7 +98,7 @@ abstract class MC4WP_Form_Manager_Base {
 
 		// make sure to print date fallback later on if form contains a date field
 		if( $form->contains_field_type( 'date' ) ) {
-			$this->print_date_fallback = true;
+			$this->assets->print_date_fallback = true;
 		}
 
 		// was form submited?
@@ -187,18 +116,19 @@ abstract class MC4WP_Form_Manager_Base {
 		}
 
 		// make sure scripts are enqueued later
+		global $is_IE;
 		if( isset( $is_IE ) && $is_IE ) {
 			wp_enqueue_script( 'mc4wp-placeholders' );
 		}
 
-		// Print small JS snippet later on in the footer.
-		add_action( 'wp_footer', array( $this, 'print_js' ), 99 );
+		// tell asset manager to print JavaScript snippet
+		$this->assets->print_js();
 
 		// Print CSS to hide honeypot (should be printed in `wp_head` by now)
 		$html = '';
 
 		// add inline css if it was not printed yet
-		$html .= $this->print_css( false );
+		$html .= $this->assets->print_css( false );
 
 		// output form
 		$html .= $form->output( $attributes['element_id'], $attributes, false );
@@ -207,104 +137,13 @@ abstract class MC4WP_Form_Manager_Base {
 	}
 
 	/**
-	 * Prints some inline CSS that hides the honeypot field
-	 * @param bool $echo
-	 * @return string
+	 * @return array
 	 */
-	public function print_css( $echo = true ) {
-
-		if( $this->inline_css_printed ) {
-			return '';
-		}
-
-		$html = '<style type="text/css">.mc4wp-form input[name="_mc4wp_required_but_not_really"] { display: none !important; }</style>';
-
-		if( $echo !== false ) {
-			echo $html;
-		}
-
-		// make sure this function only runs once
-		$this->inline_css_printed = true;
-
-		return $html;
-	}
-
-	/**
-	 * Prints some JavaScript to enhance the form functionality
-	 *
-	 * This is only printed on pages that actually contain a form.
-	 */
-	public function print_js() {
-
-		if( $this->inline_js_printed === true ) {
-			return false;
-		}
-
-		// Print vanilla JavaScript
-		?><script type="text/javascript">
-			(function() {
-				function addSubmittedClassToFormContainer(e) {
-					var form = e.target.form.parentNode;
-					var className = 'mc4wp-form-submitted';
-					(form.classList) ? form.classList.add(className) : form.className += ' ' + className;
-				}
-
-				function hideHoneypot(h) {
-					var n = document.createElement('input');
-					n.type = 'hidden';
-					n.name = h.name;
-					n.style.display = 'none';
-					n.value = h.value;
-					h.parentNode.replaceChild(n,h);
-				}
-
-				var forms = document.querySelectorAll('.mc4wp-form');
-				for (var i = 0; i < forms.length; i++) {
-					(function(f) {
-
-						// make sure honeypot is hidden
-						var h = f.querySelector('input[name="_mc4wp_required_but_not_really"]');
-						if(h) {
-							hideHoneypot(h);
-						}
-
-						// add class on submit
-						var b = f.querySelector('[type="submit"]');
-						if(b.addEventListener) {
-							b.addEventListener('click', addSubmittedClassToFormContainer);
-						} else {
-							b.attachEvent('click', addSubmittedClassToFormContainer);
-						}
-
-					})(forms[i]);
-				}
-			})();
-
-			<?php if( $this->print_date_fallback ) { ?>
-			(function() {
-				// test if browser supports date fields
-				var testInput = document.createElement('input');
-				testInput.setAttribute('type', 'date');
-				if( testInput.type !== 'date') {
-
-					// add placeholder & pattern to all date fields
-					var dateFields = document.querySelectorAll('.mc4wp-form input[type="date"]');
-					for(var i=0; i<dateFields.length; i++) {
-						if(!dateFields[i].placeholder) {
-							dateFields[i].placeholder = 'yyyy/mm/dd';
-						}
-						if(!dateFields[i].pattern) {
-							dateFields[i].pattern = '(?:19|20)[0-9]{2}/(?:(?:0[1-9]|1[0-2])/(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])/(?:30))|(?:(?:0[13578]|1[02])-31))';
-						}
-					}
-				}
-			})();
-			<?php } ?>
-		</script><?php
-
-		// make sure this function only runs once
-		$this->inline_js_printed = true;
-		return true;
+	public function load_options() {
+		$options = (array) get_option( 'mc4wp_form', array() );
+		$defaults = include MC4WP_PLUGIN_DIR . '/config/default-options.php';
+		$options = array_merge( $defaults['form'], $options );
+		return $options;
 	}
 
 }
