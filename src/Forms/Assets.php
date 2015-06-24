@@ -43,7 +43,7 @@ class MC4WP_Forms_Assets {
 	/**
 	 * Adds the necessary hooks
 	 */
-	public function add_hooks() {
+	protected function add_hooks() {
 		// load checkbox css if necessary
 		add_action( 'wp_head', array( $this, 'print_css' ), 90 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
@@ -51,17 +51,6 @@ class MC4WP_Forms_Assets {
 		// enable shortcodes in text widgets
 		add_filter( 'widget_text', 'shortcode_unautop' );
 		add_filter( 'widget_text', 'do_shortcode', 11 );
-	}
-
-	/**
-	 * Registers the [mc4wp_form] shortcode
-	 */
-	protected function register_shortcodes() {
-		// register shortcodes
-		add_shortcode( 'mc4wp_form', array( $this, 'output_form' ) );
-
-		// @deprecated, use [mc4wp_form] instead
-		add_shortcode( 'mc4wp-form', array( $this, 'output_form' ) );
 	}
 
 	/**
@@ -229,6 +218,40 @@ class MC4WP_Forms_Assets {
 		// make sure this function only runs once
 		$this->inline_js_printed = true;
 		return true;
+	}
+
+	/**
+	 * @param MC4WP_Form $form
+	 */
+	public function print_form_assets( MC4WP_Form $form ) {
+
+		// make sure to print date fallback later on if form contains a date field
+		if( $form->contains_field_type( 'date' ) ) {
+			$this->print_date_fallback = true;
+		}
+
+		// if form was submitted, print scripts (only once)
+		if( $form->is_submitted() && ! wp_script_is( 'mc4wp-form-request', 'enqueued' ) ) {
+
+			// enqueue scripts (in footer) if form was submited
+			wp_enqueue_script( 'mc4wp-form-request' );
+			wp_localize_script( 'mc4wp-form-request', 'mc4wpFormRequestData', array(
+					'success' => ( $form->request->success ) ? 1 : 0,
+					'formElementId' => $form->request->config['form_element_id'],
+					'data' => $form->request->data,
+				)
+			);
+
+		}
+
+		// make sure scripts are enqueued later
+		global $is_IE;
+		if( isset( $is_IE ) && $is_IE ) {
+			wp_enqueue_script( 'mc4wp-placeholders' );
+		}
+
+		// print snippet of JS
+		$this->print_js();
 	}
 
 }

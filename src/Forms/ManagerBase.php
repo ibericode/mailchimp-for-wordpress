@@ -16,11 +16,6 @@ abstract class MC4WP_Forms_Manager_Base {
 	protected $outputted_forms_count = 0;
 
 	/**
-	 * @var MC4WP_Forms_Assets
-	 */
-	public $assets;
-
-	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -28,10 +23,26 @@ abstract class MC4WP_Forms_Manager_Base {
 	}
 
 	/**
+	 * @param $name
+	 *
+	 * @return MC4WP_Forms_Assets|null
+	 */
+	public function __get( $name ) {
+
+		if( $name === 'assets' ) {
+			$this->assets = new MC4WP_Forms_Assets( $this->options );
+			return $this->assets;
+		}
+
+		return null;
+	}
+
+	/**
 	 * Init all form related functionality
 	 */
 	public function init() {
 		$this->add_hooks();
+		$this->register_shortcodes();
 	}
 
 	/**
@@ -44,11 +55,22 @@ abstract class MC4WP_Forms_Manager_Base {
 	}
 
 	/**
+	 * Registers the [mc4wp_form] shortcode
+	 */
+	protected function register_shortcodes() {
+		// register shortcodes
+		add_shortcode( 'mc4wp_form', array( $this, 'output_form' ) );
+
+		// @deprecated, use [mc4wp_form] instead
+		add_shortcode( 'mc4wp-form', array( $this, 'output_form' ) );
+	}
+
+	/**
 	 * Initialise form assets
+	 * @hooked `template_redirect`
 	 */
 	public function init_assets() {
-		$this->assets = new MC4WP_Forms_Assets( $this->options );
-		$this->assets->add_hooks();
+		$this->assets->init();
 	}
 
 	/**
@@ -74,14 +96,8 @@ abstract class MC4WP_Forms_Manager_Base {
 		// increase count of outputted forms
 		$this->outputted_forms_count++;
 
-		$attributes = shortcode_atts(
-			array(
-				'id' => 0,
-				'element_id' => 'mc4wp-form-' . $this->outputted_forms_count,
-			),
-			$attributes,
-			'mc4wp_form'
-		);
+		// parse shortcode attributes (sets up defaults too)
+		$attributes = $this->parse_shortcode_attributes( $attributes );
 
 		// create or retrieve form instance
 		$form = MC4WP_Form::get( $attributes['id'] );
@@ -96,44 +112,16 @@ abstract class MC4WP_Forms_Manager_Base {
 			return '';
 		}
 
-		// make sure to print date fallback later on if form contains a date field
-		if( $form->contains_field_type( 'date' ) ) {
-			$this->assets->print_date_fallback = true;
-		}
+		// tell asset manager to print assets for this form
+		$this->assets->print_form_assets( $form );
 
-		// was form submited?
-		if( $form->is_submitted( $attributes['element_id'] ) ) {
-
-			// enqueue scripts (in footer) if form was submited
-			wp_enqueue_script( 'mc4wp-form-request' );
-			wp_localize_script( 'mc4wp-form-request', 'mc4wpFormRequestData', array(
-					'success' => ( $form->request->success ) ? 1 : 0,
-					'formElementId' => $form->request->config['form_element_id'],
-					'data' => $form->request->data,
-				)
-			);
-
-		}
-
-		// make sure scripts are enqueued later
-		global $is_IE;
-		if( isset( $is_IE ) && $is_IE ) {
-			wp_enqueue_script( 'mc4wp-placeholders' );
-		}
-
-		// tell asset manager to print JavaScript snippet
-		$this->assets->print_js();
-
-		// Print CSS to hide honeypot (should be printed in `wp_head` by now)
-		$html = '';
-
-		// add inline css if it was not printed yet
-		$html .= $this->assets->print_css( false );
+		// add inline css to form output if it was not printed yet
+		$content .= $this->assets->print_css( false );
 
 		// output form
-		$html .= $form->output( $attributes['element_id'], $attributes, false );
+		$content .= $form->output( $attributes['element_id'], $attributes, false );
 
-		return $html;
+		return $content;
 	}
 
 	/**
@@ -144,6 +132,25 @@ abstract class MC4WP_Forms_Manager_Base {
 		$defaults = include MC4WP_PLUGIN_DIR . '/config/default-options.php';
 		$options = array_merge( $defaults['form'], $options );
 		return $options;
+	}
+
+	/**
+	 * @param array $attributes
+	 *
+	 * @return array
+	 */
+	protected function parse_shortcode_attributes( array $attributes ) {
+
+		$defaults = array(
+			'id' => 0,
+			'element_id' => 'mc4wp-form-' . $this->outputted_forms_count,
+		);
+
+		return shortcode_atts(
+			$defaults,
+			$attributes,
+			'mc4wp_form'
+		);
 	}
 
 }
