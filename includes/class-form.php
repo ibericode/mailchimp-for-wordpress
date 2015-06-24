@@ -296,7 +296,7 @@ class MC4WP_Form {
 		 *
 		 * Can be used to add additional CSS classes to the form container
 		 */
-		$css_classes = apply_filters( 'mc4wp_form_css_classes', array( 'form' ) );
+		$css_classes = apply_filters( 'mc4wp_form_css_classes', array( 'form' ), $this );
 
 		// the following classes MUST be used
 		$css_classes[] = 'mc4wp-form';
