@@ -71,7 +71,7 @@ class MC4WP_Upgrade_Routine {
 
 			// make sure custom settings exist for this integration
 			if( ! isset( $options['custom_settings'][ $new_key ] ) ) {
-				$options['custom_settings'] = array();
+				$options['custom_settings'][ $new_key ] = array();
 			}
 
 			// update "show_at_xxx" value
