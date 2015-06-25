@@ -1,4 +1,7 @@
 <?php defined( 'ABSPATH' ) or exit; ?>
+
+<p><?php printf( __( 'You can leave these settings as-is or override the general settings just for the %s integration', 'mailchimp-for-wp' ), $name ); ?></p>
+
 <table class="form-table">
 
 	<?php $isset = ( isset( $opts['lists'] ) ); ?>

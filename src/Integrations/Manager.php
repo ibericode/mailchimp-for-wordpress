@@ -3,9 +3,7 @@
 /**
  * Class MC4WP_Integrations
  *
- * todo: Change old "show_at_xxx_" to new option structure
  * todo: Upgrade integration types in database log table
- * todo: Upgrade from custom text options
  */
 class MC4WP_Integrations_Manager {
 
@@ -28,7 +26,6 @@ class MC4WP_Integrations_Manager {
 		'events_manager'  => 'Events_Manager',
 		'multisite' => 'MultiSite',
 		'custom'  => 'Custom',
-
 	);
 
 	/**
