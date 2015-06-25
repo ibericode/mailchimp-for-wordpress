@@ -77,6 +77,22 @@ class MC4WP_Admin {
 
 		// Only run if db option is at older version than code constant
 		$db_version = get_option( 'mc4wp_version', 0 );
+
+		// Option not found.
+		// Either plugin is installed for first time or coming from pre-3.0 lite version
+		if( ! $db_version ) {
+
+			/**
+			 * Upgrade routine for the upgrade routine..... (mc4wp_lite_version => mc4wp_version)
+			 *
+			 * @since 3.0
+			 */
+			$db_version = get_option( 'mc4wp_lite_version', 0 );
+			if( $db_version ) {
+				delete_option( 'mc4wp_lite_version' );
+			}
+		}
+
 		if( version_compare( MC4WP_VERSION, $db_version, '<=' ) ) {
 			return false;
 		}

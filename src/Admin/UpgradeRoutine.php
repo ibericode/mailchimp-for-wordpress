@@ -51,8 +51,8 @@ class MC4WP_Upgrade_Routine {
 	 * @since 3.0
 	 */
 	protected function change_integration_option_structure() {
-		$options = get_option( 'mc4wp_integrations' );
-
+		$options = get_option( 'mc4wp_integrations', array() );
+		
 		if( ! isset( $options['custom_settings'] ) ) {
 			$options['custom_settings'] = array();
 		}
