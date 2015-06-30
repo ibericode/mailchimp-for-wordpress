@@ -57,8 +57,7 @@ abstract class MC4WP_Integration {
 		}
 
 		// check user agent
-		$user_agent = substr( $_SERVER['HTTP_USER_AGENT'], 0, 254 );
-		if( strlen( $user_agent ) < 2 ) {
+		if( ! isset( $_SERVER['HTTP_USER_AGENT'] ) || strlen( $_SERVER['HTTP_USER_AGENT'] ) < 2 ) {
 			return true;
 		}
 
