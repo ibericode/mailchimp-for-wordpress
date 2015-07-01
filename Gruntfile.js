@@ -58,11 +58,11 @@ module.exports = function(grunt) {
 				tasks: [ 'uglify' ]
 			},
 			css: {
-				files: 'assets/css/*.css',
+				files: [ 'assets/css/*.css', '!assets/css/*.min.css' ],
 				tasks: [ 'cssmin' ]
 			},
 			scss: {
-				files: 'assets/sass/*.scss',
+				files: [ 'assets/sass/**' ],
 				tasks: [ 'sass' ]
 			}
 		}
