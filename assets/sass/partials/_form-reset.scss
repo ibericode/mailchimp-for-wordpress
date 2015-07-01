@@ -1,118 +1,117 @@
 
 /* MailChimp for WP - Default Form Styles */
 .mc4wp-form{
-  margin: 1em 0;
+	margin: 1em 0;
 
-  /* Form Elements */
-  form{
-    width: auto;
-  }
+	form,
+	label,
+	input {
+		width: auto;
+		display: block;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		cursor: auto;
+		height: auto;
+		vertical-align: baseline;
+		line-height: normal;
+	}
 
-  label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
+	/* Form Elements */
+	label {
+		font-weight: bold;
+		margin-bottom: 5px;
+	}
 
-  input {
-    vertical-align: baseline;
+	input {
 
-    // style placeholder polyfill
-    &.placeholdersjs {
-        color: #aaa !important;
-    }
+		// style placeholder polyfill
+		&.placeholdersjs {
+			color: #aaa !important;
+		}
 
-  }
+	}
 
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  input[type="url"],
-  input[type="date"],
-  textarea,
-  select {
-    cursor: auto;
-    display: block;
-    width: 100%;
-    height: auto;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-  }
+	input[type="text"],
+	input[type="email"],
+	input[type="tel"],
+	input[type="url"],
+	input[type="date"],
+	textarea,
+	select {
+		width: 100%;
+	}
 
-  input[type="checkbox"],
-  input[type="radio"] {
-    position: relative;
-    margin: 0 6px 0 0;
-    padding: 0;
-    height: 13px;
-    width: 13px;
-    display: inline-block;
-    border: 0;
-  }
+	input[type="number"] {
+		min-width: 40px;
+	}
 
-  input[type="checkbox"] {
-    -webkit-appearance: checkbox;
-  }
+	input[type="checkbox"],
+	input[type="radio"] {
+		position: relative;
+		margin: 0 6px 0 0;
+		padding: 0;
+		height: 13px;
+		width: 13px;
+		display: inline-block;
+		border: 0;
+	}
 
-  input[type="radio"] {
-    -webkit-appearance: radio;
-  }
+	input[type="checkbox"] {
+		-webkit-appearance: checkbox;
+	}
 
-  input[name="_mc4wp_required_but_not_really"] {
-    display: none !important;
-  }
+	input[type="radio"] {
+		-webkit-appearance: radio;
+	}
 
-  input[type="submit"],
-  button,
-  input[type="button"] {
-    cursor: pointer;
-    display: inline-block;
-  }
+	input[name="_mc4wp_required_but_not_really"] {
+		display: none !important;
+	}
 
-  /* Other elements */
-  ul,
-  li {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+	input[type="submit"],
+	button,
+	input[type="button"] {
+		cursor: pointer;
+		display: inline-block;
+	}
 
-  label > span,
-  li > label {
-    font-weight: normal;
-  }
+	/* Remove font-weight bold from nested elements */
+	label > span,
+	li > label {
+		font-weight: normal;
+	}
 
 
 }
 
 .mc4wp-alert{
-  margin: 1em 0;
-  padding: 10px 15px;
-  color: #c09853;
-  background-color: #fcf8e3;
-  border: 1px solid #fbeed5;
-  border-radius: 2px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  display: block;
-  position: relative;
+	margin: 1em 0;
+	padding: 10px 15px;
+	color: #c09853;
+	background-color: #fcf8e3;
+	border: 1px solid #fbeed5;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	display: block;
+	position: relative;
 }
 
 .mc4wp-success {
-  color: #468847;
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
+	color: #468847;
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
 }
 
 .mc4wp-notice {
-  color: #3a87ad;
-  background-color: #d9edf7;
-  border-color: #bce8f1;
+	color: #3a87ad;
+	background-color: #d9edf7;
+	border-color: #bce8f1;
 }
 
 .mc4wp-error {
-  color: #b94a48;
-  background-color: #f2dede;
-  border-color: #eed3d7;
+	color: #b94a48;
+	background-color: #f2dede;
+	border-color: #eed3d7;
 }
