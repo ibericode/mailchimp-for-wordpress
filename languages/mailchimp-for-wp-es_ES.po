@@ -1,6 +1,7 @@
 # Copyright (C) 2015 Danny van Kooten
 # This file is distributed under the GPL v3.
 # Translators:
+# Carlos Faria <carlosgarciafaria@gmail.com>, 2015
 # eldietista <info@eldietista.es>, 2014
 # José Manuel Lucas <josemanuel@jmlweb.es>, 2015
 # jose Miranda <joseamirandavelez@gmail.com>, 2014
@@ -12,8 +13,8 @@ msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-05-26 14:41:46+00:00\n"
-"PO-Revision-Date: 2015-05-26 14:42+0000\n"
-"Last-Translator: Danny van Kooten <dannyvankooten@gmail.com>\n"
+"PO-Revision-Date: 2015-06-26 09:37+0000\n"
+"Last-Translator: Carlos Faria <carlosgarciafaria@gmail.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/projects/p/mailchimp-for-wordpress/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -131,7 +132,7 @@ msgstr "Suscribir"
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:292
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:616
 msgid "Unsubscribe"
-msgstr ""
+msgstr "Borrarse de la lista"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:316
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:654
@@ -258,12 +259,12 @@ msgstr "Por favor rellena los campos solicitados."
 #: mailchimp-for-wordpress/includes/functions/general.php:50
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:40
 msgid "You were successfully unsubscribed."
-msgstr ""
+msgstr "Has sido borrado correctamente."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:51
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:41
 msgid "Given email address is not subscribed."
-msgstr ""
+msgstr "El correo proporcionado no está suscrito."
 
 #: mailchimp-for-wordpress/includes/integrations/class-cf7.php:55
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:52
@@ -748,7 +749,7 @@ msgstr ""
 #: mailchimp-for-wordpress/includes/views/form-settings.php:195
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:140
 msgid "Successfully subscribed"
-msgstr ""
+msgstr "Suscrito con éxito"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:198
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:156
@@ -1058,7 +1059,7 @@ msgstr "Este plugin no es desarrollado ni esta afiliado a MailChimp de ninguna m
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:9
 msgid "Looking for help?"
-msgstr ""
+msgstr "¿Buscas ayuda?"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:10
 msgid ""
@@ -1884,7 +1885,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:252
 msgid "Advanced"
-msgstr ""
+msgstr "Avanzado"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:256
 msgid "CSS Selector Prefix"
@@ -1898,7 +1899,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:261
 msgid "Manual CSS"
-msgstr ""
+msgstr "CSS Manual"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:261
 msgid ""
@@ -1907,17 +1908,17 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:269
 msgid "Copy styles from other form"
-msgstr ""
+msgstr "Copiar estilos desde otro formulario"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:283
 msgid "Copy Styles"
-msgstr ""
+msgstr "Copiar Estilos"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:283
 msgid ""
 "Are you sure you want to copy form styles from another form? This will "
 "overwrite current styles for this form."
-msgstr ""
+msgstr "¿Estás seguro que quieres copiar los estilos desde otro formulario? Esto sobreescribirá los estilos actuales de este formulario."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:298
 msgid "Are you sure you want to delete all custom styles for this form?"
@@ -1929,7 +1930,7 @@ msgstr "Elimina los estilos del formulario"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:305
 msgid "Form preview"
-msgstr ""
+msgstr "Previsualización del formulario"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:8
 msgid "Sign-Up Forms"
