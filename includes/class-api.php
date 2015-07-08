@@ -154,6 +154,8 @@ class MC4WP_API {
 	public function get_lists( $list_ids = array() ) {
 		$args = array(
 			'limit' => 100,
+			'sort_field' => 'web',
+			'sort_dir' => 'ASC',
 		);
 
 		// set filter if the $list_ids parameter was set
