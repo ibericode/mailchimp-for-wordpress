@@ -141,12 +141,15 @@ class MC4WP_Lite_Form_Manager {
 		// was form submited?
 		if( $form->is_submitted( $attributes['element_id'] ) ) {
 
-			// enqueue scripts (in footer) if form was submited
+			// enqueue scripts (in footer) if form was submitted
+			$animate_scroll = apply_filters( 'mc4wp_form_animate_scroll', true );
+
 			wp_enqueue_script( 'mc4wp-form-request' );
 			wp_localize_script( 'mc4wp-form-request', 'mc4wpFormRequestData', array(
 					'success' => ( $form->request->success ) ? 1 : 0,
 					'formElementId' => $form->request->form_element_id,
 					'data' => $form->request->user_data,
+					'animate_scroll' => $animate_scroll
 				)
 			);
 

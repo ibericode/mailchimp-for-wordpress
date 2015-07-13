@@ -29,8 +29,9 @@
 				self.repopulate();
 			}
 
-			self.scrollTo();
-			return true;
+			if( request.animate_scroll ) {
+				self.scrollTo();
+			}
 		}
 
 		/**
