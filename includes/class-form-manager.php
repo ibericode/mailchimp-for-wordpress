@@ -226,13 +226,13 @@ class MC4WP_Lite_Form_Manager {
 				for (var i = 0; i < forms.length; i++) {
 					(function(f) {
 
-						// make sure honeypot is hidden
+						/* make sure honeypot is hidden */
 						var h = f.querySelector('input[name="_mc4wp_required_but_not_really"]');
 						if(h) {
 							hideHoneypot(h);
 						}
 
-						// add class on submit
+						/* add class on submit */
 						var b = f.querySelector('[type="submit"]');
 						if(b.addEventListener) {
 							b.addEventListener('click', addSubmittedClassToFormContainer);
@@ -246,12 +246,12 @@ class MC4WP_Lite_Form_Manager {
 
 			<?php if( $this->print_date_fallback ) { ?>
 			(function() {
-				// test if browser supports date fields
+				/* test if browser supports date fields */
 				var testInput = document.createElement('input');
 				testInput.setAttribute('type', 'date');
 				if( testInput.type !== 'date') {
 
-					// add placeholder & pattern to all date fields
+					/* add placeholder & pattern to all date fields */
 					var dateFields = document.querySelectorAll('.mc4wp-form input[type="date"]');
 					for(var i=0; i<dateFields.length; i++) {
 						if(!dateFields[i].placeholder) {
