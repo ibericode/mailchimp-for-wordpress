@@ -1,14 +1,15 @@
 # Copyright (C) 2015 Danny van Kooten
 # This file is distributed under the GPL v3.
 # Translators:
+# A.Mehraban <Mehr.Ban@chmail.ir>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-05-26 14:41:46+00:00\n"
-"PO-Revision-Date: 2015-06-11 13:09+0000\n"
-"Last-Translator: AmirMahmood\n"
-"Language-Team: Persian (Iran) (http://www.transifex.com/projects/p/mailchimp-for-wordpress/language/fa_IR/)\n"
+"PO-Revision-Date: 2015-07-06 11:53+0000\n"
+"Last-Translator: A.Mehraban <Mehr.Ban@chmail.ir>\n"
+"Language-Team: Persian (Iran) (http://www.transifex.com/p/mailchimp-for-wordpress/language/fa_IR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,7 +37,7 @@ msgstr "به MailChimp for WordPress Pro ارتقاع دهید"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:179
 msgid "MailChimp API Settings"
-msgstr "MailChimp API Settings"
+msgstr "تنظیمات API مربوط به MailChimp"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:180
 msgid "MailChimp"
@@ -52,7 +53,7 @@ msgstr "تنظیمات چک باکس"
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:186
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:507
 msgid "Checkboxes"
-msgstr "چک باکس ها"
+msgstr "چک باکس‌ها"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:191
 #: mailchimp-for-wordpress/includes/views/form-settings.php:9
@@ -71,7 +72,7 @@ msgstr "فرم‌ها"
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:196
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:197
 msgid "Upgrade to Pro"
-msgstr "ارتقاع به Pro"
+msgstr "ارتقاع به نسخه Pro"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:283
 msgid "This option is only available in MailChimp for WordPress Pro."
@@ -193,7 +194,7 @@ msgstr "عنوان:"
 msgid ""
 "You can edit your sign-up form in the <a href=\"%s\">MailChimp for WordPress"
 " form settings</a>."
-msgstr "شما می توانید فرم ثبت نام خود را از<a href=\"%s\">MailChimp for WordPress form settings</a> ویرایش کنید."
+msgstr "شما می توانید فرم ثبت نام خود را از<a href=\"%s\">بخش تنظیمات میل چمپ</a> ویرایش کنید."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:15
 #: mailchimp-for-wordpress-pro/includes/class-mailchimp.php:135
@@ -227,7 +228,7 @@ msgstr "باتشکر از شما, درخواست ثبت نام شما با مو�
 #: mailchimp-for-wordpress/includes/functions/general.php:45
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:35
 msgid "Oops. Something went wrong. Please try again later."
-msgstr "اوه ه ه ! مشکلی پیش آمده ، لطفا دوباره تلاش کنید."
+msgstr "آخخخخخ ! مشکلی پیش آمده ، لطفا دوباره تلاش کنید."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:46
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:36
@@ -386,7 +387,7 @@ msgstr "تنظیمات"
 #: mailchimp-for-wordpress/includes/views/api-settings.php:22
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:19
 msgid "API Settings"
-msgstr "API Settings"
+msgstr "تنظمیات API"
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:24
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:21
@@ -401,17 +402,17 @@ msgstr "وصل نشده"
 #: mailchimp-for-wordpress/includes/views/api-settings.php:32
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:29
 msgid "API Key"
-msgstr "API KEY"
+msgstr "کلید API"
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:34
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:31
 msgid "Your MailChimp API key"
-msgstr "MailChimp API key شما"
+msgstr "کلید API مربوط MailChimp شما"
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:35
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:32
 msgid "Get your API key here."
-msgstr "API KEY خود را از اینجا دریافت کنید."
+msgstr "کلید API خود را از اینجا دریافت کنید."
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:47
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:48
@@ -537,7 +538,7 @@ msgstr "اگر چک باکس در یک مکان عجیب و غریب ظاهر ش
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:100
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:122
 msgid "WooCommerce checkbox position"
-msgstr "موقعیت چک باکس WooCommerce "
+msgstr "موقعیت چک باکس ووکامرس"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:103
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:125
@@ -553,7 +554,7 @@ msgstr "پس از اطلاعات اضافی"
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:129
 msgid ""
 "Choose the position for the checkbox in your WooCommerce checkout form."
-msgstr "موقعیت چک باکس را برای فرم پرداخت WooCommerce  خود انتخاب کنید."
+msgstr "موقعیت چک باکس را برای فرم پرداخت ووکامرس خود انتخاب کنید."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:15
 msgid ""
@@ -702,13 +703,13 @@ msgstr "تنظیمات فرم و پیام ها"
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:94
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:113
 msgid "Enable AJAX form submission?"
-msgstr "فعال سازی فرم AJAX ثبت نام؟"
+msgstr "فرم‌ثبت نام به صورت آجاکس فعال شود؟"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:171
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:108
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:118
 msgid "Select \"yes\" if you want to use AJAX (JavaScript) to submit forms."
-msgstr "اگر می خواهید از AJAX در فرم های ثبت نام استفاده کنید \"بله\" را انتخاب کنید."
+msgstr "اگر می خواهید از آجاکس در فرم های ثبت نام استفاده کنید \"بله\" را انتخاب کنید."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:174
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:112
@@ -726,7 +727,7 @@ msgstr "اگر می خواهید بعد از آن که ثبت نام با موف
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:130
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:129
 msgid "Redirect to URL after successful sign-ups"
-msgstr "Redirect به URL دلخواه بعد از اتمام موفق ثبت نام"
+msgstr "انتقال به آدرس دلخواه بعد از اتمام موفق ثبت نام"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:190
 msgid "Example: %s"
@@ -737,12 +738,12 @@ msgstr "مثال: %s"
 msgid ""
 "Leave empty or enter <code>0</code> for no redirect. Otherwise, use complete"
 " (absolute) URLs, including <code>http://</code>."
-msgstr "برای redirect نکردن خالی بگذارید و یا <code>0</code> وارد کنید. در غیر این صورت آدرس را کامل وارد کنید ، همراه با <code>http://</code>."
+msgstr "برای عدم انتقال خالی بگذارید و یا <code>0</code> وارد کنید. و در صورت تمایل به انتقال آدرس را کامل وارد کنید، همراه با <code>http://</code>."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:195
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:140
 msgid "Successfully subscribed"
-msgstr "اشتراک موفق"
+msgstr "اشتراک با موفقیت انجام شد"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:198
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:156
@@ -845,7 +846,7 @@ msgstr "برچسب های HTML مانند %s را در فیلدهای پیام �
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:266
 msgid "Form Styling"
-msgstr "Form Styling"
+msgstr "در حال طراحی فرم"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:267
 msgid "Alter the visual appearance of the form by applying CSS rules to %s."
@@ -855,20 +856,20 @@ msgstr "تغییر ظاهری فرم با استفاده از قواعد CSS "
 msgid ""
 "You can add the CSS rules to your theme stylesheet using the <a "
 "href=\"%s\">Theme Editor</a> or by using a plugin like %s"
-msgstr "شما با استفاده <a href=\"%s\">Theme Editor</a> و یا استفاده از افزونه %s میتوانید قواعد جدیدی به قالب stylesheet خود اضافه کنید."
+msgstr "شما با استفاده <a href=\"%s\">ویرایشگر قالب</a> و یا استفاده از افزونه %s میتوانید قواعد جدیدی به قالب stylesheet خود اضافه کنید."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:269
 msgid ""
 "The <a href=\"%s\" target=\"_blank\">plugin FAQ</a> lists the various CSS "
 "selectors you can use to target the different form elements."
-msgstr "در <a href=\"%s\" target=\"_blank\">plugin FAQ</a> شما می توانید موارد مختلفی از CSS هارا ببینید و از آن ها برای ایجاد المنت های مختلف استفاده کنید."
+msgstr "در <a href=\"%s\" target=\"_blank\">plugin FAQ</a> شما می توانید موارد مختلفی از CSS هارا ببینید و از آن ها برای ایجاد المنت‌های مختلف استفاده کنید."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:270
 msgid ""
 "If you need an easier way to style your forms, consider <a "
 "href=\"%s\">upgrading to MailChimp for WordPress Pro</a> which comes with an"
 " easy Styles Builder."
-msgstr "اگر شما به یک راه ساده تر برای استایل فرم های خود نیاز دارید ، افزونه را به <a href=\"%s\">MailChimp for WordPress Pro</a> ارتقاع دهید تا برایتانStyles Builder فعال شود."
+msgstr "اگر شما به یک راه ساده تر برای استایل فرم های خود نیاز دارید ، افزونه را به <a href=\"%s\">نسخه حرفه‌ای میل چمپ</a> ارتقاع دهید تا برایتان \"سازنده استایل\" فعال شود."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:272
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:366
@@ -975,11 +976,11 @@ msgstr "انتخاب فیلد MailChimp.."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:19
 msgid "Submit Button"
-msgstr "Submit Button"
+msgstr "دکمه ثبت و ارسال"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:20
 msgid "Subscribe / unsubscribe choice"
-msgstr "Subscribe / unsubscribe choice"
+msgstr "انتخاب اشتراک و یا لغو اشتراک"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:21
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:40
@@ -994,12 +995,12 @@ msgstr "برچسب"
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:34
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:54
 msgid "Placeholder"
-msgstr "Placeholderش"
+msgstr "نگهدارنده مکان"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:44
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:64
 msgid "Labels"
-msgstr "Labels"
+msgstr "برچسب"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:44
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:64
@@ -1036,19 +1037,19 @@ msgid ""
 "translated in your language or do you spot errors with the current "
 "translations? Helping out is easy! Head over to <a href=\"%s\">the "
 "translation project and click \"help translate\"</a>."
-msgstr "این افزونه به زبان فارسی توسط <a href=\"http://mirzargar.com\"> Mirzargar </a> ترجمه شده است و با ارایه هر بروزرسانی افزونه بهینه تر خواهد شد. اگر مایل هستید که ترجمه های دیگری را از این افزونه ارایه دهید و به بهود آن کمک کنید از بخش <a href=\"%s\"> پروژه ترجمه بازدید کنید</a>."
+msgstr "این افزونه به زبان فارسی توسط <a href=\"https://profiles.wordpress.org/mehrban\"> Mehr@ban </a> ترجمه شده است و با ارایه هر بروزرسانی افزونه بهینه تر خواهد شد. اگر مایل هستید که ترجمه های دیگری را از این افزونه ارایه دهید و به بهود آن کمک کنید از بخش <a href=\"%s\"> پروژه ترجمه بازدید کنید</a>."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-footer.php:14
 msgid ""
 "Enjoying this plugin? <a href=\"%s\">Upgrade to MailChimp for WordPress "
 "Pro</a> for an even better plugin, you will love it."
-msgstr "از این افزونه لذت بردین؟ <a href=\"%s\"> همین حالا به MailChimp for WordPress Pro ارتقاع بدید </a> برای یک افزونه بهتر که شما ، عاشقش میشید."
+msgstr "از این افزونه لذت بردین؟ <a href=\"%s\"> همین حالا به \"نسخه حرفه‌ای\" ارتقاع بدید </a> برای یک افزونه بهتر که شما ، عاشقش میشید."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-footer.php:20
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-footer.php:13
 msgid ""
 "This plugin is not developed by or affiliated with MailChimp in any way."
-msgstr "این افزونه به هیچ عنوان وابسته و یا توسط MailChimp  توسعه نیافته است ."
+msgstr "این افزونه به هیچ عنوان وابسته و یا توسط میل چمپ توسعه نیافته است ."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:9
 msgid "Looking for help?"
@@ -1067,7 +1068,7 @@ msgstr "آیا شما از این افزونه لذت بردید؟"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:17
 msgid "Leave a %s plugin review on WordPress.org"
-msgstr "یک %s در بررسی افزونه WordPress.org بدهید"
+msgstr "نظرتان را %s در بررسی افزونه WordPress.org بدهید"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:18
 msgid "I am using MailChimp for WordPress by @DannyvanKooten - it is great!"
@@ -1094,7 +1095,7 @@ msgstr "به کارها در صفحه افزونه WordPress.org رای بدید
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:10
 msgid ""
 "This plugin has an even better premium version, you will absolutely love it."
-msgstr "این افزونه دارای یک نسخه premium است ، که شما عاشقش میشید ."
+msgstr "این افزونه دارای یک نسخه حرفه‌ای است ، که شما عاشقش میشید ."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:11
 msgid "Some differences with this free version of the plugin:"
@@ -1110,7 +1111,7 @@ msgstr "ارسال هر اشتراک به یک یا چند لیست MailChimp ."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:18
 msgid "AJAX forms"
-msgstr "فرم‌های AJAX"
+msgstr "فرم‌های آجاکس"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:19
 msgid "Forms do not require a full page reload."
@@ -1127,11 +1128,11 @@ msgstr "هر فعالیتی در فرم ها ثبت میشوند و  به صور
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:26
 msgid "Styles Builder"
-msgstr "Styles Builder"
+msgstr "استایل ساز"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:27
 msgid "Create beautiful form themes with ease."
-msgstr "ساخت آسان فرم های زیبا."
+msgstr "ساخت آسان فرم‌های زیبا."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:31
 msgid "Upgrade Now"
@@ -1171,7 +1172,7 @@ msgstr "تنظیمات اختیاری"
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:500
 msgid "MailChimp & Plugin License Settings"
-msgstr "تنظیمات MailChimp  و لایسنس افزونه"
+msgstr "تنظیمات میل چمپ و لایسنس افزونه"
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:501
 msgid "MailChimp & License"
@@ -1187,7 +1188,7 @@ msgstr "گزارشات"
 msgid ""
 "Please make sure the plugin is connected to MailChimp. <a "
 "href=\"%s\">Provide a valid API key.</a>"
-msgstr "لطفا اطمینان حاصل کنید که افزونه به MailChimp وصل شده باشد. <a href=\"%s\">Provide a valid API key.</a>"
+msgstr "لطفا اطمینان حاصل کنید که افزونه به MailChimp وصل شده باشد. <a href=\"%s\">معتبر سازی کلید API</a>"
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:824
 msgid ""
@@ -1200,7 +1201,7 @@ msgid ""
 "<strong>Welcome to MailChimp for WordPress Pro!</strong> We transfered the "
 "settings you set in the Lite version, you can safely <a "
 "href=\"%s\">deactivate it now</a>."
-msgstr "<strong>به !MailChimp for WordPress Pro خوش آمدید</strong> م با انتقال تنظیمات شما آنها را بر روی نسخه Lite تنظیم میکنیم . شما به راحتی میتوانید<a href=\"%s\">همین حالا آن را غیرفعال کنید</a>."
+msgstr "<strong>به نسخه حرفه‌ای میل چمپ خوش آمدید</strong> م با انتقال تنظیمات شما آنها را بر روی نسخه Lite تنظیم میکنیم . شما به راحتی میتوانید<a href=\"%s\">همین حالا آن را غیرفعال کنید</a>."
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-statistics.php:130
 msgid "End date can't be before the start date"
@@ -1427,15 +1428,15 @@ msgstr "فعال سازی لایسنس"
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:46
 msgid "Please enter a license key in the field below first."
-msgstr "لطفا یک license key در فیلد زیر وارد کنید."
+msgstr "لطفا یک کلید لاینسس در فیلد زیر وارد کنید."
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:54
 msgid "License Key"
-msgstr "License Key"
+msgstr "کلید لاینسس "
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:56
 msgid "Paste your license key here, as found in the email receipt."
-msgstr "license key را که از ایمیل دریافت کردین را در اینجا وارد کنین. "
+msgstr "کلید لاینسسی را که از ایمیل دریافت کردین را در اینجا وارد کنین. "
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:78
 msgid "Your %s license will expire on %s."
@@ -1457,7 +1458,7 @@ msgstr "فرم"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:51
 msgid "Shortcode"
-msgstr "Shortcode"
+msgstr "کدکوتاه"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:52
 msgid "List(s)"
@@ -1664,7 +1665,7 @@ msgstr "CSS Styles Builder"
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:10
 msgid "License & API Settings"
-msgstr "License & API Settings"
+msgstr "تنظیمات لاینسس و API"
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:113
 msgid "No lists were found in your MailChimp account."
@@ -1802,19 +1803,19 @@ msgstr "انتخاب استایل نوشته.."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:136
 msgid "Normal"
-msgstr "Normal"
+msgstr "نرمال"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:137
 msgid "Bold"
-msgstr "Bold"
+msgstr "توپر"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:138
 msgid "Italic"
-msgstr "Italic"
+msgstr "کج"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:139
 msgid "Bold & Italic"
-msgstr "Bold & Italic"
+msgstr "توپر و کج"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:142
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:174
@@ -1850,7 +1851,7 @@ msgstr "حاشیه گرد"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:186
 msgid "Focus outline"
-msgstr "Focus outline"
+msgstr "فوکوس نمای کلی"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:198
 msgid "Button styles"

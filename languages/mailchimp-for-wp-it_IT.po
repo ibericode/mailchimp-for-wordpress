@@ -3,15 +3,16 @@
 # Translators:
 # Adriano Genovese <adrygese@gmail.com>, 2014-2015
 # Adriano Genovese <adrygese@gmail.com>, 2015
+# andrea.gatopoulos <andrea.gatopoulos@gmail.com>, 2015
 # Dan <d.murtas@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-05-26 14:41:46+00:00\n"
-"PO-Revision-Date: 2015-05-26 15:59+0000\n"
-"Last-Translator: Adriano Genovese <adrygese@gmail.com>\n"
-"Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/mailchimp-for-wordpress/language/it_IT/)\n"
+"PO-Revision-Date: 2015-07-06 09:27+0000\n"
+"Last-Translator: andrea.gatopoulos <andrea.gatopoulos@gmail.com>\n"
+"Language-Team: Italian (Italy) (http://www.transifex.com/p/mailchimp-for-wordpress/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -745,7 +746,7 @@ msgstr "Lascia vuoto o inserisci <code>0</code> per nessun reindirizzamento. In 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:195
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:140
 msgid "Successfully subscribed"
-msgstr ""
+msgstr "Iscritto con successo"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:198
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:156
@@ -753,7 +754,7 @@ msgstr ""
 msgid ""
 "The text that shows when an email address is successfully subscribed to the "
 "selected list(s)."
-msgstr ""
+msgstr "Il testo che mostra quando un indirizzo email è stato iscritto con successo alla lista(e) selezionata."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:202
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:160
@@ -779,7 +780,7 @@ msgstr "Campo richiesto mancante"
 msgid ""
 "The text that shows when a required field for the selected list(s) is "
 "missing."
-msgstr ""
+msgstr "Il testo che mostra quando un campo necessario per la lista(e) selezionata non è stato compilato."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:216
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:174
@@ -793,7 +794,7 @@ msgstr "Già iscritto"
 msgid ""
 "The text that shows when the given email is already subscribed to the "
 "selected list(s)."
-msgstr ""
+msgstr "Il testo mostrato quando l'email fornita risulta già iscritta alla lista(e) selezionata. "
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:224
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:182
@@ -804,19 +805,19 @@ msgstr "CAPTCHA non valido"
 #: mailchimp-for-wordpress/includes/views/form-settings.php:229
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:174
 msgid "General error"
-msgstr ""
+msgstr "Errore generale"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:232
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:193
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:177
 msgid "The text that shows when a general error occured."
-msgstr ""
+msgstr "Il testo che appare quando è accaduto un errore generico."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:236
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:197
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:181
 msgid "Unsubscribed"
-msgstr ""
+msgstr "Iscrizione cancellata"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:239
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:200
@@ -824,13 +825,13 @@ msgstr ""
 msgid ""
 "When using the unsubscribe method, this is the text that shows when the "
 "given email address is successfully unsubscribed from the selected list(s)."
-msgstr ""
+msgstr "Quando si utilizza il metodo della disiscrizione, questo è il testo mostrato quando l'indirizzo email fornito è stato disiscritto con successo dalla lista(e) selezionata."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:243
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:204
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:188
 msgid "Not subscribed"
-msgstr ""
+msgstr "Non iscritto."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:246
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:207
@@ -858,7 +859,7 @@ msgstr "Modifica l'aspetto visivo del modulo applicando le regole CSS a %s."
 msgid ""
 "You can add the CSS rules to your theme stylesheet using the <a "
 "href=\"%s\">Theme Editor</a> or by using a plugin like %s"
-msgstr ""
+msgstr "Puoi aggiungere le regole CSS al tuo foglio di stile del tema utilizzando l'<a href=\"%s\">editor del tema</a> o un plugin come %s"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:269
 msgid ""
