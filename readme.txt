@@ -271,7 +271,7 @@ Development of the plugin happens on GitHub: [dannyvankooten/mailchimp-for-wordp
 **Improvements**
 
 - Use the same order as MailChimp.com, which is useful when you have over 100 MailChimp lists.
-- Use `/* ... */` for inline JavaScript comments to prevent errors with minified HTML.
+- Use `/* ... */` for inline JavaScript comments to prevent errors with minified HTML - props [Ed Gifford](https://github.com/egifford)
 
 **Additions**
 
