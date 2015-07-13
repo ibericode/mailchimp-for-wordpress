@@ -41,6 +41,7 @@ class MC4WP_Tools {
 		$replacements = array(
 			'{ip}' => self::get_client_ip(),
 			'{current_url}' => mc4wp_get_current_url(),
+			'{current_path}' => ( ! empty( $_SERVER['REQUEST_URI'] ) ) ? esc_html( $_SERVER['REQUEST_URI'] ) : '',
 			'{date}' => date( 'm/d/Y' ),
 			'{time}' => date( 'H:i:s' ),
 			'{language}' => defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : get_locale(),
