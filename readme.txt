@@ -1,10 +1,10 @@
 === MailChimp for WordPress ===
-Contributors: ibericode, DvanKooten, iMazed, hchouhan
+Contributors: Ibericode, DvanKooten, iMazed, hchouhan
 Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=donate-link
 Tags: mailchimp,newsletter,sign-up,contact form 7,woocommerce,buddypress,widget,form
 Requires at least: 3.7
 Tested up to: 4.2.2
-Stable tag: 2.3.6
+Stable tag: 2.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -265,6 +265,19 @@ Development of the plugin happens on GitHub: [dannyvankooten/mailchimp-for-wordp
 8. **Pro only:** Create your own CSS styles with the form designer in the Pro version.
 
 == Changelog ==
+
+= 2.3.7 - July 13, 2015 =
+
+**Improvements**
+
+- Use the same order as MailChimp.com, which is useful when you have over 100 MailChimp lists.
+- Use `/* ... */` for inline JavaScript comments to prevent errors with minified HTML.
+
+**Additions**
+
+- Filter: `mc4wp_form_animate_scroll` to disable animated scroll-to after submitting a form.
+- Add `{current_path}` variable to use in form templates.
+- Add `default` attribute to `{data_name}` variables, usage: `{data_something default="The default value"}`
 
 = 2.3.6 - July 6, 2015 =
 
