@@ -234,10 +234,12 @@ class MC4WP_Lite_Form_Manager {
 
 						/* add class on submit */
 						var b = f.querySelector('[type="submit"]');
-						if(b.addEventListener) {
-							b.addEventListener('click', addSubmittedClassToFormContainer);
-						} else {
-							b.attachEvent('click', addSubmittedClassToFormContainer);
+						if(b.length > 0 ) {
+							if(b.addEventListener) {
+								b.addEventListener('click', addSubmittedClassToFormContainer);
+							} else {
+								b.attachEvent('click', addSubmittedClassToFormContainer);
+							}
 						}
 
 					})(forms[i]);
