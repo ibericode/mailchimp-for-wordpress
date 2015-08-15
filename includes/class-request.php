@@ -70,7 +70,7 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 		$config = array();
 
 		foreach( $data as $key => $value ) {
-			if( strpos( $key, '_mc4wp_' ) === 0 ) {
+			if( stripos( $key, '_mc4wp_' ) === 0 ) {
 
 				// remove data from array
 				unset( $data[$key] );
