@@ -140,7 +140,7 @@
 	border:1px solid #ccc;
 }
 
-.mc4wp-title{ 
+.mc4wp-title{
 	font-size: 1.4em; 
 	margin:1.6em 0 1em; 
 	padding:0 0 6px 0; 
@@ -170,6 +170,25 @@ table.mc4wp-help tr:hover {
 	float:right;
 }
 
+table.mc4wp-lists-overview,
+.mc4wp-lists-overview table {
+	border: 0;
+}
+
+.mc4wp-lists-overview {
+	border-collapse: collapse;
+}
+
+.mc4wp-lists-overview th {
+	font-weight: bold;
+	vertical-align: top;
+}
+
+.mc4wp-lists-overview th,
+.mc4wp-lists-overview td {
+	border: 1px solid #efefef;
+}
+
 @media(max-width: 1279px) {
 
 	#mc4wp-sidebar, 
@@ -192,7 +211,7 @@ table.mc4wp-help tr:hover {
 	
 }
 
-@media(max-width: 719px) {
+@media(max-width: 860px) {
 
 	.mc4wp-hide-smallscreens{ 
 		display: none;
