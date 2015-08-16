@@ -237,7 +237,7 @@ class MC4WP_Form {
 		    || ! $this->settings['hide_after_success']
 		    || ! $this->request->success ) {
 
-			$form_opening_html = '<form method="post" role="form">';
+			$form_opening_html = '<form method="post">';
 			$visible_fields = $this->get_visible_fields( $element_id, $attributes, $response_html );
 			$hidden_fields = $this->get_hidden_fields( $element_id, $attributes );
 			$form_closing_html = '</form>';
