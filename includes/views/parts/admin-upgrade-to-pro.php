@@ -29,6 +29,6 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 	</ul>
 	<p>
 		<a class="button button-primary button-large" href="https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=upgrade-box"><?php _e( 'Upgrade Now', 'mailchimp-for-wp' ); ?></a>
-		<a class="button" href="https://mc4wp.com/demo/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=upgrade-box"><?php _e( 'View Demo', 'mailchimp-for-wp' ); ?></a></p>
+		<a class="button" href="https://mc4wp.com/demo/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=upgrade-box"><?php _e( 'View Demo', 'mailchimp-for-wp' ); ?></a>
 	</p>
 </div>
