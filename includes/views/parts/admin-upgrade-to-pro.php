@@ -8,7 +8,7 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 <div class="mc4wp-box" id="mc4wp-upgrade-box">
 	<h3>MailChimp for WordPress Pro</h3>
 	<p><em><?php _e( 'This plugin has an even better premium version, you will absolutely love it.', 'mailchimp-for-wp' ); ?></em></p>
-	<p><?php _e( 'Some differences with this free version of the plugin:', 'mailchimp-for-wp' ); ?></p>
+	<p><?php _e( 'Some of the benefits over this free version:', 'mailchimp-for-wp' ); ?></p>
 	<ul class="ul-square">
 		<li>
 			<strong><?php _e( 'Multiple forms', 'mailchimp-for-wp' ); ?></strong><br />
