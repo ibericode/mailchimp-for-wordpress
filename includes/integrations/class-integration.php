@@ -174,7 +174,7 @@ abstract class MC4WP_Integration {
 
 		// after checkbox HTML (..., honeypot, closing comment)
 		$after = apply_filters( 'mc4wp_after_checkbox', '', $this->type );
-		$after .= '<textarea name="_mc4wp_required_but_not_really" style="display: none !important;"></textarea>';
+		$after .= '<div style="position: absolute; left:-5000px;"><input type="text" name="_mc4wp_required_but_not_really" value="" tabindex="-1" /></div>';
 		$after .= '<!-- / MailChimp for WordPress -->';
 
 		return $before . $content . $after;
