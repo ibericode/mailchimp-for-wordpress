@@ -21,7 +21,7 @@ class MC4WP_EDD_Integration extends MC4WP_Integration {
 
 		parent::__construct();
 
-		add_action( 'edd_purchase_form_user_info', array( $this, 'output_checkbox' ) );
+		add_action( 'edd_purchase_form_user_info_fields', array( $this, 'output_checkbox' ) );
 		add_action( 'edd_payment_meta', array( $this, 'save_checkbox_value' ) );
 		add_action( 'edd_complete_purchase', array( $this, 'subscribe_from_edd'), 50 );
 	}
