@@ -170,13 +170,16 @@ table.mc4wp-help tr:hover {
 	float:right;
 }
 
-table.mc4wp-lists-overview,
-.mc4wp-lists-overview table {
-	border: 0;
-}
-
 .mc4wp-lists-overview {
 	border-collapse: collapse;
+	background: white;
+	padding: 20px;
+	max-height: 500px;
+	overflow-y: scroll;
+}
+
+.mc4wp-lists-overview table {
+	border: 0;
 }
 
 .mc4wp-lists-overview th {
@@ -187,6 +190,10 @@ table.mc4wp-lists-overview,
 .mc4wp-lists-overview th,
 .mc4wp-lists-overview td {
 	border: 1px solid #efefef;
+}
+
+.mc4wp-lists-overview h3{
+	margin: 0 !important;
 }
 
 @media(max-width: 1279px) {

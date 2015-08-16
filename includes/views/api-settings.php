@@ -55,7 +55,7 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 			</p>
 		</form>
 
-		<div class="mc4wp-lists-overview" style="background: white; padding: 20px; max-height: 500px; overflow-y: scroll;">
+		<div class="mc4wp-lists-overview">
 		<?php if( empty( $lists ) || ! is_array( $lists ) ) { ?>
 			<p><?php _e( 'No lists were found in your MailChimp account', 'mailchimp-for-wp' ); ?>.</p>
 		<?php } else {
