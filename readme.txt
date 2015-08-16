@@ -170,6 +170,21 @@ Development of the plugin happens on GitHub: [ibericode/mailchimp-for-wordpress]
 
 == Changelog ==
 
+= Trunk =
+
+**Fixes**
+
+- Prevented JS error when outputting forms with no submit button.
+- Using `0` as a Redirect URL resulted in a blank page.
+- Sign-up checkbox was showing twice in the Easy Digital Downloads checkout when showing registration fields.
+
+**Improvements**
+
+- Better way to hide the honeypot field, which stops bots from subscribing to your lists.
+- role="form" is no longer needed, thanks [XhmikosR](https://github.com/XhmikosR)!
+- Filter `mc4wp_form_animate_scroll` now disables just the scroll animation, not the scroll itself.
+- Revamped UI for MailChimp lists overview
+
 = 2.3.7 - July 13, 2015 =
 
 **Improvements**
