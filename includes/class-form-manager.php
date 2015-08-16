@@ -49,7 +49,6 @@ class MC4WP_Lite_Form_Manager {
 
 	public function add_hooks() {
 		// load checkbox css if necessary
-		add_action( 'wp_head', array( $this, 'print_css' ), 90 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
 
 		// enable shortcodes in text widgets
@@ -158,39 +157,8 @@ class MC4WP_Lite_Form_Manager {
 		// Print small JS snippet later on in the footer.
 		add_action( 'wp_footer', array( $this, 'print_js' ), 99 );
 
-		// Print CSS to hide honeypot (should be printed in `wp_head` by now)
-		$html = '';
-
-		// add inline css if it was not printed yet
-		$html .= $this->print_css( false );
-
 		// output form
-		$html .= $form->output( $attributes['element_id'], $attributes, false );
-
-		return $html;
-	}
-
-	/**
-	 * Prints some inline CSS that hides the honeypot field
-	 * @param bool $echo
-	 * @return string
-	 */
-	public function print_css( $echo = true ) {
-
-		if( $this->inline_css_printed ) {
-			return '';
-		}
-
-		$html = '<style type="text/css">.mc4wp-form input[name="_mc4wp_required_but_not_really"] { display: none !important; }</style>';
-
-		if( $echo !== false ) {
-			echo $html;
-		}
-
-		// make sure this function only runs once
-		$this->inline_css_printed = true;
-
-		return $html;
+		return $form->output( $attributes['element_id'], $attributes, false );
 	}
 
 	/**
@@ -213,24 +181,9 @@ class MC4WP_Lite_Form_Manager {
 					(form.classList) ? form.classList.add(className) : form.className += ' ' + className;
 				}
 
-				function hideHoneypot(h) {
-					var n = document.createElement('input');
-					n.type = 'hidden';
-					n.name = h.name;
-					n.style.display = 'none';
-					n.value = h.value;
-					h.parentNode.replaceChild(n,h);
-				}
-
 				var forms = document.querySelectorAll('.mc4wp-form');
 				for (var i = 0; i < forms.length; i++) {
 					(function(f) {
-
-						/* make sure honeypot is hidden */
-						var h = f.querySelector('input[name="_mc4wp_required_but_not_really"]');
-						if(h) {
-							hideHoneypot(h);
-						}
 
 						/* add class on submit */
 						var b = f.querySelector('[type="submit"]');

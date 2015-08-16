@@ -116,7 +116,7 @@ class MC4WP_Form {
 	public function get_hidden_fields( $element_id, $attributes = array() ) {
 
 		// hidden fields
-		$hidden_fields = '<input type="text" name="_mc4wp_required_but_not_really" value="" />';
+		$hidden_fields = '<div style="position: absolute; left:-5000px;"><input type="text" name="_mc4wp_required_but_not_really" value="" tabindex="-1" /></div>';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_timestamp" value="'. time() . '" />';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_id" value="'. $this->ID .'" />';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_element_id" value="'. esc_attr( $element_id ) .'" />';
