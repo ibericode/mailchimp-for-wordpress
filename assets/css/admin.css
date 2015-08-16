@@ -19,8 +19,12 @@
 	vertical-align: top !important; 
 }
 
-#mc4wp-admin .mc4wp-box{
+.mc4wp-box{
 	margin-bottom:20px; 
+}
+
+.mc4wp-box label {
+	font-weight: bold;
 }
 
 #mc4wp-upgrade-box { 
