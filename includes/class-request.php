@@ -227,7 +227,7 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 			do_action( 'mc4wp_form_success', 0, $this->user_data['EMAIL'], $this->user_data );
 
 			// check if we want to redirect the visitor
-			if ( '' !== $this->form->settings['redirect'] ) {
+			if ( ! empty( $this->form->settings['redirect'] ) ) {
 				wp_redirect( $this->get_redirect_url() );
 				exit;
 			}
