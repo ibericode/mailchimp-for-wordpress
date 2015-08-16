@@ -88,8 +88,13 @@ class MC4WP_Subscribe_Request extends MC4WP_Request {
 
 		// did we succeed in subscribing with the parsed data?
 		if( ! $result ) {
-			$this->message_type = ( $api->get_error_code() === 214 ) ? 'already_subscribed' : 'error';
-			$this->mailchimp_error = $api->get_error_message();
+			// don't grab mailchimp error if status code is "already_subscribed"
+			if( $api->get_error_code() === 214 ) {
+				$this->message_type = 'already_subscribed';
+			} else {
+				$this->message_type = 'error';
+				$this->mailchimp_error = $api->get_error_message();
+			}
 		} else {
 			$this->message_type = 'subscribed';
 
