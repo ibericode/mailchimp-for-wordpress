@@ -78,7 +78,7 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 					</tr>
 					<tr>
 						<th>Fields</th>
-						<td style="padding: 0; ">
+						<td style="padding: 0; border: 0;">
 							<?php if ( ! empty( $list->merge_vars ) && is_array( $list->merge_vars ) ) { ?>
 								<table class="widefat fixed" cellspacing="0">
 									<thead>
@@ -105,7 +105,7 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 					<?php if ( ! empty( $list->interest_groupings ) && is_array( $list->interest_groupings ) ) { ?>
 						<tr>
 							<th>Interest Groupings</th>
-							<td style="padding: 0;">
+							<td style="padding: 0; border: 0;">
 								<table class="widefat fixed" cellspacing="0">
 									<thead>
 									<tr>
