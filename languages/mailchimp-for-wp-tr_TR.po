@@ -1,6 +1,7 @@
 # Copyright (C) 2015 Danny van Kooten
 # This file is distributed under the GPL v3.
 # Translators:
+# Alper Çiftçi <alprciftci@gmail.com>, 2015
 # Ferhat, 2015
 # Hüseyin Sekmenoğlu <hus_as@yahoo.com>, 2015
 # Murat Aksoy <istanbuldaemlakk@gmail.com>, 2015
@@ -9,9 +10,9 @@ msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-05-26 14:41:46+00:00\n"
-"PO-Revision-Date: 2015-05-26 14:42+0000\n"
-"Last-Translator: Danny van Kooten <dannyvankooten@gmail.com>\n"
-"Language-Team: Turkish (Turkey) (http://www.transifex.com/p/mailchimp-for-wordpress/language/tr_TR/)\n"
+"PO-Revision-Date: 2015-08-18 05:38+0000\n"
+"Last-Translator: Alper Çiftçi <alprciftci@gmail.com>\n"
+"Language-Team: Turkish (Turkey) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -128,7 +129,7 @@ msgstr "Abone ol"
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:292
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:616
 msgid "Unsubscribe"
-msgstr ""
+msgstr "Listeden Çık"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:316
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:654
@@ -255,12 +256,12 @@ msgstr "Lütfen gerekli alanları doldurun."
 #: mailchimp-for-wordpress/includes/functions/general.php:50
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:40
 msgid "You were successfully unsubscribed."
-msgstr ""
+msgstr "Listeden başarıylla çıktınız"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:51
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:41
 msgid "Given email address is not subscribed."
-msgstr ""
+msgstr "Verilen e-posta adresi listeye eklenmemiştir"
 
 #: mailchimp-for-wordpress/includes/integrations/class-cf7.php:55
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:52
@@ -649,7 +650,7 @@ msgstr "Bu formu bir yazının, sayfanın ya da metin aracının içerisinde gö
 #: mailchimp-for-wordpress/includes/views/form-settings.php:92
 #: mailchimp-for-wordpress-pro/includes/views/parts/missing-fields-notice.php:4
 msgid "Your form is missing the following (required) form fields:"
-msgstr ""
+msgstr "Formunuzun aşağıdaki alanları eksiktir."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:117
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:71
@@ -745,7 +746,7 @@ msgstr ""
 #: mailchimp-for-wordpress/includes/views/form-settings.php:195
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:140
 msgid "Successfully subscribed"
-msgstr ""
+msgstr "Başarıyla eklendi"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:198
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:156
@@ -804,19 +805,19 @@ msgstr "Geçersiz CAPTCHA"
 #: mailchimp-for-wordpress/includes/views/form-settings.php:229
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:174
 msgid "General error"
-msgstr ""
+msgstr "Genel hata"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:232
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:193
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:177
 msgid "The text that shows when a general error occured."
-msgstr ""
+msgstr "Genel bir hata oluştuğunda görüntülenen yazı"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:236
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:197
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:181
 msgid "Unsubscribed"
-msgstr ""
+msgstr "Listeden Çıktınız"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:239
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:200
@@ -830,7 +831,7 @@ msgstr ""
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:204
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:188
 msgid "Not subscribed"
-msgstr ""
+msgstr "Kayıt olmamış"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:246
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:207
@@ -876,7 +877,7 @@ msgstr ""
 #: mailchimp-for-wordpress/includes/views/form-settings.php:272
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:366
 msgid "Variables"
-msgstr ""
+msgstr "Değişkenler"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:274
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:11
@@ -982,12 +983,12 @@ msgstr "Gönder Düğmesi"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:20
 msgid "Subscribe / unsubscribe choice"
-msgstr ""
+msgstr "Abone ol / Abonelikten Çık seçimi"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:21
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:40
 msgid "List choice"
-msgstr ""
+msgstr "Liste Seçimi"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:29
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:49
@@ -1055,7 +1056,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:9
 msgid "Looking for help?"
-msgstr ""
+msgstr "Yardım mı arıyorsunuz?"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:10
 msgid ""
@@ -1066,7 +1067,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:14
 msgid "Do you enjoy this plugin?"
-msgstr ""
+msgstr "Bu eklenti hoşunuza gitti mi?"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:17
 msgid "Leave a %s plugin review on WordPress.org"
@@ -1105,7 +1106,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:14
 msgid "Multiple forms"
-msgstr ""
+msgstr "Çoklu formlar"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:15
 msgid "Each subscribing to one or multiple MailChimp lists."
@@ -1113,7 +1114,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:18
 msgid "AJAX forms"
-msgstr ""
+msgstr "AJAX formları"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:19
 msgid "Forms do not require a full page reload."
@@ -1130,7 +1131,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:26
 msgid "Styles Builder"
-msgstr ""
+msgstr "Stil Yapıcı"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:27
 msgid "Create beautiful form themes with ease."
@@ -1142,7 +1143,7 @@ msgstr "Şimdi yükseltin"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:32
 msgid "View Demo"
-msgstr ""
+msgstr "Demoyu Göster"
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:176
 msgid "Documentation"
@@ -1174,7 +1175,7 @@ msgstr "İsteğe Bağlı Ayalar"
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:500
 msgid "MailChimp & Plugin License Settings"
-msgstr ""
+msgstr "Mailchimp & Eklenti Lisans Ayarları"
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:501
 msgid "MailChimp & License"
@@ -1190,7 +1191,7 @@ msgstr "Raporlar"
 msgid ""
 "Please make sure the plugin is connected to MailChimp. <a "
 "href=\"%s\">Provide a valid API key.</a>"
-msgstr ""
+msgstr "Lütfen eklentinin MailChimp' e bağlı olduğunu kontrol edin. <a href=\"%s\">Geçerli bir API anahtarı girin.</a>"
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:824
 msgid ""
@@ -1271,11 +1272,11 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:20
 msgid "MailChimp for WP Form"
-msgstr ""
+msgstr "WP Formu için MailChimp"
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:21
 msgid "Displays one of your MailChimp for WordPress sign-up forms"
-msgstr ""
+msgstr "WordPress için MailChimp kayıt formunuzdan birini görüntüler"
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:43
 msgid ""
@@ -1313,15 +1314,15 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:205
 msgid "Your %s license has been activated. You have an unlimited license. "
-msgstr ""
+msgstr "%s lisansınız aktif edilmiştir. Sınırsız lisans sahibisiniz."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:207
 msgid "Your %s license has been activated. You have used %d/%d activations. "
-msgstr ""
+msgstr "%s lisansınız aktif edilmiştir. %d/%d aktivasyonunu kullandınız."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:212
 msgid "<a href=\"%s\">Did you know you can upgrade your license?</a>"
-msgstr ""
+msgstr "<a href=\"%s\">Lisansınızını yükseltebileceğinizi biliyor muydunuz?</a>"
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:216
 msgid ""
@@ -1343,7 +1344,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:232
 msgid "Failed to activate your license, your license key seems to be invalid."
-msgstr ""
+msgstr "Lisansın aktifleştirilmesinde bir hata oluştu, lisans anahtarınız geçersiz görünüyor."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:257
 msgid "Your %s license has been deactivated."
@@ -1359,7 +1360,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:264
 msgid "Failed to deactivate your %s license."
-msgstr ""
+msgstr "%s lisansınız deaktif edilirken bir hata oluştu."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:302
 msgid "Request error: \"%s\""
@@ -1629,7 +1630,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:41
 msgid "Subscribe / unsubscribe action"
-msgstr ""
+msgstr "Abone ol / Abonelikten Çık eylemi"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:90
 msgid "Form usage"
@@ -1663,15 +1664,15 @@ msgstr "Formlar & Ayarlar"
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-form-settings.php:14
 msgid "CSS Styles Builder"
-msgstr ""
+msgstr "CSS Stilleri Yapıcı"
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:10
 msgid "License & API Settings"
-msgstr ""
+msgstr "Lisans & API Ayarları"
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:113
 msgid "No lists were found in your MailChimp account."
-msgstr ""
+msgstr "MailChimp hesabınızda bir liste bulunamadı"
 
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-footer.php:10
 msgid ""
@@ -1709,11 +1710,11 @@ msgstr ""
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:41
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:285
 msgid "Create at least one form first."
-msgstr ""
+msgstr "İlk olarak bir liste oluşturun."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:57
 msgid "You need to have JavaScript enabled to see a preview of your form."
-msgstr ""
+msgstr "Formunuzu önizleyebilmek için JavaScript' i etkinleştirmeniz gerekmektedir."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:62
 msgid "Form container style"
@@ -1721,7 +1722,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:66
 msgid "Form width"
-msgstr ""
+msgstr "Form genişliği"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:66
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:118
@@ -1732,7 +1733,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:70
 msgid "Text alignment"
-msgstr ""
+msgstr "Yazı hizalaması"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:73
 msgid "Choose alignment"
@@ -1740,20 +1741,20 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:74
 msgid "Left"
-msgstr ""
+msgstr "Sol"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:75
 msgid "Center"
-msgstr ""
+msgstr "Merkez"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:76
 msgid "Right"
-msgstr ""
+msgstr "Sağ"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:81
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:210
 msgid "Background color"
-msgstr ""
+msgstr "Arkaplan Rengi"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:83
 msgid "Padding"
@@ -1763,61 +1764,61 @@ msgstr ""
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:168
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:219
 msgid "Border color"
-msgstr ""
+msgstr "Sınır rengi"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:91
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:170
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:215
 msgid "Border width"
-msgstr ""
+msgstr "Sınır genişliği"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:95
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:126
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:228
 msgid "Text color"
-msgstr ""
+msgstr "Yazı rengi"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:97
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:128
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:230
 msgid "Text size"
-msgstr ""
+msgstr "Yazı boyutu"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:101
 msgid "Background image"
-msgstr ""
+msgstr "Arkaplan resmi"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:114
 msgid "Label styles"
-msgstr ""
+msgstr "Etiket stilleri"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:118
 msgid "Label width"
-msgstr ""
+msgstr "Etiket genişliği"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:132
 msgid "Text style"
-msgstr ""
+msgstr "Yazı stili"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:135
 msgid "Choose text style.."
-msgstr ""
+msgstr "Yazı stili seçin.."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:136
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:137
 msgid "Bold"
-msgstr ""
+msgstr "Kalın"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:138
 msgid "Italic"
-msgstr ""
+msgstr "Eğik"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:139
 msgid "Bold & Italic"
-msgstr ""
+msgstr "Kalın & Eğik"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:142
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:174
@@ -1908,7 +1909,7 @@ msgstr ""
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:283
 msgid "Copy Styles"
-msgstr ""
+msgstr "Kopya Stilleri"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:283
 msgid ""
@@ -1926,7 +1927,7 @@ msgstr "Stillerden Sil"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:305
 msgid "Form preview"
-msgstr ""
+msgstr "Form önizleme"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:8
 msgid "Sign-Up Forms"
@@ -2082,7 +2083,7 @@ msgstr "Filtre"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-reports-statistics.php:83
 msgid "Show these lines:"
-msgstr ""
+msgstr "Bu satırları göster:"
 
 #. Plugin URI of the plugin/theme
 msgid "https://mc4wp.com/"

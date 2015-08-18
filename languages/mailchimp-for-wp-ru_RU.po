@@ -13,9 +13,9 @@ msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-05-26 14:41:46+00:00\n"
-"PO-Revision-Date: 2015-07-07 21:21+0000\n"
-"Last-Translator: mick.levin <email.mick.levin@gmail.com>\n"
-"Language-Team: Russian (Russia) (http://www.transifex.com/p/mailchimp-for-wordpress/language/ru_RU/)\n"
+"PO-Revision-Date: 2015-08-06 19:25+0000\n"
+"Last-Translator: dmitry <d1mas@msn.com>\n"
+"Language-Team: Russian (Russia) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -54,12 +54,12 @@ msgstr "MailChimp"
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:506
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:11
 msgid "Checkbox Settings"
-msgstr "Параметры настроек"
+msgstr "Настройки флажков"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:186
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:507
 msgid "Checkboxes"
-msgstr "Настройки"
+msgstr "Флажки"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:191
 #: mailchimp-for-wordpress/includes/views/form-settings.php:9
@@ -78,7 +78,7 @@ msgstr "Формы"
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:196
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:197
 msgid "Upgrade to Pro"
-msgstr "Версия Pro"
+msgstr "Обновить до Pro версии"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:283
 msgid "This option is only available in MailChimp for WordPress Pro."
@@ -89,12 +89,12 @@ msgstr "Эта возможность доступна только в верс�
 #: mailchimp-for-wordpress/includes/views/form-settings.php:36
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:21
 msgid "(PRO ONLY)"
-msgstr "доступно только в профессиональной версии"
+msgstr "(только в Pro версии)"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:286
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:610
 msgid "Button text"
-msgstr "Текст на кнопке"
+msgstr "Текст кнопки"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:287
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:39
@@ -147,7 +147,7 @@ msgstr "Регистрационную форму"
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:321
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:659
 msgid "MultiSite forms"
-msgstr "многосайтовая форма"
+msgstr "мультисайтовые формы"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:325
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:663
@@ -160,7 +160,7 @@ msgstr "регистрация BuddyPress"
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:671
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:675
 msgid "%s checkout"
-msgstr "%s проверено"
+msgstr "%s оплата"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:365
 msgid ""
@@ -176,7 +176,7 @@ msgstr "Данные загружены с сервера MailChimp"
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:372
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:721
 msgid "Failed to renew MailChimp cache - please try again later."
-msgstr "Не удалось обновить кеш MailChimp, попробуйте ещё раз позднее."
+msgstr "Не удалось загрузить данные с сервера MailChimp, попробуйте ещё раз позднее."
 
 #: mailchimp-for-wordpress/includes/class-widget.php:21
 msgid "MailChimp Sign-Up Form"
@@ -184,7 +184,7 @@ msgstr "Форма регистрации MailChimp"
 
 #: mailchimp-for-wordpress/includes/class-widget.php:23
 msgid "Displays your MailChimp for WordPress sign-up form"
-msgstr "Отображает форму регистрации вашего MailChimp для WordPress"
+msgstr "Отображает форму регистрации MailChimp для WordPress"
 
 #: mailchimp-for-wordpress/includes/class-widget.php:67
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:71
@@ -200,19 +200,19 @@ msgstr "Название:"
 msgid ""
 "You can edit your sign-up form in the <a href=\"%s\">MailChimp for WordPress"
 " form settings</a>."
-msgstr "Вы можете редактировать вашу форму подписки в <a href=\"%s\">настройках MailChimp for WordPress</a>."
+msgstr "Вы можете отредактировать вашу форму подписки в <a href=\"%s\">настройках MailChimp для WordPress</a>."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:15
 #: mailchimp-for-wordpress-pro/includes/class-mailchimp.php:135
 #: mailchimp-for-wordpress-pro/includes/config/default-form.php:3
 msgid "Email address"
-msgstr "Email адрес"
+msgstr "Адрес Email"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:16
 #: mailchimp-for-wordpress-pro/includes/config/default-form.php:4
 #: mailchimp-for-wordpress-pro/includes/config/inline-form.php:2
 msgid "Your email address"
-msgstr "Ваш email-адрес"
+msgstr "Ваш адрес email"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:17
 #: mailchimp-for-wordpress-pro/includes/config/default-form.php:5
@@ -239,12 +239,12 @@ msgstr "Оп-па. Что-то пошло не так. Пожалуйста, п�
 #: mailchimp-for-wordpress/includes/functions/general.php:46
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:36
 msgid "Please provide a valid email address."
-msgstr "Пожалуйста, введите правильный email-адрес."
+msgstr "Пожалуйста, введите правильный адрес email."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:47
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:37
 msgid "Given email address is already subscribed, thank you!"
-msgstr "Указанный email-адрес уже находится в рассылке, спасибо!"
+msgstr "Указанный адрес email уже включен в рассылку, спасибо!"
 
 #: mailchimp-for-wordpress/includes/functions/general.php:48
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:38
@@ -264,7 +264,7 @@ msgstr "Вы были отписаны от рассылки."
 #: mailchimp-for-wordpress/includes/functions/general.php:51
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:41
 msgid "Given email address is not subscribed."
-msgstr "Указанный email-адрес не имел подписку."
+msgstr "Указанный адрес email не был включен в подписку."
 
 #: mailchimp-for-wordpress/includes/integrations/class-cf7.php:55
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:52
@@ -373,7 +373,7 @@ msgstr "Эти данные были отправлены в MailChimp:"
 #: mailchimp-for-wordpress-pro/includes/class-subscribe-request.php:216
 #: mailchimp-for-wordpress-pro/includes/integrations/class-integration.php:304
 msgid "Email address:"
-msgstr "Email-адрес:"
+msgstr "Адрес email:"
 
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:306
 #: mailchimp-for-wordpress-pro/includes/integrations/class-integration.php:306
@@ -382,7 +382,7 @@ msgstr "Объединить переменные:"
 
 #. Plugin Name of the plugin/theme
 msgid "MailChimp for WordPress"
-msgstr "MailChimp for WordPress"
+msgstr "MailChimp для WordPress"
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:12
 #: mailchimp-for-wordpress/includes/views/form-settings.php:99
@@ -393,7 +393,7 @@ msgstr "Основные настройки"
 #: mailchimp-for-wordpress/includes/views/api-settings.php:22
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:19
 msgid "API Settings"
-msgstr "- Настройка API"
+msgstr "- Настройки API"
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:24
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:21
@@ -418,7 +418,7 @@ msgstr "Ваш ключ MailChimp API"
 #: mailchimp-for-wordpress/includes/views/api-settings.php:35
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:32
 msgid "Get your API key here."
-msgstr "Получите здесь ваш ключ API"
+msgstr "Получите ваш ключ API здесь"
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:47
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:48
@@ -431,7 +431,7 @@ msgid ""
 "The table below shows your MailChimp lists data. If you applied changes to "
 "your MailChimp lists, please use the following button to renew your cached "
 "data."
-msgstr "Следующая таблица показывает ваши данные по спискам MailChimp. Если вы измените списки на сервере MailChimp, то используйте следующую кнопку чтобы перечитать данные."
+msgstr "Следующая таблица показывает ваши данные по спискам MailChimp. Если вы измените списки на сервере MailChimp, используйте следующую кнопку чтобы перечитать данные."
 
 #: mailchimp-for-wordpress/includes/views/api-settings.php:54
 #: mailchimp-for-wordpress/includes/views/api-settings.php:125
@@ -454,14 +454,14 @@ msgstr "Чтобы изменить параметры, выберите хот�
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:21
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:21
 msgid "MailChimp settings for checkboxes"
-msgstr "Флажки настроек MailChimp"
+msgstr "Настройки MailChimp для флажков"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:25
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:26
 msgid ""
 "If you want to use sign-up checkboxes, select at least one MailChimp list to"
 " subscribe people to."
-msgstr "Если хотите использовать флажки регистрации, выберите хотя бы один список подписчиков MailChimp."
+msgstr "Если хотите использовать флажки регистрации, выберите хотя бы один список рассылок MailChimp."
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:31
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:34
@@ -498,12 +498,12 @@ msgstr "Двойное подтверждение?"
 msgid ""
 "Select \"yes\" if you want people to confirm their email address before "
 "being subscribed (recommended)"
-msgstr "Выберите \"Да\" если хотите, чтобы подписчики подтверждали регистрацию через электронную почту (рекомендуется)"
+msgstr "Выберите \"Да\" если хотите, чтобы подписчики подтверждали свой адрес электронной почты (рекомендуется)"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:63
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:82
 msgid "Checkbox settings"
-msgstr "Настройки флажков подписки"
+msgstr "Настройки флажков"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:67
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:85
@@ -518,13 +518,13 @@ msgstr "В выбранную форму(ы) будет автоматическ
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:83
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:105
 msgid "Checkbox label text"
-msgstr "Ярлык для флажка"
+msgstr "Текст флажка"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:86
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:108
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:148
 msgid "HTML tags like %s are allowed in the label text."
-msgstr "В тексте названия допустимы HTML теги, подобные %s."
+msgstr "В тексте допустимы HTML теги, подобные %s."
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:90
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:112
