@@ -176,7 +176,7 @@ Development of the plugin happens on GitHub: [ibericode/mailchimp-for-wordpress]
 
 - Prevented JS error when outputting forms with no submit button.
 - Using `0` as a Redirect URL resulted in a blank page.
-- Sign-up checkbox was showing twice in the Easy Digital Downloads checkout when showing registration fields.
+- Sign-up checkbox was showing twice in the Easy Digital Downloads checkout when showing registration fields, thanks [Daniel Espinoza](https://github.com/growdev).
 
 **Improvements**
 
