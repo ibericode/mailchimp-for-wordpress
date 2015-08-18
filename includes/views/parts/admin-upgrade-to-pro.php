@@ -54,6 +54,8 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 			<p>
 				<input type="submit" value="Subscribe" name="subscribe" class="button">
 			</p>
+
+			<input type="hidden" name="SOURCE" value="free-plugin" />
 		</form>
 	</div>
 </div>
