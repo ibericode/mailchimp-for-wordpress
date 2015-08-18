@@ -114,5 +114,11 @@ function mc4wp_form_is_submitted( $form_id = 0, $element_id = null ) {
  */
 function mc4wp_form_get_response_html( $form_id = 0 ) {
 	$form = MC4WP_Form::get();
+
+	// return empty string if form isn't submitted.
+	if( ! $form->is_submitted() ) {
+		return '';
+	}
+
 	return $form->request->get_response_html();
 }
