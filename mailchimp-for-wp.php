@@ -56,14 +56,15 @@ function mc4wp_load_plugin() {
 	require_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/general.php';
 	require_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/template.php';
 
-	// Initialize the plugin and store an instance in the global scope
-	MC4WP_Lite::init();
-	$GLOBALS['mc4wp'] = MC4WP_Lite::instance();
-
+	// Initialize admin section of plugin
 	if( is_admin()
 	    && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 		new MC4WP_Lite_Admin();
 	}
+
+	// Initialize the plugin and store an instance in the global scope
+	MC4WP_Lite::init();
+	$GLOBALS['mc4wp'] = MC4WP_Lite::instance();
 
 	return true;
 }
