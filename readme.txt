@@ -1,5 +1,5 @@
 === MailChimp for WordPress ===
-Contributors: ibericode, DvanKooten, iMazed, hchouhan
+Contributors: Ibericode, DvanKooten, iMazed, hchouhan
 Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=donate-link
 Tags: email, mailchimp, marketing, newsletter, signup, widget, mc4wp, contact form 7, woocommerce, buddypress
 Requires at least: 3.7
