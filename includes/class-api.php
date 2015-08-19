@@ -198,6 +198,11 @@ class MC4WP_API {
 	* @return array|bool
 	*/
 	public function get_subscriber_info( $list_id, $emails ) {
+
+		if( is_string( $emails ) ) {
+			$emails = array( $emails );
+		}
+
 		$result = $this->call( 'lists/member-info', array(
 				'id' => $list_id,
 				'emails'  => $emails,
