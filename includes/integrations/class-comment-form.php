@@ -8,18 +8,54 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 
 class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 
+	/**
+	 * @var string
+	 */
 	protected $type = 'comment_form';
 
+	/**
+	 * @var bool
+	 */
+	protected $added_through_filter = false;
+
+	/**
+	 * Constructor
+	 */
 	public function __construct() {
 
 		parent::__construct();
 
 		// hooks for outputting the checkbox
-		add_action( 'thesis_hook_after_comment_box', array( $this, 'output_checkbox' ), 10 );
-		add_action( 'comment_form', array( $this, 'output_checkbox' ) );
+		add_filter( 'comment_form_defaults', array( $this, 'add_checkbox_to_fields' ) );
+
+		add_action( 'thesis_hook_after_comment_box', array( $this, 'maybe_output_checkbox' ), 10 );
+		add_action( 'comment_form', array( $this, 'maybe_output_checkbox' ), 10 );
 
 		// hooks for checking if we should subscribe the commenter
 		add_action( 'comment_post', array( $this, 'subscribe_from_comment' ), 40, 2 );
+	}
+
+	/**
+	 * @param $fields
+	 *
+	 * @return array
+	 */
+	public function add_checkbox_to_fields( $fields ) {
+		$checkbox = $this->get_checkbox();
+		$fields['comment_notes_after'] .= $checkbox;
+
+		// set flag to prevent other output function from firing
+		$this->added_through_filter = true;
+		return $fields;
+	}
+
+	/**
+	 * Output fallback if comment function doesn't have `comment_form_defaults` filter yet.
+	 */
+	public function maybe_output_checkbox() {
+		if( ! $this->added_through_filter ) {
+			$this->output_checkbox();
+		}
 	}
 
 	/**
