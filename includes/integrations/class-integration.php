@@ -215,7 +215,8 @@ abstract class MC4WP_Integration {
 	 *
 	 * @param string $email
 	 * @param array $merge_vars
-	 * @param int $related_object_ID
+	 * @param string $type
+	 * @param int $related_object_id
 	 * @return string|boolean
 	 */
 	protected function subscribe( $email, array $merge_vars = array(), $type = '', $related_object_id = 0 ) {
