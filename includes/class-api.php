@@ -84,10 +84,13 @@ class MC4WP_API {
 			$result = $this->call( 'helper/ping' );
 
 			if( $result !== false ) {
+				
 				if( isset( $result->msg ) && $result->msg === "Everything's Chimpy!" ) {
 					$this->connected = true;
 				} elseif( isset( $result->error ) ) {
 					$this->show_error( 'MailChimp Error: ' . $result->error );
+				} else {
+					$this->show_error( 'Could not connect to MailChimp. The following response was received. <br><pre><code style="display: block; padding: 20px;">' . print_r( $result, true ) . '</code></pre>' );
 				}
 			}
 
