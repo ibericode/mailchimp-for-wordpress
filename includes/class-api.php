@@ -84,7 +84,7 @@ class MC4WP_API {
 			$result = $this->call( 'helper/ping' );
 
 			if( $result !== false ) {
-				
+
 				if( isset( $result->msg ) && $result->msg === "Everything's Chimpy!" ) {
 					$this->connected = true;
 				} elseif( isset( $result->error ) ) {
