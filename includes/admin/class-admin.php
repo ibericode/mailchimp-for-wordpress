@@ -71,6 +71,29 @@ class MC4WP_Lite_Admin
 			add_filter( 'quicktags_settings', array( $this, 'set_quicktags_buttons' ), 10, 2 );
 		}
 
+		// if PHP is lower than 5.3, show a notice and hide major updates
+		// since v3.0 will require PHP 5.3 or higher
+		if( version_compare( PHP_VERSION, '5.3', '<' ) ) {
+			add_filter( 'site_transient_update_plugins', array( $this, 'hide_major_plugin_updates' ) );
+		}
+
+	}
+
+	/**
+	 * Prevents v3.x updates from showing when PHP version is lower than 5.3
+	 */
+	public function hide_major_plugin_updates( $data ) {
+
+		// do we have an update for this plugin?
+		if( isset( $data->response[ $this->plugin_file ]->new_version ) ) {
+
+			// check if this is a major update and if so, remove it from the response object
+			if( version_compare( $data->response[ $this->plugin_file ]->new_version, '3.0', '>' ) ) {
+				unset( $data->response[ $this->plugin_file ]);
+			}
+		}
+
+		return $data;
 	}
 
 	/**
