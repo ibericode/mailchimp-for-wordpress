@@ -14,12 +14,17 @@ class MC4WP_Lite_Admin
 	private $plugin_file;
 
 	/**
+	 * @var MC4WP_MailChimp
+	 */
+	protected $mailchimp;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
 
 		$this->plugin_file = plugin_basename( MC4WP_LITE_PLUGIN_FILE );
-
+		$this->mailchimp = new MC4WP_MailChimp();
 		$this->load_translations();
 		$this->setup_hooks();
 		$this->listen();
@@ -222,12 +227,19 @@ class MC4WP_Lite_Admin
 	*/
 	public function validate_settings( array $settings ) {
 
+		$current = mc4wp_get_options();
+
 		// sanitize simple text fields (no HTML, just chars & numbers)
 		$simple_text_fields = array( 'api_key', 'redirect', 'css' );
 		foreach( $simple_text_fields as $field ) {
 			if( isset( $settings[ $field ] ) ) {
 				$settings[ $field ] = sanitize_text_field( $settings[ $field ] );
 			}
+		}
+
+		// if api key changed, empty cache
+		if( isset( $settings['api_key'] ) && $settings['api_key'] !== $current['api_key'] ) {
+			$this->mailchimp->empty_cache();
 		}
 
 		// validate woocommerce checkbox position
@@ -267,7 +279,6 @@ class MC4WP_Lite_Admin
 		}
 
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-		$mailchimp = new MC4WP_MailChimp();
 
 		// css
 		wp_enqueue_style( 'mc4wp-admin-css', MC4WP_LITE_PLUGIN_URL . 'assets/css/admin' . $suffix . '.css' );
@@ -292,7 +303,7 @@ class MC4WP_Lite_Admin
 						'unsubscribe' => __( 'Unsubscribe', 'mailchimp-for-wp' ),
 					)
 				),
-				'mailchimpLists' => $mailchimp->get_lists()
+				'mailchimpLists' => $this->mailchimp->get_lists()
 			)
 		);
 
@@ -358,8 +369,7 @@ class MC4WP_Lite_Admin
 
 		// cache renewal triggered manually?
 		$force_cache_refresh = isset( $_POST['mc4wp-renew-cache'] ) && $_POST['mc4wp-renew-cache'] == 1;
-		$mailchimp = new MC4WP_MailChimp();
-		$lists = $mailchimp->get_lists( $force_cache_refresh );
+		$lists = $this->mailchimp->get_lists( $force_cache_refresh );
 
 		if( $lists && count( $lists ) === 100 ) {
 			add_settings_error( 'mc4wp', 'mc4wp-lists-at-limit', __( 'The plugin can only fetch a maximum of 100 lists from MailChimp, only your first 100 lists are shown.', 'mailchimp-for-wp' ) );
@@ -381,9 +391,8 @@ class MC4WP_Lite_Admin
 	*/
 	public function show_checkbox_settings()
 	{
-		$mailchimp = new MC4WP_MailChimp();
 		$opts = mc4wp_get_options( 'checkbox' );
-		$lists = $mailchimp->get_lists();
+		$lists = $this->mailchimp->get_lists();
 		require MC4WP_LITE_PLUGIN_DIR . 'includes/views/checkbox-settings.php';
 	}
 
@@ -393,8 +402,7 @@ class MC4WP_Lite_Admin
 	public function show_form_settings()
 	{
 		$opts = mc4wp_get_options( 'form' );
-		$mailchimp = new MC4WP_MailChimp();
-		$lists = $mailchimp->get_lists();
+		$lists = $this->mailchimp->get_lists();
 
 		require MC4WP_LITE_PLUGIN_DIR . 'includes/views/form-settings.php';
 	}

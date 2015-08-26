@@ -2,6 +2,16 @@
 
 class MC4WP_MailChimp {
 
+	protected $transient_name = 'mc4wp_mailchimp_lists';
+
+	/**
+	 * Empty the Lists cache
+	 */
+	public function empty_cache() {
+		delete_transient( $this->transient_name );
+		delete_transient( $this->transient_name . '_fallback' );
+	}
+
 	/**
 	 * Get MailChimp lists
 	 * Try cache first, then try API, then try fallback cache.
@@ -14,15 +24,14 @@ class MC4WP_MailChimp {
 	public function get_lists( $force_renewal = false, $force_fallback = false ) {
 
 		if( $force_renewal ) {
-			delete_transient( 'mc4wp_mailchimp_lists' );
-			delete_transient( 'mc4wp_mailchimp_lists_fallback' );
+			$this->empty_cache();
 		}
 
-		$cached_lists = get_transient( 'mc4wp_mailchimp_lists' );
+		$cached_lists = get_transient( $this->transient_name  );
 
 		// if force_fallback is true, get lists from older transient
 		if( $force_fallback ) {
-			$cached_lists = get_transient( 'mc4wp_mailchimp_lists_fallback' );
+			$cached_lists = get_transient( $this->transient_name . '_fallback' );
 		}
 
 		// got lists? if not, proceed with API call.
@@ -64,13 +73,13 @@ class MC4WP_MailChimp {
 				}
 
 				// store lists in transients
-				set_transient( 'mc4wp_mailchimp_lists', $lists, ( 24 * 3600 ) ); // 1 day
-				set_transient( 'mc4wp_mailchimp_lists_fallback', $lists, 1209600 ); // 2 weeks
+				set_transient(  $this->transient_name, $lists, ( 24 * 3600 ) ); // 1 day
+				set_transient(  $this->transient_name . '_fallback', 1209600 ); // 2 weeks
 
 				return $lists;
 			} else {
 				// api request failed, get fallback data (with longer lifetime)
-				$cached_lists = get_transient( 'mc4wp_mailchimp_lists_fallback' );
+				$cached_lists = get_transient( $this->transient_name . '_fallback' );
 
 				if ( ! $cached_lists ) {
 					return array();
