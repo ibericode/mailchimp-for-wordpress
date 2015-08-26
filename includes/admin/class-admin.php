@@ -371,16 +371,18 @@ class MC4WP_Lite_Admin
 		$force_cache_refresh = isset( $_POST['mc4wp-renew-cache'] ) && $_POST['mc4wp-renew-cache'] == 1;
 		$lists = $this->mailchimp->get_lists( $force_cache_refresh );
 
-		if( $lists && count( $lists ) === 100 ) {
-			add_settings_error( 'mc4wp', 'mc4wp-lists-at-limit', __( 'The plugin can only fetch a maximum of 100 lists from MailChimp, only your first 100 lists are shown.', 'mailchimp-for-wp' ) );
-		}
-
 		if ( $force_cache_refresh ) {
-			if ( false === empty ( $lists ) ) {
-				add_settings_error( 'mc4wp', 'mc4wp-cache-success', __( 'Renewed MailChimp cache.', 'mailchimp-for-wp' ), 'updated' );
+
+			if( is_array( $lists ) ) {
+				if( count( $lists ) === 100 ) {
+					add_settings_error( 'mc4wp', 'mc4wp-lists-at-limit', __( 'The plugin can only fetch a maximum of 100 lists from MailChimp, only your first 100 lists are shown.', 'mailchimp-for-wp' ) );
+				} else {
+					add_settings_error( 'mc4wp', 'mc4wp-cache-success', __( 'Renewed MailChimp cache.', 'mailchimp-for-wp' ), 'updated' );
+				}
 			} else {
 				add_settings_error( 'mc4wp', 'mc4wp-cache-error', __( 'Failed to renew MailChimp cache - please try again later.', 'mailchimp-for-wp' ) );
 			}
+
 		}
 
 		require MC4WP_LITE_PLUGIN_DIR . 'includes/views/api-settings.php';

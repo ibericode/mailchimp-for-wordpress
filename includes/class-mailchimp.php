@@ -2,6 +2,9 @@
 
 class MC4WP_MailChimp {
 
+	/**
+	 * @var string
+	 */
 	protected $transient_name = 'mc4wp_mailchimp_lists';
 
 	/**
@@ -16,14 +19,14 @@ class MC4WP_MailChimp {
 	 * Get MailChimp lists
 	 * Try cache first, then try API, then try fallback cache.
 	 *
-	 * @param bool $force_renewal
+	 * @param bool $force_refresh
 	 * @param bool $force_fallback
 	 *
 	 * @return array
 	 */
-	public function get_lists( $force_renewal = false, $force_fallback = false ) {
+	public function get_lists( $force_refresh = false, $force_fallback = false ) {
 
-		if( $force_renewal ) {
+		if( $force_refresh ) {
 			$this->empty_cache();
 		}
 
@@ -35,7 +38,7 @@ class MC4WP_MailChimp {
 		}
 
 		// got lists? if not, proceed with API call.
-		if( empty( $cached_lists ) ) {
+		if( ! is_array( $cached_lists ) ) {
 
 			// make api request for lists
 			$api = mc4wp_get_api();
@@ -81,8 +84,8 @@ class MC4WP_MailChimp {
 				// api request failed, get fallback data (with longer lifetime)
 				$cached_lists = get_transient( $this->transient_name . '_fallback' );
 
-				if ( ! $cached_lists ) {
-					return array();
+				if ( ! is_array( $cached_lists ) ) {
+					return false;
 				}
 			}
 
@@ -162,7 +165,7 @@ class MC4WP_MailChimp {
 	public function get_list_grouping_name( $list_id, $grouping_id ) {
 
 		$grouping = $this->get_list_grouping( $list_id, $grouping_id );
-		if( $grouping ) {
+		if( isset( $grouping->name ) ) {
 			return $grouping->name;
 		}
 
@@ -207,7 +210,7 @@ class MC4WP_MailChimp {
 
 		$list_counts = get_transient( 'mc4wp_list_counts' );
 
-		if ( false === $list_counts ) {
+		if( false === $list_counts ) {
 			// make api call
 			$api = mc4wp_get_api();
 			$lists = $api->get_lists();
