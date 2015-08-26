@@ -203,7 +203,7 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 			'{form_element}' => $this->form_element_id,
 			'{email}' => urlencode( $this->user_data['EMAIL'] )
 		);
-		$url = MC4WP_Tools::replace_variables( $this->form->settings['redirect'], $additional_replacements );
+		$url = MC4WP_Tools::replace_variables( $this->form->settings['redirect'], $additional_replacements, null, 'url' );
 		return $url;
 	}
 

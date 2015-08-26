@@ -2,6 +2,11 @@
 
 class MC4WP_Tools {
 
+	/*
+	 * Replacement output when performing string replacements
+	 */
+	public static $replacement_output = 'string';
+
 	/**
 	 * @param array $merge_vars
 	 *
@@ -35,7 +40,9 @@ class MC4WP_Tools {
 	 * @return string $text       The text with {variables} replaced.
 	 * replaced.
 	 */
-	public static function replace_variables( $string, $additional_replacements = array(), $list_ids = array() ) {
+	public static function replace_variables( $string, $additional_replacements = array(), $list_ids = array(), $output = 'string' ) {
+
+		self::$replacement_output = $output;
 
 		// replace general vars
 		$replacements = array(
@@ -76,6 +83,11 @@ class MC4WP_Tools {
 			$replacements['{subscriber_count}'] = $subscriber_count;
 		}
 
+		// encode replacements when output type is set to 'url'
+		if( self::$replacement_output === 'url' ) {
+			$replacements = urlencode_deep( $replacements );
+		}
+
 		// perform the replacement
 		$string = str_ireplace( array_keys( $replacements ), array_values( $replacements ), $string );
 
@@ -101,6 +113,12 @@ class MC4WP_Tools {
 		$request_data = array_change_key_case( $_REQUEST, CASE_UPPER );
 
 		if( isset( $request_data[ $variable ] ) && is_scalar( $request_data[ $variable ] ) ) {
+
+			// return urlencoded variable if replacement output is set to 'url'
+			if( self::$replacement_output === 'url' ) {
+				return urlencode( $request_data[ $variable ] );
+			}
+
 			return esc_html( $request_data[ $variable ] );
 		}
 
