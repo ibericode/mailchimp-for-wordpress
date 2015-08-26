@@ -12,6 +12,7 @@
 			<key name="text_required_field_missing" />
 			<key name="text_unsubscribed" />
 			<key name="text_not_subscribed" />
+			<key name="markup" />
 		</key>
 	</admin-texts>
 </wpml-config>
