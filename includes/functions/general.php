@@ -8,10 +8,8 @@
 * @return array
 */
 function mc4wp_get_options( $key = '' ) {
-	static $options = null;
-
-	if( null === $options ) {
-
+	static $defaults;
+	if( is_null( $defaults ) ) {
 		$email_label = __( 'Email address', 'mailchimp-for-wp' );
 		$email_placeholder = __( 'Your email address', 'mailchimp-for-wp' );
 		$signup_button = __( 'Sign up', 'mailchimp-for-wp' );
@@ -58,25 +56,20 @@ function mc4wp_get_options( $key = '' ) {
 				'send_welcome' => 0,
 			),
 		);
-
-		$db_keys_option_keys = array(
-			'mc4wp_lite' => 'general',
-			'mc4wp_lite_checkbox' => 'checkbox',
-			'mc4wp_lite_form' => 'form',
-		);
-
-		$options = array();
-		foreach ( $db_keys_option_keys as $db_key => $option_key ) {
-			$option = (array) get_option( $db_key, array() );
-
-			// add option to database to prevent query on every pageload
-			if ( count( $option ) === 0 ) {
-				add_option( $db_key, $defaults[$option_key] );
-			}
-
-			$options[$option_key] = array_merge( $defaults[$option_key], $option );
-		}
 	}
+
+	$db_keys_option_keys = array(
+		'mc4wp_lite' => 'general',
+		'mc4wp_lite_checkbox' => 'checkbox',
+		'mc4wp_lite_form' => 'form',
+	);
+
+	$options = array();
+	foreach ( $db_keys_option_keys as $db_key => $option_key ) {
+		$option = (array) get_option( $db_key, array() );
+		$options[$option_key] = array_merge( $defaults[$option_key], $option );
+	}
+
 
 	if( '' !== $key ) {
 		return $options[$key];
