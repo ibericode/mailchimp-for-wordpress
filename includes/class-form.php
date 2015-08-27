@@ -416,6 +416,14 @@ class MC4WP_Form {
 			),
 		);
 
+		// add some admin-only messages
+		if( current_user_can( 'manage_options' ) ) {
+			$messages['no_lists_selected'] = array(
+				'type' => 'notice',
+				'text' => sprintf( 'You did not select a list in <a href="%s">your form settings</a>.', admin_url( 'admin.php?page=mailchimp-for-wp-form-settings' ) )
+			);
+		}
+
 		/**
 		 * @filter mc4wp_form_messages
 		 * @expects array
