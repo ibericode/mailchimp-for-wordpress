@@ -88,7 +88,7 @@ class MC4WP_Lite_Admin
 		if( isset( $data->response[ $this->plugin_file ]->new_version ) ) {
 
 			// check if this is a major update and if so, remove it from the response object
-			if( version_compare( $data->response[ $this->plugin_file ]->new_version, '3.0', '>' ) ) {
+			if( version_compare( $data->response[ $this->plugin_file ]->new_version, '3.0.0', '>=' ) ) {
 				unset( $data->response[ $this->plugin_file ]);
 			}
 		}
