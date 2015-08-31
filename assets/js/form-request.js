@@ -100,11 +100,11 @@
 		/**
 		 * Populate form fields from a JSON object.
 		 *
-		 * @param container object The element containing your input fields.
+		 * @param form object The form element containing your input fields.
 		 * @param data array JSON data to populate the fields with.
 		 * @param basename string Optional basename which is added to `name` attributes
 		 */
-		var populate = function(container, data, basename) {
+		var populate = function( form, data, basename) {
 
 			for(var key in data) {
 
@@ -123,46 +123,43 @@
 				if(value.constructor === Array) {
 					name += '[]';
 				} else if(typeof value == "object") {
-					populate(container, value, name);
+					populate( formElement, value, name);
 					continue;
 				}
 
-				// find field element
-				var elements = container.querySelectorAll('input[name="'+ name +'"], select[name="'+ name +'"], textarea[name="'+ name +'"]');
-
-				// loop through elements to set their values
-				for(var i = 0; i < elements.length; i++) {
-
-					var element = elements[i];
-
-					// check element type
-					switch(element.type || element.tagName) {
-						default:
-							element.value = value;
-							break;
-
-						case 'radio':
-							element.checked = (element.value === value);
-							break;
-
-						case 'checkbox':
-							element.checked = ( value.indexOf(element.value) > -1 );
-							break;
-
-						case 'select-multiple':
-							var values = value.constructor == Array ? value : [value];
-
-							for(var k = 0; k < element.options.length; k++) {
-								element.options[k].selected |= (values.indexOf(element.options[k].value) > -1 );
-							}
-							break;
-
-						case 'select':
-						case 'select-one':
-							element.value = value.toString() || value;
-							break;
-					}
+				// only proceed if element is set
+				var element = form.elements.namedItem( name );
+				if( ! element ) {
+					continue;
 				}
+
+				// check element type
+				switch(element.type || element.constructor ) {
+					default:
+						element.value = value;
+						break;
+
+					case RadioNodeList:
+						for( var j=0; j < element.length; j++ ) {
+							element[j].checked = ( value.indexOf(element[j].value) > -1 );
+						}
+						break;
+
+					case 'select-multiple':
+						var values = value.constructor == Array ? value : [value];
+
+						for(var k = 0; k < element.options.length; k++) {
+							element.options[k].selected |= (values.indexOf(element.options[k].value) > -1 );
+						}
+						break;
+
+					case 'select':
+					case 'select-one':
+						element.value = value.toString() || value;
+						break;
+
+				}
+
 
 
 			}
