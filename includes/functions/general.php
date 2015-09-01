@@ -69,8 +69,7 @@ function mc4wp_get_options( $key = '' ) {
 		$option = (array) get_option( $db_key, array() );
 		$options[$option_key] = array_merge( $defaults[$option_key], $option );
 	}
-
-
+	
 	if( '' !== $key ) {
 		return $options[$key];
 	}
