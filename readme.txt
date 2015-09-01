@@ -167,6 +167,23 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 
 == Changelog ==
 
+= 2.3.9 - to be released =
+
+**Improvements**
+
+- MailChimp lists cache is now automatically flushed after changing your API key setting.
+- Better field population after submitting a form with errors.
+- More helpful error message when no list is selected.
+- Translate options when installing plugin from a language other than English.
+- Add form mark-up to WPML configuration file.
+- Sign-up checkbox in comment form is now shown before the "submit comment" button.
+- URL-encode variables in "Redirect URL" setting.
+- Better error message when connected to MailChimp but account has no lists.
+
+**Additions**
+
+- Add `mc4wp_form_action` filter to set a custom `action` attribute on the form element.
+
 = 2.3.8 - August 18, 2015 =
 
 **Fixes**
