@@ -293,4 +293,36 @@ class MC4WP_MailChimp {
 
 	}
 
+	/**
+	 * Get the name of a list field by its merge tag
+	 *
+	 * @param $list_id
+	 * @param $tag
+	 *
+	 * @return string
+	 */
+	public function get_list_field_name_by_tag( $list_id, $tag ) {
+		// try default fields
+		switch( $tag ) {
+			case 'EMAIL':
+				return __( 'Email address', 'mailchimp-for-wp' );
+				break;
+			case 'OPTIN_IP':
+				return __( 'IP Address', 'mailchimp-for-wp' );
+				break;
+		}
+		// try to find field in list
+		$list = $this->get_list( $list_id, false, true );
+		if( is_object( $list ) && isset( $list->merge_vars ) ) {
+			// try list merge vars first
+			foreach( $list->merge_vars as $field ) {
+				if( $field->tag !== $tag ) {
+					continue;
+				}
+				return $field->name;
+			}
+		}
+		return '';
+	}
+
 }
