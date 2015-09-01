@@ -70,7 +70,7 @@
 		 * Repopulates the form fields
 		 */
 		this.repopulate = function() {
-			populate( self.element, request.data );
+			populate( self.element.querySelector('form'), request.data );
 		};
 
 		// Call "init" on window.load event
