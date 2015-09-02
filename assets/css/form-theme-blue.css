@@ -121,6 +121,7 @@ form.mc4wp-form,
 .mc4wp-form input[type="tel"],
 .mc4wp-form input[type="url"],
 .mc4wp-form input[type="date"],
+.mc4wp-form input[type="number"],
 .mc4wp-form textarea,
 .mc4wp-form select {
   width: 100%;
@@ -150,6 +151,7 @@ form.mc4wp-form,
 .mc4wp-form input[type="email"]:focus,
 .mc4wp-form input[type="tel"]:focus,
 .mc4wp-form input[type="url"]:focus,
+.mc4wp-form input[type="number"]:focus,
 .mc4wp-form textarea:focus,
 .mc4wp-form select:focus {
   border-color: #66afe9;
