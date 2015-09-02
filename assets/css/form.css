@@ -29,6 +29,7 @@
 .mc4wp-form input[type="tel"],
 .mc4wp-form input[type="url"],
 .mc4wp-form input[type="date"],
+.mc4wp-form input[type="number"],
 .mc4wp-form textarea,
 .mc4wp-form select {
   width: 100%;

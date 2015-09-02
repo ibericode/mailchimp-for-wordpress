@@ -29,6 +29,7 @@
 .mc4wp-form input[type="tel"],
 .mc4wp-form input[type="url"],
 .mc4wp-form input[type="date"],
+.mc4wp-form input[type="number"],
 .mc4wp-form textarea,
 .mc4wp-form select {
   width: 100%;
@@ -100,14 +101,14 @@
 /* Form base theme */
 form.mc4wp-form,
 .mc4wp-form form {
-  box-shadow: none !important;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
+  box-shadow: none !important;
   width: auto;
 }
 
 .mc4wp-form p {
-  margin: 0 0 15px !important;
+  margin: 20px 0;
   padding: 0;
 }
 
@@ -130,7 +131,7 @@ form.mc4wp-form,
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.428571429;
-  color: #555555;
+  color: #555555 !important;
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #cccccc;
