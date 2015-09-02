@@ -1,10 +1,6 @@
 <?php
 
-if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
+defined( 'ABSPATH' ) or exit;
 
 class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 
@@ -26,31 +22,30 @@ class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 		parent::__construct();
 
 		// hooks for outputting the checkbox
-		add_filter( 'comment_form_defaults', array( $this, 'add_checkbox_to_fields' ) );
+		add_filter( 'comment_form_submit_field', array( $this, 'add_checkbox_before_submit_button' ), 90 );
 
-		add_action( 'thesis_hook_after_comment_box', array( $this, 'maybe_output_checkbox' ), 10 );
-		add_action( 'comment_form', array( $this, 'maybe_output_checkbox' ), 10 );
+		add_action( 'thesis_hook_after_comment_box', array( $this, 'maybe_output_checkbox' ), 90 );
+		add_action( 'comment_form', array( $this, 'maybe_output_checkbox' ), 90 );
 
 		// hooks for checking if we should subscribe the commenter
 		add_action( 'comment_post', array( $this, 'subscribe_from_comment' ), 40, 2 );
 	}
 
 	/**
-	 * @param $fields
+	 * This adds the checkbox just before the submit button and sets a flag to prevent it from outputting twice
 	 *
-	 * @return array
+	 * @param $submit_button_html
+	 *
+	 * @return string
 	 */
-	public function add_checkbox_to_fields( $fields ) {
-		$checkbox = $this->get_checkbox();
-		$fields['comment_notes_after'] .= $checkbox;
-
-		// set flag to prevent other output function from firing
+	public function add_checkbox_before_submit_button( $submit_button_html ) {
 		$this->added_through_filter = true;
-		return $fields;
+		return $this->get_checkbox() . $submit_button_html;
 	}
 
 	/**
-	 * Output fallback if comment function doesn't have `comment_form_defaults` filter yet.
+	 * Output fallback
+	 * Will output the checkbox if comment_form() function does not use `comment_form_submit_field` filter yet.
 	 */
 	public function maybe_output_checkbox() {
 		if( ! $this->added_through_filter ) {
