@@ -263,8 +263,8 @@ class MC4WP_Field_Mapper {
 
 			case 'address':
 
-				// auto-format if addr1 is not set
-				if( ! isset( $field_value['addr1'] ) ) {
+				// auto-format if this is a string
+				if( is_string( $field_value ) ) {
 
 					// addr1, addr2, city, state, zip, country
 					$address_pieces = explode( ',', $field_value );
@@ -276,7 +276,17 @@ class MC4WP_Field_Mapper {
 						'state' => ( isset( $address_pieces[2] ) ) ?   $address_pieces[2] : '',
 						'zip'   => ( isset( $address_pieces[3] ) ) ?   $address_pieces[3] : ''
 					);
+				} elseif( is_array( $field_value ) ) {
 
+					// merge with array of empty defaults to allow skipping certain fields
+					$default_address = array(
+						'addr1' => '',
+						'city' => '',
+						'state' => '',
+						'zip' => ''
+					);
+
+					$field_value = array_merge( $default_address, $field_value );
 				}
 
 				break;
