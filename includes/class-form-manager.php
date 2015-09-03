@@ -157,6 +157,11 @@ class MC4WP_Lite_Form_Manager {
 		// Print small JS snippet later on in the footer.
 		add_action( 'wp_footer', array( $this, 'print_js' ), 99 );
 
+		// make sure scripts are enqueued later
+		if( isset( $is_IE ) && $is_IE ) {
+			wp_enqueue_script( 'mc4wp-placeholders' );
+		}
+
 		// output form
 		return $form->output( $attributes['element_id'], $attributes, false );
 	}
