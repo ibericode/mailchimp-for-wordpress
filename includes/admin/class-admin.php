@@ -261,7 +261,7 @@ class MC4WP_Lite_Admin
 		}
 
 		// if api key changed, empty cache
-		if( isset( $settings['api_key'] ) && $settings['api_key'] !== $current['api_key'] ) {
+		if( isset( $settings['api_key'] ) && $settings['api_key'] !== $current['general']['api_key'] ) {
 			$this->mailchimp->empty_cache();
 		}
 
