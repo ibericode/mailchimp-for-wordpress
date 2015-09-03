@@ -85,8 +85,12 @@ class MC4WP_API {
 
 			if( $result !== false ) {
 
-				if( isset( $result->msg ) && $result->msg === "Everything's Chimpy!" ) {
-					$this->connected = true;
+				if( isset( $result->msg ) ) {
+					if( $result->msg === "Everything's Chimpy!" ) {
+						$this->connected = true;
+					} else {
+						$this->show_error( $result->msg );
+					}
 				} elseif( isset( $result->error ) ) {
 					$this->show_error( 'MailChimp Error: ' . $result->error );
 				} else {
