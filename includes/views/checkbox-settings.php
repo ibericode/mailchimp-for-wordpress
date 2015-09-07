@@ -8,7 +8,7 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
-	<h2><img src="<?php echo MC4WP_LITE_PLUGIN_URL . 'assets/img/menu-icon.png'; ?>" /> <?php _e( 'MailChimp for WordPress', 'mailchimp-for-wp' ); ?>: <?php _e( 'Checkbox Settings', 'mailchimp-for-wp' ); ?></h2>
+	<h1 class="page-title"><?php _e( 'MailChimp for WordPress', 'mailchimp-for-wp' ); ?>: <?php _e( 'Checkbox Settings', 'mailchimp-for-wp' ); ?></h1>
 	
 	<div id="mc4wp-content">
 

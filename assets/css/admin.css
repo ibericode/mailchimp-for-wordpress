@@ -1,3 +1,10 @@
+/* settings pages */
+#mc4wp-admin .page-title {
+	background: url( "../img/icon-large.png" ) no-repeat left center;
+	padding-left: 42px;
+	line-height: 32px;
+	margin-bottom: 20px;
+}
 
 #mc4wp-content{ 
 	float:left; 
