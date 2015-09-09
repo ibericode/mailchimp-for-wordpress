@@ -75,6 +75,9 @@
   input[type="button"] {
     cursor: pointer;
     display: inline-block;
+		-webkit-appearance: none;
+		-moz-appearance:    none;
+		appearance:         none;
   }
 
   /* Remove font-weight bold from nested elements */

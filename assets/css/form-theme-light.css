@@ -61,6 +61,9 @@
 .mc4wp-form input[type="button"] {
   cursor: pointer;
   display: inline-block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 .mc4wp-form label > span,
 .mc4wp-form li > label {
