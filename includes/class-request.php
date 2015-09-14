@@ -75,7 +75,14 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 				// remove data from array
 				unset( $data[$key] );
 
-				$key = substr( $key,7 );
+				// get part after "mc4wp_" and use that as key
+				$key = substr( $key, 7 );
+
+				// if key starts with h_, change it to say "honeypot" (because field has dynamic name attribute)
+				if( strpos( $key, 'h_' ) === 0 ){
+					$key = 'honeypot';
+				}
+
 				$config[ $key ] = $value;
 			}
 		}
