@@ -18,6 +18,14 @@
 	}
 
   /* Form Elements */
+	form {
+		&:after {
+			content:"";
+			display:table;
+			clear:both;
+		}
+	}
+
   label {
 		font-weight: bold;
     margin-bottom: 5px;
@@ -66,7 +74,7 @@
     -webkit-appearance: radio;
   }
 
-  input[name="_mc4wp_required_but_not_really"] {
+  input[name^="_mc4wp_"] {
     display: none !important;
   }
 

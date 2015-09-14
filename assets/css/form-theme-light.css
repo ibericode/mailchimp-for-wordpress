@@ -17,6 +17,11 @@
   vertical-align: baseline;
   line-height: normal;
 }
+.mc4wp-form form:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 .mc4wp-form label {
   font-weight: bold;
   margin-bottom: 5px;
@@ -53,7 +58,7 @@
 .mc4wp-form input[type="radio"] {
   -webkit-appearance: radio;
 }
-.mc4wp-form input[name="_mc4wp_required_but_not_really"] {
+.mc4wp-form input[name^="_mc4wp_"] {
   display: none !important;
 }
 .mc4wp-form input[type="submit"],
