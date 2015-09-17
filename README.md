@@ -1,6 +1,6 @@
 MailChimp for WordPress
 ======================
-[![Build Status](https://api.travis-ci.org/dannyvankooten/mailchimp-for-wordpress.png?branch=master)](https://travis-ci.org/dannyvankooten/mailchimp-for-wordpress)
+[![Build Status](https://api.travis-ci.org/ibericode/mailchimp-for-wordpress.png?branch=master)](https://travis-ci.org/ibericode/mailchimp-for-wordpress)
 [![Stable Version](https://poser.pugx.org/dannyvankooten/mailchimp-for-wordpress/v/stable.svg)](https://packagist.org/packages/dannyvankooten/mailchimp-for-wordpress)
 [![License](https://poser.pugx.org/dannyvankooten/mailchimp-for-wordpress/license.svg)](https://packagist.org/packages/dannyvankooten/mailchimp-for-wordpress)
 ![Version](https://img.shields.io/wordpress/plugin/dt/mailchimp-for-wp.svg)
