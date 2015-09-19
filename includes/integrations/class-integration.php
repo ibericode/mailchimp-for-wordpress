@@ -296,17 +296,23 @@ abstract class MC4WP_Integration {
 		do_action( 'mc4wp_after_subscribe', $email, $merge_vars, $result );
 
 		// if result failed, show error message (only to admins for non-AJAX)
-		if ( $result !== true && $api->has_error() && $this->show_error_messages() ) {
-			wp_die( '<h3>' . __( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ) . '</h3>' .
-				'<p>' . __( 'The MailChimp server returned the following error message as a response to our sign-up request:', 'mailchimp-for-wp' ) . '</p>' .
-				'<pre>' . $api->get_error_message() . '</pre>' .
-				'<p>' . __( 'This is the data that was sent to MailChimp:', 'mailchimp-for-wp' ) . '</p>' .
-				'<strong>' . __( 'Email address:', 'mailchimp-for-wp' ) . '</strong>' .
-				'<pre>' . esc_html( $email ) . '</pre>' .
-				'<strong>' . __( 'Merge variables:', 'mailchimp-for-wp' ) . '</strong>' .
-				'<pre>' . esc_html( print_r( $merge_vars, true ) ) . '</pre>' .
-				'<p style="font-style:italic; font-size:12px;">' . __( 'This message is only visible to administrators for debugging purposes.', 'mailchimp-for-wp' ) . '</p>',
-			__( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ), array( 'back_link' => true ) );
+		if ( $result !== true && $api->has_error() ) {
+
+			// log error
+			error_log( sprintf( 'MailChimp for WordPres (%s): %s', date( 'Y-m-d H:i:s' ), $this->type, $api->get_error_message() ) );
+
+			if( $this->show_error_messages() ) {
+				wp_die( '<h3>' . __( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ) . '</h3>' .
+				        '<p>' . __( 'The MailChimp server returned the following error message as a response to our sign-up request:', 'mailchimp-for-wp' ) . '</p>' .
+				        '<pre>' . $api->get_error_message() . '</pre>' .
+				        '<p>' . __( 'This is the data that was sent to MailChimp:', 'mailchimp-for-wp' ) . '</p>' .
+				        '<strong>' . __( 'Email address:', 'mailchimp-for-wp' ) . '</strong>' .
+				        '<pre>' . esc_html( $email ) . '</pre>' .
+				        '<strong>' . __( 'Merge variables:', 'mailchimp-for-wp' ) . '</strong>' .
+				        '<pre>' . esc_html( print_r( $merge_vars, true ) ) . '</pre>' .
+				        '<p style="font-style:italic; font-size:12px;">' . __( 'This message is only visible to administrators for debugging purposes.', 'mailchimp-for-wp' ) . '</p>',
+					__( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ), array( 'back_link' => true ) );
+			}
 		}
 
 		return $result;
