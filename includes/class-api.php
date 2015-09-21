@@ -376,10 +376,13 @@ class MC4WP_API {
 				$this->error_code = (int) $response->code;
 			}
 
-			return $response;
 		}
 
-		return false;
+		if( is_null( $response ) ) {
+			return false;
+		}
+
+		return $response;
 	}
 
 	/**
