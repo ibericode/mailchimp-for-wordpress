@@ -184,11 +184,11 @@ class MC4WP_Lite_Form_Manager {
 		echo '<script type="text/javascript">';
 
 		// include general form enhancements
-		require_once MC4WP_PLUGIN_DIR . 'includes/views/parts/form-enhancements.js';
+		include MC4WP_LITE_PLUGIN_DIR . 'includes/views/parts/form-enhancements.js';
 
 		// include date polyfill?
 		if( $this->print_date_fallback ) {
-			include MC4WP_PLUGIN_DIR . 'includes/views/parts/date-polyfill.js';
+			include MC4WP_LITE_PLUGIN_DIR . 'includes/views/parts/date-polyfill.js';
 		}
 
 		echo '</script>';

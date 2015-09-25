@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: email, mailchimp, marketing, newsletter, signup, widget, mc4wp, contact form 7, woocommerce, buddypress,ibericode
 Requires at least: 3.7
 Tested up to: 4.3.1
-Stable tag: 2.3.13
+Stable tag: 2.3.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -167,6 +167,12 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 
 == Changelog ==
 
+= 2.3.14 - September 25 =
+
+**Fixes**
+
+- Use of undefined constant in previous update.
+
 = 2.3.13 - September 25, 2015 =
 
 **Fixes**
@@ -178,7 +184,7 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 
 - Minor styling improvements for RTL sites.
 - MailChimp list fields of type "website" will now become HTML5 `url` type fields.
-- Auto-prefix fields of type `url` with `http`
+- Auto-prefix fields of type `url` with `http://`
 
 = 2.3.12 - September 21, 2015 =
 
