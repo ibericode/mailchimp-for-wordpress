@@ -54,9 +54,11 @@
 }
 .mc4wp-form input[type="checkbox"] {
   -webkit-appearance: checkbox;
+  -moz-appearance: checkbox;
 }
 .mc4wp-form input[type="radio"] {
   -webkit-appearance: radio;
+  -moz-appearance: radio;
 }
 .mc4wp-form input[type="submit"],
 .mc4wp-form button,
@@ -72,15 +74,22 @@
   font-weight: normal;
 }
 
+/* Right-To-Left specific styles */
+.rtl .mc4wp-form input[type="checkbox"],
+.rtl .mc4wp-form input[type="radio"] {
+  margin: 0 0 0 6px;
+}
+
+/* Alert */
 .mc4wp-alert {
   margin: 1em 0;
   padding: 10px 15px;
   color: #c09853;
   background-color: #fcf8e3;
   border: 1px solid #fbeed5;
-  border-radius: 2px;
-  -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
   display: block;
   position: relative;
 }
@@ -113,7 +122,7 @@ form.mc4wp-form,
 }
 
 .mc4wp-form p {
-  margin: 20px 0;
+  margin: 10px 0;
   padding: 0;
 }
 
@@ -140,11 +149,11 @@ form.mc4wp-form,
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #cccccc;
-  -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
   border-radius: 2px;
-  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
@@ -229,8 +238,8 @@ form.mc4wp-form,
 .mc4wp-form button:active {
   background-image: none;
   outline: 0;
-  -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 
