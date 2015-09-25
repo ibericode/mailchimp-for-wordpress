@@ -14,7 +14,7 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 		<select class="widefat" id="mc4wp-fw-mailchimp-fields" style="<?php if( empty( $opts['lists'] ) ) { echo 'display: none;'; } ?>">
 			<option class="default" value="" disabled selected><?php _e( 'Select MailChimp field..', 'mailchimp-for-wp' ); ?></option>
 			<optgroup label="MailChimp merge fields" class="merge-fields"></optgroup>
-			<optgroup label="Interest groupings" class="groupings"></optgroup>
+			<optgroup label="Groupings" class="groupings"></optgroup>
 			<optgroup label="Other" class="other">
 				<option class="default" value="submit"><?php _e( 'Submit Button' ,'mailchimp-for-wp' ); ?></option>
 				<option class="default" value="_action"><?php echo __( 'Subscribe / unsubscribe choice', 'mailchimp-for-wp' ); ?></option>
