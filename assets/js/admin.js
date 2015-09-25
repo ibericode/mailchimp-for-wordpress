@@ -406,8 +406,17 @@
 
 			// map MailChimp field types to HTML5 field type
 			var fieldTypesMap = {
-				'text': 'text', 'email': 'email', 'phone': 'tel', 'address': 'text', 'number': 'number',
-				'dropdown': 'select', 'date': 'date', 'birthday': 'date', 'radio': 'radio',  'checkbox': 'checkbox'
+				'text': 'text',
+				'email': 'email',
+				'phone': 'tel',
+				'address': 'text',
+				'number': 'number',
+				'dropdown': 'select',
+				'date': 'date',
+				'birthday': 'date',
+				'radio': 'radio',
+				'checkbox': 'checkbox',
+				'website': 'url'
 			};
 
 			if( typeof(fieldTypesMap[data.field_type]) !== "undefined") {
