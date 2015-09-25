@@ -1,7 +1,7 @@
 
 /* MailChimp for WP - Default Form Styles */
 .mc4wp-form{
-  margin: 1em 0;
+	margin: 1em 0;
 
 	form,
 	label,
@@ -17,7 +17,7 @@
 		line-height: normal;
 	}
 
-  /* Form Elements */
+	/* Form Elements */
 	form {
 		&:after {
 			content:"";
@@ -26,100 +26,112 @@
 		}
 	}
 
-  label {
+	label {
 		font-weight: bold;
-    margin-bottom: 5px;
-  }
+		margin-bottom: 5px;
+	}
 
-  input {
+	input {
 
-    // style placeholder polyfill
-    &.placeholdersjs {
-        color: #aaa !important;
-    }
+		// style placeholder polyfill
+		&.placeholdersjs {
+			color: #aaa !important;
+		}
 
-  }
+	}
 
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  input[type="url"],
-  input[type="date"],
+	input[type="text"],
+	input[type="email"],
+	input[type="tel"],
+	input[type="url"],
+	input[type="date"],
 	input[type="number"],
-  textarea,
-  select {
-    width: 100%;
-  }
+	textarea,
+	select {
+		width: 100%;
+	}
 
 	input[type="number"] {
 		min-width: 40px;
 	}
 
-  input[type="checkbox"],
-  input[type="radio"] {
-    position: relative;
-    margin: 0 6px 0 0;
-    padding: 0;
-    height: 13px;
-    width: 13px;
-    display: inline-block;
-    border: 0;
-  }
+	input[type="checkbox"],
+	input[type="radio"] {
+		position: relative;
+		margin: 0 6px 0 0;
+		padding: 0;
+		height: 13px;
+		width: 13px;
+		display: inline-block;
+		border: 0;
+	}
 
-  input[type="checkbox"] {
-    -webkit-appearance: checkbox;
-  }
+	input[type="checkbox"] {
+		-webkit-appearance: checkbox;
+		-moz-appearance: checkbox;
+	}
 
-  input[type="radio"] {
-    -webkit-appearance: radio;
-  }
+	input[type="radio"] {
+		-webkit-appearance: radio;
+		-moz-appearance: radio;
+	}
 
-  input[type="submit"],
-  button,
-  input[type="button"] {
-    cursor: pointer;
-    display: inline-block;
+	input[type="submit"],
+	button,
+	input[type="button"] {
+		cursor: pointer;
+		display: inline-block;
 		-webkit-appearance: none;
 		-moz-appearance:    none;
 		appearance:         none;
-  }
+	}
 
-  /* Remove font-weight bold from nested elements */
-  label > span,
-  li > label {
-    font-weight: normal;
-  }
-
+	/* Remove font-weight bold from nested elements */
+	label > span,
+	li > label {
+		font-weight: normal;
+	}
 
 }
 
+/* Right-To-Left specific styles */
+.rtl {
+	.mc4wp-form {
+		input[type="checkbox"],
+		input[type="radio"] {
+			margin: 0 0 0 6px;
+		}
+	}
+}
+
+/* Alert */
 .mc4wp-alert{
-  margin: 1em 0;
-  padding: 10px 15px;
-  color: #c09853;
-  background-color: #fcf8e3;
-  border: 1px solid #fbeed5;
-  border-radius: 2px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  display: block;
-  position: relative;
+	margin: 1em 0;
+	padding: 10px 15px;
+	color: #c09853;
+	background-color: #fcf8e3;
+	border: 1px solid #fbeed5;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	display: block;
+	position: relative;
 }
 
 .mc4wp-success {
-  color: #468847;
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
+	color: #468847;
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
 }
 
 .mc4wp-notice {
-  color: #3a87ad;
-  background-color: #d9edf7;
-  border-color: #bce8f1;
+	color: #3a87ad;
+	background-color: #d9edf7;
+	border-color: #bce8f1;
 }
 
 .mc4wp-error {
-  color: #b94a48;
-  background-color: #f2dede;
-  border-color: #eed3d7;
+	color: #b94a48;
+	background-color: #f2dede;
+	border-color: #eed3d7;
 }
