@@ -181,53 +181,17 @@ class MC4WP_Lite_Form_Manager {
 		}
 
 		// Print vanilla JavaScript
-		?><script type="text/javascript">
-			(function() {
-				function addSubmittedClassToFormContainer(e) {
-					var form = e.target.form.parentNode;
-					var className = 'mc4wp-form-submitted';
-					(form.classList) ? form.classList.add(className) : form.className += ' ' + className;
-				}
+		echo '<script type="text/javascript">';
 
-				var forms = document.querySelectorAll('.mc4wp-form');
-				for (var i = 0; i < forms.length; i++) {
-					(function(f) {
+		// include general form enhancements
+		require_once MC4WP_PLUGIN_DIR . 'includes/views/parts/form-enhancements.js';
 
-						/* add class on submit */
-						var b = f.querySelector('[type="submit"]');
-						if(b.length > 0 ) {
-							if(b.addEventListener) {
-								b.addEventListener('click', addSubmittedClassToFormContainer);
-							} else {
-								b.attachEvent('click', addSubmittedClassToFormContainer);
-							}
-						}
+		// include date polyfill?
+		if( $this->print_date_fallback ) {
+			include MC4WP_PLUGIN_DIR . 'includes/views/parts/date-polyfill.js';
+		}
 
-					})(forms[i]);
-				}
-			})();
-
-			<?php if( $this->print_date_fallback ) { ?>
-			(function() {
-				/* test if browser supports date fields */
-				var testInput = document.createElement('input');
-				testInput.setAttribute('type', 'date');
-				if( testInput.type !== 'date') {
-
-					/* add placeholder & pattern to all date fields */
-					var dateFields = document.querySelectorAll('.mc4wp-form input[type="date"]');
-					for(var i=0; i<dateFields.length; i++) {
-						if(!dateFields[i].placeholder) {
-							dateFields[i].placeholder = 'yyyy/mm/dd';
-						}
-						if(!dateFields[i].pattern) {
-							dateFields[i].pattern = '(?:19|20)[0-9]{2}/(?:(?:0[1-9]|1[0-2])/(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])/(?:30))|(?:(?:0[13578]|1[02])-31))';
-						}
-					}
-				}
-			})();
-			<?php } ?>
-		</script><?php
+		echo '</script>';
 
 		// make sure this function only runs once
 		$this->inline_js_printed = true;

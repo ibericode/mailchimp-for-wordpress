@@ -416,7 +416,7 @@
 				'birthday': 'date',
 				'radio': 'radio',
 				'checkbox': 'checkbox',
-				'website': 'url'
+				'url': 'url'
 			};
 
 			if( typeof(fieldTypesMap[data.field_type]) !== "undefined") {
