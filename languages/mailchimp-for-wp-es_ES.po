@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-05-26 14:41:46+00:00\n"
-"PO-Revision-Date: 2015-09-24 20:11+0000\n"
+"PO-Revision-Date: 2015-09-25 18:42+0000\n"
 "Last-Translator: Xavier Gimeno Torrent\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -1058,7 +1058,7 @@ msgstr "¿Te gusta el plugin? <a href=\"%s\">Actualiza a MailChimp para WordPres
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-footer.php:13
 msgid ""
 "This plugin is not developed by or affiliated with MailChimp in any way."
-msgstr "Este plugin no está creado por ni está afiliado a MailChimp en ningún sentido."
+msgstr "Este plugin no está desarrollado por ni está afiliado a MailChimp en ningún sentido."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:9
 msgid "Looking for help?"
@@ -1214,13 +1214,13 @@ msgstr "<strong> ¡Bienvenido a MailChimp para WordPress Pro! </ strong> Hemos t
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-statistics.php:130
 msgid "End date can't be before the start date"
-msgstr "La fecha final no puede ser anterior a la fecha de inicio"
+msgstr "La fecha final no puede ser anterior a la fecha inicial"
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-styles-builder.php:436
 msgid ""
 "Couldn't create the stylesheet. Manually add the generated CSS to your theme"
 " stylesheet or use a plugin like <em>%s</em>."
-msgstr "No se pudo crear la hoja de estilo. Agrega manualmente el CSS generado a la hoja de estilo de tu tema utilizando el %sEditor de Temas%s s o utiliza FTP y edita <em>%s</ em>."
+msgstr "No se pudo crear la hoja de estilos. Agrega manualmente el CSS generado a la hoja de estilo de tu tema o usa plugins como por ejemplo <em>%s</em>."
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-styles-builder.php:437
 msgid "%sShow generated CSS%s"
@@ -1232,13 +1232,13 @@ msgstr "La  %shoja de estilos CSS%s ha sido creada."
 
 #: mailchimp-for-wordpress-pro/includes/class-form-manager.php:263
 msgid "<strong>Error:</strong> Please specify a form ID. Example: %s."
-msgstr "<strong>Error:</strong> Por favor, especifica un ID de formulario. Ejemplo: %s."
+msgstr "<strong>Error:</strong> Por favor, especifica un identificador de formulario. Ejemplo: %s."
 
 #: mailchimp-for-wordpress-pro/includes/class-form-manager.php:278
 msgid ""
 "<strong>Error:</strong> Sign-up form not found. Please check if you used the"
 " correct form ID."
-msgstr "<strong> Error: </strong> formulario de registro no encontrado. Por favor, comprueba si has utilizado el ID de formulario correcto."
+msgstr "<strong> Error: </strong> formulario de registro no encontrado. Por favor, comprueba si has utilizado el identificador de formulario correcto."
 
 #: mailchimp-for-wordpress-pro/includes/class-mailchimp.php:140
 msgid "IP Address"
@@ -1246,7 +1246,7 @@ msgstr "Dirección IP"
 
 #: mailchimp-for-wordpress-pro/includes/class-subscribe-request.php:199
 msgid "New MailChimp Sign-Up"
-msgstr "Nuevo formulario de registro de Mailchimp"
+msgstr "Nuevo formulario de registro MailChimp"
 
 #: mailchimp-for-wordpress-pro/includes/class-subscribe-request.php:207
 msgid "New Sign-Up"
@@ -1254,7 +1254,7 @@ msgstr "Nuevo registro"
 
 #: mailchimp-for-wordpress-pro/includes/class-subscribe-request.php:208
 msgid "<strong>%s</strong> signed-up at %s on %s using the form \"%s\"."
-msgstr "<strong>%s</strong> fomulario de alta en %s en %s está utilizando el formato \"%s \"."
+msgstr "<strong>%s</strong> registro en %s el %s con el formulario \"%s \"."
 
 #: mailchimp-for-wordpress-pro/includes/class-subscribe-request.php:213
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:77
@@ -1270,25 +1270,25 @@ msgid ""
 "Note that you've enabled double opt-in for the \"%s\" form. The user won't "
 "be added to the selected MailChimp lists until they confirm their email "
 "address."
-msgstr "Has habilitado la confirmación de registro para el formulario \"%s\". El usuario no se añadirá a las listas seleccionadas de MailChimp hasta que confirme su dirección de email. "
+msgstr "Has habilitado la confirmación de registro para el formulario \"%s\". El usuario no se añadirá a las listas seleccionadas de MailChimp hasta que confirme su dirección de email."
 
 #: mailchimp-for-wordpress-pro/includes/class-subscribe-request.php:277
 msgid "This email was auto-sent by the MailChimp for WordPress plugin."
-msgstr "Este correo fue auto-enviado por el plugin MailChimp para WordPress"
+msgstr "Este correo fue auto-enviado por el plugin MailChimp para WordPress."
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:20
 msgid "MailChimp for WP Form"
-msgstr "MailChimp para el Formulario de WP"
+msgstr "Formulario MailChimp para WordPress"
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:21
 msgid "Displays one of your MailChimp for WordPress sign-up forms"
-msgstr "Muestra uno de tus formularios de MailChimp para Wordpress"
+msgstr "Muestra uno de tus formularios MailChimp para Wordpress"
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:43
 msgid ""
 "Please select the sign-up form you'd like to show here in the <a "
 "href=\"%s\">widget settings</a>."
-msgstr "Por favor, seleccione el formulario de registro que le gustaría mostrar aquí en los<a href=\"%s\"> ajustes del widget</ a>."
+msgstr "Por favor, selecciona el formulario de registro que quieres mostrar aquí en los <a href=\"%s\"> ajustes de widget</ a>."
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:86
 msgid "Form:"
@@ -1296,65 +1296,65 @@ msgstr "Fomulario:"
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:88
 msgid "Select the form to show"
-msgstr "Seleccione el formulario a mostrar"
+msgstr "Selecciona el formulario a mostrar"
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:96
 msgid "You don't have any sign-up forms. <a href=\"%s\">Create one now.</a>"
-msgstr "No tiene ningún formulario de registro. <a href=\"%s\">Cree uno ahora.</ a>"
+msgstr "No tienes ningún formulario de registro. <a href=\"%s\">Crea uno ahora.</ a>"
 
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:34
 msgid ""
 "Thank you, your sign-up request was successful! Please check your email "
 "inbox to confirm."
-msgstr "Gracias, su solicitud de registro se ha realizado con éxito. Por favor revise la bandeja de entrada de su email."
+msgstr "Gracias, tu solicitud de registro se ha realizado con éxito. Por favor revisa la bandeja de entrada de tu correo electrónico."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:144
 msgid "I know. Don't bug me."
-msgstr "Lo sé. No me fastidies."
+msgstr "Ya lo sé. ¡No me fastidies!"
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:163
 msgid ""
 "<b>Warning!</b> You're blocking external requests which means you won't be "
 "able to get %s updates. Please add %s to %s."
-msgstr "<b>Advertencia!</ b> Está bloqueando solicitudes externas lo que significa que no será capaz de obtener las actualizaciones de %s. Por favor, añada %s para %s."
+msgstr "<b>¡Aviso!</b> Estás bloqueando las solicitudes externas lo que significa que no podrás obtener las actualizaciones de %s. Por favor, añade %s para %s."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:205
 msgid "Your %s license has been activated. You have an unlimited license. "
-msgstr "Su licencia de %s ha sido activada. Tiene una licencia ilimitada."
+msgstr "Tu licencia de %s ha sido activada. Tienes una licencia ilimitada."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:207
 msgid "Your %s license has been activated. You have used %d/%d activations. "
-msgstr "Su licencia de %s ha sido activada. Ha utilizado %d/%d activaciones."
+msgstr "Tu licencia de %s ha sido activada. Has utilizado %d/%d activaciones."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:212
 msgid "<a href=\"%s\">Did you know you can upgrade your license?</a>"
-msgstr "<a href=\"%s\">¿Sabía que puede ampliar su licencia?</a>"
+msgstr "<a href=\"%s\">¿Sabías que puedes ampliar tu licencia?</a>"
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:216
 msgid ""
 "<a href=\"%s\">Your license is expiring in %d days, would you like to extend"
 " it?</a>"
-msgstr "<a href=\"%s\">Su licencia expira en %d días, ¿le gustaría renovarla?</a>"
+msgstr "<a href=\"%s\">Tu licencia expira en %d días, ¿quieres renovarla?</a>"
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:225
 msgid ""
 "You've reached your activation limit. You must <a href=\"%s\">reset</a> or "
 "<a href=\"%s\">upgrade your license</a> to use it on this site."
-msgstr "Ha alcanzado el límite de sus activaciones. Debe <a href=\"%s\">reestablecer</a> o <a href=\"%s\">ampliar su licencia</a> para usarlo en este sitio."
+msgstr "Has alcanzado el límite de tus activaciones. Debes <a href=\"%s\">reestablecer</a> o <a href=\"%s\">ampliar tu licencia</a> para usarla en este sitio."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:229
 msgid ""
 "Your license has expired. You must <a href=\"%s\">renew your license</a> if "
 "you want to use it again."
-msgstr "Su licencia ha caducado. Debe <a href=\"%s\">renovar tu licencia</a> si quiere usarla de nuevo."
+msgstr "Tu licencia ha caducado. Debes <a href=\"%s\">renovar tu licencia</a> si quieres usarla de nuevo."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:232
 msgid "Failed to activate your license, your license key seems to be invalid."
-msgstr "No se pudo activar la licencia, la clave de licencia parece no válida."
+msgstr "No se pudo activar la licencia, la clave de licencia parece que no es válida."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:257
 msgid "Your %s license has been deactivated."
-msgstr "Su licencia de %s se ha desactivado."
+msgstr "Tu licencia de %s ha sido desactivada."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:262
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:66
@@ -1362,11 +1362,11 @@ msgstr "Su licencia de %s se ha desactivado."
 msgid ""
 "Your plugin license has expired. You will no longer have access to plugin "
 "updates unless you <a href=\"%s\">renew your license</a>."
-msgstr "Su licencia ha caducado. No tendrá acceso al plugin si no <a href=\"%s\">renueva su licencia</a>."
+msgstr "Tu licencia del plugin ha caducado. No tendrás acceso a las actualizaciones del plugin si no <a href=\"%s\">renuevas tu licencia</a>."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:264
 msgid "Failed to deactivate your %s license."
-msgstr "No se pudo desactivar su licencia de %s"
+msgstr "No se pudo desactivar su licencia de %s."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:302
 msgid "Request error: \"%s\""
@@ -1380,18 +1380,18 @@ msgstr "%s: Configuración de licencia"
 msgid ""
 "%s is network activated, please contact your site administrator to manage "
 "the license."
-msgstr "%s si la red está activada, por favor póngase en contacto con el administrador del sitio para gestionar la licencia."
+msgstr "%s si la red está activada, por favor contacta con el administrador del sitio para gestionar la licencia."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-update-manager.php:64
 msgid ""
 "%s failed to check for updates because of the following error: <em>%s</em>"
-msgstr "%s fallo al comprobar las actualizaciones debido al siguiente error: <em>%s</ em>"
+msgstr "%s no se han podido comprobar las actualizaciones debido al siguiente error: <em>%s</ em>"
 
 #: mailchimp-for-wordpress-pro/includes/license/class-update-manager.php:126
 msgid ""
 "This site has not been activated properly on mc4wp.com and thus cannot check"
 " for future updates. Please activate your site with a valid license key."
-msgstr "Este sitio no se ha activado correctamente en mc4wp.com y por lo tanto no se puede comprobar si hay actualizaciones. Por favor, active su sitio con una licencia válida."
+msgstr "Este sitio no se ha activado correctamente en mc4wp.com y por lo tanto no se puede comprobar si hay actualizaciones. Por favor, activa tu sitio con una licencia válida."
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:23
 msgid "License status"
@@ -1399,37 +1399,37 @@ msgstr "Estado de la licencia"
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:26
 msgid "ACTIVE"
-msgstr "ACTIVO"
+msgstr "ACTIVA"
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:26
 msgid "you are receiving updates"
-msgstr "está recibiendo actualizaciones"
+msgstr "recibes actualizaciones"
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:28
 msgid "EXPIRED"
-msgstr "CADUCADO"
+msgstr "CADUCADA"
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:28
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:30
 msgid "you are <strong>not</strong> receiving updates."
-msgstr "<strong>no está</strong> recibiendo actualizaciones."
+msgstr "<strong>no</strong> recibes actualizaciones."
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:30
 msgid "INACTIVE"
-msgstr "INACTIVO"
+msgstr "INACTIVA"
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:35
 msgid "Toggle license status"
-msgstr "Estado de la licencia"
+msgstr "Cambiar el estado de la licencia"
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:39
 msgid "Deactivate License"
-msgstr "Desactiva la licencia"
+msgstr "Desactivar la licencia"
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:40
 msgid ""
 "(deactivate your license so you can activate it on another WordPress site)"
-msgstr "(desactivar la licencia para que pueda activarla en otro sitio de WordPress)"
+msgstr "(desactivar tu licencia para poder activarla en otro sitio de WordPress)"
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:44
 msgid "Activate License"
@@ -1437,7 +1437,7 @@ msgstr "Activar la licencia"
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:46
 msgid "Please enter a license key in the field below first."
-msgstr "Por favor, primero introduzca una clave de licencia en el campo de abajo."
+msgstr "Por favor, primero introduce una clave de licencia en el campo siguiente."
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:54
 msgid "License Key"
@@ -1445,19 +1445,19 @@ msgstr "Clave de licencia"
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:56
 msgid "Paste your license key here, as found in the email receipt."
-msgstr "Pege aquí la clave de su licencia, que encontrará en el email que ha recibido."
+msgstr "Pega aquí la clave de tu licencia, que encontrarás en el correo electrónico que has recibido."
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:78
 msgid "Your %s license will expire on %s."
-msgstr "Su %s licencia expirará el %s."
+msgstr "Tu licencia de %s caducará el %s."
 
 #: mailchimp-for-wordpress-pro/includes/license/views/form.php:82
 msgid "%sRenew your license now%s."
-msgstr "%sRenovar licencia ahora%s."
+msgstr "%sRenova tu licencia ahora%s."
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:49
 msgid "ID"
-msgstr "ID"
+msgstr "Identificador"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:50
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:462
@@ -1475,7 +1475,7 @@ msgstr "Lista(s)"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:53
 msgid "Last edited"
-msgstr "Recién editado"
+msgstr "Última edición"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:104
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:108
@@ -1489,11 +1489,11 @@ msgstr "Eliminar"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:137
 msgid "No MailChimp list(s) selected yet."
-msgstr "Todavía no se ha seleccionado ninguna lista de MailChimp"
+msgstr "No has seleccionado ninguna lista(s) de MailChimp aún."
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-forms-table.php:147
 msgid "You have not created any sign-up forms yet. Time to do so!"
-msgstr "No ha creado ningún formulario de registro todavía. ¡Es hora de hacerlo!"
+msgstr "No has creado ningún formulario de registro aún. ¡Es hora de hacerlo!"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:46
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-reports.php:15
@@ -1502,7 +1502,7 @@ msgstr "Registro"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:47
 msgid "Log Items"
-msgstr "Ingresar artículos"
+msgstr "Registros"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:76
 msgid "Email"
