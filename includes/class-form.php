@@ -71,7 +71,7 @@ class MC4WP_Form {
 	 */
 	public function contains_field_type( $field_type ) {
 		$html = sprintf( ' type="%s" ', $field_type );
-		return stristr( $this->content, $html ) !== false;
+		return stripos( $this->content, $html ) !== false;
 	}
 
 
