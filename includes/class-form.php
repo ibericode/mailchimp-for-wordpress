@@ -118,7 +118,7 @@ class MC4WP_Form {
 		// hidden fields
 		$hidden_fields = '<div style="position: absolute; ' . ( is_rtl() ? 'right' : 'left' ) . ': -5000px;"><input type="text" name="_mc4wp_h_'. md5( time() ).'" value="" tabindex="-1" autocomplete="off" /></div>';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_timestamp" value="'. time() . '" />';
-		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_id" value="'. $this->ID .'" />';
+		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_id" value="'. esc_attr( $this->ID ) .'" />';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_element_id" value="'. esc_attr( $element_id ) .'" />';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_submit" value="1" />';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_nonce" value="'. wp_create_nonce( '_mc4wp_form_nonce' ) .'" />';
@@ -127,7 +127,7 @@ class MC4WP_Form {
 		// was "lists" parameter passed in shortcode arguments?
 		if( isset( $attributes['lists'] ) && ! empty( $attributes['lists'] ) ) {
 			$lists_string = ( is_array( $attributes['lists'] ) ) ? join( ',', $attributes['lists'] ) : $attributes['lists'];
-			$hidden_fields .= '<input type="hidden" name="_mc4wp_lists" value="'. $lists_string . '" />';
+			$hidden_fields .= '<input type="hidden" name="_mc4wp_lists" value="'. esc_attr( $lists_string ) . '" />';
 		}
 
 		return (string) $hidden_fields;
