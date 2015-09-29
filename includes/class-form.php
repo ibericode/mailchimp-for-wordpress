@@ -116,7 +116,7 @@ class MC4WP_Form {
 	public function get_hidden_fields( $element_id, $attributes = array() ) {
 
 		// hidden fields
-		$hidden_fields = '<div style="position: absolute; ' . ( is_rtl() ? 'right' : 'left' ) . ': -5000px;"><input type="text" name="_mc4wp_h_'. md5( time() ).'" value="" tabindex="-1" autocomplete="off" /></div>';
+		$hidden_fields = '<div style="position: absolute; ' . ( is_rtl() ? 'right' : 'left' ) . ': -5000px;"><input type="text" name="_mc4wp_ho_'. md5( time() ).'" value="" tabindex="-1" autocomplete="off" /></div>';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_timestamp" value="'. time() . '" />';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_id" value="'. esc_attr( $this->ID ) .'" />';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_element_id" value="'. esc_attr( $element_id ) .'" />';

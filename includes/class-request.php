@@ -79,7 +79,7 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 				$key = substr( $key, 7 );
 
 				// if key starts with h_, change it to say "honeypot" (because field has dynamic name attribute)
-				if( strpos( $key, 'h_' ) === 0 ){
+				if( strpos( $key, 'ho_' ) === 0 ){
 					$key = 'honeypot';
 				}
 
