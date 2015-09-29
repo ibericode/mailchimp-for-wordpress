@@ -271,23 +271,23 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 
 		$lists = $this->form->settings['lists'];
 
-		// get lists from form, if set.
-		if( isset( $this->internal_data['lists'] ) && ! empty( $this->internal_data['lists'] ) ) {
+		// get lists from request, if set.
+		if( ! empty( $this->internal_data['lists'] ) ) {
 
 			$lists = $this->internal_data['lists'];
 
 			// make sure lists is an array
 			if( ! is_array( $lists ) ) {
 				$lists = sanitize_text_field( $lists );
-				$lists = array( $lists );
+				$lists = array_map( 'trim', explode( ',', $lists ) );
 			}
 
 		}
 
 		// allow plugins to alter the lists to subscribe to
-		$lists = apply_filters( 'mc4wp_lists', $lists );
+		$lists = (array) apply_filters( 'mc4wp_lists', $lists );
 
-		return (array) $lists;
+		return $lists;
 	}
 
 	/**

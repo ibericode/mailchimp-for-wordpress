@@ -183,8 +183,8 @@ abstract class MC4WP_Integration {
 		$opts = $this->get_options();
 		$lists = $opts['lists'];
 
-		// get lists from form, if set.
-		if( isset( $_POST['_mc4wp_lists'] ) && ! empty( $_POST['_mc4wp_lists'] ) ) {
+		// get lists from request, if set.
+		if( ! empty( $_POST['_mc4wp_lists'] ) ) {
 
 			$lists = $_POST['_mc4wp_lists'];
 
@@ -193,13 +193,13 @@ abstract class MC4WP_Integration {
 
 				// sanitize value
 				$lists = sanitize_text_field( $lists );
-				$lists = array( $lists );
+				$lists = array_map( 'trim', explode( ',', $lists ) );
 			}
 
 		}
 
-		// allow plugins to filter final
-		$lists = apply_filters( 'mc4wp_lists', $lists );
+		// allow plugins to filter final lists value
+		$lists = (array) apply_filters( 'mc4wp_lists', $lists );
 
 		return $lists;
 	}
