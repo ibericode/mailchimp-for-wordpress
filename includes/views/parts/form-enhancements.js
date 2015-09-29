@@ -17,7 +17,7 @@
 
 			/* add class on submit */
 			var b = f.querySelector('[type="submit"], [type="image"]');
-			if(b.length > 0 ) {
+			if( b ) {
 				if(b.addEventListener) {
 					b.addEventListener('click', addSubmittedClassToFormContainer);
 				} else {
@@ -27,7 +27,7 @@
 
 			/* better URL fields */
 			var urlFields = f.querySelectorAll('input[type="url"]');
-			if( urlFields.length ) {
+			if( urlFields && urlFields.length > 0 ) {
 				for( var j=0; j < urlFields.length; j++ ) {
 					if(urlFields[j].addEventListener) {
 						urlFields[j].addEventListener('blur', maybePrefixUrlField);
