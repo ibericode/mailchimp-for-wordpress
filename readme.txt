@@ -167,6 +167,12 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 
 == Changelog ==
 
+= Trunk - to be released =
+
+**Improvements**
+
+- Updated Spanish & Catalan translations, thanks to [Xavier Gimeno Torrent](http://www.xaviergimeno.net/).
+
 = 2.3.14 - September 25 =
 
 **Fixes**

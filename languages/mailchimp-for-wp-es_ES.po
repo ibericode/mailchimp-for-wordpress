@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-05-26 14:41:46+00:00\n"
-"PO-Revision-Date: 2015-09-25 18:42+0000\n"
+"PO-Revision-Date: 2015-09-30 15:14+0000\n"
 "Last-Translator: Xavier Gimeno Torrent\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +46,7 @@ msgstr "Actualiza a MailChimp para WordPress Pro"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:179
 msgid "MailChimp API Settings"
-msgstr "Configuración de API de Mailchimp"
+msgstr "Configuración de API de MailChimp"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:180
 msgid "MailChimp"
@@ -70,7 +70,7 @@ msgstr "Casillas de verificación"
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:512
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:91
 msgid "Form Settings"
-msgstr "Propiedades del formulario"
+msgstr "Ajustes del formulario"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:192
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:513
@@ -97,7 +97,7 @@ msgstr "(SOLO PRO)"
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:286
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:610
 msgid "Button text"
-msgstr "Texto del Botón"
+msgstr "Texto del botón"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:287
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:39
@@ -135,7 +135,7 @@ msgstr "Suscribirse"
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:292
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:616
 msgid "Unsubscribe"
-msgstr "Borrarse de la lista"
+msgstr "Desuscribirse"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:316
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:654
@@ -150,7 +150,7 @@ msgstr "Formulario de registro"
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:321
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:659
 msgid "MultiSite forms"
-msgstr "Formularios MultiSitio"
+msgstr "Formularios Multi-Sitio"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:325
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:663
@@ -169,7 +169,7 @@ msgstr "Verificación de %s"
 msgid ""
 "The plugin can only fetch a maximum of 100 lists from MailChimp, only your "
 "first 100 lists are shown."
-msgstr "Este plugin puede obtener un máximo de 100 listas de Mailchimp. Sólo se muestran tus 100 primeras listas."
+msgstr "Este plugin puede obtener un máximo de 100 listas de MailChimp. Solo se muestran tus 100 primeras listas."
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:370
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:719
@@ -187,7 +187,7 @@ msgstr "Formulario de suscripción de MailChimp"
 
 #: mailchimp-for-wordpress/includes/class-widget.php:23
 msgid "Displays your MailChimp for WordPress sign-up form"
-msgstr "Muestra su formulario de suscripción de MailChimp para WordPress"
+msgstr "Muestra tu formulario de suscripción de MailChimp para WordPress"
 
 #: mailchimp-for-wordpress/includes/class-widget.php:67
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:71
@@ -203,7 +203,7 @@ msgstr "Título:"
 msgid ""
 "You can edit your sign-up form in the <a href=\"%s\">MailChimp for WordPress"
 " form settings</a>."
-msgstr "Puedes editar tu formulario de suscripción en la <a href=\"%s\">configuración de los formularios de Mailchimp para Wordpress</a>."
+msgstr "Puedes editar tu formulario de suscripción en la <a href=\"%s\">configuración de los formularios de MailChimp para Wordpress</a>."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:15
 #: mailchimp-for-wordpress-pro/includes/class-mailchimp.php:135
@@ -232,7 +232,7 @@ msgstr "¡Suscríbeme a la lista de correo!"
 msgid ""
 "Thank you, your sign-up request was successful! Please check your e-mail "
 "inbox."
-msgstr "¡Gracias, tu solicitud de suscripción fue completada! Por favor ve a la bandeja de entrada de tu correo electrónico."
+msgstr "¡Gracias, tu solicitud de suscripción fue completada! Por favor revisa la bandeja de entrada de tu correo electrónico."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:45
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:35
@@ -242,7 +242,7 @@ msgstr "Vaya! Algo salió mal. Por favor, inténtalo otra vez más tarde."
 #: mailchimp-for-wordpress/includes/functions/general.php:46
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:36
 msgid "Please provide a valid email address."
-msgstr "Por favor, introduce una dirección de correo electrónica válida."
+msgstr "Por favor, introduce una dirección de correo electrónico válida."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:47
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:37
@@ -262,7 +262,7 @@ msgstr "Por favor rellena los campos solicitados."
 #: mailchimp-for-wordpress/includes/functions/general.php:50
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:40
 msgid "You were successfully unsubscribed."
-msgstr "Has sido borrado correctamente."
+msgstr "Has sido desuscrito correctamente."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:51
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:41
@@ -351,7 +351,7 @@ msgstr "MailChimp para WordPress - Error"
 msgid ""
 "Please select a list to subscribe to in the <a href=\"%s\">checkbox "
 "settings</a>."
-msgstr "Por favor selecciona una lista de suscripción en la <a href=\"%s\"> configuración de casillas de verificación</a>."
+msgstr "Por favor selecciona una lista de suscripción en la <a href=\"%s\">configuración de casillas de verificación</a>."
 
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:237
 #: mailchimp-for-wordpress/includes/integrations/class-integration.php:308
@@ -457,7 +457,7 @@ msgstr "Para emplear casillas de verificación en el registro, selecciona al men
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:21
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:21
 msgid "MailChimp settings for checkboxes"
-msgstr "Ajustes de MailChimp para casillas de verificación"
+msgstr "Ajustes de MailChimp para las casillas de verificación"
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:25
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:26
@@ -483,7 +483,7 @@ msgstr "No se han encontrado listas, ¿<a href=\"%s\">estás conectado a MailChi
 msgid ""
 "Select the list(s) to which people who check the checkbox should be "
 "subscribed."
-msgstr "Selecciona la lista(s) a la que se suscribirán los que marquen las casillas de verificación."
+msgstr "Selecciona la(s) lista(s) a la(s) que se suscribirán los que marquen las casillas de verificación."
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:48
 #: mailchimp-for-wordpress/includes/views/form-settings.php:102
@@ -516,7 +516,7 @@ msgstr "Añadir casillas de verificación en estos formularios"
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:79
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:92
 msgid "Selecting a form will automatically add the sign-up checkbox to it."
-msgstr "Al seleccionar un formulario se añadirá automáticamente la casilla de verificación de alta al mismo."
+msgstr "Al seleccionar un formulario se añadirá automáticamente la casilla de verificación de registro."
 
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:83
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:105
@@ -800,7 +800,7 @@ msgstr "Ya estás suscrito"
 msgid ""
 "The text that shows when the given email is already subscribed to the "
 "selected list(s)."
-msgstr "Texto a mostrar cuando el email proporcionado ya está suscrito a la(s) lista(s) seleccionada(s)."
+msgstr "Texto a mostrar cuando el correo electrónico proporcionado ya está suscrito a la(s) lista(s) seleccionada(s)."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:224
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:182
@@ -831,7 +831,7 @@ msgstr "Desuscrito"
 msgid ""
 "When using the unsubscribe method, this is the text that shows when the "
 "given email address is successfully unsubscribed from the selected list(s)."
-msgstr "Cuando se usa el método desuscribir, éste es el texto a mostrar cuando el email facilitado se ha desuscrito correctamente de la(s) lista(s) seleccionada(s)."
+msgstr "Cuando se usa el método desuscribir, éste es el texto a mostrar cuando el correo electrónico facilitado se ha desuscrito correctamente de la(s) lista(s) seleccionada(s)."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:243
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:204
@@ -942,7 +942,7 @@ msgstr "Se reemplaza por la hora actual (hh:mm:ss  por ejemplo: %s)"
 msgid ""
 "Replaced with the logged in user's email (or nothing, if there is no logged "
 "in user)"
-msgstr "Se reemplaza por la cuenta de correo del usuario que ha iniciado sesión (o por nada, si ningún usuario ha iniciado sesión)"
+msgstr "Se reemplaza por la cuenta de correo del usuario que se ha registrado (o por nada, si no se ha registrado ningún usuario)"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:320
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:54
@@ -967,7 +967,7 @@ msgstr "URL actual"
 #: mailchimp-for-wordpress/includes/views/form-settings.php:336
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:70
 msgid "The value of the <strong>FNAME</strong> field, if set."
-msgstr "El valor del campo <strong>FNAME</strong>, si está definido."
+msgstr "El valor del campo <strong>FNAME</strong>, si se ha definido."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:10
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:31
@@ -976,7 +976,7 @@ msgstr "Añadir un nuevo campo"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:12
 msgid "Use the tool below to generate the HTML for your form fields."
-msgstr "Utiliza la herramienta siguiente para generar el código HTML para tu formulario."
+msgstr "Utiliza la herramienta siguiente para generar el código HTML de tu formulario."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:15
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:35
@@ -985,7 +985,7 @@ msgstr "Selecciona el campo de MailChimp ..."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:19
 msgid "Submit Button"
-msgstr "Botón de alta"
+msgstr "Botón enviar"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:20
 msgid "Subscribe / unsubscribe choice"
@@ -1004,7 +1004,7 @@ msgstr "Etiqueta"
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:34
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:54
 msgid "Placeholder"
-msgstr "Marcador de posición"
+msgstr "Indicador de posición"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:44
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:64
@@ -1069,7 +1069,7 @@ msgid ""
 "Make sure to look at the <a href=\"%s\">MailChimp for WordPress "
 "documentation</a>, the plugin <a href=\"%s\">FAQ</a> or use the <a "
 "href=\"%s\">support forums</a> on WordPress.org."
-msgstr "Asegúrese de leer <a href=\"%s\"> la documentación de MailChimp para WordPress</a>, las <a href=\"%s\">preguntas más frecuentes</a> del plugin o use los <a href=\"%s\">foros de soporte</a> en WordPress.org."
+msgstr "Asegúrate de leer <a href=\"%s\">la documentación de MailChimp para WordPress</a>, las <a href=\"%s\">preguntas más frecuentes</a> del plugin o usa los <a href=\"%s\">foros de soporte</a> en WordPress.org."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:14
 msgid "Do you enjoy this plugin?"
@@ -1177,7 +1177,7 @@ msgstr "Formulario guardado."
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:365
 msgid "Optional Settings"
-msgstr "Propiedades Opcionales"
+msgstr "Propiedades opcionales"
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:500
 msgid "MailChimp & Plugin License Settings"
@@ -1197,20 +1197,20 @@ msgstr "Informes"
 msgid ""
 "Please make sure the plugin is connected to MailChimp. <a "
 "href=\"%s\">Provide a valid API key.</a>"
-msgstr "Por favor, asegúrate de que el plugin está conectado a MailChimp. <a href=\"%s\"> Proporciona una clave de API válida. </a>"
+msgstr "Por favor, asegúrate de que el plugin está conectado a MailChimp. <a href=\"%s\">Proporciona una clave de API válida.</a>"
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:824
 msgid ""
 "You disabled logging using the %s filter. Re-enable it to use the Reports "
 "page."
-msgstr "Has desabilitado la entrada utilizando el filtro %s. Si quieres usar la página de informes, tendrás que re-habilitarla."
+msgstr "Has desabilitado el registro utilizando el filtro %s. Si quieres usar la página de informes, tendrás que re-habilitarla."
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:840
 msgid ""
 "<strong>Welcome to MailChimp for WordPress Pro!</strong> We transfered the "
 "settings you set in the Lite version, you can safely <a "
 "href=\"%s\">deactivate it now</a>."
-msgstr "<strong> ¡Bienvenido a MailChimp para WordPress Pro! </ strong> Hemos transferido la configuración de la versión Lite, y puedes desactivarla de manera segura <a href=\"%s\"> ahora</a>."
+msgstr "<strong>¡Bienvenido a MailChimp para WordPress Pro!</ strong> Hemos transferido la configuración de la versión Lite, y puedes desactivarla de manera segura <a href=\"%s\">ahora</a>."
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-statistics.php:130
 msgid "End date can't be before the start date"
@@ -1220,7 +1220,7 @@ msgstr "La fecha final no puede ser anterior a la fecha inicial"
 msgid ""
 "Couldn't create the stylesheet. Manually add the generated CSS to your theme"
 " stylesheet or use a plugin like <em>%s</em>."
-msgstr "No se pudo crear la hoja de estilos. Agrega manualmente el CSS generado a la hoja de estilo de tu tema o usa plugins como por ejemplo <em>%s</em>."
+msgstr "No se pudo crear la hoja de estilos. Agrega manualmente el CSS generado a la hoja de estilos de tu tema o usa plugins como por ejemplo <em>%s</em>."
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-styles-builder.php:437
 msgid "%sShow generated CSS%s"
@@ -1238,7 +1238,7 @@ msgstr "<strong>Error:</strong> Por favor, especifica un identificador de formul
 msgid ""
 "<strong>Error:</strong> Sign-up form not found. Please check if you used the"
 " correct form ID."
-msgstr "<strong> Error: </strong> formulario de registro no encontrado. Por favor, comprueba si has utilizado el identificador de formulario correcto."
+msgstr "<strong>Error:</strong> formulario de registro no encontrado. Por favor, comprueba si has utilizado el identificador de formulario correcto."
 
 #: mailchimp-for-wordpress-pro/includes/class-mailchimp.php:140
 msgid "IP Address"
@@ -1282,13 +1282,13 @@ msgstr "Formulario MailChimp para WordPress"
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:21
 msgid "Displays one of your MailChimp for WordPress sign-up forms"
-msgstr "Muestra uno de tus formularios MailChimp para Wordpress"
+msgstr "Muestra uno de tus formularios de registro MailChimp para Wordpress"
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:43
 msgid ""
 "Please select the sign-up form you'd like to show here in the <a "
 "href=\"%s\">widget settings</a>."
-msgstr "Por favor, selecciona el formulario de registro que quieres mostrar aquí en los <a href=\"%s\"> ajustes de widget</ a>."
+msgstr "Por favor, selecciona el formulario de registro que quieres mostrar aquí en los <a href=\"%s\">ajustes de widget</a>."
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:86
 msgid "Form:"
@@ -1300,7 +1300,7 @@ msgstr "Selecciona el formulario a mostrar"
 
 #: mailchimp-for-wordpress-pro/includes/class-widget.php:96
 msgid "You don't have any sign-up forms. <a href=\"%s\">Create one now.</a>"
-msgstr "No tienes ningún formulario de registro. <a href=\"%s\">Crea uno ahora.</ a>"
+msgstr "No tienes ningún formulario de registro. <a href=\"%s\">Crea uno ahora.</a>"
 
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:34
 msgid ""
@@ -1350,7 +1350,7 @@ msgstr "Tu licencia ha caducado. Debes <a href=\"%s\">renovar tu licencia</a> si
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:232
 msgid "Failed to activate your license, your license key seems to be invalid."
-msgstr "No se pudo activar la licencia, la clave de licencia parece que no es válida."
+msgstr "Tu licencia no se pudo activar, la clave de licencia parece que no es válida."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:257
 msgid "Your %s license has been deactivated."
@@ -1366,7 +1366,7 @@ msgstr "Tu licencia del plugin ha caducado. No tendrás acceso a las actualizaci
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:264
 msgid "Failed to deactivate your %s license."
-msgstr "No se pudo desactivar su licencia de %s."
+msgstr "No se pudo desactivar tu licencia de %s."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:302
 msgid "Request error: \"%s\""
@@ -1380,12 +1380,12 @@ msgstr "%s: Configuración de licencia"
 msgid ""
 "%s is network activated, please contact your site administrator to manage "
 "the license."
-msgstr "%s si la red está activada, por favor contacta con el administrador del sitio para gestionar la licencia."
+msgstr "%s está activada en la red, por favor contacta con el administrador del sitio para gestionar la licencia."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-update-manager.php:64
 msgid ""
 "%s failed to check for updates because of the following error: <em>%s</em>"
-msgstr "%s no se han podido comprobar las actualizaciones debido al siguiente error: <em>%s</ em>"
+msgstr "%s no se han podido comprobar las actualizaciones debido al siguiente error: <em>%s</em>"
 
 #: mailchimp-for-wordpress-pro/includes/license/class-update-manager.php:126
 msgid ""
@@ -1515,7 +1515,7 @@ msgstr "Fecha"
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:79
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:153
 msgid "Success"
-msgstr "Realizado"
+msgstr "Completado"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:80
 msgid "Type"
@@ -1531,7 +1531,7 @@ msgstr "Suscrito"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:150
 msgid "Log items deleted."
-msgstr "Artículos del registro borrados."
+msgstr "Registros eliminados."
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:324
 msgid "Registration"
@@ -1539,11 +1539,11 @@ msgstr "Registro"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:333
 msgid "Top Bar"
-msgstr "Barra superior"
+msgstr "Barra de encabezamiento"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:341
 msgid "MultiSite registration"
-msgstr "Registro en múltiples sitios"
+msgstr "Registro Multi-Sitio"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:354
 msgid "Contact Form 7"
@@ -1586,7 +1586,7 @@ msgstr "Verificar"
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:558
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:565
 msgid "Comment"
-msgstr "Comentario"
+msgstr "Comentar"
 
 #: mailchimp-for-wordpress-pro/includes/tables/class-log-table.php:558
 msgid "deleted"
@@ -1597,7 +1597,7 @@ msgid ""
 "Any settings you specify here will override the <a href=\"%s\">general form "
 "settings</a>. If no setting is specified, the corresponding general setting "
 "value will be used."
-msgstr "Los ajustes que especifique aquí anularán la <a href=\"%s\"> configuración general de los formularios</a>. Si no se especifica ningún valor, se utilizará el valor de ajuste general correspondiente."
+msgstr "Los ajustes que especifiques aquí anularán la <a href=\"%s\">configuración general de los formularios</a>. Si no especificas ningún valor, se utilizará el valor de la configuración general correspondiente."
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:25
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:45
@@ -1610,17 +1610,17 @@ msgstr "Heredado"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:137
 msgid "Send an email copy of the form data?"
-msgstr "¿Quiere una copia por correo electrónico de los datos del formulario?"
+msgstr "¿Quieres una copia por correo electrónico de los datos del formulario?"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:141
 msgid ""
 "Tick \"yes\" if you want to receive an email with the form data for every "
 "sign-up request."
-msgstr "Marque \"sí \" si desea recibir un correo electrónico con los datos del formulario para cada solicitud de registro."
+msgstr "Marca \"sí \" si deseas recibir un correo electrónico con los datos del formulario de cada solicitud de registro."
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:144
 msgid "Send the copy to this email:"
-msgstr "Envía una copia a este correo electrónico: "
+msgstr "Envía una copia a este correo electrónico:"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:150
 msgid "Messages"
@@ -1636,33 +1636,33 @@ msgstr "Botón enviar"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:41
 msgid "Subscribe / unsubscribe action"
-msgstr "Opción de suscribirse / desuscribirse"
+msgstr "Suscribirse / desuscribirse"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:90
 msgid "Form usage"
-msgstr "Formulario a emplear"
+msgstr "Uso del formulario"
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:78
 msgid ""
 "Select \"yes\" if you want to update existing subscribers with the data that"
 " is sent."
-msgstr "Seleccione \"Si\" si quiere actualizar los suscriptores existentes con los datos que son enviados."
+msgstr "Selecciona \"sí\" si quieres actualizar los suscriptores existentes con los datos enviados."
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:100
 msgid ""
 "Use %s in your Contact Form 7 mark-up to add a sign-up checkbox to your CF7 "
 "forms."
-msgstr "Use %s en el código de Contact Form 7 para añadir una casilla de suscripción a su formulario de CF7."
+msgstr "Usa %s en el código de Contact Form 7 para añadir una casilla de suscripción a tu formulario de CF7."
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:136
 msgid "Custom label texts"
-msgstr "Etiquetas de textos personalizadas"
+msgstr "Etiquetas de texto personalizadas"
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-checkbox-settings.php:137
 msgid ""
 "Override the default checkbox label text for any given checkbox using the "
 "fields below."
-msgstr "Sobreescribir la casilla de verificación por defecto en cualquier casilla de verificación  empleando los campos de abajo."
+msgstr "Sobreescribir la etiqueta de texto por defecto de la casilla de verificación en cualquier casilla de verificación  empleando los campos siguientes."
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-form-settings.php:13
 msgid "Forms & Settings"
@@ -1678,49 +1678,49 @@ msgstr "Licencia y configuración de API"
 
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-general-settings.php:113
 msgid "No lists were found in your MailChimp account."
-msgstr "No se han encontrado listas en su cuenta de MailChimp."
+msgstr "No se han encontrado listas en tu cuenta de MailChimp."
 
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-footer.php:10
 msgid ""
 "Need help? Have a look at the <a href=\"%s\">plugin documentation</a> or "
 "email us directly at <a href=\"%s\">support@mc4wp.com</a>."
-msgstr "Necesita ayuda? Échele un vistazo a la <a href=\"%s\">documentación del plugin</a> o envíenos un correo directo a <a href=\"%s\">support@mc4wp.com</a>."
+msgstr "Necesitas ayuda? Échale un vistazo a la <a href=\"%s\">documentación del plugin</a> o envíanos un correo directo a <a href=\"%s\">support@mc4wp.com</a>."
 
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-footer.php:11
 msgid ""
 "Please use the same email address as you used when purchasing the plugin."
-msgstr "Por favor, utilice la misma dirección de correo con la que se dio de alta cuando adquirió el plugin."
+msgstr "Por favor, utiliza la misma dirección de correo que usaste cuando adquiriste el plugin."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:11
 msgid "Use the fields below to create custom styling rules for your forms."
-msgstr "Utilice los campos inferiores para crear reglas de estilo personalizadas para sus formularios."
+msgstr "Utiliza los campos siguientes para crear reglas de estilo personalizadas para tus formularios."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:16
 msgid ""
 "Tip: have a look at our <a href=\"%s\">knowledge base</a> articles on <a "
 "href=\"%s\">creating an inline form</a> or <a href=\"%s\">styling your "
 "form</a> in general."
-msgstr "Recomendación: echa un vistazo en nuestro <a href=\"%s\">repertorio de conocimientos a los </a> artículos sobre como <a href=\"%s\">crear un formulario en filas</a> o <a href=\"%s\">darle estilo a tu formulario</a> en general."
+msgstr "Recomendación: echa un vistazo en nuestro <a href=\"%s\">repertorio de conocimientos</a> a los artículos sobre como <a href=\"%s\">crear un formulario en filas</a> o <a href=\"%s\">darle estilo a tu formulario</a> en general."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:22
 msgid ""
 "You are not loading your custom stylesheet at this moment. To apply these "
 "styles on your site, select \"load custom form styles\" in the <a "
 "href=\"%s\">MailChimp for WordPress form settings</a>."
-msgstr "En este momento no está cargada su hoja de estilos personalizada. Para aplicar estos estilos a su sitio we, seleccione \"cargar estilos personalizados de formulario\" en <a href=\"%s\">ajustes de formulario de MailChimp para WordPress</a>."
+msgstr "En este momento tu hoja de estilos personalizada no está cargada. Para aplicar estos estilos a tu sitio web, selecciona \"cargar estilos personalizados de formulario\" en <a href=\"%s\">ajustes de formulario de MailChimp para WordPress</a>."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:30
 msgid "Select form to build styles for:"
-msgstr "Seleccione el formulario al que desea aplicar estilo:"
+msgstr "Selecciona el formulario al que deseas aplicar los estilos:"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:41
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:285
 msgid "Create at least one form first."
-msgstr "Primero cree al menos un formulario"
+msgstr "Primero crea al menos un formulario."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:57
 msgid "You need to have JavaScript enabled to see a preview of your form."
-msgstr "Necesita tener habilitado el JavaScript para previsualizar su formulario:"
+msgstr "Necesitas tener habilitado el JavaScript para previsualizar tu formulario:"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:62
 msgid "Form container style"
@@ -1739,7 +1739,7 @@ msgstr "px o %"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:70
 msgid "Text alignment"
-msgstr "Alineación de texto"
+msgstr "Alineación del texto"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:73
 msgid "Choose alignment"
@@ -1760,7 +1760,7 @@ msgstr "Derecha"
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:81
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:210
 msgid "Background color"
-msgstr "Color de fondo"
+msgstr "Color del fondo"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:83
 msgid "Padding"
@@ -1808,7 +1808,7 @@ msgstr "Estilo del texto"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:135
 msgid "Choose text style.."
-msgstr "Elija el estilo del texto ..."
+msgstr "Elige el estilo del texto ..."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:136
 msgid "Normal"
@@ -1834,7 +1834,7 @@ msgstr "Visualización"
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:146
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:178
 msgid "Inline"
-msgstr "En filas (inline)"
+msgstr "En línea (inline)"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:147
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:179
@@ -1843,15 +1843,15 @@ msgstr "Nueva linea"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:156
 msgid "Field styles"
-msgstr "Estilos de campo"
+msgstr "Estilos del campo"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:160
 msgid "Field width"
-msgstr "Ancho de campo"
+msgstr "Ancho del campo"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:164
 msgid "Field height"
-msgstr "Altura de campo"
+msgstr "Altura del campo"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:182
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:224
@@ -1864,7 +1864,7 @@ msgstr "Focus outline"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:198
 msgid "Button styles"
-msgstr "Estilos de botón"
+msgstr "Estilos del botón"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:202
 msgid "Button width"
@@ -1876,15 +1876,15 @@ msgstr "Altura del botón"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:238
 msgid "Error and success messages"
-msgstr "Mensajes de error y éxito"
+msgstr "Mensajes de error y de éxito"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:242
 msgid "Success text color"
-msgstr "Color del texto exitoso"
+msgstr "Color del texto de éxito"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:244
 msgid "Error text color"
-msgstr "Color del texto erróneo"
+msgstr "Color del texto de error"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:252
 msgid "Advanced"
@@ -1898,7 +1898,7 @@ msgstr "Prefijo del selector CSS"
 msgid ""
 "Use this to create a more specific (and thus more \"important\") CSS "
 "selector."
-msgstr "Use esto para crear un CSS más específico (y por lo tanto más \"importante\")."
+msgstr "Usa esto para crear un CSS más específico (y por lo tanto más \"importante\")."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:261
 msgid "Manual CSS"
@@ -1907,7 +1907,7 @@ msgstr "CSS Manual"
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:261
 msgid ""
 "The CSS rules you enter here will be appended to the custom stylesheet."
-msgstr "Las reglas CSS que introduzca aquí serán añadidas al final de la hoja de estilos personalizada."
+msgstr "Las reglas CSS que introduzcas aquí serán añadidas al final de la hoja de estilos personalizados."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:269
 msgid "Copy styles from other form"
@@ -1915,17 +1915,17 @@ msgstr "Copiar estilos desde otro formulario"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:283
 msgid "Copy Styles"
-msgstr "Copiar Estilos"
+msgstr "Copiar estilos"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:283
 msgid ""
 "Are you sure you want to copy form styles from another form? This will "
 "overwrite current styles for this form."
-msgstr "¿Está seguro que quiere copiar los estilos desde otro formulario? Esto sobreescribirá los estilos actuales de este formulario."
+msgstr "¿Estás seguro que quieres copiar los estilos desde otro formulario? Esto sobreescribirá los estilos actuales de este formulario."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:298
 msgid "Are you sure you want to delete all custom styles for this form?"
-msgstr "¿Está seguro que desea borrar los estilos personalizados de este formulario?"
+msgstr "¿Estás seguro que deseas eliminar los estilos personalizados de este formulario?"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:298
 msgid "Delete Form Styles"
@@ -1945,14 +1945,14 @@ msgstr "Crear nuevo formulario"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:16
 msgid "General form settings"
-msgstr "Configuración general para los formularios"
+msgstr "Configuración general de los formularios"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:36
 msgid ""
 "If you %screated a custom stylesheet%s and want it to be loaded, select "
 "\"custom form styles\". Otherwise, choose the basic formatting styles or one"
 " of the default themes."
-msgstr "Si %screó una hoja de estilo personalizada%s y desea que se cargue, seleccione \"estilos de formulario personalizados \". De lo contrario, elija los estilos de formato básico o uno de los temas por defecto."
+msgstr "Si %screaste una hoja de estilos personalizados%s y deseas que se cargue, selecciona \"estilos de formulario personalizados \". De lo contrario, elige los estilos de formato básico o uno de los temas por defecto."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:40
 msgid "Select Color"
@@ -1971,17 +1971,17 @@ msgstr "Ajustes de MailChimp por defecto"
 msgid ""
 "The following settings apply to <strong>all</strong> forms but can be "
 "overridden on a per-form basis."
-msgstr "Los siguientes ajustes se aplican a<strong> todos </ strong>los formularios pero pueden reemplazarse uno a uno."
+msgstr "Los siguientes ajustes se aplican a<strong>todos</strong>los formularios pero en cada formulario pueden cambiarse."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:108
 msgid "Default Form Settings"
-msgstr "Propiedades por defecto del formulario"
+msgstr "Ajustes por defecto del formulario"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:132
 msgid ""
 "Leave empty for no redirect. Otherwise, use complete (absolute) URLs, "
 "including <code>http://</code>."
-msgstr "Dejar en blanco para no redireccionar. En caso contrario, use URLs completas (absolutas), incluyendo <code>http://</code>."
+msgstr "Dejar en blanco para no redireccionar. En caso contrario, usa URLs completas (absolutas), incluyendo <code>http://</code>."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:137
 msgid "Default Messages"
@@ -2097,7 +2097,7 @@ msgstr "https://mc4wp.com/"
 
 #. Description of the plugin/theme
 msgid "Adds various sign-up methods to your website."
-msgstr "Añade varios métodos de suscripción a su página web."
+msgstr "Añade varios métodos de suscripción a tu página web."
 
 #. Author of the plugin/theme
 msgid "Danny van Kooten"
