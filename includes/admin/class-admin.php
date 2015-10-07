@@ -30,6 +30,35 @@ class MC4WP_Admin {
 	}
 
 	/**
+	 * Listen for `_mc4wp_action` requests
+	 */
+	protected function listen() {
+
+		// listen for any action (if user is authorised)
+		if( ! current_user_can( 'manage_options' ) || ! isset( $_REQUEST['_mc4wp_action'] ) ) {
+			return false;
+		}
+
+		$action = (string) $_REQUEST['_mc4wp_action'];
+
+		do_action( 'mc4wp_admin_' . $action );
+	}
+
+	/**
+	 * Register dashboard widgets
+	 */
+	public function register_dashboard_widgets() {
+
+		if( ! current_user_can( $this->get_required_user_capability() ) ) {
+			return false;
+		}
+
+		do_action( 'mc4wp_dashboard_setup' );
+
+		return true;
+	}
+
+	/**
 	 * Upgrade routine
 	 */
 	private function load_upgrader() {
@@ -55,8 +84,9 @@ class MC4WP_Admin {
 		// Actions used globally throughout WP Admin
 		add_action( 'admin_init', array( $this, 'initialize' ) );
 		add_action( 'admin_menu', array( $this, 'build_menu' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'load_css_and_js' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 		add_action( 'admin_footer_text', array( $this, 'footer_text' ) );
+		add_action( 'wp_dashboard_setup', array( $this, 'register_dashboard_widgets' ) );
 
 		// Hooks for Plugins overview page
 		if( $current_page === 'plugins.php' ) {
@@ -99,7 +129,11 @@ class MC4WP_Admin {
 		// store whether this plugin has the BWS captcha plugin running (https://wordpress.org/plugins/captcha/)
 		$this->has_captcha_plugin = function_exists( 'cptch_display_captcha_custom' );
 
+		// Load upgrader
 		$this->load_upgrader();
+
+		// listen for custom actions
+		$this->listen();
 	}
 
 	/**
@@ -257,7 +291,7 @@ class MC4WP_Admin {
 	 * Load scripts and stylesheet on MailChimp for WP Admin pages
 	 * @return bool
 	*/
-	public function load_css_and_js() {
+	public function enqueue_assets() {
 		// only load asset files on the MailChimp for WordPress settings pages
 		if( strpos( $this->get_current_page(), 'mailchimp-for-wp' ) !== 0 ) {
 			return false;
@@ -291,6 +325,8 @@ class MC4WP_Admin {
 				'mailchimpLists' => $this->mailchimp->get_lists()
 			)
 		);
+
+		do_action( 'mc4wp_admin_enqueue_assets', $suffix );
 
 		return true;
 	}

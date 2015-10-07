@@ -153,8 +153,9 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 
 
 <div id="mc4wp-sidebar">
-	<?php include 'parts/admin-upgrade-to-pro.php'; ?>
+	<?php do_action( 'mc4wp_admin_before_sidebar' ); ?>
 	<?php include 'parts/admin-need-support.php'; ?>
+	<?php do_action( 'mc4wp_admin_after_sidebar' ); ?>
 </div>
 
 </div>

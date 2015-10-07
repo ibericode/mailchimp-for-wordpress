@@ -34,18 +34,18 @@ if( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// bootstrap the lite plugin
+define( 'MC4WP_VERSION', '3.0' );
+define( 'MC4WP_PLUGIN_DIR', dirname( __FILE__ ) . '/' );
+define( 'MC4WP_PLUGIN_URL', plugins_url( '/' , __FILE__ ) );
+define( 'MC4WP_PLUGIN_FILE', __FILE__ );
+
 /**
 * Loads the MailChimp for WP plugin files
 *
 * @return boolean True if the plugin files were loaded, false otherwise.
 */
 function mc4wp_load_plugin() {
-
-	// bootstrap the lite plugin
-	define( 'MC4WP_VERSION', '3.0' );
-	define( 'MC4WP_PLUGIN_DIR', dirname( __FILE__ ) . '/' );
-	define( 'MC4WP_PLUGIN_URL', plugins_url( '/' , __FILE__ ) );
-	define( 'MC4WP_PLUGIN_FILE', __FILE__ );
 
 	require_once MC4WP_PLUGIN_DIR . 'vendor/autoload_52.php';
 	require_once MC4WP_PLUGIN_DIR . 'includes/functions/general.php';
@@ -63,4 +63,4 @@ function mc4wp_load_plugin() {
 	return true;
 }
 
-add_action( 'plugins_loaded', 'mc4wp_load_plugin', 20 );
+add_action( 'plugins_loaded', 'mc4wp_load_plugin' );

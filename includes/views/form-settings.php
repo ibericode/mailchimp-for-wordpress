@@ -260,7 +260,7 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 	<?php include 'parts/admin-footer.php'; ?>
 </div>
 <div id="mc4wp-sidebar">
-	<?php include 'parts/admin-upgrade-to-pro.php'; ?>
+	<?php do_action( 'mc4wp_admin_before_sidebar' ); ?>
 
 	<div class="mc4wp-box" id="mc4wp-info-tabs">
 		<h3 class="mc4wp-title"><?php _e( 'Form Styling', 'mailchimp-for-wp' ); ?></h3>
@@ -343,5 +343,8 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 	</div>
 
 		<?php include 'parts/admin-need-support.php'; ?>
-	</div>
+
+	<?php do_action( 'mc4wp_admin_after_sidebar' ); ?>
+
+</div>
 </div>
