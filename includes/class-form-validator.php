@@ -54,6 +54,7 @@ class MC4WP_Form_Validator {
 	 * @return bool
 	 */
 	public function validate_honeypot() {
+
 		// ensure honeypot was given but not filled
 		if ( ! isset( $this->internal_data['honeypot'] ) || '' !== $this->internal_data['honeypot'] ) {
 			return false;

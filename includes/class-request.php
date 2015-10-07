@@ -13,7 +13,7 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 	/**
 	 * @var MC4WP_Form
 	 */
-	protected $form;
+	public $form;
 
 	/**
 	 * @var string
@@ -40,6 +40,11 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 	 */
 	public $user_data = array();
 
+	/**
+	 * @var string
+	 */
+	public $http_referer = '';
+
 
 	/**
 	 * Constructor
@@ -59,6 +64,11 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 
 		// get form
 		$this->form = MC4WP_Form::get( $this );
+
+		// get referer
+		if( ! empty( $_SERVER['HTTP_REFERER'] ) ) {
+			$this->http_referer = strip_tags( $_SERVER['HTTP_REFERER'] );
+		}
 	}
 
 	/**
@@ -128,7 +138,7 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 			$value = array_map( array( $this, 'sanitize_deep' ), $value );
 		} elseif ( is_object($value) ) {
 			$vars = get_object_vars( $value );
-			foreach ($vars as $key=>$data) {
+			foreach ( $vars as $key => $data ) {
 				$value->{$key} = $this->sanitize_deep( $data );
 			}
 		}

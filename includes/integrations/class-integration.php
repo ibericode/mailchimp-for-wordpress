@@ -241,7 +241,7 @@ abstract class MC4WP_Integration {
 
 		// set ip address
 		if( ! isset( $merge_vars['OPTIN_IP'] ) ) {
-			$merge_vars['OPTIN_IP'] = MC4WP_tools::get_client_ip();
+			$merge_vars['OPTIN_IP'] = MC4WP_Tools::get_client_ip();
 		}
 
 		$result = false;
