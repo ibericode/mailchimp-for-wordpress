@@ -24,6 +24,11 @@ class MC4WP_Lite {
 	private $api;
 
 	/**
+	 * @var array
+	 */
+	private $untinkered_request_global;
+
+	/**
 	 * @var MC4WP_Lite The one and only true plugin instance
 	 */
 	private static $instance;
@@ -56,6 +61,10 @@ class MC4WP_Lite {
 	*/
 	private function __construct() {
 
+		// store global `$_REQUEST` array locally, to prevent other plugins from messing with it (yes it happens....)
+		// todo: fix this properly (move to more specific $_POST?)
+		$this->untinkered_request_global = $_REQUEST;
+
 		// checkboxes
 		$this->checkbox_manager = new MC4WP_Lite_Checkbox_Manager();
 
@@ -73,7 +82,7 @@ class MC4WP_Lite {
 	 */
 	public function init_form_listener() {
 		$listener = new MC4WP_Form_Listener();
-		$listener->listen( $_REQUEST );
+		$listener->listen( $this->untinkered_request_global );
 	}
 
 	/**
