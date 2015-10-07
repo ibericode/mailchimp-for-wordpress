@@ -8,7 +8,19 @@
 class MC4WP_Ads {
 
 	public function add_hooks() {
+
+		// don't hook if Pro is activated
+		if( defined( 'MC4WP_PRO_VERSION' ) ) {
+			return false;
+		}
+
 		add_filter( 'mc4wp_menu_items', array( $this, 'menu_items' ) );
+		add_action( 'mc4wp_admin_before_sidebar', array( $this, 'before_sidebar' ) );
+		return true;
+	}
+
+	public function before_sidebar() {
+		include MC4WP_PLUGIN_DIR . 'includes/views/parts/admin-upgrade-to-pro.php';
 	}
 
 	/**
