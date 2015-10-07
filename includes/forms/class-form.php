@@ -247,7 +247,7 @@ class MC4WP_Form {
 		$hidden_fields = '';
 
 		// Start building content string
-		$opening_html = '<!-- MailChimp for WordPress v' . MC4WP_LITE_VERSION . ' - https://wordpress.org/plugins/mailchimp-for-wp/ -->';
+		$opening_html = '<!-- MailChimp for WordPress v' . MC4WP_VERSION . ' - https://wordpress.org/plugins/mailchimp-for-wp/ -->';
 		$opening_html .= '<div id="' . esc_attr( $element_id ) . '" class="' . esc_attr( $this->get_css_classes( $element_id ) ) . '">';
 		$before_fields = apply_filters( 'mc4wp_form_before_fields', '' );
 		$after_fields = apply_filters( 'mc4wp_form_after_fields', '' );

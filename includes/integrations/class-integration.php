@@ -155,7 +155,7 @@ abstract class MC4WP_Integration {
 		}
 
 		// before checkbox HTML (comment, ...)
-		$before = '<!-- MailChimp for WordPress v'. MC4WP_LITE_VERSION .' - https://mc4wp.com/ -->';
+		$before = '<!-- MailChimp for WordPress v'. MC4WP_VERSION .' - https://mc4wp.com/ -->';
 		$before .= apply_filters( 'mc4wp_before_checkbox', '', $this->type );
 
 		// checkbox

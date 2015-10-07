@@ -4,7 +4,7 @@
 * Echoes a sign-up checkbox.
 */
 function mc4wp_checkbox() {
-	$checkbox_manager = MC4WP_Lite::instance()->get_checkbox_manager();
+	$checkbox_manager = MC4WP::instance()->integration_manager;
 
 	// manually instantiate comment form integration class
 	if( ! isset( $checkbox_manager->integrations['comment_form'] ) ) {
@@ -30,7 +30,7 @@ function mc4wp_form( $id = 0 ) {
 * @return   string  HTML of given form_id.
 */
 function mc4wp_get_form( $id = 0 ) {
-	$form_manager = MC4WP_Lite::instance()->get_form_manager();
+	$form_manager = MC4WP::instance()->form_manager;
 	return $form_manager->output_form( array( 'id' => $id ) );
 }
 

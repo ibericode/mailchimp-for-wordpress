@@ -10,14 +10,16 @@ if( ! defined( 'ABSPATH' ) ) {
 /**
  * Adds MC4WP_Widget widget.
  */
-class MC4WP_Lite_Widget extends WP_Widget {
+class MC4WP_Form_Widget extends WP_Widget {
 
 	/**
 	 * Register widget with WordPress.
+	 *
+	 * @todo write upgrade routine for Base ID change
 	 */
 	function __construct() {
 		parent::__construct(
-			'MC4WP_Widget', // Base ID
+			'MC4WP_Form_Widget', // Base ID
 			__( 'MailChimp Sign-Up Form', 'mailchimp-for-wp' ), // Name
 			array(
 				'description' => __( 'Displays your MailChimp for WordPress sign-up form', 'mailchimp-for-wp' ),
@@ -46,7 +48,7 @@ class MC4WP_Lite_Widget extends WP_Widget {
 
 		// make sure template functions exist (for usage in avia layout builder)
 		if ( ! function_exists( 'mc4wp_get_form' ) ) {
-			include_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/template.php';
+			include_once MC4WP_PLUGIN_DIR . 'includes/functions/template.php';
 		}
 
 		echo mc4wp_get_form();

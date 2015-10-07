@@ -3,7 +3,7 @@
 /**
 * This class takes care of all form related functionality
 */
-class MC4WP_Lite_Form_Manager {
+class MC4WP_Form_Asset_Manager {
 
 	/**
 	 * @var array
@@ -14,11 +14,6 @@ class MC4WP_Lite_Form_Manager {
 	* @var int
 	*/
 	private $outputted_forms_count = 0;
-
-	/**
-	 * @var bool Is the inline CSS printed already?
-	 */
-	private $inline_css_printed = false;
 
 	/**
 	 * @var bool Is the inline JavaScript printed to the page already?
@@ -77,10 +72,10 @@ class MC4WP_Lite_Form_Manager {
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		// register placeholder script, which will later be enqueued for IE only
-		wp_register_script( 'mc4wp-placeholders', MC4WP_LITE_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), MC4WP_LITE_VERSION, true );
+		wp_register_script( 'mc4wp-placeholders', MC4WP_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), MC4WP_VERSION, true );
 
 		// register non-AJAX script (that handles form submissions)
-		wp_register_script( 'mc4wp-form-request', MC4WP_LITE_PLUGIN_URL . 'assets/js/form-request' . $suffix . '.js', array(), MC4WP_LITE_VERSION, true );
+		wp_register_script( 'mc4wp-form-request', MC4WP_PLUGIN_URL . 'assets/js/form-request' . $suffix . '.js', array(), MC4WP_VERSION, true );
 	}
 
 	/**
@@ -98,11 +93,11 @@ class MC4WP_Lite_Form_Manager {
 
 			$form_theme = $this->options['css'];
 			if( in_array( $form_theme, array( 'blue', 'green', 'dark', 'light', 'red' ) ) ) {
-				wp_enqueue_style( 'mailchimp-for-wp-form-theme-' . $this->options['css'], MC4WP_LITE_PLUGIN_URL . 'assets/css/form-theme-' . $this->options['css'] . $suffix . '.css', array(), MC4WP_LITE_VERSION, 'all' );
+				wp_enqueue_style( 'mailchimp-for-wp-form-theme-' . $this->options['css'], MC4WP_PLUGIN_URL . 'assets/css/form-theme-' . $this->options['css'] . $suffix . '.css', array(), MC4WP_VERSION, 'all' );
 			}
 
 		} else {
-			wp_enqueue_style( 'mailchimp-for-wp-form', MC4WP_LITE_PLUGIN_URL . 'assets/css/form' . $suffix . '.css', array(), MC4WP_LITE_VERSION, 'all' );
+			wp_enqueue_style( 'mailchimp-for-wp-form', MC4WP_PLUGIN_URL . 'assets/css/form' . $suffix . '.css', array(), MC4WP_VERSION, 'all' );
 		}
 
 		return true;
@@ -184,11 +179,11 @@ class MC4WP_Lite_Form_Manager {
 		echo '<script type="text/javascript">';
 
 		// include general form enhancements
-		include MC4WP_LITE_PLUGIN_DIR . 'includes/views/parts/form-enhancements.js';
+		include MC4WP_PLUGIN_DIR . 'includes/views/parts/form-enhancements.js';
 
 		// include date polyfill?
 		if( $this->print_date_fallback ) {
-			include MC4WP_LITE_PLUGIN_DIR . 'includes/views/parts/date-polyfill.js';
+			include MC4WP_PLUGIN_DIR . 'includes/views/parts/date-polyfill.js';
 		}
 
 		echo '</script>';

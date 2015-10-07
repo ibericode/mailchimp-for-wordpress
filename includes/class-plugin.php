@@ -1,22 +1,16 @@
 <?php
 
-if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
-
-class MC4WP_Lite {
+class MC4WP {
 
 	/**
-	* @var MC4WP_Lite_Form_Manager
+	* @var MC4WP_Form_Manager
 	*/
-	private $form_manager;
+	public $form_manager;
 
 	/**
-	* @var MC4WP_Lite_Checkbox_Manager
+	* @var MC4WP_Integration_Manager
 	*/
-	private $checkbox_manager;
+	public $integration_manager;
 
 	/**
 	* @var MC4WP_API
@@ -24,35 +18,20 @@ class MC4WP_Lite {
 	private $api;
 
 	/**
-	 * @var array
-	 */
-	private $untinkered_request_global;
-
-	/**
-	 * @var MC4WP_Lite The one and only true plugin instance
+	 * @var MC4WP The one and only true plugin instance
 	 */
 	private static $instance;
 
 	/**
-	 * @return MC4WP_Lite
+	 * @return MC4WP
 	 */
 	public static function instance() {
-		return self::$instance;
-	}
 
-	/**
-	 * Instantiates the plugin
-	 *
-	 * @return bool
-	 */
-	public static function init() {
-
-		if( self::$instance instanceof MC4WP_Lite ) {
-			return false;
+		if( ! self::$instance ) {
+			self::$instance = new MC4WP;
 		}
 
-		self::$instance = new MC4WP_Lite;
-		return true;
+		return self::$instance;
 	}
 
 
@@ -61,51 +40,19 @@ class MC4WP_Lite {
 	*/
 	private function __construct() {
 
-		// store global `$_REQUEST` array locally, to prevent other plugins from messing with it (yes it happens....)
-		// todo: fix this properly (move to more specific $_POST?)
-		$this->untinkered_request_global = $_REQUEST;
+		// forms
+		$this->form_manager = new MC4WP_Form_Manager();
+		$this->form_manager->add_hooks();
 
 		// checkboxes
-		$this->checkbox_manager = new MC4WP_Lite_Checkbox_Manager();
-
-		// forms
-		add_action( 'init', array( $this, 'init_form_listener' ) );
-		add_action( 'init', array( $this, 'init_form_manager' ) );
-
-		// widget
-		add_action( 'widgets_init', array( $this, 'register_widget' ) );
+		$this->integration_manager = new MC4WP_Integration_Manager();
 	}
 
 	/**
-	 * Initialise the form listener
-	 * @hooked `init`
+	 * Add hooks
 	 */
-	public function init_form_listener() {
-		$listener = new MC4WP_Form_Listener();
-		$listener->listen( $this->untinkered_request_global );
-	}
+	public function add_hooks() {
 
-	/**
-	 * Initialise the form manager
-	 * @hooked `template_redirect`
-	 */
-	public function init_form_manager() {
-		$this->form_manager = new MC4WP_Lite_Form_Manager();
-		$this->form_manager->init();
-	}
-
-	/**
-	* @return MC4WP_Lite_Checkbox_Manager
-	*/
-	public function get_checkbox_manager() {
-		return $this->checkbox_manager;
-	}
-
-	/**
-	* @return MC4WP_Lite_Form_Manager
-	*/
-	public function get_form_manager() {
-		return $this->form_manager;
 	}
 
 	/**
@@ -121,8 +68,5 @@ class MC4WP_Lite {
 		return $this->api;
 	}
 
-	public function register_widget() {
-		register_widget( 'MC4WP_Lite_Widget' );
-	}
 
 }

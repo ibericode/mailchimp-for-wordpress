@@ -3,7 +3,7 @@
 /**
  * Takes care of all the sign-up checkboxes
  */
-class MC4WP_Lite_Checkbox_Manager
+class MC4WP_Integration_Manager
 {
 	/**
 	 * @var array Array holding all integration instances
@@ -89,7 +89,7 @@ class MC4WP_Lite_Checkbox_Manager
 
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		wp_enqueue_style( 'mailchimp-for-wp-checkbox', MC4WP_LITE_PLUGIN_URL . 'assets/css/checkbox' . $suffix . '.css', array(), MC4WP_LITE_VERSION, 'all' );
+		wp_enqueue_style( 'mailchimp-for-wp-checkbox', MC4WP_PLUGIN_URL . 'assets/css/checkbox' . $suffix . '.css', array(), MC4WP_VERSION, 'all' );
 		return true;
 	}
 

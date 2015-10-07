@@ -83,7 +83,7 @@ function mc4wp_get_options( $key = '' ) {
 * @return MC4WP_API
 */
 function mc4wp_get_api() {
-	return MC4WP_Lite::instance()->get_api();
+	return MC4WP::instance()->get_api();
 }
 
 /**
