@@ -13,11 +13,23 @@ if( ! defined( 'ABSPATH' ) ) {
 class MC4WP_Form_Widget extends WP_Widget {
 
 	/**
+	 * @var array
+	 */
+	private $default_instance_settings = array(
+		'title' => '',
+		'form_id' => ''
+	);
+
+	/**
 	 * Register widget with WordPress.
 	 *
 	 * @todo write upgrade routine for Base ID change
 	 */
 	function __construct() {
+
+		// translate default widget title
+		$this->default_instance_settings['title'] = __( 'Newsletter', 'mailchimp-for-wp' );
+
 		parent::__construct(
 			'MC4WP_Form_Widget', // Base ID
 			__( 'MailChimp Sign-Up Form', 'mailchimp-for-wp' ), // Name
@@ -33,12 +45,12 @@ class MC4WP_Form_Widget extends WP_Widget {
 	 * @see WP_Widget::widget()
 	 *
 	 * @param array   $args     Widget arguments.
-	 * @param array   $instance Saved values from database.
+	 * @param array   $instance_settings Saved values from database.
 	 */
-	public function widget( $args, $instance ) {
+	public function widget( $args, $instance_settings ) {
 
-		$title = isset( $instance['title'] ) ? $instance['title'] : '';
-		$title = apply_filters( 'widget_title', $title );
+		$instance_settings = array_merge( $this->default_instance_settings, $instance_settings );
+		$title = apply_filters( 'widget_title', $instance_settings['title'] );
 
 		echo $args['before_widget'];
 
@@ -46,12 +58,7 @@ class MC4WP_Form_Widget extends WP_Widget {
 			echo $args['before_title'] . $title . $args['after_title'];
 		}
 
-		// make sure template functions exist (for usage in avia layout builder)
-		if ( ! function_exists( 'mc4wp_get_form' ) ) {
-			include_once MC4WP_PLUGIN_DIR . 'includes/functions/template.php';
-		}
-
-		echo mc4wp_get_form();
+		echo mc4wp_get_form( $instance_settings['form_id'] );
 
 		echo $args['after_widget'];
 	}
@@ -61,17 +68,20 @@ class MC4WP_Form_Widget extends WP_Widget {
 	 *
 	 * @see WP_Widget::form()
 	 *
-	 * @param array $instance Previously saved values from database.
+	 * @param array $settings Previously saved values from database.
 	 *
 	 * @return string|void
 	 */
-	public function form( $instance ) {
-		$title = isset( $instance['title'] ) ? $instance['title'] : __( 'Newsletter', 'mailchimp-for-wp' );
+	public function form( array $settings ) {
+		$settings = array_merge( $this->default_instance_settings, $settings );
 		?>
         <p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'mailchimp-for-wp' ); ?></label>
-			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $settings['title'] ); ?>" />
         </p>
+
+		<?php do_action( 'mc4wp_form_widget_form', $settings, $this ); ?>
+
         <p class="help">
 			<?php printf( __( 'You can edit your sign-up form in the <a href="%s">MailChimp for WordPress form settings</a>.', 'mailchimp-for-wp' ), admin_url( 'admin.php?page=mailchimp-for-wp-form-settings' ) ); ?>
         </p>
@@ -83,15 +93,20 @@ class MC4WP_Form_Widget extends WP_Widget {
 	 *
 	 * @see WP_Widget::update()
 	 *
-	 * @param array   $new_instance Values just sent to be saved.
-	 * @param array   $old_instance Previously saved values from database.
+	 * @param array   $new_instance_settings Values just sent to be saved.
+	 * @param array   $old_instance_settings Previously saved values from database.
 	 *
 	 * @return array Updated safe values to be saved.
 	 */
-	public function update( $new_instance, $old_instance ) {
-		$instance = array();
-		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? sanitize_text_field( $new_instance['title'] ) : '';
-		return $instance;
+	public function update( $new_instance_settings, $old_instance_settings ) {
+
+		if( ! empty( $new_instance_settings['title'] ) ) {
+			$new_instance_settings['title'] = sanitize_text_field( $new_instance_settings['title'] );
+		}
+
+		$new_instance_settings = apply_filters( 'mc4wp_form_widget_sanitize_settings', $new_instance_settings, $old_instance_settings, $this );
+
+		return $new_instance_settings;
 	}
 
 } // class MC4WP_Widget
