@@ -3,6 +3,18 @@
 class MC4WP_Form_Listener {
 
 	/**
+	 * @var MC4WP_Form_Repository
+	 */
+	protected $form_repository;
+
+	/**
+	 * @param MC4WP_Form_Repository $form_repository
+	 */
+	public function __construct( MC4WP_Form_Repository $form_repository ) {
+		$this->form_repository = $form_repository;
+	}
+
+	/**
 	 * @param $data
 	 *
 	 * @return bool
@@ -22,10 +34,10 @@ class MC4WP_Form_Listener {
 		// determine action
 		if ( ! isset( $data['_mc4wp_action'] )
 		     || $data['_mc4wp_action'] === 'subscribe' ) {
-			$request = new MC4WP_Subscribe_Request( $data );
+			$request = new MC4WP_Subscribe_Request( $data, $this->form_repository );
 			$this->process( $request );
 		} elseif ( $data['_mc4wp_action'] === 'unsubscribe' ) {
-			$request = new MC4WP_Unsubscribe_Request( $data );
+			$request = new MC4WP_Unsubscribe_Request( $data, $this->form_repository );
 			$this->process( $request );
 		}
 
@@ -38,6 +50,7 @@ class MC4WP_Form_Listener {
 	 * @return bool
 	 */
 	public function process( iMC4WP_Request $request ) {
+
 
 		$valid = $request->validate();
 		$success = false;

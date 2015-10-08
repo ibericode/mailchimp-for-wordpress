@@ -23,6 +23,11 @@ class MC4WP {
 	private static $instance;
 
 	/**
+	 * @var array
+	 */
+	public $options = array();
+
+	/**
 	 * @return MC4WP
 	 */
 	public static function instance() {
@@ -40,8 +45,10 @@ class MC4WP {
 	*/
 	private function __construct() {
 
+		$this->options = $options = mc4wp_get_options();
+
 		// forms
-		$this->form_manager = new MC4WP_Form_Manager();
+		$this->form_manager = new MC4WP_Form_Manager( $options['form'] );
 		$this->form_manager->add_hooks();
 
 		// checkboxes

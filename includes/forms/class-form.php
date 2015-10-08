@@ -1,40 +1,23 @@
 <?php
 
+/**
+ * Class MC4WP_Form
+ *
+ * @author Danny van Kooten
+ * @package MailChimp for WordPress
+ * @api
+ */
 class MC4WP_Form {
-
-	/**
-	 * @var MC4WP_Form
-	 */
-	private static $instance;
-
-	/**
-	 * @param iMC4WP_Request $request
-	 * @return MC4WP_Form|null
-	 */
-	public static function get( iMC4WP_Request $request = null ) {
-
-		// has instance been created already?
-		if( self::$instance ) {
-			$form = self::$instance;
-		} else {
-			// create a new instance
-			$form = new MC4WP_Form( $request );
-			self::$instance = $form;
-		}
-
-		// attach request to form
-		if( $request && ! $form->has_request( $request ) ) {
-			$form->attach_request( $request );
-		}
-
-		return $form;
-
-	}
 
 	/**
 	 * @var int
 	 */
 	public $ID = 0;
+
+	/**
+	 * @var string
+	 */
+	public $name = '';
 
 	/**
 	 * @var string
@@ -52,14 +35,17 @@ class MC4WP_Form {
 	public $request;
 
 	/**
+	 * @param int $id
+	 * @param string $name
+	 * @param string $content
 	 * @param iMC4WP_Request $request
 	 */
-	private function __construct( iMC4WP_Request $request = null ) {
-		$this->ID = 0;
-		$this->name = 'Default Form';
-		$this->settings = $this->load_settings();
-		$this->content = $this->settings['markup'];
+	public function __construct( $id = 0, $name = 'Default Form', $content = '', $settings = array(), iMC4WP_Request $request = null ) {
+		$this->ID = $id;
+		$this->name = $name;
+		$this->content = $content;
 		$this->request = $request;
+		$this->settings = apply_filters( 'mc4wp_form_settings', $settings, $this );
 	}
 
 	/**
@@ -103,7 +89,7 @@ class MC4WP_Form {
 		 *
 		 * Can be used to customize the content of the form mark-up, eg adding additional fields.
 		 */
-		$visible_fields = (string) apply_filters( 'mc4wp_form_content', $visible_fields, $this->ID );
+		$visible_fields = (string) apply_filters( 'mc4wp_form_content', $visible_fields, $this );
 
 		return $visible_fields;
 	}
@@ -149,6 +135,16 @@ class MC4WP_Form {
 		}
 
 		return $form_submitted;
+	}
+
+	/**
+	 * @param string $element_id
+	 *
+	 * @return string
+	 */
+	protected function get_response_html( $element_id = '' ) {
+		$html = ( $this->is_submitted( $element_id ) ) ? $this->request->get_response_html() : '';
+		return (string) apply_filters( 'mc4wp_form_response_html', $html, $this );
 	}
 
 	/**
@@ -238,7 +234,7 @@ class MC4WP_Form {
 	public function generate_html( $element_id = 'mc4wp-form', array $attributes = array() ) {
 
 		// generate response html
-		$response_html = ( $this->is_submitted( $element_id ) ) ? $this->request->get_response_html() : '';
+		$response_html = $this->get_response_html();
 
 		// Some vars we might fill later on
 		$form_opening_html = '';
@@ -249,8 +245,8 @@ class MC4WP_Form {
 		// Start building content string
 		$opening_html = '<!-- MailChimp for WordPress v' . MC4WP_VERSION . ' - https://wordpress.org/plugins/mailchimp-for-wp/ -->';
 		$opening_html .= '<div id="' . esc_attr( $element_id ) . '" class="' . esc_attr( $this->get_css_classes( $element_id ) ) . '">';
-		$before_fields = apply_filters( 'mc4wp_form_before_fields', '' );
-		$after_fields = apply_filters( 'mc4wp_form_after_fields', '' );
+		$before_fields = apply_filters( 'mc4wp_form_before_fields', '', $this );
+		$after_fields = apply_filters( 'mc4wp_form_after_fields', '', $this );
 		$before_form = $this->get_html_before_form( $response_html );
 		$after_form = $this->get_html_after_form( $response_html );
 		$closing_html = '</div><!-- / MailChimp for WordPress Plugin -->';
@@ -338,13 +334,6 @@ class MC4WP_Form {
 		}
 
 		return implode( ' ', $css_classes );
-	}
-
-	/**
-	 * @return array
-	 */
-	public function load_settings() {
-		return mc4wp_get_options( 'form' );
 	}
 
 	/**

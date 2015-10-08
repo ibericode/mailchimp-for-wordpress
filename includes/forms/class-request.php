@@ -8,7 +8,7 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 	/**
 	 * @var string
 	 */
-	protected $mailchimp_error = '';
+	public $mailchimp_error = '';
 
 	/**
 	 * @var MC4WP_Form
@@ -23,7 +23,7 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 	/**
 	 * @var string
 	 */
-	protected $message_type = '';
+	public $message_type = '';
 
 	/**
 	 * @var bool
@@ -50,8 +50,9 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 	 * Constructor
 	 *
 	 * @param array $data
+	 * @param MC4WP_Form_Repository $form_repository
 	 */
-	public function __construct( array $data ) {
+	public function __construct( array $data, MC4WP_Form_Repository $form_repository ) {
 
 		// find fields prefixed with _mc4wp_
 		$this->internal_data = $this->get_internal_data( $data );
@@ -63,7 +64,7 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 		$this->form_element_id = (string) $this->internal_data['form_element_id'];
 
 		// get form
-		$this->form = MC4WP_Form::get( $this );
+		$this->form = $form_repository->get( (int) $this->internal_data['form_id'], $this );
 
 		// get referer
 		if( ! empty( $_SERVER['HTTP_REFERER'] ) ) {
@@ -228,6 +229,8 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 	 * Send HTTP response
 	 */
 	public function respond() {
+
+		do_action( 'mc4wp_form_respond_to_request', $this );
 
 		// do stuff on success, non-AJAX only
 		if( $this->success ) {

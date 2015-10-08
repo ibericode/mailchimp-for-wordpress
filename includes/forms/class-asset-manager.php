@@ -26,10 +26,18 @@ class MC4WP_Form_Asset_Manager {
 	private $print_date_fallback = false;
 
 	/**
-	 * Constructor
+	 * @var MC4WP_Form_Repository
 	 */
-	public function __construct() {
-		$this->options = mc4wp_get_options( 'form' );
+	private $form_repository;
+
+	/**
+	 * Constructor
+	 * @param MC4WP_Form_Repository $form_repository
+	 * @param array $options
+	 */
+	public function __construct( MC4WP_Form_Repository $form_repository, array $options ) {
+		$this->options = $options;
+		$this->form_repository = $form_repository;
 	}
 
 	/**
@@ -76,6 +84,8 @@ class MC4WP_Form_Asset_Manager {
 
 		// register non-AJAX script (that handles form submissions)
 		wp_register_script( 'mc4wp-form-request', MC4WP_PLUGIN_URL . 'assets/js/form-request' . $suffix . '.js', array(), MC4WP_VERSION, true );
+
+		do_action( 'mc4wp_form_register_scripts', $suffix );
 	}
 
 	/**
@@ -128,7 +138,7 @@ class MC4WP_Form_Asset_Manager {
 		);
 
 		// create or retrieve form instance
-		$form = MC4WP_Form::get();
+		$form = $this->form_repository->get( $attributes['id'] );
 
 		// make sure to print date fallback later on if form contains a date field
 		if( $form->contains_field_type( 'date' ) ) {
@@ -159,6 +169,8 @@ class MC4WP_Form_Asset_Manager {
 		if( isset( $is_IE ) && $is_IE ) {
 			wp_enqueue_script( 'mc4wp-placeholders' );
 		}
+
+		do_action( 'mc4wp_output_form', $form );
 
 		// output form
 		return $form->output( $attributes['element_id'], $attributes, false );

@@ -11,22 +11,35 @@ class MC4WP_Form_Manager {
 	private $request_data = array();
 
 	/**
-	 * @var MC4WP_Form_Listener
-	 */
-	private $listener;
-
-	/**
 	 * @var MC4WP_Form_Asset_Manager;
 	 */
 	private $asset_manager;
 
 	/**
-	 * Constructor
+	 * @var MC4WP_Form_Repository
 	 */
-	public function __construct() {
+	public $form_repository;
+
+	/**
+	 * @var array
+	 */
+	public $options;
+
+	/**
+	 * Constructor
+	 *
+	 * @param array $options
+	 */
+	public function __construct( array $options ) {
+
+		$this->options = $options;
+
 		// store global `$_REQUEST` array locally, to prevent other plugins from messing with it (yes it happens....)
 		// todo: fix this properly (move to more specific $_POST?)
 		$this->request_data = $_REQUEST;
+
+		// form repository
+		$this->form_repository = new MC4WP_Form_Repository( $options );
 	}
 
 	/**
@@ -47,7 +60,7 @@ class MC4WP_Form_Manager {
 	 * @hooked `init`
 	 */
 	public function init_form_listener() {
-		$listener = new MC4WP_Form_Listener();
+		$listener = new MC4WP_Form_Listener( $this->form_repository );
 		$listener->listen( $this->request_data );
 	}
 
@@ -57,7 +70,7 @@ class MC4WP_Form_Manager {
 	 * @hooked `init`
 	 */
 	public function init_form_asset_manager() {
-		$this->asset_manager = new MC4WP_Form_Asset_Manager();
+		$this->asset_manager = new MC4WP_Form_Asset_Manager( $this->form_repository, $this->options );
 		$this->asset_manager->init();
 	}
 
