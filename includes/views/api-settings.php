@@ -44,6 +44,8 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 			<?php submit_button(); ?>
 		</form>
 
+		<?php do_action( 'mc4wp_admin_after_general_settings' ); ?>
+
 	<?php if($connected) { ?>
 
 		<h3 class="mc4wp-title"><?php _e( 'MailChimp Data' ,'mailchimp-for-wp' ); ?></h3>

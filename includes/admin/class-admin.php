@@ -49,7 +49,8 @@ class MC4WP_Admin {
 	 */
 	public function register_dashboard_widgets() {
 
-		if( ! current_user_can( $this->get_required_user_capability() ) ) {
+		// todo: re-add existing filter
+		if( ! current_user_can( 'manage_options' ) ) {
 			return false;
 		}
 
@@ -125,9 +126,6 @@ class MC4WP_Admin {
 		register_setting( 'mc4wp_lite_settings', 'mc4wp_lite', array( $this, 'validate_settings' ) );
 		register_setting( 'mc4wp_lite_checkbox_settings', 'mc4wp_lite_checkbox', array( $this, 'validate_settings' ) );
 		register_setting( 'mc4wp_lite_form_settings', 'mc4wp_lite_form', array( $this, 'validate_settings' ) );
-
-		// store whether this plugin has the BWS captcha plugin running (https://wordpress.org/plugins/captcha/)
-		$this->has_captcha_plugin = function_exists( 'cptch_display_captcha_custom' );
 
 		// Load upgrader
 		$this->load_upgrader();
@@ -310,7 +308,7 @@ class MC4WP_Admin {
 		wp_enqueue_script( array( 'jquery', 'mc4wp-beautifyhtml', 'mc4wp-admin' ) );
 		wp_localize_script( 'mc4wp-admin', 'mc4wp',
 			array(
-				'hasCaptchaPlugin' => $this->has_captcha_plugin,
+				'hasCaptchaPlugin' => function_exists( 'cptch_display_captcha_custom' ),
 				'strings' => array(
 					'proOnlyNotice' => __( 'This option is only available in MailChimp for WordPress Pro.', 'mailchimp-for-wp' ),
 					'fieldWizard' => array(

@@ -72,7 +72,7 @@ class MC4WP_Form_Widget extends WP_Widget {
 	 *
 	 * @return string|void
 	 */
-	public function form( array $settings ) {
+	public function form( $settings ) {
 		$settings = array_merge( $this->default_instance_settings, $settings );
 		?>
         <p>

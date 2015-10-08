@@ -270,76 +270,8 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 		<p><?php printf( __( 'If you need an easier way to style your forms, consider <a href="%s">upgrading to MailChimp for WordPress Pro</a> which comes with an easy Styles Builder.', 'mailchimp-for-wp' ), 'https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=form-settings' ); ?></p>
 
 		<h3 class="mc4wp-title"><?php _e( 'Variables', 'mailchimp-for-wp' ); ?></h3>
-		<p>
-			<?php echo sprintf( __( 'The following list of variables can be used to <a href="%s">add some dynamic content to your form or success and error messages</a>.', 'mailchimp-for-wp' ), 'https://mc4wp.com/kb/using-variables-in-your-form-or-messages/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=form-settings' ) . ' ' . __( 'This allows you to personalise your form or response messages.', 'mailchimp-for-wp' ); ?>
-		</p>
+		<?php include dirname( __FILE__ ) . '/parts/admin-text-variables.php'; ?>
 
-		<?php $language = defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : get_locale(); ?>
-
-		<table class="mc4wp-help">
-			<tr>
-				<th>{email}</th>
-				<td><?php _e( 'Replaced with the visitor\'s email (if set in URL or cookie).', 'mailchimp-for-wp' ); ?></td>
-			</tr>
-			<tr>
-				<th>{response}</th>
-				<td><?php _e( 'Replaced with the form response (error or success messages).', 'mailchimp-for-wp' ); ?></td>
-			</tr>
-			<?php if( $this->has_captcha_plugin ) { ?>
-				<tr>
-					<th>{captcha}</th>
-					<td><?php _e( 'Replaced with a captcha field.', 'mailchimp-for-wp' ); ?></td>
-				</tr>
-			<?php } ?>
-			<tr>
-				<th>{subscriber_count}</th>
-				<td><?php _e( 'Replaced with the number of subscribers on the selected list(s)', 'mailchimp-for-wp' ); ?></td>
-			</tr>
-			<tr>
-				<th>{language}</th>
-				<td><?php printf( __( 'Replaced with the current site language, eg: %s', 'mailchimp-for-wp' ), '<em>' . $language . '</em>' ); ?></td>
-			</tr>
-			<tr>
-				<th>{ip}</th>
-				<td><?php _e( 'Replaced with the visitor\'s IP address', 'mailchimp-for-wp' ); ?></td>
-			</tr>
-			<tr>
-				<th>{date}</th>
-				<td><?php printf( __( 'Replaced with the current date (yyyy/mm/dd eg: %s)', 'mailchimp-for-wp' ), '<em>' . date( 'Y/m/d' ) . '</em>' ); ?></td>
-			</tr>
-			<tr>
-				<th>{time}</th>
-				<td><?php printf( __( 'Replaced with the current time (hh:mm:ss eg: %s)', 'mailchimp-for-wp' ), '<em>' . date( 'H:i:s' ) . '</em>' ); ?></td>
-			</tr>
-			<tr>
-				<th>{user_email}</th>
-				<td><?php _e( 'Replaced with the logged in user\'s email (or nothing, if there is no logged in user)', 'mailchimp-for-wp' ); ?></td>
-			</tr>
-			<tr>
-				<th>{user_firstname}</th>
-				<td><?php _e( 'First name of the current user', 'mailchimp-for-wp' ); ?></td>
-			</tr>
-			<tr>
-				<th>{user_lastname}</th>
-				<td><?php _e( 'Last name of the current user', 'mailchimp-for-wp' ); ?></td>
-			</tr>
-			<tr>
-				<th>{user_id}</th>
-				<td><?php _e( 'Current user ID', 'mailchimp-for-wp' ); ?></td>
-			</tr>
-			<tr>
-				<th>{current_url}</th>
-				<td><?php _e( 'Current URL', 'mailchimp-for-wp' ); ?></td>
-			</tr>
-			<tr>
-				<th>{current_path}</th>
-				<td><?php _e( 'Current URL path', 'mailchimp-for-wp' ); ?></td>
-			</tr>
-			<tr>
-				<th>{data_FNAME}</th>
-				<td><?php _e( 'The value of the <strong>FNAME</strong> field, if set.', 'mailchimp-for-wp' ); ?></td>
-			</tr>
-		</table>
 	</div>
 
 		<?php include 'parts/admin-need-support.php'; ?>
