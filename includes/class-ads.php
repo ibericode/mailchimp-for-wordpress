@@ -15,11 +15,22 @@ class MC4WP_Ads {
 		}
 
 		add_filter( 'mc4wp_menu_items', array( $this, 'menu_items' ) );
-		add_action( 'mc4wp_admin_before_sidebar', array( $this, 'before_sidebar' ) );
+		add_action( 'mc4wp_admin_before_sidebar', array( $this, 'admin_before_sidebar' ) );
+		add_action( 'mc4wp_admin_footer', array( $this, 'admin_footer' ) );
 		return true;
 	}
 
-	public function before_sidebar() {
+	/**
+	 * Add upgrade text to admin footer.
+	 */
+	public function admin_footer() {
+		echo '<p class="help">' . sprintf( __( 'Enjoying this plugin? <a href="%s">Upgrade to MailChimp for WordPress Pro</a> for an even better plugin, you will love it.', 'mailchimp-for-wp' ), 'https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=footer-link' ) . '</p>';
+	}
+
+	/**
+	 * Add upgrade block to sidebar
+	 */
+	public function admin_before_sidebar() {
 		include MC4WP_PLUGIN_DIR . 'includes/views/parts/admin-upgrade-to-pro.php';
 	}
 

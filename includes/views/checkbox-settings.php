@@ -110,16 +110,16 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 	</table>
 
 	<?php submit_button(); ?>
-</form>
+	</form>
 
-<?php include 'parts/admin-footer.php'; ?>
+	<?php include 'parts/admin-footer.php'; ?>
 
-</div>
+	</div>
 
-<div id="mc4wp-sidebar">
-	<?php do_action( 'mc4wp_admin_before_sidebar' ); ?>
-	<?php include 'parts/admin-need-support.php'; ?>
-	<?php do_action( 'mc4wp_admin_after_sidebar' ); ?>
-</div>
+	<div id="mc4wp-sidebar">
+		<?php do_action( 'mc4wp_admin_before_sidebar' ); ?>
+		<?php include 'parts/admin-need-support.php'; ?>
+		<?php do_action( 'mc4wp_admin_after_sidebar' ); ?>
+	</div>
 
 </div>

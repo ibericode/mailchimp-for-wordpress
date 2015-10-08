@@ -347,4 +347,5 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 	<?php do_action( 'mc4wp_admin_after_sidebar' ); ?>
 
 </div>
+
 </div>

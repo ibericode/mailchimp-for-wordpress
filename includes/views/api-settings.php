@@ -145,18 +145,18 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 				<input type="submit" value="<?php _e( 'Renew MailChimp lists', 'mailchimp-for-wp' ); ?>" class="button" />
 			</p>
 		</form>
-	<?php } ?>
+		<?php } ?>
 
-	<?php include 'parts/admin-footer.php'; ?>
-</div>
+		<?php include 'parts/admin-footer.php'; ?>
+	</div>
 
 
 
-<div id="mc4wp-sidebar">
-	<?php do_action( 'mc4wp_admin_before_sidebar' ); ?>
-	<?php include 'parts/admin-need-support.php'; ?>
-	<?php do_action( 'mc4wp_admin_after_sidebar' ); ?>
-</div>
+	<div id="mc4wp-sidebar">
+		<?php do_action( 'mc4wp_admin_before_sidebar' ); ?>
+		<?php include 'parts/admin-need-support.php'; ?>
+		<?php do_action( 'mc4wp_admin_after_sidebar' ); ?>
+	</div>
 
 </div>
 
