@@ -15,9 +15,20 @@ class MC4WP_Ads {
 		}
 
 		add_filter( 'mc4wp_menu_items', array( $this, 'menu_items' ) );
+		add_filter( 'mc4wp_admin_plugin_meta_links', array( $this, 'plugin_meta_links' ) );
 		add_action( 'mc4wp_admin_before_sidebar', array( $this, 'admin_before_sidebar' ) );
 		add_action( 'mc4wp_admin_footer', array( $this, 'admin_footer' ) );
 		return true;
+	}
+
+	/**
+	 * @param array $links
+	 *
+	 * @return array
+	 */
+	public function plugin_meta_links( $links ) {
+		$links[] = '<a href="https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=plugins-upgrade-link">' . __( 'Upgrade to MailChimp for WordPress Pro', 'mailchimp-for-wp' ) . '</a>';
+		return $links;
 	}
 
 	/**
