@@ -3,11 +3,6 @@
 class MC4WP_Admin {
 
 	/**
-	 * @var bool True if the BWS Captcha plugin is activated.
-	 */
-	private $has_captcha_plugin = false;
-
-	/**
 	 * @var string The relative path to the main plugin file from the plugins dir
 	 */
 	private $plugin_file;
@@ -237,7 +232,6 @@ class MC4WP_Admin {
 
 	}
 
-
 	/**
 	* Validates the General settings
 	*
@@ -247,6 +241,10 @@ class MC4WP_Admin {
 	public function validate_settings( array $settings ) {
 
 		$current = mc4wp_get_options();
+
+		if( isset( $settings['allow_usage_tracking'] ) ) {
+			MC4WP_Usage_Tracking::instance()->toggle( (bool) $settings['allow_usage_tracking'] );
+		}
 
 		// sanitize simple text fields (no HTML, just chars & numbers)
 		$simple_text_fields = array( 'api_key', 'redirect', 'css' );

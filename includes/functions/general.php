@@ -17,6 +17,7 @@ function mc4wp_get_options( $key = '' ) {
 		$defaults = array(
 			'general' => array(
 				'api_key' => '',
+				'allow_usage_tracking' => 0
 			),
 			'checkbox' => array(
 				'label' => __( 'Sign me up for the newsletter!', 'mailchimp-for-wp' ),

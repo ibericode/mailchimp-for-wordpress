@@ -60,6 +60,11 @@ function mc4wp_load_plugin() {
 	// Initialize the plugin and store an instance in the global scope
 	$GLOBALS['mc4wp'] = MC4WP::instance();
 
+	// Doing cron?
+	if( defined( 'DOING_CRON' ) && DOING_CRON ) {
+		MC4WP_Usage_Tracking::instance()->add_hooks();
+	}
+
 	return true;
 }
 
