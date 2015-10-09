@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: email, mailchimp, marketing, newsletter, signup, widget, mc4wp, contact form 7, woocommerce, buddypress,ibericode
 Requires at least: 3.7
 Tested up to: 4.3.1
-Stable tag: 2.3.14
+Stable tag: 2.3.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -167,11 +167,24 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 
 == Changelog ==
 
-= Trunk - to be released =
+= 2.3.15 - October 9, 2015 =
+
+**Fixes**
+
+- Fixes JS error when form contains no submit button
 
 **Improvements**
 
+- Only prefix `url` fields with `http://` if it is filled.
 - Updated Spanish & Catalan translations, thanks to [Xavier Gimeno Torrent](http://www.xaviergimeno.net/).
+- Fix `mc4wp_form_before_fields` being applied twice.
+- Position honeypot field to the right for Right-To-Left sites.
+- `_mc4wp_lists` can now be a comma-separated string of MailChimp list ID's to subscribe to (or an array).
+- Minor other defensive coding improvements to prevent clashes with other plugins.
+
+**Additions**
+
+- Added opt-in usage tracking to help us make the plugin better. No sensitive data is tracked.
 
 = 2.3.14 - September 25 =
 

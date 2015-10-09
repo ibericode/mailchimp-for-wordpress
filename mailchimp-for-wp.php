@@ -47,7 +47,7 @@ function mc4wp_load_plugin() {
 	}
 
 	// bootstrap the lite plugin
-	define( 'MC4WP_LITE_VERSION', '2.3.14' );
+	define( 'MC4WP_LITE_VERSION', '2.3.15' );
 	define( 'MC4WP_LITE_PLUGIN_DIR', dirname( __FILE__ ) . '/' );
 	define( 'MC4WP_LITE_PLUGIN_URL', plugins_url( '/' , __FILE__ ) );
 	define( 'MC4WP_LITE_PLUGIN_FILE', __FILE__ );
