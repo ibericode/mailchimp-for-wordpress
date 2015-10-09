@@ -78,7 +78,7 @@ class MC4WP_Usage_Tracking {
 			'site' => home_url(),
 			'options' => $this->get_tracked_options(),
 			'mc4wp_version' => MC4WP_LITE_VERSION,
-			'plugins' => wp_get_active_and_valid_plugins(),
+			'plugins' => (array) get_option( 'active_plugins', array() ),
 			'php_version' => PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION,
 			'curl_version' => $this->get_curl_version(),
 			'wp_version' => $GLOBALS['wp_version']
