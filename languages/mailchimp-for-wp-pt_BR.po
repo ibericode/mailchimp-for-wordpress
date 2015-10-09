@@ -4,14 +4,15 @@
 # Douglas de Araujo <douglas@ludicaeventos.com.br>, 2015
 # Leandro de Santi <leandro.santi@gmail.com>, 2014-2015
 # Lucas Vilaboim de Figueiredo <luvilaboim@gmail.com>, 2015
+# Luiz Sobral <lctsobral@gmail.com>, 2015
 # Ronne Clay Santos <roneclay@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-05-26 14:41:46+00:00\n"
-"PO-Revision-Date: 2015-07-29 03:35+0000\n"
-"Last-Translator: Lucas Vilaboim de Figueiredo <luvilaboim@gmail.com>\n"
+"PO-Revision-Date: 2015-10-08 12:57+0000\n"
+"Last-Translator: Luiz Sobral <lctsobral@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,7 +65,7 @@ msgstr "Caixas de Seleção"
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:512
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:91
 msgid "Form Settings"
-msgstr "Configurações"
+msgstr "Configurações de Formulários"
 
 #: mailchimp-for-wordpress/includes/admin/class-admin.php:192
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:513
@@ -741,7 +742,7 @@ msgstr "Exemplo: %s"
 msgid ""
 "Leave empty or enter <code>0</code> for no redirect. Otherwise, use complete"
 " (absolute) URLs, including <code>http://</code>."
-msgstr ""
+msgstr "Deixe vazio ou digite <code>0</code> para não redirecionar. Ou, use URLs completas (absolutas) incluindo <code>http://</code>"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:195
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:140
@@ -754,7 +755,7 @@ msgstr "Inscrição realizada com sucesso"
 msgid ""
 "The text that shows when an email address is successfully subscribed to the "
 "selected list(s)."
-msgstr ""
+msgstr "O texto que mostra quando um endereço de emal é inscrito com sucesso na lista(s) selecionada(s)."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:202
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:160
@@ -766,7 +767,7 @@ msgstr "Endereço de e-mail inválido"
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:163
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:150
 msgid "The text that shows when an invalid email address is given."
-msgstr ""
+msgstr "O texto mostrado quando um endereço de email inválido é fornecido."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:209
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:167
@@ -780,7 +781,7 @@ msgstr "Campo obrigatório requerido"
 msgid ""
 "The text that shows when a required field for the selected list(s) is "
 "missing."
-msgstr ""
+msgstr "O texto mostrado quando um campo obrigatório da(s) lista(s) selecionada(s) está faltando."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:216
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:174
@@ -794,7 +795,7 @@ msgstr "Já inscrito"
 msgid ""
 "The text that shows when the given email is already subscribed to the "
 "selected list(s)."
-msgstr ""
+msgstr "O texto mostrado quando o email fornecido já está cadastrado nas lista(s) selecionada(s)."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:224
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:182
@@ -805,19 +806,19 @@ msgstr "CAPTCHA inválido"
 #: mailchimp-for-wordpress/includes/views/form-settings.php:229
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:174
 msgid "General error"
-msgstr ""
+msgstr "Erro geral"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:232
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:193
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:177
 msgid "The text that shows when a general error occured."
-msgstr ""
+msgstr "O texto mostrado quando um erro geral ocorre."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:236
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:197
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:181
 msgid "Unsubscribed"
-msgstr ""
+msgstr "Descadastrado"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:239
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:200
@@ -825,13 +826,13 @@ msgstr ""
 msgid ""
 "When using the unsubscribe method, this is the text that shows when the "
 "given email address is successfully unsubscribed from the selected list(s)."
-msgstr ""
+msgstr "Quando usar o método de descadastrar, este é o texto mostrado quando o endereço de e-mail fornecido é descadastrado com sua das lista(s) selecionada(s)."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:243
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:204
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:188
 msgid "Not subscribed"
-msgstr ""
+msgstr "Não cadastrado"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:246
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:207
@@ -839,7 +840,7 @@ msgstr ""
 msgid ""
 "When using the unsubscribe method, this is the text that shows when the "
 "given email address is not on the selected list(s)."
-msgstr ""
+msgstr "Quandao usar o método de descadatrar, este é o texto mostrado quando o endereço de email fornecido não estå nas lista(s) selecionada(s)."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:252
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:213
