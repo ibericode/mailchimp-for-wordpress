@@ -66,6 +66,12 @@ function mc4wp_load_plugin() {
 	MC4WP_Lite::init();
 	$GLOBALS['mc4wp'] = MC4WP_Lite::instance();
 
+	// Doing cron?
+	if( defined( 'DOING_CRON' ) && DOING_CRON ) {
+		MC4WP_Usage_Tracking::instance()->add_hooks();
+	}
+
+
 	return true;
 }
 

@@ -251,6 +251,11 @@ class MC4WP_Lite_Admin
 
 		$current = mc4wp_get_options();
 
+		// Toggle usage tracking
+		if( isset( $settings['allow_usage_tracking'] ) ) {
+			MC4WP_Usage_Tracking::instance()->toggle( (bool) $settings['allow_usage_tracking'] );
+		}
+
 		// sanitize simple text fields (no HTML, just chars & numbers)
 		$simple_text_fields = array( 'api_key', 'redirect', 'css' );
 		foreach( $simple_text_fields as $field ) {
