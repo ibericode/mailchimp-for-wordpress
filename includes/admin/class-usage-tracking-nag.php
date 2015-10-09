@@ -43,7 +43,7 @@ class MC4WP_Usage_Tracking_Nag {
 	}
 
 	/**
-	 *
+	 * @todo this should be translatable
 	 */
 	public function show() {
 
