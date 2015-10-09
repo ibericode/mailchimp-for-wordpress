@@ -2,9 +2,13 @@
 
 class MC4WP_Usage_Tracking {
 
-	protected $tracking_url = 'https://mc4wp.com/api/usage-tracking';
 	/**
-	 * @var MC4WP_Usage_Tracking
+	 * @var string
+	 */
+	protected $tracking_url = 'https://mc4wp.com/api/usage-tracking';
+
+	/**
+	 * @var MC4WP_Usage_Tracking The One True Instance
 	 */
 	protected static $instance;
 
@@ -71,10 +75,12 @@ class MC4WP_Usage_Tracking {
 	protected function get_tracking_data() {
 
 		$data = array(
-			'site' => home_url(),
+			// use md5 hash of home_url, we don't need/want to know the actual site url
+			'site' => md5( home_url() ),
 			'options' => $this->get_tracked_options(),
+			'number_of_mailchimp_lists' => $this->get_mailchimp_lists_count(),
 			'mc4wp_version' => MC4WP_VERSION,
-			'plugins' => wp_get_active_and_valid_plugins(),
+			'plugins' => (array) get_option( 'active_plugins', array() ),
 			'php_version' => PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION,
 			'curl_version' => $this->get_curl_version(),
 			'wp_version' => $GLOBALS['wp_version']
@@ -84,13 +90,24 @@ class MC4WP_Usage_Tracking {
 	}
 
 	/**
+	 * @return int
+	 */
+	protected function get_mailchimp_lists_count() {
+		$mailchimp = new MC4WP_MailChimp();
+		$lists = $mailchimp->get_lists( false, true );
+		return count( $lists );
+	}
+
+	/**
 	 * @return array
 	 */
 	public function get_tracked_options( ) {
 
 		$checkbox_options = mc4wp_get_options( 'checkbox' );
 		$form_options = mc4wp_get_options( 'form' );
-		$ignored_options = array( 'api_key', 'license_key' );
+
+		// make sure these keys are always stripped
+		$ignored_options = array( 'api_key', 'license_key', 'lists' );
 
 		// filter options
 		$checkbox_options = array_diff_key( $checkbox_options, array_flip( $ignored_options ) );

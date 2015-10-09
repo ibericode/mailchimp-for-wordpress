@@ -22,6 +22,14 @@ class MC4WP_Admin {
 
 		$this->load_translations();
 		$this->add_hooks();
+
+		// Instantiate Usage Tracking nag
+		// @todo delay this with a few hours
+		$options = mc4wp_get_options( 'general' );
+		if( ! $options['allow_usage_tracking'] ) {
+			$usage_tracking_nag = new MC4WP_Usage_Tracking_Nag( $this->get_required_capability() );
+			$usage_tracking_nag->add_hooks();
+		}
 	}
 
 	/**
