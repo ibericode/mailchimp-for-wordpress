@@ -23,11 +23,19 @@ class MC4WP_Lite_Admin
 	 */
 	public function __construct() {
 
+
 		$this->plugin_file = plugin_basename( MC4WP_LITE_PLUGIN_FILE );
 		$this->mailchimp = new MC4WP_MailChimp();
 		$this->load_translations();
 		$this->setup_hooks();
 		$this->listen();
+
+		// Instantiate Usage Tracking nag
+		$options = mc4wp_get_options( 'general' );
+		if( ! $options['allow_usage_tracking'] ) {
+			$usage_tracking_nag = new MC4WP_Usage_Tracking_Nag( $this->get_required_capability() );
+			$usage_tracking_nag->add_hooks();
+		}
 	}
 
 	/**
@@ -188,9 +196,9 @@ class MC4WP_Lite_Admin
 	}
 
 	/**
-	* Register the setting pages and their menu items
-		*/
-	public function build_menu() {
+	 * @return string
+	 */
+	public function get_required_capability() {
 
 		/**
 		 * @filter mc4wp_settings_cap
@@ -198,7 +206,17 @@ class MC4WP_Lite_Admin
 		 *
 		 * Use to customize the required user capability to access the MC4WP settings pages
 		 */
-		$required_cap = apply_filters( 'mc4wp_settings_cap', 'manage_options' );
+		$required_cap = (string) apply_filters( 'mc4wp_settings_cap', 'manage_options' );
+
+		return $required_cap;
+	}
+
+	/**
+	* Register the setting pages and their menu items
+		*/
+	public function build_menu() {
+
+		$required_cap = $this->get_required_capability();
 
 		$menu_items = array(
 			array(
