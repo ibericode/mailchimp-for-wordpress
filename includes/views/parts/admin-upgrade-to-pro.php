@@ -28,8 +28,11 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 		</li>
 	</ul>
 	<p>
-		<a class="button button-primary button-large" href="https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=upgrade-box"><?php _e( 'Upgrade Now', 'mailchimp-for-wp' ); ?></a>
-		<a class="button" href="https://mc4wp.com/demo/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=upgrade-box"><?php _e( 'View Demo', 'mailchimp-for-wp' ); ?></a>
+		<a class="button button-primary button-large mc4wp-upgrade-button" href="https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=upgrade-box"><?php _e( 'Show me more', 'mailchimp-for-wp' ); ?></a>
+		<a class="" href="https://mc4wp.com/demo/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=upgrade-box"><?php _e( 'View Demo', 'mailchimp-for-wp' ); ?></a>
+	</p>
+	<p style="text-align: center;">
+		<small><?php _e( 'You can <strong>try with absolutely 0 risk</strong> using our refund policy.', 'mailchimp-for-wp' ); ?></small>
 	</p>
 </div>
 <div class="mc4wp-box" id="mc4wp-optin-box">
