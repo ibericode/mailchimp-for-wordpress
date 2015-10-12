@@ -13,15 +13,26 @@ class MC4WP_Usage_Tracking_Nag {
 	protected $required_capability = 'manage_options';
 
 	/**
-	 * The name of the option to store whether this nag was shown in
+	 * @const string The name of the option to store whether this nag was shown in
 	 */
-	const OPTION_NAME = 'mc4wp_usage_tracking_nag_shown';
+	const OPTION_SHOWN = 'mc4wp_usage_tracking_nag_shown';
+
+	/**
+	 * @const string
+	 */
+	const OPTION_DELAY = 'mc4wp_usage_tracking_nag_delay_started';
+
+	/**
+	 * @const int The time to wait before showing the notice
+	 */
+	const DELAY_IN_SECONDS = 86400; // 1 day
 
 	/**
 	 * @param string $required_capability
 	 */
 	public function __construct( $required_capability = '' ) {
-		$this->shown = get_option( self::OPTION_NAME, 0 );
+
+		$this->shown = get_option( self::OPTION_SHOWN, 0 );
 
 		if( ! empty( $required_capability ) ) {
 			$this->required_capability = $required_capability;
@@ -47,11 +58,16 @@ class MC4WP_Usage_Tracking_Nag {
 	 */
 	public function show() {
 
-		// only show this nag if tracking is not already enabled or notice was shown before
+		// only show this nag notice did not show before
 		if( $this->shown ) {
 			return;
 		}
 
+		// don't show this option right away but start showing it after DELAY_IN_SECONDS has passed
+		if( ! $this->is_delayed() ) {
+			$this->delay();
+			return;
+		}
 		?>
 		<div class="updated notice">
 			<p>
@@ -86,7 +102,6 @@ class MC4WP_Usage_Tracking_Nag {
 
 		$allow = ( isset( $_POST['allow'] ) ) ? (bool) $_POST['allow'] : false;
 
-
 		if ( $allow ) {
 			// update plugin options
 			$options                         = (array) get_option( 'mc4wp_lite', array() );
@@ -97,8 +112,30 @@ class MC4WP_Usage_Tracking_Nag {
 			MC4WP_Usage_Tracking::instance()->toggle( true );
 		}
 
-		// make sure notice never appears again
-		update_option( self::OPTION_NAME, 1 );
+		$this->disable();
+	}
+
+	/**
+	 * Make sure nag never shows again and clean-up used options
+	 */
+	public function disable() {
 		$this->shown = 1;
+		update_option( self::OPTION_SHOWN, 1 );
+		delete_option( self::OPTION_DELAY );
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function is_delayed() {
+		$delay_started = get_option( self::OPTION_DELAY, time() );
+		return time() > ( $delay_started + self::DELAY_IN_SECONDS );
+	}
+
+	/**
+	 * Delay this notice (sets an option with the current time)
+	 */
+	public function delay() {
+		add_option( self::OPTION_DELAY, time() );
 	}
 }
