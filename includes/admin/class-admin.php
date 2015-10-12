@@ -23,7 +23,6 @@ class MC4WP_Lite_Admin
 	 */
 	public function __construct() {
 
-
 		$this->plugin_file = plugin_basename( MC4WP_LITE_PLUGIN_FILE );
 		$this->mailchimp = new MC4WP_MailChimp();
 		$this->load_translations();

@@ -79,14 +79,40 @@ class MC4WP_Usage_Tracking {
 			'site' => md5( home_url() ),
 			'options' => $this->get_tracked_options(),
 			'number_of_mailchimp_lists' => $this->get_mailchimp_lists_count(),
-			'mc4wp_version' => MC4WP_LITE_VERSION,
+			'mc4wp_version' => $this->get_mc4wp_version(),
 			'plugins' => (array) get_option( 'active_plugins', array() ),
 			'php_version' => PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION,
 			'curl_version' => $this->get_curl_version(),
-			'wp_version' => $GLOBALS['wp_version']
+			'wp_version' => $GLOBALS['wp_version'],
+			'wp_language' => get_locale(),
+			'server_software' => $this->get_server_software(),
+			'using_https' => $this->is_site_using_https()
 		);
 
 		return $data;
+	}
+
+	/**
+	 * Returns the MailChimp for WordPress version (either Lite or Pro if version < 3.0)
+	 *
+	 * @return string
+	 */
+	protected function get_mc4wp_version() {
+
+		if( defined( 'MC4WP_VERSION' ) ) {
+			return MC4WP_VERSION;
+		}
+
+		if( defined( 'MC4WP_LITE_VERSION' ) ) {
+			return MC4WP_LITE_VERSION;
+		}
+
+		if( defined( 'MC4WP_PRO_VERSION' ) ) {
+			return MC4WP_PRO_VERSION;
+		}
+
+		// never..
+		return 0;
 	}
 
 	/**
@@ -133,5 +159,25 @@ class MC4WP_Usage_Tracking {
 
 		$curl_version_info = curl_version();
 		return $curl_version_info['version'];
+	}
+
+	/**
+	 * @return bool
+	 */
+	protected function is_site_using_https() {
+		$site_url = site_url();
+		return strpos( $site_url, 'https://' ) === 0;
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function get_server_software() {
+
+		if( ! isset( $_SERVER['SERVER_SOFTWARE'] ) ) {
+			return '';
+		}
+
+		return $_SERVER['SERVER_SOFTWARE'];
 	}
 }
