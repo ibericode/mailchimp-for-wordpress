@@ -69,6 +69,7 @@ class MC4WP_Usage_Tracking_Nag {
 
 		</div>
 	<?php
+
 	}
 
 	/**

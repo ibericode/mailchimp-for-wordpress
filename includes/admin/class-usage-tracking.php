@@ -53,6 +53,8 @@ class MC4WP_Usage_Tracking {
 
 	/**
 	 * Sends the tracking request. Non-blocking.
+	 *
+	 * @return bool
 	 */
 	public function track() {
 		$data = $this->get_tracking_data();
@@ -67,6 +69,8 @@ class MC4WP_Usage_Tracking {
 				'blocking' => false,
 			)
 		);
+
+		return true;
 	}
 
 	/**
