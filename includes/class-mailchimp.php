@@ -13,6 +13,8 @@ class MC4WP_MailChimp {
 	public function empty_cache() {
 		delete_transient( $this->transient_name );
 		delete_transient( $this->transient_name . '_fallback' );
+		delete_transient( 'mc4wp_list_counts' );
+		delete_transient( 'mc4wp_list_counts_fallback' );
 	}
 
 	/**
