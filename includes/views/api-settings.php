@@ -1,11 +1,5 @@
 <?php
-
-if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
-
+defined( 'ABSPATH' ) or exit;
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
@@ -34,7 +28,10 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 					<th scope="row"><label for="mailchimp_api_key">MailChimp <?php _e( 'API Key', 'mailchimp-for-wp' ); ?></label></th>
 					<td>
 						<input type="text" class="widefat" placeholder="<?php _e( 'Your MailChimp API key', 'mailchimp-for-wp' ); ?>" id="mailchimp_api_key" name="mc4wp_lite[api_key]" value="<?php echo esc_attr( $opts['api_key'] ); ?>" />
-						<p class="help"><a target="_blank" href="https://admin.mailchimp.com/account/api"><?php _e( 'Get your API key here.', 'mailchimp-for-wp' ); ?></a></p>
+						<p class="help">
+							<?php _e( 'The API key for connecting with your MailChimp account.', 'mailchimp-for-wp' ); ?>
+							<a target="_blank" href="https://admin.mailchimp.com/account/api"><?php _e( 'Get your API key here.', 'mailchimp-for-wp' ); ?></a>
+						</p>
 					</td>
 					
 				</tr>
@@ -50,7 +47,8 @@ if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
 				<label>
 					<?php /* hidden input field to send `0` when checkbox is not checked */ ?>
 					<input type="hidden" name="mc4wp_lite[allow_usage_tracking]" value="0" />
-					<input type="checkbox" name="mc4wp_lite[allow_usage_tracking]" value="1" <?php checked( $opts['allow_usage_tracking'], 1 ); ?>> <?php _e( ' Allow us to anonymously track how this plugin is used to help us make it better fit your needs. No sensitive data is tracked.', 'mailchimp-for-wp' ); ?>
+					<input type="checkbox" name="mc4wp_lite[allow_usage_tracking]" value="1" <?php checked( $opts['allow_usage_tracking'], 1 ); ?>>
+					<?php echo sprintf( __( 'Allow us to anonymously track how this plugin is used to help us make it better fit your needs. <a href="%s">This is what we track</a>.', 'mailchimp-for-wp' ), 'https://mc4wp.com/kb/what-is-usage-tracking/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page' ); ?>
 				</label>
 			</p>
 
