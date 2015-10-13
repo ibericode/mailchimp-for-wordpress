@@ -1049,7 +1049,7 @@ msgstr "MailChimp for WordPress нуждается в переводах на р
 msgid ""
 "Enjoying this plugin? <a href=\"%s\">Upgrade to MailChimp for WordPress "
 "Pro</a> for an even better plugin, you will love it."
-msgstr "Довольны ли вы этим плагином? <a href=\\\"%s\\\">Обновите его до версии <b>MailChimp for WordPress Pro</b></a>, чтобы получить ещё больше хороших функций, Вам это понравится!"
+msgstr "Довольны ли вы этим плагином? <a href=\"%s\">Обновите его до версии <b>MailChimp for WordPress Pro</b></a>, чтобы получить ещё больше хороших функций, Вам это понравится!"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-footer.php:20
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-footer.php:13

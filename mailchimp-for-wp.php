@@ -71,7 +71,6 @@ function mc4wp_load_plugin() {
 		MC4WP_Usage_Tracking::instance()->add_hooks();
 	}
 
-
 	return true;
 }
 
