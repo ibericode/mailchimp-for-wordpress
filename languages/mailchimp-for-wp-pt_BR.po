@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-05-26 14:41:46+00:00\n"
-"PO-Revision-Date: 2015-10-08 12:57+0000\n"
+"PO-Revision-Date: 2015-10-09 11:56+0000\n"
 "Last-Translator: Luiz Sobral <lctsobral@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -860,7 +860,7 @@ msgstr "Altera o aspecto visual do formulário através da aplicação de regras
 msgid ""
 "You can add the CSS rules to your theme stylesheet using the <a "
 "href=\"%s\">Theme Editor</a> or by using a plugin like %s"
-msgstr ""
+msgstr "Você pode adicionar as regras CSS para sua folha de estilo do tema usando o <a href=\"%s\"> Editor de temas </a> ou use um plugin como %s"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:269
 msgid ""
@@ -873,7 +873,7 @@ msgid ""
 "If you need an easier way to style your forms, consider <a "
 "href=\"%s\">upgrading to MailChimp for WordPress Pro</a> which comes with an"
 " easy Styles Builder."
-msgstr ""
+msgstr "Se você precisa de uma maneira mais fácil de formatar seus formulários, considere <a href=\"%s\"> atualizar para MailChimp PRO para WordPress</a>. Ele vem com um \"Construtor de Estilos\"."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:272
 #: mailchimp-for-wordpress-pro/includes/admin/class-admin.php:366
@@ -885,12 +885,12 @@ msgstr "Variáveis"
 msgid ""
 "The following list of variables can be used to <a href=\"%s\">add some "
 "dynamic content to your form or success and error messages</a>."
-msgstr ""
+msgstr "Use as variáveis para <a href=\"%s\">adicionar conteúdo dinâmico em seu formulário ou mensagens de sucesso e erro</a>."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:274
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:11
 msgid "This allows you to personalise your form or response messages."
-msgstr ""
+msgstr "Permite personalizar o formulário ou as mensagens de resposta."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:282
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:16
@@ -962,7 +962,7 @@ msgstr "URL atual"
 #: mailchimp-for-wordpress/includes/views/form-settings.php:336
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:70
 msgid "The value of the <strong>FNAME</strong> field, if set."
-msgstr ""
+msgstr "O valor do campo <strong>FNAME</strong>, se configurado."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:10
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:31
@@ -984,12 +984,12 @@ msgstr "Botão Enviar"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:20
 msgid "Subscribe / unsubscribe choice"
-msgstr ""
+msgstr "Opção cadastrar / descadastrar"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:21
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:40
 msgid "List choice"
-msgstr ""
+msgstr "Opção de lista"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:29
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:49
@@ -1047,7 +1047,7 @@ msgstr "MailChimp para WordPress está precisando de traduções. Se o plugin n�
 msgid ""
 "Enjoying this plugin? <a href=\"%s\">Upgrade to MailChimp for WordPress "
 "Pro</a> for an even better plugin, you will love it."
-msgstr ""
+msgstr "Gostando do plugin? <a href=\"%s\">Atualize para MailChimp para WordPress Pro agora</a> para ter um plugin ainda melhor, você vai adorar."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-footer.php:20
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-footer.php:13
@@ -1064,11 +1064,11 @@ msgid ""
 "Make sure to look at the <a href=\"%s\">MailChimp for WordPress "
 "documentation</a>, the plugin <a href=\"%s\">FAQ</a> or use the <a "
 "href=\"%s\">support forums</a> on WordPress.org."
-msgstr ""
+msgstr "Certifique-se de olhar a <a href=\"%s\"> documentação do MailChimp for WordPress </a> ou usar o <a href=\"%s\">suporte e fóruns </a> no WordPress.org."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:14
 msgid "Do you enjoy this plugin?"
-msgstr ""
+msgstr "Está gostando deste plugin?"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:17
 msgid "Leave a %s plugin review on WordPress.org"
@@ -1090,7 +1090,7 @@ msgstr "Faça um review do plugin em seu blog e link para <a href=\"%s\"> págin
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:19
 msgid "There is an <a href=\"%s\">affiliate program</a> as well."
-msgstr ""
+msgstr "Há também um <a href=\"%s\">programa de afiliados</a>."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-need-support.php:20
 msgid "Vote \"works\" on the WordPress.org plugin page"
@@ -1099,19 +1099,19 @@ msgstr "Vote \"funciona\" na página do plugin WordPress.org"
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:10
 msgid ""
 "This plugin has an even better premium version, you will absolutely love it."
-msgstr ""
+msgstr "Este plugin tem uma versão premium ainda melhor,  você vai adorar."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:11
 msgid "Some differences with this free version of the plugin:"
-msgstr ""
+msgstr "Algumas diferenças com esta versão gratuita do plugin:"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:14
 msgid "Multiple forms"
-msgstr ""
+msgstr "Formulários multiplos"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:15
 msgid "Each subscribing to one or multiple MailChimp lists."
-msgstr ""
+msgstr "Cada cadastro de uma ou várias listas MailChimp."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:18
 msgid "AJAX forms"
@@ -1119,7 +1119,7 @@ msgstr "Formulários AJAX"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:19
 msgid "Forms do not require a full page reload."
-msgstr ""
+msgstr "Formulários não requerem o recarregamento da página inteira."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:22
 #: mailchimp-for-wordpress-pro/includes/views/pages/admin-reports.php:14
@@ -1132,11 +1132,11 @@ msgstr ""
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:26
 msgid "Styles Builder"
-msgstr ""
+msgstr "Construtor de Estilos"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:27
 msgid "Create beautiful form themes with ease."
-msgstr ""
+msgstr "Crie temas para formulários lindos facilmente."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-upgrade-to-pro.php:31
 msgid "Upgrade Now"
@@ -1215,7 +1215,7 @@ msgstr "A data de término não pode ser anterior à data de início"
 msgid ""
 "Couldn't create the stylesheet. Manually add the generated CSS to your theme"
 " stylesheet or use a plugin like <em>%s</em>."
-msgstr ""
+msgstr "Não foi possível criar a folha de estilos. Adicione manualmente o CSS gerado na folha de estilos do seu tema usando um plugin como <em>%s</em>."
 
 #: mailchimp-for-wordpress-pro/includes/admin/class-styles-builder.php:437
 msgid "%sShow generated CSS%s"
@@ -1627,11 +1627,11 @@ msgstr "Outros erros"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:39
 msgid "Submit button"
-msgstr ""
+msgstr "Botão Enviar"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:41
 msgid "Subscribe / unsubscribe action"
-msgstr ""
+msgstr "Ação cadastrar / descadastrar"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:90
 msgid "Form usage"
@@ -1679,7 +1679,7 @@ msgstr "Nenhuma lista encontrada na sua conta."
 msgid ""
 "Need help? Have a look at the <a href=\"%s\">plugin documentation</a> or "
 "email us directly at <a href=\"%s\">support@mc4wp.com</a>."
-msgstr ""
+msgstr "Precisa de ajuda? Dê uma olhada na <a href=\"%s\">documentação do plugin</a> ou envie um e-mail diretamente para <a href=\"%s\">support@mc4wp.com</a>."
 
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-footer.php:11
 msgid ""
