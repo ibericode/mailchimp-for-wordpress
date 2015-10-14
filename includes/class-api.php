@@ -72,6 +72,16 @@ class MC4WP_API {
 	}
 
 	/**
+	 * @param $message
+	 *
+	 * @return bool
+	 */
+	private function show_connection_error( $message ) {
+		$message = rtrim( $message, '.' ) . '. ' . sprintf( '<a href="%s">' . __( 'Read more about common connectivity issues.', 'mailchimp-for-wp' ) . '</a>', 'https://mc4wp.com/kb/solving-connectivity-issues/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-notice' );
+		return $this->show_error( $message );
+	}
+
+	/**
 	 * Pings the MailChimp API to see if we're connected
 	 *
 	 * The result is cached to ensure a maximum of 1 API call per page load
@@ -97,6 +107,7 @@ class MC4WP_API {
 				$this->show_error( 'MailChimp Error: ' . $result->error );
 			}
 		}
+
 
 		return $this->connected;
 	}
@@ -347,15 +358,8 @@ class MC4WP_API {
 		// test for wp errors
 		if( is_wp_error( $response ) ) {
 			// show error message to admins
-			$this->show_error( 'MailChimp for WP - Error: ' . $response->get_error_message() );
+			$this->show_connection_error( "Error connecting to MailChimp: " . $response->get_error_message() );
 			return false;
-		}
-
-		// dirty fix for older WP versions
-		if( $method === 'helper/ping' && is_array( $response ) && isset( $response['headers']['content-length'] ) && (int) $response['headers']['content-length'] === 44 ) {
-			return (object) array(
-				'msg' => "Everything's Chimpy!",
-			);
 		}
 
 		// decode response body
@@ -366,8 +370,8 @@ class MC4WP_API {
 
 			$code = (int) wp_remote_retrieve_response_code( $response );
 			if( $code !== 200 ) {
-				$this->show_error( sprintf( 'MailChimp for WP - Error: The API server returned the following response: %s %s', $code, wp_remote_retrieve_response_message( $response ) ) );
-				return false;
+				$message = sprintf( 'The MailChimp API server returned the following response: <em>%s %s</em>.', $code, wp_remote_retrieve_response_message( $response ) );
+				$this->show_connection_error( $message );
 			}
 
 			return false;
