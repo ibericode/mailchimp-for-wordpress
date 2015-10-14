@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: email, mailchimp, marketing, newsletter, signup, widget, mc4wp, contact form 7, woocommerce, buddypress,ibericode
 Requires at least: 3.7
 Tested up to: 4.3.1
-Stable tag: 2.3.15
+Stable tag: 2.3.16
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -166,6 +166,18 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 6. Detailed statistics on which methods are generating the most subscribers. **(Pro Feature)**
 
 == Changelog ==
+
+= 2.3.16 - October 14, 2015 =
+
+**Fixes**
+
+- Error in Russian translation, causing a broken link on the MailChimp settings page.
+
+**Improvements**
+
+- Textual improvements to MailChimp settings page.
+- Connectivity issues with MailChimp will now _always_ show an error message.
+- Renewing MailChimp lists will now also update the output of the `{subscriber_count}` tag.
 
 = 2.3.15 - October 9, 2015 =
 
