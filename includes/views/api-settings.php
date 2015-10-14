@@ -13,19 +13,29 @@ defined( 'ABSPATH' ) or exit;
 
 		<form action="options.php" method="post">
 			<?php settings_fields( 'mc4wp_lite_settings' ); ?>
-			
-			<h3 class="mc4wp-title">
+
+			<h3>
 				MailChimp <?php _e( 'API Settings', 'mailchimp-for-wp' ); ?>
-				<?php if($connected) { ?>
-					<span class="status positive"><?php _e( 'CONNECTED' ,'mailchimp-for-wp' ); ?></span>
-				<?php } else { ?>
-					<span class="status neutral"><?php _e( 'NOT CONNECTED', 'mailchimp-for-wp' ); ?></span>
-				<?php } ?>
 			</h3>
+
 			<table class="form-table">
 
 				<tr valign="top">
-					<th scope="row"><label for="mailchimp_api_key">MailChimp <?php _e( 'API Key', 'mailchimp-for-wp' ); ?></label></th>
+					<th scope="row">
+						<?php _e( 'Status', 'mailchimp-for-wp' ); ?>
+					</th>
+					<td>
+						<?php if($connected) { ?>
+							<span class="status positive"><?php _e( 'CONNECTED' ,'mailchimp-for-wp' ); ?></span>
+						<?php } else { ?>
+							<span class="status neutral"><?php _e( 'NOT CONNECTED', 'mailchimp-for-wp' ); ?></span>
+						<?php } ?>
+					</td>
+				</tr>
+
+
+				<tr valign="top">
+					<th scope="row"><label for="mailchimp_api_key"><?php _e( 'API Key', 'mailchimp-for-wp' ); ?></label></th>
 					<td>
 						<input type="text" class="widefat" placeholder="<?php _e( 'Your MailChimp API key', 'mailchimp-for-wp' ); ?>" id="mailchimp_api_key" name="mc4wp_lite[api_key]" value="<?php echo esc_attr( $opts['api_key'] ); ?>" />
 						<p class="help">
@@ -60,7 +70,7 @@ defined( 'ABSPATH' ) or exit;
 
 	<?php if($connected) { ?>
 
-		<h3 class="mc4wp-title"><?php _e( 'MailChimp Data' ,'mailchimp-for-wp' ); ?></h3>
+		<h3><?php _e( 'MailChimp Data' ,'mailchimp-for-wp' ); ?></h3>
 		<p><?php _e( 'The table below shows your MailChimp lists data. If you applied changes to your MailChimp lists, please use the following button to renew your cached data.', 'mailchimp-for-wp' ); ?></p>
 
 		<form method="post" action="">
