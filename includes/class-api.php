@@ -10,32 +10,32 @@ class MC4WP_API {
 	/**
 	 * @var string The URL to the MailChimp API
 	 */
-	private $api_url = 'https://api.mailchimp.com/2.0/';
+	protected $api_url = 'https://api.mailchimp.com/2.0/';
 
 	/**
 	 * @var string The API key to use
 	 */
-	private $api_key = '';
+	protected $api_key = '';
 
 	/**
 	 * @var string The error message of the latest API request (if any)
 	 */
-	private $error_message = '';
+	protected $error_message = '';
 
 	/**
 	 * @var int The error code of the lastest API request (if any)
 	 */
-	private $error_code = 0;
+	protected $error_code = 0;
 
 	/**
 	 * @var boolean Boolean indicating whether the user is connected with MailChimp
 	 */
-	private $connected = null;
+	protected $connected = null;
 
 	/**
 	 * @var object The full response object of the latest API call
 	 */
-	private $last_response;
+	protected $last_response;
 
 	/**
 	 * Constructor

@@ -1,8 +1,5 @@
 <?php
 
-require __DIR__ . '/mock.php';
-require_once __DIR__ . '/../includes/class-form-validator.php';
-
 class FormValidatorTest extends PHPUnit_Framework_TestCase {
 
 	public function __construct() {
@@ -31,11 +28,11 @@ class FormValidatorTest extends PHPUnit_Framework_TestCase {
 		$this->assertFalse( $this->validator->validate_honeypot() );
 
 		// honeypot filled
-		$this->validator->set_data( array( 'required_but_not_really' => 'some string' ) );
+		$this->validator->set_data( array( 'honeypot' => 'some string' ) );
 		$this->assertFalse( $this->validator->validate_honeypot() );
 
 		// honeypot submitted but not filled
-		$this->validator->set_data( array( 'required_but_not_really' => '' ) );
+		$this->validator->set_data( array( 'honeypot' => '' ) );
 		$this->assertTrue( $this->validator->validate_honeypot() );
 	}
 

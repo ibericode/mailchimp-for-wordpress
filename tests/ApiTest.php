@@ -1,10 +1,5 @@
 <?php
 
-require_once __DIR__ . '/mock.php';
-
-// Load class into memory
-require_once __DIR__ . '/../includes/class-api.php';
-
 // Debug class used for testing, no remote requests..
 class ApiDebug extends MC4WP_API {
 
