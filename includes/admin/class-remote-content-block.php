@@ -30,10 +30,12 @@ class MC4WP_Remote_Content_Block {
 
 	/**
 	 * @param string $url
+	 * @param int $cache_time
 	 * @param string $fallback_content
 	 */
-	public function __construct( $url, $fallback_content = '' ) {
+	public function __construct( $url, $cache_time = 7200, $fallback_content = '' ) {
 		$this->url = $url;
+		$this->cache_time = $cache_time;
 		$this->content = $fallback_content;
 
 		// don't let this transient key exceed 45 characters total
