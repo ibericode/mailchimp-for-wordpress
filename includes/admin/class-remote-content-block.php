@@ -112,8 +112,7 @@ class MC4WP_Remote_Content_Block {
 	 * Output the content block
 	 */
 	public function output() {
-		$this->fetch();
-		echo $this->content;
+		echo $this;
 	}
 
 	/**
