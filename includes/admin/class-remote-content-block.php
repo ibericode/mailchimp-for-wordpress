@@ -35,7 +35,10 @@ class MC4WP_Remote_Content_Block {
 	public function __construct( $url, $fallback_content = '' ) {
 		$this->url = $url;
 		$this->content = $fallback_content;
-		$this->cache_key =  'mc4wp_remote_content_' . substr( sanitize_key( $this->url ), 0, 25 );
+
+		// don't let this transient key exceed 45 characters total
+		// use end of url as key because it's likely same domain is used
+		$this->cache_key =  'mc4wp_remote_content_' . substr(  sanitize_key( $this->url ), -23 ); // 44 characters
 	}
 
 	/**
