@@ -1,11 +1,15 @@
 <?php
 // prevent direct file access
 defined( 'ABSPATH' ) or exit;
-
-// upgrade block
-$block = new MC4WP_Remote_Content_Block( 'https://mc4wp.com/api/content-blocks?id=98121', include dirname( __FILE__ ) . '/upgrade-block-content.php' );
-echo $block;
 ?>
+
+<div class="mc4wp-box">
+	<?php
+	// upgrade block
+	$block = new MC4WP_Remote_Content_Block( 'https://mc4wp.com/api/content-blocks?id=98121', include dirname( __FILE__ ) . '/upgrade-block-content.php' );
+	echo $block;
+	?>
+</div>
 
 <div class="mc4wp-box" id="mc4wp-optin-box">
 
