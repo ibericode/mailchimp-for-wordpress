@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) or exit;
 <div class="mc4wp-box">
 	<?php
 	// upgrade block
-	$block = new MC4WP_Remote_Content_Block( 'https://mc4wp.com/api/content-blocks?id=98121', include dirname( __FILE__ ) . '/upgrade-block-content.php' );
+	$block = new MC4WP_Remote_Content_Block( 'https://mc4wp.com/api/content-blocks?id=98121' );
 	echo $block;
 	?>
 </div>
