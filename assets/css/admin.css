@@ -38,28 +38,6 @@
 	font-weight: bold;
 }
 
-#mc4wp-upgrade-box { 
-	background:#222; 
-	color: #ddd;
-	padding:20px; 
-}
-
-#mc4wp-upgrade-box a {
-	color: #ccc;
-}
-
-#mc4wp-upgrade-box h3{ 
-	margin:0; 
-	color:white;
-}
-
-#mc4wp-upgrade-box .mc4wp-upgrade-button {
-	box-shadow: none;
-	background: #FF8C00;
-	border-color: #b56200;
-	margin-right: 10px;
-	color: white;
-}
 
 #mc4wp-fw h4{ 
 	margin-top: 0; 

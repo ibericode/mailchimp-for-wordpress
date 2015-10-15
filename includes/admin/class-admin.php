@@ -237,7 +237,7 @@ class MC4WP_Lite_Admin
 				'callback' => array( $this, 'show_form_settings' ) ),
 			array(
 				'title' => __( 'Upgrade to Pro', 'mailchimp-for-wp' ),
-				'text' => '<span style="line-height: 20px;"><span class="dashicons dashicons-external"></span> ' .__( 'Upgrade to Pro', 'mailchimp-for-wp' ),
+				'text' => '<span style="line-height: 20px; color: #cc4444;"><span class="dashicons dashicons-external"></span> ' .__( 'Upgrade to Pro', 'mailchimp-for-wp' ),
 				'slug' => 'upgrade',
 
 				'callback' => array( $this, 'redirect_to_pro' ),
