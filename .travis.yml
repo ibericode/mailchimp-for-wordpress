@@ -5,7 +5,8 @@ matrix:
   - php: 5.5
   - php: hhvm
 install:
-- composer install --no-interaction
+- composer self-update --no-interaction
+- composer install --no-interaction --prefer-dist
 script:
 - composer run-script test
 env:
