@@ -43,8 +43,7 @@
   },
   "autoload": {
     "classmap": [
-      "includes/",
-      "includes/integrations/"
+      "includes/"
     ]
   }
 }

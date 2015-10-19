@@ -13,6 +13,8 @@ class MC4WP_MailChimp {
 	public function empty_cache() {
 		delete_transient( $this->transient_name );
 		delete_transient( $this->transient_name . '_fallback' );
+		delete_transient( 'mc4wp_list_counts' );
+		delete_transient( 'mc4wp_list_counts_fallback' );
 	}
 
 	/**
@@ -85,11 +87,7 @@ class MC4WP_MailChimp {
 				return $lists;
 			} else {
 				// api request failed, get fallback data (with longer lifetime)
-				$cached_lists = get_transient( $this->transient_name . '_fallback' );
-
-				if ( ! is_array( $cached_lists ) ) {
-					return false;
-				}
+				$cached_lists = (array) get_transient( $this->transient_name . '_fallback' );
 			}
 
 		}

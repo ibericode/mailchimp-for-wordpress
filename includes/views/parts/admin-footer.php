@@ -12,7 +12,7 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 <?php } ?>
 
 <?php if( defined( 'WP_DEBUG' ) && WP_DEBUG ) { ?>
-	<p class="help">Stay up to date of development of this plugin, <a href="https://github.com/ibericode/mailchimp-for-wordpress">follow the MailChimp for WordPress project on GitHub</a>.</p>
+	<p class="help">Developer? Follow or contribute to the <a href="https://github.com/ibericode/mailchimp-for-wordpress">MailChimp for WordPress project on GitHub</a>.</p>
 <?php } ?>
 
 <?php do_action( 'mc4wp_admin_footer' ); ?>
