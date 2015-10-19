@@ -64,7 +64,7 @@ class MC4WP_Lite_Admin
 		add_action( 'admin_init', array( $this, 'initialize' ) );
 		add_action( 'admin_menu', array( $this, 'build_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_css_and_js' ) );
-		add_action( 'admin_footer_text', array( $this, 'footer_text' ) );
+		add_filter( 'admin_footer_text', array( $this, 'footer_text' ) );
 
 		// Hooks for Plugins overview page
 		if( $current_page === 'plugins.php' ) {
