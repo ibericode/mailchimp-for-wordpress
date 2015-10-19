@@ -34,6 +34,22 @@ class MC4WP_Usage_Tracking {
 	 */
 	public function add_hooks() {
 		add_action( 'mc4wp_usage_tracking', array( $this, 'track' ) );
+		add_filter( 'cron_schedules', array( $this, 'cron_schedules' ) );
+	}
+
+	/**
+	 * Registers a new schedule with WP Cron
+	 *
+	 * @param array $schedules
+	 *
+	 * @return array
+	 */
+	public function cron_schedules( $schedules ) {
+		$schedules['weekly'] = array(
+			'interval' => 7 * DAY_IN_SECONDS,
+			'display' => __( 'Once Weekly' )
+		);
+		return $schedules;
 	}
 
 	/**
@@ -48,7 +64,7 @@ class MC4WP_Usage_Tracking {
 			return;
 		}
 
-		wp_schedule_event( time(), 'daily', 'mc4wp_usage_tracking' );
+		wp_schedule_event( time(), 'weekly', 'mc4wp_usage_tracking' );
 	}
 
 	/**
