@@ -25,6 +25,10 @@ class MC4WP_Admin {
 
 		// Instantiate Usage Tracking nag
 		// @todo delay this with a few hours
+		$this->listen();
+
+		// Instantiate Usage Tracking nag
+
 		$options = mc4wp_get_options( 'general' );
 		if( ! $options['allow_usage_tracking'] ) {
 			$usage_tracking_nag = new MC4WP_Usage_Tracking_Nag( $this->get_required_capability() );
@@ -89,7 +93,7 @@ class MC4WP_Admin {
 		add_action( 'admin_init', array( $this, 'initialize' ) );
 		add_action( 'admin_menu', array( $this, 'build_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
-		add_action( 'admin_footer_text', array( $this, 'footer_text' ) );
+		add_filter( 'admin_footer_text', array( $this, 'footer_text' ) );
 		add_action( 'wp_dashboard_setup', array( $this, 'register_dashboard_widgets' ) );
 
 		// Hooks for Plugins overview page
@@ -194,9 +198,9 @@ class MC4WP_Admin {
 	}
 
 	/**
-	* Register the setting pages and their menu items
-		*/
-	public function build_menu() {
+	 * @return string
+	 */
+	public function get_required_capability() {
 
 		/**
 		 * @filter mc4wp_settings_cap
@@ -204,7 +208,17 @@ class MC4WP_Admin {
 		 *
 		 * Use to customize the required user capability to access the MC4WP settings pages
 		 */
-		$required_cap = apply_filters( 'mc4wp_settings_cap', 'manage_options' );
+		$required_cap = (string) apply_filters( 'mc4wp_settings_cap', 'manage_options' );
+
+		return $required_cap;
+	}
+
+	/**
+	* Register the setting pages and their menu items
+		*/
+	public function build_menu() {
+
+		$required_cap = $this->get_required_capability();
 
 		$menu_items = array(
 			array(
@@ -250,6 +264,7 @@ class MC4WP_Admin {
 
 		$current = mc4wp_get_options();
 
+		// Toggle usage tracking
 		if( isset( $settings['allow_usage_tracking'] ) ) {
 			MC4WP_Usage_Tracking::instance()->toggle( (bool) $settings['allow_usage_tracking'] );
 		}

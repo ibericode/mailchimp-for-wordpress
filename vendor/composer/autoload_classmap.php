@@ -87,6 +87,7 @@ return array(
     'MC4WP_MailChimp' => $baseDir . '/includes/class-mailchimp.php',
     'MC4WP_MultiSite_Integration' => $baseDir . '/includes/integrations/class-multisite.php',
     'MC4WP_Registration_Form_Integration' => $baseDir . '/includes/integrations/class-registration-form.php',
+    'MC4WP_Remote_Content_Block' => $baseDir . '/includes/admin/class-remote-content-block.php',
     'MC4WP_Request' => $baseDir . '/includes/forms/class-request.php',
     'MC4WP_Subscribe_Request' => $baseDir . '/includes/forms/class-subscribe-request.php',
     'MC4WP_Tools' => $baseDir . '/includes/class-tools.php',
