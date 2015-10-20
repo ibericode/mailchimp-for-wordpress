@@ -2,7 +2,7 @@
 
 /**
  * Class MC4WP_Form_Previewer
- * 
+ *
  * @todo Test this class on WP MultiSite
  */
 class MC4WP_Form_Previewer {

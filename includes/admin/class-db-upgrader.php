@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Class MC4WP_DB_Upgrader
+ *
+ * @todo Move form settings to post type and set default_form_id option
+ * @todo Move form messages to individual meta keys
+ * @todo Strip {captcha} from form mark-up (or implement it)
+ * @todo Write upgrade routine for Widget Base ID change
+ *
+ */
 class MC4WP_DB_Upgrader {
 
 	/**

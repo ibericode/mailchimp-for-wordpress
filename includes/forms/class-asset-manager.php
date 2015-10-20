@@ -82,8 +82,10 @@ class MC4WP_Form_Asset_Manager {
 	}
 
 	/**
-	* Load the form stylesheet(s)
-	*/
+	 * Load the form stylesheet(s)
+	 * @todo Form themes should be combined in 1 single stylesheet and then apply based on class
+	 * @todo Form themes should only be loaded if a form has that class (check on settings save or on output?)
+	 */
 	public function load_stylesheet( ) {
 
 		if ( ! $this->options['css'] ) {

@@ -1,3 +1,5 @@
+<h2><?php _e( 'Form Appearance', 'mailchimp-for-wp' ); ?></h2>
+
 <table class="form-table">
 	<tr valign="top">
 		<th scope="row"><label for="mc4wp_load_stylesheet_select"><?php _e( 'Load form styles (CSS)?' ,'mailchimp-for-wp' ); ?></label></th>

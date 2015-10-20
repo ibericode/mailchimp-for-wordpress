@@ -18,7 +18,7 @@ function mc4wp_checkbox() {
  * Echoes a MailChimp for WordPress form
  *
  * @param   int     $id     The form ID
- * @todo fix this
+ * @todo Fix this method (do we want this to output?)
  */
 function mc4wp_form( $id = 0 ) {
 
