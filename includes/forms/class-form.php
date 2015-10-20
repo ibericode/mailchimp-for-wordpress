@@ -59,7 +59,7 @@ class MC4WP_Form {
 		$form_id = (int) $form_id;
 
 		if( empty( $form_id ) ) {
-			$form_id = get_option( 'mc4wp_default_form_id', 0 );
+			$form_id = (int) get_option( 'mc4wp_default_form_id', 0 );
 		}
 
 		if( isset( self::$instances[ $form_id ] ) ) {
@@ -77,19 +77,20 @@ class MC4WP_Form {
 	 * @param int $id
 	 */
 	public function __construct( $id = 0 ) {
-		$this->ID = $id;
-		$this->post = $post = get_post( $id );
+		$this->post = $post = get_post( (int) $id );
 
 		// transfer some properties of post object
 		if( is_object( $post )
 		    && isset( $post->post_type )
 		    && $post->post_type === 'mc4wp-form' ) {
 
+			$this->ID = $id;
 			$this->name = $post->post_title;
-			$this->content = $post->post_content;
-			$this->settings = $this->load_settings();
-			$this->messages = $this->load_messages();
 		}
+
+		$this->content = $this->load_content();
+		$this->settings = $this->load_settings();
+		$this->messages = $this->load_messages();
 	}
 
 	/**
@@ -461,10 +462,26 @@ class MC4WP_Form {
 	}
 
 	/**
+	 * @return string
+	 */
+	protected function load_content() {
+
+		if( empty( $this->ID ) ) {
+			return include MC4WP_PLUGIN_DIR . 'config/default-form-content.php';
+		}
+
+		return $this->post->post_content;
+	}
+
+	/**
 	 * @return array
 	 */
 	protected function load_settings() {
 		$defaults = include MC4WP_PLUGIN_DIR . 'config/default-form-settings.php';
+
+		if( empty( $this->ID ) ) {
+			return $defaults;
+		}
 
 		// get stored settings from post meta
 		$meta = get_post_meta( $this->ID, '_mc4wp_settings', true );
@@ -487,6 +504,10 @@ class MC4WP_Form {
 	protected function load_messages() {
 		$defaults = include MC4WP_PLUGIN_DIR . 'config/default-form-messages.php';
 		$messages = array();
+
+		if( empty( $this->ID ) ) {
+			return $defaults;
+		}
 
 		foreach( $defaults as $key => $message ) {
 			$message = get_post_meta( $this->ID, $key, true );

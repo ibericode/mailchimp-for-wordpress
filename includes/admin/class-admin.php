@@ -86,11 +86,15 @@ class MC4WP_Admin {
 
 		$form_id = (int) $_POST['mc4wp_form_id'];
 		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
-		// todo sanitize data
+		// @todo sanitize data
 
-		wp_update_post(
+		// get actual form id here since this might be a new form
+		// @todo prevent overriding existing posts using $_GET parameter
+		$form_id = wp_insert_post(
 			array(
 				'ID' => $form_id,
+				'post_type' => 'mc4wp-form',
+				'post_status' => 'publish',
 				'post_title' => $form_data['name'],
 				'post_content' => $form_data['content']
 			)
@@ -103,7 +107,13 @@ class MC4WP_Admin {
 			update_post_meta( $form_id, $key, $message );
 		}
 
-		wp_safe_redirect( add_query_arg( array( 'message' => 'form_updated' ) ) );
+		// update default form id?
+		$default_form_id = (int) get_option( 'mc4wp_default_form_id', 0 );
+		if( empty( $default_form_id ) ) {
+			update_option( 'mc4wp_default_form_id', $form_id );
+		}
+
+		wp_safe_redirect( add_query_arg( array( 'form_id' => $form_id, 'message' => 'form_updated' ) ) );
 		exit;
 	}
 
@@ -461,8 +471,10 @@ class MC4WP_Admin {
 	* Show the forms settings page
 	*/
 	public function show_edit_form_page() {
+		// @todo make sure this does not point to other posts
+		$form_id = ( ! empty( $_GET['form_id'] ) ) ? (int) $_GET['form_id'] : 0;
 		$lists = $this->mailchimp->get_lists();
-		$form = mc4wp_get_form();
+		$form = mc4wp_get_form( $form_id );
 		$opts = $form->settings;
 		$active_tab = ( isset( $_GET['tab'] ) ) ? $_GET['tab'] : 'fields';
 		$previewer = new MC4WP_Form_Previewer( $form->ID );
