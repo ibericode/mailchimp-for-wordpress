@@ -183,12 +183,6 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 			return false;
 		}
 
-		// check if captcha was present and valid
-		if( ! $validator->validate_captcha() ) {
-			$this->message_type = 'invalid_captcha';
-			return false;
-		}
-
 		// validate email
 		if( ! $validator->validate_email() ) {
 			$this->message_type = 'invalid_email';

@@ -6,7 +6,6 @@ $tabs = array(
 	'settings' => __( 'Settings', 'mailchimp-for-wp' ),
 	'appearance' => __( 'Appearance', 'mailchimp-for-wp' )
 );
-
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 

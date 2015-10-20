@@ -14,10 +14,10 @@
 			<td>
 
 				<ul id="mc4wp-lists">
-					<?php foreach($lists as $list) { ?>
+					<?php foreach( $lists as $list ) { ?>
 						<li>
 							<label>
-								<input type="checkbox" name="mc4wp_lite_form[lists][<?php echo esc_attr( $list->id ); ?>]" value="<?php echo esc_attr( $list->id ); ?>" <?php if(array_key_exists( $list->id, $opts['lists'] )) { echo 'checked="checked"'; } ?>> <?php echo esc_html( $list->name ); ?>
+								<input type="checkbox" name="mc4wp_form[settings][lists][<?php echo esc_attr( $list->id ); ?>]" value="<?php echo esc_attr( $list->id ); ?>" <?php if(array_key_exists( $list->id, $opts['lists'] )) { echo 'checked="checked"'; } ?>> <?php echo esc_html( $list->name ); ?>
 							</label>
 						</li>
 					<?php } ?>
@@ -32,11 +32,11 @@
 		<th scope="row"><?php _e( 'Use double opt-in?', 'mailchimp-for-wp' ); ?></th>
 		<td class="nowrap">
 			<label>
-				<input type="radio"  name="mc4wp_lite_form[double_optin]" value="1" <?php checked( $opts['double_optin'], 1 ); ?> />
+				<input type="radio"  name="mc4wp_form[settings][double_optin]" value="1" <?php checked( $opts['double_optin'], 1 ); ?> />
 				<?php _e( 'Yes', 'mailchimp-for-wp' ); ?>
 			</label> &nbsp;
 			<label>
-				<input type="radio" name="mc4wp_lite_form[double_optin]" value="0" <?php checked( $opts['double_optin'], 0 ); ?> />
+				<input type="radio" name="mc4wp_form[settings][double_optin]" value="0" <?php checked( $opts['double_optin'], 0 ); ?> />
 				<?php _e( 'No', 'mailchimp-for-wp' ); ?>
 			</label>
 		</td>
@@ -47,11 +47,11 @@
 		<th scope="row"><?php _e( 'Send final welcome email?', 'mailchimp-for-wp' ); ?></th>
 		<td class="nowrap">
 			<label>
-				<input type="radio"  name="mc4wp_lite_form[send_welcome]" value="1" <?php if( $enabled ) { checked( $opts['send_welcome'], 1 ); } else { echo 'disabled'; } ?> />
+				<input type="radio"  name="mc4wp_form[settings][send_welcome]" value="1" <?php if( $enabled ) { checked( $opts['send_welcome'], 1 ); } else { echo 'disabled'; } ?> />
 				<?php _e( 'Yes', 'mailchimp-for-wp' ); ?>
 			</label> &nbsp;
 			<label>
-				<input type="radio" name="mc4wp_lite_form[send_welcome]" value="0" <?php if( $enabled ) { checked( $opts['send_welcome'], 0 ); } else { echo 'disabled'; } ?> />
+				<input type="radio" name="mc4wp_form[settings][send_welcome]" value="0" <?php if( $enabled ) { checked( $opts['send_welcome'], 0 ); } else { echo 'disabled'; } ?> />
 				<?php _e( 'No', 'mailchimp-for-wp' ); ?>
 			</label>
 		</td>
@@ -105,11 +105,11 @@
 		<th scope="row"><?php _e( 'Hide form after a successful sign-up?', 'mailchimp-for-wp' ); ?></th>
 		<td class="nowrap">
 			<label>
-				<input type="radio" name="mc4wp_lite_form[hide_after_success]" value="1" <?php checked( $opts['hide_after_success'], 1 ); ?> />
+				<input type="radio" name="mc4wp_form[settings][hide_after_success]" value="1" <?php checked( $opts['hide_after_success'], 1 ); ?> />
 				<?php _e( 'Yes', 'mailchimp-for-wp' ); ?>
 			</label> &nbsp;
 			<label>
-				<input type="radio" name="mc4wp_lite_form[hide_after_success]" value="0" <?php checked( $opts['hide_after_success'], 0 ); ?> />
+				<input type="radio" name="mc4wp_form[settings][hide_after_success]" value="0" <?php checked( $opts['hide_after_success'], 0 ); ?> />
 				<?php _e( 'No', 'mailchimp-for-wp' ); ?>
 			</label>
 		</td>
@@ -118,7 +118,7 @@
 	<tr valign="top">
 		<th scope="row"><label for="mc4wp_form_redirect"><?php _e( 'Redirect to URL after successful sign-ups', 'mailchimp-for-wp' ); ?></label></th>
 		<td colspan="2">
-			<input type="text" class="widefat" name="mc4wp_lite_form[redirect]" id="mc4wp_form_redirect" placeholder="<?php printf( __( 'Example: %s', 'mailchimp-for-wp' ), esc_attr( site_url( '/thank-you/' ) ) ); ?>" value="<?php echo esc_attr( $opts['redirect'] ); ?>" />
+			<input type="text" class="widefat" name="mc4wp_form[settings][redirect]" id="mc4wp_form_redirect" placeholder="<?php printf( __( 'Example: %s', 'mailchimp-for-wp' ), esc_attr( site_url( '/thank-you/' ) ) ); ?>" value="<?php echo esc_attr( $opts['redirect'] ); ?>" />
 			<p class="help"><?php _e( 'Leave empty or enter <code>0</code> for no redirect. Otherwise, use complete (absolute) URLs, including <code>http://</code>.', 'mailchimp-for-wp' ); ?></p>
 		</td>
 	</tr>

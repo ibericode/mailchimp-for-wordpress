@@ -35,14 +35,15 @@ class MC4WP_Form {
 	public $request;
 
 	/**
+	 * @var WP_Post
+	 */
+	protected $post;
+
+	/**
 	 * @var array
 	 */
 	public static $instances = array();
 
-	/**
-	 * @var WP_Post
-	 */
-	protected $post;
 
 	/**
 	 * @param int $form_id
@@ -73,7 +74,6 @@ class MC4WP_Form {
 	public function __construct( $id = 0 ) {
 		$this->ID = $id;
 		$this->post = $post = get_post( $id );
-		$settings = array();
 
 		// transfer some properties of post object
 		if( is_object( $post )
@@ -82,10 +82,8 @@ class MC4WP_Form {
 
 			$this->name = $post->post_title;
 			$this->content = $post->post_content;
+			$this->settings = $this->load_settings();
 		}
-
-		// todo refactorrrr
-		$this->settings = apply_filters( 'mc4wp_form_settings', $settings, $this );
 	}
 
 	/**
@@ -457,19 +455,24 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * @param iMC4WP_Request $request
-	 *
-	 * @return bool
+	 * @return array
 	 */
-	protected function has_request( iMC4WP_Request $request ) {
-		return $this->request === $request;
-	}
+	protected function load_settings() {
+		$defaults = include MC4WP_PLUGIN_DIR . 'config/default-form-settings.php';
 
-	/**
-	 * @param iMC4WP_Request $request
-	 */
-	protected function attach_request( iMC4WP_Request $request ) {
-		$this->request = $request;
+		// get stored settings from post meta
+		$meta = get_post_meta( $this->ID, '_mc4wp_settings', true );
+
+		// filter empty meta keys, better use default then.
+		$meta = array_filter( $meta );
+
+		// merge with defaults
+		$settings = array_merge( $defaults, $meta );
+
+
+		$settings = (array) apply_filters( 'mc4wp_form_settings', $settings, $this );
+
+		return $settings;
 	}
 
 }

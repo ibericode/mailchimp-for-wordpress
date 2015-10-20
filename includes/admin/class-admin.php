@@ -95,6 +95,7 @@ class MC4WP_Admin {
 			)
 		);
 
+		update_post_meta( $form_id, '_mc4wp_settings', $form_data['settings'] );
 
 		wp_safe_redirect( add_query_arg( array( 'message' => 'form_updated' ) ) );
 		exit;
@@ -416,8 +417,7 @@ class MC4WP_Admin {
 	/**
 	* Show the API settings page
 	*/
-	public function show_api_settings()
-	{
+	public function show_api_settings() {
 		$opts = mc4wp_get_options( 'general' );
 		$connected = ( mc4wp_get_api()->is_connected() );
 
@@ -445,8 +445,7 @@ class MC4WP_Admin {
 	/**
 	* Show the Checkbox settings page
 	*/
-	public function show_checkbox_settings()
-	{
+	public function show_checkbox_settings() {
 		$opts = mc4wp_get_options( 'checkbox' );
 		$lists = $this->mailchimp->get_lists();
 		require MC4WP_PLUGIN_DIR . 'includes/views/checkbox-settings.php';
@@ -455,11 +454,10 @@ class MC4WP_Admin {
 	/**
 	* Show the forms settings page
 	*/
-	public function show_edit_form_page()
-	{
-		$opts = mc4wp_get_options( 'form' );
+	public function show_edit_form_page() {
 		$lists = $this->mailchimp->get_lists();
 		$form = mc4wp_get_form();
+		$opts = $form->settings;
 		$active_tab = ( isset( $_GET['tab'] ) ) ? $_GET['tab'] : 'fields';
 
 		require MC4WP_PLUGIN_DIR . 'includes/views/edit-form.php';
