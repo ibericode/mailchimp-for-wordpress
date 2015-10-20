@@ -323,7 +323,7 @@ class MC4WP_Admin {
 		foreach( $menu_items as $item ) {
 			$slug = ! empty( $item['slug'] ) ? "mailchimp-for-wp-{$item['slug']}" : 'mailchimp-for-wp';
 			$parent_slug = array_key_exists( 'parent_slug', $item ) ? $item['parent_slug'] : 'mailchimp-for-wp';
-			add_submenu_page( $parent_slug, $item['title'] . ' - MailChimp for WordPress Lite', $item['text'], $required_cap, $slug, $item['callback'] );
+			add_submenu_page( $parent_slug, $item['title'] . ' - MailChimp for WordPress', $item['text'], $required_cap, $slug, $item['callback'] );
 		}
 
 	}
@@ -331,6 +331,7 @@ class MC4WP_Admin {
 	/**
 	* Validates the General settings
 	*
+	 * @todo split-up this method
 	* @param array $settings
 	* @return array
 	*/
