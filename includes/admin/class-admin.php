@@ -505,19 +505,16 @@ class MC4WP_Admin {
 	 * @return string
 	 */
 	public function admin_messages() {
-		static $messages;
 
 		if( empty( $_GET['message'] ) ) {
 			return;
 		}
 
 		$message_index = (string) $_GET['message'];
+		$messages = array(
+			'form_updated' => __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' )
+		);
 
-		if( null === $messages ) {
-			$messages = array(
-				'form_updated' => __( "Form successfully saved", 'mailchimp-for-wp' )
-			);
-		}
 
 		if( ! empty( $messages[ $message_index ] ) ) {
 			echo sprintf( '<div class="notice updated is-dismissible"><p>%s</p></div>', $messages[ $message_index ] );
