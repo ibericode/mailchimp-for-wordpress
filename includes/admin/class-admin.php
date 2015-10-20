@@ -23,12 +23,6 @@ class MC4WP_Admin {
 		$this->load_translations();
 		$this->add_hooks();
 
-		// Instantiate Usage Tracking nag
-		// @todo delay this with a few hours
-		$this->listen();
-
-		// Instantiate Usage Tracking nag
-
 		$options = mc4wp_get_options( 'general' );
 		if( ! $options['allow_usage_tracking'] ) {
 			$usage_tracking_nag = new MC4WP_Usage_Tracking_Nag( $this->get_required_capability() );
@@ -39,7 +33,7 @@ class MC4WP_Admin {
 	/**
 	 * Listen for `_mc4wp_action` requests
 	 */
-	protected function listen() {
+	public function listen_for_actions() {
 
 		// listen for any action (if user is authorised)
 		if( ! current_user_can( 'manage_options' ) || ! isset( $_REQUEST['_mc4wp_action'] ) ) {
@@ -82,6 +76,31 @@ class MC4WP_Admin {
 	}
 
 	/**
+	 *
+	 */
+	public function save_form() {
+
+		if( ! check_admin_referer( 'edit_form', '_mc4wp_nonce' ) ) {
+			wp_die( "Are you cheating?" );
+		}
+
+		$form_id = (int) $_POST['mc4wp_form_id'];
+		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
+
+		wp_update_post(
+			array(
+				'ID' => $form_id,
+				'post_title' => $form_data['name'],
+				'post_content' => $form_data['content']
+			)
+		);
+
+
+		wp_safe_redirect( add_query_arg( array( 'message' => 'form_updated' ) ) );
+		exit;
+	}
+
+	/**
 	 * Registers all hooks
 	 */
 	private function add_hooks() {
@@ -95,6 +114,7 @@ class MC4WP_Admin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 		add_filter( 'admin_footer_text', array( $this, 'footer_text' ) );
 		add_action( 'wp_dashboard_setup', array( $this, 'register_dashboard_widgets' ) );
+		add_action( 'mc4wp_admin_edit_form', array( $this, 'save_form' ) );
 
 		// Hooks for Plugins overview page
 		if( $current_page === 'plugins.php' ) {
@@ -138,7 +158,7 @@ class MC4WP_Admin {
 		$this->load_upgrader();
 
 		// listen for custom actions
-		$this->listen();
+		$this->listen_for_actions();
 	}
 
 	/**
@@ -221,23 +241,23 @@ class MC4WP_Admin {
 		$required_cap = $this->get_required_capability();
 
 		$menu_items = array(
-			array(
+			'general' => array(
 				'title' => __( 'MailChimp API Settings', 'mailchimp-for-wp' ),
 				'text' => __( 'MailChimp', 'mailchimp-for-wp' ),
 				'slug' => '',
 				'callback' => array( $this, 'show_api_settings' ),
 			),
-			array(
+			'integrations' => array(
 				'title' => __( 'Checkbox Settings', 'mailchimp-for-wp' ),
 				'text' => __( 'Checkboxes', 'mailchimp-for-wp' ),
 				'slug' => 'checkbox-settings',
 				'callback' => array( $this, 'show_checkbox_settings' ),
 			),
-			array(
-				'title' => __( 'Form Settings', 'mailchimp-for-wp' ),
-				'text' => __( 'Forms', 'mailchimp-for-wp' ),
-				'slug' => 'form-settings',
-				'callback' => array( $this, 'show_form_settings' )
+			'forms' => array(
+				'title' => __( 'Edit Form', 'mailchimp-for-wp' ),
+				'text' => __( 'Form', 'mailchimp-for-wp' ),
+				'slug' => 'edit-form',
+				'callback' => array( $this, 'show_edit_form_page' )
 			),
 		);
 
@@ -435,12 +455,14 @@ class MC4WP_Admin {
 	/**
 	* Show the forms settings page
 	*/
-	public function show_form_settings()
+	public function show_edit_form_page()
 	{
 		$opts = mc4wp_get_options( 'form' );
 		$lists = $this->mailchimp->get_lists();
+		$form = mc4wp_get_form();
+		$active_tab = ( isset( $_GET['tab'] ) ) ? $_GET['tab'] : 'fields';
 
-		require MC4WP_PLUGIN_DIR . 'includes/views/form-settings.php';
+		require MC4WP_PLUGIN_DIR . 'includes/views/edit-form.php';
 	}
 
 	/**
@@ -464,6 +486,38 @@ class MC4WP_Admin {
 		}
 
 		return $text;
+	}
+
+	/**
+	 * @param $tab
+	 *
+	 * @return string
+	 */
+	public function tab_url( $tab ) {
+		return add_query_arg( array( 'tab' => $tab ), remove_query_arg( 'tab' ) );
+	}
+
+	/**
+	 * @return string
+	 */
+	public function admin_messages() {
+		static $messages;
+
+		if( empty( $_GET['message'] ) ) {
+			return;
+		}
+
+		$message_index = (string) $_GET['message'];
+
+		if( null === $messages ) {
+			$messages = array(
+				'form_updated' => __( "Form successfully saved", 'mailchimp-for-wp' )
+			);
+		}
+
+		if( ! empty( $messages[ $message_index ] ) ) {
+			echo sprintf( '<div class="notice updated is-dismissible"><p>%s</p></div>', $messages[ $message_index ] );
+		};
 	}
 
 }

@@ -26,18 +26,11 @@ class MC4WP_Form_Asset_Manager {
 	private $print_date_fallback = false;
 
 	/**
-	 * @var MC4WP_Form_Repository
-	 */
-	private $form_repository;
-
-	/**
 	 * Constructor
-	 * @param MC4WP_Form_Repository $form_repository
 	 * @param array $options
 	 */
-	public function __construct( MC4WP_Form_Repository $form_repository, array $options ) {
+	public function __construct( array $options ) {
 		$this->options = $options;
-		$this->form_repository = $form_repository;
 	}
 
 	/**
@@ -138,7 +131,7 @@ class MC4WP_Form_Asset_Manager {
 		);
 
 		// create or retrieve form instance
-		$form = $this->form_repository->get( $attributes['id'] );
+		$form = mc4wp_get_form( $attributes['id'] );
 
 		// make sure to print date fallback later on if form contains a date field
 		if( $form->contains_field_type( 'date' ) ) {

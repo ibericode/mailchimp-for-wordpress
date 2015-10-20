@@ -227,3 +227,34 @@ table.mc4wp-help tr:hover {
 	}
 	
 }
+
+/** Tabs */
+#mc4wp-tabs .tab {
+	display: none;
+}
+
+#mc4wp-tabs .tab.tab-active {
+	display: block;
+}
+
+#mc4wp-tabs .tab h2 {
+	margin-top: 20px;
+}
+
+/** Whitespace control */
+.medium-margin {
+	margin: 40px 0;
+}
+
+.small-margin {
+	margin: 20px 0;
+}
+
+/** Core Customizations */
+.page-title-action .dashicons,
+.button .dashicons,
+.button-secondary .dashicons {
+	vertical-align: middle;
+	line-height: 16px;
+	margin: 0 4px 0 0;
+}

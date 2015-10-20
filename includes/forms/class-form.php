@@ -17,7 +17,7 @@ class MC4WP_Form {
 	/**
 	 * @var string
 	 */
-	public $name = '';
+	public $name = 'Default Form';
 
 	/**
 	 * @var string
@@ -35,16 +35,56 @@ class MC4WP_Form {
 	public $request;
 
 	/**
-	 * @param int $id
-	 * @param string $name
-	 * @param string $content
-	 * @param iMC4WP_Request $request
+	 * @var array
 	 */
-	public function __construct( $id = 0, $name = 'Default Form', $content = '', $settings = array(), iMC4WP_Request $request = null ) {
+	public static $instances = array();
+
+	/**
+	 * @var WP_Post
+	 */
+	protected $post;
+
+	/**
+	 * @param int $form_id
+	 * @return MC4WP_Form
+	 */
+	public static function get_instance( $form_id ) {
+
+		$form_id = (int) $form_id;
+
+		if( empty( $form_id ) ) {
+			$form_id = get_option( 'mc4wp_default_form_id', 0 );
+		}
+
+		if( isset( self::$instances[ $form_id ] ) ) {
+			return self::$instances[ $form_id ];
+		}
+
+		$form = new MC4WP_Form( $form_id );
+
+		self::$instances[ $form_id ] = $form;
+
+		return $form;
+	}
+
+	/**
+	 * @param int $id
+	 */
+	public function __construct( $id = 0 ) {
 		$this->ID = $id;
-		$this->name = $name;
-		$this->content = $content;
-		$this->request = $request;
+		$this->post = $post = get_post( $id );
+		$settings = array();
+
+		// transfer some properties of post object
+		if( is_object( $post )
+		    && isset( $post->post_type )
+		    && $post->post_type === 'mc4wp-form' ) {
+
+			$this->name = $post->post_title;
+			$this->content = $post->post_content;
+		}
+
+		// todo refactorrrr
 		$this->settings = apply_filters( 'mc4wp_form_settings', $settings, $this );
 	}
 

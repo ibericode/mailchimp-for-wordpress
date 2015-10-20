@@ -18,20 +18,20 @@ function mc4wp_checkbox() {
  * Echoes a MailChimp for WordPress form
  *
  * @param   int     $id     The form ID
+ * @todo fix this
  */
 function mc4wp_form( $id = 0 ) {
-	echo mc4wp_get_form( $id );
+
 }
 
 /**
 * Returns HTML for sign-up form with the given $form_id.
 *
 * @param    int     $form_id.
-* @return   string  HTML of given form_id.
+* @return   MC4WP_Form
 */
-function mc4wp_get_form( $id = 0 ) {
-	$form_manager = MC4WP::instance()->form_manager;
-	return $form_manager->output_form( array( 'id' => $id ) );
+function mc4wp_get_form( $form_id = 0 ) {
+	return MC4WP_Form::get_instance( $form_id );
 }
 
 /**

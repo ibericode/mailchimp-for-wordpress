@@ -50,9 +50,8 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 	 * Constructor
 	 *
 	 * @param array $data
-	 * @param MC4WP_Form_Repository $form_repository
 	 */
-	public function __construct( array $data, MC4WP_Form_Repository $form_repository ) {
+	public function __construct( array $data ) {
 
 		// find fields prefixed with _mc4wp_
 		$this->internal_data = $this->get_internal_data( $data );
@@ -64,7 +63,10 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 		$this->form_element_id = (string) $this->internal_data['form_element_id'];
 
 		// get form
-		$this->form = $form_repository->get( (int) $this->internal_data['form_id'], $this );
+		$form = $this->form = mc4wp_get_form( $this->internal_data['form_id'] );
+
+		// attach request to form
+		$form->request = $this;
 
 		// get referer
 		if( ! empty( $_SERVER['HTTP_REFERER'] ) ) {

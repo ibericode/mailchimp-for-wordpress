@@ -16,11 +16,6 @@ class MC4WP_Form_Manager {
 	private $asset_manager;
 
 	/**
-	 * @var MC4WP_Form_Repository
-	 */
-	public $form_repository;
-
-	/**
 	 * @var array
 	 */
 	public $options;
@@ -37,15 +32,15 @@ class MC4WP_Form_Manager {
 		// store global `$_REQUEST` array locally, to prevent other plugins from messing with it (yes it happens....)
 		// todo: fix this properly (move to more specific $_POST?)
 		$this->request_data = $_REQUEST;
-
-		// form repository
-		$this->form_repository = new MC4WP_Form_Repository( $options );
 	}
 
 	/**
 	 * Hook!
 	 */
 	public function add_hooks() {
+
+		add_action( 'init', array( $this, 'register_form_type' ) );
+
 		// forms
 		add_action( 'init', array( $this, 'init_form_listener' ) );
 		add_action( 'init', array( $this, 'init_form_asset_manager' ) );
@@ -55,12 +50,33 @@ class MC4WP_Form_Manager {
 	}
 
 	/**
+	 * Register post type "mc4wp-form"
+	 */
+	public function register_form_type() {
+
+		// register post type
+		register_post_type( 'mc4wp-form', array(
+				'labels' => array(
+					'name' => 'MailChimp Sign-up Forms',
+					'singular_name' => 'Sign-up Form',
+					'add_new_item' => 'Add New Form',
+					'edit_item' => 'Edit Form',
+					'new_item' => 'New Form',
+					'all_items' => 'All Forms',
+					'view_item' => null
+				),
+				'public' => false
+			)
+		);
+	}
+
+	/**
 	 * Initialise the form listener
 	 *
 	 * @hooked `init`
 	 */
 	public function init_form_listener() {
-		$listener = new MC4WP_Form_Listener( $this->form_repository );
+		$listener = new MC4WP_Form_Listener();
 		$listener->listen( $this->request_data );
 	}
 
@@ -70,7 +86,7 @@ class MC4WP_Form_Manager {
 	 * @hooked `init`
 	 */
 	public function init_form_asset_manager() {
-		$this->asset_manager = new MC4WP_Form_Asset_Manager( $this->form_repository, $this->options );
+		$this->asset_manager = new MC4WP_Form_Asset_Manager( $this->options );
 		$this->asset_manager->init();
 	}
 

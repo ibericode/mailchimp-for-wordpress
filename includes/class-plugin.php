@@ -28,11 +28,6 @@ class MC4WP {
 	public $options = array();
 
 	/**
-	 * @var array
-	 */
-	private $services = array();
-
-	/**
 	 * @return MC4WP
 	 */
 	public static function instance() {
@@ -78,13 +73,6 @@ class MC4WP {
 		}
 
 		return $this->api;
-	}
-
-	/**
-	 * @return MC4WP_Form_Repository
-	 */
-	public function get_forms() {
-		return $this->form_manager->form_repository;
 	}
 
 	/**
