@@ -76,7 +76,7 @@ class MC4WP_Admin {
 	}
 
 	/**
-	 *
+	 * Saves a form
 	 */
 	public function save_form() {
 
@@ -86,6 +86,7 @@ class MC4WP_Admin {
 
 		$form_id = (int) $_POST['mc4wp_form_id'];
 		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
+		// todo sanitize data
 
 		wp_update_post(
 			array(
@@ -96,6 +97,11 @@ class MC4WP_Admin {
 		);
 
 		update_post_meta( $form_id, '_mc4wp_settings', $form_data['settings'] );
+
+		// save form messages in individual meta keys
+		foreach( $form_data['messages'] as $key => $message ) {
+			update_post_meta( $form_id, $key, $message );
+		}
 
 		wp_safe_redirect( add_query_arg( array( 'message' => 'form_updated' ) ) );
 		exit;

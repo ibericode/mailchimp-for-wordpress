@@ -30,6 +30,11 @@ class MC4WP_Form {
 	public $settings = array();
 
 	/**
+	 * @var array
+	 */
+	public $messages = array();
+
+	/**
 	 * @var iMC4WP_Request
 	 */
 	public $request;
@@ -83,6 +88,7 @@ class MC4WP_Form {
 			$this->name = $post->post_title;
 			$this->content = $post->post_content;
 			$this->settings = $this->load_settings();
+			$this->messages = $this->load_messages();
 		}
 	}
 
@@ -389,49 +395,49 @@ class MC4WP_Form {
 			// email was successfully subscribed to the selected list(s)
 			'subscribed' => array(
 				'type' => 'success',
-				'text' => $this->settings['text_subscribed'],
+				'text' => $this->messages['text_subscribed'],
 			),
 
 			// email was successfully unsubscribed from the selected list(s)
 			'unsubscribed' => array(
 				'type' => 'success',
-				'text' => $this->settings['text_unsubscribed'],
+				'text' => $this->messages['text_unsubscribed'],
 			),
 
 			// a general (unknown) error occurred
 			'error' => array(
 				'type' => 'error',
-				'text' => $this->settings['text_error'],
+				'text' => $this->messages['text_error'],
 			),
 
 			// an invalid email was given
 			'invalid_email' => array(
 				'type' => 'error',
-				'text' => $this->settings['text_invalid_email'],
+				'text' => $this->messages['text_invalid_email'],
 			),
 
 			// the captcha was not filled correctly
 			'invalid_captcha' => array(
 				'type' => 'error',
-				'text' => $this->settings['text_invalid_captcha'],
+				'text' => $this->messages['text_invalid_captcha'],
 			),
 
 			// a required field is missing for the selected list(s)
 			'required_field_missing' => array(
 				'type' => 'error',
-				'text' => $this->settings['text_required_field_missing'],
+				'text' => $this->messages['text_required_field_missing'],
 			),
 
 			// email is already subscribed to the selected list(s)
 			'already_subscribed' => array(
 				'type' => 'notice',
-				'text' => $this->settings['text_already_subscribed'],
+				'text' => $this->messages['text_already_subscribed'],
 			),
 
 			// email is not subscribed on the selected list(s)
 			'not_subscribed' => array(
 				'type' => 'notice',
-				'text' => $this->settings['text_not_subscribed'],
+				'text' => $this->messages['text_not_subscribed'],
 			),
 		);
 
@@ -439,7 +445,7 @@ class MC4WP_Form {
 		if( current_user_can( 'manage_options' ) ) {
 			$messages['no_lists_selected'] = array(
 				'type' => 'notice',
-				'text' => sprintf( __( 'You did not select a list in <a href="%s">your form settings</a>.', 'mailchimp-for-wp' ), admin_url( 'admin.php?page=mailchimp-for-wp-form-settings' ) )
+				'text' => sprintf( __( 'You did not select a list in <a href="%s">your form settings</a>.', 'mailchimp-for-wp' ), admin_url( 'admin.php?page=mailchimp-for-wp-edit-form' ) )
 			);
 		}
 
@@ -473,6 +479,21 @@ class MC4WP_Form {
 		$settings = (array) apply_filters( 'mc4wp_form_settings', $settings, $this );
 
 		return $settings;
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function load_messages() {
+		$defaults = include MC4WP_PLUGIN_DIR . 'config/default-form-messages.php';
+		$messages = array();
+
+		foreach( $defaults as $key => $message ) {
+			$message = get_post_meta( $this->ID, $key, true );
+			$messages[ $key ] = ( ! empty( $message ) ) ? $message : $defaults[ $key ];
+		}
+
+		return $messages;
 	}
 
 }
