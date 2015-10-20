@@ -168,7 +168,7 @@ abstract class MC4WP_Integration {
 
 		// after checkbox HTML (..., honeypot, closing comment)
 		$after = apply_filters( 'mc4wp_after_checkbox', '', $this->type );
-		$after .= '<div style="position: absolute; '. ( is_rtl() ? 'right' : 'left' ) . ':-5000px;"><input type="text" name="_mc4wp_required_but_not_really" value="" tabindex="-1" autocomplete="off" /></div>';
+		$after .= '<div style="display: none;"><input type="text" name="_mc4wp_required_but_not_really" value="" tabindex="-1" autocomplete="off" /></div>';
 		$after .= '<!-- / MailChimp for WordPress -->';
 
 		return $before . $content . $after;
