@@ -466,11 +466,11 @@ class MC4WP_Form {
 	 */
 	protected function load_content() {
 
-		if( empty( $this->ID ) ) {
-			return include MC4WP_PLUGIN_DIR . 'config/default-form-content.php';
+		if( ! empty( $this->post->post_content ) ) {
+			return $this->post->post_content;
 		}
 
-		return $this->post->post_content;
+		return include MC4WP_PLUGIN_DIR . 'config/default-form-content.php';
 	}
 
 	/**

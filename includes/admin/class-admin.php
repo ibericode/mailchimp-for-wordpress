@@ -75,6 +75,34 @@ class MC4WP_Admin {
 		$upgrader->run();
 	}
 
+	public function add_form() {
+
+		check_admin_referer( 'add_form', '_mc4wp_nonce' );
+
+		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
+		$form_id = wp_insert_post(
+			array(
+				'post_type' => 'mc4wp-form',
+				'post_status' => 'publish',
+				'post_title' => $form_data['name']
+			)
+		);
+
+		update_post_meta( $form_id, '_mc4wp_settings', $form_data['settings'] );
+
+		// @todo allow for easy way to get admin url's
+		wp_safe_redirect(
+			add_query_arg(
+				array(
+					'page' => 'mailchimp-for-wp-edit-form',
+					'form_id' => $form_id,
+					'message' => 'form_updated'
+				)
+			)
+		);
+		exit;
+	}
+
 	/**
 	 * Saves a form
 	 */
@@ -132,6 +160,7 @@ class MC4WP_Admin {
 		add_filter( 'admin_footer_text', array( $this, 'footer_text' ) );
 		add_action( 'wp_dashboard_setup', array( $this, 'register_dashboard_widgets' ) );
 		add_action( 'mc4wp_admin_edit_form', array( $this, 'save_form' ) );
+		add_action( 'mc4wp_admin_add_form', array( $this, 'add_form' ) );
 
 		// Hooks for Plugins overview page
 		if( $current_page === 'plugins.php' ) {
@@ -276,6 +305,13 @@ class MC4WP_Admin {
 				'slug' => 'edit-form',
 				'callback' => array( $this, 'show_edit_form_page' )
 			),
+			'forms_add' => array(
+				'title' => __( 'Add New Form', 'mailchimp-for-wp' ),
+				'text' => __( 'Form', 'mailchimp-for-wp' ),
+				'slug' => 'add-form',
+				'callback' => array( $this, 'show_add_new_form_page' ),
+				'parent_slug' => null
+			)
 		);
 
 		$menu_items = (array) apply_filters( 'mc4wp_menu_items', $menu_items );
@@ -285,8 +321,9 @@ class MC4WP_Admin {
 
 		// add submenu pages
 		foreach( $menu_items as $item ) {
-			$slug = ( '' !== $item['slug'] ) ? "mailchimp-for-wp-{$item['slug']}" : 'mailchimp-for-wp';
-			add_submenu_page( 'mailchimp-for-wp', $item['title'] . ' - MailChimp for WordPress Lite', $item['text'], $required_cap, $slug, $item['callback'] );
+			$slug = ! empty( $item['slug'] ) ? "mailchimp-for-wp-{$item['slug']}" : 'mailchimp-for-wp';
+			$parent_slug = array_key_exists( 'parent_slug', $item ) ? $item['parent_slug'] : 'mailchimp-for-wp';
+			add_submenu_page( $parent_slug, $item['title'] . ' - MailChimp for WordPress Lite', $item['text'], $required_cap, $slug, $item['callback'] );
 		}
 
 	}
@@ -483,6 +520,14 @@ class MC4WP_Admin {
 		$previewer = new MC4WP_Form_Previewer( $form->ID );
 
 		require MC4WP_PLUGIN_DIR . 'includes/views/edit-form.php';
+	}
+
+	/**
+	 * Show the forms settings page
+	 */
+	public function show_add_new_form_page() {
+		$lists = $this->mailchimp->get_lists();
+		require MC4WP_PLUGIN_DIR . 'includes/views/add-form.php';
 	}
 
 	/**
