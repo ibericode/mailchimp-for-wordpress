@@ -28,17 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 // Prevent direct file access
-if( ! defined( 'ABSPATH' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
-
-// bootstrap the lite plugin
-define( 'MC4WP_VERSION', '3.0' );
-define( 'MC4WP_PLUGIN_DIR', dirname( __FILE__ ) . '/' );
-define( 'MC4WP_PLUGIN_URL', plugins_url( '/' , __FILE__ ) );
-define( 'MC4WP_PLUGIN_FILE', __FILE__ );
+defined( 'ABSPATH' ) or exit;
 
 /**
 * Loads the MailChimp for WP plugin files
@@ -46,6 +36,18 @@ define( 'MC4WP_PLUGIN_FILE', __FILE__ );
 * @return boolean True if the plugin files were loaded, false otherwise.
 */
 function mc4wp_load_plugin() {
+
+	// this means an older version of Pro is activated
+	// let that code take over
+	if( defined( 'MC4WP_VERSION' ) ) {
+		return false;
+	}
+
+	// bootstrap the core plugin
+	define( 'MC4WP_VERSION', '3.0' );
+	define( 'MC4WP_PLUGIN_DIR', dirname( __FILE__ ) . '/' );
+	define( 'MC4WP_PLUGIN_URL', plugins_url( '/' , __FILE__ ) );
+	define( 'MC4WP_PLUGIN_FILE', __FILE__ );
 
 	require_once MC4WP_PLUGIN_DIR . 'vendor/autoload_52.php';
 	require_once MC4WP_PLUGIN_DIR . 'includes/functions/general.php';
