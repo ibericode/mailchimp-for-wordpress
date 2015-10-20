@@ -645,5 +645,59 @@
 
 	})();
 
+	// Tabs
+	(function( $context ) {
+
+		var $tabs = $context.find('.tab');
+		var $tabNav = $context.find('.nav-tab');
+		var $refererField = $context.find('input[name="_wp_http_referer"]');
+
+		function parseQuery(qstr) {
+			var query = {};
+			var a = qstr.split('&');
+			for (var i in a) {
+				var b = a[i].split('=');
+				query[decodeURIComponent(b[0])] = decodeURIComponent(b[1]);
+			}
+
+			return query;
+		}
+
+		function switchTab() {
+
+			var urlParams = parseQuery( this.href );
+			if( typeof(urlParams.tab) === "undefined" ) {
+				return;
+			}
+
+			// hide all tabs & remove active class
+			$tabs.hide();
+			$tabNav.removeClass('nav-tab-active');
+
+			// add `nav-tab-active` to this tab
+			$(this).addClass('nav-tab-active');
+
+			// show target tab
+			var targetId = "tab-" + urlParams.tab;
+			document.getElementById(targetId).style.display = 'block'
+
+			// update hash
+			if( history.pushState ) {
+				history.pushState( '', '', this.href );
+			}
+
+			// update referer field
+			$refererField.val(this.href);
+
+			// prevent page jump
+			return false;
+		}
+
+		// add tab listener
+		$tabNav.click(switchTab);
+
+	})($(document.getElementById('mc4wp-admin')));
+
 })(jQuery);
+
 
