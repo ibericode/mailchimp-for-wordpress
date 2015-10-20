@@ -76,12 +76,6 @@ class MC4WP_Form {
 
 		$visible_fields = MC4WP_Tools::replace_variables( $this->content, $replacements, array_values( $this->settings['lists'] ) );
 
-		// insert captcha
-		if( function_exists( 'cptch_display_captcha_custom' ) ) {
-			$captcha_fields = '<input type="hidden" name="_mc4wp_has_captcha" value="1" /><input type="hidden" name="cntctfrm_contact_action" value="true" />' . cptch_display_captcha_custom();
-			$visible_fields = str_ireplace( array( '{captcha}', '[captcha]' ), $captcha_fields, $visible_fields );
-		}
-
 		/**
 		 * @filter mc4wp_form_content
 		 * @param int $form_id The ID of the form that is being shown

@@ -2,7 +2,6 @@
 defined( 'ABSPATH' ) or exit;
 
 $language = defined( 'ICL_LANGUAGE_CODE' ) ? ICL_LANGUAGE_CODE : get_locale();
-$has_captcha_plugin = function_exists( 'cptch_display_captcha_custom' );
 ?>
 <p>
 	<?php echo sprintf( __( 'The following list of variables can be used to <a href="%s">add some dynamic content to your form or success and error messages</a>.', 'mailchimp-for-wp' ), 'https://mc4wp.com/kb/using-variables-in-your-form-or-messages/' ) . ' ' . __( 'This allows you to personalise your form or response messages.', 'mailchimp-for-wp' ); ?>
@@ -16,12 +15,6 @@ $has_captcha_plugin = function_exists( 'cptch_display_captcha_custom' );
         <th>{response}</th>
 		<td><?php _e( 'Replaced with the form response (error or success messages).', 'mailchimp-for-wp' ); ?></td>
     </tr>
-	<?php if( $has_captcha_plugin ) { ?>
-        <tr>
-            <th>{captcha}</th>
-			<td><?php _e( 'Replaced with a captcha field.', 'mailchimp-for-wp' ); ?></td>
-        </tr>
-	<?php } ?>
     <tr>
         <th>{subscriber_count}</th>
 		<td><?php _e( 'Replaced with the number of subscribers on the selected list(s)', 'mailchimp-for-wp' ); ?></td>

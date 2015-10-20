@@ -58,17 +58,6 @@ class FormValidatorTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Form_Validator::validate_captcha
-	 */
-	public function test_validate_captcha() {
-		$this->validator->set_data( array() );
-		$this->assertTrue( $this->validator->validate_captcha() );
-
-		$this->validator->set_data( array( 'has_captcha' => 1 ) );
-		$this->assertTrue( $this->validator->validate_captcha() );
-	}
-
-	/**
 	 * @covers MC4WP_Form_Validator::validate_email
 	 */
 	public function test_validate_email() {

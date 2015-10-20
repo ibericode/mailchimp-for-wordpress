@@ -78,20 +78,6 @@ class MC4WP_Form_Validator {
 	}
 
 	/**
-	 * Validate Captcha, if form had one.
-	 *
-	 * @return bool
-	 */
-	public function validate_captcha() {
-		// check if captcha was present and valid
-		if( isset( $this->internal_data['has_captcha'] ) && $this->internal_data['has_captcha'] == 1 && function_exists( 'cptch_check_custom_form' ) && cptch_check_custom_form() !== true ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
 	 * Ensure email address is given and valid
 	 *
 	 * @return bool
