@@ -73,45 +73,15 @@ $tabs = array(
 	</form><!-- Entire page form wrap -->
 
 
+	<?php include 'parts/admin-footer.php'; ?>
+
+
 	<?php if( isset( $_GET['old'] ) ) { ?>
 
-	<div id="mc4wp-content">
-
-		<?php settings_errors(); ?>
-
-
-			<form action="options.php" method="post">
-				<?php settings_fields( 'mc4wp_lite_form_settings' ); ?>
-				
-				<h3 class="mc4wp-title"><?php _e( 'Required form settings', 'mailchimp-for-wp' ); ?></h3>
-				<table class="form-table">
 
 
 
-					<tr valign="top">
-						<td colspan="3">
-							<h4><?php _e( 'Form mark-up', 'mailchimp-for-wp' ); ?></h4>
 
-							<div class="mc4wp-wrapper">
-								<div class="mc4wp-col mc4wp-first">
-										</div>
-
-								<div class="mc4wp-col mc4wp-last">
-									<?php include('parts/admin-field-wizard.php'); ?>
-								</div>
-							</div>
-						</td>
-					</tr>
-			</table>
-
-
-
-		<?php submit_button(); ?>
-
-
-	</form>
-
-	<?php include 'parts/admin-footer.php'; ?>
 </div>
 <div id="mc4wp-sidebar">
 	<?php do_action( 'mc4wp_admin_before_sidebar' ); ?>
