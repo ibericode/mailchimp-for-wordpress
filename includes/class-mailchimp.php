@@ -87,12 +87,16 @@ class MC4WP_MailChimp {
 				return $lists;
 			} else {
 				// api request failed, get fallback data (with longer lifetime)
-				$cached_lists = (array) get_transient( $this->transient_name . '_fallback' );
+				$cached_lists = get_transient( $this->transient_name . '_fallback' );
 			}
 
 		}
 
-		return $cached_lists;
+		if( is_array( $cached_lists ) ) {
+			return $cached_lists;
+		}
+
+		return array();
 	}
 
 	/**
