@@ -18,6 +18,8 @@ MailChimp for WordPress, the absolute best. Add subscribers to your MailChimp li
 
 This plugin helps you add subscribers to your MailChimp lists using various methods. You can create good looking opt-in forms or integrate with any other form on your site, like your comment form or WooCommerce checkout.
 
+[youtube https://www.youtube.com/watch?v=92WzdjQcGSo]
+
 = MailChimp for WordPress features =
 
 - Connect with your MailChimp account in just 1 click.
