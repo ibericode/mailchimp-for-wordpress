@@ -31,6 +31,10 @@ class MC4WP_Form_Previewer {
 			return false;
 		}
 
+		if( ! current_user_can( 'read_private_pages' ) ) {
+			return false;
+		}
+
 		$form_id = $_GET[ self::URL_PARAMETER ];
 		$instance = new self( $form_id );
 
