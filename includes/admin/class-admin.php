@@ -358,12 +358,15 @@ class MC4WP_Admin {
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		// css
-		wp_enqueue_style( 'mc4wp-admin-css', MC4WP_PLUGIN_URL . 'assets/css/admin' . $suffix . '.css' );
+		wp_enqueue_style( 'mc4wp-admin-css', MC4WP_PLUGIN_URL . 'assets/css/admin' . $suffix . '.css', array(), MC4WP_VERSION );
+		wp_enqueue_style( 'codemirror', MC4WP_PLUGIN_URL . 'assets/css/codemirror.css', array(), MC4WP_VERSION );
 
 		// js
 		wp_register_script( 'mc4wp-beautifyhtml', MC4WP_PLUGIN_URL . 'assets/js/third-party/beautify-html'. $suffix .'.js', array( 'jquery' ), MC4WP_VERSION, true );
 		wp_register_script( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array( 'jquery', 'quicktags' ), MC4WP_VERSION, true );
-		wp_enqueue_script( array( 'jquery', 'mc4wp-beautifyhtml', 'mc4wp-admin' ) );
+		wp_register_script( 'codemirror', MC4WP_PLUGIN_URL . 'assets/js/third-party/codemirror-compressed.js', array(), MC4WP_VERSION, true );
+
+		wp_enqueue_script( array( 'jquery', 'codemirror', 'mc4wp-beautifyhtml', 'mc4wp-admin' ) );
 		wp_localize_script( 'mc4wp-admin', 'mc4wp',
 			array(
 				'hasCaptchaPlugin' => function_exists( 'cptch_display_captcha_custom' ),

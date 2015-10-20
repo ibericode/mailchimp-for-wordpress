@@ -6,7 +6,7 @@
 	 */
 	var $context = $(document.getElementById('mc4wp-admin'));
 	var $listInputs = $(document.getElementById('mc4wp-lists')).find(':input');
-	var $formMarkup = $(document.getElementById('mc4wpformmarkup'));
+	var $formMarkup = $(document.getElementById('mc4wp-form-content'));
 	var $missingFieldsNotice = $(document.getElementById('missing-fields-notice'));
 	var $missingFieldsList = $(document.getElementById('missing-fields-list'));
 
@@ -94,7 +94,7 @@
 	$listInputs.change(toggleFieldWizard);
 
 	// Allow tabs inside the form mark-up
-	$(document).delegate('#mc4wpformmarkup', 'keydown', allowTabKey);
+	$(document).delegate('#mc4wp-form-content', 'keydown', allowTabKey);
 
 	addQTagsButtons();
 
@@ -103,7 +103,7 @@
 	* MailChimp for WordPress Field Wizard
 	* Created by Danny van Kooten
 	*/
-	(function() {
+	var FieldWizard = (function() {
 		'use strict';
 
 		// setup variables
@@ -127,11 +127,17 @@
 		// functions
 		function checkRequiredFields() {
 
+			var formContent = $formMarkup.val();
+			if( typeof( CodeMirror ) !== "undefined" && typeof( window.mc4wpFormEditor ) === "object" ) {
+				formContent = window.mc4wpFormEditor.getValue();
+			}
+			formContent = formContent.toLowerCase();
+
 			// check presence of reach required field
 			var missingFields = {};
 			for(var i=0; i<requiredFields.length; i++) {
 				var htmlString = 'name="' + requiredFields[i].tag.toLowerCase();
-				if( $formMarkup.val().toLowerCase().indexOf( htmlString ) == -1 ) {
+				if( formContent.indexOf( htmlString ) == -1 ) {
 					missingFields[requiredFields[i].tag] = requiredFields[i];
 				}
 			}
@@ -152,7 +158,6 @@
 			}
 
 			$missingFieldsNotice.show();
-			return;
 		}
 
 		// set the fields the user can choose from
@@ -595,16 +600,10 @@
 		* Transfer code preview field to form mark-up
 		*/
 		function addCodeToFormMarkup() {
-			
-			var result = false;
 
-			// try to insert in QuickTags editor at cursor position
-			if(typeof wpActiveEditor !== 'undefined' && typeof QTags !== 'undefined' && QTags.insertContent) {
-				result = QTags.insertContent($codePreview.val());
-			}
-			
-			// fallback, just append
-			if(!result) {
+			if( typeof( CodeMirror ) === "function" && typeof( mc4wpFormEditor ) === "object" ) {
+				mc4wpFormEditor.replaceSelection( $codePreview.val() );
+			} else {
 				$formMarkup.val($formMarkup.val() + "\n" + $codePreview.val());
 			}
 
@@ -639,9 +638,12 @@
 			},
 			'keydown': checkRequiredFields
 		});
-
 		// init
 		setMailChimpFields();
+
+		return {
+			checkRequiredFields: checkRequiredFields
+		}
 
 	})();
 
@@ -705,6 +707,17 @@
 		$tabLinks.click(switchTab);
 
 	})($(document.getElementById('mc4wp-admin')));
+
+
+	window.mc4wpFormEditor = CodeMirror.fromTextArea(document.getElementById("mc4wp-form-content"), {
+		selectionPointer: true,
+		matchTags: {bothTags: true},
+		mode: "text/html",
+		autoCloseTags: true,
+		lineNumbers: true
+	});
+
+	window.mc4wpFormEditor.on('change', FieldWizard.checkRequiredFields );
 
 })(jQuery);
 
