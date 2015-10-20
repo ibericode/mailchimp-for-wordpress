@@ -1,13 +1,7 @@
-<?php
-if( ! defined( 'MC4WP_VERSION' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
-?>
-<div id="mc4wp-fw" class="mc4wp-well">
+<?php defined( 'ABSPATH' ) or exit; ?>
+<div id="mc4wp-fw">
 
-	<h4 class="mc4wp-title"><?php _e( 'Add a new field', 'mailchimp-for-wp' ); ?></h4>
+	<h2><?php _e( 'Add a new MailChimp field', 'mailchimp-for-wp' ); ?></h2>
 
 	<p><?php _e( 'Use the tool below to generate the HTML for your form fields.', 'mailchimp-for-wp' ); ?></p>
 	<p>
@@ -65,7 +59,7 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 
 	</div>
 
-	<p class="mc4wp-notice no-lists-selected" <?php if( ! empty($opts['lists'])) { ?>style="display: none;" <?php } ?>>
+	<p class="mc4wp-notice no-lists-selected" <?php if( ! empty( $opts['lists'] ) ) { ?>style="display: none;" <?php } ?>>
 		<?php _e( 'Select at least one list first.', 'mailchimp-for-wp' ); ?>
 	</p>
 

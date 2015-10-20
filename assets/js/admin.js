@@ -625,7 +625,11 @@
 		$lists.change(setMailChimpFields);
 		$mailchimpFields.change(setPresets);
 		$wizardFields.change(updateCodePreview);
-		$("#mc4wp-fw-add-to-form").click(addCodeToFormMarkup);
+		$("#mc4wp-fw-add-to-form").click(addCodeToFormMarkup).click(function() {
+			if( typeof( tb_remove ) === "function" ) {
+				tb_remove();
+			}
+		});
 
 		// Validate the form fields after every change
 		$formMarkup.bind({

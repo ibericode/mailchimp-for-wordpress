@@ -1,10 +1,12 @@
+<?php add_thickbox(); ?>
+
 <p><?php printf( __( 'To use the MailChimp sign-up form, configure the form below and then either paste %s in the content of a post or page or use the  widget.', 'mailchimp-for-wp' ), '<input size="'. ( strlen( $form->ID ) + 18 ) .'" type="text" onfocus="this.select();" readonly="readonly" value="[mc4wp_form id=\''. $form->ID .'\']" class="mc4wp-shortcode-example">' ); ?></p>
 
 <p>
-<a class="button-secondary">
-	<span class="dashicons dashicons-plus-alt"></span>
-	<?php _e( 'Add MailChimp field', 'mailchimp-for-wp' ); ?>
-</a>
+	<a href="#TB_inline?width=600&height=550&inlineId=mc4wp-field-wizard" class="thickbox button-secondary">
+		<span class="dashicons dashicons-plus-alt"></span>
+		<?php _e( 'Add MailChimp field', 'mailchimp-for-wp' ); ?>
+	</a>
 </p>
 <?php
 if( function_exists( 'wp_editor' ) ) {
@@ -22,3 +24,9 @@ if( function_exists( 'wp_editor' ) ) {
 </div>
 
 <?php submit_button(); ?>
+
+<!-- Field Wizard content, used for Thickbox -->
+<div id="mc4wp-field-wizard" style="display:none;">
+	<?php include dirname( __FILE__ ) . '/../parts/admin-field-wizard.php'; ?>
+</div>
+
