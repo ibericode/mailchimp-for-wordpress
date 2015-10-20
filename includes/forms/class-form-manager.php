@@ -44,6 +44,7 @@ class MC4WP_Form_Manager {
 		// forms
 		add_action( 'init', array( $this, 'init_form_listener' ) );
 		add_action( 'init', array( $this, 'init_form_asset_manager' ) );
+		add_action( 'template_redirect', array( 'MC4WP_Form_Previewer', 'init' ) );
 
 		// widget
 		add_action( 'widgets_init', array( $this, 'register_widget' ) );

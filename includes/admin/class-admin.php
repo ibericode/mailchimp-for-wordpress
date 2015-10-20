@@ -465,6 +465,7 @@ class MC4WP_Admin {
 		$form = mc4wp_get_form();
 		$opts = $form->settings;
 		$active_tab = ( isset( $_GET['tab'] ) ) ? $_GET['tab'] : 'fields';
+		$previewer = new MC4WP_Form_Previewer( $form->ID );
 
 		require MC4WP_PLUGIN_DIR . 'includes/views/edit-form.php';
 	}
