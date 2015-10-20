@@ -59,8 +59,11 @@
 
 	</div>
 
-	<p class="mc4wp-notice no-lists-selected" <?php if( ! empty( $opts['lists'] ) ) { ?>style="display: none;" <?php } ?>>
-		<?php _e( 'Select at least one list first.', 'mailchimp-for-wp' ); ?>
-	</p>
+	<div class="mc4wp-notice no-lists-selected" <?php if( ! empty( $opts['lists'] ) ) { ?>style="display: none;" <?php } ?>>
+		<a class="tab-link" href="<?php echo esc_url( $this->tab_url( 'settings' ) ); ?>">
+			<?php _e( 'Select at least one list first.', 'mailchimp-for-wp' ); ?>
+		</a>
+	</div>
+
 
 </div>

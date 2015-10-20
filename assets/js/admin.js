@@ -646,10 +646,12 @@
 	})();
 
 	// Tabs
+	// @todo make this work with custom tab links
 	(function( $context ) {
 
 		var $tabs = $context.find('.tab');
 		var $tabNav = $context.find('.nav-tab');
+		var $tabLinks = $context.find('.tab-link');
 		var $refererField = $context.find('input[name="_wp_http_referer"]');
 
 		function parseQuery(qstr) {
@@ -675,11 +677,11 @@
 			$tabNav.removeClass('nav-tab-active');
 
 			// add `nav-tab-active` to this tab
-			$(this).addClass('nav-tab-active');
+			$(document.getElementById('nav-tab-' + urlParams.tab )).addClass('nav-tab-active').blur();
 
 			// show target tab
 			var targetId = "tab-" + urlParams.tab;
-			document.getElementById(targetId).style.display = 'block'
+			document.getElementById(targetId).style.display = 'block';
 
 			// update hash
 			if( history.pushState ) {
@@ -689,12 +691,18 @@
 			// update referer field
 			$refererField.val(this.href);
 
+			// if thickbox is open, close it.
+			if( typeof(tb_remove) === "function" ) {
+				tb_remove();
+			}
+
 			// prevent page jump
 			return false;
 		}
 
 		// add tab listener
 		$tabNav.click(switchTab);
+		$tabLinks.click(switchTab);
 
 	})($(document.getElementById('mc4wp-admin')));
 
