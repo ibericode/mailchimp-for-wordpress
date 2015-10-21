@@ -92,10 +92,6 @@ $tabs = array(
 		<p><?php printf( __( 'You can add the CSS rules to your theme stylesheet using the <a href="%s">Theme Editor</a> or by using a plugin like %s', 'mailchimp-for-wp' ), admin_url( 'theme-editor.php?file=style.css' ), '<a href="https://wordpress.org/plugins/simple-custom-css/">Simple Custom CSS</a>' ); ?>.</p>
 		<p><?php printf( __( 'The <a href="%s" target="_blank">plugin FAQ</a> lists the various CSS selectors you can use to target the different form elements.', 'mailchimp-for-wp' ), 'https://wordpress.org/plugins/mailchimp-for-wp/faq/' ); ?></p>
 		<p><?php printf( __( 'If you need an easier way to style your forms, consider <a href="%s">upgrading to MailChimp for WordPress Pro</a> which comes with an easy Styles Builder.', 'mailchimp-for-wp' ), 'https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=form-settings' ); ?></p>
-
-		<h3 class="mc4wp-title"><?php _e( 'Variables', 'mailchimp-for-wp' ); ?></h3>
-		<?php include dirname( __FILE__ ) . '/parts/admin-text-variables.php'; ?>
-
 	</div>
 
 		<?php include 'parts/admin-need-support.php'; ?>

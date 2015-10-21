@@ -7,6 +7,11 @@
 		<span class="dashicons dashicons-plus-alt"></span>
 		<?php _e( 'Add MailChimp field', 'mailchimp-for-wp' ); ?>
 	</a>
+
+	<a href="#TB_inline?width=600&height=550&inlineId=mc4wp-form-variables" class="thickbox button-secondary">
+		<span class="dashicons dashicons-info"></span>
+		<?php _e( 'Add form variable', 'mailchimp-for-wp' ); ?>
+	</a>
 </p>
 
 <textarea class="widefat" cols="160" rows="20" id="mc4wp-form-content" name="mc4wp_form[content]"><?php echo esc_textarea( $form->content ); ?></textarea>
@@ -27,3 +32,6 @@
 	<?php include dirname( __FILE__ ) . '/../parts/admin-field-wizard.php'; ?>
 </div>
 
+<div id="mc4wp-form-variables" style="display: none;">
+	<?php include dirname( __FILE__ ) . '/../parts/admin-form-variables.php'; ?>
+</div>
