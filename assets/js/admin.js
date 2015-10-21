@@ -699,6 +699,9 @@
 				tb_remove();
 			}
 
+			// focus on codemirror textarea, this fixes bug with blank textarea
+			mc4wpFormEditor.refresh();
+
 			// prevent page jump
 			return false;
 		}
@@ -709,16 +712,21 @@
 
 	})($(document.getElementById('mc4wp-admin')));
 
+	/* Editor */
+	(function(c) {
+		var formContentTextarea = document.getElementById("mc4wp-form-content");
+		c.mc4wpFormEditor  = CodeMirror.fromTextArea(formContentTextarea, {
+			selectionPointer: true,
+			matchTags: {bothTags: true},
+			mode: "text/html",
+			htmlMode: true,
+			autoCloseTags: true
+			//lineNumbers: true
+		});
 
-	window.mc4wpFormEditor = CodeMirror.fromTextArea(document.getElementById("mc4wp-form-content"), {
-		selectionPointer: true,
-		matchTags: {bothTags: true},
-		mode: "text/html",
-		autoCloseTags: true
-		//lineNumbers: true
-	});
+		c.mc4wpFormEditor.on('change', FieldWizard.checkRequiredFields );
+	})(window);
 
-	window.mc4wpFormEditor.on('change', FieldWizard.checkRequiredFields );
 
 })(jQuery);
 
