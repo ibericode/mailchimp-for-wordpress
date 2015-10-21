@@ -5,7 +5,6 @@
 	 * Variables
 	 */
 	var $context = $(document.getElementById('mc4wp-admin'));
-	var $listInputs = $(document.getElementById('mc4wp-lists')).find(':input');
 	var $formMarkup = $(document.getElementById('mc4wp-form-content'));
 	var $missingFieldsNotice = $(document.getElementById('missing-fields-notice'));
 	var $missingFieldsList = $(document.getElementById('missing-fields-list'));
@@ -40,43 +39,6 @@
 		$el.toggle(this.checked);
 	}
 
-	function toggleFieldWizard() {
-		var hasListSelected = $listInputs.filter(':checked').length > 0;
-		$(".mc4wp-notice.no-lists-selected").toggle( ! hasListSelected );
-		$( document.getElementById( 'mc4wp-fw-mailchimp-fields' )).toggle( hasListSelected );
-	}
-
-	function allowTabKey(e) {
-		var keyCode = e.keyCode || e.which;
-
-		if (keyCode === 9) {
-			e.preventDefault();
-			var start = this.selectionStart;
-			var end = this.selectionEnd;
-
-			// set textarea value to: text before caret + tab + text after caret
-			$(this).val($(this).val().substring(0, start) + "\t" + $(this).val().substring(end));
-
-			// put caret at right position again
-			this.selectionStart = this.selectionEnd = start + 1;
-		}
-	}
-
-	function addQTagsButtons() {
-		if ( typeof(QTags) === 'undefined' ) {
-			return;
-		}
-
-		QTags.addButton( 'mc4wp_paragraph', '<p>', '<p>', '</p>', 'paragraph', 'Paragraph tag', 1 );
-		QTags.addButton( 'mc4wp_label', 'label', '<label>', '</label>', 'label', 'Label tag', 2 );
-		QTags.addButton( 'mc4wp_response', 'form response', '{response}', '', 'response', 'Shows the form response' );
-		QTags.addButton( 'mc4wp_subscriber_count', '# of subscribers', '{subscriber_count}', '', 'subscribers', 'Shows number of subscribers of selected list(s)' );
-
-		if( window.mc4wp.hasCaptchaPlugin === true ) {
-			QTags.addButton( 'mc4wp_captcha', 'CAPTCHA', '{captcha}', '', 'captcha', 'Display a CAPTCHA field' );
-		}
-	}
-
 	/**
 	 * Bind Event Handlers
 	 */
@@ -89,14 +51,6 @@
 
 	// show woocommerce settings only when `show at woocommerce checkout` is checked.
 	$context.find('input[name$="[show_at_woocommerce_checkout]"]').change(toggleWooCommerceSettings);
-
-	// only show fieldwizard when a list is selected
-	$listInputs.change(toggleFieldWizard);
-
-	// Allow tabs inside the form mark-up
-	$(document).delegate('#mc4wp-form-content', 'keydown', allowTabKey);
-
-	addQTagsButtons();
 
 
 	/**
