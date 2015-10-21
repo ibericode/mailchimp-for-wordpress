@@ -80,11 +80,13 @@ class MC4WP_Admin {
 		check_admin_referer( 'add_form', '_mc4wp_nonce' );
 
 		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
+		$form_content = include MC4WP_PLUGIN_DIR . 'config/default-form-content.php';
 		$form_id = wp_insert_post(
 			array(
 				'post_type' => 'mc4wp-form',
 				'post_status' => 'publish',
-				'post_title' => $form_data['name']
+				'post_title' => $form_data['name'],
+				'post_content' => $form_content,
 			)
 		);
 
@@ -94,7 +96,8 @@ class MC4WP_Admin {
 		wp_safe_redirect(
 			add_query_arg(
 				array(
-					'page' => 'mailchimp-for-wp-edit-form',
+					'page' => 'mailchimp-for-wp-forms',
+					'view' => 'edit-form',
 					'form_id' => $form_id,
 					'message' => 'form_updated'
 				)
@@ -283,7 +286,6 @@ class MC4WP_Admin {
 	* Register the setting pages and their menu items
 		*/
 	public function build_menu() {
-
 		$required_cap = $this->get_required_capability();
 
 		$menu_items = array(
@@ -300,32 +302,81 @@ class MC4WP_Admin {
 				'callback' => array( $this, 'show_checkbox_settings' ),
 			),
 			'forms' => array(
-				'title' => __( 'Edit Form', 'mailchimp-for-wp' ),
-				'text' => __( 'Form', 'mailchimp-for-wp' ),
-				'slug' => 'edit-form',
-				'callback' => array( $this, 'show_edit_form_page' )
+				'title' => __( 'Forms', 'mailchimp-for-wp' ),
+				'text' => __( 'Forms', 'mailchimp-for-wp' ),
+				'slug' => 'forms',
+				'callback' => array( $this, 'show_forms_page' ),
+				'load_callback' => array( $this, 'redirect_to_form_action' )
 			),
-			'forms_add' => array(
-				'title' => __( 'Add New Form', 'mailchimp-for-wp' ),
-				'text' => __( 'Form', 'mailchimp-for-wp' ),
-				'slug' => 'add-form',
-				'callback' => array( $this, 'show_add_new_form_page' ),
-				'parent_slug' => null
-			)
 		);
 
 		$menu_items = (array) apply_filters( 'mc4wp_menu_items', $menu_items );
 
 		// add top menu item
-		add_menu_page( 'MailChimp for WP Lite', 'MailChimp for WP', $required_cap, 'mailchimp-for-wp', array( $this, 'show_api_settings' ), MC4WP_PLUGIN_URL . 'assets/img/icon.png', '99.68491' );
+		add_menu_page( 'MailChimp for WP', 'MailChimp for WP', $required_cap, 'mailchimp-for-wp', array( $this, 'show_api_settings' ), MC4WP_PLUGIN_URL . 'assets/img/icon.png', '99.68491' );
 
 		// add submenu pages
 		foreach( $menu_items as $item ) {
-			$slug = ! empty( $item['slug'] ) ? "mailchimp-for-wp-{$item['slug']}" : 'mailchimp-for-wp';
-			$parent_slug = array_key_exists( 'parent_slug', $item ) ? $item['parent_slug'] : 'mailchimp-for-wp';
-			add_submenu_page( $parent_slug, $item['title'] . ' - MailChimp for WordPress', $item['text'], $required_cap, $slug, $item['callback'] );
+			$this->add_menu_item( $item );
+		}
+	}
+
+	/**
+	 * @param array $item
+	 */
+	public function add_menu_item( array $item ) {
+
+		// provide some defaults
+		$slug = ! empty( $item['slug'] ) ? "mailchimp-for-wp-{$item['slug']}" : 'mailchimp-for-wp';
+		$parent_slug = array_key_exists( 'parent_slug', $item ) ? $item['parent_slug'] : 'mailchimp-for-wp';
+		$capability = ! empty( $item['capability'] ) ? $item['capability'] : $this->get_required_capability();
+
+		// register page
+		$hook = add_submenu_page( $parent_slug, $item['title'] . ' - MailChimp for WordPress', $item['text'], $capability, $slug, $item['callback'] );
+
+		// register callback for loading this page, if given
+		if( array_key_exists( 'load_callback', $item ) ) {
+			add_action( 'load-' . $hook, $item['load_callback'] );
+		}
+	}
+
+	/**
+	 * Redirect to correct form action
+	 *
+	 * @todo Use `default_form_id` here?
+	 */
+	public function redirect_to_form_action() {
+
+		if( ! empty( $_GET['view'] ) ) {
+			return;
 		}
 
+		// query first available form and go there
+		$posts = get_posts(
+			array(
+				'post_type' => 'mc4wp-form',
+				'post_status' => 'publish',
+				'numberposts' => 1
+			)
+		);
+
+		// if we have a post, go to the "edit form" screen
+		if( $posts ) {
+			$post = array_pop( $posts );
+			$edit_form_url = add_query_arg(
+				array(
+					'view' => 'edit-form',
+					'form_id' => $post->ID
+				)
+			);
+			wp_safe_redirect( $edit_form_url );
+			exit;
+		}
+
+		// we don't have a form yet, go to "add new" screen
+		$add_form_url = add_query_arg( array( 'view' => 'add-form' ) );
+		wp_safe_redirect( $add_form_url );
+		exit;
 	}
 
 	/**
@@ -509,13 +560,31 @@ class MC4WP_Admin {
 	}
 
 	/**
+	 *
+	 */
+	public function show_forms_page() {
+		$view = ( ! empty( $_GET['view'] ) ) ? str_replace( '-', '_', $_GET['view'] ) : '';
+		$view_method = 'show_forms_' . $view. '_page';
+		if( method_exists( $this, $view_method ) ) {
+			return call_user_func( array( $this, $view_method ) );
+		}
+
+
+	}
+
+	/**
 	* Show the forms settings page
 	*/
-	public function show_edit_form_page() {
-		// @todo make sure this does not point to other posts
+	public function show_forms_edit_form_page() {
 		$form_id = ( ! empty( $_GET['form_id'] ) ) ? (int) $_GET['form_id'] : 0;
 		$lists = $this->mailchimp->get_lists();
-		$form = mc4wp_get_form( $form_id );
+
+		try{
+			$form = mc4wp_get_form( $form_id );
+		} catch( Exception $e ) {
+			wp_die( '<p>' . $e->getMessage() . '</p>' );
+		}
+
 		$opts = $form->settings;
 		$active_tab = ( isset( $_GET['tab'] ) ) ? $_GET['tab'] : 'fields';
 		$previewer = new MC4WP_Form_Previewer( $form->ID );
@@ -526,7 +595,7 @@ class MC4WP_Admin {
 	/**
 	 * Show the forms settings page
 	 */
-	public function show_add_new_form_page() {
+	public function show_forms_add_form_page() {
 		$lists = $this->mailchimp->get_lists();
 		require MC4WP_PLUGIN_DIR . 'includes/views/add-form.php';
 	}

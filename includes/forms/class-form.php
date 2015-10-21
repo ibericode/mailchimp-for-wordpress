@@ -79,16 +79,14 @@ class MC4WP_Form {
 	public function __construct( $id = 0 ) {
 		$this->post = $post = get_post( (int) $id );
 
-		// transfer some properties of post object
-		if( is_object( $post )
-		    && isset( $post->post_type )
-		    && $post->post_type === 'mc4wp-form' ) {
-
-			$this->ID = $id;
-			$this->name = $post->post_title;
+		if( ! is_object( $post ) || ! isset( $post->post_type ) || $post->post_type !== 'mc4wp-form' ) {
+			$message = sprintf( __( 'There is no form with ID %d, perhaps it was deleted?', 'mailchimp-for-wp' ), $id );
+			throw new Exception( $message );
 		}
 
-		$this->content = $this->load_content();
+		$this->ID = $id;
+		$this->name = $post->post_title;
+		$this->content = $post->post_content;
 		$this->settings = $this->load_settings();
 		$this->messages = $this->load_messages();
 	}
@@ -446,7 +444,7 @@ class MC4WP_Form {
 		if( current_user_can( 'manage_options' ) ) {
 			$messages['no_lists_selected'] = array(
 				'type' => 'notice',
-				'text' => sprintf( __( 'You did not select a list in <a href="%s">your form settings</a>.', 'mailchimp-for-wp' ), admin_url( 'admin.php?page=mailchimp-for-wp-edit-form' ) )
+				'text' => sprintf( __( 'You did not select a list in <a href="%s">your form settings</a>.', 'mailchimp-for-wp' ), admin_url( 'admin.php?page=mailchimp-for-wp-forms&view=edit-form' ) )
 			);
 		}
 
@@ -462,36 +460,23 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * @return string
-	 */
-	protected function load_content() {
-
-		if( ! empty( $this->post->post_content ) ) {
-			return $this->post->post_content;
-		}
-
-		return include MC4WP_PLUGIN_DIR . 'config/default-form-content.php';
-	}
-
-	/**
 	 * @return array
 	 */
 	protected function load_settings() {
 		$defaults = include MC4WP_PLUGIN_DIR . 'config/default-form-settings.php';
-
-		if( empty( $this->ID ) ) {
-			return $defaults;
-		}
+		$settings = $defaults;
 
 		// get stored settings from post meta
 		$meta = get_post_meta( $this->ID, '_mc4wp_settings', true );
 
-		// filter empty meta keys, better use default then.
-		$meta = array_filter( $meta );
+		if( is_array( $meta ) ) {
 
-		// merge with defaults
-		$settings = array_merge( $defaults, $meta );
+			// filter empty meta keys, better use default then.
+			$meta = array_filter( $meta );
 
+			// merge with defaults
+			$settings = array_merge( $settings, $meta );
+		}
 
 		$settings = (array) apply_filters( 'mc4wp_form_settings', $settings, $this );
 
@@ -504,10 +489,6 @@ class MC4WP_Form {
 	protected function load_messages() {
 		$defaults = include MC4WP_PLUGIN_DIR . 'config/default-form-messages.php';
 		$messages = array();
-
-		if( empty( $this->ID ) ) {
-			return $defaults;
-		}
 
 		foreach( $defaults as $key => $message ) {
 			$message = get_post_meta( $this->ID, $key, true );

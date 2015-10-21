@@ -727,7 +727,7 @@
 		c.mc4wpFormEditor.on('change', FieldWizard.checkRequiredFields );
 	})(window);
 
-
 })(jQuery);
+
 
 

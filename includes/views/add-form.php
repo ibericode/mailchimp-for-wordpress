@@ -32,6 +32,8 @@
 						<?php _e( 'To which MailChimp lists should this form subscribe?', 'mailchimp-for-wp' ); ?>
 					</label>
 				</h3>
+
+				<?php if( ! empty( $lists ) ) { ?>
 				<ul id="mc4wp-lists">
 					<?php foreach( $lists as $list ) { ?>
 						<li>
@@ -42,6 +44,11 @@
 						</li>
 					<?php } ?>
 				</ul>
+				<?php } else { ?>
+				<p class="mc4wp-notice">
+					<?php printf( __( 'No lists found. Did you <a href="%s">connect with MailChimp</a>?', 'mailchimp-for-wp' ), admin_url( 'admin.php?page=mailchimp-for-wp' ) ); ?>
+				</p>
+				<?php } ?>
 
 			</div>
 

@@ -13,7 +13,7 @@ $tabs = array(
 		<?php _e( "Edit Form", 'mailchimp-for-wp' ); ?>
 
 		<!-- Form actions -->
-		<a href="<?php echo add_query_arg( array( 'page' => 'mailchimp-for-wp-add-form' ), remove_query_arg( array( 'form_id', 'page' ) ) ); ?>" class="page-title-action">
+		<a href="<?php echo add_query_arg( array( 'page' => 'mailchimp-for-wp-forms', 'view' => 'add-form' ), remove_query_arg( 'form_id' ) ); ?>" class="page-title-action">
 			<span class="dashicons dashicons-plus-alt" style=""></span>
 			<?php _e( 'Add new form', 'mailchimp-for-wp' ); ?>
 		</a>
