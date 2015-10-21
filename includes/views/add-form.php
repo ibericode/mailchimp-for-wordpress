@@ -15,32 +15,35 @@
 			<input type="hidden" name="_mc4wp_action" value="add_form" />
 			<?php wp_nonce_field( 'add_form', '_mc4wp_nonce' ); ?>
 
-			<div id="titlediv" class="small-margin">
-				<div id="titlewrap">
-					<h3>
-						<label>
-							<?php _e( 'What is the name of this form?', 'mailchimp-for-wp' ); ?>
-						</label>
-					</h3>
-					<input type="text" name="mc4wp_form[name]" size="30" value="" id="title" spellcheck="true" autocomplete="off" placeholder="<?php _e( 'Enter your form title..', 'mailchimp-for-wp' ); ?>">
-				</div>
+
+			<div class="small-margin">
+				<h3>
+					<label>
+						<?php _e( 'What is the name of this form?', 'mailchimp-for-wp' ); ?>
+					</label>
+				</h3>
+				<input type="text" name="mc4wp_form[name]" class="widefat" value="" spellcheck="true" autocomplete="off" placeholder="<?php _e( 'Enter your form title..', 'mailchimp-for-wp' ); ?>">
 			</div>
 
-			<h3>
-				<label>
-					<?php _e( 'To which MailChimp lists should this form subscribe?', 'mailchimp-for-wp' ); ?>
-				</label>
-			</h3>
-			<ul id="mc4wp-lists">
-				<?php foreach( $lists as $list ) { ?>
-					<li>
-						<label>
-							<input type="checkbox" name="mc4wp_form[settings][lists][<?php echo esc_attr( $list->id ); ?>]" value="<?php echo esc_attr( $list->id ); ?>">
-							<?php echo esc_html( $list->name ); ?>
-						</label>
-					</li>
-				<?php } ?>
-			</ul>
+			<div class="small-margin">
+
+				<h3>
+					<label>
+						<?php _e( 'To which MailChimp lists should this form subscribe?', 'mailchimp-for-wp' ); ?>
+					</label>
+				</h3>
+				<ul id="mc4wp-lists">
+					<?php foreach( $lists as $list ) { ?>
+						<li>
+							<label>
+								<input type="checkbox" name="mc4wp_form[settings][lists][<?php echo esc_attr( $list->id ); ?>]" value="<?php echo esc_attr( $list->id ); ?>">
+								<?php echo esc_html( $list->name ); ?>
+							</label>
+						</li>
+					<?php } ?>
+				</ul>
+
+			</div>
 
 			<?php submit_button( __( 'Add new form', 'mailchimp-for-wp' ) ); ?>
 
