@@ -6,26 +6,56 @@
 	margin-bottom: 20px;
 }
 
-#mc4wp-admin hr {
-	margin: 20px 0 40px 0;
+/* Grid */
+.row{
+	margin: 20px -20px;
 }
 
-#mc4wp-content{ 
-	float:left; 
-	width:65%; 
+.row:after{
+	content: "";
+	clear: both;
+	display: table;
 }
 
-#mc4wp-sidebar{ 
-	float:left; 
-	width:33%; 
-	margin-left:2%; 
-	border-left:1px solid #ccc; 
-	padding:0 0 0 2%; 
-	-moz-box-sizing: border-box;
+.row .col {
+	padding: 0 20px;
+	float: left;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
+.row .col-1 {
+	width: 16.666%;
+}
+
+.row .col-2 {
+	width: 33.333%;
+}
+
+.row .col-3 {
+	width: 50%;
+}
+
+.row .col-4 {
+	width: 66.666%;
+}
+
+.row .col-5 {
+	width: 83.333%;
+}
+
+.row .col-6 {
+	width: 100%;
+}
+
+/* Main Content */
+
+/* Sidebar */
+.sidebar {
+	border-left: 1px solid #ccc;
+}
+
+/* General */
 .valigntop{ 
 	vertical-align: top !important; 
 }
@@ -36,14 +66,6 @@
 
 .mc4wp-box label {
 	font-weight: bold;
-}
-
-
-#mc4wp-fw h4{ 
-	margin-top: 0; 
-}
-#mc4wp-fw p{ 
-	margin-bottom: 1em; 
 }
 
 #mc4wp-fw-fields { 
@@ -105,47 +127,12 @@
 	white-space: nowrap
 }
 
-#mc4wp-admin td.desc{
-	font-style:italic; 
-	font-size:11px;
-}
-
 .mc4wp-notice{
 	padding: 6px 12px;
 	color: #31708f;
 	background: #d9edf7;
 	border: 1px solid #bce8f1;
 	margin: 1em 0 !important;
-}
-
-#mc4wp-admin .mc4wp-col {
-	float:left;
-	-webkit-box-sizing: border-box; 
-	-moz-box-sizing:border-box;
-	box-sizing: border-box;
-	width:50%;
-	padding:0 5px;
-}
-
-#mc4wp-admin .mc4wp-first{
-	padding-left:0; 
-}
-
-#mc4wp-admin .mc4wp-last{
-	padding-right:0; 
-}
-
-.mc4wp-well{ 
-	background:white; 
-	padding:10px; 
-	border:1px solid #ccc;
-}
-
-.mc4wp-title{
-	font-size: 1.4em; 
-	margin:1.6em 0 1em; 
-	padding:0 0 6px 0; 
-	border-bottom:1px solid #ddd;
 }
 
 table.mc4wp-help,
@@ -167,10 +154,7 @@ table.mc4wp-help tr:hover {
 	background-color: #ddd; 
 }
 
-#mc4wp-admin .wp-list-table code {
-	float:right;
-}
-
+/** Lists Overview */
 .mc4wp-lists-overview {
 	border-collapse: collapse;
 	background: white;
@@ -197,28 +181,6 @@ table.mc4wp-help tr:hover {
 	margin: 0 !important;
 }
 
-
-@media(max-width: 1279px) {
-
-	#mc4wp-sidebar, 
-	#mc4wp-content{ 
-		float: none; 
-		width: 100%; 
-		padding:0; 
-		margin:0; 
-	}
-
-	#mc4wp-sidebar{ 
-		border-left:0; 
-		border-top: 1px solid #ccc; 
-		margin-top:25px; 
-		padding-top: 25px; 
-	}
-	#mc4wp-admin .wp-list-table code {
-		float: none;
-	}
-	
-}
 
 @media(max-width: 860px) {
 

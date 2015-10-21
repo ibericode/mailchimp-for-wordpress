@@ -15,6 +15,17 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 	protected $type = 'woocommerce_checkout';
 
 	/**
+	 * @var string
+	 */
+	public $name = "WooCommerce Checkout";
+
+	/**
+	 * @var string
+	 */
+	public $description = "Adds a sign-up checkbox to your WooCommerce checkout form.";
+
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -85,6 +96,13 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 		}
 
 		return false;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function is_installed() {
+		return class_exists( 'WooCommerce' );
 	}
 
 }

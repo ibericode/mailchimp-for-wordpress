@@ -7,11 +7,28 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 	exit;
 }
 
-class MC4WP_Events_Manager_Integration extends MC4WP_General_Integration {
+class MC4WP_Events_Manager_Integration extends MC4WP_Custom_Integration {
 
+	/**
+	 * @var string
+	 */
 	protected $type = 'events_manager';
 
-	public function __construct() {
+	/**
+	 * @var string
+	 */
+	public $name = "Events Manager";
+
+	/**
+	 * @var string
+	 */
+	public $description = "Adds a sign-up checkbox to your Events Manager booking forms.";
+
+
+	/**
+	 * Add hooks
+	 */
+	public function add_hooks() {
 		add_action( 'em_bookings_added', array( $this, 'subscribe_from_events_manager' ) );
 	}
 
@@ -70,6 +87,13 @@ class MC4WP_Events_Manager_Integration extends MC4WP_General_Integration {
 
 		// try general fallback to get the email and stuff.
 		return $this->try_subscribe();
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function is_installed() {
+		return defined( 'EM_VERSION' );
 	}
 
 }

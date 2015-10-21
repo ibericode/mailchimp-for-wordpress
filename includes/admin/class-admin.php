@@ -213,7 +213,7 @@ class MC4WP_Admin {
 
 		// register settings
 		register_setting( 'mc4wp_settings', 'mc4wp', array( $this, 'validate_settings' ) );
-		register_setting( 'mc4wp_checkbox_settings', 'mc4wp_checkbox', array( $this, 'validate_settings' ) );
+		register_setting( 'mc4wp_integrations_settings', 'mc4wp_integrations', array( $this, 'validate_settings' ) );
 
 		// Load upgrader
 		$this->load_upgrader();
@@ -365,48 +365,6 @@ class MC4WP_Admin {
 	}
 
 	/**
-	 * Returns available checkbox integrations
-	 *
-	 * @todo move to integration class
-	 * @return array
-	 */
-	public function get_checkbox_compatible_plugins()
-	{
-		static $checkbox_plugins;
-
-		if( is_array( $checkbox_plugins ) ) {
-			return $checkbox_plugins;
-		}
-
-		$checkbox_plugins = array(
-			'comment_form' => __( 'Comment form', 'mailchimp-for-wp' ),
-			'registration_form' => __( 'Registration form', 'mailchimp-for-wp' )
-		);
-
-		if( is_multisite() ) {
-			$checkbox_plugins['multisite_form'] = __( 'MultiSite forms', 'mailchimp-for-wp' );
-		}
-
-		if( class_exists( 'BuddyPress' ) ) {
-			$checkbox_plugins['buddypress_form'] = __( 'BuddyPress registration', 'mailchimp-for-wp' );
-		}
-
-		if( class_exists( 'bbPress' ) ) {
-			$checkbox_plugins['bbpress_forms'] = 'bbPress';
-		}
-
-		if ( class_exists( 'WooCommerce' ) ) {
-			$checkbox_plugins['woocommerce_checkout'] = sprintf( __( '%s checkout', 'mailchimp-for-wp' ), 'WooCommerce' );
-		}
-
-		if ( class_exists( 'Easy_Digital_Downloads' ) ) {
-			$checkbox_plugins['edd_checkout'] = sprintf( __( '%s checkout', 'mailchimp-for-wp' ), 'Easy Digital Downloads' );
-		}
-
-		return $checkbox_plugins;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function get_required_capability() {
@@ -436,10 +394,10 @@ class MC4WP_Admin {
 				'callback' => array( $this, 'show_api_settings' ),
 			),
 			'integrations' => array(
-				'title' => __( 'Checkbox Settings', 'mailchimp-for-wp' ),
-				'text' => __( 'Checkboxes', 'mailchimp-for-wp' ),
-				'slug' => 'checkbox-settings',
-				'callback' => array( $this, 'show_checkbox_settings' ),
+				'title' => __( 'Integrations', 'mailchimp-for-wp' ),
+				'text' => __( 'Integrations', 'mailchimp-for-wp' ),
+				'slug' => 'integrations',
+				'callback' => array( $this, 'show_integrations_page' ),
 			),
 			'forms' => array(
 				'title' => __( 'Forms', 'mailchimp-for-wp' ),
@@ -509,28 +467,33 @@ class MC4WP_Admin {
 	}
 
 	/**
-	 * Show the Checkbox settings page
+	 * Show the Integration Settings page
 	 */
-	public function show_checkbox_settings() {
-		$opts = mc4wp_get_options( 'checkbox' );
+	public function show_integrations_page() {
+		$opts = mc4wp_get_options( 'integrations' );
+		$general_opts = $opts['general'];
 		$lists = $this->mailchimp->get_lists();
-		require MC4WP_PLUGIN_DIR . 'includes/views/checkbox-settings.php';
+		require MC4WP_PLUGIN_DIR . 'includes/views/integration-settings.php';
 	}
 
 	/**
-	 *
+	 * Show the Forms Settings page
 	 */
 	public function show_forms_page() {
+
+		// if a view is set in the URl, go there.
 		$view = ( ! empty( $_GET['view'] ) ) ? str_replace( '-', '_', $_GET['view'] ) : '';
 		$view_method = 'show_forms_' . $view. '_page';
 		if( method_exists( $this, $view_method ) ) {
 			return call_user_func( array( $this, $view_method ) );
 		}
 
+		// render forms overview
+
 	}
 
 	/**
-	 * Show the forms settings page
+	 * Show the "Edit Form" page
 	 */
 	public function show_forms_edit_form_page() {
 		$form_id = ( ! empty( $_GET['form_id'] ) ) ? (int) $_GET['form_id'] : 0;
@@ -539,7 +502,9 @@ class MC4WP_Admin {
 		try{
 			$form = mc4wp_get_form( $form_id );
 		} catch( Exception $e ) {
-			wp_die( '<p>' . $e->getMessage() . '</p>' );
+			echo '<h3>' . __( "Form not found.", 'mailchimp-for-wp' ) . '</h3>';
+			echo '<p>' . $e->getMessage() . '</p>';
+			return;
 		}
 
 		$opts = $form->settings;
@@ -550,7 +515,7 @@ class MC4WP_Admin {
 	}
 
 	/**
-	 * Show the forms settings page
+	 * Shows the "Add Form" page
 	 */
 	public function show_forms_add_form_page() {
 		$lists = $this->mailchimp->get_lists();

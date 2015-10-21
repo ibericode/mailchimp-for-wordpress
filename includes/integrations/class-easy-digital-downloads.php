@@ -7,7 +7,22 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 	exit;
 }
 
-class MC4WP_EDD_Integration extends MC4WP_Integration {
+class MC4WP_Easy_Digital_Downloads_Integration extends MC4WP_Integration {
+
+	/**
+	 * @var string
+	 */
+	public $name = "Easy Digital Downloads";
+
+	/**
+	 * @var string
+	 */
+	public $description = "Adds a checkbox to your Easy Digital Downloads checkout form.";
+
+	/**
+	 * @var string
+	 */
+	public $slug = 'easy-digital-downloads';
 
 	/**
 	 * @var string
@@ -15,12 +30,9 @@ class MC4WP_EDD_Integration extends MC4WP_Integration {
 	protected $type = 'edd_checkout';
 
 	/**
-	 * Constructor
+	 *
 	 */
-	public function __construct() {
-
-		parent::__construct();
-
+	public function add_hooks() {
 		add_action( 'edd_purchase_form_user_info_fields', array( $this, 'output_checkbox' ) );
 		add_action( 'edd_payment_meta', array( $this, 'save_checkbox_value' ) );
 		add_action( 'edd_complete_purchase', array( $this, 'subscribe_from_edd'), 50 );
@@ -78,5 +90,11 @@ class MC4WP_EDD_Integration extends MC4WP_Integration {
 		return $this->subscribe( $email, $merge_vars, $this->type, $payment_id );
 	}
 
+	/**
+	 * @return bool
+	 */
+	public function is_installed() {
+		return class_exists( 'Easy_Digital_Downloads' );
+	}
 }
 

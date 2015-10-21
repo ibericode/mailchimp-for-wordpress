@@ -7,7 +7,7 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 	exit;
 }
 
-class MC4WP_General_Integration extends MC4WP_Integration {
+class MC4WP_Custom_Integration extends MC4WP_Integration {
 
 	/**
 	 * @var string
@@ -20,37 +20,21 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 	protected $checkbox_name = 'mc4wp-subscribe';
 
 	/**
-	* Constructor
-	*/
-	public function __construct() {
-
-		// run backwards compatibility routine
-		$this->upgrade();
-
-		// hook actions
-		add_action( 'init', array( $this, 'maybe_subscribe'), 90 );
-
-	}
+	 * @var string
+	 */
+	public $name = "Custom";
 
 	/**
-	* Upgrade routine
+	 * @var string
+	 */
+	public $description = "Allows you to integrate with custom third-party forms.";
+
+
+	/**
+	* Add hooks
 	*/
-	protected function upgrade() {
-		// set new $_POST trigger value
-		if( isset( $_POST['mc4wp-try-subscribe'] ) ) {
-			$_POST[ $this->checkbox_name ] = 1;
-			unset( $_POST['mc4wp-try-subscribe'] );
-		}
-
-		if( isset( $_POST['mc4wp-do-subscribe'] ) ) {
-			$_POST[ $this->checkbox_name ] = 1;
-			unset( $_POST['mc4wp-do-subscribe'] );
-		}
-
-		if( isset( $_POST['_mc4wp_subscribe'] ) ) {
-			$_POST[ $this->checkbox_name ] = 1;
-			unset( $_POST['_mc4wp_subscribe'] );
-		}
+	public function add_hooks() {
+		add_action( 'init', array( $this, 'maybe_subscribe'), 90 );
 	}
 
 	/**
@@ -72,6 +56,7 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 		}
 
 		// don't run if this is an Events Manager request
+		// todo fix this
 		if( isset( $_POST['action'] ) && $_POST['action'] === 'booking_add' && isset( $_POST['event_id'] ) ) {
 			return false;
 		}
@@ -179,5 +164,11 @@ class MC4WP_General_Integration extends MC4WP_Integration {
 		return $this->subscribe( $email, $merge_vars, $this->type );
 	}
 
+	/**
+	 * @return bool
+	 */
+	public function is_installed() {
+		return true;
+	}
 
 }

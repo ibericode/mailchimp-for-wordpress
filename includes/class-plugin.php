@@ -53,13 +53,7 @@ class MC4WP {
 
 		// checkboxes
 		$this->integration_manager = new MC4WP_Integration_Manager();
-	}
-
-	/**
-	 * Add hooks
-	 */
-	public function add_hooks() {
-
+		$this->integration_manager->add_hooks();
 	}
 
 	/**
@@ -73,19 +67,5 @@ class MC4WP {
 		}
 
 		return $this->api;
-	}
-
-	/**
-	 * @param $key
-	 *
-	 * @return mixed
-	 */
-	public function service( $key ) {
-
-		if( method_exists( $this, 'get_' . $key ) ) {
-			return call_user_func( array( $this, 'get_' . $key ) );
-		}
-
-		return null;
 	}
 }

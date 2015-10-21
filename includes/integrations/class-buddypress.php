@@ -9,12 +9,26 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 
 class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 
+	/**
+	 * @var string
+	 */
 	protected $type = 'buddypress_form';
 
-	public function __construct() {
+	/**
+	 * @var string
+	 */
+	public $name = "BuddyPress";
 
-		parent::__construct();
+	/**
+	 * @var string
+	 */
+	public $description = "Adds a sign-up checkbox to your BuddyPress registration forms.";
 
+
+	/**
+	 * Add hooks
+	 */
+	public function add_hooks() {
 		add_action( 'bp_before_registration_submit_buttons', array( $this, 'output_checkbox' ), 20 );
 		add_action( 'bp_core_signup_user', array( $this, 'subscribe_from_buddypress' ), 10, 4 );
 	}
@@ -51,5 +65,12 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 		return $this->subscribe( $email, $merge_vars, 'buddypress_registration', $user_id );
 	}
 	/* End BuddyPress functions */
+
+	/**
+	 * @return bool
+	 */
+	public function is_installed() {
+		return class_exists( 'BuddyPress' );
+	}
 
 }

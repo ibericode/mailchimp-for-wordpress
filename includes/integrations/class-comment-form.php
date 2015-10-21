@@ -15,12 +15,19 @@ class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 	protected $added_through_filter = false;
 
 	/**
-	 * Constructor
+	 * @var string
 	 */
-	public function __construct() {
+	public $name = "Comment Form";
 
-		parent::__construct();
+	/**
+	 * @var string
+	 */
+	public $description = "Adds a sign-up checkbox to your comment form.";
 
+	/**
+	 * Add hooks
+	 */
+	public function add_hooks() {
 		// hooks for outputting the checkbox
 		add_filter( 'comment_form_submit_field', array( $this, 'add_checkbox_before_submit_button' ), 90 );
 
@@ -86,5 +93,12 @@ class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 		);
 
 		return $this->subscribe( $email, $merge_vars, $this->type, $comment_id );
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function is_installed() {
+		return true;
 	}
 }

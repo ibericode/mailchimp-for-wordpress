@@ -7,7 +7,7 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 	exit;
 }
 
-class MC4WP_CF7_Integration extends MC4WP_General_Integration {
+class MC4WP_Contact_Form_7_Integration extends MC4WP_Custom_Integration {
 
 	/**
 	 * @var string
@@ -15,15 +15,21 @@ class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 	protected $type = 'contact_form_7';
 
 	/**
-	 * Constructor
+	 * @var string
 	 */
-	public function __construct() {
+	public $name = "Contact Form 7";
 
-		// make sure older checkbox names work for CF7 too
-		$this->upgrade();
+	/**
+	 * @var string
+	 */
+	public $description = "Allows you to subscribe people from your Contact Form 7 forms.";
 
+
+	/**
+	 * Add hooks
+	 */
+	public function add_hooks() {
 		add_action( 'init', array( $this, 'init') );
-
 		add_action( 'wpcf7_mail_sent', array( $this, 'subscribe_from_cf7' ) );
 		add_action( 'wpcf7_posted_data', array( $this, 'alter_cf7_data') );
 	}
@@ -34,11 +40,6 @@ class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 	* @return boolean
 	*/
 	public function init() {
-
-		if( ! function_exists( 'wpcf7_add_shortcode' ) ) {
-			return false;
-		}
-
 		wpcf7_add_shortcode( 'mc4wp_checkbox', array( $this, 'get_checkbox' ) );
 		return true;
 	}
@@ -67,6 +68,13 @@ class MC4WP_CF7_Integration extends MC4WP_General_Integration {
 		}
 
 		return $this->try_subscribe();
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function is_installed() {
+		return function_exists( 'wpcf7_add_shortcode' );
 	}
 
 }

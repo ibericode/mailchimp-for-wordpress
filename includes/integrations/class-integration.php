@@ -18,10 +18,33 @@ abstract class MC4WP_Integration {
 	protected $options;
 
 	/**
+	 * @var
+	 */
+	public $name = '';
+
+	/**
+	 * @var
+	 */
+	public $description = '';
+
+	/**
+	 * @var
+	 */
+	public $slug = '';
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
 		$this->checkbox_name = '_mc4wp_subscribe' . '_' . $this->type;
+	}
+
+
+	/**
+	 *
+	 */
+	public function add_hooks() {
+
 	}
 
 	/**
@@ -324,5 +347,12 @@ abstract class MC4WP_Integration {
 		return ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX )
 		       && ( ! isset( $_POST['_wpcf7_is_ajax_call'] ) || $_POST['_wpcf7_is_ajax_call'] != 1 )
 		       && current_user_can( 'manage_options' );
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function is_installed() {
+		return false;
 	}
 }

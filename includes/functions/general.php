@@ -16,36 +16,30 @@ function mc4wp_get_options( $key = '' ) {
 				'api_key' => '',
 				'allow_usage_tracking' => 0,
 			),
-			'checkbox' => array(
-				'label' => __( 'Sign me up for the newsletter!', 'mailchimp-for-wp' ),
-				'precheck' => 1,
-				'css' => 1,
-				'show_at_comment_form' => 0,
-				'show_at_registration_form' => 0,
-				'show_at_multisite_form' => 0,
-				'show_at_buddypress_form' => 0,
-				'show_at_bbpress_forms' => 0,
-				'show_at_woocommerce_checkout' => 0,
-				'show_at_edd_checkout' => 0,
-				'lists' => array(),
-				'double_optin' => 1,
-				'update_existing' => 0,
-				'replace_interests' => 1,
-				'send_welcome' => 0,
-				'woocommerce_position' => 'order',
+			'integrations' => array(
+				'general' => array(
+					'label' => __( 'Subscribe to the newsletter.', 'mailchimp-for-wp' ),
+					'precheck' => 0,
+					'css' => 1,
+					'lists' => array(),
+					'double_optin' => 1,
+					'update_existing' => 0,
+					'replace_interests' => 1,
+					'send_welcome' => 0,
+				)
 			)
 		);
 	}
 
 	$db_keys_option_keys = array(
-		'mc4wp_lite' => 'general',
-		'mc4wp_lite_checkbox' => 'checkbox'
+		'mc4wp' => 'general',
+		'mc4wp_integrations' => 'integrations'
 	);
 
 	$options = array();
 	foreach ( $db_keys_option_keys as $db_key => $option_key ) {
 		$option = (array) get_option( $db_key, array() );
-		$options[$option_key] = array_merge( $defaults[$option_key], $option );
+		$options[$option_key] = array_merge_recursive( $defaults[$option_key], $option );
 	}
 	
 	if( '' !== $key ) {
@@ -53,6 +47,21 @@ function mc4wp_get_options( $key = '' ) {
 	}
 
 	return $options;
+}
+
+/**
+ * @param $integration
+ *
+ * @return array
+ */
+function mc4wp_get_integration_options( $integration ) {
+	$options = mc4wp_get_options( 'integrations' );
+
+	if( isset( $options[ $integration ] ) && is_array( $options[ $integration] ) ) {
+		return array_merge( $options['general'], $options[ $integration ] );
+	}
+
+	return $options['general'];
 }
 
 /**

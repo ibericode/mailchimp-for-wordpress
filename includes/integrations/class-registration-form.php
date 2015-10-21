@@ -9,12 +9,25 @@ if( ! defined( 'MC4WP_VERSION' ) ) {
 
 class MC4WP_Registration_Form_Integration extends MC4WP_User_Integration {
 
+	/**
+	 * @var string
+	 */
 	protected $type = 'registration_form';
 
-	public function __construct() {
+	/**
+	 * @var string
+	 */
+	public $name = "Registration Form";
 
-		parent::__construct();
+	/**
+	 * @var string
+	 */
+	public $description = "Adds a sign-up checkbox to your site's registration form.";
 
+	/**
+	 * Add hooks
+	 */
+	public function add_hooks() {
 		add_action( 'register_form', array( $this, 'output_checkbox' ), 20 );
 		add_action( 'user_register', array( $this, 'subscribe_from_registration' ), 90, 1 );
 	}
@@ -52,4 +65,11 @@ class MC4WP_Registration_Form_Integration extends MC4WP_User_Integration {
 	}
 	/* End registration form functions */
 
+
+	/**
+	 * @return bool
+	 */
+	public function is_installed() {
+		return true;
+	}
 }
