@@ -6,11 +6,6 @@
 class MC4WP_Form_Asset_Manager {
 
 	/**
-	 * @var array
-	 */
-	private $options = array();
-
-	/**
 	* @var int
 	*/
 	private $outputted_forms_count = 0;
@@ -27,10 +22,8 @@ class MC4WP_Form_Asset_Manager {
 
 	/**
 	 * Constructor
-	 * @param array $options
 	 */
-	public function __construct( array $options ) {
-		$this->options = $options;
+	public function __construct() {
 	}
 
 	/**
@@ -45,7 +38,7 @@ class MC4WP_Form_Asset_Manager {
 
 	public function add_hooks() {
 		// load checkbox css if necessary
-		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheet' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheets' ) );
 
 		// enable shortcodes in text widgets
 		add_filter( 'widget_text', 'shortcode_unautop' );
@@ -82,27 +75,21 @@ class MC4WP_Form_Asset_Manager {
 	}
 
 	/**
-	 * Load the form stylesheet(s)
-	 * @todo Form themes should be combined in 1 single stylesheet and then apply based on class
-	 * @todo Form themes should only be loaded if a form has that class (check on settings save or on output?)
+	 * Load the various stylesheets
 	 */
-	public function load_stylesheet( ) {
+	public function load_stylesheets( ) {
 
-		if ( ! $this->options['css'] ) {
-			return false;
-		}
-
+		$stylesheets = (array) get_option( 'mc4wp_form_stylesheets', array() );
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		if( $this->options['css'] != 1 && $this->options['css'] !== 'default' ) {
+		foreach( $stylesheets as $stylesheet ) {
+			$handle = 'mailchimp-for-wp-form-' . $stylesheet;
+			$src = 'assets/css/' . $stylesheet . $suffix . '.css';
 
-			$form_theme = $this->options['css'];
-			if( in_array( $form_theme, array( 'blue', 'green', 'dark', 'light', 'red' ) ) ) {
-				wp_enqueue_style( 'mailchimp-for-wp-form-theme-' . $this->options['css'], MC4WP_PLUGIN_URL . 'assets/css/form-theme-' . $this->options['css'] . $suffix . '.css', array(), MC4WP_VERSION, 'all' );
+			// check if it exists, 404 is more expensive than filesystem check
+			if( file_exists( MC4WP_PLUGIN_DIR . $src ) ) {
+				wp_enqueue_style( $handle, MC4WP_PLUGIN_URL . $src, array(), MC4WP_VERSION );
 			}
-
-		} else {
-			wp_enqueue_style( 'mailchimp-for-wp-form', MC4WP_PLUGIN_URL . 'assets/css/form' . $suffix . '.css', array(), MC4WP_VERSION, 'all' );
 		}
 
 		return true;

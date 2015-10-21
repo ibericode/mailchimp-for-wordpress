@@ -16,18 +16,11 @@ class MC4WP_Form_Manager {
 	private $asset_manager;
 
 	/**
-	 * @var array
-	 */
-	public $options;
-
-	/**
 	 * Constructor
 	 *
 	 * @param array $options
 	 */
-	public function __construct( array $options ) {
-
-		$this->options = $options;
+	public function __construct() {
 
 		// store global `$_REQUEST` array locally, to prevent other plugins from messing with it (yes it happens....)
 		// todo: fix this properly (move to more specific $_POST?)
@@ -87,7 +80,7 @@ class MC4WP_Form_Manager {
 	 * @hooked `init`
 	 */
 	public function init_form_asset_manager() {
-		$this->asset_manager = new MC4WP_Form_Asset_Manager( $this->options );
+		$this->asset_manager = new MC4WP_Form_Asset_Manager( );
 		$this->asset_manager->init();
 	}
 

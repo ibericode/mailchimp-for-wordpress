@@ -370,6 +370,16 @@ class MC4WP_Form {
 
 		}
 
+		// add class for CSS targetting
+		if( $this->settings['css'] ) {
+
+			if( strpos( $this->settings['css'], 'form-theme' ) !== false ) {
+				$css_classes[] = 'mc4wp-form-theme';
+			}
+
+			$css_classes[] = 'mc4wp-' . $this->settings['css'];
+		}
+
 		return implode( ' ', $css_classes );
 	}
 
@@ -413,12 +423,6 @@ class MC4WP_Form {
 			'invalid_email' => array(
 				'type' => 'error',
 				'text' => $this->messages['text_invalid_email'],
-			),
-
-			// the captcha was not filled correctly
-			'invalid_captcha' => array(
-				'type' => 'error',
-				'text' => $this->messages['text_invalid_captcha'],
 			),
 
 			// a required field is missing for the selected list(s)

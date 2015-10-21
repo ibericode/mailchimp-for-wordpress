@@ -1,0 +1,14 @@
+// function to return text color based on a background color
+@function set-text-color($background) {
+	@if (lightness($background) > 60) {
+		@return #000000;
+	} @else {
+		@return #ffffff;
+	}
+}
+
+@mixin vendor-prefix($name, $argument) {
+	-webkit-#{$name}: #{$argument};
+	-moz-#{$name}: #{$argument};
+	#{$name}: #{$argument};
+}

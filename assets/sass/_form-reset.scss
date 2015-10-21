@@ -1,6 +1,8 @@
+@import "mixins";
 
 /* MailChimp for WP - Default Form Styles */
-.mc4wp-form{
+.mc4wp-form-basic,
+.mc4wp-form-theme {
 	margin: 1em 0;
 
 	form,
@@ -8,9 +10,7 @@
 	input {
 		width: auto;
 		display: block;
-		-webkit-box-sizing: border-box;
-		-moz-box-sizing: border-box;
-		box-sizing: border-box;
+		@include vendor-prefix( box-sizing, border-box );
 		cursor: auto;
 		height: auto;
 		vertical-align: baseline;
@@ -28,12 +28,13 @@
 
 	label {
 		font-weight: bold;
-		margin-bottom: 5px;
+		margin-bottom: 6px;
+		display: block;
 	}
 
 	input {
 
-		// style placeholder polyfill
+		// styles for placeholder polyfill
 		&.placeholdersjs {
 			color: #aaa !important;
 		}
@@ -45,10 +46,10 @@
 	input[type="tel"],
 	input[type="url"],
 	input[type="date"],
-	input[type="number"],
 	textarea,
 	select {
 		width: 100%;
+		max-width: 480px;
 	}
 
 	input[type="number"] {
@@ -67,13 +68,11 @@
 	}
 
 	input[type="checkbox"] {
-		-webkit-appearance: checkbox;
-		-moz-appearance: checkbox;
+		@include vendor-prefix( appearance, checkbox );
 	}
 
 	input[type="radio"] {
-		-webkit-appearance: radio;
-		-moz-appearance: radio;
+		@include vendor-prefix( appearance, radio );
 	}
 
 	input[type="submit"],
@@ -81,9 +80,7 @@
 	input[type="button"] {
 		cursor: pointer;
 		display: inline-block;
-		-webkit-appearance: none;
-		-moz-appearance:    none;
-		appearance:         none;
+		@include vendor-prefix( appearance, none );
 	}
 
 	/* Remove font-weight bold from nested elements */
@@ -96,7 +93,7 @@
 
 /* Right-To-Left specific styles */
 .rtl {
-	.mc4wp-form {
+	.mc4wp-form-reset {
 		input[type="checkbox"],
 		input[type="radio"] {
 			margin: 0 0 0 6px;
@@ -107,31 +104,18 @@
 /* Alert */
 .mc4wp-alert{
 	margin: 1em 0;
-	padding: 10px 15px;
 	color: #c09853;
-	background-color: #fcf8e3;
-	border: 1px solid #fbeed5;
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
 	display: block;
-	position: relative;
 }
 
 .mc4wp-success {
 	color: #468847;
-	background-color: #dff0d8;
-	border-color: #d6e9c6;
 }
 
 .mc4wp-notice {
 	color: #3a87ad;
-	background-color: #d9edf7;
-	border-color: #bce8f1;
 }
 
 .mc4wp-error {
-	color: #b94a48;
-	background-color: #f2dede;
-	border-color: #eed3d7;
+	color: #CD5C5C;
 }

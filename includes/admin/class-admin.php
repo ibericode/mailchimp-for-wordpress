@@ -117,6 +117,7 @@ class MC4WP_Admin {
 
 		$form_id = (int) $_POST['mc4wp_form_id'];
 		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
+		$form_settings = $form_data['settings'];
 		// @todo sanitize data
 
 		// get actual form id here since this might be a new form
@@ -131,7 +132,7 @@ class MC4WP_Admin {
 			)
 		);
 
-		update_post_meta( $form_id, '_mc4wp_settings', $form_data['settings'] );
+		update_post_meta( $form_id, '_mc4wp_settings', $form_settings );
 
 		// save form messages in individual meta keys
 		foreach( $form_data['messages'] as $key => $message ) {
@@ -142,6 +143,23 @@ class MC4WP_Admin {
 		$default_form_id = (int) get_option( 'mc4wp_default_form_id', 0 );
 		if( empty( $default_form_id ) ) {
 			update_option( 'mc4wp_default_form_id', $form_id );
+		}
+
+		// update form stylesheets
+		// @todo this should loop through all forms and find used stylesheets, otherwise this would fill up indefinitely
+		if( ! empty( $form_settings['css'] ) ) {
+
+			$stylesheet = $form_settings['css'];
+			if( strpos( $stylesheet, 'form-theme' ) !== false ) {
+				$stylesheet = 'form-themes';
+			}
+			$stylesheets = (array) get_option( 'mc4wp_form_stylesheets', array() );
+
+			if( ! in_array( $stylesheet, $stylesheets ) ) {
+				$stylesheets[] = $stylesheet;
+			}
+
+			update_option( 'mc4wp_form_stylesheets', $stylesheets );
 		}
 
 		wp_safe_redirect( add_query_arg( array( 'form_id' => $form_id, 'message' => 'form_updated' ) ) );

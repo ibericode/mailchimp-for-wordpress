@@ -16,10 +16,6 @@ module.exports = function(grunt) {
 
 		sass: {
 			dist: {
-				options: {
-					loadPath: 'assets/sass/partials',
-					style: 'expanded'
-				},
 				files: [{
 					expand: true,
 					flatten: true,

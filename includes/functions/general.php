@@ -9,11 +9,8 @@
 */
 function mc4wp_get_options( $key = '' ) {
 	static $defaults;
-	if( is_null( $defaults ) ) {
-		$email_label = __( 'Email address', 'mailchimp-for-wp' );
-		$email_placeholder = __( 'Your email address', 'mailchimp-for-wp' );
-		$signup_button = __( 'Sign up', 'mailchimp-for-wp' );
 
+	if( is_null( $defaults ) ) {
 		$defaults = array(
 			'general' => array(
 				'api_key' => '',
@@ -36,33 +33,13 @@ function mc4wp_get_options( $key = '' ) {
 				'replace_interests' => 1,
 				'send_welcome' => 0,
 				'woocommerce_position' => 'order',
-			),
-			'form' => array(
-				'css' => 'default',
-				'markup' => "<p>\n\t<label>{$email_label}: </label>\n\t<input type=\"email\" name=\"EMAIL\" placeholder=\"{$email_placeholder}\" required />\n</p>\n\n<p>\n\t<input type=\"submit\" value=\"{$signup_button}\" />\n</p>",
-				'text_subscribed' => __( 'Thank you, your sign-up request was successful! Please check your e-mail inbox.', 'mailchimp-for-wp' ),
-				'text_error' => __( 'Oops. Something went wrong. Please try again later.', 'mailchimp-for-wp' ),
-				'text_invalid_email' => __( 'Please provide a valid email address.', 'mailchimp-for-wp' ),
-				'text_already_subscribed' => __( 'Given email address is already subscribed, thank you!', 'mailchimp-for-wp' ),
-				'text_invalid_captcha' => __( 'Please complete the CAPTCHA.', 'mailchimp-for-wp' ),
-				'text_required_field_missing' => __( 'Please fill in the required fields.', 'mailchimp-for-wp' ),
-				'text_unsubscribed' => __( 'You were successfully unsubscribed.', 'mailchimp-for-wp' ),
-				'text_not_subscribed' => __( 'Given email address is not subscribed.', 'mailchimp-for-wp' ),
-				'redirect' => '',
-				'lists' => array(),
-				'hide_after_success' => 0,
-				'double_optin' => 1,
-				'update_existing' => 0,
-				'replace_interests' => 1,
-				'send_welcome' => 0,
-			),
+			)
 		);
 	}
 
 	$db_keys_option_keys = array(
 		'mc4wp_lite' => 'general',
-		'mc4wp_lite_checkbox' => 'checkbox',
-		'mc4wp_lite_form' => 'form',
+		'mc4wp_lite_checkbox' => 'checkbox'
 	);
 
 	$options = array();

@@ -6,14 +6,13 @@
 		<td class="nowrap valigntop">
 			<select name="mc4wp_form[settings][css]" id="mc4wp_load_stylesheet_select">
 				<option value="0" <?php selected( $opts['css'], 0 ); ?>><?php _e( 'No', 'mailchimp-for-wp' ); ?></option>
-				<option value="default" <?php selected( $opts['css'], 'default' ); ?><?php selected( $opts['css'], 1 ); ?>><?php _e( 'Yes, load basic form styles', 'mailchimp-for-wp' ); ?></option>
-				<option disabled><?php _e( '(PRO ONLY)', 'mailchimp-for-wp' ); ?> <?php _e( 'Yes, load my custom form styles', 'mailchimp-for-wp' ); ?></option>
+				<option value="form-basic" <?php selected( $opts['css'], 'form-basic' ); ?><?php selected( $opts['css'], 1 ); ?>><?php _e( 'Yes, load basic form styles', 'mailchimp-for-wp' ); ?></option>
 				<optgroup label="<?php _e( 'Yes, load default form theme', 'mailchimp-for-wp' ); ?>">
-					<option value="light" <?php selected( $opts['css'], 'light' ); ?>><?php _e( 'Light Theme', 'mailchimp-for-wp' ); ?></option>
-					<option value="red" <?php selected( $opts['css'], 'red' ); ?>><?php _e( 'Red Theme', 'mailchimp-for-wp' ); ?></option>
-					<option value="green" <?php selected( $opts['css'], 'green' ); ?>><?php _e( 'Green Theme', 'mailchimp-for-wp' ); ?></option>
-					<option value="blue" <?php selected( $opts['css'], 'blue' ); ?>><?php _e( 'Blue Theme', 'mailchimp-for-wp' ); ?></option>
-					<option value="dark" <?php selected( $opts['css'], 'dark' ); ?>><?php _e( 'Dark Theme', 'mailchimp-for-wp' ); ?></option>
+					<option value="form-theme-light" <?php selected( $opts['css'], 'form-theme-light' ); ?>><?php _e( 'Light Theme', 'mailchimp-for-wp' ); ?></option>
+					<option value="form-theme-dark" <?php selected( $opts['css'], 'form-theme-dark' ); ?>><?php _e( 'Dark Theme', 'mailchimp-for-wp' ); ?></option>
+					<option value="form-theme-red" <?php selected( $opts['css'], 'form-theme-red' ); ?>><?php _e( 'Red Theme', 'mailchimp-for-wp' ); ?></option>
+					<option value="form-theme-green" <?php selected( $opts['css'], 'form-theme-green' ); ?>><?php _e( 'Green Theme', 'mailchimp-for-wp' ); ?></option>
+					<option value="form-theme-blue" <?php selected( $opts['css'], 'form-theme-blue' ); ?>><?php _e( 'Blue Theme', 'mailchimp-for-wp' ); ?></option>
 					<option disabled><?php _e( '(PRO ONLY)', 'mailchimp-for-wp' ); ?> <?php _e( 'Custom Color Theme', 'mailchimp-for-wp' ); ?></option>
 				</optgroup>
 			</select>

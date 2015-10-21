@@ -48,7 +48,7 @@ class MC4WP {
 		$this->options = $options = mc4wp_get_options();
 
 		// forms
-		$this->form_manager = new MC4WP_Form_Manager( $options['form'] );
+		$this->form_manager = new MC4WP_Form_Manager();
 		$this->form_manager->add_hooks();
 
 		// checkboxes
