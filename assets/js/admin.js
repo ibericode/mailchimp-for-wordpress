@@ -107,20 +107,21 @@
 		'use strict';
 
 		// setup variables
-		var $lists = $("#mc4wp-lists :input");
-		var $mailchimpFields = $("#mc4wp-fw-mailchimp-fields");
+		var $lists = $(document.getElementById('mc4wp-lists')).find(':input');
+		var $mailchimpFields = $(document.getElementById("mc4wp-fw-mailchimp-fields"));
 		var $mailchimpMergeFields = $mailchimpFields.find('.merge-fields');
 		var $mailchimpGroupings = $mailchimpFields.find(".groupings");
-		var $wizardFields = $("#mc4wp-fw-fields");
-		var $value = $("#mc4wp-fw-value");
-		var $valueLabel = $("#mc4wp-fw-value-label");
-		var $multipleValues = $("#mc4wp-fw-values");
-		var $label = $("#mc4wp-fw-label");
-		var $placeholder = $("#mc4wp-fw-placeholder");
-		var $required = $("#mc4wp-fw-required");
-		var $wrapp = $("#mc4wp-fw-wrap-p");
+		var $wizardFields = $(document.getElementById('mc4wp-fw-fields'));
+		var $value = $(document.getElementById('mc4wp-fw-value'));
+		var $valueLabel = $(document.getElementById("mc4wp-fw-value-label"));
+		var $multipleValues = $(document.getElementById("mc4wp-fw-values"));
+		var $label = $(document.getElementById("mc4wp-fw-label"));
+		var $placeholder = $(document.getElementById("mc4wp-fw-placeholder"));
+		var $required = $(document.getElementById("mc4wp-fw-required"));
+		var $wrapp = $(document.getElementById("mc4wp-fw-wrap-p"));
 		var fieldType, fieldName;
-		var $codePreview = $("#mc4wp-fw-preview");
+		var $codePreview = $(document.getElementById("mc4wp-fw-preview"));
+		var $addToFormButton = $(document.getElementById("mc4wp-fw-add-to-form"));
 		var strings = mc4wp.strings.fieldWizard;
 		var requiredFields = [];
 
@@ -624,7 +625,7 @@
 		$lists.change(setMailChimpFields);
 		$mailchimpFields.change(setPresets);
 		$wizardFields.change(updateCodePreview);
-		$("#mc4wp-fw-add-to-form").click(addCodeToFormMarkup).click(function() {
+		$addToFormButton.click(addCodeToFormMarkup).click(function() {
 			if( typeof( tb_remove ) === "function" ) {
 				tb_remove();
 			}
@@ -713,8 +714,8 @@
 		selectionPointer: true,
 		matchTags: {bothTags: true},
 		mode: "text/html",
-		autoCloseTags: true,
-		lineNumbers: true
+		autoCloseTags: true
+		//lineNumbers: true
 	});
 
 	window.mc4wpFormEditor.on('change', FieldWizard.checkRequiredFields );
