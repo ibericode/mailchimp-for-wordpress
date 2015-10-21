@@ -48,6 +48,7 @@
 	input[type="date"],
 	textarea,
 	select {
+		min-height: 28px;
 		width: 100%;
 		max-width: 480px;
 	}
