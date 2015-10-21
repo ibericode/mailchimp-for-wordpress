@@ -319,7 +319,7 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 		// replace variables in message text
 		$message['text'] = MC4WP_Tools::replace_variables( $message['text'], array(), array_values( $this->get_lists() ) );
 
-		$html = '<div class="mc4wp-alert mc4wp-' . esc_attr( $message['type'] ) . '">' . $message['text'] . '</div>';
+		$html = '<div class="mc4wp-alert mc4wp-' . esc_attr( $message['type'] ) . '"><p>' . $message['text'] . '</p></div>';
 
 		// show additional MailChimp API errors to administrators
 		if( ! $this->success && current_user_can( 'manage_options' ) ) {

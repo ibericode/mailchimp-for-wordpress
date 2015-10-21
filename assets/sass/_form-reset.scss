@@ -89,6 +89,25 @@
 		font-weight: normal;
 	}
 
+	/* Alert */
+	.mc4wp-alert{
+		color: #c09853;
+		clear: both;
+	}
+
+	.mc4wp-success {
+		color: #468847;
+	}
+
+	.mc4wp-notice {
+		color: #3a87ad;
+	}
+
+	.mc4wp-error {
+		color: #CD5C5C;
+	}
+
+
 }
 
 /* Right-To-Left specific styles */
@@ -99,23 +118,4 @@
 			margin: 0 0 0 6px;
 		}
 	}
-}
-
-/* Alert */
-.mc4wp-alert{
-	margin: 1em 0;
-	color: #c09853;
-	display: block;
-}
-
-.mc4wp-success {
-	color: #468847;
-}
-
-.mc4wp-notice {
-	color: #3a87ad;
-}
-
-.mc4wp-error {
-	color: #CD5C5C;
 }
