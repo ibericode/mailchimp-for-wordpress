@@ -63,7 +63,11 @@ abstract class MC4WP_Request implements iMC4WP_Request {
 		$this->form_element_id = (string) $this->internal_data['form_element_id'];
 
 		// get form
-		$form = $this->form = mc4wp_get_form( $this->internal_data['form_id'] );
+		try{
+			$form = $this->form = mc4wp_get_form( $this->internal_data['form_id'] );
+		} catch( Exception $e ) {
+			return;
+		}
 
 		// attach request to form
 		$form->request = $this;

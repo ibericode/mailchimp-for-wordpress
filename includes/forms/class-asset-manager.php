@@ -132,8 +132,17 @@ class MC4WP_Form_Asset_Manager {
 			'mc4wp_form'
 		);
 
-		// create or retrieve form instance
-		$form = mc4wp_get_form( $attributes['id'] );
+		// find form
+		try {
+			$form = mc4wp_get_form( $attributes['id'] );
+		} catch( Exception $e ) {
+
+			if( current_user_can( 'manage_options' ) ) {
+				return sprintf( '<strong>MailChimp for WordPress error:</strong> %s', $e->getMessage() );
+			}
+
+			return '';
+		}
 
 		// make sure to print date fallback later on if form contains a date field
 		if( $form->contains_field_type( 'date' ) ) {
