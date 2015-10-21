@@ -75,7 +75,10 @@ class MC4WP_Admin {
 		$upgrader->run();
 	}
 
-	public function add_form() {
+	/**
+	 * Act on the "add form" form
+	 */
+	public function process_add_form() {
 
 		check_admin_referer( 'add_form', '_mc4wp_nonce' );
 
@@ -109,7 +112,7 @@ class MC4WP_Admin {
 	/**
 	 * Saves a form
 	 */
-	public function save_form() {
+	public function process_save_form() {
 
 		if( ! check_admin_referer( 'edit_form', '_mc4wp_nonce' ) ) {
 			wp_die( "Are you cheating?" );
@@ -171,23 +174,14 @@ class MC4WP_Admin {
 	 */
 	private function add_hooks() {
 
-		global $pagenow;
-		$current_page = isset( $pagenow ) ? $pagenow : '';
-
 		// Actions used globally throughout WP Admin
 		add_action( 'admin_menu', array( $this, 'build_menu' ) );
 		add_action( 'admin_init', array( $this, 'initialize' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
-		add_filter( 'admin_footer_text', array( $this, 'footer_text' ) );
+		add_action( 'current_screen', array( $this, 'customize_admin_texts' ) );
 		add_action( 'wp_dashboard_setup', array( $this, 'register_dashboard_widgets' ) );
-		add_action( 'mc4wp_admin_edit_form', array( $this, 'save_form' ) );
-		add_action( 'mc4wp_admin_add_form', array( $this, 'add_form' ) );
-
-		// Hooks for Plugins overview page
-		if( $current_page === 'plugins.php' ) {
-			add_filter( 'plugin_action_links_' . $this->plugin_file, array( $this, 'add_plugin_settings_link' ), 10, 2 );
-			add_filter( 'plugin_row_meta', array( $this, 'add_plugin_meta_links'), 10, 2 );
-		}
+		add_action( 'mc4wp_admin_edit_form', array( $this, 'process_save_form' ) );
+		add_action( 'mc4wp_admin_add_form', array( $this, 'process_add_form' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 
 		$this->ads->add_hooks();
 	}
@@ -198,6 +192,14 @@ class MC4WP_Admin {
 	private function load_translations() {
 		// load the plugin text domain
 		load_plugin_textdomain( 'mailchimp-for-wp', false, dirname( $this->plugin_file ) . '/languages' );
+	}
+
+	/**
+	 * Customize texts throughout WP Admin
+	 */
+	public function customize_admin_texts() {
+		$texts = new MC4WP_Admin_Texts( $this->plugin_file );
+		$texts->add_hooks();
 	}
 
 	/**
@@ -218,44 +220,6 @@ class MC4WP_Admin {
 
 		// listen for custom actions
 		$this->listen_for_actions();
-	}
-
-	/**
-	 * Add the settings link to the Plugins overview
-	 *
-	 * @param array $links
-	 * @param       $file
-	 *
-	 * @return array
-	 */
-	public function add_plugin_settings_link( $links, $file ) {
-		if( $file !== $this->plugin_file ) {
-			return $links;
-		}
-
-		 $settings_link = '<a href="' . admin_url( 'admin.php?page=mailchimp-for-wp' ) . '">'. __( 'Settings', 'mailchimp-for-wp' ) . '</a>';
-		 array_unshift( $links, $settings_link );
-		 return $links;
-	}
-
-	/**
-	 * Adds meta links to the plugin in the WP Admin > Plugins screen
-	 *
-	 * @param array $links
-	 * @param string $file
-	 *
-	 * @return array
-	 */
-	public function add_plugin_meta_links( $links, $file ) {
-		if( $file !== $this->plugin_file ) {
-			return $links;
-		}
-
-		$links[] = '<a href="https://mc4wp.com/kb/">Documentation</a>';
-
-		$links = (array) apply_filters( 'mc4wp_admin_plugin_meta_links', $links );
-
-		return $links;
 	}
 
 
@@ -440,22 +404,6 @@ class MC4WP_Admin {
 		}
 
 		return $checkbox_plugins;
-	}
-
-	/**
-	 * Ask for a plugin review in the WP Admin footer, if this is one of the plugin pages.
-	 *
-	 * @param $text
-	 *
-	 * @return string
-	 */
-	public function footer_text( $text ) {
-
-		if(! empty( $_GET['page'] ) && strpos( $_GET['page'], 'mailchimp-for-wp' ) === 0 ) {
-			$text = sprintf( 'If you enjoy using <strong>MailChimp for WordPress</strong>, please <a href="%s" target="_blank">leave us a ★★★★★ rating</a>. A <strong style="text-decoration: underline;">huge</strong> thank you in advance!', 'https://wordpress.org/support/view/plugin-reviews/mailchimp-for-wp?rate=5#postform' );
-		}
-
-		return $text;
 	}
 
 	/**

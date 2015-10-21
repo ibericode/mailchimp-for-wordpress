@@ -66,6 +66,7 @@ return array(
     'MC4WP' => $baseDir . '/includes/class-plugin.php',
     'MC4WP_API' => $baseDir . '/includes/class-api.php',
     'MC4WP_Admin' => $baseDir . '/includes/admin/class-admin.php',
+    'MC4WP_Admin_Texts' => $baseDir . '/includes/admin/class-admin-texts.php',
     'MC4WP_Ads' => $baseDir . '/includes/class-ads.php',
     'MC4WP_BuddyPress_Integration' => $baseDir . '/includes/integrations/class-buddypress.php',
     'MC4WP_CF7_Integration' => $baseDir . '/includes/integrations/class-cf7.php',
