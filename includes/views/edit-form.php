@@ -9,97 +9,85 @@ $tabs = array(
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
-	<h1 class="page-title">
-		<?php _e( "Edit Form", 'mailchimp-for-wp' ); ?>
+	<div class="row">
 
-		<!-- Form actions -->
-		<a href="<?php echo add_query_arg( array( 'page' => 'mailchimp-for-wp-forms', 'view' => 'add-form' ), remove_query_arg( 'form_id' ) ); ?>" class="page-title-action">
-			<span class="dashicons dashicons-plus-alt" style=""></span>
-			<?php _e( 'Add new form', 'mailchimp-for-wp' ); ?>
-		</a>
-	</h1>
+		<!-- Main Content -->
+		<div class="main-content col col-4">
 
-	<?php $this->admin_messages(); ?>
+			<h1 class="page-title">
+				<?php _e( "Edit Form", 'mailchimp-for-wp' ); ?>
 
-	<!-- Wrap entire page in <form> -->
-	<form method="post">
-		<input type="hidden" name="_mc4wp_action" value="edit_form" />
-		<input type="hidden" name="mc4wp_form_id" value="<?php echo esc_attr( $form->ID ); ?>" />
-		<?php wp_nonce_field( 'edit_form', '_mc4wp_nonce' ); ?>
+				<!-- Form actions -->
+				<a href="<?php echo add_query_arg( array( 'page' => 'mailchimp-for-wp-forms', 'view' => 'add-form' ), remove_query_arg( 'form_id' ) ); ?>" class="page-title-action">
+					<span class="dashicons dashicons-plus-alt" style=""></span>
+					<?php _e( 'Add new form', 'mailchimp-for-wp' ); ?>
+				</a>
+			</h1>
 
-		<div id="titlediv" class="small-margin">
-			<div id="titlewrap">
-				<label class="screen-reader-text" id="title-prompt-text" for="title"><?php _e( 'Enter form title here', 'mailchimp-for-wp' ); ?></label>
-				<input type="text" name="mc4wp_form[name]" size="30" value="<?php echo esc_attr( $form->name ); ?>" id="title" spellcheck="true" autocomplete="off">
-			</div>
-			<div class="inside" style="margin-top: 3px;">
+			<?php $this->admin_messages(); ?>
 
-					<input id="shortcode" type="hidden" value="[mc4wp_form id='<?php echo $form->ID; ?>']">
+			<!-- Wrap entire page in <form> -->
+			<form method="post">
+				<input type="hidden" name="_mc4wp_action" value="edit_form" />
+				<input type="hidden" name="mc4wp_form_id" value="<?php echo esc_attr( $form->ID ); ?>" />
+				<?php wp_nonce_field( 'edit_form', '_mc4wp_nonce' ); ?>
 
-					<a href="#" class="button-secondary" onclick="prompt('Shortcode:', document.getElementById('shortcode').value); return false;">
-						<span class="dashicons dashicons-editor-code"></span>
-						<?php _e( 'Get shortcode', 'mailchimp-for-wp' ); ?>
-					</a>
+				<div id="titlediv" class="small-margin">
+					<div id="titlewrap">
+						<label class="screen-reader-text" id="title-prompt-text" for="title"><?php _e( 'Enter form title here', 'mailchimp-for-wp' ); ?></label>
+						<input type="text" name="mc4wp_form[name]" size="30" value="<?php echo esc_attr( $form->name ); ?>" id="title" spellcheck="true" autocomplete="off">
+					</div>
+					<div class="inside" style="margin-top: 3px;">
 
-					<a href="<?php echo esc_url( $previewer->get_preview_url() ); ?>" target="_blank" class="button-secondary">
-						<span class="dashicons dashicons-welcome-view-site" style=""></span>
-						<?php _e( 'Preview this form', 'mailchimp-for-wp' ); ?>
-					</a>
+						<input id="shortcode" type="hidden" value="[mc4wp_form id='<?php echo $form->ID; ?>']">
 
-			</div>
-		</div>
+						<a href="#" class="button-secondary" onclick="prompt('Shortcode:', document.getElementById('shortcode').value); return false;">
+							<span class="dashicons dashicons-editor-code"></span>
+							<?php _e( 'Get shortcode', 'mailchimp-for-wp' ); ?>
+						</a>
 
-		<h2 class="nav-tab-wrapper" id="mc4wp-tabs-nav">
-			<?php foreach( $tabs as $tab => $name ) {
-				echo sprintf( '<a class="nav-tab %s" id="nav-tab-%s" href="%s">%s</a>', ( $active_tab === $tab ) ? 'nav-tab-active' : '', $tab, $this->tab_url( $tab ), $name );
-			} ?>
-		</h2>
+						<a href="<?php echo esc_url( $previewer->get_preview_url() ); ?>" target="_blank" class="button-secondary">
+							<span class="dashicons dashicons-welcome-view-site" style=""></span>
+							<?php _e( 'Preview this form', 'mailchimp-for-wp' ); ?>
+						</a>
 
-		<div id="mc4wp-tabs">
-
-			<?php foreach( $tabs as $tab => $name ) : ?>
-
-				<!-- .tab -->
-				<div class="tab <?php if( $active_tab === $tab ) { echo 'tab-active'; } ?>" id="tab-<?php echo $tab; ?>">
-					<?php include dirname( __FILE__ ) . '/tabs/form-' . $tab .'.php'; ?>
+					</div>
 				</div>
-				<!-- / .tab -->
 
-			<?php endforeach; // foreach tabs ?>
+				<h2 class="nav-tab-wrapper" id="mc4wp-tabs-nav">
+					<?php foreach( $tabs as $tab => $name ) {
+						echo sprintf( '<a class="nav-tab %s" id="nav-tab-%s" href="%s">%s</a>', ( $active_tab === $tab ) ? 'nav-tab-active' : '', $tab, $this->tab_url( $tab ), $name );
+					} ?>
+				</h2>
 
+				<div id="mc4wp-tabs">
+
+					<?php foreach( $tabs as $tab => $name ) : ?>
+
+						<!-- .tab -->
+						<div class="tab <?php if( $active_tab === $tab ) { echo 'tab-active'; } ?>" id="tab-<?php echo $tab; ?>">
+							<?php include dirname( __FILE__ ) . '/tabs/form-' . $tab .'.php'; ?>
+						</div>
+						<!-- / .tab -->
+
+					<?php endforeach; // foreach tabs ?>
+
+
+				</div>
+
+			</form><!-- Entire page form wrap -->
+
+
+			<?php include 'parts/admin-footer.php'; ?>
 
 		</div>
 
-	</form><!-- Entire page form wrap -->
+		<!-- Sidebar -->
+		<div class="sidebar col col-2">
+			<?php include dirname( __FILE__ ) . '/parts/admin-sidebar.php'; ?>
+		</div>
 
 
-	<?php include 'parts/admin-footer.php'; ?>
-
-
-	<?php if( isset( $_GET['old'] ) ) { ?>
-
-
-
-
-
-</div>
-<div id="mc4wp-sidebar">
-	<?php do_action( 'mc4wp_admin_before_sidebar' ); ?>
-
-	<div class="mc4wp-box" id="mc4wp-info-tabs">
-		<h3 class="mc4wp-title"><?php _e( 'Form Styling', 'mailchimp-for-wp' ); ?></h3>
-		<p><?php printf( __( 'Alter the visual appearance of the form by applying CSS rules to %s.', 'mailchimp-for-wp' ), '<b>.mc4wp-form</b>' ); ?></p>
-		<p><?php printf( __( 'You can add the CSS rules to your theme stylesheet using the <a href="%s">Theme Editor</a> or by using a plugin like %s', 'mailchimp-for-wp' ), admin_url( 'theme-editor.php?file=style.css' ), '<a href="https://wordpress.org/plugins/simple-custom-css/">Simple Custom CSS</a>' ); ?>.</p>
-		<p><?php printf( __( 'The <a href="%s" target="_blank">plugin FAQ</a> lists the various CSS selectors you can use to target the different form elements.', 'mailchimp-for-wp' ), 'https://wordpress.org/plugins/mailchimp-for-wp/faq/' ); ?></p>
-		<p><?php printf( __( 'If you need an easier way to style your forms, consider <a href="%s">upgrading to MailChimp for WordPress Pro</a> which comes with an easy Styles Builder.', 'mailchimp-for-wp' ), 'https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=form-settings' ); ?></p>
 	</div>
-
-		<?php include 'parts/admin-need-support.php'; ?>
-
-	<?php do_action( 'mc4wp_admin_after_sidebar' ); ?>
-
-</div>
-
-	<?php } ?>
 
 </div>
