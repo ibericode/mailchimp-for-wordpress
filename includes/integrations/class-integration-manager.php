@@ -8,34 +8,22 @@ class MC4WP_Integration_Manager {
 	/**
 	 * @var array Array holding all integration instances
 	 */
-	private $integrations = array();
-
+	protected $instances = array();
 
 	/**
-	 * @todo refactor this
-	 *
-	 * @var array
+	 * @var
 	 */
-	public $default_integrations = array(
-		'wp-comment-form' => 'Comment_Form',
-		'wp-registration-form' => 'Registration_Form',
-		'buddypress'  => 'BuddyPress',
-		'woocommerce'  => 'WooCommerce',
-		'easy-digital-downloads'  => 'Easy_Digital_Downloads',
-		'contact-form-7'  => 'Contact_Form_7',
-		'events-manager'  => 'Events_Manager',
-		'custom'  => 'Custom',
-	);
+	protected $integrations = array();
 
 	/**
 	 * @var array
 	 */
-	public $registered_integrations = array();
+	protected $always_enabled_integrations = array();
 
 	/**
 	 * @var MC4WP_Integration_Manager
 	 */
-	public static $instance;
+	protected static $instance;
 
 	/**
 	 * @var array
@@ -45,30 +33,30 @@ class MC4WP_Integration_Manager {
 	/**
 	* Constructor
 	*/
-	public function __construct() {
+	private function __construct() {
+		self::$instance = $this;
 		$this->options = mc4wp_get_integration_options();
-		$this->registered_integrations = $this->get_registered_integrations();
 	}
 
 	/**
-	 * @return array
+	 * Singleton method
+	 *
+	 * @return MC4WP_Integration_Manager
 	 */
-	protected function get_registered_integrations() {
-		$integrations = array();
+	public static function instance() {
 
-		// convert classnames of default integrations
-		foreach( $this->default_integrations as $key => $classname ) {
-			$integrations[ $key ] = sprintf( 'MC4WP_%s_Integration', $classname );
+		if( self::$instance instanceof self ) {
+			return self::$instance;
 		}
 
-		/**
-		 * Allow for other plugins to register their own integration class.
-		 * The given class should extend `MC4WP_Integration`
-		 *
-		 * Format: slug => resolvable classname
-		 * Example: 'my-plugin' => 'My_Plugin_MC4WP_Integration'
-		 */
-		return (array) apply_filters( 'mc4wp_integrations', $integrations );
+		return new self;
+	}
+
+	/**
+	 * Add hooks
+	 */
+	public function add_hooks() {
+		add_action( 'after_setup_theme', array( $this, 'initialize' ) );
 	}
 
 	/**
@@ -82,43 +70,6 @@ class MC4WP_Integration_Manager {
 	 */
 	public function is_enabled( $slug ) {
 		return ! empty( $this->options[ $slug ]['enabled'] );
-	}
-
-	/**
-	 * Get the integrations which are enabled
-	 *
-	 * - Some integrations are always enabled because they need manual work
-	 * - Other integrations can be enabled in the settings page
-	 *
-	 * Filter: `mc4wp_enabled_integrations`
-	 *
-	 * @todo refactor this
-	 * @return array
-	 */
-	public function get_enabled_integrations() {
-		$integrations = array(
-			'custom',
-			'contact-form-7',
-			'events-manager'
-		);
-
-		$integrations = array_merge( $integrations, array_filter( array_keys( $this->registered_integrations ), array( $this, 'is_enabled' ) ) );
-		$integrations = (array) apply_filters( 'mc4wp_enabled_integrations', $integrations );
-
-		return $integrations;
-	}
-
-	/**
-	 * @return MC4WP_Integration_Manager
-	 */
-	public static function instance() {
-
-		if( self::$instance instanceof self ) {
-			return self::$instance;
-		}
-
-		self::$instance = new self;
-		return self::$instance;
 	}
 
 
@@ -144,20 +95,70 @@ class MC4WP_Integration_Manager {
 	 */
 	public function integration( $slug ) {
 
-		if( ! array_key_exists( $slug, $this->registered_integrations ) ) {
+		$integrations = $this->get_integrations();
+
+		if( ! array_key_exists( $slug, $integrations ) ) {
 			throw new Exception( sprintf( "No integration with slug %s has been registered.", $slug ) );
 		}
 
 		// find instance of integration
-		if( isset( $this->integrations[ $slug ] ) ) {
-			return $this->integrations[ $slug ];
+		if( isset( $this->instances[ $slug ] ) ) {
+			return $this->instances[ $slug ];
 		}
 
-		// create new instance
-		$classname = $this->registered_integrations[ $slug ];
+		// none found, create new instance
+		$classname = $integrations[ $slug ];
 		$options = mc4wp_get_integration_options( $slug );
-		$this->integrations[ $slug ] = $instance = new $classname( $options );
+		$this->instances[ $slug ] = $instance = new $classname( $options );
 
 		return $instance;
 	}
+
+	/**
+	 * @param      $slug
+	 * @param      $class
+	 * @param bool $always_enabled
+	 */
+	public function add_integration( $slug, $class, $always_enabled = false ) {
+		$this->integrations[ $slug ] = $class;
+
+		if( $always_enabled ) {
+			$this->always_enabled_integrations[] = $slug;
+		}
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_integrations() {
+
+		/**
+		 * Allow for other plugins to register their own integration class.
+		 * The given class should extend `MC4WP_Integration`
+		 *
+		 * Format: slug => resolvable classname
+		 * Example: 'my-plugin' => 'My_Plugin_MC4WP_Integration'
+		 */
+		return (array) apply_filters( 'mc4wp_integrations', $this->integrations );
+	}
+
+	/**
+	 * Get the integrations which are enabled
+	 *
+	 * - Some integrations are always enabled because they need manual work
+	 * - Other integrations can be enabled in the settings page
+	 *
+	 * Filter: `mc4wp_enabled_integrations`
+	 *
+	 * @return array
+	 */
+	public function get_enabled_integrations() {
+		$always_enabled = $this->always_enabled_integrations;
+		$user_enabled = array_filter( array_keys( $this->get_integrations() ), array( $this, 'is_enabled' ) );
+		$enabled_integrations = array_merge( $always_enabled, $user_enabled );
+		$integrations = (array) apply_filters( 'mc4wp_enabled_integrations', $enabled_integrations );
+		return $integrations;
+	}
+
+
 }

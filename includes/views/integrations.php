@@ -15,7 +15,7 @@ $integrations = MC4WP_Integration_Manager::instance();
 
 				<tbody>
 
-				<?php foreach( array_keys( $integrations->registered_integrations ) as $slug ) {
+				<?php foreach( array_keys( $integrations->get_integrations() ) as $slug ) {
 
 					$integration = $integrations->integration( $slug );
 					$installed = $integration->is_installed();

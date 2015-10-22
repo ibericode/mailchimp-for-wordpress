@@ -64,8 +64,7 @@ function mc4wp_load_plugin() {
 	$forms->initialize();
 
 	// integration core
-	$integrations = new MC4WP_Integration_Manager();
-	$integrations->initialize();
+	MC4WP_Integration_Manager::instance()->add_hooks();
 
 	// bootstrap custom integrations
 	require_once MC4WP_PLUGIN_DIR . 'integrations/bootstrap.php';
