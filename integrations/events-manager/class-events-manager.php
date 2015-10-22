@@ -2,7 +2,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-class MC4WP_Events_Manager_Integration extends MC4WP_Custom_Integration {
+class MC4WP_Events_Manager_Integration extends MC4WP_Integration {
 
 	/**
 	 * @var string
@@ -36,11 +36,12 @@ class MC4WP_Events_Manager_Integration extends MC4WP_Custom_Integration {
 	public function subscribe_from_events_manager( $args ) {
 
 		// was sign-up checkbox checked?
-		if( ! isset( $args->booking_meta['booking']['mc4wp-subscribe'] ) || $args->booking_meta['booking']['mc4wp-subscribe'] != 1 ) {
+		if(  empty( $args->booking_meta['booking']['mc4wp-subscribe'] ) ) {
 			return false;
 		}
 
 		// find email field
+		// @todo needs testing
 		if( isset( $args->booking_meta['registration']['user_email'] ) ) {
 
 			$meta = $args->booking_meta;
@@ -80,8 +81,7 @@ class MC4WP_Events_Manager_Integration extends MC4WP_Custom_Integration {
 			return $this->subscribe( $email, $merge_vars );
 		}
 
-		// try general fallback to get the email and stuff.
-		return $this->try_subscribe();
+		return false;
 	}
 
 	/**
@@ -89,6 +89,13 @@ class MC4WP_Events_Manager_Integration extends MC4WP_Custom_Integration {
 	 */
 	public function is_installed() {
 		return defined( 'EM_VERSION' );
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_ui_elements() {
+		return array( 'lists', 'double_optin', 'update_existing', 'send_welcome' );
 	}
 
 }

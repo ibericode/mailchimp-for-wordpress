@@ -21,15 +21,17 @@ function mc4wp_get_integration_options( $slug = '' ) {
 
 	$options = (array) get_option( 'mc4wp_integrations', array() );
 	if( $slug === '' ) {
-		return $options;
+		return (array) apply_filters( 'mc4wp_integration_options', $options );
 	}
 
-	$defaults = require MC4WP_PLUGIN_DIR . 'config/default-integration-options.php';
+	$integration_options = require MC4WP_PLUGIN_DIR . 'config/default-integration-options.php';
 	if( isset( $options[ $slug ] ) && is_array( $options[ $slug] ) ) {
-		return array_merge( $defaults, $options[ $slug ] );
+		$integration_options = array_merge( $integration_options, $options[ $slug ] );
 	}
 
-	return $defaults;
+	$integration_options = (array) apply_filters( 'mc4wp_' . $slug . '_integration_options', $integration_options );
+
+	return $integration_options;
 }
 
 /**

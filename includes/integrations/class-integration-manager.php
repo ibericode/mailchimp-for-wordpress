@@ -12,6 +12,8 @@ class MC4WP_Integration_Manager {
 
 
 	/**
+	 * @todo refactor this
+	 *
 	 * @var array
 	 */
 	public $default_integrations = array(
@@ -79,7 +81,31 @@ class MC4WP_Integration_Manager {
 	 * @return bool
 	 */
 	public function is_enabled( $slug ) {
-		return ( ! empty( $this->options[ $slug ]['enabled'] ) );
+		return ! empty( $this->options[ $slug ]['enabled'] );
+	}
+
+	/**
+	 * Get the integrations which are enabled
+	 *
+	 * - Some integrations are always enabled because they need manual work
+	 * - Other integrations can be enabled in the settings page
+	 *
+	 * Filter: `mc4wp_enabled_integrations`
+	 *
+	 * @todo refactor this
+	 * @return array
+	 */
+	public function get_enabled_integrations() {
+		$integrations = array(
+			'custom',
+			'contact-form-7',
+			'events-manager'
+		);
+
+		$integrations = array_merge( $integrations, array_filter( array_keys( $this->registered_integrations ), array( $this, 'is_enabled' ) ) );
+		$integrations = (array) apply_filters( 'mc4wp_enabled_integrations', $integrations );
+
+		return $integrations;
 	}
 
 	/**
@@ -102,11 +128,9 @@ class MC4WP_Integration_Manager {
 	public function initialize() {
 		// loop through integrations
 		// initialize the ones which are enabled
-		foreach( $this->registered_integrations as $slug => $class ) {
-			if( $this->is_enabled( $slug ) ) {
-				$integration = $this->integration( $slug );
-				$integration->initialize();
-			}
+		foreach( $this->get_enabled_integrations() as $slug ) {
+			$integration = $this->integration( $slug );
+			$integration->initialize();
 		}
 	}
 

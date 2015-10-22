@@ -24,7 +24,6 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 	 */
 	public $description = "Allows you to integrate with custom third-party forms.";
 
-
 	/**
 	* Add hooks
 	*/
@@ -45,15 +44,22 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 			return false;
 		}
 
-		// don't run if this is a CF7 request
-		if( isset( $_POST['_wpcf7'] ) ) {
-			return false;
-		}
+		// don't run for CF7 or Events Manager requests
+		// (since they use the same "mc4wp-subscribe" trigger)
+		$disable_triggers = array(
+			'_wpcf7' => '',
+			'action' => 'booking_add'
+		);
 
-		// don't run if this is an Events Manager request
-		// todo fix this
-		if( isset( $_POST['action'] ) && $_POST['action'] === 'booking_add' && isset( $_POST['event_id'] ) ) {
-			return false;
+		foreach( $disable_triggers as $trigger => $trigger_value ) {
+			if( isset( $_REQUEST[ $trigger ] ) ) {
+
+				$value = $_REQUEST[ $trigger ];
+
+				if( empty( $trigger_value ) || $value === $trigger_value ) {
+					return false;
+				}
+			}
 		}
 
 		// run!
@@ -71,7 +77,7 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 			'GROUPINGS' => array()
 		);
 
-		foreach( $_POST as $key => $value ) {
+		foreach( $_REQUEST as $key => $value ) {
 
 			if( $key[0] === '_' || $key === $this->checkbox_name ) {
 				continue;
@@ -166,4 +172,10 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 		return true;
 	}
 
+	/**
+	 * @return array
+	 */
+	public function get_ui_elements() {
+		return array( 'lists', 'double_optin', 'update_existing', 'send_welcome' );
+	}
 }

@@ -364,4 +364,21 @@ abstract class MC4WP_Integration {
 	public function is_installed() {
 		return false;
 	}
+
+	/**
+	 * @return array
+	 */
+	public function get_ui_elements() {
+		return array_keys( $this->options );
+	}
+
+	/**
+	 * @param $element
+	 *
+	 * @return bool
+	 */
+	public function has_ui_element( $element ) {
+		$elements = $this->get_ui_elements();
+		return in_array( $element, $elements );
+	}
 }

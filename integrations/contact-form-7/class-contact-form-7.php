@@ -2,7 +2,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-class MC4WP_Contact_Form_7_Integration extends MC4WP_Custom_Integration {
+class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 
 	/**
 	 * @var string
@@ -24,7 +24,7 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Custom_Integration {
 	 * Add hooks
 	 */
 	public function add_hooks() {
-		add_action( 'init', array( $this, 'init') );
+		add_action( 'wpcf7_init', array( $this, 'init') );
 		add_action( 'wpcf7_mail_sent', array( $this, 'subscribe_from_cf7' ) );
 		add_action( 'wpcf7_posted_data', array( $this, 'alter_cf7_data') );
 	}
@@ -91,27 +91,14 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Custom_Integration {
 	}
 
 	/**
-	 * @param $args
-	 */
-	public function get_label_text( $args ) {
-		// CF7 checkbox?
-		if( is_array( $args ) && isset( $args['options'] ) ) {
-
-			// check for default:0 or default:1 to set the checked attribute
-			if( in_array( 'default:1', $args['options'] ) ) {
-				$checked = 'checked';
-			} else if( in_array( 'default:0', $args['options'] ) ) {
-				$checked = '';
-			}
-
-		}
-	}
-
-	/**
 	 * @return bool
 	 */
 	public function is_installed() {
 		return function_exists( 'wpcf7_add_shortcode' );
+	}
+
+	public function get_ui_elements() {
+		return array_diff( parent::get_ui_elements(), array( 'enabled' ) );
 	}
 
 }

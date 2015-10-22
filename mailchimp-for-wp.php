@@ -63,9 +63,12 @@ function mc4wp_load_plugin() {
 	$forms = new MC4WP_Form_Manager();
 	$forms->initialize();
 
-	// checkbox integrations
+	// integration core
 	$integrations = new MC4WP_Integration_Manager();
 	$integrations->initialize();
+
+	// bootstrap custom integrations
+	require_once MC4WP_PLUGIN_DIR . 'integrations/bootstrap.php';
 
 	// Doing cron?
 	if( defined( 'DOING_CRON' ) && DOING_CRON ) {
