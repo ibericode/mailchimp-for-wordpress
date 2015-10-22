@@ -12,12 +12,12 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 	/**
 	 * @var string
 	 */
-	protected $type = 'buddypress_form';
+	public $name = "BuddyPress";
 
 	/**
 	 * @var string
 	 */
-	public $name = "BuddyPress";
+	public $slug = 'buddypress';
 
 	/**
 	 * @var string

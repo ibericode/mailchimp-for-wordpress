@@ -12,17 +12,17 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 	/**
 	 * @var string
 	 */
-	protected $type = 'general';
-
-	/**
-	 * @var string
-	 */
 	protected $checkbox_name = 'mc4wp-subscribe';
 
 	/**
 	 * @var string
 	 */
 	public $name = "Custom";
+
+	/**
+	 * @var string
+	 */
+	public $slug = 'custom';
 
 	/**
 	 * @var string

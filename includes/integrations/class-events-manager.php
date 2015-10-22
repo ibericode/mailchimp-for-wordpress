@@ -12,17 +12,17 @@ class MC4WP_Events_Manager_Integration extends MC4WP_Custom_Integration {
 	/**
 	 * @var string
 	 */
-	protected $type = 'events_manager';
-
-	/**
-	 * @var string
-	 */
 	public $name = "Events Manager";
 
 	/**
 	 * @var string
 	 */
 	public $description = "Adds a sign-up checkbox to your Events Manager booking forms.";
+
+	/**
+	 * @var string
+	 */
+	public $slug = 'events-manager';
 
 
 	/**

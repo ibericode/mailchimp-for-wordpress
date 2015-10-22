@@ -12,17 +12,17 @@ class MC4WP_Registration_Form_Integration extends MC4WP_User_Integration {
 	/**
 	 * @var string
 	 */
-	protected $type = 'registration_form';
-
-	/**
-	 * @var string
-	 */
 	public $name = "Registration Form";
 
 	/**
 	 * @var string
 	 */
 	public $description = "Adds a sign-up checkbox to your site's registration form.";
+
+	/**
+	 * @var string
+	 */
+	public $slug = 'wp-registration-form';
 
 	/**
 	 * Add hooks

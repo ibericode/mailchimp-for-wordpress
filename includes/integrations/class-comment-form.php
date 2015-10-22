@@ -5,11 +5,6 @@ defined( 'ABSPATH' ) or exit;
 class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 
 	/**
-	 * @var string
-	 */
-	protected $type = 'comment_form';
-
-	/**
 	 * @var bool
 	 */
 	protected $added_through_filter = false;
@@ -18,6 +13,11 @@ class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 	 * @var string
 	 */
 	public $name = "Comment Form";
+
+	/**
+	 * @var string
+	 */
+	public $slug = 'wp-comment-form';
 
 	/**
 	 * @var string

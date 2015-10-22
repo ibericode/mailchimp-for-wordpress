@@ -12,11 +12,6 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 	/**
 	 * @var string
 	 */
-	protected $type = 'woocommerce_checkout';
-
-	/**
-	 * @var string
-	 */
 	public $name = "WooCommerce Checkout";
 
 	/**
@@ -24,16 +19,16 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 	 */
 	public $description = "Adds a sign-up checkbox to your WooCommerce checkout form.";
 
+	/**
+	 * @var string
+	 */
+	public $slug = 'woocommerce';
 
 	/**
-	 * Constructor
+	 * Add hooks
 	 */
-	public function __construct() {
-
-		parent::__construct();
-
+	public function add_hooks() {
 		add_filter( 'woocommerce_checkout_fields', array( $this, 'add_checkout_field' ), 20 );
-
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save_woocommerce_checkout_checkbox_value' ) );
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'subscribe_from_woocommerce_checkout' ) );
 	}
@@ -42,8 +37,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 	 * @return string
 	 */
 	public function get_position() {
-		$opts = $this->get_options();
-		return $opts['woocommerce_position'];
+		return $this->options['position'];
 	}
 
 	/**

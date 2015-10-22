@@ -5,9 +5,7 @@
 	 * Variables
 	 */
 	var $context = $(document.getElementById('mc4wp-admin'));
-	var $formMarkup = $(document.getElementById('mc4wp-form-content'));
-	var $missingFieldsNotice = $(document.getElementById('missing-fields-notice'));
-	var $missingFieldsList = $(document.getElementById('missing-fields-list'));
+
 
 	/**
 	 * Functions
@@ -60,6 +58,10 @@
 	var FieldWizard = (function() {
 		'use strict';
 
+		if( ! document.getElementById( 'mc4wp-field-wizard' ) ) {
+			return;
+		}
+
 		// setup variables
 		var $lists = $(document.getElementById('mc4wp-lists')).find(':input');
 		var $mailchimpFields = $(document.getElementById("mc4wp-fw-mailchimp-fields"));
@@ -78,6 +80,11 @@
 		var $addToFormButton = $(document.getElementById("mc4wp-fw-add-to-form"));
 		var strings = mc4wp.strings.fieldWizard;
 		var requiredFields = [];
+		var $selectListsNotice = $(".mc4wp-notice.no-lists-selected");
+		var $missingFieldsList = $(document.getElementById('missing-fields-list'));
+		var $missingFieldsNotice = $(document.getElementById('missing-fields-notice'));
+		var $formMarkup = $(document.getElementById('mc4wp-form-content'));
+
 
 		// functions
 		function checkRequiredFields() {
@@ -86,6 +93,13 @@
 			if( typeof( CodeMirror ) !== "undefined" && typeof( window.mc4wpFormEditor ) === "object" ) {
 				formContent = window.mc4wpFormEditor.getValue();
 			}
+
+			// bail if we're running a little too soon
+			if( typeof( formContent ) !== "string " ) {
+				return;
+			}
+
+			// let's go
 			formContent = formContent.toLowerCase();
 
 			// check presence of reach required field
@@ -575,11 +589,24 @@
 			return ( $wrapp.is(':visible:checked') ) ? true: false;
 		}
 
+		/**
+		 * Shows a "select at least one list" notice when no list is selected
+		 */
+		function toggleListsNotice() {
+			var hasListSelected = $lists.filter(':checked').length > 0;
+			$selectListsNotice.toggle( ! hasListSelected );
+			$mailchimpFields.toggle( hasListSelected );
+		}
+
 		// setup events
 		$lists.change(setMailChimpFields);
+		$lists.change(toggleListsNotice);
 		$mailchimpFields.change(setPresets);
 		$wizardFields.change(updateCodePreview);
-		$addToFormButton.click(addCodeToFormMarkup).click(function() {
+		$addToFormButton.click(function() {
+
+			addCodeToFormMarkup();
+
 			if( typeof( tb_remove ) === "function" ) {
 				tb_remove();
 			}
@@ -669,6 +696,8 @@
 	/* Editor */
 	(function(c) {
 		var formContentTextarea = document.getElementById("mc4wp-form-content");
+		if( ! formContentTextarea ) return;
+
 		c.mc4wpFormEditor  = CodeMirror.fromTextArea(formContentTextarea, {
 			selectionPointer: true,
 			matchTags: {bothTags: true},
@@ -680,6 +709,20 @@
 
 		c.mc4wpFormEditor.on('change', FieldWizard.checkRequiredFields );
 	})(window);
+
+
+	/* Grey out integration settings when "enabled" is not ticked */
+	(function() {
+		var $toggles = $('.integration-toggles-wrap input');
+		var $settings = $('.integration-toggled-settings');
+		$toggles.change(toggleSettings);
+
+		function toggleSettings() {
+			var enabled = $toggles.filter(':checked').val() > 0;
+			var opacity = enabled ? '1' : '0.5';
+			$settings.css( 'opacity', opacity );
+		}
+	})();
 
 })(jQuery);
 

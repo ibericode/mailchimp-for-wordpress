@@ -15,13 +15,13 @@ class MC4WP_Integration_Manager {
 	 * @var array
 	 */
 	public $default_integrations = array(
-		'comment_form' => 'Comment_Form',
-		'registration_form' => 'Registration_Form',
+		'wp-comment-form' => 'Comment_Form',
+		'wp-registration-form' => 'Registration_Form',
 		'buddypress'  => 'BuddyPress',
 		'woocommerce'  => 'WooCommerce',
-		'easy_digital_downloads'  => 'Easy_Digital_Downloads',
-		'contact_form_7'  => 'Contact_Form_7',
-		'events_manager'  => 'Events_Manager',
+		'easy-digital-downloads'  => 'Easy_Digital_Downloads',
+		'contact-form-7'  => 'Contact_Form_7',
+		'events-manager'  => 'Events_Manager',
 		'custom'  => 'Custom',
 	);
 
@@ -29,11 +29,6 @@ class MC4WP_Integration_Manager {
 	 * @var array
 	 */
 	public $registered_integrations = array();
-
-	/**
-	 * @var array Array of checkbox options
-	 */
-	private $options;
 
 	/**
 	 * @var MC4WP_Integration_Manager
@@ -44,7 +39,6 @@ class MC4WP_Integration_Manager {
 	* Constructor
 	*/
 	public function __construct() {
-		$this->options = mc4wp_get_options( 'integrations' );
 		$this->registered_integrations = $this->get_registered_integrations();
 	}
 
@@ -101,9 +95,11 @@ class MC4WP_Integration_Manager {
 	 * Initialize the Asset Manager class
 	 *
 	 * @hooked `template_redirect`
+	 * @todo fix options
 	 */
 	public function init_asset_manager() {
-		$asset_manager = new MC4WP_Integrations_Asset_Manager( $this->options['general'] );
+
+		$asset_manager = new MC4WP_Integrations_Asset_Manager( array( 'css' => 0 ) );
 		$asset_manager->add_hooks();
 	}
 
@@ -128,7 +124,8 @@ class MC4WP_Integration_Manager {
 
 		// create new instance
 		$classname = $this->registered_integrations[ $slug ];
-		$this->integrations[ $slug ] = $instance = new $classname;
+		$options = mc4wp_get_integration_options( $slug );
+		$this->integrations[ $slug ] = $instance = new $classname( $options );
 
 		return $instance;
 	}

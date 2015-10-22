@@ -4,64 +4,28 @@
 * Gets the MailChimp for WP options from the database
 * Uses default values to prevent undefined index notices.
 *
-* @param string $key
 * @return array
 */
-function mc4wp_get_options( $key = '' ) {
-	static $defaults;
-
-	if( is_null( $defaults ) ) {
-		$defaults = array(
-			'general' => array(
-				'api_key' => '',
-				'allow_usage_tracking' => 0,
-			),
-			'integrations' => array(
-				'general' => array(
-					'label' => __( 'Subscribe to the newsletter.', 'mailchimp-for-wp' ),
-					'precheck' => 0,
-					'css' => 1,
-					'lists' => array(),
-					'double_optin' => 1,
-					'update_existing' => 0,
-					'replace_interests' => 1,
-					'send_welcome' => 0,
-				)
-			)
-		);
-	}
-
-	$db_keys_option_keys = array(
-		'mc4wp' => 'general',
-		'mc4wp_integrations' => 'integrations'
-	);
-
-	$options = array();
-	foreach ( $db_keys_option_keys as $db_key => $option_key ) {
-		$option = (array) get_option( $db_key, array() );
-		$options[$option_key] = array_merge_recursive( $defaults[$option_key], $option );
-	}
-	
-	if( '' !== $key ) {
-		return $options[$key];
-	}
-
-	return $options;
+function mc4wp_get_options() {
+	$defaults = require MC4WP_PLUGIN_DIR . 'config/default-settings.php';
+	$options = (array) get_option( 'mc4wp', array() );
+	return array_merge( $defaults, $options );
 }
 
 /**
- * @param $integration
+ * @param string $slug
  *
  * @return array
  */
-function mc4wp_get_integration_options( $integration ) {
-	$options = mc4wp_get_options( 'integrations' );
+function mc4wp_get_integration_options( $slug ) {
+	$defaults = require MC4WP_PLUGIN_DIR . 'config/default-integration-options.php';
+	$options = (array) get_option( 'mc4wp_integrations', array() );
 
-	if( isset( $options[ $integration ] ) && is_array( $options[ $integration] ) ) {
-		return array_merge( $options['general'], $options[ $integration ] );
+	if( isset( $options[ $slug ] ) && is_array( $options[ $slug] ) ) {
+		return array_merge( $defaults, $options[ $slug ] );
 	}
 
-	return $options['general'];
+	return $defaults;
 }
 
 /**

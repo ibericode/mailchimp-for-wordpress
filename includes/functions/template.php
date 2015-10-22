@@ -1,31 +1,29 @@
 <?php
 
 /**
-* Echoes a sign-up checkbox.
+ * Echoes a sign-up checkbox.
+ *
+ * @since 1.0
+ * @deprecated 3.0
+ *
 */
 function mc4wp_checkbox() {
-	$checkbox_manager = MC4WP::instance()->integration_manager;
-
-	// manually instantiate comment form integration class
-	if( ! isset( $checkbox_manager->integrations['comment_form'] ) ) {
-		$checkbox_manager->integrations['comment_form'] = new MC4WP_Comment_Form_Integration();
-	}
-
-	$checkbox_manager->integrations['comment_form']->output_checkbox();
+	_deprecated_function( __FUNCTION__, 'MailChimp for WordPress v3.0' );
 }
 
 /**
  * Echoes a MailChimp for WordPress form
  *
  * @param   int     $id     The form ID
- * @todo Fix this method (do we want this to output?)
+ * @since 1.0
+ * @deprecated 3.0
  */
 function mc4wp_form( $id = 0 ) {
-
+	_deprecated_function( __FUNCTION__, 'MailChimp for WordPress v3.0' );
 }
 
 /**
-* Returns HTML for sign-up form with the given $form_id.
+* Returns a Form instance
 *
 * @param    int     $form_id.
 * @return   MC4WP_Form
@@ -60,30 +58,4 @@ function mc4wp_get_current_url() {
 	}
 
 	return esc_url( $url );
-}
-
-/****************************~***
- *      Deprecated functions    *
- ********************************/
-
-/**
-* Echoes a sign-up form.
-*
-* @deprecated 1.3.1 Use mc4wp_form() instead.
-* @see mc4wp_form()
-*/
-function mc4wp_show_form( $id = 0 ) {
-	_deprecated_function( __FUNCTION__, 'MailChimp for WP v1.3.1', 'mc4wp_form' );
-	mc4wp_form( $id );
-}
-
-/**
-* Echoes a sign-up checkbox.
-*
-* @deprecated 1.3.1 Use mc4wp_checkbox() instead
-* @see mc4wp_checkbox()
-*/
-function mc4wp_show_checkbox() {
-	_deprecated_function( __FUNCTION__, 'MailChimp for WP v1.3.1', 'mc4wp_form' );
-	mc4wp_checkbox();
 }

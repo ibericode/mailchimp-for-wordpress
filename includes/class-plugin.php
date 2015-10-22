@@ -44,9 +44,6 @@ class MC4WP {
 	* Constructor
 	*/
 	private function __construct() {
-
-		$this->options = $options = mc4wp_get_options();
-
 		// forms
 		$this->form_manager = new MC4WP_Form_Manager();
 		$this->form_manager->add_hooks();
@@ -63,7 +60,7 @@ class MC4WP {
 
 		if( $this->api === null ) {
 			$opts = mc4wp_get_options();
-			$this->api = new MC4WP_API( $opts['general']['api_key'] );
+			$this->api = new MC4WP_API( $opts['api_key'] );
 		}
 
 		return $this->api;

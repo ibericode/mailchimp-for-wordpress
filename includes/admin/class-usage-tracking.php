@@ -149,22 +149,24 @@ class MC4WP_Usage_Tracking {
 	 */
 	public function get_tracked_options( ) {
 
-		$checkbox_options = mc4wp_get_options( 'checkbox' );
-		$form_options = mc4wp_get_options( 'form' );
+//		$checkbox_options = mc4wp_get_options( 'checkbox' );
+//		$form_options = mc4wp_get_options( 'form' );
+//
+//		// make sure these keys are always stripped
+//		$ignored_options = array( 'api_key', 'license_key', 'lists' );
+//
+//		// filter options
+//		$checkbox_options = array_diff_key( $checkbox_options, array_flip( $ignored_options ) );
+//		$form_options = array_diff_key( $form_options, array_flip( $ignored_options ) );
+//
+//		// merge options
+//		$options = array(
+//			'checkbox' => $checkbox_options,
+//			'form' => $form_options
+//		);
 
-		// make sure these keys are always stripped
-		$ignored_options = array( 'api_key', 'license_key', 'lists' );
-
-		// filter options
-		$checkbox_options = array_diff_key( $checkbox_options, array_flip( $ignored_options ) );
-		$form_options = array_diff_key( $form_options, array_flip( $ignored_options ) );
-
-		// merge options
-		$options = array(
-			'checkbox' => $checkbox_options,
-			'form' => $form_options
-		);
-
+		// @todo fix this method
+		$options = array();
 		return $options;
 	}
 

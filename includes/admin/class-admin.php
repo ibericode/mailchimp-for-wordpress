@@ -23,7 +23,7 @@ class MC4WP_Admin {
 		$this->load_translations();
 		$this->add_hooks();
 
-		$options = mc4wp_get_options( 'general' );
+		$options = mc4wp_get_options();
 		if( ! $options['allow_usage_tracking'] ) {
 			$usage_tracking_nag = new MC4WP_Usage_Tracking_Nag( $this->get_required_capability() );
 			$usage_tracking_nag->add_hooks();
@@ -212,8 +212,8 @@ class MC4WP_Admin {
 	public function initialize() {
 
 		// register settings
-		register_setting( 'mc4wp_settings', 'mc4wp', array( $this, 'validate_settings' ) );
-		register_setting( 'mc4wp_integrations_settings', 'mc4wp_integrations', array( $this, 'validate_settings' ) );
+		register_setting( 'mc4wp_settings', 'mc4wp', array( $this, 'save_general_settings' ) );
+		register_setting( 'mc4wp_integrations_settings', 'mc4wp_integrations', array( $this, 'save_integration_settings' ) );
 
 		// Load upgrader
 		$this->load_upgrader();
@@ -270,7 +270,7 @@ class MC4WP_Admin {
 	* @param array $settings
 	* @return array
 	*/
-	public function validate_settings( array $settings ) {
+	public function save_general_settings( array $settings ) {
 
 		$current = mc4wp_get_options();
 
@@ -319,6 +319,17 @@ class MC4WP_Admin {
 	}
 
 	/**
+	 * @todo perform some validation
+	 *
+	 * @return array
+	 */
+	public function save_integration_settings( $settings ) {
+		$all_settings = get_option( 'mc4wp_integrations', array() );
+		$settings = array_merge( $all_settings, $settings );
+		return $settings;
+	}
+
+	/**
 	 * Load scripts and stylesheet on MailChimp for WP Admin pages
 	 * @return bool
 	*/
@@ -331,7 +342,7 @@ class MC4WP_Admin {
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		// css
-		wp_enqueue_style( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/css/admin' . $suffix . '.css', array(), MC4WP_VERSION );
+		wp_enqueue_style( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/css/admin-styles' . $suffix . '.css', array(), MC4WP_VERSION );
 		wp_enqueue_style( 'codemirror', MC4WP_PLUGIN_URL . 'assets/css/codemirror.css', array(), MC4WP_VERSION );
 
 		// js
@@ -391,7 +402,7 @@ class MC4WP_Admin {
 				'title' => __( 'MailChimp API Settings', 'mailchimp-for-wp' ),
 				'text' => __( 'MailChimp', 'mailchimp-for-wp' ),
 				'slug' => '',
-				'callback' => array( $this, 'show_api_settings' ),
+				'callback' => array( $this, 'show_generals_setting_page' ),
 			),
 			'integrations' => array(
 				'title' => __( 'Integrations', 'mailchimp-for-wp' ),
@@ -411,7 +422,7 @@ class MC4WP_Admin {
 		$menu_items = (array) apply_filters( 'mc4wp_menu_items', $menu_items );
 
 		// add top menu item
-		add_menu_page( 'MailChimp for WP', 'MailChimp for WP', $required_cap, 'mailchimp-for-wp', array( $this, 'show_api_settings' ), MC4WP_PLUGIN_URL . 'assets/img/icon.png', '99.68491' );
+		add_menu_page( 'MailChimp for WP', 'MailChimp for WP', $required_cap, 'mailchimp-for-wp', array( $this, 'show_generals_setting_page' ), MC4WP_PLUGIN_URL . 'assets/img/icon.png', '99.68491' );
 
 		// add submenu pages
 		foreach( $menu_items as $item ) {
@@ -441,14 +452,15 @@ class MC4WP_Admin {
 	/**
 	 * Show the API settings page
 	 */
-	public function show_api_settings() {
-		$opts = mc4wp_get_options( 'general' );
+	public function show_generals_setting_page() {
+		$opts = mc4wp_get_options();
 		$connected = ( mc4wp_get_api()->is_connected() );
 
 		// cache renewal triggered manually?
 		$force_cache_refresh = isset( $_POST['mc4wp-renew-cache'] ) && $_POST['mc4wp-renew-cache'] == 1;
 		$lists = $this->mailchimp->get_lists( $force_cache_refresh );
 
+		// @todo make this pretty
 		if ( $force_cache_refresh ) {
 
 			if( is_array( $lists ) ) {
@@ -463,16 +475,39 @@ class MC4WP_Admin {
 
 		}
 
-		require MC4WP_PLUGIN_DIR . 'includes/views/api-settings.php';
+		require MC4WP_PLUGIN_DIR . 'includes/views/general-settings.php';
 	}
 
 	/**
 	 * Show the Integration Settings page
 	 */
 	public function show_integrations_page() {
-		$opts = mc4wp_get_options( 'integrations' );
-		$general_opts = $opts['general'];
+
+		if( ! empty( $_GET['integration'] ) ) {
+			$this->show_integration_settings_page( $_GET['integration'] );
+			return;
+		}
+
+		require MC4WP_PLUGIN_DIR . 'includes/views/integrations.php';
+	}
+
+	/**
+	 * @param string $slug
+	 */
+	public function show_integration_settings_page( $slug ) {
+		$integrations = MC4WP_Integration_Manager::instance();
+
+		try {
+			$integration = $integrations->integration( $slug );
+		} catch( Exception $e ) {
+			echo sprintf( '<h3>Integration not found.</h3><p>No integration with slug <strong>%s</strong> was found.</p>', $slug );
+			return;
+		}
+
+
+		$opts = $integration->options;
 		$lists = $this->mailchimp->get_lists();
+
 		require MC4WP_PLUGIN_DIR . 'includes/views/integration-settings.php';
 	}
 

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class MC4WP_Integration
+ *
+ * @todo remove `type` property
+ */
 abstract class MC4WP_Integration {
 
 	/**
@@ -11,11 +16,6 @@ abstract class MC4WP_Integration {
 	 * @var string
 	 */
 	protected $checkbox_name = '_mc4wp_subscribe';
-
-	/**
-	 * @var array
-	 */
-	protected $options;
 
 	/**
 	 * @var
@@ -33,9 +33,15 @@ abstract class MC4WP_Integration {
 	public $slug = '';
 
 	/**
+	 * @var array
+	 */
+	public $options = array();
+
+	/**
 	 * Constructor
 	 */
-	public function __construct() {
+	public function __construct( $options ) {
+		$this->options = $options;
 		$this->checkbox_name = '_mc4wp_subscribe' . '_' . $this->type;
 	}
 
@@ -45,20 +51,6 @@ abstract class MC4WP_Integration {
 	 */
 	public function add_hooks() {
 
-	}
-
-	/**
-	 * Get the checkbox options
-	 *
-	 * @return array
-	 */
-	public function get_options() {
-
-		if( $this->options === null ) {
-			$this->options = mc4wp_get_options( 'checkbox' );
-		}
-
-		return $this->options;
 	}
 
 	/**
@@ -107,8 +99,7 @@ abstract class MC4WP_Integration {
 	 * @return bool
 	 */
 	public function is_prechecked() {
-		$opts = $this->get_options();
-		return (bool) $opts['precheck'];
+		return (bool) $this->options['precheck'];
 	}
 
 	/**
@@ -118,19 +109,12 @@ abstract class MC4WP_Integration {
 	 */
 	public function get_label_text() {
 
-		$opts = $this->get_options();
-
 		// Get general label text
-		$label = $opts['label'];
-
-		// Override label text if a specific text for this integration is set
-		if ( isset( $opts['text_' . $this->type . '_label'] ) && ! empty( $opts['text_' . $this->type . '_label'] ) ) {
-			// custom label text was set
-			$label = $opts['text_' . $this->type . '_label'];
-		}
+		$label = $this->options['label'];
 
 		// replace label variables
-		$label = MC4WP_Tools::replace_variables( $label, array(), array_values( $opts['lists'] ) );
+		// @todo move to filter
+		$label = MC4WP_Tools::replace_variables( $label, array(), array_values( $this->options['lists'] ) );
 
 		return $label;
 	}
@@ -203,8 +187,7 @@ abstract class MC4WP_Integration {
 	protected function get_lists() {
 
 		// get checkbox lists options
-		$opts = $this->get_options();
-		$lists = $opts['lists'];
+		$lists = $this->options['lists'];
 
 		// get lists from request, if set.
 		if( ! empty( $_POST['_mc4wp_lists'] ) ) {
@@ -241,7 +224,6 @@ abstract class MC4WP_Integration {
 		$type = ( '' !== $type ) ? $type : $this->type;
 
 		$api = mc4wp_get_api();
-		$opts = $this->get_options();
 		$lists = $this->get_lists();
 
 		if( empty( $lists) ) {
@@ -298,7 +280,7 @@ abstract class MC4WP_Integration {
 		do_action( 'mc4wp_before_subscribe', $email, $merge_vars );
 
 		foreach( $lists as $list_id ) {
-			$result = $api->subscribe( $list_id, $email, $merge_vars, $email_type, $opts['double_optin'], $opts['update_existing'], true, $opts['send_welcome'] );
+			$result = $api->subscribe( $list_id, $email, $merge_vars, $email_type, $this->options['double_optin'], $this->options['update_existing'], true, $this->options['send_welcome'] );
 			do_action( 'mc4wp_subscribe', $email, $list_id, $merge_vars, $result, 'checkbox', $type, $related_object_id );
 		}
 
@@ -316,7 +298,7 @@ abstract class MC4WP_Integration {
 		if ( $result !== true && $api->has_error() ) {
 
 			// log error
-			error_log( sprintf( 'MailChimp for WordPres (%s): %s', date( 'Y-m-d H:i:s' ), $this->type, $api->get_error_message() ) );
+			error_log( sprintf( 'MailChimp for WordPres (%s): %s', date( 'Y-m-d H:i:s' ), $this->slug, $api->get_error_message() ) );
 
 			if( $this->show_error_messages() ) {
 				wp_die( '<h3>' . __( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ) . '</h3>' .

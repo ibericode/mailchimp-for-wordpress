@@ -25,11 +25,6 @@ class MC4WP_Easy_Digital_Downloads_Integration extends MC4WP_Integration {
 	public $slug = 'easy-digital-downloads';
 
 	/**
-	 * @var string
-	 */
-	protected $type = 'edd_checkout';
-
-	/**
 	 *
 	 */
 	public function add_hooks() {
