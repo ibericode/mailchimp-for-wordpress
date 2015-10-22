@@ -82,7 +82,7 @@ class MC4WP_Easy_Digital_Downloads_Integration extends MC4WP_Integration {
 
 
 
-		return $this->subscribe( $email, $merge_vars, $this->type, $payment_id );
+		return $this->subscribe( $email, $merge_vars, $payment_id );
 	}
 
 	/**

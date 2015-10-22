@@ -1,5 +1,5 @@
 /* MailChimp for WP - Checkbox Styles */
-#mc4wp-checkbox {
+.mc4wp-checkbox-__INTEGRATION_SLUG__ {
 
 	clear: both;
 	display: block;
@@ -26,19 +26,4 @@
 		position: static;
 	}
 
-}
-
-#_mc4wp_subscribe_woocommerce_checkout_field {
-	label,
-	input{
-		float: none !important;
-		width: auto !important;
-		display: inline-block !important;
-	}
-}
-
-
-
-#registerform #mc4wp-checkbox{
-	margin-bottom: 10px;
 }

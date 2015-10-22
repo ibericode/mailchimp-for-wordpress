@@ -80,6 +80,14 @@
 								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][precheck]" value="0" <?php checked( $opts['precheck'], 0 ); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?></label>
 							</td>
 						</tr>
+						<tr valign="top">
+							<th scope="row"><?php _e( 'Load some default CSS?', 'mailchimp-for-wp' ); ?></th>
+							<td class="nowrap">
+								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][css]" value="1" <?php checked( $opts['css'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp;
+								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][css]" value="0" <?php checked( $opts['css'], 0 ); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?></label>
+								<p class="help"><?php _e( 'Select "yes" if the checkbox appears in a weird place.', 'mailchimp-for-wp' ); ?></p>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 
@@ -107,38 +115,11 @@
 		<form action="<?php echo admin_url( 'options.php' ); ?>" method="post">
 			<?php settings_fields( 'mc4wp_integrations_settings' ); ?>
 
-			<h3 class="mc4wp-title"><?php _e( 'MailChimp settings for checkboxes', 'mailchimp-for-wp' ); ?></h3>
 
-			<?php if( empty( $general_opts['lists'] ) ) { ?>
-				<div class="mc4wp-info">
-					<p><?php _e( 'If you want to use sign-up checkboxes, select at least one MailChimp list to subscribe people to.', 'mailchimp-for-wp' ); ?></p>
-				</div>
-			<?php } ?>
-
-
-
-		<h3 class="mc4wp-title"><?php _e( 'Checkbox settings', 'mailchimp-for-wp' ); ?></h3>
 		<table class="form-table">
 
-		<tr valign="top">
-			<th scope="row"><label for="mc4wp_checkbox_label"><?php _e( 'Checkbox label text', 'mailchimp-for-wp' ); ?></label></th>
-			<td>
-				<input type="text"  class="widefat" id="mc4wp_checkbox_label" name="mc4wp_integrations[general][label]" value="<?php echo esc_attr( $general_opts['label'] ); ?>" required />
-				<p class="help"><?php printf( __( 'HTML tags like %s are allowed in the label text.', 'mailchimp-for-wp' ), '<code>' . esc_html( '<strong><em><a>' ) . '</code>' ); ?></p>
-			</td>
-		</tr>
-		<tr valign="top">
-			<th scope="row"><?php _e( 'Pre-check the checkbox?', 'mailchimp-for-wp' ); ?></th>
-			<td class="nowrap"><label><input type="radio" name="mc4wp_integrations[general][precheck]" value="1" <?php checked( $general_opts['precheck'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp; <label><input type="radio" name="mc4wp_integrations[general][precheck]" value="0" <?php checked( $general_opts['precheck'], 0 ); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?></label></td>
-		</tr>
-		<tr valign="top">
-			<th scope="row"><?php _e( 'Load some default CSS?', 'mailchimp-for-wp' ); ?></th>
-			<td class="nowrap">
-				<label><input type="radio" name="mc4wp_integrations[general][css]" value="1" <?php checked( $general_opts['css'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp;
-				<label><input type="radio" name="mc4wp_integrations[general][css]" value="0" <?php checked( $general_opts['css'], 0 ); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?></label>
-				<p class="help"><?php _e( 'Select "yes" if the checkbox appears in a weird place.', 'mailchimp-for-wp' ); ?></p>
-			</td>
-		</tr>
+
+
 		<tr valign="top" id="woocommerce-settings" <?php if( ! $general_opts['show_at_woocommerce_checkout'] ) { ?>style="display: none;"<?php } ?>>
 			<th scope="row"><?php _e( 'WooCommerce checkbox position', 'mailchimp-for-wp' ); ?></th>
 			<td class="nowrap">

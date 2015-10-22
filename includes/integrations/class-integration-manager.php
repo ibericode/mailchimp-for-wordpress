@@ -36,9 +36,15 @@ class MC4WP_Integration_Manager {
 	public static $instance;
 
 	/**
+	 * @var array
+	 */
+	protected $options;
+
+	/**
 	* Constructor
 	*/
 	public function __construct() {
+		$this->options = mc4wp_get_integration_options();
 		$this->registered_integrations = $this->get_registered_integrations();
 	}
 
@@ -53,16 +59,27 @@ class MC4WP_Integration_Manager {
 			$integrations[ $key ] = sprintf( 'MC4WP_%s_Integration', $classname );
 		}
 
+		/**
+		 * Allow for other plugins to register their own integration class.
+		 * The given class should extend `MC4WP_Integration`
+		 *
+		 * Format: slug => resolvable classname
+		 * Example: 'my-plugin' => 'My_Plugin_MC4WP_Integration'
+		 */
 		return (array) apply_filters( 'mc4wp_integrations', $integrations );
 	}
 
 	/**
-	 * @param $integration
+	 * Checks whether a certain integration is enabled (in the settings)
+	 *
+	 * This is decoupled from the integration class itself as checking an array is way "cheaper" than instantiating an object
+	 *
+	 * @param string $slug
 	 *
 	 * @return bool
 	 */
-	public function is_enabled( $integration ) {
-		return ( ! empty( $this->options[ $integration ]['enabled'] ) );
+	public function is_enabled( $slug ) {
+		return ( ! empty( $this->options[ $slug ]['enabled'] ) );
 	}
 
 	/**
@@ -85,9 +102,13 @@ class MC4WP_Integration_Manager {
 	public function add_hooks() {
 		add_action( 'template_redirect', array( $this, 'init_asset_manager' ) );
 
-		/** @var MC4WP_Integration $integration */
-		foreach( $this->integrations as $integration ) {
-			$integration->add_hooks();
+		// loop through integrations
+		// initialize the ones which are enabled
+		foreach( $this->registered_integrations as $slug => $class ) {
+			if( $this->is_enabled( $slug ) ) {
+				$integration = $this->integration( $slug );
+				$integration->initialize();
+			}
 		}
 	}
 
@@ -95,11 +116,10 @@ class MC4WP_Integration_Manager {
 	 * Initialize the Asset Manager class
 	 *
 	 * @hooked `template_redirect`
-	 * @todo fix options
+	 * @todo fix `css` option
 	 */
 	public function init_asset_manager() {
-
-		$asset_manager = new MC4WP_Integrations_Asset_Manager( array( 'css' => 0 ) );
+		$asset_manager = new MC4WP_Integrations_Asset_Manager( array( 'css' => 1 ) );
 		$asset_manager->add_hooks();
 	}
 

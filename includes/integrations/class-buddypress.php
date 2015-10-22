@@ -39,7 +39,6 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 	 * @param string $user_login
 	 * @param string $user_password
 	 * @param string $user_email
-	 * @param array $usermeta
 	 */
 	public function subscribe_from_buddypress( $user_id, $user_login, $user_password, $user_email ) {
 
@@ -54,7 +53,7 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 		$user = get_userdata( $user_id );
 
 		// was a user found with the given ID?
-		if ( ! $user ) {
+		if ( ! $user instanceof WP_User ) {
 			return false;
 		}
 
@@ -62,7 +61,7 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 		$email = $user->user_email;
 		$merge_vars = $this->user_merge_vars( $user );
 
-		return $this->subscribe( $email, $merge_vars, 'buddypress_registration', $user_id );
+		return $this->subscribe( $email, $merge_vars, $user_id );
 	}
 	/* End BuddyPress functions */
 

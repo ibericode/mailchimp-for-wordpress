@@ -42,7 +42,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 
 	/**
 	 * @param $fields
-	 *
+	 * @todo change this to plain HTML
 	 * @return mixed
 	 */
 	public function add_checkout_field( $fields ) {
@@ -63,8 +63,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 	/**
 	* @param int $order_id
 	*/
-	public function save_woocommerce_checkout_checkbox_value( $order_id )
-	{
+	public function save_woocommerce_checkout_checkbox_value( $order_id ) {
 		update_post_meta( $order_id, '_mc4wp_optin', $this->checkbox_was_checked() );
 	}
 
@@ -86,7 +85,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 				'LNAME' => $order->billing_last_name,
 			);
 
-			return $this->subscribe( $email, $merge_vars, $this->type, $order_id );
+			return $this->subscribe( $email, $merge_vars, $order_id );
 		}
 
 		return false;

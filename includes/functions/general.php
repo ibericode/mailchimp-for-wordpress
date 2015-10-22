@@ -17,10 +17,14 @@ function mc4wp_get_options() {
  *
  * @return array
  */
-function mc4wp_get_integration_options( $slug ) {
-	$defaults = require MC4WP_PLUGIN_DIR . 'config/default-integration-options.php';
-	$options = (array) get_option( 'mc4wp_integrations', array() );
+function mc4wp_get_integration_options( $slug = '' ) {
 
+	$options = (array) get_option( 'mc4wp_integrations', array() );
+	if( $slug === '' ) {
+		return $options;
+	}
+
+	$defaults = require MC4WP_PLUGIN_DIR . 'config/default-integration-options.php';
 	if( isset( $options[ $slug ] ) && is_array( $options[ $slug] ) ) {
 		return array_merge( $defaults, $options[ $slug ] );
 	}

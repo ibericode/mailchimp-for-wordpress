@@ -1,10 +1,10 @@
 /* MailChimp for WP - Checkbox Styles */
-#mc4wp-checkbox {
+.mc4wp-checkbox-__INTEGRATION_SLUG__ {
   clear: both;
   display: block;
   position: static;
   width: auto; }
-  #mc4wp-checkbox input {
+  .mc4wp-checkbox-__INTEGRATION_SLUG__ input {
     float: none;
     width: auto;
     position: static;
@@ -14,20 +14,11 @@
     display: inline-block !important;
     max-width: 21px;
     -webkit-appearance: checkbox; }
-  #mc4wp-checkbox label {
+  .mc4wp-checkbox-__INTEGRATION_SLUG__ label {
     float: none;
     display: block;
     cursor: pointer;
     width: auto;
     position: static; }
 
-#_mc4wp_subscribe_woocommerce_checkout_field label,
-#_mc4wp_subscribe_woocommerce_checkout_field input {
-  float: none !important;
-  width: auto !important;
-  display: inline-block !important; }
-
-#registerform #mc4wp-checkbox {
-  margin-bottom: 10px; }
-
-/*# sourceMappingURL=checkbox.css.map */
+/*# sourceMappingURL=checkbox-reset.css.map */

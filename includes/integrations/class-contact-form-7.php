@@ -40,7 +40,7 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Custom_Integration {
 	* @return boolean
 	*/
 	public function init() {
-		wpcf7_add_shortcode( 'mc4wp_checkbox', array( $this, 'get_checkbox' ) );
+		wpcf7_add_shortcode( 'mc4wp_checkbox', array( $this, 'shortcode' ) );
 		return true;
 	}
 
@@ -68,6 +68,48 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Custom_Integration {
 		}
 
 		return $this->try_subscribe();
+	}
+
+	/**
+	 * Return the shortcode output
+	 * @return string
+	 */
+	public function shortcode( $args = array() ) {
+
+		$label = null;
+		$precheck = null;
+
+		if ( isset( $args['labels'][0] ) ) {
+			$label = $args['labels'][0];
+		}
+
+		if( isset( $args['options'] ) ) {
+			// check for default:0 or default:1 to set the checked attribute
+			if( in_array( 'default:1', $args['options'] ) ) {
+				$precheck = true;
+			} else if( in_array( 'default:0', $args['options'] ) ) {
+				$precheck = false;
+			}
+		}
+
+		return $this->get_checkbox( $label, $precheck );
+	}
+
+	/**
+	 * @param $args
+	 */
+	public function get_label_text( $args ) {
+		// CF7 checkbox?
+		if( is_array( $args ) && isset( $args['options'] ) ) {
+
+			// check for default:0 or default:1 to set the checked attribute
+			if( in_array( 'default:1', $args['options'] ) ) {
+				$checked = 'checked';
+			} else if( in_array( 'default:0', $args['options'] ) ) {
+				$checked = '';
+			}
+
+		}
 	}
 
 	/**

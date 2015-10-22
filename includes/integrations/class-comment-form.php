@@ -92,7 +92,7 @@ class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 			'OPTIN_IP' => $comment->comment_author_IP,
 		);
 
-		return $this->subscribe( $email, $merge_vars, $this->type, $comment_id );
+		return $this->subscribe( $email, $merge_vars, $comment_id );
 	}
 
 	/**

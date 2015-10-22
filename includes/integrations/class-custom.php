@@ -161,7 +161,7 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 			return false;
 		}
 
-		return $this->subscribe( $email, $merge_vars, $this->type );
+		return $this->subscribe( $email, $merge_vars );
 	}
 
 	/**
