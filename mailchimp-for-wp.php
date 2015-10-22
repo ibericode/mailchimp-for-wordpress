@@ -59,8 +59,13 @@ function mc4wp_load_plugin() {
 		new MC4WP_Admin();
 	}
 
-	// Initialize the plugin and store an instance in the global scope
-	$GLOBALS['mc4wp'] = MC4WP::instance();
+	// forms
+	$forms = new MC4WP_Form_Manager();
+	$forms->initialize();
+
+	// checkbox integrations
+	$integrations = new MC4WP_Integration_Manager();
+	$integrations->initialize();
 
 	// Doing cron?
 	if( defined( 'DOING_CRON' ) && DOING_CRON ) {

@@ -17,11 +17,8 @@ class MC4WP_Form_Manager {
 
 	/**
 	 * Constructor
-	 *
-	 * @param array $options
 	 */
 	public function __construct() {
-
 		// store global `$_REQUEST` array locally, to prevent other plugins from messing with it (yes it happens....)
 		// todo: fix this properly (move to more specific $_POST?)
 		$this->request_data = $_REQUEST;
@@ -30,7 +27,7 @@ class MC4WP_Form_Manager {
 	/**
 	 * Hook!
 	 */
-	public function add_hooks() {
+	public function initialize() {
 
 		add_action( 'init', array( $this, 'register_form_type' ) );
 

@@ -33,13 +33,6 @@ function mc4wp_get_integration_options( $slug = '' ) {
 }
 
 /**
- * @return MC4WP
- */
-function mc4wp() {
-	return MC4WP::instance();
-}
-
-/**
 * Gets the MailChimp for WP API class and injects it with the API key
  *
 * @since 1.0

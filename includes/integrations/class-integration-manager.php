@@ -99,9 +99,7 @@ class MC4WP_Integration_Manager {
 	/**
 	 * Add hooks
 	 */
-	public function add_hooks() {
-		add_action( 'template_redirect', array( $this, 'init_asset_manager' ) );
-
+	public function initialize() {
 		// loop through integrations
 		// initialize the ones which are enabled
 		foreach( $this->registered_integrations as $slug => $class ) {
@@ -110,17 +108,6 @@ class MC4WP_Integration_Manager {
 				$integration->initialize();
 			}
 		}
-	}
-
-	/**
-	 * Initialize the Asset Manager class
-	 *
-	 * @hooked `template_redirect`
-	 * @todo fix `css` option
-	 */
-	public function init_asset_manager() {
-		$asset_manager = new MC4WP_Integrations_Asset_Manager( array( 'css' => 1 ) );
-		$asset_manager->add_hooks();
 	}
 
 
