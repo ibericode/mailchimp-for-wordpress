@@ -31,12 +31,18 @@ abstract class MC4WP_Integration {
 	protected $checkbox_name = '';
 
 	/**
+	 * @var
+	 */
+	protected $request_data;
+
+	/**
 	 * Constructor
 	 *
 	 * @param array $options
 	 */
 	public function __construct( array $options ) {
 		$this->options = $options;
+		$this->request_data = $_REQUEST;
 
 		// if checkbox name is not set, set a good custom value
 		if( empty( $this->checkbox_name ) ) {
@@ -64,9 +70,7 @@ abstract class MC4WP_Integration {
 	/**
 	 * Adds the hooks which are specific to this integration
 	 */
-	protected function add_hooks() {
-		// override this method
-	}
+	abstract protected function add_hooks();
 
 	/**
 	 * Print CSS reset
@@ -84,43 +88,13 @@ abstract class MC4WP_Integration {
 	}
 
 	/**
-	 * Is this a spam request?
-	 *
-	 * @return bool
-	 */
-	protected function is_spam() {
-
-		// check if honeypot was filled
-		if( $this->is_honeypot_filled() ) {
-			return true;
-		}
-
-		// check user agent
-		if( ! isset( $_SERVER['HTTP_USER_AGENT'] ) || strlen( $_SERVER['HTTP_USER_AGENT'] ) < 2 ) {
-			return true;
-		}
-
-		/**
-		 * @filter `mc4wp_is_spam`
-		 * @expects boolean True if this is a spam request
-		 * @default false
-		 */
-		return apply_filters( 'mc4wp_is_spam', false );
-	}
-
-	/**
 	 * Was the honeypot filled?
 	 *
+	 * @todo current way of checking means honeypot field can be omitted, needs improvement.
 	 * @return bool
 	 */
 	protected function is_honeypot_filled() {
-
-		// Check if honeypot was filled (by spam bots)
-		if( isset( $_POST['_mc4wp_required_but_not_really'] ) && ! empty( $_POST['_mc4wp_required_but_not_really'] ) ) {
-			return true;
-		}
-
-		return false;
+		return ! empty( $this->request_data[ '_mc4wp_required_but_not_really' ] );
 	}
 
 	/**
@@ -134,7 +108,7 @@ abstract class MC4WP_Integration {
 		$label = $this->options['label'];
 
 		// replace label variables
-		// @todo move to filter
+		// @todo move this to filter?
 		$label = MC4WP_Tools::replace_variables( $label, array(), array_values( $this->options['lists'] ) );
 
 		return $label;
@@ -146,7 +120,7 @@ abstract class MC4WP_Integration {
 	 * @return bool
 	 */
 	public function checkbox_was_checked() {
-		return ( isset( $_REQUEST[ $this->checkbox_name ] ) && $_REQUEST[ $this->checkbox_name ] == 1 );
+		return ( isset( $this->request_data[ $this->checkbox_name ] ) && $this->request_data[ $this->checkbox_name ] == 1 );
 	}
 
 	/**
@@ -160,6 +134,7 @@ abstract class MC4WP_Integration {
 	 * @param string $label
 	 * @param bool $precheck
 	 * @return string
+	 * @todo move to actions instead of filters
 	 */
 	public function get_checkbox( $label = '', $precheck = null ) {
 
@@ -204,14 +179,11 @@ abstract class MC4WP_Integration {
 
 			$lists = $_POST['_mc4wp_lists'];
 
-			// make sure lists is an array
 			if( ! is_array( $lists ) ) {
-
-				// sanitize value
-				$lists = sanitize_text_field( $lists );
-				$lists = array_map( 'trim', explode( ',', $lists ) );
+				$lists = explode( ',', $lists );
 			}
 
+			$lists = array_map( 'sanitize_text_field', $lists );
 		}
 
 		// allow plugins to filter final lists value
@@ -226,6 +198,7 @@ abstract class MC4WP_Integration {
 	 * @param string $email
 	 * @param array $merge_vars
 	 * @param int $related_object_id
+	 * @todo move certain checks to `validate` logic
 	 * @return string|boolean
 	 */
 	protected function subscribe( $email, array $merge_vars = array(), $related_object_id = 0 ) {
@@ -348,14 +321,12 @@ abstract class MC4WP_Integration {
 	 * Should we show error messages?
 	 * - Not for AJAX requests
 	 * - Not for non-admins
-	 * - Not for CF7 requests (which uses a different AJAX mechanism)
+	 * @todo Not for CF7 requests (which uses a different AJAX mechanism)
 	 *
 	 * @return bool
 	 */
 	protected function show_error_messages() {
-		return ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX )
-		       && ( ! isset( $_POST['_wpcf7_is_ajax_call'] ) || $_POST['_wpcf7_is_ajax_call'] != 1 )
-		       && current_user_can( 'manage_options' );
+		return ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) && current_user_can( 'manage_options' );
 	}
 
 	/**

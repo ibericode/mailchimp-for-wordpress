@@ -36,7 +36,8 @@ class MC4WP_Events_Manager_Integration extends MC4WP_Integration {
 	public function subscribe_from_events_manager( $args ) {
 
 		// was sign-up checkbox checked?
-		if(  empty( $args->booking_meta['booking']['mc4wp-subscribe'] ) ) {
+		// mc4wp-subscribe is name of checkbox user manually added to Events Manager fields
+		if( empty( $args->booking_meta['booking']['mc4wp-subscribe'] ) ) {
 			return false;
 		}
 

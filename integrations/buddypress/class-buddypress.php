@@ -34,14 +34,15 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 	 * @param string $user_login
 	 * @param string $user_password
 	 * @param string $user_email
+	 * @return bool
 	 */
 	public function subscribe_from_buddypress( $user_id, $user_login, $user_password, $user_email ) {
 
-		if( $this->is_spam() ) {
+		if( $this->is_honeypot_filled() ) {
 			return false;
 		}
 
-		if ( $this->checkbox_was_checked() === false ) {
+		if ( ! $this->checkbox_was_checked() ) {
 			return false;
 		}
 

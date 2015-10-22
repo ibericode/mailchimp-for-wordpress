@@ -36,7 +36,7 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 	 */
 	public function maybe_subscribe() {
 
-		if( $this->is_spam() ) {
+		if( $this->is_honeypot_filled() ) {
 			return false;
 		}
 
@@ -77,7 +77,7 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 			'GROUPINGS' => array()
 		);
 
-		foreach( $_REQUEST as $key => $value ) {
+		foreach( $this->request_data as $key => $value ) {
 
 			if( $key[0] === '_' || $key === $this->checkbox_name ) {
 				continue;

@@ -53,12 +53,14 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 	}
 
 	/**
-	* Subscribe from Contact Form 7 Forms
+	 * Subscribe from Contact Form 7 Forms
+	 *
+	 * @todo Implement custom request parser
 	*/
 	public function subscribe_from_cf7() {
 
 		// was sign-up checkbox checked?
-		if ( $this->checkbox_was_checked() === false ) {
+		if ( ! $this->checkbox_was_checked() ) {
 			return false;
 		}
 

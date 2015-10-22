@@ -37,12 +37,12 @@ class MC4WP_Registration_Form_Integration extends MC4WP_User_Integration {
 	 */
 	public function subscribe_from_registration( $user_id ) {
 
-		if( $this->is_spam() ) {
+		if( $this->is_honeypot_filled() ) {
 			return false;
 		}
 
 		// was sign-up checkbox checked?
-		if ( $this->checkbox_was_checked() === false ) {
+		if ( ! $this->checkbox_was_checked() ) {
 			return false;
 		}
 

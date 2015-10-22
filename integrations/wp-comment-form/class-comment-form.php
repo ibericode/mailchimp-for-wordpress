@@ -70,12 +70,12 @@ class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 	 */
 	public function subscribe_from_comment( $comment_id, $comment_approved = '' ) {
 
-		if( $this->is_spam() ) {
+		if( $this->is_honeypot_filled() ) {
 			return false;
 		}
 
 		// was sign-up checkbox checked?
-		if ( $this->checkbox_was_checked() === false ) {
+		if ( ! $this->checkbox_was_checked() ) {
 			return false;
 		}
 

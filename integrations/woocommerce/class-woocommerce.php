@@ -42,7 +42,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 	 */
 	public function add_checkout_field( $fields ) {
 
-		$default = ( $this->is_prechecked() ) ? 1 : 0;
+		$default = $this->options['precheck'] ? 1 : 0;
 		$label = $this->get_label_text();
 		$position = $this->get_position();
 
@@ -79,6 +79,8 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 				'FNAME' => $order->billing_first_name,
 				'LNAME' => $order->billing_last_name,
 			);
+
+			// @todo add billing address fields, find field of type "address"
 
 			return $this->subscribe( $email, $merge_vars, $order_id );
 		}
