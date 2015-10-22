@@ -36,12 +36,21 @@ function mc4wp() {
 }
 
 /**
-* Gets the MailChimp for WP API class and injects it with the given API key
+* Gets the MailChimp for WP API class and injects it with the API key
+ *
 * @since 1.0
 * @return MC4WP_API
 */
 function mc4wp_get_api() {
-	return MC4WP::instance()->get_api();
+	static $instance;
+
+	if( $instance instanceof MC4WP_API ) {
+		return $instance;
+	}
+
+	$opts = mc4wp_get_options();
+	$instance = new MC4WP_API( $opts['api_key'] );
+	return $instance;
 }
 
 /**

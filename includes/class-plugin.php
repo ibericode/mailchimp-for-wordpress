@@ -1,6 +1,31 @@
 <?php
 
+/**
+ * Class MC4WP
+ *
+ * @api
+ */
 class MC4WP {
+
+	/**
+	 * @const string
+	 */
+	const VERSION = MC4WP_VERSION;
+
+	/**
+	 * @const string
+	 */
+	const DIR = MC4WP_PLUGIN_DIR;
+
+	/**
+	 * @const string
+	 */
+	const URL = MC4WP_PLUGIN_URL;
+
+	/**
+	 * @const string
+	 */
+	const FILE = MC4WP_PLUGIN_FILE;
 
 	/**
 	* @var MC4WP_Form_Manager
@@ -11,11 +36,6 @@ class MC4WP {
 	* @var MC4WP_Integration_Manager
 	*/
 	public $integration_manager;
-
-	/**
-	* @var MC4WP_API
-	*/
-	private $api;
 
 	/**
 	 * @var MC4WP The one and only true plugin instance
@@ -51,18 +71,5 @@ class MC4WP {
 		// checkboxes
 		$this->integration_manager = new MC4WP_Integration_Manager();
 		$this->integration_manager->add_hooks();
-	}
-
-	/**
-	* @return MC4WP_API
-	*/
-	public function get_api() {
-
-		if( $this->api === null ) {
-			$opts = mc4wp_get_options();
-			$this->api = new MC4WP_API( $opts['api_key'] );
-		}
-
-		return $this->api;
 	}
 }
