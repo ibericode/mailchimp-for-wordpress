@@ -13,7 +13,7 @@ class MC4WP_Integration_Manager {
 	/**
 	 * @var
 	 */
-	protected $integrations = array();
+	public $integrations = array();
 
 	/**
 	 * @var array
@@ -31,11 +31,15 @@ class MC4WP_Integration_Manager {
 	protected $options;
 
 	/**
+	 * @var array
+	 */
+	private $classmap = array();
+
+	/**
 	* Constructor
 	*/
 	private function __construct() {
 		self::$instance = $this;
-		$this->options = mc4wp_get_integration_options();
 	}
 
 	/**
@@ -69,7 +73,8 @@ class MC4WP_Integration_Manager {
 	 * @return bool
 	 */
 	public function is_enabled( $slug ) {
-		return ! empty( $this->options[ $slug ]['enabled'] );
+		$options = $this->get_options( $slug );
+		return ! empty( $options['enabled'] );
 	}
 
 
@@ -80,7 +85,7 @@ class MC4WP_Integration_Manager {
 		// loop through integrations
 		// initialize the ones which are enabled
 		foreach( $this->get_enabled_integrations() as $slug ) {
-			$integration = $this->integration( $slug );
+			$integration = $this->get_instance( $slug );
 			$integration->initialize();
 		}
 	}
@@ -93,11 +98,9 @@ class MC4WP_Integration_Manager {
 	 * @return MC4WP_Integration
 	 * @throws Exception
 	 */
-	public function integration( $slug ) {
+	public function get_instance( $slug ) {
 
-		$integrations = $this->get_integrations();
-
-		if( ! array_key_exists( $slug, $integrations ) ) {
+		if( ! array_key_exists( $slug, $this->classmap ) ) {
 			throw new Exception( sprintf( "No integration with slug %s has been registered.", $slug ) );
 		}
 
@@ -107,20 +110,23 @@ class MC4WP_Integration_Manager {
 		}
 
 		// none found, create new instance
-		$classname = $integrations[ $slug ];
-		$options = mc4wp_get_integration_options( $slug );
+		$classname = $this->classmap[ $slug ];
+		$options = $this->get_options( $slug );
 		$this->instances[ $slug ] = $instance = new $classname( $options );
 
 		return $instance;
 	}
 
 	/**
-	 * @param      $slug
-	 * @param      $class
+	 * Register a new integration class
+	 *
+	 * @param string $slug
+	 * @param string $class
 	 * @param bool $always_enabled
 	 */
-	public function add_integration( $slug, $class, $always_enabled = false ) {
-		$this->integrations[ $slug ] = $class;
+	public function register_integration( $slug, $class, $always_enabled = false ) {
+		$this->integrations[] = $slug;
+		$this->classmap[ $slug ] = $class;
 
 		if( $always_enabled ) {
 			$this->always_enabled_integrations[] = $slug;
@@ -128,18 +134,25 @@ class MC4WP_Integration_Manager {
 	}
 
 	/**
-	 * @return array
+	 * Deregister an integration class
+	 *
+	 * @param string $slug
 	 */
-	public function get_integrations() {
+	public function deregister_integration( $slug ) {
 
-		/**
-		 * Allow for other plugins to register their own integration class.
-		 * The given class should extend `MC4WP_Integration`
-		 *
-		 * Format: slug => resolvable classname
-		 * Example: 'my-plugin' => 'My_Plugin_MC4WP_Integration'
-		 */
-		return (array) apply_filters( 'mc4wp_integrations', $this->integrations );
+		$index = array_search( $slug, $this->integrations );
+		if( $index ) {
+			unset( $this->integrations[ $index ] );
+		}
+
+		if( array_key_exists( $slug, $this->classmap ) ) {
+			unset( $this->classmap[ $slug ] );
+		}
+
+		$index = array_search( $slug, $this->always_enabled_integrations, true );
+		if( $index ) {
+			unset( $this->always_enabled_integrations[ $index ] );
+		}
 	}
 
 	/**
@@ -148,17 +161,32 @@ class MC4WP_Integration_Manager {
 	 * - Some integrations are always enabled because they need manual work
 	 * - Other integrations can be enabled in the settings page
 	 *
-	 * Filter: `mc4wp_enabled_integrations`
-	 *
 	 * @return array
 	 */
 	public function get_enabled_integrations() {
 		$always_enabled = $this->always_enabled_integrations;
-		$user_enabled = array_filter( array_keys( $this->get_integrations() ), array( $this, 'is_enabled' ) );
+		$user_enabled = array_filter( $this->integrations, array( $this, 'is_enabled' ) );
 		$enabled_integrations = array_merge( $always_enabled, $user_enabled );
-		$integrations = (array) apply_filters( 'mc4wp_enabled_integrations', $enabled_integrations );
-		return $integrations;
+		return $enabled_integrations;
 	}
 
+	/**
+	 * @param string $slug
+	 *
+	 * @return array
+	 */
+	public function get_options( $slug = '' ) {
+		$options = (array) get_option( 'mc4wp_integrations', array() );
+		if( $slug === '' ) {
+			return (array) apply_filters( 'mc4wp_integration_options', $options );
+		}
+
+		$integration_options = require MC4WP_PLUGIN_DIR . 'config/default-integration-options.php';
+		if( isset( $options[ $slug ] ) && is_array( $options[ $slug] ) ) {
+			$integration_options = array_merge( $integration_options, $options[ $slug ] );
+		}
+
+		return (array) apply_filters( 'mc4wp_' . $slug . '_integration_options', $integration_options );
+	}
 
 }

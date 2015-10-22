@@ -1,7 +1,4 @@
-<?php defined( 'ABSPATH' ) or exit;
-
-$integrations = MC4WP_Integration_Manager::instance();
-?>
+<?php defined( 'ABSPATH' ) or exit; ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
 	<div class="main-content row">
@@ -15,9 +12,9 @@ $integrations = MC4WP_Integration_Manager::instance();
 
 				<tbody>
 
-				<?php foreach( array_keys( $integrations->get_integrations() ) as $slug ) {
+				<?php foreach( $integrations as $slug ) {
 
-					$integration = $integrations->integration( $slug );
+					$integration = mc4wp_get_integration( $slug );
 					$installed = $integration->is_installed();
 					?>
 					<tr style="<?php if( ! $installed ) { echo 'opacity: 0.5;'; } ?>">

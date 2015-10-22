@@ -488,6 +488,8 @@ class MC4WP_Admin {
 			return;
 		}
 
+		$integrations = mc4wp_get_integrations();
+
 		require MC4WP_PLUGIN_DIR . 'includes/views/integrations.php';
 	}
 
@@ -495,15 +497,13 @@ class MC4WP_Admin {
 	 * @param string $slug
 	 */
 	public function show_integration_settings_page( $slug ) {
-		$integrations = MC4WP_Integration_Manager::instance();
 
 		try {
-			$integration = $integrations->integration( $slug );
+			$integration = mc4wp_get_integration( $slug );
 		} catch( Exception $e ) {
 			echo sprintf( '<h3>Integration not found.</h3><p>No integration with slug <strong>%s</strong> was found.</p>', $slug );
 			return;
 		}
-
 
 		$opts = $integration->options;
 		$lists = $this->mailchimp->get_lists();
