@@ -1,0 +1,33 @@
+.status{
+	display:inline-block;
+	margin-left:1em;
+	padding:3px 6px;
+	color:white;
+	font-size:12px;
+	font-weight:bold;
+
+	&.positive {
+		background-color: limeGreen;
+	}
+
+	&.negative {
+		background-color: red;
+	}
+
+	&.neutral {
+		background: gray;
+	}
+}
+
+.valigntop{
+	vertical-align: top !important;
+}
+
+/** Whitespace control */
+.medium-margin {
+	margin: 40px 0;
+}
+
+.small-margin {
+	margin: 20px 0;
+}
