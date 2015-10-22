@@ -50,8 +50,6 @@ function mc4wp_load_plugin() {
 	define( 'MC4WP_PLUGIN_FILE', __FILE__ );
 
 	require_once MC4WP_PLUGIN_DIR . 'vendor/autoload_52.php';
-	require_once MC4WP_PLUGIN_DIR . 'includes/functions/general.php';
-	require_once MC4WP_PLUGIN_DIR . 'includes/functions/template.php';
 
 	// Initialize admin section of plugin
 	if( is_admin()

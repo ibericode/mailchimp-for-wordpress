@@ -1,36 +1,37 @@
 <?php
 
 /**
- * Echoes a sign-up checkbox.
+ * Gets the MailChimp for WP options from the database
+ * Uses default values to prevent undefined index notices.
  *
- * @since 1.0
- * @deprecated 3.0
- *
-*/
-function mc4wp_checkbox() {
-	_deprecated_function( __FUNCTION__, 'MailChimp for WordPress v3.0' );
-}
-
-/**
- * Echoes a MailChimp for WordPress form
- *
- * @param   int     $id     The form ID
- * @since 1.0
- * @deprecated 3.0
+ * @return array
  */
-function mc4wp_form( $id = 0 ) {
-	_deprecated_function( __FUNCTION__, 'MailChimp for WordPress v3.0' );
+function mc4wp_get_options() {
+	$defaults = require MC4WP_PLUGIN_DIR . 'config/default-settings.php';
+	$options = (array) get_option( 'mc4wp', array() );
+	return array_merge( $defaults, $options );
 }
 
+
 /**
-* Returns a Form instance
-*
-* @param    int     $form_id.
-* @return   MC4WP_Form
-*/
-function mc4wp_get_form( $form_id = 0 ) {
-	return MC4WP_Form::get_instance( $form_id );
+ * Gets the MailChimp for WP API class and injects it with the API key
+ *
+ * @since 1.0
+ * @return MC4WP_API
+ */
+function mc4wp_get_api() {
+	static $instance;
+
+	if( $instance instanceof MC4WP_API ) {
+		return $instance;
+	}
+
+	$opts = mc4wp_get_options();
+	$instance = new MC4WP_API( $opts['api_key'] );
+	return $instance;
 }
+
+
 
 /**
  * Retrieves the URL of the current WordPress page

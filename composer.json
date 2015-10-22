@@ -45,6 +45,11 @@
     "classmap": [
       "includes/",
       "integrations/"
+    ],
+    "files": [
+      "includes/functions.php",
+      "includes/forms/functions.php",
+      "includes/integrations/functions.php"
     ]
   }
 }
