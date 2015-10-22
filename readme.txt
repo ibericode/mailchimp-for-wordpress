@@ -173,6 +173,10 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 
 - Honeypot field being autofilled in Chrome, causing a form error.
 
+**Improvements**
+
+- Updated Portugese translations.
+
 = 2.3.16 - October 14, 2015 =
 
 **Fixes**
