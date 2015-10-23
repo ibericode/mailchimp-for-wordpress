@@ -2,6 +2,7 @@
 
 /**
 * This class takes care of all form related functionality
+ * @internal
 */
 class MC4WP_Form_Asset_Manager {
 

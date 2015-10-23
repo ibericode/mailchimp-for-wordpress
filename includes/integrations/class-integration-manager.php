@@ -2,23 +2,9 @@
 
 /**
  * Class MC4WP_Integration_Manager
+ * @internal
  */
 class MC4WP_Integration_Manager {
-
-	/**
-	 * @var array Array holding all integration instances
-	 */
-	protected $instances = array();
-
-	/**
-	 * @var
-	 */
-	public $integrations = array();
-
-	/**
-	 * @var array
-	 */
-	protected $always_enabled_integrations = array();
 
 	/**
 	 * @var MC4WP_Integration_Manager
@@ -26,20 +12,21 @@ class MC4WP_Integration_Manager {
 	protected static $instance;
 
 	/**
-	 * @var array
+	 * @var MC4WP_Integration_Fixture[]
 	 */
-	protected $options;
+	protected $integrations = array();
 
 	/**
 	 * @var array
 	 */
-	private $classmap = array();
+	protected $options = array();
 
 	/**
 	* Constructor
 	*/
 	private function __construct() {
 		self::$instance = $this;
+		$this->options = $this->get_options();
 	}
 
 	/**
@@ -63,31 +50,25 @@ class MC4WP_Integration_Manager {
 		add_action( 'after_setup_theme', array( $this, 'initialize' ) );
 	}
 
-	/**
-	 * Checks whether a certain integration is enabled (in the settings)
-	 *
-	 * This is decoupled from the integration class itself as checking an array is way "cheaper" than instantiating an object
-	 *
-	 * @param string $slug
-	 *
-	 * @return bool
-	 */
-	public function is_enabled( $slug ) {
-		$options = $this->get_options( $slug );
-		return ! empty( $options['enabled'] );
-	}
-
 
 	/**
 	 * Add hooks
 	 */
 	public function initialize() {
-		// loop through integrations
-		// initialize the ones which are enabled
-		foreach( $this->get_enabled_integrations() as $slug ) {
-			$integration = $this->get_instance( $slug );
-			$integration->initialize();
+		/*** @var MC4WP_Integration_Fixture $integration */
+		foreach( $this->get_enabled_integrations() as $integration ) {
+			$integration->load()->initialize();
 		}
+	}
+
+	/**
+	 * Get an integration instance
+	 *
+	 * @return MC4WP_Integration_Fixture[]
+	 * @throws Exception
+	 */
+	public function get_all() {
+		return $this->integrations;
 	}
 
 
@@ -98,23 +79,13 @@ class MC4WP_Integration_Manager {
 	 * @return MC4WP_Integration
 	 * @throws Exception
 	 */
-	public function get_instance( $slug ) {
+	public function get( $slug ) {
 
-		if( ! array_key_exists( $slug, $this->classmap ) ) {
+		if( ! isset( $this->integrations[ $slug ] ) ) {
 			throw new Exception( sprintf( "No integration with slug %s has been registered.", $slug ) );
 		}
 
-		// find instance of integration
-		if( isset( $this->instances[ $slug ] ) ) {
-			return $this->instances[ $slug ];
-		}
-
-		// none found, create new instance
-		$classname = $this->classmap[ $slug ];
-		$options = $this->get_options( $slug );
-		$this->instances[ $slug ] = $instance = new $classname( $slug, $options );
-
-		return $instance;
+		return $this->integrations[ $slug ]->load();
 	}
 
 	/**
@@ -122,15 +93,11 @@ class MC4WP_Integration_Manager {
 	 *
 	 * @param string $slug
 	 * @param string $class
-	 * @param bool $always_enabled
+	 * @param bool $enabled
 	 */
-	public function register_integration( $slug, $class, $always_enabled = false ) {
-		$this->integrations[] = $slug;
-		$this->classmap[ $slug ] = $class;
-
-		if( $always_enabled ) {
-			$this->always_enabled_integrations[] = $slug;
-		}
+	public function register_integration( $slug, $class, $enabled = false ) {
+		$raw_options = $this->get_integration_options( $slug );
+		$this->integrations[ $slug ] = new MC4WP_Integration_Fixture( $slug, $class, $enabled, $raw_options );
 	}
 
 	/**
@@ -139,20 +106,22 @@ class MC4WP_Integration_Manager {
 	 * @param string $slug
 	 */
 	public function deregister_integration( $slug ) {
-
-		$index = array_search( $slug, $this->integrations );
-		if( $index ) {
-			unset( $this->integrations[ $index ] );
+		if( isset( $this->integrations[ $slug ] ) ) {
+			unset( $this->integrations[ $slug ] );
 		}
+	}
 
-		if( array_key_exists( $slug, $this->classmap ) ) {
-			unset( $this->classmap[ $slug ] );
-		}
-
-		$index = array_search( $slug, $this->always_enabled_integrations, true );
-		if( $index ) {
-			unset( $this->always_enabled_integrations[ $index ] );
-		}
+	/**
+	 * Checks whether a certain integration is enabled (in the settings)
+	 *
+	 * This is decoupled from the integration class itself as checking an array is way "cheaper" than instantiating an object
+	 *
+	 * @param MC4WP_Integration_Fixture $integration
+	 *
+	 * @return bool
+	 */
+	public function is_enabled( MC4WP_Integration_Fixture $integration ) {
+		return $integration->enabled;
 	}
 
 	/**
@@ -164,29 +133,25 @@ class MC4WP_Integration_Manager {
 	 * @return array
 	 */
 	public function get_enabled_integrations() {
-		$always_enabled = $this->always_enabled_integrations;
-		$user_enabled = array_filter( $this->integrations, array( $this, 'is_enabled' ) );
-		$enabled_integrations = array_merge( $always_enabled, $user_enabled );
-		return $enabled_integrations;
+		return array_filter( $this->integrations, array( $this, 'is_enabled' ) );
 	}
 
 	/**
-	 * @param string $slug
-	 *
 	 * @return array
 	 */
-	public function get_options( $slug = '' ) {
+	public function get_options() {
 		$options = (array) get_option( 'mc4wp_integrations', array() );
-		if( $slug === '' ) {
-			return (array) apply_filters( 'mc4wp_integration_options', $options );
-		}
+		return (array) apply_filters( 'mc4wp_integration_options', $options );
+	}
 
-		$integration_options = require MC4WP_PLUGIN_DIR . 'config/default-integration-options.php';
-		if( isset( $options[ $slug ] ) && is_array( $options[ $slug] ) ) {
-			$integration_options = array_merge( $integration_options, $options[ $slug ] );
-		}
-
-		return (array) apply_filters( 'mc4wp_' . $slug . '_integration_options', $integration_options );
+	/**
+	 * Get the raw options for an integration
+	 *
+	 * @param $slug
+	 * @return array
+	 */
+	public function get_integration_options( $slug ) {
+		return isset( $this->options[ $slug ] ) ? $this->options[ $slug ] : array();
 	}
 
 }

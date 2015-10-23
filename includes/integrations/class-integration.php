@@ -2,6 +2,8 @@
 
 /**
  * Class MC4WP_Integration
+ *
+ * @api
  */
 abstract class MC4WP_Integration {
 
@@ -43,13 +45,31 @@ abstract class MC4WP_Integration {
 	 */
 	public function __construct( $slug, array $options ) {
 		$this->slug = $slug;
-		$this->options = $options;
+		$this->options = $this->parse_options( $options );
 		$this->request_data = $_REQUEST;
 
 		// if checkbox name is not set, set a good custom value
 		if( empty( $this->checkbox_name ) ) {
 			$this->checkbox_name = '_mc4wp_subscribe' . '_' . $this->slug;
 		}
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function get_default_options() {
+		$defaults = require MC4WP_PLUGIN_DIR . 'config/default-integration-options.php';
+		$integration_options = array_merge( $defaults, $this->options );
+		return (array) apply_filters( 'mc4wp_' . $this->slug . '_integration_options', $integration_options );
+	}
+
+	/**
+	 * @param array $options
+	 *
+	 * @return array
+	 */
+	protected function parse_options( array $options ) {
+		return array_merge( $this->get_default_options(), $options );
 	}
 
 	/**

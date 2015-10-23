@@ -320,10 +320,10 @@ class MC4WP_Admin {
 
 	/**
 	 * @todo perform some validation
-	 *
+	 * @param array $settings
 	 * @return array
 	 */
-	public function save_integration_settings( $settings ) {
+	public function save_integration_settings( array $settings ) {
 		$all_settings = get_option( 'mc4wp_integrations', array() );
 		$settings = array_merge( $all_settings, $settings );
 		return $settings;

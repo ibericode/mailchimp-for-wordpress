@@ -6,6 +6,7 @@
  * @author Danny van Kooten
  * @package MailChimp for WordPress
  * @api
+ * @since 3.0
  */
 class MC4WP_Form {
 

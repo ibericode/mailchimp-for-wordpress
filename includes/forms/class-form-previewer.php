@@ -4,6 +4,8 @@
  * Class MC4WP_Form_Previewer
  *
  * @todo Test this class on WP MultiSite
+ * @since 3.0
+ * @internal
  */
 class MC4WP_Form_Previewer {
 

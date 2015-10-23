@@ -83,6 +83,7 @@ return array(
     'MC4WP_Form_Validator' => $baseDir . '/includes/forms/class-form-validator.php',
     'MC4WP_Form_Widget' => $baseDir . '/includes/forms/class-widget.php',
     'MC4WP_Integration' => $baseDir . '/includes/integrations/class-integration.php',
+    'MC4WP_Integration_Fixture' => $baseDir . '/includes/integrations/class-integration-fixture.php',
     'MC4WP_Integration_Manager' => $baseDir . '/includes/integrations/class-integration-manager.php',
     'MC4WP_MailChimp' => $baseDir . '/includes/class-mailchimp.php',
     'MC4WP_Registration_Form_Integration' => $baseDir . '/integrations/wp-registration-form/class-registration-form.php',

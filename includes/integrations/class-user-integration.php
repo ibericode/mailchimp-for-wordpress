@@ -2,6 +2,11 @@
 
 defined( 'ABSPATH' ) or exit;
 
+/**
+ * Class MC4WP_User_Integration
+ *
+ * @api
+ */
 abstract class MC4WP_User_Integration extends MC4WP_Integration {
 
 	/**

@@ -1,22 +1,26 @@
 <?php
 
 /**
- * @return array
- */
-function mc4wp_get_integrations() {
-	return MC4WP_Integration_Manager::instance()->integrations;
-}
-
-/**
- * Gets the (user-supplied) options for an integration
+ * Gets an array of all registered integrations
  *
  * @since 3.0
  * @api
- * @param string $slug
  * @return array
  */
-function mc4wp_get_integration_options( $slug = '' ) {
-	return MC4WP_Integration_Manager::instance()->get_options( $slug );
+function mc4wp_get_integrations() {
+	return MC4WP_Integration_Manager::instance()->get_all();
+}
+
+/**
+ * Get an instance of a registered integration class
+ *
+ * @since 3.0
+ * @api
+ * @param $slug
+ * @return MC4WP_Integration
+ */
+function mc4wp_get_integration( $slug ) {
+	return MC4WP_Integration_Manager::instance()->get( $slug );
 }
 
 /**
@@ -38,19 +42,8 @@ function mc4wp_register_integration( $slug, $class, $always_enabled = false ) {
  * @since 3.0
  * @api
  * @param $slug
+ * @return void
  */
 function mc4wp_deregister_integration( $slug ) {
 	MC4WP_Integration_Manager::instance()->deregister_integration( $slug );
-}
-
-/**
- * Get an instance of a registered integration class
- *
- * @since 3.0
- * @api
- * @param $slug
- * @return MC4WP_Integration
- */
-function mc4wp_get_integration( $slug ) {
-	return MC4WP_Integration_Manager::instance()->get_instance( $slug );
 }

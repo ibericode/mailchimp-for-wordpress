@@ -12,9 +12,8 @@
 
 				<tbody>
 
-				<?php foreach( $integrations as $slug ) {
+				<?php foreach( $integrations as $integration ) {
 
-					$integration = mc4wp_get_integration( $slug );
 					$installed = $integration->is_installed();
 					?>
 					<tr style="<?php if( ! $installed ) { echo 'opacity: 0.5;'; } ?>">

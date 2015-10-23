@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class MC4WP_Field_Map
+ * @internal
+ */
 class MC4WP_Field_Map {
 
 	/**
