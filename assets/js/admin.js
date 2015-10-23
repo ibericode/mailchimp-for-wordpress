@@ -13,7 +13,7 @@
 	var tabs = new Tabs($(document.getElementById('mc4wp-admin')));
 	var form_editor = window.form_editor = new FormEditor( document.getElementById('mc4wp-form-content') );
 	var form_watcher = new FormWatcher( form_editor );
-	var field_helper = new FieldHelper( tabs );
+	var field_helper = new FieldHelper( tabs, form_editor );
 	m.mount( document.getElementById( 'mc4wp-field-wizard'), field_helper );
 
 	// events
@@ -23,7 +23,7 @@
 	require('./clean-this-up.js');
 
 })();
-},{"./FieldHelper.js":3,"./FormEditor.js":5,"./FormWatcher.js":6,"./Tabs.js":7,"./clean-this-up.js":8}],2:[function(require,module,exports){
+},{"./FieldHelper.js":3,"./FormEditor.js":5,"./FormWatcher.js":6,"./Tabs.js":8,"./clean-this-up.js":9}],2:[function(require,module,exports){
 var FieldForms = {};
 var rows = require('./FieldRows.js');
 
@@ -58,7 +58,7 @@ FieldForms.text = function(config) {
 
 module.exports = FieldForms;
 },{"./FieldRows.js":4}],3:[function(require,module,exports){
-var FieldHelper = function(tabs) {
+var FieldHelper = function(tabs, editor) {
 	'use strict';
 
 	var $ = window.jQuery;
@@ -71,12 +71,14 @@ var FieldHelper = function(tabs) {
 	var chosenField;
 	var active = false;
 	var config = {
+		name: m.prop(''),
 		useParagraphs: m.prop(false),
 		defaultValue: m.prop(''),
 		isRequired: m.prop(false),
 		usePlaceholder: m.prop(true),
 		label: m.prop('')
 	};
+	var render = require('./Render.js');
 
 	/**
 	 * Recalculate which lists are selected
@@ -135,6 +137,7 @@ var FieldHelper = function(tabs) {
 		active = typeof(chosenField) === "object";
 
 		if( active ) {
+			config.name(chosenField.tag);
 			config.defaultValue(chosenField.name);
 			config.isRequired(chosenField.req);
 			config.label(chosenField.name);
@@ -162,9 +165,31 @@ var FieldHelper = function(tabs) {
 
 	/**
 	 * Create HTML based on current config object
-	 * @todo
 	 */
 	function createHTML() {
+
+		var label = config.label().length ? m("label", config.label()) : '';
+		var field_attributes =  {
+			type: 'text',
+			name: config.name(),
+			required: config.isRequired()
+		};
+
+		if( config.usePlaceholder() == true ) {
+			field_attributes.placeholder = config.defaultValue();
+		} else {
+			field_attributes.value = config.defaultValue();
+		}
+
+		var field = m( 'input', field_attributes );
+		var html = config.useParagraphs() ? m('p', [ label, field ]) : [ label, field ];
+
+		// render HTML
+		var rawHTML = render( html );
+		rawHTML = html_beautify( rawHTML ) + "\n";
+
+		// add to editor
+		editor.replaceSelection( rawHTML );
 
 		// reset field form
 		chooseField('');
@@ -264,7 +289,7 @@ var FieldHelper = function(tabs) {
 };
 
 module.exports = FieldHelper;
-},{"./FieldForms.js":2}],4:[function(require,module,exports){
+},{"./FieldForms.js":2,"./Render.js":7}],4:[function(require,module,exports){
 var r = {};
 
 r.label = function(config) {
@@ -400,6 +425,122 @@ var FormWatcher = function(editor) {
 
 module.exports = FormWatcher;
 },{}],7:[function(require,module,exports){
+'use strict';
+
+var VOID_TAGS = ['area', 'base', 'br', 'col', 'command', 'embed', 'hr',
+	'img', 'input', 'keygen', 'link', 'meta', 'param', 'source', 'track',
+	'wbr', '!doctype'];
+
+function isArray(thing) {
+	return Object.prototype.toString.call(thing) === '[object Array]';
+}
+
+function camelToDash(str) {
+	return str.replace(/\W+/g, '-')
+		.replace(/([a-z\d])([A-Z])/g, '$1-$2');
+}
+
+function removeEmpties(n) {
+	return n != '';
+}
+
+// shameless stolen from https://github.com/punkave/sanitize-html
+function escapeHtml(s, replaceDoubleQuote) {
+	if (s === 'undefined') {
+		s = '';
+	}
+	if (typeof(s) !== 'string') {
+		s = s + '';
+	}
+	s =  s.replace(/\&/g, '&amp;').replace(/</g, '&lt;').replace(/\>/g, '&gt;');
+	if (replaceDoubleQuote) {
+		return s.replace(/\"/g, '&quot;');
+	}
+	return s;
+}
+
+function createAttrString(attrs) {
+	if (!attrs || !Object.keys(attrs).length) {
+		return '';
+	}
+
+	return Object.keys(attrs).map(function(name) {
+		var value = attrs[name];
+		if (typeof value === 'undefined' || value === null || typeof value === 'function') {
+			return;
+		}
+		if (typeof value === 'boolean') {
+			return value ? ' ' + name : '';
+		}
+		if (name === 'style') {
+			if (!value) {
+				return;
+			}
+			var styles = attrs.style;
+			if (typeof styles === 'object') {
+				styles = Object.keys(styles).map(function(property) {
+					return styles[property] != '' ? [camelToDash(property).toLowerCase(), styles[property]].join(':') : '';
+				}).filter(removeEmpties).join(';');
+			}
+			return styles != '' ? ' style="' + escapeHtml(styles, true) + '"' : '';
+		}
+		return ' ' + escapeHtml(name === 'className' ? 'class' : name) + '="' + escapeHtml(value, true) + '"';
+	}).join('');
+}
+
+function createChildrenContent(view) {
+	if(isArray(view.children) && !view.children.length) {
+		return '';
+	}
+
+	return render(view.children);
+}
+
+function render(view) {
+	var type = typeof view;
+
+	if (type === 'string') {
+		return escapeHtml(view);
+	}
+
+	if(type === 'number' || type === 'boolean') {
+		return view;
+	}
+
+	if (!view) {
+		return '';
+	}
+
+	if (isArray(view)) {
+		return view.map(render).join('');
+	}
+
+	//compontent
+	if (view.view) {
+		var scope = view.controller ? new view.controller : {};
+		var result = render(view.view(scope));
+		if (scope.onunload) {
+			scope.onunload();
+		}
+		return result;
+	}
+
+	if (view.$trusted) {
+		return '' + view;
+	}
+	var children = createChildrenContent(view);
+	if (!children && VOID_TAGS.indexOf(view.tag.toLowerCase()) >= 0) {
+		return '<' + view.tag + createAttrString(view.attrs) + '>';
+	}
+	return [
+		'<', view.tag, createAttrString(view.attrs), '>',
+		children,
+		'</', view.tag, '>',
+	].join('');
+}
+
+module.exports = render;
+},{}],8:[function(require,module,exports){
 // Tabs
 var Tabs = function( $context ) {
 
@@ -490,7 +631,7 @@ var Tabs = function( $context ) {
 };
 
 module.exports = Tabs;
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 module.exports = (function() {
 	'use strict';
 

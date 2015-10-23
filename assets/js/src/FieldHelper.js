@@ -1,4 +1,4 @@
-var FieldHelper = function(tabs) {
+var FieldHelper = function(tabs, editor) {
 	'use strict';
 
 	var $ = window.jQuery;
@@ -11,12 +11,14 @@ var FieldHelper = function(tabs) {
 	var chosenField;
 	var active = false;
 	var config = {
+		name: m.prop(''),
 		useParagraphs: m.prop(false),
 		defaultValue: m.prop(''),
 		isRequired: m.prop(false),
 		usePlaceholder: m.prop(true),
 		label: m.prop('')
 	};
+	var render = require('./Render.js');
 
 	/**
 	 * Recalculate which lists are selected
@@ -75,6 +77,7 @@ var FieldHelper = function(tabs) {
 		active = typeof(chosenField) === "object";
 
 		if( active ) {
+			config.name(chosenField.tag);
 			config.defaultValue(chosenField.name);
 			config.isRequired(chosenField.req);
 			config.label(chosenField.name);
@@ -102,9 +105,31 @@ var FieldHelper = function(tabs) {
 
 	/**
 	 * Create HTML based on current config object
-	 * @todo
 	 */
 	function createHTML() {
+
+		var label = config.label().length ? m("label", config.label()) : '';
+		var field_attributes =  {
+			type: 'text',
+			name: config.name(),
+			required: config.isRequired()
+		};
+
+		if( config.usePlaceholder() == true ) {
+			field_attributes.placeholder = config.defaultValue();
+		} else {
+			field_attributes.value = config.defaultValue();
+		}
+
+		var field = m( 'input', field_attributes );
+		var html = config.useParagraphs() ? m('p', [ label, field ]) : [ label, field ];
+
+		// render HTML
+		var rawHTML = render( html );
+		rawHTML = html_beautify( rawHTML ) + "\n";
+
+		// add to editor
+		editor.replaceSelection( rawHTML );
 
 		// reset field form
 		chooseField('');
