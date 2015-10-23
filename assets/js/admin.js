@@ -197,16 +197,26 @@ var FieldHelper = function() {
 			overlay = [
 				m( "div.overlay",[
 					m("div.overlay-content", [
-						m('span.close.dashicons.dashicons-no', { onclick: chooseField }),
 
+						// close icon
+						m('span.close.dashicons.dashicons-no', {
+							title: "Click to close the overlay.",
+							onclick: chooseField
+						}),
+
+						// field wizard
 						m("div.field-wizard", [
+
+							//heading
 							m("h3", [
 								chosenField.name,
 								m("code", chosenField.tag)
 							]),
 
+							// actual form
 							forms.render(chosenField.field_type, config),
 
+							// add to form button
 							m("p", [
 								m("button", {
 									class: "button-primary",
@@ -217,7 +227,10 @@ var FieldHelper = function() {
 						])
 					])
 				]),
+
+				// overlay background
 				m( "div.overlay-background", {
+					title: "Click to close the overlay.",
 					onclick: chooseField
 				})
 			];
