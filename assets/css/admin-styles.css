@@ -59,6 +59,30 @@
     display: block; }
   #mc4wp-admin .tab h2 {
     margin-top: 20px; }
+  #mc4wp-admin .field-wizard h3 {
+    margin-top: 0; }
+  #mc4wp-admin .field-wizard code {
+    margin-left: 10px; }
+  #mc4wp-admin .field-wizard > p {
+    margin: 15px 0; }
+  #mc4wp-admin .field-wizard label {
+    font-weight: 600;
+    display: block; }
+  #mc4wp-admin .field-wizard input {
+    margin-bottom: 6px; }
+  #mc4wp-admin .field-wizard .cb-wrap {
+    font-weight: normal; }
+    #mc4wp-admin .field-wizard .cb-wrap input {
+      margin-right: 6px; }
+  #mc4wp-admin .available-fields {
+    border: 1px solid #ccc;
+    padding: 20px;
+    background: white; }
+    #mc4wp-admin .available-fields strong {
+      display: block;
+      margin-bottom: 10px; }
+    #mc4wp-admin .available-fields button {
+      margin: 0 6px 6px 0; }
   #mc4wp-admin .page-title {
     background: url("../img/icon-large.png") no-repeat left center;
     padding-left: 42px;
@@ -78,20 +102,37 @@
     border-left: 1px solid #ccc; }
 
 .overlay {
-  position: fixed;
-  width: 480px;
-  height: 400px;
   top: 50%;
   left: 50%;
-  margin: -200px 0 0 -240px;
+  transform: translate(-50%, -50%);
+  z-index: 100000;
+  max-width: 480px;
+  position: fixed;
+  width: 100%; }
+
+.overlay-content {
   padding: 20px;
-  background: white;
+  width: 100%;
+  max-width: 480px;
+  background: #fefefe;
   border: 1px solid black;
-  z-index: 100; }
+  height: 400px;
+  overflow-y: scroll;
+  position: relative; }
+  .overlay-content .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0.5;
+    padding: 5px; }
+  .overlay-content .close:hover {
+    opacity: 1; }
 
 .overlay-background {
-  z-index: 99;
-  background: rgba(0, 0, 0, 0.5);
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.67);
   width: 100%;
   height: 100%;
   position: fixed;

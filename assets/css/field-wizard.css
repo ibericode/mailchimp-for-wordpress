@@ -1,0 +1,27 @@
+.field-wizard h3 {
+  margin-top: 0; }
+.field-wizard code {
+  margin-left: 10px; }
+.field-wizard > p {
+  margin: 15px 0; }
+.field-wizard label {
+  font-weight: 600;
+  display: block; }
+.field-wizard input {
+  margin-bottom: 6px; }
+.field-wizard .cb-wrap {
+  font-weight: normal; }
+  .field-wizard .cb-wrap input {
+    margin-right: 6px; }
+
+.available-fields {
+  border: 1px solid #ccc;
+  padding: 20px;
+  background: white; }
+  .available-fields strong {
+    display: block;
+    margin-bottom: 10px; }
+  .available-fields button {
+    margin: 0 6px 6px 0; }
+
+/*# sourceMappingURL=field-wizard.css.map */

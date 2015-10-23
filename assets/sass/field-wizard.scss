@@ -1,0 +1,46 @@
+.field-wizard {
+
+	h3{
+		margin-top: 0;
+	}
+
+	code {
+		margin-left: 10px;
+	}
+
+	> p {
+		margin: 15px 0;
+	}
+
+	label{
+		font-weight: 600;
+		display: block;
+	}
+
+	input {
+		margin-bottom: 6px;
+	}
+
+	.cb-wrap{
+		font-weight: normal;
+
+		input { margin-right: 6px; }
+	}
+
+}
+
+.available-fields {
+
+	strong {
+		display: block;
+		margin-bottom: 10px;
+	}
+
+	button{
+		margin: 0 6px 6px 0;
+	}
+
+	border: 1px solid #ccc;
+	padding: 20px;
+	background: white;
+}

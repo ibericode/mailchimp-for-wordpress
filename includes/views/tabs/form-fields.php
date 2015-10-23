@@ -1,17 +1,12 @@
 <?php add_thickbox(); ?>
 
+<a href="#TB_inline?width=600&height=550&inlineId=mc4wp-form-variables" class="alignright thickbox button-secondary">
+	<span class="dashicons dashicons-info"></span>
+	<?php _e( 'Form variables', 'mailchimp-for-wp' ); ?>
+</a>
 <h2><?php _e( "Form Fields", 'mailchimp-for-wp' ); ?></h2>
 
 <div id="mc4wp-field-wizard"></div>
-
-<p>
-	<a href="#TB_inline?width=600&height=550&inlineId=mc4wp-form-variables" class="alignright thickbox button-secondary">
-		<span class="dashicons dashicons-info"></span>
-		<?php _e( 'Add form variable', 'mailchimp-for-wp' ); ?>
-	</a>
-
-	<br style="clear: both;" />
-</p>
 
 <textarea class="widefat" cols="160" rows="20" id="mc4wp-form-content" name="mc4wp_form[content]"><?php echo esc_textarea( $form->content ); ?></textarea>
 
