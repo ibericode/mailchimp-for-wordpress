@@ -18,7 +18,7 @@
 
 					<thead>
 						<tr>
-							<th><?php _e( 'Enabled?', 'mailchimp-for-wp' ); ?></th>
+							<th><?php _e( 'Enabled', 'mailchimp-for-wp' ); ?></th>
 							<th><?php _e( 'Name', 'mailchimp-for-wp' ); ?></th>
 							<th><?php _e( 'Description', 'mailchimp-for-wp' ); ?></th>
 						</tr>
