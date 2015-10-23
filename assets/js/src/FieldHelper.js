@@ -1,4 +1,4 @@
-var FieldHelper = function() {
+var FieldHelper = function(tabs) {
 	'use strict';
 
 	var $ = window.jQuery;
@@ -117,6 +117,17 @@ var FieldHelper = function() {
 	 * @returns {*}
 	 */
 	function view( ctrl ) {
+
+		if( selectedLists.length === 0 ) {
+			return m( "div.mc4wp-notice", [
+				m("p", [
+					m("a", {
+						href: 'javascript:void(0)',
+						onclick: function() { tabs.open('settings') }
+					}, "Please select at least one MailChimp list in order to build your form." )
+				])
+			]);
+		}
 
 		// build DOM for fields choice
 		var fieldsChoice = m( "div.available-fields.small-margin", [

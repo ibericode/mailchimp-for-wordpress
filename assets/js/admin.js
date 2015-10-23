@@ -3,14 +3,17 @@
 	'use strict';
 
 	// dependencies
+	var $ = window.jQuery;
 	var FormWatcher = require('./FormWatcher.js');
 	var FormEditor = require('./FormEditor.js');
 	var FieldHelper = require('./FieldHelper.js');
+	var Tabs = require( './Tabs.js' );
 
 	// vars
-	var form_editor = window.form_editor = new FormEditor( document.getElementById('mc4wp-form-content'));
+	var tabs = new Tabs($(document.getElementById('mc4wp-admin')));
+	var form_editor = window.form_editor = new FormEditor( document.getElementById('mc4wp-form-content') );
 	var form_watcher = new FormWatcher( form_editor );
-	var field_helper = new FieldHelper();
+	var field_helper = new FieldHelper( tabs );
 	m.mount( document.getElementById( 'mc4wp-field-wizard'), field_helper );
 
 	// events
@@ -20,7 +23,7 @@
 	require('./clean-this-up.js');
 
 })();
-},{"./FieldHelper.js":3,"./FormEditor.js":5,"./FormWatcher.js":6,"./clean-this-up.js":7}],2:[function(require,module,exports){
+},{"./FieldHelper.js":3,"./FormEditor.js":5,"./FormWatcher.js":6,"./Tabs.js":7,"./clean-this-up.js":8}],2:[function(require,module,exports){
 var FieldForms = {};
 var rows = require('./FieldRows.js');
 
@@ -55,7 +58,7 @@ FieldForms.text = function(config) {
 
 module.exports = FieldForms;
 },{"./FieldRows.js":4}],3:[function(require,module,exports){
-var FieldHelper = function() {
+var FieldHelper = function(tabs) {
 	'use strict';
 
 	var $ = window.jQuery;
@@ -174,6 +177,17 @@ var FieldHelper = function() {
 	 * @returns {*}
 	 */
 	function view( ctrl ) {
+
+		if( selectedLists.length === 0 ) {
+			return m( "div.mc4wp-notice", [
+				m("p", [
+					m("a", {
+						href: 'javascript:void(0)',
+						onclick: function() { tabs.open('settings') }
+					}, "Please select at least one MailChimp list in order to build your form." )
+				])
+			]);
+		}
 
 		// build DOM for fields choice
 		var fieldsChoice = m( "div.available-fields.small-margin", [
@@ -386,6 +400,97 @@ var FormWatcher = function(editor) {
 
 module.exports = FormWatcher;
 },{}],7:[function(require,module,exports){
+// Tabs
+var Tabs = function( $context ) {
+
+	var $ = window.jQuery;
+	var $tabs = $context.find('.tab');
+	var $tabNav = $context.find('.nav-tab');
+	var $tabLinks = $context.find('.tab-link');
+	var $refererField = $context.find('input[name="_wp_http_referer"]');
+
+	var URL = {
+		parse: function(url) {
+			var query = {};
+			var a = url.split('&');
+			for (var i in a) {
+				var b = a[i].split('=');
+				query[decodeURIComponent(b[0])] = decodeURIComponent(b[1]);
+			}
+
+			return query;
+		},
+		build: function(data) {
+			var ret = [];
+			for (var d in data)
+				ret.push(d + "=" + encodeURIComponent(data[d]));
+			return ret.join("&");
+		},
+		setParameter: function( url, key, value ) {
+			var data = URL.parse( url );
+			data[ key ] = value;
+			return URL.build( data );
+		}
+	};
+
+	function open( tab ) {
+		// hide all tabs & remove active class
+		$tabs.hide();
+		$tabNav.removeClass('nav-tab-active');
+
+		// add `nav-tab-active` to this tab
+		$(document.getElementById('nav-tab-' + tab )).addClass('nav-tab-active').blur();
+
+		// show target tab
+		var targetId = "tab-" + tab;
+		document.getElementById(targetId).style.display = 'block';
+
+		// create new URL
+		var url = URL.setParameter(window.location.href, "tab", tab );
+
+		// update hash
+		if( history.pushState ) {
+			history.pushState( '', '', url );
+		}
+
+		// update referer field
+		$refererField.val(url);
+
+		// if thickbox is open, close it.
+		if( typeof(tb_remove) === "function" ) {
+			tb_remove();
+		}
+
+		// focus on codemirror textarea, this fixes bug with blank textarea
+		window.form_editor.refresh();
+	}
+
+
+	function switchTab() {
+
+		var urlParams = URL.parse( this.href );
+		if( typeof(urlParams.tab) === "undefined" ) {
+			return;
+		}
+
+		open( urlParams.tab );
+
+		// prevent page jump
+		return false;
+	}
+
+	// add tab listener
+	$tabNav.click(switchTab);
+	$tabLinks.click(switchTab);
+
+	return {
+		open: open
+	}
+
+};
+
+module.exports = Tabs;
+},{}],8:[function(require,module,exports){
 module.exports = (function() {
 	'use strict';
 
@@ -438,69 +543,6 @@ module.exports = (function() {
 
 	// show woocommerce settings only when `show at woocommerce checkout` is checked.
 	$context.find('input[name$="[show_at_woocommerce_checkout]"]').change(toggleWooCommerceSettings);
-
-	// Tabs
-	(function( $context ) {
-
-		var $tabs = $context.find('.tab');
-		var $tabNav = $context.find('.nav-tab');
-		var $tabLinks = $context.find('.tab-link');
-		var $refererField = $context.find('input[name="_wp_http_referer"]');
-
-		function parseQuery(qstr) {
-			var query = {};
-			var a = qstr.split('&');
-			for (var i in a) {
-				var b = a[i].split('=');
-				query[decodeURIComponent(b[0])] = decodeURIComponent(b[1]);
-			}
-
-			return query;
-		}
-
-		function switchTab() {
-
-			var urlParams = parseQuery( this.href );
-			if( typeof(urlParams.tab) === "undefined" ) {
-				return;
-			}
-
-			// hide all tabs & remove active class
-			$tabs.hide();
-			$tabNav.removeClass('nav-tab-active');
-
-			// add `nav-tab-active` to this tab
-			$(document.getElementById('nav-tab-' + urlParams.tab )).addClass('nav-tab-active').blur();
-
-			// show target tab
-			var targetId = "tab-" + urlParams.tab;
-			document.getElementById(targetId).style.display = 'block';
-
-			// update hash
-			if( history.pushState ) {
-				history.pushState( '', '', this.href );
-			}
-
-			// update referer field
-			$refererField.val(this.href);
-
-			// if thickbox is open, close it.
-			if( typeof(tb_remove) === "function" ) {
-				tb_remove();
-			}
-
-			// focus on codemirror textarea, this fixes bug with blank textarea
-			window.form_editor.refresh();
-
-			// prevent page jump
-			return false;
-		}
-
-		// add tab listener
-		$tabNav.click(switchTab);
-		$tabLinks.click(switchTab);
-
-	})($(document.getElementById('mc4wp-admin')));
 
 
 	/* Grey out integration settings when "enabled" is not ticked */
