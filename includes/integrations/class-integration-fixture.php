@@ -24,6 +24,11 @@ class MC4WP_Integration_Fixture {
 	public $enabled = false;
 
 	/**
+	 * @var bool
+	 */
+	public $enabled_by_default = true;
+
+	/**
 	 * @var MC4WP_Integration
 	 */
 	public $instance;
@@ -42,7 +47,7 @@ class MC4WP_Integration_Fixture {
 	public function __construct( $slug, $class, $enabled_by_default = false, $options = array() ) {
 		$this->slug = $slug;
 		$this->class = $class;
-		$this->enabled = $enabled_by_default;
+		$this->enabled = $this->enabled_by_default = $enabled_by_default;
 		$this->options = $options;
 
 		if( ! empty( $options['enabled'] ) ) {

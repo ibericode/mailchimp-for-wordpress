@@ -320,12 +320,46 @@ class MC4WP_Admin {
 
 	/**
 	 * @todo perform some validation
-	 * @param array $settings
+	 * @internal
+	 * @since 3.0
+	 * @param array $new_settings
 	 * @return array
 	 */
-	public function save_integration_settings( array $settings ) {
-		$all_settings = get_option( 'mc4wp_integrations', array() );
-		$settings = array_merge( $all_settings, $settings );
+	public function save_integration_settings( array $new_settings ) {
+
+		$integrations = mc4wp_get_integrations();
+		$current_settings = (array) get_option( 'mc4wp_integrations', array() );
+		$settings = array();
+
+		foreach( $integrations as $slug => $integration ) {
+			$settings[ $slug ] = $this->parse_integration_settings( $slug, $current_settings, $new_settings );
+		}
+
+		return $settings;
+	}
+
+	/**
+	 * @internal
+	 * @since 3.0
+	 * @param $slug
+	 * @param $current_settings
+	 * @param $new_settings
+	 *
+	 * @return array
+	 */
+	protected function parse_integration_settings( $slug, $current_settings, $new_settings ) {
+		$settings = array();
+
+		// start with current settings
+		if( ! empty( $current_settings[ $slug ] ) ) {
+			$settings = $current_settings[ $slug ];
+		}
+
+		// then, merge with new settings
+		if( ! empty( $new_settings[ $slug ] ) ) {
+			$settings = array_merge( $settings, $new_settings[ $slug ] );
+		}
+
 		return $settings;
 	}
 
