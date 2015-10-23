@@ -15,11 +15,6 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 	public $description = "Adds a sign-up checkbox to your WooCommerce checkout form.";
 
 	/**
-	 * @var string
-	 */
-	public $slug = 'woocommerce';
-
-	/**
 	 * Add hooks
 	 */
 	public function add_hooks() {

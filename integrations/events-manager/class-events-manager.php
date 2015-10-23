@@ -14,11 +14,6 @@ class MC4WP_Events_Manager_Integration extends MC4WP_Integration {
 	 */
 	public $description = "Adds a sign-up checkbox to your Events Manager booking forms.";
 
-	/**
-	 * @var string
-	 */
-	public $slug = 'events-manager';
-
 
 	/**
 	 * Add hooks

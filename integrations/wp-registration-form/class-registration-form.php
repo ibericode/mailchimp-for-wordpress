@@ -15,11 +15,6 @@ class MC4WP_Registration_Form_Integration extends MC4WP_User_Integration {
 	public $description = "Adds a sign-up checkbox to your site's registration form.";
 
 	/**
-	 * @var string
-	 */
-	public $slug = 'wp-registration-form';
-
-	/**
 	 * Add hooks
 	 */
 	public function add_hooks() {

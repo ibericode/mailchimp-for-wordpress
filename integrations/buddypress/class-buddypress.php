@@ -12,11 +12,6 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 	/**
 	 * @var string
 	 */
-	public $slug = 'buddypress';
-
-	/**
-	 * @var string
-	 */
 	public $description = "Adds a sign-up checkbox to your BuddyPress registration forms.";
 
 

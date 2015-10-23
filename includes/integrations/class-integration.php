@@ -38,9 +38,11 @@ abstract class MC4WP_Integration {
 	/**
 	 * Constructor
 	 *
+	 * @param string $slug
 	 * @param array $options
 	 */
-	public function __construct( array $options ) {
+	public function __construct( $slug, array $options ) {
+		$this->slug = $slug;
 		$this->options = $options;
 		$this->request_data = $_REQUEST;
 

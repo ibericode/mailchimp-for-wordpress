@@ -17,11 +17,6 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 	/**
 	 * @var string
 	 */
-	public $slug = 'custom';
-
-	/**
-	 * @var string
-	 */
 	public $description = "Allows you to integrate with custom third-party forms.";
 
 	/**

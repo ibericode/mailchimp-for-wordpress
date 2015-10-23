@@ -112,7 +112,7 @@ class MC4WP_Integration_Manager {
 		// none found, create new instance
 		$classname = $this->classmap[ $slug ];
 		$options = $this->get_options( $slug );
-		$this->instances[ $slug ] = $instance = new $classname( $options );
+		$this->instances[ $slug ] = $instance = new $classname( $slug, $options );
 
 		return $instance;
 	}

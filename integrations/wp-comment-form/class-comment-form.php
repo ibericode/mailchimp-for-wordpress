@@ -17,11 +17,6 @@ class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 	/**
 	 * @var string
 	 */
-	public $slug = 'wp-comment-form';
-
-	/**
-	 * @var string
-	 */
 	public $description = "Adds a sign-up checkbox to your comment form.";
 
 	/**

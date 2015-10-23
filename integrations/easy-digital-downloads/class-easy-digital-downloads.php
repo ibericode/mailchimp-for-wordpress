@@ -15,11 +15,6 @@ class MC4WP_Easy_Digital_Downloads_Integration extends MC4WP_Integration {
 	public $description = "Adds a checkbox to your Easy Digital Downloads checkout form.";
 
 	/**
-	 * @var string
-	 */
-	public $slug = 'easy-digital-downloads';
-
-	/**
 	 *
 	 */
 	public function add_hooks() {
