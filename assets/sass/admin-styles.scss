@@ -38,20 +38,8 @@
 
 }
 
+@import "overlay";
 
-
-/* General */
-#mc4wp-fw-fields {
-	display:none;
-}
-
-#mc4wp-fw-preview {
-	font-family: "Courier New", Courier, monospace;
-	min-height:200px;
-	font-size:11px;
-	background:white;
-	z-index:99;
-}
 
 .pro-feature,
 .mc4wp-settings tr.pro-feature th,

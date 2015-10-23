@@ -17,7 +17,7 @@
 					<?php foreach( $lists as $list ) { ?>
 						<li>
 							<label>
-								<input type="checkbox" name="mc4wp_form[settings][lists][<?php echo esc_attr( $list->id ); ?>]" value="<?php echo esc_attr( $list->id ); ?>" <?php if(array_key_exists( $list->id, $opts['lists'] )) { echo 'checked="checked"'; } ?>> <?php echo esc_html( $list->name ); ?>
+								<input class="mc4wp-list-input" type="checkbox" name="mc4wp_form[settings][lists][]" value="<?php echo esc_attr( $list->id ); ?>" <?php  checked( in_array( $list->id, $opts['lists'] ), true ); ?>> <?php echo esc_html( $list->name ); ?>
 							</label>
 						</li>
 					<?php } ?>

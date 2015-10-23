@@ -7,7 +7,7 @@ $language = get_locale();
 <p>
 	<?php echo sprintf( __( 'The following list of variables can be used to <a href="%s">add some dynamic content to your form or success and error messages</a>.', 'mailchimp-for-wp' ), 'https://mc4wp.com/kb/using-variables-in-your-form-or-messages/' ) . ' ' . __( 'This allows you to personalise your form or response messages.', 'mailchimp-for-wp' ); ?>
 </p>
-<table class="mc4wp-help">
+<table class="widefat striped">
     <tr>
         <th>{email}</th>
 		<td><?php _e( 'Replaced with the visitor\'s email (if set in URL or cookie).', 'mailchimp-for-wp' ); ?></td>

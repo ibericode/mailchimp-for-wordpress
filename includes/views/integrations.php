@@ -14,7 +14,7 @@
 
 				<?php settings_fields( 'mc4wp_integrations_settings' ); ?>
 
-				<table class="widefat striped">
+				<table class="mc4wp-table widefat striped">
 
 					<thead>
 						<tr>

@@ -1,9 +1,196 @@
-(function($) {
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function() {
+	'use strict';
+
+	// dependencies
+	var FormWatcher = require('./FormWatcher.js');
+	var FormEditor = require('./FormEditor.js');
+	var FieldHelper = require('./FieldHelper.js');
+
+	// vars
+	var form_editor = window.form_editor = new FormEditor( document.getElementById('mc4wp-form-content'));
+	var form_watcher = new FormWatcher( form_editor );
+	var field_helper = new FieldHelper();
+	m.mount( document.getElementById( 'mc4wp-field-wizard'), field_helper );
+
+	// events
+	form_editor.on('change', form_watcher.checkRequiredFields );
+
+	// @todo: clean this up
+	require('./clean-this-up.js');
+
+})();
+},{"./FieldHelper.js":2,"./FormEditor.js":3,"./FormWatcher.js":4,"./clean-this-up.js":5}],2:[function(require,module,exports){
+var FieldHelper = function() {
+	'use strict';
+
+	var selectedListInputs = document.querySelectorAll('.mc4wp-list-input:checked');
+	var lists = mc4wp_vars.mailchimp.lists;
+
+	/**
+	 *
+	 * @returns {Array}
+	 */
+	function getSelectedLists() {
+		var selectedLists = Array.prototype.map.call(selectedListInputs, function(input) {
+			return lists[ input.value ] || null;
+		});
+		selectedLists = selectedLists.filter(function(el) { return !!el;});
+		return selectedLists;
+	}
+
+	function getAvailableFields( lists ) {
+		var fields = {};
+
+		lists.map(function(list) {
+			return list.merge_vars.map(function(field) {
+				if( typeof( fields[ field.tag ] === "undefined" ) ) {
+					fields[ field.tag ] = field;
+				}
+			});
+		});
+
+		return fields;
+	}
+
+
+	/**
+	 * Controller
+	 */
+	function controller() {
+		this.selectedLists = getSelectedLists();
+		this.fields = getAvailableFields(this.selectedLists);
+		this.chosenFieldTag = m.prop('');
+	}
+
+	/**
+	 * View
+	 *
+	 * @param ctrl
+	 * @returns {*}
+	 */
+	function view( ctrl ) {
+
+		var chosenField = ctrl.fields[ ctrl.chosenFieldTag() ];
+		var active = typeof(chosenField) === "object"; //!== undefined;
+
+		// build DOM for fields choice
+		var fieldsChoice = m( "div", [
+			Object.keys(ctrl.fields).map(function(key) {
+				var field = ctrl.fields[key];
+				return [
+					m("button", {
+						class  : "button",
+						type   : 'button',
+						onclick: m.withAttr("value", ctrl.chosenFieldTag),
+						value  : field.tag
+					}, field.name),
+					m("span", " ")
+				];
+			})
+		]);
+
+		// build DOM for overlay
+		var overlay = null;
+		if( active ) {
+			overlay = [
+				m( "div.overlay", [
+					m("h3", chosenField.name)
+				]),
+				m( "div.overlay-background", { onclick: function() { ctrl.chosenFieldTag(''); }})
+			];
+		}
+
+		return [
+			fieldsChoice,
+			overlay
+		];
+	}
+
+	// expose some variables
+	return {
+		view: view,
+		controller: controller
+	}
+};
+
+module.exports = FieldHelper;
+},{}],3:[function(require,module,exports){
+/* Editor */
+var FormEditor = function(element) {
+	var editor  = CodeMirror.fromTextArea(element, {
+		selectionPointer: true,
+		matchTags: { bothTags: true },
+		mode: "text/html",
+		htmlMode: true,
+		autoCloseTags: true
+	});
+
+	return editor;
+};
+
+module.exports = FormEditor;
+},{}],4:[function(require,module,exports){
+var FormWatcher = function(editor) {
+
+	var $ = window.jQuery;
+
+	// @todo fill this dynamically (get from selected lists)
+	var requiredFields = [ { tag: 'EMAIL', name: 'Email Address' } ];
+	var $missingFieldsList = $(document.getElementById('missing-fields-list'));
+	var $missingFieldsNotice = $(document.getElementById('missing-fields-notice'));
+
+	// functions
+	function checkRequiredFields() {
+
+		var formContent = editor.getValue();
+
+		// let's go
+		formContent = formContent.toLowerCase();
+
+		// check presence of reach required field
+		var missingFields = {};
+		for(var i=0; i<requiredFields.length; i++) {
+			var htmlString = 'name="' + requiredFields[i].tag.toLowerCase();
+			if( formContent.indexOf( htmlString ) == -1 ) {
+				missingFields[requiredFields[i].tag] = requiredFields[i];
+			}
+		}
+
+		// do nothing if no fields are missing
+		if($.isEmptyObject(missingFields)) {
+			$missingFieldsNotice.hide();
+			return;
+		}
+
+		// show notice
+		$missingFieldsList.html('');
+		for( var key in missingFields ) {
+			var field = missingFields[key];
+			var $listItem = $("<li></li>");
+			$listItem.html( field.name + " (<code>" + field.tag + "</code>)");
+			$listItem.appendTo( $missingFieldsList );
+		}
+
+		$missingFieldsNotice.show();
+	}
+
+
+	return {
+		checkRequiredFields: checkRequiredFields
+	}
+
+};
+
+module.exports = FormWatcher;
+},{}],5:[function(require,module,exports){
+module.exports = (function() {
 	'use strict';
 
 	/**
 	 * Variables
 	 */
+	var $ = window.jQuery;
 	var $context = $(document.getElementById('mc4wp-admin'));
 
 
@@ -17,7 +204,7 @@
 			this.checked = false;
 		}
 
-		alert( mc4wp.strings.proOnlyNotice );
+		alert( mc4wp_vars.l10n.pro_only );
 		event.stopPropagation();
 	}
 
@@ -41,7 +228,7 @@
 	 * Bind Event Handlers
 	 */
 
-	// show a notice when clicking a pro feature
+		// show a notice when clicking a pro feature
 	$context.find(".pro-feature, .pro-feature label, .pro-feature :radio").click(showProNotice);
 
 	// Show send-welcome field only when double opt-in is disabled
@@ -50,587 +237,7 @@
 	// show woocommerce settings only when `show at woocommerce checkout` is checked.
 	$context.find('input[name$="[show_at_woocommerce_checkout]"]').change(toggleWooCommerceSettings);
 
-
-	/**
-	* MailChimp for WordPress Field Wizard
-	* Created by Danny van Kooten
-	*/
-	var FieldWizard = (function() {
-		'use strict';
-
-		if( ! document.getElementById( 'mc4wp-field-wizard' ) ) {
-			return;
-		}
-
-		// setup variables
-		var $lists = $(document.getElementById('mc4wp-lists')).find(':input');
-		var $mailchimpFields = $(document.getElementById("mc4wp-fw-mailchimp-fields"));
-		var $mailchimpMergeFields = $mailchimpFields.find('.merge-fields');
-		var $mailchimpGroupings = $mailchimpFields.find(".groupings");
-		var $wizardFields = $(document.getElementById('mc4wp-fw-fields'));
-		var $value = $(document.getElementById('mc4wp-fw-value'));
-		var $valueLabel = $(document.getElementById("mc4wp-fw-value-label"));
-		var $multipleValues = $(document.getElementById("mc4wp-fw-values"));
-		var $label = $(document.getElementById("mc4wp-fw-label"));
-		var $placeholder = $(document.getElementById("mc4wp-fw-placeholder"));
-		var $required = $(document.getElementById("mc4wp-fw-required"));
-		var $wrapp = $(document.getElementById("mc4wp-fw-wrap-p"));
-		var fieldType, fieldName;
-		var $codePreview = $(document.getElementById("mc4wp-fw-preview"));
-		var $addToFormButton = $(document.getElementById("mc4wp-fw-add-to-form"));
-		var strings = mc4wp.strings.fieldWizard;
-		var requiredFields = [];
-		var $selectListsNotice = $(".mc4wp-notice.no-lists-selected");
-		var $missingFieldsList = $(document.getElementById('missing-fields-list'));
-		var $missingFieldsNotice = $(document.getElementById('missing-fields-notice'));
-		var $formMarkup = $(document.getElementById('mc4wp-form-content'));
-
-
-		// functions
-		function checkRequiredFields() {
-
-			var formContent = $formMarkup.val();
-			if( typeof( CodeMirror ) !== "undefined" && typeof( window.mc4wpFormEditor ) === "object" ) {
-				formContent = window.mc4wpFormEditor.getValue();
-			}
-
-			// bail if we're running a little too soon
-			if( typeof( formContent ) !== "string " ) {
-				return;
-			}
-
-			// let's go
-			formContent = formContent.toLowerCase();
-
-			// check presence of reach required field
-			var missingFields = {};
-			for(var i=0; i<requiredFields.length; i++) {
-				var htmlString = 'name="' + requiredFields[i].tag.toLowerCase();
-				if( formContent.indexOf( htmlString ) == -1 ) {
-					missingFields[requiredFields[i].tag] = requiredFields[i];
-				}
-			}
-
-			// do nothing if no fields are missing
-			if($.isEmptyObject(missingFields)) {
-				$missingFieldsNotice.hide();
-				return;
-			}
-
-			// show notice
-			$missingFieldsList.html('');
-			for( var key in missingFields ) {
-				var field = missingFields[key];
-				var $listItem = $("<li></li>");
-				$listItem.html( field.name + " (<code>" + field.tag + "</code>)");
-				$listItem.appendTo( $missingFieldsList );
-			}
-
-			$missingFieldsNotice.show();
-		}
-
-		// set the fields the user can choose from
-		function setMailChimpFields()
-		{
-			// empty field select
-			$mailchimpFields.find('option').not('.default').remove();
-
-			// empty required fields array
-			requiredFields = [];
-			
-			// loop through checked lists
-			$lists.filter(':checked').each(function() {
-				var listId = $(this).val();
-				var list = mc4wp.mailchimpLists[listId];
-
-				// loop through merge fields from this list
-				for(var i = 0, fieldCount = list.merge_vars.length; i < fieldCount; i++) {
-
-					var listField = list.merge_vars[i];
-
-					if( listField.req ) {
-						requiredFields.push( listField );
-					}
-
-					// add field to select if no similar option exists yet
-					if($mailchimpMergeFields.children("option[value='"+ listField.tag +"']").length === 0) {
-
-						var text = (listField.name.length > 25) ? listField.name.substring(0, 25) + '..' : listField.name;
-						if(listField.req) { text += '*'; }
-
-						var $option = $("<option />")
-							.text(text)
-							.val(listField.tag)
-							.data('list-field', listField);
-
-						$mailchimpMergeFields.append($option);
-					}
-				}
-
-				// loop through interest groupings
-				for(var i = 0, groupingsCount = list.interest_groupings.length; i < groupingsCount; i++) {
-					var listGrouping = list.interest_groupings[i];
-
-					// add field to select if no similar option exists yet
-					if($mailchimpGroupings.children("option[value='"+ listGrouping.id +"']").length === 0) {
-						var text = (listGrouping.name.length > 25) ? listGrouping.name.substring(0, 25) + '..' : listGrouping.name;
-						
-						// build option HTML
-						var $option = $("<option />")
-							.text(text)
-							.val(listGrouping.id)
-							.data('list-grouping', listGrouping);
-
-						// only show 1 grouping per list
-						if(i >= 1) {
-							$option.text( strings.proOnly + " " + text)
-								.attr('disabled', 'disabled')
-								.data('list-grouping', null);
-						}
-
-						$mailchimpGroupings.append($option);
-					}
-				}
-
-
-			});
-
-			// check required fields with new selected lists
-			checkRequiredFields();
-		}
-
-		/**
-		* Set Presets
-		*/ 
-		function setPresets()
-		{
-			resetFields();
-
-			var selected = $(this).find(':selected');
-			switch( selected.val() ) {
-
-				case '_action':
-					fieldType = 'action';
-					$wizardFields.find('.wrap-p').show();
-					break;
-
-				case 'submit':
-					fieldType = 'submit';
-					$valueLabel.text( strings.buttonText );
-					$value.val( strings.subscribe );
-					$wizardFields.find('p.row').filter('.value, .wrap-p').show();
-					break;
-
-				case 'lists':
-					fieldType = 'lists';
-					$wizardFields.find('.wrap-p').show();
-					break;
-
-				default:
-					// try data for MailChimp field
-					var data = selected.data('list-field');
-					if(data) { 
-						return setPresetsForField(data); 
-					}
-
-					// try data for interest grouping
-					var data = selected.data('list-grouping');
-					if(data) { 
-						return setPresetsForGrouping(data); 
-					}
-
-					break;
-			}
-
-			updateCodePreview();
-		}
-
-		/**
-		* Resets all wizard fields back to their default state
-		*/
-		function resetFields() {
-			$wizardFields.find('.row :input').each(function() {
-				if($(this).is(":checkbox")) { this.checked = true; } else { this.value = ''; }
-			});
-
-			$wizardFields.find('p.row').hide();
-			$multipleValues.find(':input').remove();
-			$wizardFields.show();
-
-			fieldType = 'text';
-			fieldName = '';
-			$valueLabel.html( strings.initialValue + " <small>" + strings.optional + "</small>" );
-		}
-
-		/**
-		* Add inputs for each group
-		*/
-		function addGroupInputs(groups)
-		{
-			// add a text input to $multipleValues for each group
-			for(var i = 0, groupsCount = groups.length; i < groupsCount; i++) {
-				$("<input />").attr('type', 'text')
-					.addClass('widefat').data('value', groups[i].name)
-					.attr('placeholder', strings.labelFor + ' "' + groups[i].name + '" ' + strings.orLeaveEmpty )
-					.attr('value', groups[i].name)
-					.appendTo($multipleValues);
-			}
-		}
-
-		/**
-		* Set presets for interest groupings
-		*/
-		function setPresetsForGrouping(data)
-		{
-			$wizardFields.find('p.row').filter('.values, .label, .wrap-p').show();
-			$label.val(data.name + ":");
-			fieldName = 'GROUPINGS[' + data.id + ']';
-			addGroupInputs(data.groups);
-
-			switch(data.form_field) {
-				case 'radio':
-					fieldType = 'radio';
-					break;
-
-				case 'hidden':
-					// hide all rows except value row
-					$wizardFields.find('p.row').filter('.values, .label, .wrap-p').hide();
-					$wizardFields.find('p.row.value').show();
-
-					// add group name to hidden input value
-					for(var i = 0, groupsCount = data.groups.length; i < groupsCount; i++) {
-						$value.val($value.val() + data.groups[i].name + ',');
-					}
-
-					fieldType = 'hidden';
-					break;
-
-				case 'dropdown':
-					fieldType = 'select';
-					break;
-
-				default:
-					fieldType = 'checkbox';
-
-					// turn field name into an array
-					fieldName += '[]';
-					break;
-			}	
-
-			// update code preview
-			updateCodePreview();
-		}
-
-		/**
-		* Build list choice HTML
-		*/
-		function getListChoiceHTML()
-		{
-			var html = '';
-			$lists.each(function() {
-				var list_id = $(this).val();
-				var list_name = $(this).parent('label').text();
-				var attrs = '';
-
-				if($(this).is(':checked')) {
-					attrs += 'checked ';
-				}
-
-				html += '<label>' + "\n"
-				html += "\t" + '<input type="checkbox" name="_mc4wp_lists[]" value="' + list_id +'" '+ attrs + ' /> '+ list_name + "\n";
-				html += '</label>' + "\n";
-			});
-
-			return html;
-		}
-
-		function getActionChoiceHTML() {
-			var actions = [
-				{ name: "subscribe", label: strings.subscribe, checked: true },
-				{ name: "unsubscribe", label: strings.unsubscribe, checked: false }
-			];
-
-			var html = '';
-			for( var i=0; i<actions.length; i++ ) {
-				var action = actions[i];
-
-				html += '<label>' + "\n";
-				html += "\t" + '<input type="radio" name="_mc4wp_action" value="' + action.name + '" '+ ( ( action.checked ) ? 'checked' : '' ) +' > ' + action.label + "\n";
-				html += '</label>' + "\n";
-			}
-
-			return html;
-		}
-
-
-
-		/**
-		* Set presets for a fields
-		*/
-		function setPresetsForField(data) 
-		{
-
-			// show fields for this field type
-			var visibleRowsMap = {
-				'default': [ 'label', 'value', 'placeholder', 'required', 'wrap-p' ],
-				'select': [ 'label', 'required', 'wrap-p', 'values'],
-				'radio': [ 'label', 'required', 'wrap-p', 'values'],
-				'date':  [ 'label', 'required', 'wrap-p', 'value']
-			};
-
-			// map MailChimp field types to HTML5 field type
-			var fieldTypesMap = {
-				'text': 'text',
-				'email': 'email',
-				'phone': 'tel',
-				'address': 'text',
-				'number': 'number',
-				'dropdown': 'select',
-				'date': 'date',
-				'birthday': 'date',
-				'radio': 'radio',
-				'checkbox': 'checkbox',
-				'url': 'url'
-			};
-
-			if( typeof(fieldTypesMap[data.field_type]) !== "undefined") {
-				fieldType = fieldTypesMap[data.field_type];
-			} else {
-				fieldType = 'text';
-			}
-			
-			if( typeof(visibleRowsMap[fieldType]) !== "undefined") {
-				var visibleRows = visibleRowsMap[fieldType];
-			} else {
-				var visibleRows = visibleRowsMap["default"];
-			}
-
-			for(var i = 0; i < visibleRows.length; i++) {
-				$wizardFields.find('p.row.' + visibleRows[i]).show();
-			}
-
-			fieldType = fieldType;
-			fieldName = data.tag;
-
-			// set placeholder text
-			$placeholder.val( "Your " + data.name.toLowerCase());
-
-			// set label text
-			$label.val( data.name + ":" );
-
-			// set required attribute
-			$required.prop('checked', data.req);
-
-			if($multipleValues.is(":visible") && data.choices) {
-				for(var i = 0; i < data.choices.length; i++) {
-					$("<input />")
-						.attr('type', 'text')
-						.addClass('widefat')
-						.data('value', data.choices[i])
-						.attr('placeholder', strings.labelFor + ' "' + data.choices[i] + '" ' + strings.orLeaveEmpty )
-						.attr('value', data.choices[i])
-						.appendTo($multipleValues);
-				}
-			}
-			
-			// update code preview
-			updateCodePreview();
-		}
-
-		/**
-		* Format and indent the generated HTML
-		* Then add it to the code preview textarea
-		*/
-		function setCodePreview(html) {
-			html = html_beautify(html);
-			$codePreview.val(html);
-		}
-
-
-		/**
-		* Generate HTML based on the various field values
-		*/
-		function updateCodePreview()
-		{
-			var $code = $("<div></div>");
-			var $input;
-
-			switch(fieldType) {
-
-				case 'action':
-					var html = getActionChoiceHTML();
-
-					if( wrapInParagraph() ) {
-						html = "<p>" + html + "</p>";
-					}
-
-					return setCodePreview(html);
-					break;
-
-				// MailChimp lists
-				case 'lists':
-					var html = getListChoiceHTML();
-
-					if( wrapInParagraph() ) {
-						html = "<p>" + html + "</p>";
-					}
-
-					return setCodePreview(html);
-					break;
-
-				// MailChimp dropdown
-				case 'select':
-					$input = $("<select />");
-
-					// add options to select
-					$multipleValues.find(":input").each(function() {
-						if($(this).val().length > 0) {
-							$("<option />")
-								.val($(this).data("value"))
-								.text($(this).val())
-								.appendTo($input);						}
-					});
-					break;
-
-				// MailChimo choices
-				case 'radio':
-				case 'checkbox':
-					// build multiple input values
-					$multipleValues.find(":input").each(function() {
-						if($(this).val().length > 0) {
-							$input = $("<input />").attr('type', fieldType).attr('name', fieldName).val($(this).data('value'));
-
-							if($required.is(':visible:checked')) {
-								$input.attr('required', true);
-							}
-
-							$code.append($input);
-
-							$input.wrap("<label />");
-							$("<span />").text($(this).val() + ' ').insertAfter($input);
-						}					
-					});
-					break;
-
-				// MailChimp long text
-				case 'textarea':
-					$input = $("<textarea />");
-					break;
-
-				default:
-					$input = $("<input />").attr('type', fieldType);
-					break;
-			}
-
-			// only do this piece when we're not adding radio inputs
-			if(fieldType !== 'radio' && fieldType !== 'checkbox') {
-
-				// set name attribute
-				if(fieldName.length > 0) {
-					$input.attr('name', fieldName);
-				}
-
-				// set value
-				if($value.is(":visible") && $value.val().length > 0) {
-					if(fieldType === 'textarea') {
-						$input.text($value.val());
-					} else {
-						$input.attr('value', $value.val());
-					}
-				}
-
-				// add placeholder to element
-				if($placeholder.is(":visible") && $placeholder.val().length > 0) {
-					$input.attr('placeholder', $placeholder.val());
-				}
-
-				// add required attribute
-				if($required.is(':visible:checked')) {
-					$input.attr('required', true);
-				}
-
-				$code.append($input);			
-			}
-
-			// build label
-			if($label.is(":visible") && $label.val().length > 0) {
-				$("<label />").text($label.val()).prependTo($code);
-			}
-
-			// wrap in paragraphs?
-			if( wrapInParagraph() ) {
-				$code.wrapInner($("<p />"));
-			}
-			
-			setCodePreview($code.html());
-		}
-
-		/**
-		* Transfer code preview field to form mark-up
-		*/
-		function addCodeToFormMarkup() {
-
-			if( typeof( CodeMirror ) === "function" && typeof( mc4wpFormEditor ) === "object" ) {
-				mc4wpFormEditor.replaceSelection( $codePreview.val() );
-			} else {
-				$formMarkup.val($formMarkup.val() + "\n" + $codePreview.val());
-			}
-
-			// trigger change event
-			$formMarkup.change();
-		}
-
-		/**
-		 * Should we wrap the HTML in paragraph tags?
-		 *
-		 * @returns {boolean}
-		 */
-		function wrapInParagraph() {
-			return ( $wrapp.is(':visible:checked') ) ? true: false;
-		}
-
-		/**
-		 * Shows a "select at least one list" notice when no list is selected
-		 */
-		function toggleListsNotice() {
-			var hasListSelected = $lists.filter(':checked').length > 0;
-			$selectListsNotice.toggle( ! hasListSelected );
-			$mailchimpFields.toggle( hasListSelected );
-		}
-
-		// setup events
-		$lists.change(setMailChimpFields);
-		$lists.change(toggleListsNotice);
-		$mailchimpFields.change(setPresets);
-		$wizardFields.change(updateCodePreview);
-		$addToFormButton.click(function() {
-
-			addCodeToFormMarkup();
-
-			if( typeof( tb_remove ) === "function" ) {
-				tb_remove();
-			}
-		});
-
-		// Validate the form fields after every change
-		$formMarkup.bind({
-			'input': function() {
-				$formMarkup.unbind('keydown');
-				checkRequiredFields.call(this);
-			},
-			'keydown': checkRequiredFields
-		});
-		// init
-		setMailChimpFields();
-
-		return {
-			checkRequiredFields: checkRequiredFields
-		}
-
-	})();
-
 	// Tabs
-	// @todo make this work with custom tab links
 	(function( $context ) {
 
 		var $tabs = $context.find('.tab');
@@ -681,7 +288,7 @@
 			}
 
 			// focus on codemirror textarea, this fixes bug with blank textarea
-			mc4wpFormEditor.refresh();
+			window.form_editor.refresh();
 
 			// prevent page jump
 			return false;
@@ -692,23 +299,6 @@
 		$tabLinks.click(switchTab);
 
 	})($(document.getElementById('mc4wp-admin')));
-
-	/* Editor */
-	(function(c) {
-		var formContentTextarea = document.getElementById("mc4wp-form-content");
-		if( ! formContentTextarea ) return;
-
-		c.mc4wpFormEditor  = CodeMirror.fromTextArea(formContentTextarea, {
-			selectionPointer: true,
-			matchTags: {bothTags: true},
-			mode: "text/html",
-			htmlMode: true,
-			autoCloseTags: true
-			//lineNumbers: true
-		});
-
-		c.mc4wpFormEditor.on('change', FieldWizard.checkRequiredFields );
-	})(window);
 
 
 	/* Grey out integration settings when "enabled" is not ticked */
@@ -724,7 +314,9 @@
 		}
 	})();
 
-})(jQuery);
+})();
 
 
 
+
+},{}]},{},[1]);

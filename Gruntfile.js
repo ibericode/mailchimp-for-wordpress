@@ -48,9 +48,22 @@ module.exports = function(grunt) {
 			}
 		},
 
+		browserify: {
+
+			Admin: {
+				src: ['assets/js/src/Admin.js'],
+				dest: 'assets/js/admin.js'
+			}
+
+		},
+
 		watch: {
+			browserify: {
+				files: [ 'assets/js/src/*.js' ],
+				tasks: [ 'browserify' ]
+			},
 			js:  {
-				files: 'assets/js/*.js',
+				files: [ 'assets/js/*.js', '!assets/js/*min.js' ],
 				tasks: [ 'uglify' ]
 			},
 			css: {
@@ -70,8 +83,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-wp-i18n');
+	grunt.loadNpmTasks('grunt-browserify');
 
 	// register at least this one task
-	grunt.registerTask('default', [ 'uglify', 'sass', 'cssmin', 'addtextdomain' ]);
+	grunt.registerTask('default', [ 'browserify:Admin', 'uglify', 'sass', 'cssmin' ]);
 
 };

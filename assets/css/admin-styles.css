@@ -77,16 +77,28 @@
   #mc4wp-admin .sidebar {
     border-left: 1px solid #ccc; }
 
-/* General */
-#mc4wp-fw-fields {
-  display: none; }
-
-#mc4wp-fw-preview {
-  font-family: "Courier New", Courier, monospace;
-  min-height: 200px;
-  font-size: 11px;
+.overlay {
+  position: fixed;
+  width: 480px;
+  height: 400px;
+  top: 50%;
+  left: 50%;
+  margin: -200px 0 0 -240px;
+  padding: 20px;
   background: white;
-  z-index: 99; }
+  border: 1px solid black;
+  z-index: 100; }
+
+.overlay-background {
+  z-index: 99;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0; }
 
 .pro-feature,
 .mc4wp-settings tr.pro-feature th,

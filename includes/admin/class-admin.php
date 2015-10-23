@@ -381,26 +381,20 @@ class MC4WP_Admin {
 
 		// js
 		wp_register_script( 'mc4wp-beautifyhtml', MC4WP_PLUGIN_URL . 'assets/js/third-party/beautify-html'. $suffix .'.js', array( 'jquery' ), MC4WP_VERSION, true );
-		wp_register_script( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array( 'jquery' ), MC4WP_VERSION, true );
 		wp_register_script( 'codemirror', MC4WP_PLUGIN_URL . 'assets/js/third-party/codemirror-compressed.js', array(), MC4WP_VERSION, true );
+		wp_register_script( 'mithril', MC4WP_PLUGIN_URL . 'assets/js/third-party/mithril.min.js', array(), MC4WP_VERSION, true );
+		wp_register_script( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array( 'jquery', 'mc4wp-beautifyhtml', 'codemirror', 'mithril' ), MC4WP_VERSION, true );
 
-		wp_enqueue_script( array( 'jquery', 'codemirror', 'mc4wp-beautifyhtml', 'mc4wp-admin' ) );
-		wp_localize_script( 'mc4wp-admin', 'mc4wp',
+		// todo: get rid of jQuery here
+		wp_enqueue_script( array( 'jquery', 'codemirror', 'mithril', 'mc4wp-beautifyhtml', 'mc4wp-admin' ) );
+		wp_localize_script( 'mc4wp-admin', 'mc4wp_vars',
 			array(
-				'strings' => array(
-					'proOnlyNotice' => __( 'This option is only available in MailChimp for WordPress Pro.', 'mailchimp-for-wp' ),
-					'fieldWizard' => array(
-						'proOnly' => __( '(PRO ONLY)', 'mailchimp-for-wp' ),
-						'buttonText' => __( 'Button text', 'mailchimp-for-wp' ),
-						'initialValue' => __( 'Initial value', 'mailchimp-for-wp' ),
-						'optional' => __( '(optional)', 'mailchimp-for-wp' ),
-						'labelFor' => __( 'Label for', 'mailchimp-for-wp' ),
-						'orLeaveEmpty' => __( '(or leave empty)', 'mailchimp-for-wp' ),
-						'subscribe' => __( 'Subscribe', 'mailchimp-for-wp' ),
-						'unsubscribe' => __( 'Unsubscribe', 'mailchimp-for-wp' ),
-					)
+				'mailchimp' => array(
+					'lists' => $this->mailchimp->get_lists()
 				),
-				'mailchimpLists' => $this->mailchimp->get_lists()
+				'l10n' => array(
+					'pro_only' => __( 'This is a pro-only feature. Please upgrade to the premium version to be able to use it.', 'mailchimp-for-wp' )
+				)
 			)
 		);
 
