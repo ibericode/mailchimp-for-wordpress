@@ -77,7 +77,8 @@ var FieldHelper = function(tabs, editor) {
 		defaultValue: m.prop(''),
 		isRequired: m.prop(false),
 		usePlaceholder: m.prop(true),
-		label: m.prop('')
+		label: m.prop(''),
+		type: m.prop('text')
 	};
 
 	var render = require('./Render.js');
@@ -171,7 +172,7 @@ var FieldHelper = function(tabs, editor) {
 
 		var label = config.label().length ? m("label", config.label()) : '';
 		var field_attributes =  {
-			type: 'text',
+			type: config.type(),
 			name: config.name()
 		};
 

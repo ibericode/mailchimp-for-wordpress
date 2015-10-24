@@ -2,7 +2,7 @@
 <p><?php _e( 'The table below shows your MailChimp lists data. If you applied changes to your MailChimp lists, please use the following button to renew your cached data.', 'mailchimp-for-wp' ); ?></p>
 
 <form method="post" action="">
-	<input type="hidden" name="mc4wp-renew-cache" value="1" />
+	<input type="hidden" name="_mc4wp_action" value="empty_lists_cache" />
 
 	<p>
 		<input type="submit" value="<?php _e( 'Renew MailChimp lists', 'mailchimp-for-wp' ); ?>" class="button" />
@@ -58,7 +58,7 @@
 				</tr>
 				<?php if ( ! empty( $list->interest_groupings ) && is_array( $list->interest_groupings ) ) { ?>
 					<tr>
-						<th>Interest Groupings</th>
+						<th>Groupings</th>
 						<td style="padding: 0; border: 0;">
 							<table class="widefat fixed" cellspacing="0">
 								<thead>

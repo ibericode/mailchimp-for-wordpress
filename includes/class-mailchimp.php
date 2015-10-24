@@ -21,16 +21,11 @@ class MC4WP_MailChimp {
 	 * Get MailChimp lists
 	 * Try cache first, then try API, then try fallback cache.
 	 *
-	 * @param bool $force_refresh
 	 * @param bool $force_fallback
 	 *
 	 * @return array
 	 */
-	public function get_lists( $force_refresh = false, $force_fallback = false ) {
-
-		if( $force_refresh ) {
-			$this->empty_cache();
-		}
+	public function get_lists( $force_fallback = false ) {
 
 		$cached_lists = get_transient( $this->transient_name  );
 
@@ -39,64 +34,65 @@ class MC4WP_MailChimp {
 			$cached_lists = get_transient( $this->transient_name . '_fallback' );
 		}
 
-		// got lists? if not, proceed with API call.
-		if( ! is_array( $cached_lists ) ) {
-
-			// make api request for lists
-			$api = mc4wp_get_api();
-			$lists_data = $api->get_lists();
-
-			if ( is_array( $lists_data ) ) {
-
-				$lists = array();
-
-				foreach ( $lists_data as $list ) {
-
-					$lists["{$list->id}"] = (object) array(
-						'id' => $list->id,
-						'name' => $list->name,
-						'subscriber_count' => $list->stats->member_count,
-						'merge_vars' => array(),
-						'interest_groupings' => array()
-					);
-
-					// only get interest groupings if list has some
-					if( $list->stats->grouping_count > 0 ) {
-						// get interest groupings
-						$groupings_data = $api->get_list_groupings( $list->id );
-						if ( $groupings_data ) {
-							$lists["{$list->id}"]->interest_groupings = array_map( array( $this, 'strip_unnecessary_grouping_properties' ), $groupings_data );
-						}
-					}
-
-				}
-
-				// get merge vars for all lists at once
-				$merge_vars_data = $api->get_lists_with_merge_vars( array_keys( $lists ) );
-				if ( $merge_vars_data ) {
-					foreach ( $merge_vars_data as $list ) {
-						// add merge vars to list
-						$lists["{$list->id}"]->merge_vars = array_map( array( $this, 'strip_unnecessary_merge_vars_properties' ), $list->merge_vars );
-					}
-				}
-
-				// store lists in transients
-				set_transient(  $this->transient_name, $lists, ( 24 * 3600 ) ); // 1 day
-				set_transient(  $this->transient_name . '_fallback', $lists, 1209600 ); // 2 weeks
-
-				return $lists;
-			} else {
-				// api request failed, get fallback data (with longer lifetime)
-				$cached_lists = get_transient( $this->transient_name . '_fallback' );
-			}
-
-		}
-
 		if( is_array( $cached_lists ) ) {
 			return $cached_lists;
 		}
 
-		return array();
+		// transient was empty, get lists from MailChimp
+		$api = mc4wp_get_api();
+		$lists_data = $api->get_lists();
+
+		// if we did not get an array, something failed.
+		// try fallback transient (if not tried before)
+		if( ! is_array( $lists_data ) ) {
+			$cached_lists = get_transient( $this->transient_name . '_fallback' );
+
+			if( is_array( $cached_lists ) ) {
+				return $cached_lists;
+			}
+
+			// fallback transient was empty as well...
+			return array();
+		}
+
+
+		$lists = array();
+
+		foreach ( $lists_data as $list ) {
+
+			$lists["{$list->id}"] = (object) array(
+				'id' => $list->id,
+				'name' => $list->name,
+				'subscriber_count' => $list->stats->member_count,
+				'merge_vars' => array(),
+				'interest_groupings' => array()
+			);
+
+			// only get interest groupings if list has some
+			if( $list->stats->grouping_count > 0 ) {
+				// get interest groupings
+				$groupings_data = $api->get_list_groupings( $list->id );
+				if ( $groupings_data ) {
+					$lists["{$list->id}"]->interest_groupings = array_map( array( $this, 'strip_unnecessary_grouping_properties' ), $groupings_data );
+				}
+			}
+
+		}
+
+		// get merge vars for all lists at once
+		$merge_vars_data = $api->get_lists_with_merge_vars( array_keys( $lists ) );
+		if ( $merge_vars_data ) {
+			foreach ( $merge_vars_data as $list ) {
+				// add merge vars to list
+				$lists["{$list->id}"]->merge_vars = array_map( array( $this, 'strip_unnecessary_merge_vars_properties' ), $list->merge_vars );
+			}
+		}
+
+		// store lists in transients
+		set_transient(  $this->transient_name, $lists, ( 24 * 3600 ) ); // 1 day
+		set_transient(  $this->transient_name . '_fallback', $lists, 1209600 ); // 2 weeks
+
+		return $lists;
 	}
 
 	/**
@@ -108,8 +104,8 @@ class MC4WP_MailChimp {
 	 *
 	 * @return bool
 	 */
-	public function get_list( $list_id, $force_renewal = false, $force_fallback = false ) {
-		$lists = $this->get_lists( $force_renewal, $force_fallback );
+	public function get_list( $list_id, $force_fallback = false ) {
+		$lists = $this->get_lists( $force_fallback );
 
 		if( isset( $lists[$list_id] ) ) {
 			return $lists[$list_id];

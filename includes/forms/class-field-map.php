@@ -82,7 +82,7 @@ class MC4WP_Field_Map {
 		// loop through selected lists
 		foreach( $this->lists as $list_id ) {
 
-			$list = $this->mailchimp->get_list( $list_id, false, true );
+			$list = $this->mailchimp->get_list( $list_id, true );
 
 			// skip this list if it's unexisting
 			if( ! is_object( $list ) || ! isset( $list->merge_vars ) ) {

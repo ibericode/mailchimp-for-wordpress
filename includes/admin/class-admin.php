@@ -179,11 +179,25 @@ class MC4WP_Admin {
 		add_action( 'admin_init', array( $this, 'initialize' ) );
 		add_action( 'current_screen', array( $this, 'customize_admin_texts' ) );
 		add_action( 'wp_dashboard_setup', array( $this, 'register_dashboard_widgets' ) );
+		add_action( 'mc4wp_admin_empty_lists_cache', array( $this, 'renew_lists_cache' ) );
 		add_action( 'mc4wp_admin_edit_form', array( $this, 'process_save_form' ) );
 		add_action( 'mc4wp_admin_add_form', array( $this, 'process_add_form' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 
 		$this->ads->add_hooks();
+	}
+
+	/**
+	 * Renew MailChimp lists cache
+	 */
+	public function renew_lists_cache() {
+		$this->mailchimp->empty_cache();
+
+		// try getting new lists to fill cache again
+		$lists = $this->mailchimp->get_lists();
+		if( ! empty( $lists ) ) {
+			add_settings_error( 'mc4wp', 'mc4wp-lists', __( 'Success! The cached configuration for your MailChimp lists has been renewed.', 'mailchimp-for-wp' ), 'updated' );
+		}
 	}
 
 	/**
@@ -483,25 +497,7 @@ class MC4WP_Admin {
 	public function show_generals_setting_page() {
 		$opts = mc4wp_get_options();
 		$connected = ( mc4wp_get_api()->is_connected() );
-
-		// cache renewal triggered manually?
-		$force_cache_refresh = isset( $_POST['mc4wp-renew-cache'] ) && $_POST['mc4wp-renew-cache'] == 1;
-		$lists = $this->mailchimp->get_lists( $force_cache_refresh );
-
-		// @todo make this pretty
-		if ( $force_cache_refresh ) {
-
-			if( is_array( $lists ) ) {
-				if( count( $lists ) === 100 ) {
-					add_settings_error( 'mc4wp', 'mc4wp-lists-at-limit', __( 'The plugin can only fetch a maximum of 100 lists from MailChimp, only your first 100 lists are shown.', 'mailchimp-for-wp' ) );
-				} else {
-					add_settings_error( 'mc4wp', 'mc4wp-cache-success', __( 'Renewed MailChimp cache.', 'mailchimp-for-wp' ), 'updated' );
-				}
-			} else {
-				add_settings_error( 'mc4wp', 'mc4wp-cache-error', __( 'Failed to renew MailChimp cache - please try again later.', 'mailchimp-for-wp' ) );
-			}
-
-		}
+		$lists = $this->mailchimp->get_lists();
 
 		require MC4WP_PLUGIN_DIR . 'includes/views/general-settings.php';
 	}
