@@ -386,7 +386,7 @@ class MC4WP_Admin {
 		wp_register_script( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array( 'jquery', 'mc4wp-beautifyhtml', 'codemirror', 'mithril' ), MC4WP_VERSION, true );
 
 		// todo: get rid of jQuery here
-		wp_enqueue_script( array( 'jquery', 'codemirror', 'mithril', 'mc4wp-beautifyhtml', 'mc4wp-admin' ) );
+		wp_enqueue_script( array( 'jquery', 'codemirror', 'mc4wp-admin' ) );
 		wp_localize_script( 'mc4wp-admin', 'mc4wp_vars',
 			array(
 				'mailchimp' => array(

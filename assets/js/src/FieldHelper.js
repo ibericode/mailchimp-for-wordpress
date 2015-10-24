@@ -1,6 +1,7 @@
 var FieldHelper = function(tabs, editor) {
 	'use strict';
 
+	window.m = require('../third-party/mithril.js');
 	var $ = window.jQuery;
 	var selectedListsInputs = document.querySelectorAll('.mc4wp-list-input');
 	var lists = mc4wp_vars.mailchimp.lists;
@@ -18,7 +19,9 @@ var FieldHelper = function(tabs, editor) {
 		usePlaceholder: m.prop(true),
 		label: m.prop('')
 	};
+
 	var render = require('./Render.js');
+	var beautify = require('../third-party/beautify-html.js');
 
 	/**
 	 * Recalculate which lists are selected
@@ -60,8 +63,6 @@ var FieldHelper = function(tabs, editor) {
 
 	/**
 	 * Choose a field to open the helper form for
-	 *
-	 * @todo
 	 *
 	 * @param value
 	 * @returns {*}
@@ -111,8 +112,7 @@ var FieldHelper = function(tabs, editor) {
 		var label = config.label().length ? m("label", config.label()) : '';
 		var field_attributes =  {
 			type: 'text',
-			name: config.name(),
-			required: config.isRequired()
+			name: config.name()
 		};
 
 		if( config.usePlaceholder() == true ) {
@@ -121,12 +121,14 @@ var FieldHelper = function(tabs, editor) {
 			field_attributes.value = config.defaultValue();
 		}
 
+		field_attributes.required = config.isRequired();
+
 		var field = m( 'input', field_attributes );
 		var html = config.useParagraphs() ? m('p', [ label, field ]) : [ label, field ];
 
 		// render HTML
 		var rawHTML = render( html );
-		rawHTML = html_beautify( rawHTML ) + "\n";
+		rawHTML = html_beautify( rawHTML , { end_with_newline: true });
 
 		// add to editor
 		editor.replaceSelection( rawHTML );
