@@ -394,10 +394,9 @@ class MC4WP_Admin {
 		wp_enqueue_style( 'codemirror', MC4WP_PLUGIN_URL . 'assets/css/codemirror.css', array(), MC4WP_VERSION );
 
 		// js
-		wp_register_script( 'mc4wp-beautifyhtml', MC4WP_PLUGIN_URL . 'assets/js/third-party/beautify-html'. $suffix .'.js', array( 'jquery' ), MC4WP_VERSION, true );
+		wp_register_script( 'es5-shim', 'https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.1.15/es5-shim.min.js', array(), MC4WP_VERSION );
 		wp_register_script( 'codemirror', MC4WP_PLUGIN_URL . 'assets/js/third-party/codemirror-compressed.js', array(), MC4WP_VERSION, true );
-		wp_register_script( 'mithril', MC4WP_PLUGIN_URL . 'assets/js/third-party/mithril.min.js', array(), MC4WP_VERSION, true );
-		wp_register_script( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array( 'jquery', 'mc4wp-beautifyhtml', 'codemirror', 'mithril' ), MC4WP_VERSION, true );
+		wp_register_script( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array( 'jquery', 'es5-shim', 'codemirror' ), MC4WP_VERSION, true );
 
 		// todo: get rid of jQuery here
 		wp_enqueue_script( array( 'jquery', 'codemirror', 'mc4wp-admin' ) );
