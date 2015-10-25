@@ -59,32 +59,31 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 			return false;
 		}
 
+		// @todo this ain't working
 		return $this->try_subscribe();
 	}
 
 	/**
 	 * Return the shortcode output
+	 *
 	 * @return string
 	 */
 	public function shortcode( $args = array() ) {
 
-		$label = null;
-		$precheck = null;
-
-		if ( isset( $args['labels'][0] ) ) {
-			$label = $args['labels'][0];
+		if ( ! empty( $args['labels'][0] ) ) {
+			$this->options['label'] = $args['labels'][0];
 		}
 
 		if( isset( $args['options'] ) ) {
 			// check for default:0 or default:1 to set the checked attribute
 			if( in_array( 'default:1', $args['options'] ) ) {
-				$precheck = true;
+				$this->options['precheck'] = true;
 			} else if( in_array( 'default:0', $args['options'] ) ) {
-				$precheck = false;
+				$this->options['precheck'] = false;
 			}
 		}
 
-		return $this->get_checkbox( $label, $precheck );
+		return $this->get_checkbox_html();
 	}
 
 	/**

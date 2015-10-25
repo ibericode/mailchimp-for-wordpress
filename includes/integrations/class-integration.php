@@ -147,26 +147,35 @@ abstract class MC4WP_Integration {
 	}
 
 	/**
-	 * Outputs a checkbox
+	 * @return string
 	 */
-	public function output_checkbox() {
-		echo $this->get_checkbox();
+	protected function get_checkbox_attributes() {
+
+		$attributes = array();
+
+		if( $this->options['precheck'] ) {
+			$attributes['checked'] = 'checked';
+		}
+
+		$attributes = (array) apply_filters( 'mc4wp_integration_checkbox_attributes', $attributes, $this );
+		$attributes = (array) apply_filters( 'mc4wp_integration_' . $this->slug . '_checkbox_attributes', $attributes, $this );
+
+		return join( ' ', $attributes );
 	}
 
 	/**
-	 * @param string $label
-	 * @param bool $precheck
+	 * Outputs a checkbox
+	 */
+	public function output_checkbox() {
+		echo $this->get_checkbox_html();
+	}
+
+	/**
+	 * Get HTML for the checkbox
+	 *
 	 * @return string
 	 */
-	public function get_checkbox( $label = '', $precheck = null ) {
-
-		if( empty( $label ) ) {
-			$label = $this->get_label_text();
-		}
-
-		if( is_null( $precheck ) ) {
-			$precheck = $this->options['precheck'];
-		}
+	public function get_checkbox_html() {
 
 		ob_start();
 		?>
@@ -177,9 +186,10 @@ abstract class MC4WP_Integration {
 
 		<p class="mc4wp-checkbox mc4wp-checkbox-<?php echo esc_attr( $this->slug ); ?>">
 			<label>
+				<?php // Hidden field to make sure "0" is sent to server ?>
 				<input type="hidden" name="<?php echo esc_attr( $this->checkbox_name ); ?>" value="0" />
-				<input type="checkbox" name="<?php echo esc_attr( $this->checkbox_name ); ?>" value="1" <?php checked( $precheck, true ); ?> />
-				<span><?php echo $label; ?></span>
+				<input type="checkbox" name="<?php echo esc_attr( $this->checkbox_name ); ?>" value="1" <?php echo $this->get_checkbox_attributes(); ?> />
+				<span><?php echo $this->get_label_text(); ?></span>
 			</label>
 		</p>
 

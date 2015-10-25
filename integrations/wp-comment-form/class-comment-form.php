@@ -42,7 +42,7 @@ class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 	 */
 	public function add_checkbox_before_submit_button( $submit_button_html ) {
 		$this->added_through_filter = true;
-		return $this->get_checkbox() . $submit_button_html;
+		return $this->get_checkbox_html() . $submit_button_html;
 	}
 
 	/**
