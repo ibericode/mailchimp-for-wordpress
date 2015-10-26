@@ -49,9 +49,10 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 
 	/**
 	 * Subscribe from Contact Form 7 Forms
-	 *
-	 * @todo Implement custom request parser
-	*/
+	 * @todo improve smart guessing based on selected MailChimp lists
+	 * @todo groupings data still need to be formatted. Do that on global Integration level?
+	 * @return bool
+	 */
 	public function subscribe_from_cf7() {
 
 		// was sign-up checkbox checked?
@@ -59,8 +60,16 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 			return false;
 		}
 
-		// @todo this ain't working
-		return $this->try_subscribe();
+		$request_data = stripslashes_deep( $_REQUEST );
+		$parser = new MC4WP_Data_Parser( $request_data );
+		$data = $parser->combine( array( 'guessed', 'namespaced' ) );
+
+		// do nothing if no email was found
+		if( empty( $data['EMAIL'] ) ) {
+			return false;
+		}
+
+		return $this->subscribe( $data['EMAIL'], $data );
 	}
 
 	/**

@@ -318,7 +318,7 @@ abstract class MC4WP_Integration {
 
 		// if result failed, show error message (only to admins for non-AJAX)
 		if ( $result !== true && $api->has_error() ) {
-			error_log( sprintf( 'MailChimp for WordPres (%s): %s', date( 'Y-m-d H:i:s' ), $this->slug, $api->get_error_message() ) );
+			error_log( sprintf( 'MailChimp for WordPres (%s): %s', $this->slug, $api->get_error_message() ) );
 		}
 
 		return $result;

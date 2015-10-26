@@ -23,17 +23,13 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 	* Add hooks
 	*/
 	public function add_hooks() {
-		add_action( 'init', array( $this, 'maybe_subscribe'), 90 );
+		add_action( 'init', array( $this, 'listen'), 90 );
 	}
 
 	/**
 	 * Maybe fire a general subscription request
 	 */
-	public function maybe_subscribe() {
-
-		if( $this->is_honeypot_filled() ) {
-			return false;
-		}
+	public function listen() {
 
 		if ( ! $this->checkbox_was_checked() ) {
 			return false;
@@ -46,11 +42,15 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 			'action' => 'booking_add'
 		);
 
+		$data = $_REQUEST;
+
 		foreach( $disable_triggers as $trigger => $trigger_value ) {
-			if( isset( $_REQUEST[ $trigger ] ) ) {
+			if( isset( $data[ $trigger ] ) ) {
 
-				$value = $_REQUEST[ $trigger ];
+				$value = $data[ $trigger ];
 
+				// do nothing if trigger value is optional
+				// or if trigger value matches
 				if( empty( $trigger_value ) || $value === $trigger_value ) {
 					return false;
 				}
@@ -58,106 +58,25 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 		}
 
 		// run!
-		return $this->try_subscribe();
+		return $this->process( $data );
 	}
 
 	/**
-	 * Tries to create a sign-up request from the current $_POST data
+	 * @param $request_data
+	 *
+	 * @return bool|string
 	 */
-	public function try_subscribe() {
+	public function process( $request_data ) {
+		$request_data = stripslashes_deep( $request_data );
+		$parser = new MC4WP_Data_Parser( $request_data );
+		$data = $parser->combine( array( 'guessed', 'namespaced' ) );
 
-		// start running..
-		$email = null;
-		$merge_vars = array(
-			'GROUPINGS' => array()
-		);
-
-		foreach( $this->request_data as $key => $value ) {
-
-			if( $key[0] === '_' || $key === $this->checkbox_name ) {
-				continue;
-			} elseif( strtolower( substr( $key, 0, 6 ) ) === 'mc4wp-' ) {
-				// find extra fields which should be sent to MailChimp
-				$key = strtoupper( substr( $key, 6 ) );
-				$value = ( is_scalar( $value ) ) ? sanitize_text_field( $value ) : $value;
-
-				switch( $key ) {
-					case 'EMAIL':
-						$email = $value;
-					break;
-
-					case 'GROUPINGS':
-
-						$groupings = (array) $value;
-
-						foreach( $groupings as $grouping_id_or_name => $groups ) {
-
-							$grouping = array();
-
-							// group ID or group name given?
-							if(is_numeric( $grouping_id_or_name ) ) {
-								$grouping['id'] = absint( $grouping_id_or_name );
-							} else {
-								$grouping['name'] = sanitize_text_field( stripslashes( $grouping_id_or_name ) );
-							}
-
-							// comma separated list should become an array
-							if( ! is_array( $groups ) ) {
-								$groups = explode( ',', sanitize_text_field( $groups ) );
-							}
-
-							$grouping['groups'] = array_map( 'stripslashes', $groups );
-
-							// add grouping to array
-							$merge_vars['GROUPINGS'][] = $grouping;
-
-						} // end foreach $groupings
-					break;
-
-					default:
-						if( is_array( $value ) ) {
-							$value = sanitize_text_field( implode( ',', $value ) );
-						}
-
-						$merge_vars[$key] = $value;
-					break;
-				}
-
-			} elseif( ! $email && is_string( $value ) && is_email( $value ) ) {
-				// if no email is found yet, check if current field value is an email
-				$email = $value;
-			} elseif( ! $email && is_array( $value ) && isset( $value[0] ) && is_string( $value[0] ) && is_email( $value[0] ) ) {
-				// if no email is found yet, check if current value is an array and if first array value is an email
-				$email = $value[0];
-			} else {
-				$simple_key = str_replace( array( '-', '_' ), '', strtolower( $key ) );
-
-				if( ! $email && in_array( $simple_key, array( 'email', 'emailaddress', 'contactemail' ) ) ) {
-					$email = $value;
-				} elseif( ! isset( $merge_vars['NAME'] ) && in_array( $simple_key, array( 'name', 'yourname', 'username', 'fullname', 'contactname' ) ) ) {
-					// find name field
-					$merge_vars['NAME'] = $value;
-				} elseif( ! isset( $merge_vars['FNAME'] ) && in_array( $simple_key, array( 'firstname', 'fname', 'givenname', 'forename' ) ) ) {
-					// find first name field
-					$merge_vars['FNAME'] = $value;
-				} elseif( ! isset( $merge_vars['LNAME'] ) && in_array( $simple_key, array( 'lastname', 'lname', 'surname', 'familyname' ) ) ) {
-					// find last name field
-					$merge_vars['LNAME'] = $value;
-				}
-			}
-		}
-
-		// unset groupings if not used
-		if( empty( $merge_vars['GROUPINGS'] ) ) {
-			unset( $merge_vars['GROUPINGS'] );
-		}
-
-		// if email has not been found by the smart field guessing, return false.. Sorry
-		if ( ! $email ) {
+		// do nothing if no email was found
+		if( empty( $data['EMAIL'] ) ) {
 			return false;
 		}
 
-		return $this->subscribe( $email, $merge_vars );
+		return $this->subscribe( $data['EMAIL'], $data );
 	}
 
 	/**
