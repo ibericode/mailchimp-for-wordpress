@@ -97,7 +97,8 @@
   #mc4wp-admin .form-table td p {
     margin-top: 1em; }
   #mc4wp-admin .CodeMirror {
-    border: 1px solid #333; }
+    border: 1px solid #333;
+    height: auto; }
   #mc4wp-admin .sidebar {
     border-left: 1px solid #ccc; }
 
