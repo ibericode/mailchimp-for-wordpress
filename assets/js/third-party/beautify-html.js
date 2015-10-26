@@ -806,8 +806,8 @@
         return multi_parser.output.join('');
     }
 
-    if (typeof exports !== "undefined") {
-		exports = style_html;
+    if (typeof module !== "undefined" && typeof( module.exports ) !== "undefined" ) {
+		module.exports = style_html;
     } else if (typeof window !== "undefined") {
 		// If we're running a web page and don't have either of the above, add our one global
 		window.html_beautify = style_html;

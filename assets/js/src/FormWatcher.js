@@ -1,47 +1,49 @@
-var FormWatcher = function(editor) {
+var FormWatcher = function(editor, settings) {
+	'use strict';
 
-	var $ = window.jQuery;
-
-	// @todo fill this dynamically (get from selected lists)
-	var requiredFields = [ { tag: 'EMAIL', name: 'Email Address' } ];
-	var $missingFieldsList = $(document.getElementById('missing-fields-list'));
-	var $missingFieldsNotice = $(document.getElementById('missing-fields-notice'));
+	var missingFieldsNotice = document.getElementById('missing-fields-notice');
+	var missingFieldsNoticeList = missingFieldsNotice.querySelector('ul');
 
 	// functions
 	function checkRequiredFields() {
 
 		var formContent = editor.getValue();
+		var requiredFields = settings.getRequiredFields();
 
 		// let's go
 		formContent = formContent.toLowerCase();
 
-		// check presence of reach required field
-		var missingFields = {};
-		for(var i=0; i<requiredFields.length; i++) {
-			var htmlString = 'name="' + requiredFields[i].tag.toLowerCase();
-			if( formContent.indexOf( htmlString ) == -1 ) {
-				missingFields[requiredFields[i].tag] = requiredFields[i];
+		// check presence for each required field
+		var missingFields = [];
+		requiredFields.forEach(function(field) {
+			var fieldSearch = 'name="' + field.tag.toLowerCase();
+			if( formContent.indexOf( fieldSearch ) == -1 ) {
+				missingFields.push(field);
 			}
-		}
+		});
 
 		// do nothing if no fields are missing
-		if($.isEmptyObject(missingFields)) {
-			$missingFieldsNotice.hide();
+		if( missingFields.length === 0 ) {
+			missingFieldsNotice.style.display = 'none';
 			return;
 		}
 
 		// show notice
-		$missingFieldsList.html('');
-		for( var key in missingFields ) {
-			var field = missingFields[key];
-			var $listItem = $("<li></li>");
-			$listItem.html( field.name + " (<code>" + field.tag + "</code>)");
-			$listItem.appendTo( $missingFieldsList );
-		}
+		var listItems = '';
+		missingFields.forEach(function( field ) {
+			listItems += "<li>" + field.name + " (<code>" + field.tag + "</code>)</li>";
+		});
 
-		$missingFieldsNotice.show();
+		missingFieldsNoticeList.innerHTML = listItems;
+		missingFieldsNotice.style.display = 'block';
 	}
 
+	// events
+	editor.on('change', checkRequiredFields );
+	settings.events.on('requiredFields.change', checkRequiredFields);
+
+	// constructor
+	checkRequiredFields();
 
 	return {
 		checkRequiredFields: checkRequiredFields

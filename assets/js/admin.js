@@ -3,27 +3,502 @@
 	'use strict';
 
 	// dependencies
-	var $ = window.jQuery;
+	var Tabs = require('./Tabs.js');
 	var FormWatcher = require('./FormWatcher.js');
 	var FormEditor = require('./FormEditor.js');
 	var FieldHelper = require('./FieldHelper.js');
-	var Tabs = require( './Tabs.js' );
+	var Settings = require('./Settings.js');
+
 
 	// vars
-	var tabs = new Tabs($(document.getElementById('mc4wp-admin')));
-	var form_editor = window.form_editor = new FormEditor( document.getElementById('mc4wp-form-content') );
-	var form_watcher = new FormWatcher( form_editor );
-	var field_helper = new FieldHelper( tabs, form_editor );
+	var context = document.getElementById('mc4wp-admin');
+	var form_content_textarea = document.getElementById('mc4wp-form-content');
+	var form_editor = window.form_editor = new FormEditor( form_content_textarea );
+	var settings = new Settings(context);
+	var tabs = new Tabs(context, form_editor );
+	var form_watcher = new FormWatcher( form_editor, settings );
+	var field_helper = new FieldHelper( settings, tabs, form_editor );
 	m.mount( document.getElementById( 'mc4wp-field-wizard'), field_helper );
-
-	// events
-	form_editor.on('change', form_watcher.checkRequiredFields );
 
 	// @todo: clean this up
 	require('./clean-this-up.js');
-
 })();
-},{"./FieldHelper.js":3,"./FormEditor.js":5,"./FormWatcher.js":6,"./Tabs.js":8,"./clean-this-up.js":9}],2:[function(require,module,exports){
+},{"./FieldHelper.js":4,"./FormEditor.js":6,"./FormWatcher.js":7,"./Settings.js":10,"./Tabs.js":11,"./clean-this-up.js":12}],2:[function(require,module,exports){
+/*!
+ * EventEmitter v4.2.11 - git.io/ee
+ * Unlicense - http://unlicense.org/
+ * Oliver Caldwell - http://oli.me.uk/
+ * @preserve
+ */
+
+;(function () {
+	'use strict';
+
+	/**
+	 * Class for managing events.
+	 * Can be extended to provide event functionality in other classes.
+	 *
+	 * @class EventEmitter Manages event registering and emitting.
+	 */
+	function EventEmitter() {}
+
+	// Shortcuts to improve speed and size
+	var proto = EventEmitter.prototype;
+	var exports = this;
+	var originalGlobalValue = exports.EventEmitter;
+
+	/**
+	 * Finds the index of the listener for the event in its storage array.
+	 *
+	 * @param {Function[]} listeners Array of listeners to search through.
+	 * @param {Function} listener Method to look for.
+	 * @return {Number} Index of the specified listener, -1 if not found
+	 * @api private
+	 */
+	function indexOfListener(listeners, listener) {
+		var i = listeners.length;
+		while (i--) {
+			if (listeners[i].listener === listener) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	/**
+	 * Alias a method while keeping the context correct, to allow for overwriting of target method.
+	 *
+	 * @param {String} name The name of the target method.
+	 * @return {Function} The aliased method
+	 * @api private
+	 */
+	function alias(name) {
+		return function aliasClosure() {
+			return this[name].apply(this, arguments);
+		};
+	}
+
+	/**
+	 * Returns the listener array for the specified event.
+	 * Will initialise the event object and listener arrays if required.
+	 * Will return an object if you use a regex search. The object contains keys for each matched event. So /ba[rz]/ might return an object containing bar and baz. But only if you have either defined them with defineEvent or added some listeners to them.
+	 * Each property in the object response is an array of listener functions.
+	 *
+	 * @param {String|RegExp} evt Name of the event to return the listeners from.
+	 * @return {Function[]|Object} All listener functions for the event.
+	 */
+	proto.getListeners = function getListeners(evt) {
+		var events = this._getEvents();
+		var response;
+		var key;
+
+		// Return a concatenated array of all matching events if
+		// the selector is a regular expression.
+		if (evt instanceof RegExp) {
+			response = {};
+			for (key in events) {
+				if (events.hasOwnProperty(key) && evt.test(key)) {
+					response[key] = events[key];
+				}
+			}
+		}
+		else {
+			response = events[evt] || (events[evt] = []);
+		}
+
+		return response;
+	};
+
+	/**
+	 * Takes a list of listener objects and flattens it into a list of listener functions.
+	 *
+	 * @param {Object[]} listeners Raw listener objects.
+	 * @return {Function[]} Just the listener functions.
+	 */
+	proto.flattenListeners = function flattenListeners(listeners) {
+		var flatListeners = [];
+		var i;
+
+		for (i = 0; i < listeners.length; i += 1) {
+			flatListeners.push(listeners[i].listener);
+		}
+
+		return flatListeners;
+	};
+
+	/**
+	 * Fetches the requested listeners via getListeners but will always return the results inside an object. This is mainly for internal use but others may find it useful.
+	 *
+	 * @param {String|RegExp} evt Name of the event to return the listeners from.
+	 * @return {Object} All listener functions for an event in an object.
+	 */
+	proto.getListenersAsObject = function getListenersAsObject(evt) {
+		var listeners = this.getListeners(evt);
+		var response;
+
+		if (listeners instanceof Array) {
+			response = {};
+			response[evt] = listeners;
+		}
+
+		return response || listeners;
+	};
+
+	/**
+	 * Adds a listener function to the specified event.
+	 * The listener will not be added if it is a duplicate.
+	 * If the listener returns true then it will be removed after it is called.
+	 * If you pass a regular expression as the event name then the listener will be added to all events that match it.
+	 *
+	 * @param {String|RegExp} evt Name of the event to attach the listener to.
+	 * @param {Function} listener Method to be called when the event is emitted. If the function returns true then it will be removed after calling.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.addListener = function addListener(evt, listener) {
+		var listeners = this.getListenersAsObject(evt);
+		var listenerIsWrapped = typeof listener === 'object';
+		var key;
+
+		for (key in listeners) {
+			if (listeners.hasOwnProperty(key) && indexOfListener(listeners[key], listener) === -1) {
+				listeners[key].push(listenerIsWrapped ? listener : {
+					listener: listener,
+					once: false
+				});
+			}
+		}
+
+		return this;
+	};
+
+	/**
+	 * Alias of addListener
+	 */
+	proto.on = alias('addListener');
+
+	/**
+	 * Semi-alias of addListener. It will add a listener that will be
+	 * automatically removed after its first execution.
+	 *
+	 * @param {String|RegExp} evt Name of the event to attach the listener to.
+	 * @param {Function} listener Method to be called when the event is emitted. If the function returns true then it will be removed after calling.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.addOnceListener = function addOnceListener(evt, listener) {
+		return this.addListener(evt, {
+			listener: listener,
+			once: true
+		});
+	};
+
+	/**
+	 * Alias of addOnceListener.
+	 */
+	proto.once = alias('addOnceListener');
+
+	/**
+	 * Defines an event name. This is required if you want to use a regex to add a listener to multiple events at once. If you don't do this then how do you expect it to know what event to add to? Should it just add to every possible match for a regex? No. That is scary and bad.
+	 * You need to tell it what event names should be matched by a regex.
+	 *
+	 * @param {String} evt Name of the event to create.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.defineEvent = function defineEvent(evt) {
+		this.getListeners(evt);
+		return this;
+	};
+
+	/**
+	 * Uses defineEvent to define multiple events.
+	 *
+	 * @param {String[]} evts An array of event names to define.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.defineEvents = function defineEvents(evts) {
+		for (var i = 0; i < evts.length; i += 1) {
+			this.defineEvent(evts[i]);
+		}
+		return this;
+	};
+
+	/**
+	 * Removes a listener function from the specified event.
+	 * When passed a regular expression as the event name, it will remove the listener from all events that match it.
+	 *
+	 * @param {String|RegExp} evt Name of the event to remove the listener from.
+	 * @param {Function} listener Method to remove from the event.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.removeListener = function removeListener(evt, listener) {
+		var listeners = this.getListenersAsObject(evt);
+		var index;
+		var key;
+
+		for (key in listeners) {
+			if (listeners.hasOwnProperty(key)) {
+				index = indexOfListener(listeners[key], listener);
+
+				if (index !== -1) {
+					listeners[key].splice(index, 1);
+				}
+			}
+		}
+
+		return this;
+	};
+
+	/**
+	 * Alias of removeListener
+	 */
+	proto.off = alias('removeListener');
+
+	/**
+	 * Adds listeners in bulk using the manipulateListeners method.
+	 * If you pass an object as the second argument you can add to multiple events at once. The object should contain key value pairs of events and listeners or listener arrays. You can also pass it an event name and an array of listeners to be added.
+	 * You can also pass it a regular expression to add the array of listeners to all events that match it.
+	 * Yeah, this function does quite a bit. That's probably a bad thing.
+	 *
+	 * @param {String|Object|RegExp} evt An event name if you will pass an array of listeners next. An object if you wish to add to multiple events at once.
+	 * @param {Function[]} [listeners] An optional array of listener functions to add.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.addListeners = function addListeners(evt, listeners) {
+		// Pass through to manipulateListeners
+		return this.manipulateListeners(false, evt, listeners);
+	};
+
+	/**
+	 * Removes listeners in bulk using the manipulateListeners method.
+	 * If you pass an object as the second argument you can remove from multiple events at once. The object should contain key value pairs of events and listeners or listener arrays.
+	 * You can also pass it an event name and an array of listeners to be removed.
+	 * You can also pass it a regular expression to remove the listeners from all events that match it.
+	 *
+	 * @param {String|Object|RegExp} evt An event name if you will pass an array of listeners next. An object if you wish to remove from multiple events at once.
+	 * @param {Function[]} [listeners] An optional array of listener functions to remove.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.removeListeners = function removeListeners(evt, listeners) {
+		// Pass through to manipulateListeners
+		return this.manipulateListeners(true, evt, listeners);
+	};
+
+	/**
+	 * Edits listeners in bulk. The addListeners and removeListeners methods both use this to do their job. You should really use those instead, this is a little lower level.
+	 * The first argument will determine if the listeners are removed (true) or added (false).
+	 * If you pass an object as the second argument you can add/remove from multiple events at once. The object should contain key value pairs of events and listeners or listener arrays.
+	 * You can also pass it an event name and an array of listeners to be added/removed.
+	 * You can also pass it a regular expression to manipulate the listeners of all events that match it.
+	 *
+	 * @param {Boolean} remove True if you want to remove listeners, false if you want to add.
+	 * @param {String|Object|RegExp} evt An event name if you will pass an array of listeners next. An object if you wish to add/remove from multiple events at once.
+	 * @param {Function[]} [listeners] An optional array of listener functions to add/remove.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.manipulateListeners = function manipulateListeners(remove, evt, listeners) {
+		var i;
+		var value;
+		var single = remove ? this.removeListener : this.addListener;
+		var multiple = remove ? this.removeListeners : this.addListeners;
+
+		// If evt is an object then pass each of its properties to this method
+		if (typeof evt === 'object' && !(evt instanceof RegExp)) {
+			for (i in evt) {
+				if (evt.hasOwnProperty(i) && (value = evt[i])) {
+					// Pass the single listener straight through to the singular method
+					if (typeof value === 'function') {
+						single.call(this, i, value);
+					}
+					else {
+						// Otherwise pass back to the multiple function
+						multiple.call(this, i, value);
+					}
+				}
+			}
+		}
+		else {
+			// So evt must be a string
+			// And listeners must be an array of listeners
+			// Loop over it and pass each one to the multiple method
+			i = listeners.length;
+			while (i--) {
+				single.call(this, evt, listeners[i]);
+			}
+		}
+
+		return this;
+	};
+
+	/**
+	 * Removes all listeners from a specified event.
+	 * If you do not specify an event then all listeners will be removed.
+	 * That means every event will be emptied.
+	 * You can also pass a regex to remove all events that match it.
+	 *
+	 * @param {String|RegExp} [evt] Optional name of the event to remove all listeners for. Will remove from every event if not passed.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.removeEvent = function removeEvent(evt) {
+		var type = typeof evt;
+		var events = this._getEvents();
+		var key;
+
+		// Remove different things depending on the state of evt
+		if (type === 'string') {
+			// Remove all listeners for the specified event
+			delete events[evt];
+		}
+		else if (evt instanceof RegExp) {
+			// Remove all events matching the regex.
+			for (key in events) {
+				if (events.hasOwnProperty(key) && evt.test(key)) {
+					delete events[key];
+				}
+			}
+		}
+		else {
+			// Remove all listeners in all events
+			delete this._events;
+		}
+
+		return this;
+	};
+
+	/**
+	 * Alias of removeEvent.
+	 *
+	 * Added to mirror the node API.
+	 */
+	proto.removeAllListeners = alias('removeEvent');
+
+	/**
+	 * Emits an event of your choice.
+	 * When emitted, every listener attached to that event will be executed.
+	 * If you pass the optional argument array then those arguments will be passed to every listener upon execution.
+	 * Because it uses `apply`, your array of arguments will be passed as if you wrote them out separately.
+	 * So they will not arrive within the array on the other side, they will be separate.
+	 * You can also pass a regular expression to emit to all events that match it.
+	 *
+	 * @param {String|RegExp} evt Name of the event to emit and execute listeners for.
+	 * @param {Array} [args] Optional array of arguments to be passed to each listener.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.emitEvent = function emitEvent(evt, args) {
+		var listenersMap = this.getListenersAsObject(evt);
+		var listeners;
+		var listener;
+		var i;
+		var key;
+		var response;
+
+		for (key in listenersMap) {
+			if (listenersMap.hasOwnProperty(key)) {
+				listeners = listenersMap[key].slice(0);
+				i = listeners.length;
+
+				while (i--) {
+					// If the listener returns true then it shall be removed from the event
+					// The function is executed either with a basic call or an apply if there is an args array
+					listener = listeners[i];
+
+					if (listener.once === true) {
+						this.removeListener(evt, listener.listener);
+					}
+
+					response = listener.listener.apply(this, args || []);
+
+					if (response === this._getOnceReturnValue()) {
+						this.removeListener(evt, listener.listener);
+					}
+				}
+			}
+		}
+
+		return this;
+	};
+
+	/**
+	 * Alias of emitEvent
+	 */
+	proto.trigger = alias('emitEvent');
+
+	/**
+	 * Subtly different from emitEvent in that it will pass its arguments on to the listeners, as opposed to taking a single array of arguments to pass on.
+	 * As with emitEvent, you can pass a regex in place of the event name to emit to all events that match it.
+	 *
+	 * @param {String|RegExp} evt Name of the event to emit and execute listeners for.
+	 * @param {...*} Optional additional arguments to be passed to each listener.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.emit = function emit(evt) {
+		var args = Array.prototype.slice.call(arguments, 1);
+		return this.emitEvent(evt, args);
+	};
+
+	/**
+	 * Sets the current value to check against when executing listeners. If a
+	 * listeners return value matches the one set here then it will be removed
+	 * after execution. This value defaults to true.
+	 *
+	 * @param {*} value The new value to check for when executing listeners.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.setOnceReturnValue = function setOnceReturnValue(value) {
+		this._onceReturnValue = value;
+		return this;
+	};
+
+	/**
+	 * Fetches the current value to check against when executing listeners. If
+	 * the listeners return value matches this one then it should be removed
+	 * automatically. It will return true by default.
+	 *
+	 * @return {*|Boolean} The current value to check for or the default, true.
+	 * @api private
+	 */
+	proto._getOnceReturnValue = function _getOnceReturnValue() {
+		if (this.hasOwnProperty('_onceReturnValue')) {
+			return this._onceReturnValue;
+		}
+		else {
+			return true;
+		}
+	};
+
+	/**
+	 * Fetches the events object and creates one if required.
+	 *
+	 * @return {Object} The events storage object.
+	 * @api private
+	 */
+	proto._getEvents = function _getEvents() {
+		return this._events || (this._events = {});
+	};
+
+	/**
+	 * Reverts the global {@link EventEmitter} to its previous value and returns a reference to this version.
+	 *
+	 * @return {Function} Non conflicting EventEmitter class.
+	 */
+	EventEmitter.noConflict = function noConflict() {
+		exports.EventEmitter = originalGlobalValue;
+		return EventEmitter;
+	};
+
+	// Expose the class either via AMD, CommonJS or the global object
+	if (typeof define === 'function' && define.amd) {
+		define(function () {
+			return EventEmitter;
+		});
+	}
+	else if (typeof module === 'object' && module.exports){
+		module.exports = EventEmitter;
+	}
+	else {
+		exports.EventEmitter = EventEmitter;
+	}
+}.call(this));
+},{}],3:[function(require,module,exports){
 var FieldForms = {};
 var rows = require('./FieldRows.js');
 
@@ -57,20 +532,17 @@ FieldForms.text = function(config) {
 
 
 module.exports = FieldForms;
-},{"./FieldRows.js":4}],3:[function(require,module,exports){
-var FieldHelper = function(tabs, editor) {
+},{"./FieldRows.js":5}],4:[function(require,module,exports){
+var FieldHelper = function(settings, tabs, editor) {
 	'use strict';
 
 	window.m = require('../third-party/mithril.js');
-	var $ = window.jQuery;
-	var selectedListsInputs = document.querySelectorAll('.mc4wp-list-input');
-	var lists = mc4wp_vars.mailchimp.lists;
+	var render = require('./Render.js');
+	var html_beautify = require('../third-party/beautify-html.js');
+	var overlay = require('./Overlay.js');
 	var forms = require('./FieldForms.js');
-	var selectedLists = [];
-	var availableFields = {};
-	var chosenFieldTag = m.prop('');
-	var chosenField;
-	var active = false;
+	var availableFields = [];
+	var activeField;
 	var config = {
 		name: m.prop(''),
 		useParagraphs: m.prop(false),
@@ -81,68 +553,34 @@ var FieldHelper = function(tabs, editor) {
 		type: m.prop('text')
 	};
 
-	var render = require('./Render.js');
-	var beautify = require('../third-party/beautify-html.js');
-
-	/**
-	 * Recalculate which lists are selected
-	 *
-	 * @returns {Array}
-	 */
-	function updateSelectedLists() {
-		selectedLists = [];
-		$.map(selectedListsInputs, function(input) {
-			if( ! input.checked ) return;
-			if( typeof( lists[ input.value ] ) === "object" ){
-				selectedLists.push( lists[ input.value ] );
-			}
-		});
-
-		updateAvailableFields();
-		return selectedLists;
-	}
 
 	/**
 	 * Update the available MailChimp fields to choose from
 	 *
 	 * @returns {{}}
 	 */
-	function updateAvailableFields() {
-		availableFields = {};
-
-		selectedLists.map(function(list) {
-			return list.merge_vars.map(function(field) {
-				if( typeof( availableFields[ field.tag ] === "undefined" ) ) {
-					availableFields[ field.tag ] = field;
-				}
-			});
-		});
-
-		chooseField('');
-		return availableFields;
+	function setAvailableFields(fields) {
+		availableFields = settings.getAvailableFields();
+		setActiveField(false);
+		m.redraw();
 	}
 
 	/**
 	 * Choose a field to open the helper form for
 	 *
-	 * @param value
+	 * @param index
 	 * @returns {*}
 	 */
-	function chooseField(value) {
-
-		if( typeof(value) !== "string" ) {
-			return chooseField('');
-		}
-
-		chosenFieldTag(value);
-		chosenField = availableFields[ chosenFieldTag() ];
-		active = typeof(chosenField) === "object";
+	function setActiveField( index ) {
+		index = parseInt(index);
+		activeField = availableFields[ index ];
+		var active = typeof( activeField ) === "object";
 
 		if( active ) {
-			config.name(chosenField.tag);
-			config.defaultValue(chosenField.name);
-			config.isRequired(chosenField.req);
-			config.label(chosenField.name);
+			config.name(activeField.tag);
+			config.defaultValue(activeField.name);
+			config.isRequired(activeField.req);
+			config.label(activeField.name);
 		}
 
 		m.redraw();
@@ -153,16 +591,8 @@ var FieldHelper = function(tabs, editor) {
 	 * Controller
 	 */
 	function controller() {
-		updateSelectedLists();
-
-		window.addEventListener('keydown', function(e) {
-			if(e.keyCode !== 27) return;
-			chooseField('');
-		});
-
-		Array.prototype.map.call( selectedListsInputs, function(input) {
-			input.addEventListener('change', updateSelectedLists);
-		});
+		availableFields = settings.getAvailableFields();
+		settings.events.on('availableFields.change', setAvailableFields);
 	}
 
 	/**
@@ -171,31 +601,31 @@ var FieldHelper = function(tabs, editor) {
 	function createHTML() {
 
 		var label = config.label().length ? m("label", config.label()) : '';
-		var field_attributes =  {
+		var fieldAttributes =  {
 			type: config.type(),
 			name: config.name()
 		};
 
 		if( config.usePlaceholder() == true ) {
-			field_attributes.placeholder = config.defaultValue();
+			fieldAttributes.placeholder = config.defaultValue();
 		} else {
-			field_attributes.value = config.defaultValue();
+			fieldAttributes.value = config.defaultValue();
 		}
 
-		field_attributes.required = config.isRequired();
+		fieldAttributes.required = config.isRequired();
 
-		var field = m( 'input', field_attributes );
+		var field = m( 'input', fieldAttributes );
 		var html = config.useParagraphs() ? m('p', [ label, field ]) : [ label, field ];
 
 		// render HTML
 		var rawHTML = render( html );
-		rawHTML = html_beautify( rawHTML , { end_with_newline: true });
+		rawHTML = html_beautify( rawHTML ) + "\n\n";
 
 		// add to editor
-		editor.replaceSelection( rawHTML );
+		editor.insert( rawHTML );
 
 		// reset field form
-		chooseField('');
+		setActiveField('');
 	}
 
 	/**
@@ -206,81 +636,65 @@ var FieldHelper = function(tabs, editor) {
 	 */
 	function view( ctrl ) {
 
-		if( selectedLists.length === 0 ) {
-			return m( "div.mc4wp-notice", [
-				m("p", [
-					m("a", {
-						href: 'javascript:void(0)',
-						onclick: function() { tabs.open('settings') }
-					}, "Please select at least one MailChimp list in order to build your form." )
-				])
-			]);
-		}
-
 		// build DOM for fields choice
 		var fieldsChoice = m( "div.available-fields.small-margin", [
 			m("strong", "Choose a MailChimp field to add to the form"),
-			$.map(Object.keys(availableFields),function(key) {
-				var field = availableFields[key];
-				return [
-					m("button", {
-						class  : "button",
-						type   : 'button',
-						onclick: m.withAttr("value", chooseField),
-						value  : field.tag
-					}, field.name)
-				];
-			})
+
+			(availableFields.length) ?
+
+				// render fields
+				availableFields.map(function(field, index) {
+					return [
+						m("button", {
+							class  : "button",
+							type   : 'button',
+							onclick: m.withAttr("value", setActiveField),
+							value  : index
+						}, field.name)
+					];
+				})
+
+				:
+
+				// no fields
+				m( "p", [
+					"No fields, did you ",
+					m("a", {
+						onclick: function() { tabs.open('settings'); }
+					}, "select a MailChimp list in the form settings?")
+				])
 		]);
 
 		// build DOM for overlay
-		var overlay = null;
-		if( active ) {
-			overlay = [
-				m( "div.overlay",[
-					m("div.overlay-content", [
+		var form = null;
+		if( activeField ) {
+			form = overlay(
+				// field wizard
+				m("div.field-wizard", [
 
-						// close icon
-						m('span.close.dashicons.dashicons-no', {
-							title: "Click to close the overlay.",
-							onclick: chooseField
-						}),
+					//heading
+					m("h3", [
+						activeField.name,
+						m("code", activeField.tag)
+					]),
 
-						// field wizard
-						m("div.field-wizard", [
+					// actual form
+					forms.render(activeField.field_type, config),
 
-							//heading
-							m("h3", [
-								chosenField.name,
-								m("code", chosenField.tag)
-							]),
-
-							// actual form
-							forms.render(chosenField.field_type, config),
-
-							// add to form button
-							m("p", [
-								m("button", {
-									class: "button-primary",
-									type: "button",
-									onclick: createHTML
-								}, "Add to form" )
-							])
-						])
+					// add to form button
+					m("p", [
+						m("button", {
+							class: "button-primary",
+							type: "button",
+							onclick: createHTML
+						}, "Add to form" )
 					])
-				]),
-
-				// overlay background
-				m( "div.overlay-background", {
-					title: "Click to close the overlay.",
-					onclick: chooseField
-				})
-			];
+				]), setActiveField);
 		}
 
 		return [
 			fieldsChoice,
-			overlay
+			form
 		];
 	}
 
@@ -292,7 +706,7 @@ var FieldHelper = function(tabs, editor) {
 };
 
 module.exports = FieldHelper;
-},{"../third-party/beautify-html.js":10,"../third-party/mithril.js":11,"./FieldForms.js":2,"./Render.js":7}],4:[function(require,module,exports){
+},{"../third-party/beautify-html.js":13,"../third-party/mithril.js":14,"./FieldForms.js":3,"./Overlay.js":8,"./Render.js":9}],5:[function(require,module,exports){
 var r = {};
 
 r.label = function(config) {
@@ -359,10 +773,15 @@ r.useParagraphs = function(config) {
 };
 
 module.exports = r;
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 /* Editor */
+/* todo allow for CodeMirror failures */
 var FormEditor = function(element) {
-	var editor  = CodeMirror.fromTextArea(element, {
+
+	var r = {};
+	var editor;
+
+	r.editor = editor = CodeMirror.fromTextArea(element, {
 		selectionPointer: true,
 		matchTags: { bothTags: true },
 		mode: "text/html",
@@ -370,55 +789,73 @@ var FormEditor = function(element) {
 		autoCloseTags: true
 	});
 
-	return editor;
+	r.getValue = function() {
+		return editor.getValue();
+	};
+
+	r.insert = function( html ) {
+		editor.replaceSelection( html );
+	};
+
+	r.on = function() {
+		return editor.on.apply(editor,arguments);
+	};
+
+	r.refresh = function() {
+		editor.refresh();
+	};
+
+	return r;
 };
 
 module.exports = FormEditor;
-},{}],6:[function(require,module,exports){
-var FormWatcher = function(editor) {
+},{}],7:[function(require,module,exports){
+var FormWatcher = function(editor, settings) {
+	'use strict';
 
-	var $ = window.jQuery;
-
-	// @todo fill this dynamically (get from selected lists)
-	var requiredFields = [ { tag: 'EMAIL', name: 'Email Address' } ];
-	var $missingFieldsList = $(document.getElementById('missing-fields-list'));
-	var $missingFieldsNotice = $(document.getElementById('missing-fields-notice'));
+	var missingFieldsNotice = document.getElementById('missing-fields-notice');
+	var missingFieldsNoticeList = missingFieldsNotice.querySelector('ul');
 
 	// functions
 	function checkRequiredFields() {
 
 		var formContent = editor.getValue();
+		var requiredFields = settings.getRequiredFields();
 
 		// let's go
 		formContent = formContent.toLowerCase();
 
-		// check presence of reach required field
-		var missingFields = {};
-		for(var i=0; i<requiredFields.length; i++) {
-			var htmlString = 'name="' + requiredFields[i].tag.toLowerCase();
-			if( formContent.indexOf( htmlString ) == -1 ) {
-				missingFields[requiredFields[i].tag] = requiredFields[i];
+		// check presence for each required field
+		var missingFields = [];
+		requiredFields.forEach(function(field) {
+			var fieldSearch = 'name="' + field.tag.toLowerCase();
+			if( formContent.indexOf( fieldSearch ) == -1 ) {
+				missingFields.push(field);
 			}
-		}
+		});
 
 		// do nothing if no fields are missing
-		if($.isEmptyObject(missingFields)) {
-			$missingFieldsNotice.hide();
+		if( missingFields.length === 0 ) {
+			missingFieldsNotice.style.display = 'none';
 			return;
 		}
 
 		// show notice
-		$missingFieldsList.html('');
-		for( var key in missingFields ) {
-			var field = missingFields[key];
-			var $listItem = $("<li></li>");
-			$listItem.html( field.name + " (<code>" + field.tag + "</code>)");
-			$listItem.appendTo( $missingFieldsList );
-		}
+		var listItems = '';
+		missingFields.forEach(function( field ) {
+			listItems += "<li>" + field.name + " (<code>" + field.tag + "</code>)</li>";
+		});
 
-		$missingFieldsNotice.show();
+		missingFieldsNoticeList.innerHTML = listItems;
+		missingFieldsNotice.style.display = 'block';
 	}
 
+	// events
+	editor.on('change', checkRequiredFields );
+	settings.events.on('requiredFields.change', checkRequiredFields);
+
+	// constructor
+	checkRequiredFields();
 
 	return {
 		checkRequiredFields: checkRequiredFields
@@ -427,7 +864,45 @@ var FormWatcher = function(editor) {
 };
 
 module.exports = FormWatcher;
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
+var overlay = function( content, onclose ) {
+	'use strict';
+
+	function onKeyDown(e) {
+		if(e.keyCode !== 27) return;
+		onclose();
+	}
+
+	if ( window.addEventListener) {
+		window.addEventListener('keydown', onKeyDown);
+	} else if (el.attachEvent)  {
+		window.attachEvent('keydown', onKeyDown);
+	}
+
+	return [
+		m( "div.overlay",[
+			m("div.overlay-content", [
+
+				// close icon
+				m('span.close.dashicons.dashicons-no', {
+					title: "Click to close the overlay.",
+					onclick: onclose
+				}),
+
+				content
+			])
+		]),
+
+		// overlay background
+		m( "div.overlay-background", {
+			title: "Click to close the overlay.",
+			onclick: onclose
+		})
+	];
+};
+
+module.exports = overlay;
+},{}],9:[function(require,module,exports){
 'use strict';
 
 var VOID_TAGS = ['area', 'base', 'br', 'col', 'command', 'embed', 'hr',
@@ -543,15 +1018,106 @@ function render(view) {
 }
 
 module.exports = render;
-},{}],8:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
+var Settings = function(context) {
+	'use strict';
+
+	var EventEmitter = require('./EventEmitter.js');
+
+	// vars
+	var events = new EventEmitter();
+	var listInputs = context.querySelectorAll('.mc4wp-list-input');
+	var lists = mc4wp_vars.mailchimp.lists;
+
+	var selectedLists = [];
+	var availableFields = [];
+	var requiredFields = [];
+
+	// functions
+	function getSelectedLists() {
+		return selectedLists;
+	}
+
+	function updateSelectedLists() {
+		selectedLists = [];
+		Array.prototype.forEach.call(listInputs, function(input) {
+			if( ! input.checked ) return;
+			if( typeof( lists[ input.value ] ) === "object" ){
+				selectedLists.push( lists[ input.value ] );
+			}
+		});
+
+		events.trigger('selectedLists.change', [ selectedLists ]);
+		return selectedLists;
+	}
+
+	function getAvailableFields() {
+		return availableFields;
+	}
+
+	function updateAvailableFields() {
+		availableFields = [];
+		selectedLists.forEach(function( list ) {
+			list.merge_vars.forEach(function(field) {
+				if( availableFields.filter(function(existingField) { return existingField.tag === field.tag; }).length === 0 ){
+					availableFields.push(field);
+				}
+			})
+		});
+		events.trigger('availableFields.change', [availableFields]);
+		return availableFields;
+	}
+
+	function getRequiredFields() {
+		return requiredFields;
+	}
+
+	function updateRequiredFields() {
+		requiredFields = [];
+		availableFields.forEach(function(field) {
+			if(field.req) {
+				requiredFields.push(field);
+			}
+		});
+		events.trigger('requiredFields.change', [requiredFields]);
+		return requiredFields;
+	}
+
+	// constructor code
+	events.on('selectedLists.change', updateAvailableFields);
+	events.on('availableFields.change', updateRequiredFields);
+
+	Array.prototype.forEach.call( listInputs, function(inputEl) {
+		if ( inputEl.addEventListener) {
+			inputEl.addEventListener('change', updateSelectedLists);
+		} else if (el.attachEvent)  {
+			inputEl.attachEvent('change', updateSelectedLists);
+		}
+	});
+
+	updateSelectedLists();
+
+	return {
+		getSelectedLists: getSelectedLists,
+		getRequiredFields: getRequiredFields,
+		getAvailableFields: getAvailableFields,
+		events: events
+	}
+
+};
+
+module.exports = Settings;
+},{"./EventEmitter.js":2}],11:[function(require,module,exports){
 // Tabs
-var Tabs = function( $context ) {
+var Tabs = function( context, editor ) {
 
 	var $ = window.jQuery;
+
+	var $context = $(context);
 	var $tabs = $context.find('.tab');
-	var $tabNav = $context.find('.nav-tab');
+	var $tabNavs = $context.find('.nav-tab');
 	var $tabLinks = $context.find('.tab-link');
-	var $refererField = $context.find('input[name="_wp_http_referer"]');
+	var refererField = context.querySelector('input[name="_wp_http_referer"]');
 
 	var URL = {
 		parse: function(url) {
@@ -578,12 +1144,13 @@ var Tabs = function( $context ) {
 	};
 
 	function open( tab ) {
+
 		// hide all tabs & remove active class
-		$tabs.hide();
-		$tabNav.removeClass('nav-tab-active');
+		$tabs.css('display', 'none');
+		$tabNavs.removeClass('nav-tab-active');
 
 		// add `nav-tab-active` to this tab
-		$(document.getElementById('nav-tab-' + tab )).addClass('nav-tab-active').blur();
+		$tabNavs.filter('#nav-tab-'+tab).addClass('nav-tab-active').blur();
 
 		// show target tab
 		var targetId = "tab-" + tab;
@@ -598,19 +1165,20 @@ var Tabs = function( $context ) {
 		}
 
 		// update referer field
-		$refererField.val(url);
+		refererField.value = url;
 
 		// if thickbox is open, close it.
 		if( typeof(tb_remove) === "function" ) {
 			tb_remove();
 		}
 
-		// focus on codemirror textarea, this fixes bug with blank textarea
-		window.form_editor.refresh();
+		editor.refresh();
 	}
 
 
-	function switchTab() {
+	function switchTab(e) {
+
+		e.preventDefault();
 
 		var urlParams = URL.parse( this.href );
 		if( typeof(urlParams.tab) === "undefined" ) {
@@ -623,8 +1191,7 @@ var Tabs = function( $context ) {
 		return false;
 	}
 
-	// add tab listener
-	$tabNav.click(switchTab);
+	$tabNavs.click(switchTab);
 	$tabLinks.click(switchTab);
 
 	return {
@@ -634,7 +1201,7 @@ var Tabs = function( $context ) {
 };
 
 module.exports = Tabs;
-},{}],9:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 module.exports = (function() {
 	'use strict';
 
@@ -670,11 +1237,6 @@ module.exports = (function() {
 		}
 	}
 
-	function toggleWooCommerceSettings() {
-		var $el = $(document.getElementById('woocommerce-settings'));
-		$el.toggle(this.checked);
-	}
-
 	/**
 	 * Bind Event Handlers
 	 */
@@ -684,9 +1246,6 @@ module.exports = (function() {
 
 	// Show send-welcome field only when double opt-in is disabled
 	$context.find('input[name$="[double_optin]"]').change(toggleSendWelcomeFields);
-
-	// show woocommerce settings only when `show at woocommerce checkout` is checked.
-	$context.find('input[name$="[show_at_woocommerce_checkout]"]').change(toggleWooCommerceSettings);
 
 
 	/* Grey out integration settings when "enabled" is not ticked */
@@ -707,7 +1266,7 @@ module.exports = (function() {
 
 
 
-},{}],10:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 /*jshint curly:true, eqeqeq:true, laxbreak:true, noempty:false */
 /*
 
@@ -1516,15 +2075,15 @@ module.exports = (function() {
         return multi_parser.output.join('');
     }
 
-    if (typeof exports !== "undefined") {
-		exports = style_html;
+    if (typeof module !== "undefined" && typeof( module.exports ) !== "undefined" ) {
+		module.exports = style_html;
     } else if (typeof window !== "undefined") {
 		// If we're running a web page and don't have either of the above, add our one global
 		window.html_beautify = style_html;
 	}
 
 }());
-},{}],11:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 var m = (function app(window, undefined) {
 	var OBJECT = "[object Object]", ARRAY = "[object Array]", STRING = "[object String]", FUNCTION = "function";
 	var type = {}.toString;

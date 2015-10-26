@@ -1,11 +1,13 @@
 // Tabs
-var Tabs = function( $context ) {
+var Tabs = function( context, editor ) {
 
 	var $ = window.jQuery;
+
+	var $context = $(context);
 	var $tabs = $context.find('.tab');
-	var $tabNav = $context.find('.nav-tab');
+	var $tabNavs = $context.find('.nav-tab');
 	var $tabLinks = $context.find('.tab-link');
-	var $refererField = $context.find('input[name="_wp_http_referer"]');
+	var refererField = context.querySelector('input[name="_wp_http_referer"]');
 
 	var URL = {
 		parse: function(url) {
@@ -32,12 +34,13 @@ var Tabs = function( $context ) {
 	};
 
 	function open( tab ) {
+
 		// hide all tabs & remove active class
-		$tabs.hide();
-		$tabNav.removeClass('nav-tab-active');
+		$tabs.css('display', 'none');
+		$tabNavs.removeClass('nav-tab-active');
 
 		// add `nav-tab-active` to this tab
-		$(document.getElementById('nav-tab-' + tab )).addClass('nav-tab-active').blur();
+		$tabNavs.filter('#nav-tab-'+tab).addClass('nav-tab-active').blur();
 
 		// show target tab
 		var targetId = "tab-" + tab;
@@ -52,19 +55,20 @@ var Tabs = function( $context ) {
 		}
 
 		// update referer field
-		$refererField.val(url);
+		refererField.value = url;
 
 		// if thickbox is open, close it.
 		if( typeof(tb_remove) === "function" ) {
 			tb_remove();
 		}
 
-		// focus on codemirror textarea, this fixes bug with blank textarea
-		window.form_editor.refresh();
+		editor.refresh();
 	}
 
 
-	function switchTab() {
+	function switchTab(e) {
+
+		e.preventDefault();
 
 		var urlParams = URL.parse( this.href );
 		if( typeof(urlParams.tab) === "undefined" ) {
@@ -77,8 +81,7 @@ var Tabs = function( $context ) {
 		return false;
 	}
 
-	// add tab listener
-	$tabNav.click(switchTab);
+	$tabNavs.click(switchTab);
 	$tabLinks.click(switchTab);
 
 	return {

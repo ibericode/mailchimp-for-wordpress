@@ -33,11 +33,6 @@ module.exports = (function() {
 		}
 	}
 
-	function toggleWooCommerceSettings() {
-		var $el = $(document.getElementById('woocommerce-settings'));
-		$el.toggle(this.checked);
-	}
-
 	/**
 	 * Bind Event Handlers
 	 */
@@ -47,9 +42,6 @@ module.exports = (function() {
 
 	// Show send-welcome field only when double opt-in is disabled
 	$context.find('input[name$="[double_optin]"]').change(toggleSendWelcomeFields);
-
-	// show woocommerce settings only when `show at woocommerce checkout` is checked.
-	$context.find('input[name$="[show_at_woocommerce_checkout]"]').change(toggleWooCommerceSettings);
 
 
 	/* Grey out integration settings when "enabled" is not ticked */
