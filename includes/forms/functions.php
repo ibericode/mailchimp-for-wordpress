@@ -4,11 +4,23 @@
 /**
  * Returns a Form instance
  *
+ * @api
  * @param    int     $form_id.
  * @return   MC4WP_Form
  */
 function mc4wp_get_form( $form_id = 0 ) {
 	return MC4WP_Form::get_instance( $form_id );
+}
+
+/**
+ *
+ * @api
+ * @param       $form_id
+ * @param array $attributes
+ * @return string
+ */
+function mc4wp_show_form( $form_id, $attributes = array() ) {
+	return MC4WP_Form_Manager::instance()->output_manager->output_form( $form_id, $attributes );
 }
 
 
@@ -21,9 +33,10 @@ function mc4wp_get_form( $form_id = 0 ) {
  * @return boolean
  */
 function mc4wp_form_is_submitted( $form_id = 0, $element_id = null ) {
-	$form = mc4wp_get_form( $form_id );
 
-	if( ! $form instanceof MC4WP_Form ) {
+	try {
+		$form = mc4wp_get_form( $form_id );
+	} catch( Exception $e ) {
 		return false;
 	}
 
@@ -36,10 +49,15 @@ function mc4wp_form_is_submitted( $form_id = 0, $element_id = null ) {
  * @return string
  */
 function mc4wp_form_get_response_html( $form_id = 0 ) {
-	$form = mc4wp_get_form( $form_id );
 
-	// return empty string if form isn't submitted.
-	if( ! $form instanceof MC4WP_Form || ! $form->is_submitted() ) {
+	try {
+		$form = mc4wp_get_form( $form_id );
+	} catch( Exception $e ) {
+		return '';
+	}
+
+	// return empty string if this form is not submitted.
+	if( ! $form->is_submitted() ) {
 		return '';
 	}
 

@@ -7,7 +7,7 @@
 	var FormEditor = require('./FormEditor.js');
 	var FieldHelper = require('./FieldHelper.js');
 	var Settings = require('./Settings.js');
-	
+
 	// vars
 	var context = document.getElementById('mc4wp-admin');
 	var form_content_textarea = document.getElementById('mc4wp-form-content');

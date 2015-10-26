@@ -80,6 +80,7 @@ return array(
     'MC4WP_Form_Asset_Manager' => $baseDir . '/includes/forms/class-asset-manager.php',
     'MC4WP_Form_Listener' => $baseDir . '/includes/forms/class-form-listener.php',
     'MC4WP_Form_Manager' => $baseDir . '/includes/forms/class-form-manager.php',
+    'MC4WP_Form_Output_Manager' => $baseDir . '/includes/forms/class-output-manager.php',
     'MC4WP_Form_Previewer' => $baseDir . '/includes/forms/class-form-previewer.php',
     'MC4WP_Form_Request' => $baseDir . '/includes/forms/class-request.php',
     'MC4WP_Form_Validator' => $baseDir . '/includes/forms/class-form-validator.php',

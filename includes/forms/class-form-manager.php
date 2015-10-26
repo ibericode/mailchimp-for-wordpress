@@ -1,7 +1,9 @@
 <?php
 
 /**
-* This class takes care of all form related functionality
+ * This class takes care of all form related functionality
+ *
+ * @internal
 */
 class MC4WP_Form_Manager {
 
@@ -11,39 +13,69 @@ class MC4WP_Form_Manager {
 	private $request_data = array();
 
 	/**
-	 * @var MC4WP_Form_Asset_Manager;
+	 * @var MC4WP_Form_Manager
 	 */
-	private $asset_manager;
+	private static $instance;
+
+	/**
+	 * @var MC4WP_Form_Output_Manager
+	 */
+	public $output_manager;
+
+	/**
+	 * @return MC4WP_Form_Manager
+	 */
+	public static function instance() {
+
+		if( self::$instance instanceof self ) {
+			return self::$instance;
+		}
+
+		return new self;
+	}
 
 	/**
 	 * Constructor
 	 */
-	public function __construct() {
+	private function __construct() {
+		self::$instance = $this;
+
 		// store global `$_REQUEST` array locally, to prevent other plugins from messing with it (yes it happens....)
 		// todo: fix this properly (move to more specific $_POST?)
 		$this->request_data = $_REQUEST;
+		$this->output_manager = new MC4WP_Form_Output_Manager();
 	}
 
 	/**
 	 * Hook!
 	 */
-	public function initialize() {
+	public function add_hooks() {
 
-		add_action( 'init', array( $this, 'register_form_type' ) );
+		add_action( 'init', array( $this, 'initialize' ) );
 
 		// forms
-		add_action( 'init', array( $this, 'init_form_listener' ) );
-		add_action( 'init', array( $this, 'init_form_asset_manager' ) );
+		add_action( 'template_redirect', array( $this, 'init_asset_manager' ) );
 		add_action( 'template_redirect', array( 'MC4WP_Form_Previewer', 'init' ) );
 
 		// widget
 		add_action( 'widgets_init', array( $this, 'register_widget' ) );
+
+		$this->output_manager->add_hooks();
 	}
+
+	/**
+	 * Initialize
+	 */
+	public function initialize() {
+		$this->register_post_type();
+		$this->init_form_listener();
+	}
+
 
 	/**
 	 * Register post type "mc4wp-form"
 	 */
-	public function register_form_type() {
+	public function register_post_type() {
 
 		// register post type
 		register_post_type( 'mc4wp-form', array(
@@ -71,14 +103,9 @@ class MC4WP_Form_Manager {
 		$listener->listen( $this->request_data );
 	}
 
-	/**
-	 * Initialise the form asset manager
-	 *
-	 * @hooked `init`
-	 */
-	public function init_form_asset_manager() {
-		$this->asset_manager = new MC4WP_Form_Asset_Manager( );
-		$this->asset_manager->init();
+	public function init_asset_manager() {
+		$assets = new MC4WP_Form_Asset_Manager( $this->output_manager );
+		$assets->initialize();
 	}
 
 	/**
@@ -86,14 +113,5 @@ class MC4WP_Form_Manager {
 	 */
 	public function register_widget() {
 		register_widget( 'MC4WP_Form_Widget' );
-	}
-
-	/**
-	 * @param $args
-	 *
-	 * @return string
-	 */
-	public function output_form( $args ) {
-		return $this->asset_manager->output_form( $args );
 	}
 }

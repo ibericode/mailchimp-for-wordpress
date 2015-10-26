@@ -58,8 +58,7 @@ function mc4wp_load_plugin() {
 	}
 
 	// forms
-	$forms = new MC4WP_Form_Manager();
-	$forms->initialize();
+	MC4WP_Form_Manager::instance()->add_hooks();
 
 	// integration core
 	MC4WP_Integration_Manager::instance()->add_hooks();

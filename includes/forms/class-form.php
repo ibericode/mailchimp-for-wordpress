@@ -54,6 +54,7 @@ class MC4WP_Form {
 	/**
 	 * @param int $form_id
 	 * @return MC4WP_Form
+	 * @throws Exception
 	 */
 	public static function get_instance( $form_id ) {
 
@@ -76,6 +77,7 @@ class MC4WP_Form {
 
 	/**
 	 * @param int $id
+	 * @throws Exception
 	 */
 	public function __construct( $id = 0 ) {
 		$this->post = $post = get_post( (int) $id );
@@ -106,15 +108,12 @@ class MC4WP_Form {
 
 
 	/**
-	 * @param string $element_id
-	 * @param array $attributes
 	 * @param string $response_html
 	 * @return string
 	 */
-	public function get_visible_fields( $element_id, array $attributes = array(), $response_html = '' ) {
+	public function get_visible_fields( $response_html = '' ) {
 
 		$replacements = array(
-			'{n}' => $element_id,
 			'{response}' => $response_html,
 		);
 
@@ -149,7 +148,7 @@ class MC4WP_Form {
 
 
 		// was "lists" parameter passed in shortcode arguments?
-		if( isset( $attributes['lists'] ) && ! empty( $attributes['lists'] ) ) {
+		if( ! empty( $attributes['lists'] ) ) {
 			$lists_string = ( is_array( $attributes['lists'] ) ) ? join( ',', $attributes['lists'] ) : $attributes['lists'];
 			$hidden_fields .= '<input type="hidden" name="_mc4wp_lists" value="'. esc_attr( $lists_string ) . '" />';
 		}
@@ -295,7 +294,7 @@ class MC4WP_Form {
 		    || ! $this->request->success ) {
 
 			$form_opening_html = '<form method="post" '. $this->get_form_action_attribute() .'>';
-			$visible_fields = $this->get_visible_fields( $element_id, $attributes, $response_html );
+			$visible_fields = $this->get_visible_fields( $response_html );
 			$hidden_fields = $this->get_hidden_fields( $element_id, $attributes );
 			$form_closing_html = '</form>';
 		}
@@ -503,4 +502,19 @@ class MC4WP_Form {
 		return $messages;
 	}
 
+	/**
+	 * @return array
+	 */
+	public function get_field_types() {
+		$field_types = array();
+		preg_match_all( '/type=\"(\w+)?\"/', $this->content, $field_types );
+		return $field_types[1];
+	}
+
+	/**
+	 * @return string
+	 */
+	public function __toString() {
+		return MC4WP_Form_Manager::instance()->output_manager->output_form( $this->ID );
+	}
 }
