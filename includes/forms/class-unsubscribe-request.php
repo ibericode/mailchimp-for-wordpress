@@ -1,13 +1,8 @@
 <?php
 
-// prevent direct file access
-if( ! defined( 'ABSPATH' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
+defined( 'ABSPATH' ) or exit;
 
-class MC4WP_Unsubscribe_Request extends MC4WP_Request {
+class MC4WP_Unsubscribe_Request extends MC4WP_Form_Request {
 	/**
 	 * @return bool
 	 */

@@ -39,11 +39,11 @@ class MC4WP_Form_Listener {
 	}
 
 	/**
-	 * @param iMC4WP_Request $request
+	 * @param MC4WP_Form_Request $request
 	 *
 	 * @return bool
 	 */
-	public function process( iMC4WP_Request $request ) {
+	public function process( MC4WP_Form_Request $request ) {
 
 
 		$valid = $request->validate();

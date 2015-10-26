@@ -2,7 +2,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-class MC4WP_Subscribe_Request extends MC4WP_Request {
+class MC4WP_Subscribe_Request extends MC4WP_Form_Request {
 
 	/**
 	 * @var MC4WP_Field_Map
@@ -15,13 +15,14 @@ class MC4WP_Subscribe_Request extends MC4WP_Request {
 	 */
 	public function prepare() {
 		$this->user_data = $this->guess_fields( $this->user_data );
-		$this->map = new MC4WP_Field_Map( $this->user_data, $this->get_lists() );
 
-		if( ! $this->map->success ) {
-			$this->message_type = $this->map->error_code;
+		try{
+			$this->map = new MC4WP_Field_Map( $this->user_data, $this->get_lists() );
+		} catch( Exception $e ) {
+			$this->message_type = $e->getCode();
 		}
 
-		return $this->map->success;
+		return true;
 	}
 
 	/**
@@ -43,7 +44,7 @@ class MC4WP_Subscribe_Request extends MC4WP_Request {
 		$email_type = $this->get_email_type();
 
 		// loop through selected lists
-		foreach ( $this->map->list_fields as $list_id => $list_field_data ) {
+		foreach( $this->map->list_fields as $list_id => $list_field_data ) {
 
 			// allow plugins to alter merge vars for each individual list
 			$list_merge_vars = $this->get_list_merge_vars( $list_id, $list_field_data );

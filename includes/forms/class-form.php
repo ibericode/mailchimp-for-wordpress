@@ -36,7 +36,7 @@ class MC4WP_Form {
 	public $messages = array();
 
 	/**
-	 * @var iMC4WP_Request
+	 * @var MC4WP_Form_Request
 	 */
 	public $request;
 
@@ -165,7 +165,7 @@ class MC4WP_Form {
 	public function is_submitted( $element_id = null ) {
 
 		// is this form (any instance) submitted)
-		$form_submitted = $this->request instanceof iMC4WP_Request;
+		$form_submitted = $this->request instanceof MC4WP_Form_Request;
 
 		// if an element ID is given, only return true if that specific element is submitted
 		if( $element_id ) {

@@ -3,7 +3,7 @@
 /**
 * Handles form submissions
 */
-abstract class MC4WP_Request implements iMC4WP_Request {
+abstract class MC4WP_Form_Request extends MC4WP_Request {
 
 	/**
 	 * @var string
