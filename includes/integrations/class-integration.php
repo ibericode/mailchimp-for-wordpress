@@ -256,9 +256,7 @@ abstract class MC4WP_Integration {
 		$merge_vars = (array) apply_filters( 'mc4wp_merge_vars', $merge_vars );
 		$merge_vars = (array) apply_filters( 'mc4wp_integration_merge_vars', $merge_vars, $this );
 		$merge_vars = (array) apply_filters( 'mc4wp_integration_' . $this->slug . '_merge_vars', $merge_vars, $this );
-
-
-		var_dump( $merge_vars ); die();
+		
 
 		/**
 		 * @filter `mc4wp_email_type`
