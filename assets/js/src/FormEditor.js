@@ -10,7 +10,8 @@ var FormEditor = function(element) {
 		matchTags: { bothTags: true },
 		mode: "text/html",
 		htmlMode: true,
-		autoCloseTags: true
+		autoCloseTags: true,
+		autoRefresh: true
 	});
 
 	r.getValue = function() {

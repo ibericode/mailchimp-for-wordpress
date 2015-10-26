@@ -8,7 +8,7 @@
 
 <div id="mc4wp-field-wizard"></div>
 
-<textarea class="widefat" cols="160" rows="20" id="mc4wp-form-content" name="mc4wp_form[content]"><?php echo esc_textarea( $form->content ); ?></textarea>
+<textarea class="widefat" cols="160" rows="20" id="mc4wp-form-content" name="mc4wp_form[content]" placeholder="<?php _e( 'Enter the HTML code for your form fields..', 'mailchimp-for-wp' ); ?>"><?php echo esc_textarea( $form->content ); ?></textarea>
 
 
 <div id="missing-fields-notice" class="mc4wp-notice" style="display: none;">

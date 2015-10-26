@@ -1,5 +1,5 @@
 // Tabs
-var Tabs = function( context, editor ) {
+var Tabs = function( context ) {
 
 	var $ = window.jQuery;
 
@@ -61,8 +61,6 @@ var Tabs = function( context, editor ) {
 		if( typeof(tb_remove) === "function" ) {
 			tb_remove();
 		}
-
-		editor.refresh();
 	}
 
 

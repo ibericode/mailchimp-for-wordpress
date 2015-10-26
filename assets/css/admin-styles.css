@@ -99,6 +99,9 @@
   #mc4wp-admin .CodeMirror {
     border: 1px solid #333;
     height: auto; }
+  #mc4wp-admin .CodeMirror-empty {
+    color: #999;
+    height: 200px; }
   #mc4wp-admin .sidebar {
     border-left: 1px solid #ccc; }
 

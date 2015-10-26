@@ -15,7 +15,7 @@
 	var form_content_textarea = document.getElementById('mc4wp-form-content');
 	var form_editor = window.form_editor = new FormEditor( form_content_textarea );
 	var settings = new Settings(context);
-	var tabs = new Tabs(context, form_editor );
+	var tabs = new Tabs(context);
 	var form_watcher = new FormWatcher( form_editor, settings );
 	var field_helper = new FieldHelper( settings, tabs, form_editor );
 	m.mount( document.getElementById( 'mc4wp-field-wizard'), field_helper );
@@ -786,7 +786,8 @@ var FormEditor = function(element) {
 		matchTags: { bothTags: true },
 		mode: "text/html",
 		htmlMode: true,
-		autoCloseTags: true
+		autoCloseTags: true,
+		autoRefresh: true
 	});
 
 	r.getValue = function() {
@@ -1109,7 +1110,7 @@ var Settings = function(context) {
 module.exports = Settings;
 },{"./EventEmitter.js":2}],11:[function(require,module,exports){
 // Tabs
-var Tabs = function( context, editor ) {
+var Tabs = function( context ) {
 
 	var $ = window.jQuery;
 
@@ -1171,8 +1172,6 @@ var Tabs = function( context, editor ) {
 		if( typeof(tb_remove) === "function" ) {
 			tb_remove();
 		}
-
-		editor.refresh();
 	}
 
 
