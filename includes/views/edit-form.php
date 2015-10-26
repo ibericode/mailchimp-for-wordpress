@@ -34,8 +34,8 @@ $tabs = array(
 
 				<div id="titlediv" class="small-margin">
 					<div id="titlewrap">
-						<label class="screen-reader-text" id="title-prompt-text" for="title"><?php _e( 'Enter form title here', 'mailchimp-for-wp' ); ?></label>
-						<input type="text" name="mc4wp_form[name]" size="30" value="<?php echo esc_attr( $form->name ); ?>" id="title" spellcheck="true" autocomplete="off">
+						<label class="screen-reader-text" for="title"><?php _e( 'Enter form title here', 'mailchimp-for-wp' ); ?></label>
+						<input type="text" name="mc4wp_form[name]" size="30" value="<?php echo esc_attr( $form->name ); ?>" id="title" spellcheck="true" autocomplete="off" placeholder="<?php echo __( "Enter the title of your sign-up form", 'mailchimp-for-wp' ); ?>" style="line-height: initial;" >
 					</div>
 					<div class="inside" style="margin-top: 3px;">
 
