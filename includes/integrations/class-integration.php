@@ -225,6 +225,8 @@ abstract class MC4WP_Integration {
 
 		// allow plugins to filter final lists value
 		$lists = (array) apply_filters( 'mc4wp_lists', $lists );
+		$lists = (array) apply_filters( 'mc4wp_integraton_lists', $lists, $this );
+		$lists = (array) apply_filters( 'mc4wp_integration_' . $this->slug . '_lists', $lists, $this );
 
 		return $lists;
 	}
@@ -235,22 +237,12 @@ abstract class MC4WP_Integration {
 	 * @param string $email
 	 * @param array $merge_vars
 	 * @param int $related_object_id
-	 * @todo move certain checks to `validate` logic
 	 * @return string|boolean
 	 */
 	protected function subscribe( $email, array $merge_vars = array(), $related_object_id = 0 ) {
 
 		$api = mc4wp_get_api();
 		$lists = $this->get_lists();
-
-		// @todo decouple
-		$merge_vars = MC4WP_Tools::guess_merge_vars( $merge_vars );
-
-		// set ip address
-		if( ! isset( $merge_vars['OPTIN_IP'] ) ) {
-			$merge_vars['OPTIN_IP'] = MC4WP_Tools::get_client_ip();
-		}
-
 		$result = false;
 
 		/**
@@ -261,30 +253,15 @@ abstract class MC4WP_Integration {
 		 *
 		 * Use this to filter the final merge vars before the request is sent to MailChimp
 		 */
-		$merge_vars = apply_filters( 'mc4wp_merge_vars', $merge_vars, $this->slug );
+		$merge_vars = (array) apply_filters( 'mc4wp_merge_vars', $merge_vars );
+		$merge_vars = (array) apply_filters( 'mc4wp_integration_merge_vars', $merge_vars, $this );
+		$merge_vars = (array) apply_filters( 'mc4wp_integration_' . $this->slug . '_merge_vars', $merge_vars, $this );
+
+
+		var_dump( $merge_vars ); die();
 
 		/**
-		 * @filter `mc4wp_integration_merge_vars`
-		 * @expects array
-		 * @param array $merge_vars
-		 * @param string $slug
-		 *
-		 * Use this to filter the final merge vars before the request is sent to MailChimp
-		 */
-		$merge_vars = apply_filters( 'mc4wp_integration_merge_vars', $merge_vars, $this->slug );
-
-		/**
-		 * @filter `mc4wp_integration_merge_vars`
-		 * @expects array
-		 * @param array $merge_vars
-		 * @param string $slug
-		 *
-		 * Use this to filter the final merge vars before the request is sent to MailChimp
-		 */
-		$merge_vars = apply_filters( 'mc4wp_integration_' . $this->slug . '_merge_vars', $merge_vars );
-
-		/**
-		 * @filter `mc4wp_merge_vars`
+		 * @filter `mc4wp_email_type`
 		 * @expects string
 		 * @param string $email_type
 		 *

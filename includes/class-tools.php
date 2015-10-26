@@ -27,6 +27,11 @@ class MC4WP_Tools {
 			}
 		}
 
+		// set ip address
+		if( empty( $merge_vars['OPTIN_IP'] ) ) {
+			$merge_vars['OPTIN_IP'] = self::get_client_ip();
+		}
+
 		return $merge_vars;
 	}
 

@@ -14,8 +14,6 @@ class MC4WP_Subscribe_Request extends MC4WP_Form_Request {
 	 * @return bool
 	 */
 	public function prepare() {
-		$this->user_data = $this->guess_fields( $this->user_data );
-
 		try{
 			$this->map = new MC4WP_Field_Map( $this->user_data, $this->get_lists() );
 		} catch( Exception $e ) {
@@ -23,13 +21,6 @@ class MC4WP_Subscribe_Request extends MC4WP_Form_Request {
 		}
 
 		return true;
-	}
-
-	/**
-	 * Try to guess the values of various fields, if not given.
-	 */
-	protected function guess_fields() {
-		return MC4WP_Tools::guess_merge_vars( $this->user_data );
 	}
 
 	/**
@@ -84,9 +75,6 @@ class MC4WP_Subscribe_Request extends MC4WP_Form_Request {
 
 		$merge_vars = array();
 
-		// add OPTIN_IP, we do this here as the user shouldn't be allowed to set this
-		$merge_vars['OPTIN_IP'] = MC4WP_Tools::get_client_ip();
-
 		// make sure MC_LANGUAGE matches the requested format. Useful when getting the language from WPML etc.
 		if( isset( $this->map->global_fields['MC_LANGUAGE'] ) ) {
 			$merge_vars['MC_LANGUAGE'] = strtolower( substr( $this->map->global_fields['MC_LANGUAGE'], 0, 2 ) );
@@ -97,12 +85,11 @@ class MC4WP_Subscribe_Request extends MC4WP_Form_Request {
 		/**
 		 * @filter `mc4wp_merge_vars`
 		 * @expects array
-		 * @param int $form_id
-		 * @param string $list_id
 		 *
 		 * Can be used to filter the merge variables sent to a given list
 		 */
-		$merge_vars = (array) apply_filters( 'mc4wp_merge_vars', $merge_vars, 0, $list_id );
+		$merge_vars = (array) apply_filters( 'mc4wp_merge_vars', $merge_vars );
+		$merge_vars = (array) apply_filters( 'mc4wp_form_merge_vars', $merge_vars, $this->form );
 
 		return $merge_vars;
 	}

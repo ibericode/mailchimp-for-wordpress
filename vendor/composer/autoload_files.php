@@ -7,6 +7,9 @@ $baseDir = dirname($vendorDir);
 
 return array(
     $baseDir . '/includes/functions.php',
+    $baseDir . '/includes/deprecated-functions.php',
     $baseDir . '/includes/forms/functions.php',
     $baseDir . '/includes/integrations/functions.php',
+    $baseDir . '/includes/default-actions.php',
+    $baseDir . '/includes/default-filters.php',
 );
