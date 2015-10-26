@@ -34,7 +34,7 @@
 							<td>
 								<!-- hidden field to make sure a value is sent to the server -->
 								<input type="hidden" name="mc4wp_integrations[<?php echo $integration->slug; ?>][enabled]" value="0" />
-								<input type="checkbox" name="mc4wp_integrations[<?php echo $integration->slug; ?>][enabled]" value="1" <?php if( $installed ) { checked( $integration->enabled, true ); disabled( $integration->enabled_by_default, true ); } ?> />
+								<input type="checkbox" name="mc4wp_integrations[<?php echo $integration->slug; ?>][enabled]" value="1" <?php if( $installed ) { checked( $integration->enabled, true ); disabled( $integration->enabled_by_default, true ); } else { disabled( true, true ); } ?> />
 							</td>
 							<td class="row-title">
 								<?php
