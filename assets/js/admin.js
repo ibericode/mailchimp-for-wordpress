@@ -8,22 +8,22 @@
 	var FormEditor = require('./FormEditor.js');
 	var FieldHelper = require('./FieldHelper.js');
 	var Settings = require('./Settings.js');
-
-
+	
 	// vars
 	var context = document.getElementById('mc4wp-admin');
 	var form_content_textarea = document.getElementById('mc4wp-form-content');
-	var form_editor = window.form_editor = new FormEditor( form_content_textarea );
 	var settings = new Settings(context);
 	var tabs = new Tabs(context);
-	var form_watcher = new FormWatcher( form_editor, settings );
-	var field_helper = new FieldHelper( settings, tabs, form_editor );
-	m.mount( document.getElementById( 'mc4wp-field-wizard'), field_helper );
 
-	// @todo: clean this up
-	require('./clean-this-up.js');
+	if( form_content_textarea ) {
+		var form_editor = window.form_editor = new FormEditor( form_content_textarea );
+		var form_watcher = new FormWatcher( form_editor, settings );
+		var field_helper = new FieldHelper( settings, tabs, form_editor );
+		m.mount( document.getElementById( 'mc4wp-field-wizard'), field_helper );
+	}
+
 })();
-},{"./FieldHelper.js":4,"./FormEditor.js":6,"./FormWatcher.js":7,"./Settings.js":10,"./Tabs.js":11,"./clean-this-up.js":12}],2:[function(require,module,exports){
+},{"./FieldHelper.js":4,"./FormEditor.js":6,"./FormWatcher.js":7,"./Settings.js":10,"./Tabs.js":11}],2:[function(require,module,exports){
 /*!
  * EventEmitter v4.2.11 - git.io/ee
  * Unlicense - http://unlicense.org/
@@ -706,7 +706,7 @@ var FieldHelper = function(settings, tabs, editor) {
 };
 
 module.exports = FieldHelper;
-},{"../third-party/beautify-html.js":13,"../third-party/mithril.js":14,"./FieldForms.js":3,"./Overlay.js":8,"./Render.js":9}],5:[function(require,module,exports){
+},{"../third-party/beautify-html.js":12,"../third-party/mithril.js":13,"./FieldForms.js":3,"./Overlay.js":8,"./Render.js":9}],5:[function(require,module,exports){
 var r = {};
 
 r.label = function(config) {
@@ -1028,11 +1028,27 @@ var Settings = function(context) {
 	// vars
 	var events = new EventEmitter();
 	var listInputs = context.querySelectorAll('.mc4wp-list-input');
+	var proFeatures = context.querySelectorAll('.pro-feature, .pro-feature label, .pro-feature input');
+	var doubleOptInInputs = context.querySelectorAll('input[name$="[double_optin]"]');
+	var sendWelcomeEmailInputs = context.querySelectorAll('input[name$="[send_welcome]"]');
+	var updateExistingInputs = context.querySelectorAll('input[name$="[update_existing]"]');
+	var replaceInterestInputs = context.querySelectorAll('input[name$="[replace_interests]"]');
+
 	var lists = mc4wp_vars.mailchimp.lists;
 
 	var selectedLists = [];
 	var availableFields = [];
 	var requiredFields = [];
+
+	function bindEventToElements( elements, event, handler ) {
+		Array.prototype.forEach.call( elements, function(el) {
+			if ( el.addEventListener) {
+				el.addEventListener(event, handler);
+			} else if (el.attachEvent)  {
+				el.attachEvent('on' + event, handler);
+			}
+		});
+	}
 
 	// functions
 	function getSelectedLists() {
@@ -1084,17 +1100,33 @@ var Settings = function(context) {
 		return requiredFields;
 	}
 
+	function showProFeatureNotice() {
+		// prevent checking of radio buttons
+		if( typeof this.checked === 'boolean' ) {
+			this.checked = false;
+		}
+
+		alert( mc4wp_vars.l10n.pro_only );
+	}
+
+	function toggleSendWelcomeEmailFields(e) {
+		var doubleOptInIsEnabled = parseInt(e.target.value);
+		sendWelcomeEmailInputs.item(0).parentNode.parentNode.parentNode.style.display = ( doubleOptInIsEnabled ? 'none' : 'table-row' );
+	}
+
+	function toggleReplaceInterestFields(e) {
+		var updateExistingIsEnabled = parseInt(e.target.value);
+		replaceInterestInputs.item(0).parentNode.parentNode.parentNode.style.display = ( updateExistingIsEnabled ? 'table-row' : 'none' );
+	}
+
 	// constructor code
 	events.on('selectedLists.change', updateAvailableFields);
 	events.on('availableFields.change', updateRequiredFields);
 
-	Array.prototype.forEach.call( listInputs, function(inputEl) {
-		if ( inputEl.addEventListener) {
-			inputEl.addEventListener('change', updateSelectedLists);
-		} else if (el.attachEvent)  {
-			inputEl.attachEvent('change', updateSelectedLists);
-		}
-	});
+	bindEventToElements(listInputs,'change',updateSelectedLists);
+	bindEventToElements(proFeatures,'click',showProFeatureNotice);
+	bindEventToElements(doubleOptInInputs, 'change', toggleSendWelcomeEmailFields);
+	bindEventToElements(updateExistingInputs, 'change', toggleReplaceInterestFields);
 
 	updateSelectedLists();
 
@@ -1201,71 +1233,6 @@ var Tabs = function( context ) {
 
 module.exports = Tabs;
 },{}],12:[function(require,module,exports){
-module.exports = (function() {
-	'use strict';
-
-	/**
-	 * Variables
-	 */
-	var $ = window.jQuery;
-	var $context = $(document.getElementById('mc4wp-admin'));
-
-
-	/**
-	 * Functions
-	 */
-	function showProNotice() {
-
-		// prevent checking of radio buttons
-		if( typeof this.checked === 'boolean' ) {
-			this.checked = false;
-		}
-
-		alert( mc4wp_vars.l10n.pro_only );
-		event.stopPropagation();
-	}
-
-	function toggleSendWelcomeFields() {
-
-		var $el = $(document.getElementById('mc4wp-send-welcome'));
-
-		if($(this).val() == 0) {
-			$el.removeClass('hidden').find(':input').removeAttr('disabled');
-		} else {
-			$el.addClass('hidden').find(':input').attr('disabled', 'disabled').prop('checked', false);
-		}
-	}
-
-	/**
-	 * Bind Event Handlers
-	 */
-
-		// show a notice when clicking a pro feature
-	$context.find(".pro-feature, .pro-feature label, .pro-feature :radio").click(showProNotice);
-
-	// Show send-welcome field only when double opt-in is disabled
-	$context.find('input[name$="[double_optin]"]').change(toggleSendWelcomeFields);
-
-
-	/* Grey out integration settings when "enabled" is not ticked */
-	(function() {
-		var $toggles = $('.integration-toggles-wrap input');
-		var $settings = $('.integration-toggled-settings');
-		$toggles.change(toggleSettings);
-
-		function toggleSettings() {
-			var enabled = $toggles.filter(':checked').val() > 0;
-			var opacity = enabled ? '1' : '0.5';
-			$settings.css( 'opacity', opacity );
-		}
-	})();
-
-})();
-
-
-
-
-},{}],13:[function(require,module,exports){
 /*jshint curly:true, eqeqeq:true, laxbreak:true, noempty:false */
 /*
 
@@ -2082,7 +2049,7 @@ module.exports = (function() {
 	}
 
 }());
-},{}],14:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 var m = (function app(window, undefined) {
 	var OBJECT = "[object Object]", ARRAY = "[object Array]", STRING = "[object String]", FUNCTION = "function";
 	var type = {}.toString;
