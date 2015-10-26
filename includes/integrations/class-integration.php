@@ -293,7 +293,7 @@ abstract class MC4WP_Integration {
 		if ( $result !== true && $api->has_error() ) {
 
 			// log error
-			error_log( sprintf( 'MailChimp for WordPres (%s): %s', date( 'Y-m-d H:i:s' ), $this->type, $api->get_error_message() ) );
+			error_log( sprintf( 'MailChimp for WordPress (%s): %s: %s', date( 'Y-m-d H:i:s' ), $this->type, $api->get_error_message() ) );
 
 			if( $this->show_error_messages() ) {
 				wp_die( '<h3>' . __( 'MailChimp for WordPress - Error', 'mailchimp-for-wp' ) . '</h3>' .
