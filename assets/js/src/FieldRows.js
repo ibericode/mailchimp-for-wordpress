@@ -17,8 +17,8 @@ r.defaultValue = function(config) {
 		m("label", "Default Value"),
 		m("input.widefat", {
 			type: "text",
-			value: config.defaultValue(),
-			oninput: m.withAttr('value', config.defaultValue)
+			value: config.value(),
+			oninput: m.withAttr('value', config.value)
 		} )
 	]);
 };
@@ -29,8 +29,8 @@ r.isRequired = function(config) {
 		m('label.cb-wrap', [
 			m('input', {
 				type: 'checkbox',
-				checked: config.isRequired(),
-				onchange: m.withAttr( 'checked', config.isRequired )
+				checked: config.required(),
+				onchange: m.withAttr( 'checked', config.required )
 			}),
 			"Is this field required?"
 		])
@@ -38,16 +38,19 @@ r.isRequired = function(config) {
 };
 
 r.usePlaceholder = function(config) {
-	return m("div", [
-		m("label.cb-wrap", [
-			m("input", {
-				type: 'checkbox',
-				checked: config.usePlaceholder(),
-				onchange: m.withAttr( 'checked', config.usePlaceholder )
-			}),
-			"Use \""+ config.defaultValue() +"\" as placeholder for the field."
-		])
-	]);
+
+	if( config.value().length > 0 ) {
+		return m("div", [
+			m("label.cb-wrap", [
+				m("input", {
+					type    : 'checkbox',
+					checked : config.placeholder(),
+					onchange: m.withAttr('checked', config.placeholder)
+				}),
+				"Use \"" + config.value() + "\" as placeholder for the field."
+			])
+		]);
+	}
 };
 
 r.useParagraphs = function(config) {
@@ -55,8 +58,8 @@ r.useParagraphs = function(config) {
 		m('label.cb-wrap', [
 			m('input', {
 				type: 'checkbox',
-				checked: config.useParagraphs(),
-				onchange: m.withAttr( 'checked', config.useParagraphs )
+				checked: config.wrap(),
+				onchange: m.withAttr( 'checked', config.wrap )
 			}),
 			"Wrap in paragraph tags?"
 		])
@@ -95,7 +98,7 @@ r.choices = function(config) {
 			m( "table", [
 
 				// table body
-				config.choices.map(function(choice, index) {
+				config.choices().map(function(choice, index) {
 					return m('tr', {
 						'data-id': index
 					}, [
@@ -112,7 +115,7 @@ r.choices = function(config) {
 						}) ),
 						m('td', m('span', {
 							class: 'dashicons dashicons-no-alt hover-activated',
-							onclick: function(key) { this.choices.splice(key, 1); }.bind(config, index)
+							onclick: function(key) { this.choices().splice(key, 1); }.bind(config, index)
 						}, ''))
 					] )
 				})

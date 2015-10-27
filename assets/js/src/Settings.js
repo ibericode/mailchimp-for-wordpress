@@ -11,12 +11,9 @@ var Settings = function(context) {
 	var sendWelcomeEmailInputs = context.querySelectorAll('input[name$="[send_welcome]"]');
 	var updateExistingInputs = context.querySelectorAll('input[name$="[update_existing]"]');
 	var replaceInterestInputs = context.querySelectorAll('input[name$="[replace_interests]"]');
-
 	var lists = mc4wp_vars.mailchimp.lists;
-
 	var selectedLists = [];
-	var availableFields = [];
-	var requiredFields = [];
+
 
 	function bindEventToElements( elements, event, handler ) {
 		Array.prototype.forEach.call( elements, function(el) {
@@ -46,37 +43,6 @@ var Settings = function(context) {
 		return selectedLists;
 	}
 
-	function getAvailableFields() {
-		return availableFields;
-	}
-
-	function updateAvailableFields() {
-		availableFields = [];
-		selectedLists.forEach(function( list ) {
-			list.fields.forEach(function(field) {
-				if( availableFields.filter(function(existingField) { return existingField.name === field.name; }).length === 0 ){
-					availableFields.push(field);
-				}
-			})
-		});
-		events.trigger('availableFields.change', [availableFields]);
-		return availableFields;
-	}
-
-	function getRequiredFields() {
-		return requiredFields;
-	}
-
-	function updateRequiredFields() {
-		requiredFields = [];
-		availableFields.forEach(function(field) {
-			if(field.required) {
-				requiredFields.push(field);
-			}
-		});
-		events.trigger('requiredFields.change', [requiredFields]);
-		return requiredFields;
-	}
 
 	function showProFeatureNotice() {
 		// prevent checking of radio buttons
@@ -97,9 +63,6 @@ var Settings = function(context) {
 		replaceInterestInputs.item(0).parentNode.parentNode.parentNode.style.display = ( updateExistingIsEnabled ? 'table-row' : 'none' );
 	}
 
-	// constructor code
-	events.on('selectedLists.change', updateAvailableFields);
-	events.on('availableFields.change', updateRequiredFields);
 
 	bindEventToElements(listInputs,'change',updateSelectedLists);
 	bindEventToElements(proFeatures,'click',showProFeatureNotice);
@@ -110,8 +73,6 @@ var Settings = function(context) {
 
 	return {
 		getSelectedLists: getSelectedLists,
-		getRequiredFields: getRequiredFields,
-		getAvailableFields: getAvailableFields,
 		events: events
 	}
 

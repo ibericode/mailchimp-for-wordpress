@@ -1,4 +1,4 @@
-var FormWatcher = function(editor, settings) {
+var FormWatcher = function(editor, settings, fields) {
 	'use strict';
 
 	var missingFieldsNotice = document.getElementById('missing-fields-notice');
@@ -8,7 +8,7 @@ var FormWatcher = function(editor, settings) {
 	function checkRequiredFields() {
 
 		var formContent = editor.getValue();
-		var requiredFields = settings.getRequiredFields();
+		var requiredFields = fields.getAllWhere('required', true);
 
 		// let's go
 		formContent = formContent.toLowerCase();
@@ -16,7 +16,7 @@ var FormWatcher = function(editor, settings) {
 		// check presence for each required field
 		var missingFields = [];
 		requiredFields.forEach(function(field) {
-			var fieldSearch = 'name="' + field.name.toLowerCase();
+			var fieldSearch = 'name="' + field.name().toLowerCase();
 			if( formContent.indexOf( fieldSearch ) == -1 ) {
 				missingFields.push(field);
 			}
@@ -31,7 +31,7 @@ var FormWatcher = function(editor, settings) {
 		// show notice
 		var listItems = '';
 		missingFields.forEach(function( field ) {
-			listItems += "<li>" + field.label + " (<code>" + field.name + "</code>)</li>";
+			listItems += "<li>" + field.label() + " (<code>" + field.name() + "</code>)</li>";
 		});
 
 		missingFieldsNoticeList.innerHTML = listItems;

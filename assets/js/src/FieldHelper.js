@@ -1,34 +1,10 @@
-var FieldHelper = function(settings, tabs, editor) {
+var FieldHelper = function(settings, tabs, editor, fields) {
 	'use strict';
 
-	window.m = require('../third-party/mithril.js');
 	var fieldGenerator = require('./FieldGenerator.js')();
 	var overlay = require('./Overlay.js');
 	var forms = require('./FieldForms.js');
-	var availableFields = [];
-	var activeField;
-	var config = {
-		name: m.prop(''),
-		useParagraphs: m.prop(false),
-		defaultValue: m.prop(''),
-		isRequired: m.prop(false),
-		usePlaceholder: m.prop(true),
-		label: m.prop(''),
-		type: m.prop('text'),
-		choices: []
-	};
-
-
-	/**
-	 * Update the available MailChimp fields to choose from
-	 *
-	 * @returns {{}}
-	 */
-	function setAvailableFields(fields) {
-		availableFields = settings.getAvailableFields();
-		setActiveField(false);
-		m.redraw();
-	}
+	var fieldConfig;
 
 	/**
 	 * Choose a field to open the helper form for
@@ -36,30 +12,8 @@ var FieldHelper = function(settings, tabs, editor) {
 	 * @param index
 	 * @returns {*}
 	 */
-	function setActiveField( index ) {
-		index = parseInt(index);
-		activeField = availableFields[ index ];
-		var active = typeof( activeField ) === "object";
-
-		if( active ) {
-			config.name(activeField.name);
-			config.defaultValue(activeField.default_value);
-			config.isRequired(activeField.required);
-			config.label(activeField.label);
-			config.type(activeField.type);
-			config.choices = activeField.choices.map(function(choice) {
-				return {
-					label: m.prop( choice.label ),
-					value: m.prop( choice.value ),
-					selected: m.prop( choice.selected )
-				};
-			});
-
-			if( config.type() === 'hidden' && ! config.defaultValue() ) {
-				config.defaultValue( config.choices.map( function( c) { return c.label() }).join(',') );
-			}
-		}
-
+	function setActiveField(index) {
+		fieldConfig = fields.get(index);
 		m.redraw();
 	}
 
@@ -68,8 +22,7 @@ var FieldHelper = function(settings, tabs, editor) {
 	 * Controller
 	 */
 	function controller() {
-		availableFields = settings.getAvailableFields();
-		settings.events.on('availableFields.change', setAvailableFields);
+		settings.events.on('selectedLists.change', function() { m.redraw(); });
 	}
 
 	/**
@@ -78,7 +31,7 @@ var FieldHelper = function(settings, tabs, editor) {
 	function createFieldHTMLAndAddToForm() {
 
 		// generate html
-		var html = fieldGenerator.generate(config);
+		var html = fieldGenerator.generate(fieldConfig);
 
 		// add to editor
 		editor.insert( html );
@@ -89,27 +42,25 @@ var FieldHelper = function(settings, tabs, editor) {
 
 	/**
 	 * View
-	 *
-	 * @param ctrl
 	 * @returns {*}
 	 */
-	function view( ctrl ) {
+	function view() {
 
 		// build DOM for fields choice
 		var fieldsChoice = m( "div.available-fields.small-margin", [
 			m("strong", "Choose a MailChimp field to add to the form"),
 
-			(availableFields.length) ?
+			(fields.getAll().length) ?
 
 				// render fields
-				availableFields.map(function(field, index) {
+				fields.getAll().map(function(field, index) {
 					return [
 						m("button", {
 							class  : "button",
 							type   : 'button',
 							onclick: m.withAttr("value", setActiveField),
 							value  : index
-						}, field.label)
+						}, field.title())
 					];
 				})
 
@@ -126,19 +77,19 @@ var FieldHelper = function(settings, tabs, editor) {
 
 		// build DOM for overlay
 		var form = null;
-		if( activeField ) {
+		if( fieldConfig ) {
 			form = overlay(
 				// field wizard
 				m("div.field-wizard", [
 
 					//heading
 					m("h3", [
-						activeField.label,
-						m("code", activeField.name)
+						fieldConfig.title(),
+						m("code", fieldConfig.name())
 					]),
 
 					// actual form
-					forms.render(activeField.type, config),
+					forms.render(fieldConfig),
 
 					// add to form button
 					m("p", [

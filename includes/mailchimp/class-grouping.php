@@ -2,12 +2,24 @@
 
 class MC4WP_MailChimp_Grouping {
 
+	/**
+	 * @var int
+	 */
 	public $id = 0;
 
+	/**
+	 * @var string
+	 */
 	public $name = '';
 
+	/**
+	 * @var string
+	 */
 	public $field_type = '';
 
+	/**
+	 * @var string[]
+	 */
 	public $groups = array();
 
 	/**
@@ -31,6 +43,7 @@ class MC4WP_MailChimp_Grouping {
 
 		$instance = new self( $data->id, $data->name, $data->form_field );
 
+		// add group names as strings
 		foreach( $data->groups as $group ) {
 			$instance->groups[] = $group->name;
 		}
@@ -38,28 +51,4 @@ class MC4WP_MailChimp_Grouping {
 		return $instance;
 	}
 
-	/**
-	 * @return array
-	 */
-	public function get_fields() {
-		$fields = array();
-		$choices = array();
-
-		foreach( $this->groups as $group ) {
-			$choices[] = new MC4WP_Form_Field_Choice( $group );
-		}
-
-		// todo fix this in a better way
-		if( $this->field_type === 'checkboxes' ) {
-			$field_type = 'checkbox';
-		} elseif( $this->field_type === 'dropdown' ) {
-			$field_type = 'select';
-		} else {
-			$field_type = $this->field_type;
-		}
-
-		$fields[] = new MC4WP_Form_Field( $this->name, 'GROUPINGS[' . $this->id .']', $field_type, false, '', $choices );
-
-		return $fields;
-	}
 }

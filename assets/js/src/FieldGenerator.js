@@ -1,8 +1,14 @@
 var FieldGenerator = function() {
 
-	var render = require('./Render.js');
+	var render = require('../third-party/Render.js');
 	var html_beautify = require('../third-party/beautify-html.js');
 
+	/**
+	 * Generates an HTML string based on a field (config) object
+	 *
+	 * @param config
+	 * @returns {*}
+	 */
 	function generate( config ) {
 		var label, field;
 
@@ -16,10 +22,10 @@ var FieldGenerator = function() {
 			case 'select':
 
 				field = m('select', [
-					config.choices.map(function(choice) {
+					config.choices().map(function(choice) {
 						return m('option', {
 							name: config.name(),
-							value: choice.value(),
+							value: ( choice.value() !== choice.label() ) ? choice.value() : undefined,
 							selected: choice.selected()
 						}, choice.label())
 					})
@@ -31,10 +37,10 @@ var FieldGenerator = function() {
 			case 'checkbox':
 			case 'radio':
 
-				field = config.choices.map(function(choice) {
+				field = config.choices().map(function(choice) {
 					return m('label', [
 							m('input', {
-								name: config.name(),
+								name: config.name() + ( config.type() === 'checkbox' ? '[]' : '' ),
 								type: config.type(),
 								value: (choice.value() !== choice.label()) ? choice.value() : undefined,
 								checked: choice.selected()
@@ -48,10 +54,10 @@ var FieldGenerator = function() {
 
 			default:
 
-				if( config.usePlaceholder() == true ) {
-					fieldAttributes.placeholder = config.defaultValue();
+				if( config.placeholder() == true ) {
+					fieldAttributes.placeholder = config.value();
 				} else {
-					fieldAttributes.value = config.defaultValue();
+					fieldAttributes.value = config.value();
 				}
 
 				field = m( 'input', fieldAttributes );
@@ -59,9 +65,9 @@ var FieldGenerator = function() {
 				break;
 		}
 
-		fieldAttributes.required = config.isRequired();
+		fieldAttributes.required = config.required();
 
-		var html = config.useParagraphs() ? m('p', [ label, field ]) : [ label, field ];
+		var html = config.wrap() ? m('p', [ label, field ]) : [ label, field ];
 
 		// render HTML
 		var rawHTML = render( html );

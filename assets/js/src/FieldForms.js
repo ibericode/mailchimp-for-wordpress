@@ -1,51 +1,44 @@
-var FieldForms = {};
+var forms = {};
 var rows = require('./FieldRows.js');
 
 // route to one of the other form configs, default to "text"
-FieldForms.render = function(type, config) {
+forms.render = function(config) {
 
-	if( typeof( FieldForms[type] ) === "function" ) {
-		return FieldForms[ type ](config);
+	var type = config.type();
+
+	if( typeof( forms[type] ) === "function" ) {
+		return forms[ type ](config);
 	}
 
 	switch( type ) {
 		case 'select':
 		case 'radio':
 		case 'checkbox':
-			return FieldForms.choice(config);
+			return forms.choice(config);
 		break;
 	}
 
 	// fallback to good old text field
-	return FieldForms.text(config);
+	return forms.text(config);
 };
 
-FieldForms.hidden = function( config ) {
+forms.hidden = function( config ) {
 	return [
-		// default value row
 		rows.defaultValue(config)
 	]
 };
 
-FieldForms.text = function(config) {
+forms.text = function(config) {
 	return [
 		rows.label(config),
-
-		// default value row
 		rows.defaultValue(config),
-
-		// placeholder row
 		rows.usePlaceholder(config),
-
-		// required field row
 		rows.isRequired(config),
-
-		// paragraph wrap row
 		rows.useParagraphs(config)
 	]
 };
 
-FieldForms.choice = function(config) {
+forms.choice = function(config) {
 	return [
 		rows.label(config),
 		rows.choiceType(config),
@@ -55,4 +48,4 @@ FieldForms.choice = function(config) {
 };
 
 
-module.exports = FieldForms;
+module.exports = forms;

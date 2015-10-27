@@ -394,7 +394,7 @@ class MC4WP_Admin {
 		wp_enqueue_style( 'codemirror', MC4WP_PLUGIN_URL . 'assets/css/codemirror.css', array(), MC4WP_VERSION );
 
 		// js
-		wp_register_script( 'es5-shim', 'https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.1.15/es5-shim.min.js', array(), MC4WP_VERSION );
+		wp_register_script( 'es5-shim', MC4WP_PLUGIN_URL . 'assets/js/third-party/es5-shim.min.js', array(), MC4WP_VERSION );
 		wp_register_script( 'codemirror', MC4WP_PLUGIN_URL . 'assets/js/third-party/codemirror-compressed.js', array(), MC4WP_VERSION, true );
 		wp_register_script( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array( 'jquery', 'es5-shim', 'codemirror' ), MC4WP_VERSION, true );
 
@@ -405,6 +405,7 @@ class MC4WP_Admin {
 				'mailchimp' => array(
 					'lists' => $this->mailchimp->get_lists()
 				),
+				'countries' => MC4WP_Tools::get_countries(),
 				'l10n' => array(
 					'pro_only' => __( 'This is a pro-only feature. Please upgrade to the premium version to be able to use it.', 'mailchimp-for-wp' )
 				)
