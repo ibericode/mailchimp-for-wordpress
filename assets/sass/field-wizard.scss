@@ -8,23 +8,65 @@
 		margin-left: 10px;
 	}
 
-	> p {
-		margin: 15px 0;
+	> div {
+		margin: 20px 0;
 	}
 
 	label{
 		font-weight: 600;
 		display: block;
+		margin-bottom: 4px;
 	}
 
 	input {
 		margin-bottom: 6px;
 	}
 
+	/* table */
+	table {
+		table-layout: fixed;
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+
+	.sortable tr,
+	.sortable li{
+		cursor: move;
+		background: inherit;
+	}
+
+	tr, td {
+		vertical-align: middle;
+	}
+
+	td.stretch {
+		width: 100%;
+	}
+
 	.cb-wrap{
 		font-weight: normal;
 
 		input { margin-right: 6px; }
+	}
+
+	.limit-height {
+		border: 1px solid #eee;
+		padding: 6px;
+		max-height: 200px;
+		overflow-y: scroll;
+	}
+
+	.dashicons {
+		vertical-align: middle;
+	}
+
+	.hover-activated {
+		opacity: 0.5;
+	}
+
+	.hover-activated:hover {
+		cursor: pointer;
+		opacity: 1;
 	}
 
 }

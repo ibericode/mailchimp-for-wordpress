@@ -55,28 +55,27 @@ class MC4WP_MailChimp {
 			return array();
 		}
 
-
+		/**
+		 * @var MC4WP_MailChimp_List[]
+		 */
 		$lists = array();
 
-		foreach ( $lists_data as $list ) {
+		foreach ( $lists_data as $list_data ) {
+			// create local object
+			$list = new MC4WP_MailChimp_List( $list_data->id, $list_data->name );
+			$list->subscriber_count = $list_data->stats->member_count;
 
-			$lists["{$list->id}"] = (object) array(
-				'id' => $list->id,
-				'name' => $list->name,
-				'subscriber_count' => $list->stats->member_count,
-				'merge_vars' => array(),
-				'interest_groupings' => array()
-			);
-
-			// only get interest groupings if list has some
-			if( $list->stats->grouping_count > 0 ) {
+			// fill groupings if list has some
+			if( $list_data->stats->grouping_count > 0 ) {
 				// get interest groupings
 				$groupings_data = $api->get_list_groupings( $list->id );
 				if ( $groupings_data ) {
-					$lists["{$list->id}"]->interest_groupings = array_map( array( $this, 'strip_unnecessary_grouping_properties' ), $groupings_data );
+					$list->groupings = array_map( array( 'MC4WP_MailChimp_Grouping', 'from_data' ), $groupings_data );
 				}
 			}
 
+			// add to array
+			$lists["{$list->id}"] = $list;
 		}
 
 		// get merge vars for all lists at once
@@ -84,11 +83,16 @@ class MC4WP_MailChimp {
 		if ( $merge_vars_data ) {
 			foreach ( $merge_vars_data as $list ) {
 				// add merge vars to list
-				$merge_vars = array_map( array( $this, 'strip_unnecessary_merge_vars_properties' ), $list->merge_vars );
-				$merge_vars = $this->transform_fields( $merge_vars );
-				$lists["{$list->id}"]->merge_vars = $merge_vars;
+				$lists["{$list->id}"]->merge_vars = array_map( array( 'MC4WP_MailChimp_Merge_Var', 'from_data' ), $list->merge_vars );
 			}
 		}
+
+
+		/** @var MC4WP_MailChimp_List $list */
+		foreach( $lists as $list ) {
+			$list->generate_fields();
+		}
+
 
 		// store lists in transients
 		set_transient(  $this->transient_name, $lists, ( 24 * 3600 ) ); // 1 day
@@ -98,87 +102,12 @@ class MC4WP_MailChimp {
 	}
 
 	/**
-	 * Translates some MailChimp fields to our own format
-	 *
-	 * - Separates address fields into addr1, addr2, city, state, zip & country field
-	 *
-	 * @param array $fields
-	 * @return array
-	 */
-	protected function transform_fields( array $fields = array() ) {
-
-		$new = array();
-
-		foreach( $fields as $key => $field ) {
-
-			// check for custom method
-			$transform_method = 'transform_' . $field->field_type .'_field';
-			if( method_exists( $this, $transform_method ) ) {
-				$transformed_field = call_user_func( array( $this, $transform_method ), $field );
-				$new = array_merge( $new, $transformed_field );
-				continue;
-			}
-
-			// no custom method exists, just add to array
-			$new[] = $field;
-		}
-
-		return $new;
-	}
-
-	/**
-	 * @param $field
-	 *
-	 * @return array
-	 */
-	protected function transform_address_field( $field ) {
-		$new = array();
-
-		// addr1
-		$addr1 = clone $field;
-		$addr1->name = __( "Address", 'mailchimp-for-wp' );
-		$addr1->field_type = 'text';
-		$addr1->tag = $field->tag . '[addr1]';
-		$new[] = $addr1;
-
-		// city
-		$city = clone $field;
-		$city->name = __( "City", 'mailchimp-for-wp' );
-		$city->field_type = 'text';
-		$city->tag = $field->tag . '[city]';
-		$new[] = $city;
-
-		// state
-		$state = clone $field;
-		$state->name = __( "State", 'mailchimp-for-wp' );
-		$state->field_type = 'text';
-		$state->tag = $field->tag . '[state]';
-		$new[] = $state;
-
-		// zip
-		$zip = clone $field;
-		$zip->name = __( "ZIP", 'mailchimp-for-wp' );
-		$zip->field_type = 'text';
-		$zip->tag = $field->tag . '[zip]';
-		$new[] = $zip;
-
-		// country
-		$country = clone $field;
-		$country->name = __( "Country", 'mailchimp-for-wp' );
-		$country->field_type = 'country';
-		$country->tag = $field->tag . '[country]';
-		$new[] = $country;
-
-		return $new;
-	}
-
-	/**
 	 * Get a given MailChimp list
 	 *
 	 * @param int $list_id
 	 * @param bool $force_fallback
 	 *
-	 * @return bool
+	 * @return MC4WP_MailChimp_List
 	 */
 	public function get_list( $list_id, $force_fallback = false ) {
 		$lists = $this->get_lists( $force_fallback );
@@ -187,24 +116,10 @@ class MC4WP_MailChimp {
 			return $lists[$list_id];
 		}
 
-		return false;
+		// return dummy list object
+		return new MC4WP_MailChimp_List( '', 'Unknown List' );
 	}
 
-	/**
-	 * Get the name of the MailChimp list with the given ID.
-	 *
-	 * @param int $id
-	 * @return string
-	 */
-	public function get_list_name( $id ) {
-		$list = $this->get_list( $id );
-
-		if( is_object( $list ) && isset( $list->name ) ) {
-			return $list->name;
-		}
-
-		return '';
-	}
 
 	/**
 	 * Get the interest grouping object for a given list.
@@ -215,7 +130,7 @@ class MC4WP_MailChimp {
 	 * @return object|null
 	 */
 	public function get_list_grouping( $list_id, $grouping_id ) {
-		$list = $this->get_list( $list_id, false, true );
+		$list = $this->get_list( $list_id, true );
 
 		if( is_object( $list ) && isset( $list->interest_groupings ) ) {
 			foreach( $list->interest_groupings as $grouping ) {
@@ -321,54 +236,6 @@ class MC4WP_MailChimp {
 		return apply_filters( 'mc4wp_subscriber_count', $count );
 	}
 
-	/**
-	 * Build the group array object which will be stored in cache
-	 *
-	 * @param object $group
-	 * @return object
-	 */
-	public function strip_unnecessary_group_properties( $group ) {
-		return (object) array(
-			'name' => $group->name,
-		);
-	}
-
-	/**
-	 * Build the groupings array object which will be stored in cache
-	 *
-	 * @param object $grouping
-	 * @return object
-	 */
-	public function strip_unnecessary_grouping_properties( $grouping ) {
-		return (object) array(
-			'id' => $grouping->id,
-			'name' => $grouping->name,
-			'groups' => array_map( array( $this, 'strip_unnecessary_group_properties' ), $grouping->groups ),
-			'form_field' => $grouping->form_field,
-		);
-	}
-
-	/**
-	 * Build the merge_var array object which will be stored in cache
-	 *
-	 * @param object $merge_var
-	 * @return object
-	 */
-	public function strip_unnecessary_merge_vars_properties( $merge_var ) {
-		$array = array(
-			'name' => $merge_var->name,
-			'field_type' => $merge_var->field_type,
-			'req' => $merge_var->req,
-			'tag' => $merge_var->tag,
-		);
-
-		if ( isset( $merge_var->choices ) ) {
-			$array['choices'] = $merge_var->choices;
-		}
-
-		return (object) $array;
-
-	}
 
 	/**
 	 * Get the name of a list field by its merge tag

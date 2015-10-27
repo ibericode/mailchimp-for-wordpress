@@ -15,7 +15,8 @@ var FieldHelper = function(settings, tabs, editor) {
 		isRequired: m.prop(false),
 		usePlaceholder: m.prop(true),
 		label: m.prop(''),
-		type: m.prop('text')
+		type: m.prop('text'),
+		choices: []
 	};
 
 
@@ -42,10 +43,18 @@ var FieldHelper = function(settings, tabs, editor) {
 		var active = typeof( activeField ) === "object";
 
 		if( active ) {
-			config.name(activeField.tag);
-			config.defaultValue(activeField.name);
-			config.isRequired(activeField.req);
-			config.label(activeField.name);
+			config.name(activeField.name);
+			config.defaultValue(activeField.default_value);
+			config.isRequired(activeField.required);
+			config.label(activeField.label);
+			config.type(activeField.type);
+			config.choices = activeField.choices.map(function(choice) {
+				return {
+					label: m.prop( choice.label ),
+					value: m.prop( choice.value ),
+					selected: m.prop( choice.selected )
+				};
+			});
 		}
 
 		m.redraw();
@@ -65,21 +74,61 @@ var FieldHelper = function(settings, tabs, editor) {
 	 */
 	function createHTML() {
 
-		var label = config.label().length ? m("label", config.label()) : '';
+		var label, field;
+
+		label = config.label().length ? m("label", config.label()) : '';
 		var fieldAttributes =  {
 			type: config.type(),
 			name: config.name()
 		};
 
-		if( config.usePlaceholder() == true ) {
-			fieldAttributes.placeholder = config.defaultValue();
-		} else {
-			fieldAttributes.value = config.defaultValue();
+		switch( config.type() ) {
+			case 'select':
+
+				field = m('select', [
+					config.choices.map(function(choice) {
+						return m('option', {
+							value: choice.value(),
+							selected: choice.selected()
+						}, choice.label())
+					})
+				]);
+
+				break;
+
+
+			case 'checkbox':
+			case 'radio':
+
+				field = config.choices.map(function(choice) {
+					return m('label', [
+							m('input', {
+								type: config.type(),
+								value: (choice.value() !== choice.label()) ? choice.value() : undefined,
+								checked: choice.selected()
+							}),
+							m( 'span', choice.label() )
+						]
+					)
+				});
+
+				break;
+
+			default:
+
+				if( config.usePlaceholder() == true ) {
+					fieldAttributes.placeholder = config.defaultValue();
+				} else {
+					fieldAttributes.value = config.defaultValue();
+				}
+
+				field = m( 'input', fieldAttributes );
+
+				break;
 		}
 
 		fieldAttributes.required = config.isRequired();
 
-		var field = m( 'input', fieldAttributes );
 		var html = config.useParagraphs() ? m('p', [ label, field ]) : [ label, field ];
 
 		// render HTML
@@ -115,7 +164,7 @@ var FieldHelper = function(settings, tabs, editor) {
 							type   : 'button',
 							onclick: m.withAttr("value", setActiveField),
 							value  : index
-						}, field.name)
+						}, field.label)
 					];
 				})
 
@@ -139,12 +188,12 @@ var FieldHelper = function(settings, tabs, editor) {
 
 					//heading
 					m("h3", [
-						activeField.name,
-						m("code", activeField.tag)
+						activeField.label,
+						m("code", activeField.name)
 					]),
 
 					// actual form
-					forms.render(activeField.field_type, config),
+					forms.render(activeField.type, config),
 
 					// add to form button
 					m("p", [

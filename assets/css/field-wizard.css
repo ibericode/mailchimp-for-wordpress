@@ -1,18 +1,45 @@
-.field-wizard h3 {
-  margin-top: 0; }
-.field-wizard code {
-  margin-left: 10px; }
-.field-wizard > p {
-  margin: 15px 0; }
-.field-wizard label {
-  font-weight: 600;
-  display: block; }
-.field-wizard input {
-  margin-bottom: 6px; }
-.field-wizard .cb-wrap {
-  font-weight: normal; }
-  .field-wizard .cb-wrap input {
-    margin-right: 6px; }
+.field-wizard {
+  /* table */ }
+  .field-wizard h3 {
+    margin-top: 0; }
+  .field-wizard code {
+    margin-left: 10px; }
+  .field-wizard > div {
+    margin: 20px 0; }
+  .field-wizard label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px; }
+  .field-wizard input {
+    margin-bottom: 6px; }
+  .field-wizard table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0; }
+  .field-wizard .sortable tr,
+  .field-wizard .sortable li {
+    cursor: move;
+    background: inherit; }
+  .field-wizard tr, .field-wizard td {
+    vertical-align: middle; }
+  .field-wizard td.stretch {
+    width: 100%; }
+  .field-wizard .cb-wrap {
+    font-weight: normal; }
+    .field-wizard .cb-wrap input {
+      margin-right: 6px; }
+  .field-wizard .limit-height {
+    border: 1px solid #eee;
+    padding: 6px;
+    max-height: 200px;
+    overflow-y: scroll; }
+  .field-wizard .dashicons {
+    vertical-align: middle; }
+  .field-wizard .hover-activated {
+    opacity: 0.5; }
+  .field-wizard .hover-activated:hover {
+    cursor: pointer;
+    opacity: 1; }
 
 .available-fields {
   border: 1px solid #ccc;

@@ -4,11 +4,15 @@ var rows = require('./FieldRows.js');
 // route to one of the other form configs, default to "text"
 FieldForms.render = function(type, config) {
 
-	if( typeof( FieldForms[ type ] ) === "function" ) {
-		return FieldForms[ type ](config);
-	}
+	switch( type ) {
+		case 'select':
+		case 'radio':
+		case 'checkbox':
+			return FieldForms.choice(config);
 
-	return FieldForms.text(config);
+		default:
+			return FieldForms.text(config);
+	}
 };
 
 FieldForms.text = function(config) {
@@ -25,6 +29,15 @@ FieldForms.text = function(config) {
 		rows.isRequired(config),
 
 		// paragraph wrap row
+		rows.useParagraphs(config)
+	]
+};
+
+FieldForms.choice = function(config) {
+	return [
+		rows.label(config),
+		rows.choiceType(config),
+		rows.choices(config),
 		rows.useParagraphs(config)
 	]
 };

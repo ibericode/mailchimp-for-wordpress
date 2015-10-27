@@ -59,21 +59,48 @@
     display: block; }
   #mc4wp-admin .tab h2 {
     margin-top: 20px; }
-  #mc4wp-admin .field-wizard h3 {
-    margin-top: 0; }
-  #mc4wp-admin .field-wizard code {
-    margin-left: 10px; }
-  #mc4wp-admin .field-wizard > p {
-    margin: 15px 0; }
-  #mc4wp-admin .field-wizard label {
-    font-weight: 600;
-    display: block; }
-  #mc4wp-admin .field-wizard input {
-    margin-bottom: 6px; }
-  #mc4wp-admin .field-wizard .cb-wrap {
-    font-weight: normal; }
-    #mc4wp-admin .field-wizard .cb-wrap input {
-      margin-right: 6px; }
+  #mc4wp-admin .field-wizard {
+    /* table */ }
+    #mc4wp-admin .field-wizard h3 {
+      margin-top: 0; }
+    #mc4wp-admin .field-wizard code {
+      margin-left: 10px; }
+    #mc4wp-admin .field-wizard > div {
+      margin: 20px 0; }
+    #mc4wp-admin .field-wizard label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px; }
+    #mc4wp-admin .field-wizard input {
+      margin-bottom: 6px; }
+    #mc4wp-admin .field-wizard table {
+      table-layout: fixed;
+      border-collapse: collapse;
+      border-spacing: 0; }
+    #mc4wp-admin .field-wizard .sortable tr,
+    #mc4wp-admin .field-wizard .sortable li {
+      cursor: move;
+      background: inherit; }
+    #mc4wp-admin .field-wizard tr, #mc4wp-admin .field-wizard td {
+      vertical-align: middle; }
+    #mc4wp-admin .field-wizard td.stretch {
+      width: 100%; }
+    #mc4wp-admin .field-wizard .cb-wrap {
+      font-weight: normal; }
+      #mc4wp-admin .field-wizard .cb-wrap input {
+        margin-right: 6px; }
+    #mc4wp-admin .field-wizard .limit-height {
+      border: 1px solid #eee;
+      padding: 6px;
+      max-height: 200px;
+      overflow-y: scroll; }
+    #mc4wp-admin .field-wizard .dashicons {
+      vertical-align: middle; }
+    #mc4wp-admin .field-wizard .hover-activated {
+      opacity: 0.5; }
+    #mc4wp-admin .field-wizard .hover-activated:hover {
+      cursor: pointer;
+      opacity: 1; }
   #mc4wp-admin .available-fields {
     border: 1px solid #ccc;
     padding: 20px;
@@ -120,7 +147,8 @@
   max-width: 480px;
   background: #fefefe;
   border: 1px solid black;
-  height: 400px;
+  height: auto;
+  max-height: 100%;
   overflow-y: scroll;
   position: relative; }
   .overlay-content .close {

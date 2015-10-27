@@ -53,8 +53,8 @@ var Settings = function(context) {
 	function updateAvailableFields() {
 		availableFields = [];
 		selectedLists.forEach(function( list ) {
-			list.merge_vars.forEach(function(field) {
-				if( availableFields.filter(function(existingField) { return existingField.tag === field.tag; }).length === 0 ){
+			list.fields.forEach(function(field) {
+				if( availableFields.filter(function(existingField) { return existingField.name === field.name; }).length === 0 ){
 					availableFields.push(field);
 				}
 			})
@@ -70,7 +70,7 @@ var Settings = function(context) {
 	function updateRequiredFields() {
 		requiredFields = [];
 		availableFields.forEach(function(field) {
-			if(field.req) {
+			if(field.required) {
 				requiredFields.push(field);
 			}
 		});

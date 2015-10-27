@@ -16,7 +16,7 @@ var FormWatcher = function(editor, settings) {
 		// check presence for each required field
 		var missingFields = [];
 		requiredFields.forEach(function(field) {
-			var fieldSearch = 'name="' + field.tag.toLowerCase();
+			var fieldSearch = 'name="' + field.name.toLowerCase();
 			if( formContent.indexOf( fieldSearch ) == -1 ) {
 				missingFields.push(field);
 			}
@@ -31,7 +31,7 @@ var FormWatcher = function(editor, settings) {
 		// show notice
 		var listItems = '';
 		missingFields.forEach(function( field ) {
-			listItems += "<li>" + field.name + " (<code>" + field.tag + "</code>)</li>";
+			listItems += "<li>" + field.label + " (<code>" + field.name + "</code>)</li>";
 		});
 
 		missingFieldsNoticeList.innerHTML = listItems;

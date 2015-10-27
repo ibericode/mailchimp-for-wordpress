@@ -2,7 +2,7 @@ var r = {};
 
 r.label = function(config) {
 	// label row
-	return m("p", [
+	return m("div", [
 		m("label", "Field Label"),
 		m("input.widefat", {
 			type: "text",
@@ -13,7 +13,7 @@ r.label = function(config) {
 };
 
 r.defaultValue = function(config) {
-	return m("p", [
+	return m("div", [
 		m("label", "Default Value"),
 		m("input.widefat", {
 			type: "text",
@@ -25,7 +25,7 @@ r.defaultValue = function(config) {
 
 
 r.isRequired = function(config) {
-	return m('p', [
+	return m('div', [
 		m('label.cb-wrap', [
 			m('input', {
 				type: 'checkbox',
@@ -38,7 +38,7 @@ r.isRequired = function(config) {
 };
 
 r.usePlaceholder = function(config) {
-	return m("p", [
+	return m("div", [
 		m("label.cb-wrap", [
 			m("input", {
 				type: 'checkbox',
@@ -51,7 +51,7 @@ r.usePlaceholder = function(config) {
 };
 
 r.useParagraphs = function(config) {
-	return m('p', [
+	return m('div', [
 		m('label.cb-wrap', [
 			m('input', {
 				type: 'checkbox',
@@ -60,6 +60,64 @@ r.useParagraphs = function(config) {
 			}),
 			"Wrap in paragraph tags?"
 		])
+	]);
+};
+
+r.choiceType = function(config) {
+	return m('div', [
+		m('label', "Choice Type"),
+		m('select', {
+			value: config.type(),
+			onchange: m.withAttr('value', config.type )
+		}, [
+			m('option', {
+				value: 'select',
+				selected: config.type() === 'select' ? 'selected' : false
+			}, 'Dropdown'),
+			m('option', {
+				value: 'radio',
+				selected: config.type() === 'radio' ? 'selected' : false
+			}, 'Radio Button'),
+			m('option', {
+				value: 'checkbox',
+				selected: config.type() === 'checkbox' ? 'selected' : false
+			}, 'Checkboxes')
+		])
+	]);
+};
+
+r.choices = function(config) {
+
+
+	return m('div',[
+		m('label', "Choices"),
+		m( 'div.limit-height', [
+			m( "table", [
+
+				// table body
+				config.choices.map(function(choice, index) {
+					return m('tr', {
+						'data-id': index
+					}, [
+						m( 'td.cb', m('input', {
+								name: 'selected',
+								type: (config.type() === 'checkbox' ) ? 'checkbox' : 'radio',
+								onchange: m.withAttr('checked', choice.selected)
+							})
+						),
+						m('td.stretch', m('input.widefat', {
+							type: 'text',
+							value: choice.label(),
+							onchange: m.withAttr('value', choice.label)
+						}) ),
+						m('td', m('span', {
+							class: 'dashicons dashicons-no-alt hover-activated',
+							onclick: function(key) { this.choices.splice(key, 1); }.bind(config, index)
+						}, ''))
+					] )
+				})
+			]) // end of table
+		]) // end of limit-height div
 	]);
 };
 
