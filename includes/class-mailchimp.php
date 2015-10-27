@@ -136,35 +136,35 @@ class MC4WP_MailChimp {
 
 		// addr1
 		$addr1 = clone $field;
-		$addr1->name = "Address";
+		$addr1->name = __( "Address", 'mailchimp-for-wp' );
 		$addr1->field_type = 'text';
 		$addr1->tag = $field->tag . '[addr1]';
 		$new[] = $addr1;
 
 		// city
 		$city = clone $field;
-		$city->name = "City";
+		$city->name = __( "City", 'mailchimp-for-wp' );
 		$city->field_type = 'text';
 		$city->tag = $field->tag . '[city]';
 		$new[] = $city;
 
 		// state
 		$state = clone $field;
-		$state->name = "State";
+		$state->name = __( "State", 'mailchimp-for-wp' );
 		$state->field_type = 'text';
 		$state->tag = $field->tag . '[state]';
 		$new[] = $state;
 
 		// zip
 		$zip = clone $field;
-		$zip->name = "ZIP";
+		$zip->name = __( "ZIP", 'mailchimp-for-wp' );
 		$zip->field_type = 'text';
 		$zip->tag = $field->tag . '[zip]';
 		$new[] = $zip;
 
 		// country
 		$country = clone $field;
-		$country->name = "Country";
+		$country->name = __( "Country", 'mailchimp-for-wp' );
 		$country->field_type = 'country';
 		$country->tag = $field->tag . '[country]';
 		$new[] = $country;
