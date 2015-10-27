@@ -62,16 +62,18 @@ class MC4WP_MailChimp_List {
 		foreach( $this->merge_vars as $merge_var ) {
 			$fields = array_merge( $fields, $merge_var->get_fields() );
 		}
-
 		return $fields;
 	}
 
 	/**
-	 * @todo
 	 * @return array
 	 */
 	public function generate_grouping_fields() {
-		return array();
+		$fields = array();
+		foreach( $this->groupings as $grouping ) {
+			$fields = array_merge( $fields, $grouping->get_fields() );
+		}
+		return $fields;
 	}
 
 

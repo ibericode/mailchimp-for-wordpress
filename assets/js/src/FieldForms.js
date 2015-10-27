@@ -4,15 +4,27 @@ var rows = require('./FieldRows.js');
 // route to one of the other form configs, default to "text"
 FieldForms.render = function(type, config) {
 
+	if( typeof( FieldForms[type] ) === "function" ) {
+		return FieldForms[ type ](config);
+	}
+
 	switch( type ) {
 		case 'select':
 		case 'radio':
 		case 'checkbox':
 			return FieldForms.choice(config);
-
-		default:
-			return FieldForms.text(config);
+		break;
 	}
+
+	// fallback to good old text field
+	return FieldForms.text(config);
+};
+
+FieldForms.hidden = function( config ) {
+	return [
+		// default value row
+		rows.defaultValue(config)
+	]
 };
 
 FieldForms.text = function(config) {

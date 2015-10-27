@@ -23,7 +23,7 @@
 	}
 
 })();
-},{"./FieldHelper.js":4,"./FormEditor.js":6,"./FormWatcher.js":7,"./Settings.js":10,"./Tabs.js":11}],2:[function(require,module,exports){
+},{"./FieldHelper.js":5,"./FormEditor.js":7,"./FormWatcher.js":8,"./Settings.js":11,"./Tabs.js":12}],2:[function(require,module,exports){
 /*!
  * EventEmitter v4.2.11 - git.io/ee
  * Unlicense - http://unlicense.org/
@@ -505,15 +505,27 @@ var rows = require('./FieldRows.js');
 // route to one of the other form configs, default to "text"
 FieldForms.render = function(type, config) {
 
+	if( typeof( FieldForms[type] ) === "function" ) {
+		return FieldForms[ type ](config);
+	}
+
 	switch( type ) {
 		case 'select':
 		case 'radio':
 		case 'checkbox':
 			return FieldForms.choice(config);
-
-		default:
-			return FieldForms.text(config);
+		break;
 	}
+
+	// fallback to good old text field
+	return FieldForms.text(config);
+};
+
+FieldForms.hidden = function( config ) {
+	return [
+		// default value row
+		rows.defaultValue(config)
+	]
 };
 
 FieldForms.text = function(config) {
@@ -545,83 +557,13 @@ FieldForms.choice = function(config) {
 
 
 module.exports = FieldForms;
-},{"./FieldRows.js":5}],4:[function(require,module,exports){
-var FieldHelper = function(settings, tabs, editor) {
-	'use strict';
+},{"./FieldRows.js":6}],4:[function(require,module,exports){
+var FieldGenerator = function() {
 
-	window.m = require('../third-party/mithril.js');
 	var render = require('./Render.js');
 	var html_beautify = require('../third-party/beautify-html.js');
-	var overlay = require('./Overlay.js');
-	var forms = require('./FieldForms.js');
-	var availableFields = [];
-	var activeField;
-	var config = {
-		name: m.prop(''),
-		useParagraphs: m.prop(false),
-		defaultValue: m.prop(''),
-		isRequired: m.prop(false),
-		usePlaceholder: m.prop(true),
-		label: m.prop(''),
-		type: m.prop('text'),
-		choices: []
-	};
 
-
-	/**
-	 * Update the available MailChimp fields to choose from
-	 *
-	 * @returns {{}}
-	 */
-	function setAvailableFields(fields) {
-		availableFields = settings.getAvailableFields();
-		setActiveField(false);
-		m.redraw();
-	}
-
-	/**
-	 * Choose a field to open the helper form for
-	 *
-	 * @param index
-	 * @returns {*}
-	 */
-	function setActiveField( index ) {
-		index = parseInt(index);
-		activeField = availableFields[ index ];
-		var active = typeof( activeField ) === "object";
-
-		if( active ) {
-			config.name(activeField.name);
-			config.defaultValue(activeField.default_value);
-			config.isRequired(activeField.required);
-			config.label(activeField.label);
-			config.type(activeField.type);
-			config.choices = activeField.choices.map(function(choice) {
-				return {
-					label: m.prop( choice.label ),
-					value: m.prop( choice.value ),
-					selected: m.prop( choice.selected )
-				};
-			});
-		}
-
-		m.redraw();
-	}
-
-
-	/**
-	 * Controller
-	 */
-	function controller() {
-		availableFields = settings.getAvailableFields();
-		settings.events.on('availableFields.change', setAvailableFields);
-	}
-
-	/**
-	 * Create HTML based on current config object
-	 */
-	function createHTML() {
-
+	function generate( config ) {
 		var label, field;
 
 		label = config.label().length ? m("label", config.label()) : '';
@@ -684,9 +626,100 @@ var FieldHelper = function(settings, tabs, editor) {
 		// render HTML
 		var rawHTML = render( html );
 		rawHTML = html_beautify( rawHTML ) + "\n\n";
+		return rawHTML;
+	}
+
+	return {
+		generate: generate
+	}
+};
+
+module.exports = FieldGenerator;
+},{"../third-party/beautify-html.js":13,"./Render.js":10}],5:[function(require,module,exports){
+var FieldHelper = function(settings, tabs, editor) {
+	'use strict';
+
+	window.m = require('../third-party/mithril.js');
+	var fieldGenerator = require('./FieldGenerator.js')();
+	var overlay = require('./Overlay.js');
+	var forms = require('./FieldForms.js');
+	var availableFields = [];
+	var activeField;
+	var config = {
+		name: m.prop(''),
+		useParagraphs: m.prop(false),
+		defaultValue: m.prop(''),
+		isRequired: m.prop(false),
+		usePlaceholder: m.prop(true),
+		label: m.prop(''),
+		type: m.prop('text'),
+		choices: []
+	};
+
+
+	/**
+	 * Update the available MailChimp fields to choose from
+	 *
+	 * @returns {{}}
+	 */
+	function setAvailableFields(fields) {
+		availableFields = settings.getAvailableFields();
+		setActiveField(false);
+		m.redraw();
+	}
+
+	/**
+	 * Choose a field to open the helper form for
+	 *
+	 * @param index
+	 * @returns {*}
+	 */
+	function setActiveField( index ) {
+		index = parseInt(index);
+		activeField = availableFields[ index ];
+		var active = typeof( activeField ) === "object";
+
+		if( active ) {
+			config.name(activeField.name);
+			config.defaultValue(activeField.default_value);
+			config.isRequired(activeField.required);
+			config.label(activeField.label);
+			config.type(activeField.type);
+			config.choices = activeField.choices.map(function(choice) {
+				return {
+					label: m.prop( choice.label ),
+					value: m.prop( choice.value ),
+					selected: m.prop( choice.selected )
+				};
+			});
+
+			if( config.type() === 'hidden' && ! config.defaultValue() ) {
+				config.defaultValue( config.choices.map( function( c) { return c.label() }).join(',') );
+			}
+		}
+
+		m.redraw();
+	}
+
+
+	/**
+	 * Controller
+	 */
+	function controller() {
+		availableFields = settings.getAvailableFields();
+		settings.events.on('availableFields.change', setAvailableFields);
+	}
+
+	/**
+	 * Create HTML based on current config object
+	 */
+	function createFieldHTMLAndAddToForm() {
+
+		// generate html
+		var html = fieldGenerator.generate(config);
 
 		// add to editor
-		editor.insert( rawHTML );
+		editor.insert( html );
 
 		// reset field form
 		setActiveField('');
@@ -750,7 +783,7 @@ var FieldHelper = function(settings, tabs, editor) {
 						m("button", {
 							class: "button-primary",
 							type: "button",
-							onclick: createHTML
+							onclick: createFieldHTMLAndAddToForm
 						}, "Add to form" )
 					])
 				]), setActiveField);
@@ -770,7 +803,7 @@ var FieldHelper = function(settings, tabs, editor) {
 };
 
 module.exports = FieldHelper;
-},{"../third-party/beautify-html.js":12,"../third-party/mithril.js":13,"./FieldForms.js":3,"./Overlay.js":8,"./Render.js":9}],5:[function(require,module,exports){
+},{"../third-party/mithril.js":14,"./FieldForms.js":3,"./FieldGenerator.js":4,"./Overlay.js":9}],6:[function(require,module,exports){
 var r = {};
 
 r.label = function(config) {
@@ -895,7 +928,7 @@ r.choices = function(config) {
 };
 
 module.exports = r;
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /* Editor */
 /* todo allow for CodeMirror failures */
 var FormEditor = function(element) {
@@ -932,7 +965,7 @@ var FormEditor = function(element) {
 };
 
 module.exports = FormEditor;
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 var FormWatcher = function(editor, settings) {
 	'use strict';
 
@@ -987,7 +1020,7 @@ var FormWatcher = function(editor, settings) {
 };
 
 module.exports = FormWatcher;
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 var overlay = function( content, onclose ) {
 	'use strict';
 
@@ -1025,7 +1058,7 @@ var overlay = function( content, onclose ) {
 };
 
 module.exports = overlay;
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 var VOID_TAGS = ['area', 'base', 'br', 'col', 'command', 'embed', 'hr',
@@ -1141,7 +1174,7 @@ function render(view) {
 }
 
 module.exports = render;
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 var Settings = function(context) {
 	'use strict';
 
@@ -1262,7 +1295,7 @@ var Settings = function(context) {
 };
 
 module.exports = Settings;
-},{"./EventEmitter.js":2}],11:[function(require,module,exports){
+},{"./EventEmitter.js":2}],12:[function(require,module,exports){
 // Tabs
 var Tabs = function( context ) {
 
@@ -1354,7 +1387,7 @@ var Tabs = function( context ) {
 };
 
 module.exports = Tabs;
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 /*jshint curly:true, eqeqeq:true, laxbreak:true, noempty:false */
 /*
 
@@ -2171,7 +2204,7 @@ module.exports = Tabs;
 	}
 
 }());
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 var m = (function app(window, undefined) {
 	var OBJECT = "[object Object]", ARRAY = "[object Array]", STRING = "[object String]", FUNCTION = "function";
 	var type = {}.toString;

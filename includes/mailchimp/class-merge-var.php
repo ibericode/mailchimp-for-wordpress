@@ -60,7 +60,7 @@ class MC4WP_MailChimp_Merge_Var {
 	/**
 	 * @return array
 	 *
-	 * @todo move this to Field class?
+	 * @todo move this to Field class? Or client-side?
 	 */
 	public function get_fields() {
 
@@ -93,7 +93,7 @@ class MC4WP_MailChimp_Merge_Var {
 			case 'radio':
 				$choices = array();
 				foreach( $this->choices as $choice ) {
-					$choices[] = new MC4wP_Form_Field_Choice( $choice );
+					$choices[] = new MC4WP_Form_Field_Choice( $choice );
 				}
 
 				$fields[] = new MC4WP_Form_Field( $this->name, $this->tag, 'radio', $this->required, $this->default, $choices );

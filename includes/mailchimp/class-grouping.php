@@ -37,4 +37,29 @@ class MC4WP_MailChimp_Grouping {
 
 		return $instance;
 	}
+
+	/**
+	 * @return array
+	 */
+	public function get_fields() {
+		$fields = array();
+		$choices = array();
+
+		foreach( $this->groups as $group ) {
+			$choices[] = new MC4WP_Form_Field_Choice( $group );
+		}
+
+		// todo fix this in a better way
+		if( $this->field_type === 'checkboxes' ) {
+			$field_type = 'checkbox';
+		} elseif( $this->field_type === 'dropdown' ) {
+			$field_type = 'select';
+		} else {
+			$field_type = $this->field_type;
+		}
+
+		$fields[] = new MC4WP_Form_Field( $this->name, 'GROUPINGS[' . $this->id .']', $field_type, false, '', $choices );
+
+		return $fields;
+	}
 }

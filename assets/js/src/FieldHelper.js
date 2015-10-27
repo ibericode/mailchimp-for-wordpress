@@ -2,8 +2,7 @@ var FieldHelper = function(settings, tabs, editor) {
 	'use strict';
 
 	window.m = require('../third-party/mithril.js');
-	var render = require('./Render.js');
-	var html_beautify = require('../third-party/beautify-html.js');
+	var fieldGenerator = require('./FieldGenerator.js')();
 	var overlay = require('./Overlay.js');
 	var forms = require('./FieldForms.js');
 	var availableFields = [];
@@ -55,6 +54,10 @@ var FieldHelper = function(settings, tabs, editor) {
 					selected: m.prop( choice.selected )
 				};
 			});
+
+			if( config.type() === 'hidden' && ! config.defaultValue() ) {
+				config.defaultValue( config.choices.map( function( c) { return c.label() }).join(',') );
+			}
 		}
 
 		m.redraw();
@@ -72,73 +75,13 @@ var FieldHelper = function(settings, tabs, editor) {
 	/**
 	 * Create HTML based on current config object
 	 */
-	function createHTML() {
+	function createFieldHTMLAndAddToForm() {
 
-		var label, field;
-
-		label = config.label().length ? m("label", config.label()) : '';
-		var fieldAttributes =  {
-			type: config.type(),
-			name: config.name()
-		};
-
-		switch( config.type() ) {
-			case 'select':
-
-				field = m('select', [
-					config.choices.map(function(choice) {
-						return m('option', {
-							name: config.name(),
-							value: choice.value(),
-							selected: choice.selected()
-						}, choice.label())
-					})
-				]);
-
-				break;
-
-
-			case 'checkbox':
-			case 'radio':
-
-				field = config.choices.map(function(choice) {
-					return m('label', [
-							m('input', {
-								name: config.name(),
-								type: config.type(),
-								value: (choice.value() !== choice.label()) ? choice.value() : undefined,
-								checked: choice.selected()
-							}),
-							m( 'span', choice.label() )
-						]
-					)
-				});
-
-				break;
-
-			default:
-
-				if( config.usePlaceholder() == true ) {
-					fieldAttributes.placeholder = config.defaultValue();
-				} else {
-					fieldAttributes.value = config.defaultValue();
-				}
-
-				field = m( 'input', fieldAttributes );
-
-				break;
-		}
-
-		fieldAttributes.required = config.isRequired();
-
-		var html = config.useParagraphs() ? m('p', [ label, field ]) : [ label, field ];
-
-		// render HTML
-		var rawHTML = render( html );
-		rawHTML = html_beautify( rawHTML ) + "\n\n";
+		// generate html
+		var html = fieldGenerator.generate(config);
 
 		// add to editor
-		editor.insert( rawHTML );
+		editor.insert( html );
 
 		// reset field form
 		setActiveField('');
@@ -202,7 +145,7 @@ var FieldHelper = function(settings, tabs, editor) {
 						m("button", {
 							class: "button-primary",
 							type: "button",
-							onclick: createHTML
+							onclick: createFieldHTMLAndAddToForm
 						}, "Add to form" )
 					])
 				]), setActiveField);
