@@ -84,7 +84,9 @@ class MC4WP_MailChimp {
 		if ( $merge_vars_data ) {
 			foreach ( $merge_vars_data as $list ) {
 				// add merge vars to list
-				$lists["{$list->id}"]->merge_vars = array_map( array( $this, 'strip_unnecessary_merge_vars_properties' ), $list->merge_vars );
+				$merge_vars = array_map( array( $this, 'strip_unnecessary_merge_vars_properties' ), $list->merge_vars );
+				$merge_vars = $this->transform_fields( $merge_vars );
+				$lists["{$list->id}"]->merge_vars = $merge_vars;
 			}
 		}
 
@@ -96,10 +98,84 @@ class MC4WP_MailChimp {
 	}
 
 	/**
+	 * Translates some MailChimp fields to our own format
+	 *
+	 * - Separates address fields into addr1, addr2, city, state, zip & country field
+	 *
+	 * @param array $fields
+	 * @return array
+	 */
+	protected function transform_fields( array $fields = array() ) {
+
+		$new = array();
+
+		foreach( $fields as $key => $field ) {
+
+			// check for custom method
+			$transform_method = 'transform_' . $field->field_type .'_field';
+			if( method_exists( $this, $transform_method ) ) {
+				$transformed_field = call_user_func( array( $this, $transform_method ), $field );
+				$new = array_merge( $new, $transformed_field );
+				continue;
+			}
+
+			// no custom method exists, just add to array
+			$new[] = $field;
+		}
+
+		return $new;
+	}
+
+	/**
+	 * @param $field
+	 *
+	 * @return array
+	 */
+	protected function transform_address_field( $field ) {
+		$new = array();
+
+		// addr1
+		$addr1 = clone $field;
+		$addr1->name = "Address";
+		$addr1->field_type = 'text';
+		$addr1->tag = $field->tag . '[addr1]';
+		$new[] = $addr1;
+
+		// city
+		$city = clone $field;
+		$city->name = "City";
+		$city->field_type = 'text';
+		$city->tag = $field->tag . '[city]';
+		$new[] = $city;
+
+		// state
+		$state = clone $field;
+		$state->name = "State";
+		$state->field_type = 'text';
+		$state->tag = $field->tag . '[state]';
+		$new[] = $state;
+
+		// zip
+		$zip = clone $field;
+		$zip->name = "ZIP";
+		$zip->field_type = 'text';
+		$zip->tag = $field->tag . '[zip]';
+		$new[] = $zip;
+
+		// country
+		$country = clone $field;
+		$country->name = "Country";
+		$country->field_type = 'country';
+		$country->tag = $field->tag . '[country]';
+		$new[] = $country;
+
+		return $new;
+	}
+
+	/**
 	 * Get a given MailChimp list
 	 *
 	 * @param int $list_id
-	 * @param bool $force_renewal
 	 * @param bool $force_fallback
 	 *
 	 * @return bool
