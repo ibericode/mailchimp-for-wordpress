@@ -88,6 +88,7 @@ var FieldHelper = function(settings, tabs, editor) {
 				field = m('select', [
 					config.choices.map(function(choice) {
 						return m('option', {
+							name: config.name(),
 							value: choice.value(),
 							selected: choice.selected()
 						}, choice.label())
@@ -103,6 +104,7 @@ var FieldHelper = function(settings, tabs, editor) {
 				field = config.choices.map(function(choice) {
 					return m('label', [
 							m('input', {
+								name: config.name(),
 								type: config.type(),
 								value: (choice.value() !== choice.label()) ? choice.value() : undefined,
 								checked: choice.selected()
