@@ -1,9 +1,15 @@
 <?php add_thickbox(); ?>
 
-<a href="#TB_inline?width=600&height=550&inlineId=mc4wp-form-variables" class="alignright thickbox button-secondary">
-	<span class="dashicons dashicons-info"></span>
-	<?php _e( 'Form variables', 'mailchimp-for-wp' ); ?>
-</a>
+<div class="alignright">
+	<a href="#TB_inline?width=600&height=550&inlineId=mc4wp-form-variables" class="thickbox button-secondary">
+		<span class="dashicons dashicons-info"></span>
+		<?php _e( 'Form variables', 'mailchimp-for-wp' ); ?>
+	</a>
+	<a href="#TB_inline?width=600&height=400&inlineId=mc4wp-add-field-help" class="thickbox button-secondary">
+		<span class="dashicons dashicons-editor-help"></span>
+		<?php _e( 'Add more fields', 'mailchimp-for-wp' ); ?>
+	</a>
+</div>
 <h2><?php _e( "Form Fields", 'mailchimp-for-wp' ); ?></h2>
 
 <div id="mc4wp-field-wizard"></div>
@@ -22,6 +28,12 @@
 
 <p class="mc4wp-form-usage"><?php printf( __( 'Use the shortcode %s to display this form inside a post, page or text widget.' ,'mailchimp-for-wp' ), '<input type="text" onfocus="this.select();" readonly="readonly" value="[mc4wp_form id='. $form->ID .']" size="'. ( strlen( $form->ID ) + 18 ) .'">' ); ?></p>
 
+
+<?php // Content for Thickboxes ?>
 <div id="mc4wp-form-variables" style="display: none;">
 	<?php include dirname( __FILE__ ) . '/../parts/admin-form-variables.php'; ?>
+</div>
+
+<div id="mc4wp-add-field-help" style="display: none;">
+	<?php include( dirname( __FILE__ ) . '/../parts/add-fields-help.php' ); ?>
 </div>

@@ -24,7 +24,7 @@ $tabs = array(
 				</a>
 			</h1>
 
-			<?php $this->admin_messages(); ?>
+			<h2 style="display: none;"></h2><?php // fake h2 for admin notices ?>
 
 			<!-- Wrap entire page in <form> -->
 			<form method="post">

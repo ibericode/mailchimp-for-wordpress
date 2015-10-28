@@ -5,7 +5,7 @@
 		<?php _e( "Add new form", 'mailchimp-for-wp' ); ?>
 	</h1>
 
-	<?php $this->admin_messages(); ?>
+	<h2 style="display: none;"></h2><?php // fake h2 for admin notices ?>
 
 	<div style="max-width: 480px;">
 

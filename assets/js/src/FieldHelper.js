@@ -1,9 +1,9 @@
-var FieldHelper = function(settings, tabs, editor, fields) {
+var FieldHelper = function(m,tabs, editor, fields) {
 	'use strict';
 
-	var fieldGenerator = require('./FieldGenerator.js')();
-	var overlay = require('./Overlay.js');
-	var forms = require('./FieldForms.js');
+	var generate = require('./FieldGenerator.js')(m);
+	var overlay = require('./Overlay.js')(m);
+	var forms = require('./FieldForms.js')(m);
 	var fieldConfig;
 
 	/**
@@ -22,7 +22,7 @@ var FieldHelper = function(settings, tabs, editor, fields) {
 	 * Controller
 	 */
 	function controller() {
-		settings.events.on('selectedLists.change', function() { m.redraw(); });
+
 	}
 
 	/**
@@ -31,7 +31,7 @@ var FieldHelper = function(settings, tabs, editor, fields) {
 	function createFieldHTMLAndAddToForm() {
 
 		// generate html
-		var html = fieldGenerator.generate(fieldConfig);
+		var html = generate(fieldConfig);
 
 		// add to editor
 		editor.insert( html );
@@ -85,8 +85,11 @@ var FieldHelper = function(settings, tabs, editor, fields) {
 					//heading
 					m("h3", [
 						fieldConfig.title(),
-						m("code", fieldConfig.name())
+						(fieldConfig.name().length) ? m("code", fieldConfig.name()) : ''
 					]),
+
+					// help text
+					( fieldConfig.help().length ) ? m('p', m.trust( fieldConfig.help() ) ) : '',
 
 					// actual form
 					forms.render(fieldConfig),

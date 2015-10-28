@@ -29,12 +29,6 @@
 		border-spacing: 0;
 	}
 
-	.sortable tr,
-	.sortable li{
-		cursor: move;
-		background: inherit;
-	}
-
 	tr, td {
 		vertical-align: middle;
 	}
@@ -43,6 +37,7 @@
 		width: 100%;
 	}
 
+	/* checkboxes in label */
 	.cb-wrap{
 		font-weight: normal;
 
@@ -60,14 +55,6 @@
 		vertical-align: middle;
 	}
 
-	.hover-activated {
-		opacity: 0.5;
-	}
-
-	.hover-activated:hover {
-		cursor: pointer;
-		opacity: 1;
-	}
 
 }
 

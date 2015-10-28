@@ -19,6 +19,7 @@ class MC4WP_Admin {
 		$this->plugin_file = plugin_basename( MC4WP_PLUGIN_FILE );
 		$this->mailchimp = new MC4WP_MailChimp();
 		$this->ads = new MC4WP_Ads();
+		$this->messages = new MC4WP_Admin_Messages();
 
 		$this->load_translations();
 		$this->add_hooks();
@@ -41,8 +42,12 @@ class MC4WP_Admin {
 		}
 
 		$action = (string) $_REQUEST['_mc4wp_action'];
-
 		do_action( 'mc4wp_admin_' . $action );
+
+		// redirect back to where we came from
+		$redirect_url = remove_query_arg( '_mc4wp_action' );
+		wp_safe_redirect( $redirect_url );
+		exit;
 	}
 
 	/**
@@ -96,14 +101,15 @@ class MC4WP_Admin {
 		update_post_meta( $form_id, '_mc4wp_settings', $form_data['settings'] );
 
 		// @todo allow for easy way to get admin url's
+		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) );
 		wp_safe_redirect(
 			add_query_arg(
 				array(
 					'page' => 'mailchimp-for-wp-forms',
 					'view' => 'edit-form',
-					'form_id' => $form_id,
-					'message' => 'form_updated'
-				)
+					'form_id' => $form_id
+				),
+				remove_query_arg( '_mc4wp_action' )
 			)
 		);
 		exit;
@@ -112,7 +118,7 @@ class MC4WP_Admin {
 	/**
 	 * Saves a form
 	 */
-	public function process_save_form() {
+	public function process_save_form( ) {
 
 		if( ! check_admin_referer( 'edit_form', '_mc4wp_nonce' ) ) {
 			wp_die( "Are you cheating?" );
@@ -165,8 +171,7 @@ class MC4WP_Admin {
 			update_option( 'mc4wp_form_stylesheets', $stylesheets );
 		}
 
-		wp_safe_redirect( add_query_arg( array( 'form_id' => $form_id, 'message' => 'form_updated' ) ) );
-		exit;
+		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) );
 	}
 
 	/**
@@ -185,6 +190,7 @@ class MC4WP_Admin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 
 		$this->ads->add_hooks();
+		$this->messages->add_hooks();
 	}
 
 	/**
@@ -196,8 +202,10 @@ class MC4WP_Admin {
 		// try getting new lists to fill cache again
 		$lists = $this->mailchimp->get_lists();
 		if( ! empty( $lists ) ) {
-			add_settings_error( 'mc4wp', 'mc4wp-lists', __( 'Success! The cached configuration for your MailChimp lists has been renewed.', 'mailchimp-for-wp' ), 'updated' );
+			$this->messages->flash( __( 'Success! The cached configuration for your MailChimp lists has been renewed.', 'mailchimp-for-wp' ), 'updated' );
 		}
+
+
 	}
 
 	/**
@@ -589,27 +597,5 @@ class MC4WP_Admin {
 	public function tab_url( $tab ) {
 		return add_query_arg( array( 'tab' => $tab ), remove_query_arg( 'tab' ) );
 	}
-
-	/**
-	 * @return string
-	 */
-	public function admin_messages() {
-
-		if( empty( $_GET['message'] ) ) {
-			return;
-		}
-
-		$message_index = (string) $_GET['message'];
-		$messages = array(
-			'form_updated' => __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' )
-		);
-
-
-		if( ! empty( $messages[ $message_index ] ) ) {
-			echo sprintf( '<div class="notice updated is-dismissible"><p>%s</p></div>', $messages[ $message_index ] );
-		};
-	}
-
-
 
 }

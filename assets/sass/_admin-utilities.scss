@@ -31,3 +31,28 @@
 .small-margin {
 	margin: 20px 0;
 }
+
+.hover-activated {
+	opacity: 0.5;
+}
+
+.hover-activated:hover {
+	cursor: pointer;
+	opacity: 1;
+}
+
+.help-text {
+	font-size: 14px;
+
+	p {
+		margin: 10px 0;
+		font-size: 14px;
+	}
+
+
+	ul{
+		list-style: square;
+		margin-top: 15px;
+		padding-left: 40px;
+	}
+}

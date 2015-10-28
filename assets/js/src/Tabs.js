@@ -1,12 +1,11 @@
 // Tabs
-var Tabs = function( context ) {
+var Tabs = function(context) {
 
 	var $ = window.jQuery;
 
 	var $context = $(context);
 	var $tabs = $context.find('.tab');
 	var $tabNavs = $context.find('.nav-tab');
-	var $tabLinks = $context.find('.tab-link');
 	var refererField = context.querySelector('input[name="_wp_http_referer"]');
 
 	var URL = {
@@ -68,19 +67,24 @@ var Tabs = function( context ) {
 
 		e.preventDefault();
 
-		var urlParams = URL.parse( this.href );
-		if( typeof(urlParams.tab) === "undefined" ) {
-			return;
+		var tab = this.dataset.tab;
+		if( ! tab ) {
+			var urlParams = URL.parse( this.href );
+			if( typeof(urlParams.tab) === "undefined" ) {
+				return;
+			}
+
+			tab = urlParams.tab;
 		}
 
-		open( urlParams.tab );
+		open( tab );
 
 		// prevent page jump
 		return false;
 	}
 
 	$tabNavs.click(switchTab);
-	$tabLinks.click(switchTab);
+	$context.on('click', '.tab-link', switchTab);
 
 	return {
 		open: open

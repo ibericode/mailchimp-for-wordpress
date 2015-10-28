@@ -1,4 +1,5 @@
 var FieldFactory = function(settings, fields) {
+	'use strict';
 
 	/**
 	 * Array of registered fields
@@ -15,6 +16,16 @@ var FieldFactory = function(settings, fields) {
 		registeredFields.forEach(function(field) {
 			fields.deregister(field);
 		});
+	}
+
+	/**
+	 * Helper function to quickly register a field and store it in local scope
+	 *
+	 * @param data
+	 */
+	function register(data) {
+		var field = fields.register(data);
+		registeredFields.push(field);
 	}
 
 	/**
@@ -64,23 +75,13 @@ var FieldFactory = function(settings, fields) {
 		};
 
 		if( data.type !== 'address' ) {
-			var regularField = fields.register(data);
-			registeredFields.push(regularField);
+			register(data);
 		} else {
-			var addr1Field = fields.register({ name: data.name + '[addr1]', type: 'text', title: 'Street Address' });
-			registeredFields.push(addr1Field);
-
-			var cityField = fields.register({ name: data.name + '[city]', type: 'text', title: 'City' });
-			registeredFields.push(cityField);
-
-			var stateField = fields.register({ name: data.name + '[state]', type: 'text', title: 'State' });
-			registeredFields.push(stateField);
-
-			var zipField = fields.register({ name: data.name + '[zip]', type: 'text', title: 'ZIP' });
-			registeredFields.push(zipField);
-
-			var countryField = fields.register({ name: data.name + '[country]', type: 'select', title: 'Country', choices: mc4wp_vars.countries });
-			registeredFields.push(countryField);
+			register({ name: data.name + '[addr1]', type: 'text', title: 'Street Address' });
+			register({ name: data.name + '[city]', type: 'text', title: 'City' });
+			register({ name: data.name + '[state]', type: 'text', title: 'State' });
+			register({ name: data.name + '[zip]', type: 'text', title: 'ZIP' });
+			register({ name: data.name + '[country]', type: 'select', title: 'Country', choices: mc4wp_vars.countries });
 		}
 
 		return true;
@@ -98,8 +99,7 @@ var FieldFactory = function(settings, fields) {
 			type: getFieldType(grouping.field_type),
 			choices: grouping.groups
 		};
-		var field = fields.register(data);
-		registeredFields.push(field);
+		register(data);
 	}
 
 	/**
@@ -115,16 +115,45 @@ var FieldFactory = function(settings, fields) {
 		list.groupings.forEach(registerGrouping);
 	}
 
+	function registerCustomFields(lists) {
+
+		// register submit button
+		register({
+			name: '',
+			value: "Subscribe",
+			type: "submit",
+			title: "Submit Button"
+		});
+
+		// register lists choice field
+		var choices = {};
+		lists.forEach(function(list) {
+			choices[list.id] = list.name;
+		});
+		register({
+			name: '_mc4wp_lists',
+			type: 'checkbox',
+			title: "List Choice",
+			choices: choices,
+			help: 'This field will allow your visitors to choose a list to subscribe to. <a href="#" data-tab="settings" class="tab-link">Click here to select more lists to show</a>.'
+		});
+	}
+
 	/**
 	 * Update list fields
 	 *
 	 * @param lists
 	 */
 	function work(lists) {
+
+		// clear our fields
 		reset();
+
+		// register list specific fields
 		lists.forEach(registerListFields);
 
-		// todo register custom fields
+		// register global fields like "submit" & "list choice"
+		registerCustomFields(lists);
 	}
 
 	settings.events.on('selectedLists.change',work);

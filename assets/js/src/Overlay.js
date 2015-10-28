@@ -1,37 +1,40 @@
-var overlay = function( content, onclose ) {
+var overlay = function( m ) {
 	'use strict';
 
-	function onKeyDown(e) {
-		if(e.keyCode !== 27) return;
-		onclose();
-	}
+	return function (content, onclose) {
 
-	if ( window.addEventListener) {
-		window.addEventListener('keydown', onKeyDown);
-	} else if (el.attachEvent)  {
-		window.attachEvent('keydown', onKeyDown);
-	}
+		function onKeyDown(e) {
+			if (e.keyCode !== 27) return;
+			onclose();
+		}
 
-	return [
-		m( "div.overlay",[
-			m("div.overlay-content", [
+		if (window.addEventListener) {
+			window.addEventListener('keydown', onKeyDown);
+		} else if (el.attachEvent) {
+			window.attachEvent('keydown', onKeyDown);
+		}
 
-				// close icon
-				m('span.close.dashicons.dashicons-no', {
-					title: "Click to close the overlay.",
-					onclick: onclose
-				}),
+		return [
+			m("div.overlay", [
+				m("div.overlay-content", [
 
-				content
-			])
-		]),
+					// close icon
+					m('span.close.dashicons.dashicons-no', {
+						title  : "Click to close the overlay.",
+						onclick: onclose
+					}),
 
-		// overlay background
-		m( "div.overlay-background", {
-			title: "Click to close the overlay.",
-			onclick: onclose
-		})
-	];
+					content
+				])
+			]),
+
+			// overlay background
+			m("div.overlay-background", {
+				title  : "Click to close the overlay.",
+				onclick: onclose
+			})
+		];
+	};
 };
 
 module.exports = overlay;

@@ -26,6 +26,12 @@ var Settings = function(context) {
 	}
 
 	// functions
+	function getSelectedListsWhere(searchKey,searchValue) {
+		return selectedLists.filter(function(el) {
+			return el[searchKey] === searchValue;
+		});
+	}
+
 	function getSelectedLists() {
 		return selectedLists;
 	}
@@ -43,6 +49,21 @@ var Settings = function(context) {
 		return selectedLists;
 	}
 
+	function toggleVisibleLists() {
+		var rows = document.querySelectorAll('.lists--only-selected > *');
+		Array.prototype.forEach.call(rows, function(el) {
+
+			var listId = el.dataset.id;
+			var isSelected = getSelectedListsWhere('id', listId).length > 0;
+
+			if( isSelected ) {
+				el.classList.remove('hidden');
+			} else {
+				el.classList.add('hidden');
+			}
+
+		});
+	}
 
 	function showProFeatureNotice() {
 		// prevent checking of radio buttons
@@ -63,7 +84,7 @@ var Settings = function(context) {
 		replaceInterestInputs.item(0).parentNode.parentNode.parentNode.style.display = ( updateExistingIsEnabled ? 'table-row' : 'none' );
 	}
 
-
+	events.on('selectedLists.change', toggleVisibleLists);
 	bindEventToElements(listInputs,'change',updateSelectedLists);
 	bindEventToElements(proFeatures,'click',showProFeatureNotice);
 	bindEventToElements(doubleOptInInputs, 'change', toggleSendWelcomeEmailFields);

@@ -1,5 +1,6 @@
 .field-wizard {
-  /* table */ }
+  /* table */
+  /* checkboxes in label */ }
   .field-wizard h3 {
     margin-top: 0; }
   .field-wizard code {
@@ -16,10 +17,6 @@
     table-layout: fixed;
     border-collapse: collapse;
     border-spacing: 0; }
-  .field-wizard .sortable tr,
-  .field-wizard .sortable li {
-    cursor: move;
-    background: inherit; }
   .field-wizard tr, .field-wizard td {
     vertical-align: middle; }
   .field-wizard td.stretch {
@@ -35,11 +32,6 @@
     overflow-y: scroll; }
   .field-wizard .dashicons {
     vertical-align: middle; }
-  .field-wizard .hover-activated {
-    opacity: 0.5; }
-  .field-wizard .hover-activated:hover {
-    cursor: pointer;
-    opacity: 1; }
 
 .available-fields {
   border: 1px solid #ccc;

@@ -62,7 +62,7 @@ class MC4WP_MailChimp {
 
 		foreach ( $lists_data as $list_data ) {
 			// create local object
-			$list = new MC4WP_MailChimp_List( $list_data->id, $list_data->name );
+			$list = new MC4WP_MailChimp_List( $list_data->id, $list_data->name, $list_data->web_id );
 			$list->subscriber_count = $list_data->stats->member_count;
 
 			// fill groupings if list has some

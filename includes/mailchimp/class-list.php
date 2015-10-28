@@ -8,6 +8,11 @@ class MC4WP_MailChimp_List {
 	public $id;
 
 	/**
+	 * @var
+	 */
+	public $web_id;
+
+	/**
 	 * @var string
 	 */
 	public $name;
@@ -35,48 +40,12 @@ class MC4WP_MailChimp_List {
 	/**
 	 * @param string $id
 	 * @param string $name
+	 * @param string $web_id
 	 */
-	public function __construct( $id, $name ) {
+	public function __construct( $id, $name, $web_id = '' ) {
 		$this->id = $id;
 		$this->name = $name;
+		$this->web_id = $web_id;
 	}
-
-	/**
-	 * Generate Field objects for the properties of this list
-	 */
-	public function generate_fields() {
-		$this->fields = array_merge( $this->generate_merge_var_fields(), $this->generate_grouping_fields() );
-		return $this->fields;
-	}
-
-	/**
-	 * Translates some MailChimp fields to our own format
-	 *
-	 * - Separates address fields into addr1, addr2, city, state, zip & country field
-	 *
-	 * @return array
-	 */
-	protected function generate_merge_var_fields() {
-
-		$fields = array();
-		foreach( $this->merge_vars as $merge_var ) {
-			$fields = array_merge( $fields, $merge_var->get_fields() );
-		}
-		return $fields;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function generate_grouping_fields() {
-		$fields = array();
-		foreach( $this->groupings as $grouping ) {
-			$fields = array_merge( $fields, $grouping->get_fields() );
-		}
-		return $fields;
-	}
-
-
-
 
 }

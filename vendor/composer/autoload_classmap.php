@@ -65,6 +65,7 @@ return array(
     'Composer\\Installers\\ZikulaInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/ZikulaInstaller.php',
     'MC4WP_API' => $baseDir . '/includes/class-api.php',
     'MC4WP_Admin' => $baseDir . '/includes/admin/class-admin.php',
+    'MC4WP_Admin_Messages' => $baseDir . '/includes/admin/class-admin-messages.php',
     'MC4WP_Admin_Texts' => $baseDir . '/includes/admin/class-admin-texts.php',
     'MC4WP_Ads' => $baseDir . '/includes/class-ads.php',
     'MC4WP_BuddyPress_Integration' => $baseDir . '/integrations/buddypress/class-buddypress.php',
@@ -78,7 +79,6 @@ return array(
     'MC4WP_Field_Map' => $baseDir . '/includes/class-field-map.php',
     'MC4WP_Form' => $baseDir . '/includes/forms/class-form.php',
     'MC4WP_Form_Asset_Manager' => $baseDir . '/includes/forms/class-asset-manager.php',
-    'MC4WP_Form_Field' => $baseDir . '/includes/forms/class-field.php',
     'MC4WP_Form_Listener' => $baseDir . '/includes/forms/class-form-listener.php',
     'MC4WP_Form_Manager' => $baseDir . '/includes/forms/class-form-manager.php',
     'MC4WP_Form_Output_Manager' => $baseDir . '/includes/forms/class-output-manager.php',
@@ -103,7 +103,6 @@ return array(
     'MC4WP_Usage_Tracking_Nag' => $baseDir . '/includes/admin/class-usage-tracking-nag.php',
     'MC4WP_User_Integration' => $baseDir . '/includes/integrations/class-user-integration.php',
     'MC4WP_WooCommerce_Integration' => $baseDir . '/integrations/woocommerce/class-woocommerce.php',
-    'MC4wP_Form_Field_Choice' => $baseDir . '/includes/forms/class-field-choice.php',
     'xrstf\\Composer52\\AutoloadGenerator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
     'xrstf\\Composer52\\Generator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',
 );
