@@ -5,16 +5,20 @@ class MC4WP_MailChimp {
 	/**
 	 * @var string
 	 */
-	protected $transient_name = 'mc4wp_mailchimp_lists';
+	protected $lists_transient_name = 'mc4wp_mailchimp_lists';
+
+	/**
+	 * @var string
+	 */
+	protected $list_counts_transient_name = 'mc4wp_list_counts';
 
 	/**
 	 * Empty the Lists cache
 	 */
 	public function empty_cache() {
-		delete_transient( $this->transient_name );
-		delete_transient( $this->transient_name . '_fallback' );
-		delete_transient( 'mc4wp_list_counts' );
-		delete_transient( 'mc4wp_list_counts_fallback' );
+		delete_transient( $this->lists_transient_name );
+		delete_transient( $this->lists_transient_name . '_fallback' );
+		delete_transient( $this->list_counts_transient_name );
 	}
 
 	/**
@@ -27,11 +31,11 @@ class MC4WP_MailChimp {
 	 */
 	public function get_lists( $force_fallback = false ) {
 
-		$cached_lists = get_transient( $this->transient_name  );
+		$cached_lists = get_transient( $this->lists_transient_name  );
 
 		// if force_fallback is true, get lists from older transient
 		if( $force_fallback ) {
-			$cached_lists = get_transient( $this->transient_name . '_fallback' );
+			$cached_lists = get_transient( $this->lists_transient_name . '_fallback' );
 		}
 
 		if( is_array( $cached_lists ) ) {
@@ -45,7 +49,7 @@ class MC4WP_MailChimp {
 		// if we did not get an array, something failed.
 		// try fallback transient (if not tried before)
 		if( ! is_array( $lists_data ) ) {
-			$cached_lists = get_transient( $this->transient_name . '_fallback' );
+			$cached_lists = get_transient( $this->lists_transient_name . '_fallback' );
 
 			if( is_array( $cached_lists ) ) {
 				return $cached_lists;
@@ -88,8 +92,8 @@ class MC4WP_MailChimp {
 		}
 
 		// store lists in transients
-		set_transient(  $this->transient_name, $lists, ( 24 * 3600 ) ); // 1 day
-		set_transient(  $this->transient_name . '_fallback', $lists, 1209600 ); // 2 weeks
+		set_transient(  $this->lists_transient_name, $lists, ( 24 * 3600 ) ); // 1 day
+		set_transient(  $this->lists_transient_name . '_fallback', $lists, 1209600 ); // 2 weeks
 
 		return $lists;
 	}
@@ -113,72 +117,49 @@ class MC4WP_MailChimp {
 		return new MC4WP_MailChimp_List( '', 'Unknown List' );
 	}
 
-
 	/**
-	 * Get the interest grouping object for a given list.
+	 * Get an array of list_id => number of subscribers 
 	 *
-	 * @param string $list_id ID of MailChimp list that contains the grouping
-	 * @param string $grouping_id ID of the Interest Grouping
-	 *
-	 * @return object|null
+	 * @return array
 	 */
-	public function get_list_grouping( $list_id, $grouping_id ) {
-		$list = $this->get_list( $list_id, true );
+	public function get_subscriber_counts() {
 
-		if( is_object( $list ) && isset( $list->interest_groupings ) ) {
-			foreach( $list->interest_groupings as $grouping ) {
+		// get from transient
+		$list_counts = get_transient( $this->list_counts_transient_name );
+		if( is_array( $list_counts ) ) {
+			return $list_counts;
+		}
 
-				if( $grouping->id !== $grouping_id ) {
-					continue;
-				}
+		// transient not valid, fetch from API
+		$api = mc4wp_get_api();
+		$lists = $api->get_lists();
 
-				return $grouping;
+		$list_counts = array();
+
+		if ( is_array( $lists ) ) {
+
+			// we got a valid response
+			foreach ( $lists as $list ) {
+				$list_counts["{$list->id}"] = $list->stats->member_count;
 			}
+
+			// store in transient for later use
+			$transient_lifetime = (int) apply_filters( 'mc4wp_lists_count_cache_time', 1200 );
+			set_transient( $this->list_counts_transient_name, $list_counts, $transient_lifetime );
+
+			// bail
+			return $list_counts;
 		}
 
-		return null;
-	}
-
-	/**
-	 * Get the name of a list grouping by its ID
-	 *
-	 * @param $list_id
-	 * @param $grouping_id
-	 *
-	 * @return string
-	 */
-	public function get_list_grouping_name( $list_id, $grouping_id ) {
-
-		$grouping = $this->get_list_grouping( $list_id, $grouping_id );
-		if( isset( $grouping->name ) ) {
-			return $grouping->name;
+		// api call failed, get from stored lists
+		$lists = $this->get_lists( true );
+		foreach( $lists as $list ) {
+			$list_counts["{$list->id}"] = $list->subscriber_count;
 		}
 
-		return '';
+		return $list_counts;
 	}
 
-	/**
-	 * Get the group object for a group in an interest grouping
-	 *
-	 * @param string $list_id ID of MailChimp list that contains the grouping
-	 * @param string $grouping_id ID of the Interest Grouping containing the group
-	 * @param string $group_id_or_name ID or name of the Group
-	 * @return object|null
-	 */
-	public function get_list_grouping_group( $list_id, $grouping_id, $group_id_or_name ) {
-		$grouping = $this->get_list_grouping( $list_id, $grouping_id );
-		if( is_object( $grouping ) && isset( $grouping->groups ) ) {
-			foreach( $grouping->groups as $group ) {
-
-				if( $group->id == $group_id_or_name || $group->name === $group_id_or_name ) {
-					return $group;
-				}
-
-			}
-		}
-
-		return null;
-	}
 
 	/**
 	 * Returns number of subscribers on given lists.
@@ -193,73 +174,17 @@ class MC4WP_MailChimp {
 			return 0;
 		}
 
-		$list_counts = get_transient( 'mc4wp_list_counts' );
+		// get total number of subscribers for all lists
+		$counts = $this->get_subscriber_counts();
 
-		if( false === $list_counts ) {
-			// make api call
-			$api = mc4wp_get_api();
-			$lists = $api->get_lists();
-			$list_counts = array();
-
-			if ( is_array( $lists ) ) {
-
-				foreach ( $lists as $list ) {
-					$list_counts["{$list->id}"] = $list->stats->member_count;
-				}
-
-				$transient_lifetime = apply_filters( 'mc4wp_lists_count_cache_time', 1200 ); // 20 mins by default
-
-				set_transient( 'mc4wp_list_counts', $list_counts, $transient_lifetime );
-				set_transient( 'mc4wp_list_counts_fallback', $list_counts, 86400 ); // 1 day
-			} else {
-				// use fallback transient
-				$list_counts = get_transient( 'mc4wp_list_counts_fallback' );
-				if ( false === $list_counts ) {
-					return 0;
-				}
-			}
-		}
-
-		// start calculating subscribers count for all list combined
+		// start calculating subscribers count for all given list ID's combined
 		$count = 0;
 		foreach ( $list_ids as $id ) {
-			$count += ( isset( $list_counts[$id] ) ) ? $list_counts[$id] : 0;
+			$count += ( isset( $counts[$id] ) ) ? $counts[$id] : 0;
 		}
 
 		return apply_filters( 'mc4wp_subscriber_count', $count );
 	}
 
-
-	/**
-	 * Get the name of a list field by its merge tag
-	 *
-	 * @param $list_id
-	 * @param $tag
-	 *
-	 * @return string
-	 */
-	public function get_list_field_name_by_tag( $list_id, $tag ) {
-		// try default fields
-		switch( $tag ) {
-			case 'EMAIL':
-				return __( 'Email address', 'mailchimp-for-wp' );
-				break;
-			case 'OPTIN_IP':
-				return __( 'IP Address', 'mailchimp-for-wp' );
-				break;
-		}
-		// try to find field in list
-		$list = $this->get_list( $list_id, false, true );
-		if( is_object( $list ) && isset( $list->merge_vars ) ) {
-			// try list merge vars first
-			foreach( $list->merge_vars as $field ) {
-				if( $field->tag !== $tag ) {
-					continue;
-				}
-				return $field->name;
-			}
-		}
-		return '';
-	}
 
 }
