@@ -95,19 +95,6 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * Simple check to see if form contains a given field type
-	 *
-	 * @param $field_type
-	 *
-	 * @return bool
-	 */
-	public function contains_field_type( $field_type ) {
-		$html = sprintf( ' type="%s" ', $field_type );
-		return stripos( $this->content, $html ) !== false;
-	}
-
-
-	/**
 	 * @param string $response_html
 	 * @return string
 	 */
@@ -503,12 +490,26 @@ class MC4WP_Form {
 	}
 
 	/**
+	 * @param $type
+	 *
+	 * @return bool
+	 */
+	public function has_field_type( $type ) {
+		return in_array( strtolower( $type ), $this->get_field_types() );
+	}
+
+	/**
 	 * @return array
 	 */
 	public function get_field_types() {
-		$field_types = array();
-		preg_match_all( '/type=\"(\w+)?\"/', $this->content, $field_types );
-		return $field_types[1];
+		static $field_types;
+
+		if( ! $field_types ) {
+			preg_match_all( '/type=\"(\w+)?\"/', strtolower( $this->content ), $result );
+			$field_types = $result[1];
+		}
+
+		return $field_types;
 	}
 
 	/**
