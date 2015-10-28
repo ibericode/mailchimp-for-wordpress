@@ -118,7 +118,7 @@ class MC4WP_MailChimp {
 	}
 
 	/**
-	 * Get an array of list_id => number of subscribers 
+	 * Get an array of list_id => number of subscribers
 	 *
 	 * @return array
 	 */
