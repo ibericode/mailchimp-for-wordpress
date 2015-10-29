@@ -33,7 +33,7 @@ foreach( $map as $old_integration_slug => $new_integration_slug ) {
 
 	// check if integration is enabled using its old slug
 	$show_key = sprintf( 'show_at_%s', $old_integration_slug );
-	if( ! $old_options[ $show_key ] ) {
+	if( empty( $old_options[ $show_key ] ) ) {
 		continue;
 	}
 
