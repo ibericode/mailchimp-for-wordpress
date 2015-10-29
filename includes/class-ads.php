@@ -2,8 +2,6 @@
 
 /**
  * Class MC4WP_Ads
- *
- * @todo Write this class so it shows all "upgrade to pro" nags when Pro is not running.
  */
 class MC4WP_Ads {
 

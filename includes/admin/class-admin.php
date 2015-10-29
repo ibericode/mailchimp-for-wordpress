@@ -260,8 +260,6 @@ class MC4WP_Admin {
 
 	/**
 	 * Redirect to correct form action
-	 *
-	 * @todo Use `default_form_id` here?
 	 */
 	public function redirect_to_form_action() {
 
@@ -298,12 +296,10 @@ class MC4WP_Admin {
 	}
 
 	/**
-	* Validates the General settings
-	*
-	 * @todo split-up this method
-	* @param array $settings
-	* @return array
-	*/
+	 * Validates the General settings
+	 * @param array $settings
+	 * @return array
+	 */
 	public function save_general_settings( array $settings ) {
 
 		$current = mc4wp_get_options();

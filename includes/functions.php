@@ -31,8 +31,6 @@ function mc4wp_get_api() {
 	return $instance;
 }
 
-
-
 /**
  * Retrieves the URL of the current WordPress page
  *
@@ -52,11 +50,7 @@ function mc4wp_get_current_url() {
 
 	// concatenate request url to home url
 	$url = home_url( $site_request_uri );
-
-	// add trailing slash, if necessary
-	if( substr( $_SERVER['REQUEST_URI'] , -1 ) === '/' ) {
-		$url = trailingslashit( $url );
-	}
+	$url = trailingslashit( $url );
 
 	return esc_url( $url );
 }
