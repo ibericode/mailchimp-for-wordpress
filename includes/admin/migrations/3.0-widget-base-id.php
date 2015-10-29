@@ -26,7 +26,16 @@ foreach( $section_widgets as $section => $widgets ) {
 	}
 }
 
+
 // update option if we made changes
 if( $replaced ) {
 	update_option( 'sidebars_widgets', $section_widgets );
 }
+
+// update widget options
+$options = get_option( 'widget_mc4wp_widget', false );
+if( $options ) {
+	update_option( 'widget_mc4wp_form_widget', $options );
+	delete_option( 'widget_mc4wp_widget' );
+}
+

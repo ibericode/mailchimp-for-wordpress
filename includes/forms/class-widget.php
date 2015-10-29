@@ -26,7 +26,7 @@ class MC4WP_Form_Widget extends WP_Widget {
 		$this->default_instance_settings['title'] = __( 'Newsletter', 'mailchimp-for-wp' );
 
 		parent::__construct(
-			'MC4WP_Form_Widget', // Base ID
+			'mc4wp_form_widget', // Base ID
 			__( 'MailChimp Sign-Up Form', 'mailchimp-for-wp' ), // Name
 			array(
 				'description' => __( 'Displays your MailChimp for WordPress sign-up form', 'mailchimp-for-wp' ),

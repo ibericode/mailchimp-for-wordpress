@@ -5,6 +5,11 @@ defined( 'ABSPATH' ) or exit;
 // get options
 $form_options = get_option( 'mc4wp_lite_form' );
 
+// bail if there are no previous options
+if( ! is_array( $form_options ) ) {
+	return;
+}
+
 // create post type for form
 $id = wp_insert_post(
 	array(
