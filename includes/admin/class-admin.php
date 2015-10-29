@@ -127,8 +127,16 @@ class MC4WP_Admin {
 
 		//update_option( 'mc4wp_version', '2.3' );
 
+		// upgrade routine for upgrade routine....
+		$previous_version = get_option( 'mc4wp_lite_version', 0 );
+		if( $previous_version ) {
+			delete_option( 'mc4wp_lite_version' );
+			update_option( 'mc4wp_version', $previous_version );
+		}
+
 		// Only run if db option is at older version than code constant
 		$previous_version = get_option( 'mc4wp_version', 0 );
+
 		if( ! $previous_version || version_compare( MC4WP_VERSION, $previous_version, '<=' ) ) {
 			return false;
 		}
