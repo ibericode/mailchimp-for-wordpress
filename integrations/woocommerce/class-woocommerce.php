@@ -18,37 +18,12 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 	 * Add hooks
 	 */
 	public function add_hooks() {
-		add_filter( 'woocommerce_checkout_fields', array( $this, 'add_checkout_field' ), 20 );
+		add_action( 'woocommerce_checkout_shipping', array( $this, 'output_checkbox' ), 20 );
+		add_action( 'woocommerce_checkout_billing', array( $this, 'output_checkbox' ), 20 );
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save_woocommerce_checkout_checkbox_value' ) );
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'subscribe_from_woocommerce_checkout' ) );
 	}
 
-	/**
-	 * @return string
-	 */
-	public function get_position() {
-		return $this->options['position'];
-	}
-
-	/**
-	 * @param $fields
-	 * @todo change this to plain HTML
-	 * @return mixed
-	 */
-	public function add_checkout_field( $fields ) {
-
-		$default = $this->options['precheck'] ? 1 : 0;
-		$label = $this->get_label_text();
-		$position = $this->get_position();
-
-		$fields[ $position ]['_mc4wp_subscribe_woocommerce_checkout'] = array(
-			'type'    => 'checkbox',
-			'label'   => $label,
-			'default' => $default,
-		);
-
-		return $fields;
-	}
 
 	/**
 	* @param int $order_id
