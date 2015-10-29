@@ -108,16 +108,18 @@ class MC4WP_Form_Validator {
 	 * @return string|bool
 	 */
 	public function custom_validation() {
+
 		/**
-		 * @filter mc4wp_valid_form_request
-		 *
-		 * Use this to perform custom form validation.
-		 * Return true if the form is valid or an error string if it isn't.
-		 * Use the `mc4wp_form_messages` filter to register custom error messages.
+		 * @deprecated 3.0
 		 */
 		$valid_form_request = apply_filters( 'mc4wp_valid_form_request', true, $this->user_data );
 
-		return $valid_form_request;
+		/**
+		 * @since 3.0
+		 */
+		$is_valid = apply_filters( 'mc4wp_form_is_valid', $valid_form_request, $this->user_data );
+
+		return $is_valid;
 	}
 
 

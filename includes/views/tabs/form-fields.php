@@ -1,7 +1,7 @@
 <?php add_thickbox(); ?>
 
 <div class="alignright">
-	<a href="#TB_inline?width=600&height=550&inlineId=mc4wp-form-variables" class="thickbox button-secondary">
+	<a href="#TB_inline?width=0&height=550&inlineId=mc4wp-form-variables" class="thickbox button-secondary">
 		<span class="dashicons dashicons-info"></span>
 		<?php _e( 'Form variables', 'mailchimp-for-wp' ); ?>
 	</a>
@@ -31,7 +31,7 @@
 
 <?php // Content for Thickboxes ?>
 <div id="mc4wp-form-variables" style="display: none;">
-	<?php include dirname( __FILE__ ) . '/../parts/admin-form-variables.php'; ?>
+	<?php include dirname( __FILE__ ) . '/../parts/dynamic-content-tags.php'; ?>
 </div>
 
 <div id="mc4wp-add-field-help" style="display: none;">

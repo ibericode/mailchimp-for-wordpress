@@ -9,6 +9,7 @@ class MC4WP_Subscribe_Request extends MC4WP_Form_Request {
 	 */
 	public $map;
 
+
 	/**
 	 * Prepare data for MailChimp API request
 	 * @return bool
@@ -32,6 +33,7 @@ class MC4WP_Subscribe_Request extends MC4WP_Form_Request {
 	public function process() {
 		$api = mc4wp_get_api();
 
+		// @todo fix this parameter
 		do_action( 'mc4wp_before_subscribe', $this->user_data['EMAIL'], $this->user_data, 0 );
 
 		$result = false;

@@ -63,6 +63,9 @@ function mc4wp_load_plugin() {
 	// integration core
 	MC4WP_Integration_Manager::instance()->add_hooks();
 
+	// tags
+	MC4WP_Dynamic_Content_Tags::instance()->add_hooks();
+
 	// bootstrap custom integrations
 	require_once MC4WP_PLUGIN_DIR . 'integrations/bootstrap.php';
 

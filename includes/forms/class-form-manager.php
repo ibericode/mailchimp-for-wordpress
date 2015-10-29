@@ -3,6 +3,7 @@
 /**
  * This class takes care of all form related functionality
  *
+ * @class MC4WP_Form_Manager
  * @internal
 */
 class MC4WP_Form_Manager {

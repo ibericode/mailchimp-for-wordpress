@@ -36,7 +36,7 @@ class MC4WP_Form_Output_Manager {
 	 */
 	public function register_shortcode() {
 		// register shortcodes
-		add_shortcode( 'mc4wp_form', array( $this, 'output_shortcode' ) );
+		add_shortcode( 'mc4wp_form', array( $this, 'shortcode' ) );
 	}
 
 	/**
@@ -54,7 +54,7 @@ class MC4WP_Form_Output_Manager {
 	 * @param string $content
 	 * @return string
 	 */
-	public function output_shortcode( $attributes = array(), $content = '' ) {
+	public function shortcode( $attributes = array(), $content = '' ) {
 		$attributes = shortcode_atts(
 			$this->get_default_attributes(),
 			$attributes,
@@ -70,7 +70,7 @@ class MC4WP_Form_Output_Manager {
 	 *
 	 * @return string
 	 */
-	public function output_form( $id = 0, $attributes = array() ) {
+	public function output_form( $id = 0, $attributes = array(), $echo = false ) {
 
 		$attributes = array_merge( $this->get_default_attributes(), $attributes );
 
@@ -89,7 +89,13 @@ class MC4WP_Form_Output_Manager {
 		$this->printed_field_types += $form->get_field_types();
 		$this->printed_field_types = array_unique( $this->printed_field_types );
 
-		return $form->output( $attributes['element_id'], $attributes );
+		$html = $form->generate_html( $attributes['element_id'], $attributes );
+
+		if( $echo ) {
+			echo $html;
+		}
+
+		return $html;
 	}
 
 }

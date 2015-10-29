@@ -131,8 +131,7 @@ abstract class MC4WP_Integration {
 		$label = $this->options['label'];
 
 		// replace label variables
-		// @todo move this to filter?
-		$label = MC4WP_Tools::replace_variables( $label, array(), array_values( $this->options['lists'] ) );
+		$label = MC4WP_Dynamic_Content_Tags::instance()->replace_in_html( $label );
 
 		return $label;
 	}

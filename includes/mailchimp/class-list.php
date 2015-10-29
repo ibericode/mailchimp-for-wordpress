@@ -55,6 +55,9 @@ class MC4WP_MailChimp_List {
 	 */
 	public function get_field_name_by_tag( $tag ) {
 
+		// ensure uppercase tagname
+		$tag = strtoupper( $tag );
+
 		// try default fields
 		switch( $tag ) {
 			case 'EMAIL':

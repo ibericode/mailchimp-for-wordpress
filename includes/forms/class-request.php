@@ -114,7 +114,7 @@ abstract class MC4WP_Form_Request extends MC4WP_Request {
 	 */
 	protected function normalize_data( array $data ) {
 
-		// uppercase all data keys
+		// lowercase all data keys
 		$data = array_change_key_case( $data, CASE_UPPER );
 
 		// strip slashes on everything
@@ -216,12 +216,9 @@ abstract class MC4WP_Form_Request extends MC4WP_Request {
 	 * @return string
 	 */
 	protected function get_redirect_url() {
-		$additional_replacements = array(
-			'{form_id}' => $this->form->ID,
-			'{form_element}' => $this->form_element_id,
-			'{email}' => urlencode( $this->user_data['EMAIL'] )
-		);
-		$url = MC4WP_Tools::replace_variables( $this->form->settings['redirect'], $additional_replacements, null, 'url' );
+		$url = $this->form->settings['redirect'];
+		$dynamic_content = MC4WP_Dynamic_Content_Tags::instance();
+		$url = $dynamic_content->replace_in_url( $url );
 		return $url;
 	}
 
@@ -237,6 +234,7 @@ abstract class MC4WP_Form_Request extends MC4WP_Request {
 
 			/**
 			 * @action mc4wp_form_success
+			 * @todo clean-up
 			 *
 			 * Use to hook into successful form sign-ups
 			 *

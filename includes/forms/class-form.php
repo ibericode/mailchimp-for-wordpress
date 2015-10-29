@@ -456,7 +456,7 @@ class MC4WP_Form {
 		 *
 		 * Allows registering custom form messages, useful if you're using custom validation using the `mc4wp_valid_form_request` filter.
 		 */
-		$messages = apply_filters( 'mc4wp_form_messages', $messages, $this->ID );
+		$messages = apply_filters( 'mc4wp_form_messages', $messages, $this );
 
 		return (array) $messages;
 	}
