@@ -4,6 +4,8 @@
  * Class MC4WP_Dynamic_Content_Tags
  *
  * @api
+ * @todo Get this to work in "text" settings (integration labels, form messages)
+ * @todo Get this to work while being context-aware (subscribers_count, etc..)
  */
 class MC4WP_Dynamic_Content_Tags {
 
@@ -26,6 +28,7 @@ class MC4WP_Dynamic_Content_Tags {
 	 * @return MC4WP_Dynamic_Content_Tags
 	 */
 	public static function instance() {
+		
 		if( self::$instance instanceof MC4WP_Dynamic_Content_Tags ) {
 			return self::$instance;
 		}
@@ -42,6 +45,8 @@ class MC4WP_Dynamic_Content_Tags {
 
 	/**
 	 * Add hooks
+	 *
+	 * @todo Move out of this class
 	 */
 	public function add_hooks() {
 		add_filter( 'mc4wp_form_content', array( $this, 'replace_in_html' ) );
@@ -78,6 +83,8 @@ class MC4WP_Dynamic_Content_Tags {
 	}
 
 	/**
+	 * @todo Move default tags out of this class
+	 *
 	 * @return array
 	 */
 	public function get_tags() {
@@ -172,8 +179,8 @@ class MC4WP_Dynamic_Content_Tags {
 	}
 
 	/**
-	 * @param string $string
-	 * @param string $escape_mode
+	 * @param string $string The string containing dynamic content tags.
+	 * @param string $escape_mode Escape mode for the replacement value.
 	 * @return string
 	 */
 	public function replace( $string, $escape_mode = 'attributes' ) {
@@ -210,6 +217,8 @@ class MC4WP_Dynamic_Content_Tags {
 	}
 
 	/**
+	 * @todo Move out of this class
+	 *
 	 * @return string
 	 */
 	public function get_current_path() {
@@ -217,6 +226,8 @@ class MC4WP_Dynamic_Content_Tags {
 	}
 
 	/**
+	 * @todo Move out of this class
+	 *
 	 * @param $args
 	 *
 	 * @return string
@@ -233,6 +244,8 @@ class MC4WP_Dynamic_Content_Tags {
 	}
 
 	/**
+	 * @todo Move out of this class
+	 *
 	 * @param array $args
 	 *
 	 * @return string

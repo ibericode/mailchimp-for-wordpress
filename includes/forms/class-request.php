@@ -315,6 +315,7 @@ abstract class MC4WP_Form_Request extends MC4WP_Request {
 		$message = ( isset( $messages[ $this->message_type ] ) ) ? $messages[ $this->message_type ] : $messages['error'];
 
 		// replace variables in message text
+		// @todo get rid of this and use new Dynamic Content class.
 		$message['text'] = MC4WP_Tools::replace_variables( $message['text'], array(), array_values( $this->get_lists() ) );
 
 		$html = '<div class="mc4wp-alert mc4wp-' . esc_attr( $message['type'] ) . '"><p>' . $message['text'] . '</p></div>';

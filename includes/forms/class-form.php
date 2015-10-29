@@ -104,6 +104,7 @@ class MC4WP_Form {
 			'{response}' => $response_html,
 		);
 
+		// @todo get rid of this
 		$visible_fields = MC4WP_Tools::replace_variables( $this->content, $replacements, array_values( $this->settings['lists'] ) );
 
 		/**
