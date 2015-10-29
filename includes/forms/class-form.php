@@ -472,10 +472,6 @@ class MC4WP_Form {
 		$meta = get_post_meta( $this->ID, '_mc4wp_settings', true );
 
 		if( is_array( $meta ) ) {
-
-			// filter empty meta keys, better use default then.
-			$meta = array_filter( $meta );
-
 			// merge with defaults
 			$settings = array_merge( $settings, $meta );
 		}
