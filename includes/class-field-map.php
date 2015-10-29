@@ -115,7 +115,7 @@ class MC4WP_Field_Map {
 		// check if field is required
 		if( $field->req ) {
 			if( empty( $this->data[ $field->tag ] ) ) {
-				throw new Exception( sprintf( "Required field %s is missing.", $field->name ), 'required_field_missing' );
+				throw new Exception( sprintf( "Required field %s is missing.", $field->name ), 400 );
 			}
 		}
 

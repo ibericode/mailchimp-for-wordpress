@@ -17,7 +17,10 @@ class MC4WP_Subscribe_Request extends MC4WP_Form_Request {
 		try{
 			$this->map = new MC4WP_Field_Map( $this->user_data, $this->get_lists() );
 		} catch( Exception $e ) {
-			$this->message_type = $e->getCode();
+			if( $e->getCode() === 400 ) {
+				$this->message_type = 'required_field_missing';
+				return false;
+			};
 		}
 
 		return true;
