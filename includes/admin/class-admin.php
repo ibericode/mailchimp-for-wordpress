@@ -37,7 +37,7 @@ class MC4WP_Admin {
 		$this->messages = new MC4WP_Admin_Messages();
 
 		$this->load_translations();
-		
+
 		$options = mc4wp_get_options();
 		if( ! $options['allow_usage_tracking'] ) {
 			$this->usage_tracking_nag = new MC4WP_Usage_Tracking_Nag( $this->get_required_capability() );
