@@ -2,7 +2,9 @@
 
 /**
  * Class MC4WP_Field_Map
+ *
  * @internal
+ * @since 2.x
  */
 class MC4WP_Field_Map {
 

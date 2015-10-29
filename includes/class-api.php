@@ -4,6 +4,8 @@
  * Takes care of requests to the MailChimp API
  *
  * @uses WP_HTTP
+ * @api
+ * @since 1.0
  */
 class MC4WP_API {
 

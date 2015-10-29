@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Class MC4WP_Data_Parser
+ *
+ * @internal
+ * @since 3.0
+ */
 class MC4WP_Data_Parser {
 
 	/**

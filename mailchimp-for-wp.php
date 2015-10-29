@@ -38,7 +38,6 @@ defined( 'ABSPATH' ) or exit;
 function mc4wp_load_plugin() {
 
 	// this means an older version of Pro is activated
-	// let that code take over
 	if( defined( 'MC4WP_VERSION' ) ) {
 		return false;
 	}
@@ -54,7 +53,8 @@ function mc4wp_load_plugin() {
 	// Initialize admin section of plugin
 	if( is_admin()
 	    && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-		new MC4WP_Admin();
+		$admin = new MC4WP_Admin();
+		$admin->add_hooks();
 	}
 
 	// forms
@@ -66,7 +66,7 @@ function mc4wp_load_plugin() {
 	// bootstrap custom integrations
 	require_once MC4WP_PLUGIN_DIR . 'integrations/bootstrap.php';
 
-	// Doing cron?
+	// Doing cron? Load Usage Tracking class.
 	if( defined( 'DOING_CRON' ) && DOING_CRON ) {
 		MC4WP_Usage_Tracking::instance()->add_hooks();
 	}

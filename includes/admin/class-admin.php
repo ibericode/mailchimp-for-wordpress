@@ -13,6 +13,21 @@ class MC4WP_Admin {
 	protected $mailchimp;
 
 	/**
+	 * @var MC4WP_Admin_Messages
+	 */
+	protected $messages;
+
+	/**
+	 * @var MC4WP_Ads
+	 */
+	protected $ads;
+
+	/**
+	 * @var
+	 */
+	protected $usage_tracking_nag;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -22,14 +37,54 @@ class MC4WP_Admin {
 		$this->messages = new MC4WP_Admin_Messages();
 
 		$this->load_translations();
-		$this->add_hooks();
 
 		$options = mc4wp_get_options();
 		if( ! $options['allow_usage_tracking'] ) {
-			$usage_tracking_nag = new MC4WP_Usage_Tracking_Nag( $this->get_required_capability() );
-			$usage_tracking_nag->add_hooks();
+			$this->usage_tracking_nag = new MC4WP_Usage_Tracking_Nag( $this->get_required_capability() );
 		}
 	}
+
+	/**
+	 * Registers all hooks
+	 */
+	public function add_hooks() {
+
+		// Actions used globally throughout WP Admin
+		add_action( 'admin_menu', array( $this, 'build_menu' ) );
+		add_action( 'admin_init', array( $this, 'initialize' ) );
+		add_action( 'current_screen', array( $this, 'customize_admin_texts' ) );
+		add_action( 'wp_dashboard_setup', array( $this, 'register_dashboard_widgets' ) );
+		add_action( 'mc4wp_admin_empty_lists_cache', array( $this, 'renew_lists_cache' ) );
+		add_action( 'mc4wp_admin_edit_form', array( $this, 'process_save_form' ) );
+		add_action( 'mc4wp_admin_add_form', array( $this, 'process_add_form' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+
+		$this->ads->add_hooks();
+		$this->messages->add_hooks();
+
+		if( $this->usage_tracking_nag instanceof MC4WP_Usage_Tracking_Nag ) {
+			$this->usage_tracking_nag->add_hooks();
+		}
+	}
+
+	/**
+	 * Initializes various stuff used in WP Admin
+	 *
+	 * - Registers settings
+	 */
+	public function initialize() {
+
+		// register settings
+		register_setting( 'mc4wp_settings', 'mc4wp', array( $this, 'save_general_settings' ) );
+		register_setting( 'mc4wp_integrations_settings', 'mc4wp_integrations', array( $this, 'save_integration_settings' ) );
+
+		// Load upgrader
+		$this->init_upgrade_routines();
+
+		// listen for custom actions
+		$this->listen_for_actions();
+	}
+
 
 	/**
 	 * Listen for `_mc4wp_action` requests
@@ -68,16 +123,18 @@ class MC4WP_Admin {
 	/**
 	 * Upgrade routine
 	 */
-	private function load_upgrader() {
+	private function init_upgrade_routines() {
+
+		//update_option( 'mc4wp_version', '2.3' );
 
 		// Only run if db option is at older version than code constant
-		$db_version = get_option( 'mc4wp_lite_version', 0 );
-		if( version_compare( MC4WP_VERSION, $db_version, '<=' ) ) {
+		$previous_version = get_option( 'mc4wp_version', 0 );
+		if( ! $previous_version || version_compare( MC4WP_VERSION, $previous_version, '<=' ) ) {
 			return false;
 		}
 
-		$upgrader = new MC4WP_DB_Upgrader( MC4WP_VERSION, $db_version );
-		$upgrader->run();
+		$upgrade_routines = new MC4WP_Upgrade_Routines( $previous_version, MC4WP_VERSION );
+		$upgrade_routines->run();
 	}
 
 	/**
@@ -174,24 +231,6 @@ class MC4WP_Admin {
 		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) );
 	}
 
-	/**
-	 * Registers all hooks
-	 */
-	private function add_hooks() {
-
-		// Actions used globally throughout WP Admin
-		add_action( 'admin_menu', array( $this, 'build_menu' ) );
-		add_action( 'admin_init', array( $this, 'initialize' ) );
-		add_action( 'current_screen', array( $this, 'customize_admin_texts' ) );
-		add_action( 'wp_dashboard_setup', array( $this, 'register_dashboard_widgets' ) );
-		add_action( 'mc4wp_admin_empty_lists_cache', array( $this, 'renew_lists_cache' ) );
-		add_action( 'mc4wp_admin_edit_form', array( $this, 'process_save_form' ) );
-		add_action( 'mc4wp_admin_add_form', array( $this, 'process_add_form' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
-
-		$this->ads->add_hooks();
-		$this->messages->add_hooks();
-	}
 
 	/**
 	 * Renew MailChimp lists cache
@@ -223,27 +262,6 @@ class MC4WP_Admin {
 		$texts = new MC4WP_Admin_Texts( $this->plugin_file );
 		$texts->add_hooks();
 	}
-
-	/**
-	 * Initializes various stuff used in WP Admin
-	 *
-	 * - Registers settings
-	 * - Checks if the Captcha plugin is activated
-	 * - Loads the plugin text domain
-	 */
-	public function initialize() {
-
-		// register settings
-		register_setting( 'mc4wp_settings', 'mc4wp', array( $this, 'save_general_settings' ) );
-		register_setting( 'mc4wp_integrations_settings', 'mc4wp_integrations', array( $this, 'save_integration_settings' ) );
-
-		// Load upgrader
-		$this->load_upgrader();
-
-		// listen for custom actions
-		$this->listen_for_actions();
-	}
-
 
 
 	/**
@@ -301,40 +319,14 @@ class MC4WP_Admin {
 			MC4WP_Usage_Tracking::instance()->toggle( (bool) $settings['allow_usage_tracking'] );
 		}
 
-		// sanitize simple text fields (no HTML, just chars & numbers)
-		$simple_text_fields = array( 'api_key', 'redirect', 'css' );
-		foreach( $simple_text_fields as $field ) {
-			if( isset( $settings[ $field ] ) ) {
-				$settings[ $field ] = sanitize_text_field( $settings[ $field ] );
+		// Sanitize API key & empty cache when API key changed
+		if( isset( $settings['api_key'] ) ) {
+
+			$settings['api_key'] = sanitize_text_field( $settings['api_key'] );
+
+			if ( $settings['api_key'] !== $current['api_key'] ) {
+				$this->mailchimp->empty_cache();
 			}
-		}
-
-		// if api key changed, empty cache
-		if( isset( $settings['api_key'] ) && $settings['api_key'] !== $current['general']['api_key'] ) {
-			$this->mailchimp->empty_cache();
-		}
-
-		// validate woocommerce checkbox position
-		if( isset( $settings['woocommerce_position'] ) ) {
-			// make sure position is either 'order' or 'billing'
-			if( ! in_array( $settings['woocommerce_position'], array( 'order', 'billing' ) ) ) {
-				$settings['woocommerce_position'] = 'billing';
-			}
-		}
-
-		// dynamic sanitization
-		foreach( $settings as $setting => $value ) {
-			// strip special tags from text settings
-			if( substr( $setting, 0, 5 ) === 'text_' || $setting === 'label' ) {
-				$value = trim( $value );
-				$value = strip_tags( $value, '<a><b><strong><em><i><br><u><script><span><abbr><strike>' );
-				$settings[ $setting ] = $value;
-			}
-		}
-
-		// strip <form> from form mark-up
-		if( isset( $settings[ 'markup'] ) ) {
-			$settings[ 'markup' ] = preg_replace( '/<\/?form(.|\s)*?>/i', '', $settings[ 'markup'] );
 		}
 
 		return $settings;
