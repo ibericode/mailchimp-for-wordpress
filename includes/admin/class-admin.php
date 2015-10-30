@@ -85,20 +85,68 @@ class MC4WP_Lite_Admin
 
 	/**
 	 * Prevents v3.x updates from showing
+	 *
+	 * @todo refactor this a bit
+	 * @todo add UI for opting in to 3.0 update
 	 */
 	public function hide_major_plugin_updates( $data ) {
+
+		// fake set new version to 3.0 (for testing)
+//		$data->response[ $this->plugin_file ] = $data->no_update[ $this->plugin_file ];
+//		$data->response[ $this->plugin_file ]->new_version = "3.0.0";
 
 		// do we have an update for this plugin?
 		if( isset( $data->response[ $this->plugin_file ]->new_version ) ) {
 
 			// check if this is a major update and if so, remove it from the response object
-			if( version_compare( $data->response[ $this->plugin_file ]->new_version, '3.0.0', '>=' ) ) {
-				unset( $data->response[ $this->plugin_file ] );
+			if ( version_compare( $data->response[ $this->plugin_file ]->new_version, '3.0.0', '>=' ) ) {
+
+				// did user opt-in to 3.0?
+				$update_to_3x = get_option( 'mc4wp_update_to_3x', false );
+				if ( ! $update_to_3x ) {
+
+					$json = $this->get_latest_minor_update();
+					if ( is_object( $json ) ) {
+						// merge update details with details from w.org
+						$data->response[ $this->plugin_file ] = (object) array_merge(
+							(array) $data->response[ $this->plugin_file ],
+							(array) $json
+						);
+					} else {
+						// if something failed, just unset the update.
+						unset( $data->response[ $this->plugin_file ] );
+					}
+
+				}
+
 			}
 		}
 
+		echo '<pre>';
+		var_dump( $data );
+
+
 		// return modified updates data
 		return $data;
+	}
+
+	/**
+	 * @todo clean-up
+	 *
+	 * @return array|mixed|object
+	 */
+	private function get_latest_minor_update() {
+
+		static $json;
+
+		if( ! $json ) {
+			// get latest 2x version
+			$response = wp_remote_get( 'https://s3.amazonaws.com/ibericode/mailchimp-for-wp-update-info-2.x.json' );
+			$body     = wp_remote_retrieve_body( $response );
+			$json     = json_decode( $body );
+		}
+
+		return $json;
 	}
 
 	/**
