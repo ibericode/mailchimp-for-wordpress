@@ -53,18 +53,26 @@ class MC4WP_Usage_Tracking {
 	}
 
 	/**
+	 * Enable usage tracking
+	 */
+	public function enable() {
+		return wp_schedule_event( time(), 'weekly', 'mc4wp_usage_tracking' );
+	}
+
+	/**
+	 * Disable usage tracking
+	 */
+	public function disable() {
+		wp_clear_scheduled_hook( 'mc4wp_usage_tracking' );
+	}
+
+	/**
 	 * Toggle tracking (clears & sets the scheduled tracking event)
 	 *
-	 * @param bool $enabled
+	 * @param bool $enable
 	 */
-	public function toggle( $enabled ) {
-
-		if( ! $enabled ) {
-			wp_clear_scheduled_hook( 'mc4wp_usage_tracking' );
-			return;
-		}
-
-		wp_schedule_event( time(), 'weekly', 'mc4wp_usage_tracking' );
+	public function toggle( $enable ) {
+		$enable ? $this->enable() : $this->disable();
 	}
 
 	/**

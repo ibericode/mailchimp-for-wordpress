@@ -25,16 +25,37 @@ class MC4WP_Lite_Admin
 
 		$this->plugin_file = plugin_basename( MC4WP_LITE_PLUGIN_FILE );
 		$this->mailchimp = new MC4WP_MailChimp();
-		$this->load_translations();
-		$this->setup_hooks();
-		$this->listen();
+		$this->update_control = new MC4WP_Update_Control( $this->plugin_file );
 
-		// Instantiate Usage Tracking nag
-		$options = mc4wp_get_options( 'general' );
-		if( ! $options['allow_usage_tracking'] ) {
-			$usage_tracking_nag = new MC4WP_Usage_Tracking_Nag( $this->get_required_capability() );
-			$usage_tracking_nag->add_hooks();
+		$this->load_translations();
+	}
+
+	/**
+	 * Registers all hooks
+	 */
+	public function add_hooks() {
+
+		global $pagenow;
+		$current_page = isset( $pagenow ) ? $pagenow : '';
+
+		// Actions used globally throughout WP Admin
+		add_action( 'admin_init', array( $this, 'initialize' ) );
+		add_action( 'admin_menu', array( $this, 'build_menu' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'load_css_and_js' ) );
+		add_filter( 'admin_footer_text', array( $this, 'footer_text' ) );
+
+		// Hooks for Plugins overview page
+		if( $current_page === 'plugins.php' ) {
+			add_filter( 'plugin_action_links_' . $this->plugin_file, array( $this, 'add_plugin_settings_link' ), 10, 2 );
+			add_filter( 'plugin_row_meta', array( $this, 'add_plugin_meta_links'), 10, 2 );
 		}
+
+		// Hooks for Form settings page
+		if( $this->get_current_page() === 'mailchimp-for-wp-form-settings' ) {
+			add_filter( 'quicktags_settings', array( $this, 'set_quicktags_buttons' ), 10, 2 );
+		}
+
+		$this->update_control->add_hooks();
 	}
 
 	/**
@@ -52,98 +73,6 @@ class MC4WP_Lite_Admin
 		$upgrader->run();
 	}
 
-	/**
-	 * Registers all hooks
-	 */
-	private function setup_hooks() {
-
-		global $pagenow;
-		$current_page = isset( $pagenow ) ? $pagenow : '';
-
-		// Actions used globally throughout WP Admin
-		add_action( 'admin_init', array( $this, 'initialize' ) );
-		add_action( 'admin_menu', array( $this, 'build_menu' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'load_css_and_js' ) );
-		add_filter( 'admin_footer_text', array( $this, 'footer_text' ) );
-
-		// Hooks for Plugins overview page
-		if( $current_page === 'plugins.php' ) {
-			$this->plugin_file = plugin_basename( MC4WP_LITE_PLUGIN_FILE );
-
-			add_filter( 'plugin_action_links_' . $this->plugin_file, array( $this, 'add_plugin_settings_link' ), 10, 2 );
-			add_filter( 'plugin_row_meta', array( $this, 'add_plugin_meta_links'), 10, 2 );
-		}
-
-		// Hooks for Form settings page
-		if( $this->get_current_page() === 'mailchimp-for-wp-form-settings' ) {
-			add_filter( 'quicktags_settings', array( $this, 'set_quicktags_buttons' ), 10, 2 );
-		}
-
-		// hide major plugin updates for everyone
-		add_filter( 'site_transient_update_plugins', array( $this, 'hide_major_plugin_updates' ) );
-	}
-
-	/**
-	 * Prevents v3.x updates from showing
-	 *
-	 * @todo refactor this a bit
-	 * @todo add UI for opting in to 3.0 update
-	 */
-	public function hide_major_plugin_updates( $data ) {
-
-		// fake set new version to 3.0 (for testing)
-//		$data->response[ $this->plugin_file ] = $data->no_update[ $this->plugin_file ];
-//		$data->response[ $this->plugin_file ]->new_version = "3.0.0";
-
-		// do we have an update for this plugin?
-		if( isset( $data->response[ $this->plugin_file ]->new_version ) ) {
-
-			// check if this is a major update and if so, remove it from the response object
-			if ( version_compare( $data->response[ $this->plugin_file ]->new_version, '3.0.0', '>=' ) ) {
-
-				// did user opt-in to 3.0?
-				$update_to_3x = get_option( 'mc4wp_update_to_3x', false );
-				if ( ! $update_to_3x ) {
-
-					$json = $this->get_latest_minor_update();
-					if ( is_object( $json ) ) {
-						// merge update details with details from w.org
-						$data->response[ $this->plugin_file ] = (object) array_merge(
-							(array) $data->response[ $this->plugin_file ],
-							(array) $json
-						);
-					} else {
-						// if something failed, just unset the update.
-						unset( $data->response[ $this->plugin_file ] );
-					}
-
-				}
-
-			}
-		}
-
-		// return modified updates data
-		return $data;
-	}
-
-	/**
-	 * @todo clean-up
-	 *
-	 * @return array|mixed|object
-	 */
-	private function get_latest_minor_update() {
-
-		static $json;
-
-		if( ! $json ) {
-			// get latest 2x version
-			$response = wp_remote_get( 'https://s3.amazonaws.com/ibericode/mailchimp-for-wp-update-info-2.x.json' );
-			$body     = wp_remote_retrieve_body( $response );
-			$json     = json_decode( $body );
-		}
-
-		return $json;
-	}
 
 	/**
 	 * Load the plugin translations
@@ -171,6 +100,7 @@ class MC4WP_Lite_Admin
 		$this->has_captcha_plugin = function_exists( 'cptch_display_captcha_custom' );
 
 		$this->load_upgrader();
+		$this->listen();
 	}
 
 	/**
