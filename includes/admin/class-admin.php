@@ -122,10 +122,6 @@ class MC4WP_Lite_Admin
 			}
 		}
 
-		echo '<pre>';
-		var_dump( $data );
-
-
 		// return modified updates data
 		return $data;
 	}
