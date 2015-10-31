@@ -43,7 +43,13 @@ var Tabs = function(context) {
 
 		// show target tab
 		var targetId = "tab-" + tab;
-		document.getElementById(targetId).style.display = 'block';
+		var targetTab = document.getElementById(targetId);
+
+		if( ! targetTab ) {
+			return false;
+		}
+
+		targetTab.style.display = 'block';
 
 		// create new URL
 		var url = URL.setParameter(window.location.href, "tab", tab );
@@ -60,12 +66,12 @@ var Tabs = function(context) {
 		if( typeof(tb_remove) === "function" ) {
 			tb_remove();
 		}
+
+		return true;
 	}
 
 
 	function switchTab(e) {
-
-		e.preventDefault();
 
 		var tab = this.dataset.tab;
 		if( ! tab ) {
@@ -77,10 +83,14 @@ var Tabs = function(context) {
 			tab = urlParams.tab;
 		}
 
-		open( tab );
+		var opened = open( tab );
 
-		// prevent page jump
-		return false;
+		if( opened ) {
+			e.preventDefault();
+			return false;
+		}
+
+		return true;
 	}
 
 	$tabNavs.click(switchTab);

@@ -10,20 +10,27 @@
 				<option value="0" <?php selected( $opts['css'], 0 ); ?>><?php printf( __( 'Inherit from %s theme', 'mailchimp-for-wp' ), $theme->Name ); ?></option>
 				<option value="form-basic" <?php selected( $opts['css'], 'form-basic' ); ?><?php selected( $opts['css'], 1 ); ?>><?php _e( 'Basic', 'mailchimp-for-wp' ); ?></option>
 				<optgroup label="<?php _e( 'Form Themes', 'mailchimp-for-wp' ); ?>">
+
+					<?php do_action( 'mc4wp_admin_before_form_theme_options' ); ?>
+
 					<option value="form-theme-light" <?php selected( $opts['css'], 'form-theme-light' ); ?>><?php _e( 'Light Theme', 'mailchimp-for-wp' ); ?></option>
 					<option value="form-theme-dark" <?php selected( $opts['css'], 'form-theme-dark' ); ?>><?php _e( 'Dark Theme', 'mailchimp-for-wp' ); ?></option>
 					<option value="form-theme-red" <?php selected( $opts['css'], 'form-theme-red' ); ?>><?php _e( 'Red Theme', 'mailchimp-for-wp' ); ?></option>
 					<option value="form-theme-green" <?php selected( $opts['css'], 'form-theme-green' ); ?>><?php _e( 'Green Theme', 'mailchimp-for-wp' ); ?></option>
 					<option value="form-theme-blue" <?php selected( $opts['css'], 'form-theme-blue' ); ?>><?php _e( 'Blue Theme', 'mailchimp-for-wp' ); ?></option>
-					<option disabled><?php _e( '(PRO ONLY)', 'mailchimp-for-wp' ); ?> <?php _e( 'Custom Color Theme', 'mailchimp-for-wp' ); ?></option>
+
+					<?php do_action( 'mc4wp_admin_after_form_theme_options', $opts, $form ); ?>
+
 				</optgroup>
 			</select>
 			<p class="help">
 				<?php _e( 'If you want to load some default CSS styles, select "basic formatting styles" or choose one of the color themes' , 'mailchimp-for-wp' ); ?>
 			</p>
 		</td>
-
 	</tr>
+
+	<?php do_action( 'mc4wp_admin_form_after_appearance_settings_rows', $opts, $form ); ?>
+
 </table>
 
 <?php submit_button(); ?>

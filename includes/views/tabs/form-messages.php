@@ -2,6 +2,9 @@
 
 
 <table class="form-table mc4wp-form-messages">
+
+	<?php do_action( 'mc4wp_admin_form_before_messages_settings_rows', $opts, $form ); ?>
+
 	<tr valign="top">
 		<th scope="row"><label for="mc4wp_form_text_subscribed"><?php _e( 'Successfully subscribed', 'mailchimp-for-wp' ); ?></label></th>
 		<td colspan="2" >
@@ -57,6 +60,9 @@
 			<p class="help"><?php printf( __( 'HTML tags like %s are allowed in the message fields.', 'mailchimp-for-wp' ), '<code>' . esc_html( '<strong><em><a>' ) . '</code>' ); ?></p>
 		</td>
 	</tr>
+
+	<?php do_action( 'mc4wp_admin_form_after_messages_settings_rows', $opts, $form ); ?>
+
 </table>
 
 <?php submit_button(); ?>

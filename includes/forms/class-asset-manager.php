@@ -9,7 +9,7 @@ class MC4WP_Form_Asset_Manager {
 	/**
 	 * @var MC4WP_Form_Output_Manager
 	 */
-	private $output_manager;
+	public $output_manager;
 
 	/**
 	 * Constructor
@@ -106,6 +106,7 @@ class MC4WP_Form_Asset_Manager {
 		echo '})();';
 		echo '</script>';
 
+		do_action( 'mc4wp_form_print_javascript', $this );
 
 
 		// was any of the printed forms submitted?

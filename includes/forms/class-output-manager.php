@@ -45,7 +45,7 @@ class MC4WP_Form_Output_Manager {
 	public function get_default_attributes() {
 		return array(
 			'id' => 0,
-			'element_id' => 'mc4wp-form-' . count( $this->printed_forms )
+			'element_id' => 'mc4wp-form-' . ( count( $this->printed_forms ) + 1 )
 		);
 	}
 
@@ -94,6 +94,8 @@ class MC4WP_Form_Output_Manager {
 		if( $echo ) {
 			echo $html;
 		}
+
+		do_action( 'mc4wp_form_output', $form );
 
 		return $html;
 	}

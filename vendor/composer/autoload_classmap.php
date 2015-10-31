@@ -93,6 +93,7 @@ return array(
     'MC4WP_MailChimp_Grouping' => $baseDir . '/includes/mailchimp/class-grouping.php',
     'MC4WP_MailChimp_List' => $baseDir . '/includes/mailchimp/class-list.php',
     'MC4WP_MailChimp_Merge_Var' => $baseDir . '/includes/mailchimp/class-merge-var.php',
+    'MC4WP_Plugin' => $baseDir . '/includes/class-plugin.php',
     'MC4WP_Registration_Form_Integration' => $baseDir . '/integrations/wp-registration-form/class-registration-form.php',
     'MC4WP_Remote_Content_Block' => $baseDir . '/includes/admin/class-remote-content-block.php',
     'MC4WP_Request' => $baseDir . '/includes/class-request.php',

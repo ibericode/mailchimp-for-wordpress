@@ -5,6 +5,9 @@
 <h3><?php echo __( 'MailChimp specific settings', 'mailchimp-for-wp' ); ?></h3>
 
 <table class="form-table" style="table-layout: fixed;">
+
+	<?php do_action( 'mc4wp_admin_form_after_mailchimp_settings_rows', $opts, $form ); ?>
+
 	<tr valign="top">
 		<th scope="row" style="width: 250px;"><?php _e( 'Lists this form subscribes to', 'mailchimp-for-wp' ); ?></th>
 		<?php // loop through lists
@@ -85,28 +88,19 @@
 			</p>
 		</td>
 	</tr>
+
+	<?php do_action( 'mc4wp_admin_form_after_mailchimp_settings_rows', $opts, $form ); ?>
+
 </table>
 
 <div class="medium-margin"></div>
 
 <h3><?php _e( 'Form behaviour', 'mailchimp-for-wp' ); ?></h3>
+
 <table class="form-table" style="table-layout: fixed;">
-	<tr valign="top" class="pro-feature">
-		<th scope="row" style="width: 250px;"><?php _e( 'Enable AJAX form submission?', 'mailchimp-for-wp' ); ?></th>
-		<td class="nowrap">
-			<label>
-				<input type="radio" disabled />
-				<?php _e( 'Yes', 'mailchimp-for-wp' ); ?>
-			</label> &nbsp;
-			<label>
-				<input type="radio" checked disabled />
-				<?php _e( 'No', 'mailchimp-for-wp' ); ?>
-			</label>
-			<p class="help">
-				<?php _e( 'Select "yes" if you want to use AJAX (JavaScript) to submit forms.', 'mailchimp-for-wp' ); ?> <a href="https://mc4wp.com/demo/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-demo-link">(demo)</a>
-			</p>
-		</td>
-	</tr>
+
+	<?php do_action( 'mc4wp_admin_form_before_behaviour_settings_rows', $opts, $form ); ?>
+
 	<tr valign="top">
 		<th scope="row"><?php _e( 'Hide form after a successful sign-up?', 'mailchimp-for-wp' ); ?></th>
 		<td class="nowrap">
@@ -130,6 +124,9 @@
 			<p class="help"><?php _e( 'Leave empty or enter <code>0</code> for no redirect. Otherwise, use complete (absolute) URLs, including <code>http://</code>.', 'mailchimp-for-wp' ); ?></p>
 		</td>
 	</tr>
+
+	<?php do_action( 'mc4wp_admin_form_after_behaviour_settings_rows', $opts, $form ); ?>
+
 </table>
 
 <?php submit_button(); ?>

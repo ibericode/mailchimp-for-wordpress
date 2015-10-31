@@ -355,6 +355,7 @@ class MC4WP_Form {
 
 		// the following classes MUST be used
 		$css_classes[] = 'mc4wp-form';
+		$css_classes[] = 'mc4wp-form-' . $this->ID;
 
 		// Add form classes if this specific form instance was submitted
 		if( $this->is_submitted( $element_id ) ) {
