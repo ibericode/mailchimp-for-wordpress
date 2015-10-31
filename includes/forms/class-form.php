@@ -373,7 +373,7 @@ class MC4WP_Form {
 		// add class for CSS targetting
 		if( $this->settings['css'] ) {
 
-			if( strpos( $this->settings['css'], 'form-theme' ) !== false ) {
+			if( strpos( $this->settings['css'], 'form-theme' ) === 0 ) {
 				$css_classes[] = 'mc4wp-form-theme';
 			}
 
