@@ -18,10 +18,7 @@ $tabs = array(
 				<?php _e( "Edit Form", 'mailchimp-for-wp' ); ?>
 
 				<!-- Form actions -->
-				<a href="<?php echo add_query_arg( array( 'page' => 'mailchimp-for-wp-forms', 'view' => 'add-form' ), remove_query_arg( 'form_id' ) ); ?>" class="page-title-action">
-					<span class="dashicons dashicons-plus-alt" style=""></span>
-					<?php _e( 'Add new form', 'mailchimp-for-wp' ); ?>
-				</a>
+				<?php do_action( 'mc4wp_admin_edit_forms_after_title' ); ?>
 			</h1>
 
 			<h2 style="display: none;"></h2><?php // fake h2 for admin notices ?>

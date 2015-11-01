@@ -530,15 +530,14 @@ class MC4WP_Admin {
 	 */
 	public function show_forms_page() {
 
+		do_action( 'mc4wp_admin_show_forms_page' );
+
 		// if a view is set in the URl, go there.
 		$view = ( ! empty( $_GET['view'] ) ) ? str_replace( '-', '_', $_GET['view'] ) : '';
 		$view_method = 'show_forms_' . $view. '_page';
 		if( method_exists( $this, $view_method ) ) {
 			return call_user_func( array( $this, $view_method ) );
 		}
-
-		// render forms overview
-
 	}
 
 	/**
