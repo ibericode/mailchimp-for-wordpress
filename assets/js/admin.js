@@ -980,21 +980,51 @@ var Settings = function(context) {
 	var events = new EventEmitter();
 	var listInputs = context.querySelectorAll('.mc4wp-list-input');
 	var proFeatures = context.querySelectorAll('.pro-feature, .pro-feature label, .pro-feature input');
-	var doubleOptInInputs = context.querySelectorAll('input[name$="[double_optin]"]');
-	var sendWelcomeEmailInputs = context.querySelectorAll('input[name$="[send_welcome]"]');
-	var updateExistingInputs = context.querySelectorAll('input[name$="[update_existing]"]');
-	var replaceInterestInputs = context.querySelectorAll('input[name$="[replace_interests]"]');
+	var showIfElements = context.querySelectorAll('[data-showif]');
 	var lists = mc4wp_vars.mailchimp.lists;
 	var selectedLists = [];
 
+	function initShowIf() {
+		// dependent elements
+		Array.prototype.forEach.call( showIfElements, function(element) {
+			var config = JSON.parse( element.dataset.showif );
+			var parentElements = context.querySelectorAll('[name="'+ config.element +'"]');
+			var inputs = element.querySelectorAll('input');
+
+			function toggleElement() {
+
+				var conditionMet = ( this.value == config.value );
+				element.style.display = conditionMet ? '' : 'none';
+
+				// disable input fields
+				Array.prototype.forEach.call( inputs, function(inputElement) {
+					inputElement.disabled = !conditionMet;
+				});
+			}
+
+			// find checked element and call toggleElement function
+			Array.prototype.forEach.call( parentElements, function( parentElement ) {
+				if( parentElement.checked ) {
+					toggleElement.call(parentElement);
+				}
+			});
+
+			// bind on all changes
+			bindEventToElements(parentElements, 'change', toggleElement);
+		});
+	}
+
+	function bindEventToElement(element,event,handler) {
+		if ( element.addEventListener) {
+			element.addEventListener(event, handler);
+		} else if (element.attachEvent)  {
+			element.attachEvent('on' + event, handler);
+		}
+	}
 
 	function bindEventToElements( elements, event, handler ) {
-		Array.prototype.forEach.call( elements, function(el) {
-			if ( el.addEventListener) {
-				el.addEventListener(event, handler);
-			} else if (el.attachEvent)  {
-				el.attachEvent('on' + event, handler);
-			}
+		Array.prototype.forEach.call( elements, function(element) {
+			bindEventToElement(element,event,handler);
 		});
 	}
 
@@ -1047,23 +1077,12 @@ var Settings = function(context) {
 		alert( mc4wp_vars.l10n.pro_only );
 	}
 
-	function toggleSendWelcomeEmailFields(e) {
-		var doubleOptInIsEnabled = parseInt(e.target.value);
-		sendWelcomeEmailInputs.item(0).parentNode.parentNode.parentNode.style.display = ( doubleOptInIsEnabled ? 'none' : 'table-row' );
-	}
-
-	function toggleReplaceInterestFields(e) {
-		var updateExistingIsEnabled = parseInt(e.target.value);
-		replaceInterestInputs.item(0).parentNode.parentNode.parentNode.style.display = ( updateExistingIsEnabled ? 'table-row' : 'none' );
-	}
-
 	events.on('selectedLists.change', toggleVisibleLists);
 	bindEventToElements(listInputs,'change',updateSelectedLists);
 	bindEventToElements(proFeatures,'click',showProFeatureNotice);
-	bindEventToElements(doubleOptInInputs, 'change', toggleSendWelcomeEmailFields);
-	bindEventToElements(updateExistingInputs, 'change', toggleReplaceInterestFields);
 
 	updateSelectedLists();
+	initShowIf();
 
 	return {
 		getSelectedLists: getSelectedLists,

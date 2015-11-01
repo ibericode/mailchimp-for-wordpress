@@ -2,6 +2,11 @@
 
 defined( 'ABSPATH' ) or exit;
 
+/**
+ * Class MC4WP_Subscribe_Request
+ *
+ * @todo Normalize public properties
+ */
 class MC4WP_Subscribe_Request extends MC4WP_Form_Request {
 
 	/**
@@ -29,6 +34,8 @@ class MC4WP_Subscribe_Request extends MC4WP_Form_Request {
 
 	/**
 	 * @return bool
+	 *
+	 * @todo Normalize actions & parameters.
 	 */
 	public function process() {
 		$api = mc4wp_get_api();
@@ -58,6 +65,8 @@ class MC4WP_Subscribe_Request extends MC4WP_Form_Request {
 			$this->mailchimp_error = $api->get_error_message();
 		} else {
 			$this->message_type = 'subscribed';
+
+			do_action( 'mc4wp_form_subscribed', $this );
 
 			// store user email in a cookie
 			MC4WP_Tools::remember_email( $this->user_data['EMAIL'] );

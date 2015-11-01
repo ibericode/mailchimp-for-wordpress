@@ -45,42 +45,47 @@
 			<p class="help"><?php _e( 'Select "yes" if you want people to confirm their email address before being subscribed (recommended)', 'mailchimp-for-wp' ); ?></p>
 		</td>
 	</tr>
-	<?php $enabled = ! $opts['double_optin']; ?>
-	<tr valign="top" style="<?php if( ! $enabled ) { echo 'display:none;'; } ?>">
+	<?php $config = array( 'element' => 'mc4wp_form[settings][double_optin]', 'value' => 0 ); ?>
+	<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
 		<th scope="row"><?php _e( 'Send final welcome email?', 'mailchimp-for-wp' ); ?></th>
 		<td class="nowrap">
 			<label>
-				<input type="radio"  name="mc4wp_form[settings][send_welcome]" value="1" <?php if( $enabled ) { checked( $opts['send_welcome'], 1 ); } ?> />
+				<input type="radio"  name="mc4wp_form[settings][send_welcome]" value="1" <?php checked( $opts['send_welcome'], 1 ); ?> />
 				<?php _e( 'Yes', 'mailchimp-for-wp' ); ?>
 			</label> &nbsp;
 			<label>
-				<input type="radio" name="mc4wp_form[settings][send_welcome]" value="0" <?php if( $enabled ) { checked( $opts['send_welcome'], 0 ); } ?> />
+				<input type="radio" name="mc4wp_form[settings][send_welcome]" value="0" <?php checked( $opts['send_welcome'], 0 ); ?> />
 				<?php _e( 'No', 'mailchimp-for-wp' ); ?>
 			</label>
 			<p class="help"><?php _e( 'Select "yes" if you want to send your lists Welcome Email if a subscribe succeeds (only when double opt-in is disabled).' ,'mailchimp-for-wp' ); ?></p>
 		</td>
 	</tr>
-	<tr class="pro-feature" valign="top">
+
+	<tr valign="top">
 		<th scope="row"><?php _e( 'Update existing subscribers?', 'mailchimp-for-wp' ); ?></th>
 		<td class="nowrap">
-			<input type="radio" readonly />
-			<label><?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp;
-			<input type="radio" checked readonly />
-			<label><?php _e( 'No', 'mailchimp-for-wp' ); ?></label> &nbsp;
-			<p class="help">
-				<?php _e( 'Select "yes" if you want to update existing subscribers (instead of showing the "already subscribed" message).', 'mailchimp-for-wp' ); ?>
-			</p>
-		</td>
-	</tr>
-	<tr class="pro-feature" valign="top">
-		<th scope="row"><?php _e( 'Replace interest groups?', 'mailchimp-for-wp' ); ?></th>
-		<td class="nowrap">
 			<label>
-				<input type="radio" checked readonly />
+				<input type="radio" name="mc4wp_form[settings][update_existing]" value="1" <?php checked( $opts['update_existing'], 1 ); ?> />
 				<?php _e( 'Yes', 'mailchimp-for-wp' ); ?>
 			</label> &nbsp;
 			<label>
-				<input type="radio" readonly />
+				<input type="radio" name="mc4wp_form[settings][update_existing]" value="0" <?php checked( $opts['update_existing'], 0 ); ?> />
+				<?php _e( 'No', 'mailchimp-for-wp' ); ?>
+			</label>
+			<p class="help"><?php _e( 'Select "yes" if you want to update existing subscribers with the data that is sent.', 'mailchimp-for-wp' ); ?></p>
+		</td>
+	</tr>
+
+	<?php $config = array( 'element' => 'mc4wp_form[settings][update_existing]', 'value' => 1 ); ?>
+	<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
+		<th scope="row"><?php _e( 'Replace interest groups?', 'mailchimp-for-wp' ); ?></th>
+		<td class="nowrap">
+			<label>
+				<input type="radio" name="mc4wp_form[settings][replace_interests]" value="1" <?php checked( $opts['replace_interests'], 1 ); ?> />
+				<?php _e( 'Yes', 'mailchimp-for-wp' ); ?>
+			</label> &nbsp;
+			<label>
+				<input type="radio" name="mc4wp_form[settings][replace_interests]" value="0" <?php checked( $opts['replace_interests'], 0 ); ?> />
 				<?php _e( 'No', 'mailchimp-for-wp' ); ?>
 			</label>
 			<p class="help">
