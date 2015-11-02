@@ -89,7 +89,7 @@ class MC4WP_Form_Output_Manager {
 		$this->printed_field_types += $form->get_field_types();
 		$this->printed_field_types = array_unique( $this->printed_field_types );
 
-		$html = $form->generate_html( $attributes['element_id'], $attributes );
+		$html = $form->get_html( $attributes['element_id'], $attributes );
 
 		if( $echo ) {
 			echo $html;

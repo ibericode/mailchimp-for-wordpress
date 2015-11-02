@@ -21,11 +21,6 @@ abstract class MC4WP_Form_Request extends MC4WP_Request {
 	public $form_element_id = '';
 
 	/**
-	 * @var string
-	 */
-	public $message_type = '';
-
-	/**
 	 * @var bool
 	 */
 	public $success = false;
@@ -44,6 +39,11 @@ abstract class MC4WP_Form_Request extends MC4WP_Request {
 	 * @var string
 	 */
 	public $http_referer = '';
+
+	/**
+	 * @var string
+	 */
+	public $result_code = '';
 
 
 	/**
@@ -171,38 +171,38 @@ abstract class MC4WP_Form_Request extends MC4WP_Request {
 
 		// validate nonce
 		if( ! $validator->validate_nonce() ) {
-			$this->message_type = 'invalid_nonce';
+			$this->result_code = 'invalid_nonce';
 			return false;
 		}
 
 		// ensure honeypot was given but not filled
 		if( ! $validator->validate_honeypot() ) {
-			$this->message_type = 'spam';
+			$this->result_code = 'spam';
 			return false;
 		}
 
 		// check timestamp difference, token should be generated at least 2 seconds before form submit
 		if( ! $validator->validate_timestamp() ) {
-			$this->message_type = 'spam';
+			$this->result_code = 'spam';
 			return false;
 		}
 
 		// validate email
 		if( ! $validator->validate_email() ) {
-			$this->message_type = 'invalid_email';
+			$this->result_code = 'invalid_email';
 			return false;
 		}
 
 		// validate selected or submitted lists
 		if( ! $validator->validate_lists( $this->get_lists() ) ) {
-			$this->message_type = 'no_lists_selected';
+			$this->result_code = 'no_lists_selected';
 			return false;
 		}
 
 		// run custom validation (using filter)
 		$custom_validation = $validator->custom_validation();
 		if( $custom_validation !== true ) {
-			$this->message_type = $custom_validation;
+			$this->result_code = $custom_validation;
 			return false;
 		}
 
@@ -267,7 +267,7 @@ abstract class MC4WP_Form_Request extends MC4WP_Request {
 			 * @param   string  $email          The email of the subscriber
 			 * @param   array   $data           Additional list fields, like FNAME etc (if any)
 			 */
-			do_action( 'mc4wp_form_error_' . $this->message_type, 0, $this->user_data['EMAIL'], $this->user_data );
+			do_action( 'mc4wp_form_error_' . $this->result_code, 0, $this->user_data['EMAIL'], $this->user_data );
 		}
 
 	}
@@ -300,26 +300,4 @@ abstract class MC4WP_Form_Request extends MC4WP_Request {
 
 		return $lists;
 	}
-
-	/**
-	 * Returns the HTML for success or error messages
-	 *
-	 * @return string
-	 */
-	public function get_response_html( ) {
-
-		// retrieve correct message
-		$html = $this->form->get_message_html( $this->message_type );
-
-		// show additional MailChimp API errors to administrators
-		if( ! $this->success && current_user_can( 'manage_options' ) ) {
-
-			if( '' !== $this->mailchimp_error ) {
-				$html .= '<div class="mc4wp-alert mc4wp-error"><p><strong>Admin notice:</strong> '. $this->mailchimp_error . '</p></div>';
-			}
-		}
-
-		return $html;
-	}
-
 }
