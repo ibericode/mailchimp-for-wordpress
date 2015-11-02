@@ -44,7 +44,8 @@ class MC4WP_Update_Control {
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'hide_major_plugin_updates' ) );
 		add_action( 'init', array( $this, 'listen' ) );
 
-		if( $pagenow === 'plugins.php' || ( ! empty( $_GET['page'] ) && stripos( $_GET['page'], 'mailchimp-for-wp' ) !== false ) ) {
+		if( ( $pagenow === 'plugins.php' || $pagenow === 'update-core.php' )
+		    || ( ! empty( $_GET['page'] ) && stripos( $_GET['page'], 'mailchimp-for-wp' ) !== false ) ) {
 			add_action( 'admin_notices', array( $this, 'show_update_optin' ) );
 		}
 	}
@@ -76,12 +77,7 @@ class MC4WP_Update_Control {
 	 */
 	public function hide_major_plugin_updates( $data ) {
 
-		// fake set new version to 3.0 (for testing)
-		// @todo always comment this out
-//		$data->response[ $this->plugin_file ] = $data->no_update[ $this->plugin_file ];
-//		$data->response[ $this->plugin_file ]->new_version = "3.0.0";
-
-		// don't act if there's no update to act upon
+		// do nothing if there's no update to act upon
 		if( empty( $data->response[ $this->plugin_file ]->new_version ) ) {
 			return $data;
 		}
@@ -90,6 +86,9 @@ class MC4WP_Update_Control {
 
 		// is there a major update for this plugin?
 		if( ! version_compare( $wordpress_org_data->new_version, '3.0.0', '>=' ) ) {
+
+			// reset 3.0 notice flag here in case we revert the update
+			update_option( self::OPTION_SHOW_NOTICE, 0 );
 			return $data;
 		}
 
@@ -108,26 +107,35 @@ class MC4WP_Update_Control {
 		$minor_update_data = $this->get_latest_minor_update();
 
 		// if something in the custom update check failed, just unset the data.
-		if ( ! is_object( $minor_update_data ) ) {
+		if ( ! is_object( $minor_update_data ) || empty( $minor_update_data->new_version ) ) {
 			unset( $data->response[ $this->plugin_file ] );
 			return $data;
 		}
 
-		// return modified updates data
+		// unset update data if plugin already at latest minor version
+		$new_minor_version = $minor_update_data->new_version;
+		if( version_compare( MC4WP_LITE_VERSION, $new_minor_version, '>=' ) ) {
+			unset( $data->response[ $this->plugin_file ] );
+			return $data;
+		}
+
+		// return modified updates data (with new version & download link)
 		$data->response[ $this->plugin_file ] = $this->merge_update_data( $wordpress_org_data, $minor_update_data );
 
 		return $data;
 	}
 
 	/**
+	 * Get update info for the 2.x branch
 	 *
-	 *
-	 * @return array|mixed|object
+	 * @return object|boolean
 	 */
 	protected function get_latest_minor_update() {
 
+		$transient_name = 'mc4wp_minor_update_info';
+
 		// try to get from transient first
-		$cached = get_transient( 'mc4wp_minor_update_info' );
+		$cached = get_transient( $transient_name );
 		if( is_object( $cached ) ) {
 			return $cached;
 		}
@@ -141,7 +149,7 @@ class MC4WP_Update_Control {
 		}
 
 		$data = json_decode( $body );
-		set_transient( 'mc4wp_minor_update_info', $data, 7200 ); // cache for 2 hours
+		set_transient( $transient_name, $data, 21600 ); // cache for 6 hours
 
 		return $data;
 	}
@@ -168,7 +176,7 @@ class MC4WP_Update_Control {
 
 
 	/**
-	 * Maybe enable major updates
+	 * Enables major updates (opts-in to 3.x update)
 	 */
 	public function enable_major_updates() {
 
@@ -206,7 +214,7 @@ class MC4WP_Update_Control {
 		}
 
 		// if on plugins page and dismissed, do not show
-		if( $pagenow === 'plugins.php' && get_transient( self::OPTION_DISMISS_NOTICE ) ) {
+		if( ( $pagenow === 'plugins.php' || $pagenow === 'update-core.php' ) && get_transient( self::OPTION_DISMISS_NOTICE ) ) {
 			return;
 		}
 
@@ -221,7 +229,8 @@ class MC4WP_Update_Control {
 		echo '<br /><br />';
 		echo sprintf( '<a class="button button-primary" href="%s">' . __( 'Update the plugin', 'mailchimp-for-wp' ) . '</a>', add_query_arg( array( self::OPTION_ENABLE_MAJOR_UPDATES => 1 ) ) );
 
-		if( $pagenow === 'plugins.php' ) {
+		// show a dismiss button if on plugins page
+		if( $pagenow === 'plugins.php' || $pagenow === 'update-core.php' ) {
 			echo ' &nbsp; <a href="'. add_query_arg( array( self::OPTION_DISMISS_NOTICE => 1 ) ) .'" class="button">Remind me next week</a>';
 		}
 
