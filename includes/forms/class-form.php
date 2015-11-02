@@ -384,83 +384,31 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * Returns the various error and success messages in array format
-	 *
-	 * Example:
-	 * array(
-	 *      'invalid_email' => array(
-	 *          'type' => 'css-class',
-	 *          'text' => 'Message text'
-	 *      ),
-	 *      ...
-	 * );
+	 * Maps registered messages to a type
 	 *
 	 * @return array
 	 */
-	public function get_messages() {
+	public function get_message_types() {
 
-		$messages = array(
-
-			// email was successfully subscribed to the selected list(s)
-			'subscribed' => array(
-				'type' => 'success',
-				'text' => $this->messages['text_subscribed'],
-			),
-
-			// email was successfully unsubscribed from the selected list(s)
-			'unsubscribed' => array(
-				'type' => 'success',
-				'text' => $this->messages['text_unsubscribed'],
-			),
-
-			// a general (unknown) error occurred
-			'error' => array(
-				'type' => 'error',
-				'text' => $this->messages['text_error'],
-			),
-
-			// an invalid email was given
-			'invalid_email' => array(
-				'type' => 'error',
-				'text' => $this->messages['text_invalid_email'],
-			),
-
-			// a required field is missing for the selected list(s)
-			'required_field_missing' => array(
-				'type' => 'error',
-				'text' => $this->messages['text_required_field_missing'],
-			),
-
-			// email is already subscribed to the selected list(s)
-			'already_subscribed' => array(
-				'type' => 'notice',
-				'text' => $this->messages['text_already_subscribed'],
-			),
-
-			// email is not subscribed on the selected list(s)
-			'not_subscribed' => array(
-				'type' => 'notice',
-				'text' => $this->messages['text_not_subscribed'],
-			),
+		$message_types = array(
+			'subscribed' => 'success',
+			'error' => 'error',
+			'invalid_email' => 'error',
+			'required_field_missing' => 'error',
+			'already_subscribed' => 'notice',
+			'not_subscribed' => 'notice',
+			'no_lists_selected' => 'error',
 		);
 
-		// add some admin-only messages
-		if( current_user_can( 'manage_options' ) ) {
-			$messages['no_lists_selected'] = array(
-				'type' => 'notice',
-				'text' => sprintf( __( 'You did not select a list in <a href="%s">your form settings</a>.', 'mailchimp-for-wp' ), admin_url( 'admin.php?page=mailchimp-for-wp-forms&view=edit-form' ) )
-			);
-		}
-
 		/**
-		 * @filter mc4wp_form_messages
+		 * @filter mc4wp_form_message_types
 		 * @expects array
 		 *
 		 * Allows registering custom form messages, useful if you're using custom validation using the `mc4wp_valid_form_request` filter.
 		 */
-		$messages = apply_filters( 'mc4wp_form_messages', $messages, $this );
+		$message_types = (array) apply_filters( 'mc4wp_form_message_types', $message_types, $this );
 
-		return (array) $messages;
+		return $message_types;
 	}
 
 	/**
@@ -495,6 +443,8 @@ class MC4WP_Form {
 			$messages[ $key ] = ( ! empty( $message ) ) ? $message : $defaults[ $key ];
 		}
 
+		$messages = (array) apply_filters( 'mc4wp_form_messages', $messages, $this );
+
 		return $messages;
 	}
 
@@ -519,6 +469,46 @@ class MC4WP_Form {
 		}
 
 		return $field_types;
+	}
+
+	/**
+	 * @param $key
+	 * @return string
+	 */
+	public function get_message_html( $key ) {
+		$message = $this->get_message( $key );
+		$type = $this->get_message_type( $key );
+		return sprintf( '<div class="mc4wp-alert mc4wp-%s"><p>%s</p></div>', esc_attr( $type ), $message );
+	}
+
+	/**
+	 * @param $key
+	 *
+	 * @return string
+	 */
+	public function get_message( $key ) {
+
+		if( isset( $this->messages[ $key ] ) ) {
+			return $this->messages[ $key ];
+		}
+
+		return $this->messages['error'];
+	}
+
+	/**
+	 * @param $key
+	 *
+	 * @return string
+	 */
+	public function get_message_type( $key ) {
+
+		$message_types = $this->get_message_types();
+
+		if( isset( $message_types[ $key ] ) ) {
+			return $message_types[ $key ];
+		}
+
+		return 'error';
 	}
 
 	/**

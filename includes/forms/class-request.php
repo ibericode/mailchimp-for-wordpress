@@ -308,23 +308,14 @@ abstract class MC4WP_Form_Request extends MC4WP_Request {
 	 */
 	public function get_response_html( ) {
 
-		// get all form messages
-		$messages = $this->form->get_messages();
-
 		// retrieve correct message
-		$message = ( isset( $messages[ $this->message_type ] ) ) ? $messages[ $this->message_type ] : $messages['error'];
-
-		// replace variables in message text
-		// @todo get rid of this and use new Dynamic Content class.
-		$message['text'] = MC4WP_Tools::replace_variables( $message['text'], array(), array_values( $this->get_lists() ) );
-
-		$html = '<div class="mc4wp-alert mc4wp-' . esc_attr( $message['type'] ) . '"><p>' . $message['text'] . '</p></div>';
+		$html = $this->form->get_message_html( $this->message_type );
 
 		// show additional MailChimp API errors to administrators
 		if( ! $this->success && current_user_can( 'manage_options' ) ) {
 
 			if( '' !== $this->mailchimp_error ) {
-				$html .= '<div class="mc4wp-alert mc4wp-error"><strong>Admin notice:</strong> '. $this->mailchimp_error . '</div>';
+				$html .= '<div class="mc4wp-alert mc4wp-error"><p><strong>Admin notice:</strong> '. $this->mailchimp_error . '</p></div>';
 			}
 		}
 
