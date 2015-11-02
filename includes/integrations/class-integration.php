@@ -126,13 +126,8 @@ abstract class MC4WP_Integration {
 	 * @return string
 	 */
 	public function get_label_text() {
-
-		// Get general label text
 		$label = $this->options['label'];
-
-		// replace label variables
-		$label = MC4WP_Dynamic_Content_Tags::instance()->replace_in_html( $label );
-
+		$label = (string) apply_filters( 'mc4wp_integration_checkbox_label', $label, $this );
 		return $label;
 	}
 
@@ -159,7 +154,12 @@ abstract class MC4WP_Integration {
 		$attributes = (array) apply_filters( 'mc4wp_integration_checkbox_attributes', $attributes, $this );
 		$attributes = (array) apply_filters( 'mc4wp_integration_' . $this->slug . '_checkbox_attributes', $attributes, $this );
 
-		return join( ' ', $attributes );
+		$string = '';
+		foreach( $attributes as $key => $value ) {
+			$string .= sprintf( '%s=>"%s"', $key, esc_attr( $value ) );
+		}
+
+		return $string;
 	}
 
 	/**

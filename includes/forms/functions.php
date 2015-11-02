@@ -15,18 +15,20 @@ function mc4wp_get_form( $form_id = 0 ) {
 /**
  *
  * @api
- * @param       $form_id
- * @param array $attributes
+ * @param int $form_id
+ * @param array $config
+ * @param bool $echo
  * @return string
  */
-function mc4wp_show_form( $form_id, $attributes = array() ) {
-	return MC4WP_Form_Manager::instance()->output_manager->output_form( $form_id, $attributes );
+function mc4wp_show_form( $form_id, $config = array(), $echo = true ) {
+	MC4WP_Form_Manager::instance()->output_manager->output_form( $form_id, $config, $echo );
 }
 
 
 /**
  * Check whether a form was submitted
  *
+ * @api
  * @since 2.3.8
  * @param int $form_id The ID of the form you want to check. (optional)
  * @param string $element_id The ID of the form element you want to check, eg id="mc4wp-form-1" (optional)
@@ -44,6 +46,7 @@ function mc4wp_form_is_submitted( $form_id = 0, $element_id = null ) {
 }
 
 /**
+ * @api
  * @since 2.3.8
  * @param int $form_id
  * @return string

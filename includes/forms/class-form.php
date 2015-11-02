@@ -121,13 +121,13 @@ class MC4WP_Form {
 
 	/**
 	 * @param string $element_id
-	 * @param array  $attributes
+	 * @param array $config
 	 *
 	 * @return string
 	 */
-	public function get_html( $element_id = 'mc4wp-form', array $attributes = array() ) {
-		$element = new MC4WP_Form_Element( $this, $element_id );
-		$html = $element->generate_html( $attributes );
+	public function get_html( $element_id = 'mc4wp-form', array $config = array() ) {
+		$element = new MC4WP_Form_Element( $this, $element_id, $config );
+		$html = $element->generate_html();
 		return $html;
 	}
 
@@ -226,7 +226,11 @@ class MC4WP_Form {
 	public function get_message_html( $key ) {
 		$message = $this->get_message( $key );
 		$type = $this->get_message_type( $key );
-		return sprintf( '<div class="mc4wp-alert mc4wp-%s"><p>%s</p></div>', esc_attr( $type ), $message );
+
+		$html = sprintf( '<div class="mc4wp-alert mc4wp-%s"><p>%s</p></div>', esc_attr( $type ), $message );
+		$html = (string) apply_filters( 'mc4wp_form_message_html', $html, $this );
+
+		return $html;
 	}
 
 	/**
@@ -240,6 +244,7 @@ class MC4WP_Form {
 			return $this->messages[ $key ];
 		}
 
+		// default to error message
 		return $this->messages['error'];
 	}
 
@@ -263,6 +268,15 @@ class MC4WP_Form {
 	 * @return string
 	 */
 	public function __toString() {
-		return MC4WP_Form_Manager::instance()->output_manager->output_form( $this->ID );
+		return mc4wp_show_form( $this->ID, array(), false );
+	}
+
+	/**
+	 *
+	 */
+	public function get_redirect_url() {
+		$url = trim( $this->settings['redirect'] );
+		$url = (string) apply_filters( 'mc4wp_form_redirect_url', $url, $this );
+		return $url;
 	}
 }

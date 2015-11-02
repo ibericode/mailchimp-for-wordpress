@@ -38,10 +38,14 @@ class MC4WP_Form_Validator {
 	 */
 	public function validate_nonce() {
 		// detect caching plugin
-		$using_caching = ( defined( 'WP_CACHE' ) && WP_CACHE );
+		$using_caching = defined( 'WP_CACHE' ) && WP_CACHE;
+
+		if( $using_caching ) {
+			return true;
+		}
 
 		// validate form nonce, but only if not using caching
-		if ( ! $using_caching && ( ! isset( $this->internal_data['form_nonce'] ) || ! wp_verify_nonce( $this->internal_data['form_nonce'], '_mc4wp_form_nonce' ) ) ) {
+		if( ! isset( $this->internal_data['form_nonce'] ) || ! wp_verify_nonce( $this->internal_data['form_nonce'], '_mc4wp_form_nonce' ) ) {
 			return false;
 		}
 

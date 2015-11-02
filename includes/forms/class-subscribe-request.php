@@ -24,7 +24,7 @@ class MC4WP_Subscribe_Request extends MC4WP_Form_Request {
 			$this->map = new MC4WP_Field_Map( $this->user_data, $this->get_lists() );
 		} catch( Exception $e ) {
 			if( $e->getCode() === 400 ) {
-				$this->message_type = 'required_field_missing';
+				$this->result_code = 'required_field_missing';
 				return false;
 			};
 		}
@@ -61,10 +61,10 @@ class MC4WP_Subscribe_Request extends MC4WP_Form_Request {
 
 		// did we succeed in subscribing with the parsed data?
 		if( ! $result ) {
-			$this->message_type = ( $api->get_error_code() === 214 ) ? 'already_subscribed' : 'error';
+			$this->result_code = ( $api->get_error_code() === 214 ) ? 'already_subscribed' : 'error';
 			$this->mailchimp_error = $api->get_error_message();
 		} else {
-			$this->message_type = 'subscribed';
+			$this->result_code = 'subscribed';
 
 			do_action( 'mc4wp_form_subscribed', $this );
 

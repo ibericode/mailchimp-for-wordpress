@@ -13,6 +13,20 @@ class MC4WP_Form_Output_Manager {
 	public $printed_field_types = array();
 
 	/**
+	 * @const string
+	 */
+	const SHORTCODE = 'mc4wp_form';
+
+	/**
+	 * @var array
+	 */
+	protected $shortcode_attributes = array(
+		'id' => '',
+		'lists' => '',
+		'email_type' => ''
+	);
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {}
@@ -36,17 +50,7 @@ class MC4WP_Form_Output_Manager {
 	 */
 	public function register_shortcode() {
 		// register shortcodes
-		add_shortcode( 'mc4wp_form', array( $this, 'shortcode' ) );
-	}
-
-	/**
-	 * @return array
-	 */
-	public function get_default_attributes() {
-		return array(
-			'id' => 0,
-			'element_id' => 'mc4wp-form-' . ( count( $this->printed_forms ) + 1 )
-		);
+		add_shortcode( self::SHORTCODE, array( $this, 'shortcode' ) );
 	}
 
 	/**
@@ -55,24 +59,31 @@ class MC4WP_Form_Output_Manager {
 	 * @return string
 	 */
 	public function shortcode( $attributes = array(), $content = '' ) {
+
 		$attributes = shortcode_atts(
-			$this->get_default_attributes(),
+			$this->shortcode_attributes,
 			$attributes,
-			'mc4wp_form'
+			self::SHORTCODE
 		);
 
-		return $this->output_form( $attributes['id'], $attributes );
+		$config = $attributes;
+		unset( $config['id'] );
+
+		return $this->output_form( $attributes['id'], $config, false );
 	}
 
 	/**
 	 * @param int   $id
-	 * @param array $attributes
+	 * @param array $config
+	 * @param bool $echo
 	 *
 	 * @return string
 	 */
-	public function output_form( $id = 0, $attributes = array(), $echo = false ) {
+	public function output_form( $id = 0, $config = array(), $echo = true ) {
 
-		$attributes = array_merge( $this->get_default_attributes(), $attributes );
+		if( empty( $config['element_id'] ) ) {
+			$config['element_id'] = 'mc4wp-form-' . ( count( $this->printed_forms ) + 1 );
+		}
 
 		try {
 			$form = mc4wp_get_form( $id );
@@ -89,7 +100,7 @@ class MC4WP_Form_Output_Manager {
 		$this->printed_field_types += $form->get_field_types();
 		$this->printed_field_types = array_unique( $this->printed_field_types );
 
-		$html = $form->get_html( $attributes['element_id'], $attributes );
+		$html = $form->get_html( $config['element_id'], $config );
 
 		if( $echo ) {
 			echo $html;

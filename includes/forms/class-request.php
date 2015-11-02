@@ -211,18 +211,6 @@ abstract class MC4WP_Form_Request extends MC4WP_Request {
 	}
 
 	/**
-	 * Get the final Redirect URL with replaced variables
-	 *
-	 * @return string
-	 */
-	protected function get_redirect_url() {
-		$url = $this->form->settings['redirect'];
-		$dynamic_content = MC4WP_Dynamic_Content_Tags::instance();
-		$url = $dynamic_content->replace_in_url( $url );
-		return $url;
-	}
-
-	/**
 	 * Send HTTP response
 	 */
 	public function respond() {
@@ -245,8 +233,8 @@ abstract class MC4WP_Form_Request extends MC4WP_Request {
 			do_action( 'mc4wp_form_success', 0, $this->user_data['EMAIL'], $this->user_data );
 
 			// check if we want to redirect the visitor
-			if ( ! empty( $this->form->settings['redirect'] ) ) {
-				wp_redirect( $this->get_redirect_url() );
+			if ( '' !== $this->form->get_redirect_url() ) {
+				wp_redirect( $this->form->get_redirect_url() );
 				exit;
 			}
 

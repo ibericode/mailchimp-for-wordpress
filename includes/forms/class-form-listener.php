@@ -45,7 +45,6 @@ class MC4WP_Form_Listener {
 	 */
 	public function process( MC4WP_Form_Request $request ) {
 
-
 		$valid = $request->validate();
 		$success = false;
 

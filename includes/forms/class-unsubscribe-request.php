@@ -17,9 +17,9 @@ class MC4WP_Unsubscribe_Request extends MC4WP_Form_Request {
 
 		if( ! $result ) {
 			$this->mailchimp_error = $api->get_error_message();
-			$this->message_type =  ( in_array( $api->get_error_code(), array( 215, 232 ) ) ) ? 'not_subscribed' : 'error';
+			$this->result_code =  ( in_array( $api->get_error_code(), array( 215, 232 ) ) ) ? 'not_subscribed' : 'error';
 		} else {
-			$this->message_type = 'unsubscribed';
+			$this->result_code = 'unsubscribed';
 		}
 
 		$this->success = $result;

@@ -17,7 +17,7 @@ class MC4WP_Dynamic_Content_Tags {
 	/**
 	 * @var string The escape mode for replacement values.
 	 */
-	protected $escape_mode = 'attributes';
+	protected $escape_mode = 'html';
 
 	/**
 	 * @var array Array of registered dynamic content tags
@@ -49,7 +49,10 @@ class MC4WP_Dynamic_Content_Tags {
 	 * @todo Move out of this class
 	 */
 	public function add_hooks() {
-		add_filter( 'mc4wp_form_content', array( $this, 'replace_in_html' ) );
+		add_filter( 'mc4wp_form_message_html', array( $this, 'replace' ) );
+		add_filter( 'mc4wp_integration_checkbox_label', array( $this, 'replace' ) );
+		add_filter( 'mc4wp_form_content', array( $this, 'replace' ) );
+		add_filter( 'mc4wp_form_redirect_url', array( $this, 'replace_in_url' ) );
 	}
 
 	/**
@@ -129,6 +132,14 @@ class MC4WP_Dynamic_Content_Tags {
 					'description' => sprintf( __( "The given property of the currently logged-in user.", 'mailchimp-for-wp' ) ),
 					'callback'    => array( $this, 'get_user_property' ),
 					'example'     => 'user property=user_email'
+				),
+				'subscriber_count' => array(
+					'description' => __( 'Replaced with the number of subscribers on the selected list(s)', 'mailchimp-for-wp' ),
+					'callback'    => array( $this, 'get_subscriber_count' )
+				),
+				'response' => array(
+					'description'   => __( 'Replaced with the form response (error or success messages).', 'mailchimp-for-wp' ),
+					'callback'      => array( $this, 'get_response' )
 				)
 			);
 
@@ -183,7 +194,7 @@ class MC4WP_Dynamic_Content_Tags {
 	 * @param string $escape_mode Escape mode for the replacement value.
 	 * @return string
 	 */
-	public function replace( $string, $escape_mode = 'attributes' ) {
+	public function replace( $string, $escape_mode = '' ) {
 		$this->escape_mode = $escape_mode;
 		$string = preg_replace_callback( '/\{(\w+)(\ +(?:[^}\n])+)*\}/', array( $this, 'replace_tag' ), $string );
 		return $string;
@@ -240,7 +251,7 @@ class MC4WP_Dynamic_Content_Tags {
 		}
 
 		$default = isset( $args['default'] ) ? $args['default'] : '';
-		return MC4WP_Tools::get_request_data( $key, $default );
+		return esc_html( MC4WP_Tools::get_request_data( $key, $default ) );
 	}
 
 	/**
@@ -294,7 +305,21 @@ class MC4WP_Dynamic_Content_Tags {
 	 * @return mixed
 	 */
 	protected function escape_value( $value ) {
+
+		if( empty( $this->escape_mode ) ) {
+			return $value;
+		}
+
 		return call_user_func( array( $this, 'escape_value_' . $this->escape_mode ), $value );
 	}
 
+	// todo: get this to work
+	public function get_subscriber_count() {
+		return 0;
+	}
+
+	// todo: get this to work
+	public function get_response() {
+		return '';
+	}
 }

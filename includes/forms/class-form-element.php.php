@@ -2,29 +2,46 @@
 
 /**
  * Class MC4WP_Form_Element
+ *
+ * @since 3.0
+ * @internal
  */
 class MC4WP_Form_Element {
 
-
+	/**
+	 * @var string
+	 */
 	public $ID;
 
+	/**
+	 * @var MC4WP_Form
+	 */
 	public $form;
 
-	public $attributes = array();
+	/**
+	 * @var array
+	 *
+	 * Can be used to set element-specific config settings. Accepts the following keys.
+	 *
+	 * - lists: Customized number of MailChimp list ID's to subscribe to.
+	 * - email_type: The email type
+	 */
+	public $config = array();
 
 	/**
 	 * @param MC4WP_Form $form
 	 * @param string $ID
+	 * @param $config array
 	 */
-	public function __construct( MC4WP_Form $form, $ID ) {
+	public function __construct( MC4WP_Form $form, $ID, $config = array() ) {
 		$this->form = $form;
 		$this->ID = $ID;
+		$this->config = $config;
 	}
 
-
-
 	/**
-	 * Is this form submitted?
+	 * Is this element submitted?
+	 *
 	 * @return bool
 	 */
 	public function is_submitted() {
@@ -32,17 +49,9 @@ class MC4WP_Form_Element {
 	}
 
 	/**
-	 * @param string $response_html
 	 * @return string
 	 */
-	public function get_visible_fields( $response_html = '' ) {
-
-		$replacements = array(
-			'{response}' => $response_html,
-		);
-
-		// @todo get rid of this
-		$visible_fields = MC4WP_Tools::replace_variables( $this->form->content, $replacements, array_values( $this->form->settings['lists'] ) );
+	public function get_visible_fields() {
 
 		/**
 		 * @filter mc4wp_form_content
@@ -51,16 +60,15 @@ class MC4WP_Form_Element {
 		 *
 		 * Can be used to customize the content of the form mark-up, eg adding additional fields.
 		 */
-		$visible_fields = (string) apply_filters( 'mc4wp_form_content', $visible_fields, $this->form );
+		$visible_fields = (string) apply_filters( 'mc4wp_form_content', $this->form->content, $this->form );
 
 		return $visible_fields;
 	}
 
 	/**
-	 * @param array $attributes Attributes passed to the shortcode
 	 * @return string
 	 */
-	public function get_hidden_fields( $attributes = array() ) {
+	public function get_hidden_fields() {
 
 		// hidden fields
 		$hidden_fields = '<div style="display: none;"><input type="text" name="_mc4wp_ho_'. md5( time() ).'" value="" tabindex="-1" autocomplete="off" /></div>';
@@ -70,10 +78,9 @@ class MC4WP_Form_Element {
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_submit" value="1" />';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_nonce" value="'. wp_create_nonce( '_mc4wp_form_nonce' ) .'" />';
 
-
 		// was "lists" parameter passed in shortcode arguments?
-		if( ! empty( $attributes['lists'] ) ) {
-			$lists_string = ( is_array( $attributes['lists'] ) ) ? join( ',', $attributes['lists'] ) : $attributes['lists'];
+		if( ! empty( $this->config['lists'] ) ) {
+			$lists_string = is_array( $this->config['lists'] ) ? join( ',', $this->config['lists'] ) : $this->config['lists'];
 			$hidden_fields .= '<input type="hidden" name="_mc4wp_lists" value="'. esc_attr( $lists_string ) . '" />';
 		}
 
@@ -86,19 +93,13 @@ class MC4WP_Form_Element {
 	protected function get_response_position() {
 
 		/**
-		 * @deprecated
-		 * @use `mc4wp_form_response_position` instead
-		 */
-		$message_position = (string) apply_filters( 'mc4wp_form_message_position', 'after' );
-
-		/**
 		 * @filter mc4wp_form_message_position
 		 * @expects string before|after
 		 *
 		 * Can be used to change the position of the form success & error messages.
 		 * Valid options are 'before' or 'after'
 		 */
-		$response_position = (string) apply_filters( 'mc4wp_form_response_position', $message_position );
+		$response_position = (string) apply_filters( 'mc4wp_form_response_position', 'after' );
 
 		// check if content contains {response} tag
 		if( stripos( $this->form->content, '{response}' ) !== false ) {
@@ -171,10 +172,14 @@ class MC4WP_Form_Element {
 	}
 
 	/**
-	 * @param array $attributes
+	 * @param array|null $config Use this to override the configuration for this form element
 	 * @return string
 	 */
-	public function generate_html( array $attributes = array() ) {
+	public function generate_html( array $config = null ) {
+
+		if( $config ) {
+			$this->config = $config;
+		}
 
 		// generate response html
 		$response_html = $this->form->get_response_html();
@@ -200,8 +205,8 @@ class MC4WP_Form_Element {
 		    || ! $this->form->request->success ) {
 
 			$form_opening_html = '<form method="post" '. $this->get_form_element_attributes() .'>';
-			$visible_fields = $this->get_visible_fields( $response_html );
-			$hidden_fields = $this->get_hidden_fields( $attributes );
+			$visible_fields = $this->get_visible_fields();
+			$hidden_fields = $this->get_hidden_fields();
 			$form_closing_html = '</form>';
 		}
 
