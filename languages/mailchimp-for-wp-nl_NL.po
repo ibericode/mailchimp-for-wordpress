@@ -2,13 +2,14 @@
 # This file is distributed under the GPL v3.
 # Translators:
 # Danny van Kooten <dannyvankooten@gmail.com>, 2014-2015
+# Martijn van Egmond <developer@tensheep.nl>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-05-26 14:41:46+00:00\n"
-"PO-Revision-Date: 2015-05-26 14:47+0000\n"
-"Last-Translator: Danny van Kooten <dannyvankooten@gmail.com>\n"
+"PO-Revision-Date: 2015-10-22 18:32+0000\n"
+"Last-Translator: Martijn van Egmond <developer@tensheep.nl>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -223,7 +224,7 @@ msgstr "Schrijf me in voor de nieuwsbrief!"
 msgid ""
 "Thank you, your sign-up request was successful! Please check your e-mail "
 "inbox."
-msgstr "Bedankt, je inschrijfverzoek was succesvol! Check alsjeblieft je email inbox voor een bevestiging."
+msgstr "Bedankt, je inschrijfverzoek was succesvol! Check alsjeblieft je e-mail inbox voor een bevestiging."
 
 #: mailchimp-for-wordpress/includes/functions/general.php:45
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:35
@@ -822,7 +823,7 @@ msgstr "Uitgeschreven"
 msgid ""
 "When using the unsubscribe method, this is the text that shows when the "
 "given email address is successfully unsubscribed from the selected list(s)."
-msgstr ""
+msgstr "Wanneer gebruik gemaakt wordt van de functie om zich uit te schrijven, is dit de tekst die getoond wordt wanneer het aangegeven e-mailadres succesvol is uitgeschreven van de geselecteerde lijst(en)."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:243
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:204
@@ -836,7 +837,7 @@ msgstr "Niet ingeschreven"
 msgid ""
 "When using the unsubscribe method, this is the text that shows when the "
 "given email address is not on the selected list(s)."
-msgstr ""
+msgstr "Wanneer gebruik gemaakt wordt van de functie om zich uit te schrijven, is dit de tekst die getoond wordt wanneer het aangegeven e-mailadres niet voorkomt op de geselecteerde lijst(en)."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:252
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:213
@@ -856,7 +857,7 @@ msgstr "Wijzig de visuele weergave van je formulier door CSS regels op te stelle
 msgid ""
 "You can add the CSS rules to your theme stylesheet using the <a "
 "href=\"%s\">Theme Editor</a> or by using a plugin like %s"
-msgstr ""
+msgstr "Je kan de CSS regels aan de stylesheet van je thema toevoegen door de <a href=\"%s\">Thema Editor</a> te gebruiken of door gebruik te maken van een  plugin zoals %s."
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:269
 msgid ""
@@ -958,7 +959,7 @@ msgstr "Huidige URL"
 #: mailchimp-for-wordpress/includes/views/form-settings.php:336
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-text-variables.php:70
 msgid "The value of the <strong>FNAME</strong> field, if set."
-msgstr ""
+msgstr "De waarde van <strong>FNAME</strong> veld, als deze ingevuld is."
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:10
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:31
@@ -980,7 +981,7 @@ msgstr "Verzendknop"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:20
 msgid "Subscribe / unsubscribe choice"
-msgstr ""
+msgstr "Inschrijven / Uitschrijven optie"
 
 #: mailchimp-for-wordpress/includes/views/parts/admin-field-wizard.php:21
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:40
@@ -1311,7 +1312,7 @@ msgstr "<b>Waarschuwing!</b> Je blokkeert externe requests wat betekent dat je g
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:205
 msgid "Your %s license has been activated. You have an unlimited license. "
-msgstr "Je %s licentie is geactiveerd. Je hebt een ongelimiteerde licentie"
+msgstr "Je %s licentie is geactiveerd. Je hebt een ongelimiteerde licentie."
 
 #: mailchimp-for-wordpress-pro/includes/license/class-license-manager.php:207
 msgid "Your %s license has been activated. You have used %d/%d activations. "
@@ -1623,11 +1624,11 @@ msgstr "Andere fouten"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:39
 msgid "Submit button"
-msgstr ""
+msgstr "Verzendknop"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:41
 msgid "Subscribe / unsubscribe action"
-msgstr ""
+msgstr "Inschrijven / uitschrijven actie"
 
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/required-form-settings.php:90
 msgid "Form usage"
@@ -1680,7 +1681,7 @@ msgstr ""
 #: mailchimp-for-wordpress-pro/includes/views/parts/admin-footer.php:11
 msgid ""
 "Please use the same email address as you used when purchasing the plugin."
-msgstr ""
+msgstr "Gebruik hetzelfde e-mailadres welke ook gebruikt is waarmee deze plugin aangekocht is."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:11
 msgid "Use the fields below to create custom styling rules for your forms."
@@ -1715,198 +1716,198 @@ msgstr "Je moet JavaScript aan hebben staan in je browser om een voorbeeld van j
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:62
 msgid "Form container style"
-msgstr ""
+msgstr "Formulier container stijl"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:66
 msgid "Form width"
-msgstr ""
+msgstr "Formulier breedte"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:66
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:118
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:160
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:202
 msgid "px or %"
-msgstr ""
+msgstr "px of %"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:70
 msgid "Text alignment"
-msgstr ""
+msgstr "Tekstuitlijning"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:73
 msgid "Choose alignment"
-msgstr ""
+msgstr "Kies uitlijning"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:74
 msgid "Left"
-msgstr ""
+msgstr "Links"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:75
 msgid "Center"
-msgstr ""
+msgstr "Gecentreerd"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:76
 msgid "Right"
-msgstr ""
+msgstr "Rechts"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:81
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:210
 msgid "Background color"
-msgstr ""
+msgstr "Achtergrondkleur"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:83
 msgid "Padding"
-msgstr ""
+msgstr "Padding"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:89
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:168
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:219
 msgid "Border color"
-msgstr ""
+msgstr "Rand kleur"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:91
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:170
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:215
 msgid "Border width"
-msgstr ""
+msgstr "Rand breedte"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:95
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:126
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:228
 msgid "Text color"
-msgstr ""
+msgstr "Tekstkleur"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:97
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:128
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:230
 msgid "Text size"
-msgstr ""
+msgstr "Tekstgrootte"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:101
 msgid "Background image"
-msgstr ""
+msgstr "Achtergrondafbeelding"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:114
 msgid "Label styles"
-msgstr ""
+msgstr "Label stijl"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:118
 msgid "Label width"
-msgstr ""
+msgstr "Label breedte"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:132
 msgid "Text style"
-msgstr ""
+msgstr "Tekststijl"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:135
 msgid "Choose text style.."
-msgstr ""
+msgstr "Kies een tekststijl.."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:136
 msgid "Normal"
-msgstr ""
+msgstr "Normaal"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:137
 msgid "Bold"
-msgstr ""
+msgstr "Dikgedrukt"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:138
 msgid "Italic"
-msgstr ""
+msgstr "Cursief"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:139
 msgid "Bold & Italic"
-msgstr ""
+msgstr "Dikgedrukt & Cursief"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:142
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:174
 msgid "Display"
-msgstr ""
+msgstr "Weergave"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:146
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:178
 msgid "Inline"
-msgstr ""
+msgstr "Inlijn"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:147
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:179
 msgid "New line"
-msgstr ""
+msgstr "Nieuwe regel"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:156
 msgid "Field styles"
-msgstr ""
+msgstr "Veld stijlen"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:160
 msgid "Field width"
-msgstr ""
+msgstr "Veld breedte"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:164
 msgid "Field height"
-msgstr ""
+msgstr "Veld hoogte"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:182
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:224
 msgid "Border radius"
-msgstr ""
+msgstr "Border radius"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:186
 msgid "Focus outline"
-msgstr ""
+msgstr "Focus outline"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:198
 msgid "Button styles"
-msgstr ""
+msgstr "Button stijlen"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:202
 msgid "Button width"
-msgstr ""
+msgstr "Button breedte"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:206
 msgid "Button height"
-msgstr ""
+msgstr "Button hoogte"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:238
 msgid "Error and success messages"
-msgstr ""
+msgstr "Fout en succes berichten"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:242
 msgid "Success text color"
-msgstr ""
+msgstr "Tekstkleur voor succesvol"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:244
 msgid "Error text color"
-msgstr ""
+msgstr "Tekstkleur voor een fout"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:252
 msgid "Advanced"
-msgstr ""
+msgstr "Geavanceerd"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:256
 msgid "CSS Selector Prefix"
-msgstr ""
+msgstr "CSS Selector Prefix"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:258
 msgid ""
 "Use this to create a more specific (and thus more \"important\") CSS "
 "selector."
-msgstr ""
+msgstr "Gebruik dit om een meer specifieke (en dus meer \"belangrijke\") CSS selector maken."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:261
 msgid "Manual CSS"
-msgstr ""
+msgstr "Handmatige CSS"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:261
 msgid ""
 "The CSS rules you enter here will be appended to the custom stylesheet."
-msgstr ""
+msgstr "De hier ingevoerde CSS regels worden toegevoegd aan de custom stylesheet."
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:269
 msgid "Copy styles from other form"
-msgstr ""
+msgstr "Kopieer stijlen van een ander formulier"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:283
 msgid "Copy Styles"
-msgstr ""
+msgstr "Kopieer stijlen"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:283
 msgid ""
@@ -1924,7 +1925,7 @@ msgstr "Verwijder formulier stijlen"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-css-builder.php:305
 msgid "Form preview"
-msgstr ""
+msgstr "Formulier voorbeeld"
 
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:8
 msgid "Sign-Up Forms"

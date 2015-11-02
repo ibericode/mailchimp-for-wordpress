@@ -2,13 +2,14 @@
 # This file is distributed under the GPL v3.
 # Translators:
 # Pedro Marques <pmark.pt@gmail.com>, 2015
+# Vasco Cruz <vasco_cruz@hotmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-05-26 14:41:46+00:00\n"
-"PO-Revision-Date: 2015-05-26 14:42+0000\n"
-"Last-Translator: Danny van Kooten <dannyvankooten@gmail.com>\n"
+"PO-Revision-Date: 2015-10-23 09:33+0000\n"
+"Last-Translator: Vasco Cruz <vasco_cruz@hotmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -258,7 +259,7 @@ msgstr ""
 #: mailchimp-for-wordpress/includes/functions/general.php:51
 #: mailchimp-for-wordpress-pro/includes/config/default-options.php:41
 msgid "Given email address is not subscribed."
-msgstr ""
+msgstr "Email fornecido não está subscrito."
 
 #: mailchimp-for-wordpress/includes/integrations/class-cf7.php:55
 #: mailchimp-for-wordpress/includes/views/checkbox-settings.php:52
@@ -743,7 +744,7 @@ msgstr ""
 #: mailchimp-for-wordpress/includes/views/form-settings.php:195
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:140
 msgid "Successfully subscribed"
-msgstr ""
+msgstr "Subscrito com sucesso"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:198
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:156
@@ -802,7 +803,7 @@ msgstr "CAPTCHA Inválido"
 #: mailchimp-for-wordpress/includes/views/form-settings.php:229
 #: mailchimp-for-wordpress-pro/includes/views/tabs/admin-forms-general-settings.php:174
 msgid "General error"
-msgstr ""
+msgstr "Erro geral"
 
 #: mailchimp-for-wordpress/includes/views/form-settings.php:232
 #: mailchimp-for-wordpress-pro/includes/views/metaboxes/optional-form-settings.php:193
