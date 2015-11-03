@@ -30,17 +30,6 @@ function sanitize_text_field( $value ) {
 	return $value;
 }
 
-function get_post( $id ) {
-	global $expected_post;
-
-	if( isset( $expected_post ) ) {
-		$expected_post->ID = $id;
-		return $expected_post;
-	}
-
-	return mock_post( array( 'ID' => $id ) );
-}
-
 function get_post_meta( $id, $meta_key, $single = true ) {
 	return false;
 }
@@ -51,6 +40,17 @@ function get_bloginfo( $key ) {
 
 function __( $string, $text_domain ) {
 	return $string;
+}
+
+function get_post( $id ) {
+	global $expected_post;
+
+	if( isset( $expected_post ) ) {
+		$expected_post->ID = $id;
+		return $expected_post;
+	}
+
+	return mock_post( array( 'ID' => $id ) );
 }
 
 function mock_post( $data ) {
@@ -70,4 +70,12 @@ function mock_post( $data ) {
 function mock_get_post( $data ) {
 	global $expected_post;
 	$expected_post = mock_post( $data );
+}
+
+function wp_verify_nonce( $nonce, $action ) {
+	return true;
+}
+
+function is_email( $email ) {
+	return true;
 }

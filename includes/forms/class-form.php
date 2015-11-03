@@ -325,7 +325,7 @@ class MC4WP_Form {
 			$validator->set_fields( $this->data );
 			$validator->add_rule( 'EMAIL', 'not_empty', 'invalid_email' );
 			$validator->add_rule( 'EMAIL', 'email', 'invalid_email' );
-			$validator->add_rule( 'FNAME', 'not_empty', 'required_field_missing' );
+			//$validator->add_rule( 'FNAME', 'not_empty', 'required_field_missing' );
 			$valid = $validator->validate();
 		}
 
@@ -335,7 +335,7 @@ class MC4WP_Form {
 		/**
 		 * @since 3.0
 		 */
-		$this->errors = (array) apply_filters( 'mc4wp_form_errors', $errors );
+		$this->errors = (array) apply_filters( 'mc4wp_form_errors', $errors, $this );
 
 		return $valid;
 	}
