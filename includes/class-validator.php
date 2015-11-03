@@ -20,8 +20,16 @@ class MC4WP_Validator {
 	/**
 	 * @param array $fields
 	 */
-	public function __construct( array $fields ) {
+	public function __construct( array $fields = array() ) {
 		$this->fields = $fields;
+	}
+
+	/**
+	 * @param array $fields
+	 */
+	public function set_fields( array $fields ) {
+		$this->fields = $fields;
+		$this->rules = array();
 	}
 
 	/**

@@ -1,110 +1,96 @@
 <?php
 
 /**
-* Handles form submissions
-*/
-abstract class MC4WP_Form_Request extends MC4WP_Request {
-
-	/**
-	 * @var string
-	 */
-	public $mailchimp_error = '';
-
-	/**
-	 * @var MC4WP_Form
-	 */
-	public $form;
-
-	/**
-	 * @var string
-	 */
-	public $form_element_id = '';
-
-	/**
-	 * @var bool
-	 */
-	public $success = false;
+ * Class MC4WP_Request
+ *
+ * @since 3.0
+ */
+class MC4WP_Request {
 
 	/**
 	 * @var array
 	 */
-	public $internal_data = array();
+	protected $raw_data;
 
 	/**
 	 * @var array
 	 */
-	public $user_data = array();
+	protected $data;
 
 	/**
-	 * @var string
+	 * @var array
 	 */
-	public $http_referer = '';
+	protected $server;
 
 	/**
-	 * @var string
+	 * @return MC4WP_Request
 	 */
-	public $result_code = '';
-
+	public static function create_from_globals() {
+		return new self( $_REQUEST, $_SERVER );
+	}
 
 	/**
 	 * Constructor
 	 *
 	 * @param array $data
+	 * @param array $server
 	 */
-	public function __construct( array $data ) {
-
-		// find fields prefixed with _mc4wp_
-		$this->internal_data = $this->get_internal_data( $data );
-
-		// normalize user data
-		$this->user_data = $this->normalize_data( $data );
-
-		// store number of submitted form
-		$this->form_element_id = (string) $this->internal_data['form_element_id'];
-
-		// get form
-		try{
-			$form = $this->form = mc4wp_get_form( $this->internal_data['form_id'] );
-		} catch( Exception $e ) {
-			return;
-		}
-
-		// attach request to form
-		$form->request = $this;
-
-		// get referer
-		if( ! empty( $_SERVER['HTTP_REFERER'] ) ) {
-			$this->http_referer = strip_tags( $_SERVER['HTTP_REFERER'] );
-		}
+	public function __construct( $data, $server = array() ) {
+		$this->raw_data = $data;
+		$this->data = $this->normalize_data( $data );
+		$this->server = $server;
 	}
 
 	/**
-	 * @param $data
+	 * @return array
+	 */
+	public function all() {
+		return $this->data;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function keys() {
+		return array_keys( $this->data );
+	}
+
+	/**
+	 * @param string $name
+	 * @param mixed $default
+	 *
+	 * @return mixed
+	 */
+	public function get( $name, $default = '' ) {
+
+		$name = strtoupper( $name );
+
+		if( isset( $this->data[ $name ] ) ) {
+			return $this->data[ $name ];
+		}
+
+		return $default;
+	}
+
+	/**
+	 * @param $prefix
 	 *
 	 * @return array
 	 */
-	public function get_internal_data( &$data ) {
-		$config = array();
+	public function get_with_prefix( $prefix ) {
+		$return = array();
+		$prefix = strtoupper( $prefix );
+		$length = strlen( $prefix );
 
-		foreach( $data as $key => $value ) {
-			if( stripos( $key, '_mc4wp_' ) === 0 ) {
+		foreach( $this->data as $key => $value ) {
+			if( strpos( $key, $prefix ) === 0 ) {
 
-				// remove data from array
-				unset( $data[$key] );
-
-				// get part after "mc4wp_" and use that as key
-				$key = substr( $key, 7 );
-
-				// if key starts with h_, change it to say "honeypot" (because field has dynamic name attribute)
-				if( strpos( $key, 'ho_' ) === 0 ){
-					$key = 'honeypot';
-				}
-
-				$config[ $key ] = $value;
+				$new_key = substr( $key, $length );
+				$return[ $new_key ] = $value;
 			}
 		}
 
-		return $config;
+		return $return;
 	}
 
 	/**
@@ -114,28 +100,22 @@ abstract class MC4WP_Form_Request extends MC4WP_Request {
 	 */
 	protected function normalize_data( array $data ) {
 
-		// lowercase all data keys
+		// uppercase all data keys
 		$data = array_change_key_case( $data, CASE_UPPER );
 
 		// strip slashes on everything
 		$data = stripslashes_deep( $data );
 
-		// sanitize all scalar values
+		// sanitize all the things
 		$data = $this->sanitize_deep( $data );
-
-		/**
-		 * @filter `mc4wp_form_data`
-		 * @expects array
-		 */
-		$data = apply_filters( 'mc4wp_form_data', $data );
 
 		return (array) $data;
 	}
 
 	/**
-	 * @param $value
+	 * @param mixed $value
 	 *
-	 * @return array|string
+	 * @return mixed
 	 */
 	public function sanitize_deep( $value ) {
 
@@ -154,90 +134,10 @@ abstract class MC4WP_Form_Request extends MC4WP_Request {
 	}
 
 	/**
-	 * Validates the request
-	 *
 	 * @return bool
 	 */
-	public function validate() {
-		return $this->form->is_valid();
+	public function is_ajax() {
+		return defined( 'DOING_AJAX' ) && DOING_AJAX;
 	}
 
-	/**
-	 * Send HTTP response
-	 */
-	public function respond() {
-
-		do_action( 'mc4wp_form_respond_to_request', $this );
-
-		// do stuff on success, non-AJAX only
-		if( $this->success ) {
-
-			/**
-			 * @action mc4wp_form_success
-			 * @todo clean-up
-			 *
-			 * Use to hook into successful form sign-ups
-			 *
-			 * @param   int     $form_id        The ID of the submitted form (PRO ONLY)
-			 * @param   string  $email          The email of the subscriber
-			 * @param   array   $data           Additional list fields, like FNAME etc (if any)
-			 */
-			do_action( 'mc4wp_form_success', 0, $this->user_data['EMAIL'], $this->user_data );
-
-			// check if we want to redirect the visitor
-			if ( '' !== $this->form->get_redirect_url() ) {
-				wp_redirect( $this->form->get_redirect_url() );
-				exit;
-			}
-
-		} else {
-
-			/**
-			 * @action mc4wp_form_error_{ERROR_CODE}
-			 *
-			 * Use to hook into various sign-up errors. Hook names are:
-			 *
-			 * - mc4wp_form_error_error                     General errors
-			 * - mc4wp_form_error_invalid_email             Invalid email address
-			 * - mc4wp_form_error_already_subscribed        Email is already on selected list(s)
-			 * - mc4wp_form_error_required_field_missing    One or more required fields are missing
-			 * - mc4wp_form_error_no_lists_selected         No MailChimp lists were selected
-			 *
-			 * @param   int     $form_id        The ID of the submitted form (PRO ONLY)
-			 * @param   string  $email          The email of the subscriber
-			 * @param   array   $data           Additional list fields, like FNAME etc (if any)
-			 */
-			do_action( 'mc4wp_form_error_' . $this->result_code, 0, $this->user_data['EMAIL'], $this->user_data );
-		}
-
-	}
-
-
-	/**
-	 * Get MailChimp List(s) to subscribe to
-	 *
-	 * @return array Array of selected MailChimp lists
-	 */
-	public function get_lists() {
-
-		$lists = $this->form->settings['lists'];
-
-		// get lists from request, if set.
-		if( ! empty( $this->internal_data['lists'] ) ) {
-
-			$lists = $this->internal_data['lists'];
-
-			// make sure lists is an array
-			if( ! is_array( $lists ) ) {
-				$lists = sanitize_text_field( $lists );
-				$lists = array_map( 'trim', explode( ',', $lists ) );
-			}
-
-		}
-
-		// allow plugins to alter the lists to subscribe to
-		$lists = (array) apply_filters( 'mc4wp_lists', $lists );
-
-		return $lists;
-	}
 }

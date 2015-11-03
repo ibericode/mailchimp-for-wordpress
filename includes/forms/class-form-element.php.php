@@ -29,6 +29,11 @@ class MC4WP_Form_Element {
 	public $config = array();
 
 	/**
+	 * @var bool
+	 */
+	public $is_submitted = false;
+
+	/**
 	 * @param MC4WP_Form $form
 	 * @param string $ID
 	 * @param $config array
@@ -37,16 +42,11 @@ class MC4WP_Form_Element {
 		$this->form = $form;
 		$this->ID = $ID;
 		$this->config = $config;
+		$this->is_submitted = $this->form->is_submitted
+		                      && ! empty( $this->form->config['form_element_id'] )
+		                      && $this->form->config['form_element_id'] == $this->ID;
 	}
 
-	/**
-	 * Is this element submitted?
-	 *
-	 * @return bool
-	 */
-	public function is_submitted() {
-		return $this->form->is_submitted() && $this->form->request->form_element_id == $this->ID;
-	}
 
 	/**
 	 * @return string
@@ -71,11 +71,10 @@ class MC4WP_Form_Element {
 	public function get_hidden_fields() {
 
 		// hidden fields
-		$hidden_fields = '<div style="display: none;"><input type="text" name="_mc4wp_ho_'. md5( time() ).'" value="" tabindex="-1" autocomplete="off" /></div>';
+		$hidden_fields = '<div style="display: none;"><input type="text" name="_mc4wp_honeypot" value="" tabindex="-1" autocomplete="off" /></div>';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_timestamp" value="'. time() . '" />';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_id" value="'. esc_attr( $this->form->ID ) .'" />';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_element_id" value="'. esc_attr( $this->ID ) .'" />';
-		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_submit" value="1" />';
 		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_nonce" value="'. wp_create_nonce( '_mc4wp_form_nonce' ) .'" />';
 
 		// was "lists" parameter passed in shortcode arguments?
@@ -200,7 +199,7 @@ class MC4WP_Form_Element {
 		$closing_html = '</div><!-- / MailChimp for WordPress Plugin -->';
 
 		// only generate form & fields HTML if necessary
-		if( ! $this->is_submitted()
+		if( ! $this->is_submitted
 		    || ! $this->form->settings['hide_after_success']
 		    || ! $this->form->request->success ) {
 
@@ -245,16 +244,9 @@ class MC4WP_Form_Element {
 		$css_classes[] = 'mc4wp-form-' . $this->form->ID;
 
 		// Add form classes if this specific form instance was submitted
-		if( $this->is_submitted() ) {
-
+		if( $this->is_submitted ) {
 			$css_classes[] = 'mc4wp-form-submitted';
-
-			if( $this->form->request->success ) {
-				$css_classes[] = 'mc4wp-form-success';
-			} else {
-				$css_classes[] = 'mc4wp-form-error';
-			}
-
+			$css_classes[] = ( empty( $this->errors ) ) ?  'mc4wp-form-success' : 'mc4wp-form-error';
 		}
 
 		// add class for CSS targetting

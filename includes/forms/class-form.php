@@ -36,11 +36,6 @@ class MC4WP_Form {
 	public $messages = array();
 
 	/**
-	 * @var MC4WP_Form_Request
-	 */
-	public $request;
-
-	/**
 	 * @var WP_Post
 	 */
 	protected $post;
@@ -55,6 +50,21 @@ class MC4WP_Form {
 	 * @todo Change to actual error messages?
 	 */
 	public $errors = array();
+
+	/**
+	 * @var bool
+	 */
+	public $is_submitted = false;
+
+	/**
+	 * @var array
+	 */
+	public $data = array();
+
+	/**
+	 * @var array
+	 */
+	public $config = array();
 
 
 	/**
@@ -98,25 +108,19 @@ class MC4WP_Form {
 		$this->content = $post->post_content;
 		$this->settings = $this->load_settings();
 		$this->messages = $this->load_messages();
+		$this->config = array(
+			'lists' => $this->settings['lists'],
+			'email_type' => 'html'
+		);
 	}
 
-
-
-	/**
-	 * Is this form submitted?
-	 * @return bool
-	 */
-	public function is_submitted() {
-		$form_submitted = $this->request instanceof MC4WP_Form_Request;
-		return $form_submitted;
-	}
 
 	/**
 	 * @return string
 	 */
 	public function get_response_html() {
 
-		if( ! $this->is_submitted() ) {
+		if( ! $this->is_submitted ) {
 			return '';
 		}
 
@@ -128,10 +132,11 @@ class MC4WP_Form {
 			foreach( $this->errors as $key ) {
 				$html .= $this->get_message_html( $key );
 			}
-		} else {
-			$result_code = $this->request->result_code;
-			$html = $this->get_message_html( $result_code );
+
+			return $html;
 		}
+
+		$html = $this->get_message_html( 'subscribed' );
 
 		return (string) apply_filters( 'mc4wp_form_response_html', $html, $this );
 	}
@@ -303,23 +308,29 @@ class MC4WP_Form {
 	 */
 	public function is_valid() {
 
-		if( ! $this->is_submitted() ) {
+		if( ! $this->is_submitted ) {
 			return true;
 		}
 
-		$fields = $this->request->user_data;
-		$fields += array(
-			'_TIMESTAMP' => $this->request->internal_data['timestamp'],
-			'_HONEYPOT' => $this->request->internal_data['honeypot'],
-			'_NONCE' => $this->request->internal_data['form_nonce'],
-			'_LISTS' => $this->request->get_lists()
-		);
+		$validator = new MC4WP_Validator();
 
-		$validator = new MC4WP_Validator( $fields );
-		$validator = $this->set_validation_rules( $validator );
+		// validate config
+		$validator->set_fields( $this->config );
+		$validator->add_rule( 'lists', 'not_empty', 'no_lists_selected' );
+		$validator->add_rule( 'timestamp', 'range', 'spam', array( 'max' => time() - 2 ) );
+		$validator->add_rule( 'honeypot', 'empty', 'spam' );
+		$validator->add_rule( 'form_nonce', 'valid_nonce', 'spam', array( 'action' => '_mc4wp_form_nonce' ) );
 		$valid = $validator->validate();
 
-		// store validation errors
+		if( $valid ) {
+			// validate fields
+			$validator->set_fields( $this->data );
+			$validator->add_rule( 'EMAIL', 'not_empty', 'invalid_email' );
+			$validator->add_rule( 'EMAIL', 'email', 'invalid_email' );
+			$valid = $validator->validate();
+		}
+
+		// validate
 		$this->errors = $validator->get_errors();
 
 		/**
@@ -331,28 +342,60 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * @param MC4WP_Validator $validator
-	 * @return MC4WP_Validator
+	 * @param MC4WP_Request $request
 	 */
-	public function set_validation_rules( MC4WP_Validator $validator ) {
+	public function handle_request( MC4WP_Request $request ) {
+		$this->is_submitted = true;
+		$this->data = $request->all();
+		$this->set_config( $request->get_with_prefix('_mc4wp_') );
+	}
 
-		// set fields which can't be empty
-		$validator->add_rule( 'EMAIL', 'not_empty', 'invalid_email' );
-		$validator->add_rule( 'EMAIL', 'email', 'invalid_email' );
+	/**
+	 * Programmatically submit a form
+	 *
+	 * @param       $data
+	 * @param array $config
+	 */
+	public function submit( $data, $config = array() ) {
+		// @todo fill this method
+	}
 
-		// @todo Get this from fields with `required` attribute (+ MailChimp required fields)
-		//$validator->add_rule( 'FNAME', 'not_empty', 'required_field_missing' );
+	/**
+	 * @param array $config
+	 * @todo add `mc4wp_lists` filter back in
+	 */
+	public function set_config( array $config ) {
 
-		// set minimum for timestamp
-		$validator->add_rule( '_TIMESTAMP', 'range', 'spam', array( 'max' => time() - 2 ) );
+		// @todo decide if we want this here
+		// @todo decide if we want the nonce etc. in this array
+		$config = array_change_key_case( $config, CASE_LOWER );
 
-		// honeypot must be empty
-		$validator->add_rule( '_HONEYPOT', 'empty', 'spam' );
+		if( isset( $config['lists'] ) ) {
+			$lists = $config['lists'];
 
-		// nonce field must be valid nonce
-		$validator->add_rule( '_NONCE', 'valid_nonce', 'spam', array( 'action' => '_mc4wp_form_nonce' ) );
-		$validator->add_rule( '_LISTS', 'not_empty', 'no_lists_selected' );
+			if( ! is_array( $lists ) ) {
+				$lists = array_map( 'trim', explode( ',', $lists ) );
+			}
 
-		return $validator;
+			$config['lists'] = $lists;
+		}
+
+		$this->config = array_merge( $this->config, $config );
+	}
+
+	/**
+	 * @todo add filter
+	 * @return string
+	 */
+	public function get_email_type() {
+		return $this->config['email_type'];
+	}
+
+	/**
+	 * @todo add filter
+	 * @return mixed
+	 */
+	public function get_lists() {
+		return $this->config['lists'];
 	}
 }
