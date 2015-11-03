@@ -8,13 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     'xrstf\\Composer52' => array($vendorDir . '/xrstf/composer-php52/lib'),
     'phpDocumentor' => array($vendorDir . '/phpdocumentor/reflection-docblock/src'),
-    'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
-    'Guzzle\\Tests' => array($vendorDir . '/guzzle/guzzle/tests'),
-    'Guzzle' => array($vendorDir . '/guzzle/guzzle/src'),
-    'Contrib\\Component' => array($vendorDir . '/satooshi/php-coveralls/src'),
-    'Contrib\\Bundle' => array($vendorDir . '/satooshi/php-coveralls/src'),
-    'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src'),
-    'CodeClimate\\Component' => array($vendorDir . '/codeclimate/php-test-reporter/src'),
-    'CodeClimate\\Bundle' => array($vendorDir . '/codeclimate/php-test-reporter/src'),
 );

@@ -8,7 +8,7 @@ install:
 - composer self-update --no-interaction
 - composer install --no-interaction --prefer-dist
 script:
-- composer run-script test
+- phpunit
 env:
   global:
     secure: iYWazyvp/sBhqW4GMiOrPHXrUQTGVVNIPVTUU3mSvRmFSEvZRbL0NbfFEUJhfqNITrEoPxQxoDaf6MJ9UNPqfcARuChrUybHKFv9Ouvd05kmH4vwPJroJdl3iawQzeZBXpxg/Wn8ciW79bVuCH2/LMZWk1bcKS87VbjG6CwUF8s=
