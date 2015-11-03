@@ -124,7 +124,9 @@ var rows = function(m) {
 							m('td.cb', m('input', {
 									name    : 'selected',
 									type    : (config.type() === 'checkbox' ) ? 'checkbox' : 'radio',
-									onchange: m.withAttr('checked', choice.selected)
+									onchange: m.withAttr('value', config.selectChoice.bind(config)),
+									checked: choice.selected(),
+									value: choice.value()
 								})
 							),
 							m('td.stretch', m('input.widefat', {

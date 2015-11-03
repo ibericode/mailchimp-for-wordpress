@@ -477,7 +477,9 @@ var rows = function(m) {
 							m('td.cb', m('input', {
 									name    : 'selected',
 									type    : (config.type() === 'checkbox' ) ? 'checkbox' : 'radio',
-									onchange: m.withAttr('checked', choice.selected)
+									onchange: m.withAttr('value', config.selectChoice.bind(config)),
+									checked: choice.selected(),
+									value: choice.value()
 								})
 							),
 							m('td.stretch', m('input.widefat', {
@@ -525,11 +527,27 @@ module.exports = function(m) {
 		this.wrap = m.prop(data.wrap || false);
 		this.min = m.prop(data.min || null);
 		this.max = m.prop(data.max || null);
-
 		this.help = m.prop(data.help || '');
-
-		// auto convert associative arrays to FieldChoice objects
 		this.choices = m.prop(data.choices || []);
+
+		this.selectChoice = function(value) {
+			var field = this;
+
+			this.choices(this.choices().map(function(choice) {
+
+				if( choice.value() === value ) {
+					choice.selected(true);
+				} else {
+					// only checkboxes allow for multiple selections
+					if(field.type() !== 'checkbox' ) {
+						choice.selected(false);
+					}
+				}
+
+				return choice;
+
+			}) );
+		}
 	};
 
 	/**
@@ -596,6 +614,15 @@ module.exports = function(m) {
 		// array of choices given? convert to FieldChoice objects
 		if (data.choices) {
 			data.choices = createChoices(data.choices);
+
+			if( data.value) {
+				data.choices = data.choices.map(function(choice) {
+					if(choice.value() === data.value) {
+						choice.selected(true);
+					}
+					return choice;
+				});
+			}
 		}
 
 		// create Field object
@@ -786,6 +813,8 @@ var FieldFactory = function(settings, fields) {
 
 	function registerCustomFields(lists) {
 
+		var choices;
+
 		// register submit button
 		register({
 			name: '',
@@ -795,7 +824,7 @@ var FieldFactory = function(settings, fields) {
 		});
 
 		// register lists choice field
-		var choices = {};
+		choices = {};
 		lists.forEach(function(list) {
 			choices[list.id] = list.name;
 		});
@@ -805,6 +834,19 @@ var FieldFactory = function(settings, fields) {
 			title: "List Choice",
 			choices: choices,
 			help: 'This field will allow your visitors to choose a list to subscribe to. <a href="#" data-tab="settings" class="tab-link">Click here to select more lists to show</a>.'
+		});
+
+		choices = {
+			'subscribe': "Subscribe",
+			'unsubscribe': "Unsubscribe"
+		};
+		register({
+			name: '_mc4wp_action',
+			type: 'radio',
+			title: "Subscribe / Unsubscribe",
+			choices: choices,
+			value: 'subscribe',
+			help: 'This field will allow your visitors to choose whether they would like to subscribe or unsubscribe'
 		});
 	}
 

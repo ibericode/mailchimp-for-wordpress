@@ -117,6 +117,8 @@ var FieldFactory = function(settings, fields) {
 
 	function registerCustomFields(lists) {
 
+		var choices;
+
 		// register submit button
 		register({
 			name: '',
@@ -126,7 +128,7 @@ var FieldFactory = function(settings, fields) {
 		});
 
 		// register lists choice field
-		var choices = {};
+		choices = {};
 		lists.forEach(function(list) {
 			choices[list.id] = list.name;
 		});
@@ -136,6 +138,19 @@ var FieldFactory = function(settings, fields) {
 			title: "List Choice",
 			choices: choices,
 			help: 'This field will allow your visitors to choose a list to subscribe to. <a href="#" data-tab="settings" class="tab-link">Click here to select more lists to show</a>.'
+		});
+
+		choices = {
+			'subscribe': "Subscribe",
+			'unsubscribe': "Unsubscribe"
+		};
+		register({
+			name: '_mc4wp_action',
+			type: 'radio',
+			title: "Subscribe / Unsubscribe",
+			choices: choices,
+			value: 'subscribe',
+			help: 'This field will allow your visitors to choose whether they would like to subscribe or unsubscribe'
 		});
 	}
 

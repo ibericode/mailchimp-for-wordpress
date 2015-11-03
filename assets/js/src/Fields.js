@@ -19,11 +19,27 @@ module.exports = function(m) {
 		this.wrap = m.prop(data.wrap || false);
 		this.min = m.prop(data.min || null);
 		this.max = m.prop(data.max || null);
-
 		this.help = m.prop(data.help || '');
-
-		// auto convert associative arrays to FieldChoice objects
 		this.choices = m.prop(data.choices || []);
+
+		this.selectChoice = function(value) {
+			var field = this;
+
+			this.choices(this.choices().map(function(choice) {
+
+				if( choice.value() === value ) {
+					choice.selected(true);
+				} else {
+					// only checkboxes allow for multiple selections
+					if(field.type() !== 'checkbox' ) {
+						choice.selected(false);
+					}
+				}
+
+				return choice;
+
+			}) );
+		}
 	};
 
 	/**
@@ -90,6 +106,15 @@ module.exports = function(m) {
 		// array of choices given? convert to FieldChoice objects
 		if (data.choices) {
 			data.choices = createChoices(data.choices);
+
+			if( data.value) {
+				data.choices = data.choices.map(function(choice) {
+					if(choice.value() === data.value) {
+						choice.selected(true);
+					}
+					return choice;
+				});
+			}
 		}
 
 		// create Field object
