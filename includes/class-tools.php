@@ -30,7 +30,9 @@ class MC4WP_Tools {
 
 		// set ip address
 		if( empty( $merge_vars['OPTIN_IP'] ) ) {
-			$optin_ip = self::get_client_ip();
+			$request = MC4WP_Request::create_from_globals();
+			$optin_ip = $request->get_client_ip();
+
 			if( ! empty( $optin_ip ) ) {
 				$merge_vars['OPTIN_IP'] = $optin_ip;
 			}
@@ -78,30 +80,6 @@ class MC4WP_Tools {
 		}
 
 		return strip_tags( $email );
-	}
-
-	/**
-	 * Returns the IP address of the visitor, does not take proxies into account.
-	 *
-	 * @return string
-	 */
-	public static function get_client_ip() {
-
-		$headers = ( function_exists( 'apache_request_headers' ) ) ? apache_request_headers() : $_SERVER;
-
-		if ( array_key_exists( 'X-Forwarded-For', $headers ) && filter_var( $headers['X-Forwarded-For'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ) {
-			return $headers['X-Forwarded-For'];
-		}
-
-		if ( array_key_exists( 'HTTP_X_FORWARDED_FOR', $headers ) && filter_var( $headers['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ) {
-			return $headers['HTTP_X_FORWARDED_FOR'];
-		}
-
-		if( ! empty( $_SERVER['REMOTE_ADDR'] ) ) {
-			return filter_var( $_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 );
-		}
-
-		return '';
 	}
 
 	/**

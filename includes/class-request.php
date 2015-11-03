@@ -45,4 +45,31 @@ class MC4WP_Request {
 		return defined( 'DOING_AJAX' ) && DOING_AJAX;
 	}
 
+	/**
+	 * @param $method
+	 *
+	 * @return bool
+	 */
+	public function is_method( $method ) {
+		return $this->server->get('REQUEST_METHOD') === $method;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_client_ip() {
+		$headers = ( function_exists( 'apache_request_headers' ) ) ? apache_request_headers() : $this->server->all();
+
+		if ( array_key_exists( 'X-Forwarded-For', $headers ) && filter_var( $headers['X-Forwarded-For'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ) {
+			return $headers['X-Forwarded-For'];
+		}
+
+		if ( array_key_exists( 'HTTP_X_FORWARDED_FOR', $headers ) && filter_var( $headers['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ) {
+			return $headers['HTTP_X_FORWARDED_FOR'];
+		}
+
+		return $this->server->get( 'REMOTE_ADDR' );
+	}
+
+
 }

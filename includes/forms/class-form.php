@@ -38,7 +38,7 @@ class MC4WP_Form {
 	/**
 	 * @var WP_Post
 	 */
-	protected $post;
+	public $post;
 
 	/**
 	 * @var array
@@ -95,7 +95,7 @@ class MC4WP_Form {
 	 * @param int $id
 	 * @throws Exception
 	 */
-	public function __construct( $id = 0 ) {
+	public function __construct( $id ) {
 		$id = (int) $id;
 		$this->post = $post = get_post( $id );
 
@@ -233,12 +233,8 @@ class MC4WP_Form {
 	 * @return array
 	 */
 	public function get_field_types() {
-		static $field_types;
-
-		if( ! $field_types ) {
-			preg_match_all( '/type=\"(\w+)?\"/', strtolower( $this->content ), $result );
-			$field_types = $result[1];
-		}
+		preg_match_all( '/type=\"(\w+)?\"/', strtolower( $this->content ), $result );
+		$field_types = $result[1];
 
 		return $field_types;
 	}
