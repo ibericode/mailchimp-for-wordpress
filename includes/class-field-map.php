@@ -113,6 +113,7 @@ class MC4WP_Field_Map {
 	private function map_list_field( $field ) {
 
 		// check if field is required
+		// @todo this is none of this class its business, move to validator
 		if( $field->req ) {
 			if( empty( $this->data[ $field->tag ] ) ) {
 				throw new Exception( sprintf( "Required field %s is missing.", $field->name ), 400 );

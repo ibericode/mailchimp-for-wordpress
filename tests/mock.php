@@ -1,9 +1,18 @@
 <?php
 
 if( ! defined( 'ABSPATH' ) ) {
-	define( 'ABSPATH', '' );
+	define( 'ABSPATH', '/' );
 }
 
-if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
-	define( 'MC4WP_LITE_VERSION', 1 );
+
+function add_filter( $hook, $callback, $prio = 10, $arguments = 1 ) {
+
+}
+
+function add_action( $hook, $callback, $prio = 10, $arguments = 1) {
+
+}
+
+function is_user_logged_in() {
+	return false;
 }

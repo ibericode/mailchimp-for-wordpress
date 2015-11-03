@@ -1,6 +1,5 @@
 <?php
 
-require_once __DIR__ . '/mock.php';
 require_once __DIR__ . '/../includes/class-tools.php';
 
 class ToolsTest extends PHPUnit_Framework_TestCase {
@@ -62,7 +61,7 @@ class ToolsTest extends PHPUnit_Framework_TestCase {
 		$this->assertEmpty( MC4WP_Tools::get_known_email() );
 
 		// Test: Email given in query string
-		$_REQUEST['mc4wp_email'] = 'johndoe@email.com';
-		$this->assertEquals( MC4WP_Tools::get_known_email(), $_REQUEST['mc4wp_email'] );
+		$_REQUEST['email'] = 'johndoe@email.com';
+		$this->assertEquals( MC4WP_Tools::get_known_email(), $_REQUEST['email'] );
 	}
 }

@@ -50,6 +50,12 @@ class MC4WP_Form {
 	 */
 	public static $instances = array();
 
+	/**
+	 * @var array Array of error code's
+	 * @todo Change to actual error messages?
+	 */
+	public $errors = array();
+
 
 	/**
 	 * @param int $form_id
@@ -114,8 +120,19 @@ class MC4WP_Form {
 			return '';
 		}
 
-		$result_code = $this->request->result_code;
-		$html = $this->get_message_html( $result_code );
+		$html = '';
+
+		if( ! empty( $this->errors ) ) {
+
+			// create html string of all errors
+			foreach( $this->errors as $key ) {
+				$html .= $this->get_message_html( $key );
+			}
+		} else {
+			$result_code = $this->request->result_code;
+			$html = $this->get_message_html( $result_code );
+		}
+
 		return (string) apply_filters( 'mc4wp_form_response_html', $html, $this );
 	}
 
@@ -272,11 +289,70 @@ class MC4WP_Form {
 	}
 
 	/**
-	 *
+	 * Get "redirect to url after success" setting for this form
 	 */
 	public function get_redirect_url() {
 		$url = trim( $this->settings['redirect'] );
 		$url = (string) apply_filters( 'mc4wp_form_redirect_url', $url, $this );
 		return $url;
+	}
+
+	/**
+	 * @return bool
+	 * @throws Exception
+	 */
+	public function is_valid() {
+
+		if( ! $this->is_submitted() ) {
+			return true;
+		}
+
+		$fields = $this->request->user_data;
+		$fields += array(
+			'_TIMESTAMP' => $this->request->internal_data['timestamp'],
+			'_HONEYPOT' => $this->request->internal_data['honeypot'],
+			'_NONCE' => $this->request->internal_data['form_nonce'],
+			'_LISTS' => $this->request->get_lists()
+		);
+
+		$validator = new MC4WP_Validator( $fields );
+		$validator = $this->set_validation_rules( $validator );
+		$valid = $validator->validate();
+
+		// store validation errors
+		$this->errors = $validator->get_errors();
+
+		/**
+		 * @since 3.0
+		 */
+		$this->errors = (array) apply_filters( 'mc4wp_form_errors', $this->errors );
+
+		return $valid;
+	}
+
+	/**
+	 * @param MC4WP_Validator $validator
+	 * @return MC4WP_Validator
+	 */
+	public function set_validation_rules( MC4WP_Validator $validator ) {
+
+		// set fields which can't be empty
+		$validator->add_rule( 'EMAIL', 'not_empty', 'invalid_email' );
+		$validator->add_rule( 'EMAIL', 'email', 'invalid_email' );
+
+		// @todo Get this from fields with `required` attribute (+ MailChimp required fields)
+		//$validator->add_rule( 'FNAME', 'not_empty', 'required_field_missing' );
+
+		// set minimum for timestamp
+		$validator->add_rule( '_TIMESTAMP', 'range', 'spam', array( 'max' => time() - 2 ) );
+
+		// honeypot must be empty
+		$validator->add_rule( '_HONEYPOT', 'empty', 'spam' );
+
+		// nonce field must be valid nonce
+		$validator->add_rule( '_NONCE', 'valid_nonce', 'spam', array( 'action' => '_mc4wp_form_nonce' ) );
+		$validator->add_rule( '_LISTS', 'not_empty', 'no_lists_selected' );
+
+		return $validator;
 	}
 }

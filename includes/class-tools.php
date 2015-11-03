@@ -30,37 +30,13 @@ class MC4WP_Tools {
 
 		// set ip address
 		if( empty( $merge_vars['OPTIN_IP'] ) ) {
-			$merge_vars['OPTIN_IP'] = self::get_client_ip();
+			$optin_ip = self::get_client_ip();
+			if( ! empty( $optin_ip ) ) {
+				$merge_vars['OPTIN_IP'] = $optin_ip;
+			}
 		}
 
 		return $merge_vars;
-	}
-
-	/**
-	 * Returns text with {variables} replaced.
-	 *
-	 * @param    string $string
-	 * @param array     $additional_replacements
-	 * @param array Array of list ID's (needed if {subscriber_count} is set
-	 *
-	 * @return string $text       The text with {variables} replaced.
-	 * replaced.
-	 */
-	public static function replace_variables( $string, $additional_replacements = array(), $list_ids = array() ) {
-
-		$replacements = array();
-
-		// subscriber count? only fetch these if the tag is actually used
-		if ( stristr( $string, '{subscriber_count}' ) !== false ) {
-			$mailchimp = new MC4WP_MailChimp();
-			$subscriber_count = $mailchimp->get_subscriber_count( $list_ids );
-			$replacements['{subscriber_count}'] = $subscriber_count;
-		}
-
-		// perform the replacement
-		$string = str_ireplace( array_keys( $replacements ), array_values( $replacements ), $string );
-
-		return $string;
 	}
 
 	/**
@@ -114,14 +90,18 @@ class MC4WP_Tools {
 		$headers = ( function_exists( 'apache_request_headers' ) ) ? apache_request_headers() : $_SERVER;
 
 		if ( array_key_exists( 'X-Forwarded-For', $headers ) && filter_var( $headers['X-Forwarded-For'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ) {
-			$ip = $headers['X-Forwarded-For'];
-		} elseif ( array_key_exists( 'HTTP_X_FORWARDED_FOR', $headers ) && filter_var( $headers['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ) {
-			$ip = $headers['HTTP_X_FORWARDED_FOR'];
-		} else {
-			$ip = filter_var( $_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 );
+			return $headers['X-Forwarded-For'];
 		}
 
-		return $ip;
+		if ( array_key_exists( 'HTTP_X_FORWARDED_FOR', $headers ) && filter_var( $headers['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ) {
+			return $headers['HTTP_X_FORWARDED_FOR'];
+		}
+
+		if( ! empty( $_SERVER['REMOTE_ADDR'] ) ) {
+			return filter_var( $_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 );
+		}
+
+		return '';
 	}
 
 	/**

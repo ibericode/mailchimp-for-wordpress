@@ -156,58 +156,10 @@ abstract class MC4WP_Form_Request extends MC4WP_Request {
 	/**
 	 * Validates the request
 	 *
-	 * - Nonce validity
-	 * - Honeypot
-	 * - Captcha
-	 * - Email address
-	 * - Lists (POST and options)
-	 * - Additional validation using a filter.
-	 *
 	 * @return bool
 	 */
 	public function validate() {
-
-		$validator = new MC4WP_Form_Validator( $this->internal_data, $this->user_data );
-
-		// validate nonce
-		if( ! $validator->validate_nonce() ) {
-			$this->result_code = 'invalid_nonce';
-			return false;
-		}
-
-		// ensure honeypot was given but not filled
-		if( ! $validator->validate_honeypot() ) {
-			$this->result_code = 'spam';
-			return false;
-		}
-
-		// check timestamp difference, token should be generated at least 2 seconds before form submit
-		if( ! $validator->validate_timestamp() ) {
-			$this->result_code = 'spam';
-			return false;
-		}
-
-		// validate email
-		if( ! $validator->validate_email() ) {
-			$this->result_code = 'invalid_email';
-			return false;
-		}
-
-		// validate selected or submitted lists
-		if( ! $validator->validate_lists( $this->get_lists() ) ) {
-			$this->result_code = 'no_lists_selected';
-			return false;
-		}
-
-		// run custom validation (using filter)
-		$custom_validation = $validator->custom_validation();
-		if( $custom_validation !== true ) {
-			$this->result_code = $custom_validation;
-			return false;
-		}
-
-		// finally, return true
-		return true;
+		return $this->form->is_valid();
 	}
 
 	/**
