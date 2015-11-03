@@ -5,7 +5,7 @@
  *
  * @author Danny van Kooten
  * @package MailChimp for WordPress
- * @api
+ * @api This class is intended for public use.
  * @since 3.0
  */
 class MC4WP_Form {
@@ -135,9 +135,10 @@ class MC4WP_Form {
 			}
 
 			return $html;
+		} else {
+			// todo: get message based on type (from config?)
+			$html = $this->get_message_html( 'subscribed' );
 		}
-
-		$html = $this->get_message_html( 'subscribed' );
 
 		return (string) apply_filters( 'mc4wp_form_response_html', $html, $this );
 	}

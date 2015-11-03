@@ -106,7 +106,7 @@ class MC4WP_Form_Asset_Manager {
 		echo '})();';
 		echo '</script>';
 
-		do_action( 'mc4wp_form_print_javascript', $this );
+		do_action( 'mc4wp_forms_print_javascript' );
 
 
 		// was any of the printed forms submitted?

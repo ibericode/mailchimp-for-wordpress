@@ -98,7 +98,7 @@ class MC4WP_Form_Element {
 		 * Can be used to change the position of the form success & error messages.
 		 * Valid options are 'before' or 'after'
 		 */
-		$response_position = (string) apply_filters( 'mc4wp_form_response_position', 'after' );
+		$response_position = (string) apply_filters( 'mc4wp_form_response_position', 'after', $this->form );
 
 		// check if content contains {response} tag
 		if( stripos( $this->form->content, '{response}' ) !== false ) {
@@ -113,7 +113,7 @@ class MC4WP_Form_Element {
 	 * @return string
 	 */
 	protected function get_html_before_form( $response_html = '' ) {
-		$html = (string) apply_filters( 'mc4wp_form_before_form', '', $this );
+		$html = (string) apply_filters( 'mc4wp_form_before_form', '', $this->form );
 
 		if( $this->get_response_position() === 'before' ) {
 			$html = $html . $response_html;
@@ -127,7 +127,7 @@ class MC4WP_Form_Element {
 	 * @return string
 	 */
 	protected function get_html_after_form( $response_html = '' ) {
-		$html = (string) apply_filters( 'mc4wp_form_after_form', '', $this );
+		$html = (string) apply_filters( 'mc4wp_form_after_form', '', $this->form );
 
 		if( $this->get_response_position() === 'after' ) {
 			$html = $response_html . $html;
@@ -192,8 +192,8 @@ class MC4WP_Form_Element {
 		// Start building content string
 		$opening_html = '<!-- MailChimp for WordPress v' . MC4WP_VERSION . ' - https://wordpress.org/plugins/mailchimp-for-wp/ -->';
 		$opening_html .= '<div id="' . esc_attr( $this->ID ) . '" class="' . esc_attr( $this->get_css_classes() ) . '">';
-		$before_fields = apply_filters( 'mc4wp_form_before_fields', '', $this );
-		$after_fields = apply_filters( 'mc4wp_form_after_fields', '', $this );
+		$before_fields = apply_filters( 'mc4wp_form_before_fields', '', $this->form );
+		$after_fields = apply_filters( 'mc4wp_form_after_fields', '', $this->form );
 		$before_form = $this->get_html_before_form( $response_html );
 		$after_form = $this->get_html_after_form( $response_html );
 		$closing_html = '</div><!-- / MailChimp for WordPress Plugin -->';

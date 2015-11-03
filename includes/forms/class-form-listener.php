@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Class MC4WP_Form_Listener
+ *
+ * @since 3.0
+ * @internal
+ */
 class MC4WP_Form_Listener {
 
 	/**
