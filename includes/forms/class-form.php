@@ -96,7 +96,8 @@ class MC4WP_Form {
 	 * @throws Exception
 	 */
 	public function __construct( $id = 0 ) {
-		$this->post = $post = get_post( (int) $id );
+		$id = (int) $id;
+		$this->post = $post = get_post( $id );
 
 		if( ! is_object( $post ) || ! isset( $post->post_type ) || $post->post_type !== 'mc4wp-form' ) {
 			$message = sprintf( __( 'There is no form with ID %d, perhaps it was deleted?', 'mailchimp-for-wp' ), $id );
@@ -126,7 +127,7 @@ class MC4WP_Form {
 
 		$html = '';
 
-		if( ! empty( $this->errors ) ) {
+		if( $this->has_errors() ) {
 
 			// create html string of all errors
 			foreach( $this->errors as $key ) {
@@ -327,16 +328,17 @@ class MC4WP_Form {
 			$validator->set_fields( $this->data );
 			$validator->add_rule( 'EMAIL', 'not_empty', 'invalid_email' );
 			$validator->add_rule( 'EMAIL', 'email', 'invalid_email' );
+			$validator->add_rule( 'FNAME', 'not_empty', 'required_field_missing' );
 			$valid = $validator->validate();
 		}
 
-		// validate
-		$this->errors = $validator->get_errors();
+		// get validation errors
+		$errors = $validator->get_errors();
 
 		/**
 		 * @since 3.0
 		 */
-		$this->errors = (array) apply_filters( 'mc4wp_form_errors', $this->errors );
+		$this->errors = (array) apply_filters( 'mc4wp_form_errors', $errors );
 
 		return $valid;
 	}
@@ -346,8 +348,9 @@ class MC4WP_Form {
 	 */
 	public function handle_request( MC4WP_Request $request ) {
 		$this->is_submitted = true;
-		$this->data = $request->all();
-		$this->set_config( $request->get_with_prefix('_mc4wp_') );
+		$this->data = $request->params->all_without_prefix( '_', CASE_UPPER );
+		$config = $request->params->all_with_prefix( '_mc4wp_', CASE_LOWER );
+		$this->set_config( $config );
 	}
 
 	/**
@@ -366,9 +369,7 @@ class MC4WP_Form {
 	 */
 	public function set_config( array $config ) {
 
-		// @todo decide if we want this here
 		// @todo decide if we want the nonce etc. in this array
-		$config = array_change_key_case( $config, CASE_LOWER );
 
 		if( isset( $config['lists'] ) ) {
 			$lists = $config['lists'];
@@ -384,18 +385,27 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * @todo add filter
 	 * @return string
 	 */
 	public function get_email_type() {
-		return $this->config['email_type'];
+		$email_type = (string) apply_filters( 'mc4wp_email_type', $this->config['email_type'] );
+		$email_type = (string) apply_filters( 'mc4wp_form_email_type', $email_type, $this );
+		return $email_type;
 	}
 
 	/**
-	 * @todo add filter
-	 * @return mixed
+	 * @return array
 	 */
 	public function get_lists() {
-		return $this->config['lists'];
+		$lists = (array) apply_filters( 'mc4wp_lists', $this->config['lists'] );
+		$lists = (array) apply_filters( 'mc4wp_form_lists', $lists, $this );
+		return $lists;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function has_errors() {
+		return count( $this->errors ) > 0;
 	}
 }

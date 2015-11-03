@@ -201,7 +201,7 @@ class MC4WP_Form_Element {
 		// only generate form & fields HTML if necessary
 		if( ! $this->is_submitted
 		    || ! $this->form->settings['hide_after_success']
-		    || ! $this->form->request->success ) {
+			|| $this->form->has_errors()) {
 
 			$form_opening_html = '<form method="post" '. $this->get_form_element_attributes() .'>';
 			$visible_fields = $this->get_visible_fields();

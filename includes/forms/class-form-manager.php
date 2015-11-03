@@ -41,9 +41,6 @@ class MC4WP_Form_Manager {
 	private function __construct() {
 		self::$instance = $this;
 
-		// store global `$_REQUEST` array locally, to prevent other plugins from messing with it (yes it happens....)
-		// todo: fix this properly (move to more specific $_POST?)
-		$this->request_data = $_REQUEST;
 		$this->output_manager = new MC4WP_Form_Output_Manager();
 	}
 
@@ -101,7 +98,7 @@ class MC4WP_Form_Manager {
 	 */
 	public function init_form_listener() {
 		$listener = new MC4WP_Form_Listener();
-		$listener->listen( $this->request_data );
+		$listener->listen( $_POST );
 	}
 
 	public function init_asset_manager() {

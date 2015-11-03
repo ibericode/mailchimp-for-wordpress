@@ -54,3 +54,24 @@ function mc4wp_get_current_url() {
 
 	return esc_url( $url );
 }
+
+/**
+ * @param $value
+ *
+ * @return array|string
+ */
+function mc4wp_sanitize_deep( $value ) {
+
+	if ( is_scalar( $value ) ) {
+		$value = sanitize_text_field( $value );
+	} elseif( is_array( $value ) ) {
+		$value = array_map( 'mc4wp_sanitize_deep', $value );
+	} elseif ( is_object($value) ) {
+		$vars = get_object_vars( $value );
+		foreach ( $vars as $key => $data ) {
+			$value->{$key} = mc4wp_sanitize_deep( $data );
+		}
+	}
+
+	return $value;
+}

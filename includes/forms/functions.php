@@ -42,7 +42,12 @@ function mc4wp_form_is_submitted( $form_id = 0, $element_id = null ) {
 		return false;
 	}
 
-	return $form->is_submitted( $element_id );
+	if( $element_id ) {
+		$form_element = new MC4WP_Form_Element( $form, array( 'element_id' => $element_id ) );
+		return $form_element->is_submitted;
+	}
+
+	return $form->is_submitted;
 }
 
 /**
@@ -59,10 +64,5 @@ function mc4wp_form_get_response_html( $form_id = 0 ) {
 		return '';
 	}
 
-	// return empty string if this form is not submitted.
-	if( ! $form->is_submitted() ) {
-		return '';
-	}
-
-	return $form->request->get_response_html();
+	return $form->get_response_html();
 }
