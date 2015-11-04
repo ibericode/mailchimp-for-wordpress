@@ -156,7 +156,7 @@ abstract class MC4WP_Integration {
 
 		$string = '';
 		foreach( $attributes as $key => $value ) {
-			$string .= sprintf( '%s=>"%s"', $key, esc_attr( $value ) );
+			$string .= sprintf( '%s="%s"', $key, esc_attr( $value ) );
 		}
 
 		return $string;
@@ -206,7 +206,7 @@ abstract class MC4WP_Integration {
 	/**
 	 * @return array
 	 */
-	protected function get_lists() {
+	public function get_lists() {
 
 		// get checkbox lists options
 		$lists = $this->options['lists'];

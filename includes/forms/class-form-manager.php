@@ -9,11 +9,6 @@
 class MC4WP_Form_Manager {
 
 	/**
-	 * @var array
-	 */
-	private $request_data = array();
-
-	/**
 	 * @var MC4WP_Form_Manager
 	 */
 	private static $instance;
@@ -42,6 +37,7 @@ class MC4WP_Form_Manager {
 		self::$instance = $this;
 
 		$this->output_manager = new MC4WP_Form_Output_Manager();
+		$this->tags = new MC4WP_Form_Tags();
 	}
 
 	/**
@@ -59,6 +55,7 @@ class MC4WP_Form_Manager {
 		add_action( 'widgets_init', array( $this, 'register_widget' ) );
 
 		$this->output_manager->add_hooks();
+		$this->tags->add_hooks();
 	}
 
 	/**

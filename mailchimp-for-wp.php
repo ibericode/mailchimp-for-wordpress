@@ -63,9 +63,6 @@ function mc4wp_load_plugin() {
 	// integration core
 	MC4WP_Integration_Manager::instance()->add_hooks();
 
-	// tags
-	MC4WP_Dynamic_Content_Tags::instance()->add_hooks();
-
 	// visitor tracking
 	MC4WP_Visitor_Tracking::instance()->add_hooks();
 

@@ -26,7 +26,9 @@ class MC4WP_Integration_Manager {
 	*/
 	private function __construct() {
 		self::$instance = $this;
+
 		$this->options = $this->get_options();
+		$this->tags = new MC4WP_Integration_Tags();
 	}
 
 	/**
@@ -48,6 +50,8 @@ class MC4WP_Integration_Manager {
 	 */
 	public function add_hooks() {
 		add_action( 'after_setup_theme', array( $this, 'initialize' ) );
+
+		$this->tags->add_hooks();
 	}
 
 
@@ -56,7 +60,8 @@ class MC4WP_Integration_Manager {
 	 */
 	public function initialize() {
 		/*** @var MC4WP_Integration_Fixture $integration */
-		foreach( $this->get_enabled_integrations() as $integration ) {
+		$enabled_integrations = $this->get_enabled_integrations();
+		foreach( $enabled_integrations as $integration ) {
 			$integration->load()->initialize();
 		}
 	}

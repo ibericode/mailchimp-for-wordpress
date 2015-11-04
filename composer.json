@@ -24,7 +24,8 @@
   "require-dev": {
     "phpunit/phpunit": "^4.8",
     "wp-coding-standards/wpcs": "dev-master",
-    "codeclimate/php-test-reporter": "dev-master"
+    "codeclimate/php-test-reporter": "dev-master",
+    "brain/monkey": "1.*"
   },
   "scripts": {
     "post-install-cmd": [

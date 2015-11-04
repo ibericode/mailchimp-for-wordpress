@@ -3,16 +3,14 @@
 /**
  * Class MC4WP_Dynamic_Content_Tags
  *
- * @api
- * @todo Get this to work in "text" settings (integration labels, form messages)
- * @todo Get this to work while being context-aware (subscribers_count, etc..)
+ * @internal
  */
 class MC4WP_Dynamic_Content_Tags {
 
 	/**
-	 * @var MC4WP_Dynamic_Content_Tags
+	 * @var string
 	 */
-	private static $instance;
+	public $context;
 
 	/**
 	 * @var string The escape mode for replacement values.
@@ -24,129 +22,54 @@ class MC4WP_Dynamic_Content_Tags {
 	 */
 	protected $tags = array();
 
-	/**
-	 * @return MC4WP_Dynamic_Content_Tags
-	 */
-	public static function instance() {
-		
-		if( self::$instance instanceof MC4WP_Dynamic_Content_Tags ) {
-			return self::$instance;
-		}
 
-		return new self;
+	/**
+	 * @param string $context
+	 * @param array $tags;
+	 */
+	public function __construct( $context, $tags = array() ) {
+		$this->context = $context;
+		$this->tags = $tags;
 	}
 
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		self::$instance = $this;
-	}
+//	/**
+//	 * Add a dynamic content tag
+//	 *
+//	 * @param string $tag
+//	 * @param string|array Replacement string or configuration array
+//	 * @return void
+//	 */
+//	public function add( $tag, $config ) {
+//
+//		if( ! is_array( $config ) ) {
+//			$config = array(
+//				'replacement' => $config
+//			);
+//		}
+//
+//		$this->tags[ $tag ] = $config;
+//	}
+//
+//	/**
+//	 * Add multiple dynamic content tags at once.
+//	 *
+//	 * @param array $tags
+//	 * @return void
+//	 */
+//	public function add_many( array $tags ) {
+//		foreach( $tags as $tag => $config ) {
+//			$this->add( $tag, $config );
+//		}
+//	}
 
 	/**
-	 * Add hooks
-	 *
-	 * @todo Move out of this class
-	 */
-	public function add_hooks() {
-		add_filter( 'mc4wp_form_message_html', array( $this, 'replace' ) );
-		add_filter( 'mc4wp_integration_checkbox_label', array( $this, 'replace' ) );
-		add_filter( 'mc4wp_form_content', array( $this, 'replace' ) );
-		add_filter( 'mc4wp_form_redirect_url', array( $this, 'replace_in_url' ) );
-	}
-
-	/**
-	 * Add a dynamic content tag
-	 *
-	 * @param string $tag
-	 * @param string|array Replacement string or configuration array
-	 * @return void
-	 */
-	public function add( $tag, $config ) {
-
-		if( ! is_array( $config ) ) {
-			$config = array(
-				'replacement' => $config
-			);
-		}
-
-		$this->tags[ $tag ] = $config;
-	}
-
-	/**
-	 * Add multiple dynamic content tags at once.
-	 *
-	 * @param array $tags
-	 * @return void
-	 */
-	public function add_many( array $tags ) {
-		foreach( $tags as $tag => $config ) {
-			$this->add( $tag, $config );
-		}
-	}
-
-	/**
-	 * @todo Move default tags out of this class
+	 * Return all registered tags
 	 *
 	 * @return array
 	 */
-	public function get_tags() {
-
-		if( ! isset( $this->tags['data'] ) ) {
-
-			$default_tags = array(
-				'email'  => array(
-					'description' => __( 'The email address of the current visitor (if known).', 'mailchimp-for-wp' ),
-					'callback'    => array( $this, 'get_email' ),
-				),
-				'current_url'  => array(
-					'description' => __( 'The URL of the page.', 'mailchimp-for-wp' ),
-					'callback'    => 'mc4wp_get_current_url',
-				),
-				'current_path' => array(
-					'description' => __( 'The path of the page.', 'mailchimp-for-wp' ),
-					'callback'    => array( $this, 'get_current_path' )
-				),
-				'date'         => array(
-					'description' => sprintf( __( 'The current date, eg %s.', 'mailchimp-for-wp' ), date( 'Y/m/d' ) ),
-					'replacement' => date( 'Y/m/d' )
-				),
-				'time'         => array(
-					'description' => sprintf( __( 'The current time, eg %s.', 'mailchimp-for-wp' ), date( 'H:i:s' ) ),
-					'replacement' => date( 'H:i:s' )
-				),
-				'language'     => array(
-					'description' => sprintf( __( 'The site\'s language, eg %s.', 'mailchimp-for-wp' ), get_locale() ),
-					'callback'    => 'get_locale',
-				),
-				'ip'           => array(
-					'description' => __( 'The visitor\'s IP address.', 'mailchimp-for-wp' ),
-					'callback'    => array( 'MC4WP_Tools', 'get_client_ip' )
-				),
-				'data'          => array(
-					'description' => sprintf( __( "Data from the URL or a submitted form.", 'mailchimp-for-wp' ) ),
-					'callback'    => array( $this, 'get_data' ),
-					'example'     => 'data key=var default=\'Value..\''
-				),
-				'user'      => array(
-					'description' => sprintf( __( "The given property of the currently logged-in user.", 'mailchimp-for-wp' ) ),
-					'callback'    => array( $this, 'get_user_property' ),
-					'example'     => 'user property=user_email'
-				),
-				'subscriber_count' => array(
-					'description' => __( 'Replaced with the number of subscribers on the selected list(s)', 'mailchimp-for-wp' ),
-					'callback'    => array( $this, 'get_subscriber_count' )
-				),
-				'response' => array(
-					'description'   => __( 'Replaced with the form response (error or success messages).', 'mailchimp-for-wp' ),
-					'callback'      => array( $this, 'get_response' )
-				)
-			);
-
-			$this->tags = array_merge( $this->tags, $default_tags );
-			$this->tags = (array) apply_filters( 'mc4wp_dynamic_content_tags', $this->tags );
-		}
-
+	public function all() {
+		$this->tags = (array) apply_filters( 'mc4wp_dynamic_content_tags', $this->tags );
+		$this->tags = (array) apply_filters( 'mc4wp_dynamic_content_tags_' . $this->context, $this->tags );
 		return $this->tags;
 	}
 
@@ -154,11 +77,10 @@ class MC4WP_Dynamic_Content_Tags {
 	 * @param $matches
 	 *
 	 * @return string
-	 *
 	 */
 	protected function replace_tag( $matches ) {
 
-		$tags = $this->get_tags();
+		$tags = $this->all();
 		$tag = $matches[1];
 
 		if( isset( $tags[ $tag ] ) ) {
@@ -186,6 +108,7 @@ class MC4WP_Dynamic_Content_Tags {
 
 
 		// default to not replacing it
+		// @todo always replace with empty string?
 		return $matches[0];
 	}
 
@@ -227,50 +150,7 @@ class MC4WP_Dynamic_Content_Tags {
 		return $this->replace( $string, 'url' );
 	}
 
-	/**
-	 * @todo Move out of this class
-	 *
-	 * @return string
-	 */
-	public function get_current_path() {
-		return ! empty( $_SERVER['REQUEST_URI'] ) ? esc_html( $_SERVER['REQUEST_URI'] ) : '';
-	}
 
-	/**
-	 * @todo Move out of this class
-	 *
-	 * @param $args
-	 *
-	 * @return string
-	 */
-	public function get_data( $args = array() ) {
-
-		$key = empty( $args['key'] ) ? '' : strtolower( $args['key'] );
-		if( empty( $key ) ) {
-			return '';
-		}
-
-		$default = isset( $args['default'] ) ? $args['default'] : '';
-		return esc_html( MC4WP_Tools::get_request_data( $key, $default ) );
-	}
-
-	/**
-	 * @todo Move out of this class
-	 *
-	 * @param array $args
-	 *
-	 * @return string
-	 */
-	public function get_user_property( $args = array() ) {
-		$property = empty( $args['property'] ) ? 'user_email' : $args['property'];
-		$user = wp_get_current_user();
-
-		if( $user instanceof WP_User ) {
-			return $user->{$property};
-		}
-
-		return '';
-	}
 
 	/**
 	 * @param $value
@@ -311,35 +191,5 @@ class MC4WP_Dynamic_Content_Tags {
 		}
 
 		return call_user_func( array( $this, 'escape_value_' . $this->escape_mode ), $value );
-	}
-
-	// todo: get this to work
-	public function get_subscriber_count() {
-		return 0;
-	}
-
-	// todo: get this to work
-	public function get_response() {
-		return '';
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_email() {
-		// first, try request
-		$email = MC4WP_Request::instance()->get_param( 'EMAIL', '' );
-		if( $email ) {
-			return $email;
-		}
-
-		// then , try logged-in user
-		if( is_user_logged_in() ) {
-			$user = wp_get_current_user();
-			return $user->user_email;
-		}
-
-		// then, try visitor tracking
-		return MC4WP_Visitor_Tracking::instance()->get_field( 'EMAIL', '' );
 	}
 }
