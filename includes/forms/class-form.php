@@ -408,9 +408,11 @@ class MC4WP_Form {
 	}
 
 	/**
+	 * @todo find a way to pass fully qualified message here (message + type)
 	 * @param string $error_code
 	 */
 	public function add_error( $error_code ) {
+
 		if( ! in_array( $error_code, $this->errors ) ) {
 			$this->errors[] = $error_code;
 		}
