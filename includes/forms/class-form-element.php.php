@@ -246,7 +246,13 @@ class MC4WP_Form_Element {
 		// Add form classes if this specific form instance was submitted
 		if( $this->is_submitted ) {
 			$css_classes[] = 'mc4wp-form-submitted';
-			$css_classes[] = ( empty( $this->errors ) ) ?  'mc4wp-form-success' : 'mc4wp-form-error';
+
+			if( empty( $this->form->errors ) ) {
+				$css_classes[] = 'mc4wp-form-success';
+			} else {
+				$css_classes[] = 'mc4wp-form-error';
+			}
+			
 		}
 
 		// add class for CSS targetting
