@@ -71,5 +71,25 @@ class MC4WP_Request {
 		return $this->server->get( 'REMOTE_ADDR' );
 	}
 
+	/**
+	 * @param string $prefix
+	 * @param int $case
+	 *
+	 * @return array
+	 */
+	public function get_all_params_without_prefix( $prefix, $case = null ) {
+		return $this->params->all_without_prefix( $prefix, $case );
+	}
+
+	/**
+	 * @param string $prefix
+	 * @param int $case
+	 *
+	 * @return array
+	 */
+	public function get_all_params_with_prefix( $prefix, $case = null ) {
+		return $this->params->all_with_prefix( $prefix, $case );
+	}
+
 
 }

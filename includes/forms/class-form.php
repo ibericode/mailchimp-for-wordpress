@@ -345,8 +345,8 @@ class MC4WP_Form {
 	 */
 	public function handle_request( MC4WP_Request $request ) {
 		$this->is_submitted = true;
-		$this->data = $request->params->all_without_prefix( '_', CASE_UPPER );
-		$config = $request->params->all_with_prefix( '_mc4wp_', CASE_LOWER );
+		$this->data = $request->get_all_params_without_prefix( '_', CASE_UPPER );
+		$config = $request->get_all_params_with_prefix( '_mc4wp_', CASE_LOWER );
 		$this->set_config( $config );
 	}
 
