@@ -958,16 +958,26 @@ var FormWatcher = function(editor, settings, fields) {
 		missingFieldsNotice.style.display = 'block';
 	}
 
-	function findRequiredFields(content) {
+	function findRequiredFields() {
 
 		// load content in memory
 		var form = document.createElement('div');
 		form.innerHTML = editor.getValue();
 
+		// query fields required by MailChimp
+		var requiredFields = fields.getAllWhere('required', true).map(function(f) {
+			return f.name().toUpperCase();
+		});
+
 		// query fields with [required] attribute
 		var requiredFieldElements = form.querySelectorAll('[required]');
-		var requiredFields = Array.prototype.map.call(requiredFieldElements, function(el) {
-			return el.name;
+		Array.prototype.forEach.call(requiredFieldElements, function(el) {
+			var name = el.name.toUpperCase();
+
+			// only add field if it's not already in it
+			if( requiredFields.indexOf(name) === -1 ) {
+				requiredFields.push(name);
+			}
 		});
 
 		// update meta
@@ -975,8 +985,8 @@ var FormWatcher = function(editor, settings, fields) {
 	}
 
 	// events
-	editor.on('change', checkPresenceOfRequiredFields );
-	editor.on('change', findRequiredFields );
+	editor.on('changes', checkPresenceOfRequiredFields );
+	editor.on('blur', findRequiredFields );
 
 	settings.events.on('requiredFields.change', checkPresenceOfRequiredFields);
 
