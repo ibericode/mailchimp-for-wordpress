@@ -30,8 +30,7 @@ class MC4WP_Tools {
 
 		// set ip address
 		if( empty( $merge_vars['OPTIN_IP'] ) ) {
-			$request = MC4WP_Request::create_from_globals();
-			$optin_ip = $request->get_client_ip();
+			$optin_ip = MC4WP_Request::instance()->get_client_ip();
 
 			if( ! empty( $optin_ip ) ) {
 				$merge_vars['OPTIN_IP'] = $optin_ip;
@@ -39,64 +38,6 @@ class MC4WP_Tools {
 		}
 
 		return $merge_vars;
-	}
-
-	/**
-	 * @param string $key
-	 * @param string $default
-	 *
-	 * @return string
-	 */
-	public static function get_request_data( $key, $default = '' ) {
-		// case insensitive check in $_REQUEST
-		$key = strtoupper( $key );
-		$request_data = array_change_key_case( $_REQUEST, CASE_UPPER );
-		return isset( $request_data[ $key ] ) ? $request_data[ $key ] : $default;
-	}
-
-
-	/**
-	 * Returns the email address of the visitor if it is known to us
-	 *
-	 * @return string
-	 */
-	public static function get_known_email() {
-
-		// get from request data
-		$email = self::get_request_data( 'email' );
-
-		if( empty( $email ) ) {
-
-			if( isset( $_COOKIE['mc4wp_email'] ) ) {
-				// get from cookie
-				$email = $_COOKIE['mc4wp_email'];
-			} elseif( is_user_logged_in() ) {
-				// get from logged-in user
-				$user = wp_get_current_user();
-				$email = $user->user_email;
-			} else {
-				return '';
-			}
-		}
-
-		return strip_tags( $email );
-	}
-
-	/**
-	 * @param $email
-	 */
-	public static function remember_email( $email ) {
-
-		/**
-		 * @filter `mc4wp_cookie_expiration_time`
-		 * @expects timestamp
-		 * @default timestamp for 90 days from now
-		 *
-		 * Timestamp indicating when the email cookie expires, defaults to 90 days
-		 */
-		$expiration_time = apply_filters( 'mc4wp_cookie_expiration_time', strtotime( '+90 days' ) );
-
-		setcookie( 'mc4wp_email', $email, $expiration_time, '/' );
 	}
 
 	/**

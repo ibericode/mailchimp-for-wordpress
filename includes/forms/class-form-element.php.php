@@ -252,7 +252,7 @@ class MC4WP_Form_Element {
 			} else {
 				$css_classes[] = 'mc4wp-form-error';
 			}
-			
+
 		}
 
 		// add class for CSS targetting

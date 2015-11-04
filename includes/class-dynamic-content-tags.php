@@ -97,7 +97,7 @@ class MC4WP_Dynamic_Content_Tags {
 			$default_tags = array(
 				'email'  => array(
 					'description' => __( 'The email address of the current visitor (if known).', 'mailchimp-for-wp' ),
-					'callback'    => array( 'MC4WP_Tools', 'get_known_email' ),
+					'callback'    => array( $this, 'get_email' ),
 				),
 				'current_url'  => array(
 					'description' => __( 'The URL of the page.', 'mailchimp-for-wp' ),
@@ -321,5 +321,25 @@ class MC4WP_Dynamic_Content_Tags {
 	// todo: get this to work
 	public function get_response() {
 		return '';
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_email() {
+		// first, try request
+		$email = MC4WP_Request::instance()->get_param( 'EMAIL', '' );
+		if( $email ) {
+			return $email;
+		}
+
+		// then , try logged-in user
+		if( is_user_logged_in() ) {
+			$user = wp_get_current_user();
+			return $user->user_email;
+		}
+
+		// then, try visitor tracking
+		return MC4WP_Visitor_Tracking::instance()->get_field( 'EMAIL', '' );
 	}
 }

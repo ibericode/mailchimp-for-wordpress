@@ -3,22 +3,22 @@
 class MC4WP_MailChimp_List {
 
 	/**
-	 * @var string
+	 * @var string ID of this list for API usage
 	 */
 	public $id;
 
 	/**
-	 * @var
+	 * @var string Web ID of this list in MailChimp.com
 	 */
 	public $web_id;
 
 	/**
-	 * @var string
+	 * @var string Name of this list
 	 */
 	public $name;
 
 	/**
-	 * @var int
+	 * @var int Number of subscribers on this list
 	 */
 	public $subscriber_count = 0;
 
@@ -33,9 +33,9 @@ class MC4WP_MailChimp_List {
 	public $groupings = array();
 
 	/**
-	 * @var array
+	 * @var array Array of merge var names (tag => name) KNOWN to be on the list
 	 */
-	public $fields = array();
+	protected $default_merge_vars = array();
 
 	/**
 	 * @param string $id
@@ -46,6 +46,11 @@ class MC4WP_MailChimp_List {
 		$this->id = $id;
 		$this->name = $name;
 		$this->web_id = $web_id;
+		$this->default_merge_vars = array(
+			'EMAIL' => 'Email Address',
+			'OPTIN_IP' => 'IP Address',
+			'MC_LANGUAGE' => 'Language'
+		);
 	}
 
 	/**
@@ -58,17 +63,12 @@ class MC4WP_MailChimp_List {
 		// ensure uppercase tagname
 		$tag = strtoupper( $tag );
 
-		// try default fields
-		switch( $tag ) {
-			case 'EMAIL':
-				return __( 'Email address', 'mailchimp-for-wp' );
-				break;
-
-			case 'OPTIN_IP':
-				return __( 'IP Address', 'mailchimp-for-wp' );
-				break;
+		// search default merge vars first
+		if( isset( $this->default_merge_vars[ $tag ] ) ) {
+			return __( $this->default_merge_vars[ $tag ], 'mailchimp-for-wp' );
 		}
 
+		// search merge vars
 		foreach( $this->merge_vars as $field ) {
 
 			if( $field->tag !== $tag ) {

@@ -3,6 +3,7 @@
 /**
  * Class MC4WP_Request
  *
+ * @todo rework case-insensitive logic
  * @since 3.0
  */
 class MC4WP_Request {
@@ -16,6 +17,24 @@ class MC4WP_Request {
 	 * @var MC4WP_Array_Bag
 	 */
 	public $server;
+
+	/**
+	 * @var MC4WP_Request
+	 */
+	private static $instance;
+
+	/**
+	 * @return MC4WP_Request (the one created from global variables)
+	 */
+	public static function instance() {
+
+		if( ! self::$instance instanceof self ) {
+			self::$instance = self::create_from_globals();
+		}
+
+		return self::$instance;
+	}
+
 
 	/**
 	 * @return MC4WP_Request
@@ -69,6 +88,16 @@ class MC4WP_Request {
 		}
 
 		return $this->server->get( 'REMOTE_ADDR' );
+	}
+
+	/**
+	 * @param string $key
+	 * @param mixed $default
+	 *
+	 * @return mixed
+	 */
+	public function get_param( $key, $default = null ) {
+		return $this->params->get( $key, $default );
 	}
 
 	/**

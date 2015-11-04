@@ -48,6 +48,9 @@ class MC4WP_Form_Listener {
 		return true;
 	}
 
+	/**
+	 * @param MC4WP_Form $form
+	 */
 	public function process_subscribe_form( MC4WP_Form $form ) {
 		$api = mc4wp_get_api();
 		$result = false;
@@ -82,9 +85,6 @@ class MC4WP_Form_Listener {
 
 		// yay! success!
 		do_action( 'mc4wp_form_subscribed', $form );
-
-		// @todo move to filter
-		MC4WP_Tools::remember_email( $form->data['EMAIL'] );
 	}
 
 	/**

@@ -27,7 +27,7 @@ class MC4WP_Array_Bag {
 	 *
 	 * @return mixed
 	 */
-	public function get( $name, $default = '' ) {
+	public function get( $name, $default = null ) {
 
 		if( isset( $this->array[ $name ] ) ) {
 			return $this->array[ $name ];
