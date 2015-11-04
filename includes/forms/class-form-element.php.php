@@ -191,7 +191,7 @@ class MC4WP_Form_Element {
 
 		// Start building content string
 		$opening_html = '<!-- MailChimp for WordPress v' . MC4WP_VERSION . ' - https://wordpress.org/plugins/mailchimp-for-wp/ -->';
-		$opening_html .= '<div id="' . esc_attr( $this->ID ) . '" class="' . esc_attr( $this->get_css_classes() ) . '">';
+		$opening_html .= '<div id="' . esc_attr( $this->ID ) . '" data-id="'. esc_attr( $this->form->ID ) .'" class="' . esc_attr( $this->get_css_classes() ) . '">';
 		$before_fields = apply_filters( 'mc4wp_form_before_fields', '', $this->form );
 		$after_fields = apply_filters( 'mc4wp_form_after_fields', '', $this->form );
 		$before_form = $this->get_html_before_form( $response_html );
@@ -203,6 +203,7 @@ class MC4WP_Form_Element {
 		    || ! $this->form->settings['hide_after_success']
 			|| $this->form->has_errors()) {
 
+			// todo wrap entire form in <form>, then wrap visible fields in another <div>
 			$form_opening_html = '<form method="post" '. $this->get_form_element_attributes() .'>';
 			$visible_fields = $this->get_visible_fields();
 			$hidden_fields = $this->get_hidden_fields();
