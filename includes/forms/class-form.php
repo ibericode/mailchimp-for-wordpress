@@ -64,7 +64,11 @@ class MC4WP_Form {
 	/**
 	 * @var array
 	 */
-	public $config = array();
+	public $config = array(
+		'action' => 'subscribe',
+		'lists' => array(),
+		'email_type' => 'html'
+	);
 
 
 	/**
@@ -109,10 +113,9 @@ class MC4WP_Form {
 		$this->content = $post->post_content;
 		$this->settings = $this->load_settings();
 		$this->messages = $this->load_messages();
-		$this->config = array(
-			'lists' => $this->settings['lists'],
-			'email_type' => 'html'
-		);
+
+		// update config from settings
+		$this->config['lists'] = $this->settings['lists'];
 	}
 
 
@@ -136,8 +139,7 @@ class MC4WP_Form {
 
 			return $html;
 		} else {
-			// todo: get message based on type (from config?)
-			$html = $this->get_message_html( 'subscribed' );
+			$html = $this->get_message_html( $this->get_action() . 'd' );
 		}
 
 		return (string) apply_filters( 'mc4wp_form_response_html', $html, $this );
@@ -164,6 +166,7 @@ class MC4WP_Form {
 
 		$message_types = array(
 			'subscribed' => 'success',
+			'unsubscribed' => 'success',
 			'error' => 'error',
 			'invalid_email' => 'error',
 			'required_field_missing' => 'error',
@@ -351,37 +354,29 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * Programmatically submit a form
+	 * Update configuration for this form
 	 *
-	 * @param       $data
 	 * @param array $config
-	 */
-	public function submit( $data, $config = array() ) {
-		// @todo fill this method
-	}
-
-	/**
-	 * @param array $config
-	 * @todo add `mc4wp_lists` filter back in
+	 * @return array
 	 */
 	public function set_config( array $config ) {
 
 		// @todo decide if we want the nonce etc. in this array
+		// @todo sanitize values (like subscribe)
 
 		if( isset( $config['lists'] ) ) {
-			$lists = $config['lists'];
-
-			if( ! is_array( $lists ) ) {
-				$lists = array_map( 'trim', explode( ',', $lists ) );
+			if( ! is_array( $config['lists'] ) ) {
+				$config['lists'] = array_map( 'trim', explode( ',', $config['lists'] ) );
 			}
-
-			$config['lists'] = $lists;
 		}
 
 		$this->config = array_merge( $this->config, $config );
+		return $this->config;
 	}
 
 	/**
+	 * Get email type for subscribers using this form
+	 *
 	 * @return string
 	 */
 	public function get_email_type() {
@@ -391,6 +386,8 @@ class MC4WP_Form {
 	}
 
 	/**
+	 * Get MailChimp lists this form subscribes to
+	 *
 	 * @return array
 	 */
 	public function get_lists() {
@@ -400,9 +397,31 @@ class MC4WP_Form {
 	}
 
 	/**
+	 * Does this form have errors?
+	 *
+	 * Should always evaluate to false when form has not been submitted.
+	 *
 	 * @return bool
 	 */
 	public function has_errors() {
 		return count( $this->errors ) > 0;
 	}
+
+	/**
+	 * @param string $error_code
+	 */
+	public function add_error( $error_code ) {
+		if( ! in_array( $error_code, $this->errors ) ) {
+			$this->errors[] = $error_code;
+		}
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_action() {
+		return $this->config['action'];
+	}
+
+
 }

@@ -39,7 +39,8 @@ class MC4WP_Form_Listener {
 		if( $form->is_valid() ) {
 
 			// form was valid, do something
-			$this->process( $form );
+			$method = 'process_' . $form->get_action() . '_form';
+			call_user_func( array( $this, $method ), $form );
 		}
 
 		$this->respond( $form );
@@ -47,17 +48,9 @@ class MC4WP_Form_Listener {
 		return true;
 	}
 
-	/**
-	 * @param MC4WP_Form $form
-	 * @todo remember email
-	 * @return bool
-	 */
-	public function process( MC4WP_Form $form ) {
-
+	public function process_subscribe_form( MC4WP_Form $form ) {
 		$api = mc4wp_get_api();
 		$result = false;
-
-		// @todo determine type of request (subscribe / unsubscribe )
 		$email_type = $form->get_email_type();
 		$map = new MC4WP_Field_Map( $form->data, $form->get_lists() );
 
@@ -92,6 +85,24 @@ class MC4WP_Form_Listener {
 
 		// @todo move to filter
 		MC4WP_Tools::remember_email( $form->data['EMAIL'] );
+	}
+
+	/**
+	 * @param MC4WP_Form $form
+	 */
+	public function process_unsubscribe_form( MC4WP_Form $form ) {
+		$api = mc4wp_get_api();
+		$result = null;
+
+		foreach( $form->get_lists() as $list_id ) {
+			$result = $api->unsubscribe( $list_id, $form->data['EMAIL'] );
+		}
+
+		if( ! $result ) {
+			$form->add_error( ( in_array( $api->get_error_code(), array( 215, 232 ) ) ? 'not_subscribed' : 'error' ) );
+		}
+
+		do_action( 'mc4wp_form_unsubscribed', $form );
 	}
 
 	/**
