@@ -51,7 +51,7 @@ abstract class MC4WP_Integration {
 
 		// if checkbox name is not set, set a good custom value
 		if( empty( $this->checkbox_name ) ) {
-			$this->checkbox_name = '_mc4wp_subscribe' . '_' . $this->slug;
+			$this->checkbox_name = '_mc4wp_subscribe_' . $this->slug;
 		}
 	}
 

@@ -26,7 +26,7 @@ class MC4WP_MailChimp_Merge_Var {
 	public function __construct( $name, $field_type, $tag, $required = false, $choices = array() ) {
 		$this->name = $name;
 		$this->field_type = $field_type;
-		$this->tag = $tag;
+		$this->tag = strtoupper( $tag );
 
 		// todo remove $req property
 		$this->required = $this->req = $required;
