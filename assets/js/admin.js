@@ -922,9 +922,10 @@ var FormWatcher = function(editor, settings, fields) {
 
 	var missingFieldsNotice = document.getElementById('missing-fields-notice');
 	var missingFieldsNoticeList = missingFieldsNotice.querySelector('ul');
+	var requiredFieldsInput = document.getElementById('required-fields');
 
 	// functions
-	function checkRequiredFields() {
+	function checkPresenceOfRequiredFields() {
 
 		var formContent = editor.getValue();
 		var requiredFields = fields.getAllWhere('required', true);
@@ -957,16 +958,27 @@ var FormWatcher = function(editor, settings, fields) {
 		missingFieldsNotice.style.display = 'block';
 	}
 
-	// events
-	editor.on('change', checkRequiredFields );
-	settings.events.on('requiredFields.change', checkRequiredFields);
+	function findRequiredFields(content) {
 
-	// constructor
-	checkRequiredFields();
+		// load content in memory
+		var form = document.createElement('div');
+		form.innerHTML = editor.getValue();
 
-	return {
-		checkRequiredFields: checkRequiredFields
+		// query fields with [required] attribute
+		var requiredFieldElements = form.querySelectorAll('[required]');
+		var requiredFields = Array.prototype.map.call(requiredFieldElements, function(el) {
+			return el.name;
+		});
+
+		// update meta
+		requiredFieldsInput.value = requiredFields.join(',');
 	}
+
+	// events
+	editor.on('change', checkPresenceOfRequiredFields );
+	editor.on('change', findRequiredFields );
+
+	settings.events.on('requiredFields.change', checkPresenceOfRequiredFields);
 
 };
 

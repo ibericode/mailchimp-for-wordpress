@@ -12,11 +12,16 @@
 </div>
 <h2><?php _e( "Form Fields", 'mailchimp-for-wp' ); ?></h2>
 
+<!-- Placeholder for the field wizard -->
 <div id="mc4wp-field-wizard"></div>
 
+<!-- Textarea for the actual form content HTML -->
 <textarea class="widefat" cols="160" rows="20" id="mc4wp-form-content" name="mc4wp_form[content]" placeholder="<?php _e( 'Enter the HTML code for your form fields..', 'mailchimp-for-wp' ); ?>"><?php echo esc_textarea( $form->content ); ?></textarea>
 
+<!-- This field is updated by JavaScript as the form content changes -->
+<input type="hidden" id="required-fields" name="mc4wp_form[settings][required_fields]" value="<?php echo esc_attr( $form->settings['required_fields'] ); ?>" />
 
+<!-- Placeholder for missing fields notice -->
 <div id="missing-fields-notice" class="mc4wp-notice" style="display: none;">
 	<p>
 		<?php echo __( 'Your form is missing the following (required) form fields:', 'mailchimp-for-wp' ); ?>

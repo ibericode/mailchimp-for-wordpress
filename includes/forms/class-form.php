@@ -11,6 +11,36 @@
 class MC4WP_Form {
 
 	/**
+	 * @var array
+	 */
+	public static $instances = array();
+
+
+	/**
+	 * @param int $form_id
+	 * @return MC4WP_Form
+	 * @throws Exception
+	 */
+	public static function get_instance( $form_id = 0 ) {
+
+		$form_id = (int) $form_id;
+
+		if( empty( $form_id ) ) {
+			$form_id = (int) get_option( 'mc4wp_default_form_id', 0 );
+		}
+
+		if( isset( self::$instances[ $form_id ] ) ) {
+			return self::$instances[ $form_id ];
+		}
+
+		$form = new MC4WP_Form( $form_id );
+
+		self::$instances[ $form_id ] = $form;
+
+		return $form;
+	}
+
+	/**
 	 * @var int
 	 */
 	public $ID = 0;
@@ -41,11 +71,6 @@ class MC4WP_Form {
 	public $post;
 
 	/**
-	 * @var array
-	 */
-	public static $instances = array();
-
-	/**
 	 * @var array Array of error code's
 	 * @todo Change to actual error messages?
 	 */
@@ -69,31 +94,6 @@ class MC4WP_Form {
 		'lists' => array(),
 		'email_type' => 'html'
 	);
-
-
-	/**
-	 * @param int $form_id
-	 * @return MC4WP_Form
-	 * @throws Exception
-	 */
-	public static function get_instance( $form_id ) {
-
-		$form_id = (int) $form_id;
-
-		if( empty( $form_id ) ) {
-			$form_id = (int) get_option( 'mc4wp_default_form_id', 0 );
-		}
-
-		if( isset( self::$instances[ $form_id ] ) ) {
-			return self::$instances[ $form_id ];
-		}
-
-		$form = new MC4WP_Form( $form_id );
-
-		self::$instances[ $form_id ] = $form;
-
-		return $form;
-	}
 
 	/**
 	 * @param int $id
@@ -326,8 +326,13 @@ class MC4WP_Form {
 		if( $valid ) {
 			// validate fields
 			$validator->set_fields( $this->data );
-			$validator->add_rule( 'EMAIL', 'not_empty', 'invalid_email' );
+
+			foreach( $this->get_required_fields() as $field ) {
+				$validator->add_rule( $field, 'not_empty', 'required_field_missing' );
+			}
+
 			$validator->add_rule( 'EMAIL', 'email', 'invalid_email' );
+
 			//$validator->add_rule( 'FNAME', 'not_empty', 'required_field_missing' );
 			$valid = $validator->validate();
 		}
@@ -425,5 +430,13 @@ class MC4WP_Form {
 		return $this->config['action'];
 	}
 
+	/**
+	 * Get required fields for this form
+	 *
+	 * @return array
+	 */
+	public function get_required_fields() {
+		return explode( ',', $this->settings['required_fields'] );
+	}
 
 }
