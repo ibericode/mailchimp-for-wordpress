@@ -6,42 +6,72 @@ if( ! defined( 'ABSPATH' ) ) {
 
 define( 'MC4WP_PLUGIN_DIR', __DIR__ . '/../' );
 
+/**
+ * @ignore
+ */
 function add_filter( $hook, $callback, $prio = 10, $arguments = 1 ) {
 
 }
 
+/**
+ * @ignore
+ */
 function add_action( $hook, $callback, $prio = 10, $arguments = 1) {
 
 }
 
+/**
+ * @ignore
+ */
 function apply_filters( $hook, $value, $parameter_1 = null ) {
 	return $value;
 }
 
+/**
+ * @ignore
+ */
 function is_user_logged_in() {
 	return false;
 }
 
+/**
+ * @ignore
+ */
 function stripslashes_deep( $data ) {
 	return $data;
 }
 
+/**
+ * @ignore
+ */
 function sanitize_text_field( $value ) {
 	return $value;
 }
 
+/**
+ * @ignore
+ */
 function get_post_meta( $id, $meta_key, $single = true ) {
 	return false;
 }
 
+/**
+ * @ignore
+ */
 function get_bloginfo( $key ) {
 	return '';
 }
 
+/**
+ * @ignore
+ */
 function __( $string, $text_domain ) {
 	return $string;
 }
 
+/**
+ * @ignore
+ */
 function get_post( $id ) {
 	global $expected_post;
 
@@ -53,6 +83,9 @@ function get_post( $id ) {
 	return mock_post( array( 'ID' => $id ) );
 }
 
+/**
+ * @ignore
+ */
 function mock_post( $data ) {
 	$post = (object) array_merge(
 		array(
@@ -67,30 +100,32 @@ function mock_post( $data ) {
 	return $post;
 }
 
+/**
+ * @ignore
+ */
 function mock_get_post( $data ) {
 	global $expected_post;
 	$expected_post = mock_post( $data );
 }
 
+/**
+ * @ignore
+ */
 function wp_verify_nonce( $nonce, $action ) {
 	return true;
 }
 
+/**
+ * @ignore
+ */
 function is_email( $email ) {
 	return true;
 }
 
 /**
- * Retrieve all attributes from the shortcodes tag.
+ * Straight copy from WP source
  *
- * The attributes list has the attribute name as the key and the value of the
- * attribute as the value in the key/value pair. This allows for easier
- * retrieval of the attributes, since all attributes have to be known.
- *
- * @since 2.5.0
- *
- * @param string $text
- * @return array List of attributes and their value.
+ * @ignore
  */
 function shortcode_parse_atts($text) {
 	$atts = array();
