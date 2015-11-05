@@ -5,10 +5,10 @@
   /* Form Elements */
   /* Remove font-weight bold from nested elements */
   /* Alert */ }
-  .mc4wp-form-basic form,
+  .mc4wp-form-basic,
   .mc4wp-form-basic label,
   .mc4wp-form-basic input,
-  .mc4wp-form-theme form,
+  .mc4wp-form-theme,
   .mc4wp-form-theme label,
   .mc4wp-form-theme input {
     width: auto;
@@ -20,8 +20,8 @@
     height: auto;
     vertical-align: baseline;
     line-height: normal; }
-  .mc4wp-form-basic form:after,
-  .mc4wp-form-theme form:after {
+  .mc4wp-form-basic:after,
+  .mc4wp-form-theme:after {
     content: "";
     display: table;
     clear: both; }

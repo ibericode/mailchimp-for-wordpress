@@ -111,8 +111,8 @@ class MC4WP_Form_Element {
 	/**
 	 * @return string
 	 */
-	protected function get_html_before_form() {
-		$html = (string) apply_filters( 'mc4wp_form_before_form', '', $this->form );
+	protected function get_html_before_fields() {
+		$html = (string) apply_filters( 'mc4wp_form_before_fields', '', $this->form );
 
 		if( $this->get_response_position() === 'before' ) {
 			$html = $html . $this->form->get_response_html();
@@ -124,8 +124,8 @@ class MC4WP_Form_Element {
 	/**
 	 * @return string
 	 */
-	protected function get_html_after_form() {
-		$html = (string) apply_filters( 'mc4wp_form_after_form', '', $this->form );
+	protected function get_html_after_fields() {
+		$html = (string) apply_filters( 'mc4wp_form_after_fields', '', $this->form );
 
 		if( $this->get_response_position() === 'after' ) {
 			$html = $this->form->get_response_html() . $html;
@@ -141,7 +141,10 @@ class MC4WP_Form_Element {
 	 */
 	protected function get_form_element_attributes() {
 
-		$attributes = array();
+		$attributes = array(
+			'id' => $this->ID,
+			'class' => $this->get_css_classes()
+		);
 
 		/**
 		 * @filter `mc4wp_form_action`
@@ -149,7 +152,6 @@ class MC4WP_Form_Element {
 		 * @param MC4WP_Form $form
 		 */
 		$form_action = apply_filters( 'mc4wp_form_action', null, $this->form );
-
 		if( is_string( $form_action ) ) {
 			$attributes['action'] = $form_action;
 		}
@@ -158,6 +160,8 @@ class MC4WP_Form_Element {
 		 * @filter `mc4wp_form_attributes`
 		 */
 		$attributes = (array) apply_filters( 'mc4wp_form_element_attributes', $attributes, $this->form );
+
+		// @todo attributes "method" and "data-id" are not ALLOWED to be changed
 
 		// build string of key="value" from array
 		$string = '';
@@ -178,43 +182,30 @@ class MC4WP_Form_Element {
 			$this->config = $config;
 		}
 
-		// Some vars we might fill later on
-		$form_opening_html = '';
-		$form_closing_html = '';
-		$visible_fields = '';
-		$hidden_fields = '';
-
 		// Start building content string
 		$opening_html = '<!-- MailChimp for WordPress v' . MC4WP_VERSION . ' - https://wordpress.org/plugins/mailchimp-for-wp/ -->';
-		$opening_html .= '<div id="' . esc_attr( $this->ID ) . '" data-id="'. esc_attr( $this->form->ID ) .'" class="' . esc_attr( $this->get_css_classes() ) . '">';
-		$before_fields = apply_filters( 'mc4wp_form_before_fields', '', $this->form );
-		$after_fields = apply_filters( 'mc4wp_form_after_fields', '', $this->form );
-		$before_form = $this->get_html_before_form();
-		$after_form = $this->get_html_after_form();
-		$closing_html = '</div><!-- / MailChimp for WordPress Plugin -->';
+		$opening_html .= '<form method="post" data-id="'. esc_attr( $this->form->ID ) .'" '. $this->get_form_element_attributes() .'>';
+		$before_fields = $this->get_html_before_fields();
+		$fields = '';
+		$after_fields = $this->get_html_after_fields();
+		$closing_html = '</form><!-- / MailChimp for WordPress Plugin -->';
 
-		// only generate form & fields HTML if necessary
 		if( ! $this->is_submitted
 		    || ! $this->form->settings['hide_after_success']
 			|| $this->form->has_errors()) {
 
-			// todo wrap entire form in <form>, then wrap visible fields in another <div>
-			$form_opening_html = '<form method="post" '. $this->get_form_element_attributes() .'>';
-			$visible_fields = $this->get_visible_fields();
-			$hidden_fields = $this->get_hidden_fields();
-			$form_closing_html = '</form>';
+			// add HTML for fields + wrapper element.
+			$fields = '<div class="mc4wp-form-fields">' .
+			            $this->get_visible_fields() .
+			            $this->get_hidden_fields() .
+						'</div>';
 		}
 
 		// concatenate everything
 		$output = $opening_html .
-		          $before_form .
-		          $form_opening_html .
 		          $before_fields .
-		          $visible_fields .
-		          $hidden_fields .
+		          $fields .
 		          $after_fields .
-		          $form_closing_html .
-		          $after_form .
 		          $closing_html;
 
 		return $output;
@@ -231,9 +222,9 @@ class MC4WP_Form_Element {
 		 * @filter mc4wp_form_css_classes
 		 * @expects array
 		 *
-		 * Can be used to add additional CSS classes to the form container
+		 * Can be used to add additional CSS classes to the <form> container element
 		 */
-		$css_classes = apply_filters( 'mc4wp_form_css_classes', array( 'form' ), $this->form );
+		$css_classes = apply_filters( 'mc4wp_form_css_classes', array( ), $this->form );
 
 		// the following classes MUST be used
 		$css_classes[] = 'mc4wp-form';

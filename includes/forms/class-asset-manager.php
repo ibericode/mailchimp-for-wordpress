@@ -2,6 +2,7 @@
 
 /**
 * This class takes care of all form related functionality
+ *
  * @internal
 */
 class MC4WP_Form_Asset_Manager {
@@ -9,7 +10,12 @@ class MC4WP_Form_Asset_Manager {
 	/**
 	 * @var MC4WP_Form_Output_Manager
 	 */
-	public $output_manager;
+	protected $output_manager;
+
+	/**
+	 * @var bool
+	 */
+	protected $scripts_loaded = false;
 
 	/**
 	 * Constructor
@@ -34,7 +40,8 @@ class MC4WP_Form_Asset_Manager {
 	public function add_hooks() {
 		// load checkbox css if necessary
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheets' ) );
-		add_action( 'wp_footer', array( $this, 'print_javascript' ), 9999 );
+		add_action( 'mc4wp_form_output', array( $this, 'load_scripts' ) );
+		add_action( 'wp_footer', array( $this, 'print_javascript' ), 999 );
 	}
 
 	/**
@@ -49,9 +56,7 @@ class MC4WP_Form_Asset_Manager {
 		// register placeholder script, which will later be enqueued for IE only
 		wp_register_script( 'mc4wp-placeholders', MC4WP_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), MC4WP_VERSION, true );
 
-		// register non-AJAX script (that handles form submissions)
-		wp_register_script( 'mc4wp-form-request', MC4WP_PLUGIN_URL . 'assets/js/form-request' . $suffix . '.js', array(), MC4WP_VERSION, true );
-
+		// fire action hook for add-ons to hook into
 		do_action( 'mc4wp_form_register_scripts', $suffix );
 	}
 
@@ -67,12 +72,52 @@ class MC4WP_Form_Asset_Manager {
 			$handle = 'mailchimp-for-wp-form-' . $stylesheet;
 			$src = 'assets/css/' . $stylesheet . $suffix . '.css';
 
-			// check if it exists, 404 is more expensive than filesystem check
+			// check if it exists, a 404 in WordPress is more expensive than simple filesystem check
 			if( file_exists( MC4WP_PLUGIN_DIR . $src ) ) {
 				wp_enqueue_style( $handle, MC4WP_PLUGIN_URL . $src, array(), MC4WP_VERSION );
 			}
 		}
 
+		return true;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_public_form_array( MC4WP_Form $form ) {
+		return $form->to_public_array();
+	}
+
+	/**
+	 * Load JavaScript files
+	 * @return bool
+	 */
+	public function load_scripts() {
+
+		if( $this->scripts_loaded ) {
+			return false;
+		}
+
+		// load API script
+		$config = array(
+
+			/**
+			 * @filter `mc4wp_form_auto_scroll`
+			 * @expects boolean|string
+			 * @valid false|"default"|"animated"
+			 */
+			'auto_scroll' => apply_filters( 'mc4wp_form_auto_scroll', 'default' ),
+			'forms' => array_map( array( $this, 'get_public_form_array' ), $this->output_manager->printed_forms )
+		);
+		wp_localize_script( 'mc4wp-api', 'mc4wp_config', $config );
+		wp_enqueue_script( 'mc4wp-api' );
+
+		// load placeholder polyfill if browser is Internet Explorer
+		if( ! empty( $GLOBALS['is_IE'] ) ) {
+			wp_enqueue_script( 'mc4wp-placeholders' );
+		}
+
+		$this->scripts_loaded = true;
 		return true;
 	}
 
@@ -88,13 +133,8 @@ class MC4WP_Form_Asset_Manager {
 			return false;
 		}
 
-		// load API script
-		wp_enqueue_script( 'mc4wp-api' );
-
-		// load placeholder polyfill if browser is Internet Explorer
-		if( ! empty( $GLOBALS['is_IE'] ) ) {
-			wp_enqueue_script( 'mc4wp-placeholders' );
-		}
+		// make sure scripts are loaded
+		$this->load_scripts();
 
 		// print inline scripts depending on printed fields
 		echo '<script type="text/javascript">';
@@ -117,28 +157,6 @@ class MC4WP_Form_Asset_Manager {
 		echo '</script>';
 
 		do_action( 'mc4wp_forms_print_javascript' );
-
-
-		// @todo handle form submissions
-		// was any of the printed forms submitted?
-//		if( $form->is_submitted( $attributes['element_id'] ) ) {
-//
-//			// enqueue scripts (in footer) if form was submitted
-//			$animate_scroll = apply_filters( 'mc4wp_form_animate_scroll', true );
-//
-//			wp_enqueue_script( 'mc4wp-form-request' );
-//			wp_localize_script( 'mc4wp-form-request', 'mc4wpFormRequestData', array(
-//					'success' => ( $form->request->success ) ? 1 : 0,
-//					'formElementId' => $form->request->form_element_id,
-//					'data' => $form->request->user_data,
-//					'animate_scroll' => $animate_scroll
-//				)
-//			);
-//
-//		}
-
-
-
 	}
 
 

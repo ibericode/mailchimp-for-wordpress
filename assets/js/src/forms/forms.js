@@ -8,9 +8,19 @@ var forms = function() {
 	// variables
 	var events = new EventEmitter();
 	var formElements = document.querySelectorAll('.mc4wp-form');
+	var config = window.mc4wp_config || {};
+
+	// initialize forms
 	var forms = Array.prototype.map.call(formElements,function(element) {
-		var settings = {};
-		var form = new Form(element, settings, EventEmitter);
+
+		// find form data
+		var form = new Form(element, EventEmitter);
+		var formConfig = config.forms[form.id] || {};
+		form.setConfig(formConfig);
+
+		if( config.auto_scroll && formConfig.data && formConfig.errors.length > 0 ) {
+			form.placeIntoView( config.auto_scroll === 'animated' );
+		}
 
 		// map all events to global events
 		form.on('submit',function(form,event) {

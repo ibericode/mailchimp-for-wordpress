@@ -5,7 +5,7 @@
 .mc4wp-form-theme {
 	margin: 1em 0;
 
-	form,
+	&,
 	label,
 	input {
 		width: auto;
@@ -18,12 +18,10 @@
 	}
 
 	/* Form Elements */
-	form {
-		&:after {
-			content:"";
-			display:table;
-			clear:both;
-		}
+	&:after {
+		content:"";
+		display:table;
+		clear:both;
 	}
 
 	label {
@@ -107,7 +105,6 @@
 	.mc4wp-error {
 		color: #CD5C5C;
 	}
-
 
 }
 

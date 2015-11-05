@@ -172,13 +172,12 @@ class MC4WP_Form_Tags {
 	 */
 	public function get_data( $args = array() ) {
 
-		$key = empty( $args['key'] ) ? '' : strtolower( $args['key'] );
-		if( empty( $key ) ) {
+		if( empty( $args['key'] ) ) {
 			return '';
 		}
 
 		$default = isset( $args['default'] ) ? $args['default'] : '';
-		return esc_html( MC4WP_Request::instance()->get_param( $key, $default ) );
+		return esc_html( MC4WP_Request::instance()->get_param( $args['key'], $default ) );
 	}
 
 	/*

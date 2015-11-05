@@ -9,15 +9,18 @@ window.mc4wp.forms = forms;
 },{"./forms/forms.js":3}],2:[function(require,module,exports){
 'use strict';
 
-var Form = function(element, settings, EventEmitter) {
+var Form = function(element, EventEmitter) {
 
 	var serialize = require('../../third-party/serialize.js');
+	var populate = require('../../third-party/populate.js');
 	var form = this;
 	var events = new EventEmitter();
 
 	this.id = parseInt( element.dataset.id );
+	this.name = "Form #" + this.id;
 	this.element = element;
-	this.settings = settings;
+	this.requiredFields = [];
+	this.errors = [];
 
 	this.on = function(event,callback) {
 		return events.on(event,callback);
@@ -28,17 +31,60 @@ var Form = function(element, settings, EventEmitter) {
 	};
 
 	this.getData = function() {
-		return serialize(element.querySelector('form'));
+		return serialize(element);
 	};
 
-	// add listeners
-	element.querySelector('form').addEventListener('submit',function(event) {
+	this.setConfig = function (config) {
+		form.name = config.name;
+		form.errors = config.errors;
+
+		// @todo walk through required fields and ensure they have "required" attribute?
+		form.requiredFields = config.requiredFields;
+
+		// repopulate form if there are errors
+		if( config.data && form.errors.length > 0 ) {
+			populate(form.element, config.data);
+		}
+	};
+
+	this.placeIntoView = function( animate ) {
+		// Scroll to form element
+		var scrollToHeight = 0;
+		var windowHeight = window.innerHeight;
+		var obj = form.element;
+
+		if (obj.offsetParent) {
+			do {
+				scrollToHeight += obj.offsetTop;
+			} while (obj = obj.offsetParent);
+		} else {
+			scrollToHeight = form.element.offsetTop;
+		}
+
+		if((windowHeight - 80) > form.element.clientHeight) {
+			// vertically center the form, but only if there's enough space for a decent margin
+			scrollToHeight = scrollToHeight - ((windowHeight - form.element.clientHeight) / 2);
+		} else {
+			// the form doesn't fit, scroll a little above the form
+			scrollToHeight = scrollToHeight - 80;
+		}
+
+		// scroll there. if jQuery is loaded, do it with an animation.
+		if( animate && window.jQuery ) {
+			window.jQuery('html, body').animate({ scrollTop: scrollToHeight }, 800);
+		} else {
+			window.scrollTo(0, scrollToHeight);
+		}
+	};
+
+	// add listeners for default browser events
+	element.addEventListener('submit',function(event) {
 		form.trigger('submit', [form, event]);
 	});
 };
 
 module.exports = Form;
-},{"../../third-party/serialize.js":5}],3:[function(require,module,exports){
+},{"../../third-party/populate.js":5,"../../third-party/serialize.js":6}],3:[function(require,module,exports){
 var forms = function() {
 	'use strict';
 
@@ -49,9 +95,19 @@ var forms = function() {
 	// variables
 	var events = new EventEmitter();
 	var formElements = document.querySelectorAll('.mc4wp-form');
+	var config = window.mc4wp_config || {};
+
+	// initialize forms
 	var forms = Array.prototype.map.call(formElements,function(element) {
-		var settings = {};
-		var form = new Form(element, settings, EventEmitter);
+
+		// find form data
+		var form = new Form(element, EventEmitter);
+		var formConfig = config.forms[form.id] || {};
+		form.setConfig(formConfig);
+
+		if( config.auto_scroll && formConfig.data && formConfig.errors.length > 0 ) {
+			form.placeIntoView( config.auto_scroll === 'animated' );
+		}
 
 		// map all events to global events
 		form.on('submit',function(form,event) {
@@ -568,6 +624,91 @@ module.exports = forms();
 	}
 }.call(this));
 },{}],5:[function(require,module,exports){
+/*! populate.js v1.0 by @dannyvankooten | MIT license */
+;(function(root) {
+
+	/**
+	 * Populate form fields from a JSON object.
+	 *
+	 * @param form object The form element containing your input fields.
+	 * @param data array JSON data to populate the fields with.
+	 * @param basename string Optional basename which is added to `name` attributes
+	 */
+	var populate = function( form, data, basename) {
+
+		for(var key in data) {
+
+			if( ! data.hasOwnProperty( key ) ) {
+				continue;
+			}
+
+			var name = key;
+			var value = data[key];
+
+			// handle array name attributes
+			if(typeof(basename) !== "undefined") {
+				name = basename + "[" + key + "]";
+			}
+
+			if(value.constructor === Array) {
+				name += '[]';
+			} else if(typeof value == "object") {
+				populate( form, value, name);
+				continue;
+			}
+
+			// only proceed if element is set
+			var element = form.elements.namedItem( name );
+			if( ! element ) {
+				continue;
+			}
+
+			// check element type
+			switch(element.type || element.constructor ) {
+				default:
+					element.value = value;
+					break;
+
+				case RadioNodeList:
+					for( var j=0; j < element.length; j++ ) {
+						element[j].checked = ( value.indexOf(element[j].value) > -1 );
+					}
+					break;
+
+				case 'select-multiple':
+					var values = value.constructor == Array ? value : [value];
+
+					for(var k = 0; k < element.options.length; k++) {
+						element.options[k].selected |= (values.indexOf(element.options[k].value) > -1 );
+					}
+					break;
+
+				case 'select':
+				case 'select-one':
+					element.value = value.toString() || value;
+					break;
+
+			}
+
+
+
+		}
+
+	};
+
+	// Play nice with AMD, CommonJS or a plain global object.
+	if ( typeof define == 'function' && typeof define.amd == 'object' && define.amd ) {
+		define(function() {
+			return populate;
+		});
+	}	else if ( typeof module !== 'undefined' && module.exports ) {
+		module.exports = populate;
+	} else {
+		root.populate = populate;
+	}
+
+}(this));
+},{}],6:[function(require,module,exports){
 // get successful control from form and assemble into object
 // http://www.w3.org/TR/html401/interact/forms.html#h-17.13.2
 
