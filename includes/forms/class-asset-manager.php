@@ -84,8 +84,29 @@ class MC4WP_Form_Asset_Manager {
 	/**
 	 * @return array
 	 */
-	public function get_public_form_array( MC4WP_Form $form ) {
+	public function get_javascript_form( MC4WP_Form $form ) {
 		return $form->to_public_array();
+	}
+
+	/**
+	 * Get configuration object for client-side use.
+	 *
+	 * @return array
+	 */
+	public function get_javascript_config() {
+		$config = array();
+
+		/**
+		 * @filter `mc4wp_form_auto_scroll`
+		 * @expects boolean|array
+		 * @valid false|"default"|"animated"
+		 */
+		$config['auto_scroll'] = apply_filters( 'mc4wp_form_auto_scroll',  array( 'animated' => false ) );
+
+		// array of form objects with their public (client-side) properties
+		$config['forms'] = array_map( array( $this, 'get_javascript_form' ), $this->output_manager->printed_forms );
+
+		return $config;
 	}
 
 	/**
@@ -99,17 +120,7 @@ class MC4WP_Form_Asset_Manager {
 		}
 
 		// load API script
-		$config = array(
-
-			/**
-			 * @filter `mc4wp_form_auto_scroll`
-			 * @expects boolean|string
-			 * @valid false|"default"|"animated"
-			 */
-			'auto_scroll' => apply_filters( 'mc4wp_form_auto_scroll', 'default' ),
-			'forms' => array_map( array( $this, 'get_public_form_array' ), $this->output_manager->printed_forms )
-		);
-		wp_localize_script( 'mc4wp-api', 'mc4wp_config', $config );
+		wp_localize_script( 'mc4wp-api', 'mc4wp_config', $this->get_javascript_config() );
 		wp_enqueue_script( 'mc4wp-api' );
 
 		// load placeholder polyfill if browser is Internet Explorer
