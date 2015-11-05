@@ -32,8 +32,7 @@ $setting_keys = array(
 	'replace_interests',
 	'send_welcome',
 	'redirect',
-	'hide_after_success',
-	'lists'
+	'hide_after_success'
 );
 
 $settings = array();
@@ -44,6 +43,11 @@ foreach( $setting_keys as $setting_key ) {
 	if( isset( $form_options[ $setting_key ] ) ) {
 		$settings[ $setting_key ] = $form_options[ $setting_key ];
 	}
+}
+
+// get only keys of lists setting
+if( isset( $form_options['lists'] ) ) {
+	$settings['lists'] = array_keys( $form_options['lists'] );
 }
 
 update_post_meta( $id, '_mc4wp_settings', $settings );
