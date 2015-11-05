@@ -109,28 +109,26 @@ class MC4WP_Form_Element {
 	}
 
 	/**
-	 * @param string $response_html
 	 * @return string
 	 */
-	protected function get_html_before_form( $response_html = '' ) {
+	protected function get_html_before_form() {
 		$html = (string) apply_filters( 'mc4wp_form_before_form', '', $this->form );
 
 		if( $this->get_response_position() === 'before' ) {
-			$html = $html . $response_html;
+			$html = $html . $this->form->get_response_html();
 		}
 
 		return $html;
 	}
 
 	/**
-	 * @param string $response_html
 	 * @return string
 	 */
-	protected function get_html_after_form( $response_html = '' ) {
+	protected function get_html_after_form() {
 		$html = (string) apply_filters( 'mc4wp_form_after_form', '', $this->form );
 
 		if( $this->get_response_position() === 'after' ) {
-			$html = $response_html . $html;
+			$html = $this->form->get_response_html() . $html;
 		}
 
 		return $html;
@@ -180,9 +178,6 @@ class MC4WP_Form_Element {
 			$this->config = $config;
 		}
 
-		// generate response html
-		$response_html = $this->form->get_response_html();
-
 		// Some vars we might fill later on
 		$form_opening_html = '';
 		$form_closing_html = '';
@@ -194,8 +189,8 @@ class MC4WP_Form_Element {
 		$opening_html .= '<div id="' . esc_attr( $this->ID ) . '" data-id="'. esc_attr( $this->form->ID ) .'" class="' . esc_attr( $this->get_css_classes() ) . '">';
 		$before_fields = apply_filters( 'mc4wp_form_before_fields', '', $this->form );
 		$after_fields = apply_filters( 'mc4wp_form_after_fields', '', $this->form );
-		$before_form = $this->get_html_before_form( $response_html );
-		$after_form = $this->get_html_after_form( $response_html );
+		$before_form = $this->get_html_before_form();
+		$after_form = $this->get_html_after_form();
 		$closing_html = '</div><!-- / MailChimp for WordPress Plugin -->';
 
 		// only generate form & fields HTML if necessary

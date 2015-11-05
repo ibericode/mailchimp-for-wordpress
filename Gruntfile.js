@@ -50,9 +50,14 @@ module.exports = function(grunt) {
 
 		browserify: {
 
-			Admin: {
-				src: ['assets/js/src/Admin.js'],
+			admin: {
+				src: ['assets/js/src/admin.js'],
 				dest: 'assets/js/admin.js'
+			},
+
+			api: {
+				src: ['assets/js/src/api.js'],
+				dest: 'assets/js/api.js'
 			}
 
 		},
@@ -86,6 +91,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-browserify');
 
 	// register at least this one task
-	grunt.registerTask('default', [ 'browserify:Admin', 'uglify', 'sass', 'cssmin' ]);
+	grunt.registerTask('default', [ 'browserify', 'uglify', 'sass', 'cssmin' ]);
 
 };

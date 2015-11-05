@@ -1,7 +1,7 @@
 var Settings = function(context) {
 	'use strict';
 
-	var EventEmitter = require('../third-party/EventEmitter.js');
+	var EventEmitter = require('../../third-party/event-emitter.js');
 
 	// vars
 	var events = new EventEmitter();

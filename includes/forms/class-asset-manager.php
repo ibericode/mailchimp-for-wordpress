@@ -43,6 +43,9 @@ class MC4WP_Form_Asset_Manager {
 	public function register_scripts() {
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
+		// register client-side API script
+		wp_register_script( 'mc4wp-api', MC4WP_PLUGIN_URL . 'assets/js/api.js', array(), MC4WP_VERSION, true );
+
 		// register placeholder script, which will later be enqueued for IE only
 		wp_register_script( 'mc4wp-placeholders', MC4WP_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), MC4WP_VERSION, true );
 
@@ -80,13 +83,20 @@ class MC4WP_Form_Asset_Manager {
 	*/
 	public function print_javascript() {
 
+		// no forms on this page? HURRAY, no scripts either then!
+		if( empty( $this->output_manager->printed_forms ) ) {
+			return false;
+		}
 
-		// make sure scripts are enqueued later
+		// load API script
+		wp_enqueue_script( 'mc4wp-api' );
+
+		// load placeholder polyfill if browser is Internet Explorer
 		if( ! empty( $GLOBALS['is_IE'] ) ) {
 			wp_enqueue_script( 'mc4wp-placeholders' );
 		}
 
-		// Print vanilla JavaScript
+		// print inline scripts depending on printed fields
 		echo '<script type="text/javascript">';
 		echo '(function() {';
 
@@ -109,6 +119,7 @@ class MC4WP_Form_Asset_Manager {
 		do_action( 'mc4wp_forms_print_javascript' );
 
 
+		// @todo handle form submissions
 		// was any of the printed forms submitted?
 //		if( $form->is_submitted( $attributes['element_id'] ) ) {
 //

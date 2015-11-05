@@ -4,18 +4,18 @@
 	window.mc4wp = window.mc4wp || {};
 
 	// dependencies
-	var FormWatcher = require('./FormWatcher.js');
-	var FormEditor = require('./FormEditor.js');
-	var FieldHelper = require('./FieldHelper.js');
-	var FieldsFactory = require('./FieldsFactory.js');
+	var FormWatcher = require('./admin/form-watcher.js');
+	var FormEditor = require('./admin/form-editor.js');
+	var FieldHelper = require('./admin/field-helper.js');
+	var FieldsFactory = require('./admin/fields-factory.js');
 	var m = require('../third-party/mithril.js');
 
 	// vars
 	var context = document.getElementById('mc4wp-admin');
 	var formContentTextarea = document.getElementById('mc4wp-form-content');
-	var tabs = require ('./Tabs.js')(context);
-	var settings = require('./Settings.js')(context);
-	var fields = require('./Fields.js')(m);
+	var tabs = require ('./admin/tabs.js')(context);
+	var settings = require('./admin/settings.js')(context);
+	var fields = require('./admin/fields.js')(m);
 
 	if( formContentTextarea ) {
 

@@ -1,8 +1,8 @@
 var g = function(m) {
 	'use strict';
 
-	var render = require('../third-party/Render.js');
-	var html_beautify = require('../third-party/beautify-html.js');
+	var render = require('../../third-party/render.js');
+	var html_beautify = require('../../third-party/beautify-html.js');
 	var generators = {};
 
 	/**
@@ -34,7 +34,7 @@ var g = function(m) {
 					m('input', {
 						name   : config.name() + ( config.type() === 'checkbox' ? '[]' : '' ),
 						type   : config.type(),
-						value  : (choice.value() !== choice.label()) ? choice.value() : undefined,
+						value  : choice.value(),
 						checked: choice.selected()
 					}),
 					m('span', choice.label())

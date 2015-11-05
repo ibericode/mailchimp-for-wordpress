@@ -1,0 +1,828 @@
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+'use strict';
+
+var forms = require('./forms/forms.js');
+
+// expose stuff
+window.mc4wp = window.mc4wp || {};
+window.mc4wp.forms = forms;
+},{"./forms/forms.js":3}],2:[function(require,module,exports){
+'use strict';
+
+var Form = function(element, settings, EventEmitter) {
+
+	var serialize = require('../../third-party/serialize.js');
+	var form = this;
+	var events = new EventEmitter();
+
+	this.id = parseInt( element.dataset.id );
+	this.element = element;
+	this.settings = settings;
+
+	this.on = function(event,callback) {
+		return events.on(event,callback);
+	};
+
+	this.trigger = function (event,args) {
+		return events.trigger(event,args);
+	};
+
+	this.getData = function() {
+		return serialize(element.querySelector('form'));
+	};
+
+	// add listeners
+	element.querySelector('form').addEventListener('submit',function(event) {
+		form.trigger('submit', [form, event]);
+	});
+};
+
+module.exports = Form;
+},{"../../third-party/serialize.js":5}],3:[function(require,module,exports){
+var forms = function() {
+	'use strict';
+
+	// deps
+	var EventEmitter = require('../../third-party/event-emitter.js');
+	var Form = require('./form.js');
+
+	// variables
+	var events = new EventEmitter();
+	var formElements = document.querySelectorAll('.mc4wp-form');
+	var forms = Array.prototype.map.call(formElements,function(element) {
+		var settings = {};
+		var form = new Form(element, settings, EventEmitter);
+
+		// map all events to global events
+		form.on('submit',function(form,event) {
+			events.trigger('submit', [form,event])
+		});
+
+		return form;
+	});
+
+	// functions
+	function get(form_id) {
+		return forms.filter(function(form) {
+			return form.id === form_id;
+		}).pop();
+	}
+
+	function all() {
+		return forms;
+	}
+
+	function on(event,callback) {
+		return events.on(event,callback);
+	}
+
+	function trigger(event,args) {
+		return events.trigger(event,args);
+	}
+
+	// public API
+	return {
+		all: all,
+		get: get,
+		on: on,
+		trigger: trigger
+	}
+};
+
+module.exports = forms();
+
+
+},{"../../third-party/event-emitter.js":4,"./form.js":2}],4:[function(require,module,exports){
+/*!
+ * EventEmitter v4.2.11 - git.io/ee
+ * Unlicense - http://unlicense.org/
+ * Oliver Caldwell - http://oli.me.uk/
+ * @preserve
+ */
+
+;(function () {
+	'use strict';
+
+	/**
+	 * Class for managing events.
+	 * Can be extended to provide event functionality in other classes.
+	 *
+	 * @class EventEmitter Manages event registering and emitting.
+	 */
+	function EventEmitter() {}
+
+	// Shortcuts to improve speed and size
+	var proto = EventEmitter.prototype;
+	var exports = this;
+	var originalGlobalValue = exports.EventEmitter;
+
+	/**
+	 * Finds the index of the listener for the event in its storage array.
+	 *
+	 * @param {Function[]} listeners Array of listeners to search through.
+	 * @param {Function} listener Method to look for.
+	 * @return {Number} Index of the specified listener, -1 if not found
+	 * @api private
+	 */
+	function indexOfListener(listeners, listener) {
+		var i = listeners.length;
+		while (i--) {
+			if (listeners[i].listener === listener) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	/**
+	 * Alias a method while keeping the context correct, to allow for overwriting of target method.
+	 *
+	 * @param {String} name The name of the target method.
+	 * @return {Function} The aliased method
+	 * @api private
+	 */
+	function alias(name) {
+		return function aliasClosure() {
+			return this[name].apply(this, arguments);
+		};
+	}
+
+	/**
+	 * Returns the listener array for the specified event.
+	 * Will initialise the event object and listener arrays if required.
+	 * Will return an object if you use a regex search. The object contains keys for each matched event. So /ba[rz]/ might return an object containing bar and baz. But only if you have either defined them with defineEvent or added some listeners to them.
+	 * Each property in the object response is an array of listener functions.
+	 *
+	 * @param {String|RegExp} evt Name of the event to return the listeners from.
+	 * @return {Function[]|Object} All listener functions for the event.
+	 */
+	proto.getListeners = function getListeners(evt) {
+		var events = this._getEvents();
+		var response;
+		var key;
+
+		// Return a concatenated array of all matching events if
+		// the selector is a regular expression.
+		if (evt instanceof RegExp) {
+			response = {};
+			for (key in events) {
+				if (events.hasOwnProperty(key) && evt.test(key)) {
+					response[key] = events[key];
+				}
+			}
+		}
+		else {
+			response = events[evt] || (events[evt] = []);
+		}
+
+		return response;
+	};
+
+	/**
+	 * Takes a list of listener objects and flattens it into a list of listener functions.
+	 *
+	 * @param {Object[]} listeners Raw listener objects.
+	 * @return {Function[]} Just the listener functions.
+	 */
+	proto.flattenListeners = function flattenListeners(listeners) {
+		var flatListeners = [];
+		var i;
+
+		for (i = 0; i < listeners.length; i += 1) {
+			flatListeners.push(listeners[i].listener);
+		}
+
+		return flatListeners;
+	};
+
+	/**
+	 * Fetches the requested listeners via getListeners but will always return the results inside an object. This is mainly for internal use but others may find it useful.
+	 *
+	 * @param {String|RegExp} evt Name of the event to return the listeners from.
+	 * @return {Object} All listener functions for an event in an object.
+	 */
+	proto.getListenersAsObject = function getListenersAsObject(evt) {
+		var listeners = this.getListeners(evt);
+		var response;
+
+		if (listeners instanceof Array) {
+			response = {};
+			response[evt] = listeners;
+		}
+
+		return response || listeners;
+	};
+
+	/**
+	 * Adds a listener function to the specified event.
+	 * The listener will not be added if it is a duplicate.
+	 * If the listener returns true then it will be removed after it is called.
+	 * If you pass a regular expression as the event name then the listener will be added to all events that match it.
+	 *
+	 * @param {String|RegExp} evt Name of the event to attach the listener to.
+	 * @param {Function} listener Method to be called when the event is emitted. If the function returns true then it will be removed after calling.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.addListener = function addListener(evt, listener) {
+		var listeners = this.getListenersAsObject(evt);
+		var listenerIsWrapped = typeof listener === 'object';
+		var key;
+
+		for (key in listeners) {
+			if (listeners.hasOwnProperty(key) && indexOfListener(listeners[key], listener) === -1) {
+				listeners[key].push(listenerIsWrapped ? listener : {
+					listener: listener,
+					once: false
+				});
+			}
+		}
+
+		return this;
+	};
+
+	/**
+	 * Alias of addListener
+	 */
+	proto.on = alias('addListener');
+
+	/**
+	 * Semi-alias of addListener. It will add a listener that will be
+	 * automatically removed after its first execution.
+	 *
+	 * @param {String|RegExp} evt Name of the event to attach the listener to.
+	 * @param {Function} listener Method to be called when the event is emitted. If the function returns true then it will be removed after calling.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.addOnceListener = function addOnceListener(evt, listener) {
+		return this.addListener(evt, {
+			listener: listener,
+			once: true
+		});
+	};
+
+	/**
+	 * Alias of addOnceListener.
+	 */
+	proto.once = alias('addOnceListener');
+
+	/**
+	 * Defines an event name. This is required if you want to use a regex to add a listener to multiple events at once. If you don't do this then how do you expect it to know what event to add to? Should it just add to every possible match for a regex? No. That is scary and bad.
+	 * You need to tell it what event names should be matched by a regex.
+	 *
+	 * @param {String} evt Name of the event to create.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.defineEvent = function defineEvent(evt) {
+		this.getListeners(evt);
+		return this;
+	};
+
+	/**
+	 * Uses defineEvent to define multiple events.
+	 *
+	 * @param {String[]} evts An array of event names to define.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.defineEvents = function defineEvents(evts) {
+		for (var i = 0; i < evts.length; i += 1) {
+			this.defineEvent(evts[i]);
+		}
+		return this;
+	};
+
+	/**
+	 * Removes a listener function from the specified event.
+	 * When passed a regular expression as the event name, it will remove the listener from all events that match it.
+	 *
+	 * @param {String|RegExp} evt Name of the event to remove the listener from.
+	 * @param {Function} listener Method to remove from the event.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.removeListener = function removeListener(evt, listener) {
+		var listeners = this.getListenersAsObject(evt);
+		var index;
+		var key;
+
+		for (key in listeners) {
+			if (listeners.hasOwnProperty(key)) {
+				index = indexOfListener(listeners[key], listener);
+
+				if (index !== -1) {
+					listeners[key].splice(index, 1);
+				}
+			}
+		}
+
+		return this;
+	};
+
+	/**
+	 * Alias of removeListener
+	 */
+	proto.off = alias('removeListener');
+
+	/**
+	 * Adds listeners in bulk using the manipulateListeners method.
+	 * If you pass an object as the second argument you can add to multiple events at once. The object should contain key value pairs of events and listeners or listener arrays. You can also pass it an event name and an array of listeners to be added.
+	 * You can also pass it a regular expression to add the array of listeners to all events that match it.
+	 * Yeah, this function does quite a bit. That's probably a bad thing.
+	 *
+	 * @param {String|Object|RegExp} evt An event name if you will pass an array of listeners next. An object if you wish to add to multiple events at once.
+	 * @param {Function[]} [listeners] An optional array of listener functions to add.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.addListeners = function addListeners(evt, listeners) {
+		// Pass through to manipulateListeners
+		return this.manipulateListeners(false, evt, listeners);
+	};
+
+	/**
+	 * Removes listeners in bulk using the manipulateListeners method.
+	 * If you pass an object as the second argument you can remove from multiple events at once. The object should contain key value pairs of events and listeners or listener arrays.
+	 * You can also pass it an event name and an array of listeners to be removed.
+	 * You can also pass it a regular expression to remove the listeners from all events that match it.
+	 *
+	 * @param {String|Object|RegExp} evt An event name if you will pass an array of listeners next. An object if you wish to remove from multiple events at once.
+	 * @param {Function[]} [listeners] An optional array of listener functions to remove.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.removeListeners = function removeListeners(evt, listeners) {
+		// Pass through to manipulateListeners
+		return this.manipulateListeners(true, evt, listeners);
+	};
+
+	/**
+	 * Edits listeners in bulk. The addListeners and removeListeners methods both use this to do their job. You should really use those instead, this is a little lower level.
+	 * The first argument will determine if the listeners are removed (true) or added (false).
+	 * If you pass an object as the second argument you can add/remove from multiple events at once. The object should contain key value pairs of events and listeners or listener arrays.
+	 * You can also pass it an event name and an array of listeners to be added/removed.
+	 * You can also pass it a regular expression to manipulate the listeners of all events that match it.
+	 *
+	 * @param {Boolean} remove True if you want to remove listeners, false if you want to add.
+	 * @param {String|Object|RegExp} evt An event name if you will pass an array of listeners next. An object if you wish to add/remove from multiple events at once.
+	 * @param {Function[]} [listeners] An optional array of listener functions to add/remove.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.manipulateListeners = function manipulateListeners(remove, evt, listeners) {
+		var i;
+		var value;
+		var single = remove ? this.removeListener : this.addListener;
+		var multiple = remove ? this.removeListeners : this.addListeners;
+
+		// If evt is an object then pass each of its properties to this method
+		if (typeof evt === 'object' && !(evt instanceof RegExp)) {
+			for (i in evt) {
+				if (evt.hasOwnProperty(i) && (value = evt[i])) {
+					// Pass the single listener straight through to the singular method
+					if (typeof value === 'function') {
+						single.call(this, i, value);
+					}
+					else {
+						// Otherwise pass back to the multiple function
+						multiple.call(this, i, value);
+					}
+				}
+			}
+		}
+		else {
+			// So evt must be a string
+			// And listeners must be an array of listeners
+			// Loop over it and pass each one to the multiple method
+			i = listeners.length;
+			while (i--) {
+				single.call(this, evt, listeners[i]);
+			}
+		}
+
+		return this;
+	};
+
+	/**
+	 * Removes all listeners from a specified event.
+	 * If you do not specify an event then all listeners will be removed.
+	 * That means every event will be emptied.
+	 * You can also pass a regex to remove all events that match it.
+	 *
+	 * @param {String|RegExp} [evt] Optional name of the event to remove all listeners for. Will remove from every event if not passed.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.removeEvent = function removeEvent(evt) {
+		var type = typeof evt;
+		var events = this._getEvents();
+		var key;
+
+		// Remove different things depending on the state of evt
+		if (type === 'string') {
+			// Remove all listeners for the specified event
+			delete events[evt];
+		}
+		else if (evt instanceof RegExp) {
+			// Remove all events matching the regex.
+			for (key in events) {
+				if (events.hasOwnProperty(key) && evt.test(key)) {
+					delete events[key];
+				}
+			}
+		}
+		else {
+			// Remove all listeners in all events
+			delete this._events;
+		}
+
+		return this;
+	};
+
+	/**
+	 * Alias of removeEvent.
+	 *
+	 * Added to mirror the node API.
+	 */
+	proto.removeAllListeners = alias('removeEvent');
+
+	/**
+	 * Emits an event of your choice.
+	 * When emitted, every listener attached to that event will be executed.
+	 * If you pass the optional argument array then those arguments will be passed to every listener upon execution.
+	 * Because it uses `apply`, your array of arguments will be passed as if you wrote them out separately.
+	 * So they will not arrive within the array on the other side, they will be separate.
+	 * You can also pass a regular expression to emit to all events that match it.
+	 *
+	 * @param {String|RegExp} evt Name of the event to emit and execute listeners for.
+	 * @param {Array} [args] Optional array of arguments to be passed to each listener.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.emitEvent = function emitEvent(evt, args) {
+		var listenersMap = this.getListenersAsObject(evt);
+		var listeners;
+		var listener;
+		var i;
+		var key;
+		var response;
+
+		for (key in listenersMap) {
+			if (listenersMap.hasOwnProperty(key)) {
+				listeners = listenersMap[key].slice(0);
+				i = listeners.length;
+
+				while (i--) {
+					// If the listener returns true then it shall be removed from the event
+					// The function is executed either with a basic call or an apply if there is an args array
+					listener = listeners[i];
+
+					if (listener.once === true) {
+						this.removeListener(evt, listener.listener);
+					}
+
+					response = listener.listener.apply(this, args || []);
+
+					if (response === this._getOnceReturnValue()) {
+						this.removeListener(evt, listener.listener);
+					}
+				}
+			}
+		}
+
+		return this;
+	};
+
+	/**
+	 * Alias of emitEvent
+	 */
+	proto.trigger = alias('emitEvent');
+
+	/**
+	 * Subtly different from emitEvent in that it will pass its arguments on to the listeners, as opposed to taking a single array of arguments to pass on.
+	 * As with emitEvent, you can pass a regex in place of the event name to emit to all events that match it.
+	 *
+	 * @param {String|RegExp} evt Name of the event to emit and execute listeners for.
+	 * @param {...*} Optional additional arguments to be passed to each listener.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.emit = function emit(evt) {
+		var args = Array.prototype.slice.call(arguments, 1);
+		return this.emitEvent(evt, args);
+	};
+
+	/**
+	 * Sets the current value to check against when executing listeners. If a
+	 * listeners return value matches the one set here then it will be removed
+	 * after execution. This value defaults to true.
+	 *
+	 * @param {*} value The new value to check for when executing listeners.
+	 * @return {Object} Current instance of EventEmitter for chaining.
+	 */
+	proto.setOnceReturnValue = function setOnceReturnValue(value) {
+		this._onceReturnValue = value;
+		return this;
+	};
+
+	/**
+	 * Fetches the current value to check against when executing listeners. If
+	 * the listeners return value matches this one then it should be removed
+	 * automatically. It will return true by default.
+	 *
+	 * @return {*|Boolean} The current value to check for or the default, true.
+	 * @api private
+	 */
+	proto._getOnceReturnValue = function _getOnceReturnValue() {
+		if (this.hasOwnProperty('_onceReturnValue')) {
+			return this._onceReturnValue;
+		}
+		else {
+			return true;
+		}
+	};
+
+	/**
+	 * Fetches the events object and creates one if required.
+	 *
+	 * @return {Object} The events storage object.
+	 * @api private
+	 */
+	proto._getEvents = function _getEvents() {
+		return this._events || (this._events = {});
+	};
+
+	/**
+	 * Reverts the global {@link EventEmitter} to its previous value and returns a reference to this version.
+	 *
+	 * @return {Function} Non conflicting EventEmitter class.
+	 */
+	EventEmitter.noConflict = function noConflict() {
+		exports.EventEmitter = originalGlobalValue;
+		return EventEmitter;
+	};
+
+	// Expose the class either via AMD, CommonJS or the global object
+	if (typeof define === 'function' && define.amd) {
+		define(function () {
+			return EventEmitter;
+		});
+	}
+	else if (typeof module === 'object' && module.exports){
+		module.exports = EventEmitter;
+	}
+	else {
+		exports.EventEmitter = EventEmitter;
+	}
+}.call(this));
+},{}],5:[function(require,module,exports){
+// get successful control from form and assemble into object
+// http://www.w3.org/TR/html401/interact/forms.html#h-17.13.2
+
+// types which indicate a submit action and are not successful controls
+// these will be ignored
+var k_r_submitter = /^(?:submit|button|image|reset|file)$/i;
+
+// node names which could be successful controls
+var k_r_success_contrls = /^(?:input|select|textarea|keygen)/i;
+
+// Matches bracket notation.
+var brackets = /(\[[^\[\]]*\])/g;
+
+// serializes form fields
+// @param form MUST be an HTMLForm element
+// @param options is an optional argument to configure the serialization. Default output
+// with no options specified is a url encoded string
+//    - hash: [true | false] Configure the output type. If true, the output will
+//    be a js object.
+//    - serializer: [function] Optional serializer function to override the default one.
+//    The function takes 3 arguments (result, key, value) and should return new result
+//    hash and url encoded str serializers are provided with this module
+//    - disabled: [true | false]. If true serialize disabled fields.
+//    - empty: [true | false]. If true serialize empty fields
+function serialize(form, options) {
+	if (typeof options != 'object') {
+		options = { hash: !!options };
+	}
+	else if (options.hash === undefined) {
+		options.hash = true;
+	}
+
+	var result = (options.hash) ? {} : '';
+	var serializer = options.serializer || ((options.hash) ? hash_serializer : str_serialize);
+
+	var elements = form && form.elements ? form.elements : [];
+
+	//Object store each radio and set if it's empty or not
+	var radio_store = Object.create(null);
+
+	for (var i=0 ; i<elements.length ; ++i) {
+		var element = elements[i];
+
+		// ingore disabled fields
+		if ((!options.disabled && element.disabled) || !element.name) {
+			continue;
+		}
+		// ignore anyhting that is not considered a success field
+		if (!k_r_success_contrls.test(element.nodeName) ||
+			k_r_submitter.test(element.type)) {
+			continue;
+		}
+
+		var key = element.name;
+		var val = element.value;
+
+		// we can't just use element.value for checkboxes cause some browsers lie to us
+		// they say "on" for value when the box isn't checked
+		if ((element.type === 'checkbox' || element.type === 'radio') && !element.checked) {
+			val = undefined;
+		}
+
+		// If we want empty elements
+		if (options.empty) {
+			// for checkbox
+			if (element.type === 'checkbox' && !element.checked) {
+				val = '';
+			}
+
+			// for radio
+			if (element.type === 'radio') {
+				if (!radio_store[element.name] && !element.checked) {
+					radio_store[element.name] = false;
+				}
+				else if (element.checked) {
+					radio_store[element.name] = true;
+				}
+			}
+
+			// if options empty is true, continue only if its radio
+			if (!val && element.type == 'radio') {
+				continue;
+			}
+		}
+		else {
+			// value-less fields are ignored unless options.empty is true
+			if (!val) {
+				continue;
+			}
+		}
+
+		// multi select boxes
+		if (element.type === 'select-multiple') {
+			val = [];
+
+			var selectOptions = element.options;
+			var isSelectedOptions = false;
+			for (var j=0 ; j<selectOptions.length ; ++j) {
+				var option = selectOptions[j];
+				var allowedEmpty = options.empty && !option.value;
+				var hasValue = (option.value || allowedEmpty);
+				if (option.selected && hasValue) {
+					isSelectedOptions = true;
+
+					// If using a hash serializer be sure to add the
+					// correct notation for an array in the multi-select
+					// context. Here the name attribute on the select element
+					// might be missing the trailing bracket pair. Both names
+					// "foo" and "foo[]" should be arrays.
+					if (options.hash && key.slice(key.length - 2) !== '[]') {
+						result = serializer(result, key + '[]', option.value);
+					}
+					else {
+						result = serializer(result, key, option.value);
+					}
+				}
+			}
+
+			// Serialize if no selected options and options.empty is true
+			if (!isSelectedOptions && options.empty) {
+				result = serializer(result, key, '');
+			}
+
+			continue;
+		}
+
+		result = serializer(result, key, val);
+	}
+
+	// Check for all empty radio buttons and serialize them with key=""
+	if (options.empty) {
+		for (var key in radio_store) {
+			if (!radio_store[key]) {
+				result = serializer(result, key, '');
+			}
+		}
+	}
+
+	return result;
+}
+
+function parse_keys(string) {
+	var keys = [];
+	var prefix = /^([^\[\]]*)/;
+	var children = new RegExp(brackets);
+	var match = prefix.exec(string);
+
+	if (match[1]) {
+		keys.push(match[1]);
+	}
+
+	while ((match = children.exec(string)) !== null) {
+		keys.push(match[1]);
+	}
+
+	return keys;
+}
+
+function hash_assign(result, keys, value) {
+	if (keys.length === 0) {
+		result = value;
+		return result;
+	}
+
+	var key = keys.shift();
+	var between = key.match(/^\[(.+?)\]$/);
+
+	if (key === '[]') {
+		result = result || [];
+
+		if (Array.isArray(result)) {
+			result.push(hash_assign(null, keys, value));
+		}
+		else {
+			// This might be the result of bad name attributes like "[][foo]",
+			// in this case the original `result` object will already be
+			// assigned to an object literal. Rather than coerce the object to
+			// an array, or cause an exception the attribute "_values" is
+			// assigned as an array.
+			result._values = result._values || [];
+			result._values.push(hash_assign(null, keys, value));
+		}
+
+		return result;
+	}
+
+	// Key is an attribute name and can be assigned directly.
+	if (!between) {
+		result[key] = hash_assign(result[key], keys, value);
+	}
+	else {
+		var string = between[1];
+		var index = parseInt(string, 10);
+
+		// If the characters between the brackets is not a number it is an
+		// attribute name and can be assigned directly.
+		if (isNaN(index)) {
+			result = result || {};
+			result[string] = hash_assign(result[string], keys, value);
+		}
+		else {
+			result = result || [];
+			result[index] = hash_assign(result[index], keys, value);
+		}
+	}
+
+	return result;
+}
+
+// Object/hash encoding serializer.
+function hash_serializer(result, key, value) {
+	var matches = key.match(brackets);
+
+	// Has brackets? Use the recursive assignment function to walk the keys,
+	// construct any missing objects in the result tree and make the assignment
+	// at the end of the chain.
+	if (matches) {
+		var keys = parse_keys(key);
+		hash_assign(result, keys, value);
+	}
+	else {
+		// Non bracket notation can make assignments directly.
+		var existing = result[key];
+
+		// If the value has been assigned already (for instance when a radio and
+		// a checkbox have the same name attribute) convert the previous value
+		// into an array before pushing into it.
+		//
+		// NOTE: If this requirement were removed all hash creation and
+		// assignment could go through `hash_assign`.
+		if (existing) {
+			if (!Array.isArray(existing)) {
+				result[key] = [ existing ];
+			}
+
+			result[key].push(value);
+		}
+		else {
+			result[key] = value;
+		}
+	}
+
+	return result;
+}
+
+// urlform encoding serializer
+function str_serialize(result, key, value) {
+	// encode newlines as \r\n cause the html spec says so
+	value = value.replace(/(\r)?\n/g, '\r\n');
+	value = encodeURIComponent(value);
+
+	// spaces should be '+' rather than '%20'.
+	value = value.replace(/%20/g, '+');
+	return result + (result ? '&' : '') + encodeURIComponent(key) + '=' + value;
+}
+
+module.exports = serialize;
+},{}]},{},[1]);

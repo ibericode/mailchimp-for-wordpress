@@ -1,9 +1,9 @@
 var FieldHelper = function(m,tabs, editor, fields) {
 	'use strict';
 
-	var generate = require('./FieldGenerator.js')(m);
-	var overlay = require('./Overlay.js')(m);
-	var forms = require('./FieldForms.js')(m);
+	var generate = require('./field-generator.js')(m);
+	var overlay = require('./overlay.js')(m);
+	var forms = require('./field-forms.js')(m);
 	var fieldConfig;
 
 	/**

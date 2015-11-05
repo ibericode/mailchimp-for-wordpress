@@ -93,6 +93,7 @@ var FieldFactory = function(settings, fields) {
 	 * @param grouping
 	 */
 	function registerGrouping(grouping){
+
 		var data = {
 			title: grouping.name,
 			name: 'GROUPINGS[' + grouping.id + ']',

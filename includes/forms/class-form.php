@@ -124,25 +124,26 @@ class MC4WP_Form {
 	 */
 	public function get_response_html() {
 
-		if( ! $this->is_submitted ) {
-			return '';
-		}
-
 		$html = '';
 
-		if( $this->has_errors() ) {
+		if( $this->is_submitted ) {
+			if( $this->has_errors() ) {
 
-			// create html string of all errors
-			foreach( $this->errors as $key ) {
-				$html .= $this->get_message_html( $key );
+				// create html string of all errors
+				foreach( $this->errors as $key ) {
+					$html .= $this->get_message_html( $key );
+				}
+
+			} else {
+				$html = $this->get_message_html( $this->get_action() . 'd' );
 			}
-
-			return $html;
-		} else {
-			$html = $this->get_message_html( $this->get_action() . 'd' );
 		}
 
-		return (string) apply_filters( 'mc4wp_form_response_html', $html, $this );
+		$html = (string) apply_filters( 'mc4wp_form_response_html', $html, $this );
+
+		// wrap entire response in div, regardless of a form was submitted
+		$html = '<div class="mc4wp-response">' . $html . '</div>';
+		return $html;
 	}
 
 	/**
