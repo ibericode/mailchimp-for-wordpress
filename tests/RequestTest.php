@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class RequestTest
+ * @ignore
+ */
 class RequestTest extends PHPUnit_Framework_TestCase {
 
 	/**

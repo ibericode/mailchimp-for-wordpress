@@ -4,6 +4,7 @@
  * Class MC4WP_Dynamic_Content_Tags
  *
  * @internal
+ * @ignore
  */
 class MC4WP_Dynamic_Content_Tags {
 

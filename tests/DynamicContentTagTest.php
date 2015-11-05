@@ -3,6 +3,10 @@
 use Brain\Monkey;
 use Brain\Monkey\Functions;
 
+/**
+ * Class DynamicContentTagTest
+ * @ignore
+ */
 class DynamicContentTagTest extends PHPUnit_Framework_TestCase {
 
 	/**

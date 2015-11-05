@@ -4,6 +4,7 @@
  * Class MC4WP_Usage_Tracking
  * @internal
  * @since 2.3
+ * @ignore
  */
 class MC4WP_Usage_Tracking {
 

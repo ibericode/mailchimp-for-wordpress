@@ -3,6 +3,10 @@
 /**
  * Class MC4WP_Form
  *
+ * Represents a Form object.
+ *
+ * To get a form instance, use `mc4wp_get_form( $id );` where `$id` is the post ID.
+ *
  * @author Danny van Kooten
  * @package MailChimp for WordPress
  * @api This class is intended for public use.
@@ -11,12 +15,14 @@
 class MC4WP_Form {
 
 	/**
-	 * @var array
+	 * @var array Array of instantiated form objects.
 	 */
 	public static $instances = array();
 
 
 	/**
+	 * Get a shared form instance.
+	 *
 	 * @param int $form_id
 	 * @return MC4WP_Form
 	 * @throws Exception
@@ -41,32 +47,32 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * @var int
+	 * @var int The form ID, matches the underlying post its ID
 	 */
 	public $ID = 0;
 
 	/**
-	 * @var string
+	 * @var string The form name
 	 */
 	public $name = 'Default Form';
 
 	/**
-	 * @var string
+	 * @var string The form HTML content
 	 */
 	public $content = '';
 
 	/**
-	 * @var array
+	 * @var array Array of settings
 	 */
 	public $settings = array();
 
 	/**
-	 * @var array
+	 * @var array Array of messages
 	 */
 	public $messages = array();
 
 	/**
-	 * @var WP_Post
+	 * @var WP_Post The internal post object that represents this form.
 	 */
 	public $post;
 
@@ -77,12 +83,12 @@ class MC4WP_Form {
 	public $errors = array();
 
 	/**
-	 * @var bool
+	 * @var bool Was this form submitted?
 	 */
 	public $is_submitted = false;
 
 	/**
-	 * @var array
+	 * @var array Array of the data that was submitted, in field => value pairs.
 	 */
 	public $data = array();
 
@@ -120,6 +126,9 @@ class MC4WP_Form {
 
 
 	/**
+	 * Gets the form response string
+	 *
+	 *
 	 * @return string
 	 */
 	public function get_response_html() {
@@ -139,6 +148,16 @@ class MC4WP_Form {
 			}
 		}
 
+		/**
+		 * Filter the form response HTML
+		 *
+		 * Use this to add your own HTML to the form response. The form instance is passed to the callback function.
+		 *
+		 * @since
+		 *
+		 * @param string $html The complete HTML string of the response, excluding the wrapper element.
+		 * @param MC4WP_Form $this  The form object
+		 */
 		$html = (string) apply_filters( 'mc4wp_form_response_html', $html, $this );
 
 		// wrap entire response in div, regardless of a form was submitted
@@ -292,6 +311,8 @@ class MC4WP_Form {
 	}
 
 	/**
+	 * Output this form
+	 *
 	 * @return string
 	 */
 	public function __toString() {
@@ -300,6 +321,8 @@ class MC4WP_Form {
 
 	/**
 	 * Get "redirect to url after success" setting for this form
+	 *
+	 * @return string
 	 */
 	public function get_redirect_url() {
 		$url = trim( $this->settings['redirect'] );
@@ -308,6 +331,11 @@ class MC4WP_Form {
 	}
 
 	/**
+	 * Is this form valid?
+	 *
+	 * Will always return true if the form is not yet submitted. Otherwise, it will run validation and store any errors.
+	 * This method should be called before `get_errors()`
+	 *
 	 * @return bool
 	 * @throws Exception
 	 */
@@ -353,7 +381,10 @@ class MC4WP_Form {
 	}
 
 	/**
+	 * Handle an incoming request. Should be called before calling `is_valid`.
+	 *
 	 * @param MC4WP_Request $request
+	 * @return void
 	 */
 	public function handle_request( MC4WP_Request $request ) {
 		$this->is_submitted = true;
@@ -417,6 +448,8 @@ class MC4WP_Form {
 	}
 
 	/**
+	 * Add an error for this form
+	 *
 	 * @todo find a way to pass fully qualified message here (message + type)
 	 * @param string $error_code
 	 */
@@ -428,6 +461,10 @@ class MC4WP_Form {
 	}
 
 	/**
+	 * Get the form action
+	 *
+	 * Valid return values are "subscribe" and "unsubscribe"
+	 *
 	 * @return string
 	 */
 	public function get_action() {
@@ -445,6 +482,8 @@ class MC4WP_Form {
 
 	/**
 	 * Converts object to public array, for use in client-side API.
+	 *
+	 * @return array
 	 */
 	public function to_public_array() {
 		$array = array(

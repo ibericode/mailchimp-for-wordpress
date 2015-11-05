@@ -5,6 +5,7 @@
  *
  * @package MailChimp for WordPress
  * @author Danny van Kooten
+ * @ignore
  */
 class MC4WP_Remote_Content_Block {
 

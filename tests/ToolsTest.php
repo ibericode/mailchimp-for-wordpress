@@ -1,7 +1,9 @@
 <?php
 
-require_once __DIR__ . '/../includes/class-tools.php';
-
+/**
+ * Class ToolsTest
+ * @ignore
+ */
 class ToolsTest extends PHPUnit_Framework_TestCase {
 
 

@@ -1,6 +1,9 @@
 <?php
 
-
+/**
+ * Class PluginTest
+ * @ignore
+ */
 class PluginTest extends PHPUnit_Framework_TestCase {
 
 	/**

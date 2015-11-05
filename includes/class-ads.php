@@ -2,6 +2,8 @@
 
 /**
  * Class MC4WP_Ads
+ *
+ * @ignore
  */
 class MC4WP_Ads {
 

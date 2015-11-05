@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class IntegrationTest
+ * @ignore
+ */
 class IntegrationTest extends PHPUnit_Framework_TestCase {
 
 	/**

@@ -4,7 +4,7 @@
  * Class MC4WP_DB_Upgrader
  *
  * @internal
- *
+ * @ignore
  */
 class MC4WP_Upgrade_Routines {
 

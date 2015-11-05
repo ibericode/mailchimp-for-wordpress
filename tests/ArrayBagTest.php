@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class ArrayBagTest
+ * @ignore
+ */
 class ArrayBagTest extends PHPUnit_Framework_TestCase {
 
 	/**

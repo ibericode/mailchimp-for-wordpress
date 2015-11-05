@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class MC4WP_MailChimp
+ *
+ * @internal
+ */
 class MC4WP_MailChimp {
 
 	/**

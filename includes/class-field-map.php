@@ -5,6 +5,7 @@
  *
  * @internal
  * @since 2.x
+ * @ignore
  */
 class MC4WP_Field_Map {
 
