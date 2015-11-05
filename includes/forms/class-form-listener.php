@@ -110,54 +110,58 @@ class MC4WP_Form_Listener {
 	 */
 	public function respond( MC4WP_Form $form ) {
 
-		do_action( 'mc4wp_form_respond_to_request', $form );
+		$success = $form->has_errors();
+		if( $success ) {
 
-		// do stuff on success, non-AJAX only
-		if( empty( $form->errors ) ) {
+			/**
+			 * @action mc4wp_form_error
+			 * @param MC4WP_Form $form
+			 */
+			do_action( 'mc4wp_form_error', $form );
 
+			// fire a dedicated event for each error
+			foreach( $form->errors as $error ) {
+
+				/**
+				 * @action mc4wp_form_error_{ERROR_CODE}
+				 *
+				 * Use to hook into various sign-up errors. Hook names are:
+				 *
+				 *
+				 * - mc4wp_form_error_error                     General errors
+				 * - mc4wp_form_error_spam
+				 * - mc4wp_form_error_invalid_email             Invalid email address
+				 * - mc4wp_form_error_already_subscribed        Email is already on selected list(s)
+				 * - mc4wp_form_error_required_field_missing    One or more required fields are missing
+				 * - mc4wp_form_error_no_lists_selected         No MailChimp lists were selected
+				 *
+				 * @param   MC4WP_Form     $form        The form object
+				 */
+				do_action( 'mc4wp_form_error_' . $error, $form );
+			}
+
+		} else {
 			/**
 			 * @action mc4wp_form_success
 			 *
-			 * Use to hook into successful form sign-ups
+			 * Use to hook into successful form submissions
 			 *
 			 * @param   int     $form        The form object
 			 */
 			do_action( 'mc4wp_form_success', $form );
+		}
+
+		do_action( 'mc4wp_form_respond', $form );
+
+		// do stuff on success
+		if( $success && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 
 			// check if we want to redirect the visitor
 			if ( '' !== $form->get_redirect_url() ) {
 				wp_redirect( $form->get_redirect_url() );
 				exit;
 			}
-
-			return;
 		}
-
-		/**
-		 * @action mc4wp_form_error
-		 * @param MC4WP_Form $form
-		 */
-		do_action( 'mc4wp_form_error', $form );
-
-		// fire a dedicated event for each error
-		foreach( $form->errors as $error ) {
-
-			/**
-			 * @action mc4wp_form_error_{ERROR_CODE}
-			 *
-			 * Use to hook into various sign-up errors. Hook names are:
-			 *
-			 * - mc4wp_form_error_error                     General errors
-			 * - mc4wp_form_error_invalid_email             Invalid email address
-			 * - mc4wp_form_error_already_subscribed        Email is already on selected list(s)
-			 * - mc4wp_form_error_required_field_missing    One or more required fields are missing
-			 * - mc4wp_form_error_no_lists_selected         No MailChimp lists were selected
-			 *
-			 * @param   MC4WP_Form     $form        The form object
-			 */
-			do_action( 'mc4wp_form_error_' . $error, $form );
-		}
-
 	}
 
 }

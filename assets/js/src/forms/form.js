@@ -38,6 +38,10 @@ var Form = function(element, EventEmitter) {
 		}
 	};
 
+	this.setResponse = function( msg ) {
+		form.element.querySelector('.mc4wp-response').innerHTML = msg;
+	};
+
 	this.placeIntoView = function( animate ) {
 		// Scroll to form element
 		var scrollToHeight = 0;

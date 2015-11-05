@@ -106,7 +106,7 @@ class MC4WP_Form_Output_Manager {
 			echo $html;
 		}
 
-		do_action( 'mc4wp_form_output', $form );
+		do_action( 'mc4wp_output_form', $form );
 
 		return $html;
 	}

@@ -40,7 +40,7 @@ class MC4WP_Form_Asset_Manager {
 	public function add_hooks() {
 		// load checkbox css if necessary
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheets' ) );
-		add_action( 'mc4wp_form_output', array( $this, 'load_scripts' ) );
+		add_action( 'mc4wp_output_form', array( $this, 'load_scripts' ) );
 		add_action( 'wp_footer', array( $this, 'print_javascript' ), 999 );
 	}
 
@@ -57,7 +57,7 @@ class MC4WP_Form_Asset_Manager {
 		wp_register_script( 'mc4wp-placeholders', MC4WP_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), MC4WP_VERSION, true );
 
 		// fire action hook for add-ons to hook into
-		do_action( 'mc4wp_form_register_scripts', $suffix );
+		do_action( 'mc4wp_register_form_scripts', $suffix );
 	}
 
 	/**
@@ -167,7 +167,7 @@ class MC4WP_Form_Asset_Manager {
 		echo '})();';
 		echo '</script>';
 
-		do_action( 'mc4wp_forms_print_javascript' );
+		do_action( 'mc4wp_print_forms_javascript' );
 	}
 
 
