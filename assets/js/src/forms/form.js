@@ -12,6 +12,7 @@ var Form = function(element, EventEmitter) {
 	this.element = element;
 	this.requiredFields = [];
 	this.errors = [];
+	this.started = false;
 
 	this.on = function(event,callback) {
 		return events.on(event,callback);
@@ -19,6 +20,10 @@ var Form = function(element, EventEmitter) {
 
 	this.trigger = function (event,args) {
 		return events.trigger(event,args);
+	};
+
+	this.off = function(event,callback){
+		return events.off(event,callback);
 	};
 
 	this.getData = function() {
@@ -71,11 +76,6 @@ var Form = function(element, EventEmitter) {
 			window.scrollTo(0, scrollToHeight);
 		}
 	};
-
-	// add listeners for default browser events
-	element.addEventListener('submit',function(event) {
-		form.trigger('submit', [form, event]);
-	});
 };
 
 module.exports = Form;

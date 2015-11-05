@@ -1,6 +1,7 @@
 // Tabs
 var Tabs = function(context) {
 
+	// @todo last piece of jQuery... can we get rid of it?
 	var $ = window.jQuery;
 
 	var $context = $(context);

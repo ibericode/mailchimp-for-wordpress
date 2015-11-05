@@ -19,8 +19,8 @@ var Settings = function(context) {
 			var inputs = element.querySelectorAll('input');
 
 			function toggleElement() {
-
-				var conditionMet = ( this.value == config.value );
+				// if this is called for radio or checkboxes, we require it to be checked to count the "value".
+				var conditionMet = ( typeof( this.checked ) === "undefined" || this.checked ) &&  this.value == config.value;
 				element.style.display = conditionMet ? '' : 'none';
 
 				// disable input fields
@@ -31,9 +31,7 @@ var Settings = function(context) {
 
 			// find checked element and call toggleElement function
 			Array.prototype.forEach.call( parentElements, function( parentElement ) {
-				if( parentElement.checked ) {
-					toggleElement.call(parentElement);
-				}
+				toggleElement.call(parentElement);
 			});
 
 			// bind on all changes

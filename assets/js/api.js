@@ -21,6 +21,7 @@ var Form = function(element, EventEmitter) {
 	this.element = element;
 	this.requiredFields = [];
 	this.errors = [];
+	this.started = false;
 
 	this.on = function(event,callback) {
 		return events.on(event,callback);
@@ -28,6 +29,10 @@ var Form = function(element, EventEmitter) {
 
 	this.trigger = function (event,args) {
 		return events.trigger(event,args);
+	};
+
+	this.off = function(event,callback){
+		return events.off(event,callback);
 	};
 
 	this.getData = function() {
@@ -80,28 +85,24 @@ var Form = function(element, EventEmitter) {
 			window.scrollTo(0, scrollToHeight);
 		}
 	};
-
-	// add listeners for default browser events
-	element.addEventListener('submit',function(event) {
-		form.trigger('submit', [form, event]);
-	});
 };
 
 module.exports = Form;
-},{"../../third-party/populate.js":5,"../../third-party/serialize.js":6}],3:[function(require,module,exports){
+},{"../../third-party/populate.js":6,"../../third-party/serialize.js":7}],3:[function(require,module,exports){
 var forms = function() {
 	'use strict';
 
 	// deps
 	var EventEmitter = require('../../third-party/event-emitter.js');
 	var Form = require('./form.js');
+	var gator = require('../../third-party/gator.js');
 
 	// variables
 	var events = new EventEmitter();
 	var formElements = document.querySelectorAll('.mc4wp-form');
 	var config = window.mc4wp_config || {};
 
-	// initialize forms
+	// initialize Form objects
 	var forms = Array.prototype.map.call(formElements,function(element) {
 
 		// find form data
@@ -113,18 +114,46 @@ var forms = function() {
 			form.placeIntoView( config.auto_scroll === 'animated' );
 		}
 
-		// map all events to global events
-		form.on('submit',function(form,event) {
-			events.trigger('submit', [form,event])
-		});
-
 		return form;
 	});
+
+	// Bind browser events to form events (using delegation to work with AJAX loaded forms as well)
+	Gator(document.body).on('submit', '.mc4wp-form', function(event) {
+		var form = getFromElement(event.target);
+		if( form ) {
+			events.trigger('submit', [form, event]);
+		}
+	});
+
+	Gator(document.body).on('focus', '.mc4wp-form', function(event) {
+		var form = getFromElement(event.target);
+		if( form && ! form.started ) {
+			events.trigger('started', [form, event]);
+		}
+	});
+
+	Gator(document.body).on('change', '.mc4wp-form', function(event) {
+		var form = getFromElement(event.target);
+		if( form ) {
+			events.trigger('changed', [form, event]);
+		}
+	});
+
+	// map all global events to individual form object as they happen
+	var mapEvents = [ 'submit', 'submitted', 'changed', 'started', 'subscribed', 'unsubscribed' ];
+	mapEvents.forEach(function(eventName) {
+		events.on(eventName,function(form,event){
+			form.trigger(eventName,[form,event]);
+		})
+	});
+
+
+	// @todo: allow instantiating an object later on in the lifecycle
 
 	// functions
 	function get(form_id) {
 		return forms.filter(function(form) {
-			return form.id === form_id;
+			return form.id == form_id;
 		}).pop();
 	}
 
@@ -140,19 +169,31 @@ var forms = function() {
 		return events.trigger(event,args);
 	}
 
+	function off(event,callback) {
+		return events.off(event,callback);
+	}
+
+	function getFromElement(element) {
+		var formElement = element.form || element;
+		var id = parseInt( formElement.dataset.id );
+		return get(id);
+	}
+
 	// public API
 	return {
 		all: all,
 		get: get,
 		on: on,
-		trigger: trigger
+		trigger: trigger,
+		off: off,
+		getFromElement: getFromElement
 	}
 };
 
 module.exports = forms();
 
 
-},{"../../third-party/event-emitter.js":4,"./form.js":2}],4:[function(require,module,exports){
+},{"../../third-party/event-emitter.js":4,"../../third-party/gator.js":5,"./form.js":2}],4:[function(require,module,exports){
 /*!
  * EventEmitter v4.2.11 - git.io/ee
  * Unlicense - http://unlicense.org/
@@ -628,6 +669,13 @@ module.exports = forms();
 	}
 }.call(this));
 },{}],5:[function(require,module,exports){
+/* gator v1.2.4 craig.is/riding/gators */
+(function(){function t(a){return k?k:a.matches?k=a.matches:a.webkitMatchesSelector?k=a.webkitMatchesSelector:a.mozMatchesSelector?k=a.mozMatchesSelector:a.msMatchesSelector?k=a.msMatchesSelector:a.oMatchesSelector?k=a.oMatchesSelector:k=e.matchesSelector}function q(a,b,c){if("_root"==b)return c;if(a!==c){if(t(a).call(a,b))return a;if(a.parentNode)return m++,q(a.parentNode,b,c)}}function u(a,b,c,e){d[a.id]||(d[a.id]={});d[a.id][b]||(d[a.id][b]={});d[a.id][b][c]||(d[a.id][b][c]=[]);d[a.id][b][c].push(e)}
+	function v(a,b,c,e){if(d[a.id])if(!b)for(var f in d[a.id])d[a.id].hasOwnProperty(f)&&(d[a.id][f]={});else if(!e&&!c)d[a.id][b]={};else if(!e)delete d[a.id][b][c];else if(d[a.id][b][c])for(f=0;f<d[a.id][b][c].length;f++)if(d[a.id][b][c][f]===e){d[a.id][b][c].splice(f,1);break}}function w(a,b,c){if(d[a][c]){var k=b.target||b.srcElement,f,g,h={},n=g=0;m=0;for(f in d[a][c])d[a][c].hasOwnProperty(f)&&(g=q(k,f,l[a].element))&&e.matchesEvent(c,l[a].element,g,"_root"==f,b)&&(m++,d[a][c][f].match=g,h[m]=d[a][c][f]);
+		b.stopPropagation=function(){b.cancelBubble=!0};for(g=0;g<=m;g++)if(h[g])for(n=0;n<h[g].length;n++){if(!1===h[g][n].call(h[g].match,b)){e.cancel(b);return}if(b.cancelBubble)return}}}function r(a,b,c,k){function f(a){return function(b){w(g,b,a)}}if(this.element){a instanceof Array||(a=[a]);c||"function"!=typeof b||(c=b,b="_root");var g=this.id,h;for(h=0;h<a.length;h++)k?v(this,a[h],b,c):(d[g]&&d[g][a[h]]||e.addEvent(this,a[h],f(a[h])),u(this,a[h],b,c));return this}}function e(a,b){if(!(this instanceof
+		e)){for(var c in l)if(l[c].element===a)return l[c];p++;l[p]=new e(a,p);return l[p]}this.element=a;this.id=b}var k,m=0,p=0,d={},l={};e.prototype.on=function(a,b,c){return r.call(this,a,b,c)};e.prototype.off=function(a,b,c){return r.call(this,a,b,c,!0)};e.matchesSelector=function(){};e.cancel=function(a){a.preventDefault();a.stopPropagation()};e.addEvent=function(a,b,c){a.element.addEventListener(b,c,"blur"==b||"focus"==b)};e.matchesEvent=function(){return!0};"undefined"!==typeof module&&module.exports&&
+	(module.exports=e);window.Gator=e})();
+},{}],6:[function(require,module,exports){
 /*! populate.js v1.0 by @dannyvankooten | MIT license */
 ;(function(root) {
 
@@ -712,7 +760,7 @@ module.exports = forms();
 	}
 
 }(this));
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 // get successful control from form and assemble into object
 // http://www.w3.org/TR/html401/interact/forms.html#h-17.13.2
 

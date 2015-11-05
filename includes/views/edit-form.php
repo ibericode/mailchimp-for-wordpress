@@ -1,11 +1,13 @@
 <?php defined( 'ABSPATH' ) or exit;
 
 $tabs = array(
-	'fields' => __( 'Fields', 'mailchimp-for-wp' ),
-	'messages' => __( 'Messages', 'mailchimp-for-wp' ),
-	'settings' => __( 'Settings', 'mailchimp-for-wp' ),
-	'appearance' => __( 'Appearance', 'mailchimp-for-wp' )
+	'fields'        => __( 'Fields', 'mailchimp-for-wp' ),
+	'messages'      => __( 'Messages', 'mailchimp-for-wp' ),
+	'settings'      => __( 'Settings', 'mailchimp-for-wp' ),
+	'appearance'    => __( 'Appearance', 'mailchimp-for-wp' )
 );
+
+
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
