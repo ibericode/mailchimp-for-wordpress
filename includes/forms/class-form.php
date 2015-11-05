@@ -198,6 +198,9 @@ class MC4WP_Form {
 		$meta = get_post_meta( $this->ID, '_mc4wp_settings', true );
 
 		if( is_array( $meta ) ) {
+			// remove all "null" values.
+			$meta = array_diff( $meta, array_filter( $meta, 'is_null' ) );
+
 			// merge with defaults
 			$settings = array_merge( $settings, $meta );
 		}
