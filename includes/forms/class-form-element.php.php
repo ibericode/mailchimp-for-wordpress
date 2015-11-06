@@ -4,7 +4,6 @@
  * Class MC4WP_Form_Element
  *
  * @since 3.0
- * @internal
  * @ignore
  */
 class MC4WP_Form_Element {
@@ -54,14 +53,18 @@ class MC4WP_Form_Element {
 	 */
 	public function get_visible_fields() {
 
+		$content = $this->form->content;
+		$form = $this->form;
+
 		/**
-		 * @filter mc4wp_form_content
-		 * @param int $form_id The ID of the form that is being shown
-		 * @expects string
+		 * Filters the HTML for the form fields.
 		 *
-		 * Can be used to customize the content of the form mark-up, eg adding additional fields.
+		 * Use this filter to add custom fields to a form programmatically.
+		 *
+		 * @param string $content
+		 * @param MC4WP_Form $form
 		 */
-		$visible_fields = (string) apply_filters( 'mc4wp_form_content', $this->form->content, $this->form );
+		$visible_fields = (string) apply_filters( 'mc4wp_form_content', $content, $form );
 
 		return $visible_fields;
 	}
@@ -92,14 +95,18 @@ class MC4WP_Form_Element {
 	 */
 	protected function get_response_position() {
 
+		$position = 'after';
+		$form = $this->form;
+
 		/**
-		 * @filter mc4wp_form_message_position
-		 * @expects string before|after
+		 * Filters the position for the form response.
 		 *
-		 * Can be used to change the position of the form success & error messages.
-		 * Valid options are 'before' or 'after'
+		 * Valid values are "before" and "after". Will have no effect if `{response}` is used in the form content.
+		 *
+		 * @param string $position
+		 * @param MC4WP_Form $form
 		 */
-		$response_position = (string) apply_filters( 'mc4wp_form_response_position', 'after', $this->form );
+		$response_position = (string) apply_filters( 'mc4wp_form_response_position', $position, $form );
 
 		// check if content contains {response} tag
 		if( stripos( $this->form->content, '{response}' ) !== false ) {
@@ -110,10 +117,22 @@ class MC4WP_Form_Element {
 	}
 
 	/**
+	 * Get HTML to be added _before_ the HTML of the form fields.
+	 *
 	 * @return string
 	 */
 	protected function get_html_before_fields() {
-		$html = (string) apply_filters( 'mc4wp_form_before_fields', '', $this->form );
+
+		$html = '';
+		$form = $this->form;
+
+		/**
+		 * Filters the HTML before the form fields.
+		 *
+		 * @param string $html
+		 * @param MC4WP_Form $form
+		 */
+		$html = (string) apply_filters( 'mc4wp_form_before_fields', $html, $form );
 
 		if( $this->get_response_position() === 'before' ) {
 			$html = $html . $this->form->get_response_html();
@@ -123,10 +142,22 @@ class MC4WP_Form_Element {
 	}
 
 	/**
+	 * Get HTML to be added _after_ the HTML of the form fields.
+	 *
 	 * @return string
 	 */
 	protected function get_html_after_fields() {
-		$html = (string) apply_filters( 'mc4wp_form_after_fields', '', $this->form );
+
+		$html = '';
+		$form = $this->form;
+
+		/**
+		 * Filters the HTML after the form fields.
+		 *
+		 * @param string $html
+		 * @param MC4WP_Form $form
+		 */
+		$html = (string) apply_filters( 'mc4wp_form_after_fields', $html, $form );
 
 		if( $this->get_response_position() === 'after' ) {
 			$html = $this->form->get_response_html() . $html;
@@ -142,27 +173,34 @@ class MC4WP_Form_Element {
 	 */
 	protected function get_form_element_attributes() {
 
+		$form = $this;
+		$form_action_attribute = null;
+
 		$attributes = array(
 			'id' => $this->ID,
 			'class' => $this->get_css_classes()
 		);
 
 		/**
-		 * @filter `mc4wp_form_action`
-		 * @expects string
+		 * Filters the `action` attribute of the `<form>` element.
+		 *
+		 * @param string $form_action_attribute
 		 * @param MC4WP_Form $form
 		 */
-		$form_action = apply_filters( 'mc4wp_form_action', null, $this->form );
-		if( is_string( $form_action ) ) {
-			$attributes['action'] = $form_action;
+		$form_action_attribute = apply_filters( 'mc4wp_form_action', $form_action_attribute, $form );
+		if( is_string( $form_action_attribute ) ) {
+			$attributes['action'] = $form_action_attribute;
 		}
 
 		/**
-		 * @filter `mc4wp_form_attributes`
+		 * Filters all attributes to be added to the `<form>` element
+		 *
+		 * @param array $attributes Key-value pairs of attributes.
+		 * @param MC4WP_Form $form
 		 */
-		$attributes = (array) apply_filters( 'mc4wp_form_element_attributes', $attributes, $this->form );
+		$attributes = (array) apply_filters( 'mc4wp_form_element_attributes', $attributes, $form );
 
-		// @todo attributes "method" and "data-id" are not ALLOWED to be changed
+		// @todo attributes "method" and "data-id" are not ALLOWED to be changed, since last attr will get precedence
 
 		// build string of key="value" from array
 		$string = '';
@@ -219,40 +257,42 @@ class MC4WP_Form_Element {
 	 */
 	public function get_css_classes() {
 
+		$classes = array();
+		$form = $this->form;
+
 		/**
-		 * @filter mc4wp_form_css_classes
-		 * @expects array
+		 * Filters `class` attributes for the `<form>` element.
 		 *
-		 * Can be used to add additional CSS classes to the <form> container element
+		 * @param array $classes
+		 * @param MC4WP_Form $form
 		 */
-		$css_classes = apply_filters( 'mc4wp_form_css_classes', array( ), $this->form );
+		$classes = apply_filters( 'mc4wp_form_css_classes', $classes, $form );
 
 		// the following classes MUST be used
-		$css_classes[] = 'mc4wp-form';
-		$css_classes[] = 'mc4wp-form-' . $this->form->ID;
+		$classes[] = 'mc4wp-form';
+		$classes[] = 'mc4wp-form-' . $form->ID;
 
-		// Add form classes if this specific form instance was submitted
+		// Add form classes if this specific form element was submitted
 		if( $this->is_submitted ) {
-			$css_classes[] = 'mc4wp-form-submitted';
+			$classes[] = 'mc4wp-form-submitted';
 
-			if( empty( $this->form->errors ) ) {
-				$css_classes[] = 'mc4wp-form-success';
+			if( ! $form->has_errors() ) {
+				$classes[] = 'mc4wp-form-success';
 			} else {
-				$css_classes[] = 'mc4wp-form-error';
+				$classes[] = 'mc4wp-form-error';
 			}
-
 		}
 
-		// add class for CSS targetting
-		if( $this->form->settings['css'] ) {
+		// add class for CSS targeting in custom stylesheets
+		if( $form->settings['css'] ) {
 
-			if( strpos( $this->form->settings['css'], 'form-theme' ) === 0 ) {
-				$css_classes[] = 'mc4wp-form-theme';
+			if( strpos( $form->settings['css'], 'form-theme' ) === 0 ) {
+				$classes[] = 'mc4wp-form-theme';
 			}
 
-			$css_classes[] = 'mc4wp-' . $this->form->settings['css'];
+			$classes[] = 'mc4wp-' . $form->settings['css'];
 		}
 
-		return implode( ' ', $css_classes );
+		return implode( ' ', $classes );
 	}
 }
