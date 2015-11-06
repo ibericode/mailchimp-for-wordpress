@@ -9,8 +9,9 @@
  *
  * @author Danny van Kooten
  * @package MailChimp for WordPress
- * @api This class is intended for public use.
+ * @api
  * @since 3.0
+ * @access public
  */
 class MC4WP_Form {
 
@@ -102,7 +103,7 @@ class MC4WP_Form {
 	);
 
 	/**
-	 * @param int $id
+	 * @param int $id The post ID
 	 * @throws Exception
 	 */
 	public function __construct( $id ) {
@@ -128,12 +129,12 @@ class MC4WP_Form {
 	/**
 	 * Gets the form response string
 	 *
-	 *
 	 * @return string
 	 */
 	public function get_response_html() {
 
 		$html = '';
+		$form = $this;
 
 		if( $this->is_submitted ) {
 			if( $this->has_errors() ) {
@@ -153,12 +154,12 @@ class MC4WP_Form {
 		 *
 		 * Use this to add your own HTML to the form response. The form instance is passed to the callback function.
 		 *
-		 * @since
+		 * @since 3.0
 		 *
 		 * @param string $html The complete HTML string of the response, excluding the wrapper element.
-		 * @param MC4WP_Form $this  The form object
+		 * @param MC4WP_Form $form The form object
 		 */
-		$html = (string) apply_filters( 'mc4wp_form_response_html', $html, $this );
+		$html = (string) apply_filters( 'mc4wp_form_response_html', $html, $form );
 
 		// wrap entire response in div, regardless of a form was submitted
 		$html = '<div class="mc4wp-response">' . $html . '</div>';
@@ -166,6 +167,10 @@ class MC4WP_Form {
 	}
 
 	/**
+	 * Get HTML string for this form.
+	 *
+	 * If you want to output a form, use `mc4wp_show_form` instead as it.
+	 *
 	 * @param string $element_id
 	 * @param array $config
 	 *
@@ -178,12 +183,13 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * Maps registered messages to a type
+	 * Maps registered messages to a message type
 	 *
+	 * @todo Move to Message object?
 	 * @return array
 	 */
 	public function get_message_types() {
-
+		$form = $this;
 		$message_types = array(
 			'subscribed' => 'success',
 			'unsubscribed' => 'success',
@@ -196,12 +202,14 @@ class MC4WP_Form {
 		);
 
 		/**
-		 * @filter mc4wp_form_message_types
-		 * @expects array
+		 * Filters the type for each error / success message.
 		 *
-		 * Allows registering custom form messages, useful if you're using custom validation using the `mc4wp_valid_form_request` filter.
+		 * @see `mc4wp_form_errors`
+		 * @see `mc4wp_form_messages`
+		 * @param array $message_types
+		 * @param MC4WP_Form $form
 		 */
-		$message_types = (array) apply_filters( 'mc4wp_form_message_types', $message_types, $this );
+		$message_types = (array) apply_filters( 'mc4wp_form_message_types', $message_types, $form );
 
 		return $message_types;
 	}
@@ -212,6 +220,7 @@ class MC4WP_Form {
 	protected function load_settings() {
 		$defaults = include MC4WP_PLUGIN_DIR . 'config/default-form-settings.php';
 		$settings = $defaults;
+		$form = $this;
 
 		// get stored settings from post meta
 		$meta = get_post_meta( $this->ID, '_mc4wp_settings', true );
@@ -221,7 +230,13 @@ class MC4WP_Form {
 			$settings = array_merge( $settings, $meta );
 		}
 
-		$settings = (array) apply_filters( 'mc4wp_form_settings', $settings, $this );
+		/**
+		 * Filters the form settings
+		 *
+		 * @param array $settings
+		 * @param MC4WP_Form $form
+		 */
+		$settings = (array) apply_filters( 'mc4wp_form_settings', $settings, $form );
 
 		return $settings;
 	}
@@ -232,18 +247,27 @@ class MC4WP_Form {
 	protected function load_messages() {
 		$defaults = include MC4WP_PLUGIN_DIR . 'config/default-form-messages.php';
 		$messages = array();
+		$form = $this;
 
 		foreach( $defaults as $key => $message ) {
 			$message = get_post_meta( $this->ID, $key, true );
 			$messages[ $key ] = ( ! empty( $message ) ) ? $message : $defaults[ $key ];
 		}
 
-		$messages = (array) apply_filters( 'mc4wp_form_messages', $messages, $this );
+		/**
+		 * Filters the form messages
+		 *
+		 * @param array $messages
+		 * @param MC4WP_Form
+		 */
+		$messages = (array) apply_filters( 'mc4wp_form_messages', $messages, $form );
 
 		return $messages;
 	}
 
 	/**
+	 * Does this form has a field of the given type?
+	 *
 	 * @param $type
 	 *
 	 * @return bool
@@ -253,6 +277,8 @@ class MC4WP_Form {
 	}
 
 	/**
+	 * Get an array of field types which are present in this form.
+	 *
 	 * @return array
 	 */
 	public function get_field_types() {
@@ -263,7 +289,10 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * @param $key
+	 * Get HTML string for a message, including wrapper element.
+	 *
+	 * @param string $key
+	 *
 	 * @return string
 	 */
 	public function get_message_html( $key ) {
@@ -277,7 +306,9 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * @param $key
+	 * Get raw message string
+	 *
+	 * @param string $key
 	 *
 	 * @return string
 	 */
@@ -292,7 +323,9 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * @param $key
+	 * Get message type for a message.
+	 *
+	 * @param string $key
 	 *
 	 * @return string
 	 */
@@ -322,8 +355,16 @@ class MC4WP_Form {
 	 * @return string
 	 */
 	public function get_redirect_url() {
+		$form = $this;
 		$url = trim( $this->settings['redirect'] );
-		$url = (string) apply_filters( 'mc4wp_form_redirect_url', $url, $this );
+
+		/**
+		 * Filters the redirect URL setting
+		 *
+		 * @param string $url
+		 * @param MC4WP_Form $form
+		 */
+		$url = (string) apply_filters( 'mc4wp_form_redirect_url', $url, $form );
 		return $url;
 	}
 
@@ -342,6 +383,7 @@ class MC4WP_Form {
 			return true;
 		}
 
+		$form = $this;
 		$validator = new MC4WP_Validator();
 
 		// validate config
@@ -370,9 +412,13 @@ class MC4WP_Form {
 		$errors = $validator->get_errors();
 
 		/**
-		 * @since 3.0
+		 * Filters whether this form has errors. Runs only when a form is submitted.
+		 * Expects an array of message keys.
+		 *
+		 * @param array $errors
+		 * @param MC4WP_Form $form
 		 */
-		$this->errors = (array) apply_filters( 'mc4wp_form_errors', $errors, $this );
+		$this->errors = (array) apply_filters( 'mc4wp_form_errors', $errors, $form );
 
 		return $valid;
 	}
@@ -417,8 +463,23 @@ class MC4WP_Form {
 	 * @return string
 	 */
 	public function get_email_type() {
-		$email_type = (string) apply_filters( 'mc4wp_email_type', $this->config['email_type'] );
-		$email_type = (string) apply_filters( 'mc4wp_form_email_type', $email_type, $this );
+		$form = $this;
+		$email_type = $this->config['email_type'];
+
+		/**
+		 * Filters email type for new subscribers.
+		 *
+		 * @param string $email_type
+		 */
+		$email_type = (string) apply_filters( 'mc4wp_email_type', $email_type );
+
+		/**
+		 * Filters email type for people that subscribe using this form.
+		 *
+		 * @param string $email_type
+		 * @param MC4WP_Form $form
+		 */
+		$email_type = (string) apply_filters( 'mc4wp_form_email_type', $email_type, $form );
 		return $email_type;
 	}
 
@@ -428,8 +489,24 @@ class MC4WP_Form {
 	 * @return array
 	 */
 	public function get_lists() {
-		$lists = (array) apply_filters( 'mc4wp_lists', $this->config['lists'] );
-		$lists = (array) apply_filters( 'mc4wp_form_lists', $lists, $this );
+
+		$lists = $this->config['lists'];
+		$form = $this;
+
+		/**
+		 * Filters MailChimp lists new subscribers should be added to.
+		 *
+		 * @param array $lists
+		 */
+		$lists = (array) apply_filters( 'mc4wp_lists', $lists );
+
+		/**
+		 * Filters MailChimp lists new subscribers coming from this form should be added to.
+		 *
+		 * @param array $lists
+		 * @param MC4WP_Form $form
+		 */
+		$lists = (array) apply_filters( 'mc4wp_form_lists', $lists, $form );
 		return $lists;
 	}
 
@@ -438,6 +515,7 @@ class MC4WP_Form {
 	 *
 	 * Should always evaluate to false when form has not been submitted.
 	 *
+	 * @see `mc4wp_form_errors` filter.
 	 * @return bool
 	 */
 	public function has_errors() {
@@ -445,7 +523,7 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * Add an error for this form
+	 * Add an error to this form
 	 *
 	 * @todo find a way to pass fully qualified message here (message + type)
 	 * @param string $error_code
