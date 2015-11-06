@@ -20,8 +20,9 @@ class MC4WP_Form_Listener {
 	public function __construct() {}
 
 	/**
-	 * @param $data
+	 * Listen for submitted forms
 	 *
+	 * @param $data
 	 * @return bool
 	 */
 	public function listen( array $data ) {
@@ -56,6 +57,8 @@ class MC4WP_Form_Listener {
 	}
 
 	/**
+	 * Process a subscribe form.
+	 *
 	 * @param MC4WP_Form $form
 	 */
 	public function process_subscribe_form( MC4WP_Form $form ) {
@@ -71,16 +74,26 @@ class MC4WP_Form_Listener {
 			$merge_vars = $list_field_data;
 
 			/**
-			 * @filter `mc4wp_merge_vars`
-			 * @expects array
+			 * Filters merge vars which are sent to MailChimp
 			 *
-			 * Can be used to filter the merge variables sent to a given list
+			 * @param array $merge_vars
 			 */
 			$merge_vars = (array) apply_filters( 'mc4wp_merge_vars', $merge_vars );
+
+			/**
+			 * Filters merge vars which are sent to MailChimp, only fires for form requests.
+			 *
+			 * @param array $merge_vars
+			 */
 			$merge_vars = (array) apply_filters( 'mc4wp_form_merge_vars', $merge_vars, $form );
 
 			// send a subscribe request to MailChimp for each list
 			$result = $api->subscribe( $list_id, $form->data['EMAIL'], $merge_vars, $email_type, $form->settings['double_optin'], $form->settings['update_existing'], $form->settings['replace_interests'], $form->settings['send_welcome'] );
+
+			/**
+			 * @deprecated 3.0
+			 * @todo remove this in favor of global API hook?
+			 */
 			do_action( 'mc4wp_after_subscribe', $form->data['EMAIL'], $merge_vars, $result );
 		}
 
@@ -90,7 +103,11 @@ class MC4WP_Form_Listener {
 			return;
 		}
 
-		// yay! success!
+		/**
+		 * Fires right after a form was used to subscribe.
+		 *
+		 * @param MC4WP_Form $form Instance of the submitted form
+		 */
 		do_action( 'mc4wp_form_subscribed', $form );
 	}
 
@@ -109,6 +126,11 @@ class MC4WP_Form_Listener {
 			$form->add_error( ( in_array( $api->get_error_code(), array( 215, 232 ) ) ? 'not_subscribed' : 'error' ) );
 		}
 
+		/**
+		 * Fires right after a form was used to unsubscribe.
+		 *
+		 * @param MC4WP_Form $form Instance of the submitted form.
+		 */
 		do_action( 'mc4wp_form_unsubscribed', $form );
 	}
 
@@ -118,11 +140,13 @@ class MC4WP_Form_Listener {
 	public function respond( MC4WP_Form $form ) {
 
 		$success = $form->has_errors();
+
 		if( $success ) {
 
 			/**
-			 * @action mc4wp_form_error
-			 * @param MC4WP_Form $form
+			 * Fires right after a form is submitted with errors.
+			 *
+			 * @param MC4WP_Form $form The submitted form instance.
 			 */
 			do_action( 'mc4wp_form_error', $form );
 
@@ -130,10 +154,11 @@ class MC4WP_Form_Listener {
 			foreach( $form->errors as $error ) {
 
 				/**
-				 * @action mc4wp_form_error_{ERROR_CODE}
+				 * Fires right after a form was submitted with errors.
 				 *
-				 * Use to hook into various sign-up errors. Hook names are:
+				 * The dynamic portion of the hook, `$error`, refers to the error that occured.
 				 *
+				 * Default errors give us the following possible hooks:
 				 *
 				 * - mc4wp_form_error_error                     General errors
 				 * - mc4wp_form_error_spam
@@ -142,25 +167,28 @@ class MC4WP_Form_Listener {
 				 * - mc4wp_form_error_required_field_missing    One or more required fields are missing
 				 * - mc4wp_form_error_no_lists_selected         No MailChimp lists were selected
 				 *
-				 * @param   MC4WP_Form     $form        The form object
+				 * @param   MC4WP_Form     $form        The form instance of the submitted form.
 				 */
 				do_action( 'mc4wp_form_error_' . $error, $form );
 			}
 
 		} else {
 			/**
-			 * @action mc4wp_form_success
+			 * Fires right after a form is submitted without any errors (success).
 			 *
-			 * Use to hook into successful form submissions
-			 *
-			 * @param   int     $form        The form object
+			 * @param MC4WP_Form $form Instance of the submitted form
 			 */
 			do_action( 'mc4wp_form_success', $form );
 		}
 
+		/**
+		 * Fires right before responding to the form request.
+		 *
+		 * @param MC4WP_Form $form Instance of the submitted form.
+		 */
 		do_action( 'mc4wp_form_respond', $form );
 
-		// do stuff on success
+		// do stuff on success (non-AJAX)
 		if( $success && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 
 			// check if we want to redirect the visitor
