@@ -1,20 +1,25 @@
 <?php
 
+/**
+ * Class MC4WP_Plugin
+ *
+ * Helper class for plugin information retrieval in add-ons.
+ */
 class MC4WP_Plugin {
 
 	/**
-	 * @var string
+	 * @var string The plugin version.
 	 */
 	protected $version;
 
 	/**
-	 * @var string
+	 * @var string The main plugin file.
 	 */
 	protected $file;
 
 	/**
-	 * @param string $file
-	 * @param string $version
+	 * @param string $file The plugin version.
+	 * @param string $version The main plugin file.
 	 */
 	public function __construct( $file, $version ) {
 		$this->file = $file;
@@ -22,6 +27,8 @@ class MC4WP_Plugin {
 	}
 
 	/**
+	 * Get the main plugin file.
+	 *
 	 * @return string
 	 */
 	public function file() {
@@ -29,6 +36,8 @@ class MC4WP_Plugin {
 	}
 
 	/**
+	 * Get the plugin version.
+	 *
 	 * @return string
 	 */
 	public function version() {
@@ -36,6 +45,8 @@ class MC4WP_Plugin {
 	}
 
 	/**
+	 * Gets the directory the plugin lives in.
+	 *
 	 * @param string $path
 	 *
 	 * @return string
@@ -45,6 +56,8 @@ class MC4WP_Plugin {
 	}
 
 	/**
+	 * Gets the URL to the plugin files.
+	 *
 	 * @param string $path
 	 *
 	 * @return string

@@ -5,6 +5,7 @@
  *
  * @todo rework case-insensitive logic
  * @since 3.0
+ * @ignore
  */
 class MC4WP_Request {
 

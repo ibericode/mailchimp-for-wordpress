@@ -1,14 +1,19 @@
 <?php
 
+/**
+ * Class MC4WP_Validator
+ *
+ * @ignore
+ */
 class MC4WP_Validator {
 
 	/**
-	 * @var array
+	 * @var array Array of fields to be validated.
 	 */
 	public $fields;
 
 	/**
-	 * @var array
+	 * @var array Array of validation rules.
 	 */
 	public $rules;
 

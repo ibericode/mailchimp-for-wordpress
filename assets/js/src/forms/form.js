@@ -1,13 +1,13 @@
 'use strict';
 
-var Form = function(element, EventEmitter) {
+var Form = function(id, element, EventEmitter) {
 
 	var serialize = require('../../third-party/serialize.js');
 	var populate = require('../../third-party/populate.js');
 	var form = this;
 	var events = new EventEmitter();
 
-	this.id = parseInt( element.dataset.id );
+	this.id = id;
 	this.name = "Form #" + this.id;
 	this.element = element;
 	this.requiredFields = [];
@@ -48,7 +48,6 @@ var Form = function(element, EventEmitter) {
 	};
 
 	this.placeIntoView = function( animate ) {
-		// Scroll to form element
 		var scrollToHeight = 0;
 		var windowHeight = window.innerHeight;
 		var obj = form.element;

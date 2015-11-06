@@ -5,6 +5,7 @@
  *
  * @class MC4WP_Form_Manager
  * @internal
+ * @ignore
 */
 class MC4WP_Form_Manager {
 

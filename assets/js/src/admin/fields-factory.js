@@ -170,6 +170,8 @@ var FieldFactory = function(settings, fields) {
 
 		// register global fields like "submit" & "list choice"
 		registerCustomFields(lists);
+
+		settings.events.trigger('fields.change');
 	}
 
 	settings.events.on('selectedLists.change',work);

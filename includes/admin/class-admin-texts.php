@@ -2,7 +2,8 @@
 
 /**
  * Class MC4WP_Admin_Texts
- * @internal
+ *
+ * @ignore
  * @since 3.0
  */
 class MC4WP_Admin_Texts {

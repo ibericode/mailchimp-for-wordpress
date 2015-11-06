@@ -4,6 +4,8 @@ defined( 'ABSPATH' ) or exit;
 
 /**
  * Adds MC4WP_Widget widget.
+ *
+ * @ignore
  */
 class MC4WP_Form_Widget extends WP_Widget {
 
@@ -17,8 +19,6 @@ class MC4WP_Form_Widget extends WP_Widget {
 
 	/**
 	 * Register widget with WordPress.
-	 *
-	 * @todo write upgrade routine for Base ID change
 	 */
 	function __construct() {
 

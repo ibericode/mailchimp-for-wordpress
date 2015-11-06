@@ -3,7 +3,7 @@
 /**
  * Class MC4WP_Integration_Tags
  *
- * @internal
+ * @ignore
  */
 class MC4WP_Integration_Tags{
 

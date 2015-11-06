@@ -69,8 +69,24 @@ class MC4WP_Dynamic_Content_Tags {
 	 * @return array
 	 */
 	public function all() {
+
+		$context = $this->context;
+
+		/**
+		 * Filters the registered dynamic content tags for all contexts.
+		 *
+		 * @param array $tags
+		 */
 		$this->tags = (array) apply_filters( 'mc4wp_dynamic_content_tags', $this->tags );
-		$this->tags = (array) apply_filters( 'mc4wp_dynamic_content_tags_' . $this->context, $this->tags );
+
+		/**
+		 * Filters the registered dynamic content tags for a specific context.
+		 *
+		 * The dynamic part of the hook, `$context`, refers to the context (forms / integrations)
+		 *
+		 * @param array $tags
+		 */
+		$this->tags = (array) apply_filters( 'mc4wp_dynamic_content_tags_' . $context, $this->tags );
 		return $this->tags;
 	}
 

@@ -9,14 +9,14 @@ window.mc4wp.forms = forms;
 },{"./forms/forms.js":3}],2:[function(require,module,exports){
 'use strict';
 
-var Form = function(element, EventEmitter) {
+var Form = function(id, element, EventEmitter) {
 
 	var serialize = require('../../third-party/serialize.js');
 	var populate = require('../../third-party/populate.js');
 	var form = this;
 	var events = new EventEmitter();
 
-	this.id = parseInt( element.dataset.id );
+	this.id = id;
 	this.name = "Form #" + this.id;
 	this.element = element;
 	this.requiredFields = [];
@@ -57,7 +57,6 @@ var Form = function(element, EventEmitter) {
 	};
 
 	this.placeIntoView = function( animate ) {
-		// Scroll to form element
 		var scrollToHeight = 0;
 		var windowHeight = window.innerHeight;
 		var obj = form.element;
@@ -95,48 +94,56 @@ var forms = function() {
 	// deps
 	var EventEmitter = require('../../third-party/event-emitter.js');
 	var Form = require('./form.js');
-	var gator = require('../../third-party/gator.js');
+	var Gator = require('../../third-party/gator.js');
 
 	// variables
 	var events = new EventEmitter();
-	var formElements = document.querySelectorAll('.mc4wp-form');
 	var config = window.mc4wp_config || {};
+	var forms = [];
 
-	// initialize Form objects
-	var forms = Array.prototype.map.call(formElements,function(element) {
 
-		// find form data
-		var form = new Form(element, EventEmitter);
-		var formConfig = config.forms[form.id] || {};
-		form.setConfig(formConfig);
+	function find() {
+		var formElements = document.querySelectorAll('.mc4wp-form');
+		forms = Array.prototype.map.call(formElements,function(element) {
 
-		if( config.auto_scroll && formConfig.data && formConfig.errors.length > 0 ) {
-			form.placeIntoView( config.auto_scroll === 'animated' );
-		}
+			// in forms array already?
+			var form_id = element.getAttribute('data-id');
+			var form;
 
-		return form;
-	});
+			form = get( form_id );
+			if( form ) {
+				return form;
+			}
+
+			// nope, let's create an object for it.
+			form = new Form(form_id, element, EventEmitter);
+			var formConfig = config.forms[form.id] || {};
+			form.setConfig(formConfig);
+
+			if( config.auto_scroll && formConfig.data && formConfig.errors.length > 0 ) {
+				form.placeIntoView( config.auto_scroll === 'animated' );
+			}
+
+			return form;
+		});
+	}
 
 	// Bind browser events to form events (using delegation to work with AJAX loaded forms as well)
 	Gator(document.body).on('submit', '.mc4wp-form', function(event) {
 		var form = getFromElement(event.target);
-		if( form ) {
-			events.trigger('submit', [form, event]);
-		}
+		events.trigger('submit', [form, event]);
 	});
 
 	Gator(document.body).on('focus', '.mc4wp-form', function(event) {
 		var form = getFromElement(event.target);
-		if( form && ! form.started ) {
+		if( ! form.started ) {
 			events.trigger('started', [form, event]);
 		}
 	});
 
 	Gator(document.body).on('change', '.mc4wp-form', function(event) {
 		var form = getFromElement(event.target);
-		if( form ) {
-			events.trigger('changed', [form, event]);
-		}
+		events.trigger('changed', [form, event]);
 	});
 
 	// map all global events to individual form object as they happen
@@ -175,8 +182,16 @@ var forms = function() {
 
 	function getFromElement(element) {
 		var formElement = element.form || element;
-		var id = parseInt( formElement.dataset.id );
-		return get(id);
+		var id = parseInt( formElement.getAttribute('data-id') );
+		var form = get(id);
+
+		if( form ) {
+			return form;
+		}
+
+		form = new Form(id,formElement,EventEmitter);
+		forms.push(form);
+		return form;
 	}
 
 	// public API
@@ -669,12 +684,372 @@ module.exports = forms();
 	}
 }.call(this));
 },{}],5:[function(require,module,exports){
-/* gator v1.2.4 craig.is/riding/gators */
-(function(){function t(a){return k?k:a.matches?k=a.matches:a.webkitMatchesSelector?k=a.webkitMatchesSelector:a.mozMatchesSelector?k=a.mozMatchesSelector:a.msMatchesSelector?k=a.msMatchesSelector:a.oMatchesSelector?k=a.oMatchesSelector:k=e.matchesSelector}function q(a,b,c){if("_root"==b)return c;if(a!==c){if(t(a).call(a,b))return a;if(a.parentNode)return m++,q(a.parentNode,b,c)}}function u(a,b,c,e){d[a.id]||(d[a.id]={});d[a.id][b]||(d[a.id][b]={});d[a.id][b][c]||(d[a.id][b][c]=[]);d[a.id][b][c].push(e)}
-	function v(a,b,c,e){if(d[a.id])if(!b)for(var f in d[a.id])d[a.id].hasOwnProperty(f)&&(d[a.id][f]={});else if(!e&&!c)d[a.id][b]={};else if(!e)delete d[a.id][b][c];else if(d[a.id][b][c])for(f=0;f<d[a.id][b][c].length;f++)if(d[a.id][b][c][f]===e){d[a.id][b][c].splice(f,1);break}}function w(a,b,c){if(d[a][c]){var k=b.target||b.srcElement,f,g,h={},n=g=0;m=0;for(f in d[a][c])d[a][c].hasOwnProperty(f)&&(g=q(k,f,l[a].element))&&e.matchesEvent(c,l[a].element,g,"_root"==f,b)&&(m++,d[a][c][f].match=g,h[m]=d[a][c][f]);
-		b.stopPropagation=function(){b.cancelBubble=!0};for(g=0;g<=m;g++)if(h[g])for(n=0;n<h[g].length;n++){if(!1===h[g][n].call(h[g].match,b)){e.cancel(b);return}if(b.cancelBubble)return}}}function r(a,b,c,k){function f(a){return function(b){w(g,b,a)}}if(this.element){a instanceof Array||(a=[a]);c||"function"!=typeof b||(c=b,b="_root");var g=this.id,h;for(h=0;h<a.length;h++)k?v(this,a[h],b,c):(d[g]&&d[g][a[h]]||e.addEvent(this,a[h],f(a[h])),u(this,a[h],b,c));return this}}function e(a,b){if(!(this instanceof
-		e)){for(var c in l)if(l[c].element===a)return l[c];p++;l[p]=new e(a,p);return l[p]}this.element=a;this.id=b}var k,m=0,p=0,d={},l={};e.prototype.on=function(a,b,c){return r.call(this,a,b,c)};e.prototype.off=function(a,b,c){return r.call(this,a,b,c,!0)};e.matchesSelector=function(){};e.cancel=function(a){a.preventDefault();a.stopPropagation()};e.addEvent=function(a,b,c){a.element.addEventListener(b,c,"blur"==b||"focus"==b)};e.matchesEvent=function(){return!0};"undefined"!==typeof module&&module.exports&&
-	(module.exports=e);window.Gator=e})();
+/**
+ * Copyright 2014 Craig Campbell
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * GATOR.JS
+ * Simple Event Delegation
+ *
+ * @version 1.2.4
+ *
+ * Compatible with IE 9+, FF 3.6+, Safari 5+, Chrome
+ *
+ * Include legacy.js for compatibility with older browsers
+ *
+ *             .-._   _ _ _ _ _ _ _ _
+ *  .-''-.__.-'00  '-' ' ' ' ' ' ' ' '-.
+ * '.___ '    .   .--_'-' '-' '-' _'-' '._
+ *  V: V 'vv-'   '_   '.       .'  _..' '.'.
+ *    '=.____.=_.--'   :_.__.__:_   '.   : :
+ *            (((____.-'        '-.  /   : :
+ *                              (((-'\ .' /
+ *                            _____..'  .'
+ *                           '-._____.-'
+ */
+(function() {
+	var _matcher,
+		_level = 0,
+		_id = 0,
+		_handlers = {},
+		_gatorInstances = {};
+
+	function _addEvent(gator, type, callback) {
+
+		// blur and focus do not bubble up but if you use event capturing
+		// then you will get them
+		var useCapture = type == 'blur' || type == 'focus';
+		gator.element.addEventListener(type, callback, useCapture);
+	}
+
+	function _cancel(e) {
+		e.preventDefault();
+		e.stopPropagation();
+	}
+
+	/**
+	 * returns function to use for determining if an element
+	 * matches a query selector
+	 *
+	 * @returns {Function}
+	 */
+	function _getMatcher(element) {
+		if (_matcher) {
+			return _matcher;
+		}
+
+		if (element.matches) {
+			_matcher = element.matches;
+			return _matcher;
+		}
+
+		if (element.webkitMatchesSelector) {
+			_matcher = element.webkitMatchesSelector;
+			return _matcher;
+		}
+
+		if (element.mozMatchesSelector) {
+			_matcher = element.mozMatchesSelector;
+			return _matcher;
+		}
+
+		if (element.msMatchesSelector) {
+			_matcher = element.msMatchesSelector;
+			return _matcher;
+		}
+
+		if (element.oMatchesSelector) {
+			_matcher = element.oMatchesSelector;
+			return _matcher;
+		}
+
+		// if it doesn't match a native browser method
+		// fall back to the gator function
+		_matcher = Gator.matchesSelector;
+		return _matcher;
+	}
+
+	/**
+	 * determines if the specified element matches a given selector
+	 *
+	 * @param {Node} element - the element to compare against the selector
+	 * @param {string} selector
+	 * @param {Node} boundElement - the element the listener was attached to
+	 * @returns {void|Node}
+	 */
+	function _matchesSelector(element, selector, boundElement) {
+
+		// no selector means this event was bound directly to this element
+		if (selector == '_root') {
+			return boundElement;
+		}
+
+		// if we have moved up to the element you bound the event to
+		// then we have come too far
+		if (element === boundElement) {
+			return;
+		}
+
+		// if this is a match then we are done!
+		if (_getMatcher(element).call(element, selector)) {
+			return element;
+		}
+
+		// if this element did not match but has a parent we should try
+		// going up the tree to see if any of the parent elements match
+		// for example if you are looking for a click on an <a> tag but there
+		// is a <span> inside of the a tag that it is the target,
+		// it should still work
+		if (element.parentNode) {
+			_level++;
+			return _matchesSelector(element.parentNode, selector, boundElement);
+		}
+	}
+
+	function _addHandler(gator, event, selector, callback) {
+		if (!_handlers[gator.id]) {
+			_handlers[gator.id] = {};
+		}
+
+		if (!_handlers[gator.id][event]) {
+			_handlers[gator.id][event] = {};
+		}
+
+		if (!_handlers[gator.id][event][selector]) {
+			_handlers[gator.id][event][selector] = [];
+		}
+
+		_handlers[gator.id][event][selector].push(callback);
+	}
+
+	function _removeHandler(gator, event, selector, callback) {
+
+		// if there are no events tied to this element at all
+		// then don't do anything
+		if (!_handlers[gator.id]) {
+			return;
+		}
+
+		// if there is no event type specified then remove all events
+		// example: Gator(element).off()
+		if (!event) {
+			for (var type in _handlers[gator.id]) {
+				if (_handlers[gator.id].hasOwnProperty(type)) {
+					_handlers[gator.id][type] = {};
+				}
+			}
+			return;
+		}
+
+		// if no callback or selector is specified remove all events of this type
+		// example: Gator(element).off('click')
+		if (!callback && !selector) {
+			_handlers[gator.id][event] = {};
+			return;
+		}
+
+		// if a selector is specified but no callback remove all events
+		// for this selector
+		// example: Gator(element).off('click', '.sub-element')
+		if (!callback) {
+			delete _handlers[gator.id][event][selector];
+			return;
+		}
+
+		// if we have specified an event type, selector, and callback then we
+		// need to make sure there are callbacks tied to this selector to
+		// begin with.  if there aren't then we can stop here
+		if (!_handlers[gator.id][event][selector]) {
+			return;
+		}
+
+		// if there are then loop through all the callbacks and if we find
+		// one that matches remove it from the array
+		for (var i = 0; i < _handlers[gator.id][event][selector].length; i++) {
+			if (_handlers[gator.id][event][selector][i] === callback) {
+				_handlers[gator.id][event][selector].splice(i, 1);
+				break;
+			}
+		}
+	}
+
+	function _handleEvent(id, e, type) {
+		if (!_handlers[id][type]) {
+			return;
+		}
+
+		var target = e.target || e.srcElement,
+			selector,
+			match,
+			matches = {},
+			i = 0,
+			j = 0;
+
+		// find all events that match
+		_level = 0;
+		for (selector in _handlers[id][type]) {
+			if (_handlers[id][type].hasOwnProperty(selector)) {
+				match = _matchesSelector(target, selector, _gatorInstances[id].element);
+
+				if (match && Gator.matchesEvent(type, _gatorInstances[id].element, match, selector == '_root', e)) {
+					_level++;
+					_handlers[id][type][selector].match = match;
+					matches[_level] = _handlers[id][type][selector];
+				}
+			}
+		}
+
+		// stopPropagation() fails to set cancelBubble to true in Webkit
+		// @see http://code.google.com/p/chromium/issues/detail?id=162270
+		e.stopPropagation = function() {
+			e.cancelBubble = true;
+		};
+
+		for (i = 0; i <= _level; i++) {
+			if (matches[i]) {
+				for (j = 0; j < matches[i].length; j++) {
+					if (matches[i][j].call(matches[i].match, e) === false) {
+						Gator.cancel(e);
+						return;
+					}
+
+					if (e.cancelBubble) {
+						return;
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * binds the specified events to the element
+	 *
+	 * @param {string|Array} events
+	 * @param {string} selector
+	 * @param {Function} callback
+	 * @param {boolean=} remove
+	 * @returns {Object}
+	 */
+	function _bind(events, selector, callback, remove) {
+
+		// fail silently if you pass null or undefined as an alement
+		// in the Gator constructor
+		if (!this.element) {
+			return;
+		}
+
+		if (!(events instanceof Array)) {
+			events = [events];
+		}
+
+		if (!callback && typeof(selector) == 'function') {
+			callback = selector;
+			selector = '_root';
+		}
+
+		var id = this.id,
+			i;
+
+		function _getGlobalCallback(type) {
+			return function(e) {
+				_handleEvent(id, e, type);
+			};
+		}
+
+		for (i = 0; i < events.length; i++) {
+			if (remove) {
+				_removeHandler(this, events[i], selector, callback);
+				continue;
+			}
+
+			if (!_handlers[id] || !_handlers[id][events[i]]) {
+				Gator.addEvent(this, events[i], _getGlobalCallback(events[i]));
+			}
+
+			_addHandler(this, events[i], selector, callback);
+		}
+
+		return this;
+	}
+
+	/**
+	 * Gator object constructor
+	 *
+	 * @param {Node} element
+	 */
+	function Gator(element, id) {
+
+		// called as function
+		if (!(this instanceof Gator)) {
+			// only keep one Gator instance per node to make sure that
+			// we don't create a ton of new objects if you want to delegate
+			// multiple events from the same node
+			//
+			// for example: Gator(document).on(...
+			for (var key in _gatorInstances) {
+				if (_gatorInstances[key].element === element) {
+					return _gatorInstances[key];
+				}
+			}
+
+			_id++;
+			_gatorInstances[_id] = new Gator(element, _id);
+
+			return _gatorInstances[_id];
+		}
+
+		this.element = element;
+		this.id = id;
+	}
+
+	/**
+	 * adds an event
+	 *
+	 * @param {string|Array} events
+	 * @param {string} selector
+	 * @param {Function} callback
+	 * @returns {Object}
+	 */
+	Gator.prototype.on = function(events, selector, callback) {
+		return _bind.call(this, events, selector, callback);
+	};
+
+	/**
+	 * removes an event
+	 *
+	 * @param {string|Array} events
+	 * @param {string} selector
+	 * @param {Function} callback
+	 * @returns {Object}
+	 */
+	Gator.prototype.off = function(events, selector, callback) {
+		return _bind.call(this, events, selector, callback, true);
+	};
+
+	Gator.matchesSelector = function() {};
+	Gator.cancel = _cancel;
+	Gator.addEvent = _addEvent;
+	Gator.matchesEvent = function() {
+		return true;
+	};
+
+	if (typeof module !== 'undefined' && module.exports) {
+		module.exports = Gator;
+	}
+
+	window.Gator = Gator;
+}) ();
 },{}],6:[function(require,module,exports){
 /*! populate.js v1.0 by @dannyvankooten | MIT license */
 ;(function(root) {

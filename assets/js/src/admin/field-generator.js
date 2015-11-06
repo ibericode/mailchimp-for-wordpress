@@ -72,10 +72,12 @@ var g = function(m) {
 			attributes.max = config.max();
 		}
 
-		if (config.placeholder() == true) {
-			attributes.placeholder = config.value();
-		} else {
-			attributes.value = config.value();
+		if (config.value().length > 0) {
+			if (config.placeholder()) {
+				attributes.placeholder = config.value();
+			} else {
+				attributes.value = config.value();
+			}
 		}
 
 		attributes.required = config.required();

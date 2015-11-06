@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class MC4WP_Admin_Messages
+ *
+ * @ignore
+ */
 class MC4WP_Admin_Messages {
 
 	/**

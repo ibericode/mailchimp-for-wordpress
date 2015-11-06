@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class MC4WP_Array_Bag
+ *
+ * @ignore
+ */
 class MC4WP_Array_Bag {
 
 	/**

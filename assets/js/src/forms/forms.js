@@ -4,48 +4,56 @@ var forms = function() {
 	// deps
 	var EventEmitter = require('../../third-party/event-emitter.js');
 	var Form = require('./form.js');
-	var gator = require('../../third-party/gator.js');
+	var Gator = require('../../third-party/gator.js');
 
 	// variables
 	var events = new EventEmitter();
-	var formElements = document.querySelectorAll('.mc4wp-form');
 	var config = window.mc4wp_config || {};
+	var forms = [];
 
-	// initialize Form objects
-	var forms = Array.prototype.map.call(formElements,function(element) {
 
-		// find form data
-		var form = new Form(element, EventEmitter);
-		var formConfig = config.forms[form.id] || {};
-		form.setConfig(formConfig);
+	function find() {
+		var formElements = document.querySelectorAll('.mc4wp-form');
+		forms = Array.prototype.map.call(formElements,function(element) {
 
-		if( config.auto_scroll && formConfig.data && formConfig.errors.length > 0 ) {
-			form.placeIntoView( config.auto_scroll === 'animated' );
-		}
+			// in forms array already?
+			var form_id = element.getAttribute('data-id');
+			var form;
 
-		return form;
-	});
+			form = get( form_id );
+			if( form ) {
+				return form;
+			}
+
+			// nope, let's create an object for it.
+			form = new Form(form_id, element, EventEmitter);
+			var formConfig = config.forms[form.id] || {};
+			form.setConfig(formConfig);
+
+			if( config.auto_scroll && formConfig.data && formConfig.errors.length > 0 ) {
+				form.placeIntoView( config.auto_scroll === 'animated' );
+			}
+
+			return form;
+		});
+	}
 
 	// Bind browser events to form events (using delegation to work with AJAX loaded forms as well)
 	Gator(document.body).on('submit', '.mc4wp-form', function(event) {
 		var form = getFromElement(event.target);
-		if( form ) {
-			events.trigger('submit', [form, event]);
-		}
+		events.trigger('submit', [form, event]);
 	});
 
 	Gator(document.body).on('focus', '.mc4wp-form', function(event) {
 		var form = getFromElement(event.target);
-		if( form && ! form.started ) {
+		if( ! form.started ) {
 			events.trigger('started', [form, event]);
 		}
 	});
 
 	Gator(document.body).on('change', '.mc4wp-form', function(event) {
 		var form = getFromElement(event.target);
-		if( form ) {
-			events.trigger('changed', [form, event]);
-		}
+		events.trigger('changed', [form, event]);
 	});
 
 	// map all global events to individual form object as they happen
@@ -84,8 +92,16 @@ var forms = function() {
 
 	function getFromElement(element) {
 		var formElement = element.form || element;
-		var id = parseInt( formElement.dataset.id );
-		return get(id);
+		var id = parseInt( formElement.getAttribute('data-id') );
+		var form = get(id);
+
+		if( form ) {
+			return form;
+		}
+
+		form = new Form(id,formElement,EventEmitter);
+		forms.push(form);
+		return form;
 	}
 
 	// public API

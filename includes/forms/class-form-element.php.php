@@ -5,6 +5,7 @@
  *
  * @since 3.0
  * @internal
+ * @ignore
  */
 class MC4WP_Form_Element {
 

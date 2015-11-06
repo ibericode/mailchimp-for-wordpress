@@ -4,6 +4,7 @@
  * Class MC4WP_Form_Tags
  *
  * @internal
+ * @ignore
  */
 class MC4WP_Form_Tags {
 

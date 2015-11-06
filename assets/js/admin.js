@@ -347,10 +347,12 @@ var g = function(m) {
 			attributes.max = config.max();
 		}
 
-		if (config.placeholder() == true) {
-			attributes.placeholder = config.value();
-		} else {
-			attributes.value = config.value();
+		if (config.value().length > 0) {
+			if (config.placeholder()) {
+				attributes.placeholder = config.value();
+			} else {
+				attributes.value = config.value();
+			}
 		}
 
 		attributes.required = config.required();
@@ -678,6 +680,8 @@ var FieldFactory = function(settings, fields) {
 
 		// register global fields like "submit" & "list choice"
 		registerCustomFields(lists);
+
+		settings.events.trigger('fields.change');
 	}
 
 	settings.events.on('selectedLists.change',work);
@@ -711,7 +715,7 @@ module.exports = function(m) {
 		this.value = m.prop(data.value || '');
 		this.placeholder = m.prop(data.placeholder || true);
 		this.required = m.prop(data.required || false);
-		this.wrap = m.prop(data.wrap || false);
+		this.wrap = m.prop(data.wrap || true);
 		this.min = m.prop(data.min || null);
 		this.max = m.prop(data.max || null);
 		this.help = m.prop(data.help || '');
@@ -761,8 +765,6 @@ module.exports = function(m) {
 
 	/**
 	 * Creates FieldChoice objects from an (associative) array of data objects
-	 *
-	 * @todo allow for 'selected' property
 	 *
 	 * @param data
 	 * @returns {Array}
@@ -989,7 +991,7 @@ var FormWatcher = function(editor, settings, fields) {
 	editor.on('changes', checkPresenceOfRequiredFields );
 	editor.on('blur', findRequiredFields );
 
-	settings.events.on('requiredFields.change', checkPresenceOfRequiredFields);
+	settings.events.on('fields.change', checkPresenceOfRequiredFields);
 
 };
 

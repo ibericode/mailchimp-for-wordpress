@@ -16,6 +16,7 @@ function mc4wp_get_options() {
 /**
  * Gets the MailChimp for WP API class and injects it with the API key
  *
+ * @staticvar $instance
  * @since 1.0
  * @return MC4WP_API
  */
@@ -34,7 +35,7 @@ function mc4wp_get_api() {
 /**
  * Retrieves the URL of the current WordPress page
  *
- * @return  string  The current URL, escaped for safe usage inside attributes.
+ * @return  string  The current URL (escaped)
  */
 function mc4wp_get_current_url() {
 
@@ -56,9 +57,11 @@ function mc4wp_get_current_url() {
 }
 
 /**
- * @param $value
+ * Sanitizes all values in a mixed variable.
  *
- * @return array|string
+ * @param mixed $value
+ *
+ * @return mixed
  */
 function mc4wp_sanitize_deep( $value ) {
 

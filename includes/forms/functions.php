@@ -1,18 +1,18 @@
 <?php
 
-
 /**
  * Returns a Form instance
  *
  * @api
- * @param    int     $form_id.
- * @return   MC4WP_Form
+ * @param int $form_id.
+ * @return MC4WP_Form
  */
 function mc4wp_get_form( $form_id = 0 ) {
 	return MC4WP_Form::get_instance( $form_id );
 }
 
 /**
+ * Echoes the given form
  *
  * @api
  * @param int $form_id

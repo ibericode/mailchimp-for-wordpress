@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class MC4WP_Admin
+ *
+ * @internal
+ */
 class MC4WP_Admin {
 
 	/**
@@ -83,6 +88,15 @@ class MC4WP_Admin {
 		}
 
 		$action = (string) $_REQUEST['_mc4wp_action'];
+
+		/**
+		 * Allows you to hook into requests containing `_mc4wp_action` => action name.
+		 *
+		 * The dynamic portion of the hook name, `$action`, refers to the action name.
+		 *
+		 * By the time this hook is fired, the user is already authorized. After processing all the registered hooks,
+		 * the request is redirected back to the referring URL.
+		 */
 		do_action( 'mc4wp_admin_' . $action );
 
 		// redirect back to where we came from
@@ -96,11 +110,16 @@ class MC4WP_Admin {
 	 */
 	public function register_dashboard_widgets() {
 
-		// todo: re-add existing filter
+		// @todo allow for this capability to be filtered
 		if( ! current_user_can( 'manage_options' ) ) {
 			return false;
 		}
 
+		/**
+		 * Setup dashboard widget
+		 *
+		 * Use this hook to register your own dashboard widgets for users with the required capability.
+		 */
 		do_action( 'mc4wp_dashboard_setup' );
 
 		return true;
@@ -108,6 +127,8 @@ class MC4WP_Admin {
 
 	/**
 	 * Upgrade routine
+	 *
+	 * @ignore
 	 */
 	private function init_upgrade_routines() {
 
@@ -133,6 +154,8 @@ class MC4WP_Admin {
 
 	/**
 	 * Act on the "add form" form
+	 *
+	 * @ignore
 	 */
 	public function process_add_form() {
 
@@ -168,6 +191,8 @@ class MC4WP_Admin {
 
 	/**
 	 * Saves a form
+	 *
+	 * @ignore
 	 */
 	public function process_save_form( ) {
 
@@ -228,6 +253,8 @@ class MC4WP_Admin {
 
 	/**
 	 * Renew MailChimp lists cache
+	 *
+	 * @ignore
 	 */
 	public function renew_lists_cache() {
 		$this->mailchimp->empty_cache();
@@ -243,6 +270,8 @@ class MC4WP_Admin {
 
 	/**
 	 * Load the plugin translations
+	 *
+	 * @ignore
 	 */
 	private function load_translations() {
 		// load the plugin text domain
@@ -251,6 +280,8 @@ class MC4WP_Admin {
 
 	/**
 	 * Customize texts throughout WP Admin
+	 *
+	 * @ignore
 	 */
 	public function customize_admin_texts() {
 		$texts = new MC4WP_Admin_Texts( $this->plugin_file );
@@ -260,6 +291,8 @@ class MC4WP_Admin {
 
 	/**
 	 * Redirect to correct form action
+	 *
+	 * @ignore
 	 */
 	public function redirect_to_form_action() {
 
@@ -369,9 +402,11 @@ class MC4WP_Admin {
 
 	/**
 	 * Load scripts and stylesheet on MailChimp for WP Admin pages
+	 *
 	 * @return bool
 	*/
 	public function enqueue_assets() {
+
 		// only load asset files on the MailChimp for WordPress settings pages
 		if( empty( $_GET['page'] ) || strpos( $_GET['page'], 'mailchimp-for-wp' ) !== 0 ) {
 			return false;
@@ -402,21 +437,27 @@ class MC4WP_Admin {
 			)
 		);
 
+		/**
+		 * Hook to enqueue your own custom assets on the MailChimp for WordPress setting pages.
+		 *
+		 * @param string $suffix
+		 */
 		do_action( 'mc4wp_admin_enqueue_assets', $suffix );
 
 		return true;
 	}
 
 	/**
+	 * @internal
+	 *
 	 * @return string
 	 */
 	public function get_required_capability() {
 
 		/**
-		 * @filter mc4wp_settings_cap
-		 * @expects     string      A valid WP capability like 'manage_options' (default)
+		 * Filters the required user capability to access the settings pages & dashboard widgets.
 		 *
-		 * Use to customize the required user capability to access the MC4WP settings pages
+		 * @param string $capability A valid WP capability like 'manage_options' (default)
 		 */
 		$required_cap = (string) apply_filters( 'mc4wp_settings_cap', 'manage_options' );
 
@@ -425,6 +466,8 @@ class MC4WP_Admin {
 
 	/**
 	 * Register the setting pages and their menu items
+	 *
+	 * @internal
 	 */
 	public function build_menu() {
 		$required_cap = $this->get_required_capability();
@@ -451,19 +494,33 @@ class MC4WP_Admin {
 			),
 		);
 
+		/**
+		 * Filters the menu items to appear under the main menu item.
+		 *
+		 * @param array $menu_items
+		 *
+		 * To add your own item, add an associative array in the following format.
+		 *
+		 * $menu_items[] = array(
+		 *     'title' => 'Page title',
+		 *     'text'  => 'Menu text',
+		 *     'slug' => 'Page slug',
+		 *     'callback' => 'my_page_function'
+		 * );
+		 */
 		$menu_items = (array) apply_filters( 'mc4wp_menu_items', $menu_items );
 
 		// add top menu item
 		add_menu_page( 'MailChimp for WP', 'MailChimp for WP', $required_cap, 'mailchimp-for-wp', array( $this, 'show_generals_setting_page' ), MC4WP_PLUGIN_URL . 'assets/img/icon.png', '99.68491' );
 
-		// add submenu pages
-		foreach( $menu_items as $item ) {
-			$this->add_menu_item( $item );
-		}
+		// add sub-menu items
+		array_map( array( $this, 'add_menu_item' ), $menu_items );
 	}
 
 	/**
 	 * @param array $item
+	 *
+	 * @internal
 	 */
 	public function add_menu_item( array $item ) {
 
@@ -483,6 +540,8 @@ class MC4WP_Admin {
 
 	/**
 	 * Show the API settings page
+	 *
+	 * @internal
 	 */
 	public function show_generals_setting_page() {
 		$opts = mc4wp_get_options();
@@ -494,6 +553,8 @@ class MC4WP_Admin {
 
 	/**
 	 * Show the Integration Settings page
+	 *
+	 * @internal
 	 */
 	public function show_integrations_page() {
 
@@ -509,6 +570,8 @@ class MC4WP_Admin {
 
 	/**
 	 * @param string $slug
+	 *
+	 * @internal
 	 */
 	public function show_integration_settings_page( $slug ) {
 
@@ -527,9 +590,14 @@ class MC4WP_Admin {
 
 	/**
 	 * Show the Forms Settings page
+	 *
+	 * @internal
 	 */
 	public function show_forms_page() {
 
+		/**
+		 * @internal
+		 */
 		do_action( 'mc4wp_admin_show_forms_page' );
 
 		// if a view is set in the URl, go there.
@@ -542,6 +610,8 @@ class MC4WP_Admin {
 
 	/**
 	 * Show the "Edit Form" page
+	 *
+	 * @internal
 	 */
 	public function show_forms_edit_form_page() {
 		$form_id = ( ! empty( $_GET['form_id'] ) ) ? (int) $_GET['form_id'] : 0;
@@ -564,6 +634,8 @@ class MC4WP_Admin {
 
 	/**
 	 * Shows the "Add Form" page
+	 *
+	 * @internal
 	 */
 	public function show_forms_add_form_page() {
 		$lists = $this->mailchimp->get_lists();
@@ -571,8 +643,11 @@ class MC4WP_Admin {
 	}
 
 	/**
-	 * @param $tab
+	 * Get URL for a tab on the current page.
 	 *
+	 * @since 3.0
+	 * @internal
+	 * @param $tab
 	 * @return string
 	 */
 	public function tab_url( $tab ) {

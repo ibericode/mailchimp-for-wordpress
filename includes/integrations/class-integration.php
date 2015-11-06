@@ -3,38 +3,43 @@
 /**
  * Class MC4WP_Integration
  *
+ * Base class for all integrations.
+ *
+ * Extend this class and implement the `add_hooks` method to get a settings page.
+ *
  * @api
  * @since 3.0
+ * @abstract
  */
 abstract class MC4WP_Integration {
 
 	/**
-	 * @var
+	 * @var string Name of this integration.
 	 */
 	public $name = '';
 
 	/**
-	 * @var
+	 * @var string Description
 	 */
 	public $description = '';
 
 	/**
-	 * @var
+	 * @var string Slug, used as an unique identifier for this integration.
 	 */
 	public $slug = '';
 
 	/**
-	 * @var array
+	 * @var array Array of settings
 	 */
 	public $options = array();
 
 	/**
-	 * @var string
+	 * @var string Name attribute for the checkbox element. Will be created from slug if empty.
 	 */
 	protected $checkbox_name = '';
 
 	/**
-	 * @var
+	 * @var array GET & POST data for the current request.
 	 */
 	protected $request_data;
 
@@ -56,6 +61,8 @@ abstract class MC4WP_Integration {
 	}
 
 	/**
+	 * Return array of default options
+	 *
 	 * @return array
 	 */
 	protected function get_default_options() {
@@ -141,9 +148,14 @@ abstract class MC4WP_Integration {
 	}
 
 	/**
+	 * Get a string of attributes for the checkbox element.
+	 *
 	 * @return string
 	 */
 	protected function get_checkbox_attributes() {
+
+		$integration = $this;
+		$slug = $this->slug;
 
 		$attributes = array();
 
@@ -151,8 +163,23 @@ abstract class MC4WP_Integration {
 			$attributes['checked'] = 'checked';
 		}
 
-		$attributes = (array) apply_filters( 'mc4wp_integration_checkbox_attributes', $attributes, $this );
-		$attributes = (array) apply_filters( 'mc4wp_integration_' . $this->slug . '_checkbox_attributes', $attributes, $this );
+		/**
+		 * Filters the attributes array.
+		 *
+		 * @param array $attributes
+		 * @param MC4WP_Integration $integration
+		 */
+		$attributes = (array) apply_filters( 'mc4wp_integration_checkbox_attributes', $attributes, $integration );
+
+		/**
+		 * Filters the attributes array.
+		 *
+		 * The dynamic portion of the hook, `$slug`, refers to the slug for this integration.
+		 *
+		 * @param array $attributes
+		 * @param MC4WP_Integration $integration
+		 */
+		$attributes = (array) apply_filters( 'mc4wp_integration_' . $slug . '_checkbox_attributes', $attributes, $integration );
 
 		$string = '';
 		foreach( $attributes as $key => $value ) {
@@ -204,7 +231,9 @@ abstract class MC4WP_Integration {
 	}
 
 	/**
-	 * @return array
+	 * Get the selected MailChimp lists
+	 *
+	 * @return array Array of List ID's
 	 */
 	public function get_lists() {
 
@@ -240,38 +269,51 @@ abstract class MC4WP_Integration {
 	 */
 	protected function subscribe( $email, array $merge_vars = array(), $related_object_id = 0 ) {
 
+		$integration = $this;
+		$slug = $this->slug;
+
 		$api = mc4wp_get_api();
 		$lists = $this->get_lists();
 		$result = false;
 
 		/**
-		 * @filter `mc4wp_merge_vars`
-		 * @expects array
-		 * @param array $merge_vars
-		 * @param string $slug
+		 * Filters the final merge variables before the request is sent to MailChimp
 		 *
-		 * Use this to filter the final merge vars before the request is sent to MailChimp
+		 * @param array $merge_vars
 		 */
 		$merge_vars = (array) apply_filters( 'mc4wp_merge_vars', $merge_vars );
-		$merge_vars = (array) apply_filters( 'mc4wp_integration_merge_vars', $merge_vars, $this );
-		$merge_vars = (array) apply_filters( 'mc4wp_integration_' . $this->slug . '_merge_vars', $merge_vars, $this );
+
+		/**
+		 * Filters the final merge variables before the request is sent to MailChimp, for all integrations.
+		 *
+		 * @param array $merge_vars
+		 * @param MC4WP_Integration $integration
+		 */
+		$merge_vars = (array) apply_filters( 'mc4wp_integration_merge_vars', $merge_vars, $integration );
+
+		/**
+		 * Filters the final merge variables before the request is sent to MailChimp, for a specific integration.
+		 *
+		 * The dynamic portion of the hook, `$slug`, refers to the integration slug.
+		 *
+		 * @param array $merge_vars
+		 * @param MC4WP_Integration $integration
+		 */
+		$merge_vars = (array) apply_filters( 'mc4wp_integration_' . $slug . '_merge_vars', $merge_vars, $integration );
 
 
 		/**
-		 * @filter `mc4wp_email_type`
-		 * @expects string
-		 * @param string $email_type
+		 * Filters the email type preference for this new subscriber.
 		 *
-		 * Use this to change the email type this users should receive
+		 * @param string $email_type
 		 */
 		$email_type = apply_filters( 'mc4wp_email_type', 'html' );
 
 		/**
-		 * @action `mc4wp_before_subscribe`
+		 * Runs just before the API request is made.
+		 *
 		 * @param string $email
 		 * @param array $merge_vars
-		 *
-		 * Runs before the request is sent to MailChimp
 		 */
 		do_action( 'mc4wp_before_subscribe', $email, $merge_vars );
 
@@ -281,12 +323,11 @@ abstract class MC4WP_Integration {
 		}
 
 		/**
-		 * @action `mc4wp_after_subscribe`
+		 * Runs just after the API requests are made.
+		 *
 		 * @param string $email
 		 * @param array $merge_vars
 		 * @param boolean $result
-		 *
-		 * Runs after the request is sent to MailChimp
 		 */
 		do_action( 'mc4wp_after_subscribe', $email, $merge_vars, $result );
 
@@ -299,6 +340,8 @@ abstract class MC4WP_Integration {
 	}
 
 	/**
+	 * Are the required dependencies for this integration installed?
+	 *
 	 * @return bool
 	 */
 	public function is_installed() {
@@ -306,6 +349,8 @@ abstract class MC4WP_Integration {
 	}
 
 	/**
+	 * Which UI elements should we show on the settings page for this integration?
+	 *
 	 * @return array
 	 */
 	public function get_ui_elements() {
@@ -313,8 +358,9 @@ abstract class MC4WP_Integration {
 	}
 
 	/**
-	 * @param $element
+	 * Does integration have the given UI element?
 	 *
+	 * @param $element
 	 * @return bool
 	 */
 	public function has_ui_element( $element ) {

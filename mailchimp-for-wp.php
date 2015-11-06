@@ -31,10 +31,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 defined( 'ABSPATH' ) or exit;
 
 /**
-* Loads the MailChimp for WP plugin files
-*
-* @return boolean True if the plugin files were loaded, false otherwise.
-*/
+ * Bootstrap the MailChimp for WordPress plugin
+ *
+ * @ignore
+ * @return bool
+ */
 function mc4wp_load_plugin() {
 
 	// this means an older version of Pro is activated

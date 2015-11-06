@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class MC4WP_Form_Output_Manager
+ *
+ * @ignore
+ */
 class MC4WP_Form_Output_Manager {
 
 	/**

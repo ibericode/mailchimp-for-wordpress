@@ -25,7 +25,7 @@ class MC4WP_API {
 	protected $error_message = '';
 
 	/**
-	 * @var int The error code of the lastest API request (if any)
+	 * @var int The error code of the last API request (if any)
 	 */
 	protected $error_code = 0;
 

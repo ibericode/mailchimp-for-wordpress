@@ -35,12 +35,10 @@ abstract class MC4WP_User_Integration extends MC4WP_Integration {
 		}
 
 		/**
-		 * @filter `mc4wp_user_merge_vars`
-		 * @expects array
+		 * Filters the merge vars which are sent to MailChimp, extracted from the user object.
+		 *
 		 * @param array $merge_vars
 		 * @param WP_User $user
-		 *
-		 * Use this to filter the merge vars of a user
 		 */
 		$merge_vars = (array) apply_filters( 'mc4wp_user_merge_vars', $merge_vars, $user );
 
