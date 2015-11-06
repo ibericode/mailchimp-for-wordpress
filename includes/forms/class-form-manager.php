@@ -3,6 +3,8 @@
 /**
  * This class takes care of all form related functionality
  *
+ * Do not interact with this class directly, use `mc4wp_form` functions tagged with @api instead.
+ *
  * @class MC4WP_Form_Manager
  * @internal
  * @ignore
@@ -17,7 +19,12 @@ class MC4WP_Form_Manager {
 	/**
 	 * @var MC4WP_Form_Output_Manager
 	 */
-	public $output_manager;
+	protected $output_manager;
+
+	/**
+	 * @var MC4WP_Form_Listener
+	 */
+	protected $listener;
 
 	/**
 	 * @return MC4WP_Form_Manager
@@ -95,8 +102,8 @@ class MC4WP_Form_Manager {
 	 * @hooked `init`
 	 */
 	public function init_form_listener() {
-		$listener = new MC4WP_Form_Listener();
-		$listener->listen( $_POST );
+		$this->listener = new MC4WP_Form_Listener();
+		$this->listener->listen( $_POST );
 	}
 
 	public function init_asset_manager() {
@@ -109,5 +116,27 @@ class MC4WP_Form_Manager {
 	 */
 	public function register_widget() {
 		register_widget( 'MC4WP_Form_Widget' );
+	}
+
+	/**
+	 * @param       $form_id
+	 * @param array $config
+	 * @param bool  $echo
+	 *
+	 * @return string
+	 */
+	public function output_form(  $form_id, $config = array(), $echo = true ) {
+		return $this->output_manager->output_form( $form_id, $config, $echo );
+	}
+
+	/**
+	 * @return MC4WP_Form|null
+	 */
+	public function get_submitted_form() {
+		if( $this->listener->submitted_form instanceof MC4WP_Form ) {
+			return $this->listener->submitted_form;
+		}
+
+		return null;
 	}
 }

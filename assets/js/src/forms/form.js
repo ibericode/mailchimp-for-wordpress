@@ -4,43 +4,25 @@ var Form = function(id, element, EventEmitter) {
 
 	var serialize = require('../../third-party/serialize.js');
 	var populate = require('../../third-party/populate.js');
+	var formToJson = require('../../third-party/form2js.js');
 	var form = this;
-	var events = new EventEmitter();
 
 	this.id = id;
-	this.name = "Form #" + this.id;
 	this.element = element;
-	this.requiredFields = [];
+	this.name = element.getAttribute('date-name') || "Form #" + this.id;
 	this.errors = [];
 	this.started = false;
 
-	this.on = function(event,callback) {
-		return events.on(event,callback);
-	};
-
-	this.trigger = function (event,args) {
-		return events.trigger(event,args);
-	};
-
-	this.off = function(event,callback){
-		return events.off(event,callback);
+	this.setData = function(data) {
+		populate(form.element, data);
 	};
 
 	this.getData = function() {
-		return serialize(element);
+		return formToJson(form.element);
 	};
 
-	this.setConfig = function (config) {
-		form.name = config.name;
-		form.errors = config.errors;
-
-		// @todo walk through required fields and ensure they have "required" attribute?
-		form.requiredFields = config.requiredFields;
-
-		// repopulate form if there are errors
-		if( config.data && form.errors.length > 0 ) {
-			populate(form.element, config.data);
-		}
+	this.getSerializedData = function() {
+		return serialize(form.element);
 	};
 
 	this.setResponse = function( msg ) {

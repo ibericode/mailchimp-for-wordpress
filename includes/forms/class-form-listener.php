@@ -10,6 +10,11 @@
 class MC4WP_Form_Listener {
 
 	/**
+	 * @var MC4WP_Form The submitted form instance
+	 */
+	public $submitted_form;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {}
@@ -35,6 +40,7 @@ class MC4WP_Form_Listener {
 
 		// where the magic happens
 		$form->handle_request( $request );
+		$this->submitted_form = $form;
 
 		// is this form valid?
 		if( $form->is_valid() ) {

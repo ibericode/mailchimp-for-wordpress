@@ -477,20 +477,4 @@ class MC4WP_Form {
 		return explode( ',', $this->settings['required_fields'] );
 	}
 
-	/**
-	 * Converts object to public array, for use in client-side API.
-	 *
-	 * @return array
-	 */
-	public function to_public_array() {
-		$array = array(
-			'id' => $this->ID,
-			'name' => $this->name,
-			'requiredFields' => $this->get_required_fields(),
-			'data' => $this->data,
-			'errors' => $this->errors
-		);
-		return $array;
-	}
-
 }

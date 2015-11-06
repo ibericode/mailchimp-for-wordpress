@@ -21,7 +21,7 @@ function mc4wp_get_form( $form_id = 0 ) {
  * @return string
  */
 function mc4wp_show_form( $form_id, $config = array(), $echo = true ) {
-	MC4WP_Form_Manager::instance()->output_manager->output_form( $form_id, $config, $echo );
+	return MC4WP_Form_Manager::instance()->output_form( $form_id, $config, $echo );
 }
 
 
@@ -65,4 +65,13 @@ function mc4wp_form_get_response_html( $form_id = 0 ) {
 	}
 
 	return $form->get_response_html();
+}
+
+/**
+ * Gets an instance of the submitted form, if any.
+ *
+ * @return MC4WP_Form|null
+ */
+function mc4wp_get_submitted_form() {
+	return MC4WP_Form_Manager::instance()->get_submitted_form();
 }
