@@ -4,6 +4,7 @@
  * Class MC4WP_Admin
  *
  * @internal
+ * @ignore
  */
 class MC4WP_Admin {
 
@@ -111,7 +112,7 @@ class MC4WP_Admin {
 	public function register_dashboard_widgets() {
 
 		// @todo allow for this capability to be filtered
-		if( ! current_user_can( 'manage_options' ) ) {
+		if( ! $this->is_user_authorized() ) {
 			return false;
 		}
 
@@ -154,8 +155,6 @@ class MC4WP_Admin {
 
 	/**
 	 * Act on the "add form" form
-	 *
-	 * @ignore
 	 */
 	public function process_add_form() {
 
@@ -191,8 +190,6 @@ class MC4WP_Admin {
 
 	/**
 	 * Saves a form
-	 *
-	 * @ignore
 	 */
 	public function process_save_form( ) {
 
@@ -206,7 +203,7 @@ class MC4WP_Admin {
 		// @todo sanitize data
 
 		// get actual form id here since this might be a new form
-		// @todo prevent overriding existing posts using $_GET parameter
+		// @todo prevent overriding existing posts using $_POST['mc4wp_form_id'] parameter
 		$form_id = wp_insert_post(
 			array(
 				'ID' => $form_id,
@@ -448,7 +445,15 @@ class MC4WP_Admin {
 	}
 
 	/**
-	 * @internal
+	 * Does the logged-in user have the required capability?
+	 *
+	 * @return bool
+	 */
+	public function is_user_authorized() {
+		return current_user_can( $this->get_required_capability() );
+	}
+
+	/**
 	 *
 	 * @return string
 	 */

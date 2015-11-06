@@ -2,6 +2,11 @@
 
 defined( 'ABSPATH' ) or exit;
 
+/**
+ * Class MC4WP_Comment_Form_Integration
+ *
+ * @ignore
+ */
 class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 
 	/**

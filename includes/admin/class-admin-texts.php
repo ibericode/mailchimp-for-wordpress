@@ -79,6 +79,11 @@ class MC4WP_Admin_Texts {
 
 		$links[] = '<a href="https://mc4wp.com/kb/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=plugins-page">Documentation</a>';
 
+		/**
+		 * Filters links shown on the Plugins overview page
+		 *
+		 * @param array $links
+		 */
 		$links = (array) apply_filters( 'mc4wp_admin_plugin_meta_links', $links );
 
 		return $links;

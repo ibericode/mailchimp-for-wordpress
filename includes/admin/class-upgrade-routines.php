@@ -3,7 +3,9 @@
 /**
  * Class MC4WP_DB_Upgrader
  *
- * @internal
+ * This class takes care of loading migration files from `./migrations/`.
+ * Migration files should only use default WP functions and 0 code which might not be there in the future.
+ *
  * @ignore
  */
 class MC4WP_Upgrade_Routines {

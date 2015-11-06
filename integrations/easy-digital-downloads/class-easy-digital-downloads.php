@@ -2,6 +2,11 @@
 
 defined( 'ABSPATH' ) or exit;
 
+/**
+ * Class MC4WP_Easy_Digital_Downloads_Integration
+ *
+ * @ignore
+ */
 class MC4WP_Easy_Digital_Downloads_Integration extends MC4WP_Integration {
 
 	/**

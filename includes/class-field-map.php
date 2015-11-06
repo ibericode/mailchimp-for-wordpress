@@ -255,12 +255,12 @@ class MC4WP_Field_Map {
 		}
 
 		/**
-		 * @filter `mc4wp_format_field_value`
-		 * @param mixed $field_value
-		 * @param string $field_type
-		 * @expects mixed
+		 * Filters the value of a field after it is formatted.
 		 *
-		 *          Format a field value according to its MailChimp field type
+		 * Use this to format a field value according to the field type (in MailChimp).
+		 *
+		 * @param string $field_value
+		 * @param string $field_type
 		 */
 		$field_value = apply_filters( 'mc4wp_format_field_value', $field_value, $field_type );
 

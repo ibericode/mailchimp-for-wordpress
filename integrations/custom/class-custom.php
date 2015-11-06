@@ -2,6 +2,10 @@
 
 defined( 'ABSPATH' ) or exit;
 
+/**
+ * Class MC4WP_Custom_Integration
+ * @ignore
+ */
 class MC4WP_Custom_Integration extends MC4WP_Integration {
 
 	/**

@@ -75,14 +75,16 @@ class MC4WP_Visitor_Tracking {
 	public function save( array $data ) {
 		$this->data = $data;
 
+		$timestamp = strtotime( '+90 days' );
+
 		/**
-		 * @filter `mc4wp_cookie_expiration_time`
-		 * @expects timestamp
-		 * @default timestamp for 90 days from now
+		 * Filters the total expiration time for the tracking cookie.
 		 *
-		 * Timestamp indicating when the email cookie expires, defaults to 90 days
+		 * Defaults to 90 days in the future.
+		 *
+		 * @param int $timestamp
 		 */
-		$expiration_time = apply_filters( 'mc4wp_cookie_expiration_time', strtotime( '+90 days' ) );
+		$expiration_time = apply_filters( 'mc4wp_cookie_expiration_time', $timestamp );
 
 		setcookie( self::COOKIE_NAME, json_encode( $data ), $expiration_time, '/' );
 	}

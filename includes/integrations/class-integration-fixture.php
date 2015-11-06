@@ -4,7 +4,7 @@
  * Class MC4WP_Integration_Fixture
  *
  * @since 3.0
- * @internal
+ * @ignore
  */
 class MC4WP_Integration_Fixture {
 

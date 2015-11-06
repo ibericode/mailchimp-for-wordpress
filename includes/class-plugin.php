@@ -3,7 +3,9 @@
 /**
  * Class MC4WP_Plugin
  *
- * Helper class for plugin information retrieval in add-ons.
+ * Helper class for easy access to information like the plugin file or plugin directory.
+ *
+ * @access public
  */
 class MC4WP_Plugin {
 

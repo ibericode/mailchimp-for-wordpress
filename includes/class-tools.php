@@ -4,6 +4,7 @@
  * Class MC4WP_Tools
  *
  * @internal
+ * @ignore
  */
 class MC4WP_Tools {
 

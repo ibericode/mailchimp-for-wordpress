@@ -2,6 +2,11 @@
 
 defined( 'ABSPATH' ) or exit;
 
+/**
+ * Class MC4WP_WooCommerce_Integration
+ *
+ * @ignore
+ */
 class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 
 	/**

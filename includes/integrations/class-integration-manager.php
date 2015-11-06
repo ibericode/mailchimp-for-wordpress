@@ -2,7 +2,8 @@
 
 /**
  * Class MC4WP_Integration_Manager
- * @internal
+ *
+ * @ignore
  */
 class MC4WP_Integration_Manager {
 
@@ -146,6 +147,14 @@ class MC4WP_Integration_Manager {
 	 */
 	public function get_options() {
 		$options = (array) get_option( 'mc4wp_integrations', array() );
+
+		/**
+		 * Filters global integration options
+		 *
+		 * This array holds ALL integration settings
+		 *
+		 * @param array $options
+		 */
 		return (array) apply_filters( 'mc4wp_integration_options', $options );
 	}
 
