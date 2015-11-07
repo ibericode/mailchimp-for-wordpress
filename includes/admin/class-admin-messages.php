@@ -40,7 +40,7 @@ class MC4WP_Admin_Messages {
 		$messages = get_option( 'mc4wp_flash_messages', array() );
 
 		foreach( $messages as $message ) {
-			echo sprintf( '<div class="notice is-dismissable mc4wp %s"><p>%s</p></div>', $message['type'], $message['text'] );
+			echo sprintf( '<div class="notice is-dismissible mc4wp %s"><p>%s</p></div>', $message['type'], $message['text'] );
 		}
 
 		update_option( 'mc4wp_flash_messages', array() );

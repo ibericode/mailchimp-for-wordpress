@@ -8,11 +8,6 @@
 class MC4WP_Integration_Manager {
 
 	/**
-	 * @var MC4WP_Integration_Manager
-	 */
-	protected static $instance;
-
-	/**
 	 * @var MC4WP_Integration_Fixture[]
 	 */
 	protected $integrations = array();
@@ -25,25 +20,9 @@ class MC4WP_Integration_Manager {
 	/**
 	* Constructor
 	*/
-	private function __construct() {
-		self::$instance = $this;
-
+	public function __construct() {
 		$this->options = $this->get_options();
 		$this->tags = new MC4WP_Integration_Tags();
-	}
-
-	/**
-	 * Singleton method
-	 *
-	 * @return MC4WP_Integration_Manager
-	 */
-	public static function instance() {
-
-		if( self::$instance instanceof self ) {
-			return self::$instance;
-		}
-
-		return new self;
 	}
 
 	/**

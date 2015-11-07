@@ -49,23 +49,23 @@ function mc4wp_load_plugin() {
 	define( 'MC4WP_PLUGIN_URL', plugins_url( '/' , __FILE__ ) );
 	define( 'MC4WP_PLUGIN_FILE', __FILE__ );
 
+	// load autoloader
 	require_once MC4WP_PLUGIN_DIR . 'vendor/autoload_52.php';
 
-	// Initialize admin section of plugin
-	if( is_admin()
-	    && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-		$admin = new MC4WP_Admin();
-		$admin->add_hooks();
-	}
-
 	// forms
-	MC4WP_Form_Manager::instance()->add_hooks();
+	$forms = new MC4WP_Form_Manager();
+	$forms->add_hooks();
+	mc4wp_register_instance( 'forms', $forms );
 
 	// integration core
-	MC4WP_Integration_Manager::instance()->add_hooks();
+	$integrations = new MC4WP_Integration_Manager();
+	$integrations->add_hooks();
+	mc4wp_register_instance( 'integrations', $integrations );
 
 	// visitor tracking
-	MC4WP_Visitor_Tracking::instance()->add_hooks();
+	$tracking = new MC4WP_Visitor_Tracking();
+	$tracking->add_hooks();
+	mc4wp_register_instance( 'tracking', $tracking );
 
 	// bootstrap custom integrations
 	require_once MC4WP_PLUGIN_DIR . 'integrations/bootstrap.php';
@@ -73,6 +73,23 @@ function mc4wp_load_plugin() {
 	// Doing cron? Load Usage Tracking class.
 	if( defined( 'DOING_CRON' ) && DOING_CRON ) {
 		MC4WP_Usage_Tracking::instance()->add_hooks();
+	}
+
+	// Initialize admin section of plugin
+	if( is_admin()
+	    && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
+
+		$messages = new MC4WP_Admin_Messages();
+		$mailchimp = new MC4WP_MailChimp();
+
+		$admin = new MC4WP_Admin( $messages, $mailchimp );
+		$admin->add_hooks();
+
+		$forms_admin = new MC4WP_Forms_Admin( $messages, $mailchimp );
+		$forms_admin->add_hooks();
+
+		$integrations_admin = new MC4WP_Integration_Admin( $integrations, $mailchimp );
+		$integrations_admin->add_hooks();
 	}
 
 	return true;

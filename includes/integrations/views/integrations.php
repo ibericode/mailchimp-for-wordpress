@@ -40,7 +40,7 @@
 								<?php
 
 								if( $installed ) {
-									printf( '<a href="%s">%s</a>', add_query_arg( array( 'integration' => $integration->slug ) ), $integration->name );
+									printf( '<a href="%s" title="%s">%s</a>', add_query_arg( array( 'integration' => $integration->slug ) ), __( 'Configure this integration', 'mailchimp-for-wp' ), $integration->name );
 								} else {
 									echo $integration->name ;
 								} ?>

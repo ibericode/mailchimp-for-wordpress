@@ -12,11 +12,6 @@
 class MC4WP_Form_Manager {
 
 	/**
-	 * @var MC4WP_Form_Manager
-	 */
-	private static $instance;
-
-	/**
 	 * @var MC4WP_Form_Output_Manager
 	 */
 	protected $output_manager;
@@ -27,23 +22,9 @@ class MC4WP_Form_Manager {
 	protected $listener;
 
 	/**
-	 * @return MC4WP_Form_Manager
-	 */
-	public static function instance() {
-
-		if( self::$instance instanceof self ) {
-			return self::$instance;
-		}
-
-		return new self;
-	}
-
-	/**
 	 * Constructor
 	 */
-	private function __construct() {
-		self::$instance = $this;
-
+	public function __construct() {
 		$this->output_manager = new MC4WP_Form_Output_Manager();
 		$this->tags = new MC4WP_Form_Tags();
 	}

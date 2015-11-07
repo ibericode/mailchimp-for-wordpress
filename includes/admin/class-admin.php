@@ -11,7 +11,7 @@ class MC4WP_Admin {
 	/**
 	 * @var string The relative path to the main plugin file from the plugins dir
 	 */
-	private $plugin_file;
+	protected $plugin_file;
 
 	/**
 	 * @var MC4WP_MailChimp
@@ -30,13 +30,15 @@ class MC4WP_Admin {
 
 	/**
 	 * Constructor
+	 *
+	 * @param MC4WP_Admin_Messages $messages
+	 * @param MC4WP_MailChimp      $mailchimp
 	 */
-	public function __construct() {
+	public function __construct( MC4WP_Admin_Messages $messages, MC4WP_MailChimp $mailchimp ) {
+		$this->mailchimp = $mailchimp;
+		$this->messages = $messages;
 		$this->plugin_file = plugin_basename( MC4WP_PLUGIN_FILE );
-		$this->mailchimp = new MC4WP_MailChimp();
 		$this->ads = new MC4WP_Ads();
-		$this->messages = new MC4WP_Admin_Messages();
-
 		$this->load_translations();
 	}
 
@@ -51,8 +53,7 @@ class MC4WP_Admin {
 		add_action( 'current_screen', array( $this, 'customize_admin_texts' ) );
 		add_action( 'wp_dashboard_setup', array( $this, 'register_dashboard_widgets' ) );
 		add_action( 'mc4wp_admin_empty_lists_cache', array( $this, 'renew_lists_cache' ) );
-		add_action( 'mc4wp_admin_edit_form', array( $this, 'process_save_form' ) );
-		add_action( 'mc4wp_admin_add_form', array( $this, 'process_add_form' ) );
+
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 
 		$this->ads->add_hooks();
@@ -68,7 +69,6 @@ class MC4WP_Admin {
 
 		// register settings
 		register_setting( 'mc4wp_settings', 'mc4wp', array( $this, 'save_general_settings' ) );
-		register_setting( 'mc4wp_integrations_settings', 'mc4wp_integrations', array( $this, 'save_integration_settings' ) );
 
 		// Load upgrader
 		$this->init_upgrade_routines();
@@ -111,7 +111,6 @@ class MC4WP_Admin {
 	 */
 	public function register_dashboard_widgets() {
 
-		// @todo allow for this capability to be filtered
 		if( ! $this->is_user_authorized() ) {
 			return false;
 		}
@@ -128,12 +127,8 @@ class MC4WP_Admin {
 
 	/**
 	 * Upgrade routine
-	 *
-	 * @ignore
 	 */
 	private function init_upgrade_routines() {
-
-		//update_option( 'mc4wp_version', '2.3' );
 
 		// upgrade routine for upgrade routine....
 		$previous_version = get_option( 'mc4wp_lite_version', 0 );
@@ -154,104 +149,7 @@ class MC4WP_Admin {
 	}
 
 	/**
-	 * Act on the "add form" form
-	 */
-	public function process_add_form() {
-
-		check_admin_referer( 'add_form', '_mc4wp_nonce' );
-
-		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
-		$form_content = include MC4WP_PLUGIN_DIR . 'config/default-form-content.php';
-		$form_id = wp_insert_post(
-			array(
-				'post_type' => 'mc4wp-form',
-				'post_status' => 'publish',
-				'post_title' => $form_data['name'],
-				'post_content' => $form_content,
-			)
-		);
-
-		update_post_meta( $form_id, '_mc4wp_settings', $form_data['settings'] );
-
-		// @todo allow for easy way to get admin url's
-		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) );
-		wp_safe_redirect(
-			add_query_arg(
-				array(
-					'page' => 'mailchimp-for-wp-forms',
-					'view' => 'edit-form',
-					'form_id' => $form_id
-				),
-				remove_query_arg( '_mc4wp_action' )
-			)
-		);
-		exit;
-	}
-
-	/**
-	 * Saves a form
-	 */
-	public function process_save_form( ) {
-
-		if( ! check_admin_referer( 'edit_form', '_mc4wp_nonce' ) ) {
-			wp_die( "Are you cheating?" );
-		}
-
-		$form_id = (int) $_POST['mc4wp_form_id'];
-		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
-		$form_settings = $form_data['settings'];
-		// @todo sanitize data
-
-		// get actual form id here since this might be a new form
-		// @todo prevent overriding existing posts using $_POST['mc4wp_form_id'] parameter
-		$form_id = wp_insert_post(
-			array(
-				'ID' => $form_id,
-				'post_type' => 'mc4wp-form',
-				'post_status' => 'publish',
-				'post_title' => $form_data['name'],
-				'post_content' => $form_data['content']
-			)
-		);
-
-		update_post_meta( $form_id, '_mc4wp_settings', $form_settings );
-
-		// save form messages in individual meta keys
-		foreach( $form_data['messages'] as $key => $message ) {
-			update_post_meta( $form_id, $key, $message );
-		}
-
-		// update default form id?
-		$default_form_id = (int) get_option( 'mc4wp_default_form_id', 0 );
-		if( empty( $default_form_id ) ) {
-			update_option( 'mc4wp_default_form_id', $form_id );
-		}
-
-		// update form stylesheets
-		// @todo this should loop through all forms and find used stylesheets, otherwise this would fill up indefinitely
-		if( ! empty( $form_settings['css'] ) ) {
-
-			$stylesheet = $form_settings['css'];
-			if( strpos( $stylesheet, 'form-theme' ) !== false ) {
-				$stylesheet = 'form-themes';
-			}
-			$stylesheets = (array) get_option( 'mc4wp_form_stylesheets', array() );
-
-			if( ! in_array( $stylesheet, $stylesheets ) ) {
-				$stylesheets[] = $stylesheet;
-			}
-
-			update_option( 'mc4wp_form_stylesheets', $stylesheets );
-		}
-
-		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) );
-	}
-
-
-	/**
 	 * Renew MailChimp lists cache
-	 *
-	 * @ignore
 	 */
 	public function renew_lists_cache() {
 		$this->mailchimp->empty_cache();
@@ -261,14 +159,10 @@ class MC4WP_Admin {
 		if( ! empty( $lists ) ) {
 			$this->messages->flash( __( 'Success! The cached configuration for your MailChimp lists has been renewed.', 'mailchimp-for-wp' ), 'updated' );
 		}
-
-
 	}
 
 	/**
 	 * Load the plugin translations
-	 *
-	 * @ignore
 	 */
 	private function load_translations() {
 		// load the plugin text domain
@@ -277,8 +171,6 @@ class MC4WP_Admin {
 
 	/**
 	 * Customize texts throughout WP Admin
-	 *
-	 * @ignore
 	 */
 	public function customize_admin_texts() {
 		$texts = new MC4WP_Admin_Texts( $this->plugin_file );
@@ -286,44 +178,7 @@ class MC4WP_Admin {
 	}
 
 
-	/**
-	 * Redirect to correct form action
-	 *
-	 * @ignore
-	 */
-	public function redirect_to_form_action() {
 
-		if( ! empty( $_GET['view'] ) ) {
-			return;
-		}
-
-		// query first available form and go there
-		$posts = get_posts(
-			array(
-				'post_type' => 'mc4wp-form',
-				'post_status' => 'publish',
-				'numberposts' => 1
-			)
-		);
-
-		// if we have a post, go to the "edit form" screen
-		if( $posts ) {
-			$post = array_pop( $posts );
-			$edit_form_url = add_query_arg(
-				array(
-					'view' => 'edit-form',
-					'form_id' => $post->ID
-				)
-			);
-			wp_safe_redirect( $edit_form_url );
-			exit;
-		}
-
-		// we don't have a form yet, go to "add new" screen
-		$add_form_url = add_query_arg( array( 'view' => 'add-form' ) );
-		wp_safe_redirect( $add_form_url );
-		exit;
-	}
 
 	/**
 	 * Validates the General settings
@@ -353,51 +208,6 @@ class MC4WP_Admin {
 	}
 
 	/**
-	 * @todo perform some validation
-	 * @internal
-	 * @since 3.0
-	 * @param array $new_settings
-	 * @return array
-	 */
-	public function save_integration_settings( array $new_settings ) {
-
-		$integrations = mc4wp_get_integrations();
-		$current_settings = (array) get_option( 'mc4wp_integrations', array() );
-		$settings = array();
-
-		foreach( $integrations as $slug => $integration ) {
-			$settings[ $slug ] = $this->parse_integration_settings( $slug, $current_settings, $new_settings );
-		}
-
-		return $settings;
-	}
-
-	/**
-	 * @internal
-	 * @since 3.0
-	 * @param $slug
-	 * @param $current_settings
-	 * @param $new_settings
-	 *
-	 * @return array
-	 */
-	protected function parse_integration_settings( $slug, $current_settings, $new_settings ) {
-		$settings = array();
-
-		// start with current settings
-		if( ! empty( $current_settings[ $slug ] ) ) {
-			$settings = $current_settings[ $slug ];
-		}
-
-		// then, merge with new settings
-		if( ! empty( $new_settings[ $slug ] ) ) {
-			$settings = array_merge( $settings, $new_settings[ $slug ] );
-		}
-
-		return $settings;
-	}
-
-	/**
 	 * Load scripts and stylesheet on MailChimp for WP Admin pages
 	 *
 	 * @return bool
@@ -412,16 +222,18 @@ class MC4WP_Admin {
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		// css
-		wp_enqueue_style( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/css/admin-styles' . $suffix . '.css', array(), MC4WP_VERSION );
-		wp_enqueue_style( 'codemirror', MC4WP_PLUGIN_URL . 'assets/css/codemirror.css', array(), MC4WP_VERSION );
+		wp_register_style( 'codemirror', MC4WP_PLUGIN_URL . 'assets/css/codemirror.css', array(), MC4WP_VERSION );
+		wp_register_style( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/css/admin-styles' . $suffix . '.css', array( 'codemirror' ), MC4WP_VERSION );
+		wp_enqueue_style( 'mc4wp-admin' );
+
 
 		// js
+		// @todo: get rid of jQuery here
 		wp_register_script( 'es5-shim', MC4WP_PLUGIN_URL . 'assets/js/third-party/es5-shim.min.js', array(), MC4WP_VERSION );
 		wp_register_script( 'codemirror', MC4WP_PLUGIN_URL . 'assets/js/third-party/codemirror-compressed.js', array(), MC4WP_VERSION, true );
 		wp_register_script( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array( 'jquery', 'es5-shim', 'codemirror' ), MC4WP_VERSION, true );
 
-		// todo: get rid of jQuery here
-		wp_enqueue_script( array( 'jquery', 'codemirror', 'mc4wp-admin' ) );
+		wp_enqueue_script( 'mc4wp-admin' );
 		wp_localize_script( 'mc4wp-admin', 'mc4wp_vars',
 			array(
 				'mailchimp' => array(
@@ -471,8 +283,6 @@ class MC4WP_Admin {
 
 	/**
 	 * Register the setting pages and their menu items
-	 *
-	 * @internal
 	 */
 	public function build_menu() {
 		$required_cap = $this->get_required_capability();
@@ -483,20 +293,7 @@ class MC4WP_Admin {
 				'text' => __( 'MailChimp', 'mailchimp-for-wp' ),
 				'slug' => '',
 				'callback' => array( $this, 'show_generals_setting_page' ),
-			),
-			'integrations' => array(
-				'title' => __( 'Integrations', 'mailchimp-for-wp' ),
-				'text' => __( 'Integrations', 'mailchimp-for-wp' ),
-				'slug' => 'integrations',
-				'callback' => array( $this, 'show_integrations_page' ),
-			),
-			'forms' => array(
-				'title' => __( 'Forms', 'mailchimp-for-wp' ),
-				'text' => __( 'Forms', 'mailchimp-for-wp' ),
-				'slug' => 'forms',
-				'callback' => array( $this, 'show_forms_page' ),
-				'load_callback' => array( $this, 'redirect_to_form_action' )
-			),
+			)
 		);
 
 		/**
@@ -513,7 +310,7 @@ class MC4WP_Admin {
 		 *     'callback' => 'my_page_function'
 		 * );
 		 */
-		$menu_items = (array) apply_filters( 'mc4wp_menu_items', $menu_items );
+		$menu_items = (array) apply_filters( 'mc4wp_admin_menu_items', $menu_items );
 
 		// add top menu item
 		add_menu_page( 'MailChimp for WP', 'MailChimp for WP', $required_cap, 'mailchimp-for-wp', array( $this, 'show_generals_setting_page' ), MC4WP_PLUGIN_URL . 'assets/img/icon.png', '99.68491' );
@@ -556,107 +353,5 @@ class MC4WP_Admin {
 		require MC4WP_PLUGIN_DIR . 'includes/views/general-settings.php';
 	}
 
-	/**
-	 * Show the Integration Settings page
-	 *
-	 * @internal
-	 */
-	public function show_integrations_page() {
-
-		if( ! empty( $_GET['integration'] ) ) {
-			$this->show_integration_settings_page( $_GET['integration'] );
-			return;
-		}
-
-		$integrations = mc4wp_get_integrations();
-
-		require MC4WP_PLUGIN_DIR . 'includes/views/integrations.php';
-	}
-
-	/**
-	 * @param string $slug
-	 *
-	 * @internal
-	 */
-	public function show_integration_settings_page( $slug ) {
-
-		try {
-			$integration = mc4wp_get_integration( $slug );
-		} catch( Exception $e ) {
-			echo sprintf( '<h3>Integration not found.</h3><p>No integration with slug <strong>%s</strong> was found.</p>', $slug );
-			return;
-		}
-
-		$opts = $integration->options;
-		$lists = $this->mailchimp->get_lists();
-
-		require MC4WP_PLUGIN_DIR . 'includes/views/integration-settings.php';
-	}
-
-	/**
-	 * Show the Forms Settings page
-	 *
-	 * @internal
-	 */
-	public function show_forms_page() {
-
-		/**
-		 * @internal
-		 */
-		do_action( 'mc4wp_admin_show_forms_page' );
-
-		// if a view is set in the URl, go there.
-		$view = ( ! empty( $_GET['view'] ) ) ? str_replace( '-', '_', $_GET['view'] ) : '';
-		$view_method = 'show_forms_' . $view. '_page';
-		if( method_exists( $this, $view_method ) ) {
-			return call_user_func( array( $this, $view_method ) );
-		}
-	}
-
-	/**
-	 * Show the "Edit Form" page
-	 *
-	 * @internal
-	 */
-	public function show_forms_edit_form_page() {
-		$form_id = ( ! empty( $_GET['form_id'] ) ) ? (int) $_GET['form_id'] : 0;
-		$lists = $this->mailchimp->get_lists();
-
-		try{
-			$form = mc4wp_get_form( $form_id );
-		} catch( Exception $e ) {
-			echo '<h3>' . __( "Form not found.", 'mailchimp-for-wp' ) . '</h3>';
-			echo '<p>' . $e->getMessage() . '</p>';
-			return;
-		}
-
-		$opts = $form->settings;
-		$active_tab = ( isset( $_GET['tab'] ) ) ? $_GET['tab'] : 'fields';
-		$previewer = new MC4WP_Form_Previewer( $form->ID );
-
-		require MC4WP_PLUGIN_DIR . 'includes/views/edit-form.php';
-	}
-
-	/**
-	 * Shows the "Add Form" page
-	 *
-	 * @internal
-	 */
-	public function show_forms_add_form_page() {
-		$lists = $this->mailchimp->get_lists();
-		require MC4WP_PLUGIN_DIR . 'includes/views/add-form.php';
-	}
-
-	/**
-	 * Get URL for a tab on the current page.
-	 *
-	 * @since 3.0
-	 * @internal
-	 * @param $tab
-	 * @return string
-	 */
-	public function tab_url( $tab ) {
-		return add_query_arg( array( 'tab' => $tab ), remove_query_arg( 'tab' ) );
-	}
 
 }

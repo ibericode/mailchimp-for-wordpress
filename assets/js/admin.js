@@ -36,6 +36,13 @@
 	}
 
 	// convenience methods
+	window.mc4wp.toggleElement = function(selector) {
+		var elements = document.querySelectorAll(selector);
+		for( var i=0; i<elements.length;i++){
+			var show = elements[i].clientHeight <= 0;
+			elements[i].style.display = show ? '' : 'none';
+		}
+	}
 	window.m = m;
 	window.mc4wp_register_field = fields.register;
 	window.mc4wp_deregister_field = fields.deregister;

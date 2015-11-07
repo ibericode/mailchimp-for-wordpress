@@ -40,5 +40,5 @@
 </div>
 
 <div id="mc4wp-add-field-help" style="display: none;">
-	<?php include( dirname( __FILE__ ) . '/../parts/add-fields-help.php' ); ?>
+	<?php include dirname( __FILE__ ) . '/../parts/add-fields-help.php'; ?>
 </div>

@@ -60,6 +60,6 @@
 	</div>
 
 
-	<?php include 'parts/admin-footer.php'; ?>
+	<?php include MC4WP_PLUGIN_DIR . 'includes/views/parts/admin-footer.php'; ?>
 
 </div>

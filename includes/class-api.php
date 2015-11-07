@@ -62,6 +62,7 @@ class MC4WP_API {
 	 * @return bool
 	 */
 	private function show_error( $message ) {
+
 		if( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
 			return false;
 		}

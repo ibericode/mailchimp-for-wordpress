@@ -78,3 +78,21 @@ function mc4wp_sanitize_deep( $value ) {
 
 	return $value;
 }
+
+/**
+ * @param $name
+ * @param $instance
+ */
+function mc4wp_register_instance( $name, $instance ) {
+	return MC4WP_Service_Container::instance()->register( $name, $instance );
+}
+
+/**
+ * @param $name
+ *
+ * @return mixed
+ * @throws Exception
+ */
+function mc4wp_get_instance( $name ) {
+	return MC4WP_Service_Container::instance()->get( $name );
+}

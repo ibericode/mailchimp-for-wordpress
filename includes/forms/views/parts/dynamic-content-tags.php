@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or exit;
 
-$tags = MC4WP_Form_Manager::instance()->tags->get();
+$tags = mc4wp_get_instance('forms')->tags->get();
 ?>
 <h2><?php _e( 'Add dynamic form variable', 'mailchimp-for-wp' ); ?></h2>
 <p>

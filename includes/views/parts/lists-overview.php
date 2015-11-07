@@ -1,5 +1,5 @@
-<h3><?php _e( 'MailChimp Data' ,'mailchimp-for-wp' ); ?></h3>
-<p><?php _e( 'The table below shows your MailChimp lists data. If you applied changes to your MailChimp lists, please use the following button to renew your cached data.', 'mailchimp-for-wp' ); ?></p>
+<h3><?php _e( 'Your MailChimp Account' ,'mailchimp-for-wp' ); ?></h3>
+<p><?php _e( 'The table below shows your MailChimp lists and their details. If you just applied changes to your MailChimp lists, please use the following button to renew the cached lists configuration.', 'mailchimp-for-wp' ); ?></p>
 
 <form method="post" action="">
 	<input type="hidden" name="_mc4wp_action" value="empty_lists_cache" />
@@ -13,79 +13,91 @@
 	<?php if( empty( $lists ) ) { ?>
 		<p><?php _e( 'No lists were found in your MailChimp account', 'mailchimp-for-wp' ); ?>.</p>
 	<?php } else {
-
 		printf( '<p>' . __( 'A total of %d lists were found in your MailChimp account.', 'mailchimp-for-wp' ) . '</p>', count( $lists ) );
 
-		foreach ( $lists as $list ) { ?>
+		echo '<table class="widefat striped">';
 
-			<table class="widefat" cellspacing="0">
-				<tr>
-					<td colspan="2"><h3><?php echo esc_html( $list->name ); ?></h3></td>
-				</tr>
-				<tr>
-					<th width="150">List ID</th>
-					<td><?php echo esc_html( $list->id ); ?></td>
-				</tr>
-				<tr>
-					<th># of subscribers</th>
-					<td><?php echo esc_html( $list->subscriber_count ); ?></td>
-				</tr>
-				<tr>
-					<th>Fields</th>
-					<td style="padding: 0; border: 0;">
-						<?php if ( ! empty( $list->merge_vars ) && is_array( $list->merge_vars ) ) { ?>
-							<table class="widefat fixed" cellspacing="0">
-								<thead>
-								<tr>
-									<th>Name</th>
-									<th>Tag</th>
-									<th>Type</th>
-								</tr>
-								</thead>
-								<?php foreach ( $list->merge_vars as $merge_var ) { ?>
-									<tr title="<?php printf( __( '%s (%s) with field type %s.', 'mailchimp-for-wp' ), esc_html( $merge_var->name ), esc_html( $merge_var->tag ), esc_html( $merge_var->field_type ) ); ?>">
-										<td><?php echo esc_html( $merge_var->name );
-											if ( $merge_var->req ) {
-												echo '<span style="color:red;">*</span>';
-											} ?></td>
-										<td><code><?php echo esc_html( $merge_var->tag ); ?></code></td>
-										<td><?php echo esc_html( $merge_var->field_type ); ?></td>
-									</tr>
-								<?php } ?>
-							</table>
-						<?php } ?>
-					</td>
-				</tr>
-				<?php if ( ! empty( $list->interest_groupings ) && is_array( $list->interest_groupings ) ) { ?>
-					<tr>
-						<th>Groupings</th>
-						<td style="padding: 0; border: 0;">
-							<table class="widefat fixed" cellspacing="0">
-								<thead>
-								<tr>
-									<th>Name</th>
-									<th>Groups</th>
-								</tr>
-								</thead>
-								<?php foreach ( $list->interest_groupings as $grouping ) { ?>
-									<tr title="<?php esc_attr( printf( __( '%s (ID: %s) with type %s.', 'mailchimp-for-wp' ), $grouping->name, $grouping->id, $grouping->form_field ) ); ?>">
-										<td><?php echo esc_html( $grouping->name ); ?></td>
-										<td>
-											<ul class="ul-square">
-												<?php foreach ( $grouping->groups as $group ) { ?>
-													<li><?php echo esc_html( $group->name ); ?></li>
-												<?php } ?>
-											</ul>
-										</td>
-									</tr>
-								<?php } ?>
-							</table>
+		$headings = array(
+			__( 'List Name', 'mailchimp-for-wp' ),
+			__( 'ID', 'mailchimp-for-wp' ),
+			__( 'Subscribers', 'mailchimp-for-wp' )
+		);
 
-						</td>
-					</tr>
-				<?php } ?>
-			</table>
-			<br style="margin: 20px 0;" />
+		echo '<thead>';
+		echo '<tr>';
+		foreach( $headings as $heading ) {
+			echo sprintf( '<th>%s</th>', $heading );
+		}
+		echo '</tr>';
+		echo '</thead>';
+
+		foreach ( $lists as $list ) {
+			/** @var MC4WP_MailChimp_List $list */
+			echo '<tr>';
+			echo sprintf( '<td><a href="%s">%s</a><span class="row-actions alignright"><a href="javascript:mc4wp.toggleElement(\'.list-%s-details\')"">View details</a></span></td>', 'https://admin.mailchimp.com/lists/members/?id=' . $list->web_id, esc_html( $list->name ), $list->id );
+			echo sprintf( '<td>%s</td>', esc_html( $list->id ) );
+			echo sprintf( '<td>%s</td>', esc_html( $list->subscriber_count ) );
+			echo '</tr>';
+
+			echo sprintf( '<tr class="list-details list-%s-details" style="display: none;">', $list->id );
+			echo '<td colspan="3" style="padding: 0 20px 40px;">';
+
+			// Fields
+			if ( ! empty( $list->merge_vars ) ) { ?>
+				<h3>Fields</h3>
+				<table class="widefat striped">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Tag</th>
+							<th>Type</th>
+						</tr>
+					</thead>
+					<?php foreach ( $list->merge_vars as $merge_var ) { ?>
+						<tr title="<?php printf( __( '%s (%s) with field type %s.', 'mailchimp-for-wp' ), esc_html( $merge_var->name ), esc_html( $merge_var->tag ), esc_html( $merge_var->field_type ) ); ?>">
+							<td><?php echo esc_html( $merge_var->name );
+								if ( $merge_var->req ) {
+									echo '<span style="color:red;">*</span>';
+								} ?></td>
+							<td><code><?php echo esc_html( $merge_var->tag ); ?></code></td>
+							<td><?php echo esc_html( $merge_var->field_type ); ?></td>
+						</tr>
+					<?php } ?>
+				</table>
+			<?php }
+
+			// Groupings
+			if ( ! empty( $list->groupings ) ) { ?>
+
+				<h3>Groupings</h3>
+				<table class="widefat striped">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Groups</th>
+						</tr>
+					</thead>
+					<?php foreach ( $list->groupings as $grouping ) { ?>
+						<tr title="<?php esc_attr( printf( __( '%s (ID: %s) with type %s.', 'mailchimp-for-wp' ), $grouping->name, $grouping->id, $grouping->field_type ) ); ?>">
+							<td><?php echo esc_html( $grouping->name ); ?></td>
+							<td>
+								<ul class="ul-square">
+									<?php foreach ( $grouping->groups as $group ) { ?>
+										<li><?php echo esc_html( $group ); ?></li>
+									<?php } ?>
+								</ul>
+							</td>
+						</tr>
+					<?php } ?>
+				</table>
+
+			<?php }
+
+			echo '</td>';
+			echo '</tr>';
+
+			?>
 		<?php } // end foreach $lists
+		echo '</table>';
 	} // end if empty ?>
 </div>

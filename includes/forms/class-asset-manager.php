@@ -58,7 +58,11 @@ class MC4WP_Form_Asset_Manager {
 		// register placeholder script, which will later be enqueued for IE only
 		wp_register_script( 'mc4wp-placeholders', MC4WP_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), MC4WP_VERSION, true );
 
-		// fire action hook for add-ons to hook into
+		/**
+		 * Runs right after JavaScript assets for forms have been registered.
+		 *
+		 * @param string $suffix
+		 */
 		do_action( 'mc4wp_register_form_scripts', $suffix );
 	}
 
@@ -170,7 +174,7 @@ class MC4WP_Form_Asset_Manager {
 	*/
 	public function print_javascript() {
 
-		// no forms on this page? HURRAY, no scripts either then!
+		// don't print any scripts if this page has no forms
 		if( empty( $this->output_manager->printed_forms ) ) {
 			return false;
 		}
@@ -198,6 +202,11 @@ class MC4WP_Form_Asset_Manager {
 		echo '})();';
 		echo '</script>';
 
+		/**
+		 * Runs right after inline JavaScript is printed, just before the closing </body> tag.
+		 *
+		 * This function will only run if the current page contains at least one form.
+		 */
 		do_action( 'mc4wp_print_forms_javascript' );
 	}
 

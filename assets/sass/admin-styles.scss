@@ -43,53 +43,22 @@
 		border-left: 1px solid #ccc;
 	}
 
+	.sidebar h3,
+	.sidebar h4 {
+		font-size: 16px;
+		margin-bottom: 0;
+	}
+
+	.sidebar > div {
+		border-bottom: 1px solid #e4e4e4;
+		margin-bottom: 20px;
+		padding-bottom: 20px;
+
+		&:last-of-type {
+			border-bottom: 0;
+		}
+	}
+
 }
 
 @import "overlay";
-
-
-.pro-feature,
-.mc4wp-settings tr.pro-feature th,
-.mc4wp-settings tr.pro-feature td{
-	color:#aaa;
-}
-
-
-.mc4wp-notice{
-	padding: 6px 12px;
-	color: #31708f;
-	background: #d9edf7;
-	border: 1px solid #bce8f1;
-	margin: 1em 0 !important;
-}
-
-.mc4wp-help tr:hover {
-	background-color: #ddd;
-}
-
-/** Lists Overview */
-.mc4wp-lists-overview {
-	border-collapse: collapse;
-	background: white;
-	padding: 20px;
-	max-height: 500px;
-	overflow-y: scroll;
-}
-
-.mc4wp-lists-overview table {
-	border: 0;
-}
-
-.mc4wp-lists-overview th {
-	font-weight: bold;
-	vertical-align: top;
-}
-
-.mc4wp-lists-overview th,
-.mc4wp-lists-overview td {
-	border: 1px solid #efefef;
-}
-
-.mc4wp-lists-overview h3{
-	margin: 0 !important;
-}

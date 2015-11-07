@@ -19,22 +19,6 @@ class MC4WP_Visitor_Tracking {
 	const COOKIE_NAME = 'mc4wp';
 
 	/**
-	 * @var MC4WP_Visitor_Tracking
-	 */
-	protected static $instance;
-
-	/**
-	 * @return MC4WP_Visitor_Tracking
-	 */
-	public static function instance() {
-		if( ! self::$instance instanceof MC4WP_Visitor_Tracking ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
-	}
-
-	/**
 	 * Add hooks
 	 *
 	 * @todo Hook into integration success as well

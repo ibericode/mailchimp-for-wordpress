@@ -5,12 +5,12 @@
  *
  * @todo Test this class on WP MultiSite
  * @since 3.0
- * @internal
+ * @ignore
  */
 class MC4WP_Form_Previewer {
 
 	/**
-	 * @var int
+	 * @var int The form ID to show in the preview page.
 	 */
 	public $form_id = 0;
 
@@ -116,7 +116,7 @@ class MC4WP_Form_Previewer {
 	 * @return string
 	 */
 	public function set_page_content( $content ) {
-		return sprintf(  '[mc4wp_form id="%d"]', $this->form_id );
+		return mc4wp_show_form( $this->form_id );
 	}
 
 }

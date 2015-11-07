@@ -17,6 +17,9 @@
 				<?php printf( __( '%s integration', 'mailchimp-for-wp' ), $integration->name ); ?>
 			</h1>
 
+			<h2 style="display: none;"></h2>
+			<?php settings_errors(); ?>
+
 			<p>
 				<?php echo $integration->description; ?>
 			</p>
@@ -193,9 +196,9 @@
 
 	</div>
 
-	<?php if( isset( $_GET['old'] ) ) { ?>
-
-
+	<?php if( isset( $_GET['old'] ) ) {
+		// @todo get rid of this
+		?>
 
 		<tr valign="top" id="woocommerce-settings" <?php if( ! $general_opts['show_at_woocommerce_checkout'] ) { ?>style="display: none;"<?php } ?>>
 			<th scope="row"><?php _e( 'WooCommerce checkbox position', 'mailchimp-for-wp' ); ?></th>
