@@ -91,7 +91,7 @@ class MC4WP_Form {
 	/**
 	 * @var array Array of the data that was submitted, in field => value pairs.
 	 */
-	protected $data = array();
+	public $data = array();
 
 	/**
 	 * @var array
@@ -553,23 +553,5 @@ class MC4WP_Form {
 	 */
 	public function get_required_fields() {
 		return explode( ',', $this->settings['required_fields'] );
-	}
-
-	/**
-	 * Get field data in field name => field value pairs.
-	 *
-	 * @return array
-	 */
-	public function get_data() {
-		return $this->data;
-	}
-
-	/**
-	 * Set field data for this form.
-	 *
-	 * @param $data
-	 */
-	public function set_data( $data ) {
-		$this->data = $data;
 	}
 }
