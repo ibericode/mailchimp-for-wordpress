@@ -254,4 +254,83 @@
   bottom: 0;
   top: 0; }
 
+.lucy {
+  position: fixed;
+  bottom: 0;
+  right: 100px;
+  background: #cc4444;
+  padding: 20px;
+  max-width: 280px;
+  z-index: 999;
+  border: 1px solid #333;
+  border-radius: 5px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 0; }
+  .lucy.open {
+    width: 280px; }
+  .lucy .close {
+    position: absolute;
+    right: 20px;
+    top: -32px;
+    height: 32px;
+    background: #cc4444;
+    color: white;
+    padding: 5px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom: 0;
+    box-sizing: border-box;
+    cursor: pointer; }
+  .lucy form {
+    position: relative; }
+    .lucy form [type="submit"] {
+      display: none; }
+    .lucy form input {
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+      padding-right: 20px; }
+    .lucy form .loader {
+      position: absolute;
+      right: 10px;
+      top: 0;
+      bottom: 0;
+      color: #ccc;
+      vertical-align: middle;
+      line-height: 55%;
+      font-size: 24px; }
+  .lucy a {
+    color: white;
+    display: block; }
+  .lucy .lucy--button {
+    display: block;
+    text-align: center;
+    color: white;
+    font-size: 16px;
+    cursor: pointer; }
+  .lucy .lucy--search-results a {
+    margin: 2px 0;
+    padding: 0; }
+  .lucy .lucy--links {
+    margin: 20px -20px 0;
+    background: white;
+    padding: 20px; }
+    .lucy .lucy--links a {
+      color: #0073aa;
+      width: 100%;
+      margin-bottom: 6px;
+      padding-bottom: 6px;
+      text-decoration: none;
+      border-bottom: 1px dotted #ccc; }
+      .lucy .lucy--links a:last-of-type {
+        padding-bottom: 0;
+        margin-bottom: 0;
+        border-bottom: 0; }
+  @media (max-width: 280px) {
+    .lucy {
+      width: 100%; } }
+
 /*# sourceMappingURL=admin-styles.css.map */

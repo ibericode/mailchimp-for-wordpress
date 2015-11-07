@@ -9,6 +9,7 @@
 	var FieldHelper = require('./admin/field-helper.js');
 	var FieldsFactory = require('./admin/fields-factory.js');
 	var m = require('../third-party/mithril.js');
+	var Lucy = require('./admin/lucy.js');
 
 	// vars
 	var context = document.getElementById('mc4wp-admin');
@@ -34,6 +35,9 @@
 		var fieldHelper = new FieldHelper( m, tabs, formEditor, fields );
 		m.mount( document.getElementById( 'mc4wp-field-wizard'), fieldHelper );
 	}
+
+	// Lucy!
+	var lucy = new Lucy( 'https://mc4wp.com/', 'DA9YFSTRKA',  'ce1c93fad15be2b70e0aa0b1c2e52d8e', 'wpkb_articles' );
 
 	// expose some things
 	window.mc4wp = {
