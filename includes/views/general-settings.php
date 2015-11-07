@@ -68,14 +68,12 @@ defined( 'ABSPATH' ) or exit;
 				<?php submit_button(); ?>
 			</form>
 
-			<hr />
-
 			<?php
 
 			do_action( 'mc4wp_admin_after_general_settings' );
 
 			if( $connected ) {
-
+				echo '<hr />';
 				include dirname( __FILE__ ) . '/parts/lists-overview.php';
 			}
 
