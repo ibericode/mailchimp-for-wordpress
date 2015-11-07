@@ -15,7 +15,8 @@
 	var context = document.getElementById('mc4wp-admin');
 	var formContentTextarea = document.getElementById('mc4wp-form-content');
 	var tabs = require ('./admin/tabs.js')(context);
-	var settings = require('./admin/settings.js')(context);
+	var helpers = require('./admin/helpers.js');
+	var settings = require('./admin/settings.js')(context, helpers);
 	var fields = require('./admin/fields.js')(m);
 
 	if( formContentTextarea ) {
@@ -35,19 +36,15 @@
 		m.mount( document.getElementById( 'mc4wp-field-wizard'), fieldHelper );
 	}
 
-	// convenience methods
-	window.mc4wp.toggleElement = function(selector) {
-		var elements = document.querySelectorAll(selector);
-		for( var i=0; i<elements.length;i++){
-			var show = elements[i].clientHeight <= 0;
-			elements[i].style.display = show ? '' : 'none';
-		}
-	}
+	// expose some things
+	window.mc4wp = {
+		helpers: helpers
+	};
 	window.m = m;
 	window.mc4wp_register_field = fields.register;
 	window.mc4wp_deregister_field = fields.deregister;
 })();
-},{"../third-party/mithril.js":15,"./admin/field-helper.js":5,"./admin/fields-factory.js":6,"./admin/fields.js":7,"./admin/form-editor.js":8,"./admin/form-watcher.js":9,"./admin/settings.js":11,"./admin/tabs.js":12}],2:[function(require,module,exports){
+},{"../third-party/mithril.js":16,"./admin/field-helper.js":5,"./admin/fields-factory.js":6,"./admin/fields.js":7,"./admin/form-editor.js":8,"./admin/form-watcher.js":9,"./admin/helpers.js":10,"./admin/settings.js":12,"./admin/tabs.js":13}],2:[function(require,module,exports){
 var rows = function(m) {
 	'use strict';
 
@@ -392,7 +389,7 @@ var g = function(m) {
 };
 
 module.exports = g;
-},{"../../third-party/beautify-html.js":13,"../../third-party/render.js":16}],5:[function(require,module,exports){
+},{"../../third-party/beautify-html.js":14,"../../third-party/render.js":17}],5:[function(require,module,exports){
 var FieldHelper = function(m,tabs, editor, fields) {
 	'use strict';
 
@@ -514,7 +511,7 @@ var FieldHelper = function(m,tabs, editor, fields) {
 };
 
 module.exports = FieldHelper;
-},{"./field-forms.js":3,"./field-generator.js":4,"./overlay.js":10}],6:[function(require,module,exports){
+},{"./field-forms.js":3,"./field-generator.js":4,"./overlay.js":11}],6:[function(require,module,exports){
 var FieldFactory = function(settings, fields) {
 	'use strict';
 
@@ -1004,21 +1001,86 @@ var FormWatcher = function(editor, settings, fields) {
 
 module.exports = FormWatcher;
 },{}],10:[function(require,module,exports){
+'use strict';
+
+var helpers = {};
+
+helpers.toggleElement = function(selector) {
+	var elements = document.querySelectorAll(selector);
+	for( var i=0; i<elements.length;i++){
+		var show = elements[i].clientHeight <= 0;
+		elements[i].style.display = show ? '' : 'none';
+	}
+};
+
+helpers.bindEventToElement = function(element,event,handler) {
+	if ( element.addEventListener) {
+		element.addEventListener(event, handler);
+	} else if (element.attachEvent)  {
+		element.attachEvent('on' + event, handler);
+	}
+};
+
+helpers.bindEventToElements = function( elements, event, handler ) {
+	Array.prototype.forEach.call( elements, function(element) {
+		helpers.bindEventToElement(element,event,handler);
+	});
+};
+
+/**
+ * Showif.js
+ */
+(function() {
+	var showIfElements = document.querySelectorAll('[data-showif]');
+
+	// dependent elements
+	Array.prototype.forEach.call( showIfElements, function(element) {
+		var config = JSON.parse( element.getAttribute('data-showif') );
+		var parentElements = document.querySelectorAll('[name="'+ config.element +'"]');
+		var inputs = element.querySelectorAll('input');
+
+		function toggleElement() {
+			// if this is called for radio or checkboxes, we require it to be checked to count the "value".
+			var conditionMet = ( typeof( this.checked ) === "undefined" || this.checked ) &&  this.value == config.value;
+			element.style.display = conditionMet ? '' : 'none';
+
+			// disable input fields
+			Array.prototype.forEach.call( inputs, function(inputElement) {
+				inputElement.disabled = !conditionMet;
+			});
+		}
+
+		// find checked element and call toggleElement function
+		Array.prototype.forEach.call( parentElements, function( parentElement ) {
+			toggleElement.call(parentElement);
+		});
+
+		// bind on all changes
+		helpers.bindEventToElements(parentElements, 'change', toggleElement);
+	});
+})();
+
+module.exports = helpers;
+},{}],11:[function(require,module,exports){
 var overlay = function( m ) {
 	'use strict';
 
-	return function (content, onclose) {
+	var _onCloseCallback;
 
-		function onKeyDown(e) {
-			if (e.keyCode !== 27) return;
-			onclose();
+	function onKeyDown(e) {
+		if (e.keyCode == 27 && _onCloseCallback ) {
+			_onCloseCallback();
 		}
+	}
 
-		if (window.addEventListener) {
-			window.addEventListener('keydown', onKeyDown);
-		} else if (el.attachEvent) {
-			window.attachEvent('keydown', onKeyDown);
-		}
+	if (window.addEventListener) {
+		window.addEventListener('keydown', onKeyDown);
+	} else if (el.attachEvent) {
+		window.attachEvent('keydown', onKeyDown);
+	}
+
+	return function (content, onCloseCallback) {
+		_onCloseCallback = onCloseCallback;
 
 		return [
 			m("div.overlay", [
@@ -1027,7 +1089,7 @@ var overlay = function( m ) {
 					// close icon
 					m('span.close.dashicons.dashicons-no', {
 						title  : "Click to close the overlay.",
-						onclick: onclose
+						onclick: onCloseCallback
 					}),
 
 					content
@@ -1037,15 +1099,15 @@ var overlay = function( m ) {
 			// overlay background
 			m("div.overlay-background", {
 				title  : "Click to close the overlay.",
-				onclick: onclose
+				onclick: onCloseCallback
 			})
 		];
 	};
 };
 
 module.exports = overlay;
-},{}],11:[function(require,module,exports){
-var Settings = function(context) {
+},{}],12:[function(require,module,exports){
+var Settings = function(context, helpers) {
 	'use strict';
 
 	var EventEmitter = require('../../third-party/event-emitter.js');
@@ -1053,52 +1115,8 @@ var Settings = function(context) {
 	// vars
 	var events = new EventEmitter();
 	var listInputs = context.querySelectorAll('.mc4wp-list-input');
-	var proFeatures = context.querySelectorAll('.pro-feature, .pro-feature label, .pro-feature input');
-	var showIfElements = context.querySelectorAll('[data-showif]');
 	var lists = mc4wp_vars.mailchimp.lists;
 	var selectedLists = [];
-
-	function initShowIf() {
-		// dependent elements
-		Array.prototype.forEach.call( showIfElements, function(element) {
-			var config = JSON.parse( element.dataset.showif );
-			var parentElements = context.querySelectorAll('[name="'+ config.element +'"]');
-			var inputs = element.querySelectorAll('input');
-
-			function toggleElement() {
-				// if this is called for radio or checkboxes, we require it to be checked to count the "value".
-				var conditionMet = ( typeof( this.checked ) === "undefined" || this.checked ) &&  this.value == config.value;
-				element.style.display = conditionMet ? '' : 'none';
-
-				// disable input fields
-				Array.prototype.forEach.call( inputs, function(inputElement) {
-					inputElement.disabled = !conditionMet;
-				});
-			}
-
-			// find checked element and call toggleElement function
-			Array.prototype.forEach.call( parentElements, function( parentElement ) {
-				toggleElement.call(parentElement);
-			});
-
-			// bind on all changes
-			bindEventToElements(parentElements, 'change', toggleElement);
-		});
-	}
-
-	function bindEventToElement(element,event,handler) {
-		if ( element.addEventListener) {
-			element.addEventListener(event, handler);
-		} else if (element.attachEvent)  {
-			element.attachEvent('on' + event, handler);
-		}
-	}
-
-	function bindEventToElements( elements, event, handler ) {
-		Array.prototype.forEach.call( elements, function(element) {
-			bindEventToElement(element,event,handler);
-		});
-	}
 
 	// functions
 	function getSelectedListsWhere(searchKey,searchValue) {
@@ -1128,7 +1146,7 @@ var Settings = function(context) {
 		var rows = document.querySelectorAll('.lists--only-selected > *');
 		Array.prototype.forEach.call(rows, function(el) {
 
-			var listId = el.dataset.id;
+			var listId = el.getAttribute('data-list-id');
 			var isSelected = getSelectedListsWhere('id', listId).length > 0;
 
 			if( isSelected ) {
@@ -1140,21 +1158,9 @@ var Settings = function(context) {
 		});
 	}
 
-	function showProFeatureNotice() {
-		// prevent checking of radio buttons
-		if( typeof this.checked === 'boolean' ) {
-			this.checked = false;
-		}
-
-		alert( mc4wp_vars.l10n.pro_only );
-	}
-
 	events.on('selectedLists.change', toggleVisibleLists);
-	bindEventToElements(listInputs,'change',updateSelectedLists);
-	bindEventToElements(proFeatures,'click',showProFeatureNotice);
-
+	helpers.bindEventToElements(listInputs,'change',updateSelectedLists);
 	updateSelectedLists();
-	initShowIf();
 
 	return {
 		getSelectedLists: getSelectedLists,
@@ -1164,7 +1170,7 @@ var Settings = function(context) {
 };
 
 module.exports = Settings;
-},{"../../third-party/event-emitter.js":14}],12:[function(require,module,exports){
+},{"../../third-party/event-emitter.js":15}],13:[function(require,module,exports){
 // Tabs
 var Tabs = function(context) {
 
@@ -1241,7 +1247,7 @@ var Tabs = function(context) {
 
 	function switchTab(e) {
 
-		var tab = this.dataset.tab;
+		var tab = this.getAttribute('data-tab');
 		if( ! tab ) {
 			var urlParams = URL.parse( this.href );
 			if( typeof(urlParams.tab) === "undefined" ) {
@@ -1271,7 +1277,7 @@ var Tabs = function(context) {
 };
 
 module.exports = Tabs;
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 /*jshint curly:true, eqeqeq:true, laxbreak:true, noempty:false */
 /*
 
@@ -2088,7 +2094,7 @@ module.exports = Tabs;
 	}
 
 }());
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 /*!
  * EventEmitter v4.2.11 - git.io/ee
  * Unlicense - http://unlicense.org/
@@ -2563,7 +2569,7 @@ module.exports = Tabs;
 		exports.EventEmitter = EventEmitter;
 	}
 }.call(this));
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 var m = (function app(window, undefined) {
 	var OBJECT = "[object Object]", ARRAY = "[object Array]", STRING = "[object String]", FUNCTION = "function";
 	var type = {}.toString;
@@ -3724,7 +3730,7 @@ var m = (function app(window, undefined) {
 if (typeof module != "undefined" && module !== null && module.exports) module.exports = m;
 else if (typeof define === "function" && define.amd) define(function() {return m});
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 var VOID_TAGS = ['area', 'base', 'br', 'col', 'command', 'embed', 'hr',

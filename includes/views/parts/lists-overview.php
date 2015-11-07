@@ -34,7 +34,7 @@
 		foreach ( $lists as $list ) {
 			/** @var MC4WP_MailChimp_List $list */
 			echo '<tr>';
-			echo sprintf( '<td><a href="%s">%s</a><span class="row-actions alignright"><a href="javascript:mc4wp.toggleElement(\'.list-%s-details\')"">View details</a></span></td>', 'https://admin.mailchimp.com/lists/members/?id=' . $list->web_id, esc_html( $list->name ), $list->id );
+			echo sprintf( '<td><a href="%s">%s</a><span class="row-actions alignright"><a href="javascript:mc4wp.helpers.toggleElement(\'.list-%s-details\')"">View details</a></span></td>', 'https://admin.mailchimp.com/lists/members/?id=' . $list->web_id, esc_html( $list->name ), $list->id );
 			echo sprintf( '<td>%s</td>', esc_html( $list->id ) );
 			echo sprintf( '<td>%s</td>', esc_html( $list->subscriber_count ) );
 			echo '</tr>';

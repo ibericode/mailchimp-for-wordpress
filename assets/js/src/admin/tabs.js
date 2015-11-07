@@ -74,7 +74,7 @@ var Tabs = function(context) {
 
 	function switchTab(e) {
 
-		var tab = this.dataset.tab;
+		var tab = this.getAttribute('data-tab');
 		if( ! tab ) {
 			var urlParams = URL.parse( this.href );
 			if( typeof(urlParams.tab) === "undefined" ) {

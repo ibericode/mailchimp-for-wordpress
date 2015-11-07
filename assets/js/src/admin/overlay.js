@@ -1,18 +1,22 @@
 var overlay = function( m ) {
 	'use strict';
 
-	return function (content, onclose) {
+	var _onCloseCallback;
 
-		function onKeyDown(e) {
-			if (e.keyCode !== 27) return;
-			onclose();
+	function onKeyDown(e) {
+		if (e.keyCode == 27 && _onCloseCallback ) {
+			_onCloseCallback();
 		}
+	}
 
-		if (window.addEventListener) {
-			window.addEventListener('keydown', onKeyDown);
-		} else if (el.attachEvent) {
-			window.attachEvent('keydown', onKeyDown);
-		}
+	if (window.addEventListener) {
+		window.addEventListener('keydown', onKeyDown);
+	} else if (el.attachEvent) {
+		window.attachEvent('keydown', onKeyDown);
+	}
+
+	return function (content, onCloseCallback) {
+		_onCloseCallback = onCloseCallback;
 
 		return [
 			m("div.overlay", [
@@ -21,7 +25,7 @@ var overlay = function( m ) {
 					// close icon
 					m('span.close.dashicons.dashicons-no', {
 						title  : "Click to close the overlay.",
-						onclick: onclose
+						onclick: onCloseCallback
 					}),
 
 					content
@@ -31,7 +35,7 @@ var overlay = function( m ) {
 			// overlay background
 			m("div.overlay-background", {
 				title  : "Click to close the overlay.",
-				onclick: onclose
+				onclick: onCloseCallback
 			})
 		];
 	};

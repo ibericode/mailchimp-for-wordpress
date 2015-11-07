@@ -14,7 +14,8 @@
 	var context = document.getElementById('mc4wp-admin');
 	var formContentTextarea = document.getElementById('mc4wp-form-content');
 	var tabs = require ('./admin/tabs.js')(context);
-	var settings = require('./admin/settings.js')(context);
+	var helpers = require('./admin/helpers.js');
+	var settings = require('./admin/settings.js')(context, helpers);
 	var fields = require('./admin/fields.js')(m);
 
 	if( formContentTextarea ) {
@@ -34,14 +35,10 @@
 		m.mount( document.getElementById( 'mc4wp-field-wizard'), fieldHelper );
 	}
 
-	// convenience methods
-	window.mc4wp.toggleElement = function(selector) {
-		var elements = document.querySelectorAll(selector);
-		for( var i=0; i<elements.length;i++){
-			var show = elements[i].clientHeight <= 0;
-			elements[i].style.display = show ? '' : 'none';
-		}
-	}
+	// expose some things
+	window.mc4wp = {
+		helpers: helpers
+	};
 	window.m = m;
 	window.mc4wp_register_field = fields.register;
 	window.mc4wp_deregister_field = fields.deregister;
