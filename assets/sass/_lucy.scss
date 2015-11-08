@@ -95,9 +95,23 @@
 		.search-pending {
 			padding: 20px 10px;
 		}
+
+		.search-results a {
+			padding: 8px 10px;
+		}
+
+		.links a {
+			padding: 12px 10px;
+
+			.dashicons {
+				color: #555;
+				margin-right: 10px;
+			}
+		}
 	}
 
-	.list > * {
+	.search-results > *,
+	.links > * {
 		display: block;
 		padding: 8px 10px;
 		border-bottom: 1px solid #efefef;

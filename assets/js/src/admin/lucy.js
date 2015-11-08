@@ -86,17 +86,15 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 				])]);
 
 			if( searchQuery().length > 1 ) {
-				var content = [
+				var content = m('div.search-results', [
 					(searchResults().length) ? searchResults().map(function(l) {
 						return m('a', { href: l.href }, m.trust(l.text) );
 					}) : m("em.search-pending","Hit [ENTER] to search for \""+ searchQuery() +"\"..")
-				];
+				]);
 			} else {
-				var content = [
-					defaultLinks.map(function(l) {
-						return m('a', { href: l.href }, m.trust(l.text) );
-					})
-					];
+				var content = m("div.links", defaultLinks.map(function(l) {
+					return m('a', { href: l.href }, m.trust(l.text) );
+				}));
 			}
 
 			return m('div.lucy--content', [

@@ -323,12 +323,21 @@
     background: white; }
     .lucy .list .search-pending {
       padding: 20px 10px; }
-  .lucy .list > * {
+    .lucy .list .search-results a {
+      padding: 8px 10px; }
+    .lucy .list .links a {
+      padding: 12px 10px; }
+      .lucy .list .links a .dashicons {
+        color: #555;
+        margin-right: 10px; }
+  .lucy .search-results > *,
+  .lucy .links > * {
     display: block;
     padding: 8px 10px;
     border-bottom: 1px solid #efefef;
     text-decoration: none; }
-    .lucy .list > *:last-child {
+    .lucy .search-results > *:last-child,
+    .lucy .links > *:last-child {
       border-bottom: 0; }
   .lucy .footer {
     text-align: center;

@@ -45,15 +45,15 @@
 		'wpkb_articles',
 		[
 			{
-				text: "Knowledge Base",
+				text: "<span class=\"dashicons dashicons-book\"></span> Knowledge Base",
 				href: "https://mc4wp.com/kb/"
 			},
 			{
-				text: "Code Reference",
+				text: "<span class=\"dashicons dashicons-editor-code\"></span> Code Reference",
 				href: "http://developer.mc4wp.com/"
 			},
 			{
-				text: "Changelog",
+				text: "<span class=\"dashicons dashicons-editor-break\"></span> Changelog",
 				href: "http://mc4wp.com/documentation/changelog/"
 			}
 
@@ -1175,17 +1175,15 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 				])]);
 
 			if( searchQuery().length > 1 ) {
-				var content = [
+				var content = m('div.search-results', [
 					(searchResults().length) ? searchResults().map(function(l) {
 						return m('a', { href: l.href }, m.trust(l.text) );
 					}) : m("em.search-pending","Hit [ENTER] to search for \""+ searchQuery() +"\"..")
-				];
+				]);
 			} else {
-				var content = [
-					defaultLinks.map(function(l) {
-						return m('a', { href: l.href }, m.trust(l.text) );
-					})
-					];
+				var content = m("div.links", defaultLinks.map(function(l) {
+					return m('a', { href: l.href }, m.trust(l.text) );
+				}));
 			}
 
 			return m('div.lucy--content', [

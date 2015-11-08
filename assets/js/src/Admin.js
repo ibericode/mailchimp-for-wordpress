@@ -44,15 +44,15 @@
 		'wpkb_articles',
 		[
 			{
-				text: "Knowledge Base",
+				text: "<span class=\"dashicons dashicons-book\"></span> Knowledge Base",
 				href: "https://mc4wp.com/kb/"
 			},
 			{
-				text: "Code Reference",
+				text: "<span class=\"dashicons dashicons-editor-code\"></span> Code Reference",
 				href: "http://developer.mc4wp.com/"
 			},
 			{
-				text: "Changelog",
+				text: "<span class=\"dashicons dashicons-editor-break\"></span> Changelog",
 				href: "http://mc4wp.com/documentation/changelog/"
 			}
 
