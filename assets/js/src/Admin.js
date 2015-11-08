@@ -37,7 +37,28 @@
 	}
 
 	// Lucy!
-	var lucy = new Lucy( 'https://mc4wp.com/', 'DA9YFSTRKA',  'ce1c93fad15be2b70e0aa0b1c2e52d8e', 'wpkb_articles' );
+	var lucy = new Lucy(
+		'https://mc4wp.com/',
+		'DA9YFSTRKA',
+		'ce1c93fad15be2b70e0aa0b1c2e52d8e',
+		'wpkb_articles',
+		[
+			{
+				text: "Knowledge Base",
+				href: "https://mc4wp.com/kb/"
+			},
+			{
+				text: "Code Reference",
+				href: "http://developer.mc4wp.com/"
+			},
+			{
+				text: "Changelog",
+				href: "http://mc4wp.com/documentation/changelog/"
+			}
+
+		],
+		'mailto:support@mc4wp.com'
+	);
 
 	// expose some things
 	window.mc4wp = {
