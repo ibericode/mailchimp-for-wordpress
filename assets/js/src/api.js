@@ -26,8 +26,7 @@ if( config.submitted_form ) {
 	} else {
 		// form was successfully submitted
 		forms.trigger('success', [form, config.submitted_form.data]);
-
-		// @todo trigger type specific event
+		forms.trigger(config.submitted_form.action + "d", [form, config.submitted_form.data]);
 	}
 }
 
