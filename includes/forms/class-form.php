@@ -440,15 +440,49 @@ class MC4WP_Form {
 	public function handle_request( MC4WP_Request $request ) {
 		$this->is_submitted = true;
 		$this->raw_data = $request->post->all();
+		$this->data = $this->parse_request_data( $request );
 
-		// todo: strip more fields (from ignored_fields array)
-		$data = $request->post->all_without_prefix( '_' );
-		$data = array_change_key_case( $data, CASE_UPPER );
-		$this->data = $data;
-
-		if( isset( $data['_mc4wp_lists'] ) ) {
-			$this->set_config( array( 'lists' => $data['_mc4wp_lists'] ) );
+		// update config from data
+		if( isset( $this->raw_data['_mc4wp_lists'] ) ) {
+			$this->set_config( array( 'lists' => $this->raw_data['_mc4wp_lists'] ) );
 		}
+	}
+
+	/**
+	 * Parse a request for data which should be binded to `$data` property.
+	 *
+	 * This does the following on all post data.
+	 *
+	 * - Removes fields starting with an underscore.
+	 * - Remove fields which are set to be ignored.
+	 * - Uppercase all field names
+	 *
+	 * @param MC4WP_Request $request
+	 *
+	 * @return array
+	 */
+	protected function parse_request_data( MC4WP_Request $request ) {
+		$form = $this;
+
+		// get all fields that do NOT start with an underscore.
+		$data = $request->post->all_without_prefix( '_' );
+
+		// uppercase all field keys
+		$data = array_change_key_case( $data, CASE_UPPER );
+
+		// get rid of ignored field names
+		$ignored_field_names = array();
+
+		/**
+		 * Filters field names which should be ignored when showing data.
+		 *
+		 * @param array $ignored_field_names Array of ignored field names
+		 * @param MC4WP_Form $form The form instance.
+		 */
+		$ignored_field_names = apply_filters( 'mc4wp_form_ignored_field_names', $ignored_field_names, $form );
+		$data = array_diff_key( $data, array_flip( $ignored_field_names ) );
+
+		return $data;
 	}
 
 	/**
@@ -458,13 +492,20 @@ class MC4WP_Form {
 	 * @return array
 	 */
 	public function set_config( array $config ) {
-
-		// @todo decide if we want the nonce etc. in this array
-		// @todo sanitize values (like subscribe)
-
-
-
 		$this->config = array_merge( $this->config, $config );
+
+		// make sure lists is an array
+		if( ! is_array( $this->config['lists'] ) ) {
+			$this->config['lists'] = array_map( 'trim', explode(',', $this->config['lists'] ) );
+		}
+
+		// make sure action is valid
+		if( ! in_array( $this->config['action'], array( 'subscribe', 'unsubscribe' ) ) ) {
+			$this->config['action'] = 'subscribe';
+		}
+
+
+
 		return $this->config;
 	}
 
