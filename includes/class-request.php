@@ -3,7 +3,6 @@
 /**
  * Class MC4WP_Request
  *
- * @todo rework case-insensitive logic
  * @since 3.0
  * @ignore
  */

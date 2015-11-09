@@ -228,7 +228,7 @@ class MC4WP_Admin {
 
 
 		// js
-		// @todo: get rid of jQuery here
+		// @todo: eventually get rid of jQuery here
 		wp_register_script( 'es5-shim', MC4WP_PLUGIN_URL . 'assets/js/third-party/es5-shim.min.js', array(), MC4WP_VERSION );
 		wp_register_script( 'codemirror', MC4WP_PLUGIN_URL . 'assets/js/third-party/codemirror-compressed.js', array(), MC4WP_VERSION, true );
 		wp_register_script( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array( 'jquery', 'es5-shim', 'codemirror' ), MC4WP_VERSION, true );

@@ -54,8 +54,6 @@ class MC4WP_Integration_Admin {
 
 	/**
 	 * @todo perform some validation
-	 * @internal
-	 * @since 3.0
 	 * @param array $new_settings
 	 * @return array
 	 */

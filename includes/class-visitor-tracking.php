@@ -54,7 +54,6 @@ class MC4WP_Visitor_Tracking {
 	 * @param array $data
 	 *
 	 * @todo Now, all previous is data is overwritten whenever this method is called.
-	 * @todo Register dynamic content tag?
 	 */
 	public function save( array $data ) {
 		$this->data = $data;

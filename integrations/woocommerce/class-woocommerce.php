@@ -54,7 +54,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 				'LNAME' => $order->billing_last_name,
 			);
 
-			// @todo add billing address fields, find field of type "address"
+			// @todo add billing address fields, maybe by finding MailChimp field of type "address"?
 
 			return $this->subscribe( $email, $merge_vars, $order_id );
 		}

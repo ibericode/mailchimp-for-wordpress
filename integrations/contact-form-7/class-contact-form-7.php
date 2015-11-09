@@ -55,7 +55,7 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 	/**
 	 * Subscribe from Contact Form 7 Forms
 	 * @todo improve smart guessing based on selected MailChimp lists
-	 * @todo groupings data still need to be formatted. Do that on global Integration level?
+	 * @todo Groupings data still need to be formatted. Do that on global Integration level?
 	 * @return bool
 	 */
 	public function subscribe_from_cf7() {

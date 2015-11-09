@@ -196,30 +196,11 @@
 
 	</div>
 
-	<?php if( isset( $_GET['old'] ) ) {
-		// @todo get rid of this
-		?>
-
-		<tr valign="top" id="woocommerce-settings" <?php if( ! $general_opts['show_at_woocommerce_checkout'] ) { ?>style="display: none;"<?php } ?>>
-			<th scope="row"><?php _e( 'WooCommerce checkbox position', 'mailchimp-for-wp' ); ?></th>
-			<td class="nowrap">
-				<select name="mc4wp_integrations[general][woocommerce_position]">
-					<option value="billing" <?php selected( $general_opts['woocommerce_position'], 'billing' ); ?>><?php _e( 'After the billing details', 'mailchimp-for-wp' ); ?></option>
-					<option value="order" <?php selected( $general_opts['woocommerce_position'], 'order' ); ?>><?php _e( 'After the additional information', 'mailchimp-for-wp' ); ?></option>
-				</select>
-				<p class="help">
-					<?php _e( 'Choose the position for the checkbox in your WooCommerce checkout form.', 'mailchimp-for-wp' ); ?>
-				</p>
-			</td>
-		</tr>
-
-
-	<?php } // end of old ?>
-
 </div>
 
 <script>
 	(function($) {
+		if(typeof($)==='undefined') { return; }
 		var $toggles = $('.integration-toggles-wrap input');
 		var $settings = $('.integration-toggled-settings');
 		$toggles.change(toggleSettings);
