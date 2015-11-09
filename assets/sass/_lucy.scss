@@ -1,3 +1,5 @@
+$width: 360px;
+
 .lucy {
 	position: fixed;
 	bottom: 20px;
@@ -10,13 +12,20 @@
 
 	&.open {
 		bottom: 0;
-		border: 3px solid black;
+		border: 1px solid black;
 		border-bottom: 0;
 		width: 320px;
+
+		@media( max-width: $width ) {
+			width: 100%;
+			right: 0;
+			font-size: 13px;
+			.dashicons { display: none; }
+		}
 	}
 
 	// open button
-	.lucy--button{
+	.lucy-button{
 		display: block;
 		text-align: center;
 		padding: 0 20px;
@@ -31,14 +40,23 @@
 			font-family: "dashicons";
 			vertical-align: middle;
 		}
+
+		@media( max-width: $width ) {
+			.lucy-button-text {
+				display: none;
+			}
+
+			&:after { margin: 0; }
+		}
 	}
 
 	.close-icon {
 		position: absolute;
-		right: 10px;
-		top: 10px;
+		top: 0;
+		right: 0;
+		padding: 10px;
 		cursor: pointer;
-		opacity: 0.8;
+		opacity: 0.9;
 
 		&:after {
 			background: white;
@@ -134,10 +152,5 @@
 		}
 	}
 
-
-
-	@media( max-width: 280px ) {
-		width: 100%;
-	}
 }
 

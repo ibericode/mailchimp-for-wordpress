@@ -25,7 +25,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 
 		// close when clicking ANY element outside of Lucy
 		var element = event.target || event.srcElement;
-		if(e.type === 'click' && typeof(element.matches) === "function" && ! element.matches('.lucy, .lucy--button, .lucy *') )  {
+		if(e.type === 'click' && typeof(element.matches) === "function" && ! element.matches('.lucy, .lucy *, .lucy-button, .lucy-button *') )  {
 			close();
 		}
 
@@ -34,6 +34,8 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 	function open() {
 		isOpen = true;
 		m.redraw();
+
+
 
 		document.addEventListener('keyup', maybeClose);
 		document.addEventListener('click', maybeClose);
@@ -74,6 +76,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 
 							searchQuery(this.value);
 						},
+						config: function(el) { el.focus(); },
 						placeholder: 'What are you looking for?'
 					}),
 					m('span', {
@@ -108,7 +111,9 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 			]);
 		}
 
-		return m('span.lucy--button', { onclick: open }, "Need help?")
+		return m('span.lucy-button', { onclick: open }, [
+			m('span.lucy-button-text',  "Need help?")
+		])
 	};
 
 
