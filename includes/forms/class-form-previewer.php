@@ -116,7 +116,7 @@ class MC4WP_Form_Previewer {
 	 * @return string
 	 */
 	public function set_page_content( $content ) {
-		return mc4wp_show_form( $this->form_id );
+		return mc4wp_show_form( $this->form_id, array(), false );
 	}
 
 }

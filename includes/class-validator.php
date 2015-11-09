@@ -15,7 +15,7 @@ class MC4WP_Validator {
 	/**
 	 * @var array Array of validation rules.
 	 */
-	public $rules;
+	public $rules = array();
 
 	/**
 	 * @var array Array of error codes
@@ -24,17 +24,11 @@ class MC4WP_Validator {
 
 	/**
 	 * @param array $fields
+	 * @param array $rules
 	 */
-	public function __construct( array $fields = array() ) {
+	public function __construct( array $fields = array(), array $rules = array() ) {
 		$this->fields = $fields;
-	}
-
-	/**
-	 * @param array $fields
-	 */
-	public function set_fields( array $fields ) {
-		$this->fields = $fields;
-		$this->rules = array();
+		$this->rules = $rules;
 	}
 
 	/**

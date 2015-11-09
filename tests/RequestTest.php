@@ -35,7 +35,7 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 	 * @covers MC4WP_Request::is_method
 	 */
 	public function test_is_method() {
-		$request = new MC4WP_Request( array(), array( 'REQUEST_METHOD' => 'POST' ) );
+		$request = new MC4WP_Request( array(), array(), array( 'REQUEST_METHOD' => 'POST' ) );
 
 		$this->assertFalse( $request->is_method( 'GET' ) );
 		$this->assertTrue( $request->is_method( 'POST' ) );

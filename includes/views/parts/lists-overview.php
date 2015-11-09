@@ -34,13 +34,15 @@
 		foreach ( $lists as $list ) {
 			/** @var MC4WP_MailChimp_List $list */
 			echo '<tr>';
-			echo sprintf( '<td><a href="%s">%s</a><span class="row-actions alignright"><a href="javascript:mc4wp.helpers.toggleElement(\'.list-%s-details\')"">View details</a></span></td>', 'https://admin.mailchimp.com/lists/members/?id=' . $list->web_id, esc_html( $list->name ), $list->id );
+			echo sprintf( '<td><a href="javascript:mc4wp.helpers.toggleElement(\'.list-%s-details\')">%s</a><span class="row-actions alignright"></span></td>', $list->id, esc_html( $list->name ) );
 			echo sprintf( '<td>%s</td>', esc_html( $list->id ) );
 			echo sprintf( '<td>%s</td>', esc_html( $list->subscriber_count ) );
 			echo '</tr>';
 
 			echo sprintf( '<tr class="list-details list-%s-details" style="display: none;">', $list->id );
 			echo '<td colspan="3" style="padding: 0 20px 40px;">';
+
+			echo sprintf( '<p class="alignright" style="margin: 20px 0;"><a href="%s"><span class="dashicons dashicons-edit"></span> Edit this list in MailChimp</a></p>', 'https://admin.mailchimp.com/lists/members/?id=' . $list->web_id );
 
 			// Fields
 			if ( ! empty( $list->merge_vars ) ) { ?>

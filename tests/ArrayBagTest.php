@@ -28,9 +28,6 @@ class ArrayBagTest extends PHPUnit_Framework_TestCase {
 		);
 		$array_bag = new MC4WP_Array_Bag( $array );
 		$this->assertEquals( $array_bag->all(), $array );
-
-		$array_uppercased = array_change_key_case( $array, CASE_UPPER );
-		$this->assertEquals( $array_bag->all( CASE_UPPER ), $array_uppercased );
 	}
 
 	/**
@@ -52,11 +49,6 @@ class ArrayBagTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertEmpty( $array_bag->all_with_prefix( '_nothing' ) );
 
-		$array_bag = new MC4WP_Array_Bag( $array );
-		$result_uppercased = array_change_key_case( $result, CASE_UPPER );
-		$this->assertEmpty( $array_bag->all_with_prefix( '_prefixed', CASE_UPPER ) );
-		$this->assertEquals( $array_bag->all_with_prefix( 'PREFIXED_', CASE_UPPER ), $result_uppercased );
-
 	}
 
 	/**
@@ -73,11 +65,6 @@ class ArrayBagTest extends PHPUnit_Framework_TestCase {
 		);
 		$array_bag = new MC4WP_Array_Bag( $array );
 		$this->assertEquals( $array_bag->all_without_prefix('prefixed_'), $result );
-
-		$array_uppercased = array_change_key_case( $array, CASE_UPPER );
-		$result_uppercased = array_change_key_case( $result, CASE_UPPER );
-		$this->assertEquals( $array_bag->all_without_prefix( 'PREFIXED_', CASE_UPPER ), $result_uppercased );
-		$this->assertEquals( $array_bag->all_without_prefix( 'prefixed_', CASE_UPPER ), $array_uppercased );
 	}
 
 	

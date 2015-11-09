@@ -28,6 +28,14 @@ class MC4WP_Array_Bag {
 
 	/**
 	 * @param string $name
+	 * @param mixed $value
+	 */
+	public function set( $name, $value ) {
+		$this->array[ $name ] = $value;
+	}
+
+	/**
+	 * @param string $name
 	 * @param mixed $default
 	 *
 	 * @return mixed
@@ -42,32 +50,22 @@ class MC4WP_Array_Bag {
 	}
 
 	/**
-	 * @param $case
 	 * @return array
 	 */
-	public function all( $case = null ) {
-		$data = $this->array;
-
-		if( null !== $case ) {
-			$data = array_change_key_case( $data, $case );
-		}
-
-		return $data;
+	public function all() {
+		return $this->array;
 	}
 
 	/**
 	 * @param $prefix
-	 * @param $case
 	 *
 	 * @return array
 	 */
-	public function all_with_prefix( $prefix, $case = null ) {
+	public function all_with_prefix( $prefix ) {
 		$return = array();
 		$length = strlen( $prefix );
 
-		$data = $this->all( $case );
-
-		foreach( $data as $key => $value ) {
+		foreach( $this->array as $key => $value ) {
 			if( strpos( $key, $prefix ) === 0 ) {
 
 				$new_key = substr( $key, $length );
@@ -80,13 +78,12 @@ class MC4WP_Array_Bag {
 
 	/**
 	 * @param $prefix
-	 * @param $case
 	 * @return array
 	 */
-	public function all_without_prefix( $prefix, $case = null ) {
+	public function all_without_prefix( $prefix ) {
 		$return = array();
 
-		foreach( $this->all( $case ) as $key => $value ) {
+		foreach( $this->array as $key => $value ) {
 			if( strpos( $key, $prefix ) !== 0 ) {
 				$return[ $key ] = $value;
 			}

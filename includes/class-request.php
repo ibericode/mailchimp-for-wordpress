@@ -17,44 +17,47 @@ class MC4WP_Request {
 	/**
 	 * @var MC4WP_Array_Bag
 	 */
+	public $get;
+
+	/**
+	 * @var MC4WP_Array_Bag
+	 */
+	public $post;
+
+	/**
+	 * @var MC4WP_Array_Bag
+	 */
 	public $server;
-
-	/**
-	 * @var MC4WP_Request
-	 */
-	private static $instance;
-
-	/**
-	 * @return MC4WP_Request (the one created from global variables)
-	 */
-	public static function instance() {
-
-		if( ! self::$instance instanceof self ) {
-			self::$instance = self::create_from_globals();
-		}
-
-		return self::$instance;
-	}
 
 
 	/**
 	 * @return MC4WP_Request
 	 */
 	public static function create_from_globals() {
-		$params = array_merge( $_POST, $_GET );
-		$params = stripslashes_deep( $params );
-		$params = mc4wp_sanitize_deep( $params );
-		return new self( $params, $_SERVER );
+
+		static $instance;
+
+		if( ! $instance instanceof self ) {
+			$get = mc4wp_sanitize_deep( $_GET );
+			$post = mc4wp_sanitize_deep( $_POST );
+			$server = mc4wp_sanitize_deep( $_SERVER );
+			$instance = new self( $get, $post, $server );
+		}
+
+		return $instance;
 	}
 
 	/**
 	 * Constructor
 	 *
-	 * @param array $params
+	 * @param array $get
+	 * @param array $post
 	 * @param array $server
 	 */
-	public function __construct( $params, $server = array() ) {
-		$this->params = new MC4WP_Array_Bag( $params );
+	public function __construct( $get = array(), $post = array(), $server = array() ) {
+		$this->get = new MC4WP_Array_Bag( $get );
+		$this->post = new MC4WP_Array_Bag( $post );
+		$this->params = new MC4WP_Array_Bag( array_merge( $post, $get ) );
 		$this->server = new MC4WP_Array_Bag( $server );
 	}
 
@@ -66,12 +69,33 @@ class MC4WP_Request {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function get_method() {
+		return $this->server->get( 'REQUEST_METHOD' );
+	}
+
+	/**
 	 * @param $method
 	 *
 	 * @return bool
 	 */
 	public function is_method( $method ) {
-		return $this->server->get('REQUEST_METHOD') === $method;
+		return $this->get_method() === $method;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_url() {
+		return $this->server->get( 'REQUEST_URI' );
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_referer() {
+		return $this->server->get( 'HTTP_REFERER', '' );
 	}
 
 	/**
@@ -88,38 +112,7 @@ class MC4WP_Request {
 			return $headers['HTTP_X_FORWARDED_FOR'];
 		}
 
-		return $this->server->get( 'REMOTE_ADDR' );
+		return $this->server->get( 'REMOTE_ADDR', '' );
 	}
-
-	/**
-	 * @param string $key
-	 * @param mixed $default
-	 *
-	 * @return mixed
-	 */
-	public function get_param( $key, $default = null ) {
-		return $this->params->get( $key, $default );
-	}
-
-	/**
-	 * @param string $prefix
-	 * @param int $case
-	 *
-	 * @return array
-	 */
-	public function get_all_params_without_prefix( $prefix, $case = null ) {
-		return $this->params->all_without_prefix( $prefix, $case );
-	}
-
-	/**
-	 * @param string $prefix
-	 * @param int $case
-	 *
-	 * @return array
-	 */
-	public function get_all_params_with_prefix( $prefix, $case = null ) {
-		return $this->params->all_with_prefix( $prefix, $case );
-	}
-
 
 }

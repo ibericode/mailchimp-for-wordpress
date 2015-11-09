@@ -187,16 +187,16 @@ class MC4WP_Form_Asset_Manager {
 		echo '(function() {';
 
 		// include general form enhancements
-		include MC4WP_PLUGIN_DIR . 'includes/views/js/general-form-enhancements.js';
+		include  dirname( __FILE__ ) . '/views/js/general-form-enhancements.js';
 
 		// include url fix
 		if( in_array( 'url', $this->output_manager->printed_field_types ) ) {
-			include MC4WP_PLUGIN_DIR . 'includes/views/js/url-fields.js';
+			include dirname( __FILE__ ) . '/views/js/url-fields.js';
 		}
 
 		// include date polyfill?
 		if( in_array( 'date', $this->output_manager->printed_field_types ) ) {
-			include MC4WP_PLUGIN_DIR . 'includes/views/js/date-fields.js';
+			include dirname( __FILE__ ) . '/views/js/date-fields.js';
 		}
 
 		echo '})();';

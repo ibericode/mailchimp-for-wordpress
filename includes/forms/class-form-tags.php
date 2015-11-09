@@ -95,7 +95,7 @@ class MC4WP_Form_Tags {
 
 		$tags['ip']           = array(
 			'description' => __( 'The visitor\'s IP address.', 'mailchimp-for-wp' ),
-			'callback'    => array( MC4WP_Request::instance(), 'get_client_ip' )
+			'callback'    => array( MC4WP_Request::create_from_globals(), 'get_client_ip' )
 		);
 
 		$tags['user']      = array(
@@ -178,7 +178,7 @@ class MC4WP_Form_Tags {
 		}
 
 		$default = isset( $args['default'] ) ? $args['default'] : '';
-		return esc_html( MC4WP_Request::instance()->get_param( $args['key'], $default ) );
+		return esc_html( MC4WP_Request::create_from_globals()->request->get( $args['key'], $default ) );
 	}
 
 	/*
@@ -202,8 +202,9 @@ class MC4WP_Form_Tags {
 	 * @return string
 	 */
 	public function get_email() {
+
 		// first, try request
-		$email = MC4WP_Request::instance()->get_param( 'EMAIL', '' );
+		$email = MC4WP_Request::create_from_globals()->params->get( 'EMAIL', '' );
 		if( $email ) {
 			return $email;
 		}

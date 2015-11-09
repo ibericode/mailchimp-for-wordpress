@@ -89,9 +89,16 @@ class MC4WP_Form {
 	public $is_submitted = false;
 
 	/**
-	 * @var array Array of the data that was submitted, in field => value pairs.
+	 * @var array Array of the data that was submitted, in name => value pairs.
+	 *
+	 * Keys in this array are uppercased and keys starting with _ are stripped.
 	 */
 	public $data = array();
+
+	/**
+	 * @var array Array of the raw form data that was submitted.
+	 */
+	public $raw_data = array();
 
 	/**
 	 * @var array
@@ -384,28 +391,29 @@ class MC4WP_Form {
 		}
 
 		$form = $this;
-		$validator = new MC4WP_Validator();
 
 		// validate config
-		$validator->set_fields( $this->config );
+		$validator = new MC4WP_Validator( $this->config );
 		$validator->add_rule( 'lists', 'not_empty', 'no_lists_selected' );
-		$validator->add_rule( 'timestamp', 'range', 'spam', array( 'max' => time() - 2 ) );
-		$validator->add_rule( 'honeypot', 'empty', 'spam' );
-		$validator->add_rule( 'form_nonce', 'valid_nonce', 'spam', array( 'action' => '_mc4wp_form_nonce' ) );
 		$valid = $validator->validate();
 
+		// validate internal fields
 		if( $valid ) {
-			// validate fields
-			$validator->set_fields( $this->data );
-
-			foreach( $this->get_required_fields() as $field ) {
-				$validator->add_rule( $field, 'not_empty', 'required_field_missing' );
-			}
-
-			$validator->add_rule( 'EMAIL', 'email', 'invalid_email' );
-
-			//$validator->add_rule( 'FNAME', 'not_empty', 'required_field_missing' );
+			$validator = new MC4WP_Validator( $this->raw_data );
+			$validator->add_rule( '_mc4wp_timestamp', 'range', 'spam', array( 'max' => time() - 2 ) );
+			$validator->add_rule( '_mc4wp_honeypot', 'empty', 'spam' );
+			$validator->add_rule( '_mc4wp_form_nonce', 'valid_nonce', 'spam', array( 'action' => '_mc4wp_form_nonce' ) );
 			$valid = $validator->validate();
+
+			// validate actual (visible) fields
+			if( $valid ) {
+				$validator = new MC4WP_Validator( $this->data );
+				$validator->add_rule( 'EMAIL', 'email', 'invalid_email' );
+				foreach( $this->get_required_fields() as $field ) {
+					$validator->add_rule( $field, 'not_empty', 'required_field_missing' );
+				}
+				$valid = $validator->validate();
+			}
 		}
 
 		// get validation errors
@@ -431,9 +439,16 @@ class MC4WP_Form {
 	 */
 	public function handle_request( MC4WP_Request $request ) {
 		$this->is_submitted = true;
-		$this->data = $request->get_all_params_without_prefix( '_', CASE_UPPER );
-		$config = $request->get_all_params_with_prefix( '_mc4wp_', CASE_LOWER );
-		$this->set_config( $config );
+		$this->raw_data = $request->post->all();
+
+		// todo: strip more fields (from ignored_fields array)
+		$data = $request->post->all_without_prefix( '_' );
+		$data = array_change_key_case( $data, CASE_UPPER );
+		$this->data = $data;
+
+		if( isset( $data['_mc4wp_lists'] ) ) {
+			$this->set_config( array( 'lists' => $data['_mc4wp_lists'] ) );
+		}
 	}
 
 	/**
@@ -447,11 +462,7 @@ class MC4WP_Form {
 		// @todo decide if we want the nonce etc. in this array
 		// @todo sanitize values (like subscribe)
 
-		if( isset( $config['lists'] ) ) {
-			if( ! is_array( $config['lists'] ) ) {
-				$config['lists'] = array_map( 'trim', explode( ',', $config['lists'] ) );
-			}
-		}
+
 
 		$this->config = array_merge( $this->config, $config );
 		return $this->config;
