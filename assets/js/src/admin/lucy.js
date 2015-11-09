@@ -56,16 +56,18 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 
 	var module = {};
 	module.view = function() {
+		var content;
+
 		element.setAttribute('class', 'lucy ' + ( isOpen ? 'open' : 'closed' ) );
 
-		if( searchQuery().length > 1 ) {
-			var content = m('div.search-results', [
+		if( searchResults().length > 1 ) {
+			content = m('div.search-results', [
 				(searchResults().length) ? searchResults().map(function(l) {
 					return m('a', { href: l.href }, m.trust(l.text) );
 				}) : m("em.search-pending","Hit [ENTER] to search for \""+ searchQuery() +"\"..")
 			]);
 		} else {
-			var content = m("div.links", defaultLinks.map(function(l) {
+			content = m("div.links", defaultLinks.map(function(l) {
 				return m('a', { href: l.href }, m.trust(l.text) );
 			}));
 		}

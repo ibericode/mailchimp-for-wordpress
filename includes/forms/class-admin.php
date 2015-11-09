@@ -30,6 +30,7 @@ class MC4WP_Forms_Admin {
 	 * Add hooks
 	 */
 	public function add_hooks() {
+		add_action( 'mc4wp_save_form', array( $this, 'update_form_stylesheets' ) );
 		add_action( 'mc4wp_admin_edit_form', array( $this, 'process_save_form' ) );
 		add_action( 'mc4wp_admin_add_form', array( $this, 'process_add_form' ) );
 		add_filter( 'mc4wp_admin_menu_items', array( $this, 'add_menu_item' ), 5 );
@@ -96,17 +97,20 @@ class MC4WP_Forms_Admin {
 	 */
 	public function process_save_form( ) {
 
-		if( ! check_admin_referer( 'edit_form', '_mc4wp_nonce' ) ) {
-			wp_die( "Are you cheating?" );
+		check_admin_referer( 'edit_form', '_mc4wp_nonce' );
+		$form_id = (int) $_POST['mc4wp_form_id'];
+
+		// check if attempted post is of post_type `mc4wp_form`
+		$post = get_post( $form_id );
+		if( ! is_object( $post ) || $post->post_type !== 'mc4wp-form' ) {
+			wp_nonce_ays( '' );
 		}
 
-		$form_id = (int) $_POST['mc4wp_form_id'];
 		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
 		$form_settings = $form_data['settings'];
+
 		// @todo sanitize data
 
-		// get actual form id here since this might be a new form
-		// @todo prevent overriding existing posts using $_POST['mc4wp_form_id'] parameter
 		$form_id = wp_insert_post(
 			array(
 				'ID' => $form_id,
@@ -125,29 +129,51 @@ class MC4WP_Forms_Admin {
 		}
 
 		// update default form id?
+		// @todo should this be here?
 		$default_form_id = (int) get_option( 'mc4wp_default_form_id', 0 );
 		if( empty( $default_form_id ) ) {
 			update_option( 'mc4wp_default_form_id', $form_id );
 		}
 
-		// update form stylesheets
-		// @todo this should loop through all forms and find used stylesheets, otherwise this would fill up indefinitely
-		if( ! empty( $form_settings['css'] ) ) {
+		/**
+		 * Runs right after a form is updated.
+		 *
+		 * @param int $form_id
+		 */
+		do_action( 'mc4wp_save_form', $form_id );
 
-			$stylesheet = $form_settings['css'];
-			if( strpos( $stylesheet, 'form-theme' ) !== false ) {
+		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) );
+	}
+
+	/**
+	 * Goes through each form and aggregates array of stylesheet slugs to load.
+	 *
+	 * @hooked `mc4wp_save_form`
+	 */
+	public function update_form_stylesheets() {
+		$stylesheets = array();
+
+		$posts = get_posts( array( 'post_type' => 'mc4wp-form', 'post_status' => 'publish', 'numberposts' => -1 ) );
+		foreach( $posts as $post ) {
+			$form = mc4wp_get_form( $post->ID );
+
+			if( empty( $form->settings['css'] ) ) {
+				continue;
+			}
+
+			$stylesheet = $form->settings['css'];
+
+			// form themes live in the same stylesheet
+			if( strpos( $stylesheet, 'form-theme-' ) !== false ) {
 				$stylesheet = 'form-themes';
 			}
-			$stylesheets = (array) get_option( 'mc4wp_form_stylesheets', array() );
 
 			if( ! in_array( $stylesheet, $stylesheets ) ) {
 				$stylesheets[] = $stylesheet;
 			}
-
-			update_option( 'mc4wp_form_stylesheets', $stylesheets );
 		}
 
-		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) );
+		update_option( 'mc4wp_form_stylesheets', $stylesheets );
 	}
 
 	/**
