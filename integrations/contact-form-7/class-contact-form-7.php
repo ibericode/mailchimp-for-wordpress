@@ -65,8 +65,7 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 			return false;
 		}
 
-		$request_data = stripslashes_deep( $_REQUEST );
-		$parser = new MC4WP_Data_Parser( $request_data );
+		$parser = new MC4WP_Request_Parser();
 		$data = $parser->combine( array( 'guessed', 'namespaced' ) );
 
 		// do nothing if no email was found

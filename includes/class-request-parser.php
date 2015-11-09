@@ -1,34 +1,34 @@
 <?php
 
 /**
- * Class MC4WP_Data_Parser
+ * Class MC4WP_Request_Parser
  *
  * @ignore
  */
-class MC4WP_Data_Parser {
+class MC4WP_Request_Parser {
 
 	/**
-	 * @var array
+	 * @var MC4WP_Request $request
 	 */
-	protected $data = array();
+	protected $request;
 
 	/**
-	 * @var string
+	 * @param MC4WP_Request|null $request
 	 */
-	protected $namespace = 'mc4wp-';
+	public function __construct( $request = null ) {
 
-	/**
-	 * @param array $data
-	 */
-	public function __construct( array $data ) {
-		$this->data = array_change_key_case( $data, CASE_UPPER );
+		if( ! $request instanceof MC4WP_Request ) {
+			$request = MC4WP_Request::create_from_globals();
+		}
+
+		$this->request = $request;
 	}
 
 	/**
 	 * @return array
 	 */
 	public function all() {
-		return $this->data;
+		return $this->request->params->all();
 	}
 
 	/**
@@ -39,20 +39,7 @@ class MC4WP_Data_Parser {
 	 * @return array
 	 */
 	public function namespaced( $namespace = 'MC4WP-' ) {
-		$namespaced_data = array();
-
-		// make sure namespace is uppercased, as is the field key
-		$namespace = strtoupper( $namespace );
-
-		foreach( $this->data as $field => $value ) {
-			if( strpos( $field, $namespace ) === 0 ) {
-				// get field name without namespace prefix
-				$field = substr( $field, strlen( $namespace ) );
-				$namespaced_data[ $field ] = $value;
-			}
-		}
-
-		return $namespaced_data;
+		return $this->request->params->all_with_prefix( $namespace );
 	}
 
 	/**
@@ -67,7 +54,7 @@ class MC4WP_Data_Parser {
 	public function guessed() {
 		$guessed = array();
 
-		foreach( $this->data as $field => $value ) {
+		foreach( $this->request->params->all() as $field => $value ) {
 
 			// is this an email value? assume email field
 			if( empty( $guessed['EMAIL'] ) && is_string( $value ) && is_email( $value ) ) {

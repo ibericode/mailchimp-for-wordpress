@@ -71,8 +71,7 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 	 * @return bool|string
 	 */
 	public function process( $request_data ) {
-		$request_data = stripslashes_deep( $request_data );
-		$parser = new MC4WP_Data_Parser( $request_data );
+		$parser = new MC4WP_Request_Parser();
 		$data = $parser->combine( array( 'guessed', 'namespaced' ) );
 
 		// do nothing if no email was found

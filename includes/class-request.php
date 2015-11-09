@@ -31,15 +31,18 @@ class MC4WP_Request {
 
 
 	/**
+	 * Create a new instance from `$_GET`, `$_POST` and `$_SERVER` superglobals.
+	 *
 	 * @return MC4WP_Request
 	 */
 	public static function create_from_globals() {
-
 		static $instance;
 
 		if( ! $instance instanceof self ) {
 			$get = mc4wp_sanitize_deep( $_GET );
+			$get = stripslashes_deep( $get );
 			$post = mc4wp_sanitize_deep( $_POST );
+			$post = stripslashes_deep( $post );
 			$server = mc4wp_sanitize_deep( $_SERVER );
 			$instance = new self( $get, $post, $server );
 		}
