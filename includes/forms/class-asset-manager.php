@@ -72,6 +72,17 @@ class MC4WP_Form_Asset_Manager {
 	public function load_stylesheets( ) {
 
 		$stylesheets = (array) get_option( 'mc4wp_form_stylesheets', array() );
+
+		/**
+		 * Filters the stylesheets to be loaded
+		 *
+		 * Return an empty array if you want to disable the loading of all stylesheets.
+		 *
+		 * @param array $stylesheets
+		 */
+		$stylesheets = (array) apply_filters( 'mc4wp_form_stylesheets', $stylesheets );
+
+
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		foreach( $stylesheets as $stylesheet ) {
