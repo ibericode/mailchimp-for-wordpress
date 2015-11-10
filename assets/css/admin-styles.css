@@ -90,6 +90,9 @@
       list-style: square;
       margin-top: 15px;
       padding-left: 40px; }
+  #mc4wp-admin .help,
+  .mc4wp-admin .help {
+    font-style: italic; }
   #mc4wp-admin .muted,
   .mc4wp-admin .muted {
     color: #aaa; }
@@ -103,6 +106,9 @@
   #mc4wp-admin .column-ID,
   .mc4wp-admin .column-ID {
     width: 10%; }
+  #mc4wp-admin .block,
+  .mc4wp-admin .block {
+    display: block; }
   #mc4wp-admin .tab,
   .mc4wp-admin .tab {
     display: none; }
