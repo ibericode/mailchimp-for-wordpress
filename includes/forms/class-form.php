@@ -30,10 +30,14 @@ class MC4WP_Form {
 	 */
 	public static function get_instance( $form_id = 0 ) {
 
-		$form_id = (int) $form_id;
+		if( $form_id instanceof WP_Post ) {
+			$form_id = $form_id->ID;
+		} else {
+			$form_id = (int) $form_id;
 
-		if( empty( $form_id ) ) {
-			$form_id = (int) get_option( 'mc4wp_default_form_id', 0 );
+			if( empty( $form_id ) ) {
+				$form_id = (int) get_option( 'mc4wp_default_form_id', 0 );
+			}
 		}
 
 		if( isset( self::$instances[ $form_id ] ) ) {

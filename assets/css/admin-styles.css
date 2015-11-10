@@ -100,6 +100,9 @@
     background: #d9edf7;
     border: 1px solid #bce8f1;
     margin: 1em 0 !important; }
+  #mc4wp-admin .column-ID,
+  .mc4wp-admin .column-ID {
+    width: 10%; }
   #mc4wp-admin .tab,
   .mc4wp-admin .tab {
     display: none; }

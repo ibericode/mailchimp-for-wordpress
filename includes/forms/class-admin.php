@@ -35,6 +35,9 @@ class MC4WP_Forms_Admin {
 		add_action( 'mc4wp_admin_add_form', array( $this, 'process_add_form' ) );
 		add_filter( 'mc4wp_admin_menu_items', array( $this, 'add_menu_item' ), 5 );
 
+		add_action( 'mc4wp_admin_show_forms_page-edit-form', array( $this, 'show_edit_page' ) );
+		add_action( 'mc4wp_admin_show_forms_page-add-form', array( $this, 'show_add_page' ) );
+
 		//todo decouple admin assets
 		//add_action( 'mc4wp_admin_enqueue_assets', array( $this, 'enqueue_assets' ) );
 	}
@@ -222,17 +225,17 @@ class MC4WP_Forms_Admin {
 	 */
 	public function show_forms_page() {
 
-		/**
-		 * @internal
-		 */
-		do_action( 'mc4wp_admin_show_forms_page' );
+		$view = ! empty( $_GET['view'] ) ? $_GET['view'] : '';
 
-		// if a view is set in the URl, go there.
-		$view = ( ! empty( $_GET['view'] ) ) ? str_replace( '-', '_', $_GET['view'] ) : '';
-		$view_method = 'show_forms_' . $view. '_page';
-		if( method_exists( $this, $view_method ) ) {
-			return call_user_func( array( $this, $view_method ) );
-		}
+		/**
+		 * @ignore
+		 */
+		do_action( 'mc4wp_admin_show_forms_page', $view );
+
+		/**
+		 * @ignore
+		 */
+		do_action( 'mc4wp_admin_show_forms_page-' . $view );
 	}
 
 	/**
@@ -240,7 +243,7 @@ class MC4WP_Forms_Admin {
 	 *
 	 * @internal
 	 */
-	public function show_forms_edit_form_page() {
+	public function show_edit_page() {
 		$form_id = ( ! empty( $_GET['form_id'] ) ) ? (int) $_GET['form_id'] : 0;
 		$lists = $this->mailchimp->get_lists();
 
@@ -264,7 +267,7 @@ class MC4WP_Forms_Admin {
 	 *
 	 * @internal
 	 */
-	public function show_forms_add_form_page() {
+	public function show_add_page() {
 		$lists = $this->mailchimp->get_lists();
 		require dirname( __FILE__ ) . '/views/add-form.php';
 	}

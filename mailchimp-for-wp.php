@@ -38,7 +38,7 @@ defined( 'ABSPATH' ) or exit;
  */
 function mc4wp_load_plugin() {
 
-	// this means an older version of Pro is activated
+	// Don't run if MailChimp for WP Pro 2.x is activated
 	if( defined( 'MC4WP_VERSION' ) ) {
 		return false;
 	}
@@ -95,4 +95,4 @@ function mc4wp_load_plugin() {
 	return true;
 }
 
-add_action( 'plugins_loaded', 'mc4wp_load_plugin' );
+add_action( 'plugins_loaded', 'mc4wp_load_plugin', 20 );

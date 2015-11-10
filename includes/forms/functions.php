@@ -12,6 +12,24 @@ function mc4wp_get_form( $form_id = 0 ) {
 }
 
 /**
+ * Get an array of Form instances
+ *
+ * @api
+ * @return array
+ */
+function mc4wp_get_forms() {
+	$forms = get_posts(
+		array(
+			'post_type' => 'mc4wp-form',
+			'post_status' => 'publish',
+			'numberposts' => -1
+		)
+	);
+	$forms = array_map( 'mc4wp_get_form', $forms );
+	return $forms;
+}
+
+/**
  * Echoes the given form
  *
  * @api
