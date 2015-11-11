@@ -3,8 +3,8 @@
 /**
  * Class MC4WP_DB_Upgrader
  *
- * This class takes care of loading migration files from `./migrations/`.
- * Migration files should only use default WP functions and 0 code which might not be there in the future.
+ * This class takes care of loading migration files from the specified migrations directory.
+ * Migration files should only use default WP functions and NOT use code which might not be there in the future.
  *
  * @ignore
  */
@@ -21,37 +21,37 @@ class MC4WP_Upgrade_Routines {
 	protected $version_to = 0;
 
 	/**
+	 * @var string
+	 */
+	protected $migrations_dir = '';
+
+	/**
 	 * @param float $from
 	 * @param float $to
 	 */
-	public function __construct( $from, $to ) {
+	public function __construct( $from, $to, $migrations_dir ) {
 		$this->version_from = $from;
 		$this->version_to = $to;
+		$this->migrations_dir = $migrations_dir;
 	}
 
 	/**
 	 * Run the various upgrade routines, all the way up to the latest version
 	 */
 	public function run() {
-		define( 'MC4WP_DOING_UPGRADE', true );
-
 		$migrations = $this->find_migrations();
 
 		// run in sub-function for scope
 		array_map( array( $this, 'run_migration' ), $migrations );
-
-		// update code version
-		update_option( 'mc4wp_version', MC4WP_VERSION );
 	}
 
 	/**
 	 * @return array
 	 */
-	protected function find_migrations() {
+	public function find_migrations() {
 
-		$files = glob( dirname( __FILE__ ) . '/migrations/*.php' );
+		$files = glob( rtrim( $this->migrations_dir, '/' ) . '/*.php' );
 		$migrations =  array();
-
 
 		foreach( $files as $file ) {
 			$migration = basename( $file );
@@ -67,6 +67,8 @@ class MC4WP_Upgrade_Routines {
 	}
 
 	/**
+	 * Include a migration file and runs it.
+	 *
 	 * @param string $file
 	 */
 	protected function run_migration( $file ) {

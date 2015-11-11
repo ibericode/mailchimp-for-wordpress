@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * Class UpgradeRoutineTest
+ * 
+ * @ignore
+ */
+class UpgradeRoutineTest extends PHPUnit_Framework_TestCase {
+
+	private $dir = '/tmp/mc4wp-tests/migrations';
+
+	public function test_construct() {}
+
+	/**
+	 * Create the sample migrations directory
+	 */
+	public function setUp() {
+		mkdir( $this->dir, 0700 );
+	}
+
+	/**
+	 * @covers MC4WP_Upgrade_Routines::find_migrations
+	 */
+	public function test_find_migrations() {
+		$instance = new MC4WP_Upgrade_Routines( '1.0', '1.1', $this->dir );
+		$this->assertEquals( $instance->find_migrations(), array() );
+
+		// create correct migration file
+		$migration_file =  $this->dir . '/1.1-do-something.php';
+		file_put_contents( $migration_file, '' );
+		$this->assertEquals( $instance->find_migrations(), array( $migration_file ) );
+
+		// create incorrect migrations file
+		$older_migration_file =  $this->dir . '/1.0-do-something.php';
+		file_put_contents( $older_migration_file, '' );
+		$this->assertEquals( $instance->find_migrations(), array( $migration_file ) );
+	}
+
+	/**
+	 * Remove files after each test.
+	 */
+	public function tearDown() {
+		array_map( 'unlink', glob( $this->dir . '/*.php' ) );
+		rmdir( $this->dir );
+	}
+
+
+}

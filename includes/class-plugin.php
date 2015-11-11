@@ -54,6 +54,12 @@ class MC4WP_Plugin {
 	 * @return string
 	 */
 	public function dir( $path = '' ) {
+
+		// ensure path has leading slash
+		if( '' !== $path ) {
+			$path = '/' . ltrim( $path, '/' );
+		}
+
 		return dirname( $this->file ) . $path;
 	}
 

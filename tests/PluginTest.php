@@ -29,6 +29,9 @@ class PluginTest extends PHPUnit_Framework_TestCase {
 		$dir = dirname( $file );
 		$plugin = new MC4WP_Plugin( $file, '2.5.3' );
 		$this->assertEquals( $plugin->dir(), $dir );
+
+		$plugin = new MC4WP_Plugin( __FILE__, '2.5.3' );
+		$this->assertEquals( $plugin->dir( 'leading-slash' ), dirname( __FILE__ ) . '/leading-slash' );
 	}
 
 	/**
