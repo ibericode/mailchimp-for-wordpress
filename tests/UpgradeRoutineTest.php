@@ -2,7 +2,7 @@
 
 /**
  * Class UpgradeRoutineTest
- * 
+ *
  * @ignore
  */
 class UpgradeRoutineTest extends PHPUnit_Framework_TestCase {
@@ -15,7 +15,9 @@ class UpgradeRoutineTest extends PHPUnit_Framework_TestCase {
 	 * Create the sample migrations directory
 	 */
 	public function setUp() {
-		mkdir( $this->dir, 0700 );
+		if( ! file_exists( $this->dir ) ) {
+			mkdir( $this->dir, 0700, true );
+		}
 	}
 
 	/**
@@ -41,7 +43,9 @@ class UpgradeRoutineTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function tearDown() {
 		array_map( 'unlink', glob( $this->dir . '/*.php' ) );
-		rmdir( $this->dir );
+		if( file_exists( $this->dir ) ) {
+			rmdir( $this->dir );
+		}
 	}
 
 
