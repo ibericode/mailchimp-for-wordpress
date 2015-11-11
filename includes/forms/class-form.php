@@ -471,9 +471,6 @@ class MC4WP_Form {
 		// get all fields that do NOT start with an underscore.
 		$data = $request->post->all_without_prefix( '_' );
 
-		// uppercase all field keys
-		$data = array_change_key_case( $data, CASE_UPPER );
-
 		// get rid of ignored field names
 		$ignored_field_names = array();
 
@@ -485,6 +482,9 @@ class MC4WP_Form {
 		 */
 		$ignored_field_names = apply_filters( 'mc4wp_form_ignored_field_names', $ignored_field_names, $form );
 		$data = array_diff_key( $data, array_flip( $ignored_field_names ) );
+
+		// uppercase all field keys
+		$data = array_change_key_case( $data, CASE_UPPER );
 
 		return $data;
 	}
