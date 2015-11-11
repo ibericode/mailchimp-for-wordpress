@@ -76,7 +76,7 @@ class MC4WP_Integration_Fixture {
 	 * @return MC4WP_Integration
 	 */
 	public function __call( $name, $arguments ) {
-		return call_user_func( array( $this->load(), $name ), $arguments );
+		return call_user_func_array( array( $this->load(), $name ), $arguments );
 	}
 
 	/**
