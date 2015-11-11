@@ -360,4 +360,14 @@ abstract class MC4WP_Integration {
 		$elements = $this->get_ui_elements();
 		return in_array( $element, $elements );
 	}
+
+	/**
+	 * Return a string to the admin settings page for this object (if any)
+	 *
+	 * @param int $object_id
+	 * @return string
+	 */
+	public function get_object_link( $object_id ) {
+		return '';
+	}
 }

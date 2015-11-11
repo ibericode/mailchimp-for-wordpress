@@ -56,9 +56,11 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 	 * Subscribe from Contact Form 7 Forms
 	 * @todo improve smart guessing based on selected MailChimp lists
 	 * @todo Groupings data still need to be formatted. Do that on global Integration level?
+	 *
+	 * @param WPCF7_ContactForm $cf7_form
 	 * @return bool
 	 */
-	public function subscribe_from_cf7() {
+	public function subscribe_from_cf7( $cf7_form ) {
 
 		// was sign-up checkbox checked?
 		if ( ! $this->checkbox_was_checked() ) {
@@ -73,7 +75,7 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 			return false;
 		}
 
-		return $this->subscribe( $data['EMAIL'], $data );
+		return $this->subscribe( $data['EMAIL'], $data, $cf7_form->id() );
 	}
 
 	/**
@@ -106,8 +108,28 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 		return function_exists( 'wpcf7_add_shortcode' );
 	}
 
+	/**
+	 * @since 3.0
+	 * @return array
+	 */
 	public function get_ui_elements() {
 		return array_diff( parent::get_ui_elements(), array( 'enabled' ) );
+	}
+
+	/**
+	 * @param int $object_id
+	 * @since 3.0
+	 * @return string
+	 */
+	public function get_object_link( $object_id ) {
+
+		// for backwards compatibility, not all CF7 sign-ups have an object id
+		if( empty( $object_id ) ) {
+			return '';
+		}
+
+		$form = wpcf7_contact_form( $object_id );
+		return sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wpcf7&post=' . $object_id ), $form->title() );
 	}
 
 }
