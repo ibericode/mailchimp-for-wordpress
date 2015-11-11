@@ -54,7 +54,10 @@ class MC4WP_Request_Parser {
 	public function guessed() {
 		$guessed = array();
 
-		foreach( $this->request->params->all() as $field => $value ) {
+		$fields = $this->request->params->all();
+		$fields = array_change_key_case( $fields, CASE_UPPER );
+
+		foreach( $fields as $field => $value ) {
 
 			// is this an email value? assume email field
 			if( empty( $guessed['EMAIL'] ) && is_string( $value ) && is_email( $value ) ) {
