@@ -89,12 +89,6 @@ class MC4WP_Form_Listener {
 
 			// send a subscribe request to MailChimp for each list
 			$result = $api->subscribe( $list_id, $form->data['EMAIL'], $merge_vars, $email_type, $form->settings['double_optin'], $form->settings['update_existing'], $form->settings['replace_interests'], $form->settings['send_welcome'] );
-
-			/**
-			 * @deprecated 3.0
-			 * @todo remove this in favor of global API hook?
-			 */
-			do_action( 'mc4wp_after_subscribe', $form->data['EMAIL'], $merge_vars, $result );
 		}
 
 		if( ! $result ) {

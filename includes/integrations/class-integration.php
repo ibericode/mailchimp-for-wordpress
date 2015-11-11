@@ -309,32 +309,25 @@ abstract class MC4WP_Integration {
 		 */
 		$email_type = apply_filters( 'mc4wp_email_type', 'html' );
 
-		/**
-		 * Runs just before the API request is made.
-		 *
-		 * @param string $email
-		 * @param array $merge_vars
-		 */
-		do_action( 'mc4wp_before_subscribe', $email, $merge_vars );
-
 		foreach( $lists as $list_id ) {
 			$result = $api->subscribe( $list_id, $email, $merge_vars, $email_type, $this->options['double_optin'], $this->options['update_existing'], true, $this->options['send_welcome'] );
-			do_action( 'mc4wp_subscribe', $email, $list_id, $merge_vars, $result, 'checkbox', $this->slug, $related_object_id );
 		}
-
-		/**
-		 * Runs just after the API requests are made.
-		 *
-		 * @param string $email
-		 * @param array $merge_vars
-		 * @param boolean $result
-		 */
-		do_action( 'mc4wp_after_subscribe', $email, $merge_vars, $result );
 
 		// if result failed, show error message (only to admins for non-AJAX)
 		if ( $result !== true && $api->has_error() ) {
 			error_log( sprintf( 'MailChimp for WordPres (%s): %s', $this->slug, $api->get_error_message() ) );
+			return false;
 		}
+
+		/**
+		 * Runs right after someone is subscribed using an integration
+		 *
+		 * @param MC4WP_Integration $integration
+		 * @param string $email
+		 * @param array $merge_vars
+		 * @param int $related_object_id
+		 */
+		do_action( 'mc4wp_integration_subscribed', $integration, $email, $merge_vars, $related_object_id );
 
 		return $result;
 	}

@@ -5,7 +5,7 @@
  *
  * @since 3.0
  * @api
- * @return array
+ * @return MC4WP_Integration[]
  */
 function mc4wp_get_integrations() {
 	return mc4wp_get_instance('integrations')->get_all();
