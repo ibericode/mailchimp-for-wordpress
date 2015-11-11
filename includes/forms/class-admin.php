@@ -24,6 +24,8 @@ class MC4WP_Forms_Admin {
 	public function __construct( MC4WP_Admin_Messages $messages, MC4WP_MailChimp $mailchimp ) {
 		$this->messages = $messages;
 		$this->mailchimp = $mailchimp;
+
+		require dirname( __FILE__ ) . '/admin-functions.php';
 	}
 
 	/**
@@ -82,16 +84,7 @@ class MC4WP_Forms_Admin {
 
 		// @todo allow for easy way to get admin url's
 		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) );
-		wp_safe_redirect(
-			add_query_arg(
-				array(
-					'page' => 'mailchimp-for-wp-forms',
-					'view' => 'edit-form',
-					'form_id' => $form_id
-				),
-				remove_query_arg( '_mc4wp_action' )
-			)
-		);
+		wp_safe_redirect( mc4wp_get_edit_form_url( $form_id ) );
 		exit;
 	}
 
@@ -202,19 +195,12 @@ class MC4WP_Forms_Admin {
 		// if we have a post, go to the "edit form" screen
 		if( $posts ) {
 			$post = array_pop( $posts );
-			$edit_form_url = add_query_arg(
-				array(
-					'view' => 'edit-form',
-					'form_id' => $post->ID
-				)
-			);
-			wp_safe_redirect( $edit_form_url );
+			wp_safe_redirect( mc4wp_get_edit_form_url( $post->ID ) );
 			exit;
 		}
 
 		// we don't have a form yet, go to "add new" screen
-		$add_form_url = add_query_arg( array( 'view' => 'add-form' ) );
-		wp_safe_redirect( $add_form_url );
+		wp_safe_redirect( mc4wp_get_add_form_url() );
 		exit;
 	}
 
