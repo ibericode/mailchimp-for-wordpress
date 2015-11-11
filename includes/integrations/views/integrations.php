@@ -61,7 +61,7 @@
 
 		<!-- Sidebar -->
 		<div class="sidebar col col-2">
-			<?php include dirname( __FILE__ ) . '/parts/admin-sidebar.php'; ?>
+			<?php include MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-sidebar.php'; ?>
 		</div>
 
 	</div>
