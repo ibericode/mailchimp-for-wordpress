@@ -78,9 +78,9 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 
 		element.setAttribute('class', 'lucy ' + ( isOpen ? 'open' : 'closed' ) );
 
-		if( searchResults().length > 1 ) {
+		if( searchQuery().length > 1 ) {
 			content = m('div.search-results', [
-				(searchResults().length) ? searchResults().map(function(l) {
+				(searchResults().length > 0) ? searchResults().map(function(l) {
 					return m('a', { href: l.href }, m.trust(l.text) );
 				}) : m("em.search-pending","Hit [ENTER] to search for \""+ searchQuery() +"\"..")
 			]);
@@ -95,18 +95,22 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 				m('span.close-icon', { onclick: close }, ""),
 				m('div.header', [
 					m('h4', 'Looking for help?'),
-					m('form', {
+					m('div.search-form', {
 						onsubmit: search
 					}, [
 						m('input', {
 							type: 'text',
 							value: searchQuery(),
-							oninput: function() {
+							onkeyup: function(e) {
 								if( this.value === '' && searchQuery() !== '' ) {
 									reset();
 								}
 
 								searchQuery(this.value);
+
+								if(e.keyCode == 13 ) {
+									return search(this.value);
+								}
 							},
 							config: function(el) { isOpen && el.focus(); },
 							placeholder: 'What are you looking for?'
@@ -134,10 +138,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 
 
 	// create element and float it in bottom right corner
-	function search(e) {
-		e.preventDefault();
-		e.returnValue = false;
-
+	function search(query) {
 		loader.innerText = '.';
 		loadingInterval = window.setInterval(function() {
 			loader.innerText += '.';
@@ -147,7 +148,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 			}
 		}, 333 );
 
-		index.search( searchQuery(), { hitsPerPage: 5 }, function( error, result ) {
+		index.search( query, { hitsPerPage: 5 }, function( error, result ) {
 
 			searchResults(result.hits.map(function(r) {
 				return { href: r.path, text: r._highlightResult.title.value};
@@ -160,7 +161,6 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 			window.clearInterval(loadingInterval);
 		} );
 
-		return false;
 	}
 
 	m.mount(element,module);

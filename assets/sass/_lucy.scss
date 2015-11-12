@@ -72,7 +72,7 @@ $width: 360px;
 		}
 	}
 
-	form {
+	.search-form {
 		position: relative;
 
 		[type="submit"] {
@@ -152,5 +152,5 @@ $width: 360px;
 		}
 	}
 
-}
+} // end .lucy wrapper
 

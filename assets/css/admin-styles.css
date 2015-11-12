@@ -321,15 +321,15 @@
       content: "\f158"; }
     .lucy .close-icon:hover {
       opacity: 1; }
-  .lucy form {
+  .lucy .search-form {
     position: relative; }
-    .lucy form [type="submit"] {
+    .lucy .search-form [type="submit"] {
       display: none; }
-    .lucy form input {
+    .lucy .search-form input {
       width: 100%;
       display: block;
       padding: 6px 20px 6px 6px; }
-    .lucy form .loader {
+    .lucy .search-form .loader {
       position: absolute;
       right: 10px;
       top: 0;
