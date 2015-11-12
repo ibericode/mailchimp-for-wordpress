@@ -1423,14 +1423,16 @@ module.exports = forms();
 			if( ! element ) {
 				continue;
 			}
+			
+			var type = element.type || element[0].type;
 
-			// check element type
-			switch(element.type || element.constructor ) {
+			switch(type ) {
 				default:
 					element.value = value;
 					break;
 
-				case RadioNodeList:
+				case 'radio':
+				case 'checkbox':
 					for( var j=0; j < element.length; j++ ) {
 						element[j].checked = ( value.indexOf(element[j].value) > -1 );
 					}
