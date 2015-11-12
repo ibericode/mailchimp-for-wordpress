@@ -400,7 +400,7 @@ var g = function(m) {
 		var label, field;
 
 		label = config.label().length ? m("label", config.label()) : '';
-		field = (typeof(generators[config.type()]) == "function") ? generators[config.type()](config) : generators.default(config);
+		field = typeof(generators[config.type()]) === "function" ? generators[config.type()](config) : generators['default'](config);
 
 		var html = config.wrap() ? m('p', [label, field]) : [label, field];
 
