@@ -173,8 +173,9 @@ var FieldFactory = function(settings, fields) {
 
 		settings.events.trigger('fields.change');
 
+		// Tell Mithril to redraw in 1 second, this fixes an issue in IE8...
 		if(window.m) {
-			m.redraw();
+			window.setTimeout( function() { window.m.redraw() }, 1000 );
 		}
 	}
 

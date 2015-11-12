@@ -209,6 +209,8 @@
 			var enabled = $toggles.filter(':checked').val() > 0;
 			var opacity = enabled ? '1' : '0.5';
 			$settings.css( 'opacity', opacity );
+			/* ie 8 */
+			$settings.css('-ms-filter', "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)");
 		}
 	})(window.jQuery);
 </script>
