@@ -90,7 +90,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 
 								searchQuery(this.value);
 							},
-							config: function(el) { el.focus(); },
+							config: function(el) { isOpen && el.focus(); },
 							placeholder: 'What are you looking for?'
 						}),
 						m('span', {
