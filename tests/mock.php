@@ -51,7 +51,7 @@ function sanitize_text_field( $value ) {
 /**
  * @ignore
  */
-function get_post_meta( $id, $meta_key, $single = true ) {
+function get_post_meta( $id, $meta_key = '', $single = true ) {
 	return false;
 }
 
