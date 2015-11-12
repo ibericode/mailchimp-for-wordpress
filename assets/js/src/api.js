@@ -35,8 +35,6 @@ if( config.submitted_form && config.submitted_form.id ) {
 }
 
 // Bind browser events to form events (using delegation to work with AJAX loaded forms as well)
-// IE9+ only at this moment.
-// TODO: Make this IE8 compatible? See https://github.com/ccampbell/gator/blob/master/plugins/gator-legacy.js
 Gator(document.body).on('submit', '.mc4wp-form', function(event) {
 	var form = forms.getByElement(event.target);
 	forms.trigger('submit', [form, event]);

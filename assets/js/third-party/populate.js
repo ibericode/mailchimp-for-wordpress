@@ -36,7 +36,7 @@
 			if( ! element ) {
 				continue;
 			}
-			
+
 			var type = element.type || element[0].type;
 
 			switch(type ) {
