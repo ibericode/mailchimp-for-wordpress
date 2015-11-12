@@ -31,7 +31,7 @@ var forms = function() {
 
 	// create form object from <form> element
 	function createFromElement(formElement,id) {
-		id = id || parseInt( formElement.getAttribute('data-id') );
+		id = id || parseInt( formElement.getAttribute('data-id') ) || 0;
 		var form = new Form(id,formElement);
 		forms.push(form);
 		return form;

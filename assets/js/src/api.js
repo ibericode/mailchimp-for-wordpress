@@ -6,6 +6,11 @@ var forms = require('./forms/forms.js');
 var listeners = window.mc4wp && window.mc4wp.listeners ? window.mc4wp.listeners : [];
 var config = window.mc4wp_forms_config || {};
 
+// expose stuff, this overrides dummy javascript
+window.mc4wp = {
+	"forms": forms
+};
+
 // register early listeners
 for(var i=0; i<listeners.length;i++) {
 	forms.on(listeners[i].event, listeners[i].callback);
@@ -30,6 +35,8 @@ if( config.submitted_form && config.submitted_form.id ) {
 }
 
 // Bind browser events to form events (using delegation to work with AJAX loaded forms as well)
+// IE9+ only at this moment.
+// TODO: Make this IE8 compatible? See https://github.com/ccampbell/gator/blob/master/plugins/gator-legacy.js
 Gator(document.body).on('submit', '.mc4wp-form', function(event) {
 	var form = forms.getByElement(event.target);
 	forms.trigger('submit', [form, event]);
@@ -47,8 +54,5 @@ Gator(document.body).on('change', '.mc4wp-form', function(event) {
 	forms.trigger('change', [form,event]);
 });
 
-// expose stuff, this overrides dummy javascript
-window.mc4wp = {
-	"forms": forms
-};
+
 
