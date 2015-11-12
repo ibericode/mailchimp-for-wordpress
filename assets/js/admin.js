@@ -1286,11 +1286,11 @@ var overlay = function( m ) {
 		if( ! _element ) return;
 
 		// fix for window width in IE8
-		window.innerWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-		window.innerHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+		var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+		var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
-		var marginLeft = ( window.innerWidth - _element.clientWidth ) / 2;
-		var marginTop  = ( window.innerHeight - _element.clientHeight ) / 2;
+		var marginLeft = ( windowWidth - _element.clientWidth ) / 2;
+		var marginTop  = ( windowHeight - _element.clientHeight ) / 2;
 
 		_element.style.marginLeft = marginLeft > 0 ? marginLeft + "px" : 0;
 		_element.style.marginTop = marginTop > 0 ? marginTop + "px" : 0;
