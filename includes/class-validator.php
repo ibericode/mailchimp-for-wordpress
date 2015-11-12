@@ -34,7 +34,7 @@ class MC4WP_Validator {
 	/**
 	 * @param string $field
 	 * @param string|callable $rule
-	 * @param string $error_code
+	 * @param string $error_code Reference to the error
 	 * @param array $config
 	 */
 	public function add_rule( $field, $rule, $error_code = 'error', $config = array() ) {

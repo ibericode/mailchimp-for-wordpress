@@ -149,9 +149,8 @@ class MC4WP_Forms_Admin {
 	public function update_form_stylesheets() {
 		$stylesheets = array();
 
-		$posts = get_posts( array( 'post_type' => 'mc4wp-form', 'post_status' => 'publish', 'numberposts' => -1 ) );
-		foreach( $posts as $post ) {
-			$form = mc4wp_get_form( $post->ID );
+		$forms = mc4wp_get_forms();
+		foreach( $forms as $form ) {
 
 			if( empty( $form->settings['css'] ) ) {
 				continue;

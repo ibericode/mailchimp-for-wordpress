@@ -1,8 +1,6 @@
 <?php
 
 $theme = wp_get_theme();
-
-
 $css_options = array(
 	'0' => sprintf( __( 'Inherit from %s theme', 'mailchimp-for-wp' ), $theme->Name ),
 	'form-basic' => __( 'Basic', 'mailchimp-for-wp' ),
@@ -16,9 +14,12 @@ $css_options = array(
 );
 
 /**
+ * Filters the <option>'s in the "CSS Stylesheet" <select> box.
+ *
  * @ignore
  */
 $css_options = apply_filters( 'mc4wp_admin_form_css_options', $css_options );
+
 ?>
 
 <h2><?php _e( 'Form Appearance', 'mailchimp-for-wp' ); ?></h2>

@@ -82,6 +82,11 @@ class MC4WP_Form {
 	public $post;
 
 	/**
+	 * @var array Raw array or post_meta values.
+	 */
+	public $post_meta = array();
+
+	/**
 	 * @var array Array of error code's
 	 * @todo Change to actual error messages?
 	 */
@@ -118,15 +123,15 @@ class MC4WP_Form {
 	 * @throws Exception
 	 */
 	public function __construct( $id ) {
-		$id = (int) $id;
-		$this->post = $post = get_post( $id );
+		$this->ID = $id = (int) $id;
+		$this->post = $post = get_post( $this->ID );
+		$this->post_meta = get_post_meta( $this->ID );
 
 		if( ! is_object( $post ) || ! isset( $post->post_type ) || $post->post_type !== 'mc4wp-form' ) {
 			$message = sprintf( __( 'There is no form with ID %d, perhaps it was deleted?', 'mailchimp-for-wp' ), $id );
 			throw new Exception( $message );
 		}
 
-		$this->ID = $id;
 		$this->name = $post->post_title;
 		$this->content = $post->post_content;
 		$this->settings = $this->load_settings();
@@ -193,50 +198,23 @@ class MC4WP_Form {
 		return $html;
 	}
 
-	/**
-	 * Maps registered messages to a message type
-	 *
-	 * @todo Move to Message object?
-	 * @return array
-	 */
-	public function get_message_types() {
-		$form = $this;
-		$message_types = array(
-			'subscribed' => 'success',
-			'unsubscribed' => 'success',
-			'error' => 'error',
-			'invalid_email' => 'error',
-			'required_field_missing' => 'error',
-			'already_subscribed' => 'notice',
-			'not_subscribed' => 'notice',
-			'no_lists_selected' => 'error',
-		);
-
-		/**
-		 * Filters the type for each error / success message.
-		 *
-		 * @see `mc4wp_form_errors`
-		 * @see `mc4wp_form_messages`
-		 * @param array $message_types
-		 * @param MC4WP_Form $form
-		 */
-		$message_types = (array) apply_filters( 'mc4wp_form_message_types', $message_types, $form );
-
-		return $message_types;
-	}
 
 	/**
 	 * @return array
 	 */
 	protected function load_settings() {
-		$defaults = include MC4WP_PLUGIN_DIR . 'config/default-form-settings.php';
-		$settings = $defaults;
+
 		$form = $this;
 
-		// get stored settings from post meta
-		$meta = get_post_meta( $this->ID, '_mc4wp_settings', true );
+		// get default settings
+		$settings = include MC4WP_PLUGIN_DIR . 'config/default-form-settings.php';
 
-		if( is_array( $meta ) ) {
+
+		// get custom settings from meta
+		if( ! empty( $this->post_meta['_mc4wp_settings'] ) ) {
+			$meta = $this->post_meta['_mc4wp_settings'][0];
+			$meta = maybe_unserialize( $meta );
+
 			// merge with defaults
 			$settings = array_merge( $settings, $meta );
 		}
@@ -256,22 +234,32 @@ class MC4WP_Form {
 	 * @return array
 	 */
 	protected function load_messages() {
-		$defaults = include MC4WP_PLUGIN_DIR . 'config/default-form-messages.php';
-		$messages = array();
+
 		$form = $this;
 
-		foreach( $defaults as $key => $message ) {
-			$message = get_post_meta( $this->ID, $key, true );
-			$messages[ $key ] = ( ! empty( $message ) ) ? $message : $defaults[ $key ];
-		}
+		// get default messages
+		$messages = include MC4WP_PLUGIN_DIR . 'config/default-form-messages.php';
 
 		/**
 		 * Filters the form messages
 		 *
-		 * @param array $messages
-		 * @param MC4WP_Form
+		 * @param array $registered_messages
+		 * @param MC4WP_Form $form
 		 */
 		$messages = (array) apply_filters( 'mc4wp_form_messages', $messages, $form );
+
+		foreach( $messages as $key => $message ) {
+
+			$type = ! empty( $message['type'] ) ? $message['type'] : '';
+			$text = isset( $message['text'] ) ? $message['text'] : $message;
+
+			if( isset( $this->post_meta[ $key ][0] ) ) {
+				$text = $this->post_meta[ $key ][0];
+			}
+
+			$message = new MC4WP_Form_Message( $text, $type );
+			$messages[ $key ] = $message;
+		}
 
 		return $messages;
 	}
@@ -308,20 +296,18 @@ class MC4WP_Form {
 	 */
 	public function get_message_html( $key ) {
 		$message = $this->get_message( $key );
-		$type = $this->get_message_type( $key );
 
-		$html = sprintf( '<div class="mc4wp-alert mc4wp-%s"><p>%s</p></div>', esc_attr( $type ), $message );
-		$html = (string) apply_filters( 'mc4wp_form_message_html', $html, $this );
+		$html = sprintf( '<div class="mc4wp-alert mc4wp-%s"><p>%s</p></div>', esc_attr( $message->type ), $message->text );
 
 		return $html;
 	}
 
 	/**
-	 * Get raw message string
+	 * Get message object
 	 *
 	 * @param string $key
 	 *
-	 * @return string
+	 * @return MC4WP_Form_Message
 	 */
 	public function get_message( $key ) {
 
@@ -329,26 +315,7 @@ class MC4WP_Form {
 			return $this->messages[ $key ];
 		}
 
-		// default to error message
 		return $this->messages['error'];
-	}
-
-	/**
-	 * Get message type for a message.
-	 *
-	 * @param string $key
-	 *
-	 * @return string
-	 */
-	public function get_message_type( $key ) {
-
-		$message_types = $this->get_message_types();
-
-		if( isset( $message_types[ $key ] ) ) {
-			return $message_types[ $key ];
-		}
-
-		return 'error';
 	}
 
 	/**
