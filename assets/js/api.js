@@ -131,12 +131,8 @@ var forms = function() {
 
 	// get form by its id
 	function get(formId) {
-		var form = forms.filter(function(form) {
-			return form.id == formId;
-		}).pop();
-
-		if( form ) {
-			return form;
+		for(var i=0; i<forms.length;i++) {
+			if(forms[i].id == formId) return forms[i];
 		}
 
 		var formElement = document.querySelector('.mc4wp-form-' + formId);
