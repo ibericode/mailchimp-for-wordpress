@@ -1289,11 +1289,11 @@ var overlay = function( m ) {
 		var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 		var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
-		var marginLeft = ( windowWidth - _element.clientWidth ) / 2;
-		var marginTop  = ( windowHeight - _element.clientHeight ) / 2;
+		var marginLeft = ( windowWidth - _element.clientWidth - 80 ) / 2;
+		var marginTop  = ( windowHeight - _element.clientHeight - 80 ) / 2;
 
-		_element.style.marginLeft = marginLeft > 0 ? marginLeft + "px" : 0;
-		_element.style.marginTop = marginTop > 0 ? marginTop + "px" : 0;
+		_element.style.marginLeft = ( marginLeft > 0 ? marginLeft : 0 ) + "px";
+		_element.style.marginTop = ( marginTop > 0 ? marginTop : 0 ) + "px";
 	}
 
 	// bind events (IE8 compatible)
@@ -1308,29 +1308,31 @@ var overlay = function( m ) {
 	return function (content, onCloseCallback) {
 		_onCloseCallback = onCloseCallback;
 
-		return [
-			m("div.overlay", { config: function(el) {
-				_element = el;
-				position();
-			}}, [
-
-				// close icon
-				m('span', {
-					"class": 'close dashicons dashicons-no',
-					title  : "Click to close the overlay.",
-					onclick: onCloseCallback
-				}),
-
-				content
-			]),
-
-			// overlay background
-			m("div", {
-				"class": "overlay-background",
+		return m("div", {
+				"class": "overlay-wrapper",
 				title  : "Click to close the overlay.",
 				onclick: onCloseCallback
-			})
-		];
+			}, [
+				m("div.overlay", {
+					config: function(el) {
+						_element = el;
+						position();
+					},
+					"onclick": function(event) {
+						event.stopPropagation();
+					}}, [
+
+					// close icon
+					m('span', {
+						"class": 'close dashicons dashicons-no',
+						title  : "Click to close the overlay.",
+						onclick: onCloseCallback
+					}),
+
+					content
+				])
+
+			]);
 	};
 };
 

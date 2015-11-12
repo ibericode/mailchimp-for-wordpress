@@ -1390,7 +1390,7 @@ module.exports = {
 	 * Gator(ul).on('click', '.test', _doSomething); will work but
 	 * Gator(ul).on('click', 'li.test', _doSomething); will not
 	 */
-	(function (Gator) {
+	Gator = (function (Gator) {
 		var oldAddEvent = Gator.addEvent;
 		Gator.addEvent = function(gator, type, callback) {
 			if (gator.element.addEventListener) {
@@ -1439,7 +1439,9 @@ module.exports = {
 			e.returnValue = false;
 			e.cancelBubble = true;
 		};
-	}) (Gator);
+
+		return Gator;
+	})(Gator);
 
 	if (typeof module !== 'undefined' && module.exports) {
 		module.exports = Gator;
