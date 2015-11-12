@@ -1285,6 +1285,10 @@ var overlay = function( m ) {
 	function position() {
 		if( ! _element ) return;
 
+		// fix for window width in IE8
+		window.innerWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+		window.innerHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
 		var marginLeft = ( window.innerWidth - _element.clientWidth ) / 2;
 		var marginTop  = ( window.innerHeight - _element.clientHeight ) / 2;
 
