@@ -32,17 +32,18 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 		}
 	}
 
-	function maybeClose(e) {
+	function maybeClose(event) {
+		event = event || window.event;
 
 		// close when pressing ESCAPE
-		if(e.type === 'keyup' && e.keyCode == 27 ) {
+		if(event.type === 'keyup' && event.keyCode == 27 ) {
 			close();
 			return;
 		}
 
 		// close when clicking ANY element outside of Lucy
 		var clickedElement = event.target || event.srcElement;
-		if(e.type === 'click' && element.contains && ! element.contains(clickedElement) )  {
+		if(event.type === 'click' && element.contains && ! element.contains(clickedElement) )  {
 			close();
 		}
 
@@ -101,14 +102,15 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 						m('input', {
 							type: 'text',
 							value: searchQuery(),
-							onkeyup: function(e) {
+							onkeyup: function(event) {
+								event = event || window.event;
 								if( this.value === '' && searchQuery() !== '' ) {
 									reset();
 								}
 
 								searchQuery(this.value);
 
-								if(e.keyCode == 13 ) {
+								if(event.keyCode == 13 ) {
 									return search(this.value);
 								}
 							},

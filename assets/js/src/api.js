@@ -36,19 +36,22 @@ if( config.submitted_form && config.submitted_form.id ) {
 
 // Bind browser events to form events (using delegation to work with AJAX loaded forms as well)
 Gator(document.body).on('submit', '.mc4wp-form', function(event) {
-	var form = forms.getByElement(event.target);
+	event = event || window.event;
+	var form = forms.getByElement(event.target || event.srcElement);
 	forms.trigger('submit', [form, event]);
 });
 
 Gator(document.body).on('focus', '.mc4wp-form', function(event) {
-	var form = forms.getByElement(event.target);
+	event = event || window.event;
+	var form = forms.getByElement(event.target || event.srcElement);
 	if( ! form.started ) {
 		forms.trigger('start', [form, event]);
 	}
 });
 
 Gator(document.body).on('change', '.mc4wp-form', function(event) {
-	var form = forms.getByElement(event.target);
+	event = event || window.event;
+	var form = forms.getByElement(event.target || event.srcElement);
 	forms.trigger('change', [form,event]);
 });
 

@@ -76,6 +76,7 @@ var Tabs = function(context) {
 
 
 	function switchTab(e) {
+		e = e || window.event;
 
 		var tab = this.getAttribute('data-tab');
 		if( ! tab ) {
