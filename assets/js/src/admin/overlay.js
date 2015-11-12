@@ -1,9 +1,12 @@
 var overlay = function( m ) {
 	'use strict';
 
-	var _element, _onCloseCallback;
+	var _element,
+		_onCloseCallback;
 
 	function onKeyDown(e) {
+		e = e || window.event;
+
 		if (e.keyCode == 27 && _onCloseCallback ) {
 			_onCloseCallback();
 		}
@@ -12,8 +15,8 @@ var overlay = function( m ) {
 	function position() {
 		if( ! _element ) return;
 
-		var marginLeft =  ( window.innerWidth - _element.clientWidth ) / 2;
-		var marginTop = ( window.innerHeight - _element.clientHeight ) / 2;
+		var marginLeft = ( window.innerWidth - _element.clientWidth ) / 2;
+		var marginTop  = ( window.innerHeight - _element.clientHeight ) / 2;
 
 		_element.style.marginLeft = marginLeft > 0 ? marginLeft + "px" : 0;
 		_element.style.marginTop = marginTop > 0 ? marginTop + "px" : 0;
@@ -38,7 +41,8 @@ var overlay = function( m ) {
 			}}, [
 
 				// close icon
-				m('span.close.dashicons.dashicons-no', {
+				m('span', {
+					"class": 'close dashicons dashicons-no',
 					title  : "Click to close the overlay.",
 					onclick: onCloseCallback
 				}),
@@ -47,7 +51,8 @@ var overlay = function( m ) {
 			]),
 
 			// overlay background
-			m("div.overlay-background", {
+			m("div", {
+				"class": "overlay-background",
 				title  : "Click to close the overlay.",
 				onclick: onCloseCallback
 			})

@@ -11,31 +11,32 @@
 	var FieldsFactory = require('./admin/fields-factory.js');
 	var m = require('../third-party/mithril.js');
 	var Lucy = require('./admin/lucy.js');
+	var EventEmitter = require('../third-party/event-emitter.js');
 
 	// vars
-	var context = document.getElementById('mc4wp-admin');
+	var context = document.getElementById('mc4wp-admin')
+	var events = new EventEmitter();;
 	var formContentTextarea = document.getElementById('mc4wp-form-content');
 	var tabs = require ('./admin/tabs.js')(context);
 	var helpers = require('./admin/helpers.js');
 	window.mc4wp.helpers = helpers;
-	var settings = require('./admin/settings.js')(context, helpers);
-	var fields = require('./admin/fields.js')(m);
+	var settings = require('./admin/settings.js')(context, helpers, events);
+	var fields = require('./admin/fields.js')(m, events);
 
 	// are we on edit forms page?
 	if( formContentTextarea ) {
-		// instantiate form editor
+
 		var formEditor = window.formEditor = new FormEditor( formContentTextarea );
-
-		// run field factory (registers fields from merge vars & interest groupings of selected lists)
-		var fieldsFactory = new FieldsFactory(settings,fields);
-		fieldsFactory.work(settings.getSelectedLists());
-
-		// instantiate form watcher
-		var formWatcher = new FormWatcher( formEditor, settings, fields );
-
-		// instantiate form field helper
+		var formWatcher = new FormWatcher( formEditor, settings, fields, events );
 		var fieldHelper = new FieldHelper( m, tabs, formEditor, fields );
+
 		m.mount( document.getElementById( 'mc4wp-field-wizard'), fieldHelper );
+
+		// register fields and redraw screen in 2.5 seconds
+		var fieldsFactory = new FieldsFactory(settings,fields);
+		events.on('selectedLists.change', fieldsFactory.work);
+		fieldsFactory.work(settings.getSelectedLists());
+		window.setTimeout( function() {m.redraw();}, 2500 );
 	}
 
 	// Lucy!
@@ -68,7 +69,7 @@
 	window.mc4wp_register_field = fields.register;
 	window.mc4wp_deregister_field = fields.deregister;
 })();
-},{"../third-party/mithril.js":18,"./admin/field-helper.js":5,"./admin/fields-factory.js":6,"./admin/fields.js":7,"./admin/form-editor.js":8,"./admin/form-watcher.js":9,"./admin/helpers.js":10,"./admin/lucy.js":11,"./admin/settings.js":13,"./admin/tabs.js":14}],2:[function(require,module,exports){
+},{"../third-party/event-emitter.js":17,"../third-party/mithril.js":18,"./admin/field-helper.js":5,"./admin/fields-factory.js":6,"./admin/fields.js":7,"./admin/form-editor.js":8,"./admin/form-watcher.js":9,"./admin/helpers.js":10,"./admin/lucy.js":11,"./admin/settings.js":13,"./admin/tabs.js":14}],2:[function(require,module,exports){
 var rows = function(m) {
 	'use strict';
 
@@ -708,16 +709,7 @@ var FieldFactory = function(settings, fields) {
 
 		// register global fields like "submit" & "list choice"
 		registerCustomFields(lists);
-
-		settings.events.trigger('fields.change');
-
-		// Tell Mithril to redraw in 1 second, this fixes an issue in IE8...
-		if(window.m) {
-			window.setTimeout( function() { window.m.redraw() }, 1000 );
-		}
 	}
-
-	settings.events.on('selectedLists.change',work);
 
 	/**
 	 * Expose some methods
@@ -730,7 +722,7 @@ var FieldFactory = function(settings, fields) {
 
 module.exports = FieldFactory;
 },{}],7:[function(require,module,exports){
-module.exports = function(m) {
+module.exports = function(m, events) {
 	'use strict';
 
 	/**
@@ -854,6 +846,9 @@ module.exports = function(m) {
 		// redraw view
 		m.redraw();
 
+		// trigger event
+		events.trigger('fields.change');
+
 		return field;
 	}
 
@@ -953,7 +948,7 @@ var FormEditor = function(element) {
 
 module.exports = FormEditor;
 },{}],9:[function(require,module,exports){
-var FormWatcher = function(editor, settings, fields) {
+var FormWatcher = function(editor, settings, fields, events) {
 	'use strict';
 
 	var missingFieldsNotice = document.getElementById('missing-fields-notice');
@@ -1024,7 +1019,7 @@ var FormWatcher = function(editor, settings, fields) {
 	editor.on('changes', checkPresenceOfRequiredFields );
 	editor.on('blur', findRequiredFields );
 
-	settings.events.on('fields.change', checkPresenceOfRequiredFields);
+	events.on('fields.change', checkPresenceOfRequiredFields);
 
 };
 
@@ -1276,9 +1271,12 @@ module.exports = lucy;
 var overlay = function( m ) {
 	'use strict';
 
-	var _element, _onCloseCallback;
+	var _element,
+		_onCloseCallback;
 
 	function onKeyDown(e) {
+		e = e || window.event;
+
 		if (e.keyCode == 27 && _onCloseCallback ) {
 			_onCloseCallback();
 		}
@@ -1287,8 +1285,8 @@ var overlay = function( m ) {
 	function position() {
 		if( ! _element ) return;
 
-		var marginLeft =  ( window.innerWidth - _element.clientWidth ) / 2;
-		var marginTop = ( window.innerHeight - _element.clientHeight ) / 2;
+		var marginLeft = ( window.innerWidth - _element.clientWidth ) / 2;
+		var marginTop  = ( window.innerHeight - _element.clientHeight ) / 2;
 
 		_element.style.marginLeft = marginLeft > 0 ? marginLeft + "px" : 0;
 		_element.style.marginTop = marginTop > 0 ? marginTop + "px" : 0;
@@ -1313,7 +1311,8 @@ var overlay = function( m ) {
 			}}, [
 
 				// close icon
-				m('span.close.dashicons.dashicons-no', {
+				m('span', {
+					"class": 'close dashicons dashicons-no',
 					title  : "Click to close the overlay.",
 					onclick: onCloseCallback
 				}),
@@ -1322,7 +1321,8 @@ var overlay = function( m ) {
 			]),
 
 			// overlay background
-			m("div.overlay-background", {
+			m("div", {
+				"class": "overlay-background",
 				title  : "Click to close the overlay.",
 				onclick: onCloseCallback
 			})
@@ -1332,13 +1332,10 @@ var overlay = function( m ) {
 
 module.exports = overlay;
 },{}],13:[function(require,module,exports){
-var Settings = function(context, helpers) {
+var Settings = function(context, helpers, events ) {
 	'use strict';
 
-	var EventEmitter = require('../../third-party/event-emitter.js');
-
 	// vars
-	var events = new EventEmitter();
 	var listInputs = context.querySelectorAll('.mc4wp-list-input');
 	var lists = mc4wp_vars.mailchimp.lists;
 	var selectedLists = [];
@@ -1387,14 +1384,13 @@ var Settings = function(context, helpers) {
 	updateSelectedLists();
 
 	return {
-		getSelectedLists: getSelectedLists,
-		events: events
+		getSelectedLists: getSelectedLists
 	}
 
 };
 
 module.exports = Settings;
-},{"../../third-party/event-emitter.js":17}],14:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 // Tabs
 var Tabs = function(context) {
 

@@ -1,4 +1,4 @@
-module.exports = function(m) {
+module.exports = function(m, events) {
 	'use strict';
 
 	/**
@@ -121,6 +121,9 @@ module.exports = function(m) {
 
 		// redraw view
 		m.redraw();
+
+		// trigger event
+		events.trigger('fields.change');
 
 		return field;
 	}

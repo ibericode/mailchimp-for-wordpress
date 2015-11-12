@@ -1,4 +1,4 @@
-var FormWatcher = function(editor, settings, fields) {
+var FormWatcher = function(editor, settings, fields, events) {
 	'use strict';
 
 	var missingFieldsNotice = document.getElementById('missing-fields-notice');
@@ -69,7 +69,7 @@ var FormWatcher = function(editor, settings, fields) {
 	editor.on('changes', checkPresenceOfRequiredFields );
 	editor.on('blur', findRequiredFields );
 
-	settings.events.on('fields.change', checkPresenceOfRequiredFields);
+	events.on('fields.change', checkPresenceOfRequiredFields);
 
 };
 

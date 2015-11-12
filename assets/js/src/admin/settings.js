@@ -1,10 +1,7 @@
-var Settings = function(context, helpers) {
+var Settings = function(context, helpers, events ) {
 	'use strict';
 
-	var EventEmitter = require('../../third-party/event-emitter.js');
-
 	// vars
-	var events = new EventEmitter();
 	var listInputs = context.querySelectorAll('.mc4wp-list-input');
 	var lists = mc4wp_vars.mailchimp.lists;
 	var selectedLists = [];
@@ -53,8 +50,7 @@ var Settings = function(context, helpers) {
 	updateSelectedLists();
 
 	return {
-		getSelectedLists: getSelectedLists,
-		events: events
+		getSelectedLists: getSelectedLists
 	}
 
 };

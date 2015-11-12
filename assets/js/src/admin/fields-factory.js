@@ -170,16 +170,7 @@ var FieldFactory = function(settings, fields) {
 
 		// register global fields like "submit" & "list choice"
 		registerCustomFields(lists);
-
-		settings.events.trigger('fields.change');
-
-		// Tell Mithril to redraw in 1 second, this fixes an issue in IE8...
-		if(window.m) {
-			window.setTimeout( function() { window.m.redraw() }, 1000 );
-		}
 	}
-
-	settings.events.on('selectedLists.change',work);
 
 	/**
 	 * Expose some methods

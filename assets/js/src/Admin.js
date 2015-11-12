@@ -10,31 +10,32 @@
 	var FieldsFactory = require('./admin/fields-factory.js');
 	var m = require('../third-party/mithril.js');
 	var Lucy = require('./admin/lucy.js');
+	var EventEmitter = require('../third-party/event-emitter.js');
 
 	// vars
-	var context = document.getElementById('mc4wp-admin');
+	var context = document.getElementById('mc4wp-admin')
+	var events = new EventEmitter();;
 	var formContentTextarea = document.getElementById('mc4wp-form-content');
 	var tabs = require ('./admin/tabs.js')(context);
 	var helpers = require('./admin/helpers.js');
 	window.mc4wp.helpers = helpers;
-	var settings = require('./admin/settings.js')(context, helpers);
-	var fields = require('./admin/fields.js')(m);
+	var settings = require('./admin/settings.js')(context, helpers, events);
+	var fields = require('./admin/fields.js')(m, events);
 
 	// are we on edit forms page?
 	if( formContentTextarea ) {
-		// instantiate form editor
+
 		var formEditor = window.formEditor = new FormEditor( formContentTextarea );
-
-		// run field factory (registers fields from merge vars & interest groupings of selected lists)
-		var fieldsFactory = new FieldsFactory(settings,fields);
-		fieldsFactory.work(settings.getSelectedLists());
-
-		// instantiate form watcher
-		var formWatcher = new FormWatcher( formEditor, settings, fields );
-
-		// instantiate form field helper
+		var formWatcher = new FormWatcher( formEditor, settings, fields, events );
 		var fieldHelper = new FieldHelper( m, tabs, formEditor, fields );
+
 		m.mount( document.getElementById( 'mc4wp-field-wizard'), fieldHelper );
+
+		// register fields and redraw screen in 2.5 seconds
+		var fieldsFactory = new FieldsFactory(settings,fields);
+		events.on('selectedLists.change', fieldsFactory.work);
+		fieldsFactory.work(settings.getSelectedLists());
+		window.setTimeout( function() {m.redraw();}, 2500 );
 	}
 
 	// Lucy!
