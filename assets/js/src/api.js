@@ -59,7 +59,7 @@ function init() {
 if( ! Array.prototype.forEach ) {
 	var shim = document.createElement('script');
 	shim.setAttribute('src','https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.3.1/es5-shim.min.js');
-	document.body.appendChild(shim);
+	document.head.appendChild(shim);
 	shim.onload = init;
 } else {
 	init();
