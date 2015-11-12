@@ -414,7 +414,7 @@ var g = function(m) {
 
 module.exports = g;
 },{"../../third-party/beautify-html.js":16,"../../third-party/render.js":19}],5:[function(require,module,exports){
-var FieldHelper = function(m,tabs, editor, fields) {
+var FieldHelper = function(m, tabs, editor, fields) {
 	'use strict';
 
 	var generate = require('./field-generator.js')(m);
@@ -1294,12 +1294,13 @@ var overlay = function( m ) {
 		_element.style.marginTop = marginTop > 0 ? marginTop + "px" : 0;
 	}
 
+	// bind events (IE8 compatible)
 	if (document.addEventListener) {
 		document.addEventListener('keydown', onKeyDown);
 		window.addEventListener('resize', position);
 	} else if(document.attachEvent) {
 		document.attachEvent('onkeydown', onKeyDown);
-		window.addEventListener('resize', position);
+		window.attachEvent('onresize', position);
 	}
 
 	return function (content, onCloseCallback) {

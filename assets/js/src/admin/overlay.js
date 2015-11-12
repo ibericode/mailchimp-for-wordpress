@@ -19,12 +19,13 @@ var overlay = function( m ) {
 		_element.style.marginTop = marginTop > 0 ? marginTop + "px" : 0;
 	}
 
+	// bind events (IE8 compatible)
 	if (document.addEventListener) {
 		document.addEventListener('keydown', onKeyDown);
 		window.addEventListener('resize', position);
 	} else if(document.attachEvent) {
 		document.attachEvent('onkeydown', onKeyDown);
-		window.addEventListener('resize', position);
+		window.attachEvent('onresize', position);
 	}
 
 	return function (content, onCloseCallback) {

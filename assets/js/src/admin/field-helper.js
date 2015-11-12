@@ -1,4 +1,4 @@
-var FieldHelper = function(m,tabs, editor, fields) {
+var FieldHelper = function(m, tabs, editor, fields) {
 	'use strict';
 
 	var generate = require('./field-generator.js')(m);
