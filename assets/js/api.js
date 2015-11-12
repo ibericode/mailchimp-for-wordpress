@@ -52,7 +52,7 @@ Gator(document.body).on('change', '.mc4wp-form', function(event) {
 // expose stuff, this overrides dummy javascript
 window.mc4wp = {};
 window.mc4wp.forms = forms;
-delete window.mc4wpFormListeners;
+window.mc4wp.listeners = undefined;
 
 },{"../third-party/gator.js":6,"./forms/forms.js":3}],2:[function(require,module,exports){
 'use strict';

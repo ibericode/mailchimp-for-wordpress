@@ -163,11 +163,11 @@ class MC4WP_Form_Asset_Manager {
 		?>
 		<script type="text/javascript">
 			/* <![CDATA[ */
-			window.mc4wpFormListeners = [];
 			window.mc4wp = {
+				listeners: [],
 				forms: {
 					on: function(event,callback) {
-						window.mc4wpFormListeners.push({
+						window.mc4wp.listeners.push({
 							event: event,
 							callback: callback
 						});
