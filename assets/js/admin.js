@@ -1104,6 +1104,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 	var loader, loadingInterval = 0;
 	var searchResults = m.prop([]);
 	var searchQuery = m.prop('');
+	var nothingFound = false;
 
 	var element = document.createElement('div');
 	element.setAttribute('class','lucy');
@@ -1163,6 +1164,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 	function reset() {
 		searchQuery('');
 		searchResults([]);
+		nothingFound = false;
 		m.redraw();
 	}
 
@@ -1172,12 +1174,16 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 
 		element.setAttribute('class', 'lucy ' + ( isOpen ? 'open' : 'closed' ) );
 
-		if( searchQuery().length > 1 ) {
-			content = m('div.search-results', [
-				(searchResults().length > 0) ? searchResults().map(function(l) {
+		if( searchQuery().length > 0 ) {
+			if( searchResults().length > 0 ) {
+				content = m('div.search-results', searchResults().map(function(l) {
 					return m('a', { href: l.href }, m.trust(l.text) );
-				}) : m("em.search-pending","Hit [ENTER] to search for \""+ searchQuery() +"\"..")
-			]);
+				}));
+			} else {
+				content = m('div.search-results', [
+					m("em.search-pending", (nothingFound ? "Nothing found for " : "Hit [ENTER] to search for" ) + "\""+ searchQuery() +"\"..")
+				]);
+			}
 		} else {
 			content = m("div.links", defaultLinks.map(function(l) {
 				return m('a', { href: l.href }, m.trust(l.text) );
@@ -1197,8 +1203,9 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 							value: searchQuery(),
 							onkeyup: function(event) {
 								event = event || window.event;
+
 								if( this.value === '' && searchQuery() !== '' ) {
-									reset();
+									return reset();
 								}
 
 								searchQuery(this.value);
@@ -1244,9 +1251,13 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 
 		index.search( query, { hitsPerPage: 5 }, function( error, result ) {
 
-			searchResults(result.hits.map(function(r) {
-				return { href: r.path, text: r._highlightResult.title.value};
-			}));
+			if( ! result.hits.length ) {
+				nothingFound = true;
+			} else {
+				searchResults(result.hits.map(function(r) {
+					return { href: r.path, text: r._highlightResult.title.value};
+				}));
+			}
 
 			m.redraw();
 
