@@ -1104,6 +1104,22 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 	element.setAttribute('class','lucy');
 	document.body.appendChild(element);
 
+	function addEvent(element,event,handler) {
+		if(element.addEventListener){
+			element.addEventListener(event,handler,false);
+		} else {
+			element.attachEvent('on' + event, handler);
+		}
+	}
+
+	function removeEvent(element,event,handler){
+		if(element.removeEventListener()){
+			element.removeEventListener(event,handler);
+		} else {
+			element.detachEvent('on' + event, handler);
+		}
+	}
+
 	function maybeClose(e) {
 
 		// close when pressing ESCAPE
@@ -1114,7 +1130,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 
 		// close when clicking ANY element outside of Lucy
 		var clickedElement = event.target || event.srcElement;
-		if(e.type === 'click' && ! element.contains(clickedElement) )  {
+		if(e.type === 'click' && element.contains && ! element.contains(clickedElement) )  {
 			close();
 		}
 
@@ -1124,16 +1140,16 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 		isOpen = true;
 		m.redraw();
 
-		document.addEventListener('keyup', maybeClose);
-		document.addEventListener('click', maybeClose);
+		addEvent(document,'keyup',maybeClose);
+		addEvent(document,'click',maybeClose);
 	}
 
 	function close() {
 		isOpen = false;
 		reset();
 
-		document.removeEventListener('keyup', maybeClose);
-		document.removeEventListener('click', maybeClose);
+		removeEvent(document,'keyup',maybeClose);
+		removeEvent(document,'click',maybeClose);
 	}
 
 	function reset() {
@@ -1252,7 +1268,7 @@ var overlay = function( m ) {
 	if (window.addEventListener) {
 		window.addEventListener('keydown', onKeyDown);
 	} else if(window.attachEvent) {
-		window.attachEvent('keydown', onKeyDown);
+		window.attachEvent('onkeydown', onKeyDown);
 	}
 
 	return function (content, onCloseCallback) {
