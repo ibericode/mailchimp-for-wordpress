@@ -20,6 +20,10 @@
 	var settings = require('./admin/settings.js')(context, helpers);
 	var fields = require('./admin/fields.js')(m);
 
+	// expose stuff
+	window.mc4wp.helpers = helpers;
+
+	// init
 	if( formContentTextarea ) {
 
 		// instantiate form editor
@@ -62,9 +66,7 @@
 	);
 
 	// expose some things
-	window.mc4wp = {
-		helpers: helpers
-	};
+	// @TODO clean-up
 	window.m = m;
 	window.mc4wp_register_field = fields.register;
 	window.mc4wp_deregister_field = fields.deregister;
