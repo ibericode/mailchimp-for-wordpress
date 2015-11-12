@@ -223,7 +223,7 @@ class MC4WP_Form_Element {
 
 		// Start building content string
 		$opening_html = '<!-- MailChimp for WordPress v' . MC4WP_VERSION . ' - https://wordpress.org/plugins/mailchimp-for-wp/ -->';
-		$opening_html .= '<form method="post" data-id="'. esc_attr( $this->form->ID ) .'" '. $this->get_form_element_attributes() .'>';
+		$opening_html .= '<form method="post" data-id="'. esc_attr( $this->form->ID ) .'" '. $this->get_form_element_attributes() .' data-name="'. esc_attr( $this->form->name ) .'">';
 		$before_fields = $this->get_html_before_fields();
 		$fields = '';
 		$after_fields = $this->get_html_after_fields();

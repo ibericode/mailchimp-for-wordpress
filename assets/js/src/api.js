@@ -3,18 +3,16 @@
 // deps
 var Gator = require('../third-party/gator.js');
 var forms = require('./forms/forms.js');
-var listeners = window.mc4wpFormListeners || [];
+var listeners = window.mc4wp && window.mc4wp.listeners ? window.mc4wp.listeners : [];
 var config = window.mc4wp_forms_config || {};
 
 // register early listeners
-if( listeners ) {
-	for(var i=0; i<listeners.length;i++) {
-		forms.on(listeners[i].event, listeners[i].callback);
-	}
+for(var i=0; i<listeners.length;i++) {
+	forms.on(listeners[i].event, listeners[i].callback);
 }
 
 // was a form submitted?
-if( config.submitted_form ) {
+if( config.submitted_form && config.submitted_form.id ) {
 	var form = forms.get(config.submitted_form.id);
 
 	// add class & trigger event
@@ -50,6 +48,7 @@ Gator(document.body).on('change', '.mc4wp-form', function(event) {
 });
 
 // expose stuff, this overrides dummy javascript
-window.mc4wp = {};
-window.mc4wp.forms = forms;
-window.mc4wp.listeners = undefined;
+window.mc4wp = {
+	"forms": forms
+};
+
