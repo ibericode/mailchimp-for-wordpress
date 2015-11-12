@@ -9,8 +9,8 @@ var Form = function(id, element) {
 	var form = this;
 
 	this.id = id;
-	this.element = element;
-	this.name = element.getAttribute('data-name') || "Form #" + this.id;
+	this.element = element || document.createElement('form');
+	this.name = this.element.getAttribute('data-name') || "Form #" + this.id;
 	this.errors = [];
 	this.started = false;
 

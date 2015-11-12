@@ -67,8 +67,8 @@ var Form = function(id, element) {
 	var form = this;
 
 	this.id = id;
-	this.element = element;
-	this.name = element.getAttribute('data-name') || "Form #" + this.id;
+	this.element = element || document.createElement('form');
+	this.name = this.element.getAttribute('data-name') || "Form #" + this.id;
 	this.errors = [];
 	this.started = false;
 
@@ -138,15 +138,17 @@ var forms = function() {
 		}
 
 		var formElement = document.querySelector('.mc4wp-form-' + formId);
-		return createFromElement(formElement,formId) || null;
+		return createFromElement(formElement,formId);
 	}
 
 	// get form by <form> element (or any input in form)
 	function getByElement(element) {
 		var formElement = element.form || element;
-		var id = parseInt( formElement.getAttribute('data-id') );
-		var form = get(id);
-		return form || createFromElement(element,id);
+		for(var i=0; i<forms.length;i++) {
+			if(forms[i].element == formElement) return forms[i];
+		}
+
+		return createFromElement(element);
 	}
 
 	// create form object from <form> element
