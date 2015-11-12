@@ -136,7 +136,7 @@ var rows = function(m) {
 								onchange   : m.withAttr('value', choice.label)
 							})),
 							m('td', m('span', {
-								class  : 'dashicons dashicons-no-alt hover-activated',
+								"class": 'dashicons dashicons-no-alt hover-activated',
 								onclick: function (key) {
 									this.choices().splice(key, 1);
 								}.bind(config, index)

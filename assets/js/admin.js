@@ -208,7 +208,7 @@ var rows = function(m) {
 								onchange   : m.withAttr('value', choice.label)
 							})),
 							m('td', m('span', {
-								class  : 'dashicons dashicons-no-alt hover-activated',
+								"class": 'dashicons dashicons-no-alt hover-activated',
 								onclick: function (key) {
 									this.choices().splice(key, 1);
 								}.bind(config, index)
@@ -473,7 +473,7 @@ var FieldHelper = function(m,tabs, editor, fields) {
 				fields.getAll().map(function(field, index) {
 					return [
 						m("button", {
-							class  : "button",
+							"class": "button",
 							type   : 'button',
 							onclick: m.withAttr("value", setActiveField),
 							value  : index
@@ -514,7 +514,7 @@ var FieldHelper = function(m,tabs, editor, fields) {
 					// add to form button
 					m("p", [
 						m("button", {
-							class: "button-primary",
+							"class": "button-primary",
 							type: "button",
 							onclick: createFieldHTMLAndAddToForm
 						}, "Add to form" )
@@ -1183,7 +1183,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 							placeholder: 'What are you looking for?'
 						}),
 						m('span', {
-							class: 'loader',
+							"class": 'loader',
 							config: function(el) {
 								loader = el;
 							}
@@ -1194,7 +1194,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 				m('div.list', content),
 				m('div.footer', [
 					m("span", "Can't find the answer you're looking for?"),
-					m("a", { class: 'button button-primary', href: contactLink }, "Contact Support")
+					m("a", { "class": 'button button-primary', href: contactLink }, "Contact Support")
 				])
 			]),
 			m('span.lucy-button', { onclick: open, style: { display: isOpen ? 'none' : 'block' } }, [

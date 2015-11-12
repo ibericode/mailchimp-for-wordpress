@@ -94,7 +94,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 							placeholder: 'What are you looking for?'
 						}),
 						m('span', {
-							class: 'loader',
+							"class": 'loader',
 							config: function(el) {
 								loader = el;
 							}
@@ -105,7 +105,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 				m('div.list', content),
 				m('div.footer', [
 					m("span", "Can't find the answer you're looking for?"),
-					m("a", { class: 'button button-primary', href: contactLink }, "Contact Support")
+					m("a", { "class": 'button button-primary', href: contactLink }, "Contact Support")
 				])
 			]),
 			m('span.lucy-button', { onclick: open, style: { display: isOpen ? 'none' : 'block' } }, [

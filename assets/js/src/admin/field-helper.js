@@ -56,7 +56,7 @@ var FieldHelper = function(m,tabs, editor, fields) {
 				fields.getAll().map(function(field, index) {
 					return [
 						m("button", {
-							class  : "button",
+							"class": "button",
 							type   : 'button',
 							onclick: m.withAttr("value", setActiveField),
 							value  : index
@@ -97,7 +97,7 @@ var FieldHelper = function(m,tabs, editor, fields) {
 					// add to form button
 					m("p", [
 						m("button", {
-							class: "button-primary",
+							"class": "button-primary",
 							type: "button",
 							onclick: createFieldHTMLAndAddToForm
 						}, "Add to form" )
