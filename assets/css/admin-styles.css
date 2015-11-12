@@ -109,6 +109,11 @@
   #mc4wp-admin .block,
   .mc4wp-admin .block {
     display: block; }
+  #mc4wp-admin .code-sample,
+  .mc4wp-admin .code-sample {
+    font-family: Consolas, Monaco, Lucida Console, monospace;
+    font-size: 12px;
+    background: white; }
   #mc4wp-admin .tab,
   .mc4wp-admin .tab {
     display: none; }
