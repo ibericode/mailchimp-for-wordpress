@@ -17,15 +17,12 @@
 	var formContentTextarea = document.getElementById('mc4wp-form-content');
 	var tabs = require ('./admin/tabs.js')(context);
 	var helpers = require('./admin/helpers.js');
+	window.mc4wp.helpers = helpers;
 	var settings = require('./admin/settings.js')(context, helpers);
 	var fields = require('./admin/fields.js')(m);
 
-	// expose stuff
-	window.mc4wp.helpers = helpers;
-
-	// init
+	// are we on edit forms page?
 	if( formContentTextarea ) {
-
 		// instantiate form editor
 		var formEditor = window.formEditor = new FormEditor( formContentTextarea );
 

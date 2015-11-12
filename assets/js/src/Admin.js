@@ -16,11 +16,12 @@
 	var formContentTextarea = document.getElementById('mc4wp-form-content');
 	var tabs = require ('./admin/tabs.js')(context);
 	var helpers = require('./admin/helpers.js');
+	window.mc4wp.helpers = helpers;
 	var settings = require('./admin/settings.js')(context, helpers);
 	var fields = require('./admin/fields.js')(m);
 
+	// are we on edit forms page?
 	if( formContentTextarea ) {
-
 		// instantiate form editor
 		var formEditor = window.formEditor = new FormEditor( formContentTextarea );
 
@@ -61,9 +62,7 @@
 	);
 
 	// expose some things
-	window.mc4wp = {
-		helpers: helpers
-	};
+	// @TODO clean-up
 	window.m = m;
 	window.mc4wp_register_field = fields.register;
 	window.mc4wp_deregister_field = fields.deregister;
