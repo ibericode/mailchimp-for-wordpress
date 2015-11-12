@@ -216,6 +216,8 @@ class MC4WP_Admin {
 	*/
 	public function enqueue_assets() {
 
+		global $wp_scripts;
+
 		// only load asset files on the MailChimp for WordPress settings pages
 		if( empty( $_GET['page'] ) || strpos( $_GET['page'], 'mailchimp-for-wp' ) !== 0 ) {
 			return false;
@@ -232,6 +234,8 @@ class MC4WP_Admin {
 		// js
 		// @todo: eventually get rid of jQuery here
 		wp_register_script( 'es5-shim', MC4WP_PLUGIN_URL . 'assets/js/third-party/es5-shim.min.js', array(), MC4WP_VERSION );
+		$wp_scripts->add_data( 'es5-shim', 'conditional', 'lt IE 9' );
+
 		wp_register_script( 'codemirror', MC4WP_PLUGIN_URL . 'assets/js/third-party/codemirror-compressed.js', array(), MC4WP_VERSION, true );
 		wp_register_script( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array( 'jquery', 'es5-shim', 'codemirror' ), MC4WP_VERSION, true );
 
