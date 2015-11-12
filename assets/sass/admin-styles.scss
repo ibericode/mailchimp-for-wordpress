@@ -1,4 +1,5 @@
 /* settings pages */
+$divider_color: #ccc;
 
 #mc4wp-admin,
 .mc4wp-admin {
@@ -31,7 +32,7 @@
 
 	/* Codemirror */
 	.CodeMirror {
-		border: 1px solid #333;
+		border: 1px solid $divider_color;
 		height: auto;
 	}
 	.CodeMirror-empty{
@@ -40,7 +41,7 @@
 	}
 
 	.sidebar {
-		border-left: 1px solid #ccc;
+		border-left: 1px solid $divider_color;
 	}
 
 	.sidebar h3,
@@ -50,7 +51,7 @@
 	}
 
 	.sidebar > div {
-		border-bottom: 1px solid #e4e4e4;
+		border-bottom: 1px solid $divider_color;
 		margin-bottom: 20px;
 		padding-bottom: 20px;
 
