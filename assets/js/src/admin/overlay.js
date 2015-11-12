@@ -19,7 +19,12 @@ var overlay = function( m ) {
 		_onCloseCallback = onCloseCallback;
 
 		return [
-			m("div.overlay", [
+			m("div.overlay", {
+				config: function(el) {
+						el.style.marginLeft = -( el.clientWidth / 2 + 20) + "px";
+						el.style.marginTop = -( el.clientHeight / 2 ) + "px";
+				}
+			}, [
 				m("div.overlay-content", [
 
 					// close icon

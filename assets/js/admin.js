@@ -1113,7 +1113,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 	}
 
 	function removeEvent(element,event,handler){
-		if(element.removeEventListener()){
+		if(element.removeEventListener){
 			element.removeEventListener(event,handler);
 		} else {
 			element.detachEvent('on' + event, handler);
@@ -1137,6 +1137,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 	}
 
 	function open() {
+		if( isOpen ) return;
 		isOpen = true;
 		m.redraw();
 
@@ -1145,6 +1146,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 	}
 
 	function close() {
+		if( ! isOpen ) return;
 		isOpen = false;
 		reset();
 
@@ -1275,7 +1277,12 @@ var overlay = function( m ) {
 		_onCloseCallback = onCloseCallback;
 
 		return [
-			m("div.overlay", [
+			m("div.overlay", {
+				config: function(el) {
+						el.style.marginLeft = -( el.clientWidth / 2 + 20) + "px";
+						el.style.marginTop = -( el.clientHeight / 2 ) + "px";
+				}
+			}, [
 				m("div.overlay-content", [
 
 					// close icon

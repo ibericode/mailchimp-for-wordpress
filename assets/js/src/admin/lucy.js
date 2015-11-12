@@ -25,7 +25,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 	}
 
 	function removeEvent(element,event,handler){
-		if(element.removeEventListener()){
+		if(element.removeEventListener){
 			element.removeEventListener(event,handler);
 		} else {
 			element.detachEvent('on' + event, handler);
@@ -49,6 +49,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 	}
 
 	function open() {
+		if( isOpen ) return;
 		isOpen = true;
 		m.redraw();
 
@@ -57,6 +58,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 	}
 
 	function close() {
+		if( ! isOpen ) return;
 		isOpen = false;
 		reset();
 
