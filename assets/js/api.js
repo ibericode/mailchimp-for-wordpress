@@ -18,6 +18,7 @@ if( listeners ) {
 if( config.submitted_form ) {
 	var form = forms.get(config.submitted_form.id);
 
+	// add class & trigger event
 	forms.trigger( 'submitted', [form]);
 
 	if( config.submitted_form.errors ) {
