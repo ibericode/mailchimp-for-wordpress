@@ -93,7 +93,7 @@ var rows = function(m) {
 			m("input.widefat", {
 				type   : "text",
 				value  : config.value(),
-				oninput: m.withAttr('value', config.value)
+				onkeyup: m.withAttr('value', config.value)
 			})
 		]);
 	};
@@ -710,6 +710,10 @@ var FieldFactory = function(settings, fields) {
 		registerCustomFields(lists);
 
 		settings.events.trigger('fields.change');
+
+		if(window.m) {
+			m.redraw();
+		}
 	}
 
 	settings.events.on('selectedLists.change',work);
@@ -1225,7 +1229,6 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 	};
 
 
-	// create element and float it in bottom right corner
 	function search(query) {
 		loader.innerText = '.';
 		loadingInterval = window.setInterval(function() {
@@ -1244,7 +1247,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 
 			m.redraw();
 
-			// clear loader
+			/* clear loader */
 			loader.innerText = '';
 			window.clearInterval(loadingInterval);
 		} );

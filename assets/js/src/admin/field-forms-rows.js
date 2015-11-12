@@ -22,7 +22,7 @@ var rows = function(m) {
 			m("input.widefat", {
 				type   : "text",
 				value  : config.value(),
-				oninput: m.withAttr('value', config.value)
+				onkeyup: m.withAttr('value', config.value)
 			})
 		]);
 	};

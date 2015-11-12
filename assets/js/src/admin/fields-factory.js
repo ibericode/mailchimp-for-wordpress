@@ -172,6 +172,10 @@ var FieldFactory = function(settings, fields) {
 		registerCustomFields(lists);
 
 		settings.events.trigger('fields.change');
+
+		if(window.m) {
+			m.redraw();
+		}
 	}
 
 	settings.events.on('selectedLists.change',work);
