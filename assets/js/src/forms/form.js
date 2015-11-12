@@ -1,15 +1,16 @@
 'use strict';
 
-var Form = function(id, element, EventEmitter) {
+var serialize = require('../../third-party/serialize.js');
+var populate = require('../../third-party/populate.js');
+var formToJson = require('../../third-party/form2js.js');
 
-	var serialize = require('../../third-party/serialize.js');
-	var populate = require('../../third-party/populate.js');
-	var formToJson = require('../../third-party/form2js.js');
+var Form = function(id, element) {
+
 	var form = this;
 
 	this.id = id;
 	this.element = element;
-	this.name = element.getAttribute('date-name') || "Form #" + this.id;
+	this.name = element.getAttribute('data-name') || "Form #" + this.id;
 	this.errors = [];
 	this.started = false;
 
