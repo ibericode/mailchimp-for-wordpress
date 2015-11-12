@@ -41,11 +41,10 @@ var Settings = function(context, helpers) {
 			var isSelected = getSelectedListsWhere('id', listId).length > 0;
 
 			if( isSelected ) {
-				el.classList.remove('hidden');
+				el.setAttribute('class', el.getAttribute('class').replace('hidden',''));
 			} else {
-				el.classList.add('hidden');
+				el.setAttribute('class', el.getAttribute('class') + " hidden" );
 			}
-
 		});
 	}
 

@@ -88,6 +88,7 @@ var Tabs = function(context) {
 
 		if( opened ) {
 			e.preventDefault();
+			e.returnValue = false;
 			return false;
 		}
 

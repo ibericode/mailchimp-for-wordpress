@@ -118,6 +118,8 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 	// create element and float it in bottom right corner
 	function search(e) {
 		e.preventDefault();
+		e.returnValue = false;
+
 		loader.innerText = '.';
 		loadingInterval = window.setInterval(function() {
 			loader.innerText += '.';
@@ -139,6 +141,8 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 			loader.innerText = '';
 			window.clearInterval(loadingInterval);
 		} );
+
+		return false;
 	}
 
 	m.mount(element,module);
