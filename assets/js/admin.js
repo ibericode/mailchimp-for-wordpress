@@ -1362,6 +1362,9 @@ var Tabs = function(context) {
 			var query = {};
 			var a = url.split('&');
 			for (var i in a) {
+				if(!a.hasOwnProperty(i)) {
+					continue;
+				}
 				var b = a[i].split('=');
 				query[decodeURIComponent(b[0])] = decodeURIComponent(b[1]);
 			}
