@@ -11,7 +11,7 @@ var overlay = function( m ) {
 
 	if (window.addEventListener) {
 		window.addEventListener('keydown', onKeyDown);
-	} else if (el.attachEvent) {
+	} else if(window.attachEvent) {
 		window.attachEvent('keydown', onKeyDown);
 	}
 
