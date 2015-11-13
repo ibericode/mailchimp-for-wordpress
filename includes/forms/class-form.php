@@ -474,8 +474,6 @@ class MC4WP_Form {
 			$this->config['action'] = 'subscribe';
 		}
 
-
-
 		return $this->config;
 	}
 

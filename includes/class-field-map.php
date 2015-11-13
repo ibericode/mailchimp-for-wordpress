@@ -95,8 +95,8 @@ class MC4WP_Field_Map {
 		}
 
 		// loop through list interest groupings
-		if( ! empty( $list->interest_groupings ) ) {
-			$map['GROUPINGS'] = array_map( array ($this, 'map_list_grouping' ), $list->interest_groupings );
+		if( ! empty( $list->groupings ) ) {
+			$map['GROUPINGS'] = array_map( array ($this, 'map_list_grouping' ), $list->groupings );
 			$map['GROUPINGS'] = array_filter( $map['GROUPINGS'] );
 		}
 
@@ -134,6 +134,7 @@ class MC4WP_Field_Map {
 	 * @return array|null
 	 */
 	public function map_list_grouping( $grouping ) {
+
 		// check if data for this group was sent
 		if( ! empty( $this->data['GROUPINGS'][$grouping->id] ) ) {
 			$groups = $this->data['GROUPINGS'][$grouping->id];

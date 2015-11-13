@@ -65,6 +65,7 @@ class MC4WP_Form_Listener {
 		$api = mc4wp_get_api();
 		$result = false;
 		$email_type = $form->get_email_type();
+
 		$map = new MC4WP_Field_Map( $form->data, $form->get_lists() );
 
 		// loop through selected lists
