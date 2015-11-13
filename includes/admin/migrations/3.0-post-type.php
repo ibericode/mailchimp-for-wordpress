@@ -3,10 +3,10 @@
 defined( 'ABSPATH' ) or exit;
 
 // get options
-$form_options = get_option( 'mc4wp_lite_form' );
+$form_options = get_option( 'mc4wp_lite_form', array() );
 
 // bail if there are no previous options
-if( ! is_array( $form_options ) ) {
+if( empty( $form_options ) ) {
 	return;
 }
 

@@ -2,20 +2,26 @@
 
 defined( 'ABSPATH' ) or exit;
 
-$old_options = get_option( 'mc4wp_lite_checkbox' );
-if( ! is_array( $old_options ) ) {
+$old_options = get_option( 'mc4wp_lite_checkbox', array() );
+$pro_options = get_option( 'mc4wp_checkbox', array() );
+if( ! empty( $pro_options ) ) {
+	$old_options = array_merge( $old_options, $pro_options );
+}
+
+// do we have to do something?
+if( empty( $old_options ) ) {
 	return;
 }
 
 // find activated integrations (show_at_xxx options)
 $new_options = array();
 $map = array(
-	'comment_form' => 'wp-comment-form',
-	'registration_form' => 'wp-registration-form',
-	'buddypress_form' => 'buddypress',
-	'bbpres_forms' => 'bbpress',
-	'woocommerce_checkout' => 'woocommerce',
-	'edd_checkout' => 'easy-digital-downloads'
+	'comment_form'          => 'wp-comment-form',
+	'registration_form'     => 'wp-registration-form',
+	'buddypress_form'       => 'buddypress',
+	'bbpres_forms'          => 'bbpress',
+	'woocommerce_checkout'  => 'woocommerce',
+	'edd_checkout'          => 'easy-digital-downloads'
 );
 
 $option_keys = array(
@@ -54,6 +60,7 @@ foreach( $map as $old_integration_slug => $new_integration_slug ) {
 // save new settings
 update_option( 'mc4wp_integrations', $new_options );
 
-// delete old option
+// delete old options
 delete_option( 'mc4wp_lite_checkbox' );
+delete_option( 'mc4wp_checkbox' );
 

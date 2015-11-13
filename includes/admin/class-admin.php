@@ -140,6 +140,7 @@ class MC4WP_Admin {
 		// Only run if db option is at older version than code constant
 		$previous_version = get_option( 'mc4wp_version', 0 );
 
+		// This ! check means we're not running when installing the plugin
 		if( ! $previous_version || version_compare( MC4WP_VERSION, $previous_version, '<=' ) ) {
 			return false;
 		}
