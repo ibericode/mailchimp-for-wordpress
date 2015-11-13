@@ -88,7 +88,6 @@ class MC4WP_Form {
 
 	/**
 	 * @var array Array of error code's
-	 * @todo Change to actual error messages?
 	 */
 	public $errors = array();
 
@@ -253,8 +252,8 @@ class MC4WP_Form {
 			$type = ! empty( $message['type'] ) ? $message['type'] : '';
 			$text = isset( $message['text'] ) ? $message['text'] : $message;
 
-			if( isset( $this->post_meta[ $key ][0] ) ) {
-				$text = $this->post_meta[ $key ][0];
+			if( isset( $this->post_meta[ 'text_' . $key ][0] ) ) {
+				$text = $this->post_meta[ 'text_' . $key ][0];
 			}
 
 			$message = new MC4WP_Form_Message( $text, $type );

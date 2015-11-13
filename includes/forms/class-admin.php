@@ -121,7 +121,7 @@ class MC4WP_Forms_Admin {
 
 		// save form messages in individual meta keys
 		foreach( $form_data['messages'] as $key => $message ) {
-			update_post_meta( $form_id, $key, $message );
+			update_post_meta( $form_id, 'text_' . $key, $message );
 		}
 
 		// update default form id?
