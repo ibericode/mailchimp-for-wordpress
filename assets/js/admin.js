@@ -1100,10 +1100,25 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 	var searchResults = m.prop([]);
 	var searchQuery = m.prop('');
 	var nothingFound = false;
+	var isDragging = false;
 
+	// create element
 	var element = document.createElement('div');
 	element.setAttribute('class','lucy');
+	element.draggable = true;
+	element.ondragstart = dragStart;
 	document.body.appendChild(element);
+
+	// get position from localStorage
+	var position = localStorage.getItem('lucy_position');
+	if( position ) {
+		position = position.split(',');
+		element.style.right = position[0] + "px";
+		element.style.bottom = position[1] + "px";
+	}
+
+	document.addEventListener('dragover',dragOver);
+	document.addEventListener('drop', drop );
 
 	function addEvent(element,event,handler) {
 		if(element.addEventListener){
@@ -1135,7 +1150,39 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 		if(event.type === 'click' && element.contains && ! element.contains(clickedElement) )  {
 			close();
 		}
+	}
 
+	function dragOver(event) {
+		if(!isDragging) return;
+		event.preventDefault();
+		return false;
+	}
+
+	function dragStart(event) {
+		isDragging = true;
+		event.dataTransfer.setData('text/plain','');
+		event.dataTransfer.setData("text/plain", event.clientX + "," + event.clientY);
+	}
+
+	function drop(event) {
+		if( ! isDragging ) return;
+		event.preventDefault();
+		event.returnValue = false;
+
+		var offset = event.dataTransfer.getData("text/plain").split(',');
+		var style = window.getComputedStyle(element, null);
+
+		var x = event.clientX - parseInt(offset[0]);
+		var y = event.clientY - parseInt(offset[1]);
+		var bottom = ( parseInt( style.getPropertyValue("bottom") ) - y );
+		var right = ( parseInt( style.getPropertyValue("right") ) - x );
+
+		element.style.bottom = bottom + "px";
+		element.style.right = right + "px";
+
+		// update position in localStorage
+		localStorage.setItem('lucy_position', right + "," + bottom );
+		isDragging = false;
 	}
 
 	function open() {
@@ -1227,7 +1274,9 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 					m("a", { "class": 'button button-primary', href: contactLink }, "Contact Support")
 				])
 			]),
-			m('span.lucy-button', { onclick: open, style: { display: isOpen ? 'none' : 'block' } }, [
+			m('span.lucy-button', {
+				onclick: open, style: { display: isOpen ? 'none' : 'block' }
+			}, [
 				m('span.lucy-button-text',  "Need help?")
 			])
 		];
