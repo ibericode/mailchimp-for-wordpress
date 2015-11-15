@@ -4,7 +4,7 @@
  * Returns a Form instance
  *
  * @api
- * @param int $form_id.
+ * @param int|WP_Post $form_id.
  * @return MC4WP_Form
  */
 function mc4wp_get_form( $form_id = 0 ) {
@@ -15,16 +15,17 @@ function mc4wp_get_form( $form_id = 0 ) {
  * Get an array of Form instances
  *
  * @api
+ * @param array $args Array of parameters
+ * @see get_posts
  * @return array
  */
-function mc4wp_get_forms() {
-	$forms = get_posts(
-		array(
-			'post_type' => 'mc4wp-form',
-			'post_status' => 'publish',
-			'numberposts' => -1
-		)
-	);
+function mc4wp_get_forms( array $args = array() ) {
+	$args = array_merge( $args, array(
+		'post_type' => 'mc4wp-form',
+		'post_status' => 'publish',
+		'numberposts' => -1
+	) );
+	$forms = get_posts( $args );
 	$forms = array_map( 'mc4wp_get_form', $forms );
 	return $forms;
 }
