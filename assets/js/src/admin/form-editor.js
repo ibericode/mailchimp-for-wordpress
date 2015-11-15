@@ -14,6 +14,14 @@ var FormEditor = function(element) {
 		autoRefresh: true
 	});
 
+	editor.on('change',function() {
+		if(typeof(Event) === "function") {
+			// Create a new 'change' event
+			var event = new Event('change', { bubbles: true });
+			element.dispatchEvent(event);
+		}
+	});
+
 	r.getValue = function() {
 		return editor.getValue();
 	};

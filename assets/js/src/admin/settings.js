@@ -2,6 +2,8 @@ var Settings = function(context, helpers, events ) {
 	'use strict';
 
 	// vars
+	var unsaved = false;
+	var form = context.querySelector('form');
 	var listInputs = context.querySelectorAll('.mc4wp-list-input');
 	var lists = mc4wp_vars.mailchimp.lists;
 	var selectedLists = [];
@@ -45,8 +47,28 @@ var Settings = function(context, helpers, events ) {
 		});
 	}
 
+	// TODO: make this translatable
+	function confirmPageLeave(e) {
+		if(!unsaved) return true;
+
+		e = e|| window.event;
+		var confirmationMessage = 'It looks like you have been editing something. '
+			+ 'If you leave before saving, your changes will be lost.';
+
+		e.returnValue = confirmationMessage; //Gecko + IE
+		return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+	}
+
 	events.on('selectedLists.change', toggleVisibleLists);
 	helpers.bindEventToElements(listInputs,'change',updateSelectedLists);
+
+	// only way to leave a page with changes is using a form
+	if( form ) {
+		helpers.bindEventToElement(form,'change',function() { unsaved = true; });
+		helpers.bindEventToElement(form,'submit',function() { unsaved = false; });
+		helpers.bindEventToElement(window,'beforeunload', confirmPageLeave);
+	}
+
 	updateSelectedLists();
 
 	return {

@@ -21,8 +21,6 @@ var Tabs = function(context) {
 		});
 	});
 
-	console.log(tabs);
-
 	var URL = {
 		parse: function(url) {
 			var query = {};
@@ -58,7 +56,7 @@ var Tabs = function(context) {
 				return t.id === tab;
 			}).pop();
 		}
-		console.log(tab);
+
 		if(!tab || !tab.id) { return false; }
 
 		// should we update state?
