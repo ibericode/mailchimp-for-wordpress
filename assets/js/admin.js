@@ -66,10 +66,11 @@
 	// expose some things
 	// @TODO clean-up
 	window.m = m;
+	window.mc4wp.tabs = tabs;
 	window.mc4wp_register_field = fields.register;
 	window.mc4wp_deregister_field = fields.deregister;
 })();
-},{"../third-party/event-emitter.js":17,"../third-party/mithril.js":18,"./admin/field-helper.js":5,"./admin/fields-factory.js":6,"./admin/fields.js":7,"./admin/form-editor.js":8,"./admin/form-watcher.js":9,"./admin/helpers.js":10,"./admin/lucy.js":11,"./admin/settings.js":13,"./admin/tabs.js":14}],2:[function(require,module,exports){
+},{"../third-party/event-emitter.js":18,"../third-party/mithril.js":19,"./admin/field-helper.js":5,"./admin/fields-factory.js":6,"./admin/fields.js":7,"./admin/form-editor.js":8,"./admin/form-watcher.js":9,"./admin/helpers.js":10,"./admin/lucy.js":11,"./admin/settings.js":13,"./admin/tabs.js":14}],2:[function(require,module,exports){
 var rows = function(m) {
 	'use strict';
 
@@ -414,7 +415,7 @@ var g = function(m) {
 };
 
 module.exports = g;
-},{"../../third-party/beautify-html.js":16,"../../third-party/render.js":19}],5:[function(require,module,exports){
+},{"../../third-party/beautify-html.js":17,"../../third-party/render.js":20}],5:[function(require,module,exports){
 var FieldHelper = function(m, tabs, editor, fields) {
 	'use strict';
 
@@ -1324,7 +1325,7 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 };
 
 module.exports = lucy;
-},{"../../third-party/algoliasearch.js":15,"../../third-party/mithril.js":18}],12:[function(require,module,exports){
+},{"../../third-party/algoliasearch.js":16,"../../third-party/mithril.js":19}],12:[function(require,module,exports){
 var overlay = function( m ) {
 	'use strict';
 
@@ -1483,6 +1484,7 @@ var Tabs = function(context) {
 	// @todo last piece of jQuery... can we get rid of it?
 	var $ = window.jQuery;
 
+	var URL = require('./url.js');
 	var $context = $(context);
 	var $tabs = $context.find('.tab');
 	var $tabNavs = $context.find('.nav-tab');
@@ -1495,71 +1497,53 @@ var Tabs = function(context) {
 
 		tabs.push({
 			id: id,
-			title: title
+			title: title,
+			element: t,
+			nav: context.querySelectorAll('.nav-tab-' + id),
+			open: function() { return open(id); }
 		});
 	});
 
-	var URL = {
-		parse: function(url) {
-			var query = {};
-			var a = url.split('&');
-			for (var i in a) {
-				if(!a.hasOwnProperty(i)) {
-					continue;
-				}
-				var b = a[i].split('=');
-				query[decodeURIComponent(b[0])] = decodeURIComponent(b[1]);
-			}
-
-			return query;
-		},
-		build: function(data) {
-			var ret = [];
-			for (var d in data)
-				ret.push(d + "=" + encodeURIComponent(data[d]));
-			return ret.join("&");
-		},
-		setParameter: function( url, key, value ) {
-			var data = URL.parse( url );
-			data[ key ] = value;
-			return URL.build( data );
-		}
-	};
+	function get(id) {
+		return tabs.find(function(t) {
+			return t.id === id;
+		});
+	}
 
 	function open( tab, updateState ) {
 
 		// make sure we have a tab object
 		if(typeof(tab) === "string"){
-			tab = tabs.filter(function(t) {
-				return t.id === tab;
-			}).pop();
+			tab = get(tab);
 		}
 
-		if(!tab || !tab.id) { return false; }
+		if(!tab) { return false; }
 
 		// should we update state?
-		updateState = updateState !== false;
+		if( updateState == undefined ) {
+			updateState = true;
+		}
 
 		// hide all tabs & remove active class
 		$tabs.removeClass('tab-active').css('display', 'none');
 		$tabNavs.removeClass('nav-tab-active');
 
 		// add `nav-tab-active` to this tab
-		var nav = document.getElementById('nav-tab-'+tab.id);
-		nav.className += " nav-tab-active";
-		nav.blur();
+		Array.prototype.forEach.call(tab.nav, function(nav) {
+			nav.className += " nav-tab-active";
+			nav.blur();
+		});
 
 		// show target tab
-		var targetTab = document.getElementById("tab-" + tab.id);
-		targetTab.style.display = 'block';
-		targetTab.className += " tab-active";
+		tab.element.style.display = 'block';
+		tab.element.className += " tab-active";
 
 		// create new URL
 		var url = URL.setParameter(window.location.href, "tab", tab.id );
 
 		// update hash
 		if( history.pushState && updateState ) {
-			history.pushState( tab, '', url );
+			history.pushState( tab.id, '', url );
 		}
 
 		// update document title
@@ -1584,13 +1568,18 @@ var Tabs = function(context) {
 	function switchTab(e) {
 		e = e || window.event;
 
+		// get from data attribute
 		var tabId = this.getAttribute('data-tab');
+
+		// get from classname
+		if( ! tabId ) {
+			tabId = this.className.match(/nav-tab-(\w+)?/)[1];
+		}
+
+		// get from href
 		if( ! tabId ) {
 			var urlParams = URL.parse( this.href );
-			if( typeof(urlParams.tab) === "undefined" ) {
-				return;
-			}
-
+			if( ! urlParams.tab ) { return; }
 			tabId = urlParams.tab;
 		}
 
@@ -1609,16 +1598,13 @@ var Tabs = function(context) {
 
 		// check for current tab
 		var activeTab = $tabs.filter(':visible').get(0);
-
-		var tab = tabs.filter(function(t) {
-			return t.id === activeTab.id.substring(4);
-		}).pop();
+		var tab = get(activeTab.id.substring(4));
 
 		if(!tab) return;
 
 		// check if tab is in html5 history
 		if(history.replaceState && history.state === null) {
-			history.replaceState( tab, '' );
+			history.replaceState( tab.id, '' );
 		}
 
 		// update document title
@@ -1633,19 +1619,51 @@ var Tabs = function(context) {
 
 		window.addEventListener('popstate', function(e) {
 			if(!e.state) return true;
-			var tab = e.state;
-			return open(tab,false);
+			var tabId = e.state;
+			return open(tabId,false);
 		});
 	}
 
 	return {
-		open: open
+		open: open,
+		get: get
 	}
 
 };
 
 module.exports = Tabs;
-},{}],15:[function(require,module,exports){
+},{"./url.js":15}],15:[function(require,module,exports){
+'use strict';
+
+var URL = {
+	parse: function(url) {
+		var query = {};
+		var a = url.split('&');
+		for (var i in a) {
+			if(!a.hasOwnProperty(i)) {
+				continue;
+			}
+			var b = a[i].split('=');
+			query[decodeURIComponent(b[0])] = decodeURIComponent(b[1]);
+		}
+
+		return query;
+	},
+	build: function(data) {
+		var ret = [];
+		for (var d in data)
+			ret.push(d + "=" + encodeURIComponent(data[d]));
+		return ret.join("&");
+	},
+	setParameter: function( url, key, value ) {
+		var data = URL.parse( url );
+		data[ key ] = value;
+		return URL.build( data );
+	}
+};
+
+module.exports = URL;
+},{}],16:[function(require,module,exports){
 (function (global){
 
 /*! algoliasearch 3.9.2 | © 2014, 2015 Algolia SAS | github.com/algolia/algoliasearch-client-js */
@@ -1653,7 +1671,7 @@ module.exports = Tabs;
 	if(/:$/.test(f)||(f+=":"),"http:"!==n.protocol&&"https:"!==n.protocol)throw new h.AlgoliaSearchError("protocol must be `http:` or `https:` (was `"+n.protocol+"`)");n.hosts?c(n.hosts)?(this.hosts.read=a(n.hosts),this.hosts.write=a(n.hosts)):(this.hosts.read=a(n.hosts.read),this.hosts.write=a(n.hosts.write)):(this.hosts.read=[this.applicationID+"-dsn.algolia.net"].concat(l),this.hosts.write=[this.applicationID+".algolia.net"].concat(l)),this.hosts.read=o(this.hosts.read,i(f)),this.hosts.write=o(this.hosts.write,i(f)),this.requestTimeout=d,this.extraHeaders=[],this.cache={},this._ua=n._ua,this._useCache=void 0===n._useCache?!0:n._useCache,this._setTimeout=n._setTimeout,s("init done, %j",this)}function o(e,t){for(var r=[],n=0;n<e.length;++n)r.push(t(e[n],n));return r}function i(e){return function(t){return e+"//"+t.toLowerCase()}}function s(){var e="Not implemented in this environment.\nIf you feel this is a mistake, write to support@algolia.com";throw new h.AlgoliaSearchError(e)}function a(e,t){var r=e.toLowerCase().replace(".","").replace("()","");return"algoliasearch: `"+e+"` was replaced by `"+t+"`. Please see https://github.com/algolia/algoliasearch-client-js/wiki/Deprecated#"+r}function c(e,t){t(e,0)}function u(e,t){function r(){return n||(console.log(t),n=!0),e.apply(this,arguments)}var n=!1;return r}function l(e){if(void 0===Array.prototype.toJSON)return JSON.stringify(e);var t=Array.prototype.toJSON;delete Array.prototype.toJSON;var r=JSON.stringify(e);return Array.prototype.toJSON=t,r}function f(e){return function(t,r,n){if("function"==typeof t&&"object"==typeof r||"object"==typeof n)throw new h.AlgoliaSearchError("index.search usage is index.search(query, params, cb)");0===arguments.length||"function"==typeof t?(n=t,t=""):(1===arguments.length||"function"==typeof r)&&(n=r,r=void 0),"object"==typeof t&&null!==t?(r=t,t=void 0):(void 0===t||null===t)&&(t="");var o="";return void 0!==t&&(o+=e+"="+encodeURIComponent(t)),void 0!==r&&(o=this.as._getSearchParams(r,o)),this._search(o,n)}}t.exports=n;var d=d||void 0;d&&d.env,1;var h=e(63);n.prototype={deleteIndex:function(e,t){return this._jsonRequest({method:"DELETE",url:"/1/indexes/"+encodeURIComponent(e),hostType:"write",callback:t})},moveIndex:function(e,t,r){var n={operation:"move",destination:t};return this._jsonRequest({method:"POST",url:"/1/indexes/"+encodeURIComponent(e)+"/operation",body:n,hostType:"write",callback:r})},copyIndex:function(e,t,r){var n={operation:"copy",destination:t};return this._jsonRequest({method:"POST",url:"/1/indexes/"+encodeURIComponent(e)+"/operation",body:n,hostType:"write",callback:r})},getLogs:function(e,t,r){return 0===arguments.length||"function"==typeof e?(r=e,e=0,t=10):(1===arguments.length||"function"==typeof t)&&(r=t,t=10),this._jsonRequest({method:"GET",url:"/1/logs?offset="+e+"&length="+t,hostType:"read",callback:r})},listIndexes:function(e,t){var r="";return void 0===e||"function"==typeof e?t=e:r="?page="+e,this._jsonRequest({method:"GET",url:"/1/indexes"+r,hostType:"read",callback:t})},initIndex:function(e){return new this.Index(this,e)},listUserKeys:function(e){return this._jsonRequest({method:"GET",url:"/1/keys",hostType:"read",callback:e})},getUserKeyACL:function(e,t){return this._jsonRequest({method:"GET",url:"/1/keys/"+e,hostType:"read",callback:t})},deleteUserKey:function(e,t){return this._jsonRequest({method:"DELETE",url:"/1/keys/"+e,hostType:"write",callback:t})},addUserKey:function(t,r,n){var o=e(46),i="Usage: client.addUserKey(arrayOfAcls[, params, callback])";if(!o(t))throw new Error(i);(1===arguments.length||"function"==typeof r)&&(n=r,r=null);var s={acl:t};return r&&(s.validity=r.validity,s.maxQueriesPerIPPerHour=r.maxQueriesPerIPPerHour,s.maxHitsPerQuery=r.maxHitsPerQuery,s.indexes=r.indexes,s.description=r.description,r.queryParameters&&(s.queryParameters=this._getSearchParams(r.queryParameters,"")),s.referers=r.referers),this._jsonRequest({method:"POST",url:"/1/keys",body:s,hostType:"write",callback:n})},addUserKeyWithValidity:u(function(e,t,r){return this.addUserKey(e,t,r)},a("client.addUserKeyWithValidity()","client.addUserKey()")),updateUserKey:function(t,r,n,o){var i=e(46),s="Usage: client.updateUserKey(key, arrayOfAcls[, params, callback])";if(!i(r))throw new Error(s);(2===arguments.length||"function"==typeof n)&&(o=n,n=null);var a={acl:r};return n&&(a.validity=n.validity,a.maxQueriesPerIPPerHour=n.maxQueriesPerIPPerHour,a.maxHitsPerQuery=n.maxHitsPerQuery,a.indexes=n.indexes,a.description=n.description,n.queryParameters&&(a.queryParameters=this._getSearchParams(n.queryParameters,"")),a.referers=n.referers),this._jsonRequest({method:"PUT",url:"/1/keys/"+t,body:a,hostType:"write",callback:o})},setSecurityTags:function(e){if("[object Array]"===Object.prototype.toString.call(e)){for(var t=[],r=0;r<e.length;++r)if("[object Array]"===Object.prototype.toString.call(e[r])){for(var n=[],o=0;o<e[r].length;++o)n.push(e[r][o]);t.push("("+n.join(",")+")")}else t.push(e[r]);e=t.join(",")}this.securityTags=e},setUserToken:function(e){this.userToken=e},startQueriesBatch:u(function(){this._batch=[]},a("client.startQueriesBatch()","client.search()")),addQueryInBatch:u(function(e,t,r){this._batch.push({indexName:e,query:t,params:r})},a("client.addQueryInBatch()","client.search()")),clearCache:function(){this.cache={}},sendQueriesBatch:u(function(e){return this.search(this._batch,e)},a("client.sendQueriesBatch()","client.search()")),setRequestTimeout:function(e){e&&(this.requestTimeout=parseInt(e,10))},search:function(t,r){var n=e(46),i="Usage: client.search(arrayOfQueries[, callback])";if(!n(t))throw new Error(i);var s=this,a={requests:o(t,function(e){var t="";return void 0!==e.query&&(t+="query="+encodeURIComponent(e.query)),{indexName:e.indexName,params:s._getSearchParams(e.params,t)}})};return this._jsonRequest({cache:this.cache,method:"POST",url:"/1/indexes/*/queries",body:a,hostType:"read",callback:r})},batch:function(t,r){var n=e(46),o="Usage: client.batch(operations[, callback])";if(!n(t))throw new Error(o);return this._jsonRequest({method:"POST",url:"/1/indexes/*/batch",body:{requests:t},hostType:"write",callback:r})},destroy:s,enableRateLimitForward:s,disableRateLimitForward:s,useSecuredAPIKey:s,disableSecuredAPIKey:s,generateSecuredApiKey:s,Index:function(e,t){this.indexName=t,this.as=e,this.typeAheadArgs=null,this.typeAheadValueOption=null,this.cache={}},setExtraHeader:function(e,t){this.extraHeaders.push({name:e.toLowerCase(),value:t})},addAlgoliaAgent:function(e){this._ua+=";"+e},_sendQueriesBatch:function(e,t){function r(){for(var t="",r=0;r<e.requests.length;++r){var n="/1/indexes/"+encodeURIComponent(e.requests[r].indexName)+"?"+e.requests[r].params;t+=r+"="+encodeURIComponent(n)+"&"}return t}return this._jsonRequest({cache:this.cache,method:"POST",url:"/1/indexes/*/queries",body:e,hostType:"read",fallback:{method:"GET",url:"/1/indexes/*",body:{params:r()}},callback:t})},_jsonRequest:function(t){function r(e,c){function f(e){var t=e&&e.body&&e.body.message&&e.body.status||e.statusCode||e&&e.body&&200;o("received response: statusCode: %s, computed statusCode: %d, headers: %j",e.statusCode,t,e.headers),d&&d.env.DEBUG&&-1!==d.env.DEBUG.indexOf("debugBody")&&o("body: %j",e.body);var r=200===t||201===t,n=!r&&4!==Math.floor(t/100)&&1!==Math.floor(t/100);if(s._useCache&&r&&i&&(i[m]=e.responseText),r)return e.body;if(n)return a+=1,y();var c=new h.AlgoliaSearchError(e.body&&e.body.message);return s._promise.reject(c)}function p(n){return o("error: %s, stack: %s",n.message,n.stack),n instanceof h.AlgoliaSearchError||(n=new h.Unknown(n&&n.message,n)),a+=1,n instanceof h.Unknown||n instanceof h.UnparsableJSON||a>=s.hosts[t.hostType].length&&(u||!t.fallback||!s._request.fallback)?s._promise.reject(n):(s.hostIndex[t.hostType]=++s.hostIndex[t.hostType]%s.hosts[t.hostType].length,n instanceof h.RequestTimeout?y():(s._request.fallback&&!s.useFallback&&(s.useFallback=!0),r(e,c)))}function y(){return s.hostIndex[t.hostType]=++s.hostIndex[t.hostType]%s.hosts[t.hostType].length,c.timeout=s.requestTimeout*(a+1),r(e,c)}var m;if(s._useCache&&(m=t.url),s._useCache&&n&&(m+="_body_"+c.body),s._useCache&&i&&void 0!==i[m])return o("serving response from cache"),s._promise.resolve(JSON.parse(i[m]));if(a>=s.hosts[t.hostType].length||s.useFallback&&!u)return t.fallback&&s._request.fallback&&!u?(o("switching to fallback"),a=0,c.method=t.fallback.method,c.url=t.fallback.url,c.jsonBody=t.fallback.body,c.jsonBody&&(c.body=l(c.jsonBody)),c.timeout=s.requestTimeout*(a+1),s.hostIndex[t.hostType]=0,u=!0,r(s._request.fallback,c)):(o("could not get any response"),s._promise.reject(new h.AlgoliaSearchError("Cannot connect to the AlgoliaSearch API. Send an email to support@algolia.com to report and resolve the issue. Application id was: "+s.applicationID)));var v=s.hosts[t.hostType][s.hostIndex[t.hostType]]+c.url,b={body:n,jsonBody:t.body,method:c.method,headers:s._computeRequestHeaders(),timeout:c.timeout,debug:o};return o("method: %s, url: %s, headers: %j, timeout: %d",b.method,v,b.headers,b.timeout),e===s._request.fallback&&o("using fallback"),e.call(s,v,b).then(f,p)}var n,o=e(6)("algoliasearch:"+t.url),i=t.cache,s=this,a=0,u=!1;void 0!==t.body&&(n=l(t.body)),o("request start");var f=s.useFallback&&t.fallback,p=f?t.fallback:t,y=r(f?s._request.fallback:s._request,{url:p.url,method:p.method,body:n,jsonBody:t.body,timeout:s.requestTimeout*(a+1)});return t.callback?void y.then(function(e){c(function(){t.callback(null,e)},s._setTimeout||setTimeout)},function(e){c(function(){t.callback(e)},s._setTimeout||setTimeout)}):y},_getSearchParams:function(e,t){if(this._isUndefined(e)||null===e)return t;for(var r in e)null!==r&&void 0!==e[r]&&e.hasOwnProperty(r)&&(t+=""===t?"":"&",t+=r+"="+encodeURIComponent("[object Array]"===Object.prototype.toString.call(e[r])?l(e[r]):e[r]));return t},_isUndefined:function(e){return void 0===e},_computeRequestHeaders:function(){var t=e(11),r={"x-algolia-api-key":this.apiKey,"x-algolia-application-id":this.applicationID,"x-algolia-agent":this._ua};return this.userToken&&(r["x-algolia-usertoken"]=this.userToken),this.securityTags&&(r["x-algolia-tagfilters"]=this.securityTags),this.extraHeaders&&t(this.extraHeaders,function(e){r[e.name]=e.value}),r}},n.prototype.Index.prototype={clearCache:function(){this.cache={}},addObject:function(e,t,r){var n=this;return(1===arguments.length||"function"==typeof t)&&(r=t,t=void 0),this.as._jsonRequest({method:void 0!==t?"PUT":"POST",url:"/1/indexes/"+encodeURIComponent(n.indexName)+(void 0!==t?"/"+encodeURIComponent(t):""),body:e,hostType:"write",callback:r})},addObjects:function(t,r){var n=e(46),o="Usage: index.addObjects(arrayOfObjects[, callback])";if(!n(t))throw new Error(o);for(var i=this,s={requests:[]},a=0;a<t.length;++a){var c={action:"addObject",body:t[a]};s.requests.push(c)}return this.as._jsonRequest({method:"POST",url:"/1/indexes/"+encodeURIComponent(i.indexName)+"/batch",body:s,hostType:"write",callback:r})},getObject:function(e,t,r){var n=this;(1===arguments.length||"function"==typeof t)&&(r=t,t=void 0);var o="";if(void 0!==t){o="?attributes=";for(var i=0;i<t.length;++i)0!==i&&(o+=","),o+=t[i]}return this.as._jsonRequest({method:"GET",url:"/1/indexes/"+encodeURIComponent(n.indexName)+"/"+encodeURIComponent(e)+o,hostType:"read",callback:r})},getObjects:function(t,r,n){var i=e(46),s="Usage: index.getObjects(arrayOfObjectIDs[, callback])";if(!i(t))throw new Error(s);var a=this;(1===arguments.length||"function"==typeof r)&&(n=r,r=void 0);var c={requests:o(t,function(e){var t={indexName:a.indexName,objectID:e};return r&&(t.attributesToRetrieve=r.join(",")),t})};return this.as._jsonRequest({method:"POST",url:"/1/indexes/*/objects",hostType:"read",body:c,callback:n})},partialUpdateObject:function(e,t){var r=this;return this.as._jsonRequest({method:"POST",url:"/1/indexes/"+encodeURIComponent(r.indexName)+"/"+encodeURIComponent(e.objectID)+"/partial",body:e,hostType:"write",callback:t})},partialUpdateObjects:function(t,r){var n=e(46),o="Usage: index.partialUpdateObjects(arrayOfObjects[, callback])";if(!n(t))throw new Error(o);for(var i=this,s={requests:[]},a=0;a<t.length;++a){var c={action:"partialUpdateObject",objectID:t[a].objectID,body:t[a]};s.requests.push(c)}return this.as._jsonRequest({method:"POST",url:"/1/indexes/"+encodeURIComponent(i.indexName)+"/batch",body:s,hostType:"write",callback:r})},saveObject:function(e,t){var r=this;return this.as._jsonRequest({method:"PUT",url:"/1/indexes/"+encodeURIComponent(r.indexName)+"/"+encodeURIComponent(e.objectID),body:e,hostType:"write",callback:t})},saveObjects:function(t,r){var n=e(46),o="Usage: index.saveObjects(arrayOfObjects[, callback])";if(!n(t))throw new Error(o);for(var i=this,s={requests:[]},a=0;a<t.length;++a){var c={action:"updateObject",objectID:t[a].objectID,body:t[a]};s.requests.push(c)}return this.as._jsonRequest({method:"POST",url:"/1/indexes/"+encodeURIComponent(i.indexName)+"/batch",body:s,hostType:"write",callback:r})},deleteObject:function(e,t){if("function"==typeof e||"string"!=typeof e&&"number"!=typeof e){var r=new h.AlgoliaSearchError("Cannot delete an object without an objectID");return t=e,"function"==typeof t?t(r):this.as._promise.reject(r)}var n=this;return this.as._jsonRequest({method:"DELETE",url:"/1/indexes/"+encodeURIComponent(n.indexName)+"/"+encodeURIComponent(e),hostType:"write",callback:t})},deleteObjects:function(t,r){var n=e(46),i="Usage: index.deleteObjects(arrayOfObjectIDs[, callback])";if(!n(t))throw new Error(i);var s=this,a={requests:o(t,function(e){return{action:"deleteObject",objectID:e,body:{objectID:e}}})};return this.as._jsonRequest({method:"POST",url:"/1/indexes/"+encodeURIComponent(s.indexName)+"/batch",body:a,hostType:"write",callback:r})},deleteByQuery:function(t,r,n){function i(e){if(0===e.nbHits)return e;var t=o(e.hits,function(e){return e.objectID});return d.deleteObjects(t).then(s).then(a)}function s(e){return d.waitTask(e.taskID)}function a(){return d.deleteByQuery(t,r)}function u(){c(function(){n(null)},h._setTimeout||setTimeout)}function l(e){c(function(){n(e)},h._setTimeout||setTimeout)}var f=e(43),d=this,h=d.as;1===arguments.length||"function"==typeof r?(n=r,r={}):r=f(r),r.attributesToRetrieve="objectID",r.hitsPerPage=1e3,r.distinct=!1,this.clearCache();var p=this.search(t,r).then(i);return n?void p.then(u,l):p},search:f("query"),similarSearch:f("similarQuery"),browse:function(t,r,n){var o,i,s=e(55),a=this;0===arguments.length||1===arguments.length&&"function"==typeof arguments[0]?(o=0,n=arguments[0],t=void 0):"number"==typeof arguments[0]?(o=arguments[0],"number"==typeof arguments[1]?i=arguments[1]:"function"==typeof arguments[1]&&(n=arguments[1],i=void 0),t=void 0,r=void 0):"object"==typeof arguments[0]?("function"==typeof arguments[1]&&(n=arguments[1]),r=arguments[0],t=void 0):"string"==typeof arguments[0]&&"function"==typeof arguments[1]&&(n=arguments[1],r=void 0),r=s({},r||{},{page:o,hitsPerPage:i,query:t});var c=this.as._getSearchParams(r,"");return this.as._jsonRequest({method:"GET",url:"/1/indexes/"+encodeURIComponent(a.indexName)+"/browse?"+c,hostType:"read",callback:n})},browseFrom:function(e,t){return this.as._jsonRequest({method:"GET",url:"/1/indexes/"+encodeURIComponent(this.indexName)+"/browse?cursor="+encodeURIComponent(e),hostType:"read",callback:t})},browseAll:function(t,r){function n(e){if(!a._stopped){var t;t=void 0!==e?"cursor="+encodeURIComponent(e):l,c._jsonRequest({method:"GET",url:"/1/indexes/"+encodeURIComponent(u.indexName)+"/browse?"+t,hostType:"read",callback:o})}}function o(e,t){return a._stopped?void 0:e?void a._error(e):(a._result(t),void 0===t.cursor?void a._end():void n(t.cursor))}"object"==typeof t&&(r=t,t=void 0);var i=e(55),s=e(58),a=new s,c=this.as,u=this,l=c._getSearchParams(i({},r||{},{query:t}),"");return n(),a},ttAdapter:function(e){var t=this;return function(r,n,o){var i;i="function"==typeof o?o:n,t.search(r,e,function(e,t){return e?void i(e):void i(t.hits)})}},waitTask:function(e,t){function r(){return l._jsonRequest({method:"GET",hostType:"read",url:"/1/indexes/"+encodeURIComponent(u.indexName)+"/task/"+e}).then(function(e){a++;var t=i*a*a;return t>s&&(t=s),"published"!==e.status?l._promise.delay(t).then(r):e})}function n(e){c(function(){t(null,e)},l._setTimeout||setTimeout)}function o(e){c(function(){t(e)},l._setTimeout||setTimeout)}var i=100,s=5e3,a=0,u=this,l=u.as,f=r();return t?void f.then(n,o):f},clearIndex:function(e){var t=this;return this.as._jsonRequest({method:"POST",url:"/1/indexes/"+encodeURIComponent(t.indexName)+"/clear",hostType:"write",callback:e})},getSettings:function(e){var t=this;return this.as._jsonRequest({method:"GET",url:"/1/indexes/"+encodeURIComponent(t.indexName)+"/settings",hostType:"read",callback:e})},setSettings:function(e,t){var r=this;return this.as._jsonRequest({method:"PUT",url:"/1/indexes/"+encodeURIComponent(r.indexName)+"/settings",hostType:"write",body:e,callback:t})},listUserKeys:function(e){var t=this;return this.as._jsonRequest({method:"GET",url:"/1/indexes/"+encodeURIComponent(t.indexName)+"/keys",hostType:"read",callback:e})},getUserKeyACL:function(e,t){var r=this;return this.as._jsonRequest({method:"GET",url:"/1/indexes/"+encodeURIComponent(r.indexName)+"/keys/"+e,hostType:"read",callback:t})},deleteUserKey:function(e,t){var r=this;return this.as._jsonRequest({method:"DELETE",url:"/1/indexes/"+encodeURIComponent(r.indexName)+"/keys/"+e,hostType:"write",callback:t})},addUserKey:function(t,r,n){var o=e(46),i="Usage: index.addUserKey(arrayOfAcls[, params, callback])";if(!o(t))throw new Error(i);(1===arguments.length||"function"==typeof r)&&(n=r,r=null);var s={acl:t};return r&&(s.validity=r.validity,s.maxQueriesPerIPPerHour=r.maxQueriesPerIPPerHour,s.maxHitsPerQuery=r.maxHitsPerQuery,s.description=r.description,r.queryParameters&&(s.queryParameters=this.as._getSearchParams(r.queryParameters,"")),s.referers=r.referers),this.as._jsonRequest({method:"POST",url:"/1/indexes/"+encodeURIComponent(this.indexName)+"/keys",body:s,hostType:"write",callback:n})},addUserKeyWithValidity:u(function(e,t,r){return this.addUserKey(e,t,r)},a("index.addUserKeyWithValidity()","index.addUserKey()")),updateUserKey:function(t,r,n,o){var i=e(46),s="Usage: index.updateUserKey(key, arrayOfAcls[, params, callback])";if(!i(r))throw new Error(s);(2===arguments.length||"function"==typeof n)&&(o=n,n=null);var a={acl:r};return n&&(a.validity=n.validity,a.maxQueriesPerIPPerHour=n.maxQueriesPerIPPerHour,a.maxHitsPerQuery=n.maxHitsPerQuery,a.description=n.description,n.queryParameters&&(a.queryParameters=this.as._getSearchParams(n.queryParameters,"")),a.referers=n.referers),this.as._jsonRequest({method:"PUT",url:"/1/indexes/"+encodeURIComponent(this.indexName)+"/keys/"+t,body:a,hostType:"write",callback:o})},_search:function(e,t){return this.as._jsonRequest({cache:this.cache,method:"POST",url:"/1/indexes/"+encodeURIComponent(this.indexName)+"/query",body:{params:e},hostType:"read",fallback:{method:"GET",url:"/1/indexes/"+encodeURIComponent(this.indexName),body:{params:e}},callback:t})},as:null,indexName:null,typeAheadArgs:null,typeAheadValueOption:null}},{11:11,43:43,46:46,55:55,58:58,6:6,63:63}],58:[function(e,t,r){"use strict";function n(){}t.exports=n;var o=e(10),i=e(1).EventEmitter;o(n,i),n.prototype.stop=function(){this._stopped=!0,this._clean()},n.prototype._end=function(){this.emit("end"),this._clean()},n.prototype._error=function(e){this.emit("error",e),this._clean()},n.prototype._result=function(e){this.emit("result",e)},n.prototype._clean=function(){this.removeAllListeners("stop"),this.removeAllListeners("end"),this.removeAllListeners("error"),this.removeAllListeners("result")}},{1:1,10:10}],59:[function(e,t,r){"use strict";function n(t,r,i){var s=e(44),a=e(60);return i=s(i||{}),void 0===i.protocol&&(i.protocol=a()),i._ua=i._ua||n.ua,new o(t,r,i)}function o(){a.apply(this,arguments)}t.exports=n;var i=e(10),s=window.Promise||e(9).Promise,a=e(57),c=e(63),u=e(61),l=e(62);n.version=e(64),n.ua="Algolia for vanilla JavaScript "+n.version,window.__algolia={debug:e(6),algoliasearch:n};var f={hasXMLHttpRequest:"XMLHttpRequest"in window,hasXDomainRequest:"XDomainRequest"in window,cors:"withCredentials"in new XMLHttpRequest,timeout:"timeout"in new XMLHttpRequest};i(o,a),o.prototype._request=function(e,t){return new s(function(r,n){function o(){if(!l){f.timeout||clearTimeout(a);var e;try{e={body:JSON.parse(h.responseText),responseText:h.responseText,statusCode:h.status,headers:h.getAllResponseHeaders&&h.getAllResponseHeaders()||{}}}catch(t){e=new c.UnparsableJSON({more:h.responseText})}e instanceof c.UnparsableJSON?n(e):r(e)}}function i(e){l||(f.timeout||clearTimeout(a),n(new c.Network({more:e})))}function s(){f.timeout||(l=!0,h.abort()),n(new c.RequestTimeout)}if(!f.cors&&!f.hasXDomainRequest)return void n(new c.Network("CORS not supported"));e=u(e,t.headers);var a,l,d=t.body,h=f.cors?new XMLHttpRequest:new XDomainRequest;h instanceof XMLHttpRequest?h.open(t.method,e,!0):h.open(t.method,e),f.cors&&(d&&("POST"===t.method?h.setRequestHeader("content-type","application/x-www-form-urlencoded"):h.setRequestHeader("content-type","application/json")),h.setRequestHeader("accept","application/json")),h.onprogress=function(){},h.onload=o,h.onerror=i,f.timeout?(h.timeout=t.timeout,h.ontimeout=s):a=setTimeout(s,t.timeout),h.send(d)})},o.prototype._request.fallback=function(e,t){return e=u(e,t.headers),new s(function(r,n){l(e,t,function(e,t){return e?void n(e):void r(t)})})},o.prototype._promise={reject:function(e){return s.reject(e)},resolve:function(e){return s.resolve(e)},delay:function(e){return new s(function(t){setTimeout(t,e)})}}},{10:10,44:44,57:57,6:6,60:60,61:61,62:62,63:63,64:64,9:9}],60:[function(e,t,r){"use strict";function n(){var e=window.document.location.protocol;return"http:"!==e&&"https:"!==e&&(e="http:"),e}t.exports=n},{}],61:[function(e,t,r){"use strict";function n(e,t){return e+=/\?/.test(e)?"&":"?",e+o.encode(t)}t.exports=n;var o=e(5)},{5:5}],62:[function(e,t,r){"use strict";function n(e,t,r){function n(){t.debug("JSONP: success"),y||f||(y=!0,l||(t.debug("JSONP: Fail. Script loaded but did not call the callback"),a(),r(new o.JSONPScriptFail)))}function s(){("loaded"===this.readyState||"complete"===this.readyState)&&n()}function a(){clearTimeout(m),h.onload=null,h.onreadystatechange=null,h.onerror=null,d.removeChild(h);try{delete window[p],delete window[p+"_loaded"]}catch(e){window[p]=null,window[p+"_loaded"]=null}}function c(){t.debug("JSONP: Script timeout"),f=!0,a(),r(new o.RequestTimeout)}function u(){t.debug("JSONP: Script error"),y||f||(a(),r(new o.JSONPScriptError))}if("GET"!==t.method)return void r(new Error("Method "+t.method+" "+e+" is not supported by JSONP."));t.debug("JSONP: start");var l=!1,f=!1;i+=1;var d=document.getElementsByTagName("head")[0],h=document.createElement("script"),p="algoliaJSONP_"+i,y=!1;window[p]=function(e){try{delete window[p]}catch(t){window[p]=void 0}f||(l=!0,a(),r(null,{body:e}))},e+="&callback="+p,t.jsonBody&&t.jsonBody.params&&(e+="&"+t.jsonBody.params);var m=setTimeout(c,t.timeout);h.onreadystatechange=s,h.onload=n,h.onerror=u,h.async=!0,h.defer=!0,h.src=e,d.appendChild(h)}t.exports=n;var o=e(63),i=0},{63:63}],63:[function(e,t,r){"use strict";function n(t,r){var n=e(11),o=this;"function"==typeof Error.captureStackTrace?Error.captureStackTrace(this,this.constructor):o.stack=(new Error).stack||"Cannot get a stacktrace, browser is too old",this.name=this.constructor.name,this.message=t||"Unknown error",r&&n(r,function(e,t){o[t]=e})}function o(e,t){function r(){var r=Array.prototype.slice.call(arguments,0);"string"!=typeof r[0]&&r.unshift(t),n.apply(this,r),this.name="AlgoliaSearch"+e+"Error"}return i(r,n),r}var i=e(10);i(n,Error),t.exports={AlgoliaSearchError:n,UnparsableJSON:o("UnparsableJSON","Could not parse the incoming response as JSON, see err.more for details"),RequestTimeout:o("RequestTimeout","Request timedout before getting a response"),Network:o("Network","Network issue, see err.more for details"),JSONPScriptFail:o("JSONPScriptFail","<script> was loaded but did not call our provided callback"),JSONPScriptError:o("JSONPScriptError","<script> unable to load due to an `error` event on it"),Unknown:o("Unknown","Unknown error occured")}},{10:10,11:11}],64:[function(e,t,r){"use strict";t.exports="3.9.2"},{}]},{},[59])(59)});
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 /*jshint curly:true, eqeqeq:true, laxbreak:true, noempty:false */
 /*
 
@@ -2470,7 +2488,7 @@ module.exports = Tabs;
 	}
 
 }());
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 /*!
  * EventEmitter v4.2.11 - git.io/ee
  * Unlicense - http://unlicense.org/
@@ -2945,7 +2963,7 @@ module.exports = Tabs;
 		exports.EventEmitter = EventEmitter;
 	}
 }.call(this));
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 var m = (function app(window, undefined) {
 	var OBJECT = "[object Object]", ARRAY = "[object Array]", STRING = "[object String]", FUNCTION = "function";
 	var type = {}.toString;
@@ -4106,7 +4124,7 @@ var m = (function app(window, undefined) {
 if (typeof module != "undefined" && module !== null && module.exports) module.exports = m;
 else if (typeof define === "function" && define.amd) define(function() {return m});
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 var VOID_TAGS = ['area', 'base', 'br', 'col', 'command', 'embed', 'hr',

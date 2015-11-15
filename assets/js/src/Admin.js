@@ -65,6 +65,7 @@
 	// expose some things
 	// @TODO clean-up
 	window.m = m;
+	window.mc4wp.tabs = tabs;
 	window.mc4wp_register_field = fields.register;
 	window.mc4wp_deregister_field = fields.deregister;
 })();

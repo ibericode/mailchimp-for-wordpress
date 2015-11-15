@@ -5,6 +5,7 @@ var Tabs = function(context) {
 	// @todo last piece of jQuery... can we get rid of it?
 	var $ = window.jQuery;
 
+	var URL = require('./url.js');
 	var $context = $(context);
 	var $tabs = $context.find('.tab');
 	var $tabNavs = $context.find('.nav-tab');
@@ -17,71 +18,53 @@ var Tabs = function(context) {
 
 		tabs.push({
 			id: id,
-			title: title
+			title: title,
+			element: t,
+			nav: context.querySelectorAll('.nav-tab-' + id),
+			open: function() { return open(id); }
 		});
 	});
 
-	var URL = {
-		parse: function(url) {
-			var query = {};
-			var a = url.split('&');
-			for (var i in a) {
-				if(!a.hasOwnProperty(i)) {
-					continue;
-				}
-				var b = a[i].split('=');
-				query[decodeURIComponent(b[0])] = decodeURIComponent(b[1]);
-			}
-
-			return query;
-		},
-		build: function(data) {
-			var ret = [];
-			for (var d in data)
-				ret.push(d + "=" + encodeURIComponent(data[d]));
-			return ret.join("&");
-		},
-		setParameter: function( url, key, value ) {
-			var data = URL.parse( url );
-			data[ key ] = value;
-			return URL.build( data );
-		}
-	};
+	function get(id) {
+		return tabs.find(function(t) {
+			return t.id === id;
+		});
+	}
 
 	function open( tab, updateState ) {
 
 		// make sure we have a tab object
 		if(typeof(tab) === "string"){
-			tab = tabs.filter(function(t) {
-				return t.id === tab;
-			}).pop();
+			tab = get(tab);
 		}
 
-		if(!tab || !tab.id) { return false; }
+		if(!tab) { return false; }
 
 		// should we update state?
-		updateState = updateState !== false;
+		if( updateState == undefined ) {
+			updateState = true;
+		}
 
 		// hide all tabs & remove active class
 		$tabs.removeClass('tab-active').css('display', 'none');
 		$tabNavs.removeClass('nav-tab-active');
 
 		// add `nav-tab-active` to this tab
-		var nav = document.getElementById('nav-tab-'+tab.id);
-		nav.className += " nav-tab-active";
-		nav.blur();
+		Array.prototype.forEach.call(tab.nav, function(nav) {
+			nav.className += " nav-tab-active";
+			nav.blur();
+		});
 
 		// show target tab
-		var targetTab = document.getElementById("tab-" + tab.id);
-		targetTab.style.display = 'block';
-		targetTab.className += " tab-active";
+		tab.element.style.display = 'block';
+		tab.element.className += " tab-active";
 
 		// create new URL
 		var url = URL.setParameter(window.location.href, "tab", tab.id );
 
 		// update hash
 		if( history.pushState && updateState ) {
-			history.pushState( tab, '', url );
+			history.pushState( tab.id, '', url );
 		}
 
 		// update document title
@@ -106,13 +89,18 @@ var Tabs = function(context) {
 	function switchTab(e) {
 		e = e || window.event;
 
+		// get from data attribute
 		var tabId = this.getAttribute('data-tab');
+
+		// get from classname
+		if( ! tabId ) {
+			tabId = this.className.match(/nav-tab-(\w+)?/)[1];
+		}
+
+		// get from href
 		if( ! tabId ) {
 			var urlParams = URL.parse( this.href );
-			if( typeof(urlParams.tab) === "undefined" ) {
-				return;
-			}
-
+			if( ! urlParams.tab ) { return; }
 			tabId = urlParams.tab;
 		}
 
@@ -131,16 +119,13 @@ var Tabs = function(context) {
 
 		// check for current tab
 		var activeTab = $tabs.filter(':visible').get(0);
-
-		var tab = tabs.filter(function(t) {
-			return t.id === activeTab.id.substring(4);
-		}).pop();
+		var tab = get(activeTab.id.substring(4));
 
 		if(!tab) return;
 
 		// check if tab is in html5 history
 		if(history.replaceState && history.state === null) {
-			history.replaceState( tab, '' );
+			history.replaceState( tab.id, '' );
 		}
 
 		// update document title
@@ -155,13 +140,14 @@ var Tabs = function(context) {
 
 		window.addEventListener('popstate', function(e) {
 			if(!e.state) return true;
-			var tab = e.state;
-			return open(tab,false);
+			var tabId = e.state;
+			return open(tabId,false);
 		});
 	}
 
 	return {
-		open: open
+		open: open,
+		get: get
 	}
 
 };
