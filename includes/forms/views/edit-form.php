@@ -62,7 +62,8 @@ $tabs = array(
 
 				<h2 class="nav-tab-wrapper" id="mc4wp-tabs-nav">
 					<?php foreach( $tabs as $tab => $name ) {
-						echo sprintf( '<a class="nav-tab %s" id="nav-tab-%s" href="%s" data-tab="%s">%s</a>', ( $active_tab === $tab ) ? 'nav-tab-active' : '', $tab, $this->tab_url( $tab ), $tab, $name );
+						$class = ( $active_tab === $tab ) ? 'nav-tab-active' : '';
+						echo sprintf( '<a class="nav-tab nav-tab-%s %s" href="%s">%s</a>', $tab, $class, $this->tab_url( $tab ), $name );
 					} ?>
 				</h2>
 

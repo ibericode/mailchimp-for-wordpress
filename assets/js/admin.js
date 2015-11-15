@@ -1291,6 +1291,16 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 		];
 	};
 
+	function showResults(results) {
+		if( ! results.length ) {
+			nothingFound = true;
+		} else {
+			searchResults(results.map(function(r) {
+				return { href: r.path, text: r._highlightResult.title.value};
+			}));
+		}
+	}
+
 
 	function search(query) {
 		loader.innerText = '.';
@@ -1304,12 +1314,10 @@ var lucy = function( site_url, algolia_app_id, algolia_api_key, algolia_index_na
 
 		index.search( query, { hitsPerPage: 5 }, function( error, result ) {
 
-			if( ! result.hits.length ) {
-				nothingFound = true;
-			} else {
-				searchResults(result.hits.map(function(r) {
-					return { href: r.path, text: r._highlightResult.title.value};
-				}));
+			if( error ) {
+				// TODO: show error
+			 } else {
+				showResults(result.hits);
 			}
 
 			m.redraw();
@@ -1598,6 +1606,7 @@ var Tabs = function(context) {
 
 		// check for current tab
 		var activeTab = $tabs.filter(':visible').get(0);
+		if( ! activeTab ) { return; }
 		var tab = get(activeTab.id.substring(4));
 
 		if(!tab) return;

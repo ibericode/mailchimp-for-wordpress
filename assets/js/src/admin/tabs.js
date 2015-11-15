@@ -119,6 +119,7 @@ var Tabs = function(context) {
 
 		// check for current tab
 		var activeTab = $tabs.filter(':visible').get(0);
+		if( ! activeTab ) { return; }
 		var tab = get(activeTab.id.substring(4));
 
 		if(!tab) return;
