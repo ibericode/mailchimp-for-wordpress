@@ -38,7 +38,8 @@ class MC4WP_Request_Parser {
 	 *
 	 * @return array
 	 */
-	public function namespaced( $namespace = 'MC4WP-' ) {
+	public function namespaced( $namespace = 'mc4wp-' ) {
+		// TODO: Find an easy way to make prefix case insensitive
 		return $this->request->params->all_with_prefix( $namespace );
 	}
 
