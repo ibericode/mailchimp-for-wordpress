@@ -12,7 +12,7 @@ languages()
 	# Update languages
 	tx pull -a -f
 	for FILE in `find languages/. -name "*.po"`; do msgfmt -o ${FILE/.po/.mo} $FILE; done
-	git add languages/\*
+	git add languages/.
 	git commit -m "updated languages"
 }
 
@@ -21,8 +21,8 @@ autoloader()
 	# Update Autoloader
 	composer update --no-dev --prefer-dist
 	composer dump-autoload --optimize
-	git add vendor\/*
-	git commit -m "update autoloader"
+	git add vendor/.
+	git commit -m "updated autoloader"
 }
 
 version()
