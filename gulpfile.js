@@ -7,7 +7,11 @@ var rename = require("gulp-rename");
 var cssmin = require('gulp-cssmin');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
-var es         = require('event-stream');
+var replace = require('gulp-replace');
+var minimist = require('minimist');
+var merge = require('merge-stream');
+var util = require('gulp-util');
+var intercept = require('gulp-intercept');
 
 var files = {
 	sass: './assets/sass/*.scss',
@@ -16,7 +20,15 @@ var files = {
 	browserify: [ './assets/js/src/api.js', './assets/js/src/admin.js' ]
 };
 
-gulp.task('default', ['sass', 'uglify', 'cssmin']);
+var defaults = {
+	string: 'version',
+	default: {
+		version: '0'
+	}
+};
+var options = minimist(process.argv.slice(2), defaults);
+
+gulp.task('default', ['browserify', 'sass', 'uglify', 'cssmin']);
 
 gulp.task('sass', function () {
 	return gulp.src(files.sass)
@@ -45,7 +57,7 @@ gulp.task('browserify', function () {
 	});
 
 	// create a merged stream
-	return es.merge.apply(null, tasks);
+	return merge(tasks);
 });
 
 
@@ -56,9 +68,36 @@ gulp.task('uglify', ['browserify'], function() {
 		.pipe(gulp.dest('./assets/js'));
 });
 
+gulp.task('bump-version', function() {
+
+	// Bump version in readme.txt
+	var readme = gulp.src('./readme.txt', {base: './'})
+		.pipe(replace(/Stable tag: .*/, 'Stable tag: ' + options.version))
+		.pipe(intercept(function(file) {
+			// Check if a Changelog section is present for this version
+			var regex = new RegExp('Changelog [\\s\\S]*\\=\\s' + options.version.replace('.', '\\.') + '\\s', '');
+			var match = file.contents.toString().match(regex);
+			if( ! file.contents.toString().match(regex)) {
+				util.beep();
+				util.log(util.colors.red("readme.txt does not have a changelog for version " + options.version + " yet."));
+			}
+			return file;
+		}))
+		.pipe(gulp.dest('./'));
+
+	// Bump version in main plugin file.
+	var plugin = gulp.src('./mailchimp-for-wp.php', {base: './'})
+		.pipe(replace(/Version: .*/, 'Version: ' + options.version))
+		.pipe(replace(/define\s*\(\s*['"]MC4WP_VERSION['"]\s*,.+/, "define( 'MC4WP_VERSION', '" + options.version + "' );"))
+		.pipe(gulp.dest('./'));
+
+
+	return merge(plugin,readme);
+});
+
 gulp.task('watch', function () {
 	gulp.watch( files.sass, ['sass']);
 	gulp.watch( files.browserify, ['browserify']);
 	gulp.watch( files.js, [ 'uglify' ]);
-	gulp.watch(files.css, [ 'cssmin' ]);
+	gulp.watch( files.css, [ 'cssmin' ]);
 });
