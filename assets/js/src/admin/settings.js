@@ -62,8 +62,8 @@ var Settings = function(context, helpers, events ) {
 	events.on('selectedLists.change', toggleVisibleLists);
 	helpers.bindEventToElements(listInputs,'change',updateSelectedLists);
 
-	// only way to leave a page with changes is using a form
-	if( form ) {
+	// make it hard to leave big forms with unsaved changes
+	if( form && form.elements.length > 10 ) {
 		helpers.bindEventToElement(form,'change',function() { unsaved = true; });
 		helpers.bindEventToElement(form,'submit',function() { unsaved = false; });
 		helpers.bindEventToElement(window,'beforeunload', confirmPageLeave);
