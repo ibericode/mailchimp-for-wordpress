@@ -151,8 +151,6 @@ class MC4WP_Field_Map {
 			$groups = explode( ',', $groups );
 		}
 
-		$groups = array_map( 'sanitize_text_field', $groups );
-
 		// format new grouping
 		return array(
 			'id' => $grouping->id,
@@ -164,23 +162,7 @@ class MC4WP_Field_Map {
 	 * @return array
 	 */
 	public function find_custom_fields() {
-
-		if( empty( $this->leftover_data ) ) {
-			return array();
-		}
-
-		$custom_fields = array();
-
-		foreach( $this->leftover_data as $field => $value ) {
-
-			if( $this->is_internal_field( $field ) ) {
-				continue;
-			}
-
-			$custom_fields[ $field ] = $value;
-		}
-
-		return $custom_fields;
+		return $this->leftover_data;
 	}
 
 	/**
@@ -268,33 +250,5 @@ class MC4WP_Field_Map {
 		return $field_value;
 	}
 
-	/**
-	 * @param $field
-	 *
-	 * @return bool
-	 */
-	public function is_not_internal_field( $field ) {
-		return ! $this->is_internal_field( $field );
-	}
-
-	/**
-	 * @param $field
-	 *
-	 * @return bool
-	 */
-	public function is_internal_field( $field ) {
-
-		if( empty( $field ) || $field[0] === '_' ) {
-			return true;
-		}
-
-		// Ignore those fields, we don't need them
-		$ignored_vars = array( 'CPTCH_NUMBER', 'CNTCTFRM_CONTACT_ACTION', 'CPTCH_RESULT', 'CPTCH_TIME', 'MC4WP_ACTION' );
-		if( in_array( $field, $ignored_vars ) ) {
-			return true;
-		}
-
-		return false;
-	}
 
 }
