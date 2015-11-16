@@ -15,9 +15,14 @@ class MC4WP_Form_Previewer {
 	public $form_id = 0;
 
 	/**
-	 * @const string
+	 * @var bool
 	 */
-	const URL_PARAMETER = '_mc4wp_preview_form_id';
+	public $is_preview = false;
+
+	/**
+	 * @var int
+	 */
+	public $preview_form_id = 0;
 
 	/**
 	 * @const string
@@ -25,11 +30,13 @@ class MC4WP_Form_Previewer {
 	const PAGE_SLUG = 'mc4wp-form-preview';
 
 	/**
+	 * Listens for requests to our form preview page
+	 *
 	 * @return bool
 	 */
 	public static function init() {
 
-		if( empty( $_GET[ self::URL_PARAMETER ] ) ) {
+		if( ! is_page( self::PAGE_SLUG ) || empty( $_GET['form_id'] ) ) {
 			return false;
 		}
 
@@ -37,25 +44,36 @@ class MC4WP_Form_Previewer {
 			return false;
 		}
 
-		$form_id = $_GET[ self::URL_PARAMETER ];
-		$instance = new self( $form_id );
-
-		if( ! $instance->at_preview_page() ) {
-			$instance->go_to_preview_page();
-		}
+		$form_id        = (int) $_GET[ 'form_id' ];
+		$is_preview     = isset( $_GET['preview'] );
+		$instance = new self( $form_id, $is_preview );
 
 		add_filter( 'the_title', array( $instance, 'set_page_title' ) );
 		add_filter( 'the_content', array( $instance, 'set_page_content' ) );
 	}
 
 	/**
-	 * @param $form_id
+	 * @param int $form_id
+	 * @param bool $is_preview
 	 */
-	public function __construct( $form_id ) {
-		$this->form_id = (int) $form_id;
+	public function __construct( $form_id, $is_preview = false ) {
+		$this->form_id = $form_id;
+		$this->is_preview = $is_preview;
+
+		// get the preview form
+		if( $is_preview ) {
+			$this->preview_form_id = $this->get_preview_id();
+		}
+
+		// if that failed, get the real form
+		if( empty( $this->preview_form_id ) ) {
+			$this->preview_form_id = $this->form_id;
+		}
 	}
 
 	/**
+	 * Gets the ID of the preview form page
+	 *
 	 * @return int
 	 */
 	public function get_preview_page_id() {
@@ -79,28 +97,42 @@ class MC4WP_Form_Previewer {
 	}
 
 	/**
-	 * @param bool $on_page
+	 * Sets or updates the ID for the preview form
+	 *
+	 * @param int $id
+	 *
+	 * @return bool
+	 */
+	public function set_preview_id( $id ) {
+		return update_option( 'mc4wp_form_preview_id', $id, false );
+	}
+
+	/**
+	 * Gets the ID of the preview form
+	 *
+	 * @return int
+	 */
+	public function get_preview_id() {
+		return get_option( 'mc4wp_form_preview_id', 0 );
+	}
+
+	/**
+	 * Gets the full URL for the form preview page
+	 *
 	 * @return string
 	 */
-	public function get_preview_url( $on_page = false ) {
-		$base_url = $on_page ? get_permalink( $this->get_preview_page_id() ) : get_site_url();
-		$preview_url = add_query_arg( array( self::URL_PARAMETER => $this->form_id ), $base_url );
+	public function get_preview_url() {
+		$base_url = get_permalink( $this->get_preview_page_id() );
+		$args = array(
+			'form_id' => $this->form_id
+		);
+
+		if( $this->is_preview ) {
+			$args['preview'] = '';
+		}
+
+		$preview_url = add_query_arg( $args, $base_url );
 		return $preview_url;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function at_preview_page() {
-		return is_page( self::PAGE_SLUG );
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function go_to_preview_page() {
-		wp_redirect( $this->get_preview_url( true ) );
-		exit;
 	}
 
 	/**
@@ -116,7 +148,7 @@ class MC4WP_Form_Previewer {
 	 * @return string
 	 */
 	public function set_page_content( $content ) {
-		return mc4wp_show_form( $this->form_id, array(), false );
+		return mc4wp_show_form( $this->preview_form_id, array(), false );
 	}
 
 }

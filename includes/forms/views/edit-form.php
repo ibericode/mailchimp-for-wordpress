@@ -52,10 +52,10 @@ $tabs = array(
 							<?php _e( 'Get shortcode', 'mailchimp-for-wp' ); ?>
 						</a>
 
-						<a href="<?php echo esc_url( $previewer->get_preview_url() ); ?>" target="_blank" class="button-secondary">
+						<button type="submit" name="_mc4wp_action" value="preview_form" onblur="this.form.removeAttribute('target');" onfocus="this.form.setAttribute('target','_blank');" class="button-secondary">
 							<span class="dashicons dashicons-welcome-view-site" style=""></span>
 							<?php _e( 'Preview this form', 'mailchimp-for-wp' ); ?>
-						</a>
+						</button>
 
 					</div>
 				</div>

@@ -33,6 +33,7 @@ class MC4WP_Forms_Admin {
 	 */
 	public function add_hooks() {
 		add_action( 'mc4wp_save_form', array( $this, 'update_form_stylesheets' ) );
+		add_action( 'mc4wp_admin_preview_form', array( $this, 'prepare_form_preview' ) );
 		add_action( 'mc4wp_admin_edit_form', array( $this, 'process_save_form' ) );
 		add_action( 'mc4wp_admin_add_form', array( $this, 'process_add_form' ) );
 		add_filter( 'mc4wp_admin_menu_items', array( $this, 'add_menu_item' ), 5 );
@@ -89,6 +90,45 @@ class MC4WP_Forms_Admin {
 	}
 
 	/**
+	 * Saves a form to the database
+	 *
+	 * @param $data
+	 * @return int
+	 */
+	public function save_form( $data ) {
+
+		$post_data = array(
+			'post_type'     => 'mc4wp-form',
+			'post_status'   => ! empty( $data['status'] ) ? $data['status'] : 'publish',
+			'post_title'    => $data['name'],
+			'post_content'  => $data['content']
+		);
+
+		if( ! empty( $data['ID'] ) ) {
+			$post_data['ID'] = $data['ID'];
+
+			$post = get_post( $data['ID'] );
+
+			// check if attempted post is of post_type `mc4wp_form`
+			if( ! is_object( $post ) || $post->post_type !== 'mc4wp-form' ) {
+				wp_nonce_ays( '' );
+				return 0;
+			}
+		}
+
+		$form_id = wp_insert_post( $post_data );
+
+		update_post_meta( $form_id, '_mc4wp_settings', $data['settings'] );
+
+		// save form messages in individual meta keys
+		foreach( $data['messages'] as $key => $message ) {
+			update_post_meta( $form_id, 'text_' . $key, $message );
+		}
+
+		return $form_id;
+	}
+
+	/**
 	 * Saves a form
 	 */
 	public function process_save_form( ) {
@@ -96,33 +136,11 @@ class MC4WP_Forms_Admin {
 		check_admin_referer( 'edit_form', '_mc4wp_nonce' );
 		$form_id = (int) $_POST['mc4wp_form_id'];
 
-		// check if attempted post is of post_type `mc4wp_form`
-		$post = get_post( $form_id );
-		if( ! is_object( $post ) || $post->post_type !== 'mc4wp-form' ) {
-			wp_nonce_ays( '' );
-		}
-
 		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
-		$form_settings = $form_data['settings'];
+		$form_data['ID'] = $form_id;
 
 		// @todo sanitize data
-
-		$form_id = wp_insert_post(
-			array(
-				'ID' => $form_id,
-				'post_type' => 'mc4wp-form',
-				'post_status' => 'publish',
-				'post_title' => $form_data['name'],
-				'post_content' => $form_data['content']
-			)
-		);
-
-		update_post_meta( $form_id, '_mc4wp_settings', $form_settings );
-
-		// save form messages in individual meta keys
-		foreach( $form_data['messages'] as $key => $message ) {
-			update_post_meta( $form_id, 'text_' . $key, $message );
-		}
+		$this->save_form( $form_data );
 
 		// update default form id?
 		// @todo should this be here?
@@ -172,6 +190,27 @@ class MC4WP_Forms_Admin {
 	}
 
 	/**
+	 * Prepares a Form Preview
+	 */
+	public function prepare_form_preview() {
+		$form_id = (int) $_POST['mc4wp_form_id'];
+		$previewer = new MC4WP_Form_Previewer( $form_id, true );
+
+		// get data
+		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
+		$form_data['ID'] =  $previewer->get_preview_id();
+		$form_data['status'] = 'draft';
+
+		// save as new post & update preview id
+		$preview_id = $this->save_form( $form_data );
+		$previewer->set_preview_id( $preview_id );
+
+		// redirect to preview
+		wp_safe_redirect( $previewer->get_preview_url() );
+		exit;
+	}
+
+	/**
 	 * Redirect to correct form action
 	 *
 	 * @ignore
@@ -183,18 +222,12 @@ class MC4WP_Forms_Admin {
 		}
 
 		// query first available form and go there
-		$posts = get_posts(
-			array(
-				'post_type' => 'mc4wp-form',
-				'post_status' => 'publish',
-				'numberposts' => 1
-			)
-		);
+		$forms = mc4wp_get_forms( array( 'numberposts' => 1 ) );
 
 		// if we have a post, go to the "edit form" screen
-		if( $posts ) {
-			$post = array_pop( $posts );
-			wp_safe_redirect( mc4wp_get_edit_form_url( $post->ID ) );
+		if( $forms ) {
+			$form = array_pop( $forms );
+			wp_safe_redirect( mc4wp_get_edit_form_url( $form->ID ) );
 			exit;
 		}
 
@@ -242,7 +275,6 @@ class MC4WP_Forms_Admin {
 
 		$opts = $form->settings;
 		$active_tab = ( isset( $_GET['tab'] ) ) ? $_GET['tab'] : 'fields';
-		$previewer = new MC4WP_Form_Previewer( $form->ID );
 
 		require dirname( __FILE__ ) . '/views/edit-form.php';
 	}
