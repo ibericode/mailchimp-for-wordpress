@@ -32,9 +32,18 @@ version()
 	git add .
 	git commit -m "[Pre-Release] Version $VERSION"
 	git tag -a -f $VERSION -m "Release of version $VERSION"
+}
 
-	# Create release
-	# TODO
+github()
+{
+	VERSION=$*
+
+	# Push changes to GitHub
+	git push
+
+	# Create release in GitHub
+	API_JSON=$(printf '{"tag_name": "%s","target_commitish": "master","name": "v%s","body": "Release of version %s. \n\n[Changelog](https://mc4wp.com/documentation/changelog)","draft": false,"prerelease": false}' $VERSION $VERSION $VERSION)
+	curl --data "$API_JSON" https://api.github.com/repos/ibericode/mailchimp-for-wordpress/releases?access_token=$GITHUB_API_TOKEN
 }
 
 package()
@@ -56,6 +65,7 @@ release() {
 	autoloader
 	version
 	package
+	github
 }
 
 $1 $2 $3 $4 $5
