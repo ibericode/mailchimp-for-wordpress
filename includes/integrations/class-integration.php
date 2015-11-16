@@ -68,7 +68,16 @@ abstract class MC4WP_Integration {
 	protected function get_default_options() {
 		$defaults = require MC4WP_PLUGIN_DIR . 'config/default-integration-options.php';
 		$integration_options = array_merge( $defaults, $this->options );
-		return (array) apply_filters( 'mc4wp_' . $this->slug . '_integration_options', $integration_options );
+		$slug = $this->slug;
+
+		/**
+		 * Filters options for a specific integration
+		 *
+		 * The dynamic portion of the hook, `$skyg`, refers to the slug of the ingration.
+		 *
+		 * @param array $integration_options
+		 */
+		return (array) apply_filters( 'mc4wp_' . $slug . '_integration_options', $integration_options );
 	}
 
 	/**
@@ -133,8 +142,16 @@ abstract class MC4WP_Integration {
 	 * @return string
 	 */
 	public function get_label_text() {
+		$integration = $this;
 		$label = $this->options['label'];
-		$label = (string) apply_filters( 'mc4wp_integration_checkbox_label', $label, $this );
+
+		/**
+		 * Filters the checkbox label
+		 *
+		 * @param string $label
+		 * @param MC4WP_Integration $integration
+		 */
+		$label = (string) apply_filters( 'mc4wp_integration_checkbox_label', $label, $integration );
 		return $label;
 	}
 
@@ -237,6 +254,9 @@ abstract class MC4WP_Integration {
 	 */
 	public function get_lists() {
 
+		$integration = $this;
+		$slug = $this->slug;
+
 		// get checkbox lists options
 		$lists = $this->options['lists'];
 
@@ -252,9 +272,29 @@ abstract class MC4WP_Integration {
 		}
 
 		// allow plugins to filter final lists value
+
+		/**
+		 * @ignore
+		 */
 		$lists = (array) apply_filters( 'mc4wp_lists', $lists );
-		$lists = (array) apply_filters( 'mc4wp_integraton_lists', $lists, $this );
-		$lists = (array) apply_filters( 'mc4wp_integration_' . $this->slug . '_lists', $lists, $this );
+
+		/**
+		 * Filters the MailChimp lists this integration should subscribe to
+		 *
+		 * @param array $lists
+		 * @param MC4WP_Integration $integration
+		 */
+		$lists = (array) apply_filters( 'mc4wp_integraton_lists', $lists, $integration );
+
+		/**
+		 * Filters the MailChimp lists a specific integration should subscribe to
+		 *
+		 * The dynamic portion of the hook, `$slug`, refers to the slug of the integration.
+		 *
+		 * @param array $lists
+		 * @param MC4WP_Integration $integration
+		 */
+		$lists = (array) apply_filters( 'mc4wp_integration_' . $slug . '_lists', $lists, $integration );
 
 		return $lists;
 	}
@@ -309,8 +349,11 @@ abstract class MC4WP_Integration {
 		 */
 		$email_type = apply_filters( 'mc4wp_email_type', 'html' );
 
-		foreach( $lists as $list_id ) {
-			$result = $api->subscribe( $list_id, $email, $merge_vars, $email_type, $this->options['double_optin'], $this->options['update_existing'], true, $this->options['send_welcome'] );
+		// create field map
+		$map = new MC4WP_Field_Map( $merge_vars, $lists );
+		
+		foreach( $map->list_fields as $list_id => $list_field_data ) {
+			$result = $api->subscribe( $list_id, $email, $list_field_data, $email_type, $this->options['double_optin'], $this->options['update_existing'], $this->options['replace_interests'], $this->options['send_welcome'] );
 		}
 
 		// if result failed, show error message (only to admins for non-AJAX)
