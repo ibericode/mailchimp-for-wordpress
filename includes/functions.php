@@ -96,3 +96,18 @@ function mc4wp_register_instance( $name, $instance ) {
 function mc4wp_get_instance( $name ) {
 	return MC4WP_Service_Container::instance()->get( $name );
 }
+
+/**
+ * Helper function, ensures given variable is (wrapped in) an array.
+ *
+ * @since 3.0
+ * @param mixed $mixed
+ * @return array
+ */
+function mc4wp_wrap_in_array( $mixed ) {
+	if( is_array( $mixed ) ) {
+		return $mixed;
+	}
+
+	return array( $mixed );
+}
