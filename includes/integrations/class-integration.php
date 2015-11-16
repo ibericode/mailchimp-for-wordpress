@@ -284,7 +284,7 @@ abstract class MC4WP_Integration {
 		 * @param array $lists
 		 * @param MC4WP_Integration $integration
 		 */
-		$lists = (array) apply_filters( 'mc4wp_integraton_lists', $lists, $integration );
+		$lists = (array) apply_filters( 'mc4wp_integration_lists', $lists, $integration );
 
 		/**
 		 * Filters the MailChimp lists a specific integration should subscribe to
@@ -351,7 +351,7 @@ abstract class MC4WP_Integration {
 
 		// create field map
 		$map = new MC4WP_Field_Map( $merge_vars, $lists );
-		
+
 		foreach( $map->list_fields as $list_id => $list_field_data ) {
 			$result = $api->subscribe( $list_id, $email, $list_field_data, $email_type, $this->options['double_optin'], $this->options['update_existing'], $this->options['replace_interests'], $this->options['send_welcome'] );
 		}
