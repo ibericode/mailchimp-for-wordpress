@@ -23,7 +23,7 @@ var files = {
 var defaults = {
 	string: 'version',
 	default: {
-		version: '0'
+		version: 0
 	}
 };
 var options = minimist(process.argv.slice(2), defaults);
@@ -68,16 +68,21 @@ gulp.task('uglify', ['browserify'], function() {
 		.pipe(gulp.dest('./assets/js'));
 });
 
-gulp.task('bump-version', function() {
+gulp.task('bump-version', function(cb) {
+
+	if( ! options.version ) {
+		util.log(util.colors.red("Please specify a --version argument."));
+		return;
+	}
 
 	// Bump version in readme.txt
 	var readme = gulp.src('./readme.txt', {base: './'})
-		.pipe(replace(/Stable tag: .*/, 'Stable tag: ' + options.version))
+		.pipe(replace(/Stable tag: .*/i, 'Stable tag: ' + options.version))
 		.pipe(intercept(function(file) {
 			// Check if a Changelog section is present for this version
 			var regex = new RegExp('Changelog [\\s\\S]*\\=\\s' + options.version.replace('.', '\\.') + '\\s', '');
 			var match = file.contents.toString().match(regex);
-			if( ! file.contents.toString().match(regex)) {
+			if(! match) {
 				util.beep();
 				util.log(util.colors.red("readme.txt does not have a changelog for version " + options.version + " yet."));
 			}
@@ -87,12 +92,16 @@ gulp.task('bump-version', function() {
 
 	// Bump version in main plugin file.
 	var plugin = gulp.src('./mailchimp-for-wp.php', {base: './'})
-		.pipe(replace(/Version: .*/, 'Version: ' + options.version))
+		.pipe(replace(/Version: .*/i, 'Version: ' + options.version))
 		.pipe(replace(/define\s*\(\s*['"]MC4WP_VERSION['"]\s*,.+/, "define( 'MC4WP_VERSION', '" + options.version + "' );"))
 		.pipe(gulp.dest('./'));
 
+	// Bunp version in composer.json
+	var composer = gulp.src('./composer.json', { base: './' })
+		.pipe(replace(/\"version\"\:.*/i, '"version": "' + options.version + '",'))
+		.pipe(gulp.dest('./'));
 
-	return merge(plugin,readme);
+	return merge(plugin,readme, composer);
 });
 
 gulp.task('watch', function () {

@@ -1,0 +1,62 @@
+#!/bin/bash
+
+PLUGIN_NAME=${PWD##*/}
+
+assets()
+{
+	gulp
+}
+
+languages()
+{
+	# Update languages
+	tx pull -a -f
+	for FILE in `find languages/. -name "*.po"`; do msgfmt -o ${FILE/.po/.mo} $FILE; done
+	git add languages/\*
+	git commit -m "updated languages"
+}
+
+autoloader()
+{
+	# Update Autoloader
+	composer update --no-dev --prefer-dist
+	composer dump-autoload --optimize
+	git add vendor\/*
+	git commit -m "update autoloader"
+}
+
+version()
+{
+	VERSION=$*
+	gulp bump-version --version $VERSION
+	git add .
+	git commit -m "[Pre-Release] Version $VERSION"
+	git tag -a -f $VERSION -m "Release of version $VERSION"
+
+	# Create release
+	# TODO
+}
+
+package()
+{
+	echo "Creating release package"
+
+	VERSION=$*
+	if [ -n "$VERSION" ]; then SUFFIX="-$VERSION"; fi
+
+	# Export file
+    git archive master --format=zip --prefix=$PLUGIN_NAME/ --output=/tmp/$PLUGIN_NAME.zip
+    mv /tmp/$PLUGIN_NAME.zip ~/Code/releases/$PLUGIN_NAME$SUFFIX.zip
+    echo "~/Code/releases/$PLUGIN_NAME$SUFFIX.zip created"
+}
+
+release() {
+	assets
+	languages
+	autoloader
+	version
+	package
+}
+
+$1 $2 $3 $4 $5
+exit $?
