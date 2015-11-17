@@ -33,11 +33,10 @@ $divider_color: #ccc;
 	/* Codemirror */
 	.CodeMirror {
 		border: 1px solid $divider_color;
-		height: auto;
+		padding: 10px;
 	}
 	.CodeMirror-empty{
 		color: #999;
-		height: 200px;
 	}
 
 	.sidebar {

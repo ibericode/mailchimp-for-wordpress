@@ -16,7 +16,7 @@
 <div id="mc4wp-field-wizard"></div>
 
 <!-- Textarea for the actual form content HTML -->
-<textarea class="widefat" cols="160" rows="20" id="mc4wp-form-content" name="mc4wp_form[content]" placeholder="<?php _e( 'Enter the HTML code for your form fields..', 'mailchimp-for-wp' ); ?>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><?php echo htmlspecialchars( $form->content, ENT_QUOTES, get_option( 'blog_charset' ) ); ?></textarea>
+<textarea class="widefat" cols="160" rows="20" id="mc4wp-form-content" name="mc4wp_form[content]" placeholder="<?php _e( 'Enter the HTML code for your form fields..', 'mailchimp-for-wp' ); ?>" autocomplete="false" autocorrect="false" autocapitalize="false" spellcheck="false"><?php echo htmlspecialchars( $form->content, ENT_QUOTES, get_option( 'blog_charset' ) ); ?></textarea>
 
 <!-- This field is updated by JavaScript as the form content changes -->
 <input type="hidden" id="required-fields" name="mc4wp_form[settings][required_fields]" value="<?php echo esc_attr( $form->settings['required_fields'] ); ?>" />

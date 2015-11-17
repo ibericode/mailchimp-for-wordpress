@@ -952,6 +952,7 @@ var FormEditor = function(element) {
 
 	r.insert = function( html ) {
 		editor.replaceSelection( html );
+		editor.focus();
 	};
 
 	r.on = function() {

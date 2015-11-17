@@ -208,11 +208,10 @@
   #mc4wp-admin .CodeMirror,
   .mc4wp-admin .CodeMirror {
     border: 1px solid #ccc;
-    height: auto; }
+    padding: 10px; }
   #mc4wp-admin .CodeMirror-empty,
   .mc4wp-admin .CodeMirror-empty {
-    color: #999;
-    height: 200px; }
+    color: #999; }
   #mc4wp-admin .sidebar,
   .mc4wp-admin .sidebar {
     border-left: 1px solid #ccc; }
