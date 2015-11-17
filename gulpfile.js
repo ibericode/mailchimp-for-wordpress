@@ -106,7 +106,7 @@ gulp.task('bump-version', function(cb) {
 
 gulp.task('watch', function () {
 	gulp.watch( files.sass, ['sass']);
-	gulp.watch( files.browserify, ['browserify']);
+	gulp.watch( './assets/js/src/*/**.js', ['browserify']);
 	gulp.watch( files.js, [ 'uglify' ]);
 	gulp.watch( files.css, [ 'cssmin' ]);
 });

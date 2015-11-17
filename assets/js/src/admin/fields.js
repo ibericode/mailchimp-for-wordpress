@@ -4,6 +4,7 @@ module.exports = function(m, events) {
 	/**
 	 * @internal
 	 *
+	 *
 	 * @param data
 	 * @constructor
 	 */
@@ -95,9 +96,18 @@ module.exports = function(m, events) {
 	 * @returns {Field}
 	 */
 	function register(data) {
+		var field;
+		var existingField = getAllWhere('name', data.name).shift();
 
-		// bail if a field with this name has been registered already
-		if (getAllWhere('name', data.name).length > 0) {
+		// a field with the same "name" already exists
+		if(existingField) {
+
+			// update "required" status
+			if( ! existingField.required() && data.required ) {
+				existingField.required(true);
+			}
+
+			// bail
 			return undefined;
 		}
 
@@ -116,7 +126,7 @@ module.exports = function(m, events) {
 		}
 
 		// create Field object
-		var field = new Field(data);
+		field = new Field(data);
 		fields.push(field);
 
 		// redraw view
