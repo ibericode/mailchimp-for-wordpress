@@ -11,8 +11,7 @@
 		<span class="current-crumb"><strong><?php echo $integration->name; ?></strong></span>
 	</p>
 
-
-	<div class="row">
+	<div class="main-content row">
 
 		<!-- Main Content -->
 		<div class="main-content col col-4 col-sm-6">

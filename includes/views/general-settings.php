@@ -3,22 +3,29 @@ defined( 'ABSPATH' ) or exit;
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
-	<h1 class="page-title">
-		<?php _e( 'MailChimp for WordPress', 'mailchimp-for-wp' ); ?>: <?php _e( 'MailChimp Settings', 'mailchimp-for-wp' ); ?>
-	</h1>
+	<p class="breadcrumbs">
+		<span class="prefix"><?php echo __( 'You are here: ', 'mailchimp-for-wp' ); ?></span>
+		<span class="current-crumb"><strong>MailChimp for WordPress</strong></span>
+	</p>
+
 
 	<div class="row">
 
 		<!-- Main Content -->
 		<div class="main-content col col-4">
 
+			<h1 class="page-title">
+				<?php _e( 'General Settings', 'mailchimp-for-wp' ); ?>
+			</h1>
+
+			<h2 style="display: none;"></h2>
 			<?php settings_errors(); ?>
 
 			<form action="<?php echo admin_url( 'options.php' ); ?>" method="post">
 				<?php settings_fields( 'mc4wp_settings' ); ?>
 
 				<h3>
-					MailChimp <?php _e( 'API Settings', 'mailchimp-for-wp' ); ?>
+					<?php _e( 'MailChimp API Settings', 'mailchimp-for-wp' ); ?>
 				</h3>
 
 				<table class="form-table">
@@ -28,7 +35,7 @@ defined( 'ABSPATH' ) or exit;
 							<?php _e( 'Status', 'mailchimp-for-wp' ); ?>
 						</th>
 						<td>
-							<?php if($connected) { ?>
+							<?php if( $connected ) { ?>
 								<span class="status positive"><?php _e( 'CONNECTED' ,'mailchimp-for-wp' ); ?></span>
 							<?php } else { ?>
 								<span class="status neutral"><?php _e( 'NOT CONNECTED', 'mailchimp-for-wp' ); ?></span>
