@@ -42,31 +42,4 @@ class IntegrationTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue( $instance->checkbox_was_checked() );
 	}
 
-	/**
-	 * @covers MC4WP_Integration::is_honeypot_filled
-	 */
-	public function test_is_honeypot_filled() {
-
-		$reflectionOfUser = new ReflectionClass('MC4WP_Integration');
-		$method = $reflectionOfUser->getMethod('is_honeypot_filled');
-		$method->setAccessible(true);
-
-		$slug = 'my-integration';
-		$instance = $this->getMockForAbstractClass('MC4WP_Integration', array(
-			$slug,
-			array()
-		));
-
-		$this->assertFalse( $method->invoke( $instance ) );
-
-
-		$_REQUEST['_mc4wp_required_but_not_really'] = 'Random string.';
-		$slug = 'my-integration';
-		$instance = $this->getMockForAbstractClass('MC4WP_Integration', array(
-			$slug,
-			array()
-		));
-		$this->assertTrue( $method->invoke( $instance ) );
-	}
-
 }
