@@ -24,7 +24,7 @@ class MC4WP_Form {
 	/**
 	 * Get a shared form instance.
 	 *
-	 * @param int $form_id
+	 * @param int|WP_Post $form_id
 	 * @return MC4WP_Form
 	 * @throws Exception
 	 */
@@ -412,13 +412,21 @@ class MC4WP_Form {
 		$this->raw_data = $request->post->all();
 		$this->data = $this->parse_request_data( $request );
 
-		// update config from data
+
+		// update form configuration from given data
+		$config = array();
+
+		// use isset here to allow empty lists (which should show a notice)
 		if( isset( $this->raw_data['_mc4wp_lists'] ) ) {
-			$this->set_config( array( 'lists' => $this->raw_data['_mc4wp_lists'] ) );
+			$config['lists'] = $this->raw_data['_mc4wp_lists'];
 		}
 
 		if( isset( $this->raw_data['_mc4wp_action'] ) ) {
-			$this->set_config( array( 'action' => $this->raw_data['_mc4wp_action'] ) );
+			$config['action'] = $this->raw_data['_mc4wp_action'];
+		}
+
+		if( ! empty( $config ) ) {
+			$this->set_config( $config );
 		}
 	}
 
@@ -549,11 +557,11 @@ class MC4WP_Form {
 	/**
 	 * Add an error to this form
 	 *
-	 * @todo find a way to pass fully qualified message here (message + type)
 	 * @param string $error_code
 	 */
 	public function add_error( $error_code ) {
 
+		// only add each error once
 		if( ! in_array( $error_code, $this->errors ) ) {
 			$this->errors[] = $error_code;
 		}
