@@ -4,14 +4,18 @@
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
+	<p class="breadcrumbs">
+		<span class="prefix"><?php echo __( 'You are here: ', 'mailchimp-for-wp' ); ?></span>
+		<a href="<?php echo admin_url( 'admin.php?page=mailchimp-for-wp' ); ?>">MailChimp for WordPress</a> &rsaquo;
+		<a href="<?php echo admin_url( 'admin.php?page=mailchimp-for-wp-integrations' ); ?>"><?php _e( 'Integrations', 'mailchimp-for-wp' ); ?></a> &rsaquo;
+		<span class="current-crumb"><strong><?php echo $integration->name; ?></strong></span>
+	</p>
+
+
 	<div class="row">
 
 		<!-- Main Content -->
 		<div class="main-content col col-4 col-sm-6">
-
-			<p>
-				<a href="<?php echo remove_query_arg('integration'); ?>">&lsaquo; <?php _e( 'Back to integrations overview', 'mailchimp-for-wp' ); ?></a>
-			</p>
 
 			<h1 class="page-title">
 				<?php printf( __( '%s integration', 'mailchimp-for-wp' ), $integration->name ); ?>
@@ -48,6 +52,17 @@
 
 					<tbody class="integration-toggled-settings" <?php if( $integration->has_ui_element( 'enabled' ) && ! $opts['enabled'] ) echo 'style="opacity: 0.5;"';?>>
 
+					<?php if( $integration->has_ui_element( 'implicit' ) ) { ?>
+						<tr valign="top">
+							<th scope="row"><?php _e( 'Implicit?', 'mailchimp-for-wp' ); ?></th>
+							<td class="nowrap">
+								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][implicit]" value="1" <?php checked( $opts['implicit'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp;
+								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][implicit]" value="0" <?php checked( $opts['implicit'], 0 ); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?></label>
+								<p class="help"><?php _e( 'Select "no" if you want to ask your visitors before they are subscribed (recommended).', 'mailchimp-for-wp' ); ?></p>
+							</td>
+						</tr>
+					<?php } ?>
+
 					<?php if( $integration->has_ui_element( 'lists' ) ) { ?>
 						<tr valign="top">
 							<th scope="row"><?php _e( 'MailChimp Lists', 'mailchimp-for-wp' ); ?></th>
@@ -70,8 +85,10 @@
 						</tr>
 					<?php } // end if UI has lists ?>
 
-					<?php if( $integration->has_ui_element( 'label' ) ) { ?>
-						<tr valign="top">
+					<?php if( $integration->has_ui_element( 'label' ) ) {
+						$config = array( 'element' => 'mc4wp_integrations['. $integration->slug .'][implicit]', 'value' => 0 );
+						?>
+						<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
 							<th scope="row"><label for="mc4wp_checkbox_label"><?php _e( 'Checkbox label text', 'mailchimp-for-wp' ); ?></label></th>
 							<td>
 								<input type="text"  class="widefat" id="mc4wp_checkbox_label" name="mc4wp_integrations[<?php echo $integration->slug; ?>][label]" value="<?php echo esc_attr( $opts['label'] ); ?>" required />
@@ -81,8 +98,10 @@
 					<?php } // end if UI label ?>
 
 
-					<?php if( $integration->has_ui_element( 'precheck' ) ) { ?>
-						<tr valign="top">
+					<?php if( $integration->has_ui_element( 'precheck' ) ) {
+					$config = array( 'element' => 'mc4wp_integrations['. $integration->slug .'][implicit]', 'value' => 0 );
+					?>
+						<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
 							<th scope="row"><?php _e( 'Pre-check the checkbox?', 'mailchimp-for-wp' ); ?></th>
 							<td class="nowrap">
 								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][precheck]" value="1" <?php checked( $opts['precheck'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp;
@@ -91,8 +110,10 @@
 							</td>
 					<?php } // end if UI precheck ?>
 
-					<?php if( $integration->has_ui_element( 'css' ) ) { ?>
-						<tr valign="top">
+					<?php if( $integration->has_ui_element( 'css' ) ) {
+					$config = array( 'element' => 'mc4wp_integrations['. $integration->slug .'][implicit]', 'value' => 0 );
+					?>
+						<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
 							<th scope="row"><?php _e( 'Load some default CSS?', 'mailchimp-for-wp' ); ?></th>
 							<td class="nowrap">
 								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][css]" value="1" <?php checked( $opts['css'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp;

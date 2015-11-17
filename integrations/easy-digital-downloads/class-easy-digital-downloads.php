@@ -23,8 +23,12 @@ class MC4WP_Easy_Digital_Downloads_Integration extends MC4WP_Integration {
 	 *
 	 */
 	public function add_hooks() {
-		add_action( 'edd_purchase_form_user_info_fields', array( $this, 'output_checkbox' ) );
-		add_action( 'edd_payment_meta', array( $this, 'save_checkbox_value' ) );
+
+		if( ! $this->options['implicit'] ) {
+			add_action( 'edd_purchase_form_user_info_fields', array( $this, 'output_checkbox' ) );
+			add_action( 'edd_payment_meta', array( $this, 'save_checkbox_value' ) );
+		}
+
 		add_action( 'edd_complete_purchase', array( $this, 'subscribe_from_edd'), 50 );
 	}
 
@@ -45,15 +49,38 @@ class MC4WP_Easy_Digital_Downloads_Integration extends MC4WP_Integration {
 	}
 
 	/**
+	 * {@inheritdoc}
+	 *
+	 * @param $object_id
+	 *
+	 * @return bool
+	 */
+	public function triggered( $object_id = null ) {
+
+		if( $this->options['implicit'] ) {
+			return true;
+		}
+
+		if( ! $object_id ) {
+			return false;
+		}
+
+		$meta = edd_get_payment_meta( $object_id );
+		if( is_array( $meta ) && isset( $meta['_mc4wp_optin'] ) && $meta['_mc4wp_optin'] ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * @param int $payment_id The ID of the payment
 	 *
 	 * @return bool|string
 	 */
 	public function subscribe_from_edd( $payment_id ) {
 
-		$meta = edd_get_payment_meta( $payment_id );
-
-		if( ! is_array( $meta ) || ! isset( $meta['_mc4wp_optin'] ) || ! $meta['_mc4wp_optin'] ) {
+		if( ! $this->triggered( $payment_id ) ) {
 			return false;
 		}
 

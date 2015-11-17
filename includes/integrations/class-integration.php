@@ -101,9 +101,21 @@ abstract class MC4WP_Integration {
 	 * Adds the required hooks for core functionality, like adding checkbox reset CSS.
 	 */
 	protected function add_required_hooks() {
-		if( $this->options['css'] ) {
+		if( $this->options['css'] && ! $this->options['implicit'] ) {
 			add_action( 'wp_head', array( $this, 'print_css_reset' ) );
 		}
+	}
+
+	/**
+	 * Was integration triggered?
+	 *
+	 * Will always return true when integration is implicit. Otherwise, will check value of checkbox.
+	 *
+	 * @param int $object_id Useful when overriding method. (optional)
+	 * @return bool
+	 */
+	public function triggered( $object_id = null ) {
+		return $this->options['implicit'] || $this->checkbox_was_checked();
 	}
 
 	/**
@@ -124,16 +136,6 @@ abstract class MC4WP_Integration {
 		$css = str_ireplace( '__INTEGRATION_SLUG__', $this->slug, $css );
 
 		printf( '<style type="text/css">%s</style>', $css );
-	}
-
-	/**
-	 * Was the honeypot filled?
-	 *
-	 * @todo current way of checking means honeypot field can be omitted, needs improvement.
-	 * @return bool
-	 */
-	protected function is_honeypot_filled() {
-		return ! empty( $this->request_data[ '_mc4wp_required_but_not_really' ] );
 	}
 
 	/**
@@ -235,8 +237,6 @@ abstract class MC4WP_Integration {
 				<span><?php echo $this->get_label_text(); ?></span>
 			</label>
 		</p>
-
-		<div style="display: none;"><input type="text" name="_mc4wp_required_but_not_really" value="" tabindex="-1" autocomplete="off" /></div>
 
 		<?php do_action( 'mc4wp_integration_after_checkbox_wrapper', $this ); ?>
 		<?php do_action( 'mc4wp_integration_'. $this->slug .'_after_checkbox_wrapper', $this ); ?>

@@ -28,11 +28,14 @@ class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 	 * Add hooks
 	 */
 	public function add_hooks() {
-		// hooks for outputting the checkbox
-		add_filter( 'comment_form_submit_field', array( $this, 'add_checkbox_before_submit_button' ), 90 );
 
-		add_action( 'thesis_hook_after_comment_box', array( $this, 'maybe_output_checkbox' ), 90 );
-		add_action( 'comment_form', array( $this, 'maybe_output_checkbox' ), 90 );
+		if( ! $this->options['implicit'] ) {
+			// hooks for outputting the checkbox
+			add_filter( 'comment_form_submit_field', array( $this, 'add_checkbox_before_submit_button' ), 90 );
+
+			add_action( 'thesis_hook_after_comment_box', array( $this, 'maybe_output_checkbox' ), 90 );
+			add_action( 'comment_form', array( $this, 'maybe_output_checkbox' ), 90 );
+		}
 
 		// hooks for checking if we should subscribe the commenter
 		add_action( 'comment_post', array( $this, 'subscribe_from_comment' ), 40, 2 );
@@ -70,12 +73,8 @@ class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 	 */
 	public function subscribe_from_comment( $comment_id, $comment_approved = '' ) {
 
-		if( $this->is_honeypot_filled() ) {
-			return false;
-		}
-
 		// was sign-up checkbox checked?
-		if ( ! $this->checkbox_was_checked() ) {
+		if ( ! $this->triggered() ) {
 			return false;
 		}
 

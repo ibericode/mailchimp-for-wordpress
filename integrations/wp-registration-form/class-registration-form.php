@@ -23,8 +23,11 @@ class MC4WP_Registration_Form_Integration extends MC4WP_User_Integration {
 	 * Add hooks
 	 */
 	public function add_hooks() {
-		add_action( 'login_head', array( $this, 'print_css_reset' ) );
-		add_action( 'register_form', array( $this, 'output_checkbox' ), 20 );
+		if( ! $this->options['implicit'] ) {
+			add_action( 'login_head', array( $this, 'print_css_reset' ) );
+			add_action( 'register_form', array( $this, 'output_checkbox' ), 20 );
+		}
+
 		add_action( 'user_register', array( $this, 'subscribe_from_registration' ), 90, 1 );
 	}
 
@@ -37,12 +40,8 @@ class MC4WP_Registration_Form_Integration extends MC4WP_User_Integration {
 	 */
 	public function subscribe_from_registration( $user_id ) {
 
-		if( $this->is_honeypot_filled() ) {
-			return false;
-		}
-
 		// was sign-up checkbox checked?
-		if ( ! $this->checkbox_was_checked() ) {
+		if ( ! $this->triggered() ) {
 			return false;
 		}
 

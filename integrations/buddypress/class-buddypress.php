@@ -24,7 +24,11 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 	 * Add hooks
 	 */
 	public function add_hooks() {
-		add_action( 'bp_before_registration_submit_buttons', array( $this, 'output_checkbox' ), 20 );
+
+		if( ! $this->options['implicit'] ) {
+			add_action( 'bp_before_registration_submit_buttons', array( $this, 'output_checkbox' ), 20 );
+		}
+
 		add_action( 'bp_core_signup_user', array( $this, 'subscribe_from_buddypress' ), 10, 4 );
 	}
 
@@ -38,11 +42,7 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 	 */
 	public function subscribe_from_buddypress( $user_id, $user_login, $user_password, $user_email ) {
 
-		if( $this->is_honeypot_filled() ) {
-			return false;
-		}
-
-		if ( ! $this->checkbox_was_checked() ) {
+		if ( ! $this->triggered() ) {
 			return false;
 		}
 

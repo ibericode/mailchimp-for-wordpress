@@ -93,6 +93,6 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 	 * @return array
 	 */
 	public function get_ui_elements() {
-		return array( 'lists', 'double_optin', 'update_existing', 'send_welcome' );
+		return array( 'lists', 'double_optin', 'update_existing', 'send_welcome', 'replace_interests' );
 	}
 }
