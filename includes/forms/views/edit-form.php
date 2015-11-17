@@ -34,6 +34,8 @@ $tabs = array(
 
 			<!-- Wrap entire page in <form> -->
 			<form method="post">
+				<?php // default submit button to prevent opening preview ?>
+				<input type="submit" style="display: none; " />
 				<input type="hidden" name="_mc4wp_action" value="edit_form" />
 				<input type="hidden" name="mc4wp_form_id" value="<?php echo esc_attr( $form->ID ); ?>" />
 				<?php wp_nonce_field( 'edit_form', '_mc4wp_nonce' ); ?>
@@ -52,7 +54,7 @@ $tabs = array(
 							<?php _e( 'Get shortcode', 'mailchimp-for-wp' ); ?>
 						</a>
 
-						<button type="submit" name="_mc4wp_action" value="preview_form" onblur="this.form.removeAttribute('target');" onfocus="this.form.setAttribute('target','_form_preview');" class="button-secondary">
+						<button type="submit" name="_mc4wp_action" value="preview_form" onblur="this.form.removeAttribute('target');" onfocus="this.form.setAttribute('target','_form_preview');" class="button-secondary" tabindex="-1">
 							<span class="dashicons dashicons-welcome-view-site" style=""></span>
 							<?php _e( 'Preview this form', 'mailchimp-for-wp' ); ?>
 						</button>
