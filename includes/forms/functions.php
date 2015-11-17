@@ -20,11 +20,12 @@ function mc4wp_get_form( $form_id = 0 ) {
  * @return array
  */
 function mc4wp_get_forms( array $args = array() ) {
-	$args = array_merge( $args, array(
-		'post_type' => 'mc4wp-form',
+	$default_args = array(
 		'post_status' => 'publish',
 		'numberposts' => -1
-	) );
+	);
+	$args = array_merge( $default_args, $args );
+	$args['post_type'] = 'mc4wp-form';
 	$forms = get_posts( $args );
 	$forms = array_map( 'mc4wp_get_form', $forms );
 	return $forms;
