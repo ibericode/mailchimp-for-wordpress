@@ -201,6 +201,14 @@ class MC4WP_Field_Map {
 
 		switch( $field_type ) {
 
+			case 'number':
+				$field_value = floatval( $field_value );
+				break;
+
+			case 'date':
+				$field_value = (string) date('Y-m-d', strtotime( $field_value ) );
+				break;
+
 			// birthday fields need to be MM/DD for the MailChimp API
 			case 'birthday':
 				$field_value = (string) date( 'm/d', strtotime( $field_value ) );
