@@ -416,6 +416,10 @@ class MC4WP_Form {
 		if( isset( $this->raw_data['_mc4wp_lists'] ) ) {
 			$this->set_config( array( 'lists' => $this->raw_data['_mc4wp_lists'] ) );
 		}
+
+		if( isset( $this->raw_data['_mc4wp_action'] ) ) {
+			$this->set_config( array( 'action' => $this->raw_data['_mc4wp_action'] ) );
+		}
 	}
 
 	/**
