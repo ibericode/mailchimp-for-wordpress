@@ -27,13 +27,13 @@ class MC4WP_MailChimp_Merge_Var {
 		$this->name = $name;
 		$this->field_type = $field_type;
 		$this->tag = strtoupper( $tag );
-
-		// todo remove $req property
-		$this->required = $this->req = $required;
+		$this->required = $required;
 		$this->choices = $choices;
 	}
 
 	/**
+	 * Creates our local object from MailChimp API data.
+	 *
 	 * @param $data
 	 *
 	 * @return MC4WP_MailChimp_Merge_Var

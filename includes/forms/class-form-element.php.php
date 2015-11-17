@@ -200,7 +200,10 @@ class MC4WP_Form_Element {
 		 */
 		$attributes = (array) apply_filters( 'mc4wp_form_element_attributes', $attributes, $form );
 
-		// @todo attributes "method" and "data-id" are not ALLOWED to be changed, since last attr will get precedence
+		// hardcoded attributes, can not be changed.
+		$attributes['method'] = 'post';
+		$attributes['data-id'] = $this->form->ID;
+		$attributes['data-name'] = $this->form->name;
 
 		// build string of key="value" from array
 		$string = '';
@@ -223,7 +226,7 @@ class MC4WP_Form_Element {
 
 		// Start building content string
 		$opening_html = '<!-- MailChimp for WordPress v' . MC4WP_VERSION . ' - https://wordpress.org/plugins/mailchimp-for-wp/ -->';
-		$opening_html .= '<form method="post" data-id="'. esc_attr( $this->form->ID ) .'" '. $this->get_form_element_attributes() .' data-name="'. esc_attr( $this->form->name ) .'">';
+		$opening_html .= '<form '. $this->get_form_element_attributes() .'>';
 		$before_fields = $this->get_html_before_fields();
 		$fields = '';
 		$after_fields = $this->get_html_after_fields();

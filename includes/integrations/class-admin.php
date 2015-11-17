@@ -81,7 +81,6 @@ class MC4WP_Integration_Admin {
 	}
 
 	/**
-	 * @todo perform some validation
 	 * @param array $new_settings
 	 * @return array
 	 */
@@ -117,6 +116,8 @@ class MC4WP_Integration_Admin {
 
 		// then, merge with new settings
 		if( ! empty( $new_settings[ $slug ] ) ) {
+			// TODO sanitize new settings
+
 			$settings = array_merge( $settings, $new_settings[ $slug ] );
 		}
 

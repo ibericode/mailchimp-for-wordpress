@@ -84,7 +84,6 @@ class MC4WP_Forms_Admin {
 
 		update_post_meta( $form_id, '_mc4wp_settings', $form_data['settings'] );
 
-		// @todo allow for easy way to get admin url's
 		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) );
 		wp_safe_redirect( mc4wp_get_edit_form_url( $form_id ) );
 		exit;
@@ -144,7 +143,6 @@ class MC4WP_Forms_Admin {
 		$this->save_form( $form_data );
 
 		// update default form id?
-		// @todo should this be here?
 		$default_form_id = (int) get_option( 'mc4wp_default_form_id', 0 );
 		if( empty( $default_form_id ) ) {
 			update_option( 'mc4wp_default_form_id', $form_id );

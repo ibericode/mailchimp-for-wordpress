@@ -58,7 +58,7 @@
 					<?php foreach ( $list->merge_vars as $merge_var ) { ?>
 						<tr title="<?php printf( __( '%s (%s) with field type %s.', 'mailchimp-for-wp' ), esc_html( $merge_var->name ), esc_html( $merge_var->tag ), esc_html( $merge_var->field_type ) ); ?>">
 							<td><?php echo esc_html( $merge_var->name );
-								if ( $merge_var->req ) {
+								if ( $merge_var->required ) {
 									echo '<span style="color:red;">*</span>';
 								} ?></td>
 							<td><code><?php echo esc_html( $merge_var->tag ); ?></code></td>
