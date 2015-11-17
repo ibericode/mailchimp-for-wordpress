@@ -73,7 +73,7 @@ abstract class MC4WP_Integration {
 		/**
 		 * Filters options for a specific integration
 		 *
-		 * The dynamic portion of the hook, `$skyg`, refers to the slug of the ingration.
+		 * The dynamic portion of the hook, `$slug`, refers to the slug of the ingration.
 		 *
 		 * @param array $integration_options
 		 */
