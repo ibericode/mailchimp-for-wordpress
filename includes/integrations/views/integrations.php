@@ -16,6 +16,9 @@
 
 			<h1 class="page-title"><?php _e( 'Checkbox Integrations', 'mailchimp-for-wp' ); ?></h1>
 
+			<h2 style="display: none;"></h2>
+			<?php settings_errors(); ?>
+
 			<form action="<?php echo admin_url( 'options.php' ); ?>" method="post">
 
 				<?php settings_fields( 'mc4wp_integrations_settings' ); ?>

@@ -88,7 +88,7 @@ function mc4wp_load_plugin() {
 		$forms_admin = new MC4WP_Forms_Admin( $messages, $mailchimp );
 		$forms_admin->add_hooks();
 
-		$integrations_admin = new MC4WP_Integration_Admin( $integrations, $mailchimp );
+		$integrations_admin = new MC4WP_Integration_Admin( $integrations, $messages, $mailchimp );
 		$integrations_admin->add_hooks();
 	}
 

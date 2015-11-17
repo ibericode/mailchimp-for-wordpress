@@ -13,12 +13,19 @@ class MC4WP_Integration_Admin {
 	protected $mailchimp;
 
 	/**
+	 * @var MC4WP_Admin_Messages
+	 */
+	protected $messages;
+
+	/**
 	 * @param MC4WP_Integration_Manager $integrations
 	 * @param MC4WP_MailChimp           $mailchimp
+	 * @param MC4WP_Admin_Messages $messages
 	 */
-	public function __construct( MC4WP_Integration_Manager $integrations, MC4WP_MailChimp $mailchimp ) {
+	public function __construct( MC4WP_Integration_Manager $integrations, MC4WP_Admin_Messages $messages, MC4WP_MailChimp $mailchimp ) {
 		$this->integrations = $integrations;
 		$this->mailchimp = $mailchimp;
+		$this->messages = $messages;
 	}
 
 	/**
