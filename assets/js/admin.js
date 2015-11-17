@@ -1420,6 +1420,7 @@ var Settings = function(context, helpers, events ) {
 
 	// vars
 	var unsaved = false;
+	var changes = 0;
 	var form = context.querySelector('form');
 	var listInputs = context.querySelectorAll('.mc4wp-list-input');
 	var lists = mc4wp_vars.mailchimp.lists;
@@ -1481,8 +1482,8 @@ var Settings = function(context, helpers, events ) {
 
 	// make it hard to leave big forms with unsaved changes
 	if( form && form.elements.length > 10 ) {
-		helpers.bindEventToElement(form,'change',function() { unsaved = true; });
-		helpers.bindEventToElement(form,'submit',function() { unsaved = false; });
+		helpers.bindEventToElement(form,'change',function() { changes++; if( changes > 5 ) { unsaved = true; } });
+		helpers.bindEventToElement(form,'submit',function() { unsaved = false; changes = 0; });
 		helpers.bindEventToElement(window,'beforeunload', confirmPageLeave);
 	}
 
