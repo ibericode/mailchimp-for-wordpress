@@ -37,6 +37,7 @@ class MC4WP_Forms_Admin {
 		add_action( 'mc4wp_admin_edit_form', array( $this, 'process_save_form' ) );
 		add_action( 'mc4wp_admin_add_form', array( $this, 'process_add_form' ) );
 		add_filter( 'mc4wp_admin_menu_items', array( $this, 'add_menu_item' ), 5 );
+		add_filter( 'wp_insert_post_data', array( $this, 'filter_form_content' ), 10, 2 );
 
 		add_action( 'mc4wp_admin_show_forms_page-edit-form', array( $this, 'show_edit_page' ) );
 		add_action( 'mc4wp_admin_show_forms_page-add-form', array( $this, 'show_add_page' ) );
@@ -109,7 +110,7 @@ class MC4WP_Forms_Admin {
 
 			$post = get_post( $data['ID'] );
 
-			// check if attempted post is of post_type `mc4wp_form`
+			// check if attempted post is of post_type `mc4wp-form`
 			if( ! is_object( $post ) || $post->post_type !== 'mc4wp-form' ) {
 				wp_nonce_ays( '' );
 				return 0;
@@ -300,6 +301,34 @@ class MC4WP_Forms_Admin {
 	 */
 	public function tab_url( $tab ) {
 		return add_query_arg( array( 'tab' => $tab ), remove_query_arg( 'tab' ) );
+	}
+
+	/**
+	 * Fix for MultiSite, where only superadmins can save unfiltered HTML in post_content.
+	 *
+	 * @param array $data
+	 * @param array $post_array
+	 *
+	 * @return array
+	 */
+	public function filter_form_content( $data, $post_array ) {
+		// only act on our own post type
+		if( $post_array['post_type'] !== 'mc4wp-form' ) {
+			return $data;
+		}
+
+		// if `content` index is set, use that one.
+		// this fixes an issue with `post_content` already being kses stripped at this point
+		if( isset( $post_array['content'] ) ) {
+			$data['post_content'] = $post_array['content'];
+		}
+
+		// remove <form> tags from form content
+		$data['post_content'] = preg_replace( '/<\/?form(.|\s)*?>/i', '', $data['post_content'] );
+
+		// make sure filtered post content is the same
+		$data['post_content_filtered'] = $data['post_content'];
+		return $data;
 	}
 
 }
