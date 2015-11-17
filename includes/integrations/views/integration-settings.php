@@ -141,8 +141,10 @@
 						</tr>
 					<?php } // end if UI double_optin ?>
 
-					<?php if( $integration->has_ui_element( 'send_welcome' ) ) { $enabled = ! $opts['double_optin']; ?>
-					<tr id="mc4wp-send-welcome"  valign="top" style="<?php if( ! $enabled ) { echo 'display:none;'; } ?>">
+					<?php if( $integration->has_ui_element( 'send_welcome' ) ) {
+						$config = array( 'element' => 'mc4wp_integrations['. $integration->slug .'][double_optin]', 'value' => 0 );
+						?>
+					<tr id="mc4wp-send-welcome" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>" valign="top">
 						<th scope="row"><?php _e( 'Send Welcome Email?', 'mailchimp-for-wp' ); ?></th>
 						<td class="nowrap">
 							<label for="mc4wp_checkbox_send_welcome_1">
