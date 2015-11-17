@@ -1,0 +1,95 @@
+.status{
+	display:inline-block;
+	margin-left:1em;
+	padding:3px 6px;
+	color:white;
+	font-size:12px;
+	font-weight:bold;
+
+	&.positive {
+		background-color: limeGreen;
+	}
+
+	&.negative {
+		background-color: red;
+	}
+
+	&.neutral {
+		background: gray;
+	}
+}
+
+.valigntop{
+	vertical-align: top !important;
+}
+
+/** Whitespace control */
+.medium-margin {
+	margin: 40px 0;
+}
+
+.small-margin {
+	margin: 20px 0;
+}
+
+.hover-activated {
+	opacity: 0.5;
+}
+
+.hover-activated:hover {
+	cursor: pointer;
+	opacity: 1;
+}
+
+.help-text {
+	font-size: 14px;
+
+	p {
+		margin: 10px 0;
+		font-size: 14px;
+	}
+
+
+	ul{
+		list-style: square;
+		margin-top: 15px;
+		padding-left: 40px;
+	}
+}
+
+.help {
+	font-style: italic;
+}
+
+.muted {
+	color:#aaa;
+}
+
+
+.mc4wp-notice{
+	padding: 6px 12px;
+	color: #31708f;
+	background: #d9edf7;
+	border: 1px solid #bce8f1;
+	margin: 1em 0 !important;
+}
+
+
+.column-ID {
+	width: 10%;
+}
+
+.block {
+	display: block;
+}
+
+.code-sample {
+	font-family: Consolas, Monaco, Lucida Console, monospace;
+	font-size: 12px;
+	background: white;
+}
+
+.breadcrumbs {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 1em;
+}

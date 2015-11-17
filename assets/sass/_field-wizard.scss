@@ -1,0 +1,75 @@
+.field-wizard {
+
+	h3{
+		margin-top: 0;
+	}
+
+	code {
+		margin-left: 10px;
+	}
+
+	> div {
+		margin: 20px 0;
+	}
+
+	label{
+		font-weight: 600;
+		display: block;
+		margin-bottom: 4px;
+	}
+
+	input {
+		margin-bottom: 6px;
+	}
+
+	/* table */
+	table {
+		table-layout: fixed;
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+
+	tr, td {
+		vertical-align: middle;
+	}
+
+	td.stretch {
+		width: 100%;
+	}
+
+	/* checkboxes in label */
+	.cb-wrap{
+		font-weight: normal;
+
+		input { margin-right: 6px; }
+	}
+
+	.limit-height {
+		border: 1px solid #eee;
+		padding: 6px;
+		max-height: 200px;
+		overflow-y: scroll;
+	}
+
+	.dashicons {
+		vertical-align: middle;
+	}
+
+
+}
+
+.available-fields {
+
+	strong {
+		display: block;
+		margin-bottom: 10px;
+	}
+
+	button{
+		margin: 0 6px 6px 0;
+	}
+
+	border: 1px solid #ccc;
+	padding: 20px;
+	background: white;
+}

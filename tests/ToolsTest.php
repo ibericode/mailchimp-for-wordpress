@@ -1,8 +1,9 @@
 <?php
 
-require_once __DIR__ . '/mock.php';
-require_once __DIR__ . '/../includes/class-tools.php';
-
+/**
+ * Class ToolsTest
+ * @ignore
+ */
 class ToolsTest extends PHPUnit_Framework_TestCase {
 
 
@@ -53,16 +54,4 @@ class ToolsTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( MC4WP_Tools::guess_merge_vars( $input ), $expected_output );
 	}
 
-	/**
-	 * @covers MC4WP_Tools::get_known_email
-	 */
-	public function test_get_known_email() {
-
-		// Test: No known email
-		$this->assertEmpty( MC4WP_Tools::get_known_email() );
-
-		// Test: Email given in query string
-		$_REQUEST['mc4wp_email'] = 'johndoe@email.com';
-		$this->assertEquals( MC4WP_Tools::get_known_email(), $_REQUEST['mc4wp_email'] );
-	}
 }

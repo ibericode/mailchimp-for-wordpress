@@ -1,128 +1,76 @@
 <?php
 
-if( ! defined( 'MC4WP_LITE_VERSION' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
-
-class MC4WP_Lite {
-
-	/**
-	* @var MC4WP_Lite_Form_Manager
-	*/
-	private $form_manager;
+/**
+ * Class MC4WP_Plugin
+ *
+ * Helper class for easy access to information like the plugin file or plugin directory.
+ *
+ * @access public
+ */
+class MC4WP_Plugin {
 
 	/**
-	* @var MC4WP_Lite_Checkbox_Manager
-	*/
-	private $checkbox_manager;
-
-	/**
-	* @var MC4WP_API
-	*/
-	private $api;
-
-	/**
-	 * @var array
+	 * @var string The plugin version.
 	 */
-	private $untinkered_request_global;
+	protected $version;
 
 	/**
-	 * @var MC4WP_Lite The one and only true plugin instance
+	 * @var string The main plugin file.
 	 */
-	private static $instance;
+	protected $file;
 
 	/**
-	 * @return MC4WP_Lite
+	 * @param string $file The plugin version.
+	 * @param string $version The main plugin file.
 	 */
-	public static function instance() {
-		return self::$instance;
+	public function __construct( $file, $version ) {
+		$this->file = $file;
+		$this->version = $version;
 	}
 
 	/**
-	 * Instantiates the plugin
+	 * Get the main plugin file.
 	 *
-	 * @return bool
+	 * @return string
 	 */
-	public static function init() {
+	public function file() {
+		return $this->file;
+	}
 
-		if( self::$instance instanceof MC4WP_Lite ) {
-			return false;
+	/**
+	 * Get the plugin version.
+	 *
+	 * @return string
+	 */
+	public function version() {
+		return $this->version;
+	}
+
+	/**
+	 * Gets the directory the plugin lives in.
+	 *
+	 * @param string $path
+	 *
+	 * @return string
+	 */
+	public function dir( $path = '' ) {
+
+		// ensure path has leading slash
+		if( '' !== $path ) {
+			$path = '/' . ltrim( $path, '/' );
 		}
 
-		self::$instance = new MC4WP_Lite;
-		return true;
-	}
-
-
-	/**
-	* Constructor
-	*/
-	private function __construct() {
-
-		// store global `$_REQUEST` array locally, to prevent other plugins from messing with it (yes it happens....)
-		// todo: fix this properly (move to more specific $_POST?)
-		$this->untinkered_request_global = $_REQUEST;
-
-		// checkboxes
-		$this->checkbox_manager = new MC4WP_Lite_Checkbox_Manager();
-
-		// forms
-		add_action( 'init', array( $this, 'init_form_listener' ) );
-		add_action( 'init', array( $this, 'init_form_manager' ) );
-
-		// widget
-		add_action( 'widgets_init', array( $this, 'register_widget' ) );
+		return dirname( $this->file ) . $path;
 	}
 
 	/**
-	 * Initialise the form listener
-	 * @hooked `init`
+	 * Gets the URL to the plugin files.
+	 *
+	 * @param string $path
+	 *
+	 * @return string
 	 */
-	public function init_form_listener() {
-		$listener = new MC4WP_Form_Listener();
-		$listener->listen( $this->untinkered_request_global );
+	public function url( $path = '' ) {
+		return plugins_url( $path, $this->file );
 	}
-
-	/**
-	 * Initialise the form manager
-	 * @hooked `template_redirect`
-	 */
-	public function init_form_manager() {
-		$this->form_manager = new MC4WP_Lite_Form_Manager();
-		$this->form_manager->init();
-	}
-
-	/**
-	* @return MC4WP_Lite_Checkbox_Manager
-	*/
-	public function get_checkbox_manager() {
-		return $this->checkbox_manager;
-	}
-
-	/**
-	* @return MC4WP_Lite_Form_Manager
-	*/
-	public function get_form_manager() {
-		return $this->form_manager;
-	}
-
-	/**
-	* @return MC4WP_API
-	*/
-	public function get_api() {
-
-		if( $this->api === null ) {
-			$opts = mc4wp_get_options();
-			$this->api = new MC4WP_API( $opts['general']['api_key'] );
-		}
-
-		return $this->api;
-	}
-
-	public function register_widget() {
-		register_widget( 'MC4WP_Lite_Widget' );
-	}
-
 }

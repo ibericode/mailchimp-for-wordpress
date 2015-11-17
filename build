@@ -1,0 +1,101 @@
+#!/bin/bash
+
+PLUGIN_NAME=${PWD##*/}
+
+assets()
+{
+	echo "Compiling assets";
+
+	gulp
+}
+
+languages()
+{
+	# Update languages
+	echo "Fetching latest languages from Transifex";
+	tx pull
+
+	echo "Creating .mo files for each language";
+	for FILE in `find languages/. -name "*.po"`; do msgfmt -o ${FILE/.po/.mo} $FILE; done
+	git add languages/.
+	git commit -m "updated languages"
+}
+
+autoloader()
+{
+	echo "Updating optimized auto-loader (and removing dev-only packages)"
+	composer update --no-dev --prefer-dist
+	composer dump-autoload --optimize
+	git add vendor/.
+	git commit -m "updated autoloader"
+}
+
+version()
+{
+	VERSION=$*
+	echo "Bumping version to $VERSION"
+	gulp bump-version --version $VERSION
+	git add .
+	git commit -m "[Pre-Release] Version $VERSION"
+	git tag -a -f $VERSION -m "Release of version $VERSION"
+}
+
+github()
+{
+	VERSION=$*
+
+	# Push changes to GitHub
+	git push
+
+	# Create release in GitHub
+	echo "Creating release for $VERSION in GitHub";
+	API_JSON=$(printf '{"tag_name": "%s","target_commitish": "master","name": "v%s","body": "Release of version %s. \n\n[Changelog](https://mc4wp.com/documentation/changelog)","draft": false,"prerelease": false}' $VERSION $VERSION $VERSION)
+	curl --data "$API_JSON" https://api.github.com/repos/ibericode/mailchimp-for-wordpress/releases?access_token=$GITHUB_API_TOKEN
+}
+
+package()
+{
+	echo "Creating release package"
+
+	VERSION=$*
+	if [ -n "$VERSION" ]; then SUFFIX="-$VERSION"; fi
+
+	# Export file
+    git archive master --format=zip --prefix=$PLUGIN_NAME/ --output=/tmp/$PLUGIN_NAME.zip
+    mv /tmp/$PLUGIN_NAME.zip ~/Code/releases/$PLUGIN_NAME$SUFFIX.zip
+    echo "~/Code/releases/$PLUGIN_NAME$SUFFIX.zip created"
+}
+
+run_tests() {
+	echo "Checking if PHPUnit is installed"
+	composer show -i | grep "phpunit/phpunit"
+
+	if [ $? -ne 0 ];
+		then
+		echo "PHPUnit not installed yet. Installing dev-dependencies.";
+		composer update;
+	fi;
+
+	echo "Running test suite"
+	phpunit
+	return $?
+}
+
+release() {
+	run_tests
+	FAILURES=$?
+	if [ $FAILURES -gt 0 ];
+    	then
+    	 echo "Not today, brother. Your tests are failing";
+    	 exit;
+    fi
+
+	assets
+	languages
+	autoloader
+	version
+	package
+	github
+}
+
+$1 $2 $3 $4 $5

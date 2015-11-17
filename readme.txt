@@ -3,8 +3,8 @@ Contributors: Ibericode, DvanKooten, iMazed, hchouhan
 Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=donate-link
 Tags: email, mailchimp, marketing, newsletter, signup, widget, mc4wp, contact form 7, woocommerce, buddypress,ibericode
 Requires at least: 3.7
-Tested up to: 4.4
-Stable tag: 2.3.18
+Tested up to: 4.3.1
+Stable tag: 3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,6 +17,8 @@ MailChimp for WordPress, the absolute best. Add subscribers to your MailChimp li
 *Adding sign-up methods for your MailChimp lists to your WordPress site should be easy. With this MailChimp for WordPress, it finally is.*
 
 This plugin helps you add subscribers to your MailChimp lists using various methods. You can create good looking opt-in forms or integrate with any other form on your site, like your comment form or WooCommerce checkout.
+
+[youtube https://www.youtube.com/watch?v=92WzdjQcGSo]
 
 = MailChimp for WordPress features =
 
@@ -166,28 +168,6 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 6. Detailed statistics on which methods are generating the most subscribers. **(Pro Feature)**
 
 == Changelog ==
-
-= 2.3.18 - November 2, 2015 =
-
-**Fixes**
-
-- Incorrect number of parameters for `error_log` statement in integrations class.
-
-**Improvements**
-
-- Usage tracking is now scheduled once a week (instead of daily).
-- Preparations for [the upcoming MailChimp for WordPress version 3.0 release](https://mc4wp.com/blog/breaking-backwards-compatibility-in-version-3-0/).
-- Tested compatibility with WordPress 4.4
-
-= 2.3.17 - October 22, 2015 =
-
-**Fixes**
-
-- Honeypot field being autofilled in Chrome, causing a form error.
-
-**Improvements**
-
-- Updated Portugese translations.
 
 = 2.3.16 - October 14, 2015 =
 

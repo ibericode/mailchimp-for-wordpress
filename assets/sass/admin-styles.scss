@@ -1,0 +1,66 @@
+/* settings pages */
+$divider_color: #ccc;
+
+#mc4wp-admin,
+.mc4wp-admin {
+
+	@import "admin-grid";
+	@import "admin-utilities";
+	@import "admin-tabs";
+	@import "field-wizard";
+
+	/* Add logo to page title */
+	.page-title {
+		background: url( "../img/icon-large.png" ) no-repeat left center;
+		padding-left: 42px;
+		line-height: 32px;
+		margin-bottom: 20px;
+	}
+
+	/** Core Customizations */
+	.page-title-action .dashicons,
+	.button .dashicons,
+	.button-secondary .dashicons {
+		vertical-align: middle;
+		line-height: 16px;
+		margin: 0 4px 0 0;
+	}
+
+	.form-table td p{
+		margin-top: 1em;
+	}
+
+	/* Codemirror */
+	.CodeMirror {
+		border: 1px solid $divider_color;
+		height: auto;
+	}
+	.CodeMirror-empty{
+		color: #999;
+		height: 200px;
+	}
+
+	.sidebar {
+		border-left: 1px solid $divider_color;
+	}
+
+	.sidebar h3,
+	.sidebar h4 {
+		font-size: 16px;
+		margin-bottom: 0;
+	}
+
+	.sidebar > div {
+		border-bottom: 1px solid $divider_color;
+		margin-bottom: 20px;
+		padding-bottom: 20px;
+
+		&:last-of-type {
+			border-bottom: 0;
+		}
+	}
+
+}
+
+@import "overlay";
+@import "lucy";

@@ -1,0 +1,119 @@
+<?php
+
+/**
+ * Class MC4WP_Form_Output_Manager
+ *
+ * @ignore
+ */
+class MC4WP_Form_Output_Manager {
+
+	/**
+	 * @var MC4WP_Form[]
+	 */
+	public $printed_forms = array();
+
+	/**
+	 * @var array
+	 */
+	public $printed_field_types = array();
+
+	/**
+	 * @const string
+	 */
+	const SHORTCODE = 'mc4wp_form';
+
+	/**
+	 * @var array
+	 */
+	protected $shortcode_attributes = array(
+		'id' => '',
+		'lists' => '',
+		'email_type' => ''
+	);
+
+	/**
+	 * Constructor
+	 */
+	public function __construct() {}
+
+	/**
+	 *
+	 */
+	public function add_hooks() {
+		// enable shortcodes in text widgets
+		add_filter( 'widget_text', 'shortcode_unautop' );
+		add_filter( 'widget_text', 'do_shortcode', 11 );
+
+		// enable shortcodes in form content
+		add_filter( 'mc4wp_form_content', 'do_shortcode' );
+
+		add_action( 'init', array( $this, 'register_shortcode' ) );
+	}
+
+	/**
+	 * Registers the [mc4wp_form] shortcode
+	 */
+	public function register_shortcode() {
+		// register shortcodes
+		add_shortcode( self::SHORTCODE, array( $this, 'shortcode' ) );
+	}
+
+	/**
+	 * @param array  $attributes
+	 * @param string $content
+	 * @return string
+	 */
+	public function shortcode( $attributes = array(), $content = '' ) {
+
+		$attributes = shortcode_atts(
+			$this->shortcode_attributes,
+			$attributes,
+			self::SHORTCODE
+		);
+
+		$config = $attributes;
+		unset( $config['id'] );
+
+		return $this->output_form( $attributes['id'], $config, false );
+	}
+
+	/**
+	 * @param int   $id
+	 * @param array $config
+	 * @param bool $echo
+	 *
+	 * @return string
+	 */
+	public function output_form( $id = 0, $config = array(), $echo = true ) {
+
+		if( empty( $config['element_id'] ) ) {
+			$config['element_id'] = 'mc4wp-form-' . ( count( $this->printed_forms ) + 1 );
+		}
+
+		try {
+			$form = mc4wp_get_form( $id );
+		} catch( Exception $e ) {
+
+			if( current_user_can( 'manage_options' ) ) {
+				return sprintf( '<strong>MailChimp for WordPress error:</strong> %s', $e->getMessage() );
+			}
+
+			return '';
+		}
+
+		$this->printed_forms[ $form->ID ] = $form;
+		$this->printed_field_types += $form->get_field_types();
+		$this->printed_field_types = array_unique( $this->printed_field_types );
+
+		$html = $form->get_html( $config['element_id'], $config );
+
+		if( $echo ) {
+			echo $html;
+		}
+
+		do_action( 'mc4wp_output_form', $form );
+
+		return $html;
+	}
+
+}

@@ -3,18 +3,20 @@
 		<key name="mc4wp_lite_checkbox">
 			<key name="label" />
 		</key>
-		<key name="mc4wp_lite_form">
-			<key name="text_subscribed" />
-			<key name="text_error" />
-			<key name="text_invalid_email" />
-			<key name="text_already_subscribed" />
-			<key name="text_invalid_captcha" />
-			<key name="text_required_field_missing" />
-			<key name="text_unsubscribed" />
-			<key name="text_not_subscribed" />
-			<key name="markup" />
-		</key>
 	</admin-texts>
+	<custom-types>
+		<custom-type translate="1">mc4wp-form</custom-type>
+	</custom-types>
+	<custom-fields>
+		<custom-field action="translate">text_subscribed</custom-field>
+		<custom-field action="translate">text_error</custom-field>
+		<custom-field action="translate">text_invalid_email</custom-field>
+		<custom-field action="translate">text_already_subscribed</custom-field>
+		<custom-field action="translate">text_required_field_missing</custom-field>
+		<custom-field action="translate">text_unsubscribed</custom-field>
+		<custom-field action="translate">text_not_subscribed</custom-field>
+		<custom-field action="translate">text_subscribed</custom-field>
+	</custom-fields>
 </wpml-config>
 
 

@@ -1,6 +1,11 @@
 <?php
 
 // Debug class used for testing, no remote requests..
+
+/**
+ * Class ApiDebug
+ * @ignore
+ */
 class ApiDebug extends MC4WP_API {
 
 	/**

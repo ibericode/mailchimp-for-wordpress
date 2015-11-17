@@ -5,6 +5,7 @@
  *
  * @package MailChimp for WordPress
  * @author Danny van Kooten
+ * @ignore
  */
 class MC4WP_Remote_Content_Block {
 
@@ -33,7 +34,7 @@ class MC4WP_Remote_Content_Block {
 	 * @param int $cache_time
 	 * @param string $fallback_content
 	 */
-	public function __construct( $url, $cache_time = 7200, $fallback_content = '' ) {
+	public function __construct( $url, $cache_time = 86400, $fallback_content = '' ) {
 		$this->url = $url;
 		$this->cache_time = $cache_time;
 		$this->content = $fallback_content;

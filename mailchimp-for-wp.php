@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: MailChimp for WordPress Lite
+Plugin Name: MailChimp for WordPress
 Plugin URI: https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=plugins-page
-Description: Lite version of MailChimp for WordPress. Adds various sign-up methods to your website.
-Version: 2.3.18
+Description: MailChimp for WordPress by ibericode. Adds various highly effective sign-up methods to your site.
+Version: 3.0
 Author: ibericode
 Author URI: https://ibericode.com/
 Text Domain: mailchimp-for-wp
@@ -28,48 +28,68 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 // Prevent direct file access
-if( ! defined( 'ABSPATH' ) ) {
-	header( 'Status: 403 Forbidden' );
-	header( 'HTTP/1.1 403 Forbidden' );
-	exit;
-}
+defined( 'ABSPATH' ) or exit;
 
 /**
-* Loads the MailChimp for WP plugin files
-*
-* @return boolean True if the plugin files were loaded, false otherwise.
-*/
+ * Bootstrap the MailChimp for WordPress plugin
+ *
+ * @ignore
+ * @return bool
+ */
 function mc4wp_load_plugin() {
 
-	// don't load plugin if user has the premium version installed and activated
+	// Don't run if MailChimp for WP Pro 2.x is activated
 	if( defined( 'MC4WP_VERSION' ) ) {
 		return false;
 	}
 
-	// bootstrap the lite plugin
-	define( 'MC4WP_LITE_VERSION', '2.3.18' );
-	define( 'MC4WP_LITE_PLUGIN_DIR', dirname( __FILE__ ) . '/' );
-	define( 'MC4WP_LITE_PLUGIN_URL', plugins_url( '/' , __FILE__ ) );
-	define( 'MC4WP_LITE_PLUGIN_FILE', __FILE__ );
+	// bootstrap the core plugin
+	define( 'MC4WP_VERSION', '3.0' );
+	define( 'MC4WP_PLUGIN_DIR', dirname( __FILE__ ) . '/' );
+	define( 'MC4WP_PLUGIN_URL', plugins_url( '/' , __FILE__ ) );
+	define( 'MC4WP_PLUGIN_FILE', __FILE__ );
 
-	require_once MC4WP_LITE_PLUGIN_DIR . 'vendor/autoload_52.php';
-	require_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/general.php';
-	require_once MC4WP_LITE_PLUGIN_DIR . 'includes/functions/template.php';
+	// load autoloader
+	require_once MC4WP_PLUGIN_DIR . 'vendor/autoload_52.php';
+
+	// forms
+	$forms = new MC4WP_Form_Manager();
+	$forms->add_hooks();
+	mc4wp_register_instance( 'forms', $forms );
+
+	// integration core
+	$integrations = new MC4WP_Integration_Manager();
+	$integrations->add_hooks();
+	mc4wp_register_instance( 'integrations', $integrations );
+
+	// visitor tracking
+	$tracking = new MC4WP_Visitor_Tracking();
+	$tracking->add_hooks();
+	mc4wp_register_instance( 'tracking', $tracking );
+
+	// bootstrap custom integrations
+	require_once MC4WP_PLUGIN_DIR . 'integrations/bootstrap.php';
+
+	// Doing cron? Load Usage Tracking class.
+	if( defined( 'DOING_CRON' ) && DOING_CRON ) {
+		MC4WP_Usage_Tracking::instance()->add_hooks();
+	}
 
 	// Initialize admin section of plugin
 	if( is_admin()
 	    && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-		$admin = new MC4WP_Lite_Admin();
+
+		$messages = new MC4WP_Admin_Messages();
+		$mailchimp = new MC4WP_MailChimp();
+
+		$admin = new MC4WP_Admin( $messages, $mailchimp );
 		$admin->add_hooks();
-	}
 
-	// Initialize the plugin and store an instance in the global scope
-	MC4WP_Lite::init();
-	$GLOBALS['mc4wp'] = MC4WP_Lite::instance();
+		$forms_admin = new MC4WP_Forms_Admin( $messages, $mailchimp );
+		$forms_admin->add_hooks();
 
-	// Doing cron?
-	if( defined( 'DOING_CRON' ) && DOING_CRON ) {
-		MC4WP_Usage_Tracking::instance()->add_hooks();
+		$integrations_admin = new MC4WP_Integration_Admin( $integrations, $mailchimp );
+		$integrations_admin->add_hooks();
 	}
 
 	return true;
