@@ -10,6 +10,23 @@ if( empty( $form_options ) ) {
 	return;
 }
 
+// bail if there are Pro forms already
+$has_forms = get_posts(
+	array(
+		'post_type' => 'mc4wp-form',
+		'post_status' => 'publish',
+		'numberposts' => 1
+	)
+);
+
+// There are forms already, don't continue.
+if( ! empty( $has_forms ) ) {
+
+	// delete option as it apparently exists.
+	delete_option( 'mc4wp_lite_form' );
+	return;
+}
+
 // create post type for form
 $id = wp_insert_post(
 	array(
