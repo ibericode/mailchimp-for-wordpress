@@ -69,7 +69,7 @@
 								echo '<td>';
 								foreach( $lists as $list ) {
 									echo '<label>';
-									echo sprintf( '<input type="checkbox" name="mc4wp_integrations[%s][lists][]" value="%s" %s> ', $integration->slug, $list->id, checked( in_array( $list->id, $opts['lists'] ), true, false ) );
+									echo sprintf( '<input type="checkbox" name="mc4wp_integrations[%s][lists][]" value="%s" class="mc4wp-list-input" %s> ', $integration->slug, $list->id, checked( in_array( $list->id, $opts['lists'] ), true, false ) );
 									echo $list->name;
 									echo '</label><br />';
 								}
@@ -218,6 +218,11 @@
 
 	</div>
 
+</div>
+
+<div id="notice-additional-fields" class="notice notice-info" style="display: none;">
+	<p><?php _e( 'The selected MailChimp lists require non-default fields, which may prevent this integration from working.', 'mailchimp-for-wp' ); ?></p>
+	<p><?php echo sprintf( __( 'Please ensure you <a href="%s">configure the plugin to send all required fields</a> or <a href="%s">log into your MailChimp account</a> and make sure only the email & name fields are marked as required fields for the selected list(s).', 'mailchimp-for-wp' ), 'https://mc4wp.com/kb/send-additional-fields-from-integrations/', 'https://admin.mailchimp.com/lists/' ); ?></p>
 </div>
 
 <script>

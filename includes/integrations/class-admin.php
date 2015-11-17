@@ -33,6 +33,7 @@ class MC4WP_Integration_Admin {
 	 */
 	public function add_hooks() {
 		add_action( 'admin_init', array( $this, 'register_setting' ) );
+		add_action( 'mc4wp_admin_enqueue_assets', array( $this, 'enqueue_assets' ) );
 		add_filter( 'mc4wp_admin_menu_items', array( $this, 'add_menu_item' ) );
 	}
 
@@ -41,6 +42,26 @@ class MC4WP_Integration_Admin {
 	 */
 	public function register_setting() {
 		register_setting( 'mc4wp_integrations_settings', 'mc4wp_integrations', array( $this, 'save_integration_settings' ) );
+	}
+
+	/**
+	 * Enqueue assets
+	 *
+	 * @param $suffix
+	 *
+	 * @return bool
+	 */
+	public function enqueue_assets( $suffix ) {
+
+		// only load on integrations pages
+		if( ! isset( $_GET['page'] ) || $_GET['page'] !== 'mailchimp-for-wp-integrations' ) {
+			return false;
+		}
+
+		wp_register_script( 'mc4wp-integrations-admin', MC4WP_PLUGIN_URL . 'assets/js/integrations-admin' . $suffix . '.js', array( 'mc4wp-admin' ), MC4WP_VERSION, true );
+		wp_enqueue_script( 'mc4wp-integrations-admin');
+
+		return true;
 	}
 
 	/**

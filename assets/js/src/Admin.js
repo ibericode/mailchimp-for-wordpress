@@ -13,8 +13,8 @@
 	var EventEmitter = require('../third-party/event-emitter.js');
 
 	// vars
-	var context = document.getElementById('mc4wp-admin')
-	var events = new EventEmitter();;
+	var context = document.getElementById('mc4wp-admin');
+	var events = new EventEmitter();
 	var formContentTextarea = document.getElementById('mc4wp-form-content');
 	var tabs = require ('./admin/tabs.js')(context);
 	var helpers = require('./admin/helpers.js');
@@ -31,14 +31,15 @@
 
 		m.mount( document.getElementById( 'mc4wp-field-wizard'), fieldHelper );
 
-		// register fields and redraw screen in 2.5 seconds
+		// register fields and redraw screen in 2 seconds (fixes IE8 bug)
 		var fieldsFactory = new FieldsFactory(settings,fields);
 		events.on('selectedLists.change', fieldsFactory.work);
 		fieldsFactory.work(settings.getSelectedLists());
-		window.setTimeout( function() {m.redraw();}, 2500 );
+		window.setTimeout( function() {m.redraw();}, 2000 );
 	}
 
 	// Lucy!
+	// TODO: Move this to Premium Bundle
 	var lucy = new Lucy(
 		'https://mc4wp.com/',
 		'DA9YFSTRKA',
@@ -65,6 +66,8 @@
 	// expose some things
 	// @TODO clean-up
 	window.m = m;
+	window.mc4wp.events = events;
+	window.mc4wp.settings = settings;
 	window.mc4wp.tabs = tabs;
 	window.mc4wp_register_field = fields.register;
 	window.mc4wp_deregister_field = fields.deregister;

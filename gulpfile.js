@@ -17,7 +17,11 @@ var files = {
 	sass: './assets/sass/*.scss',
 	js: [ './assets/js/*.js', '!./assets/js/*.min.js' ],
 	css: [ './assets/css/*.css', '!./assets/css/*.min.css' ],
-	browserify: [ './assets/js/src/api.js', './assets/js/src/admin.js' ]
+	browserify: [
+		'./assets/js/src/api.js',
+		'./assets/js/src/admin.js',
+		'./assets/js/src/integrations-admin.js'
+	]
 };
 
 var defaults = {

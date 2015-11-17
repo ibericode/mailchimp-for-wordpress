@@ -14,7 +14,7 @@
 		<!-- Main Content -->
 		<div class="col col-4">
 
-			<h1 class="page-title"><?php _e( 'Checkbox Integrations', 'mailchimp-for-wp' ); ?></h1>
+			<h1 class="page-title"><?php _e( 'Integrations', 'mailchimp-for-wp' ); ?></h1>
 
 			<h2 style="display: none;"></h2>
 			<?php settings_errors(); ?>
