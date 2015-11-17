@@ -38,7 +38,6 @@ $setting_keys = array(
 $settings = array();
 
 foreach( $setting_keys as $setting_key ) {
-
 	// use isset to account for "0" settings
 	if( isset( $form_options[ $setting_key ] ) ) {
 		$settings[ $setting_key ] = $form_options[ $setting_key ];

@@ -29,6 +29,7 @@ foreach( $posts as $post ) {
 		continue;
 	}
 
+
 	// change option value
 	if( isset( $map[ $options['css'] ] ) ) {
 		$options['css'] = $map[ $options['css'] ];

@@ -3,7 +3,6 @@
 /**
  * Class MC4WP_Visitor_Tracking
  *
- * @internal
  * @ignore
  */
 class MC4WP_Visitor_Tracking {

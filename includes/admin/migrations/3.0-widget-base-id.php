@@ -36,6 +36,8 @@ if( $replaced ) {
 $options = get_option( 'widget_mc4wp_widget', false );
 if( $options ) {
 	update_option( 'widget_mc4wp_form_widget', $options );
+
+	// delete old option
 	delete_option( 'widget_mc4wp_widget' );
 }
 
