@@ -12,17 +12,8 @@ var minimist = require('minimist');
 var merge = require('merge-stream');
 var util = require('gulp-util');
 var intercept = require('gulp-intercept');
-
-var files = {
-	sass: './assets/sass/*.scss',
-	js: [ './assets/js/*.js', '!./assets/js/*.min.js' ],
-	css: [ './assets/css/*.css', '!./assets/css/*.min.css' ],
-	browserify: [
-		'./assets/js/src/api.js',
-		'./assets/js/src/admin.js',
-		'./assets/js/src/integrations-admin.js'
-	]
-};
+var streamify = require('gulp-streamify');
+var git = require('gulp-git');
 
 var defaults = {
 	string: 'version',
@@ -32,42 +23,46 @@ var defaults = {
 };
 var options = minimist(process.argv.slice(2), defaults);
 
-gulp.task('default', ['browserify', 'sass', 'uglify', 'cssmin']);
+gulp.task('default', ['sass', 'browserify']);
 
 gulp.task('sass', function () {
-	return gulp.src(files.sass)
-		.pipe(sass().on('error', sass.logError))
-		.pipe(gulp.dest('./assets/css'));
-});
+	var files = './assets/sass/*.scss';
 
-gulp.task('cssmin',['sass'], function() {
-	return gulp.src(files.css)
-		.pipe(cssmin())
-		.pipe(rename({suffix: '.min'}))
-		.pipe(gulp.dest("./assets/css"));
+	var stream = gulp.src(files)
+		.pipe(sass());
+
+	return merge(
+
+		// create .css
+		stream.pipe(gulp.dest('./assets/css')),
+
+		// create .min.css
+		stream.pipe(cssmin())
+			.pipe(rename({suffix: '.min'}))
+			.pipe(gulp.dest("./assets/css"))
+	);
 });
 
 gulp.task('browserify', function () {
 
-	// map them to our stream function
-	var tasks = files.browserify.map(function(entry) {
+	var files = [
+		'./assets/js/src/api.js',
+		'./assets/js/src/admin.js',
+		'./assets/js/src/integrations-admin.js'
+	];
+
+	// setup stream for each bundle
+	var bundles = merge(files.map(function(entry) {
 		var file = entry.split('/').pop();
 		return browserify({ entries: [entry] })
 			.bundle()
 			.pipe(source(file))
-			// rename them to have "bundle as postfix"
 			.pipe(rename({ extname: '.js' }))
 			.pipe(gulp.dest('./assets/js'));
-	});
+	}));
 
-	// create a merged stream
-	return merge(tasks);
-});
-
-
-gulp.task('uglify', ['browserify'], function() {
-	return gulp.src(files.js)
-		.pipe(uglify())
+	// write all bundle streams to .min file
+	return bundles.pipe(streamify(uglify()))
 		.pipe(rename({ extname: '.min.js' }))
 		.pipe(gulp.dest('./assets/js'));
 });
@@ -109,8 +104,6 @@ gulp.task('bump-version', function(cb) {
 });
 
 gulp.task('watch', function () {
-	gulp.watch( files.sass, ['sass']);
-	gulp.watch( './assets/js/src/*/**.js', ['browserify']);
-	gulp.watch( files.js, [ 'uglify' ]);
-	gulp.watch( files.css, [ 'cssmin' ]);
+	gulp.watch('./assets/sass/**.scss', ['sass']);
+	gulp.watch('./assets/js/src/**.js', ['browserify']);
 });

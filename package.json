@@ -7,17 +7,20 @@
   },
   "devDependencies": {
     "browserify": "^12.0.1",
+    "glob": "^6.0.1",
     "gulp": "^3.9.0",
-    "gulp-check": "^0.1.1",
     "gulp-cssmin": "^0.1.7",
+    "gulp-git": "^1.6.0",
     "gulp-intercept": "^0.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
     "gulp-sass": "^2.1.0",
+    "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^1.5.1",
     "gulp-util": "^3.0.7",
     "merge-stream": "^1.0.0",
     "minimist": "^1.2.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.6.1"
   }
 }
