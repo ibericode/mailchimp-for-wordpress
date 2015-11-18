@@ -17,7 +17,7 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 	/**
 	 * @var string
 	 */
-	public $description = "Allows you to subscribe people from your Contact Form 7 forms.";
+	public $description = "Subscribes people from Contact Form 7 forms.";
 
 
 	/**

@@ -17,7 +17,7 @@ class MC4WP_Events_Manager_Integration extends MC4WP_Integration {
 	/**
 	 * @var string
 	 */
-	public $description = "Adds a sign-up checkbox to your Events Manager booking forms.";
+	public $description = "Subscribes people from Events Manager booking forms.";
 
 
 	/**

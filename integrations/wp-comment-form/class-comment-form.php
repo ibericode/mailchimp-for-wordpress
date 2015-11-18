@@ -22,7 +22,7 @@ class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 	/**
 	 * @var string
 	 */
-	public $description = "Adds a sign-up checkbox to your comment form.";
+	public $description = "Subscribes people from your WordPress comment form.";
 
 	/**
 	 * Add hooks
