@@ -28,19 +28,16 @@ gulp.task('default', ['sass', 'browserify']);
 gulp.task('sass', function () {
 	var files = './assets/sass/*.scss';
 
-	var stream = gulp.src(files)
-		.pipe(sass());
-
-	return merge(
-
-		// create .css
-		stream.pipe(gulp.dest('./assets/css')),
+	return gulp.src(files)
+		// create .css file
+		.pipe(sass())
+		.pipe(rename({ extname: '.css' }))
+		.pipe(gulp.dest('./assets/css'))
 
 		// create .min.css
-		stream.pipe(cssmin())
-			.pipe(rename({suffix: '.min'}))
-			.pipe(gulp.dest("./assets/css"))
-	);
+		.pipe(cssmin())
+		.pipe(rename({extname: '.min.css'}))
+		.pipe(gulp.dest("./assets/css"));
 });
 
 gulp.task('browserify', function () {
@@ -52,19 +49,20 @@ gulp.task('browserify', function () {
 	];
 
 	// setup stream for each bundle
-	var bundles = merge(files.map(function(entry) {
+	return merge(files.map(function(entry) {
 		var file = entry.split('/').pop();
 		return browserify({ entries: [entry] })
 			.bundle()
 			.pipe(source(file))
+			// create .js file
 			.pipe(rename({ extname: '.js' }))
+			.pipe(gulp.dest('./assets/js'))
+
+			// create .min.js file
+			.pipe(streamify(uglify()))
+			.pipe(rename({ extname: '.min.js' }))
 			.pipe(gulp.dest('./assets/js'));
 	}));
-
-	// write all bundle streams to .min file
-	return bundles.pipe(streamify(uglify()))
-		.pipe(rename({ extname: '.min.js' }))
-		.pipe(gulp.dest('./assets/js'));
 });
 
 gulp.task('bump-version', function(cb) {
