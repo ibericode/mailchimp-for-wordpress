@@ -1,5 +1,4 @@
 /* Editor */
-/* todo allow for CodeMirror failures */
 var FormEditor = function(element) {
 
 	// require CodeMirror & plugins
@@ -15,38 +14,62 @@ var FormEditor = function(element) {
 	var r = {};
 	var editor;
 
-	r.editor = editor = CodeMirror.fromTextArea(element, {
-		selectionPointer: true,
-		matchTags: { bothTags: true },
-		mode: "htmlmixed",
-		htmlMode: true,
-		autoCloseTags: true,
-		autoRefresh: true
-	});
+	if( CodeMirror ) {
+		editor = CodeMirror.fromTextArea(element, {
+			selectionPointer: true,
+			matchTags: { bothTags: true },
+			mode: "htmlmixed",
+			htmlMode: true,
+			autoCloseTags: true,
+			autoRefresh: true
+		});
 
-	editor.on('change',function() {
-		if(typeof(Event) === "function") {
-			// Create a new 'change' event
-			var event = new Event('change', { bubbles: true });
-			element.dispatchEvent(event);
-		}
-	});
+		// dispatch regular "change" on element event every time editor changes
+		editor.on('change',function() {
+			if(typeof(Event) === "function") {
+				// Create a new 'change' event
+				var event = new Event('change', { bubbles: true });
+				element.dispatchEvent(event);
+			}
+		});
+	}
 
 	r.getValue = function() {
-		return editor.getValue();
+		if( editor ) {
+			return editor.getValue();
+		}
+
+		return element.value;
 	};
 
 	r.insert = function( html ) {
-		editor.replaceSelection( html );
-		editor.focus();
+		if( editor ) {
+			editor.replaceSelection( html );
+			editor.focus();
+		}
+
+		element.value += html;
 	};
 
-	r.on = function() {
-		return editor.on.apply(editor,arguments);
+	r.on = function(event,callback) {
+
+		if( editor ) {
+
+			// translate "input" event for CodeMirror
+			if( event === 'input' ) {
+				event = 'changes';
+			}
+
+			return editor.on(event,callback);
+		}
+
+		return element.addEventListener(event,callback);
 	};
 
 	r.refresh = function() {
-		editor.refresh();
+		if( editor ) {
+			editor.refresh();
+		}
 	};
 
 	return r;

@@ -66,7 +66,7 @@ var FormWatcher = function(editor, settings, fields, events) {
 	}
 
 	// events
-	editor.on('changes', checkPresenceOfRequiredFields );
+	editor.on('input', checkPresenceOfRequiredFields);
 	editor.on('blur', findRequiredFields );
 
 	events.on('fields.change', checkPresenceOfRequiredFields);
