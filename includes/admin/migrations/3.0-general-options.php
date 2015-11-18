@@ -3,13 +3,10 @@
 defined( 'ABSPATH' ) or exit;
 
 // transfer option
-$options = get_option( 'mc4wp_lite', array() );
-if( empty( $options ) ) {
-	return;
-}
+$options = (array) get_option( 'mc4wp_lite', array() );
 
 // merge options, with Pro options taking precedence
-$pro_options = get_option( 'mc4wp', array() );
+$pro_options = (array) get_option( 'mc4wp', array() );
 $options = array_merge( $options, $pro_options );
 
 // update options
