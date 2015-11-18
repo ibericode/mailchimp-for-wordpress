@@ -1,8 +1,8 @@
 'use strict';
 
-var serialize = require('../../third-party/serialize.js');
-var populate = require('../../third-party/populate.js');
-var formToJson = require('../../third-party/form2js.js');
+var serialize = require('../third-party/serialize.js');
+var populate = require('populate.js');
+var formToJson = require('../third-party/form2js.js');
 
 var Form = function(id, element) {
 

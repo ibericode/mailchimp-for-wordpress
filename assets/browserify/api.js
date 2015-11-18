@@ -1,7 +1,7 @@
 'use strict';
 
 // deps
-var Gator = require('../third-party/gator.js');
+var Gator = require('gator');
 var forms = require('./forms/forms.js');
 var listeners = window.mc4wp && window.mc4wp.listeners ? window.mc4wp.listeners : [];
 var config = window.mc4wp_forms_config || {};

@@ -1,7 +1,7 @@
 'use strict';
 
 // deps
-var EventEmitter = require('../../third-party/event-emitter.js');
+var EventEmitter = require('wolfy87-eventemitter');
 var Form = require('./form.js');
 
 // variables

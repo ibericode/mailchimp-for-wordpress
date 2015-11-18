@@ -7,8 +7,8 @@ var FormWatcher = require('./admin/form-watcher.js');
 var FormEditor = require('./admin/form-editor.js');
 var FieldHelper = require('./admin/field-helper.js');
 var FieldsFactory = require('./admin/fields-factory.js');
-var m = require('../third-party/mithril.js');
-var EventEmitter = require('../third-party/event-emitter.js');
+var m = require('mithril');
+var EventEmitter = require('wolfy87-eventemitter');
 
 // vars
 var context = document.getElementById('mc4wp-admin');

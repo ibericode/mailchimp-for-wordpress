@@ -2,13 +2,23 @@
 /* todo allow for CodeMirror failures */
 var FormEditor = function(element) {
 
+	// require CodeMirror & plugins
+	var CodeMirror = require('codemirror');
+	require('codemirror/mode/xml/xml');
+	require('codemirror/mode/javascript/javascript');
+	require('codemirror/mode/css/css');
+	require('codemirror/mode/htmlmixed/htmlmixed');
+	require('codemirror/addon/fold/xml-fold');
+	require('codemirror/addon/edit/matchtags');
+	require('codemirror/addon/edit/closetag.js');
+
 	var r = {};
 	var editor;
 
 	r.editor = editor = CodeMirror.fromTextArea(element, {
 		selectionPointer: true,
 		matchTags: { bothTags: true },
-		mode: "text/html",
+		mode: "htmlmixed",
 		htmlMode: true,
 		autoCloseTags: true,
 		autoRefresh: true

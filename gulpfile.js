@@ -10,10 +10,13 @@ var browserify = require('browserify');
 var replace = require('gulp-replace');
 var minimist = require('minimist');
 var merge = require('merge-stream');
+
 var util = require('gulp-util');
 var intercept = require('gulp-intercept');
 var streamify = require('gulp-streamify');
-var git = require('gulp-git');
+var globby = require('globby');
+var buffer = require('vinyl-buffer');
+var through = require('through2');
 
 var defaults = {
 	string: 'version',
@@ -26,7 +29,7 @@ var options = minimist(process.argv.slice(2), defaults);
 gulp.task('default', ['sass', 'browserify']);
 
 gulp.task('sass', function () {
-	var files = './assets/sass/*.scss';
+	var files = './assets/sass/[^_]*.scss';
 
 	return gulp.src(files)
 		// create .css file
@@ -42,27 +45,35 @@ gulp.task('sass', function () {
 
 gulp.task('browserify', function () {
 
-	var files = [
-		'./assets/js/src/api.js',
-		'./assets/js/src/admin.js',
-		'./assets/js/src/integrations-admin.js'
-	];
+	var bundledStream = through()
+		.pipe(buffer());
 
-	// setup stream for each bundle
-	return merge(files.map(function(entry) {
-		var file = entry.split('/').pop();
-		return browserify({ entries: [entry] })
-			.bundle()
-			.pipe(source(file))
-			// create .js file
-			.pipe(rename({ extname: '.js' }))
-			.pipe(gulp.dest('./assets/js'))
+	globby("./assets/browserify/[^_]*.js").then(function(entries) {
+		var stream = merge(entries.map(function(entry) {
+			var file = entry.split('/').pop();
 
-			// create .min.js file
-			.pipe(streamify(uglify()))
-			.pipe(rename({ extname: '.min.js' }))
-			.pipe(gulp.dest('./assets/js'));
-	}));
+			return browserify({
+					entries: [entry],
+					debug: true
+				})
+				.bundle()
+				.pipe(source(file))
+
+				// create .js file
+				.pipe(rename({ extname: '.js' }))
+				.pipe(gulp.dest('./assets/js'))
+
+				// create .min.js file
+				.pipe(streamify(uglify()))
+				.pipe(rename({ extname: '.min.js' }))
+				.pipe(gulp.dest('./assets/js'));
+		}));
+
+		stream
+			.pipe(bundledStream);
+	}).catch(function(err) {});
+
+	return bundledStream;
 });
 
 gulp.task('bump-version', function(cb) {

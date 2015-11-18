@@ -1,8 +1,8 @@
 var g = function(m) {
 	'use strict';
 
-	var render = require('../../third-party/render.js');
-	var html_beautify = require('../../third-party/beautify-html.js');
+	var render = require('../third-party/render.js');
+	var html_beautify = require('../third-party/beautify-html.js');
 	var generators = {};
 
 	/**
