@@ -16,7 +16,7 @@ class MC4WP_Visitor_Tracking {
 	/**
 	 * @const string
 	 */
-	const COOKIE_NAME = 'mc4wp';
+	const COOKIE_NAME = '_mc4wp';
 
 	/**
 	 * Add hooks
