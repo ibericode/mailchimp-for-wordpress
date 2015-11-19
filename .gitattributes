@@ -14,3 +14,4 @@
 /build				export-ignore
 /README.md			export-ignore
 /assets/sass		export-ignore
+/assets/browserify	export-ignore
