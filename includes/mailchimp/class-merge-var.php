@@ -1,25 +1,53 @@
 <?php
 
+/**
+ * Class MC4WP_MailChimp_Merge_Var
+ *
+ * Represents a Merge Variable (AKA: field) in MailChimp
+ *
+ * @access public
+ */
 class MC4WP_MailChimp_Merge_Var {
 
+	/**
+	 * @var string
+	 */
 	public $name;
 
+	/**
+	 * @var string
+	 */
 	public $field_type;
 
+	/**
+	 * @var string
+	 */
 	public $tag;
 
+	/**
+	 * @var bool Is this a required field for the list it belongs to?
+	 */
 	public $required = false;
 
+	/**
+	 * @var array
+	 */
 	public $choices = array();
 
+	/**
+	 * @var bool Is this field public? As in, should it show on forms?
+	 */
 	public $public = true;
 
+	/**
+	 * @var string Default value for the field.
+	 */
 	public $default = '';
 
 	/**
-	 * @param      $name
-	 * @param      $field_type
-	 * @param      $tag
+	 * @param string $name
+	 * @param string $field_type
+	 * @param string $tag
 	 * @param bool $required
 	 * @param array $choices
 	 */
@@ -34,7 +62,7 @@ class MC4WP_MailChimp_Merge_Var {
 	/**
 	 * Creates our local object from MailChimp API data.
 	 *
-	 * @param $data
+	 * @param object $data
 	 *
 	 * @return MC4WP_MailChimp_Merge_Var
 	 */

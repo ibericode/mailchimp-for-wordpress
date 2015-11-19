@@ -4,6 +4,7 @@
  * Class MC4WP_Validator
  *
  * @ignore
+ * @access private
  */
 class MC4WP_Validator {
 

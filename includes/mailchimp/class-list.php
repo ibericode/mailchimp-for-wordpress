@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Class MC4WP_MailChimp_List
+ *
+ * Represents a list in MailChimp
+ *
+ * @access public
+ */
 class MC4WP_MailChimp_List {
 
 	/**

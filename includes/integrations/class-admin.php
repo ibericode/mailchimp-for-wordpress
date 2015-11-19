@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Class MC4WP_Integration_Admin
+ *
+ * @ignore
+ * @access private
+ */
 class MC4WP_Integration_Admin {
 
 	/**

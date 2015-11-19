@@ -3,6 +3,7 @@
 /**
  * Class MC4WP_Request_Parser
  *
+ * @access private
  * @ignore
  */
 class MC4WP_Request_Parser {

@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Class MC4WP_MailChimp_Grouping
+ *
+ * Represents an Interest Grouping in MailChimp.
+ *
+ * @access public
+ */
 class MC4WP_MailChimp_Grouping {
 
 	/**
@@ -23,9 +30,9 @@ class MC4WP_MailChimp_Grouping {
 	public $groups = array();
 
 	/**
-	 * @param       $id
-	 * @param       $name
-	 * @param       $field_type
+	 * @param int $id
+	 * @param string $name
+	 * @param string $field_type
 	 * @param array $groups
 	 */
 	public function __construct( $id, $name, $field_type, $groups = array() ) {
@@ -36,7 +43,8 @@ class MC4WP_MailChimp_Grouping {
 	}
 
 	/**
-	 * @param $data
+	 * @param object $data
+	 *
 	 * @return MC4WP_MailChimp_Grouping
 	 */
 	public static function from_data( $data ) {

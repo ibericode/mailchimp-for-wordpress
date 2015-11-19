@@ -5,6 +5,7 @@
  *
  * @since 3.0
  * @ignore
+ * @access private
  */
 class MC4WP_Request {
 

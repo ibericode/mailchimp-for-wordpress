@@ -3,8 +3,8 @@
 /**
  * Class MC4WP_Field_Map
  *
- * @internal
- * @since 2.x
+ * @access private
+ * @since 2.0
  * @ignore
  */
 class MC4WP_Field_Map {

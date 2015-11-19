@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Class MC4WP_Service_Container
+ *
+ * @access private
+ * @ignore
+ */
 class MC4WP_Service_Container {
 
 	/**

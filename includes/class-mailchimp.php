@@ -3,7 +3,7 @@
 /**
  * Class MC4WP_MailChimp
  *
- * @internal
+ * @access private
  * @ignore
  */
 class MC4WP_MailChimp {

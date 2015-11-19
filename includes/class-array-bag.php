@@ -3,6 +3,7 @@
 /**
  * Class MC4WP_Array_Bag
  *
+ * @access private
  * @ignore
  */
 class MC4WP_Array_Bag {
