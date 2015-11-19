@@ -188,8 +188,10 @@
 					</tr>
 					<?php } // end if UI update_existing ?>
 
-					<?php if( $integration->has_ui_element( 'replace_interests' ) ) { $enabled = $opts['update_existing']; ?>
-						<tr valign="top" style="<?php if( ! $enabled ) { echo 'display: none;'; } ?>">
+					<?php if( $integration->has_ui_element( 'replace_interests' ) ) {
+						$config = array( 'element' => 'mc4wp_integrations['. $integration->slug .'][update_existing]', 'value' => 1 );
+						?>
+						<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
 							<th scope="row"><?php _e( 'Replace interest groups?', 'mailchimp-for-wp' ); ?></th>
 							<td class="nowrap">
 								<label>
@@ -201,7 +203,8 @@
 									<?php _e( 'No', 'mailchimp-for-wp' ); ?>
 								</label>
 								<p class="help">
-									<?php _e( 'Select "yes" if you want to replace the interest groups with the groups provided instead of adding the provided groups to the member\'s interest groups (only when updating a subscriber).', 'mailchimp-for-wp' ); ?>
+									<?php _e( 'Select "no" if you want to add the selected groupings to any previously selected groupings when updating a subscriber.', 'mailchimp-for-wp' ); ?>
+									<?php printf( ' <a href="%s">' . __( 'What does this do?', 'mailchimp-for-wp' ) . '</a>', 'https://mc4wp.com/kb/what-does-replace-groupings-mean/' ); ?>
 								</p>
 							</td>
 						</tr>

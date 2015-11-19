@@ -40,6 +40,7 @@ helpers.bindEventToElements = function( elements, event, handler ) {
 			// if this is called for radio or checkboxes, we require it to be checked to count the "value".
 			var conditionMet = ( typeof( this.checked ) === "undefined" || this.checked ) &&  this.value == config.value;
 			element.style.display = conditionMet ? '' : 'none';
+			element.style.visibility = conditionMet ? '' : 'hidden';
 
 			// disable input fields
 			Array.prototype.forEach.call( inputs, function(inputElement) {

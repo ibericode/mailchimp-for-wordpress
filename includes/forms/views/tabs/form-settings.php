@@ -89,7 +89,8 @@
 				<?php _e( 'No', 'mailchimp-for-wp' ); ?>
 			</label>
 			<p class="help">
-				<?php _e( 'Select "yes" if you want to replace the interest groups with the groups provided instead of adding the provided groups to the member\'s interest groups (only when updating a subscriber).', 'mailchimp-for-wp' ); ?>
+				<?php _e( 'Select "no" if you want to add the selected groupings to any previously selected groupings when updating a subscriber.', 'mailchimp-for-wp' ); ?>
+				<?php printf( ' <a href="%s">' . __( 'What does this do?', 'mailchimp-for-wp' ) . '</a>', 'https://mc4wp.com/kb/what-does-replace-groupings-mean/' ); ?>
 			</p>
 		</td>
 	</tr>
