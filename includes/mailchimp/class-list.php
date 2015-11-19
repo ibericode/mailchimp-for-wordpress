@@ -127,4 +127,13 @@ class MC4WP_MailChimp_List {
 		return '';
 	}
 
+	/**
+	 * Get link to this list in MailChimp
+	 *
+	 * @return string
+	 */
+	public function get_web_url() {
+		return 'https://admin.mailchimp.com/lists/members/?id=' . $this->web_id;
+	}
+
 }
