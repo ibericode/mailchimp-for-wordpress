@@ -79,10 +79,15 @@ class MC4WP_Form_Asset_Manager {
 		/**
 		 * Filters the stylesheets to be loaded
 		 *
+		 * This currently only accepts the following:
+		 *
+		 * - form-basic
+		 * - form-themes
+		 *
 		 * Return an empty array if you want to disable the loading of all stylesheets.
 		 *
 		 * @since 3.0
-		 * @param array $stylesheets
+		 * @param array $stylesheets Array of valid stylesheet handles (see above)
 		 */
 		$stylesheets = (array) apply_filters( 'mc4wp_form_stylesheets', $stylesheets );
 
@@ -140,7 +145,7 @@ class MC4WP_Form_Asset_Manager {
 		 * @param boolean|string $auto_scroll
 		 * @since 3.0
 		 */
-		$config['auto_scroll'] = apply_filters( 'mc4wp_form_auto_scroll', $auto_scrol );
+		$config['auto_scroll'] = apply_filters( 'mc4wp_form_auto_scroll', $auto_scroll );
 
 		return $config;
 	}

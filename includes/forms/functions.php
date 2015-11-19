@@ -21,7 +21,7 @@ function mc4wp_get_form( $form_id = 0 ) {
  *
  * @param array $args Array of parameters
  *
- * @return array
+ * @return MC4WP_Form[]
  */
 function mc4wp_get_forms( array $args = array() ) {
 	$default_args = array(

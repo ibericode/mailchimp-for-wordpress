@@ -582,4 +582,24 @@ class MC4WP_Form {
 
 		return $email_type;
 	}
+
+	/**
+	 * Gets the filename of the stylesheet to load for this form.
+	 *
+	 * @return string
+	 */
+	public function get_stylesheet() {
+		$stylesheet = $this->settings['css'];
+
+		if( empty( $stylesheet ) ) {
+			return '';
+		}
+
+		// form themes live in the same stylesheet
+		if( strpos( $stylesheet, 'form-theme-' ) !== false ) {
+			$stylesheet = 'form-themes';
+		}
+
+		return $stylesheet;
+	}
 }

@@ -185,18 +185,9 @@ class MC4WP_Forms_Admin {
 		$forms = mc4wp_get_forms();
 		foreach( $forms as $form ) {
 
-			if( empty( $form->settings['css'] ) ) {
-				continue;
-			}
+			$stylesheet = $form->get_stylesheet();
 
-			$stylesheet = $form->settings['css'];
-
-			// form themes live in the same stylesheet
-			if( strpos( $stylesheet, 'form-theme-' ) !== false ) {
-				$stylesheet = 'form-themes';
-			}
-
-			if( ! in_array( $stylesheet, $stylesheets ) ) {
+			if( ! empty( $stylesheet ) && ! in_array( $stylesheet, $stylesheets ) ) {
 				$stylesheets[] = $stylesheet;
 			}
 		}

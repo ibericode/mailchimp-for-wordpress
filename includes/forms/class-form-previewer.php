@@ -25,6 +25,11 @@ class MC4WP_Form_Previewer {
 	public $preview_form_id = 0;
 
 	/**
+	 * @var MC4WP_Form
+	 */
+	public $form;
+
+	/**
 	 * @const string
 	 */
 	const PAGE_SLUG = 'mc4wp-form-preview';
@@ -48,6 +53,7 @@ class MC4WP_Form_Previewer {
 		$is_preview     = isset( $_GET['preview'] );
 		$instance = new self( $form_id, $is_preview );
 
+		add_filter( 'mc4wp_form_stylesheets', array( $instance, 'set_stylesheet' ) );
 		add_filter( 'the_title', array( $instance, 'set_page_title' ) );
 		add_filter( 'the_content', array( $instance, 'set_page_content' ) );
 	}
@@ -69,6 +75,9 @@ class MC4WP_Form_Previewer {
 		if( empty( $this->preview_form_id ) ) {
 			$this->preview_form_id = $this->form_id;
 		}
+
+		// get form instance
+		$this->form = mc4wp_get_form( $this->preview_form_id );
 	}
 
 	/**
@@ -136,6 +145,15 @@ class MC4WP_Form_Previewer {
 	}
 
 	/**
+	 * @param $stylesheets
+	 *
+	 * @return string
+	 */
+	public function set_stylesheet( $stylesheets ) {
+		return array( $this->form->get_stylesheet() );
+	}
+
+	/**
 	 * @param string $title
 	 * @return string
 	 */
@@ -148,7 +166,7 @@ class MC4WP_Form_Previewer {
 	 * @return string
 	 */
 	public function set_page_content( $content ) {
-		return mc4wp_show_form( $this->preview_form_id, array(), false );
+		return $this->form;
 	}
 
 }
