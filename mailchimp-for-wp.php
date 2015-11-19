@@ -105,7 +105,7 @@ add_action( 'plugins_loaded', '__mc4wp_load_plugin', 20 );
  * @access private
  * @since 3.0
  */
-function __mc4wp_flush_cache() {
+function __mc4wp_flush() {
 	delete_transient( 'mc4wp_mailchimp_lists' );
 	delete_transient( 'mc4wp_mailchimp_lists_fallback' );
 }
