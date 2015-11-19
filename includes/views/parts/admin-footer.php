@@ -1,6 +1,8 @@
 <?php defined( 'ABSPATH' ) or exit;
 
-
+/**
+ * @ignore
+ */
 function __mc4wp_admin_translation_notice() {
 	if( stripos( get_locale(), 'en_us' ) === 0 ) {
 		return;
@@ -9,6 +11,9 @@ function __mc4wp_admin_translation_notice() {
 	echo '<p class="help">' . sprintf( __( 'MailChimp for WordPress is in need of translations. Is the plugin not translated in your language or do you spot errors with the current translations? Helping out is easy! Head over to <a href="%s">the translation project and click "help translate"</a>.', 'mailchimp-for-wp' ), 'https://www.transifex.com/projects/p/mailchimp-for-wordpress/' ) . '</p>';
 }
 
+/**
+ * @ignore
+ */
 function __mc4wp_admin_github_notice() {
 
 	if( strpos( $_SERVER['HTTP_HOST'], 'local' ) !== 0 ) {
@@ -19,6 +24,9 @@ function __mc4wp_admin_github_notice() {
 
 }
 
+/**
+ * @ignore
+ */
 function __mc4wp_admin_disclaimer_notice() {
 	echo '<p class="help">' . __( 'This plugin is not developed by or affiliated with MailChimp in any way.', 'mailchimp-for-wp' ) . '</p>';
 }

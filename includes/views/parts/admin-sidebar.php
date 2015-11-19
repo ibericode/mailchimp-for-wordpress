@@ -2,6 +2,9 @@
 
 defined( 'ABSPATH' ) or exit;
 
+/**
+ * @ignore
+ */
 function __mc4wp_admin_sidebar_support_notice() {
 	?>
 	<div class="mc4wp-box">

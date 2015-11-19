@@ -1,8 +1,10 @@
 <?php
 
 /**
- * @param int $form_id
- * @param string $tab
+ * Gets the absolute url to edit a form
+ *
+ * @param int $form_id ID of the form
+ * @param string $tab Tab identifier to open
  *
  * @return string
  */
@@ -17,6 +19,8 @@ function mc4wp_get_edit_form_url( $form_id, $tab = '' ) {
 }
 
 /**
+ * Get absolute URL to create a new form
+ *
  * @return string
  */
 function mc4wp_get_add_form_url() {
