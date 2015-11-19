@@ -37,12 +37,18 @@ helpers.bindEventToElements = function( elements, event, handler ) {
 		var inputs = element.querySelectorAll('input');
 
 		function toggleElement() {
-			// if this is called for radio or checkboxes, we require it to be checked to count the "value".
-			var conditionMet = ( typeof( this.checked ) === "undefined" || this.checked ) &&  this.value == config.value;
+
+			// do nothing with unchecked elements
+			if( typeof( this.checked ) === "boolean" && ! this.checked ) {
+				return;
+			}
+
+			// check if element value matches expected value
+			var conditionMet = ( this.value == config.value );
 			element.style.display = conditionMet ? '' : 'none';
 			element.style.visibility = conditionMet ? '' : 'hidden';
 
-			// disable input fields
+			// disable input fields to stop sending their values to server
 			Array.prototype.forEach.call( inputs, function(inputElement) {
 				inputElement.disabled = !conditionMet;
 			});
