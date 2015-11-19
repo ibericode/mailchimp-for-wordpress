@@ -1,15 +1,12 @@
 'use strict';
 
+var mc4wp = window.mc4wp || {};
+
 // deps
 var Gator = require('gator');
 var forms = require('./forms/forms.js');
 var listeners = window.mc4wp && window.mc4wp.listeners ? window.mc4wp.listeners : [];
 var config = window.mc4wp_forms_config || {};
-
-// expose stuff, this overrides dummy javascript
-window.mc4wp = {
-	"forms": forms
-};
 
 // register early listeners
 for(var i=0; i<listeners.length;i++) {
@@ -56,4 +53,6 @@ Gator(document.body).on('change', '.mc4wp-form', function(event) {
 });
 
 
-
+// expose forms object
+mc4wp.forms = forms;
+window.mc4wp = mc4wp;

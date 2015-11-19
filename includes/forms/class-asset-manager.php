@@ -53,7 +53,7 @@ class MC4WP_Form_Asset_Manager {
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		// register client-side API script
-		wp_register_script( 'mc4wp-forms-api', MC4WP_PLUGIN_URL . 'assets/js/api.js', array(), MC4WP_VERSION, true );
+		wp_register_script( 'mc4wp-forms-api', MC4WP_PLUGIN_URL . 'assets/js/forms-api'. $suffix .'.js', array(), MC4WP_VERSION, true );
 
 		// register placeholder script, which will later be enqueued for IE only
 		wp_register_script( 'mc4wp-placeholders', MC4WP_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), MC4WP_VERSION, true );
