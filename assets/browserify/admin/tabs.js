@@ -78,6 +78,12 @@ var Tabs = function(context) {
 			tb_remove();
 		}
 
+		// refresh editor after switching tabs
+		// TODO: decouple decouple decouple
+		if( tab.id === 'fields' && window.mc4wp && window.mc4wp.forms && window.mc4wp.forms.editor ) {
+			mc4wp.forms.editor.refresh();
+		}
+
 		return true;
 	}
 
