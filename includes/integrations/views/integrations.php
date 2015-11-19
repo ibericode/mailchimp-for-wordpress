@@ -1,5 +1,5 @@
 <?php defined( 'ABSPATH' ) or exit;
-/** @var MC4WP_Integration[] $integrations */
+/** @var MC4WP_Integration_Fixture[] $integrations */
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
@@ -43,7 +43,12 @@
 							<td>
 								<!-- hidden field to make sure a value is sent to the server -->
 								<input type="hidden" name="mc4wp_integrations[<?php echo $integration->slug; ?>][enabled]" value="0" />
-								<input type="checkbox" name="mc4wp_integrations[<?php echo $integration->slug; ?>][enabled]" value="1" <?php if( $installed ) { checked( $integration->enabled, true ); disabled( $integration->enabled_by_default, true ); } else { disabled( true, true ); } ?> />
+
+								<?php if( ! $integration->enabled_by_default ) { ?>
+									<input type="checkbox" name="mc4wp_integrations[<?php echo $integration->slug; ?>][enabled]" value="1" <?php if( $installed ) { checked( $integration->enabled, true ); } else { disabled( true, true );  } ?> />
+								<?php } else { ?>
+									<input type="checkbox" name="mc4wp_integrations[<?php echo $integration->slug; ?>][enabled]" value="1" <?php checked( $installed, true );  ?>  title="<?php esc_attr_e( 'This integration is enabled by default as it requires manual actions to work.', 'mailchimp-for-wp' ); ?>" disabled="disabled" />
+								<?php } ?>
 							</td>
 							<td class="row-title">
 								<?php
