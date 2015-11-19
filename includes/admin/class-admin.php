@@ -223,11 +223,14 @@ class MC4WP_Admin {
 
 		global $wp_scripts;
 
+		$prefix = 'mailchimp-for-wp';
+
 		// only load asset files on the MailChimp for WordPress settings pages
-		if( empty( $_GET['page'] ) || strpos( $_GET['page'], 'mailchimp-for-wp' ) !== 0 ) {
+		if( empty( $_GET['page'] ) || strpos( $_GET['page'], $prefix ) !== 0 ) {
 			return false;
 		}
 
+		$page = ltrim( substr( $_GET['page'], strlen( $prefix ) ), '-' );
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		// css
@@ -243,7 +246,7 @@ class MC4WP_Admin {
 		// @todo: eventually get rid of jQuery here
 		wp_register_script( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array( 'jquery', 'es5-shim' ), MC4WP_VERSION, true );
 
-		wp_enqueue_script( array( 'jquery', 'es5-shim', 'codemirror', 'mc4wp-admin' ) );
+		wp_enqueue_script( array( 'jquery', 'es5-shim', 'mc4wp-admin' ) );
 
 		wp_localize_script( 'mc4wp-admin', 'mc4wp_vars',
 			array(
@@ -263,8 +266,9 @@ class MC4WP_Admin {
 		 * @since 3.0
 		 *
 		 * @param string $suffix
+		 * @param string $page
 		 */
-		do_action( 'mc4wp_admin_enqueue_assets', $suffix );
+		do_action( 'mc4wp_admin_enqueue_assets', $suffix, $page );
 
 		return true;
 	}

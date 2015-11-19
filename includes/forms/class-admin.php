@@ -43,8 +43,21 @@ class MC4WP_Forms_Admin {
 		add_action( 'mc4wp_admin_show_forms_page-edit-form', array( $this, 'show_edit_page' ) );
 		add_action( 'mc4wp_admin_show_forms_page-add-form', array( $this, 'show_add_page' ) );
 
-		//todo decouple admin assets
-		//add_action( 'mc4wp_admin_enqueue_assets', array( $this, 'enqueue_assets' ) );
+		add_action( 'mc4wp_admin_enqueue_assets', array( $this, 'enqueue_assets' ), 10, 2 );
+	}
+
+	/**
+	 * @param string $suffix
+	 * @param string $page
+	 */
+	public function enqueue_assets( $suffix, $page = '' ) {
+
+		if( $page !== 'forms' || empty( $_GET['view'] ) || $_GET['view'] !== 'edit-form' ) {
+			return;
+		}
+
+		wp_register_script( 'mc4wp-forms-admin', MC4WP_PLUGIN_URL . 'assets/js/forms-admin' . $suffix . '.js', array( 'mc4wp-admin' ), MC4WP_VERSION, true );
+		wp_enqueue_script( 'mc4wp-forms-admin');
 	}
 
 	/**
