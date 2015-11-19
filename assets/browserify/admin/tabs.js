@@ -94,7 +94,10 @@ var Tabs = function(context) {
 
 		// get from classname
 		if( ! tabId ) {
-			tabId = this.className.match(/nav-tab-(\w+)?/)[1];
+			var match = this.className.match(/nav-tab-(\w+)?/);
+			if( match ) {
+				tabId = match[1];
+			}
 		}
 
 		// get from href
