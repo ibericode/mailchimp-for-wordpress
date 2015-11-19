@@ -47,7 +47,7 @@ $tabs = array(
 					</div>
 					<div class="inside" style="margin-top: 3px;">
 
-						<input id="shortcode" type="hidden" value="[mc4wp_form id='<?php echo $form->ID; ?>']">
+						<input id="shortcode" type="hidden" value="<?php echo esc_attr( sprintf( '[mc4wp_form id="%d"]', $form->ID ) ); ?>">
 
 						<a href="#" class="button-secondary" onclick="prompt('Shortcode:', document.getElementById('shortcode').value); return false;">
 							<span class="dashicons dashicons-editor-code"></span>
