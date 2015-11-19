@@ -3,13 +3,13 @@
 /**
  * Class MC4WP_Form_Tags
  *
- * @internal
+ * @access private
  * @ignore
  */
 class MC4WP_Form_Tags {
 
 	/**
-	 * @var
+	 * @var MC4WP_Dynamic_Content_Tags
 	 */
 	protected $tags;
 

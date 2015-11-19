@@ -4,7 +4,7 @@
  * Class MC4WP_Form_Listener
  *
  * @since 3.0
- * @internal
+ * @access private
  * @ignore
  */
 class MC4WP_Form_Listener {
@@ -75,16 +75,10 @@ class MC4WP_Form_Listener {
 			$merge_vars = $list_field_data;
 
 			/**
-			 * Filters merge vars which are sent to MailChimp
-			 *
-			 * @param array $merge_vars
-			 */
-			$merge_vars = (array) apply_filters( 'mc4wp_merge_vars', $merge_vars );
-
-			/**
 			 * Filters merge vars which are sent to MailChimp, only fires for form requests.
 			 *
 			 * @param array $merge_vars
+			 * @param MC4WP_Form $form
 			 */
 			$merge_vars = (array) apply_filters( 'mc4wp_form_merge_vars', $merge_vars, $form );
 
@@ -100,6 +94,8 @@ class MC4WP_Form_Listener {
 
 		/**
 		 * Fires right after a form was used to subscribe.
+		 *
+		 * @since 3.0
 		 *
 		 * @param MC4WP_Form $form Instance of the submitted form
 		 */
@@ -124,6 +120,8 @@ class MC4WP_Form_Listener {
 		/**
 		 * Fires right after a form was used to unsubscribe.
 		 *
+		 * @since 3.0
+		 *
 		 * @param MC4WP_Form $form Instance of the submitted form.
 		 */
 		do_action( 'mc4wp_form_unsubscribed', $form );
@@ -140,6 +138,8 @@ class MC4WP_Form_Listener {
 
 			/**
 			 * Fires right after a form is submitted with errors.
+			 *
+			 * @since 3.0
 			 *
 			 * @param MC4WP_Form $form The submitted form instance.
 			 */
@@ -162,6 +162,8 @@ class MC4WP_Form_Listener {
 				 * - mc4wp_form_error_required_field_missing    One or more required fields are missing
 				 * - mc4wp_form_error_no_lists_selected         No MailChimp lists were selected
 				 *
+				 * @since 3.0
+				 *
 				 * @param   MC4WP_Form     $form        The form instance of the submitted form.
 				 */
 				do_action( 'mc4wp_form_error_' . $error, $form );
@@ -171,6 +173,8 @@ class MC4WP_Form_Listener {
 			/**
 			 * Fires right after a form is submitted without any errors (success).
 			 *
+			 * @since 3.0
+			 *
 			 * @param MC4WP_Form $form Instance of the submitted form
 			 */
 			do_action( 'mc4wp_form_success', $form );
@@ -178,6 +182,8 @@ class MC4WP_Form_Listener {
 
 		/**
 		 * Fires right before responding to the form request.
+		 *
+		 * @since 3.0
 		 *
 		 * @param MC4WP_Form $form Instance of the submitted form.
 		 */

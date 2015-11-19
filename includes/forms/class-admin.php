@@ -151,6 +151,8 @@ class MC4WP_Forms_Admin {
 		/**
 		 * Runs right after a form is updated.
 		 *
+		 * @since 3.0
+		 *
 		 * @param int $form_id
 		 */
 		do_action( 'mc4wp_save_form', $form_id );

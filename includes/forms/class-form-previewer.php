@@ -3,7 +3,7 @@
 /**
  * Class MC4WP_Form_Previewer
  *
- * @todo Test this class on WP MultiSite
+ * @access private
  * @since 3.0
  * @ignore
  */

@@ -2,4 +2,5 @@
 
 defined( 'ABSPATH' ) or exit;
 
-add_filter( 'mc4wp_merge_vars', array( 'MC4WP_Tools', 'guess_merge_vars' ) );
+add_filter( 'mc4wp_form_merge_vars', 'mc4wp_guess_merge_vars' );
+add_filter( 'mc4wp_integration_merge_vars', 'mc4wp_guess_merge_vars' );

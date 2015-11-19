@@ -2,7 +2,7 @@
 
 defined( 'ABSPATH' ) or exit;
 
-function mc4wp_admin_sidebar_support_block() {
+function __mc4wp_admin_sidebar_support_notice() {
 	?>
 	<div class="mc4wp-box">
 		<h4 class="mc4wp-title">Looking for help?</h4>
@@ -18,9 +18,13 @@ function mc4wp_admin_sidebar_support_block() {
 	<?php
 }
 
-add_action( 'mc4wp_admin_sidebar', 'mc4wp_admin_sidebar_support_block', 50 );
+add_action( 'mc4wp_admin_sidebar', '__mc4wp_admin_sidebar_support_notice', 50 );
 
 /**
- * Runs when the sidebar is rendered on settings pages.
+ * Runs when the sidebar is outputted on MailChimp for WordPress settings pages.
+ *
+ * Please note that not all pages have a sidebar.
+ *
+ * @since 3.0
  */
 do_action( 'mc4wp_admin_sidebar' );

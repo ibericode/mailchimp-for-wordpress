@@ -3,7 +3,7 @@
 /**
  * Takes care of requests to the MailChimp API
  *
- * @api
+ * @access public
  * @uses WP_HTTP
  * @since 1.0
  * @access public

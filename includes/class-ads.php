@@ -8,6 +8,9 @@
  */
 class MC4WP_Ads {
 
+	/**
+	 * @return bool Adds hooks
+	 */
 	public function add_hooks() {
 
 		// don't hook if Pro is activated
@@ -15,7 +18,7 @@ class MC4WP_Ads {
 			return false;
 		}
 
-		add_filter( 'mc4wp_menu_items', array( $this, 'menu_items' ) );
+		add_filter( 'mc4wp_admin_menu_items', array( $this, 'menu_items' ) );
 		add_filter( 'mc4wp_admin_plugin_meta_links', array( $this, 'plugin_meta_links' ) );
 		add_action( 'mc4wp_admin_sidebar', array( $this, 'admin_sidebar' ) );
 		add_action( 'mc4wp_admin_footer', array( $this, 'admin_footer' ), 10 );

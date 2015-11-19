@@ -34,9 +34,10 @@ defined( 'ABSPATH' ) or exit;
  * Bootstrap the MailChimp for WordPress plugin
  *
  * @ignore
+ * @access private
  * @return bool
  */
-function mc4wp_load_plugin() {
+function __mc4wp_load_plugin() {
 
 	// Don't run if MailChimp for WP Pro 2.x is activated
 	if( defined( 'MC4WP_VERSION' ) ) {
@@ -95,4 +96,18 @@ function mc4wp_load_plugin() {
 	return true;
 }
 
-add_action( 'plugins_loaded', 'mc4wp_load_plugin', 20 );
+add_action( 'plugins_loaded', '__mc4wp_load_plugin', 20 );
+
+/**
+ * Flushes all MailChimp caches
+ *
+ * @ignore
+ * @access private
+ * @since 3.0
+ */
+function __mc4wp_flush_cache() {
+	delete_transient( 'mc4wp_mailchimp_lists' );
+	delete_transient( 'mc4wp_mailchimp_lists_fallback' );
+}
+
+register_activation_hook( __FILE__, '__mc4wp_flush' );

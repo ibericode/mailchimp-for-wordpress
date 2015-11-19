@@ -3,7 +3,7 @@
 /**
 * This class takes care of all form related functionality
  *
- * @internal
+ * @access private
  * @ignore
 */
 class MC4WP_Form_Asset_Manager {
@@ -61,7 +61,10 @@ class MC4WP_Form_Asset_Manager {
 		/**
 		 * Runs right after JavaScript assets for forms have been registered.
 		 *
+		 * @since 3.0
+		 *
 		 * @param string $suffix
+		 * @ignore
 		 */
 		do_action( 'mc4wp_register_form_scripts', $suffix );
 	}
@@ -78,10 +81,10 @@ class MC4WP_Form_Asset_Manager {
 		 *
 		 * Return an empty array if you want to disable the loading of all stylesheets.
 		 *
+		 * @since 3.0
 		 * @param array $stylesheets
 		 */
 		$stylesheets = (array) apply_filters( 'mc4wp_form_stylesheets', $stylesheets );
-
 
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
@@ -123,12 +126,21 @@ class MC4WP_Form_Asset_Manager {
 			$config['submitted_form']['errors'] = $submitted_form->errors;
 		}
 
+		$auto_scroll = 'default';
+
 		/**
-		 * @filter `mc4wp_form_auto_scroll`
-		 * @expects boolean|array
-		 * @valid false|"default"|"animated"
+		 * Filters the `auto_scroll` setting for when a form is submitted.
+		 *
+		 * Accepts the following  values:
+		 *
+		 * - false
+		 * - "default"
+		 * - "animated"
+		 *
+		 * @param boolean|string $auto_scroll
+		 * @since 3.0
 		 */
-		$config['auto_scroll'] = apply_filters( 'mc4wp_form_auto_scroll',  'default' );
+		$config['auto_scroll'] = apply_filters( 'mc4wp_form_auto_scroll', $auto_scrol );
 
 		return $config;
 	}
@@ -218,6 +230,8 @@ class MC4WP_Form_Asset_Manager {
 		 * Runs right after inline JavaScript is printed, just before the closing </body> tag.
 		 *
 		 * This function will only run if the current page contains at least one form.
+		 *
+		 * @ignore
 		 */
 		do_action( 'mc4wp_print_forms_javascript' );
 	}

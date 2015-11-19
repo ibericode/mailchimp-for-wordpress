@@ -3,43 +3,10 @@
 /**
  * Class MC4WP_Tools
  *
- * @internal
+ * @access private
  * @ignore
  */
 class MC4WP_Tools {
-
-
-	/**
-	 * @param array $merge_vars
-	 *
-	 * @return mixed
-	 */
-	public static function guess_merge_vars( array $merge_vars ) {
-
-		// maybe guess first and last name
-		if ( isset( $merge_vars['NAME'] ) ) {
-			if( ! isset( $merge_vars['FNAME'] ) && ! isset( $merge_vars['LNAME'] ) ) {
-				$strpos = strpos( $merge_vars['NAME'], ' ' );
-				if ( $strpos !== false ) {
-					$merge_vars['FNAME'] = trim( substr( $merge_vars['NAME'], 0, $strpos ) );
-					$merge_vars['LNAME'] = trim( substr( $merge_vars['NAME'], $strpos ) );
-				} else {
-					$merge_vars['FNAME'] = $merge_vars['NAME'];
-				}
-			}
-		}
-
-		// set ip address
-		if( empty( $merge_vars['OPTIN_IP'] ) ) {
-			$optin_ip = MC4WP_Request::create_from_globals()->get_client_ip();
-
-			if( ! empty( $optin_ip ) ) {
-				$merge_vars['OPTIN_IP'] = $optin_ip;
-			}
-		}
-
-		return $merge_vars;
-	}
 
 	/**
 	 * @param $datetime

@@ -7,11 +7,8 @@
  *
  * To get a form instance, use `mc4wp_get_form( $id );` where `$id` is the post ID.
  *
- * @author Danny van Kooten
- * @package MailChimp for WordPress
- * @api
- * @since 3.0
  * @access public
+ * @since 3.0
  */
 class MC4WP_Form {
 
@@ -114,7 +111,7 @@ class MC4WP_Form {
 	public $config = array(
 		'action' => 'subscribe',
 		'lists' => array(),
-		'email_type' => 'html'
+		'email_type' => ''
 	);
 
 	/**
@@ -221,6 +218,8 @@ class MC4WP_Form {
 		/**
 		 * Filters the form settings
 		 *
+		 * @since 3.0
+		 *
 		 * @param array $settings
 		 * @param MC4WP_Form $form
 		 */
@@ -241,6 +240,8 @@ class MC4WP_Form {
 
 		/**
 		 * Filters the form messages
+		 *
+		 * @since 3.0
 		 *
 		 * @param array $registered_messages
 		 * @param MC4WP_Form $form
@@ -338,6 +339,8 @@ class MC4WP_Form {
 		/**
 		 * Filters the redirect URL setting
 		 *
+		 * @since 3.0
+		 *
 		 * @param string $url
 		 * @param MC4WP_Form $form
 		 */
@@ -392,6 +395,8 @@ class MC4WP_Form {
 		/**
 		 * Filters whether this form has errors. Runs only when a form is submitted.
 		 * Expects an array of message keys.
+		 *
+		 * @since 3.0
 		 *
 		 * @param array $errors
 		 * @param MC4WP_Form $form
@@ -455,6 +460,8 @@ class MC4WP_Form {
 		/**
 		 * Filters field names which should be ignored when showing data.
 		 *
+		 * @since 3.0
+		 *
 		 * @param array $ignored_field_names Array of ignored field names
 		 * @param MC4WP_Form $form The form instance.
 		 */
@@ -487,32 +494,6 @@ class MC4WP_Form {
 		}
 
 		return $this->config;
-	}
-
-	/**
-	 * Get email type for subscribers using this form
-	 *
-	 * @return string
-	 */
-	public function get_email_type() {
-		$form = $this;
-		$email_type = $this->config['email_type'];
-
-		/**
-		 * Filters email type for new subscribers.
-		 *
-		 * @param string $email_type
-		 */
-		$email_type = (string) apply_filters( 'mc4wp_email_type', $email_type );
-
-		/**
-		 * Filters email type for people that subscribe using this form.
-		 *
-		 * @param string $email_type
-		 * @param MC4WP_Form $form
-		 */
-		$email_type = (string) apply_filters( 'mc4wp_form_email_type', $email_type, $form );
-		return $email_type;
 	}
 
 	/**
@@ -585,5 +566,20 @@ class MC4WP_Form {
 	 */
 	public function get_required_fields() {
 		return explode( ',', $this->settings['required_fields'] );
+	}
+
+	/**
+	 * Get "email_type" setting for new MailChimp subscribers added by this form.
+	 *
+	 * @return string
+	 */
+	public function get_email_type() {
+		$email_type = $this->config['email_type'];
+
+		if( empty( $email_type ) ) {
+			$email_type = mc4wp_get_email_type();
+		}
+
+		return $email_type;
 	}
 }

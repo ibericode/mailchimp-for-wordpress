@@ -4,6 +4,7 @@
  * Class MC4WP_Integration_Manager
  *
  * @ignore
+ * @access private
  */
 class MC4WP_Integration_Manager {
 
@@ -132,6 +133,7 @@ class MC4WP_Integration_Manager {
 		 *
 		 * This array holds ALL integration settings
 		 *
+		 * @since 3.0
 		 * @param array $options
 		 */
 		return (array) apply_filters( 'mc4wp_integration_options', $options );

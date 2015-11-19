@@ -154,6 +154,7 @@ class MC4WP_MailChimp {
 			/**
 			 * Filters the cache time for MailChimp lists configuration. Defaults to 1200.
 			 *
+			 * @since 2.0
 			 * @param int $seconds
 			 */
 			$transient_lifetime = (int) apply_filters( 'mc4wp_lists_count_cache_time', $seconds );
@@ -198,6 +199,7 @@ class MC4WP_MailChimp {
 		/**
 		 * Filters the total subscriber_count for the given List ID's.
 		 *
+		 * @since 2.0
 		 * @param int $count
 		 * @param array $list_ids
 		 */

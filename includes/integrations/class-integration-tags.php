@@ -4,6 +4,7 @@
  * Class MC4WP_Integration_Tags
  *
  * @ignore
+ * @access private
  */
 class MC4WP_Integration_Tags{
 

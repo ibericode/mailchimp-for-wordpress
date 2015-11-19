@@ -4,6 +4,7 @@
  * Class MC4WP_Form_Message
  *
  * @ignore
+ * @access private
  */
 class MC4WP_Form_Message {
 

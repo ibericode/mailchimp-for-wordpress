@@ -82,6 +82,7 @@ class MC4WP_Form_Widget extends WP_Widget {
 		 *
 		 * @param array $settings
 		 * @param MC4WP_Form_Widget $this
+		 * @ignore
 		 */
 		do_action( 'mc4wp_form_widget_form', $settings, $this );
 		?>
@@ -114,6 +115,7 @@ class MC4WP_Form_Widget extends WP_Widget {
 		 * @param array $new_settings
 		 * @param array $old_settings
 		 * @param MC4WP_Form_Widget $widget
+		 * @ignore
 		 */
 		$new_settings = apply_filters( 'mc4wp_form_widget_update_settings', $new_settings, $old_settings, $this );
 

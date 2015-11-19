@@ -4,6 +4,7 @@
  * Class MC4WP_Visitor_Tracking
  *
  * @ignore
+ * @access private
  */
 class MC4WP_Visitor_Tracking {
 
@@ -64,6 +65,7 @@ class MC4WP_Visitor_Tracking {
 		 *
 		 * Defaults to 90 days in the future.
 		 *
+		 * @since 3.0
 		 * @param int $timestamp
 		 */
 		$expiration_time = apply_filters( 'mc4wp_cookie_expiration_time', $timestamp );

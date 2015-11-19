@@ -32,6 +32,14 @@
 				<?php settings_fields( 'mc4wp_integrations_settings' ); ?>
 
 				<?php
+
+				/**
+				 * Runs just before integration settings are outputted in admin.
+				 *
+				 * @since 3.0
+				 *
+				 * @param MC4WP_Integration $integration
+				 */
 				do_action( 'mc4wp_admin_before_integration_settings', $integration );
 				do_action( 'mc4wp_admin_before_' . $integration->slug . '_integration_settings' );
 				?>
@@ -200,6 +208,12 @@
 				</table>
 
 				<?php
+
+				/**
+				 * Runs right after integration settings are outputted (before the submit button).
+				 *
+				 * @param MC4WP_Integration $integration
+				 */
 				do_action( 'mc4wp_admin_after_integration_settings', $integration );
 				do_action( 'mc4wp_admin_after_' . $integration->slug . '_integration_settings' );
 				?>

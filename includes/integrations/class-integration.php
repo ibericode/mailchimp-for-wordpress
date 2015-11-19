@@ -7,7 +7,7 @@
  *
  * Extend this class and implement the `add_hooks` method to get a settings page.
  *
- * @api
+ * @access public
  * @since 3.0
  * @abstract
  */
@@ -150,6 +150,8 @@ abstract class MC4WP_Integration {
 		/**
 		 * Filters the checkbox label
 		 *
+		 * @since 3.0
+		 *
 		 * @param string $label
 		 * @param MC4WP_Integration $integration
 		 */
@@ -274,12 +276,17 @@ abstract class MC4WP_Integration {
 		// allow plugins to filter final lists value
 
 		/**
+		 * This filter is documented elsewhere.
+		 *
+		 * @see MC4WP_Form::get_lists
 		 * @ignore
 		 */
 		$lists = (array) apply_filters( 'mc4wp_lists', $lists );
 
 		/**
 		 * Filters the MailChimp lists this integration should subscribe to
+		 *
+		 * @since 3.0
 		 *
 		 * @param array $lists
 		 * @param MC4WP_Integration $integration
@@ -290,6 +297,8 @@ abstract class MC4WP_Integration {
 		 * Filters the MailChimp lists a specific integration should subscribe to
 		 *
 		 * The dynamic portion of the hook, `$slug`, refers to the slug of the integration.
+		 *
+		 * @since 3.0
 		 *
 		 * @param array $lists
 		 * @param MC4WP_Integration $integration
@@ -317,13 +326,6 @@ abstract class MC4WP_Integration {
 		$result = false;
 
 		/**
-		 * Filters the final merge variables before the request is sent to MailChimp
-		 *
-		 * @param array $merge_vars
-		 */
-		$merge_vars = (array) apply_filters( 'mc4wp_merge_vars', $merge_vars );
-
-		/**
 		 * Filters the final merge variables before the request is sent to MailChimp, for all integrations.
 		 *
 		 * @param array $merge_vars
@@ -340,14 +342,7 @@ abstract class MC4WP_Integration {
 		 * @param MC4WP_Integration $integration
 		 */
 		$merge_vars = (array) apply_filters( 'mc4wp_integration_' . $slug . '_merge_vars', $merge_vars, $integration );
-
-
-		/**
-		 * Filters the email type preference for this new subscriber.
-		 *
-		 * @param string $email_type
-		 */
-		$email_type = apply_filters( 'mc4wp_email_type', 'html' );
+		$email_type = mc4wp_get_email_type();
 
 		// create field map
 		$map = new MC4WP_Field_Map( $merge_vars, $lists );
@@ -364,6 +359,8 @@ abstract class MC4WP_Integration {
 
 		/**
 		 * Runs right after someone is subscribed using an integration
+		 *
+		 * @since 3.0
 		 *
 		 * @param MC4WP_Integration $integration
 		 * @param string $email

@@ -5,6 +5,7 @@
  *
  * @since 3.0
  * @ignore
+ * @access private
  */
 class MC4WP_Form_Element {
 
@@ -59,10 +60,11 @@ class MC4WP_Form_Element {
 		/**
 		 * Filters the HTML for the form fields.
 		 *
-		 * Use this filter to add custom fields to a form programmatically.
+		 * Use this filter to add custom HTML to a form programmatically
 		 *
 		 * @param string $content
 		 * @param MC4WP_Form $form
+		 * @since 2.0
 		 */
 		$visible_fields = (string) apply_filters( 'mc4wp_form_content', $content, $form );
 
@@ -98,6 +100,11 @@ class MC4WP_Form_Element {
 		$position = 'after';
 		$form = $this->form;
 
+		// check if content contains {response} tag
+		if( stripos( $this->form->content, '{response}' ) !== false ) {
+			return '';
+		}
+
 		/**
 		 * Filters the position for the form response.
 		 *
@@ -105,13 +112,9 @@ class MC4WP_Form_Element {
 		 *
 		 * @param string $position
 		 * @param MC4WP_Form $form
+		 * @since 2.0
 		 */
 		$response_position = (string) apply_filters( 'mc4wp_form_response_position', $position, $form );
-
-		// check if content contains {response} tag
-		if( stripos( $this->form->content, '{response}' ) !== false ) {
-			$response_position = '';
-		}
 
 		return $response_position;
 	}
@@ -183,6 +186,8 @@ class MC4WP_Form_Element {
 
 		/**
 		 * Filters the `action` attribute of the `<form>` element.
+		 *
+		 * Defaults to `null`, which means no `action` attribute will be printed.
 		 *
 		 * @param string $form_action_attribute
 		 * @param MC4WP_Form $form

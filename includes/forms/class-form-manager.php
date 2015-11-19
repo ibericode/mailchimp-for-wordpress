@@ -3,11 +3,11 @@
 /**
  * This class takes care of all form related functionality
  *
- * Do not interact with this class directly, use `mc4wp_form` functions tagged with @api instead.
+ * Do not interact with this class directly, use `mc4wp_form` functions tagged with @access public instead.
  *
  * @class MC4WP_Form_Manager
- * @internal
  * @ignore
+ * @access private
 */
 class MC4WP_Form_Manager {
 

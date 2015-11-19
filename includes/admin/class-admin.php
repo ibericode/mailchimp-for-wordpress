@@ -3,7 +3,6 @@
 /**
  * Class MC4WP_Admin
  *
- * @internal
  * @ignore
  */
 class MC4WP_Admin {
@@ -97,6 +96,8 @@ class MC4WP_Admin {
 		 *
 		 * By the time this hook is fired, the user is already authorized. After processing all the registered hooks,
 		 * the request is redirected back to the referring URL.
+		 *
+		 * @since 3.0
 		 */
 		do_action( 'mc4wp_admin_' . $action );
 
@@ -116,9 +117,11 @@ class MC4WP_Admin {
 		}
 
 		/**
-		 * Setup dashboard widget
+		 * Setup dashboard widget, users are authorized by now.
 		 *
 		 * Use this hook to register your own dashboard widgets for users with the required capability.
+		 *
+		 * @since 3.0
 		 */
 		do_action( 'mc4wp_dashboard_setup' );
 
@@ -256,6 +259,8 @@ class MC4WP_Admin {
 		/**
 		 * Hook to enqueue your own custom assets on the MailChimp for WordPress setting pages.
 		 *
+		 * @since 3.0
+		 *
 		 * @param string $suffix
 		 */
 		do_action( 'mc4wp_admin_enqueue_assets', $suffix );
@@ -273,19 +278,34 @@ class MC4WP_Admin {
 	}
 
 	/**
+	 * Get required capability to access settings page and view dashboard widgets.
 	 *
 	 * @return string
 	 */
 	public function get_required_capability() {
 
+		$capability = 'manage_options';
+
 		/**
 		 * Filters the required user capability to access the settings pages & dashboard widgets.
 		 *
-		 * @param string $capability A valid WP capability like 'manage_options' (default)
+		 * @ignore
+		 * @deprecated 3.0
 		 */
-		$required_cap = (string) apply_filters( 'mc4wp_settings_cap', 'manage_options' );
+		$capability = apply_filters( 'mc4wp_settings_cap', $capability );
 
-		return $required_cap;
+		/**
+		 * Filters the required user capability to access the MailChimp for WordPress' settings pages, view the dashboard widgets.
+		 *
+		 * Defaults to `manage_options`
+		 *
+		 * @since 3.0
+		 * @param string $capability
+		 * @see https://codex.wordpress.org/Roles_and_Capabilities
+		 */
+		$capability = (string) apply_filters( 'mc4wp_admin_required_capability', $capability );
+
+		return $capability;
 	}
 
 	/**
@@ -306,8 +326,6 @@ class MC4WP_Admin {
 		/**
 		 * Filters the menu items to appear under the main menu item.
 		 *
-		 * @param array $menu_items
-		 *
 		 * To add your own item, add an associative array in the following format.
 		 *
 		 * $menu_items[] = array(
@@ -316,6 +334,9 @@ class MC4WP_Admin {
 		 *     'slug' => 'Page slug',
 		 *     'callback' => 'my_page_function'
 		 * );
+		 *
+		 * @param array $menu_items
+		 * @since 3.0
 		 */
 		$menu_items = (array) apply_filters( 'mc4wp_admin_menu_items', $menu_items );
 
@@ -328,8 +349,6 @@ class MC4WP_Admin {
 
 	/**
 	 * @param array $item
-	 *
-	 * @internal
 	 */
 	public function add_menu_item( array $item ) {
 
@@ -349,8 +368,6 @@ class MC4WP_Admin {
 
 	/**
 	 * Show the API settings page
-	 *
-	 * @internal
 	 */
 	public function show_generals_setting_page() {
 		$opts = mc4wp_get_options();

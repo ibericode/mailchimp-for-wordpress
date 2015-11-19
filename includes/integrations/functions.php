@@ -4,7 +4,8 @@
  * Gets an array of all registered integrations
  *
  * @since 3.0
- * @api
+ * @access public
+ *
  * @return MC4WP_Integration[]
  */
 function mc4wp_get_integrations() {
@@ -15,8 +16,10 @@ function mc4wp_get_integrations() {
  * Get an instance of a registered integration class
  *
  * @since 3.0
- * @api
- * @param $slug
+ * @access public
+ *
+ * @param string $slug
+ *
  * @return MC4WP_Integration
  */
 function mc4wp_get_integration( $slug ) {
@@ -27,9 +30,11 @@ function mc4wp_get_integration( $slug ) {
  * Register a new integration with MailChimp for WordPress
  *
  * @since 3.0
- * @api
+ * @access public
+ *
  * @param string $slug
  * @param string $class
+ *
  * @param bool $always_enabled
  */
 function mc4wp_register_integration( $slug, $class, $always_enabled = false ) {
@@ -40,8 +45,10 @@ function mc4wp_register_integration( $slug, $class, $always_enabled = false ) {
  * Deregister a previously registered integration with MailChimp for WordPress
  *
  * @since 3.0
- * @api
- * @param $slug
+ * @access public
+ *
+ * @param string $slug
+ *
  * @return void
  */
 function mc4wp_deregister_integration( $slug ) {

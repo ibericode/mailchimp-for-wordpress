@@ -77,6 +77,11 @@ defined( 'ABSPATH' ) or exit;
 
 			<?php
 
+			/**
+			 * Runs right after general settings are outputted in admin.
+			 *
+			 * @since 3.0
+			 */
 			do_action( 'mc4wp_admin_after_general_settings' );
 
 			if( $connected ) {

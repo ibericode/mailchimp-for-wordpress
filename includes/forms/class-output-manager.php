@@ -4,6 +4,7 @@
  * Class MC4WP_Form_Output_Manager
  *
  * @ignore
+ * @access private
  */
 class MC4WP_Form_Output_Manager {
 
@@ -107,11 +108,18 @@ class MC4WP_Form_Output_Manager {
 
 		$html = $form->get_html( $config['element_id'], $config );
 
+		/**
+		 * Runs just before a form element is outputted.
+		 *
+		 * @since 3.0
+		 *
+		 * @param MC4WP_Form $form
+		 */
+		do_action( 'mc4wp_output_form', $form );
+
 		if( $echo ) {
 			echo $html;
 		}
-
-		do_action( 'mc4wp_output_form', $form );
 
 		return $html;
 	}
