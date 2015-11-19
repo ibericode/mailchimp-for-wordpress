@@ -12,8 +12,10 @@ $tags = mc4wp_get_instance('forms')->tags->get();
 		$tag = ! empty( $config['example'] ) ? $config['example'] : $tag;
 		?>
 		<tr>
-			<th><?php echo sprintf( '{%s}', $tag ); ?></th>
-			<td><?php echo $config['description']; ?></td>
+			<td>
+				<input type="text" class="widefat" value="<?php echo esc_attr( sprintf( '{%s}', $tag ) ); ?>" readonly="readonly" onfocus="this.select();" />
+				<p class="help" style="margin-bottom:0;"><?php echo esc_html( $config['description'] ); ?></p>
+			</td>
 		</tr>
 	<?php } ?>
 </table>
