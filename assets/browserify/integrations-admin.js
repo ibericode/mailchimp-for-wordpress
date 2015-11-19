@@ -5,6 +5,7 @@ var events = mc4wp.events;
 var notice = document.getElementById('notice-additional-fields');
 
 function checkRequiredListFields( ) {
+
 	var lists = settings.getSelectedLists();
 
 	var showNotice = false;
@@ -27,5 +28,8 @@ function checkRequiredListFields( ) {
 	notice.style.display = showNotice ? '' : 'none';
 }
 
-checkRequiredListFields();
-events.on('selectedLists.change', checkRequiredListFields );
+if( notice ) {
+	checkRequiredListFields();
+	events.on('selectedLists.change', checkRequiredListFields );
+}
+
