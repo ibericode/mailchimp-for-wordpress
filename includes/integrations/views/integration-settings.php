@@ -70,7 +70,10 @@
 						</tr>
 					<?php } ?>
 
-					<?php if( $integration->has_ui_element( 'lists' ) ) { ?>
+					<?php if( $integration->has_ui_element( 'lists' ) ) {
+						?>
+						<?php // hidden input to make sure a value is sent to the server when no checkboxes were selected ?>
+						<input type="hidden" name="mc4wp_integrations[<?php echo $integration->slug; ?>][lists][]" value="" />
 						<tr valign="top">
 							<th scope="row"><?php _e( 'MailChimp Lists', 'mailchimp-for-wp' ); ?></th>
 							<?php if( ! empty( $lists ) ) {

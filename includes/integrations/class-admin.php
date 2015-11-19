@@ -104,28 +104,44 @@ class MC4WP_Integration_Admin {
 	}
 
 	/**
-	 * @internal
 	 * @since 3.0
 	 * @param $slug
-	 * @param $current_settings
-	 * @param $new_settings
+	 * @param $current
+	 * @param $new
 	 *
 	 * @return array
 	 */
-	protected function parse_integration_settings( $slug, $current_settings, $new_settings ) {
+	protected function parse_integration_settings( $slug, $current, $new ) {
 		$settings = array();
 
 		// start with current settings
-		if( ! empty( $current_settings[ $slug ] ) ) {
-			$settings = $current_settings[ $slug ];
+		if( ! empty( $current[ $slug ] ) ) {
+			$settings = $current[ $slug ];
 		}
 
-		// then, merge with new settings
-		if( ! empty( $new_settings[ $slug ] ) ) {
-			// TODO sanitize new settings
-
-			$settings = array_merge( $settings, $new_settings[ $slug ] );
+		// if no new settings were given, return current settings.
+		if( empty( $new[ $slug ] ) ) {
+			return $settings;
 		}
+
+		// merge new settings with currents (to allow passing partial setting arrays)
+		$settings = array_merge( $settings, $new[ $slug] );
+
+		// sanitize settings
+		$settings = $this->sanitize_integration_settings( $settings );
+
+		return $settings;
+	}
+
+	/**
+	 * @param array $settings
+	 *
+	 * @return array
+	 */
+	protected function sanitize_integration_settings( $settings ) {
+
+		// if no lists are given, assume empty array
+		$settings['lists'] = array_filter( $settings['lists'] );
 
 		return $settings;
 	}
