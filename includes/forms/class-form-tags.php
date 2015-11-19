@@ -55,7 +55,7 @@ class MC4WP_Form_Tags {
 		$tags['data'] = array(
 			'description' => sprintf( __( "Data from the URL or a submitted form.", 'mailchimp-for-wp' ) ),
 			'callback'    => array( $this, 'get_data' ),
-			'example'     => 'data key=var default=\'Value..\''
+			'example'     => "data key='UTM_SOURCE' default='Default Source'"
 		);
 
 		$tags['subscriber_count'] = array(
@@ -79,29 +79,29 @@ class MC4WP_Form_Tags {
 		);
 
 		$tags['date']         = array(
-			'description' => sprintf( __( 'The current date, eg %s.', 'mailchimp-for-wp' ), date( 'Y/m/d' ) ),
+			'description' => sprintf( __( 'The current date. Example: %s.', 'mailchimp-for-wp' ), '<strong>' . date( 'Y/m/d' )  . '</strong>' ),
 			'replacement' => date( 'Y/m/d' )
 		);
 
 		$tags['time']         = array(
-			'description' => sprintf( __( 'The current time, eg %s.', 'mailchimp-for-wp' ), date( 'H:i:s' ) ),
+			'description' => sprintf( __( 'The current time. Example: %s.', 'mailchimp-for-wp' ),  '<strong>' . date( 'H:i:s' ) . '</strong>'),
 			'replacement' => date( 'H:i:s' )
 		);
 
 		$tags['language']     = array(
-			'description' => sprintf( __( 'The site\'s language, eg %s.', 'mailchimp-for-wp' ), get_locale() ),
+			'description' => sprintf( __( 'The site\'s language. Example: %s.', 'mailchimp-for-wp' ),  '<strong>' . get_locale() . '</strong>' ),
 			'callback'    => 'get_locale',
 		);
 
 		$tags['ip']           = array(
-			'description' => __( 'The visitor\'s IP address.', 'mailchimp-for-wp' ),
+			'description' => sprintf( __( 'The visitor\'s IP address. Example: %s.', 'mailchimp-for-wp' ), '<strong>' . MC4WP_Request::create_from_globals()->get_client_ip() . '</strong>' ),
 			'callback'    => array( MC4WP_Request::create_from_globals(), 'get_client_ip' )
 		);
 
 		$tags['user']      = array(
-			'description' => sprintf( __( "The given property of the currently logged-in user.", 'mailchimp-for-wp' ) ),
+			'description' => sprintf( __( "The property of the currently logged-in user.", 'mailchimp-for-wp' ) ),
 			'callback'    => array( $this, 'get_user_property' ),
-			'example'     => 'user property=user_email'
+			'example'     => "user property='user_email'"
 		);
 
 		return $tags;
@@ -216,7 +216,7 @@ class MC4WP_Form_Tags {
 		}
 
 		// then, try visitor tracking
-		return MC4WP_Visitor_Tracking::instance()->get_field( 'EMAIL', '' );
+		return mc4wp_get_instance('tracking')->get_field( 'EMAIL', '' );
 	}
 
 }
