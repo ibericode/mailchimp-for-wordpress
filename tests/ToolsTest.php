@@ -8,12 +8,12 @@ class ToolsTest extends PHPUnit_Framework_TestCase {
 
 
 	/**
-	 * @covers MC4WP_Tools::guess_merge_vars
+	 * @covers mc4wp_guess_merge_vars
 	 */
 	public function test_guess_merge_vars() {
 
 		// Test: Nothing given
-		$this->assertEquals( MC4WP_Tools::guess_merge_vars( array() ), array() );
+		$this->assertEquals( mc4wp_guess_merge_vars( array() ), array() );
 
 		// Test: NAME not given
 		$input = array(
@@ -21,7 +21,7 @@ class ToolsTest extends PHPUnit_Framework_TestCase {
 			'SOME_OTHER_FIELD' => 'Some other value'
 		);
 		$expected_output = $input;
-		$this->assertEquals( MC4WP_Tools::guess_merge_vars( $input ), $expected_output );
+		$this->assertEquals( mc4wp_guess_merge_vars( $input ), $expected_output );
 
 
 		// Test: NAME given, LNAME and FNAME expected
@@ -33,7 +33,7 @@ class ToolsTest extends PHPUnit_Framework_TestCase {
 			'FNAME' => 'Danny',
 			'LNAME' => 'van Kooten'
 		);
-		$this->assertEquals( MC4WP_Tools::guess_merge_vars( $input ), $expected_output );
+		$this->assertEquals( mc4wp_guess_merge_vars( $input ), $expected_output );
 
 		// Test: Name without spaces given
 		$input = array(
@@ -43,7 +43,7 @@ class ToolsTest extends PHPUnit_Framework_TestCase {
 			'NAME' => 'Danny',
 			'FNAME' => 'Danny',
 		);
-		$this->assertEquals( MC4WP_Tools::guess_merge_vars( $input ), $expected_output );
+		$this->assertEquals( mc4wp_guess_merge_vars( $input ), $expected_output );
 
 		// Test: NAME and FNAME given
 		$input = array(
@@ -51,7 +51,7 @@ class ToolsTest extends PHPUnit_Framework_TestCase {
 			'FNAME' => 'Danny',
 		);
 		$expected_output = $input;
-		$this->assertEquals( MC4WP_Tools::guess_merge_vars( $input ), $expected_output );
+		$this->assertEquals( mc4wp_guess_merge_vars( $input ), $expected_output );
 	}
 
 }
