@@ -292,13 +292,13 @@ class MC4WP_Form_Element {
 		}
 
 		// add class for CSS targeting in custom stylesheets
-		if( $form->settings['css'] ) {
+		if( ! empty( $form->settings['css'] ) ) {
 
-			if( strpos( $form->settings['css'], 'form-theme' ) === 0 ) {
+			if( strpos( $form->settings['css'], 'theme-' ) === 0 ) {
 				$classes[] = 'mc4wp-form-theme';
 			}
 
-			$classes[] = 'mc4wp-' . $form->settings['css'];
+			$classes[] = 'mc4wp-form-' . $form->settings['css'];
 		}
 
 		return implode( ' ', $classes );

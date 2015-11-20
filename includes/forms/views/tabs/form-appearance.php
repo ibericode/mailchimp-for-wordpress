@@ -3,13 +3,13 @@
 $theme = wp_get_theme();
 $css_options = array(
 	'0' => sprintf( __( 'Inherit from %s theme', 'mailchimp-for-wp' ), $theme->Name ),
-	'form-basic' => __( 'Basic', 'mailchimp-for-wp' ),
+	'basic' => __( 'Basic', 'mailchimp-for-wp' ),
 	__( 'Form Themes' ) => array(
-		'form-theme-light' => __( 'Light Theme', 'mailchimp-for-wp' ),
-		'form-theme-dark' => __( 'Dark Theme', 'mailchimp-for-wp' ),
-		'form-theme-red' => __( 'Red Theme', 'mailchimp-for-wp' ),
-		'form-theme-green' => __( 'Green Theme', 'mailchimp-for-wp' ),
-		'form-theme-blue' => __( 'Blue Theme', 'mailchimp-for-wp' ),
+		'theme-light' => __( 'Light Theme', 'mailchimp-for-wp' ),
+		'theme-dark' => __( 'Dark Theme', 'mailchimp-for-wp' ),
+		'theme-red' => __( 'Red Theme', 'mailchimp-for-wp' ),
+		'theme-green' => __( 'Green Theme', 'mailchimp-for-wp' ),
+		'theme-blue' => __( 'Blue Theme', 'mailchimp-for-wp' ),
 	)
 );
 

@@ -64,7 +64,7 @@ class MC4WP_Form_Asset_Manager {
 			'themes'
 		);
 		foreach( $stylesheets as $stylesheet ) {
-			wp_register_style( 'mc4wp-form-' . $stylesheet, MC4WP_PLUGIN_URL . 'assets/css/' . $stylesheet .$suffix . '.css', array(), MC4WP_VERSION );
+			wp_register_style( 'mc4wp-form-' . $stylesheet, MC4WP_PLUGIN_URL . 'assets/css/form-' . $stylesheet .$suffix . '.css', array(), MC4WP_VERSION );
 		}
 
 		/**
