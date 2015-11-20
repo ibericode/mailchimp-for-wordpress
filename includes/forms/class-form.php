@@ -196,22 +196,28 @@ class MC4WP_Form {
 
 
 	/**
+	 * @staticvar $defaults
 	 * @return array
 	 */
 	protected function load_settings() {
 
 		$form = $this;
+		static $defaults;
 
 		// get default settings
-		$settings = include MC4WP_PLUGIN_DIR . 'config/default-form-settings.php';
+		if( ! $defaults ) {
+			$defaults = include MC4WP_PLUGIN_DIR . 'config/default-form-settings.php';
+		}
 
+		// start with defaults
+		$settings = $defaults;
 
 		// get custom settings from meta
 		if( ! empty( $this->post_meta['_mc4wp_settings'] ) ) {
 			$meta = $this->post_meta['_mc4wp_settings'][0];
 			$meta = maybe_unserialize( $meta );
 
-			// merge with defaults
+			// merge with current settings (defaults)
 			$settings = array_merge( $settings, $meta );
 		}
 
@@ -229,6 +235,7 @@ class MC4WP_Form {
 	}
 
 	/**
+	 * @staticvar $default_messages
 	 * @return array
 	 */
 	protected function load_messages() {
@@ -236,7 +243,13 @@ class MC4WP_Form {
 		$form = $this;
 
 		// get default messages
-		$messages = include MC4WP_PLUGIN_DIR . 'config/default-form-messages.php';
+		static $default_messages;
+		if( ! $default_messages ) {
+			$default_messages = include MC4WP_PLUGIN_DIR . 'config/default-form-messages.php';
+		}
+
+		// start with default messages
+		$messages = $default_messages;
 
 		/**
 		 * Filters the form messages

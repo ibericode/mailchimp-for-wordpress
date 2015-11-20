@@ -49,7 +49,7 @@ class MC4WP_MailChimp {
 		}
 
 		// transient was empty, get lists from MailChimp
-		$api = mc4wp_get_api();
+		$api = mc4wp('api');
 		$lists_data = $api->get_lists();
 
 		// if we did not get an array, something failed.
@@ -137,7 +137,7 @@ class MC4WP_MailChimp {
 		}
 
 		// transient not valid, fetch from API
-		$api = mc4wp_get_api();
+		$api = mc4wp('api');
 		$lists = $api->get_lists();
 
 		$list_counts = array();

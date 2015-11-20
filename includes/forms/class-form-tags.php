@@ -216,7 +216,7 @@ class MC4WP_Form_Tags {
 		}
 
 		// then, try visitor tracking
-		return mc4wp_get_instance('tracking')->get_field( 'EMAIL', '' );
+		return mc4wp('tracking')->get_field( 'EMAIL', '' );
 	}
 
 }

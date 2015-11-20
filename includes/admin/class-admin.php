@@ -376,7 +376,7 @@ class MC4WP_Admin {
 	 */
 	public function show_generals_setting_page() {
 		$opts = mc4wp_get_options();
-		$connected = ( mc4wp_get_api()->is_connected() );
+		$connected = ( mc4wp('api')->is_connected() );
 		$lists = $this->mailchimp->get_lists();
 
 		require MC4WP_PLUGIN_DIR . 'includes/views/general-settings.php';

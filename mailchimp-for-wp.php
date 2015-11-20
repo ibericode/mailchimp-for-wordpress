@@ -39,6 +39,8 @@ defined( 'ABSPATH' ) or exit;
  */
 function __mc4wp_load_plugin() {
 
+	global $mc4wp;
+
 	// Don't run if MailChimp for WP Pro 2.x is activated
 	if( defined( 'MC4WP_VERSION' ) ) {
 		return false;
@@ -53,20 +55,24 @@ function __mc4wp_load_plugin() {
 	// load autoloader
 	require_once MC4WP_PLUGIN_DIR . 'vendor/autoload_52.php';
 
+	/**
+	 * @global MC4WP_Container $GLOBALS['mc4wp']
+	 * @name $mc4wp
+	 */
+	$mc4wp = mc4wp();
+	$mc4wp['api'] = 'mc4wp_get_api';
+
 	// forms
-	$forms = new MC4WP_Form_Manager();
-	$forms->add_hooks();
-	mc4wp_register_instance( 'forms', $forms );
+	$mc4wp['forms'] = new MC4WP_Form_Manager();
+	$mc4wp['forms']->add_hooks();
 
 	// integration core
-	$integrations = new MC4WP_Integration_Manager();
-	$integrations->add_hooks();
-	mc4wp_register_instance( 'integrations', $integrations );
+	$mc4wp['integrations'] = new MC4WP_Integration_Manager();
+	$mc4wp['integrations']->add_hooks();
 
 	// visitor tracking
-	$tracking = new MC4WP_Visitor_Tracking();
-	$tracking->add_hooks();
-	mc4wp_register_instance( 'tracking', $tracking );
+	$mc4wp['tracking'] = new MC4WP_Visitor_Tracking();
+	$mc4wp['tracking']->add_hooks();
 
 	// bootstrap custom integrations
 	require_once MC4WP_PLUGIN_DIR . 'integrations/bootstrap.php';
@@ -89,7 +95,7 @@ function __mc4wp_load_plugin() {
 		$forms_admin = new MC4WP_Forms_Admin( $messages, $mailchimp );
 		$forms_admin->add_hooks();
 
-		$integrations_admin = new MC4WP_Integration_Admin( $integrations, $messages, $mailchimp );
+		$integrations_admin = new MC4WP_Integration_Admin( $mc4wp['integrations'], $messages, $mailchimp );
 		$integrations_admin->add_hooks();
 	}
 

@@ -1,18 +1,49 @@
 <?php
 
 /**
+ * Get a service
+ *
+ * Example:
+ *
+ * $forms = mc4wp('forms");
+ *
+ * @param null $service (optional)
+ *
+ * @return MC4WP_Container
+ */
+function mc4wp( $service = null ) {
+	static $mc4wp;
+
+	if( ! $mc4wp ) {
+		$mc4wp = new MC4WP_Container();
+	}
+
+	if( $service ) {
+		return $mc4wp->get( $service );
+	}
+
+	return $mc4wp;
+}
+
+/**
  * Gets the MailChimp for WP options from the database
  * Uses default values to prevent undefined index notices.
  *
  * @since 1.0
  * @access public
- *
+ * @staticvar array $options
  * @return array
  */
 function mc4wp_get_options() {
-	$defaults = require MC4WP_PLUGIN_DIR . 'config/default-settings.php';
-	$options = (array) get_option( 'mc4wp', array() );
-	return array_merge( $defaults, $options );
+	static $options;
+
+	if( ! $options ) {
+		$defaults = require MC4WP_PLUGIN_DIR . 'config/default-settings.php';
+		$options = (array) get_option( 'mc4wp', array() );
+		$options = array_merge( $defaults, $options );
+	}
+
+	return $options;
 }
 
 
@@ -27,12 +58,6 @@ function mc4wp_get_options() {
  * @return MC4WP_API
  */
 function mc4wp_get_api() {
-	static $instance;
-
-	if( $instance instanceof MC4WP_API ) {
-		return $instance;
-	}
-
 	$opts = mc4wp_get_options();
 	$instance = new MC4WP_API( $opts['api_key'] );
 	return $instance;
@@ -88,30 +113,6 @@ function mc4wp_sanitize_deep( $value ) {
 	}
 
 	return $value;
-}
-
-/**
- * @ignore
- * @access private
- *
- * @param $name
- * @param $instance
- */
-function mc4wp_register_instance( $name, $instance ) {
-	return MC4WP_Service_Container::instance()->register( $name, $instance );
-}
-
-/**
- * @param $name
- *
- * @ignore
- * @access private
- *
- * @return mixed
- * @throws Exception
- */
-function mc4wp_get_instance( $name ) {
-	return MC4WP_Service_Container::instance()->get( $name );
 }
 
 /**

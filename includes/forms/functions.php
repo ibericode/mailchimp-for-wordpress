@@ -47,7 +47,7 @@ function mc4wp_get_forms( array $args = array() ) {
  * @return string
  */
 function mc4wp_show_form( $form_id, $config = array(), $echo = true ) {
-	return mc4wp_get_instance('forms')->output_form( $form_id, $config, $echo );
+	return mc4wp('forms')->output_form( $form_id, $config, $echo );
 }
 
 
@@ -109,5 +109,5 @@ function mc4wp_form_get_response_html( $form_id = 0 ) {
  * @return MC4WP_Form|null
  */
 function mc4wp_get_submitted_form() {
-	return mc4wp_get_instance('forms')->get_submitted_form();
+	return mc4wp('forms')->get_submitted_form();
 }

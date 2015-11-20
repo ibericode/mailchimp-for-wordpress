@@ -111,6 +111,8 @@ class MC4WP_Form_Manager {
 	}
 
 	/**
+	 * Gets the currently submitted form
+	 *
 	 * @return MC4WP_Form|null
 	 */
 	public function get_submitted_form() {
@@ -119,5 +121,14 @@ class MC4WP_Form_Manager {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Return all tags
+	 *
+	 * @return array
+	 */
+	public function get_tags() {
+		return $this->tags->get();
 	}
 }

@@ -41,7 +41,7 @@ abstract class MC4WP_Integration {
 	/**
 	 * @var array GET & POST data for the current request.
 	 */
-	protected $request_data;
+	protected $data;
 
 	/**
 	 * Constructor
@@ -52,7 +52,7 @@ abstract class MC4WP_Integration {
 	public function __construct( $slug, array $options ) {
 		$this->slug = $slug;
 		$this->options = $this->parse_options( $options );
-		$this->request_data = $_REQUEST;
+		$this->data = array_merge( $_POST, $_GET );
 
 		// if checkbox name is not set, set a good custom value
 		if( empty( $this->checkbox_name ) ) {
@@ -66,18 +66,13 @@ abstract class MC4WP_Integration {
 	 * @return array
 	 */
 	protected function get_default_options() {
-		$defaults = require MC4WP_PLUGIN_DIR . 'config/default-integration-options.php';
-		$integration_options = array_merge( $defaults, $this->options );
-		$slug = $this->slug;
+		static $defaults;
 
-		/**
-		 * Filters options for a specific integration
-		 *
-		 * The dynamic portion of the hook, `$slug`, refers to the slug of the ingration.
-		 *
-		 * @param array $integration_options
-		 */
-		return (array) apply_filters( 'mc4wp_' . $slug . '_integration_options', $integration_options );
+		if( ! $defaults ) {
+			$defaults = require MC4WP_PLUGIN_DIR . 'config/default-integration-options.php';
+		}
+
+		return $defaults;
 	}
 
 	/**
@@ -86,7 +81,18 @@ abstract class MC4WP_Integration {
 	 * @return array
 	 */
 	protected function parse_options( array $options ) {
-		return array_merge( $this->get_default_options(), $options );
+		$slug = $this->slug;
+
+		$options = array_merge( $this->get_default_options(), $options );
+
+		/**
+		 * Filters options for a specific integration
+		 *
+		 * The dynamic portion of the hook, `$slug`, refers to the slug of the ingration.
+		 *
+		 * @param array $integration_options
+		 */
+		return (array) apply_filters( 'mc4wp_' . $slug . '_integration_options', $options );
 	}
 
 	/**
@@ -321,7 +327,7 @@ abstract class MC4WP_Integration {
 		$integration = $this;
 		$slug = $this->slug;
 
-		$api = mc4wp_get_api();
+		$api = mc4wp('api');
 		$lists = $this->get_lists();
 		$result = false;
 

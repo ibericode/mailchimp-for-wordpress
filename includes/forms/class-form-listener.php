@@ -62,7 +62,7 @@ class MC4WP_Form_Listener {
 	 * @param MC4WP_Form $form
 	 */
 	public function process_subscribe_form( MC4WP_Form $form ) {
-		$api = mc4wp_get_api();
+		$api = $this->get_api();
 		$result = false;
 		$email_type = $form->get_email_type();
 
@@ -106,7 +106,7 @@ class MC4WP_Form_Listener {
 	 * @param MC4WP_Form $form
 	 */
 	public function process_unsubscribe_form( MC4WP_Form $form ) {
-		$api = mc4wp_get_api();
+		$api = $this->get_api();
 		$result = null;
 
 		foreach( $form->get_lists() as $list_id ) {
@@ -198,6 +198,13 @@ class MC4WP_Form_Listener {
 				exit;
 			}
 		}
+	}
+
+	/**
+	 * @return MC4WP_API
+	 */
+	protected function get_api() {
+		return mc4wp('api');
 	}
 
 }
