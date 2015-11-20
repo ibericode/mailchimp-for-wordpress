@@ -50,6 +50,8 @@ class MC4WP_Form_Asset_Manager {
 	 * Register the various JS files used by the plugin
 	 */
 	public function register_assets() {
+		global $wp_scripts;
+
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		// register client-side API script
@@ -57,6 +59,7 @@ class MC4WP_Form_Asset_Manager {
 
 		// register placeholder script, which will later be enqueued for IE only
 		wp_register_script( 'mc4wp-placeholders', MC4WP_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), MC4WP_VERSION, true );
+		$wp_scripts->add_data( 'mc4wp-placeholders', 'conditional', 'lte IE 9' );
 
 		// register stylesheets
 		$stylesheets = array(
