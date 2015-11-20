@@ -11,14 +11,14 @@ $posts = get_posts(
 );
 
 $css_map = array(
-	'default'       => 'form-basic',
+	'default'       => 'basic',
 	'custom'        => 'styles-builder',
-	'light'         => 'form-theme-light',
-	'dark'          => 'form-theme-dark',
-	'red'           => 'form-theme-red',
-	'green'         => 'form-theme-green',
-	'blue'          => 'form-theme-blue',
-	'custom-color'  => 'form-theme-custom-color'
+	'light'         => 'theme-light',
+	'dark'          => 'theme-dark',
+	'red'           => 'theme-red',
+	'green'         => 'theme-green',
+	'blue'          => 'theme-blue',
+	'custom-color'  => 'theme-custom-color'
 );
 
 $stylesheets = array();
@@ -44,8 +44,8 @@ foreach( $posts as $post ) {
 	// create stylesheets option
 	if( ! empty( $options['css'] ) ) {
 		$stylesheet = $options['css'];
-		if( strpos( $stylesheet, 'form-theme-' ) === 0 ) {
-			$stylesheet = 'form-themes';
+		if( strpos( $stylesheet, 'theme-' ) === 0 ) {
+			$stylesheet = 'themes';
 		}
 
 		if( ! in_array( $stylesheet, $stylesheets ) ) {
