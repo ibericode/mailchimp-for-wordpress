@@ -8,17 +8,12 @@ var FormWatcher = function(editor, settings, fields, events) {
 	// functions
 	function checkPresenceOfRequiredFields() {
 
-		var formContent = editor.getValue();
 		var requiredFields = fields.getAllWhere('required', true);
-
-		// let's go
-		formContent = formContent.toLowerCase();
 
 		// check presence for each required field
 		var missingFields = [];
 		requiredFields.forEach(function(field) {
-			var fieldSearch = 'name="' + field.name().toLowerCase();
-			if( formContent.indexOf( fieldSearch ) == -1 ) {
+			if( ! editor.containsField( field.name() ) ) {
 				missingFields.push(field);
 			}
 		});

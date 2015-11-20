@@ -38,6 +38,9 @@ var FieldHelper = function(m, tabs, editor, fields) {
 
 		// reset field form
 		setActiveField('');
+
+		// redraw
+		m.redraw();
 	}
 
 	/**
@@ -56,11 +59,14 @@ var FieldHelper = function(m, tabs, editor, fields) {
 				fields.getAll().map(function(field, index) {
 					return [
 						m("button", {
-							"class": "button",
+							"class": "button " + (field.required() ? 'is-required' : '' ) + " " + ( editor.containsField(field.name()) ? 'is-present' : '' ),
 							type   : 'button',
 							onclick: m.withAttr("value", setActiveField),
 							value  : index
-						}, field.title())
+						}, [
+							field.title(),
+							( field.required() ? m('span.red', ' *') : '' )
+						] )
 					];
 				})
 

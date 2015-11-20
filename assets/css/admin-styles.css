@@ -96,6 +96,12 @@
   #mc4wp-admin .muted,
   .mc4wp-admin .muted {
     color: #aaa; }
+  #mc4wp-admin .red,
+  .mc4wp-admin .red {
+    color: red; }
+  #mc4wp-admin .green,
+  .mc4wp-admin .green {
+    color: #32cd32; }
   #mc4wp-admin .mc4wp-notice,
   .mc4wp-admin .mc4wp-notice {
     padding: 6px 12px;
@@ -187,6 +193,9 @@
     #mc4wp-admin .available-fields button,
     .mc4wp-admin .available-fields button {
       margin: 0 6px 6px 0; }
+    #mc4wp-admin .available-fields .is-present,
+    .mc4wp-admin .available-fields .is-present {
+      opacity: 0.5; }
   #mc4wp-admin .page-title,
   .mc4wp-admin .page-title {
     background: url("../img/icon-large.png") no-repeat left center;

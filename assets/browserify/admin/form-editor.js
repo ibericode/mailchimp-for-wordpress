@@ -42,6 +42,13 @@ var FormEditor = function(element) {
 		return element.value;
 	};
 
+	r.containsField = function(fieldName){
+		var html = r.getValue();
+		var regex = new RegExp('name=["\']' + fieldName, 'i');
+		var match = html.match(regex);
+		return match && match.length > 0;
+	};
+
 	r.insert = function( html ) {
 		if( editor ) {
 			editor.replaceSelection( html );
