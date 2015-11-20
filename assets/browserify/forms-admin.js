@@ -1,6 +1,7 @@
 'use strict';
 
 // deps
+var m = window.mc4wp.deps.mithril;
 var events = mc4wp.events;
 var settings = mc4wp.settings;
 var tabs = mc4wp.tabs;
@@ -13,7 +14,7 @@ var fields = require('./admin/fields.js')(m, events);
 // vars
 var textareaElement = document.getElementById('mc4wp-form-content');
 var editor = window.formEditor = new FormEditor( textareaElement );
-var watcher = new FormWatcher( formEditor, settings, fields, events );
+var watcher = new FormWatcher( m, formEditor, settings, fields, events );
 var fieldHelper = new FieldHelper( m, tabs, formEditor, fields );
 
 // mount field helper on element

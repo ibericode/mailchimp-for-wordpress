@@ -13,6 +13,8 @@ var FormEditor = function(element) {
 
 	var r = {};
 	var editor;
+	var dom = document.createElement('div'), domDirty = false;
+	dom.innerHTML = element.value;
 
 	if( CodeMirror ) {
 		editor = CodeMirror.fromTextArea(element, {
@@ -34,6 +36,11 @@ var FormEditor = function(element) {
 		});
 	}
 
+	// set domDirty to true everytime the "change" event fires (a lot..)
+	element.addEventListener('change',function() {
+		domDirty = true;
+	});
+
 	r.getValue = function() {
 		if( editor ) {
 			return editor.getValue();
@@ -42,11 +49,18 @@ var FormEditor = function(element) {
 		return element.value;
 	};
 
+	r.query = function(query) {
+		
+		// update DOM if necessary
+		if( domDirty ) {
+			dom.innerHTML = r.getValue();
+		}
+
+		return dom.querySelectorAll(query);
+	};
+
 	r.containsField = function(fieldName){
-		var html = r.getValue();
-		var regex = new RegExp('name=["\']' + fieldName, 'i');
-		var match = html.match(regex);
-		return match && match.length > 0;
+		return r.query('[name^="'+ fieldName +'"]').length > 0;
 	};
 
 	r.insert = function( html ) {

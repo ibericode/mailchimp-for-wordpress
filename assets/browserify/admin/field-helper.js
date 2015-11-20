@@ -52,24 +52,31 @@ var FieldHelper = function(m, tabs, editor, fields) {
 	function view() {
 
 		// build DOM for fields choice
+		var availableFields = fields.getAll();
+
 		var fieldsChoice = m( "div.available-fields.small-margin", [
 			m("strong", "Choose a MailChimp field to add to the form"),
 
-			(fields.getAll().length) ?
+			(availableFields.length) ?
 
 				// render fields
-				fields.getAll().map(function(field, index) {
-					return [
-						m("button", {
-							"class": "button " + (field.required() ? 'is-required' : '' ) + " " + ( editor.containsField(field.name()) ? 'in-form' : 'not-in-form' ),
+				availableFields.map(function(field, index) {
+
+					var className = "button";
+					if( field.required() ) {
+						className += " is-required";
+					}
+
+					// todo: this might not be set yet at this point
+					className += " " + ( field.inFormContent() ? 'in-form' : 'not-in-form' );
+
+
+					return m("button", {
+							"class": className,
 							type   : 'button',
 							onclick: m.withAttr("value", setActiveField),
 							value  : index
-						}, [
-							field.title(),
-							( field.required() ? m('span.red', ' *') : '' )
-						] )
-					];
+						}, field.title() );
 				})
 
 				:

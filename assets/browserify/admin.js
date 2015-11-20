@@ -1,7 +1,7 @@
 'use strict';
 
 // dependencies
-var m = window.m = require('mithril');
+var m = require('mithril');
 var EventEmitter = require('wolfy87-eventemitter');
 
 // vars
