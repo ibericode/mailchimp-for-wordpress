@@ -31,8 +31,8 @@ class MC4WP_Form_Asset_Manager {
 	 * Init all form related functionality
 	 */
 	public function initialize() {
+		$this->register_assets();
 		$this->add_hooks();
-		$this->register_scripts();
 	}
 
 	/**
@@ -49,7 +49,7 @@ class MC4WP_Form_Asset_Manager {
 	/**
 	 * Register the various JS files used by the plugin
 	 */
-	public function register_scripts() {
+	public function register_assets() {
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		// register client-side API script
@@ -58,15 +58,24 @@ class MC4WP_Form_Asset_Manager {
 		// register placeholder script, which will later be enqueued for IE only
 		wp_register_script( 'mc4wp-placeholders', MC4WP_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), MC4WP_VERSION, true );
 
+		// register stylesheets
+		$stylesheets = array(
+			'basic',
+			'themes'
+		);
+		foreach( $stylesheets as $stylesheet ) {
+			wp_register_style( 'mc4wp-form-' . $stylesheet, MC4WP_PLUGIN_URL . 'assets/css/' . $stylesheet .$suffix . '.css', array(), MC4WP_VERSION );
+		}
+
 		/**
-		 * Runs right after JavaScript assets for forms have been registered.
+		 * Runs right after all assets (scripts & stylesheets) for forms have been registered
 		 *
 		 * @since 3.0
 		 *
 		 * @param string $suffix
 		 * @ignore
 		 */
-		do_action( 'mc4wp_register_form_scripts', $suffix );
+		do_action( 'mc4wp_register_form_assets', $suffix );
 	}
 
 	/**
@@ -79,29 +88,26 @@ class MC4WP_Form_Asset_Manager {
 		/**
 		 * Filters the stylesheets to be loaded
 		 *
-		 * This currently only accepts the following:
-		 *
-		 * - form-basic
-		 * - form-themes
+		 * Should be an array of stylesheet handles previously registered using `wp_register_style`.
+		 * Each value is prefixed with `mc4wp-form-` to get the handle.
 		 *
 		 * Return an empty array if you want to disable the loading of all stylesheets.
 		 *
 		 * @since 3.0
-		 * @param array $stylesheets Array of valid stylesheet handles (see above)
+		 * @param array $stylesheets Array of valid stylesheet handles
 		 */
 		$stylesheets = (array) apply_filters( 'mc4wp_form_stylesheets', $stylesheets );
 
-		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-
 		foreach( $stylesheets as $stylesheet ) {
-			$handle = 'mailchimp-for-wp-form-' . $stylesheet;
-			$src = 'assets/css/' . $stylesheet . $suffix . '.css';
-
-			// check if it exists, a 404 in WordPress is more expensive than simple filesystem check
-			if( file_exists( MC4WP_PLUGIN_DIR . $src ) ) {
-				wp_enqueue_style( $handle, MC4WP_PLUGIN_URL . $src, array(), MC4WP_VERSION );
-			}
+			$handle = 'mc4wp-form-' . $stylesheet;
+			// TODO: check if stylesheet handle is registered?
+			wp_enqueue_style( $handle );
 		}
+
+		/**
+		 * @ignore
+		 */
+		do_action( 'mc4wp_load_form_stylesheets', $stylesheets );
 
 		return true;
 	}

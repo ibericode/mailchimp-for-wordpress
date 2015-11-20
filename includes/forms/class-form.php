@@ -596,8 +596,8 @@ class MC4WP_Form {
 		}
 
 		// form themes live in the same stylesheet
-		if( strpos( $stylesheet, 'form-theme-' ) !== false ) {
-			$stylesheet = 'form-themes';
+		if( strpos( $stylesheet, 'theme-' ) !== false ) {
+			$stylesheet = 'themes';
 		}
 
 		return $stylesheet;
