@@ -394,10 +394,13 @@ class MC4WP_Form {
 			// validate actual (visible) fields
 			if( $valid ) {
 				$validator = new MC4WP_Validator( $this->data );
+
 				$validator->add_rule( 'EMAIL', 'email', 'invalid_email' );
+
 				foreach( $this->get_required_fields() as $field ) {
 					$validator->add_rule( $field, 'not_empty', 'required_field_missing' );
 				}
+
 				$valid = $validator->validate();
 			}
 		}
@@ -578,7 +581,29 @@ class MC4WP_Form {
 	 * @return array
 	 */
 	public function get_required_fields() {
-		return explode( ',', $this->settings['required_fields'] );
+		$form = $this;
+
+		// explode required fields (generated in JS) to an array (uppercased)
+		$required_fields_string = strtoupper( $this->settings['required_fields'] );
+		$required_fields = explode( ',', $required_fields_string );
+
+		// EMAIL is not a required field as it has its own validation rules
+		$required_fields = array_diff( $required_fields, array( 'EMAIL' ) );
+
+		/**
+		 * Filters the required fields for a form
+		 *
+		 * By default, this holds the following fields.
+		 *
+		 * - All fields which are required for the selected MailChimp lists
+		 * - All fields in the form with a `required` attribute.
+		 *
+		 * @param array $required_fields
+		 * @param MC4WP_Form
+		 */
+		$required_fields = (array) apply_filters( 'mc4wp_form_required_fields', $required_fields, $form );
+
+		return $required_fields;
 	}
 
 	/**

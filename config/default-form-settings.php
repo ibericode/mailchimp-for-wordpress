@@ -9,7 +9,7 @@ return array(
 	'lists' => array(),
 	'redirect' => '',
 	'replace_interests' => 1,
-	'required_fields' => 'EMAIL',
+	'required_fields' => '',
 	'send_email_copy' => 0,
 	'send_welcome' => 0,
 	'update_existing' => 0,
