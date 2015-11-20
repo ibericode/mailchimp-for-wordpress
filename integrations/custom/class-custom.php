@@ -46,8 +46,6 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 			'action' => 'booking_add'
 		);
 
-		$data = $_REQUEST;
-
 		foreach( $disable_triggers as $trigger => $trigger_value ) {
 			if( isset( $data[ $trigger ] ) ) {
 
@@ -62,16 +60,16 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 		}
 
 		// run!
-		return $this->process( $data );
+		return $this->process();
 	}
 
 	/**
-	 * @param $request_data
 	 *
 	 * @return bool|string
 	 */
-	public function process( $request_data ) {
+	public function process() {
 		$parser = new MC4WP_Request_Parser();
+
 		$data = $parser->combine( array( 'guessed', 'namespaced' ) );
 
 		// do nothing if no email was found

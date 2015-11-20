@@ -171,7 +171,7 @@ abstract class MC4WP_Integration {
 	 * @return bool
 	 */
 	public function checkbox_was_checked() {
-		return ( isset( $this->request_data[ $this->checkbox_name ] ) && $this->request_data[ $this->checkbox_name ] == 1 );
+		return ( isset( $this->data[ $this->checkbox_name ] ) && $this->data[ $this->checkbox_name ] == 1 );
 	}
 
 	/**
@@ -269,9 +269,9 @@ abstract class MC4WP_Integration {
 		$lists = $this->options['lists'];
 
 		// get lists from request, if set.
-		if( ! empty( $this->request_data['_mc4wp_lists'] ) ) {
+		if( ! empty( $this->data['_mc4wp_lists'] ) ) {
 
-			$lists = $this->request_data['_mc4wp_lists'];
+			$lists = $this->data['_mc4wp_lists'];
 			if( ! is_array( $lists ) ) {
 				$lists = explode( ',', $lists );
 			}
