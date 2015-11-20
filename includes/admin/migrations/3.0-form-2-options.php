@@ -48,7 +48,7 @@ foreach( $posts as $post ) {
 			$stylesheet = 'form-themes';
 		}
 
-		if( ! in_array( $stylesheets, $stylesheet ) ) {
+		if( ! in_array( $stylesheet, $stylesheets ) ) {
 			$stylesheets[] = $stylesheet;
 		}
 	}
