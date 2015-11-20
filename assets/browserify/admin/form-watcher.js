@@ -58,6 +58,7 @@ var FormWatcher = function(editor, settings, fields, events) {
 
 		// update meta
 		requiredFieldsInput.value = requiredFields.join(',');
+
 	}
 
 	// events

@@ -6,6 +6,8 @@ var FieldHelper = function(m, tabs, editor, fields) {
 	var forms = require('./field-forms.js')(m);
 	var fieldConfig;
 
+	editor.on('blur', m.redraw);
+
 	/**
 	 * Choose a field to open the helper form for
 	 *
@@ -59,7 +61,7 @@ var FieldHelper = function(m, tabs, editor, fields) {
 				fields.getAll().map(function(field, index) {
 					return [
 						m("button", {
-							"class": "button " + (field.required() ? 'is-required' : '' ) + " " + ( editor.containsField(field.name()) ? 'is-present' : '' ),
+							"class": "button " + (field.required() ? 'is-required' : '' ) + " " + ( editor.containsField(field.name()) ? 'in-form' : 'not-in-form' ),
 							type   : 'button',
 							onclick: m.withAttr("value", setActiveField),
 							value  : index
