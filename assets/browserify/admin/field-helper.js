@@ -67,9 +67,10 @@ var FieldHelper = function(m, tabs, editor, fields) {
 						className += " is-required";
 					}
 
-					// todo: this might not be set yet at this point
-					className += " " + ( field.inFormContent() ? 'in-form' : 'not-in-form' );
-
+					var inForm = field.inFormContent();
+					if( inForm !== null ) {
+						className += " " + ( inForm ? 'in-form' : 'not-in-form' );
+					}
 
 					return m("button", {
 							"class": className,

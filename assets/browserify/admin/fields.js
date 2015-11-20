@@ -22,7 +22,7 @@ module.exports = function(m, events) {
 		this.max = m.prop(data.max || null);
 		this.help = m.prop(data.help || '');
 		this.choices = m.prop(data.choices || []);
-		this.inFormContent = m.prop(false);
+		this.inFormContent = m.prop(null);
 
 		this.selectChoice = function(value) {
 			var field = this;

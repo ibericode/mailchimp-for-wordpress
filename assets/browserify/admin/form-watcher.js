@@ -87,7 +87,7 @@ var FormWatcher = function(m, editor, settings, fields, events) {
 	}
 
 	// events
-	editor.on('change', debounce(updateFields,1000));
+	editor.on('change', debounce(updateFields,334));
 	editor.on('blur', findRequiredFields );
 	events.on('fields.change', debounce(updateFields, 500));
 
