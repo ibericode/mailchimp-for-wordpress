@@ -21,6 +21,8 @@ $css_map = array(
 	'custom-color'  => 'form-theme-custom-color'
 );
 
+$stylesheets = array();
+
 foreach( $posts as $post ) {
 
 	// get form options from post meta directly
@@ -39,8 +41,23 @@ foreach( $posts as $post ) {
 		$options['css'] = $css_map[ $options['css'] ];
 	}
 
+	// create stylesheets option
+	if( ! empty( $options['css'] ) ) {
+		$stylesheet = $options['css'];
+		if( strpos( $stylesheet, 'form-theme-' ) === 0 ) {
+			$stylesheet = 'form-themes';
+		}
+
+		if( ! in_array( $stylesheets, $stylesheet ) ) {
+			$stylesheets[] = $stylesheet;
+		}
+	}
+
 	update_post_meta( $post->ID, '_mc4wp_settings', $options );
 }
+
+// update stylesheets option
+update_option( 'mc4wp_form_stylesheets', $stylesheets );
 
 // delete old options
 delete_option( 'mc4wp_form' );
