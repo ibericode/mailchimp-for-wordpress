@@ -50,10 +50,11 @@ var FormEditor = function(element) {
 	};
 
 	r.query = function(query) {
-		
+
 		// update DOM if necessary
 		if( domDirty ) {
 			dom.innerHTML = r.getValue();
+			domDirty = false;
 		}
 
 		return dom.querySelectorAll(query);
