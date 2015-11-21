@@ -1,3 +1,6 @@
+languages:
+  JavaScript: true
+  PHP: true
 exclude_paths:
 - assets/js/*
 - assets/css/*
