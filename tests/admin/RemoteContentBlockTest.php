@@ -24,7 +24,7 @@ class RemoteContentBlockTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testCacheKeyLength() {
 		$instance = new MC4WP_Remote_Content_Block_Mock( str_repeat( 'i', 200 ) );
-		$this->assertLessThan( 45, strlen( $instance->cache_key ) );
+		self::assertLessThan( 45, strlen( $instance->cache_key ) );
 	}
 
 }

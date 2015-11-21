@@ -36,7 +36,7 @@ class DynamicContentTagTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_constructor() {
 		$context = 'something';
-		$this->assertAttributeEquals( $context, 'context', new MC4WP_Dynamic_Content_Tags( $context ) );
+		self::assertAttributeEquals( $context, 'context', new MC4WP_Dynamic_Content_Tags( $context ) );
 	}
 
 	/**
@@ -49,7 +49,7 @@ class DynamicContentTagTest extends PHPUnit_Framework_TestCase {
 		$method->setAccessible(true);
 
 		$value = 'john@email.com';
-		$this->assertEquals( $method->invoke( $this->instance, $value ), urlencode( $value ) );
+		self::assertEquals( $method->invoke( $this->instance, $value ), urlencode( $value ) );
 	}
 
 	/**
@@ -65,7 +65,7 @@ class DynamicContentTagTest extends PHPUnit_Framework_TestCase {
 
 		// just test if "esc_html" is called
 		Functions::when('esc_html')->justReturn('called');
-		$this->assertEquals( $method->invoke( $this->instance, $value ), 'called' );
+		self::assertEquals( $method->invoke( $this->instance, $value ), 'called' );
 	}
 
 	/**
@@ -80,7 +80,7 @@ class DynamicContentTagTest extends PHPUnit_Framework_TestCase {
 
 		// just test if "esc_html" is called
 		Functions::when('esc_attr')->justReturn('called');
-		$this->assertEquals( $method->invoke( $this->instance, $value ), 'called' );
+		self::assertEquals( $method->invoke( $this->instance, $value ), 'called' );
 	}
 
 	/**
@@ -97,23 +97,23 @@ class DynamicContentTagTest extends PHPUnit_Framework_TestCase {
 
 		// default
 		$string = "String with {sample_tag} in it.";
-		$this->assertEquals( "String with sample replacement in it.", $instance->replace( $string ) );
+		self::assertEquals( "String with sample replacement in it.", $instance->replace( $string ) );
 
 		// with double-quoted attribute
 		$string = "String with {sample_tag attribute=\"value with space\"} in it.";
-		$this->assertEquals( "String with sample replacement in it.", $instance->replace( $string ) );
+		self::assertEquals( "String with sample replacement in it.", $instance->replace( $string ) );
 
 		// with unquoted attribute
 		$string = "String with {sample_tag attribute=value with spaces} in it.";
-		$this->assertEquals( "String with sample replacement in it.", $instance->replace( $string ) );
+		self::assertEquals( "String with sample replacement in it.", $instance->replace( $string ) );
 
 		// with single-quoted attribute
 		$string = "String with {sample_tag attribute='value with spaces'} in it.";
-		$this->assertEquals( "String with sample replacement in it.", $instance->replace( $string ) );
+		self::assertEquals( "String with sample replacement in it.", $instance->replace( $string ) );
 
 		// space after opening tag, do notihing
 		$string = "String with { sample_tag attribute=\"value\"} in it.";
-		$this->assertEquals( $string, $instance->replace( $string ) );
+		self::assertEquals( $string, $instance->replace( $string ) );
 	}
 
 	/**
@@ -136,15 +136,15 @@ class DynamicContentTagTest extends PHPUnit_Framework_TestCase {
 
 		// normal
 		$string = "String with {sample_tag} in it.";
-		$this->assertEquals( "String with sample replacement in it.", $instance->replace( $string ) );
+		self::assertEquals( "String with sample replacement in it.", $instance->replace( $string ) );
 
 		// attribute
 		$string = "String with {sample_tag attribute=value} in it.";
-		$this->assertEquals( "String with sample replacement in it.", $instance->replace( $string ) );
+		self::assertEquals( "String with sample replacement in it.", $instance->replace( $string ) );
 
 		// "default" attribute
 		$string = "String with {sample_tag return=value} in it.";
-		$this->assertEquals( "String with value in it.", $instance->replace( $string ) );
+		self::assertEquals( "String with value in it.", $instance->replace( $string ) );
 
 	}
 

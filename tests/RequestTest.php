@@ -14,10 +14,10 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 		$_POST = array( 'foo2' => 'bar2' );
 
 		$request = MC4WP_Request::create_from_globals();
-		$this->assertInstanceOf( 'MC4WP_Array_Bag', $request->params );
-		$this->assertInstanceOf( 'MC4WP_Array_Bag', $request->server );
-		$this->assertEquals( $request->params->get('foo'), $_GET['foo'] );
-		$this->assertEquals( $request->params->get('foo2'), $_POST['foo2'] );
+		self::assertInstanceOf( 'MC4WP_Array_Bag', $request->params );
+		self::assertInstanceOf( 'MC4WP_Array_Bag', $request->server );
+		self::assertEquals( $request->params->get('foo'), $_GET['foo'] );
+		self::assertEquals( $request->params->get('foo2'), $_POST['foo2'] );
 	}
 
 	/**
@@ -25,10 +25,10 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_is_ajax() {
 		$request = new MC4WP_Request( array() );
-		$this->assertFalse( $request->is_ajax());
+		self::assertFalse( $request->is_ajax());
 
 		define( 'DOING_AJAX', true );
-		$this->assertTrue( $request->is_ajax() );
+		self::assertTrue( $request->is_ajax() );
 	}
 
 	/**
@@ -37,8 +37,8 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 	public function test_is_method() {
 		$request = new MC4WP_Request( array(), array(), array( 'REQUEST_METHOD' => 'POST' ) );
 
-		$this->assertFalse( $request->is_method( 'GET' ) );
-		$this->assertTrue( $request->is_method( 'POST' ) );
+		self::assertFalse( $request->is_method( 'GET' ) );
+		self::assertTrue( $request->is_method( 'POST' ) );
 	}
 
 

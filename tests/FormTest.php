@@ -16,8 +16,8 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		$id = 12;
 		mock_get_post( array( 'ID' => $id ) );
 		$form = new MC4WP_Form( $id );
-		$this->assertEquals( $id, $form->ID );
-		$this->assertEquals( $id, $form->post->ID );
+		self::assertEquals( $id, $form->ID );
+		self::assertEquals( $id, $form->post->ID );
 	}
 
 	/**
@@ -31,8 +31,8 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		);
 
 		$form = new MC4WP_Form( 1 );
-		$this->assertTrue( $form->has_field_type( 'email' ) );
-		$this->assertFalse( $form->has_field_type( 'date' ) );
+		self::assertTrue( $form->has_field_type( 'email' ) );
+		self::assertFalse( $form->has_field_type( 'date' ) );
 
 
 		mock_get_post(
@@ -41,10 +41,10 @@ class FormTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 		$form = new MC4WP_Form( 1 );
-		$this->assertTrue( $form->has_field_type( 'email' ) );
-		$this->assertTrue( $form->has_field_type( 'date' ) );
-		$this->assertTrue( $form->has_field_type( 'url' ) );
-		$this->assertFalse( $form->has_field_type( 'number' ) );
+		self::assertTrue( $form->has_field_type( 'email' ) );
+		self::assertTrue( $form->has_field_type( 'date' ) );
+		self::assertTrue( $form->has_field_type( 'url' ) );
+		self::assertFalse( $form->has_field_type( 'number' ) );
 	}
 
 	/**
@@ -58,7 +58,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 		$form = new MC4WP_Form(15);
-		$this->assertEquals( $form->get_field_types(), $types );
+		self::assertEquals( $form->get_field_types(), $types );
 
 		mock_get_post(
 			array(
@@ -66,7 +66,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 		$form = new MC4WP_Form(1);
-		$this->assertEmpty( $form->get_field_types() );
+		self::assertEmpty( $form->get_field_types() );
 	}
 
 	/**
@@ -74,17 +74,17 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_is_valid() {
 		$form = new MC4WP_Form(1);
-		$this->assertTrue( $form->is_valid() );
+		self::assertTrue( $form->is_valid() );
 
 		// empty data should not validate
 		$request = new MC4WP_Request();
 		$form = new MC4WP_Form(1);
 		$form->handle_request( $request );
 		$valid = $form->is_valid();
-		$this->assertFalse( $valid );
+		self::assertFalse( $valid );
 
 		// errors array should have been filled
-		$this->assertNotEmpty( $form->errors );
+		self::assertNotEmpty( $form->errors );
 
 //		// with lists and mocked nonce, form should be valid
 		// @todo fix this test
@@ -98,7 +98,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 //		$request = new MC4WP_Request( array(), $valid_data );
 //		$form = new MC4WP_Form(1);
 //		$form->handle_request( $request );
-//		$this->assertTrue( $form->is_valid() );
+//		self::assertTrue( $form->is_valid() );
 
 		// todo: required fields
 	}
@@ -109,10 +109,10 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	public function test_has_errors() {
 		$form = new MC4WP_Form(1);
 		$form->errors = array( 'required_field_missing' );
-		$this->assertTrue( $form->has_errors() );
+		self::assertTrue( $form->has_errors() );
 
 		$form->errors = array();
-		$this->assertFalse( $form->has_errors() );
+		self::assertFalse( $form->has_errors() );
 	}
 
 	/**
@@ -127,11 +127,11 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		$form->handle_request( $request );
 
 		// form should show as submitted
-		$this->assertTrue( $form->is_submitted );
+		self::assertTrue( $form->is_submitted );
 
 		// data should have been filled
-		$this->assertNotEmpty( $form->data );
-		$this->assertEquals( $form->data, $data );
+		self::assertNotEmpty( $form->data );
+		self::assertEquals( $form->data, $data );
 
 
 		// data should have been uppercased
@@ -142,7 +142,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		$data_uppercased = array_change_key_case( $data, CASE_UPPER );
 		$request = new MC4WP_Request( array(), $data );
 		$form->handle_request( $request );
-		$this->assertEquals( $form->data, $data_uppercased );
+		self::assertEquals( $form->data, $data_uppercased );
 	}
 
 

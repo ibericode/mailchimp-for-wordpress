@@ -11,9 +11,9 @@ class ListTest extends PHPUnit_Framework_TestCase {
 		$web_id = '500';
 		$list = new MC4WP_MailChimp_List( $id, $name, $web_id );
 
-		$this->assertAttributeEquals( $id, 'id', $list );
-		$this->assertAttributeEquals( $web_id, 'web_id', $list );
-		$this->assertAttributeEquals( $name, 'name', $list );
+		self::assertAttributeEquals( $id, 'id', $list );
+		self::assertAttributeEquals( $web_id, 'web_id', $list );
+		self::assertAttributeEquals( $name, 'name', $list );
 	}
 
 	/**
@@ -25,15 +25,15 @@ class ListTest extends PHPUnit_Framework_TestCase {
 		$web_id = '500';
 		$list = new MC4WP_MailChimp_List( $id, $name, $web_id );
 
-		$this->assertEmpty( $list->get_field_name_by_tag( 'tag' ) );
+		self::assertEmpty( $list->get_field_name_by_tag( 'tag' ) );
 
 		// we should always know email field name
-		$this->assertStringStartsWith( 'Email', $list->get_field_name_by_tag( 'email' ) );
+		self::assertStringStartsWith( 'Email', $list->get_field_name_by_tag( 'email' ) );
 
 		$field_name = 'Field Name';
 		$field_tag = 'tag';
 		$list->merge_vars[] = new MC4WP_MailChimp_Merge_Var( $field_name, 'email', $field_tag );
-		$this->assertEquals( $list->get_field_name_by_tag( $field_tag ), $field_name );
+		self::assertEquals( $list->get_field_name_by_tag( $field_tag ), $field_name );
 	}
 
 	/**
@@ -45,11 +45,11 @@ class ListTest extends PHPUnit_Framework_TestCase {
 		$web_id = '500';
 		$list = new MC4WP_MailChimp_List( $id, $name, $web_id );
 
-		$this->assertNull( $list->get_grouping( 'grouping-id' ) );
+		self::assertNull( $list->get_grouping( 'grouping-id' ) );
 
 		$grouping = new MC4WP_MailChimp_Grouping( 'sample-id', 'Grouping Name', 'dropdown' );
 		$list->groupings[]  = $grouping;
-		$this->assertEquals( $list->get_grouping( $grouping->id ), $grouping );
+		self::assertEquals( $list->get_grouping( $grouping->id ), $grouping );
 
 	}
 
@@ -62,11 +62,11 @@ class ListTest extends PHPUnit_Framework_TestCase {
 		$web_id = '500';
 		$list = new MC4WP_MailChimp_List( $id, $name, $web_id );
 
-		$this->assertEmpty( $list->get_grouping_name( 'sample-id' ) );
+		self::assertEmpty( $list->get_grouping_name( 'sample-id' ) );
 
 		$grouping_name = 'Grouping Name';
 		$list->groupings[]  = new MC4WP_MailChimp_Grouping( 'sample-id', $grouping_name, 'dropdown' );
-		$this->assertEquals( $list->get_grouping_name( 'sample-id' ), $grouping_name );
+		self::assertEquals( $list->get_grouping_name( 'sample-id' ), $grouping_name );
 	}
 
 }

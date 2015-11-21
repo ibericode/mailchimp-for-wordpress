@@ -15,7 +15,7 @@ class ArrayBagTest extends PHPUnit_Framework_TestCase {
 		);
 
 		$array_bag = new MC4WP_Array_Bag( $array );
-		$this->assertEquals( $array_bag->keys(), array_keys( $array ) );
+		self::assertEquals( $array_bag->keys(), array_keys( $array ) );
 	}
 
 	/**
@@ -27,7 +27,7 @@ class ArrayBagTest extends PHPUnit_Framework_TestCase {
 			'key2' => 'bar'
 		);
 		$array_bag = new MC4WP_Array_Bag( $array );
-		$this->assertEquals( $array_bag->all(), $array );
+		self::assertEquals( $array_bag->all(), $array );
 	}
 
 	/**
@@ -45,9 +45,9 @@ class ArrayBagTest extends PHPUnit_Framework_TestCase {
 		);
 
 		$array_bag = new MC4WP_Array_Bag( $array );
-		$this->assertEquals( $array_bag->all_with_prefix('prefixed_'), $result );
+		self::assertEquals( $array_bag->all_with_prefix('prefixed_'), $result );
 
-		$this->assertEmpty( $array_bag->all_with_prefix( '_nothing' ) );
+		self::assertEmpty( $array_bag->all_with_prefix( '_nothing' ) );
 
 	}
 
@@ -64,7 +64,7 @@ class ArrayBagTest extends PHPUnit_Framework_TestCase {
 			'key3' => 'foobar'
 		);
 		$array_bag = new MC4WP_Array_Bag( $array );
-		$this->assertEquals( $array_bag->all_without_prefix('prefixed_'), $result );
+		self::assertEquals( $array_bag->all_without_prefix('prefixed_'), $result );
 	}
 
 	

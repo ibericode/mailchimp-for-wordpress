@@ -12,9 +12,9 @@ class GroupingTest extends PHPUnit_Framework_TestCase {
 		$id = 'my-grouping-id';
 
 		$instance = new MC4WP_MailChimp_Grouping( $id, $name, $field_type );
-		$this->assertAttributeEquals( $name, 'name', $instance );
-		$this->assertAttributeEquals( $field_type, 'field_type', $instance );
-		$this->assertAttributeEquals( $id, 'id', $instance );
+		self::assertAttributeEquals( $name, 'name', $instance );
+		self::assertAttributeEquals( $field_type, 'field_type', $instance );
+		self::assertAttributeEquals( $id, 'id', $instance );
 	}
 
 }
