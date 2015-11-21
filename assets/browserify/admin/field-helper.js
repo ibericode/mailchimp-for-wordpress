@@ -101,7 +101,8 @@ var FieldHelper = function(m, tabs, editor, fields) {
 					//heading
 					m("h3", [
 						fieldConfig.title(),
-						(fieldConfig.name().length) ? m("code", fieldConfig.name()) : ''
+						fieldConfig.required() ? m('span.red', '*' ) : '',
+						fieldConfig.name().length ? m("code", fieldConfig.name()) : ''
 					]),
 
 					// help text
