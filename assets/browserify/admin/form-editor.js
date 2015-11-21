@@ -13,8 +13,9 @@ var FormEditor = function(element) {
 
 	var r = {};
 	var editor;
-	var dom = document.createElement('div'), domDirty = false;
-	dom.innerHTML = element.value;
+	var _dom = document.createElement('form'), domDirty = false;
+	_dom.setAttribute('novalidate',true);
+	_dom.innerHTML = element.value;
 
 	if( CodeMirror ) {
 		editor = CodeMirror.fromTextArea(element, {
@@ -41,6 +42,15 @@ var FormEditor = function(element) {
 		domDirty = true;
 	});
 
+	function dom() {
+		if( domDirty ) {
+			_dom.innerHTML = r.getValue();
+			domDirty = false;
+		}
+
+		return _dom;
+	}
+
 	r.getValue = function() {
 		if( editor ) {
 			return editor.getValue();
@@ -50,14 +60,7 @@ var FormEditor = function(element) {
 	};
 
 	r.query = function(query) {
-
-		// update DOM if necessary
-		if( domDirty ) {
-			dom.innerHTML = r.getValue();
-			domDirty = false;
-		}
-
-		return dom.querySelectorAll(query);
+		return dom().querySelectorAll(query);
 	};
 
 	r.containsField = function(fieldName){
