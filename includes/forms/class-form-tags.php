@@ -94,8 +94,8 @@ class MC4WP_Form_Tags {
 		);
 
 		$tags['ip']           = array(
-			'description' => sprintf( __( 'The visitor\'s IP address. Example: %s.', 'mailchimp-for-wp' ), '<strong>' . MC4WP_Request::create_from_globals()->get_client_ip() . '</strong>' ),
-			'callback'    => array( MC4WP_Request::create_from_globals(), 'get_client_ip' )
+			'description' => sprintf( __( 'The visitor\'s IP address. Example: %s.', 'mailchimp-for-wp' ), '<strong>' . mc4wp('request')->get_client_ip() . '</strong>' ),
+			'callback'    => array( mc4wp('request'), 'get_client_ip' )
 		);
 
 		$tags['user']      = array(
@@ -178,10 +178,16 @@ class MC4WP_Form_Tags {
 		}
 
 		$default = isset( $args['default'] ) ? $args['default'] : '';
-		return esc_html( MC4WP_Request::create_from_globals()->request->get( $args['key'], $default ) );
+
+		/**
+		 * @var MC4WP_Request $request
+		 */
+		$request = mc4wp('request');
+		return esc_html( $request->params->get( $args['key'], $default ) );
 	}
 
 	/*
+	 * Get property of currently logged-in user
 	 *
 	 * @param array $args
 	 *
@@ -204,7 +210,8 @@ class MC4WP_Form_Tags {
 	public function get_email() {
 
 		// first, try request
-		$email = MC4WP_Request::create_from_globals()->params->get( 'EMAIL', '' );
+		$request = mc4wp('request');
+		$email = $request->params->get( 'EMAIL', '' );
 		if( $email ) {
 			return $email;
 		}

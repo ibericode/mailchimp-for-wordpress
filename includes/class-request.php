@@ -36,18 +36,12 @@ class MC4WP_Request {
 	 * @return MC4WP_Request
 	 */
 	public static function create_from_globals() {
-		static $instance;
-
-		if( ! $instance instanceof self ) {
-			$get = mc4wp_sanitize_deep( $_GET );
-			$get = stripslashes_deep( $get );
-			$post = mc4wp_sanitize_deep( $_POST );
-			$post = stripslashes_deep( $post );
-			$server = mc4wp_sanitize_deep( $_SERVER );
-			$instance = new self( $get, $post, $server );
-		}
-
-		return $instance;
+		$get = mc4wp_sanitize_deep( $_GET );
+		$get = stripslashes_deep( $get );
+		$post = mc4wp_sanitize_deep( $_POST );
+		$post = stripslashes_deep( $post );
+		$server = mc4wp_sanitize_deep( $_SERVER );
+		return new self( $get, $post, $server );
 	}
 
 	/**

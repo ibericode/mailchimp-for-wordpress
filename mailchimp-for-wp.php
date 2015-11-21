@@ -61,6 +61,7 @@ function __mc4wp_load_plugin() {
 	 */
 	$mc4wp = mc4wp();
 	$mc4wp['api'] = 'mc4wp_get_api';
+	$mc4wp['request'] = array( 'MC4WP_Request', 'create_from_globals' );
 
 	// forms
 	$mc4wp['forms'] = new MC4WP_Form_Manager();

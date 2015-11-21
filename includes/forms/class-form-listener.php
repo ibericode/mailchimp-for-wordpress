@@ -31,7 +31,7 @@ class MC4WP_Form_Listener {
 			return false;
 		}
 
-		$request = MC4WP_Request::create_from_globals();
+		$request = mc4wp('request');
 
 		try {
 			$form = mc4wp_get_form( $request->params->get( '_mc4wp_form_id' ) );

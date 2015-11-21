@@ -142,7 +142,7 @@ function mc4wp_guess_merge_vars( $merge_vars = array() ) {
 
 	// set ip address
 	if( empty( $merge_vars['OPTIN_IP'] ) ) {
-		$optin_ip = MC4WP_Request::create_from_globals()->get_client_ip();
+		$optin_ip = mc4wp('request')->get_client_ip();
 
 		if( ! empty( $optin_ip ) ) {
 			$merge_vars['OPTIN_IP'] = $optin_ip;

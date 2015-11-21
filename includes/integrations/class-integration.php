@@ -435,13 +435,7 @@ abstract class MC4WP_Integration {
 	 * @return array
 	 */
 	public function get_data() {
-		static $data;
-
-		if( ! $data ) {
-			$request = MC4WP_Request::create_from_globals();
-			$data = $request->params->all();
-		}
-
-		return $data;
+		$request = mc4wp('request');
+		return $request->params->all();
 	}
 }

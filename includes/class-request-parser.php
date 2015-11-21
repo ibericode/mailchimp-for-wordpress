@@ -19,7 +19,7 @@ class MC4WP_Request_Parser {
 	public function __construct( $request = null ) {
 
 		if( ! $request instanceof MC4WP_Request ) {
-			$request = MC4WP_Request::create_from_globals();
+			$request = mc4wp('request');
 		}
 
 		$this->request = $request;
