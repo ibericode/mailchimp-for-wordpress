@@ -40,6 +40,6 @@ class RequestTest extends PHPUnit_Framework_TestCase {
 		self::assertFalse( $request->is_method( 'GET' ) );
 		self::assertTrue( $request->is_method( 'POST' ) );
 	}
-
+	
 
 }
