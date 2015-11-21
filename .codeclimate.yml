@@ -7,3 +7,6 @@ exclude_paths:
 - vendor/*
 - languages/*
 - tests/*
+- assets/*/third-party/*
+- includes/views/*
+- includes/*/views/*

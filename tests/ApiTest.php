@@ -58,8 +58,6 @@ class ApiTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * Tests if API url is correctly set from given API key
-	 *
-	 * @covers MC4WP_Api::$api_url
 	 */
 	public function test_api_url() {
 		$instance = new MC4WP_API( 'aaaaaaaaaaaaaaaaaaaa-us1');

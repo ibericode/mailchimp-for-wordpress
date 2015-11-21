@@ -8,7 +8,7 @@ class ToolsTest extends PHPUnit_Framework_TestCase {
 
 
 	/**
-	 * @covers mc4wp_guess_merge_vars
+	 *
 	 */
 	public function test_guess_merge_vars() {
 
