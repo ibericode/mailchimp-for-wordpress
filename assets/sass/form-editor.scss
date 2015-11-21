@@ -1,3 +1,15 @@
+@import "variables";
+
+/* Codemirror */
+.CodeMirror {
+	border: 1px solid $divider_color;
+	padding: 10px;
+	min-height: 500px;
+}
+.CodeMirror-empty{
+	color: #999;
+}
+
 .field-wizard {
 
 	h3{

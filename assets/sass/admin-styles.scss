@@ -1,5 +1,4 @@
-/* settings pages */
-$divider_color: #ccc;
+@import "variables";
 
 #mc4wp-admin,
 .mc4wp-admin {
@@ -7,7 +6,7 @@ $divider_color: #ccc;
 	@import "admin-grid";
 	@import "admin-utilities";
 	@import "admin-tabs";
-	@import "field-wizard";
+	@import "form-editor";
 
 	/* Add logo to page title */
 	.page-title {
@@ -28,15 +27,6 @@ $divider_color: #ccc;
 
 	.form-table td p{
 		margin-top: 1em;
-	}
-
-	/* Codemirror */
-	.CodeMirror {
-		border: 1px solid $divider_color;
-		padding: 10px;
-	}
-	.CodeMirror-empty{
-		color: #999;
 	}
 
 	.sidebar {

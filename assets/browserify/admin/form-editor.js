@@ -77,7 +77,6 @@ var FormEditor = function(element) {
 	};
 
 	r.on = function(event,callback) {
-
 		if( editor ) {
 
 			// translate "input" event for CodeMirror

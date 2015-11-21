@@ -4,9 +4,10 @@
   /* Grid */
   /** Whitespace control */
   /* Tabs */
+  /* settings pages */
+  /* Codemirror */
   /* Add logo to page title */
-  /** Core Customizations */
-  /* Codemirror */ }
+  /** Core Customizations */ }
   #mc4wp-admin .row,
   .mc4wp-admin .row {
     margin: 20px -20px; }
@@ -133,6 +134,14 @@
   #mc4wp-admin .tab h2,
   .mc4wp-admin .tab h2 {
     margin-top: 20px; }
+  #mc4wp-admin .CodeMirror,
+  .mc4wp-admin .CodeMirror {
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 500px; }
+  #mc4wp-admin .CodeMirror-empty,
+  .mc4wp-admin .CodeMirror-empty {
+    color: #999; }
   #mc4wp-admin .field-wizard,
   .mc4wp-admin .field-wizard {
     /* table */
@@ -223,13 +232,6 @@
   #mc4wp-admin .form-table td p,
   .mc4wp-admin .form-table td p {
     margin-top: 1em; }
-  #mc4wp-admin .CodeMirror,
-  .mc4wp-admin .CodeMirror {
-    border: 1px solid #ccc;
-    padding: 10px; }
-  #mc4wp-admin .CodeMirror-empty,
-  .mc4wp-admin .CodeMirror-empty {
-    color: #999; }
   #mc4wp-admin .sidebar,
   .mc4wp-admin .sidebar {
     border-left: 1px solid #ccc; }
