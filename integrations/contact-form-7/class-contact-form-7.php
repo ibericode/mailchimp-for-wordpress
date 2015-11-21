@@ -25,7 +25,7 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 	 */
 	public function add_hooks() {
 		add_action( 'wpcf7_init', array( $this, 'init') );
-		add_action( 'wpcf7_mail_sent', array( $this, 'subscribe_from_cf7' ) );
+		add_action( 'wpcf7_mail_sent', array( $this, 'process' ) );
 		add_action( 'wpcf7_posted_data', array( $this, 'alter_cf7_data') );
 	}
 
@@ -60,14 +60,14 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 	 * @param WPCF7_ContactForm $cf7_form
 	 * @return bool
 	 */
-	public function subscribe_from_cf7( $cf7_form ) {
+	public function process( $cf7_form ) {
 
 		// was sign-up checkbox checked?
 		if ( ! $this->checkbox_was_checked() ) {
 			return false;
 		}
 
-		$parser = new MC4WP_Request_Parser();
+		$parser = new MC4WP_Field_Guesser( $this->get_data() );
 		$data = $parser->combine( array( 'guessed', 'namespaced' ) );
 
 		// do nothing if no email was found

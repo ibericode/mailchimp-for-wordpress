@@ -1,35 +1,24 @@
 <?php
 
 /**
- * Class MC4WP_Request_Parser
+ * Class MC4WP_Field_Guesser
  *
  * @access private
  * @ignore
  */
-class MC4WP_Request_Parser {
+class MC4WP_Field_Guesser {
 
 	/**
-	 * @var MC4WP_Request $request
+	 * @var MC4WP_Array_Bag
 	 */
-	protected $request;
+	protected $fields;
 
 	/**
-	 * @param MC4WP_Request|null $request
+	 * @param array $fields
 	 */
-	public function __construct( $request = null ) {
-
-		if( ! $request instanceof MC4WP_Request ) {
-			$request = mc4wp('request');
-		}
-
-		$this->request = $request;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function all() {
-		return $this->request->params->all();
+	public function __construct( array $fields ) {
+		$fields = array_change_key_case( $fields, CASE_UPPER );
+		$this->fields = new MC4WP_Array_Bag( $fields );
 	}
 
 	/**
@@ -40,8 +29,8 @@ class MC4WP_Request_Parser {
 	 * @return array
 	 */
 	public function namespaced( $namespace = 'mc4wp-' ) {
-		// TODO: Find an easy way to make prefix case insensitive?
-		return $this->request->params->all_with_prefix( $namespace );
+		$namespace = strtoupper( $namespace );
+		return $this->fields->all_with_prefix( $namespace );
 	}
 
 	/**
@@ -56,8 +45,8 @@ class MC4WP_Request_Parser {
 	public function guessed() {
 		$guessed = array();
 
-		$fields = $this->request->params->all();
-		$fields = array_change_key_case( $fields, CASE_UPPER );
+		$fields = $this->fields->all();
+		var_dump( $fields ); die();
 
 		foreach( $fields as $field => $value ) {
 

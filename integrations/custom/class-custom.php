@@ -64,12 +64,12 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 	}
 
 	/**
+	 * Process custom form
 	 *
 	 * @return bool|string
 	 */
 	public function process() {
-		$parser = new MC4WP_Request_Parser();
-
+		$parser = new MC4WP_Field_Guesser( $this->get_data() );
 		$data = $parser->combine( array( 'guessed', 'namespaced' ) );
 
 		// do nothing if no email was found
