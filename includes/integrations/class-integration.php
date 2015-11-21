@@ -39,11 +39,6 @@ abstract class MC4WP_Integration {
 	protected $checkbox_name = '';
 
 	/**
-	 * @var array GET & POST data for the current request.
-	 */
-	protected $data;
-
-	/**
 	 * Constructor
 	 *
 	 * @param string $slug
@@ -52,7 +47,6 @@ abstract class MC4WP_Integration {
 	public function __construct( $slug, array $options ) {
 		$this->slug = $slug;
 		$this->options = $this->parse_options( $options );
-		$this->data = array_merge( $_POST, $_GET );
 
 		// if checkbox name is not set, set a good custom value
 		if( empty( $this->checkbox_name ) ) {
@@ -63,6 +57,7 @@ abstract class MC4WP_Integration {
 	/**
 	 * Return array of default options
 	 *
+	 * @staticvar $defaults
 	 * @return array
 	 */
 	protected function get_default_options() {
@@ -171,7 +166,8 @@ abstract class MC4WP_Integration {
 	 * @return bool
 	 */
 	public function checkbox_was_checked() {
-		return ( isset( $this->data[ $this->checkbox_name ] ) && $this->data[ $this->checkbox_name ] == 1 );
+		$data = $this->get_data();
+		return ( isset( $data[ $this->checkbox_name ] ) && $data[ $this->checkbox_name ] == 1 );
 	}
 
 	/**
@@ -262,6 +258,7 @@ abstract class MC4WP_Integration {
 	 */
 	public function get_lists() {
 
+		$data = $this->get_data();
 		$integration = $this;
 		$slug = $this->slug;
 
@@ -269,14 +266,15 @@ abstract class MC4WP_Integration {
 		$lists = $this->options['lists'];
 
 		// get lists from request, if set.
-		if( ! empty( $this->data['_mc4wp_lists'] ) ) {
+		if( ! empty( $data['_mc4wp_lists'] ) ) {
 
-			$lists = $this->data['_mc4wp_lists'];
+			$lists = $data['_mc4wp_lists'];
+
+			// ensure lists is an array
 			if( ! is_array( $lists ) ) {
 				$lists = explode( ',', $lists );
+				$lists = array_map( 'trim', $lists );
 			}
-
-			$lists = array_map( 'sanitize_text_field', $lists );
 		}
 
 		// allow plugins to filter final lists value
@@ -284,6 +282,7 @@ abstract class MC4WP_Integration {
 		/**
 		 * This filter is documented elsewhere.
 		 *
+		 * @since 2.0
 		 * @see MC4WP_Form::get_lists
 		 * @ignore
 		 */
@@ -327,6 +326,9 @@ abstract class MC4WP_Integration {
 		$integration = $this;
 		$slug = $this->slug;
 
+		/**
+		 * @var MC4WP_API $api
+		 */
 		$api = mc4wp('api');
 		$lists = $this->get_lists();
 		$result = false;
@@ -358,7 +360,7 @@ abstract class MC4WP_Integration {
 		}
 
 		// if result failed, show error message (only to admins for non-AJAX)
-		if ( $result !== true && $api->has_error() ) {
+		if ( ! $result && $api->has_error() ) {
 			error_log( sprintf( 'MailChimp for WordPres (%s): %s', $this->slug, $api->get_error_message() ) );
 			return false;
 		}
@@ -415,5 +417,31 @@ abstract class MC4WP_Integration {
 	 */
 	public function get_object_link( $object_id ) {
 		return '';
+	}
+
+	/**
+	 * Get the data for this integration request
+	 *
+	 * By default, this will return a combination of all $_GET and $_POST parameters.
+	 * Override this method if you need data from somewhere else.
+	 *
+	 * This data should contain the value of the checkbox (required)
+	 * and the lists to which should be subscribed (optional)
+	 *
+	 * @see MC4WP_Integration::$checkbox_name
+	 * @see MC4WP_Integration::get_lists
+	 * @see MC4WP_Integration::checkbox_was_checked
+	 *
+	 * @return array
+	 */
+	public function get_data() {
+		static $data;
+
+		if( ! $data ) {
+			$request = MC4WP_Request::create_from_globals();
+			$data = $request->params->all();
+		}
+
+		return $data;
 	}
 }

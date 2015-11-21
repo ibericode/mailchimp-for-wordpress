@@ -139,8 +139,12 @@ class MC4WP_Integration_Admin {
 	 */
 	protected function sanitize_integration_settings( $settings ) {
 
-		// if no lists are given, assume empty array
-		$settings['lists'] = array_filter( $settings['lists'] );
+		// filter null values from lists setting
+		if( ! empty( $settings['lists'] ) ) {
+			$settings['lists'] = array_filter( $settings['lists'] );
+		} else {
+			$settings['lists'] = array();
+		}
 
 		return $settings;
 	}

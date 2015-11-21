@@ -24,7 +24,9 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 	 */
 	public function add_hooks() {
 
-		if( $this->options['implicit'] ) {
+		if( ! $this->options['implicit'] ) {
+
+			// TODO: Allow more positions
 			add_action( 'woocommerce_checkout_billing', array( $this, 'output_checkbox' ), 20 );
 			add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save_woocommerce_checkout_checkbox_value' ) );
 		}

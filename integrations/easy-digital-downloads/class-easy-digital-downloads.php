@@ -25,7 +25,9 @@ class MC4WP_Easy_Digital_Downloads_Integration extends MC4WP_Integration {
 	public function add_hooks() {
 
 		if( ! $this->options['implicit'] ) {
-			add_action( 'edd_purchase_form_user_info_fields', array( $this, 'output_checkbox' ) );
+
+			// TODO: Allow more positions
+			add_action( 'edd_purchase_form_user_info_fields', array( $this, 'output_checkbox' ), 1 );
 			add_action( 'edd_payment_meta', array( $this, 'save_checkbox_value' ) );
 		}
 
