@@ -46,7 +46,6 @@ class MC4WP_Field_Guesser {
 		$guessed = array();
 
 		$fields = $this->fields->all();
-		var_dump( $fields ); die();
 
 		foreach( $fields as $field => $value ) {
 
