@@ -251,8 +251,10 @@
       border-bottom: 0; }
 
 .overlay {
-  position: relative;
-  z-index: 999999;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99999;
   padding: 20px;
   width: 100%;
   max-width: 480px;
@@ -274,12 +276,11 @@
   .overlay .close:hover {
     opacity: 1; }
 
-.overlay-wrapper {
-  z-index: 99999;
+.overlay-background {
+  z-index: 99998;
   background: rgba(0, 0, 0, 0.67);
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  top: 0;
-  padding: 20px; }
+  top: 0; }

@@ -96,6 +96,7 @@ var Tabs = function(context) {
 		e = e || window.event;
 
 		// get from data attribute
+		console.log("Click!");
 		var tabId = this.getAttribute('data-tab');
 
 		// get from classname
@@ -143,7 +144,7 @@ var Tabs = function(context) {
 	}
 
 	$tabNavs.click(switchTab);
-	$context.on('click', '.tab-link', switchTab);
+	$(document.body).on('click', '.tab-link', switchTab);
 
 	if(window.addEventListener) {
 	 	init();
