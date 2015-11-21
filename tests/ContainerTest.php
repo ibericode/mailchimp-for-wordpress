@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class ContainerTest
+ *
+ * @ignore
+ */
 class ContainerTest extends PHPUnit_Framework_TestCase {
 
 	/**

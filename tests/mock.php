@@ -119,7 +119,7 @@ function wp_verify_nonce( $nonce, $action ) {
  * @ignore
  */
 function is_email( $email ) {
-	return true;
+	return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 
 /**
