@@ -16,6 +16,7 @@ function mc4wp_admin_before_integration_settings( MC4WP_Integration $integration
 add_action( 'mc4wp_admin_before_integration_settings', 'mc4wp_admin_before_integration_settings' );
 
 // Register core integrations
+mc4wp_register_integration( 'ninja-forms', 'MC4WP_Ninja_Forms_Integration' );
 mc4wp_register_integration( 'wp-comment-form', 'MC4WP_Comment_Form_Integration' );
 mc4wp_register_integration( 'wp-registration-form', 'MC4WP_Registration_Form_Integration' );
 mc4wp_register_integration( 'buddypress', 'MC4WP_BuddyPress_Integration' );
