@@ -1,7 +1,6 @@
 var g = function(m) {
 	'use strict';
 
-	var render = require('../third-party/render.js');
 	var html_beautify = require('../third-party/beautify-html.js');
 	var generators = {};
 
@@ -93,17 +92,22 @@ var g = function(m) {
 	 * @returns {*}
 	 */
 	function generate(config) {
-		var label, field;
+		var label, field, htmlTemplate, html;
 
 		label = config.label().length ? m("label", config.label()) : '';
 		field = typeof(generators[config.type()]) === "function" ? generators[config.type()](config) : generators['default'](config);
 
-		var html = config.wrap() ? m('p', [label, field]) : [label, field];
+		htmlTemplate = config.wrap() ? m('p', [label, field]) : [label, field];
 
-		// render HTML
-		var rawHTML = render(html);
-		rawHTML = html_beautify(rawHTML) + "\n\n";
-		return rawHTML;
+		// render HTML on memory node
+		var div = document.createElement('div');
+		m.render(div, htmlTemplate);
+		html = div.innerHTML;
+
+		// prettify html
+		html = html_beautify(html);
+
+		return html + "\n";
 	}
 
 	return generate;
