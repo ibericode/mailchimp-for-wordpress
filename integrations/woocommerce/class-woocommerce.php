@@ -93,4 +93,13 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 		return class_exists( 'WooCommerce' );
 	}
 
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @return string
+	 */
+	public function get_object_link( $object_id ) {
+		return sprintf( '<a href="%s">%s</a>', get_edit_post_link( $object_id ), sprintf( __( 'Order #%d', 'mailchimp-for-wp' ), $object_id ) );
+	}
+
 }
