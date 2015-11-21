@@ -1,15 +1,18 @@
 <?php
 
 /**
- * Get a service
+ * Get a service by its name
  *
- * Example:
+ * _Example:_
  *
- * $forms = mc4wp('forms");
+ * $forms = mc4wp('forms');
+ * $api = mc4wp('api');
  *
- * @param null $service (optional)
+ * When no service parameter is given, the entire container will be returned.
  *
- * @return MC4WP_Container
+ * @param string $service (optional)
+ * @throws Exception when service is not found
+ * @return object
  */
 function mc4wp( $service = null ) {
 	static $mc4wp;
