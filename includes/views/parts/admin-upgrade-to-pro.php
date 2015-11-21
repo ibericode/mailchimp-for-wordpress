@@ -20,18 +20,18 @@ defined( 'ABSPATH' ) or exit;
 		<p><?php _e( 'Learn how to best grow your lists & write better emails by subscribing to our monthly tips.', 'mailchimp-for-wp' ); ?></p>
 		<form action="//mc4wp.us1.list-manage.com/subscribe/post?u=a2d08947dcd3683512ce174c5&amp;id=a940232df9" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
 			<p>
-				<label for id="mc4wp-email">Email Address </label>
+				<label for="mc4wp-email"><?php _e( 'Email Address', 'mailchimp-for-wp' ); ?></label>
 				<input type="email" value="<?php echo esc_attr( $user->user_email ); ?>" name="EMAIL" class="regular-text" id="mc4wp-email" required>
 			</p>
 			<p>
-				<label for id="mc4wp-fname">First Name </label>
+				<label for="mc4wp-fname"><?php _e( 'First Name', 'mailchimp-for-wp' ); ?></label>
 				<input type="text" value="<?php echo esc_attr( $user->user_firstname ); ?>" name="FNAME" class="regular-text" id="mc4wp-fname">
 			</p>
 			<div style="position: absolute; left: -5000px;">
-				<input type="text" name="b_a2d08947dcd3683512ce174c5_a940232df9" tabindex="-1" value="" />
+				<input type="text" name="b_a2d08947dcd3683512ce174c5_a940232df9" tabindex="-1" value="" autocomplete="off" />
 			</div>
 			<p>
-				<input type="submit" value="Subscribe" name="subscribe" class="button">
+				<input type="submit" value="<?php esc_attr_e( 'Subscribe', 'mailchimp-for-wp' ); ?>" name="subscribe" class="button">
 			</p>
 
 			<input type="hidden" name="SOURCE" value="free-plugin" />
