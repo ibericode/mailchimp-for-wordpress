@@ -13,8 +13,8 @@ class MC4WP_Ads {
 	 */
 	public function add_hooks() {
 
-		// don't hook if Pro is activated
-		if( defined( 'MC4WP_PRO_VERSION' ) ) {
+		// don't hook if Premium is activated
+		if( defined( 'MC4WP_PREMIUM_VERSION' ) ) {
 			return false;
 		}
 
