@@ -1,5 +1,6 @@
 'use strict';
 
+var fs = require('fs');
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
@@ -16,6 +17,8 @@ var streamify = require('gulp-streamify');
 var globby = require('globby');
 var buffer = require('vinyl-buffer');
 var through = require('through2');
+var exec = require('child_process').exec;
+var runSequence = require('run-sequence');
 
 var defaults = {
 	string: 'version',
@@ -75,6 +78,45 @@ gulp.task('browserify', function () {
 	return bundledStream;
 });
 
+gulp.task('package', function(cb) {
+	var filename = 'mailchimp-for-wp';
+	var suffix = options.version ? '-' + options.version : '';
+	var target = options.target ? options.target : '../'+filename + suffix +'.zip';
+	exec( 'git archive master --format=zip --prefix=$PLUGIN_NAME/ --output=' + target, function (err, stdout, stderr ) {
+		util.log("Package "+target+" created!");
+		cb(err);
+	});
+});
+
+gulp.task('release', function(cb) {
+	runSequence([ 'languages', 'autoloader', 'bump-version'], 'package', cb);
+});
+
+gulp.task('languages', function(cb) {
+	exec( 'tx pull', function(err, stdout, stderr) {
+		console.log( stdout, stderr );
+		exec( 'for FILE in `find languages/. -name "*.po"`; do msgfmt -o ${FILE/.po/.mo} $FILE; done', function(err,stdout,stderr) {
+			console.log( stdout, stderr );
+			cb(err);
+		})
+	});
+});
+
+gulp.task('autoloader', function(cb) {
+
+	// remove dev-dependencies
+	fs.stat('vendor/phpunit', function (err, stats) {
+		var cmd = err ? '' : 'composer update --no-dev --prefer-dist';
+		exec( cmd, function(err,stdout,stderr) {
+			console.log( stdout, stderr );
+			exec('composer dump-autoload --optimize', function (err, stdout, stderr) {
+				console.log( stdout, stderr );
+				cb(err);
+			});
+		});
+	});
+});
+
 gulp.task('bump-version', function(cb) {
 
 	if( ! options.version ) {
@@ -90,8 +132,7 @@ gulp.task('bump-version', function(cb) {
 			var regex = new RegExp('Changelog [\\s\\S]*\\=\\s' + options.version.replace('.', '\\.') + '\\s', '');
 			var match = file.contents.toString().match(regex);
 			if(! match) {
-				util.beep();
-				util.log(util.colors.red("readme.txt does not have a changelog for version " + options.version + " yet."));
+				util.log("readme.txt does not have a changelog for version " + options.version + " yet.");
 			}
 			return file;
 		}))
@@ -104,7 +145,7 @@ gulp.task('bump-version', function(cb) {
 		.pipe(gulp.dest('./'));
 
 	// Bunp version in composer.json
-	var composer = gulp.src('./composer.json', { base: './' })
+	var composer = gulp.src('./*.json', { base: './' })
 		.pipe(replace(/\"version\"\:.*/i, '"version": "' + options.version + '",'))
 		.pipe(gulp.dest('./'));
 
