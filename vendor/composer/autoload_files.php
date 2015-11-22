@@ -6,10 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    $baseDir . '/includes/functions.php',
-    $baseDir . '/includes/deprecated-functions.php',
-    $baseDir . '/includes/forms/functions.php',
-    $baseDir . '/includes/integrations/functions.php',
-    $baseDir . '/includes/default-actions.php',
-    $baseDir . '/includes/default-filters.php',
+    '12b97481f0c46010e9e61beb6082e7f4' => $baseDir . '/includes/functions.php',
+    '76805f79dd302cd22080dc81676b40c7' => $baseDir . '/includes/deprecated-functions.php',
+    '1652ed33dc6df7ed0d814dcc1f4ff1c7' => $baseDir . '/includes/forms/functions.php',
+    'fffef1b8ab3dd5c989378b5bfff2f816' => $baseDir . '/includes/integrations/functions.php',
+    '25f3ba99290b4e8744babcb312355835' => $baseDir . '/includes/default-actions.php',
+    'a2fb6a57b3900f1f90ca619af75982d2' => $baseDir . '/includes/default-filters.php',
 );
