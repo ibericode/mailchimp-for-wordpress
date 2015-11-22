@@ -20,13 +20,18 @@ var through = require('through2');
 var exec = require('child_process').exec;
 var runSequence = require('run-sequence');
 
-var defaults = {
-	string: 'version',
+// CLI arguments
+var options = minimist(process.argv.slice(2), {
+	string: ['version', 'dest'],
 	default: {
-		version: 0
+		version: false,
+		dest: false
+	},
+	alias: {
+		v: 'version',
+		d: 'dest'
 	}
-};
-var options = minimist(process.argv.slice(2), defaults);
+});
 
 gulp.task('default', ['sass', 'browserify']);
 
@@ -79,11 +84,11 @@ gulp.task('browserify', function () {
 });
 
 gulp.task('package', function(cb) {
-	var filename = 'mailchimp-for-wp';
+	var dirname = __dirname.split('/').pop();
 	var suffix = options.version ? '-' + options.version : '';
-	var target = options.target ? options.target : '../'+filename + suffix +'.zip';
-	exec( 'git archive master --format=zip --prefix=$PLUGIN_NAME/ --output=' + target, function (err, stdout, stderr ) {
-		util.log("Package "+target+" created!");
+	var dest = options.dest ? options.dest : '../'+dirname + suffix +'.zip';
+	exec( 'git archive master --format=zip --prefix='+ dirname +'/ --output=' + dest, function (err, stdout, stderr ) {
+		util.log("Package "+dest+" created!");
 		cb(err);
 	});
 });
@@ -132,7 +137,9 @@ gulp.task('bump-version', function(cb) {
 			var regex = new RegExp('Changelog [\\s\\S]*\\=\\s' + options.version.replace('.', '\\.') + '\\s', '');
 			var match = file.contents.toString().match(regex);
 			if(! match) {
-				util.log("readme.txt does not have a changelog for version " + options.version + " yet.");
+				util.beep();
+				util.log(util.colors.red("readme.txt does not have a changelog for version " + options.version + " yet."));
+				var err = new util.PluginError('test', 'something broke');
 			}
 			return file;
 		}))
