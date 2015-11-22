@@ -15,7 +15,7 @@ var FormEditor = function(element) {
 	var editor;
 	var _dom = document.createElement('form'), domDirty = false;
 	_dom.setAttribute('novalidate',true);
-	_dom.innerHTML = element.value;
+	_dom.innerHTML = element.value.toLowerCase();
 
 	if( CodeMirror ) {
 		editor = CodeMirror.fromTextArea(element, {
@@ -44,7 +44,7 @@ var FormEditor = function(element) {
 
 	function dom() {
 		if( domDirty ) {
-			_dom.innerHTML = r.getValue();
+			_dom.innerHTML = r.getValue().toLowerCase();
 			domDirty = false;
 		}
 
@@ -64,7 +64,7 @@ var FormEditor = function(element) {
 	};
 
 	r.containsField = function(fieldName){
-		return r.query('[name^="'+ fieldName +'"]').length > 0;
+		return r.query('[name^="'+ fieldName.toLowerCase() +'"]').length > 0;
 	};
 
 	r.insert = function( html ) {
