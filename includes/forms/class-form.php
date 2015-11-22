@@ -590,6 +590,9 @@ class MC4WP_Form {
 		// EMAIL is not a required field as it has its own validation rules
 		$required_fields = array_diff( $required_fields, array( 'EMAIL' ) );
 
+		// filter empty values
+		$required_fields = array_filter( $required_fields );
+
 		/**
 		 * Filters the required fields for a form
 		 *
@@ -602,7 +605,7 @@ class MC4WP_Form {
 		 * @param MC4WP_Form
 		 */
 		$required_fields = (array) apply_filters( 'mc4wp_form_required_fields', $required_fields, $form );
-
+		
 		return $required_fields;
 	}
 
