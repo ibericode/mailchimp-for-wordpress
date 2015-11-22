@@ -10,7 +10,7 @@ var browserify = require('browserify');
 var replace = require('gulp-replace');
 var minimist = require('minimist');
 var merge = require('merge-stream');
-
+var composer = require('gulp-composer');
 var util = require('gulp-util');
 var intercept = require('gulp-intercept');
 var streamify = require('gulp-streamify');

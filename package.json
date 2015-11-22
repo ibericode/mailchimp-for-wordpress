@@ -11,6 +11,7 @@
     "glob": "^6.0.1",
     "globby": "^4.0.0",
     "gulp": "^3.9.0",
+    "gulp-composer": "^0.1.0",
     "gulp-cssmin": "^0.1.7",
     "gulp-git": "^1.6.0",
     "gulp-intercept": "^0.1.0",
