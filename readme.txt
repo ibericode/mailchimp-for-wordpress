@@ -3,7 +3,7 @@ Contributors: Ibericode, DvanKooten, iMazed, hchouhan
 Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=donate-link
 Tags: email, mailchimp, marketing, newsletter, signup, widget, mc4wp, contact form 7, woocommerce, buddypress,ibericode
 Requires at least: 3.7
-Tested up to: 4.3.1
+Tested up to: 4.4
 Stable tag: 3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -168,6 +168,38 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 6. Detailed statistics on which methods are generating the most subscribers. **(Pro Feature)**
 
 == Changelog ==
+
+= 3.0 - November 23, 2015 =
+
+This is a total revamp of the plugin with tons of improvements & bug fixes. For a quick overview of the changes, please [read this](https://mc4wp.com/blog/whats-new-in-mailchimp-for-wordpress-the-big-three-o/).
+
+Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upgrading-to-3-0/) as some (more advanced things) have changed.
+
+**Breaking Changes**
+
+- Captcha fields using `{captcha}` are now handled by the [Captcha add-on plugin](https://wordpress.org/plugins/mc4wp-captcha/)
+- The syntax for dynamic form variable `{data_NAME}` is now `{data key="NAME"}`
+- Client-side event binding `jQuery(document).on('subscribe.mc4wp','.mc4wp-form', function(){ ... })` is now `mc4wp.forms.on('subscribed', function(form) { ... })`
+
+**Fixes**
+
+- Fixed all filter & action hook inconsistencies.
+
+**Improvements**
+
+- New form editor with syntax highlighting, more advanced field options & better visual feedback
+- Better support for MailChimp `address` fields.
+- Better support for choice fields (eg groupings, list choice & country fields)
+- Fields marked as `required` are now _really_ required.
+- All integrations have their own settings page now.
+- Tons of usability & accessibility improvements
+- Introduced various new filter & action hooks for improved extensibility.
+- Behind the scenes code improvements: improved memory usage, 200+ new unit tests & better usage of various best practices.
+
+**Additions**
+
+- New JavaScript API, replacing jQuery event hooks.
+
 
 = 2.3.16 - October 14, 2015 =
 
