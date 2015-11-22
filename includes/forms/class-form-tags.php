@@ -29,7 +29,7 @@ class MC4WP_Form_Tags {
 
 	public function add_hooks() {
 		add_filter( 'mc4wp_dynamic_content_tags_form', array( $this, 'register' ) );
-		add_filter( 'mc4wp_form_message_html', array( $this, 'replace' ), 10, 2 );
+		add_filter( 'mc4wp_form_response_html', array( $this, 'replace' ), 10, 2 );
 		add_filter( 'mc4wp_form_content', array( $this, 'replace' ), 10, 2 );
 		add_filter( 'mc4wp_form_redirect_url', array( $this, 'replace_in_url' ), 10, 2 );
 	}
