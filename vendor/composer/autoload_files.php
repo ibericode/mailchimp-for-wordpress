@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
     $baseDir . '/includes/functions.php',
     $baseDir . '/includes/deprecated-functions.php',
     $baseDir . '/includes/forms/functions.php',
