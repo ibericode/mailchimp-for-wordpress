@@ -29,7 +29,7 @@ var Tabs = function(context) {
 
 		for( var i=0; i<tabs.length; i++){
 			if(tabs[i].id === id ) {
-				return t;
+				return tabs[i];
 			}
 		}
 
@@ -101,7 +101,6 @@ var Tabs = function(context) {
 		e = e || window.event;
 
 		// get from data attribute
-		console.log("Click!");
 		var tabId = this.getAttribute('data-tab');
 
 		// get from classname
