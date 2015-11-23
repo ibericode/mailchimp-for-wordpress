@@ -265,7 +265,7 @@ class MC4WP_Form {
 
 			$type = ! empty( $message['type'] ) ? $message['type'] : '';
 			$text = isset( $message['text'] ) ? $message['text'] : $message;
-			
+
 			if( isset( $this->post_meta[ 'text_' . $key ][0] ) ) {
 				$text = $this->post_meta[ 'text_' . $key ][0];
 			}
@@ -602,7 +602,7 @@ class MC4WP_Form {
 		 * - All fields in the form with a `required` attribute.
 		 *
 		 * @param array $required_fields
-		 * @param MC4WP_Form
+		 * @param MC4WP_Form $form
 		 */
 		$required_fields = (array) apply_filters( 'mc4wp_form_required_fields', $required_fields, $form );
 		
