@@ -111,7 +111,8 @@ class MC4WP_Form {
 	public $config = array(
 		'action' => 'subscribe',
 		'lists' => array(),
-		'email_type' => ''
+		'email_type' => '',
+		'element_id' => ''
 	);
 
 	/**
@@ -449,6 +450,10 @@ class MC4WP_Form {
 
 		if( isset( $this->raw_data['_mc4wp_action'] ) ) {
 			$config['action'] = $this->raw_data['_mc4wp_action'];
+		}
+
+		if( isset( $this->raw_data['_mc4wp_form_element_id'] ) ) {
+			$config['element_id'] = $this->raw_data['_mc4wp_form_element_id'];
 		}
 
 		if( ! empty( $config ) ) {

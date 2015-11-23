@@ -43,9 +43,11 @@ class MC4WP_Form_Element {
 		$this->form = $form;
 		$this->ID = $ID;
 		$this->config = $config;
+
+
 		$this->is_submitted = $this->form->is_submitted
-		                      && ! empty( $this->form->config['form_element_id'] )
-		                      && $this->form->config['form_element_id'] == $this->ID;
+		                      && ! empty( $this->form->config['element_id'] )
+		                      && $this->form->config['element_id'] == $this->ID;
 	}
 
 
