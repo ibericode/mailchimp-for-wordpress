@@ -182,6 +182,7 @@ class MC4WP_MailChimp {
 	 */
 	public function get_subscriber_count( $list_ids ) {
 
+
 		// don't count when $list_ids is empty or not an array
 		if( ! is_array( $list_ids ) || count( $list_ids ) === 0 ) {
 			return 0;
@@ -203,7 +204,7 @@ class MC4WP_MailChimp {
 		 * @param int $count
 		 * @param array $list_ids
 		 */
-		return (int) apply_filters( 'mc4wp_subscriber_count', $count, $list_ids );
+		return apply_filters( 'mc4wp_subscriber_count', $count, $list_ids );
 	}
 
 
