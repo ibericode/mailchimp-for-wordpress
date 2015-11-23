@@ -13,8 +13,9 @@ var FormEditor = function(element) {
 
 	var r = {};
 	var editor;
-	var _dom = document.createElement('form'), domDirty = false;
-	_dom.setAttribute('novalidate',true);
+	var _dom = document.createElement('form')
+		, domDirty = false;
+	_dom.setAttribute('novalidate','');
 	_dom.innerHTML = element.value.toLowerCase();
 
 	if( CodeMirror ) {
@@ -27,8 +28,8 @@ var FormEditor = function(element) {
 			autoRefresh: true
 		});
 
-		// dispatch regular "change" on element event every time editor changes
-		editor.on('change',function() {
+		// dispatch regular "change" on element event every time editor changes (IE9+ only)
+		window.dispatchEvent && editor.on('change',function() {
 			if(typeof(Event) === "function") {
 				// Create a new 'change' event
 				var event = new Event('change', { bubbles: true });
