@@ -1,6 +1,7 @@
 var g = function(m) {
 	'use strict';
 
+	var render = require('../third-party/render.js');
 	var html_beautify = require('../third-party/beautify-html.js');
 	var generators = {};
 
@@ -14,7 +15,7 @@ var g = function(m) {
 			config.choices().map(function (choice) {
 				return m('option', {
 					value   : ( choice.value() !== choice.label() ) ? choice.value() : undefined,
-					selected: choice.selected()
+					"selected": choice.selected()
 				}, choice.label())
 			})
 		]);
@@ -28,13 +29,16 @@ var g = function(m) {
 	 * @returns {*}
 	 */
 	generators.checkbox = function (config) {
+
+
 		var field = config.choices().map(function (choice) {
+			console.log( choice.label() + " is checked? " + choice.selected() );
 			return m('label', [
 					m('input', {
-						name   : config.name() + ( config.type() === 'checkbox' ? '[]' : '' ),
-						type   : config.type(),
-						value  : choice.value(),
-						checked: choice.selected()
+						name    : config.name() + ( config.type() === 'checkbox' ? '[]' : '' ),
+						type    : config.type(),
+						value   : choice.value(),
+						checked : choice.selected()
 					}),
 					m('span', choice.label())
 				]
@@ -100,9 +104,7 @@ var g = function(m) {
 		htmlTemplate = config.wrap() ? m('p', [label, field]) : [label, field];
 
 		// render HTML on memory node
-		var div = document.createElement('div');
-		m.render(div, htmlTemplate);
-		html = div.innerHTML;
+		html = render(htmlTemplate);
 
 		// prettify html
 		html = html_beautify(html);
