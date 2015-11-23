@@ -40,6 +40,24 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 	}
 
 	/**
+	 * @{inheritdoc}
+	 *
+	 * Contact Form 7 listens to the following triggers.
+	 *
+	 * - _mc4wp_subscribe_contact-form-7
+	 * - mc4wp-subscribe
+	 *
+	 * @return bool
+	 */
+	public function checkbox_was_checked() {
+		$data = $this->get_data();
+
+
+		return ( isset( $data[ $this->checkbox_name ] ) && $data[ $this->checkbox_name ] == 1 )
+			|| ( isset( $data[ 'mc4wp-subscribe' ] ) && $data[ 'mc4wp-subscribe' ] == 1 );
+	}
+
+	/**
 	* Alter Contact Form 7 data.
 	*
 	* Adds mc4wp_checkbox to post data so users can use `mc4wp_checkbox` in their email templates
@@ -67,6 +85,8 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 			return false;
 		}
 
+
+		var_dump( $this->get_data() ); die();
 		$parser = new MC4WP_Field_Guesser( $this->get_data() );
 		$data = $parser->combine( array( 'guessed', 'namespaced' ) );
 
