@@ -32,7 +32,6 @@ var g = function(m) {
 
 
 		var field = config.choices().map(function (choice) {
-			console.log( choice.label() + " is checked? " + choice.selected() );
 			return m('label', [
 					m('input', {
 						name    : config.name() + ( config.type() === 'checkbox' ? '[]' : '' ),
