@@ -9,6 +9,11 @@
 class MC4WP_Form_Output_Manager {
 
 	/**
+	 * @var int
+	 */
+	public $count = 0;
+
+	/**
 	 * @var MC4WP_Form[]
 	 */
 	public $printed_forms = array();
@@ -88,7 +93,7 @@ class MC4WP_Form_Output_Manager {
 	public function output_form( $id = 0, $config = array(), $echo = true ) {
 
 		if( empty( $config['element_id'] ) ) {
-			$config['element_id'] = 'mc4wp-form-' . ( count( $this->printed_forms ) + 1 );
+			$config['element_id'] = 'mc4wp-form-' . $this->count++;
 		}
 
 		try {

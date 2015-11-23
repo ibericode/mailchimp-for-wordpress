@@ -44,9 +44,7 @@ class MC4WP_Form_Element {
 		$this->ID = $ID;
 		$this->config = $config;
 
-
 		$this->is_submitted = $this->form->is_submitted
-		                      && ! empty( $this->form->config['element_id'] )
 		                      && $this->form->config['element_id'] == $this->ID;
 	}
 
@@ -139,7 +137,7 @@ class MC4WP_Form_Element {
 		 */
 		$html = (string) apply_filters( 'mc4wp_form_before_fields', $html, $form );
 
-		if( $this->get_response_position() === 'before' ) {
+		if( $this->is_submitted && $this->get_response_position() === 'before' ) {
 			$html = $html . $this->form->get_response_html();
 		}
 
@@ -164,7 +162,7 @@ class MC4WP_Form_Element {
 		 */
 		$html = (string) apply_filters( 'mc4wp_form_after_fields', $html, $form );
 
-		if( $this->get_response_position() === 'after' ) {
+		if( $this->is_submitted && $this->get_response_position() === 'after' ) {
 			$html = $this->form->get_response_html() . $html;
 		}
 
