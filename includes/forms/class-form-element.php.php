@@ -213,7 +213,7 @@ class MC4WP_Form_Element {
 		// build string of key="value" from array
 		$string = '';
 		foreach( $attributes as $name => $value ) {
-			$string .= sprintf( '%s="%s"', $name, esc_attr( $value ) );
+			$string .= sprintf( '%s="%s" ', $name, esc_attr( $value ) );
 		}
 
 		return $string;
