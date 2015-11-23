@@ -50,7 +50,7 @@ var Settings = function(context, helpers, events ) {
 
 	// TODO: make this translatable
 	function confirmPageLeave(e) {
-		if(!unsaved) return true;
+		if(!unsaved) return;
 
 		e = e|| window.event;
 		var confirmationMessage = 'It looks like you have been editing something. '
