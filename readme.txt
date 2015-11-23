@@ -8,41 +8,54 @@ Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-MailChimp for WordPress, the absolute best. Add subscribers to your MailChimp lists from your WordPress site, with ease.
+MailChimp for WordPress, the absolute best. Subscribe your visitors from your WordPress site to your MailChimp lists, with ease.
 
 == Description ==
 
 = MailChimp for WordPress =
 
-*Adding sign-up methods for your MailChimp lists to your WordPress site should be easy. With this MailChimp for WordPress, it finally is.*
+*Adding sign-up methods for your MailChimp lists to your WordPress site should be easy. With this plugin, it finally is.*
 
-This plugin helps you add subscribers to your MailChimp lists using various methods. You can create good looking opt-in forms or integrate with any other form on your site, like your comment form or WooCommerce checkout.
+This plugin helps you add subscribers to your MailChimp lists using various methods. You can create good looking opt-in forms or integrate with any other form on your site, like your comment or checkout form.
 
-= MailChimp for WordPress features =
+[youtube https://www.youtube.com/watch?v=fZCYPnFybqU]
 
-- Connect with your MailChimp account in just 1 click.
-- User friendly & mobile optimized sign-up forms.
-- Complete control over your form fields. Send anything you like to MailChimp.
-- 1-click MailChimp sign-up for your comment and registration form(s).
-- Show sign-up forms in your posts or pages using the form shortcode, or in your sidebar or footer using the MailChimp widget.
-- Redirect users to a "thank you" page after subscribing to your MailChimp list(s).
-- All fields & messages are customizable so you can translate them into your preferred language.
-- Built-in integration with Contact Form 7, WooCommerce and many other plugins.
-- Developer friendly. You have full control over the form HTML and there are many available action & filter hooks.
+= Some of the MailChimp for WordPress features =
 
-> **MailChimp for WordPress Pro**<br /><br />
-> This plugin has a premium version which comes with the following features.<br /><br />
-> - As many forms as you want, each subscribing to one or multiple MailChimp lists.<br />
-> - AJAX Forms. Forms do not require a full page reload.<br />
-> - Visual Styles Builder, create your own style without the need for code.<br />
-> - Custom Color Themes, a quick way to blend-in with your theme.<br />
-> - Log & Statistics, providing you with useful insights like your new MailChimp subscribers came from.<br />
+- Connect with your MailChimp account in seconds.
+- Sign-up forms which are good looking, user-friendly and mobile optimized. You have complete control over the form fields and can send anything you like to MailChimp.
+- Built-in integration with the following plugins:
+	- WP Comment Form
+	- WP Registration Form
+	- Contact Form 7
+	- WooCommerce
+	- Ninja Forms
+	- Easy Digital Downloads
+	- Events Manager
+	- BuddyPress
+- A multitude of available add-on plugins:
+	- [Captcha](https://wordpress.org/plugins/mc4wp-captcha/)
+	- [MailChimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/)
+	- [MailChimp User Sync](https://wordpress.org/plugins/mailchimp-sync/)
+	- [MailChimp for WordPress Premium](https://mc4wp.com/)
+- Developer friendly. MailChimp for WordPress is built to be extensible, and comes with a dedicated [code reference for developers](http://developer.mc4wp.com/).
+
+> **Premium Features**<br /><br />
+> MailChimp for WordPress has a premium add-on which comes with the following features.<br /><br />
+> - Multiple Forms: create more than one form, each subscribing to one or multiple MailChimp lists.<br />
+> - AJAX Forms: forms are submitted without reloading the page.<br />
+> - Form Styles Builder: create your own style without the need for code.<br />
+> - Email Notifications: get an instant email notification for every form submission.<br />
+> - Custom Color Themes: a quick way to blend-in with your theme.<br />
+> - Reports: Logs all sign-up attempts & visualizes them in insightful charts<br />
 > - Priority support over email.<br /><br />
-> [Upgrade to MailChimp for WordPress Pro >>](https://mc4wp.com/features/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=after-features-link)
+> [Get the Premium add-on >>](https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=after-features-link)
 
-= Wait, but what is MailChimp? =
+= What is MailChimp? =
 
-MailChimp for WordPress acts as a bridge between your WordPress site and your MailChimp account. MailChimp is a newsletter service that allows you to send out email campaigns to a list of email subscribers. MailChimp is absolutely free for lists up to 2000 subscribers, which is why it is the go-to choice for small businesses or starting entrepreneurs. That doesn't mean MailChimp is not a great choice for bigger businesses though.
+MailChimp is a newsletter service that allows you to send out email campaigns to a list of email subscribers. MailChimp is free for lists up to 2000 subscribers, which is why it is the newsletter-service of choice for thousands of businesses.
+
+This plugin acts as a bridge between your WordPress site and your MailChimp account, connecting the two.
 
 If you do not yet have a MailChimp account, [creating one is 100% free and only takes you about 30 seconds](http://mailchimp.com/monkey-rewards/?utm_source=freemium_newsletter&utm_medium=email&utm_campaign=monkey_rewards&aid=a2d08947dcd3683512ce174c5&afl=1).
 
@@ -65,8 +78,8 @@ If you do not yet have a MailChimp account, [creating one is 100% free and only 
 `
 <?php
 
-if( function_exists( 'mc4wp_form' ) ) {
-	mc4wp_form();
+if( function_exists( 'mc4wp_show_form' ) ) {
+	mc4wp_show_form();
 }
 `
 
