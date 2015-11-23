@@ -69,6 +69,7 @@ class MC4WP_Form_Widget extends WP_Widget {
 	 */
 	public function form( $settings ) {
 		$settings = array_merge( $this->default_instance_settings, $settings );
+
 		?>
         <p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'mailchimp-for-wp' ); ?></label>
@@ -88,7 +89,7 @@ class MC4WP_Form_Widget extends WP_Widget {
 		?>
 
         <p class="help">
-			<?php printf( __( 'You can edit your sign-up form in the <a href="%s">MailChimp for WordPress form settings</a>.', 'mailchimp-for-wp' ), admin_url( 'admin.php?page=mailchimp-for-wp-form-settings' ) ); ?>
+			<?php printf( __( 'You can edit your sign-up form in the <a href="%s">MailChimp for WordPress form settings</a>.', 'mailchimp-for-wp' ), admin_url( 'admin.php?page=mailchimp-for-wp-forms' ) ); ?>
         </p>
 		<?php
 	}
@@ -106,7 +107,7 @@ class MC4WP_Form_Widget extends WP_Widget {
 	public function update( $new_settings, $old_settings ) {
 
 		if( ! empty( $new_settings['title'] ) ) {
-			$new_settings['title'] = sanitize_text_field( $old_settings['title'] );
+			$new_settings['title'] = sanitize_text_field( $new_settings['title'] );
 		}
 
 		/**
