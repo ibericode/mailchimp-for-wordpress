@@ -26,9 +26,14 @@ var Tabs = function(context) {
 	});
 
 	function get(id) {
-		return tabs.find(function(t) {
-			return t.id === id;
-		});
+
+		for( var i=0; i<tabs.length; i++){
+			if(tabs[i].id === id ) {
+				return t;
+			}
+		}
+
+		return undefined;
 	}
 
 	function open( tab, updateState ) {
