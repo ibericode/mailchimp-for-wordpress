@@ -215,7 +215,7 @@ class MC4WP_Form {
 		// get custom settings from meta
 		if( ! empty( $this->post_meta['_mc4wp_settings'] ) ) {
 			$meta = $this->post_meta['_mc4wp_settings'][0];
-			$meta = maybe_unserialize( $meta );
+			$meta = (array) maybe_unserialize( $meta );
 
 			// merge with current settings (defaults)
 			$settings = array_merge( $settings, $meta );
@@ -265,7 +265,7 @@ class MC4WP_Form {
 
 			$type = ! empty( $message['type'] ) ? $message['type'] : '';
 			$text = isset( $message['text'] ) ? $message['text'] : $message;
-
+			
 			if( isset( $this->post_meta[ 'text_' . $key ][0] ) ) {
 				$text = $this->post_meta[ 'text_' . $key ][0];
 			}
