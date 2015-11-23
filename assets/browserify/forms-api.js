@@ -14,6 +14,7 @@ for(var i=0; i<listeners.length;i++) {
 }
 
 // was a form submitted?
+// TODO: take submitted element into account here.
 if( config.submitted_form && config.submitted_form.id ) {
 	var form = forms.get(config.submitted_form.id);
 
@@ -29,6 +30,10 @@ if( config.submitted_form && config.submitted_form.id ) {
 		forms.trigger('success', [form, config.submitted_form.data]);
 		forms.trigger(config.submitted_form.action + "d", [form, config.submitted_form.data]);
 	}
+
+	//if( config.auto_scroll ) {
+	//	form.placeIntoView( config.auto_scroll === 'animated' );
+	//}
 }
 
 // Bind browser events to form events (using delegation to work with AJAX loaded forms as well)
