@@ -24,7 +24,7 @@ class MC4WP_Admin {
 	protected $messages;
 
 	/**
-	 * @var MC4WP_Ads
+	 * @var MC4WP_Admin_Ads
 	 */
 	protected $ads;
 
@@ -38,7 +38,7 @@ class MC4WP_Admin {
 		$this->mailchimp = $mailchimp;
 		$this->messages = $messages;
 		$this->plugin_file = plugin_basename( MC4WP_PLUGIN_FILE );
-		$this->ads = new MC4WP_Ads();
+		$this->ads = new MC4WP_Admin_Ads();
 		$this->load_translations();
 	}
 
