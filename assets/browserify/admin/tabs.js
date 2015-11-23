@@ -132,14 +132,17 @@ var Tabs = function(context) {
 	function init() {
 
 		// check for current tab
+		if(! history.pushState) {
+			return;
+		}
+
 		var activeTab = $tabs.filter(':visible').get(0);
 		if( ! activeTab ) { return; }
 		var tab = get(activeTab.id.substring(4));
-
 		if(!tab) return;
 
 		// check if tab is in html5 history
-		if(history.replaceState && history.state === null) {
+		if( history.replaceState && history.state === null) {
 			history.replaceState( tab.id, '' );
 		}
 
@@ -149,10 +152,9 @@ var Tabs = function(context) {
 
 	$tabNavs.click(switchTab);
 	$(document.body).on('click', '.tab-link', switchTab);
+	init();
 
-	if(window.addEventListener) {
-	 	init();
-
+	if(window.addEventListener && history.pushState ) {
 		window.addEventListener('popstate', function(e) {
 			if(!e.state) return true;
 			var tabId = e.state;

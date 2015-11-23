@@ -1,7 +1,14 @@
 /* Editor */
 var FormEditor = function(element) {
 
-	// require CodeMirror & plugins
+	// create dom representation of form
+	var _dom = document.createElement('form')
+		, domDirty = false,
+		r = {},
+		editor;
+	_dom.innerHTML = element.value.toLowerCase();
+
+	// load CodeMirror & plugins
 	var CodeMirror = require('codemirror');
 	require('codemirror/mode/xml/xml');
 	require('codemirror/mode/javascript/javascript');
@@ -10,13 +17,6 @@ var FormEditor = function(element) {
 	require('codemirror/addon/fold/xml-fold');
 	require('codemirror/addon/edit/matchtags');
 	require('codemirror/addon/edit/closetag.js');
-
-	var r = {};
-	var editor;
-	var _dom = document.createElement('form')
-		, domDirty = false;
-	_dom.setAttribute('novalidate','');
-	_dom.innerHTML = element.value.toLowerCase();
 
 	if( CodeMirror ) {
 		editor = CodeMirror.fromTextArea(element, {
@@ -39,7 +39,7 @@ var FormEditor = function(element) {
 	}
 
 	// set domDirty to true everytime the "change" event fires (a lot..)
-	element.addEventListener('change',function() {
+	element.addEventListener && element.addEventListener('change',function() {
 		domDirty = true;
 	});
 
