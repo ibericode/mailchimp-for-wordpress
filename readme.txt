@@ -179,7 +179,7 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 
 = 3.0.0 & 3.0.1 - November 23, 2015 =
 
-Version 3.0 a total revamp of the plugin. For a quick overview of the changes, please [read this post on our blog](https://mc4wp.com/blog/whats-new-in-mailchimp-for-wordpress-the-big-three-o/).
+Version 3.0 is a total revamp of the plugin. For a quick overview of the changes, please [read this post on our blog](https://mc4wp.com/blog/whats-new-in-mailchimp-for-wordpress-the-big-three-o/).
 
 Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upgrading-to-3-0/) as some things have changed.
 
