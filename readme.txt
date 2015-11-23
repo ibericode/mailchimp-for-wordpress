@@ -171,34 +171,36 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 
 = 3.0 - November 23, 2015 =
 
-This is a total revamp of the plugin with tons of improvements & bug fixes. For a quick overview of the changes, please [read this](https://mc4wp.com/blog/whats-new-in-mailchimp-for-wordpress-the-big-three-o/).
+Version 3.0 a total revamp of the plugin. For a quick overview of the changes, please [read this post on our blog](https://mc4wp.com/blog/whats-new-in-mailchimp-for-wordpress-the-big-three-o/).
 
-Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upgrading-to-3-0/) as some (more advanced things) have changed.
+Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upgrading-to-3-0/) as some things have changed.
 
 **Breaking Changes**
 
-- Captcha fields using `{captcha}` are now handled by the [Captcha add-on plugin](https://wordpress.org/plugins/mc4wp-captcha/)
-- The syntax for dynamic form variable `{data_NAME}` is now `{data key="NAME"}`
-- Client-side event binding `jQuery(document).on('subscribe.mc4wp','.mc4wp-form', function(){ ... })` is now `mc4wp.forms.on('subscribed', function(form) { ... })`
-
-**Fixes**
-
-- Fixed all filter & action hook inconsistencies.
+- Captcha fields: `{captcha}` field is now handled by the [Captcha add-on plugin](https://wordpress.org/plugins/mc4wp-captcha/).
+- New dynamic content tags syntax: `{data_NAME}` is now `{data key="NAME"}`
+- Event binding: `jQuery(document).on('subscribe.mc4wp','.mc4wp-form', function(){ ... })` is now `mc4wp.forms.on('subscribed', function(form) { ... })`
+- Removed integrations: MultiSite & bbPress.
 
 **Improvements**
 
-- New form editor with syntax highlighting, more advanced field options & better visual feedback
+- New form editor with syntax highlighting, more advanced field options & better visual feedback.
 - Better support for MailChimp `address` fields.
-- Better support for choice fields (eg groupings, list choice & country fields)
-- Fields marked as `required` are now _really_ required.
+- Better support for choice fields (eg groupings, list choice & country fields).
+- All fields marked as `required` are now validated server-side as well (instead of just MailChimp required fields).
 - All integrations have their own settings page now.
-- Tons of usability & accessibility improvements
-- Introduced various new filter & action hooks for improved extensibility.
-- Behind the scenes code improvements: improved memory usage, 200+ new unit tests & better usage of various best practices.
+- Events Manager: checkbox is now automatically added to booking forms.
+- Tons of usability & accessibility improvements.
+- Tons of code improvements: improved memory usage, 100+ new unit tests & better usage of various best practices.
+- The [premium plugin](https://mc4wp.com/) is now an add-on of this plugin.
 
 **Additions**
 
+- New "Preview Form" option, showing unsaved form changes.
+- Integrations can now be "implicit", thus no longer showing a checkbox option to visitors.
 - New JavaScript API, replacing jQuery event hooks.
+- Ninja Forms integration
+- Introduced various new filter & action hooks, please see the new [code reference for developers](http://developer.mc4wp.com/) for more information.
 
 
 = 2.3.16 - October 14, 2015 =
@@ -573,221 +575,8 @@ Minor improvements and additions for compatibility with the [MailChimp Sync plug
 - Added sign-up checkbox integration for [Easy Digital Downloads](https://wordpress.org/plugins/easy-digital-downloads/) checkout.
 - The entered email will now be appended to the URL when redirecting to another page
 
-= 2.1.7 - December 1, 2014 =
-
-**Fixes**
-
-- Fixes onclick event in older versions of IE, props [Simon Schick](https://github.com/SimonSimCity)
-
-**Improvements**
-
-- Updated Dutch, French, Hungarian, Italian, Norwegian, Swedish and Taiwanese translations.
-- Some textual improvements.
-
-**Additions**
-
-- {email} shortcode to use in form mark-up.
-
-= 2.1.6 - November 18, 2014 =
-
-**Fixes**
-
-- Notice in `class-widget.php` when widget options are never saved.
-
-**Improvements**
-
-- Added some missing gettext calls so strings can be translated.
-- Updated translations
-
-= 2.1.5 - October 13, 2014 =
-
-**Fixes**
-
-- Notice in `class-mailchimp.php` when fetching lists from MailChimp.
-
-= 2.1.4 - October 13, 2014 =
-
-**Fixes**
-
-- Fixed `mc4wp_get_current_url()` function for IIS servers using `index.php` in URL's.
-- Nonce verification was failing with aggressive caching
-- Only call `is_email()` on strings.
-
-**Improvements**
-
-- Minor improvements to memory usage and overall performance
-- Improved sanitization for third-party integrations
-- Wrapped debug messages for checkbox integrations in gettext calls so they can be translated
-- Updated Dutch translations
-
-**Additions**
-
-- Submitted forms now get `mc4wp-form-submitted` CSS class.
-- Filter: `mc4wp_cookie_expiration_time` to alter expiration time of email cookie. Defaults to 30 days.
-- Hungarian translation, thanks to Németh Balázs
-- Partial French translations
-
-
-= 2.1.3 - September 15, 2014 =
-
-**Improvements**
-
-- Updated Spanish and Dutch translations
-- Fixed missing text domains
-- Removed obsolete code in upgrade routine
-- All settings are now properly sanitized before being stored.
-
-**Additions**
-
-- Added Slovak language files, thanks to [Henrich Koszegi - Webworks.sk](http://www.webworks.sk/).
-
-
-= 2.1.2 - August, 26, 2014 =
-
-**Fixes**
-
-- Remove `type` attribute from `textarea` elements
-- Check for array fields in form when checking presence of required MailChimp list fields
-
-**Improvements**
-
-- Added `-webkit-appearance` reset to checkbox CSS
-- Updated Italian translations
-- Updated links to point to the new [MailChimp for WordPress Pro](https://mc4wp.com/) site.
-- Don't use `{response}` tag if form is hidden after successful submissions
-
-**Additions**
-
-- Added official integration with [Events Manager](https://wordpress.org/plugins/events-manager/). Just include a `mc4wp-subscribe` checkbox field and MailChimp for WordPress will do the rest.
-
-= 2.1.1 - August 12, 2014 =
-
-**Fixes**
-
-- `mc4wp_get_current_url()` now takes ports and the WP site url option into account
-- Quicktags buttons were not showing because script was not loaded, now it is.
-
-**Improvements**
-
-- Improved CSS reset for the sign-up checkbox
-- Added deprecated warning to some functions
-- Improvements to third-party forms integration for the sign-up checkbox. Integrating with the [Events Manager](https://wordpress.org/plugins/events-manager/) plugin should work now.
-- Updated Dutch translations
-- Updated English translations
-
-**Additions**
-
-- Added `mc4wp_form_error_{ERROR_CODE}` action hook to allow hooking into all form errors.
-- Added `{response}` tag to allow setting a custom response position
-- Added various filters to customize form HTML
-- Added German language, thanks to [Jochen Gererstorfer](http://slotnerd.de/)
-- Added Italian language, thanks to [Gianpaolo Rolando](http://www.gianpaolorolando.eu/)
-
-= 2.1 - July 29, 2014 =
-
-**Fixes**
-
-- Some fields lost its value when a form error occurred
-
-**Improvements**
-
-- Minified all CSS and JS files
-- Required MailChimp fields are now validated server side as well.
-- Birthday and address fields are now automatically formatted in the correct format
-- Improved code, memory usage and class documentation
-
-**Additions**
-
-- Brazilian translations, thanks to [Felipe Scuissiatto of Evonline](http://www.evonline.com.br/)
-- `mc4wp_form_messages` filter to register custom error messages
-- `mc4wp_form_message_position` filter to set position of error messages (before or after fields)
-- Option to set the text for when a required field is missing
-
-= 2.0.5 - July 21, 2014 =
-
-**Improvements**
-
-- Ignore Captcha fields in sign-up data
-- Updated Spanish translations
-- Minor improvements to Admin and MailChimp API class
-- Show field tag and required status in Lists overview table
-
-**Additions**
-
-- Add visitor IP address to sign-up data
-
-
-= 2.0.4 - July 2, 2014 =
-
-**Fixes**
-
-- Double sign-up requests for checkbox sign-ups
-
-**Improvements**
-
-- Reset checkbox label in default CSS for improved theme compatibility
-- Improved checkbox integration classes
-- Optimised function to retrieve the current URL
-
-**Additions**
-
-- Added `{language}` text variable to print the current site language.
-- Added merge tag names to list overview table
-
-= 2.0.3 - June 17, 2014 =
-
-**Fixes**
-
-- Fixed undefined index notice in Contact Form 7 integration class
-
-**Improvements**
-
-- Reset form width in all stylesheets
-
-= 2.0.2 - June 12, 2014 =
-
-**Fixes**
-
-- Fix fatal error when using `mc4wp_checkbox()` function
-- No more double API request when integrating with Contact Form 7
-
-**Improvements**
-
-- Template functions are now always loaded when needed
-- A warning will now show when required fields are missing in the form mark-up
-- Required form classes can no longer be accidentally removed
-- Various checkbox integration improvements
-- Various CSS improvements to colored form themes
-- Updated Spanish translations
-
-= 2.0.1 - May 15, 2014 =
-
-**Improvements**
-
-- Allowed translation of more strings in the settings screens.
-- Added Spanish translations, thanks [Paul Benitez - Tecnofilos](http://www.administrandowp.com/)
-- Minor code improvements
-
-**Additions**
-
-- Saving forms without an `EMAIL` field or submit button will show a notice.
-
-= 2.0 - April 29, 2014 =
-
-**Improvements**
-
-- CSS is now served as static CSS instead of being served through PHP.
-- The anti-spam honeypot is now added to the sign-up checkbox as well.
-- Improved object-oriented code architecture and better class documentation
-- Better CSS reset for the various form themes to increase theme compatibility
-- Added class autoloading to the plugin
-- Various minor code improvements
-
-**Additions**
-
-- You can now add a captcha field to your sign-up forms by installing the [BWS Captcha](http://wordpress.org/plugins/captcha/) plugin and using `[captcha]` inside your form mark-up.
-- All settings pages are now fully translatable. The plugin has just 2 translations available yet (`en_US` and `nl_NL`) so if you're good at translating, please send me your language pack for the plugin.
-- You can now use tab indentation in the form markup textarea
-
 == Upgrade Notice ==
 
+= 3.0 =
+
+This update has breaking changes. Please read through the [upgrade guide](https://mc4wp.com/kb/upgrading-to-3-0/) before updating.

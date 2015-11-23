@@ -1,9 +1,4 @@
 <wpml-config>
-	<admin-texts>
-		<key name="mc4wp_lite_checkbox">
-			<key name="label" />
-		</key>
-	</admin-texts>
 	<custom-types>
 		<custom-type translate="1">mc4wp-form</custom-type>
 	</custom-types>
