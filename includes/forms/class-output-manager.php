@@ -92,10 +92,6 @@ class MC4WP_Form_Output_Manager {
 	 */
 	public function output_form( $id = 0, $config = array(), $echo = true ) {
 
-		if( empty( $config['element_id'] ) ) {
-			$config['element_id'] = 'mc4wp-form-' . $this->count++;
-		}
-
 		try {
 			$form = mc4wp_get_form( $id );
 		} catch( Exception $e ) {
@@ -105,6 +101,12 @@ class MC4WP_Form_Output_Manager {
 			}
 
 			return '';
+		}
+
+		$this->count++;
+
+		if( empty( $config['element_id'] ) ) {
+			$config['element_id'] = 'mc4wp-form-' . $this->count;
 		}
 
 		$this->printed_forms[ $form->ID ] = $form;

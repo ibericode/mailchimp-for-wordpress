@@ -132,7 +132,8 @@ class MC4WP_Form_Asset_Manager {
 			'submitted_form' => array(
 				'id' => $submitted_form->ID,
 				'data' => $submitted_form->data,
-				'action' => $submitted_form->config['action']
+				'action' => $submitted_form->config['action'],
+				'element_id' => $submitted_form->config['element_id'],
 			)
 		);
 

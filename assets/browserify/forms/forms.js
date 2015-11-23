@@ -9,13 +9,17 @@ var events = new EventEmitter();
 var forms = [];
 
 // get form by its id
+// please note that this will get the FIRST occurence of the form with that ID on the page
 function get(formId) {
+
+	// do we have form for this one already?
 	for(var i=0; i<forms.length;i++) {
 		if(forms[i].id == formId) {
 			return forms[i];
 		}
 	}
 
+	// try to create from first occurence of this element
 	var formElement = document.querySelector('.mc4wp-form-' + formId);
 	return createFromElement(formElement,formId);
 }
