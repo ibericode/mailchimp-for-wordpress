@@ -18,8 +18,6 @@ MailChimp for WordPress, the absolute best. Add subscribers to your MailChimp li
 
 This plugin helps you add subscribers to your MailChimp lists using various methods. You can create good looking opt-in forms or integrate with any other form on your site, like your comment form or WooCommerce checkout.
 
-[youtube https://www.youtube.com/watch?v=92WzdjQcGSo]
-
 = MailChimp for WordPress features =
 
 - Connect with your MailChimp account in just 1 click.
@@ -85,15 +83,6 @@ Use the `[mc4wp_form]` shortcode.
 
 = How to display a form in widget areas like the sidebar or footer? =
 Go to **Appearance > Widgets** and use the **MailChimp for WP Form** widget that comes with the plugin.
-
-= How to display a form in my template files? =
-Use the `mc4wp_form()` function.
-
-`
-if( function_exists( 'mc4wp_form' ) ) {
-	mc4wp_form();
-}
-`
 
 = Where can I find my MailChimp API key? =
 [You can find your MailChimp API key here](http://kb.mailchimp.com/accounts/management/about-api-keys#Find-or-Generate-Your-API-Key)
@@ -201,6 +190,28 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - New JavaScript API, replacing jQuery event hooks.
 - Ninja Forms integration
 - Introduced various new filter & action hooks, please see the new [code reference for developers](http://developer.mc4wp.com/) for more information.
+
+= 2.3.18 - November 2, 2015 =
+
+**Fixes**
+
+- Incorrect number of parameters for `error_log` statement in integrations class.
+
+**Improvements**
+
+- Usage tracking is now scheduled once a week (instead of daily).
+- Preparations for [the upcoming MailChimp for WordPress version 3.0 release](https://mc4wp.com/blog/breaking-backwards-compatibility-in-version-3-0/).
+- Tested compatibility with WordPress 4.4
+
+= 2.3.17 - October 22, 2015 =
+
+**Fixes**
+
+- Honeypot field being autofilled in Chrome, causing a form error.
+
+**Improvements**
+
+- Updated Portugese translations.
 
 
 = 2.3.16 - October 14, 2015 =
