@@ -217,6 +217,11 @@ class MC4WP_Form {
 			$meta = $this->post_meta['_mc4wp_settings'][0];
 			$meta = (array) maybe_unserialize( $meta );
 
+			// ensure lists is an array
+			if( empty( $meta['lists'] ) ) {
+				$meta['lists'] = array();
+			}
+
 			// merge with current settings (defaults)
 			$settings = array_merge( $settings, $meta );
 		}
