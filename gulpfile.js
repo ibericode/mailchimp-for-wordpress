@@ -86,7 +86,7 @@ gulp.task('browserify', function () {
 gulp.task('package', function(cb) {
 	var dirname = __dirname.split('/').pop();
 	var suffix = options.version ? '-' + options.version : '';
-	var dest = options.dest ? options.dest : '../'+dirname + suffix +'.zip';
+	var dest =(  options.dest ? options.dest : '../' ) + dirname + suffix +'.zip';
 	exec( 'git archive master --format=zip --prefix='+ dirname +'/ --output=' + dest, function (err, stdout, stderr ) {
 		util.log("Package "+dest+" created!");
 		cb(err);
