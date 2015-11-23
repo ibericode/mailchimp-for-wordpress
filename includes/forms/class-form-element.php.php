@@ -137,8 +137,8 @@ class MC4WP_Form_Element {
 		 */
 		$html = (string) apply_filters( 'mc4wp_form_before_fields', $html, $form );
 
-		if( $this->is_submitted && $this->get_response_position() === 'before' ) {
-			$html = $html . $this->form->get_response_html();
+		if( $this->get_response_position() === 'before' ) {
+			$html = $html . $this->form->get_response_html( $this->is_submitted );
 		}
 
 		return $html;
@@ -162,8 +162,8 @@ class MC4WP_Form_Element {
 		 */
 		$html = (string) apply_filters( 'mc4wp_form_after_fields', $html, $form );
 
-		if( $this->is_submitted && $this->get_response_position() === 'after' ) {
-			$html = $this->form->get_response_html() . $html;
+		if( $this->get_response_position() === 'after' ) {
+			$html = $this->form->get_response_html( $this->is_submitted ) . $html;
 		}
 
 		return $html;

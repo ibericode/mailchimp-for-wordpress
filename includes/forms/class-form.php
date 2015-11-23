@@ -141,15 +141,21 @@ class MC4WP_Form {
 
 	/**
 	 * Gets the form response string
+	 * // TODO: Move to `Form_Element`
 	 *
+	 * @param bool $submitted
 	 * @return string
 	 */
-	public function get_response_html() {
+	public function get_response_html( $submitted = null ) {
+
+		if( is_null( $submitted ) ) {
+			$submitted = $this->is_submitted;
+		}
 
 		$html = '';
 		$form = $this;
 
-		if( $this->is_submitted ) {
+		if( $submitted ) {
 			if( $this->has_errors() ) {
 
 				// create html string of all errors
