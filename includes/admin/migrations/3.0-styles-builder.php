@@ -26,8 +26,10 @@ if( file_exists( $file ) ) {
 	// create directory, if necessary
 	$dir = $uploads['basedir'] . '/mc4wp-stylesheets';
 	if( ! file_exists( $dir ) ) {
-		mkdir( $dir, 0655 );
+		@mkdir( $dir, 0755 );
 	}
+
+	@chmod( $dir, 0755 );
 
 	// Move file to new location
 	$new_file = $dir . '/bundle.css';
