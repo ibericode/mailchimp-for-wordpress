@@ -1,14 +1,14 @@
 === MailChimp for WordPress ===
 Contributors: Ibericode, DvanKooten, iMazed, hchouhan
 Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=donate-link
-Tags: email, mailchimp, marketing, newsletter, signup, widget, mc4wp, contact form 7, woocommerce, buddypress,ibericode
+Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mail chimp
 Requires at least: 3.7
 Tested up to: 4.4
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-MailChimp for WordPress, the absolute best. Subscribe your visitors from your WordPress site to your MailChimp lists, with ease.
+MailChimp for WordPress, the absolute best. Subscribe your WordPress site visitors to your MailChimp lists, with ease.
 
 == Description ==
 
@@ -43,19 +43,15 @@ This plugin helps you add subscribers to your MailChimp lists using various meth
 	- [MailChimp for WordPress Premium](https://mc4wp.com/)
 	- [Scroll Triggered Boxes](https://wordpress.org/plugins/scroll-triggered-boxes/)
 
+- Well documented. Our [knowledge base](https://mc4wp.com/kb/) is updated daily.
+
 - Developer friendly. MailChimp for WordPress is built to be extensible, and comes with a dedicated [code reference for developers](http://developer.mc4wp.com/).
 
-> **MailChimp for WordPress - Premium Features**<br /><br />
-> This plugin has a premium add-on which comes with the following additional features.<br /><br />
-> - Multiple Forms. Create more than one form, each subscribing to one or multiple MailChimp lists.<br />
-> - AJAX Forms. Forms are submitted without reloading the page.<br />
-> - Form Styles Builder. Create your own style without the need for code.<br />
-> - Email Notifications. Instant email notifications for every form submission.<br />
-> - Custom Color Themes. A quick way to blend-in with your theme.<br />
-> - Reports. Logs all sign-up attempts & visualizes them in insightful charts<br />
-> - Priority support over email.<br /><br />
+> **Need a little more?**
 >
-> [Get MailChimp for WordPress - Premium >>](https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=after-features-link)
+> MailChimp for WordPress has a Premium add-on which comes with several additional benefits like multiple forms, an easy way to style your forms & detailed logging and statistics.
+>
+> [View more Premium features >>](https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=after-features-link)
 
 = What is MailChimp? =
 
@@ -176,6 +172,20 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 6. Detailed statistics on which methods are generating the most subscribers. **(Pro Feature)**
 
 == Changelog ==
+
+= 3.0.2 - November 25, 2015 =
+
+**Fixes**
+
+- Redirect on success not working.
+- Forms overview page redirected to main WP Admin page (edge case).
+- Safari was always showing the leave-page confirmation dialog.
+
+**Improvements**
+
+- Add form-specific classes to preview form element. This allows the [Styles Builder](https://mc4wp.com/features/) to work with the Form Preview.
+- Form events are now triggered _after_ the page has finished loading, so all scripts are loaded & ready to use.
+- Reset background-color in Form Themes stylesheets.
 
 = 3.0.0 & 3.0.1 - November 23, 2015 =
 
@@ -606,6 +616,6 @@ Minor improvements and additions for compatibility with the [MailChimp Sync plug
 
 == Upgrade Notice ==
 
-= 3.0.1 =
+= 3.0.2 =
 
-Please read through the [upgrade guide](https://mc4wp.com/kb/upgrading-to-3-0/) before updating to version 3.
+Please read through the [upgrade guide](https://mc4wp.com/kb/upgrading-to-3-0/) if you are coming from version 2.x of the plugin.
