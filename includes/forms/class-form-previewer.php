@@ -54,7 +54,7 @@ class MC4WP_Form_Previewer {
 		$instance = new self( $form_id, $is_preview );
 
 		add_filter( 'mc4wp_form_stylesheets', array( $instance, 'set_stylesheet' ) );
-		add_filter( 'mc4wp_form_css_classes', array( $instance, 'add_css_class' ) );
+		add_filter( 'mc4wp_form_css_classes', array( $instance, 'add_css_class' ), 10, 2 );
 		add_filter( 'the_title', array( $instance, 'set_page_title' ) );
 		add_filter( 'the_content', array( $instance, 'set_page_content' ) );
 	}
@@ -176,8 +176,18 @@ class MC4WP_Form_Previewer {
 	 * @param array $classes
 	 * @return array
 	 */
-	public function add_css_class( $classes ) {
-		$classes[] = 'mc4wp-form-' . $this->form_id;
+	public function add_css_class( $classes, $form ) {
+
+		// only act on our preview form
+		if( $form !== $this->form ) {
+			return $classes;
+		}
+
+		// replace preview ID with actual form ID in all classes
+		foreach( $classes as $key => $class ) {
+			$classes[ $key ] = str_replace( $this->preview_form_id, $this->form_id, $class );
+		}
+
 		return $classes;
 	}
 }

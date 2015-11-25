@@ -268,15 +268,6 @@ class MC4WP_Form_Element {
 		$classes = array();
 		$form = $this->form;
 
-		/**
-		 * Filters `class` attributes for the `<form>` element.
-		 *
-		 * @param array $classes
-		 * @param MC4WP_Form $form
-		 */
-		$classes = apply_filters( 'mc4wp_form_css_classes', $classes, $form );
-
-		// the following classes MUST be used
 		$classes[] = 'mc4wp-form';
 		$classes[] = 'mc4wp-form-' . $form->ID;
 
@@ -300,6 +291,14 @@ class MC4WP_Form_Element {
 
 			$classes[] = 'mc4wp-form-' . $form->settings['css'];
 		}
+
+		/**
+		 * Filters `class` attributes for the `<form>` element.
+		 *
+		 * @param array $classes
+		 * @param MC4WP_Form $form
+		 */
+		$classes = apply_filters( 'mc4wp_form_css_classes', $classes, $form );
 
 		return implode( ' ', $classes );
 	}
