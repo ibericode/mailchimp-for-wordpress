@@ -234,8 +234,7 @@ class MC4WP_Admin {
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		// css
-		wp_register_style( 'codemirror', MC4WP_PLUGIN_URL . 'assets/css/codemirror.css', array(), MC4WP_VERSION );
-		wp_register_style( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/css/admin-styles' . $suffix . '.css', array( 'codemirror' ), MC4WP_VERSION );
+		wp_register_style( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/css/admin-styles' . $suffix . '.css', array(), MC4WP_VERSION );
 		wp_enqueue_style( 'mc4wp-admin' );
 
 
