@@ -54,6 +54,7 @@ class MC4WP_Form_Previewer {
 		$instance = new self( $form_id, $is_preview );
 
 		add_filter( 'mc4wp_form_stylesheets', array( $instance, 'set_stylesheet' ) );
+		add_filter( 'mc4wp_form_css_classes', array( $instance, 'add_css_class' ) );
 		add_filter( 'the_title', array( $instance, 'set_page_title' ) );
 		add_filter( 'the_content', array( $instance, 'set_page_content' ) );
 	}
@@ -169,4 +170,14 @@ class MC4WP_Form_Previewer {
 		return $this->form;
 	}
 
+	/**
+	 * Adds the real CSS class to the preview form-id
+	 *
+	 * @param array $classes
+	 * @return array
+	 */
+	public function add_css_class( $classes ) {
+		$classes[] = 'mc4wp-form-' . $this->form_id;
+		return $classes;
+	}
 }
