@@ -22,8 +22,13 @@ var Settings = function(context, helpers, events ) {
 
 	function updateSelectedLists() {
 		selectedLists = [];
+
 		Array.prototype.forEach.call(listInputs, function(input) {
-			if( ! input.checked ) return;
+			// skip unchecked checkboxes
+			if( typeof( input.checked ) === "boolean" && ! input.checked ) {
+				return;
+			}
+
 			if( typeof( lists[ input.value ] ) === "object" ){
 				selectedLists.push( lists[ input.value ] );
 			}
