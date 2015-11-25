@@ -400,7 +400,6 @@ class MC4WP_Form {
 			$validator = new MC4WP_Validator( $this->raw_data );
 			$validator->add_rule( '_mc4wp_timestamp', 'range', 'spam', array( 'max' => time() - 2 ) );
 			$validator->add_rule( '_mc4wp_honeypot', 'empty', 'spam' );
-			$validator->add_rule( '_mc4wp_form_nonce', 'valid_nonce', 'spam', array( 'action' => '_mc4wp_form_nonce' ) );
 			$valid = $validator->validate();
 
 			// validate actual (visible) fields
