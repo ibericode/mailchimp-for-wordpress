@@ -132,7 +132,7 @@ class MC4WP_Form_Listener {
 	 */
 	public function respond( MC4WP_Form $form ) {
 
-		$success = $form->has_errors();
+		$success = ! $form->has_errors();
 
 		if( $success ) {
 
@@ -192,8 +192,9 @@ class MC4WP_Form_Listener {
 		// do stuff on success (non-AJAX)
 		if( $success && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 
-			// check if we want to redirect the visitor
-			if ( '' !== $form->get_redirect_url() ) {
+			// do we want to redirect?
+			$redirect_url = $form->get_redirect_url();
+			if ( ! empty( $redirect_url ) ) {
 				wp_redirect( $form->get_redirect_url() );
 				exit;
 			}
