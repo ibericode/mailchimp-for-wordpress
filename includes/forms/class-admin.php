@@ -99,7 +99,7 @@ class MC4WP_Forms_Admin {
 		update_post_meta( $form_id, '_mc4wp_settings', $form_data['settings'] );
 
 		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) );
-		wp_safe_redirect( mc4wp_get_edit_form_url( $form_id ) );
+		wp_redirect( mc4wp_get_edit_form_url( $form_id ) );
 		exit;
 	}
 
@@ -214,7 +214,7 @@ class MC4WP_Forms_Admin {
 		$previewer->set_preview_id( $preview_id );
 
 		// redirect to preview
-		wp_safe_redirect( $previewer->get_preview_url() );
+		wp_redirect( $previewer->get_preview_url() );
 		exit;
 	}
 
@@ -235,12 +235,12 @@ class MC4WP_Forms_Admin {
 		// if we have a post, go to the "edit form" screen
 		if( $forms ) {
 			$form = array_pop( $forms );
-			wp_safe_redirect( mc4wp_get_edit_form_url( $form->ID ) );
+			wp_redirect( mc4wp_get_edit_form_url( $form->ID ) );
 			exit;
 		}
 
 		// we don't have a form yet, go to "add new" screen
-		wp_safe_redirect( mc4wp_get_add_form_url() );
+		wp_redirect( mc4wp_get_add_form_url() );
 		exit;
 	}
 

@@ -104,7 +104,7 @@ class MC4WP_Admin {
 
 		// redirect back to where we came from
 		$redirect_url = remove_query_arg( '_mc4wp_action' );
-		wp_safe_redirect( $redirect_url );
+		wp_redirect( $redirect_url );
 		exit;
 	}
 
