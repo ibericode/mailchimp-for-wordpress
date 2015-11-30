@@ -55,7 +55,7 @@ class FieldGuesserTest extends PHPUnit_Framework_TestCase {
 		);
 
 		$instance = new MC4WP_Field_Guesser( $data );
-		$result = $instance->combine([ 'namespaced', 'guessed' ]);
+		$result = $instance->combine(array( 'namespaced', 'guessed' ));
 
 		self::assertEquals( $result['NAME'], $data['name'] );
 		self::assertEquals( $result['EMAIL'], $data['prefix-email'] );
@@ -68,10 +68,10 @@ class FieldGuesserTest extends PHPUnit_Framework_TestCase {
 		);
 
 		$instance = new MC4WP_Field_Guesser( $data );
-		$result = $instance->combine([ 'namespaced', 'guessed' ]);
+		$result = $instance->combine(array( 'namespaced', 'guessed' ));
 		self::assertEquals( $result['NAME'], $data['name'] );
 
-		$result = $instance->combine([ 'guessed', 'namespaced' ]);
+		$result = $instance->combine(array( 'guessed', 'namespaced' ));
 		self::assertEquals( $result['NAME'], $data['mc4wp-name'] );
 
 
