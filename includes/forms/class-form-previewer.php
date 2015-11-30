@@ -146,6 +146,8 @@ class MC4WP_Form_Previewer {
 	}
 
 	/**
+	 * We only need the stylesheet of this form for this preview page.
+	 *
 	 * @param $stylesheets
 	 *
 	 * @return string
