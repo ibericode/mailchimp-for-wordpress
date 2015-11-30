@@ -65,23 +65,21 @@ class MC4WP_Form_Listener {
 		$api = $this->get_api();
 		$result = false;
 		$email_type = $form->get_email_type();
+		$merge_vars = $form->data;
 
-		$map = new MC4WP_Field_Map( $form->data, $form->get_lists() );
+		/**
+		 * Filters merge vars which are sent to MailChimp, only fires for form requests.
+		 *
+		 * @param array $merge_vars
+		 * @param MC4WP_Form $form
+		 */
+		$merge_vars = (array) apply_filters( 'mc4wp_form_merge_vars', $merge_vars, $form );
 
-		// loop through selected lists
-		foreach( $map->list_fields as $list_id => $list_field_data ) {
+		// create a map of all lists with list-specific merge vars
+		$map = new MC4WP_Field_Map( $merge_vars, $form->get_lists() );
 
-			// allow plugins to alter merge vars for each individual list
-			$merge_vars = $list_field_data;
-
-			/**
-			 * Filters merge vars which are sent to MailChimp, only fires for form requests.
-			 *
-			 * @param array $merge_vars
-			 * @param MC4WP_Form $form
-			 */
-			$merge_vars = (array) apply_filters( 'mc4wp_form_merge_vars', $merge_vars, $form );
-
+		// loop through lists
+		foreach( $map->list_fields as $list_id => $merge_vars ) {
 			// send a subscribe request to MailChimp for each list
 			$result = $api->subscribe( $list_id, $form->data['EMAIL'], $merge_vars, $email_type, $form->settings['double_optin'], $form->settings['update_existing'], $form->settings['replace_interests'], $form->settings['send_welcome'] );
 		}
