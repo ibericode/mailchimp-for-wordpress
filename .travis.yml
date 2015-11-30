@@ -5,6 +5,7 @@ php:
   - hhvm
   - 7.0
 install:
+- composer self-update --no-interaction
 - composer update --no-interaction --prefer-dist
 script:
 - phpunit
