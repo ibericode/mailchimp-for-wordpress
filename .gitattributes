@@ -8,6 +8,7 @@
 /composer.lock		export-ignore
 /phpunit.xml.dist   export-ignore
 /Gruntfile.js       export-ignore
+/gulpfile.js		export-ignore
 /package.json		export-ignore
 /node_modules/*		export-ignore
 /tests              export-ignore
