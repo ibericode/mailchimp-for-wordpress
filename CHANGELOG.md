@@ -1,6 +1,19 @@
 Changelog
 =========
 
+= Trunk =
+
+**Fixes**
+
+- Added backwards compatibility for integration with [Goodbye Captcha](https://wordpress.org/plugins/goodbye-captcha/).
+
+**Improvements**
+
+- Prevented notice when saving Form widget settings for the first time.
+- Add `autofill="off"` to honeypot field.
+- Remove nonces from forms as they're not really useful for publicly available features.
+- Errors returned by MailChimp are now logged for Forms as well.
+
 = 3.0.2 - November 25, 2015 =
 
 **Fixes**
