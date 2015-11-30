@@ -1,4 +1,6 @@
 <?php
+defined( 'ABSPATH' ) or exit;
+
 $global_options = (array) get_option( 'mc4wp_form', array() );
 
 // find all form posts
