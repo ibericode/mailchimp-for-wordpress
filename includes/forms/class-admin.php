@@ -232,15 +232,16 @@ class MC4WP_Forms_Admin {
 		// query first available form and go there
 		$forms = mc4wp_get_forms( array( 'numberposts' => 1 ) );
 
-		// if we have a post, go to the "edit form" screen
 		if( $forms ) {
+			// if we have a post, go to the "edit form" screen
 			$form = array_pop( $forms );
-			wp_redirect( mc4wp_get_edit_form_url( $form->ID ) );
-			exit;
+			$redirect_url = mc4wp_get_edit_form_url( $form->ID );
+		} else {
+			// we don't have a form yet, go to "add new" screen
+			$redirect_url = mc4wp_get_add_form_url();
 		}
 
-		// we don't have a form yet, go to "add new" screen
-		wp_redirect( mc4wp_get_add_form_url() );
+		wp_redirect( $redirect_url );
 		exit;
 	}
 
