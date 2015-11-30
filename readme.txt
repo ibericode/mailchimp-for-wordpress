@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mail chimp
 Requires at least: 3.7
 Tested up to: 4.4
-Stable tag: 3.0.2
+Stable tag: 3.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -173,6 +173,20 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 
 == Changelog == 
 
+
+#### 3.0.3 - November 30, 2015
+
+**Fixes**
+
+- Added backwards compatibility for integration with [Goodbye Captcha](https://wordpress.org/plugins/goodbye-captcha/).
+
+**Improvements**
+
+- Prevented notice when saving Form widget settings for the first time.
+- Add `autofill="off"` to honeypot field.
+- Remove nonces from forms as they're not really useful for publicly available features.
+- Errors returned by MailChimp are now logged for Forms as well.
+- Pre-select MailChimp list if there's just one list in the connected account.
 
 #### 3.0.2 - November 25, 2015
 
@@ -614,9 +628,6 @@ Minor improvements and additions for compatibility with the [MailChimp Sync plug
 - Added sign-up checkbox integration for [WooCommerce](https://wordpress.org/plugins/woocommerce/) checkout.
 - Added sign-up checkbox integration for [Easy Digital Downloads](https://wordpress.org/plugins/easy-digital-downloads/) checkout.
 - The entered email will now be appended to the URL when redirecting to another page
-
 == Upgrade Notice ==
 
-#### 3.0.2
-
-Please read through the [upgrade guide](https://mc4wp.com/kb/upgrading-to-3-0/) if you are coming from version 2.x of the plugin.
+Testing..

@@ -1,7 +1,7 @@
 Changelog
 =========
 
-= Trunk =
+#### 3.0.3 - November 30, 2015
 
 **Fixes**
 
@@ -15,7 +15,7 @@ Changelog
 - Errors returned by MailChimp are now logged for Forms as well.
 - Pre-select MailChimp list if there's just one list in the connected account.
 
-= 3.0.2 - November 25, 2015 =
+#### 3.0.2 - November 25, 2015
 
 **Fixes**
 
@@ -29,7 +29,7 @@ Changelog
 - Form events are now triggered _after_ the page has finished loading, so all scripts are loaded & ready to use.
 - Reset background-color in Form Themes stylesheets.
 
-= 3.0.0 & 3.0.1 - November 23, 2015 =
+#### 3.0.0 & 3.0.1 - November 23, 2015
 
 Version 3.0 is a total revamp of the plugin. For a quick overview of the changes, please [read this post on our blog](https://mc4wp.com/blog/whats-new-in-mailchimp-for-wordpress-the-big-three-o/).
 
@@ -62,7 +62,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - Ninja Forms integration
 - Introduced various new filter & action hooks, please see the new [code reference for developers](http://developer.mc4wp.com/) for more information.
 
-= 2.3.18 - November 2, 2015 =
+#### 2.3.18 - November 2, 2015
 
 **Fixes**
 
@@ -74,7 +74,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - Preparations for [the upcoming MailChimp for WordPress version 3.0 release](https://mc4wp.com/blog/breaking-backwards-compatibility-in-version-3-0/).
 - Tested compatibility with WordPress 4.4
 
-= 2.3.17 - October 22, 2015 =
+#### 2.3.17 - October 22, 2015
 
 **Fixes**
 
@@ -85,7 +85,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - Updated Portugese translations.
 
 
-= 2.3.16 - October 14, 2015 =
+#### 2.3.16 - October 14, 2015
 
 **Fixes**
 
@@ -97,7 +97,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - Connectivity issues with MailChimp will now _always_ show an error message.
 - Renewing MailChimp lists will now also update the output of the `{subscriber_count}` tag.
 
-= 2.3.15 - October 9, 2015 =
+#### 2.3.15 - October 9, 2015
 
 **Fixes**
 
@@ -116,13 +116,13 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 
 - Added opt-in usage tracking to help us make the plugin better. No sensitive data is tracked.
 
-= 2.3.14 - September 25 =
+#### 2.3.14 - September 25
 
 **Fixes**
 
 - Use of undefined constant in previous update.
 
-= 2.3.13 - September 25, 2015 =
+#### 2.3.13 - September 25, 2015
 
 **Fixes**
 
@@ -135,13 +135,13 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - MailChimp list fields of type "website" will now become HTML5 `url` type fields.
 - Auto-prefix fields of type `url` with `http://`
 
-= 2.3.12 - September 21, 2015 =
+#### 2.3.12 - September 21, 2015
 
 **Fixes**
 
 - Issue with interest groupings not being fetched after updating to version 2.3.11
 
-= 2.3.11 - September 21, 2015 =
+#### 2.3.11 - September 21, 2015
 
 **Fixes**
 
@@ -158,7 +158,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 
 - You can now use shortcodes in the form content.
 
-= 2.3.10 - September 7, 2015 =
+#### 2.3.10 - September 7, 2015
 
 **Fixes**
 
@@ -172,7 +172,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - Add default CSS styles for `number` fields.
 - Placeholders will now work in older version of IE as well.
 
-= 2.3.9 - September 1, 2015 =
+#### 2.3.9 - September 1, 2015
 
 **Improvements**
 
@@ -189,7 +189,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 
 - Add `mc4wp_form_action` filter to set a custom `action` attribute on the form element.
 
-= 2.3.8 - August 18, 2015 =
+#### 2.3.8 - August 18, 2015
 
 **Fixes**
 
@@ -210,7 +210,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 
 - Added `mc4wp_form_is_submitted()` and `mc4wp_form_get_response_html()` functions.
 
-= 2.3.7 - July 13, 2015 =
+#### 2.3.7 - July 13, 2015
 
 **Improvements**
 
@@ -223,7 +223,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - Add `{current_path}` variable to use in form templates.
 - Add `default` attribute to `{data_name}` variables, usage: `{data_something default="The default value"}`
 
-= 2.3.6 - July 6, 2015 =
+#### 2.3.6 - July 6, 2015
 
 **Fixes**
 
@@ -235,7 +235,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - Better CSS for form reset
 - Updated HTML5 placeholder polyfill
 
-= 2.3.5 - June 24, 2015 =
+#### 2.3.5 - June 24, 2015
 
 **Fixes**
 
@@ -246,7 +246,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - Updated language files.
 - Now passing the form as a parameter to `mc4wp_form_css_classes` filter.
 
-= 2.3.4 - May 29, 2015 =
+#### 2.3.4 - May 29, 2015
 
 **Fixes**
 
@@ -256,7 +256,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 
 - Code preview in Field Builder is now read-only
 
-= 2.3.3 - May 27, 2015 =
+#### 2.3.3 - May 27, 2015
 
 **Fixes**
 
@@ -268,7 +268,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - Add `contactemail` and `contactname` to field name guesses when integrating with third-party form.
 - Re-enable `sslverify`
 
-= 2.3.2 - May 12, 2015 =
+#### 2.3.2 - May 12, 2015
 
 **Fixes**
 
@@ -279,13 +279,13 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 
 - IE8 compatibility for honeypot fallback script.
 
-= 2.3.1 - May 6, 2015 =
+#### 2.3.1 - May 6, 2015
 
 **Fixes**
 
 - PHP notice in `includes/class-tools.php`, introduced by version 2.3.
 
-= 2.3 - May 6, 2015 =
+#### 2.3 - May 6, 2015
 
 **Fixes**
 
@@ -306,7 +306,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - You can now handle unsubscribe calls with our forms too.
 - Added Portugese, Indonesian, German (CH) and Spanish (PR) translations.
 
-= 2.2.9 - April 15, 2015 =
+#### 2.2.9 - April 15, 2015
 
 **Fixes**
 
@@ -316,7 +316,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 
 - Updated Italian, Russian & Turkish translations. [Want to help translate the plugin? Full translations get a free Pro license](https://www.transifex.com/projects/p/mailchimp-for-wordpress/).
 
-= 2.2.8 - March 24, 2015 =
+#### 2.2.8 - March 24, 2015
 
 **Fixes**
 
@@ -334,7 +334,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - Added some helper methods related to interest groupings to `MC4WP_MailChimp` class.
 - Allow setting custom MailChimp lists to subscribe to using `lists` attribute on shortcode.
 
-= 2.2.7 - March 11, 2015 =
+#### 2.2.7 - March 11, 2015
 
 **Fixes**
 
@@ -351,7 +351,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - Added [mc4wp_form_data](https://github.com/ibericode/mailchimp-for-wordpress/blob/06f0c833027f347a288d2cb9805e0614767409b6/includes/class-form-request.php#L138-L142) filter hook to modify all form data before processing
 
 
-= 2.2.6 - February 26, 2015 =
+#### 2.2.6 - February 26, 2015
 
 **Fixes**
 
@@ -371,7 +371,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - Custom fallback for browsers not supporting `input[type="date"]`
 
 
-= 2.2.5 - February 13, 2015 =
+#### 2.2.5 - February 13, 2015
 
 **Fixed**
 
@@ -394,7 +394,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 A huge thank you to [Stefan Oderbolz](http://metaodi.ch/) for various fixed and improvements related to translations in this release.
 
 
-= 2.2.4 - February 4, 2015 =
+#### 2.2.4 - February 4, 2015
 
 **Fixed**
 
@@ -412,17 +412,17 @@ A huge thank you to [Stefan Oderbolz](http://metaodi.ch/) for various fixed and 
 - Added `wpml-config.xml` file for better WPML compatibility
 - Added filter `mc4wp_menu_items` for adding & removing menu items from add-ons
 
-= 2.2.3 - January 24, 2015 =
+#### 2.2.3 - January 24, 2015
 
 Minor improvements and additions for compatibility with the [MailChimp Sync plugin](https://wordpress.org/plugins/mailchimp-sync/).
 
-= 2.2.2 - January 13, 2015 =
+#### 2.2.2 - January 13, 2015
 
 **Fixes**
 
 - Plugin wasn't connecting to MailChimp for users on MailChimp server `us10` (API keys ending in `-us10`)
 
-= 2.2.1 - January 12, 2015 =
+#### 2.2.1 - January 12, 2015
 
 **Improvements**
 
@@ -437,7 +437,7 @@ Minor improvements and additions for compatibility with the [MailChimp Sync plug
 - You can now set `MC_LOCATION`, `MC_NOTES` and `MC_LANGUAGE` from your form HTML
 - The submit button now has a default value when generating HTML for it
 
-= 2.2 - December 9, 2014 =
+#### 2.2 - December 9, 2014
 
 **Fixes**
 
