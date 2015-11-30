@@ -5,7 +5,7 @@ Changelog
 
 **Fixes**
 
-- Added backwards compatibility for integration with [Goodbye Captcha](https://wordpress.org/plugins/goodbye-captcha/).
+- Added backwards compatibility for [Goodbye Captcha](https://wordpress.org/plugins/goodbye-captcha/) integration.
 
 **Improvements**
 
@@ -14,6 +14,7 @@ Changelog
 - Remove nonces from forms as they're not really useful for publicly available features.
 - Errors returned by MailChimp are now logged for Forms as well.
 - Pre-select MailChimp list if there's just one list in the connected account.
+- Added missing translation calls for Form Editor.
 
 #### 3.0.2 - November 25, 2015
 
