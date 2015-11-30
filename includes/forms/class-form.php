@@ -430,6 +430,15 @@ class MC4WP_Form {
 		 */
 		$this->errors = (array) apply_filters( 'mc4wp_form_errors', $errors, $form );
 
+		/**
+		 * @ignore
+		 * @deprecated 3.0 Use `mc4wp_form_errors` instead
+		 */
+		$form_validity = apply_filters( 'mc4wp_valid_form_request', true, $this->data );
+		if( is_string( $form_validity ) ) {
+			$this->errors[] = $form_validity;
+		}
+
 		return $valid;
 	}
 
