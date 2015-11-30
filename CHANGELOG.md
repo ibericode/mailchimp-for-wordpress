@@ -13,6 +13,7 @@ Changelog
 - Add `autofill="off"` to honeypot field.
 - Remove nonces from forms as they're not really useful for publicly available features.
 - Errors returned by MailChimp are now logged for Forms as well.
+- Pre-select MailChimp list if there's just one list in the connected account.
 
 = 3.0.2 - November 25, 2015 =
 
