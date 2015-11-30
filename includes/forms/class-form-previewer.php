@@ -89,7 +89,7 @@ class MC4WP_Form_Previewer {
 	public function get_preview_page_id() {
 		$page = get_page_by_path( self::PAGE_SLUG );
 
-		if( $page instanceof WP_Post ) {
+		if( $page instanceof WP_Post && in_array( $page->post_status, array( 'draft', 'publish' ) ) ) {
 			$page_id = $page->ID;
 		} else {
 			$page_id = wp_insert_post(
