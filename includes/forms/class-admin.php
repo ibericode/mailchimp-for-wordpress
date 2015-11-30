@@ -295,6 +295,7 @@ class MC4WP_Forms_Admin {
 	 */
 	public function show_add_page() {
 		$lists = $this->mailchimp->get_lists();
+		$number_of_lists = count( $lists );
 		require dirname( __FILE__ ) . '/views/add-form.php';
 	}
 
