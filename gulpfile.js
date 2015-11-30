@@ -20,6 +20,7 @@ var through = require('through2');
 
 gulp.task('default', ['sass', 'browserify']);
 
+
 gulp.task('sass', function () {
 	var files = './assets/sass/[^_]*.scss';
 

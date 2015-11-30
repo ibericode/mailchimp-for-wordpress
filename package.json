@@ -20,7 +20,6 @@
     "gulp-util": "^3.0.7",
     "merge-stream": "^1.0.0",
     "minimist": "^1.2.0",
-    "run-sequence": "^1.1.5",
     "through2": "^2.0.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
