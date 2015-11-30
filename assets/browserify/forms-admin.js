@@ -1,6 +1,7 @@
 'use strict';
 
 // deps
+var i18n = window.mc4wp_forms_i18n;
 var m = window.mc4wp.deps.mithril;
 var events = mc4wp.events;
 var settings = mc4wp.settings;
@@ -15,13 +16,13 @@ var fields = require('./admin/fields.js')(m, events);
 var textareaElement = document.getElementById('mc4wp-form-content');
 var editor = window.formEditor = new FormEditor( textareaElement );
 var watcher = new FormWatcher( m, formEditor, settings, fields, events );
-var fieldHelper = new FieldHelper( m, tabs, formEditor, fields );
+var fieldHelper = new FieldHelper( m, tabs, formEditor, fields, i18n );
 
 // mount field helper on element
 m.mount( document.getElementById( 'mc4wp-field-wizard'), fieldHelper );
 
 // register fields and redraw screen in 2 seconds (fixes IE8 bug)
-var fieldsFactory = new FieldsFactory(settings,fields);
+var fieldsFactory = new FieldsFactory(settings, fields, i18n);
 events.on('selectedLists.change', fieldsFactory.work);
 fieldsFactory.work(settings.getSelectedLists());
 window.setTimeout( function() {m.redraw();}, 2000 );

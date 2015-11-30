@@ -15,7 +15,7 @@ $tabs = array(
 		<span class="prefix"><?php echo __( 'You are here: ', 'mailchimp-for-wp' ); ?></span>
 		<a href="<?php echo admin_url( 'admin.php?page=mailchimp-for-wp' ); ?>">MailChimp for WordPress</a> &rsaquo;
 		<a href="<?php echo admin_url( 'admin.php?page=mailchimp-for-wp-forms' ); ?>"><?php _e( 'Forms', 'mailchimp-for-wp' ); ?></a> &rsaquo;
-		<span class="current-crumb"><strong>Form <?php echo $form_id; ?> | <?php echo $form->name; ?></strong></span>
+		<span class="current-crumb"><strong><?php echo __( 'Form', 'mailchimp-for-wp' ); ?> <?php echo $form_id; ?> | <?php echo $form->name; ?></strong></span>
 	</p>
 
 	<div class="row">
@@ -49,7 +49,7 @@ $tabs = array(
 
 						<input id="shortcode" type="hidden" value="<?php echo esc_attr( sprintf( '[mc4wp_form id="%d"]', $form->ID ) ); ?>">
 
-						<a href="#" class="button-secondary" onclick="prompt('Shortcode:', document.getElementById('shortcode').value); return false;">
+						<a href="#" class="button-secondary" onclick="prompt('<?php echo esc_attr__( 'Shortcode', 'mailchimp-for-wp' ); ?>', document.getElementById('shortcode').value); return false;">
 							<span class="dashicons dashicons-editor-code"></span>
 							<?php _e( 'Get shortcode', 'mailchimp-for-wp' ); ?>
 						</a>

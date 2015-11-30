@@ -1,4 +1,4 @@
-var overlay = function( m ) {
+var overlay = function(m, i18n) {
 	'use strict';
 
 	var _element,
@@ -50,7 +50,7 @@ var overlay = function( m ) {
 					// close icon
 					m('span', {
 						"class": 'close dashicons dashicons-no',
-						title  : "Click to close the overlay.",
+						title  : i18n.close,
 						onclick: onCloseCallback
 					}),
 
@@ -59,7 +59,7 @@ var overlay = function( m ) {
 			)
 			,
 			m('div.overlay-background', {
-				title  : "Click to close the overlay.",
+				title: i18n.close,
 				onclick: onCloseCallback
 			})
 		];

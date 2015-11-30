@@ -1,6 +1,6 @@
-var forms = function(m) {
+var forms = function(m, i18n) {
 	var forms = {};
-	var rows = require('./field-forms-rows.js')(m);
+	var rows = require('./field-forms-rows.js')(m, i18n);
 
 	// route to one of the other form configs, default to "text"
 	forms.render = function(config) {

@@ -1,4 +1,4 @@
-var FieldFactory = function(settings, fields) {
+var FieldFactory = function(settings, fields, i18n) {
 	'use strict';
 
 	/**
@@ -77,11 +77,11 @@ var FieldFactory = function(settings, fields) {
 		if( data.type !== 'address' ) {
 			register(data);
 		} else {
-			register({ name: data.name + '[addr1]', type: 'text', title: 'Street Address' });
-			register({ name: data.name + '[city]', type: 'text', title: 'City' });
-			register({ name: data.name + '[state]', type: 'text', title: 'State' });
-			register({ name: data.name + '[zip]', type: 'text', title: 'ZIP' });
-			register({ name: data.name + '[country]', type: 'select', title: 'Country', choices: mc4wp_vars.countries });
+			register({ name: data.name + '[addr1]', type: 'text', title: i18n.streetAddress });
+			register({ name: data.name + '[city]', type: 'text', title: i18n.city });
+			register({ name: data.name + '[state]', type: 'text', title: i18n.state  });
+			register({ name: data.name + '[zip]', type: 'text', title: i18n.zip });
+			register({ name: data.name + '[country]', type: 'select', title: i18n.country, choices: mc4wp_vars.countries });
 		}
 
 		return true;
@@ -123,9 +123,9 @@ var FieldFactory = function(settings, fields) {
 		// register submit button
 		register({
 			name: '',
-			value: "Subscribe",
+			value: i18n.subscribe,
 			type: "submit",
-			title: "Submit Button"
+			title: i18n.submitButton
 		});
 
 		// register lists choice field
@@ -136,9 +136,9 @@ var FieldFactory = function(settings, fields) {
 		register({
 			name: '_mc4wp_lists',
 			type: 'checkbox',
-			title: "List Choice",
+			title: i18n.listChoice,
 			choices: choices,
-			help: 'This field will allow your visitors to choose a list to subscribe to. <a href="#" data-tab="settings" class="tab-link">Click here to select more lists to show</a>.'
+			help: i18n.listChoiceDescription
 		});
 
 		choices = {
@@ -148,10 +148,10 @@ var FieldFactory = function(settings, fields) {
 		register({
 			name: '_mc4wp_action',
 			type: 'radio',
-			title: "Subscribe / Unsubscribe",
+			title: i18n.formAction,
 			choices: choices,
 			value: 'subscribe',
-			help: 'This field will allow your visitors to choose whether they would like to subscribe or unsubscribe'
+			help: i18n.formActionDescription
 		});
 	}
 

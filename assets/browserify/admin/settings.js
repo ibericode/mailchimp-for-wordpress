@@ -58,8 +58,7 @@ var Settings = function(context, helpers, events ) {
 		if(!unsaved) return;
 
 		e = e|| window.event;
-		var confirmationMessage = 'It looks like you have been editing something. '
-			+ 'If you leave before saving, your changes will be lost.';
+		var confirmationMessage = 'It looks like you have been editing something. If you leave before saving, your changes will be lost.';
 
 		e.returnValue = confirmationMessage; //Gecko + IE
 		return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.

@@ -1,4 +1,4 @@
-var rows = function(m) {
+var rows = function(m, i18n) {
 	'use strict';
 
 	var r = {};
@@ -6,7 +6,7 @@ var rows = function(m) {
 	r.label = function (config) {
 		// label row
 		return m("div", [
-			m("label", "Field Label"),
+			m("label", i18n.fieldLabel),
 			m("input.widefat", {
 				type       : "text",
 				value      : config.label(),
@@ -18,7 +18,7 @@ var rows = function(m) {
 
 	r.defaultValue = function (config) {
 		return m("div", [
-			m("label", "Default Value"),
+			m("label", i18n.defaultValue),
 			m("input.widefat", {
 				type   : "text",
 				value  : config.value(),
@@ -31,11 +31,11 @@ var rows = function(m) {
 		return m('div', [
 			m('div.row', [
 				m('div.col.col-3', [
-					m('label', "Min"),
+					m('label', i18n.min),
 					m('input', {type: 'number', onchange: m.withAttr('value', config.min)})
 				]),
 				m('div.col.col-3', [
-					m('label', 'Max'),
+					m('label', i18n.max),
 					m('input', {type: 'number', onchange: m.withAttr('value', config.max)})
 				])
 			])
@@ -51,7 +51,7 @@ var rows = function(m) {
 					checked : config.required(),
 					onchange: m.withAttr('checked', config.required)
 				}),
-				"Is this field required?"
+				i18n.isFieldRequired
 			])
 		]);
 	};
@@ -66,7 +66,7 @@ var rows = function(m) {
 						checked : config.placeholder(),
 						onchange: m.withAttr('checked', config.placeholder)
 					}),
-					"Use \"" + config.value() + "\" as placeholder for the field."
+					i18n.placeholderDescription.replace('%s', config.value())
 				])
 			]);
 		}
@@ -80,14 +80,14 @@ var rows = function(m) {
 					checked : config.wrap(),
 					onchange: m.withAttr('checked', config.wrap)
 				}),
-				"Wrap in paragraph tags?"
+				i18n.wrapInParagraphTags
 			])
 		]);
 	};
 
 	r.choiceType = function (config) {
 		return m('div', [
-			m('label', "Choice Type"),
+			m('label', i18n.choiceType ),
 			m('select', {
 				value   : config.type(),
 				onchange: m.withAttr('value', config.type)
@@ -95,15 +95,15 @@ var rows = function(m) {
 				m('option', {
 					value   : 'select',
 					selected: config.type() === 'select' ? 'selected' : false
-				}, 'Dropdown'),
+				}, i18n.dropdown ),
 				m('option', {
 					value   : 'radio',
 					selected: config.type() === 'radio' ? 'selected' : false
-				}, 'Radio Button'),
+				}, i18n.radioButtons ),
 				m('option', {
 					value   : 'checkbox',
 					selected: config.type() === 'checkbox' ? 'selected' : false
-				}, 'Checkboxes')
+				}, i18n.checkboxes )
 			])
 		]);
 	};
@@ -112,7 +112,7 @@ var rows = function(m) {
 
 
 		return m('div', [
-			m('label', "Choices"),
+			m('label', i18n.choices ),
 			m('div.limit-height', [
 				m("table", [
 

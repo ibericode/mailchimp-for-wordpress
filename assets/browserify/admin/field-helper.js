@@ -1,9 +1,9 @@
-var FieldHelper = function(m, tabs, editor, fields) {
+var FieldHelper = function(m, tabs, editor, fields, i18n) {
 	'use strict';
 
 	var generate = require('./field-generator.js')(m);
-	var overlay = require('./overlay.js')(m);
-	var forms = require('./field-forms.js')(m);
+	var overlay = require('./overlay.js')(m,i18n);
+	var forms = require('./field-forms.js')(m, i18n);
 	var fieldConfig;
 
 	editor.on('blur', m.redraw);
@@ -55,7 +55,7 @@ var FieldHelper = function(m, tabs, editor, fields) {
 		var availableFields = fields.getAll();
 
 		var fieldsChoice = m( "div.available-fields.small-margin", [
-			m("strong", "Choose a MailChimp field to add to the form"),
+			m("strong", i18n.chooseField),
 
 			(availableFields.length) ?
 
@@ -83,12 +83,7 @@ var FieldHelper = function(m, tabs, editor, fields) {
 				:
 
 				// no fields
-				m( "p", [
-					"No fields, did you ",
-					m("a", {
-						onclick: function() { tabs.open('settings'); }
-					}, "select a MailChimp list in the form settings?")
-				])
+				m( "p", i18n.noAvailableFields )
 		]);
 
 		// build DOM for overlay
@@ -117,7 +112,7 @@ var FieldHelper = function(m, tabs, editor, fields) {
 							"class": "button-primary",
 							type: "button",
 							onclick: createFieldHTMLAndAddToForm
-						}, "Add to form" )
+						}, i18n.addToForm )
 					])
 				]), setActiveField);
 		}
