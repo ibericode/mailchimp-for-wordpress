@@ -19,6 +19,11 @@
 			<h2 style="display: none;"></h2>
 			<?php settings_errors(); ?>
 
+			<p>
+				<?php _e( 'The table below shows all available integrations.', 'mailchimp-for-wp' ); ?>
+				<?php _e( 'Click on the name of an integration to edit all settings specific to that integration.', 'mailchimp-for-wp' ); ?>
+			</p>
+
 			<form action="<?php echo admin_url( 'options.php' ); ?>" method="post">
 
 				<?php settings_fields( 'mc4wp_integrations_settings' ); ?>
@@ -50,14 +55,19 @@
 									<input type="checkbox" name="mc4wp_integrations[<?php echo $integration->slug; ?>][enabled]" value="1" <?php checked( $installed, true );  ?>  title="<?php esc_attr_e( 'This integration is enabled by default as it requires manual actions to work.', 'mailchimp-for-wp' ); ?>" disabled="disabled" />
 								<?php } ?>
 							</td>
-							<td class="row-title">
-								<?php
+							<td>
 
+								<?php
 								if( $installed ) {
-									printf( '<a href="%s" title="%s">%s</a>', add_query_arg( array( 'integration' => $integration->slug ) ), __( 'Configure this integration', 'mailchimp-for-wp' ), $integration->name );
+									printf( '<strong><a href="%s" title="%s">%s</a></strong>', add_query_arg( array( 'integration' => $integration->slug ) ), __( 'Configure this integration', 'mailchimp-for-wp' ), $integration->name );
+									echo '<div class="row-actions">';
+									echo '<span class="settings"><a href="' . esc_attr( add_query_arg( array( 'integration' => $integration->slug ) ) ) . '">Edit Settings</a></span>';
+									echo '</div>';
 								} else {
 									echo $integration->name ;
 								} ?>
+
+
 							</td>
 							<td class="desc">
 								<?php echo $integration->description; ?>
