@@ -17,11 +17,6 @@ class MC4WP_Field_Map {
 	/**
 	 * @var array
 	 */
-	protected $leftover_data = array();
-
-	/**
-	 * @var array
-	 */
 	protected $lists = array();
 
 	/**
@@ -51,25 +46,28 @@ class MC4WP_Field_Map {
 	 */
 	public function __construct( array $data, array $lists ) {
 		$this->data = $data;
-		$this->leftover_data = $data;
 		$this->lists = $lists;
 		$this->mailchimp = new MC4WP_MailChimp();
-		$this->list_fields = $this->map_lists();
+
+		// assume all data is custom
+		$this->custom_fields = $data;
 		$this->global_fields = $this->map_global_fields();
-		$this->custom_fields = $this->find_custom_fields();
+		$this->list_fields = $this->map_lists();
 	}
 
 	/**
-	 * @return array|bool
+	 * @return array
 	 */
-	public function map_lists() {
+	protected function map_lists() {
 		$map = array();
 
 		foreach( $this->lists as $list_id ) {
-			$map[ $list_id ] = $this->map_list( $list_id );
+			$map[ $list_id ] = $this->map_list_fields( $list_id );
 		}
 
+		// filter out empty values
 		$map = array_filter( $map );
+
 		return $map;
 	}
 
@@ -79,11 +77,11 @@ class MC4WP_Field_Map {
 	 * @return array
 	 * @throws Exception
 	 */
-	public function map_list( $list_id ) {
+	protected function map_list_fields( $list_id ) {
 		$list = $this->mailchimp->get_list( $list_id, true );
 
 		// skip this list if it's unexisting
-		if( ! is_object( $list ) || ! isset( $list->merge_vars ) ) {
+		if( ! $list instanceof MC4WP_MailChimp_List ) {
 			return array();
 		}
 
@@ -100,6 +98,10 @@ class MC4WP_Field_Map {
 			$map['GROUPINGS'] = array_filter( $map['GROUPINGS'] );
 		}
 
+		// add global fields (fields belong to ALL lists automatically)
+		$map = array_merge( $map, $this->global_fields );
+
+		// filter out empty values
 		$map = array_filter( $map );
 
 		return $map;
@@ -110,7 +112,7 @@ class MC4WP_Field_Map {
 	 *
 	 * @return mixed
 	 */
-	private function map_list_field( $field ) {
+	protected function map_list_field( $field ) {
 
 		// if field is not set, continue.
 		// don't use empty here as empty fields are perfectly valid (for non-required fields)
@@ -120,7 +122,7 @@ class MC4WP_Field_Map {
 
 		// grab field value from data
 		$value = $this->data[ $field->tag ];
-		unset( $this->leftover_data[ $field->tag ] );
+		unset( $this->custom_fields[ $field->tag ] );
 
 		// format field value according to its type
 		$value = $this->format_field_value( $value, $field->field_type );
@@ -133,7 +135,7 @@ class MC4WP_Field_Map {
 	 *
 	 * @return array|null
 	 */
-	public function map_list_grouping( $grouping ) {
+	protected function map_list_grouping( $grouping ) {
 
 		// check if data for this group was sent
 		if( ! empty( $this->data['GROUPINGS'][$grouping->id] ) ) {
@@ -144,7 +146,7 @@ class MC4WP_Field_Map {
 			return null;
 		}
 
-		unset( $this->leftover_data['GROUPINGS'] );
+		unset( $this->custom_fields['GROUPINGS'] );
 
 		// make sure groups is an array
 		if( ! is_array( $groups ) ) {
@@ -158,29 +160,25 @@ class MC4WP_Field_Map {
 		);
 	}
 
-	/**
-	 * @return array
-	 */
-	public function find_custom_fields() {
-		return $this->leftover_data;
-	}
 
 	/**
 	 * @return array
 	 */
-	private function map_global_fields() {
+	protected function map_global_fields() {
 		$global_fields = array();
 
 		// map global fields
 		$global_field_names = array(
 			'MC_LOCATION',
 			'MC_NOTES',
-			'MC_LANGUAGE'
+			'MC_LANGUAGE',
+			'OPTIN_IP',
 		);
 
-		foreach( $global_field_names as $field_name => $field_type ) {
+		foreach( $global_field_names as $field_name ) {
 			if( isset( $this->data[ $field_name ] ) ) {
 				$global_fields[ $field_name ] = $this->data[ $field_name ];
+				unset( $this->custom_fields[ $field_name ] );
 			}
 		}
 

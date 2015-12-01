@@ -31,6 +31,9 @@ class MC4WP_Form_Listener {
 			return false;
 		}
 
+		/**
+		 * @var MC4WP_Request $request
+		 */
 		$request = mc4wp('request');
 
 		try {
@@ -84,6 +87,7 @@ class MC4WP_Form_Listener {
 			$result = $api->subscribe( $list_id, $form->data['EMAIL'], $merge_vars, $email_type, $form->settings['double_optin'], $form->settings['update_existing'], $form->settings['replace_interests'], $form->settings['send_welcome'] );
 		}
 
+		// do stuff on failure
 		if( ! $result ) {
 			// log error
 			error_log( sprintf( 'MailChimp for WordPress (form %d): %s', $form->ID, $api->get_error_message() ) );
