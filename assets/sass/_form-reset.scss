@@ -1,5 +1,7 @@
 @import "mixins";
 
+.mc4wp-form input[name^="_mc4wp_honey"] { display: none !important; }
+
 /* MailChimp for WP - Default Form Styles */
 .mc4wp-form-basic,
 .mc4wp-form-theme {
