@@ -6,9 +6,6 @@
  */
 class FormTest extends PHPUnit_Framework_TestCase {
 
-	public function __construct() {
-	}
-
 	/**
 	 * @covers MC4WP_Form::__construct
 	 */
