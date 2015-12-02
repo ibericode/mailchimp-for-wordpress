@@ -439,7 +439,8 @@ class MC4WP_Form {
 			$this->errors[] = $form_validity;
 		}
 
-		return $this->has_errors();
+		// form is valid if it has no errors at this point
+		return ! $this->has_errors();
 	}
 
 	/**
