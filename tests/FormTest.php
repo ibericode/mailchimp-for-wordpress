@@ -18,6 +18,16 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		$form = new MC4WP_Form( $id );
 		self::assertEquals( $id, $form->ID );
 		self::assertEquals( $id, $form->post->ID );
+
+		// settings & messages should be loaded
+		self::assertNotEmpty( $form->settings );
+		self::assertNotEmpty( $form->messages );
+
+		// default form action should be "subscribe
+		self::assertEquals( 'subscribe', $form->config['action'] );
+
+		// lists should default to lists from settings
+		self::assertEquals( array(), $form->config['lists'] );
 	}
 
 	/**
@@ -199,7 +209,6 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	public function test_get_message() {
 		$form = new MC4WP_Form(15);
 
-
 		$errorMessage = new MC4WP_Form_Message( 'Error text', 'error' );
 		$successMessage = new MC4WP_Form_Message( 'Success text', 'success' );
 
@@ -212,6 +221,34 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		self::assertEquals( $errorMessage, $form->get_message( 'error' ) );
 		self::assertEquals( $errorMessage, $form->get_message( 'unexisting_error' ) );
 		self::assertEquals( $successMessage, $form->get_message( 'success' ) );
+	}
+
+	/**
+	 * @covers MC4WP_Form::set_config
+	 */
+	public function test_set_config() {
+		$form = new MC4WP_Form(15);
+
+		$list_id = 'some-list-id';
+		$form->set_config( array(
+			'lists' => $list_id,
+			'action' => 'unsubscribe',
+		));
+		self::assertTrue( is_array( $form->config['lists'] ) );
+		self::assertTrue( in_array( $list_id, $form->config['lists'] ) );
+		self::assertEquals( 'unsubscribe', $form->config['action'] );
+		self::assertFalse( in_array( 'unexisting-list-id', $form->config['lists'] ) );
+
+		// test passing comma-separated string
+		$form->set_config( array(
+			'lists' => 'list-id,another-list-id',
+		));
+		self::assertTrue( is_array( $form->config['lists'] ) );
+		self::assertTrue( in_array( 'list-id', $form->config['lists'] ) );
+		self::assertTrue( in_array( 'another-list-id', $form->config['lists'] ) );
+		self::assertFalse( in_array( 'unexisting-list-id', $form->config['lists'] ) );
+
+
 	}
 
 
