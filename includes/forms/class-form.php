@@ -439,7 +439,7 @@ class MC4WP_Form {
 			$this->errors[] = $form_validity;
 		}
 
-		return $valid;
+		return $this->has_errors();
 	}
 
 	/**
