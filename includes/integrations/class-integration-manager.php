@@ -111,15 +111,31 @@ class MC4WP_Integration_Manager {
 	}
 
 	/**
+	 * @param MC4WP_Integration $integration
+	 * @return bool
+	 */
+	public function is_installed( $integration ) {
+		return $integration->is_installed();
+	}
+
+	/**
 	 * Get the integrations which are enabled
 	 *
 	 * - Some integrations are always enabled because they need manual work
 	 * - Other integrations can be enabled in the settings page
+	 * - Only returns installed integrations
 	 *
 	 * @return array
 	 */
 	public function get_enabled_integrations() {
-		return array_filter( $this->integrations, array( $this, 'is_enabled' ) );
+
+		// get all enabled integrations
+		$enabled_integrations = array_filter( $this->integrations, array( $this, 'is_enabled' ) );
+
+		// filter out integrations which are not installed
+		$installed_enabled_integrations = array_filter( $enabled_integrations, array( $this, 'is_installed' ) );
+
+		return $installed_enabled_integrations;
 	}
 
 	/**
