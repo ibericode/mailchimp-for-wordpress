@@ -146,14 +146,22 @@ class MC4WP_Field_Map {
 			return null;
 		}
 
+		// reset entire groupings array here
 		unset( $this->custom_fields['GROUPINGS'] );
 
 		// make sure groups is an array
 		if( ! is_array( $groups ) ) {
-			$groups = explode( ',', $groups );
+			$groups = array_map( 'trim', explode( ',', $groups ) );
 		}
 
-		// format new grouping
+		// if groups is an array of id's, get the group name instead
+		foreach( $groups as $key => $group_name_or_id ) {
+			if( is_numeric( $group_name_or_id ) && isset( $grouping->groups[ $group_name_or_id ] ) ) {
+				$groups[ $key ] = $grouping->groups[ $group_name_or_id ];
+			}
+		}
+
+		// format grouping data for MailChimp
 		return array(
 			'id' => $grouping->id,
 			'groups' => $groups,

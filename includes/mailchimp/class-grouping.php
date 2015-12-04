@@ -53,7 +53,7 @@ class MC4WP_MailChimp_Grouping {
 
 		// add group names as strings
 		foreach( $data->groups as $group ) {
-			$instance->groups[] = $group->name;
+			$instance->groups[ $group->id ] = $group->name;
 		}
 
 		return $instance;
