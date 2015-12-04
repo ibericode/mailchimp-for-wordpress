@@ -380,9 +380,8 @@ class MC4WP_Form {
 	 * This method should be called before `get_errors()`
 	 *
 	 * @return bool
-	 * @throws Exception
 	 */
-	public function is_valid() {
+	public function validate() {
 
 		if( ! $this->is_submitted ) {
 			return true;
@@ -439,7 +438,6 @@ class MC4WP_Form {
 			$this->errors[] = $form_validity;
 		}
 
-		// form is valid if it has no errors at this point
 		return ! $this->has_errors();
 	}
 

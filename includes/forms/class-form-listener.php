@@ -44,10 +44,13 @@ class MC4WP_Form_Listener {
 
 		// where the magic happens
 		$form->handle_request( $request );
+		$form->validate();
+
+		// store submitted form
 		$this->submitted_form = $form;
 
-		// is this form valid?
-		if( $form->is_valid() ) {
+		// did form have errors?
+		if( ! $form->has_errors() ) {
 
 			// form was valid, do something
 			$method = 'process_' . $form->get_action() . '_form';

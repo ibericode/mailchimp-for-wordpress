@@ -100,17 +100,18 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	public function test_is_valid() {
 		mock_get_post( array( 'ID' => 1 ) );
 		$form = new MC4WP_Form(1);
-		self::assertTrue( $form->is_valid() );
+		self::assertTrue( $form->validate() );
 
 		// empty data should not validate
 		$request = new MC4WP_Request();
 		$form = new MC4WP_Form(1);
 		$form->handle_request( $request );
-		$valid = $form->is_valid();
+		$valid = $form->validate();
 		self::assertFalse( $valid );
 
 		// errors array should have been filled
 		self::assertNotEmpty( $form->errors );
+
 
 //		// with lists and mocked nonce, form should be valid
 		// @todo fix this test
