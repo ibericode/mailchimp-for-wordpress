@@ -15,8 +15,3 @@ env:
 notifications:
   slack:
     secure: h9q+rtBdpa3O2uSgO07XiXoSV3wi77P8N6oFrr14ycnWx/j9CU/o0KqI1sR54p91/pwlSiPYBbN01m/J7Zgbf3mcAOTYiJNOQBmzPM0i1FKnvKaaZDmoWFByi6cwEgzd4f15CJWSwMv3bAQWpkBZ8gu+gCRAPquKDF6bWHiUYVU=
-sudo: false
-cache:
-  directories:
-    - vendor
-    - $HOME/.composer/cache

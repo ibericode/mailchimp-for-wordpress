@@ -7,6 +7,24 @@
 class FormTest extends PHPUnit_Framework_TestCase {
 
 	/**
+	 * Unmock posts after every test
+	 */
+	public function tearDown() {
+		unmock_post();
+	}
+
+	/**
+	 * @covers MC4WP_Form::get_instance
+	 */
+	public function test_get_instance() {
+
+		// we should get an exception when getting non-existing form
+		self::setExpectedException( 'Exception' );
+		new MC4WP_Form( 500 );
+		self::setExpectedException(null);
+	}
+
+	/**
 	 * @covers MC4WP_Form::__construct
 	 */
 	public function test_constructor() {
@@ -80,6 +98,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	 * @covers MC4WP_Form::is_valid
 	 */
 	public function test_is_valid() {
+		mock_get_post( array( 'ID' => 1 ) );
 		$form = new MC4WP_Form(1);
 		self::assertTrue( $form->is_valid() );
 
@@ -114,6 +133,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	 * @covers MC4WP_Form::has_errors
 	 */
 	public function test_has_errors() {
+		mock_get_post( array( 'ID' => 1 ) );
 		$form = new MC4WP_Form(1);
 		$form->errors = array( 'required_field_missing' );
 		self::assertTrue( $form->has_errors() );
@@ -126,6 +146,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	 * @covers MC4WP_Form::handle_request
 	 */
 	public function test_handle_request() {
+		mock_get_post( array( 'ID' => 15 ) );
 		$form = new MC4WP_Form(15);
 		$data = array(
 			'EMAIL' => 'value'
@@ -156,6 +177,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	 * @covers MC4WP_Form::get_required_fields
 	 */
 	public function test_get_required_fields() {
+		mock_get_post( array( 'ID' => 15 ) );
 		$form = new MC4WP_Form(15);
 		$form->settings['required_fields'] = 'EMAIL';
 		self::assertEquals( $form->get_required_fields(), array() );
@@ -172,6 +194,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	 * @covers MC4WP_Form::get_stylesheet
 	 */
 	public function test_get_stylesheet() {
+		mock_get_post( array( 'ID' => 15 ) );
 		$form = new MC4WP_Form(15);
 		$form->settings['css'] = false;
 		self::assertEmpty( $form->get_stylesheet() );
@@ -189,6 +212,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	 * @covers MC4WP_Form::has_errors
 	 */
 	public function test_errors() {
+		mock_get_post( array( 'ID' => 15 ) );
 		$form = new MC4WP_Form(15);
 
 		self::assertFalse( $form->has_errors() );
@@ -204,6 +228,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	 * @covers MC4WP_Form::get_message
 	 */
 	public function test_get_message() {
+		mock_get_post( array( 'ID' => 15 ) );
 		$form = new MC4WP_Form(15);
 
 		$errorMessage = new MC4WP_Form_Message( 'Error text', 'error' );
@@ -224,6 +249,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	 * @covers MC4WP_Form::set_config
 	 */
 	public function test_set_config() {
+		mock_get_post( array( 'ID' => 15 ) );
 		$form = new MC4WP_Form(15);
 
 		$list_id = 'some-list-id';

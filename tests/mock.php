@@ -23,6 +23,13 @@ function add_action( $hook, $callback, $prio = 10, $arguments = 1) {
 /**
  * @ignore
  */
+function get_option( $option, $default = null ) {
+	return $default;
+}
+
+/**
+ * @ignore
+ */
 function apply_filters( $hook, $value, $parameter_1 = null ) {
 	return $value;
 }
@@ -80,7 +87,7 @@ function get_post( $id ) {
 		return $expected_post;
 	}
 
-	return mock_post( array( 'ID' => $id ) );
+	return false;
 }
 
 /**
@@ -98,6 +105,14 @@ function mock_post( $data ) {
 	);
 
 	return $post;
+}
+
+/**
+ * @ignore
+ */
+function unmock_post() {
+	global $expected_post;
+	unset($expected_post);
 }
 
 /**
