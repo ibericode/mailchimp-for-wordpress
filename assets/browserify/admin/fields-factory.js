@@ -47,6 +47,9 @@ var FieldFactory = function(settings, fields, i18n) {
 
 			case 'checkboxes':
 				return 'checkbox';
+
+			case 'birthday':
+				return 'text';
 		}
 
 		return type;
