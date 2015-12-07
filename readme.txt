@@ -174,6 +174,23 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 == Changelog == 
 
 
+#### 3.0.4 - December 7, 2015
+
+**Fixes**
+
+- Fixes compatibility issues with add-on plugins performing validation, like Goodbye Captcha and BWS Captcha.
+
+**Improvements**
+
+- Now using group ID's for interest grouping fields, so changing the group in MailChimp does not require updating your form code.
+- Never load enabled integrations which are not installed.
+- Reintroduce support for automatically sending `OPTIN_IP`
+
+**Additions**
+
+- Add filter: `mc4wp_form_data`, filters form data before it is processed.
+
+
 #### 3.0.3 - November 30, 2015
 
 **Fixes**
