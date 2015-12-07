@@ -42,6 +42,7 @@ class MC4WP_Integration_Manager {
 	public function initialize() {
 		/*** @var MC4WP_Integration_Fixture $integration */
 		$enabled_integrations = $this->get_enabled_integrations();
+
 		foreach( $enabled_integrations as $integration ) {
 			$integration->load()->initialize();
 		}
