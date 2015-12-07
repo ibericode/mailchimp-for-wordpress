@@ -510,6 +510,18 @@ class MC4WP_Form {
 		// uppercase all field keys
 		$data = array_change_key_case( $data, CASE_UPPER );
 
+		/**
+		 * Filters received data from a submitted form before it is processed.
+		 *
+		 * Keys are uppercased and internal fields have been stripped at this point.
+		 *
+		 * @since 3.0
+		 *
+		 * @param array $data Array containing all data in key-value pairs.
+		 * @param MC4WP_Form $form Instance of the submitted form.
+		 */
+		$data = (array) apply_filters( 'mc4wp_form_data', $data, $form );
+
 		return $data;
 	}
 
