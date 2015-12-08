@@ -8,15 +8,15 @@ defined( 'ABSPATH' ) or exit;
 function __mc4wp_admin_sidebar_support_notice() {
 	?>
 	<div class="mc4wp-box">
-		<h4 class="mc4wp-title">Looking for help?</h4>
-		<p>We have some resources available to help you in the right direction.</p>
+		<h4 class="mc4wp-title"><?php echo __( 'Looking for help?', 'mailchimp-for-wp' ); ?></h4>
+		<p><?php echo __( 'We have some resources available to help you in the right direction.', 'mailchimp-for-wp' ); ?></p>
 		<ul class="ul-square">
-			<li><a href="https://mc4wp.com/kb/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=sidebar">Knowledge Base</a></li>
-			<li><a href="https://wordpress.org/plugins/mailchimp-for-wp/faq/">Frequently Asked Questions</a></li>
-			<li><a href="http://developer.mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=sidebar">Code reference for developers</a></li>
+			<li><a href="https://mc4wp.com/kb/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=sidebar"><?php echo __( 'Knowledge Base', 'mailchimp-for-wp' ); ?></a></li>
+			<li><a href="https://wordpress.org/plugins/mailchimp-for-wp/faq/"><?php echo __( 'Frequently Asked Questions', 'mailchimp-for-wp' ); ?></a></li>
+			<li><a href="http://developer.mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=sidebar"><?php echo __( 'Code reference for developers', 'mailchimp-for-wp' ); ?></a></li>
 		</ul>
-		<p>If your answer can not be found in the resources listed above, please use the <a href="https://wordpress.org/support/plugin/mailchimp-for-wp">support forums on WordPress.org</a>.</p>
-		<p>If you think you found an issue, please <a href="https://github.com/ibericode/mailchimp-for-wordpress/issues">open an issue on GitHub</a>.</p>
+		<p><? echo sprintf( __( 'If your answer can not be found in the resources listed above, please use the <a href="%s">support forums on WordPress.org</a>.' ), 'https://wordpress.org/support/plugin/mailchimp-for-wp' ); ?></p>
+		<p><? echo sprintf( __( 'If you think you found an issue, please <a href="%s">open an issue on GitHub</a>.' ), 'https://github.com/ibericode/mailchimp-for-wordpress/issues' ); ?></p>
 	</div>
 	<?php
 }
