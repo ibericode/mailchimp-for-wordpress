@@ -8,7 +8,7 @@ defined( 'ABSPATH' ) or exit;
 function __mc4wp_admin_sidebar_support_notice() {
 	?>
 	<div class="mc4wp-box">
-		<h4 class="mc4wp-title">Looking for help?</h4>
+		<h4 class="mc4wp-title"><?php __('Looking for help?', 'mailchimp-for-wp'); ?></h4>
 		<p>We have some resources available to help you in the right direction.</p>
 		<ul class="ul-square">
 			<li><a href="https://mc4wp.com/kb/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=sidebar">Knowledge Base</a></li>
