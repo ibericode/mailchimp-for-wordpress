@@ -357,8 +357,8 @@ class MC4WP_API {
 			'headers' => $this->get_headers(),
 		);
 
-		// disable ssl certificate verification for old versions of php-curl
-		if( function_exists( 'curl_version' ) && version_compare( curl_version(), '7.20', '<' ) ) {
+		// disable ssl certificate verification for old versions of php-curl & all other http transports
+		if( ! function_exists( 'curl_version' ) || version_compare( curl_version(), '7.20', '<' ) ) {
 			$request_args['sslverify'] = false;
 		}
 
