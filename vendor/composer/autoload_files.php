@@ -6,10 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    '12b97481f0c46010e9e61beb6082e7f4' => $baseDir . '/includes/functions.php',
-    '76805f79dd302cd22080dc81676b40c7' => $baseDir . '/includes/deprecated-functions.php',
-    '1652ed33dc6df7ed0d814dcc1f4ff1c7' => $baseDir . '/includes/forms/functions.php',
-    'fffef1b8ab3dd5c989378b5bfff2f816' => $baseDir . '/includes/integrations/functions.php',
-    '25f3ba99290b4e8744babcb312355835' => $baseDir . '/includes/default-actions.php',
-    'a2fb6a57b3900f1f90ca619af75982d2' => $baseDir . '/includes/default-filters.php',
+    'fca581ae5268210490253d58378748c5' => $baseDir . '/includes/functions.php',
+    '59b5ebb4886cd7eeaf4afcc7f7bdfcdd' => $baseDir . '/includes/deprecated-functions.php',
+    'd26f3384f491dc697dcc189393343bc3' => $baseDir . '/includes/forms/functions.php',
+    '90c3516593b5de6b5d4528b70e2399dd' => $baseDir . '/includes/integrations/functions.php',
+    '1961896a7f482d8affe08226795bf674' => $baseDir . '/includes/default-actions.php',
+    'cb296d991e3145f10320ab99c1b9ed05' => $baseDir . '/includes/default-filters.php',
 );
