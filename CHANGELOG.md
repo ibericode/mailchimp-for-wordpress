@@ -1,6 +1,13 @@
 Changelog
 =========
 
+#### 3.0.5 - December 9, 2015
+
+**Fixes**
+
+Workaround for SSL certification error introduced by WordPress 4.4, only affecting very old versions of PHP CURL.
+
+
 #### 3.0.4 - December 7, 2015
 
 **Fixes**
