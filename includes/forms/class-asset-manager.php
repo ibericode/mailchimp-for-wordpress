@@ -42,7 +42,6 @@ class MC4WP_Form_Asset_Manager {
 		// load checkbox css if necessary
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheets' ) );
 		add_action( 'mc4wp_output_form', array( $this, 'load_scripts' ) );
-		add_action( 'wp_head', array( $this, 'print_dummy_javascript' ) );
 		add_action( 'wp_footer', array( $this, 'print_javascript' ), 999 );
 	}
 
@@ -181,33 +180,6 @@ class MC4WP_Form_Asset_Manager {
 
 		$this->scripts_loaded = true;
 		return true;
-	}
-
-	/**
-	 * Prints dummy JavaScript which allows people to call `mc4wp.forms.on()` before the JS is loaded.
-	 */
-	public function print_dummy_javascript() {
-		?>
-		<script type="text/javascript">
-			/* <![CDATA[ */
-			(function() {
-				if (!window.mc4wp) {
-					window.mc4wp = {
-						listeners: [],
-						forms    : {
-							on: function (event, callback) {
-								window.mc4wp.listeners.push({
-									event   : event,
-									callback: callback
-								});
-							}
-						}
-					}
-				}
-			})();
-			/* ]]> */
-		</script>
-		<?php
 	}
 
 	/**
