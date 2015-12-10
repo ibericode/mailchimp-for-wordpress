@@ -185,3 +185,42 @@ function mc4wp_get_email_type() {
 
 	return $email_type;
 }
+
+/**
+ *
+ * @ignore
+ * @return bool
+ */
+function __mc4wp_use_sslverify() {
+
+	// Disable for all transports other than CURL
+	if( ! function_exists( 'curl_version' ) ) {
+		return false;
+	}
+
+	$curl = curl_version();
+
+	// Disable if OpenSSL is not installed
+	if( empty( $curl['ssl_version'] ) ) {
+		return false;
+	}
+
+	$ssl_version = preg_replace( '/[a-z|\/]/i', '', $curl['ssl_version'] );
+	$required_ssl_version = '1.0.1';
+
+	// Disable if OpenSSL is not at version 1.0.1
+	if( version_compare( $ssl_version, $required_ssl_version, '<' ) ) {
+		return false;
+	}
+
+	// Last character should be "f" or higher in alphabet.
+	// Example: 1.0.1f
+	$last_character = substr( $curl['ssl_version'], -1 );
+	if( is_string( $last_character ) ) {
+		if( ord( strtoupper( $last_character ) ) < ord( 'F' ) ) {
+			return false;
+		}
+	}
+
+	return true;
+}
