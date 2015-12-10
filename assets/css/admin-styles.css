@@ -633,6 +633,12 @@
     padding-left: 42px;
     line-height: 32px;
     margin-bottom: 20px; }
+    #mc4wp-admin .page-title small,
+    .mc4wp-admin .page-title small {
+      font-size: 12px;
+      color: #777;
+      display: inline-block;
+      margin-left: 10px; }
   #mc4wp-admin .page-title-action .dashicons,
   #mc4wp-admin .button .dashicons,
   #mc4wp-admin .button-secondary .dashicons,
