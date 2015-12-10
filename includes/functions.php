@@ -205,7 +205,7 @@ function __mc4wp_use_sslverify() {
 		return false;
 	}
 
-	$ssl_version = preg_replace( '/[a-z|\/]/i', '', $curl['ssl_version'] );
+	$ssl_version = preg_replace( '/[^0-9\.]/', '', $curl['ssl_version'] );
 	$required_ssl_version = '1.0.1';
 
 	// Disable if OpenSSL is not at version 1.0.1
