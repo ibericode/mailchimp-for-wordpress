@@ -16,7 +16,7 @@ function __mc4wp_admin_sidebar_support_notice() {
 			<li><a href="http://developer.mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=sidebar"><?php echo __( 'Code reference for developers', 'mailchimp-for-wp' ); ?></a></li>
 		</ul>
 		<p><?php echo sprintf( __( 'If your answer can not be found in the resources listed above, please use the <a href="%s">support forums on WordPress.org</a>.' ), 'https://wordpress.org/support/plugin/mailchimp-for-wp' ); ?></p>
-		<p><?php echo sprintf( __( 'If you think you found an issue, please <a href="%s">open an issue on GitHub</a>.' ), 'https://github.com/ibericode/mailchimp-for-wordpress/issues' ); ?></p>
+		<p><?php echo sprintf( __( 'Found a bug? Please <a href="%s">open an issue on GitHub</a>.' ), 'https://github.com/ibericode/mailchimp-for-wordpress/issues' ); ?></p>
 	</div>
 	<?php
 }
