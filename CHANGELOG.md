@@ -1,11 +1,15 @@
 Changelog
 =========
 
-#### 3.0.6 - December 9, 2015
+#### 3.0.7 - December 10, 2015
 
 **Fixes**
 
-Workaround for SSL certification error introduced by WordPress 4.4, only affecting very old versions of PHP CURL.
+Workaround for [SSL certification bug in WordPress 4.4](https://core.trac.wordpress.org/ticket/34935), affecting servers with an older versions of OpenSSL installed.
+
+**Additions**
+
+Added `mc4wp_use_sslverify` filter to disable or explicitly enable SSL certificate verification.
 
 
 #### 3.0.4 - December 7, 2015
