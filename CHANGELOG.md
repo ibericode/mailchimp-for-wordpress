@@ -1,7 +1,7 @@
 Changelog
 =========
 
-#### 3.0.5 - December 9, 2015
+#### 3.0.6 - December 9, 2015
 
 **Fixes**
 
