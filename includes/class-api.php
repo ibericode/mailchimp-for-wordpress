@@ -355,12 +355,8 @@ class MC4WP_API {
 			'body' => $data,
 			'timeout' => 10,
 			'headers' => $this->get_headers(),
+			'sslverify' => apply_filters( 'mc4wp_use_sslverify', true ),
 		);
-
-		// disable ssl certificate verification for old versions of php-curl & all other http transports
-		if( ! function_exists( 'curl_version' ) || ( ( $curl_version = curl_version() ) && version_compare( $curl_version['version'], '7.20', '<' ) ) ) {
-			$request_args['sslverify'] = false;
-		}
 
 		$response = wp_remote_post( $url, $request_args );
 
