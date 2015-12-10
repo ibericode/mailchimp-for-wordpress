@@ -42,7 +42,6 @@ class MC4WP_Form_Asset_Manager {
 		// load checkbox css if necessary
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheets' ) );
 		add_action( 'mc4wp_output_form', array( $this, 'load_scripts' ) );
-		add_action( 'wp_head', array( $this, 'print_dummy_javascript' ) );
 		add_action( 'wp_footer', array( $this, 'print_javascript' ), 999 );
 	}
 
@@ -169,6 +168,8 @@ class MC4WP_Form_Asset_Manager {
 		if( $this->scripts_loaded ) {
 			return false;
 		}
+
+		$this->print_dummy_javascript();
 
 		// load API script
 		wp_localize_script( 'mc4wp-forms-api', 'mc4wp_forms_config', $this->get_javascript_config() );
