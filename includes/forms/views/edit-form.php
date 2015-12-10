@@ -27,7 +27,13 @@ $tabs = array(
 				<?php _e( "Edit Form", 'mailchimp-for-wp' ); ?>
 
 				<!-- Form actions -->
-				<?php do_action( 'mc4wp_admin_edit_forms_after_title' ); ?>
+				<?php
+
+				/**
+				 * @ignore
+				 */
+				do_action( 'mc4wp_admin_edit_forms_after_title' );
+				?>
 			</h1>
 
 			<h2 style="display: none;"></h2><?php // fake h2 for admin notices ?>
@@ -81,9 +87,8 @@ $tabs = array(
 
 					<?php endforeach; // foreach tabs ?>
 
-
 				</div>
-
+				
 			</form><!-- Entire page form wrap -->
 
 
