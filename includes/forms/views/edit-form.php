@@ -7,6 +7,12 @@ $tabs = array(
 	'appearance'    => __( 'Appearance', 'mailchimp-for-wp' )
 );
 
+/**
+ * Filters the setting tabs on the "edit form" screen.
+ *
+ * @param array $tabs
+ */
+$tabs = apply_filters( 'mc4wp_admin_edit_form_tabs', $tabs );
 
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
@@ -32,7 +38,7 @@ $tabs = array(
 				/**
 				 * @ignore
 				 */
-				do_action( 'mc4wp_admin_edit_forms_after_title' );
+				do_action( 'mc4wp_admin_edit_form_after_title' );
 				?>
 			</h1>
 
@@ -77,18 +83,33 @@ $tabs = array(
 
 				<div id="mc4wp-tabs">
 
-					<?php foreach( $tabs as $tab => $name ) : ?>
+					<?php foreach( $tabs as $tab => $name ) :
 
-						<!-- .tab -->
-						<div class="tab <?php if( $active_tab === $tab ) { echo 'tab-active'; } ?>" id="tab-<?php echo $tab; ?>">
-							<?php include dirname( __FILE__ ) . '/tabs/form-' . $tab .'.php'; ?>
-						</div>
-						<!-- / .tab -->
+						$class = ( $active_tab === $tab ) ? 'tab-active' : '';
 
-					<?php endforeach; // foreach tabs ?>
+						// start of .tab
+						echo sprintf( '<div class="tab %s" id="tab-%s">', $class, $tab );
+
+						/**
+						 * Runs when outputting a tab section on the "edit form" screen
+						 *
+						 * @param string $tab
+						 * @ignore
+						 */
+						do_action( 'mc4wp_admin_edit_form_output_' . $tab . '_tab', $opts, $form );
+
+						$tab_file = dirname( __FILE__ ) . '/tabs/form-' . $tab . '.php';
+						if( file_exists( $tab_file ) ) {
+							include $tab_file;
+						}
+
+						// end of .tab
+						echo '</div>';
+
+					endforeach; // foreach tabs ?>
 
 				</div>
-				
+
 			</form><!-- Entire page form wrap -->
 
 
