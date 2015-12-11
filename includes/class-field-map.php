@@ -17,12 +17,12 @@ class MC4WP_Field_Map {
 	/**
 	 * @var array
 	 */
-	protected $lists = array();
+	protected $global_fields = array();
 
 	/**
-	 * @var MC4WP_MailChimp
+	 * @var array
 	 */
-	protected $mailchimp;
+	public $lists = array();
 
 	/**
 	 * @var array|bool
@@ -35,24 +35,40 @@ class MC4WP_Field_Map {
 	public $custom_fields = array();
 
 	/**
-	 * @var array
+	 * @param array $data
+	 * @param array $list_ids
 	 */
-	public $global_fields = array();
+	public function __construct( array $data, array $list_ids ) {
+		$this->data = $data;
+		$this->lists = $this->fetch_lists( $list_ids );
 
+		// 1. assume all data is custom
+		$this->custom_fields = $data;
+
+		// 2. Map global fields
+		$this->global_fields = $this->map_global_fields();
+
+		// 3. Map list-specific fields
+		$this->list_fields = $this->map_lists();
+	}
 
 	/**
-	 * @param array $data
-	 * @param array $lists
+	 * @param array $list_ids
+	 * @return MC4WP_MailChimp_List[]
 	 */
-	public function __construct( array $data, array $lists ) {
-		$this->data = $data;
-		$this->lists = $lists;
-		$this->mailchimp = new MC4WP_MailChimp();
+	protected function fetch_lists( array $list_ids ) {
+		$mailchimp = new MC4WP_MailChimp();
+		$lists = array();
 
-		// assume all data is custom
-		$this->custom_fields = $data;
-		$this->global_fields = $this->map_global_fields();
-		$this->list_fields = $this->map_lists();
+		foreach( $list_ids as $id ) {
+			$list = $mailchimp->get_list( $id, true );
+
+			if( $list instanceof MC4WP_MailChimp_List ) {
+				$lists[ $id ] = $list;
+			}
+		}
+
+		return $lists;
 	}
 
 	/**
@@ -61,8 +77,8 @@ class MC4WP_Field_Map {
 	protected function map_lists() {
 		$map = array();
 
-		foreach( $this->lists as $list_id ) {
-			$map[ $list_id ] = $this->map_list_fields( $list_id );
+		foreach( $this->lists as $list ) {
+			$map[ $list->id ] = $this->map_list_fields( $list );
 		}
 
 		// filter out empty values
@@ -72,18 +88,12 @@ class MC4WP_Field_Map {
 	}
 
 	/**
-	 * @param $list_id
+	 * @param MC4WP_MailChimp_List $list
 	 *
 	 * @return array
 	 * @throws Exception
 	 */
-	protected function map_list_fields( $list_id ) {
-		$list = $this->mailchimp->get_list( $list_id, true );
-
-		// skip this list if it's unexisting
-		if( ! $list instanceof MC4WP_MailChimp_List ) {
-			return array();
-		}
+	protected function map_list_fields( MC4WP_MailChimp_List $list ) {
 
 		$map = array();
 
