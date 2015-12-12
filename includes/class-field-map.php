@@ -281,5 +281,47 @@ class MC4WP_Field_Map {
 		return $field_value;
 	}
 
+	/**
+	 * Returns a mostly human readable array of the given data.
+	 *
+	 * Data is formatted according to the data MailChimp expects.
+	 *
+	 * @return array
+	 */
+	public function pretty() {
+
+		$pretty = array(
+			'_MC4WP_LISTS' => wp_list_pluck( $this->lists, 'name' ),
+			'GROUPINGS' => array()
+		);
+
+		// add custom fields
+		foreach( $this->custom_fields as $key => $value ) {
+			$pretty[ $key ] = $value;
+		}
+
+		foreach( $this->list_fields as $list_id => $list_fields ) {
+			foreach( $list_fields as $name => $value ) {
+				if( $name === 'GROUPINGS' ) {
+					$groupings = $value;
+
+					foreach( $groupings as $grouping ) {
+						$pretty['GROUPINGS'][ $grouping['id'] ] = $grouping['groups'];
+					}
+
+					continue;
+				}
+
+				// just add it
+				$pretty[ $name ] = $value;
+			}
+		}
+
+
+
+		return $pretty;
+	}
+
+
 
 }
