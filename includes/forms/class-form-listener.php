@@ -100,14 +100,18 @@ class MC4WP_Form_Listener {
 			return;
 		}
 
+		// get array of pretty data
+		$pretty_data = $map->pretty();
+
 		/**
 		 * Fires right after a form was used to subscribe.
 		 *
 		 * @since 3.0
 		 *
 		 * @param MC4WP_Form $form Instance of the submitted form
+		 * @param array $pretty_data Array of human readable (well, mostly..) data.
 		 */
-		do_action( 'mc4wp_form_subscribed', $form );
+		do_action( 'mc4wp_form_subscribed', $form, $pretty_data );
 	}
 
 	/**
