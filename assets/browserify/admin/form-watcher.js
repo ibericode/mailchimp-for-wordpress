@@ -1,25 +1,9 @@
-var FormWatcher = function(m, editor, settings, fields, events) {
+var FormWatcher = function(m, editor, settings, fields, events, helpers) {
 	'use strict';
 
 	var missingFieldsNotice = document.getElementById('missing-fields-notice');
 	var missingFieldsNoticeList = missingFieldsNotice.querySelector('ul');
 	var requiredFieldsInput = document.getElementById('required-fields');
-
-	// polling
-	function debounce(func, wait, immediate) {
-		var timeout;
-		return function() {
-			var context = this, args = arguments;
-			var later = function() {
-				timeout = null;
-				if (!immediate) func.apply(context, args);
-			};
-			var callNow = immediate && !timeout;
-			clearTimeout(timeout);
-			timeout = setTimeout(later, wait);
-			if (callNow) func.apply(context, args);
-		};
-	}
 
 	function updateFields() {
 		fields.getAll().forEach(function(field) {
@@ -87,9 +71,9 @@ var FormWatcher = function(m, editor, settings, fields, events) {
 	}
 
 	// events
-	editor.on('change', debounce(updateFields,334));
+	editor.on('change', helpers.debounce(updateFields,334));
 	editor.on('blur', findRequiredFields );
-	events.on('fields.change', debounce(updateFields, 500));
+	events.on('fields.change', helpers.debounce(updateFields, 500));
 
 };
 
