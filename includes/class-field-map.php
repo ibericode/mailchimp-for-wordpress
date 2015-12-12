@@ -99,12 +99,18 @@ class MC4WP_Field_Map {
 
 		// loop through list fields
 		foreach( $list->merge_vars as $field ) {
-			$map[ $field->tag ] = $this->map_list_field( $field );
+			$value = $this->map_list_field( $field );
+
+			if( is_null( $value ) ) {
+				continue;
+			}
+
+			$map[ $field->tag ] = $value;
 		}
 
 		// loop through list interest groupings
 		if( ! empty( $list->groupings ) ) {
-			$map['GROUPINGS'] = array_map( array ($this, 'map_list_grouping' ), $list->groupings );
+			$map['GROUPINGS'] = array_map( array( $this, 'map_list_grouping' ), $list->groupings );
 			$map['GROUPINGS'] = array_filter( $map['GROUPINGS'] );
 		}
 
@@ -127,7 +133,7 @@ class MC4WP_Field_Map {
 		// if field is not set, continue.
 		// don't use empty here as empty fields are perfectly valid (for non-required fields)
 		if( ! isset( $this->data[ $field->tag ] ) ) {
-			return false;
+			return null;
 		}
 
 		// grab field value from data
