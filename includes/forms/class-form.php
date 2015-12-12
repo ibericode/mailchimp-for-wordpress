@@ -508,6 +508,7 @@ class MC4WP_Form {
 		$data = array_diff_key( $data, array_flip( $ignored_field_names ) );
 
 		// uppercase all field keys
+		// @todo do this deep / recursive?
 		$data = array_change_key_case( $data, CASE_UPPER );
 
 		/**
