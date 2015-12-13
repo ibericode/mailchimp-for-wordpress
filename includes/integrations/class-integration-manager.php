@@ -19,6 +19,11 @@ class MC4WP_Integration_Manager {
 	protected $options = array();
 
 	/**
+	 * @var MC4WP_Integration_Tags
+	 */
+	protected $tags;
+
+	/**
 	* Constructor
 	*/
 	public function __construct() {

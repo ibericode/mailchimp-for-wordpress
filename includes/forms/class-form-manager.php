@@ -22,6 +22,11 @@ class MC4WP_Form_Manager {
 	protected $listener;
 
 	/**
+	 * @var MC4WP_Form_Tags
+	 */
+	protected $tags;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {

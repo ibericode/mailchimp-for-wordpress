@@ -9,7 +9,8 @@ class IntegrationManagerTest extends PHPUnit_Framework_TestCase {
 
 	public function test_constructor() {
 		$instance = new MC4WP_Integration_Manager();
-		self::assertInstanceOf( 'MC4WP_Integration_Tags', $instance->tags );
+		$property = PHPUnit_Framework_Assert::readAttribute( $instance, 'tags' );
+		self::assertInstanceOf( 'MC4WP_Integration_Tags', $property );
 	}
 
 	/**
