@@ -27,7 +27,7 @@ class MC4WP_Admin_Messages {
 	 * @param        $message
 	 * @param string $type
 	 */
-	public function flash( $message, $type = 'updated' ) {
+	public function flash( $message, $type = 'success' ) {
 		$this->queue[] = array(
 			'text' => $message,
 			'type' => $type
@@ -41,7 +41,7 @@ class MC4WP_Admin_Messages {
 		$messages = get_option( 'mc4wp_flash_messages', array() );
 
 		foreach( $messages as $message ) {
-			echo sprintf( '<div class="notice is-dismissible mc4wp %s"><p>%s</p></div>', $message['type'], $message['text'] );
+			echo sprintf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', $message['type'], $message['text'] );
 		}
 
 		update_option( 'mc4wp_flash_messages', array() );
