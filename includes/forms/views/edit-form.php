@@ -11,6 +11,7 @@ $tabs = array(
  * Filters the setting tabs on the "edit form" screen.
  *
  * @param array $tabs
+ * @ignore
  */
 $tabs = apply_filters( 'mc4wp_admin_edit_form_tabs', $tabs );
 
