@@ -109,7 +109,7 @@ class MC4WP_Form_Listener {
 		 * @param MC4WP_Form $form Instance of the submitted form
 		 * @param array $formatted_data Array of formatted data.
 		 */
-		do_action( 'mc4wp_form_subscribed', $form, $map->formatted_data );
+		do_action( 'mc4wp_form_subscribed', $form, $map->formatted_data, $map->pretty_data );
 	}
 
 	/**

@@ -41,6 +41,11 @@ class MC4WP_Field_Map {
 	);
 
 	/**
+	 * @var array
+	 */
+	public $pretty_data = array();
+
+	/**
 	 * Map of list id's with fields belonging to that list
 	 *
 	 * @var array
@@ -71,6 +76,10 @@ class MC4WP_Field_Map {
 
 		// 3. Extract list-specific fields
 		$this->extract_list_fields();
+
+		// 4. Add all leftover fields to data but make sure not to overwrite known fields
+		$this->formatted_data = array_merge( $this->custom_fields, $this->formatted_data );
+		$this->pretty_data = array_merge( $this->custom_fields, $this->pretty_data );
 	}
 
 	/**
@@ -99,6 +108,7 @@ class MC4WP_Field_Map {
 		array_walk( $this->lists, array( $this, 'extract_fields_for_list' ) );
 		$this->list_fields = array_filter( $this->list_fields );
 		$this->formatted_data[ '_MC4WP_LISTS' ] = wp_list_pluck( $this->lists, 'name' );
+		$this->pretty_data[ 'Lists' ] = $this->formatted_data[ '_MC4WP_LISTS' ];
 	}
 
 	/**
@@ -151,6 +161,7 @@ class MC4WP_Field_Map {
 		// store
 		$this->list_fields[ $list->id ][ $merge_var->tag ] = $value;
 		$this->formatted_data[ $merge_var->tag ] = $value;
+		$this->pretty_data[ $merge_var->name ] = $value;
 	}
 
 	/**
@@ -192,11 +203,12 @@ class MC4WP_Field_Map {
 			'groups' => $groups,
 		);
 
-
-
 		// add to list data
 		$this->list_fields[ $list->id ]['GROUPINGS'][] = $formatted_grouping;
 		$this->formatted_data['GROUPINGS'][ $grouping->id ] = $groups;
+
+		//
+		$this->pretty_data[ $grouping->name ] = $groups;
 	}
 
 
@@ -266,16 +278,9 @@ class MC4WP_Field_Map {
 						'zip'   => ( isset( $address_pieces[3] ) ) ?   $address_pieces[3] : ''
 					);
 				} elseif( is_array( $field_value ) ) {
-
 					// merge with array of empty defaults to allow skipping certain fields
-					$default_address = array(
-						'addr1' => '',
-						'city' => '',
-						'state' => '',
-						'zip' => ''
-					);
-
-					$field_value = array_merge( $default_address, $field_value );
+					$default = array_fill_keys( array( 'addr1', 'city', 'state', 'zip' ), '' );
+					$field_value = array_merge( $default, $field_value );
 				}
 
 				break;
