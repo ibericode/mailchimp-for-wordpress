@@ -18,7 +18,7 @@ var globby = require('globby');
 var buffer = require('vinyl-buffer');
 var through = require('through2');
 
-gulp.task('default', ['sass', 'browserify']);
+gulp.task('default', ['sass', 'browserify', 'uglify']);
 
 
 gulp.task('sass', function () {
@@ -54,11 +54,6 @@ gulp.task('browserify', function () {
 
 				// create .js file
 				.pipe(rename({ extname: '.js' }))
-				.pipe(gulp.dest('./assets/js'))
-
-				// create .min.js file
-				.pipe(streamify(uglify()))
-				.pipe(rename({ extname: '.min.js' }))
 				.pipe(gulp.dest('./assets/js'));
 		}));
 
@@ -69,7 +64,15 @@ gulp.task('browserify', function () {
 	return bundledStream;
 });
 
+gulp.task('uglify', ['browserify'], function() {
+	return gulp.src(['./assets/js/*.js','!./assets/js/*.min.js'])
+		.pipe(streamify(uglify()))
+		.pipe(rename({extname: '.min.js'}))
+		.pipe(gulp.dest('./assets/js'));
+});
+
 gulp.task('watch', function () {
 	gulp.watch('./assets/sass/**.scss', ['sass']);
 	gulp.watch('./assets/js/src/**.js', ['browserify']);
+	gulp.watch(['./assets/js/*.js','!./assets/js/*.min.js'], ['uglify']);
 });

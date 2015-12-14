@@ -19,12 +19,18 @@ class MC4WP_Form_Asset_Manager {
 	protected $scripts_loaded = false;
 
 	/**
+	 * @var string
+	 */
+	public $filename_suffix;
+
+	/**
 	 * Constructor
 	 *
 	 * @param MC4WP_Form_Output_Manager $output_manager
 	 */
 	public function __construct( MC4WP_Form_Output_Manager $output_manager ) {
 		$this->output_manager = $output_manager;
+		$this->filename_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 	}
 
 	/**
@@ -42,7 +48,6 @@ class MC4WP_Form_Asset_Manager {
 		// load checkbox css if necessary
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheets' ) );
 		add_action( 'mc4wp_output_form', array( $this, 'load_scripts' ) );
-		add_action( 'wp_head', array( $this, 'print_dummy_javascript' ) );
 		add_action( 'wp_footer', array( $this, 'print_javascript' ), 999 );
 	}
 
@@ -52,7 +57,7 @@ class MC4WP_Form_Asset_Manager {
 	public function register_assets() {
 		global $wp_scripts;
 
-		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+		$suffix = $this->filename_suffix;
 
 		// register client-side API script
 		wp_register_script( 'mc4wp-forms-api', MC4WP_PLUGIN_URL . 'assets/js/forms-api'. $suffix .'.js', array(), MC4WP_VERSION, true );
@@ -75,7 +80,7 @@ class MC4WP_Form_Asset_Manager {
 		 *
 		 * @since 3.0
 		 *
-		 * @param string $suffix
+		 * @param string $suffix The suffix to add to the filename, before the file extension. Is usually set to ".min".
 		 * @ignore
 		 */
 		do_action( 'mc4wp_register_form_assets', $suffix );
@@ -170,6 +175,9 @@ class MC4WP_Form_Asset_Manager {
 			return false;
 		}
 
+		// print dummy JS
+		$this->print_dummy_javascript();
+
 		// load API script
 		wp_localize_script( 'mc4wp-forms-api', 'mc4wp_forms_config', $this->get_javascript_config() );
 		wp_enqueue_script( 'mc4wp-forms-api' );
@@ -187,27 +195,10 @@ class MC4WP_Form_Asset_Manager {
 	 * Prints dummy JavaScript which allows people to call `mc4wp.forms.on()` before the JS is loaded.
 	 */
 	public function print_dummy_javascript() {
-		?>
-		<script type="text/javascript">
-			/* <![CDATA[ */
-			(function() {
-				if (!window.mc4wp) {
-					window.mc4wp = {
-						listeners: [],
-						forms    : {
-							on: function (event, callback) {
-								window.mc4wp.listeners.push({
-									event   : event,
-									callback: callback
-								});
-							}
-						}
-					}
-				}
-			})();
-			/* ]]> */
-		</script>
-		<?php
+		$file = MC4WP_PLUGIN_DIR . "assets/js/forms-dummy-api{$this->filename_suffix}.js";
+		echo '<script type="text/javascript">';
+		include $file;
+		echo '</script>';
 	}
 
 	/**
