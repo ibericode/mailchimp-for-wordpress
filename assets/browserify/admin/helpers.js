@@ -51,7 +51,8 @@ helpers.debounce = function(func, wait, immediate) {
 	Array.prototype.forEach.call( showIfElements, function(element) {
 		var config = JSON.parse( element.getAttribute('data-showif') );
 		var parentElements = document.querySelectorAll('[name="'+ config.element +'"]');
-		var inputs = element.querySelectorAll('input');
+
+		var inputs = element.querySelectorAll('input,select,textarea:not([readonly])');
 		var hide = config.hide === undefined || config.hide;
 
 		function toggleElement() {
@@ -68,12 +69,12 @@ helpers.debounce = function(func, wait, immediate) {
 				element.style.display = conditionMet ? '' : 'none';
 				element.style.visibility = conditionMet ? '' : 'hidden';
 			} else {
-				element.style.opacity = conditionMet ? '' : '0.5';
+				element.style.opacity = conditionMet ? '' : '0.4';
 			}
 
 			// disable input fields to stop sending their values to server
 			Array.prototype.forEach.call( inputs, function(inputElement) {
-				inputElement.disabled = !conditionMet;
+				conditionMet ?  inputElement.removeAttribute('readonly') : inputElement.setAttribute('readonly','readonly');
 			});
 		}
 
