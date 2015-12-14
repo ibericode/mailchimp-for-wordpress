@@ -324,6 +324,7 @@ class MC4WP_Admin {
 				'text' => __( 'MailChimp', 'mailchimp-for-wp' ),
 				'slug' => '',
 				'callback' => array( $this, 'show_generals_setting_page' ),
+				'position' => 0
 			)
 		);
 
@@ -336,7 +337,8 @@ class MC4WP_Admin {
 		 *     'title' => 'Page title',
 		 *     'text'  => 'Menu text',
 		 *     'slug' => 'Page slug',
-		 *     'callback' => 'my_page_function'
+		 *     'callback' => 'my_page_function',
+		 *     'position' => 50
 		 * );
 		 *
 		 * @param array $menu_items
@@ -347,8 +349,11 @@ class MC4WP_Admin {
 		// add top menu item
 		add_menu_page( 'MailChimp for WP', 'MailChimp for WP', $required_cap, 'mailchimp-for-wp', array( $this, 'show_generals_setting_page' ), MC4WP_PLUGIN_URL . 'assets/img/icon.png', '99.68491' );
 
+		// sort submenu items by 'position'
+		uasort( $menu_items, array( $this, 'sort_menu_items_by_position' ) );
+
 		// add sub-menu items
-		array_map( array( $this, 'add_menu_item' ), $menu_items );
+		array_walk( $menu_items, array( $this, 'add_menu_item' ) );
 	}
 
 	/**
@@ -356,9 +361,14 @@ class MC4WP_Admin {
 	 */
 	public function add_menu_item( array $item ) {
 
+		// generate menu slug
+		$slug = 'mailchimp-for-wp';
+		if( ! empty( $item['slug'] ) ) {
+			$slug .= '-' . $item['slug'];
+		}
+
 		// provide some defaults
-		$slug = ! empty( $item['slug'] ) ? "mailchimp-for-wp-{$item['slug']}" : 'mailchimp-for-wp';
-		$parent_slug = array_key_exists( 'parent_slug', $item ) ? $item['parent_slug'] : 'mailchimp-for-wp';
+		$parent_slug = ! empty( $item['parent_slug']) ? $item['parent_slug'] : 'mailchimp-for-wp';
 		$capability = ! empty( $item['capability'] ) ? $item['capability'] : $this->get_required_capability();
 
 		// register page
@@ -381,5 +391,16 @@ class MC4WP_Admin {
 		require MC4WP_PLUGIN_DIR . 'includes/views/general-settings.php';
 	}
 
+	/**
+	 * @param $a
+	 * @param $b
+	 *
+	 * @return int
+	 */
+	public function sort_menu_items_by_position( $a, $b ) {
+		$pos_a = isset( $a['position'] ) ? $a['position'] : 80;
+		$pos_b = isset( $b['position'] ) ? $b['position'] : 90;
+		return $pos_a < $pos_b ? -1 : 1;
+	}
 
 }

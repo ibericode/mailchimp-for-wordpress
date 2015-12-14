@@ -101,7 +101,8 @@ class MC4WP_Forms_Admin {
 			'text' => __( 'Forms', 'mailchimp-for-wp' ),
 			'slug' => 'forms',
 			'callback' => array( $this, 'show_forms_page' ),
-			'load_callback' => array( $this, 'redirect_to_form_action' )
+			'load_callback' => array( $this, 'redirect_to_form_action' ),
+			'position' => 10
 		);
 
 		return $items;

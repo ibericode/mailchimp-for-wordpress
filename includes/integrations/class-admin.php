@@ -80,6 +80,7 @@ class MC4WP_Integration_Admin {
 			'text' => __( 'Integrations', 'mailchimp-for-wp' ),
 			'slug' => 'integrations',
 			'callback' => array( $this, 'show_integrations_page' ),
+			'position' => 20
 		);
 
 		return $items;
