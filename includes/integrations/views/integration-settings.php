@@ -57,7 +57,8 @@
 					</tr>
 					<?php } ?>
 
-					<tbody class="integration-toggled-settings" <?php if( $integration->has_ui_element( 'enabled' ) && ! $opts['enabled'] ) echo 'style="opacity: 0.5;"';?>>
+					<?php $config = array( 'element' => 'mc4wp_integrations['. $integration->slug .'][enabled]', 'value' => '1', 'hide' => false ); ?>
+					<tbody class="integration-toggled-settings" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
 
 					<?php if( $integration->has_ui_element( 'implicit' ) ) { ?>
 						<tr valign="top">
@@ -244,20 +245,3 @@
 	<p><?php _e( 'The selected MailChimp lists require non-default fields, which may prevent this integration from working.', 'mailchimp-for-wp' ); ?></p>
 	<p><?php echo sprintf( __( 'Please ensure you <a href="%s">configure the plugin to send all required fields</a> or <a href="%s">log into your MailChimp account</a> and make sure only the email & name fields are marked as required fields for the selected list(s).', 'mailchimp-for-wp' ), 'https://mc4wp.com/kb/send-additional-fields-from-integrations/', 'https://admin.mailchimp.com/lists/' ); ?></p>
 </div>
-
-<script>
-	(function($) {
-		if(typeof($)==='undefined') { return; }
-		var $toggles = $('.integration-toggles-wrap input');
-		var $settings = $('.integration-toggled-settings');
-		$toggles.change(toggleSettings);
-
-		function toggleSettings() {
-			var enabled = $toggles.filter(':checked').val() > 0;
-			var opacity = enabled ? '1' : '0.5';
-			$settings.css( 'opacity', opacity );
-			/* ie 8 */
-			$settings.css('-ms-filter', "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)");
-		}
-	})(window.jQuery);
-</script>

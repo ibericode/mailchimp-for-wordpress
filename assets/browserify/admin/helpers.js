@@ -52,6 +52,7 @@ helpers.debounce = function(func, wait, immediate) {
 		var config = JSON.parse( element.getAttribute('data-showif') );
 		var parentElements = document.querySelectorAll('[name="'+ config.element +'"]');
 		var inputs = element.querySelectorAll('input');
+		var hide = config.hide === undefined || config.hide;
 
 		function toggleElement() {
 
@@ -62,8 +63,13 @@ helpers.debounce = function(func, wait, immediate) {
 
 			// check if element value matches expected value
 			var conditionMet = ( this.value == config.value );
-			element.style.display = conditionMet ? '' : 'none';
-			element.style.visibility = conditionMet ? '' : 'hidden';
+
+			if( hide ) {
+				element.style.display = conditionMet ? '' : 'none';
+				element.style.visibility = conditionMet ? '' : 'hidden';
+			} else {
+				element.style.opacity = conditionMet ? '' : '0.5';
+			}
 
 			// disable input fields to stop sending their values to server
 			Array.prototype.forEach.call( inputs, function(inputElement) {
