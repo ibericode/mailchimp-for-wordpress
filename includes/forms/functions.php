@@ -46,7 +46,7 @@ function mc4wp_get_forms( array $args = array() ) {
  *
  * @return string
  */
-function mc4wp_show_form( $form_id, $config = array(), $echo = true ) {
+function mc4wp_show_form( $form_id = 0, $config = array(), $echo = true ) {
 	return mc4wp('forms')->output_form( $form_id, $config, $echo );
 }
 
