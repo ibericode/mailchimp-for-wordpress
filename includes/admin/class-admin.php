@@ -164,7 +164,7 @@ class MC4WP_Admin {
 		// try getting new lists to fill cache again
 		$lists = $this->mailchimp->get_lists();
 		if( ! empty( $lists ) ) {
-			$this->messages->flash( __( 'Success! The cached configuration for your MailChimp lists has been renewed.', 'mailchimp-for-wp' ), 'updated' );
+			$this->messages->flash( __( 'Success! The cached configuration for your MailChimp lists has been renewed.', 'mailchimp-for-wp' ) );
 		}
 	}
 
