@@ -169,11 +169,13 @@ class MC4WP_Forms_Admin {
 				wp_nonce_ays( '' );
 				return 0;
 			}
+
+			// merge new settings  with current settings to allow passing partial data
+			$current_settings = get_post_meta( $post->ID, '_mc4wp_settings', true );
+			$data['settings'] = array_merge( $current_settings, $data['settings'] );
 		}
 
 		$form_id = wp_insert_post( $post_data );
-
-		/** @todo use `meta_input` parameter for `wp_insert_post` here, WP 4.4+ */
 		update_post_meta( $form_id, '_mc4wp_settings', $data['settings'] );
 
 		// save form messages in individual meta keys
