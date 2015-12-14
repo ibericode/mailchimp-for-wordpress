@@ -32,7 +32,6 @@
 
 					<thead>
 						<tr>
-							<th><?php _e( 'Enabled', 'mailchimp-for-wp' ); ?></th>
 							<th><?php _e( 'Name', 'mailchimp-for-wp' ); ?></th>
 							<th><?php _e( 'Description', 'mailchimp-for-wp' ); ?></th>
 						</tr>
@@ -45,24 +44,13 @@
 						$installed = $integration->is_installed();
 						?>
 						<tr style="<?php if( ! $installed ) { echo 'opacity: 0.5;'; } ?>">
-							<td>
-								<!-- hidden field to make sure a value is sent to the server -->
-								<input type="hidden" name="mc4wp_integrations[<?php echo $integration->slug; ?>][enabled]" value="0" />
 
-								<?php if( ! $integration->enabled_by_default ) { ?>
-									<input type="checkbox" name="mc4wp_integrations[<?php echo $integration->slug; ?>][enabled]" value="1" <?php if( $installed ) { checked( $integration->enabled, true ); } else { disabled( true, true );  } ?> />
-								<?php } else { ?>
-									<input type="checkbox" name="mc4wp_integrations[<?php echo $integration->slug; ?>][enabled]" value="1" <?php checked( $installed, true );  ?>  title="<?php esc_attr_e( 'This integration is enabled by default as it requires manual actions to work.', 'mailchimp-for-wp' ); ?>" disabled="disabled" />
-								<?php } ?>
-							</td>
+							<!-- Integration Name -->
 							<td>
 
 								<?php
 								if( $installed ) {
 									printf( '<strong><a href="%s" title="%s">%s</a></strong>', add_query_arg( array( 'integration' => $integration->slug ) ), __( 'Configure this integration', 'mailchimp-for-wp' ), $integration->name );
-									echo '<div class="row-actions">';
-									echo '<span class="settings"><a href="' . esc_attr( add_query_arg( array( 'integration' => $integration->slug ) ) ) . '">Edit Settings</a></span>';
-									echo '</div>';
 								} else {
 									echo $integration->name ;
 								} ?>
@@ -78,7 +66,6 @@
 					</tbody>
 				</table>
 
-				<?php submit_button(); ?>
 			</form>
 
 		</div>
