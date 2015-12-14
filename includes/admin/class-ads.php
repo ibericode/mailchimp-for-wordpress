@@ -50,7 +50,7 @@ class MC4WP_Admin_Ads {
 		if( rand( 1, 2 ) === 1 ) {
 			echo sprintf( __( 'Be notified whenever someone subscribes? <a href="%s">MailChimp for WordPress Premium</a> allows you to set up email notifications for your forms.', 'mailchimp-for-wp' ), 'https://mc4wp.com/features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=footer-link' );
 		} else {
-			echo sprintf( __( 'Want faster forms? <a href="%s">MailChimp for WordPress Premium</a> submits forms without reloading the entire page, resulting in a much better user experience.', 'mailchimp-for-wp' ), 'https://mc4wp.com/features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=form-settings-link' );
+			echo sprintf( __( 'Increased conversions? <a href="%s">MailChimp for WordPress Premium</a> submits forms without reloading the entire page, resulting in a much better experience for your visitors.', 'mailchimp-for-wp' ), 'https://mc4wp.com/features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=form-settings-link' );
 		}
 
 		echo '</p>';
@@ -74,10 +74,19 @@ class MC4WP_Admin_Ads {
 	public function admin_footer() {
 
 		if( isset( $_GET['view'] ) && $_GET['view'] === 'edit-form' ) {
+
+			// WPML & Polylang specific message
+			if( defined( 'ICL_LANGUAGE_CODE' ) ) {
+				echo '<p class="help">' . sprintf( __( 'Do you want translated forms for all of your languages? <a href="%s">Try MailChimp for WordPress Premium</a>, which does just that plus more.', 'mailchimp-for-wp' ), 'https://mc4wp.com/features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=footer-link' ) . '</p>';
+				return;
+			}
+
+			// General "edit form" message
 			echo '<p class="help">' . sprintf( __( 'Do you want to create more than one form? Our Premium add-on does just that! <a href="%s">Have a look at all Premium benefits</a>.', 'mailchimp-for-wp' ), 'https://mc4wp.com/features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=footer-link' ) . '</p>';
 			return;
 		}
 
+		// General message
 		echo '<p class="help">' . sprintf( __( 'Are you enjoying this plugin? The Premium add-on unlocks several powerful features. <a href="%s">Find out about all benefits now</a>.', 'mailchimp-for-wp' ), 'https://mc4wp.com/features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=footer-link' ) . '</p>';
 	}
 
