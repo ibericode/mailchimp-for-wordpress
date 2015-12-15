@@ -88,4 +88,11 @@ class MC4WP_Integration_Fixture {
 		return $this->load()->$name;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function __toString() {
+		return $this->slug;
+	}
+
 }

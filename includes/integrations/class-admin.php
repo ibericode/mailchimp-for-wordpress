@@ -151,18 +151,6 @@ class MC4WP_Integration_Admin {
 	}
 
 	/**
-	 * Determine whether two integration instances are the same
-	 *
-	 * @param $a
-	 * @param $b
-	 *
-	 * @return int
-	 */
-	public function compare_integrations( $a, $b ) {
-		return $a->slug === $b->slug ? 0 : -1;
-	}
-
-	/**
 	 * Show the Integration Settings page
 	 *
 	 * @internal
@@ -179,7 +167,7 @@ class MC4WP_Integration_Admin {
 
 		// get all integrations but remove enabled integrations from the resulting array
 		$available_integrations = $this->integrations->get_all();
-		$available_integrations = array_udiff( $available_integrations, $enabled_integrations, array( $this, 'compare_integrations') );
+		$available_integrations = array_diff( $available_integrations, $enabled_integrations );
 
 		require dirname( __FILE__ ) . '/views/integrations.php';
 	}
