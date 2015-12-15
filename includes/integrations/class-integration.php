@@ -438,4 +438,5 @@ abstract class MC4WP_Integration {
 		$request = mc4wp('request');
 		return $request->params->all();
 	}
+	
 }
