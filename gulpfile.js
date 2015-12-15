@@ -1,6 +1,5 @@
 'use strict';
 
-var fs = require('fs');
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
@@ -9,10 +8,7 @@ var cssmin = require('gulp-cssmin');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
 var replace = require('gulp-replace');
-var minimist = require('minimist');
 var merge = require('merge-stream');
-var util = require('gulp-util');
-var intercept = require('gulp-intercept');
 var streamify = require('gulp-streamify');
 var globby = require('globby');
 var buffer = require('vinyl-buffer');
