@@ -174,6 +174,19 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 == Changelog == 
 
 
+#### 3.0.8 - December 15, 2015
+
+**Fixes**
+
+- Make sure `mc4wp_show_form()` works without passing a form ID.
+
+**Improvements**
+
+- Remove UI for bulk-enabling integrations, as every integration needs specific settings anyway.
+- Do not print inline JavaScript for forms until it's surely needed.
+- Add `position` key to `mc4wp_admin_menu_items` filter to set a menu position.
+- Various minor code improvements.
+
 #### 3.0.7 - December 10, 2015
 
 **Fixes**
