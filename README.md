@@ -35,6 +35,8 @@ This is a developer's portal for the MailChimp for WordPress plugin and should n
 
 If you need priority support, please upgrade to [MailChimp for WordPress Pro](https://mc4wp.com/).
 
+Looking for code snippets? Have a look at the [MailChimp for WordPress Code Snippets repository](https://github.com/ibericode/mc4wp-snippets)!
+
 Contributions
 -------------
 Anyone is welcome to contribute to the plugin. There are various ways you can contribute:
