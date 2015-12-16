@@ -335,7 +335,15 @@ class MC4WP_API {
 	 * @return object
 	 */
 	public function add_ecommerce_order( array $order_data ) {
-		return $this->call( 'ecomm/order-add', $order_data );
+		$response = $this->call( 'ecomm/order-add', array( 'order' => $order_data ) );
+
+		if( is_object( $response ) ) {
+			if ( isset( $response->complete ) && $response->complete ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
