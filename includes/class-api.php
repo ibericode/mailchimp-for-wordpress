@@ -332,7 +332,7 @@ class MC4WP_API {
 	/**
 	 * @param array $order_data
 	 * @see https://apidocs.mailchimp.com/api/2.0/ecomm/order-add.php
-	 * @return object
+	 * @return boolean
 	 */
 	public function add_ecommerce_order( array $order_data ) {
 		$response = $this->call( 'ecomm/order-add', array( 'order' => $order_data ) );
