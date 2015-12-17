@@ -1,6 +1,12 @@
 Changelog
 =========
 
+#### 3.0.9 - December 17, 2015
+
+**Fixes**
+
+Not being able to select a list when creating a new form.
+
 #### 3.0.8 - December 15, 2015
 
 **Fixes**
