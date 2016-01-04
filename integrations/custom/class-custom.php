@@ -39,6 +39,8 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 			return false;
 		}
 
+		$data = $this->get_data();
+
 		// don't run for CF7 or Events Manager requests
 		// (since they use the same "mc4wp-subscribe" trigger)
 		$disable_triggers = array(
