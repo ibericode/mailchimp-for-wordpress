@@ -44,6 +44,8 @@ var forms = function(m, i18n) {
 	};
 
 	forms.hidden = function( config ) {
+		config.placeholder(false);
+
 		return [
 			rows.defaultValue(config)
 		]

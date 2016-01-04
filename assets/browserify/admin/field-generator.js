@@ -75,7 +75,8 @@ var g = function(m) {
 		}
 
 		if (config.value().length > 0) {
-			if (config.placeholder()) {
+			// hidden fields may never have a placeholder
+			if ( config.type() !== 'hidden' && config.placeholder()) {
 				attributes.placeholder = config.value();
 			} else {
 				attributes.value = config.value();

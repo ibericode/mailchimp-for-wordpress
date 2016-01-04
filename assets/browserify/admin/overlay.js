@@ -7,8 +7,20 @@ var overlay = function(m, i18n) {
 	function onKeyDown(e) {
 		e = e || window.event;
 
+		// close overlay when pressing ESC
 		if (e.keyCode == 27 && _onCloseCallback ) {
 			_onCloseCallback();
+		}
+
+		// prevent ENTER when overlay is open
+		if(e.keyCode == 13 ) {
+			e.preventDefault();
+
+			// find first button in overlay & click it
+			var button = _element.querySelector('input[type="submit"], button');
+			if( button ) {
+				button.click();
+			}
 		}
 	}
 
