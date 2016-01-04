@@ -111,6 +111,12 @@ var FieldHelper = function(m, tabs, editor, fields, i18n) {
 						m("button", {
 							"class": "button-primary",
 							type: "button",
+							onkeydown: function(e) {
+								e = e || window.event;
+								if(e.keyCode == 13) {
+									createFieldHTMLAndAddToForm();
+								}
+							},
 							onclick: createFieldHTMLAndAddToForm
 						}, i18n.addToForm )
 					])

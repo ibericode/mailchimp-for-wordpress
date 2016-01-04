@@ -12,15 +12,9 @@ var overlay = function(m, i18n) {
 			_onCloseCallback();
 		}
 
-		// prevent ENTER when overlay is open
+		// prevent ENTER when overlay is open & inside <form>
 		if(e.keyCode == 13 ) {
 			e.preventDefault();
-
-			// find first button in overlay & click it
-			var button = _element.querySelector('input[type="submit"], button');
-			if( button ) {
-				button.click();
-			}
 		}
 	}
 
