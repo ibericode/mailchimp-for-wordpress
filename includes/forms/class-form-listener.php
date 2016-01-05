@@ -92,11 +92,19 @@ class MC4WP_Form_Listener {
 
 		// do stuff on failure
 		if( ! $result ) {
-			// log error
-			error_log( sprintf( 'MailChimp for WordPress (form %d): %s', $form->ID, $api->get_error_message() ) );
 
-			// add error code to form object
-			$form->errors[] = ( $api->get_error_code() === 214 ) ? 'already_subscribed' : 'error';
+			if( $api->get_error_code() == 214 ) {
+				// handle "already_subscribed" as a soft-error
+				$form->errors[] = 'already_subscribed';
+			} else {
+				// log other errors
+				@error_log( sprintf( 'MailChimp for WordPress (form %d): %s', $form->ID, $api->get_error_message() ) );
+
+				// add error code to form object
+				$form->errors[] = 'error';
+			}
+
+
 			return;
 		}
 
