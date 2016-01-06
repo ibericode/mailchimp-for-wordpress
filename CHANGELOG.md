@@ -1,6 +1,21 @@
 Changelog
 =========
 
+#### 3.0.10 - January 6, 2016
+
+**Fixes**
+
+- 500 server error for "already subscribed" on Windows servers.
+- Incorrect HTML being generated for hidden fields.
+- Duplicate sign-up request when using CF7 integration.
+
+**Improvements**
+
+- Stop logging "already subscribed" errors to PHP's error log.
+- Simplify `pattern` attribute for `date` fields.
+- Remove invalid `autofill` attribute from honeypot field.
+
+
 #### 3.0.9 - December 17, 2015
 
 **Fixes**
