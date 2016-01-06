@@ -16,7 +16,7 @@ MailChimp for WordPress, the absolute best. Subscribe your WordPress site visito
 
 *Adding sign-up methods for your MailChimp lists to your WordPress site should be easy. With this plugin, it finally is.*
 
-This plugin helps you add subscribers to your MailChimp lists using various methods. You can create good looking opt-in forms or integrate with any other form on your site, like your comment or checkout form.
+MailChimp for WordPress helps you add more subscribers to your MailChimp lists using various methods. You can create good looking opt-in forms or integrate with any other form on your site, like your comment, contact or checkout form.
 
 [youtube https://www.youtube.com/watch?v=fZCYPnFybqU]
 
@@ -26,9 +26,9 @@ This plugin helps you add subscribers to your MailChimp lists using various meth
 
 - Sign-up forms which are good looking, user-friendly and mobile optimized. You have complete control over the form fields and can send anything you like to MailChimp.
 
-- Built-in integration with the following plugins:
-	- WP Comment Form
-	- WP Registration Form
+- Seamless integration with the following plugins:
+	- Default WordPress Comment Form
+	- Default WordPress Registration Form
 	- Contact Form 7
 	- WooCommerce
 	- Ninja Forms
@@ -37,11 +37,12 @@ This plugin helps you add subscribers to your MailChimp lists using various meth
 	- BuddyPress
 
 - A multitude of available add-on plugins:
-	- [Captcha](https://wordpress.org/plugins/mc4wp-captcha/)
-	- [MailChimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/)
-	- [MailChimp User Sync](https://wordpress.org/plugins/mailchimp-sync/)
 	- [MailChimp for WordPress Premium](https://mc4wp.com/)
+	- [MailChimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/)
+	- [MailChimp Activity](https://wordpress.org/plugins/mc4wp-activity/)
+	- [MailChimp User Sync](https://wordpress.org/plugins/mailchimp-sync/)
 	- [Scroll Triggered Boxes](https://wordpress.org/plugins/scroll-triggered-boxes/)
+	- [Captcha](https://wordpress.org/plugins/mc4wp-captcha/)
 
 - Well documented. Our [knowledge base](https://mc4wp.com/kb/) is updated daily.
 
