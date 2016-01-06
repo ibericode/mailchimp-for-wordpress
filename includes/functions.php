@@ -205,21 +205,9 @@ function __mc4wp_use_sslverify() {
 		return false;
 	}
 
-	$ssl_version = preg_replace( '/[^0-9\.]/', '', $curl['ssl_version'] );
-	$required_ssl_version = '1.0.1';
-
-	// Disable if OpenSSL is not at version 1.0.1
-	if( version_compare( $ssl_version, $required_ssl_version, '<' ) ) {
+	// Disable if on WP 4.4, see https://core.trac.wordpress.org/ticket/34935
+	if( $GLOBALS['wp_version'] === '4.4' ) {
 		return false;
-	}
-
-	// Last character should be "f" or higher in alphabet.
-	// Example: 1.0.1f
-	$last_character = substr( $curl['ssl_version'], -1 );
-	if( is_string( $last_character ) ) {
-		if( ord( strtoupper( $last_character ) ) < ord( 'F' ) ) {
-			return false;
-		}
 	}
 
 	return true;
