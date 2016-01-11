@@ -20,6 +20,7 @@ return array(
     'MC4WP_Dynamic_Content_Tags' => $baseDir . '/includes/class-dynamic-content-tags.php',
     'MC4WP_Easy_Digital_Downloads_Integration' => $baseDir . '/integrations/easy-digital-downloads/class-easy-digital-downloads.php',
     'MC4WP_Events_Manager_Integration' => $baseDir . '/integrations/events-manager/class-events-manager.php',
+    'MC4WP_Field_Formatter' => $baseDir . '/includes/class-field-formatter.php',
     'MC4WP_Field_Guesser' => $baseDir . '/includes/class-field-guesser.php',
     'MC4WP_Field_Map' => $baseDir . '/includes/class-field-map.php',
     'MC4WP_Form' => $baseDir . '/includes/forms/class-form.php',
