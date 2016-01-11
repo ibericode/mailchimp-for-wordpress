@@ -58,13 +58,13 @@ class MC4WP_Field_Guesser {
 			// remove special characters from field name
 			$simple_key = str_replace( array( '-', '_' ), '', $field );
 
-			if( empty( $guessed['NAME'] ) && in_array( $simple_key, array( 'NAME', 'YOURNAME', 'USERNAME', 'FULLNAME', 'CONTACTNAME' ) ) ) {
+			if( empty( $guessed['NAME'] ) && $this->string_contains( $simple_key, 'NAME' ) ) {
 				// find name field
 				$guessed['NAME'] = $value;
-			} elseif( empty( $guessed['FNAME'] ) && in_array( $simple_key, array( 'FIRSTNAME', 'FNAME', 'GIVENNAME', 'FORENAME' ) ) ) {
+			} elseif( empty( $guessed['FNAME'] ) && $this->string_contains( $simple_key, array( 'FIRSTNAME', 'FNAME', 'GIVENNAME', 'FORENAME' ) ) ) {
 				// find first name field
 				$guessed['FNAME'] = $value;
-			} elseif( empty( $guessed['LNAME'] ) && in_array( $simple_key, array( 'LASTNAME', 'LNAME', 'SURNAME', 'FAMILYNAME' ) ) ) {
+			} elseif( empty( $guessed['LNAME'] ) && $this->string_contains( $simple_key, array( 'LASTNAME', 'LNAME', 'SURNAME', 'FAMILYNAME' ) ) ) {
 				// find last name field
 				$guessed['LNAME'] = $value;
 			}
@@ -89,5 +89,27 @@ class MC4WP_Field_Guesser {
 		}
 
 		return $combined;
+	}
+
+	/**
+	 * @param $haystack
+	 * @param $needles
+	 *
+	 * @return bool
+	 */
+	private function string_contains( $haystack, $needles ) {
+
+		if( ! is_array( $needles ) ) {
+			$needles = array( $needles );
+		}
+
+		foreach( $needles as $needle ) {
+
+			if( strpos( $haystack, $needle ) !== false ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

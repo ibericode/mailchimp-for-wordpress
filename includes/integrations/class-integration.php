@@ -436,7 +436,8 @@ abstract class MC4WP_Integration {
 	 */
 	public function get_data() {
 		$request = mc4wp('request');
-		return $request->params->all();
+		$data = $request->params->all();
+		return $data;
 	}
 
 }
