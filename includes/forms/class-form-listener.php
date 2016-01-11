@@ -149,9 +149,20 @@ class MC4WP_Form_Listener {
 	 */
 	public function respond( MC4WP_Form $form ) {
 
-		$success = ! $form->has_errors();
+		$success = $form->has_errors();
 
 		if( $success ) {
+
+			/**
+			 * Fires right after a form is submitted without any errors (success).
+			 *
+			 * @since 3.0
+			 *
+			 * @param MC4WP_Form $form Instance of the submitted form
+			 */
+			do_action( 'mc4wp_form_success', $form );
+
+		} else {
 
 			/**
 			 * Fires right after a form is submitted with errors.
@@ -168,7 +179,7 @@ class MC4WP_Form_Listener {
 				/**
 				 * Fires right after a form was submitted with errors.
 				 *
-				 * The dynamic portion of the hook, `$error`, refers to the error that occured.
+				 * The dynamic portion of the hook, `$error`, refers to the error that occurred.
 				 *
 				 * Default errors give us the following possible hooks:
 				 *
@@ -186,15 +197,6 @@ class MC4WP_Form_Listener {
 				do_action( 'mc4wp_form_error_' . $error, $form );
 			}
 
-		} else {
-			/**
-			 * Fires right after a form is submitted without any errors (success).
-			 *
-			 * @since 3.0
-			 *
-			 * @param MC4WP_Form $form Instance of the submitted form
-			 */
-			do_action( 'mc4wp_form_success', $form );
 		}
 
 		/**
@@ -206,13 +208,13 @@ class MC4WP_Form_Listener {
 		 */
 		do_action( 'mc4wp_form_respond', $form );
 
-		// do stuff on success (non-AJAX)
+		// do stuff on success (non-AJAX only)
 		if( $success && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 
 			// do we want to redirect?
 			$redirect_url = $form->get_redirect_url();
 			if ( ! empty( $redirect_url ) ) {
-				wp_redirect( $form->get_redirect_url() );
+				wp_redirect( $redirect_url );
 				exit;
 			}
 		}
