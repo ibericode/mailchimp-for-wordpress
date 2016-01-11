@@ -60,11 +60,17 @@ class MC4WP_Field_Map {
 	public $custom_fields = array();
 
 	/**
+	 * @var MC4WP_Field_Formatter
+	 */
+	private $formatter;
+
+	/**
 	 * @param array $raw_data
 	 * @param array $list_ids
 	 */
 	public function __construct( array $raw_data, array $list_ids ) {
 
+		$this->formatter = new MC4WP_Field_Formatter();
 		$this->raw_data = $raw_data;
 		$this->lists = $this->fetch_lists( $list_ids );
 
@@ -247,24 +253,8 @@ class MC4WP_Field_Map {
 
 		$field_type = strtolower( $field_type );
 
-		switch( $field_type ) {
-
-			case 'number':
-				$field_value = floatval( $field_value );
-				break;
-
-			case 'date':
-				$field_value = $this->format_date_value( $field_value );
-				break;
-
-			// birthday fields need to be MM/DD for the MailChimp API
-			case 'birthday':
-				$field_value = $this->format_birthday_value( $field_value );
-				break;
-
-			case 'address':
-				$field_value = $this->format_address_value( $field_value );
-				break;
+		if( method_exists( $this->formatter, $field_type ) ) {
+			$field_value = call_user_func( array( $this->formatter, $field_type ), $field_value );
 		}
 
 		/**
@@ -279,77 +269,6 @@ class MC4WP_Field_Map {
 		$field_value = apply_filters( 'mc4wp_format_field_value', $field_value, $field_type );
 
 		return $field_value;
-	}
-
-	/**
-	 * @param mixed $field_value
-	 *
-	 * @return array
-	 */
-	private function format_address_value( $value ) {
-		// auto-format if this is a string
-		if( is_string( $value ) ) {
-
-			// addr1, addr2, city, state, zip, country
-			$address_pieces = explode( ',', $value );
-
-			// try to fill it.... this is a long shot
-			$value = array(
-				'addr1' => $address_pieces[0],
-				'city'  => isset( $address_pieces[1] ) ? $address_pieces[1] : '',
-				'state' => isset( $address_pieces[2] ) ? $address_pieces[2] : '',
-				'zip'   => isset( $address_pieces[3] ) ? $address_pieces[3] : ''
-			);
-		} elseif( is_array( $value ) ) {
-			// merge with array of empty defaults to allow skipping certain fields
-			$default = array_fill_keys( array( 'addr1', 'city', 'state', 'zip' ), '' );
-			$value = array_merge( $default, $value );
-		}
-
-		return $value;
-	}
-
-	/**
-	 * @param mixed $value
-	 *
-	 * @return string
-	 */
-	private function format_birthday_value( $value ) {
-		if( is_array( $value ) ) {
-
-			// allow for "day" and "month" fields
-			if( isset( $value['month'] ) && isset( $value['day'] ) ) {
-				$value = $value['month'] . '/' . $value['day'];
-			} else {
-
-				// if other array, just join together
-				$value = join( '/', $value );
-			}
-		}
-
-		$value = (string) date( 'm/d', strtotime( $value ) );
-		return $value;
-	}
-
-	/**
-	 * @param mixed $value
-	 *
-	 * @return string
-	 */
-	private function format_date_value( $value ) {
-
-		if( is_array( $value ) ) {
-
-			// allow for "year", "month" and "day" keys
-			if( isset( $value['year'] ) && isset( $value['month'] ) && isset( $value['day'] ) ) {
-				$value = $value['year'] . '/' . $value['month'] . '/' . $value['day'];
-			} else {
-				// if other array, just join together
-				$value = join( '/', $value );
-			}
-		}
-
-		return (string) date('Y-m-d', strtotime( $value ) );
 	}
 
 }
