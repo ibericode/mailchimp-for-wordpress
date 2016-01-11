@@ -10,7 +10,7 @@ if( testInput.type !== 'date') {
 			dateFields[i].placeholder = 'YYYY-MM-DD';
 		}
 		if(!dateFields[i].pattern) {
-			dateFields[i].pattern = '(19|20|21)\d\d[\-\/](0{0,1}[1-9]|1[012])[-\/](0{0,1}[1-9]|[12][0-9]|3[01])';
+			dateFields[i].pattern = '[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])';
 		}
 	}
 }
