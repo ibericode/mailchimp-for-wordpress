@@ -58,15 +58,15 @@ class MC4WP_Field_Guesser {
 			// remove special characters from field name
 			$simple_key = str_replace( array( '-', '_' ), '', $field );
 
-			if( empty( $guessed['NAME'] ) && $this->string_contains( $simple_key, 'NAME' ) ) {
-				// find name field
-				$guessed['NAME'] = $value;
-			} elseif( empty( $guessed['FNAME'] ) && $this->string_contains( $simple_key, array( 'FIRSTNAME', 'FNAME', 'GIVENNAME', 'FORENAME' ) ) ) {
+			if( empty( $guessed['FNAME'] ) && $this->string_contains( $simple_key, array( 'FIRSTNAME', 'FNAME', 'GIVENNAME', 'FORENAME' ) ) ) {
 				// find first name field
 				$guessed['FNAME'] = $value;
 			} elseif( empty( $guessed['LNAME'] ) && $this->string_contains( $simple_key, array( 'LASTNAME', 'LNAME', 'SURNAME', 'FAMILYNAME' ) ) ) {
 				// find last name field
 				$guessed['LNAME'] = $value;
+			} elseif( empty( $guessed['NAME'] ) && $this->string_contains( $simple_key, 'NAME' ) ){
+				// find name field
+				$guessed['NAME'] = $value;
 			}
 
 		}
