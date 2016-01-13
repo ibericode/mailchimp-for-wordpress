@@ -97,7 +97,6 @@ class MC4WP_Admin_Ads {
 
 		echo '<div class="mc4wp-box">';
 		$block = new MC4WP_Remote_Content_Block( 'https://mc4wp.com/api/content-blocks?id=106689' );
-		$block->refresh();
 		echo $block;
 		echo '</div>';
 
