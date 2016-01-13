@@ -1,6 +1,17 @@
 Changelog
 =========
 
+#### Trunk (unreleased)
+
+**Fixes**
+
+- Incorrect hooks being fired for successful and unsuccessful form sign-ups.
+
+**Improvements**
+
+- Allow splitting up "birthday" and "date" fields into separate fields with `day`, `month` and `year` index.
+- Improved algorithm for finding fields when integrating with Contact Form 7 or other custom forms.
+
 #### 3.0.10 - January 6, 2016
 
 **Fixes**
