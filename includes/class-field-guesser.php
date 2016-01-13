@@ -56,7 +56,7 @@ class MC4WP_Field_Guesser {
 			}
 
 			// remove special characters from field name
-			$simple_key = str_replace( array( '-', '_' ), '', $field );
+			$simple_key = str_replace( array( '-', '_', ' ' ), '', $field );
 
 			if( empty( $guessed['FNAME'] ) && $this->string_contains( $simple_key, array( 'FIRSTNAME', 'FNAME', 'GIVENNAME', 'FORENAME' ) ) ) {
 				// find first name field

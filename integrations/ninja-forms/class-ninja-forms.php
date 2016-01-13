@@ -48,7 +48,7 @@ class MC4WP_Ninja_Forms_Integration extends MC4WP_Integration {
 			'edit_req' => false,
 		);
 
-		ninja_forms_register_field('mc4wp-subscribe', $args);
+		ninja_forms_register_field( 'mc4wp-subscribe', $args );
 	}
 
 	/**
@@ -66,12 +66,23 @@ class MC4WP_Ninja_Forms_Integration extends MC4WP_Integration {
 		 * @var Ninja_Forms_Processing $ninja_forms_processing
 		 */
 		global $ninja_forms_processing;
-		$fields = $ninja_forms_processing->get_all_submitted_fields();
 
-		// TODO: Allow for more fields here, NF uses id's which are not very helpful for our Field Guesser
+		// generate an array of field label => field value
+		$fields = $ninja_forms_processing->get_all_submitted_fields();
+		$pretty = array();
+		foreach( $fields as $field_id => $field_value ) {
+
+			// try admin label for "mc4wp-" prefixed fields, otherwise use general label
+			$label = $ninja_forms_processing->get_field_setting( $field_id, 'admin_label' );
+			if( empty( $label ) || stripos( $label, 'mc4wp-' ) !== 0 ) {
+				$label = $ninja_forms_processing->get_field_setting( $field_id, 'label' );
+			}
+
+			$pretty[ $label ] = $field_value;
+		}
 
 		// guess mailchimp variables
-		$parser = new MC4WP_Field_Guesser( $fields );
+		$parser = new MC4WP_Field_Guesser( $pretty );
 		$data = $parser->combine( array( 'guessed', 'namespaced' ) );
 
 		// do nothing if no email was found
@@ -79,8 +90,7 @@ class MC4WP_Ninja_Forms_Integration extends MC4WP_Integration {
 			return false;
 		}
 
-		// TODO: Pass Ninja Forms ID here
-		return $this->subscribe( $data['EMAIL'], $data );
+		return $this->subscribe( $data['EMAIL'], $data, $ninja_forms_processing->get_form_ID() );
 	}
 
 
