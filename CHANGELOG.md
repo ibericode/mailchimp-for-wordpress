@@ -1,7 +1,7 @@
 Changelog
 =========
 
-#### Trunk (unreleased)
+#### 3.0.11 - January 14, 2015
 
 **Fixes**
 
@@ -11,8 +11,12 @@ Changelog
 
 - Allow splitting up "birthday" and "date" fields into separate fields with `day`, `month` and `year` index.
 - Improved algorithm for finding fields when integrating with Contact Form 7 or other custom forms.
-- Ninja Forms integration can now find automatically find name-fields.
+- Ninja Forms integration can now automatically find name-fields.
 - Ninja Forms integration can now use `mc4wp-` prefixed admin labels.
+
+**Additions**
+
+- `add_ecommerce_order()` and `delete_ecommerce_order()` methods to API class.
 
 #### 3.0.10 - January 6, 2016
 
