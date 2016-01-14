@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp forms, mailchimp integrations
 Requires at least: 3.7
 Tested up to: 4.4
-Stable tag: 3.0.11-dev
+Stable tag: 3.0.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -174,6 +174,23 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 
 == Changelog == 
 
+
+#### 3.0.11 - January 14, 2015
+
+**Fixes**
+
+- Incorrect hooks being fired for successful and unsuccessful form sign-ups.
+
+**Improvements**
+
+- Allow splitting up "birthday" and "date" fields into separate fields with `day`, `month` and `year` index.
+- Improved algorithm for finding fields when integrating with Contact Form 7 or other custom forms.
+- Ninja Forms integration can now automatically find name-fields.
+- Ninja Forms integration can now use `mc4wp-` prefixed admin labels.
+
+**Additions**
+
+- `add_ecommerce_order()` and `delete_ecommerce_order()` methods to API class.
 
 #### 3.0.10 - January 6, 2016
 
