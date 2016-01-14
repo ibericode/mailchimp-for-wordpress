@@ -340,7 +340,14 @@ class MC4WP_API {
 		$response = $this->call( 'ecomm/order-add', array( 'order' => $order_data ) );
 
 		if( is_object( $response ) ) {
+
+			// complete means success
 			if ( isset( $response->complete ) && $response->complete ) {
+				return true;
+			}
+
+			// 330 means order was already added: great
+			if( isset( $response->code ) && $response->code == 330 ) {
 				return true;
 			}
 		}
