@@ -5,15 +5,15 @@
 # Adriano Genovese <adrygese@gmail.com>, 2015
 # andrea.gatopoulos <andrea.gatopoulos@gmail.com>, 2015
 # Dan <d.murtas@gmail.com>, 2014
-# francesca mecca <meccafrancesca@gmail.com>, 2015
+# francesca mecca <meccafrancesca@gmail.com>, 2015-2016
 # Martina <martina@missmarpol.it>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-11-30 10:15:18+00:00\n"
-"PO-Revision-Date: 2016-01-08 08:26+0000\n"
-"Last-Translator: Martina <martina@missmarpol.it>\n"
+"PO-Revision-Date: 2016-01-13 16:43+0000\n"
+"Last-Translator: francesca mecca <meccafrancesca@gmail.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -716,7 +716,7 @@ msgid ""
 "fields</a> or <a href=\"%s\">log into your MailChimp account</a> and make "
 "sure only the email & name fields are marked as required fields for the "
 "selected list(s)."
-msgstr ""
+msgstr "Per favore assicurati di <a href=\"%s\">configurare il plugin per l'invio di tutti i campi obbligatori</a> oppure <a href=\"%s\">effettua il login nel tuo account MailChimp</a> e assicurati soltanto di aver settato come obbligatori per la lista/e  selezionata, i soli campi E-mail e nome."
 
 #: includes/integrations/views/integrations.php:30
 msgid "Enabled"
@@ -780,7 +780,7 @@ msgstr "Monitoraggio dell'utilizzo"
 msgid ""
 "Allow us to anonymously track how this plugin is used to help us make it "
 "better fit your needs."
-msgstr ""
+msgstr "Consenti di tracciare anonimamente come viene usato il plugin per aiutarci a renderlo piu' adatto alle tue esigenze."
 
 #: includes/views/general-settings.php:73
 msgid "This is what we track."
@@ -808,7 +808,7 @@ msgid ""
 "The table below shows your MailChimp lists and their details. If you just "
 "applied changes to your MailChimp lists, please use the following button to "
 "renew the cached lists configuration."
-msgstr ""
+msgstr "La tabella sottostante mostra mostra le tue liste MailChimp e i loro dettagli. Se hai appena effettuato delle modifiche a questi elenchi, usa il seguente tasto per riaggiornare la configurazione delle liste memorizzate nella cache."
 
 #: includes/views/parts/lists-overview.php:14
 msgid "No lists were found in your MailChimp account"
@@ -872,7 +872,7 @@ msgstr "https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_
 msgid ""
 "MailChimp for WordPress by ibericode. Adds various highly effective sign-up "
 "methods to your site."
-msgstr ""
+msgstr "MailChimp per Wordpress by ibericode. Aggiunge differenti ed estremamente efficaci metodi di iscrizione al tuo sito."
 
 #. Author of the plugin/theme
 msgid "ibericode"
