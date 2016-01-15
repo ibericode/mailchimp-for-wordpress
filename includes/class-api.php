@@ -376,6 +376,11 @@ class MC4WP_API {
 			if ( isset( $response->complete ) && $response->complete ) {
 				return true;
 			}
+
+			// Invalid order (order not existing). Good!
+			if( isset( $response->code ) && $response->code == 330 ) {
+				return true;
+			}
 		}
 
 		return false;
