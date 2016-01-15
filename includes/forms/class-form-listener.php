@@ -149,7 +149,7 @@ class MC4WP_Form_Listener {
 	 */
 	public function respond( MC4WP_Form $form ) {
 
-		$success = $form->has_errors();
+		$success = ! $form->has_errors();
 
 		if( $success ) {
 
