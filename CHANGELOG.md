@@ -1,11 +1,13 @@
 Changelog
 =========
 
-#### 3.0.11 - January 14, 2015
+#### 3.0.12 - January 15, 2015
 
 **Fixes**
 
-- Incorrect hooks being fired for successful and unsuccessful form sign-ups.
+- Incorrect hooks being fired for successful and unsuccessful form sign-ups (which also broke the success redirect).
+
+#### 3.0.11 - January 14, 2015
 
 **Improvements**
 
