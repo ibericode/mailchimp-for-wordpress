@@ -193,6 +193,30 @@ class MC4WP_API {
 	}
 
 	/**
+	 * Get the lists an email address is subscribed to
+	 *
+	 * @param array|string $email
+	 *
+	 * @return array
+	 */
+	public function get_lists_for_email( $email ) {
+
+		if( is_string( $email ) ) {
+			$email = array(
+				'email' => $email,
+			);
+		}
+
+		$result = $this->call( 'helper/lists-for-email', array( 'email' => $email ) );
+
+		if( ! is_array( $result ) ) {
+			return false;
+		}
+
+		return $result;
+	}
+
+	/**
 	 * Get lists with their merge_vars for a given array of list id's
 	 * @param array $list_ids
 	 * @return array|boolean
