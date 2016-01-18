@@ -212,6 +212,14 @@ class MC4WP_Admin {
 			$this->mailchimp->empty_cache();
 		}
 
+		/**
+		 * Runs right before general settings are saved.
+		 *
+		 * @param array $settings The updated settings array
+		 * @param array $current The old settings array
+		 */
+		do_action( 'mc4wp_save_settings', $settings, $current );
+
 		return $settings;
 	}
 
@@ -395,7 +403,6 @@ class MC4WP_Admin {
 		$opts = mc4wp_get_options();
 		$connected = ( mc4wp('api')->is_connected() );
 		$lists = $this->mailchimp->get_lists();
-
 		require MC4WP_PLUGIN_DIR . 'includes/views/general-settings.php';
 	}
 
