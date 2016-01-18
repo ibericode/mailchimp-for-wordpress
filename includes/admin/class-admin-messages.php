@@ -18,7 +18,7 @@ class MC4WP_Admin_Messages {
 	 */
 	public function add_hooks() {
 		add_action( 'admin_notices', array( $this, 'show' ) );
-		add_action( 'shutdown', array( $this, 'save' ) );
+		register_shutdown_function( array( $this, 'save' ) );
 	}
 
 	/**
