@@ -361,7 +361,10 @@ abstract class MC4WP_Integration {
 
 		// if result failed, show error message
 		if ( ! $result && $api->has_error() ) {
-			error_log( sprintf( 'MailChimp for WordPres (%s): %s', $this->slug, $api->get_error_message() ) );
+			// log error
+			$this->get_log()->error( sprintf( '%s > %s', $this->name, $api->get_error_message() ) );
+
+			// bail
 			return false;
 		}
 
@@ -438,6 +441,13 @@ abstract class MC4WP_Integration {
 		$request = mc4wp('request');
 		$data = $request->params->all();
 		return $data;
+	}
+
+	/**
+	 * @return MC4WP_Debug_Log
+	 */
+	protected function get_log() {
+		return mc4wp('log');
 	}
 
 }

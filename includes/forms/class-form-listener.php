@@ -97,8 +97,8 @@ class MC4WP_Form_Listener {
 				// handle "already_subscribed" as a soft-error
 				$form->errors[] = 'already_subscribed';
 			} else {
-				// log other errors
-				@error_log( sprintf( 'MailChimp for WordPress (form %d): %s', $form->ID, $api->get_error_message() ) );
+				// log error
+				$this->get_log()->error( sprintf( 'Form %d > %s', $form->ID, $api->get_error_message() ) );
 
 				// add error code to form object
 				$form->errors[] = 'error';
@@ -225,6 +225,13 @@ class MC4WP_Form_Listener {
 	 */
 	protected function get_api() {
 		return mc4wp('api');
+	}
+
+	/**
+	 * @return MC4WP_Debug_Log
+	 */
+	protected function get_log() {
+		return mc4wp('log');
 	}
 
 }
