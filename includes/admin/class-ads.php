@@ -23,6 +23,7 @@ class MC4WP_Admin_Ads {
 		add_action( 'mc4wp_admin_form_after_appearance_settings_rows', array( $this, 'after_form_appearance_settings_rows' ) );
 		add_action( 'mc4wp_admin_sidebar', array( $this, 'admin_sidebar' ) );
 		add_action( 'mc4wp_admin_footer', array( $this, 'admin_footer' ) );
+		add_action( 'mc4wp_admin_other_settings', array( $this, 'other_settings' ), 90 );
 		return true;
 	}
 
@@ -129,6 +130,30 @@ class MC4WP_Admin_Ads {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 *
+	 */
+	public function other_settings() {
+
+		// detect whether WooCommerce or Easy Digital Downloads is installed
+		$shops = array(
+			'WooCommerce' => class_exists( 'WooCommerce' ),
+			'Easy Digital Downloads' => class_exists( 'Easy Digital Downloads' )
+		);
+		$shops = array_filter( $shops );
+		$shops = array_keys( $shops );
+		if( empty( $shops ) ) {
+			return;
+		}
+
+		$shop = array_shift( $shops );
+
+		echo '<div class="medium-margin">';
+		echo '<h3>eCommerce360</h3>';
+		echo sprintf( '<p>' . __( 'Want to track all your %s sales in MailChimp so you can send emails based on the purchases of your subscribers? <a href="%s">Upgrade to MailChimp for WordPress Premium</a> or <a href="%s">read more about eCommerce360</a>.', 'mailchimp-for-wp' ) . '</p>', $shop, 'https://mc4wp.com/features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=other-settings-link', 'http://kb.mailchimp.com/integrations/other-integrations/about-ecommerce360' );
+		echo '</div>';
 	}
 
 }

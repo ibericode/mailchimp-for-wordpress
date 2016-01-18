@@ -88,6 +88,8 @@ function __mc4wp_load_plugin() {
 	    && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 
 		$messages = new MC4WP_Admin_Messages();
+		$mc4wp['admin.messages'] = $messages;
+
 		$mailchimp = new MC4WP_MailChimp();
 
 		$admin = new MC4WP_Admin( $messages, $mailchimp );
