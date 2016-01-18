@@ -1,6 +1,8 @@
 <?php
 defined( 'ABSPATH' ) or exit;
 
+/** @var MC4WP_Debug_Log_Reader $log_reader */
+
 /**
  * @ignore
  *
@@ -55,6 +57,7 @@ add_action( 'mc4wp_admin_other_settings', '__usage_tracking_setting', 70 );
 			do_action( 'mc4wp_admin_before_other_settings', $opts );
 			?>
 
+			<!-- Settings -->
 			<form action="<?php echo admin_url( 'options.php' ); ?>" method="post">
 				<?php settings_fields( 'mc4wp_settings' ); ?>
 
@@ -67,6 +70,49 @@ add_action( 'mc4wp_admin_other_settings', '__usage_tracking_setting', 70 );
 
 				<?php submit_button(); ?>
 			</form>
+
+			<!-- Debug Log -->
+			<h3><?php _e( 'Debug Log', 'mailchimp-for-wp' ); ?> <input type="text" id="debug-log-filter" class="regular-text" placeholder="<?php esc_attr_e( 'Filter..', 'mailchimp-for-wp' ); ?>" style="float: right;"/></h3>
+
+
+			<style type="text/css">
+				#debug-log { height: 400px; padding: 6px; border:1px solid #ccc; background: #262626; color: white; overflow-y: scroll; }
+				#debug-log .line { line-height: 22px; }
+				#debug-log .time { color: rgb(181, 137, 0); }
+				#debug-log .level { color: rgb(37, 140, 205); }
+			</style>
+
+			<div id="debug-log" class="widefat">
+				<?php while( ( $line = $log_reader->read_as_html() ) ) {
+					echo '<div class="line">' . $line . '</div>';
+				} ?>
+			</div>
+
+
+			<script>
+				(function() {
+					'use strict';
+					// scroll to bottom of log
+					var log = document.getElementById("debug-log");
+					log.scrollTop = log.scrollHeight;
+
+					// add filter
+					var logFilter = document.getElementById('debug-log-filter');
+					logFilter.addEventListener('keydown', function(e) {
+						if(e.keyCode == 13 ) {
+							var search = e.target.value.toLowerCase();
+							// go go go
+							[].forEach.call(log.childNodes, function(child) {
+								if( child.innerText == undefined ) { return; }
+								child.style.display = ( child.innerText.toLowerCase().indexOf(search) > -1 ) ? 'block' : 'none';
+							});
+						}
+					})
+				})();
+
+			</script>
+
+
 
 			<?php include dirname( __FILE__ ) . '/parts/admin-footer.php'; ?>
 		</div>

@@ -18,6 +18,7 @@ return array(
     'MC4WP_Container' => $baseDir . '/includes/class-container.php',
     'MC4WP_Custom_Integration' => $baseDir . '/integrations/custom/class-custom.php',
     'MC4WP_Debug_Log' => $baseDir . '/includes/class-debug-log.php',
+    'MC4WP_Debug_Log_Reader' => $baseDir . '/includes/class-debug-log-reader.php',
     'MC4WP_Dynamic_Content_Tags' => $baseDir . '/includes/class-dynamic-content-tags.php',
     'MC4WP_Easy_Digital_Downloads_Integration' => $baseDir . '/integrations/easy-digital-downloads/class-easy-digital-downloads.php',
     'MC4WP_Events_Manager_Integration' => $baseDir . '/integrations/events-manager/class-events-manager.php',

@@ -10,12 +10,12 @@ class MC4WP_Debug_Log{
 	/**
 	 * @var string
 	 */
-	private $file;
+	public $file;
 
 	/**
 	 * @var int
 	 */
-	private $level;
+	public $level;
 
 	/**
 	 * MC4WP_Debug_Log constructor.
@@ -74,6 +74,7 @@ class MC4WP_Debug_Log{
 			$this->log( 'DEBUG', $message );
 		}
 	}
+
 
 }
 
