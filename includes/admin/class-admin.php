@@ -325,6 +325,13 @@ class MC4WP_Admin {
 				'slug' => '',
 				'callback' => array( $this, 'show_generals_setting_page' ),
 				'position' => 0
+			),
+			'misc' => array(
+				'title' => __( 'Other Settings', 'mailchimp-for-wp' ),
+				'text' => __( 'Other', 'mailchimp-for-wp' ),
+				'slug' => 'other',
+				'callback' => array( $this, 'show_other_setting_page' ),
+				'position' => 90
 			)
 		);
 
@@ -381,7 +388,7 @@ class MC4WP_Admin {
 	}
 
 	/**
-	 * Show the API settings page
+	 * Show the API Settings page
 	 */
 	public function show_generals_setting_page() {
 		$opts = mc4wp_get_options();
@@ -389,6 +396,14 @@ class MC4WP_Admin {
 		$lists = $this->mailchimp->get_lists();
 
 		require MC4WP_PLUGIN_DIR . 'includes/views/general-settings.php';
+	}
+
+	/**
+	 * Show the Misc Settings page
+	 */
+	public function show_other_setting_page() {
+		$opts = mc4wp_get_options();
+		require MC4WP_PLUGIN_DIR . 'includes/views/other-settings.php';
 	}
 
 	/**

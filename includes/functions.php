@@ -46,7 +46,12 @@ function mc4wp_get_options() {
 		$options = array_merge( $defaults, $options );
 	}
 
-	return $options;
+	/**
+	 * Filters the MailChimp for WordPress settings (general).
+	 *
+	 * @param array $options
+	 */
+	return apply_filters( 'mc4wp_settings', $options );
 }
 
 

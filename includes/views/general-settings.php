@@ -60,22 +60,6 @@ defined( 'ABSPATH' ) or exit;
 
 				<?php submit_button(); ?>
 
-				<hr />
-
-				<h3><?php _e( 'Usage Tracking', 'mailchimp-for-wp' ); ?></h3>
-				<p>
-					<label>
-						<?php /* hidden input field to send `0` when checkbox is not checked */ ?>
-						<input type="hidden" name="mc4wp[allow_usage_tracking]" value="0" />
-						<input type="checkbox" name="mc4wp[allow_usage_tracking]" value="1" <?php checked( $opts['allow_usage_tracking'], 1 ); ?>>
-						<?php echo __( 'Allow us to anonymously track how this plugin is used to help us make it better fit your needs.', 'mailchimp-for-wp' ); ?>
-						<a href="https://mc4wp.com/kb/what-is-usage-tracking/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page" target="_blank">
-							<?php _e( 'This is what we track.', 'mailchimp-for-wp' ); ?>
-						</a>
-					</label>
-				</p>
-
-				<?php submit_button(); ?>
 			</form>
 
 			<?php
