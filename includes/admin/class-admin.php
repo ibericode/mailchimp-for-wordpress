@@ -335,7 +335,7 @@ class MC4WP_Admin {
 				'callback' => array( $this, 'show_generals_setting_page' ),
 				'position' => 0
 			),
-			'misc' => array(
+			'other' => array(
 				'title' => __( 'Other Settings', 'mailchimp-for-wp' ),
 				'text' => __( 'Other', 'mailchimp-for-wp' ),
 				'slug' => 'other',
@@ -407,7 +407,7 @@ class MC4WP_Admin {
 	}
 
 	/**
-	 * Show the Misc Settings page
+	 * Show the Other Settings page
 	 */
 	public function show_other_setting_page() {
 		$opts = mc4wp_get_options();
