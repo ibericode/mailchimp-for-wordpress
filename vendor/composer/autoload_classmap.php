@@ -17,6 +17,7 @@ return array(
     'MC4WP_Contact_Form_7_Integration' => $baseDir . '/integrations/contact-form-7/class-contact-form-7.php',
     'MC4WP_Container' => $baseDir . '/includes/class-container.php',
     'MC4WP_Custom_Integration' => $baseDir . '/integrations/custom/class-custom.php',
+    'MC4WP_Debug_Log' => $baseDir . '/includes/class-debug-log.php',
     'MC4WP_Dynamic_Content_Tags' => $baseDir . '/includes/class-dynamic-content-tags.php',
     'MC4WP_Easy_Digital_Downloads_Integration' => $baseDir . '/integrations/easy-digital-downloads/class-easy-digital-downloads.php',
     'MC4WP_Events_Manager_Integration' => $baseDir . '/integrations/events-manager/class-events-manager.php',

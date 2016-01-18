@@ -72,6 +72,37 @@ function mc4wp_get_api() {
 }
 
 /**
+ * @return MC4WP_Debug_Log
+ */
+function mc4wp_get_debug_log() {
+
+	// get default log file location
+	$upload_dir = wp_upload_dir();
+	$file = trailingslashit( $upload_dir['basedir'] ) . 'mc4wp-debug.log';
+
+	// log level
+	$level = MC4WP_Debug_Log::ERROR;
+
+	/**
+	 * Filters the log file to write to.
+	 *
+	 * @param string $file
+	 */
+	$file = apply_filters( 'mc4wp_debug_log_file', $file );
+
+	/**
+	 * Filters the minimum level to log.
+	 *
+	 * @see MC4WP_Debug_Log
+	 *
+	 * @param int $level
+	 */
+	$level = apply_filters( 'mc4wp_debug_log_level', $level );
+
+	return new MC4WP_Debug_Log( $file, $level );
+}
+
+/**
  * Retrieves the URL of the current WordPress page
  *
  * @access public
