@@ -88,8 +88,14 @@ add_action( 'mc4wp_admin_other_settings', '__usage_tracking_setting', 70 );
 				} ?>
 			</div>
 
+			<form method="post">
+				<input type="hidden" name="_mc4wp_action" value="empty_debug_log">
+				<p>
+					<input type="submit" class="button" value="<?php esc_attr_e( 'Empty Log', 'mailchimp-for-wp' ); ?>" />
+				</p>
+			</form>
 
-			<script>
+			<script type="text/javascript">
 				(function() {
 					'use strict';
 					// scroll to bottom of log
@@ -101,11 +107,14 @@ add_action( 'mc4wp_admin_other_settings', '__usage_tracking_setting', 70 );
 					logFilter.addEventListener('keydown', function(e) {
 						if(e.keyCode == 13 ) {
 							var search = e.target.value.toLowerCase();
+
 							// go go go
 							[].forEach.call(log.childNodes, function(child) {
 								if( child.innerText == undefined ) { return; }
 								child.style.display = ( child.innerText.toLowerCase().indexOf(search) > -1 ) ? 'block' : 'none';
 							});
+
+							log.scrollTop = log.scrollHeight;
 						}
 					})
 				})();

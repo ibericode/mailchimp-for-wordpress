@@ -53,7 +53,7 @@ class MC4WP_Admin {
 		add_action( 'current_screen', array( $this, 'customize_admin_texts' ) );
 		add_action( 'wp_dashboard_setup', array( $this, 'register_dashboard_widgets' ) );
 		add_action( 'mc4wp_admin_empty_lists_cache', array( $this, 'renew_lists_cache' ) );
-
+		add_action( 'mc4wp_admin_empty_debug_log', array( $this, 'empty_debug_log' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 
 		$this->ads->add_hooks();
@@ -411,7 +411,6 @@ class MC4WP_Admin {
 	 */
 	public function show_other_setting_page() {
 		$opts = mc4wp_get_options();
-
 		$log = $this->get_log();
 		$log_reader = new MC4WP_Debug_Log_Reader( $log->file );
 		require MC4WP_PLUGIN_DIR . 'includes/views/other-settings.php';
@@ -427,6 +426,16 @@ class MC4WP_Admin {
 		$pos_a = isset( $a['position'] ) ? $a['position'] : 80;
 		$pos_b = isset( $b['position'] ) ? $b['position'] : 90;
 		return $pos_a < $pos_b ? -1 : 1;
+	}
+
+	/**
+	 * Empties the log file
+	 */
+	public function empty_debug_log() {
+		$log = $this->get_log();
+		file_put_contents( $log->file, '' );
+
+		$this->messages->flash( __( 'Log successfully emptied.', 'mailchimp-for-wp' ) );
 	}
 
 	/**
