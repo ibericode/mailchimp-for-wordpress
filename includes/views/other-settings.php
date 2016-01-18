@@ -25,7 +25,7 @@ function __usage_tracking_setting( $opts ) {
 	<?php
 }
 
-add_action( 'mc4wp_admin_other_settings', '__usage_tracking_setting', 90 );
+add_action( 'mc4wp_admin_other_settings', '__usage_tracking_setting', 70 );
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
