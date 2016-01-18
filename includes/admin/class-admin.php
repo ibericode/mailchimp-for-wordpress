@@ -196,19 +196,20 @@ class MC4WP_Admin {
 
 		$current = mc4wp_get_options();
 
-		// Toggle usage tracking
-		if( isset( $settings['allow_usage_tracking'] ) ) {
-			MC4WP_Usage_Tracking::instance()->toggle( (bool) $settings['allow_usage_tracking'] );
+		// merge with current settings to allow passing partial arrays to this method
+		$settings = array_merge( $current, $settings );
+
+		// toggle usage tracking
+		if( $settings['allow_usage_tracking'] !== $current['allow_usage_tracking'] ) {
+			MC4WP_Usage_Tracking::instance()->toggle( $settings['allow_usage_tracking'] );
 		}
 
-		// Sanitize API key & empty cache when API key changed
-		if( isset( $settings['api_key'] ) ) {
+		// Sanitize API key
+		$settings['api_key'] = sanitize_text_field( $settings['api_key'] );
 
-			$settings['api_key'] = sanitize_text_field( $settings['api_key'] );
-
-			if ( $settings['api_key'] !== $current['api_key'] ) {
-				$this->mailchimp->empty_cache();
-			}
+		// if API key changed, empty MailChimp cache
+		if ( $settings['api_key'] !== $current['api_key'] ) {
+			$this->mailchimp->empty_cache();
 		}
 
 		return $settings;
