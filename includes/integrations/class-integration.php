@@ -368,11 +368,13 @@ abstract class MC4WP_Integration {
 		// if result failed, show error message
 		if ( ! $result && $api->has_error() ) {
 			// log error
-			$this->get_log()->error( sprintf( '%s > %s', $this->name, $api->get_error_message() ) );
+			$this->get_log()->error( sprintf( '%s > MailChimp API Error: %s', $this->name, $api->get_error_message() ) );
 
 			// bail
 			return false;
 		}
+
+		$this->get_log()->info( sprintf( '%s > Successfully subscribed %s', $this->name, $email ) );
 
 		/**
 		 * Runs right after someone is subscribed using an integration
