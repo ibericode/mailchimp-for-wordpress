@@ -109,7 +109,8 @@ add_action( 'mc4wp_admin_other_settings', '__usage_tracking_setting', 70 );
 				(function() {
 					'use strict';
 					// scroll to bottom of log
-					var log = document.getElementById("debug-log");
+					var log = document.getElementById("debug-log"),
+						logItems;
 					log.scrollTop = log.scrollHeight;
 					log.style.minHeight = '';
 					log.style.maxHeight = '';
@@ -125,24 +126,27 @@ add_action( 'mc4wp_admin_other_settings', '__usage_tracking_setting', 70 );
 
 					// search log for query
 					function searchLog(query) {
-						var ri = new RegExp(query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'i');
-						var _log = log.cloneNode(true);
-
-						// loop through children in reversed order
-						var number = _log.children.length;
-						for(var i = number-1; i >= 0; i--) {
-							var child = _log.children[i];
-							if( ! child.textContent ) { continue; }
-							if( ! query.length ) { child.style.display = 'block'; continue; }
-							child.style.display =  ri.test(child.textContent) ? 'block' : 'none';
+						var start = Date.now();
+						if( ! logItems ) {
+							logItems = [].map.call(log.children, function(node) {
+								return node.cloneNode(true);
+							})
 						}
 
-						// replace log with new log
-						log.parentNode.replaceChild(_log, log);
-						log = _log;
+						var ri = new RegExp(query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'i');
+						var newLog = log.cloneNode();
+						logItems.forEach(function(node) {
+							if( ! node.textContent ) { return ; }
+							if( ! query.length || ri.test(node.textContent) ) {
+								newLog.appendChild(node);
+							}
+						});
 
-						// scroll to bottom
+						log.parentNode.replaceChild(newLog,log);
+						log = newLog;
 						log.scrollTop = log.scrollHeight;
+
+						console.log( "Search for " + query + " took " + ( Date.now() - start ) + "ms" );
 					}
 				})();
 			</script>
