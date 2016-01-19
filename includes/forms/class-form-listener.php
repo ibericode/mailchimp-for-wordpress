@@ -56,7 +56,7 @@ class MC4WP_Form_Listener {
 			$method = 'process_' . $form->get_action() . '_form';
 			call_user_func( array( $this, $method ), $form );
 		} else {
-			$this->get_log()->info( sprintf( "Form %d > Submitted with errors.", $form->ID ) );
+			$this->get_log()->info( sprintf( "Form %d > Submitted with errors: %s", $form->ID, join( ', ', $form->errors ) ) );
 		}
 
 		$this->respond( $form );
@@ -101,7 +101,7 @@ class MC4WP_Form_Listener {
 				$this->get_log()->info( sprintf( "Form %d > %s is already subscribed to the selected list(s)", $form->ID, $form->data['EMAIL'] ) );
 			} else {
 				// log error
-				$this->get_log()->error( sprintf( 'Form %d > %s', $form->ID, $api->get_error_message() ) );
+				$this->get_log()->error( sprintf( 'Form %d > MailChimp API error: %s', $form->ID, $api->get_error_message() ) );
 
 				// add error code to form object
 				$form->errors[] = 'error';
@@ -110,7 +110,7 @@ class MC4WP_Form_Listener {
 			return;
 		}
 
-		$this->get_log()->info( sprintf( "Form %d > Succesfully subscribed %s", $form->ID, $form->data['EMAIL'] ) );
+		$this->get_log()->info( sprintf( "Form %d > Successfully subscribed %s", $form->ID, $form->data['EMAIL'] ) );
 
 		/**
 		 * Fires right after a form was used to subscribe.
@@ -140,7 +140,7 @@ class MC4WP_Form_Listener {
 				$this->get_log()->info( sprintf( 'Form %d > %s is not subscribed to the selected list(s)', $form->ID, $form->data['EMAIL'] ) );
 			} else {
 				$form->add_error( 'error' );
-				$this->get_log()->error( sprintf( 'Form %d > %s', $form->ID, $api->get_error_message() ) );
+				$this->get_log()->error( sprintf( 'Form %d > MailChimp API error: %s', $form->ID, $api->get_error_message() ) );
 			}
 		}
 
