@@ -38,6 +38,12 @@ class MC4WP_Debug_Log_Reader {
 
 		// open file if not yet opened
 		if( ! $this->handle ) {
+
+			// doesn't exist?
+			if( ! file_exists( $this->file ) ) {
+				return '';
+			}
+
 			$this->handle = fopen( $this->file, 'r' );
 		}
 
