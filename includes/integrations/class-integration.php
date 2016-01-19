@@ -367,8 +367,13 @@ abstract class MC4WP_Integration {
 
 		// if result failed, show error message
 		if ( ! $result && $api->has_error() ) {
+
 			// log error
-			$this->get_log()->error( sprintf( '%s > MailChimp API Error: %s', $this->name, $api->get_error_message() ) );
+			if( $api->get_error_code() === 214 ) {
+				$this->get_log()->warning( sprintf( "%s > %s is already subscribed to the selected list(s)", $this->name, $email ) );
+			} else {
+				$this->get_log()->error( sprintf( '%s > MailChimp API Error: %s', $this->name, $api->get_error_message() ) );
+			}
 
 			// bail
 			return false;

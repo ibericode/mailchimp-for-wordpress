@@ -98,7 +98,7 @@ class MC4WP_Form_Listener {
 			if( $api->get_error_code() == 214 ) {
 				// handle "already_subscribed" as a soft-error
 				$form->errors[] = 'already_subscribed';
-				$this->get_log()->info( sprintf( "Form %d > %s is already subscribed to the selected list(s)", $form->ID, $form->data['EMAIL'] ) );
+				$this->get_log()->warning( sprintf( "Form %d > %s is already subscribed to the selected list(s)", $form->ID, $form->data['EMAIL'] ) );
 			} else {
 				// log error
 				$this->get_log()->error( sprintf( 'Form %d > MailChimp API error: %s', $form->ID, $api->get_error_message() ) );
