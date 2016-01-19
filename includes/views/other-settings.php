@@ -122,7 +122,7 @@ add_action( 'mc4wp_admin_other_settings', '__usage_tracking_setting', 70 );
 
 					// search log for query
 					function searchLog(query) {
-						var ri = new RegExp(query, 'i');
+						var ri = new RegExp(query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'i');
 						var _log = log.cloneNode(true);
 
 						// loop through children in reversed order
