@@ -84,7 +84,7 @@ class MC4WP_Admin {
 	public function listen_for_actions() {
 
 		// listen for any action (if user is authorised)
-		if( ! current_user_can( 'manage_options' ) || ! isset( $_REQUEST['_mc4wp_action'] ) ) {
+		if( ! $this->is_user_authorized() || ! isset( $_REQUEST['_mc4wp_action'] ) ) {
 			return false;
 		}
 
