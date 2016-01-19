@@ -38,7 +38,6 @@ class MC4WP_Forms_Admin {
 		add_action( 'mc4wp_admin_edit_form', array( $this, 'process_save_form' ) );
 		add_action( 'mc4wp_admin_add_form', array( $this, 'process_add_form' ) );
 		add_filter( 'mc4wp_admin_menu_items', array( $this, 'add_menu_item' ), 5 );
-		add_filter( 'wp_insert_post_data', array( $this, 'filter_form_content' ), 10, 2 );
 
 		add_action( 'mc4wp_admin_show_forms_page-edit-form', array( $this, 'show_edit_page' ) );
 		add_action( 'mc4wp_admin_show_forms_page-add-form', array( $this, 'show_add_page' ) );
@@ -117,6 +116,10 @@ class MC4WP_Forms_Admin {
 
 		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
 		$form_content = include MC4WP_PLUGIN_DIR . 'config/default-form-content.php';
+
+		// Fix for MultiSite stripping KSES for roles other than administrator
+		remove_all_filters( 'content_save_pre' );
+
 		$form_id = wp_insert_post(
 			array(
 				'post_type' => 'mc4wp-form',
@@ -177,6 +180,9 @@ class MC4WP_Forms_Admin {
 			}
 		}
 
+		// Fix for MultiSite stripping KSES for roles other than administrator
+		remove_all_filters( 'content_save_pre' );
+
 		$form_id = wp_insert_post( $post_data );
 		update_post_meta( $form_id, '_mc4wp_settings', $data['settings'] );
 
@@ -207,7 +213,9 @@ class MC4WP_Forms_Admin {
 		}
 
 		// make sure lists is an array
-		$data['settings']['lists'] = array_filter( (array) $data['settings']['lists'] );
+		if( isset( $data['settings']['lists'] ) ) {
+			$data['settings']['lists'] = array_filter( (array) $data['settings']['lists'] );
+		}
 
 		/**
 		 * Filters the form data just before it is saved.
@@ -389,31 +397,6 @@ class MC4WP_Forms_Admin {
 	 */
 	public function tab_url( $tab ) {
 		return add_query_arg( array( 'tab' => $tab ), remove_query_arg( 'tab' ) );
-	}
-
-	/**
-	 * Fix for MultiSite, where only superadmins can save unfiltered HTML in post_content.
-	 *
-	 * @param array $data
-	 * @param array $post_array
-	 *
-	 * @return array
-	 */
-	public function filter_form_content( $data, $post_array ) {
-		// only act on our own post type
-		if( $post_array['post_type'] !== 'mc4wp-form' ) {
-			return $data;
-		}
-
-		// if `content` index is set, use that one.
-		// this fixes an issue with `post_content` already being kses stripped at this point
-		if( isset( $post_array['content'] ) ) {
-			$data['post_content'] = $post_array['content'];
-		}
-
-		// make sure filtered post content is the same
-		$data['post_content_filtered'] = $data['post_content'];
-		return $data;
 	}
 
 }
