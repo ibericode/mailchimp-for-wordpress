@@ -333,6 +333,12 @@ abstract class MC4WP_Integration {
 		$lists = $this->get_lists();
 		$result = false;
 
+		// validate lists
+		if( empty( $lists ) ) {
+			$this->get_log()->warning( sprintf( '%s > No MailChimp lists were selected', $this->name ) );
+			return false;
+		}
+
 		/**
 		 * Filters the final merge variables before the request is sent to MailChimp, for all integrations.
 		 *
