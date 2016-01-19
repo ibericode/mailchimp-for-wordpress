@@ -76,16 +76,26 @@ add_action( 'mc4wp_admin_other_settings', '__usage_tracking_setting', 70 );
 
 
 			<style type="text/css">
-				#debug-log { height: 400px; padding: 6px; border:1px solid #ccc; background: #262626; color: white; overflow-y: scroll; }
+				#debug-log { min-height: 100px; max-height: 300px; padding: 6px; border:1px solid #ccc; background: #262626; color: white; overflow-y: scroll; }
 				#debug-log .line { line-height: 22px; }
 				#debug-log .time { color: rgb(181, 137, 0); }
 				#debug-log .level { color: rgb(37, 140, 205); }
+				#debug-log .empty { color: #ccc; font-style: italic; }
 			</style>
 
 			<div id="debug-log" class="widefat">
-				<?php while( ( $line = $log_reader->read_as_html() ) ) {
-					echo '<div class="line">' . $line . '</div>';
-				} ?>
+				<?php
+				$line = $log_reader->read_as_html();
+
+				if( ! empty( $line ) ) {
+					while ( $line ) {
+						echo '<div class="line">' . $line . '</div>';
+						$line = $log_reader->read_as_html();
+					}
+				} else {
+					echo '<div class="empty"> -- ' . __( 'Nothing here. Which means there are no errors!', 'mailchimp-for-wp' ) . '</div>';
+				}
+				?>
 			</div>
 
 			<form method="post">
