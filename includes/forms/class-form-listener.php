@@ -55,6 +55,8 @@ class MC4WP_Form_Listener {
 			// form was valid, do something
 			$method = 'process_' . $form->get_action() . '_form';
 			call_user_func( array( $this, $method ), $form );
+		} else {
+			$this->get_log()->info( sprintf( "Form %d > Submitted with errors.", $form->ID ) );
 		}
 
 		$this->respond( $form );
@@ -96,6 +98,7 @@ class MC4WP_Form_Listener {
 			if( $api->get_error_code() == 214 ) {
 				// handle "already_subscribed" as a soft-error
 				$form->errors[] = 'already_subscribed';
+				$this->get_log()->info( sprintf( "Form %d > %s is already subscribed to the selected list(s)", $form->ID, $form->data['EMAIL'] ) );
 			} else {
 				// log error
 				$this->get_log()->error( sprintf( 'Form %d > %s', $form->ID, $api->get_error_message() ) );
@@ -104,10 +107,10 @@ class MC4WP_Form_Listener {
 				$form->errors[] = 'error';
 			}
 
-
 			return;
 		}
 
+		$this->get_log()->info( sprintf( "Form %d > Succesfully subscribed %s", $form->ID, $form->data['EMAIL'] ) );
 
 		/**
 		 * Fires right after a form was used to subscribe.
@@ -131,7 +134,14 @@ class MC4WP_Form_Listener {
 		}
 
 		if( ! $result ) {
-			$form->add_error( ( in_array( $api->get_error_code(), array( 215, 232 ) ) ? 'not_subscribed' : 'error' ) );
+			// not subscribed is a soft-error
+			if( in_array( $api->get_error_code(), array( 215, 232 ) ) ) {
+				$form->add_error( 'not_subscribed' );
+				$this->get_log()->info( sprintf( 'Form %d > %s is not subscribed to the selected list(s)', $form->ID, $form->data['EMAIL'] ) );
+			} else {
+				$form->add_error( 'error' );
+				$this->get_log()->error( sprintf( 'Form %d > %s', $form->ID, $api->get_error_message() ) );
+			}
 		}
 
 		/**
