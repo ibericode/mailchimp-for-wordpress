@@ -125,6 +125,7 @@ add_action( 'mc4wp_admin_other_settings', '__usage_tracking_setting', 70 );
 
 					// search log for query
 					function searchLog(query) {
+						var start = Date.now();
 						var ri = new RegExp(query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'i');
 						var _log = log.cloneNode(true);
 
@@ -143,6 +144,7 @@ add_action( 'mc4wp_admin_other_settings', '__usage_tracking_setting', 70 );
 
 						// scroll to bottom
 						log.scrollTop = log.scrollHeight;
+						console.log( "Search for " + query + " took " + ( Date.now() - start ) + "ms" );
 					}
 				})();
 			</script>
