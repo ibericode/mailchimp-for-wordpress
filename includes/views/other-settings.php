@@ -76,11 +76,11 @@ add_action( 'mc4wp_admin_other_settings', '__usage_tracking_setting', 70 );
 
 
 			<style type="text/css">
-				#debug-log { min-height: 100px; max-height: 300px; padding: 6px; border:1px solid #ccc; background: #262626; color: white; overflow-y: scroll; }
-				#debug-log .line { line-height: 22px; }
+				#debug-log { font-family: monaco, monospace, courier, 'courier new', 'Bitstream Vera Sans Mono'; font-size: 13px; line-height: 140%; min-height: 100px; max-height: 300px; padding: 6px; border:1px solid #ccc; background: #262626; color: white; overflow-y: scroll; }
 				#debug-log .time { color: rgb(181, 137, 0); }
-				#debug-log .level { color: rgb(37, 140, 205); }
+				#debug-log .level { color: #35AECD; }
 				#debug-log .empty { color: #ccc; font-style: italic; }
+				#debug-log .hidden { display: none; }
 			</style>
 
 			<div id="debug-log" class="widefat">
@@ -116,19 +116,32 @@ add_action( 'mc4wp_admin_other_settings', '__usage_tracking_setting', 70 );
 					var logFilter = document.getElementById('debug-log-filter');
 					logFilter.addEventListener('keydown', function(e) {
 						if(e.keyCode == 13 ) {
-							var search = e.target.value.toLowerCase();
-
-							// go go go
-							[].forEach.call(log.childNodes, function(child) {
-								if( child.innerText == undefined ) { return; }
-								child.style.display = ( child.innerText.toLowerCase().indexOf(search) > -1 ) ? 'block' : 'none';
-							});
-
-							log.scrollTop = log.scrollHeight;
+							searchLog(e.target.value.toLowerCase().trim());
 						}
-					})
-				})();
+					});
 
+					// search log for query
+					function searchLog(query) {
+						var ri = new RegExp(query, 'i');
+						var _log = log.cloneNode(true);
+
+						// loop through children in reversed order
+						var number = _log.childNodes.length;
+						for(var i = number-1; i >= 0; i--) {
+							var child = _log.childNodes[i];
+							if( ! child.innerText ) { continue; }
+							if( ! query.length ) { child.style.display = 'block'; continue; }
+							child.style.display =  ri.test(child.innerText) ? 'block' : 'none';
+						}
+
+						// replace log with new log
+						log.parentNode.replaceChild(_log, log);
+						log = _log;
+
+						// scroll to bottom
+						log.scrollTop = log.scrollHeight;
+					}
+				})();
 			</script>
 
 
