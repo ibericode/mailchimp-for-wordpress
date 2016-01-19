@@ -120,13 +120,12 @@ add_action( 'mc4wp_admin_other_settings', '__usage_tracking_setting', 70 );
 					var logFilter = document.getElementById('debug-log-filter');
 					logFilter.addEventListener('keydown', function(e) {
 						if(e.keyCode == 13 ) {
-							searchLog(e.target.value.toLowerCase().trim());
+							searchLog(e.target.value.trim());
 						}
 					});
 
 					// search log for query
 					function searchLog(query) {
-						var start = Date.now();
 						if( ! logItems ) {
 							logItems = [].map.call(log.children, function(node) {
 								return node.cloneNode(true);
@@ -145,8 +144,6 @@ add_action( 'mc4wp_admin_other_settings', '__usage_tracking_setting', 70 );
 						log.parentNode.replaceChild(newLog,log);
 						log = newLog;
 						log.scrollTop = log.scrollHeight;
-
-						console.log( "Search for " + query + " took " + ( Date.now() - start ) + "ms" );
 					}
 				})();
 			</script>
