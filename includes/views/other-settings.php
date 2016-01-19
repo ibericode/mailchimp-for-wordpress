@@ -126,12 +126,12 @@ add_action( 'mc4wp_admin_other_settings', '__usage_tracking_setting', 70 );
 						var _log = log.cloneNode(true);
 
 						// loop through children in reversed order
-						var number = _log.childNodes.length;
+						var number = _log.children.length;
 						for(var i = number-1; i >= 0; i--) {
-							var child = _log.childNodes[i];
-							if( ! child.innerText ) { continue; }
+							var child = _log.children[i];
+							if( ! child.textContent ) { continue; }
 							if( ! query.length ) { child.style.display = 'block'; continue; }
-							child.style.display =  ri.test(child.innerText) ? 'block' : 'none';
+							child.style.display =  ri.test(child.textContent) ? 'block' : 'none';
 						}
 
 						// replace log with new log
