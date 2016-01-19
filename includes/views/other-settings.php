@@ -111,6 +111,9 @@ add_action( 'mc4wp_admin_other_settings', '__usage_tracking_setting', 70 );
 					// scroll to bottom of log
 					var log = document.getElementById("debug-log");
 					log.scrollTop = log.scrollHeight;
+					log.style.minHeight = '';
+					log.style.maxHeight = '';
+					log.style.height = log.clientHeight + "px";
 
 					// add filter
 					var logFilter = document.getElementById('debug-log-filter');
