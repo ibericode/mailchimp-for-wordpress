@@ -5,6 +5,7 @@
  *
  * @ignore
  * @access private
+ * @deprecated 3.1
  */
 class MC4WP_Visitor_Tracking {
 

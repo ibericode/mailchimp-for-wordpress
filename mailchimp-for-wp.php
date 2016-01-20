@@ -72,10 +72,6 @@ function __mc4wp_load_plugin() {
 	$mc4wp['integrations'] = new MC4WP_Integration_Manager();
 	$mc4wp['integrations']->add_hooks();
 
-	// visitor tracking
-	$mc4wp['tracking'] = new MC4WP_Visitor_Tracking();
-	$mc4wp['tracking']->add_hooks();
-
 	// bootstrap custom integrations
 	require_once MC4WP_PLUGIN_DIR . 'integrations/bootstrap.php';
 

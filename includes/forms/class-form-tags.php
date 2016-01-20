@@ -219,8 +219,9 @@ class MC4WP_Form_Tags {
 			return $user->user_email;
 		}
 
-		// then, try visitor tracking
-		return mc4wp('tracking')->get_field( 'EMAIL', '' );
+		// TODO: Read from cookie? Or add $_COOKIE support to {data} tag?
+
+		return '';
 	}
 
 }
