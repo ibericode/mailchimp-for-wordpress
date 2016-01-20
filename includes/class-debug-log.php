@@ -54,6 +54,11 @@ class MC4WP_Debug_Log{
 	public $level;
 
 	/**
+	 * @var resource
+	 */
+	protected $stream;
+
+	/**
 	 * MC4WP_Debug_Log constructor.
 	 *
 	 * @param string $file
@@ -83,10 +88,20 @@ class MC4WP_Debug_Log{
 		$message = (string) $message;
 		$message = sprintf( '[%s] %s: %s', date( 'Y-m-d H:i:s' ), $level_name, $message ) . PHP_EOL;
 
-		// write to log file
-		$handle = fopen( $this->file, 'a+' );
-		fwrite( $handle, $message );
-		fclose( $handle );
+		// open file stream (write only)
+		if( is_null( $this->stream ) ) {
+			$this->stream = fopen( $this->file, 'a' );
+		}
+
+		// lock file while we write, ignore errors (not much we can do)
+		flock( $this->stream, LOCK_EX );
+
+		// write the message to the file
+		fwrite( $this->stream, $message );
+
+		// unlock file again, but don't close it for remainder of this request
+		flock( $this->stream, LOCK_UN );
+
 		return true;
 	}
 
