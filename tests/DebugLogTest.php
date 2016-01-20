@@ -111,7 +111,7 @@ class DebugLogTest extends PHPUnit_Framework_TestCase {
 
 
 	/**
-	 * Remove files after each test.
+	 * Remove log files after each test.
 	 */
 	public function tearDown() {
 		if( file_exists( $this->file ) ) {
