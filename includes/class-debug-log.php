@@ -1,19 +1,55 @@
 <?php
 
+/**
+ * Class MC4WP_Debug_Log
+ *
+ * Simple logging class which writes to a file, loosely based on PSR-3.
+ */
 class MC4WP_Debug_Log{
 
-	const DEBUG     = 100;
-	const INFO      = 200;
-	const WARNING   = 300;
-	const ERROR     = 400;
+	/**
+	 * Detailed debug information
+	 */
+	const DEBUG = 100;
 
 	/**
-	 * @var string
+	 * Interesting events
+	 *
+	 * Examples: Visitor subscribed
+	 */
+	const INFO = 200;
+
+	/**
+	 * Exceptional occurrences that are not errors
+	 *
+	 * Examples: User already subscribed
+	 */
+	const WARNING = 300;
+
+	/**
+	 * Runtime errors
+	 */
+	const ERROR = 400;
+
+	/**
+	 * Logging levels from syslog protocol defined in RFC 5424
+	 *
+	 * @var array $levels Logging levels
+	 */
+	protected static $levels = array(
+		self::DEBUG     => 'DEBUG',
+		self::INFO      => 'INFO',
+		self::WARNING   => 'WARNING',
+		self::ERROR     => 'ERROR',
+	);
+
+	/**
+	 * @var string The file to which messages should be written.
 	 */
 	public $file;
 
 	/**
-	 * @var int
+	 * @var int Only write messages with this level or higher
 	 */
 	public $level;
 
@@ -21,60 +57,106 @@ class MC4WP_Debug_Log{
 	 * MC4WP_Debug_Log constructor.
 	 *
 	 * @param string $file
-	 * @param int $level;
+	 * @param mixed $level;
 	 */
 	public function __construct( $file, $level = self::DEBUG ) {
 		$this->file = $file;
-		$this->level = $level;
+		$this->level = self::to_level( $level );
 	}
 
 	/**
-	 * @param string $level
+	 * @param mixed $level
 	 * @param string $message
+	 * @return boolean
 	 */
 	public function log( $level, $message ) {
-		$message = sprintf( '[%s] %s: %s', date( 'Y-m-d H:i:s' ), $level, $message ) . PHP_EOL;
+
+		$level = self::to_level( $level );
+
+		// only log if message level is higher than log level
+		if( $level < $this->level ) {
+			return false;
+		}
+
+		// generate line
+		$level_name = self::get_level_name( $level );
+		$message = (string) $message;
+		$message = sprintf( '[%s] %s: %s', date( 'Y-m-d H:i:s' ), $level_name, $message ) . PHP_EOL;
+
+		// write to log file
 		$handle = fopen( $this->file, 'a+' );
 		fwrite( $handle, $message );
 		fclose( $handle );
+		return true;
 	}
 
 	/**
-	 * @param $message
+	 * @param string $message
+	 * @return boolean
 	 */
 	public function warning( $message ) {
-		if( self::WARNING >= $this->level ) {
-			$this->log( 'WARNING', $message );
-		}
+		return $this->log( self::WARNING, $message );
 	}
 
 	/**
-	 * @param $message
+	 * @param string $message
+	 * @return boolean
 	 */
 	public function info( $message ) {
-		if( self::INFO >= $this->level ) {
-			$this->log( 'INFO', $message );
-		}
+		return $this->log( self::INFO, $message );
 	}
 
 	/**
-	 * @param $message
+	 * @param string $message
+	 * @return boolean
 	 */
 	public function error( $message ) {
-		if( self::ERROR >= $this->level ) {
-			$this->log( 'ERROR', $message );
-		}
+		return $this->log( self::ERROR, $message );
 	}
 
 	/**
-	 * @param       $message
+	 * @param string $message
+	 * @return boolean
 	 */
 	public function debug( $message ) {
-		if( self::DEBUG >= $this->level ) {
-			$this->log( 'DEBUG', $message );
-		}
+		return $this->log( self::DEBUG, $message );
 	}
 
+	/**
+	 * Converts PSR-3 levels to local ones if necessary
+	 *
+	 * @param string|int Level number or name (PSR-3)
+	 * @return int
+	 */
+	public static function to_level( $level ) {
+
+		if ( is_string( $level ) ) {
+
+			$level = strtoupper( $level );
+			if( defined( __CLASS__ . '::' . $level ) ) {
+				return constant( __CLASS__ . '::'  . $level );
+			}
+
+			throw new InvalidArgumentException( 'Level "' . $level . '" is not defined, use one of: ' . implode( ', ', array_keys( self::$levels ) ) );
+		}
+
+		return $level;
+	}
+
+	/**
+	 * Gets the name of the logging level.
+	 *
+	 * @param  int    $level
+	 * @return string
+	 */
+	public static function get_level_name( $level ) {
+
+		if ( ! isset( self::$levels[ $level ] ) ) {
+			throw new InvalidArgumentException( 'Level "' . $level . '" is not defined, use one of: ' . implode( ', ', array_keys( self::$levels ) ) );
+		}
+
+		return self::$levels[ $level ];
+	}
 
 }
 
