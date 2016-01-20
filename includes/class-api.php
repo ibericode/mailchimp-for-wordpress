@@ -80,7 +80,7 @@ class MC4WP_API {
 	 * @return bool
 	 */
 	private function show_connection_error( $message ) {
-		$message = rtrim( $message, '.' ) . '. ' . sprintf( '<a href="%s">' . __( 'Read more about common connectivity issues.', 'mailchimp-for-wp' ) . '</a>', 'https://mc4wp.com/kb/solving-connectivity-issues/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-notice' );
+		$message .= '<br /><br />' . sprintf( '<a href="%s">' . __( 'Read more about common connectivity issues.', 'mailchimp-for-wp' ) . '</a>', 'https://mc4wp.com/kb/solving-connectivity-issues/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-notice' );
 		return $this->show_error( $message );
 	}
 
@@ -459,6 +459,16 @@ class MC4WP_API {
 			$code = (int) wp_remote_retrieve_response_code( $response );
 			if( $code !== 200 ) {
 				$message = sprintf( 'The MailChimp API server returned the following response: <em>%s %s</em>.', $code, wp_remote_retrieve_response_message( $response ) );
+
+				// check for Akamai firewall response
+				if( $code === 403 ) {
+					preg_match('/Reference (.*)/', $body, $matches );
+
+					if( ! empty( $matches[1] ) ) {
+						$message .= '</strong><br /><br />' . sprintf( 'This usually means that your server is blacklisted by MailChimp\'s firewall. Please contact MailChimp support with the following reference number: %s </strong>', $matches[1] );
+					}
+				}
+
 				$this->show_connection_error( $message );
 			}
 
