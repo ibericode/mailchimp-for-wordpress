@@ -92,6 +92,7 @@ class MC4WP_API {
 	 * @return boolean
 	 */
 	public function is_connected() {
+
 		if( $this->connected !== null ) {
 			return $this->connected;
 		}
@@ -428,6 +429,11 @@ class MC4WP_API {
 
 		// do not make request when no api key was provided.
 		if( empty( $this->api_key ) ) {
+			return false;
+		}
+
+		// do not make request if helper/ping failed already
+		if( $this->connected === false ) {
 			return false;
 		}
 
