@@ -86,7 +86,7 @@ class MC4WP_Debug_Log{
 		// generate line
 		$level_name = self::get_level_name( $level );
 		$message = (string) $message;
-		$datetime = date( 'Y-m-d H:i:s', time() + ( get_option( 'gmt_offset', 0 ) * HOUR_IN_SECONDS ) );
+		$datetime = date( 'Y-m-d H:i:s', time() + ( get_option( 'gmt_offset', 0 ) * 3600 ) );
 		$message = sprintf( '[%s] %s: %s', $datetime, $level_name, $message ) . PHP_EOL;
 
 		// open file stream (write only)
