@@ -29,12 +29,7 @@ class MC4WP_Queue {
 	 */
 	public function __construct( $option_name ) {
 		$this->option_name = $option_name;
-	}
 
-	/**
-	 * Add hooks
-	 */
-	public function hook() {
 		register_shutdown_function( array( $this, 'save' ) );
 	}
 
