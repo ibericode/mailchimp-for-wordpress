@@ -72,6 +72,8 @@ function mc4wp_get_api() {
 }
 
 /**
+ * Creates a new instance of the Debug Log
+ *
  * @return MC4WP_Debug_Log
  */
 function mc4wp_get_debug_log() {
@@ -80,24 +82,21 @@ function mc4wp_get_debug_log() {
 	$upload_dir = wp_upload_dir();
 	$file = trailingslashit( $upload_dir['basedir'] ) . 'mc4wp-debug.log';
 
-	// log level
-	$level = MC4WP_Debug_Log::ERROR;
-
 	/**
 	 * Filters the log file to write to.
 	 *
-	 * @param string $file
+	 * @param string $file The log file location. Default: /wp-content/uploads/mc4wp-debug.log
 	 */
 	$file = apply_filters( 'mc4wp_debug_log_file', $file );
 
 	/**
-	 * Filters the minimum level to log.
+	 * Filters the minimum level to log messages.
 	 *
 	 * @see MC4WP_Debug_Log
 	 *
-	 * @param int $level
+	 * @param string|int $level The minimum level of messages which should be logged.
 	 */
-	$level = apply_filters( 'mc4wp_debug_log_level', $level );
+	$level = apply_filters( 'mc4wp_debug_log_level', 'warning' );
 
 	return new MC4WP_Debug_Log( $file, $level );
 }
