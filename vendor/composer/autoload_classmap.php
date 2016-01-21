@@ -47,6 +47,8 @@ return array(
     'MC4WP_MailChimp_Merge_Var' => $baseDir . '/includes/mailchimp/class-merge-var.php',
     'MC4WP_Ninja_Forms_Integration' => $baseDir . '/integrations/ninja-forms/class-ninja-forms.php',
     'MC4WP_Plugin' => $baseDir . '/includes/class-plugin.php',
+    'MC4WP_Queue' => $baseDir . '/includes/class-queue.php',
+    'MC4WP_Queue_Job' => $baseDir . '/includes/class-queue-job.php',
     'MC4WP_Registration_Form_Integration' => $baseDir . '/integrations/wp-registration-form/class-registration-form.php',
     'MC4WP_Remote_Content_Block' => $baseDir . '/includes/admin/class-remote-content-block.php',
     'MC4WP_Request' => $baseDir . '/includes/class-request.php',
