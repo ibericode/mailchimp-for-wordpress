@@ -32,7 +32,7 @@ class MC4WP_API {
 	/**
 	 * @var boolean Boolean indicating whether the user is connected with MailChimp
 	 */
-	protected $connected = null;
+	protected $connected;
 
 	/**
 	 * @var object The full response object of the latest API call
@@ -93,25 +93,26 @@ class MC4WP_API {
 	 */
 	public function is_connected() {
 
-		if( $this->connected !== null ) {
+		if( is_bool( $this->connected ) ) {
 			return $this->connected;
 		}
 
-		$this->connected = false;
 		$result = $this->call( 'helper/ping' );
+		$this->connected = false;
 
-		if( $result !== false ) {
-			if( isset( $result->msg ) ) {
-				if( $result->msg === "Everything's Chimpy!" ) {
-					$this->connected = true;
-				} else {
-					$this->show_error( $result->msg );
-				}
-			} elseif( isset( $result->error ) ) {
+		if( is_object( $result ) ) {
+
+			// Msg key set? All good then!
+			if( ! empty( $result->msg ) ) {
+				$this->connected = true;
+				return true;
+			}
+
+			// Uh oh. We got an error back.
+			if( isset( $result->error ) ) {
 				$this->show_error( 'MailChimp Error: ' . $result->error );
 			}
 		}
-
 
 		return $this->connected;
 	}
