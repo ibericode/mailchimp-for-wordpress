@@ -35,11 +35,8 @@ class MC4WP_Queue {
 
 	/**
 	 * Load jobs from option
-	 *
-	 * @return MC4WP_Queue_Job[]
 	 */
-	public function load() {
-
+	protected function load() {
 		$jobs = get_option( $this->option_name, array() );
 
 		if( ! is_array( $jobs ) ) {
@@ -47,6 +44,19 @@ class MC4WP_Queue {
 		}
 
 		$this->jobs = $jobs;
+	}
+
+	/**
+	 * Get all jobs in the queue
+	 *
+	 * @return MC4WP_Queue_Job[] Array of jobs
+	 */
+	public function all() {
+
+		if( is_null( $this->jobs ) ) {
+			$this->load();
+		}
+
 		return $this->jobs;
 	}
 
