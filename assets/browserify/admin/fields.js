@@ -17,6 +17,7 @@ module.exports = function(m, events) {
 		this.value = m.prop(data.value || '');
 		this.placeholder = m.prop(data.placeholder || true);
 		this.required = m.prop(data.required || false);
+		this.forceRequired = m.prop( data.forceRequired || false );
 		this.wrap = m.prop(data.wrap || true);
 		this.min = m.prop(data.min || null);
 		this.max = m.prop(data.max || null);

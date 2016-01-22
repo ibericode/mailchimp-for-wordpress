@@ -44,15 +44,25 @@ var rows = function(m, i18n) {
 
 
 	r.isRequired = function (config) {
+		var inputAtts = {
+			type : 'checkbox',
+			checked : config.required(),
+			onchange: m.withAttr('checked', config.required)
+		};
+		var desc;
+
+		if( config.forceRequired() ) {
+			inputAtts.required = true;
+			inputAtts.disabled = true;
+			desc = m('p.help', i18n.forceRequired );
+		}
+
 		return m('div', [
 			m('label.cb-wrap', [
-				m('input', {
-					type    : 'checkbox',
-					checked : config.required(),
-					onchange: m.withAttr('checked', config.required)
-				}),
+				m('input', inputAtts),
 				i18n.isFieldRequired
-			])
+			]),
+			desc
 		]);
 	};
 

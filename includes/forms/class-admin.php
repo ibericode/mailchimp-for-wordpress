@@ -85,6 +85,7 @@ class MC4WP_Forms_Admin {
 			'submitButton'  => __( 'Submit Button', 'mailchimp-for-wp' ),
 			'wrapInParagraphTags' => __( "Wrap in paragraph tags?", 'mailchimp-for-wp' ),
 			'zip'           => __( 'ZIP', 'mailchimp-for-wp' ),
+			'forceRequired' => __( 'This field is marked as required in MailChimp.', 'mailchimp-for-wp' )
 		));
 	}
 
@@ -202,6 +203,7 @@ class MC4WP_Forms_Admin {
 
 		$raw_data = $data;
 
+		// strip <form> tags from content
 		$data['content'] =  preg_replace( '/<\/?form(.|\s)*?>/i', '', $data['content'] );
 
 		// sanitize text fields

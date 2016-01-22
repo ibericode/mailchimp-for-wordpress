@@ -573,9 +573,6 @@
       font-weight: 600;
       display: block;
       margin-bottom: 4px; }
-    #mc4wp-admin .field-wizard input,
-    .mc4wp-admin .field-wizard input {
-      margin-bottom: 6px; }
     #mc4wp-admin .field-wizard table,
     .mc4wp-admin .field-wizard table {
       table-layout: fixed;

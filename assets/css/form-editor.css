@@ -419,8 +419,6 @@ span.CodeMirror-selectedtext {
     font-weight: 600;
     display: block;
     margin-bottom: 4px; }
-  .field-wizard input {
-    margin-bottom: 6px; }
   .field-wizard table {
     table-layout: fixed;
     border-collapse: collapse;

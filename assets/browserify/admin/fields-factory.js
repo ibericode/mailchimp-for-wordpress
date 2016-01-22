@@ -37,22 +37,15 @@ var FieldFactory = function(settings, fields, i18n) {
 	 * @returns {*}
 	 */
 	function getFieldType(type) {
-		switch(type) {
-			case 'phone':
-				return 'tel';
-				break;
 
-			case 'dropdown':
-				return 'select';
+		var map = {
+			'phone' : 'tel',
+			'dropdown': 'select',
+			'checkboxes': 'checkbox',
+			'birthday': 'text'
+		};
 
-			case 'checkboxes':
-				return 'checkbox';
-
-			case 'birthday':
-				return 'text';
-		}
-
-		return type;
+		return map[ type ];
 	}
 
 	/**
@@ -73,6 +66,7 @@ var FieldFactory = function(settings, fields, i18n) {
 			name: mergeVar.tag,
 			title: mergeVar.name,
 			required: mergeVar.required,
+			forceRequired: mergeVar.required,
 			type: getFieldType(mergeVar.field_type),
 			choices: mergeVar.choices
 		};

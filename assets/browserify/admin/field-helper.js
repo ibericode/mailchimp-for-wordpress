@@ -62,8 +62,10 @@ var FieldHelper = function(m, tabs, editor, fields, i18n) {
 				// render fields
 				availableFields.map(function(field, index) {
 
+					console.log( "Working..." );
+
 					var className = "button";
-					if( field.required() ) {
+					if( field.forceRequired() ) {
 						className += " is-required";
 					}
 
@@ -96,7 +98,7 @@ var FieldHelper = function(m, tabs, editor, fields, i18n) {
 					//heading
 					m("h3", [
 						fieldConfig.title(),
-						fieldConfig.required() ? m('span.red', '*' ) : '',
+						fieldConfig.forceRequired() ? m('span.red', '*' ) : '',
 						fieldConfig.name().length ? m("code", fieldConfig.name()) : ''
 					]),
 
