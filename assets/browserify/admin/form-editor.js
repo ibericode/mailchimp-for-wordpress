@@ -65,16 +65,16 @@ var FormEditor = function(element) {
 	};
 
 	r.containsField = function(fieldName){
-		return r.query('[name^="'+ fieldName.toLowerCase() +'"]').length > 0;
+		return dom().elements.namedItem(fieldName.toLowerCase()) !== null;
 	};
 
 	r.insert = function( html ) {
 		if( editor ) {
 			editor.replaceSelection( html );
 			editor.focus();
+		} else {
+			element.value += html;
 		}
-
-		element.value += html;
 	};
 
 	r.on = function(event,callback) {
@@ -92,9 +92,7 @@ var FormEditor = function(element) {
 	};
 
 	r.refresh = function() {
-		if( editor ) {
-			editor.refresh();
-		}
+		editor && editor.refresh();
 	};
 
 	return r;

@@ -62,8 +62,6 @@ var FieldHelper = function(m, tabs, editor, fields, i18n) {
 				// render fields
 				availableFields.map(function(field, index) {
 
-					console.log( "Working..." );
-
 					var className = "button";
 					if( field.forceRequired() ) {
 						className += " is-required";

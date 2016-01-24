@@ -21,14 +21,6 @@
 <!-- This field is updated by JavaScript as the form content changes -->
 <input type="hidden" id="required-fields" name="mc4wp_form[settings][required_fields]" value="<?php echo esc_attr( $form->settings['required_fields'] ); ?>" />
 
-<!-- Placeholder for missing fields notice -->
-<div id="missing-fields-notice" class="mc4wp-notice" style="display: none;">
-	<p>
-		<?php echo __( 'Your form is missing the following (required) form fields:', 'mailchimp-for-wp' ); ?>
-	</p>
-	<ul id="missing-fields-list" class="ul-square"></ul>
-</div>
-
 <?php submit_button(); ?>
 
 <p class="mc4wp-form-usage"><?php printf( __( 'Use the shortcode %s to display this form inside a post, page or text widget.' ,'mailchimp-for-wp' ), '<input type="text" onfocus="this.select();" readonly="readonly" value="'. esc_attr( sprintf( '[mc4wp_form id="%d"]', $form->ID ) ) .'" size="'. ( strlen( $form->ID ) + 18 ) .'">' ); ?></p>
