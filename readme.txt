@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp forms, mailchimp integrations
 Requires at least: 3.7
 Tested up to: 4.4
-Stable tag: 3.0.12
+Stable tag: 3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -174,6 +174,28 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 
 == Changelog == 
 
+
+#### 3.1 - January 26, 2015
+
+**Fixes**
+
+- `<input>` fields being stripped from form when saving as a role other than "superadmin" on MultiSite installations.
+- Certain actions like "renew lists" not working for users other than admin (if they have explicit access to settings pages).
+
+**Improvements**
+
+- Show Akamai firewall reference number when site's IP address is blocked
+- Make sure integrations have a MailChimp list selected before trying to subscribe.
+- Move less important settings to "Other" page.
+- When a field is required in MailChimp, it has to be required in forms as well now.
+- Allow including a `_mc4wp_email_type` field in forms to set an explicit email type.
+- Miscellaneous overall performance improvements.
+
+**Additions**
+
+- Added [debug logging](https://mc4wp.com/kb/how-to-enable-log-debugging/), which shows all warnings & errors the plugin encountered in communicating with MailChimp.
+- Add `get_lists_for_email( $email )` method to API class.
+- Add `MC4WP_Queue` class for better background processing of expensive operations.
 
 #### 3.0.12 - January 15, 2015
 
