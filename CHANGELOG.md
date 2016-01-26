@@ -1,6 +1,28 @@
 Changelog
 =========
 
+#### 3.1 - January 26, 2015
+
+**Fixes**
+
+- `<input>` fields being stripped from form when saving as a role other than "superadmin" on MultiSite installations.
+- Certain actions like "renew lists" not working for users other than admin (if they have explicit access to settings pages).
+
+**Improvements**
+
+- Show Akamai firewall reference number when site's IP address is blocked
+- Make sure integrations have a MailChimp list selected before trying to subscribe.
+- Move less important settings to "Other" page.
+- When a field is required in MailChimp, it has to be required in forms as well now.
+- Allow including a `_mc4wp_email_type` field in forms to set an explicit email type.
+- Miscellaneous overall performance improvements.
+
+**Additions**
+
+- Added [debug logging](https://mc4wp.com/kb/how-to-enable-log-debugging/), which shows all warnings & errors the plugin encountered in communicating with MailChimp.
+- Add `get_lists_for_email( $email )` method to API class.
+- Add `MC4WP_Queue` class for better background processing of expensive operations.
+
 #### 3.0.12 - January 15, 2015
 
 **Fixes**
