@@ -451,7 +451,7 @@ class MC4WP_Form {
 		$this->is_submitted = true;
 		$this->raw_data = $request->post->all();
 		$this->data = $this->parse_request_data( $request );
-		
+
 		// update form configuration from given data
 		$config = array();
 		$map = array(
@@ -576,6 +576,7 @@ class MC4WP_Form {
 		 * @param MC4WP_Form $form
 		 */
 		$lists = (array) apply_filters( 'mc4wp_form_lists', $lists, $form );
+
 		return $lists;
 	}
 
