@@ -48,11 +48,18 @@ MailChimp for WordPress helps you add more subscribers to your MailChimp lists u
 
 - Developer friendly. MailChimp for WordPress is built to be extensible, and comes with a dedicated [code reference for developers](http://developer.mc4wp.com/).
 
-> **Need a little more?**
->
-> MailChimp for WordPress has a Premium add-on which comes with several additional benefits like multiple forms, an easy way to style your forms & detailed logging and statistics.
->
-> [View more Premium features >>](https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=after-features-link)
+<blockquote>
+<h4>Become a Premium user</h4>
+<p>MailChimp for WordPress has a Premium add-on which comes with several additional benefits.</p>
+<ul>
+<li>Multiple forms (with AJAX)</li>
+<li>eCommerce360 integration for WooCommerce and Easy Digital Downloads</li>
+<li>Email notifications</li>
+<li>An easy way to style your forms</li>
+<li>Detailed reports & statistics</li>
+</ul>
+<a href="https://mc4wp.com/features/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=after-features-link">View more Premium features</a>
+</blockquote>
 
 #### What is MailChimp?
 
