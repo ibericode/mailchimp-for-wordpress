@@ -152,7 +152,7 @@ class MC4WP_Admin_Ads {
 
 		echo '<div class="medium-margin">';
 		echo '<h3>eCommerce360</h3>';
-		echo sprintf( '<p>' . __( 'Want to track all your %s sales in MailChimp so you can send emails based on the purchases of your subscribers? <a href="%s">Upgrade to MailChimp for WordPress Premium</a> or <a href="%s">read more about eCommerce360</a>.', 'mailchimp-for-wp' ) . '</p>', $shop, 'https://mc4wp.com/features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=other-settings-link', 'http://kb.mailchimp.com/integrations/other-integrations/about-ecommerce360' );
+		echo sprintf( '<p>' . __( 'Want to track all your %s sales in MailChimp so you can send emails based on the purchases of your subscribers? <a href="%s">Upgrade to MailChimp for WordPress Premium</a> or <a href="%s">read more about eCommerce360</a>.', 'mailchimp-for-wp' ) . '</p>', $shop, 'https://mc4wp.com/features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=other-settings-link', 'https://mc4wp.com/kb/what-is-ecommerce360/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=other-settings-link' );
 		echo '</div>';
 	}
 
