@@ -13,6 +13,7 @@ var streamify = require('gulp-streamify');
 var globby = require('globby');
 var buffer = require('vinyl-buffer');
 var through = require('through2');
+var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('default', ['sass', 'browserify', 'uglify']);
 
@@ -59,8 +60,10 @@ gulp.task('browserify', function () {
 
 gulp.task('uglify', ['browserify'], function() {
 	return gulp.src(['./assets/js/*.js','!./assets/js/*.min.js'])
+		.pipe(sourcemaps.init({loadMaps: true}))
 		.pipe(streamify(uglify()))
 		.pipe(rename({extname: '.min.js'}))
+		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest('./assets/js'));
 });
 
