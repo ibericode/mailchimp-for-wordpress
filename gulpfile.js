@@ -41,10 +41,7 @@ gulp.task('browserify', function () {
 		var stream = merge(entries.map(function(entry) {
 			var file = entry.split('/').pop();
 
-			return browserify({
-					entries: [entry],
-					debug: true
-				})
+			return browserify({entries: [entry]})
 				.bundle()
 				.pipe(source(file))
 
