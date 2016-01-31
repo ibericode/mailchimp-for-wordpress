@@ -45,7 +45,7 @@ var FieldFactory = function(settings, fields, i18n) {
 			'birthday': 'text'
 		};
 
-		return map[ type ];
+		return typeof map[ type ] !== "undefined" ? map[type] : type;
 	}
 
 	/**
