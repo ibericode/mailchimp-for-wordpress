@@ -212,6 +212,7 @@ var forms = function(m, i18n) {
 	forms.hidden = function( config ) {
 		config.placeholder('');
 
+		// if this hidden field has choices (hidden goups), glue them together by their label.
 		if( config.choices().length > 0 ) {
 			config.value( config.choices().map(function(c) {
 				return c.label();
