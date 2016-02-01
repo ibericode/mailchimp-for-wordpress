@@ -1,6 +1,7 @@
 <?php
 defined( 'ABSPATH' ) or exit;
 
+/** @var MC4WP_Debug_Log $log */
 /** @var MC4WP_Debug_Log_Reader $log_reader */
 
 /**
@@ -72,81 +73,97 @@ add_action( 'mc4wp_admin_other_settings', '__mc4wp_usage_tracking_setting', 70 )
 			</form>
 
 			<!-- Debug Log -->
-			<h3><?php _e( 'Debug Log', 'mailchimp-for-wp' ); ?> <input type="text" id="debug-log-filter" class="regular-text" placeholder="<?php esc_attr_e( 'Filter..', 'mailchimp-for-wp' ); ?>" style="float: right;"/></h3>
+			<div class="medium-margin">
+				<h3><?php _e( 'Debug Log', 'mailchimp-for-wp' ); ?> <input type="text" id="debug-log-filter" class="regular-text" placeholder="<?php esc_attr_e( 'Filter..', 'mailchimp-for-wp' ); ?>" style="float: right;"/></h3>
 
 
-			<style scoped type="text/css">
-				#debug-log { font-family: monaco, monospace, courier, 'courier new', 'Bitstream Vera Sans Mono'; font-size: 13px; line-height: 140%; min-height: 100px; max-height: 300px; padding: 6px; border:1px solid #ccc; background: #262626; color: white; overflow-y: scroll; }
-				#debug-log .time { color: rgb(181, 137, 0); }
-				#debug-log .level { color: #35AECD; }
-				#debug-log .empty { color: #ccc; font-style: italic; }
-				#debug-log .hidden { display: none; }
-			</style>
+				<style scoped type="text/css">
+					#debug-log { font-family: monaco, monospace, courier, 'courier new', 'Bitstream Vera Sans Mono'; font-size: 13px; line-height: 140%; min-height: 100px; max-height: 300px; padding: 6px; border:1px solid #ccc; background: #262626; color: white; overflow-y: scroll; }
+					#debug-log .time { color: rgb(181, 137, 0); }
+					#debug-log .level { color: #35AECD; }
+					#debug-log .empty { color: #ccc; font-style: italic; }
+					#debug-log .hidden { display: none; }
+					#debug-log a{ color: #ccc; text-decoration: underline; }
+				</style>
 
-			<div id="debug-log" class="widefat">
-				<?php
-				$line = $log_reader->read_as_html();
+				<div id="debug-log" class="widefat">
+					<?php
+					$line = $log_reader->read_as_html();
 
-				if( ! empty( $line ) ) {
-					while ( $line ) {
-						echo '<div class="line">' . $line . '</div>';
-						$line = $log_reader->read_as_html();
+					if( ! empty( $line ) ) {
+						while ( $line ) {
+							echo '<div class="line">' . $line . '</div>';
+							$line = $log_reader->read_as_html();
+						}
+					} else {
+						echo '<div class="empty">';
+						echo '-- ' . __( 'Nothing here. Which means there are no errors!', 'mailchimp-for-wp' );
+						echo '</div>';
 					}
-				} else {
-					echo '<div class="empty"> -- ' . __( 'Nothing here. Which means there are no errors!', 'mailchimp-for-wp' ) . '</div>';
+					?>
+				</div>
+
+				<form method="post">
+					<input type="hidden" name="_mc4wp_action" value="empty_debug_log">
+					<p>
+						<input type="submit" class="button" value="<?php esc_attr_e( 'Empty Log', 'mailchimp-for-wp' ); ?>" />
+					</p>
+				</form>
+
+				<?php
+				if( $log->level > 200 ) {
+
+					echo '<p>';
+					echo __( 'Right now, the plugin is configured to only log errors and warnings.', 'mailchimp-for-wp' ) . ' ';
+					echo  sprintf( __( 'Would you like to <a href="%s">log all events</a> instead?', 'mailchimp-for-wp' ), 'https://mc4wp.com/kb/how-to-enable-log-debugging/' );
+					echo '</p>';
 				}
 				?>
-			</div>
 
-			<form method="post">
-				<input type="hidden" name="_mc4wp_action" value="empty_debug_log">
-				<p>
-					<input type="submit" class="button" value="<?php esc_attr_e( 'Empty Log', 'mailchimp-for-wp' ); ?>" />
-				</p>
-			</form>
+				<script type="text/javascript">
+					(function() {
+						'use strict';
+						// scroll to bottom of log
+						var log = document.getElementById("debug-log"),
+							logItems;
+						log.scrollTop = log.scrollHeight;
+						log.style.minHeight = '';
+						log.style.maxHeight = '';
+						log.style.height = log.clientHeight + "px";
 
-			<script type="text/javascript">
-				(function() {
-					'use strict';
-					// scroll to bottom of log
-					var log = document.getElementById("debug-log"),
-						logItems;
-					log.scrollTop = log.scrollHeight;
-					log.style.minHeight = '';
-					log.style.maxHeight = '';
-					log.style.height = log.clientHeight + "px";
-
-					// add filter
-					var logFilter = document.getElementById('debug-log-filter');
-					logFilter.addEventListener('keydown', function(e) {
-						if(e.keyCode == 13 ) {
-							searchLog(e.target.value.trim());
-						}
-					});
-
-					// search log for query
-					function searchLog(query) {
-						if( ! logItems ) {
-							logItems = [].map.call(log.children, function(node) {
-								return node.cloneNode(true);
-							})
-						}
-
-						var ri = new RegExp(query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'i');
-						var newLog = log.cloneNode();
-						logItems.forEach(function(node) {
-							if( ! node.textContent ) { return ; }
-							if( ! query.length || ri.test(node.textContent) ) {
-								newLog.appendChild(node);
+						// add filter
+						var logFilter = document.getElementById('debug-log-filter');
+						logFilter.addEventListener('keydown', function(e) {
+							if(e.keyCode == 13 ) {
+								searchLog(e.target.value.trim());
 							}
 						});
 
-						log.parentNode.replaceChild(newLog,log);
-						log = newLog;
-						log.scrollTop = log.scrollHeight;
-					}
-				})();
-			</script>
+						// search log for query
+						function searchLog(query) {
+							if( ! logItems ) {
+								logItems = [].map.call(log.children, function(node) {
+									return node.cloneNode(true);
+								})
+							}
+
+							var ri = new RegExp(query.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'i');
+							var newLog = log.cloneNode();
+							logItems.forEach(function(node) {
+								if( ! node.textContent ) { return ; }
+								if( ! query.length || ri.test(node.textContent) ) {
+									newLog.appendChild(node);
+								}
+							});
+
+							log.parentNode.replaceChild(newLog,log);
+							log = newLog;
+							log.scrollTop = log.scrollHeight;
+						}
+					})();
+				</script>
+			</div>
+			<!-- / Debug Log -->
 
 
 

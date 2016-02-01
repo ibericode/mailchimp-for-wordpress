@@ -36,7 +36,7 @@ add_action( 'mc4wp_admin_footer', '__mc4wp_admin_github_notice', 50 );
 add_action( 'mc4wp_admin_footer', '__mc4wp_admin_disclaimer_notice', 80 );
 ?>
 
-<div class="medium-margin">
+<div class="big-margin">
 
 	<?php
 

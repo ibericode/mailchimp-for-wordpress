@@ -85,6 +85,9 @@
   #mc4wp-admin .valigntop,
   .mc4wp-admin .valigntop {
     vertical-align: top !important; }
+  #mc4wp-admin .big-margin,
+  .mc4wp-admin .big-margin {
+    margin: 60px 0; }
   #mc4wp-admin .medium-margin,
   .mc4wp-admin .medium-margin {
     margin: 40px 0; }
