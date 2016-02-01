@@ -82,7 +82,7 @@ class MC4WP_Remote_Content_Block {
 	protected function fetch_from_remote() {
 
 		$args = array(
-			'timeout' => 3,
+			'timeout' => 5,
 			'user-agent' => ''
 		);
 
