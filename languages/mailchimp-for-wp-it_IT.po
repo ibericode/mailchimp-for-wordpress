@@ -7,13 +7,14 @@
 # Dan <d.murtas@gmail.com>, 2014
 # francesca mecca <meccafrancesca@gmail.com>, 2015-2016
 # Martina <martina@missmarpol.it>, 2016
+# Mauro Pronesti <mauropronesti85@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-11-30 10:15:18+00:00\n"
-"PO-Revision-Date: 2016-01-13 16:43+0000\n"
-"Last-Translator: francesca mecca <meccafrancesca@gmail.com>\n"
+"PO-Revision-Date: 2016-01-26 21:00+0000\n"
+"Last-Translator: Mauro Pronesti <mauropronesti85@gmail.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +24,7 @@ msgstr ""
 
 #: config/default-form-content.php:3
 msgid "Email address"
-msgstr "Indirizzo E-M@il"
+msgstr "Indirizzo e-mail:"
 
 #: config/default-form-content.php:4
 msgid "Your email address"
@@ -708,7 +709,7 @@ msgstr "Inviare mail di Benvenuto ?"
 msgid ""
 "The selected MailChimp lists require non-default fields, which may prevent "
 "this integration from working."
-msgstr ""
+msgstr "La seguente lista MailChimp richiede campi non di default, che potrebbero impedire a questa integrazione di funzionare."
 
 #: includes/integrations/views/integration-settings.php:245
 msgid ""
@@ -846,13 +847,13 @@ msgstr "%s (ID: %s) con tipo %s."
 msgid ""
 "To integrate with Contact Form 7, configure the settings below and then add "
 "%s to your CF7 form mark-up."
-msgstr ""
+msgstr "Per integrare a Contact Form 7, configurare le impostazioni di seguito e quindi aggiungere %s al codice del tuo modulo CF7."
 
 #: integrations/custom/admin-before.php:2
 msgid ""
 "To get a custom integration to work, include the following HTML in the form "
 "you are trying to integrate with."
-msgstr ""
+msgstr "Per far funzionare correttamente un'integrazione personalizzata, includere il seguente codice HTML nel form che si desidera integrare."
 
 #: integrations/woocommerce/class-woocommerce.php:102
 msgid "Order #%d"
