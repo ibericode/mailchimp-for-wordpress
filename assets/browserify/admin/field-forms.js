@@ -27,8 +27,8 @@ var forms = function(m, i18n) {
 	forms.text = function(config) {
 		return [
 			rows.label(config),
-			rows.defaultValue(config),
-			rows.usePlaceholder(config),
+			rows.placeholder(config),
+			rows.value(config),
 			rows.isRequired(config),
 			rows.useParagraphs(config)
 		]
@@ -44,7 +44,8 @@ var forms = function(m, i18n) {
 	};
 
 	forms.hidden = function( config ) {
-		config.placeholder(false);
+		config.placeholder('');
+
 		// if this hidden field has choices (hidden goups), glue them together by their label.
 		if( config.choices().length > 0 ) {
 			config.value( config.choices().map(function(c) {
@@ -53,17 +54,17 @@ var forms = function(m, i18n) {
 		}
 
 		return [
-			rows.defaultValue(config)
+			rows.value(config)
 		]
 	};
 
 	forms.submit = function(config) {
 
 		config.label('');
-		config.placeholder(false);
+		config.placeholder('');
 
 		return [
-			rows.defaultValue(config),
+			rows.value(config),
 			rows.useParagraphs(config)
 		]
 	};

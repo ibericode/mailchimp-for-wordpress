@@ -564,18 +564,21 @@
     /* checkboxes in label */ }
     #mc4wp-admin .field-wizard h3,
     .mc4wp-admin .field-wizard h3 {
-      margin-top: 0; }
+      margin-top: 0;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 12px; }
     #mc4wp-admin .field-wizard code,
     .mc4wp-admin .field-wizard code {
       margin-left: 10px; }
     #mc4wp-admin .field-wizard > div,
     .mc4wp-admin .field-wizard > div {
-      margin: 20px 0; }
+      margin: 24px 0; }
     #mc4wp-admin .field-wizard label,
     .mc4wp-admin .field-wizard label {
       font-weight: 600;
       display: block;
-      margin-bottom: 4px; }
+      margin-bottom: 3px; }
     #mc4wp-admin .field-wizard table,
     .mc4wp-admin .field-wizard table {
       table-layout: fixed;
@@ -603,6 +606,9 @@
     #mc4wp-admin .field-wizard .dashicons,
     .mc4wp-admin .field-wizard .dashicons {
       vertical-align: middle; }
+    #mc4wp-admin .field-wizard .help,
+    .mc4wp-admin .field-wizard .help {
+      margin-top: 0; }
   #mc4wp-admin .available-fields,
   .mc4wp-admin .available-fields {
     border: 1px solid #ccc;

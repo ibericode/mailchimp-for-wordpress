@@ -1,5 +1,6 @@
+'use strict';
+
 var rows = function(m, i18n) {
-	'use strict';
 
 	var r = {};
 
@@ -16,14 +17,15 @@ var rows = function(m, i18n) {
 		]);
 	};
 
-	r.defaultValue = function (config) {
+	r.value = function (config) {
 		return m("div", [
-			m("label", i18n.defaultValue),
+			m("label", i18n.value),
 			m("input.widefat", {
 				type   : "text",
 				value  : config.value(),
-				onkeyup: m.withAttr('value', config.value)
-			})
+				onchange: m.withAttr('value', config.value)
+			}),
+			m('p.help', i18n.valueHelp)
 		]);
 	};
 
@@ -66,20 +68,18 @@ var rows = function(m, i18n) {
 		]);
 	};
 
-	r.usePlaceholder = function (config) {
+	r.placeholder = function (config) {
 
-		if (config.value().length > 0) {
-			return m("div", [
-				m("label.cb-wrap", [
-					m("input", {
-						type    : 'checkbox',
-						checked : config.placeholder(),
-						onchange: m.withAttr('checked', config.placeholder)
-					}),
-					i18n.placeholderDescription.replace('%s', config.value())
-				])
-			]);
-		}
+		return m("div", [
+			m("label", i18n.placeholder),
+			m("input.widefat", {
+				type   : "text",
+				value  : config.placeholder(),
+				onchange: m.withAttr('value', config.placeholder),
+				placeholder: ""
+			}),
+			m("p.help", i18n.placeholderHelp)
+		]);
 	};
 
 	r.useParagraphs = function (config) {

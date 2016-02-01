@@ -1,6 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+'use strict';
+
 var rows = function(m, i18n) {
-	'use strict';
 
 	var r = {};
 
@@ -17,14 +18,15 @@ var rows = function(m, i18n) {
 		]);
 	};
 
-	r.defaultValue = function (config) {
+	r.value = function (config) {
 		return m("div", [
-			m("label", i18n.defaultValue),
+			m("label", i18n.value),
 			m("input.widefat", {
 				type   : "text",
 				value  : config.value(),
-				onkeyup: m.withAttr('value', config.value)
-			})
+				onchange: m.withAttr('value', config.value)
+			}),
+			m('p.help', i18n.valueHelp)
 		]);
 	};
 
@@ -67,20 +69,18 @@ var rows = function(m, i18n) {
 		]);
 	};
 
-	r.usePlaceholder = function (config) {
+	r.placeholder = function (config) {
 
-		if (config.value().length > 0) {
-			return m("div", [
-				m("label.cb-wrap", [
-					m("input", {
-						type    : 'checkbox',
-						checked : config.placeholder(),
-						onchange: m.withAttr('checked', config.placeholder)
-					}),
-					i18n.placeholderDescription.replace('%s', config.value())
-				])
-			]);
-		}
+		return m("div", [
+			m("label", i18n.placeholder),
+			m("input.widefat", {
+				type   : "text",
+				value  : config.placeholder(),
+				onchange: m.withAttr('value', config.placeholder),
+				placeholder: ""
+			}),
+			m("p.help", i18n.placeholderHelp)
+		]);
 	};
 
 	r.useParagraphs = function (config) {
@@ -193,8 +193,8 @@ var forms = function(m, i18n) {
 	forms.text = function(config) {
 		return [
 			rows.label(config),
-			rows.defaultValue(config),
-			rows.usePlaceholder(config),
+			rows.placeholder(config),
+			rows.value(config),
 			rows.isRequired(config),
 			rows.useParagraphs(config)
 		]
@@ -210,20 +210,26 @@ var forms = function(m, i18n) {
 	};
 
 	forms.hidden = function( config ) {
-		config.placeholder(false);
+		config.placeholder('');
+
+		if( config.choices().length > 0 ) {
+			config.value( config.choices().map(function(c) {
+				return c.label();
+			}).join(','));
+		}
 
 		return [
-			rows.defaultValue(config)
+			rows.value(config)
 		]
 	};
 
 	forms.submit = function(config) {
 
 		config.label('');
-		config.placeholder(false);
+		config.placeholder('');
 
 		return [
-			rows.defaultValue(config),
+			rows.value(config),
 			rows.useParagraphs(config)
 		]
 	};
@@ -320,12 +326,11 @@ var g = function(m) {
 		}
 
 		if (config.value().length > 0) {
-			// hidden fields may never have a placeholder
-			if ( config.type() !== 'hidden' && config.placeholder()) {
-				attributes.placeholder = config.value();
-			} else {
-				attributes.value = config.value();
-			}
+			attributes.value = config.value();
+		}
+
+		if( config.placeholder().length > 0 ) {
+			attributes.placeholder = config.placeholder();
 		}
 
 		attributes.required = config.required();
@@ -701,7 +706,7 @@ module.exports = function(m, events) {
 		this.type = m.prop(data.type);
 		this.label = m.prop(data.title || '');
 		this.value = m.prop(data.value || '');
-		this.placeholder = m.prop(data.placeholder || true);
+		this.placeholder = m.prop(data.placeholder || '');
 		this.required = m.prop(data.required || false);
 		this.forceRequired = m.prop( data.forceRequired || false );
 		this.wrap = m.prop(data.wrap || true);

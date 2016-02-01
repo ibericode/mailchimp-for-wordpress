@@ -75,12 +75,11 @@ var g = function(m) {
 		}
 
 		if (config.value().length > 0) {
-			// hidden fields may never have a placeholder
-			if ( config.type() !== 'hidden' && config.placeholder()) {
-				attributes.placeholder = config.value();
-			} else {
-				attributes.value = config.value();
-			}
+			attributes.value = config.value();
+		}
+
+		if( config.placeholder().length > 0 ) {
+			attributes.placeholder = config.placeholder();
 		}
 
 		attributes.required = config.required();

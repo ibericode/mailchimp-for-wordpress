@@ -15,6 +15,9 @@
 
 	h3{
 		margin-top: 0;
+		padding-bottom: 12px;
+		border-bottom: 1px solid #eee;
+		margin-bottom: 12px;
 	}
 
 	code {
@@ -22,13 +25,13 @@
 	}
 
 	> div {
-		margin: 20px 0;
+		margin: 24px 0;
 	}
 
 	label{
 		font-weight: 600;
 		display: block;
-		margin-bottom: 4px;
+		margin-bottom: 3px;
 	}
 
 
@@ -63,6 +66,10 @@
 
 	.dashicons {
 		vertical-align: middle;
+	}
+
+	.help {
+		margin-top: 0;
 	}
 
 
