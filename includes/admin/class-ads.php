@@ -23,7 +23,10 @@ class MC4WP_Admin_Ads {
 		add_action( 'mc4wp_admin_form_after_appearance_settings_rows', array( $this, 'after_form_appearance_settings_rows' ) );
 		add_action( 'mc4wp_admin_sidebar', array( $this, 'admin_sidebar' ) );
 		add_action( 'mc4wp_admin_footer', array( $this, 'admin_footer' ) );
-		add_action( 'mc4wp_admin_other_settings', array( $this, 'other_settings' ), 90 );
+		add_action( 'mc4wp_admin_other_settings', array( $this, 'ecommerce360' ), 90 );
+
+		add_action( 'mc4wp_admin_after_woocommerce_integration_settings', array( $this, 'ecommerce360' ) );
+		add_action( 'mc4wp_admin_after_easy-digital-downloads_integration_settings', array( $this, 'ecommerce360' ) );
 		return true;
 	}
 
@@ -133,9 +136,9 @@ class MC4WP_Admin_Ads {
 	}
 
 	/**
-	 *
+	 * Show notice about eCommerce360 integration in Premium.
 	 */
-	public function other_settings() {
+	public function ecommerce360() {
 
 		// detect whether WooCommerce or Easy Digital Downloads is installed
 		$shops = array(
