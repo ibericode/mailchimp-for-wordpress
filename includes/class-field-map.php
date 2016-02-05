@@ -112,7 +112,6 @@ class MC4WP_Field_Map {
 	 */
 	protected function extract_list_fields() {
 		array_walk( $this->lists, array( $this, 'extract_fields_for_list' ) );
-		$this->list_fields = array_filter( $this->list_fields );
 		$this->formatted_data[ '_MC4WP_LISTS' ] = wp_list_pluck( $this->lists, 'name' );
 		$this->pretty_data[ 'Lists' ] = $this->formatted_data[ '_MC4WP_LISTS' ];
 	}
