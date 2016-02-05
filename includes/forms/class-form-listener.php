@@ -107,6 +107,7 @@ class MC4WP_Form_Listener {
 				$form->errors[] = 'error';
 			}
 
+			// bail
 			return;
 		}
 

@@ -366,7 +366,7 @@ abstract class MC4WP_Integration {
 		}
 
 		// if result failed, show error message
-		if ( ! $result && $api->has_error() ) {
+		if( ! $result ) {
 
 			// log error
 			if( $api->get_error_code() === 214 ) {
