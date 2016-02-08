@@ -331,6 +331,14 @@ abstract class MC4WP_Integration {
 		 */
 		$api = mc4wp('api');
 		$lists = $this->get_lists();
+
+		/**
+		 * Filters the lists to subscribe to, before the subscription requests are sent to MailChimp.
+		 *
+		 * @param array $lists
+		 */
+		$lists = apply_filters( 'mc4wp_subscribe_lists', $lists );
+
 		$result = false;
 
 		// validate lists
