@@ -450,54 +450,29 @@ class MC4WP_API {
 
 		$response = wp_remote_post( $url, $request_args );
 
-		// test for wp errors
-		if( is_wp_error( $response ) ) {
-			// show error message to admins
-			$this->show_connection_error( "Error connecting to MailChimp: " . $response->get_error_message() );
-			return false;
-		}
-
-		// decode response body
-		$body = wp_remote_retrieve_body( $response );
-		$data = json_decode( $body );
-
-		if( is_null( $data ) ) {
-
-			$code = (int) wp_remote_retrieve_response_code( $response );
-			if( $code !== 200 ) {
-				$message = sprintf( 'The MailChimp API server returned the following response: <em>%s %s</em>.', $code, wp_remote_retrieve_response_message( $response ) );
-
-				// check for Akamai firewall response
-				if( $code === 403 ) {
-					preg_match('/Reference (.*)/', $body, $matches );
-
-					if( ! empty( $matches[1] ) ) {
-						$message .= '</strong><br /><br />' . sprintf( 'This usually means that your server is blacklisted by MailChimp\'s firewall. Please contact MailChimp support with the following reference number: %s </strong>', $matches[1] );
-					}
-				}
-
-				$this->show_connection_error( $message );
-			}
-
+		try {
+			$response = $this->parse_response( $response );
+		} catch( Exception $e ) {
+			$this->error_code = $e->getCode();
+			$this->error_message = $e->getMessage();
+			$this->show_connection_error( $e->getMessage() );
 			return false;
 		}
 
 		// store response
-		if( is_object( $data ) ) {
-			$this->last_response = $data;
+		$this->last_response = $response;
 
-			if( ! empty( $data->error ) ) {
-				$this->error_message = $data->error;
-			}
-
-			if( ! empty( $data->code ) ) {
-				$this->error_code = (int) $data->code;
-			}
-
-			return $data;
+		// store error (if any)
+		if( ! empty( $response->error ) ) {
+			$this->error_message = $response->error;
 		}
 
-		return $data;
+		// store error code (if any)
+		if( ! empty( $response->code ) ) {
+			$this->error_code = (int) $response->code;
+		}
+
+		return $response;
 	}
 
 	/**
@@ -560,5 +535,42 @@ class MC4WP_API {
 		}
 
 		return $headers;
+	}
+
+	/**
+	 * @param array|WP_Error $response
+	 * @return object
+	 * @throws Exception
+	 */
+	private function parse_response( $response ) {
+
+		if( is_wp_error( $response ) ) {
+			throw new Exception( 'Error connecting to MailChimp. ' . $response->get_error_message(), (int) $response->get_error_code() );
+		}
+
+		// decode response body
+		$body = wp_remote_retrieve_body( $response );
+		$data = json_decode( $body );
+		if( is_object( $data ) ) {
+			return $data;
+		}
+
+		$code = (int) wp_remote_retrieve_response_code( $response );
+		$message = wp_remote_retrieve_response_message( $response );
+
+		if( $code !== 200 ) {
+			$message = sprintf( 'The MailChimp API server returned the following response: <em>%s %s</em>.', $code, $message );
+
+			// check for Akamai firewall response
+			if( $code === 403 ) {
+				preg_match('/Reference (.*)/', $body, $matches );
+
+				if( ! empty( $matches[1] ) ) {
+					$message .= '</strong><br /><br />' . sprintf( 'This usually means that your server is blacklisted by MailChimp\'s firewall. Please contact MailChimp support with the following reference number: %s </strong>', $matches[1] );
+				}
+			}
+		}
+
+		throw new Exception( $code, $message );
 	}
 }
