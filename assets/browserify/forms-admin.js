@@ -25,9 +25,10 @@ m.mount( document.getElementById( 'mc4wp-field-wizard'), fieldHelper );
 
 // register fields and redraw screen in 2 seconds (fixes IE8 bug)
 var fieldsFactory = new FieldsFactory(settings, fields, i18n);
-events.on('selectedLists.change', fieldsFactory.work);
-fieldsFactory.work(settings.getSelectedLists());
-window.setTimeout( function() {m.redraw();}, 2000 );
+fieldsFactory.registerCustomFields(mc4wp_vars.mailchimp.lists);
+events.on('selectedLists.change', fieldsFactory.registerListsFields);
+fieldsFactory.registerListsFields(settings.getSelectedLists());
+window.setTimeout( function() { m.redraw();}, 2000 );
 
 // expose some methods
 window.mc4wp = window.mc4wp || {};

@@ -23,9 +23,11 @@ var FieldFactory = function(settings, fields, i18n) {
 	 *
 	 * @param data
 	 */
-	function register(data) {
+	function register(data, sticky) {
 		var field = fields.register(data);
-		registeredFields.push(field);
+		if( ! sticky ) {
+			registeredFields.push(field);
+		}
 	}
 
 	/**
@@ -113,6 +115,16 @@ var FieldFactory = function(settings, fields, i18n) {
 		list.groupings.forEach(registerGrouping);
 	}
 
+	/**
+	 * Register all lists fields
+	 *
+	 * @param lists
+	 */
+	function registerListsFields(lists) {
+		reset();
+		lists.forEach(registerListFields);
+	}
+
 	function registerCustomFields(lists) {
 
 		var choices;
@@ -123,20 +135,21 @@ var FieldFactory = function(settings, fields, i18n) {
 			value: i18n.subscribe,
 			type: "submit",
 			title: i18n.submitButton
-		});
+		}, true);
 
 		// register lists choice field
 		choices = {};
-		lists.forEach(function(list) {
-			choices[list.id] = list.name;
-		});
+		for(var key in lists) {
+			choices[lists[key].id] = lists[key].name;
+		}
+
 		register({
 			name: '_mc4wp_lists',
 			type: 'checkbox',
 			title: i18n.listChoice,
 			choices: choices,
 			help: i18n.listChoiceDescription
-		});
+		}, true);
 
 		choices = {
 			'subscribe': "Subscribe",
@@ -149,31 +162,16 @@ var FieldFactory = function(settings, fields, i18n) {
 			choices: choices,
 			value: 'subscribe',
 			help: i18n.formActionDescription
-		});
-	}
-
-	/**
-	 * Update list fields
-	 *
-	 * @param lists
-	 */
-	function work(lists) {
-
-		// clear our fields
-		reset();
-
-		// register list specific fields
-		lists.forEach(registerListFields);
-
-		// register global fields like "submit" & "list choice"
-		registerCustomFields(lists);
+		}, true);
 	}
 
 	/**
 	 * Expose some methods
 	 */
 	return {
-		'work': work
+		'registerCustomFields': registerCustomFields,
+		'registerListFields': registerListFields,
+		'registerListsFields': registerListsFields
 	}
 
 };
