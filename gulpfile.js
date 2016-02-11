@@ -14,9 +14,10 @@ var globby = require('globby');
 var buffer = require('vinyl-buffer');
 var through = require('through2');
 var sourcemaps = require('gulp-sourcemaps');
+var header = require('gulp-header');
+
 
 gulp.task('default', ['sass', 'browserify', 'uglify']);
-
 
 gulp.task('sass', function () {
 	var files = './assets/sass/[^_]*.scss';
@@ -34,26 +35,23 @@ gulp.task('sass', function () {
 });
 
 gulp.task('browserify', function () {
-
 	var bundledStream = through()
 		.pipe(buffer());
 
 	globby("./assets/browserify/[^_]*.js").then(function(entries) {
-		var stream = merge(entries.map(function(entry) {
-			var file = entry.split('/').pop();
-
+		 merge(entries.map(function(entry) {
 			return browserify({entries: [entry]})
 				.bundle()
-				.pipe(source(file))
+				.pipe(source(entry.split('/').pop()))
 
 				// create .js file
+				//.pipe(header('Hello'))
 				.pipe(rename({ extname: '.js' }))
 				.pipe(gulp.dest('./assets/js'));
-		}));
-
-		stream
-			.pipe(bundledStream);
-	}).catch(function(err) {});
+		})).pipe(bundledStream);
+	}).catch(function(err) {
+		console.log(err);
+	});
 
 	return bundledStream;
 });
