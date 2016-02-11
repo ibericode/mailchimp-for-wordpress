@@ -129,7 +129,9 @@ module.exports = function(m, events) {
 
 		// create Field object
 		field = new Field(data);
-		fields.push(field);
+
+		// add to start of array
+		fields.unshift(field);
 
 		// redraw view
 		m.redraw();
