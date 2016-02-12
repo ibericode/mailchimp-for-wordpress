@@ -217,9 +217,11 @@ class MC4WP_Forms_Admin {
 		}
 
 		// make sure lists is an array
-		if( isset( $data['settings']['lists'] ) ) {
-			$data['settings']['lists'] = array_filter( (array) $data['settings']['lists'] );
-		}
+		if( ! isset( $data['settings']['lists'] ) ) {
+			$data['settings']['lists'] = array();
+		} 
+
+		$data['settings']['lists'] = array_filter( (array) $data['settings']['lists'] );
 
 		/**
 		 * Filters the form data just before it is saved.
