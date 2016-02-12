@@ -72,7 +72,7 @@ function get_bloginfo( $key ) {
 /**
  * @ignore
  */
-function __( $string, $text_domain ) {
+function __( $string, $text_domain = '' ) {
 	return $string;
 }
 
