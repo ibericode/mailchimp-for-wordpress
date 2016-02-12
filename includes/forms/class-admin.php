@@ -411,6 +411,9 @@ class MC4WP_Forms_Admin {
 	 */
 	public function register_shortcake_ui() {
 
+		$assets = new MC4WP_Form_Asset_Manager();
+		$assets->load_stylesheets();
+
 		$forms = mc4wp_get_forms();
 		$options = array();
 		foreach( $forms as $form ) {

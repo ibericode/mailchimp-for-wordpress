@@ -92,6 +92,11 @@ class MC4WP_Form_Manager {
 		$this->listener->listen( $_POST );
 	}
 
+	/**
+	 * Initialise asset manager
+	 *
+	 * @hooked `template_redirect`
+	 */
 	public function init_asset_manager() {
 		$assets = new MC4WP_Form_Asset_Manager( $this->output_manager );
 		$assets->initialize();
