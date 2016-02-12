@@ -543,7 +543,7 @@ class MC4WP_API {
 	 * @throws Exception
 	 */
 	private function parse_response( $response ) {
-
+		
 		if( is_wp_error( $response ) ) {
 			throw new Exception( 'Error connecting to MailChimp. ' . $response->get_error_message(), (int) $response->get_error_code() );
 		}
@@ -563,7 +563,7 @@ class MC4WP_API {
 
 			// check for Akamai firewall response
 			if( $code === 403 ) {
-				preg_match('/Reference (.*)/', $body, $matches );
+				preg_match('/Reference (.*)/i', $body, $matches );
 
 				if( ! empty( $matches[1] ) ) {
 					$message .= '</strong><br /><br />' . sprintf( 'This usually means that your server is blacklisted by MailChimp\'s firewall. Please contact MailChimp support with the following reference number: %s </strong>', $matches[1] );
@@ -571,6 +571,6 @@ class MC4WP_API {
 			}
 		}
 
-		throw new Exception( $code, $message );
+		throw new Exception( $message, $code );
 	}
 }
