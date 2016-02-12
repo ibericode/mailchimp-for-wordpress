@@ -14,8 +14,7 @@ var globby = require('globby');
 var buffer = require('vinyl-buffer');
 var through = require('through2');
 var sourcemaps = require('gulp-sourcemaps');
-var header = require('gulp-header');
-
+var derequire = require('gulp-derequire');
 
 gulp.task('default', ['sass', 'browserify', 'uglify']);
 
@@ -40,12 +39,13 @@ gulp.task('browserify', function () {
 
 	globby("./assets/browserify/[^_]*.js").then(function(entries) {
 		 merge(entries.map(function(entry) {
-			return browserify({entries: [entry]})
+			 var filename = entry.split('/').pop();
+			return browserify({entries: [entry], standalone: filename})
 				.bundle()
-				.pipe(source(entry.split('/').pop()))
+				.pipe(source(filename))
+				.pipe(derequire())
 
 				// create .js file
-				//.pipe(header('Hello'))
 				.pipe(rename({ extname: '.js' }))
 				.pipe(gulp.dest('./assets/js'));
 		})).pipe(bundledStream);
