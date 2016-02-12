@@ -1022,6 +1022,11 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
 		Array.prototype.forEach.call(requiredFieldElements, function(el) {
 			var name = el.name.toUpperCase();
 
+			// bail if name attr starts with underscore
+			if( name[0] === '_' ) {
+				return;
+			}
+
 			// only add field if it's not already in it
 			if( requiredFields.indexOf(name) === -1 ) {
 				requiredFields.push(name);
