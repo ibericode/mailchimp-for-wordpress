@@ -58,7 +58,7 @@ MailChimp for WordPress helps you add more subscribers to your MailChimp lists u
 <li>An easy way to style your forms</li>
 <li>Detailed reports & statistics</li>
 </ul>
-<a href="https://mc4wp.com/features/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=after-features-link">View more Premium features</a>
+<a href="https://mc4wp.com/features/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=after-features-link">View more Premium features</a><br />
 </blockquote>
 
 #### What is MailChimp?
