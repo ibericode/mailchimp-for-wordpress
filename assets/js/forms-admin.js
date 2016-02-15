@@ -1051,15 +1051,21 @@ var overlay = function(m, i18n) {
 	var _element,
 		_onCloseCallback;
 
+	function close() {
+		document.removeEventListener('keydown', onKeyDown);
+		window.removeEventListener('resize', position);
+		_onCloseCallback();
+	}
+
 	function onKeyDown(e) {
 		e = e || window.event;
 
 		// close overlay when pressing ESC
-		if (e.keyCode == 27 && _onCloseCallback ) {
-			_onCloseCallback();
+		if(e.keyCode == 27) {
+			close();
 		}
 
-		// prevent ENTER when overlay is open & inside <form>
+		// prevent ENTER
 		if(e.keyCode == 13 ) {
 			e.preventDefault();
 		}
@@ -1079,17 +1085,11 @@ var overlay = function(m, i18n) {
 		_element.style.top = ( marginTop > 0 ? marginTop : 0 ) + "px";
 	}
 
-	// bind events (IE8 compatible)
-	if (document.addEventListener) {
-		document.addEventListener('keydown', onKeyDown);
-		window.addEventListener('resize', position);
-	} else if(document.attachEvent) {
-		document.attachEvent('onkeydown', onKeyDown);
-		window.attachEvent('onresize', position);
-	}
-
 	return function (content, onCloseCallback) {
 		_onCloseCallback = onCloseCallback;
+
+		document.addEventListener('keydown', onKeyDown);
+		window.addEventListener('resize', position);
 
 		return [
 			m('div.overlay-wrap',
@@ -1104,7 +1104,7 @@ var overlay = function(m, i18n) {
 					m('span', {
 						"class": 'close dashicons dashicons-no',
 						title  : i18n.close,
-						onclick: onCloseCallback
+						onclick: close
 					}),
 
 					content
@@ -1113,7 +1113,7 @@ var overlay = function(m, i18n) {
 			,
 			m('div.overlay-background', {
 				title: i18n.close,
-				onclick: onCloseCallback
+				onclick: close
 			})
 		];
 	};
