@@ -6,6 +6,7 @@
 # andrea.gatopoulos <andrea.gatopoulos@gmail.com>, 2015
 # Dan <d.murtas@gmail.com>, 2014
 # francesca mecca <meccafrancesca@gmail.com>, 2015-2016
+# guido brancalion <eccessivo@gmail.com>, 2016
 # Martina <martina@missmarpol.it>, 2016
 # Mauro Pronesti <mauropronesti85@gmail.com>, 2016
 msgid ""
@@ -13,8 +14,8 @@ msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-11-30 10:15:18+00:00\n"
-"PO-Revision-Date: 2016-01-26 21:00+0000\n"
-"Last-Translator: Mauro Pronesti <mauropronesti85@gmail.com>\n"
+"PO-Revision-Date: 2016-02-08 15:35+0000\n"
+"Last-Translator: guido brancalion <eccessivo@gmail.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -350,7 +351,7 @@ msgstr "Aggiungi variabile dinamica al formulario"
 msgid ""
 "The following list of variables can be used to <a href=\"%s\">add some "
 "dynamic content to your form or success and error messages</a>."
-msgstr ""
+msgstr "la seguente lista di variabili può essere usata per   <a href=\"%s\">aggiungere del contenuto dinamico al modulo o ai messaggi di errore o conferma</a>."
 
 #: includes/forms/views/parts/dynamic-content-tags.php:8
 msgid "This allows you to personalise your form or response messages."
@@ -492,7 +493,7 @@ msgstr "Non iscritto."
 msgid ""
 "When using the unsubscribe method, this is the text that shows when the "
 "given email address is not on the selected list(s)."
-msgstr ""
+msgstr "Qundo usi l'opzione unsubscribe questo testo verrà mostrato quando l'indirizzo inserito non è presente nelle liste selezionate(a)"
 
 #: includes/forms/views/tabs/form-messages.php:64
 msgid "HTML tags like %s are allowed in the message fields."

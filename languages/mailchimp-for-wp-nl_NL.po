@@ -4,13 +4,14 @@
 # Danny van Kooten <dannyvankooten@gmail.com>, 2014-2015
 # Eelco Martens <eelco.martens@gmail.com>, 2015
 # Martijn van Egmond <developer@tensheep.nl>, 2015
+# Yola Maas <post@basicsoflive.nl>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-11-30 10:15:18+00:00\n"
-"PO-Revision-Date: 2015-12-10 17:11+0000\n"
-"Last-Translator: Eelco Martens <eelco.martens@gmail.com>\n"
+"PO-Revision-Date: 2016-02-13 10:23+0000\n"
+"Last-Translator: Yola Maas <post@basicsoflive.nl>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -115,7 +116,7 @@ msgstr "Meer abonnees, betere nieuwsbrieven."
 msgid ""
 "Learn how to best grow your lists & write better emails by subscribing to "
 "our monthly tips."
-msgstr ""
+msgstr "Leer hoe je de lijst kan vergroten en schrijf betere mails door je in te schrijven voor onze maandelijkse tips"
 
 #: includes/admin/class-ads.php:66
 msgid "Email Address"
@@ -172,7 +173,7 @@ msgstr "Wordt vervangen door de formulier response (fout- en succesmeldingen)."
 
 #: includes/forms/class-form-tags.php:56
 msgid "Data from the URL or a submitted form."
-msgstr ""
+msgstr "Data van de URL of een bestaand formulier"
 
 #: includes/forms/class-form-tags.php:62
 #: includes/integrations/class-integration-tags.php:45
@@ -181,7 +182,7 @@ msgstr "Vervangen door het aantal subscribers op de geselecteerde lijst(en)"
 
 #: includes/forms/class-form-tags.php:67
 msgid "The email address of the current visitor (if known)."
-msgstr ""
+msgstr "Emailadres van huidige bezoeker (wanneer bekend)"
 
 #: includes/forms/class-form-tags.php:72
 msgid "The URL of the page."
@@ -189,7 +190,7 @@ msgstr "De URL van de pagina."
 
 #: includes/forms/class-form-tags.php:77
 msgid "The path of the page."
-msgstr ""
+msgstr "Het codepad van de pagina"
 
 #: includes/forms/class-form-tags.php:82
 msgid "The current date. Example: %s."
@@ -201,11 +202,11 @@ msgstr "De huidige tijd. Voorbeeld: %S."
 
 #: includes/forms/class-form-tags.php:92
 msgid "The site's language. Example: %s."
-msgstr ""
+msgstr "Taal van de site. bijvoorbeeld: %s"
 
 #: includes/forms/class-form-tags.php:97
 msgid "The visitor's IP address. Example: %s."
-msgstr ""
+msgstr "Bezoekers IP adres. Bijvoorbeeld: %s."
 
 #: includes/forms/class-form-tags.php:102
 msgid "The property of the currently logged-in user."
@@ -213,7 +214,7 @@ msgstr ""
 
 #: includes/forms/class-form.php:128
 msgid "There is no form with ID %d, perhaps it was deleted?"
-msgstr ""
+msgstr "Er is geen formulier met ID %d. Is het verwijderd?"
 
 #: includes/forms/class-widget.php:26
 msgid "Newsletter"
@@ -239,11 +240,11 @@ msgstr "Je kunt je inschrijfformulier wijzigen in de <a href=\"%s\">MailChimp vo
 
 #: includes/forms/views/add-form.php:10 includes/forms/views/add-form.php:60
 msgid "Add new form"
-msgstr ""
+msgstr "Voeg nieuw formulier toe"
 
 #: includes/forms/views/add-form.php:27
 msgid "What is the name of this form?"
-msgstr ""
+msgstr "Wat is de naam van het formulier?"
 
 #: includes/forms/views/add-form.php:30
 msgid "Enter your form title.."
@@ -317,21 +318,21 @@ msgstr "Login tot je MailChimp acount."
 
 #: includes/forms/views/parts/add-fields-help.php:22
 msgid "Add list fields to any of your selected lists."
-msgstr ""
+msgstr "Voeg velden toe op elk geselecteerde lijst"
 
 #: includes/forms/views/parts/add-fields-help.php:23
 msgid "Clicking the following links will take you to the right screen."
-msgstr ""
+msgstr "Door de volgende linken aan te klikken, brengt je naar het rechter scherm."
 
 #: includes/forms/views/parts/add-fields-help.php:29
 msgid "Edit list fields for"
-msgstr ""
+msgstr "Bewerk lijstvelden voor"
 
 #: includes/forms/views/parts/add-fields-help.php:38
 msgid ""
 "Click the following button to have MailChimp for WordPress pick up on your "
 "changes."
-msgstr ""
+msgstr "Klik op de volgende knop, voor MailChimp voor Wordpress pick up en jouw wijzigingen"
 
 #: includes/forms/views/parts/add-fields-help.php:43
 #: includes/views/parts/lists-overview.php:8
@@ -340,7 +341,7 @@ msgstr "Vernieuw MailChimp lijsten"
 
 #: includes/forms/views/parts/dynamic-content-tags.php:6
 msgid "Add dynamic form variable"
-msgstr ""
+msgstr "Voeg een dynamisch formulier variabelen toe"
 
 #: includes/forms/views/parts/dynamic-content-tags.php:8
 msgid ""
@@ -350,7 +351,7 @@ msgstr ""
 
 #: includes/forms/views/parts/dynamic-content-tags.php:8
 msgid "This allows you to personalise your form or response messages."
-msgstr ""
+msgstr "Mogelijkheid je formulier te personaliseren of op je antwoord berichten"
 
 #: includes/forms/views/tabs/form-appearance.php:5
 msgid "Inherit from %s theme"
@@ -604,7 +605,7 @@ msgstr "Wat doet dit?"
 
 #: includes/forms/views/tabs/form-settings.php:104
 msgid "Form behaviour"
-msgstr ""
+msgstr "'Gedrag' van het formuulier"
 
 #: includes/forms/views/tabs/form-settings.php:111
 msgid "Hide form after a successful sign-up?"
@@ -731,7 +732,7 @@ msgstr "Omschrijving"
 msgid ""
 "This integration is enabled by default as it requires manual actions to "
 "work."
-msgstr ""
+msgstr "Deze integratie is geblokkeerd omdat u het handmatig moet aanpassen om het te laten werken."
 
 #: includes/integrations/views/integrations.php:57
 msgid "Configure this integration"
@@ -777,7 +778,7 @@ msgstr ""
 msgid ""
 "Allow us to anonymously track how this plugin is used to help us make it "
 "better fit your needs."
-msgstr ""
+msgstr "Sta ons toe, anoniem, uw plugin te onderzoeken om u te helpen in beter gebruik voor uw noodzakelijkheden. "
 
 #: includes/views/general-settings.php:73
 msgid "This is what we track."
@@ -813,7 +814,7 @@ msgstr "Geen lijsten gevonden in je MailChimp account."
 
 #: includes/views/parts/lists-overview.php:16
 msgid "A total of %d lists were found in your MailChimp account."
-msgstr ""
+msgstr "Een totaal van %d aan lijsten zijn gevonden in uw MailChimp account."
 
 #: includes/views/parts/lists-overview.php:21
 msgid "List Name"
@@ -833,11 +834,11 @@ msgstr "Bewerk deze lijst in MailChimp"
 
 #: includes/views/parts/lists-overview.php:59
 msgid "%s (%s) with field type %s."
-msgstr ""
+msgstr "%s(%s) met veldtype %s."
 
 #: includes/views/parts/lists-overview.php:83
 msgid "%s (ID: %s) with type %s."
-msgstr ""
+msgstr "%s (ID:%s) met type %s."
 
 #: integrations/contact-form-7/admin-before.php:2
 msgid ""
@@ -849,11 +850,11 @@ msgstr ""
 msgid ""
 "To get a custom integration to work, include the following HTML in the form "
 "you are trying to integrate with."
-msgstr ""
+msgstr "Om de aangepaste integratie te laten werken, voeg de volgende HTML in het formulier dat je probeert te integreren."
 
 #: integrations/woocommerce/class-woocommerce.php:102
 msgid "Order #%d"
-msgstr ""
+msgstr "Bestelling #%d\n\nor\n\nbestelorder #%d"
 
 #. Plugin Name of the plugin/theme
 msgid "MailChimp for WordPress"
@@ -869,7 +870,7 @@ msgstr ""
 msgid ""
 "MailChimp for WordPress by ibericode. Adds various highly effective sign-up "
 "methods to your site."
-msgstr ""
+msgstr "MailChimp voor WordPress door Ibericode.  Zeer gevarieerde en effectieve inschrijfmethodes voor uw website"
 
 #. Author of the plugin/theme
 msgid "ibericode"
