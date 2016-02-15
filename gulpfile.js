@@ -57,7 +57,7 @@ gulp.task('browserify', function () {
 });
 
 gulp.task('uglify', ['browserify'], function() {
-	return gulp.src(['./assets/js/*.js','!./assets/js/*.min.js'])
+	return gulp.src(['./assets/js/**/*.js','!./assets/js/**/*.min.js'])
 		.pipe(sourcemaps.init({loadMaps: true}))
 		.pipe(streamify(uglify()))
 		.pipe(rename({extname: '.min.js'}))
@@ -66,7 +66,7 @@ gulp.task('uglify', ['browserify'], function() {
 });
 
 gulp.task('watch', function () {
-	gulp.watch('./assets/sass/**.scss', ['sass']);
-	gulp.watch('./assets/js/src/**.js', ['browserify']);
-	gulp.watch(['./assets/js/*.js','!./assets/js/*.min.js'], ['uglify']);
+	gulp.watch('./assets/sass/**/*.scss', ['sass']);
+	gulp.watch('./assets/js/src/**/*.js', ['browserify']);
+	gulp.watch(['./assets/js/**/*.js','!./assets/js/**/*.min.js'], ['uglify']);
 });
