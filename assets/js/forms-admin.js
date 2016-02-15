@@ -291,6 +291,7 @@ var g = function(m) {
 						value   : choice.value(),
 						checked : choice.selected()
 					}),
+					' ',
 					m('span', choice.label())
 				]
 			)
