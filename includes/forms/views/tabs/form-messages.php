@@ -55,6 +55,13 @@
 			<p class="help"><?php _e( 'When using the unsubscribe method, this is the text that shows when the given email address is not on the selected list(s).', 'mailchimp-for-wp' ); ?></p>
 		</td>
 	</tr>
+	<tr valign="top">
+		<th scope="row"><label for="mc4wp_form_no_lists_selected"><?php _e( 'No list selected', 'mailchimp-for-wp' ); ?></label></th>
+		<td>
+			<input type="text" class="widefat" id="mc4wp_form_no_lists_selected" name="mc4wp_form[messages][no_lists_selected]" value="<?php echo esc_attr( $form->messages['no_lists_selected'] ); ?>" required />
+			<p class="help"><?php _e( 'When offering a list choice, this is the text that shows when no lists were selected.', 'mailchimp-for-wp' ); ?></p>
+		</td>
+	</tr>
 
 	<?php do_action( 'mc4wp_admin_form_after_messages_settings_rows', $messages, $form ); ?>
 
