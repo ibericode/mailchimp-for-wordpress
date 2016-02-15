@@ -1,4 +1,4 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}(g.formsApi || (g.formsApi = {})).js = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+(function () { var require = undefined; var define = undefined; (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
 var mc4wp = window.mc4wp || {};
@@ -10,8 +10,8 @@ if( ! window.addEventListener ) {
 }
 
 // deps & vars
-var Gator = _dereq_('gator');
-var forms = _dereq_('./forms/forms.js');
+var Gator = require('gator');
+var forms = require('./forms/forms.js');
 var listeners = window.mc4wp && window.mc4wp.listeners ? window.mc4wp.listeners : [];
 var config = window.mc4wp_forms_config || {};
 
@@ -85,12 +85,12 @@ if( config.submitted_form ) {
 // expose forms object
 mc4wp.forms = forms;
 window.mc4wp = mc4wp;
-},{"./forms/forms.js":3,"gator":6}],2:[function(_dereq_,module,exports){
+},{"./forms/forms.js":3,"gator":6}],2:[function(require,module,exports){
 'use strict';
 
-var serialize = _dereq_('../third-party/serialize.js');
-var populate = _dereq_('populate.js');
-var formToJson = _dereq_('../third-party/form2js.js');
+var serialize = require('../third-party/serialize.js');
+var populate = require('populate.js');
+var formToJson = require('../third-party/form2js.js');
 
 var Form = function(id, element) {
 
@@ -149,12 +149,12 @@ var Form = function(id, element) {
 };
 
 module.exports = Form;
-},{"../third-party/form2js.js":4,"../third-party/serialize.js":5,"populate.js":7}],3:[function(_dereq_,module,exports){
+},{"../third-party/form2js.js":4,"../third-party/serialize.js":5,"populate.js":7}],3:[function(require,module,exports){
 'use strict';
 
 // deps
-var EventEmitter = _dereq_('wolfy87-eventemitter');
-var Form = _dereq_('./form.js');
+var EventEmitter = require('wolfy87-eventemitter');
+var Form = require('./form.js');
 
 // variables
 var events = new EventEmitter();
@@ -222,7 +222,7 @@ module.exports = {
 };
 
 
-},{"./form.js":2,"wolfy87-eventemitter":8}],4:[function(_dereq_,module,exports){
+},{"./form.js":2,"wolfy87-eventemitter":8}],4:[function(require,module,exports){
 /**
  * Copyright (c) 2010 Maxim Vasiliev
  *
@@ -572,7 +572,7 @@ module.exports = {
 	return form2js;
 
 }));
-},{}],5:[function(_dereq_,module,exports){
+},{}],5:[function(require,module,exports){
 // get successful control from form and assemble into object
 // http://www.w3.org/TR/html401/interact/forms.html#h-17.13.2
 
@@ -830,7 +830,7 @@ function str_serialize(result, key, value) {
 }
 
 module.exports = serialize;
-},{}],6:[function(_dereq_,module,exports){
+},{}],6:[function(require,module,exports){
 /**
  * Copyright 2014 Craig Campbell
  *
@@ -1198,7 +1198,7 @@ module.exports = serialize;
     window.Gator = Gator;
 }) ();
 
-},{}],7:[function(_dereq_,module,exports){
+},{}],7:[function(require,module,exports){
 /*! populate.js v1.0.2 by @dannyvankooten | MIT license */
 ;(function(root) {
 
@@ -1283,7 +1283,7 @@ module.exports = serialize;
 	}
 
 }(this));
-},{}],8:[function(_dereq_,module,exports){
+},{}],8:[function(require,module,exports){
 /*!
  * EventEmitter v4.2.11 - git.io/ee
  * Unlicense - http://unlicense.org/
@@ -1759,5 +1759,5 @@ module.exports = serialize;
     }
 }.call(this));
 
-},{}]},{},[1])(1)
-});
+},{}]},{},[1]);
+ })();

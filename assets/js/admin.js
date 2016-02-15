@@ -1,16 +1,16 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}(g.admin || (g.admin = {})).js = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+(function () { var require = undefined; var define = undefined; (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
 // dependencies
-var m = _dereq_('mithril');
-var EventEmitter = _dereq_('wolfy87-eventemitter');
+var m = require('mithril');
+var EventEmitter = require('wolfy87-eventemitter');
 
 // vars
 var context = document.getElementById('mc4wp-admin');
 var events = new EventEmitter();
-var tabs = _dereq_ ('./admin/tabs.js')(context);
-var helpers = _dereq_('./admin/helpers.js');
-var settings = _dereq_('./admin/settings.js')(context, helpers, events);
+var tabs = require ('./admin/tabs.js')(context);
+var helpers = require('./admin/helpers.js');
+var settings = require('./admin/settings.js')(context, helpers, events);
 
 // expose some things
 window.mc4wp = window.mc4wp || {};
@@ -20,7 +20,7 @@ window.mc4wp.helpers = helpers;
 window.mc4wp.events = events;
 window.mc4wp.settings = settings;
 window.mc4wp.tabs = tabs;
-},{"./admin/helpers.js":2,"./admin/settings.js":3,"./admin/tabs.js":4,"mithril":6,"wolfy87-eventemitter":7}],2:[function(_dereq_,module,exports){
+},{"./admin/helpers.js":2,"./admin/settings.js":3,"./admin/tabs.js":4,"mithril":6,"wolfy87-eventemitter":7}],2:[function(require,module,exports){
 'use strict';
 
 var helpers = {};
@@ -112,7 +112,7 @@ helpers.debounce = function(func, wait, immediate) {
 })();
 
 module.exports = helpers;
-},{}],3:[function(_dereq_,module,exports){
+},{}],3:[function(require,module,exports){
 var Settings = function(context, helpers, events ) {
 	'use strict';
 
@@ -178,7 +178,7 @@ var Settings = function(context, helpers, events ) {
 };
 
 module.exports = Settings;
-},{}],4:[function(_dereq_,module,exports){
+},{}],4:[function(require,module,exports){
 // Tabs
 var Tabs = function(context) {
 	'use strict';
@@ -186,7 +186,7 @@ var Tabs = function(context) {
 	// @todo last piece of jQuery... can we get rid of it?
 	var $ = window.jQuery;
 
-	var URL = _dereq_('./url.js');
+	var URL = require('./url.js');
 	var $context = $(context);
 	var $tabs = $context.find('.tab');
 	var $tabNavs = $context.find('.nav-tab');
@@ -351,7 +351,7 @@ var Tabs = function(context) {
 };
 
 module.exports = Tabs;
-},{"./url.js":5}],5:[function(_dereq_,module,exports){
+},{"./url.js":5}],5:[function(require,module,exports){
 'use strict';
 
 var URL = {
@@ -382,7 +382,7 @@ var URL = {
 };
 
 module.exports = URL;
-},{}],6:[function(_dereq_,module,exports){
+},{}],6:[function(require,module,exports){
 var m = (function app(window, undefined) {
 	var OBJECT = "[object Object]", ARRAY = "[object Array]", STRING = "[object String]", FUNCTION = "function";
 	var type = {}.toString;
@@ -1543,7 +1543,7 @@ var m = (function app(window, undefined) {
 if (typeof module != "undefined" && module !== null && module.exports) module.exports = m;
 else if (typeof define === "function" && define.amd) define(function() {return m});
 
-},{}],7:[function(_dereq_,module,exports){
+},{}],7:[function(require,module,exports){
 /*!
  * EventEmitter v4.2.11 - git.io/ee
  * Unlicense - http://unlicense.org/
@@ -2019,5 +2019,5 @@ else if (typeof define === "function" && define.amd) define(function() {return m
     }
 }.call(this));
 
-},{}]},{},[1])(1)
-});
+},{}]},{},[1]);
+ })();
