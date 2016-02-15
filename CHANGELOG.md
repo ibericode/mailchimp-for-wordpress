@@ -1,6 +1,27 @@
 Changelog
 =========
 
+#### 3.1.2 - February 15, 2016
+
+**Fixes**
+
+- Form JavaScript not working when another plugins loads Dojo framework.
+- [ENTER] not submitting form settings or creating new-line.
+- Internal fields marked as required not passing form validation.
+- Deselecting all MailChimp lists wouldn't persist after saving form settings.
+- No sign-up request firing for lists with only an `EMAIL` field.
+
+**Improvements**
+
+- Show accepted choice values for dropdown and radio fields in lists overview.
+- Use all MailChimp lists for Lists Choice field, instead of just the selected ones.
+
+**Additions**
+
+- Added support for [Shortcake](https://wordpress.org/plugins/shortcode-ui/) plugin.
+- Error message for when no list is selected can now be customized from the form message settings.
+
+
 #### 3.1.1 - February 1, 2016
 
 **Fixes**
