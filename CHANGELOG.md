@@ -15,6 +15,7 @@ Changelog
 
 - Show accepted choice values for dropdown and radio fields in lists overview.
 - Use all MailChimp lists for Lists Choice field, instead of just the selected ones.
+- Failsafed JavaScript for when any other script loads RequireJS globally.
 
 **Additions**
 
