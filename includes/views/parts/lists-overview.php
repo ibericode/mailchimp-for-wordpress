@@ -62,7 +62,16 @@
 									echo '<span style="color:red;">*</span>';
 								} ?></td>
 							<td><code><?php echo esc_html( $merge_var->tag ); ?></code></td>
-							<td><?php echo esc_html( $merge_var->field_type ); ?></td>
+							<td>
+								<?php
+									echo esc_html( $merge_var->field_type );
+
+									if( ! empty( $merge_var->choices ) ) {
+										echo ' (' . join( ', ', $merge_var->choices ) . ')';
+									}
+								?>
+
+							</td>
 						</tr>
 					<?php } ?>
 				</table>
