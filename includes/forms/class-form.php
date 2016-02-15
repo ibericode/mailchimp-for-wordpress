@@ -442,8 +442,9 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * Handle an incoming request. Should be called before calling `is_valid`.
+	 * Handle an incoming request. Should be called before calling validate() method.
 	 *
+	 * @see MC4WP_Form::validate
 	 * @param MC4WP_Request $request
 	 * @return void
 	 */
