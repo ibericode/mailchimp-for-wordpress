@@ -15,7 +15,8 @@ var listeners = window.mc4wp && window.mc4wp.listeners ? window.mc4wp.listeners 
 var config = window.mc4wp_forms_config || {};
 
 // funcs
-function triggerFormEvents(form,action,errors,data) {
+function triggerFormEvents(form, action, errors, data) {
+
 	// trigger events
 	forms.trigger( 'submitted', [form]);
 
@@ -30,22 +31,20 @@ function triggerFormEvents(form,action,errors,data) {
 
 function handleFormRequest(form,action,errors,data){
 
-	// get form by element, element might be null
-	var animate;
-
+	// re-populate form
 	if( errors ) {
 		form.setData(data);
 	}
 
 	if( scroll ) {
-		animate = (scroll === 'animated');
+		var animate = (scroll === 'animated');
 		form.placeIntoView(animate);
 	}
 
 	// trigger events on window.load so all other scripts have loaded
 	window.addEventListener('load', function(){
 		triggerFormEvents(form, action, errors, data);
-	})
+	});
 }
 
 // register early listeners

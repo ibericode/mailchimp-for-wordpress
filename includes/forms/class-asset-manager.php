@@ -63,8 +63,8 @@ class MC4WP_Form_Asset_Manager {
 		wp_register_script( 'mc4wp-forms-api', MC4WP_PLUGIN_URL . 'assets/js/forms-api'. $suffix .'.js', array(), MC4WP_VERSION, true );
 
 		// register placeholder script, which will later be enqueued for IE only
-		wp_register_script( 'mc4wp-placeholders', MC4WP_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), MC4WP_VERSION, true );
-		$wp_scripts->add_data( 'mc4wp-placeholders', 'conditional', 'lte IE 9' );
+		wp_register_script( 'mc4wp-forms-placeholders', MC4WP_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), MC4WP_VERSION, true );
+		$wp_scripts->add_data( 'mc4wp-forms-placeholders', 'conditional', 'lte IE 9' );
 
 		// register stylesheets
 		$stylesheets = array(
@@ -204,9 +204,7 @@ class MC4WP_Form_Asset_Manager {
 		wp_enqueue_script( 'mc4wp-forms-api' );
 
 		// load placeholder polyfill if browser is Internet Explorer
-		if( ! empty( $GLOBALS['is_IE'] ) ) {
-			wp_enqueue_script( 'mc4wp-placeholders' );
-		}
+		wp_enqueue_script( 'mc4wp-placeholders' );
 
 		$this->scripts_loaded = true;
 		return true;
@@ -216,7 +214,7 @@ class MC4WP_Form_Asset_Manager {
 	 * Prints dummy JavaScript which allows people to call `mc4wp.forms.on()` before the JS is loaded.
 	 */
 	public function print_dummy_javascript() {
-		$file = MC4WP_PLUGIN_DIR . "assets/js/forms-dummy-api{$this->filename_suffix}.js";
+		$file = dirname( __FILE__ ) . '/views/js/dummy-api.js';
 		echo '<script type="text/javascript">';
 		include $file;
 		echo '</script>';
