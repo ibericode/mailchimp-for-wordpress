@@ -463,13 +463,15 @@ class MC4WP_API {
 		$this->last_response = $response;
 
 		// store error (if any)
-		if( ! empty( $response->error ) ) {
-			$this->error_message = $response->error;
-		}
+		if( is_object( $response ) ) {
+			if( ! empty( $response->error ) ) {
+				$this->error_message = $response->error;
+			}
 
-		// store error code (if any)
-		if( ! empty( $response->code ) ) {
-			$this->error_code = (int) $response->code;
+			// store error code (if any)
+			if( ! empty( $response->code ) ) {
+				$this->error_code = (int) $response->code;
+			}
 		}
 
 		return $response;
@@ -551,7 +553,7 @@ class MC4WP_API {
 		// decode response body
 		$body = wp_remote_retrieve_body( $response );
 		$data = json_decode( $body );
-		if( is_object( $data ) ) {
+		if( ! is_null( $data ) ) {
 			return $data;
 		}
 
