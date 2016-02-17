@@ -7,6 +7,10 @@ Changelog
 
 - Issue with API array responses (for the [MailChimp Activity add-on](https://wordpress.org/plugins/mc4wp-activity/), for example).
 
+**Improvements**
+
+- Updated Dutch, Portugese, Spanish and Italian translations.
+
 
 #### 3.1.2 - February 15, 2016
 
