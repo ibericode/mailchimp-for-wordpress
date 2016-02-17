@@ -1,6 +1,13 @@
 Changelog
 =========
 
+#### 3.1.3 - February 17, 2016
+
+**Fixes**
+
+- Issue with API array responses (for the [MailChimp Activity add-on](https://wordpress.org/plugins/mc4wp-activity/), for example).
+
+
 #### 3.1.2 - February 15, 2016
 
 **Fixes**
