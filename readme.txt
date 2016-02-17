@@ -1,5 +1,5 @@
 === MailChimp for WordPress ===
-Contributors: Ibericode, DvanKooten, iMazed, hchouhan
+Contributors: Ibericode, DvanKooten, hchouhan
 Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=donate-link
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp forms, mailchimp integrations
 Requires at least: 3.7
@@ -58,7 +58,7 @@ MailChimp for WordPress helps you add more subscribers to your MailChimp lists u
 <li>An easy way to style your forms</li>
 <li>Detailed reports & statistics</li>
 </ul>
-<a href="https://mc4wp.com/features/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=after-features-link">View more Premium features</a><br />
+<p><a href="https://mc4wp.com/features/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=after-features-link">View more Premium features</a></p>
 </blockquote>
 
 #### What is MailChimp?
