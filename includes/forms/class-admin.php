@@ -195,6 +195,15 @@ class MC4WP_Forms_Admin {
 			update_post_meta( $form_id, 'text_' . $key, $message );
 		}
 
+		/**
+		 * Runs right after a form is updated.
+		 *
+		 * @since 3.0
+		 *
+		 * @param int $form_id
+		 */
+		do_action( 'mc4wp_save_form', $form_id );
+
 		return $form_id;
 	}
 
@@ -255,15 +264,6 @@ class MC4WP_Forms_Admin {
 		if( empty( $default_form_id ) ) {
 			update_option( 'mc4wp_default_form_id', $form_id );
 		}
-
-		/**
-		 * Runs right after a form is updated.
-		 *
-		 * @since 3.0
-		 *
-		 * @param int $form_id
-		 */
-		do_action( 'mc4wp_save_form', $form_id );
 
 		$previewer = new MC4WP_Form_Previewer( $form_id );
 
