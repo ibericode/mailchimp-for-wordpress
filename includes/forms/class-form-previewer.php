@@ -49,6 +49,8 @@ class MC4WP_Form_Previewer {
 			return false;
 		}
 
+		define( 'MC4WP_FORM_IS_PREVIEW', true );
+
 		$form_id        = (int) $_GET[ 'form_id' ];
 		$is_preview     = isset( $_GET['preview'] );
 		$instance = new self( $form_id, $is_preview );
