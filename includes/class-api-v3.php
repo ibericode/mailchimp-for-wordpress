@@ -13,6 +13,11 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	private $api_url = 'https://api.mailchimp.com/3.0/';
 
 	/**
+	 * @var bool Are we able to talk to the MailChimp API?
+	 */
+	private $connected;
+
+	/**
 	 * Constructor
 	 *
 	 * @param string $api_key
@@ -28,23 +33,22 @@ class MC4WP_API_v3 implements iMC4WP_API {
 
 	/**
 	 * @param string $method
-	 * @param array $args
+	 * @param string $resource
+	 * @param array $data
 	 *
 	 * @return mixed
 	 */
-	private function request( $method, $args = array() ) {
+	private function request( $method, $resource, $data = array() ) {
 
-		$args['body'] = isset( $args['body'] ) ? $args['body'] : array();
-		$args['headers'] = isset( $args['headers'] ) ? $args['headers'] : array();
-		$args['headers']['Authorization'] = 'Basic ' . base64_encode( 'mc4wp:' . $this->api_key );
-		$args['headers']['Accept'] = 'application/json';
+		$url = $this->api_url . ltrim( $resource, '/' );
+		$args = array(
+			'method' => $method,
+			'headers' => $this->get_headers(),
+			'body' => json_encode( $data ),
+		);
 
-		// Copy Accept-Language from browser headers
-		if( ! empty( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
-			$args['headers']['Accept-Language'] = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-		}
+		$response = wp_remote_request( $url, $args );
 
-		$response = wp_remote_request( $this->api_url . $method, $args );
 		try {
 			$data = $this->parse_response( $response );
 		} catch( Exception $e ) {
@@ -53,6 +57,23 @@ class MC4WP_API_v3 implements iMC4WP_API {
 		}
 
 		return $data;
+	}
+
+	/**
+	 * @return array
+	 */
+	private function get_headers() {
+		$headers = array();
+		$headers['Authorization'] = 'Basic ' . base64_encode( 'mc4wp:' . $this->api_key );
+		$headers['Accept'] = 'application/json';
+		$headers['Content-Type'] = 'application/json';
+
+		// Copy Accept-Language from browser headers
+		if( ! empty( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
+			$headers['Accept-Language'] = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+		}
+
+		return $headers;
 	}
 
 	/**
@@ -100,69 +121,98 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @return boolean
 	 */
 	public function is_connected() {
-		$data = $this->request( '' );
-		return is_object( $data ) && isset( $data->account_id );
+
+		if( is_null( $this->connected ) ) {
+			$data = $this->request( 'GET', '/' );
+			$this->connected = is_object( $data ) && isset( $data->account_id );
+		}
+
+		return $this->connected;
 	}
 
 	/**
 	 * Sends a subscription request to the MailChimp API
 	 *
 	 * @param string  $list_id           The list id to subscribe to
-	 * @param string  $email             The email address to subscribe
-	 * @param array   $merge_vars        Array of extra merge variables
+	 * @param string  $email_address             The email address to subscribe
+	 * @param array   $merge_fields        Array of extra merge variables
 	 * @param string  $email_type        The email type to send to this email address. Possible values are `html` and `text`.
 	 * @param boolean $double_optin      Should this email be confirmed via double opt-in?
 	 * @param boolean $update_existing   Update information if this email is already on list?
 	 * @param boolean $replace_interests Replace interest groupings, only if update_existing is true.
 	 * @param boolean $send_welcome      Send a welcome e-mail, only if double_optin is false.
 	 *
-	 * @return boolean|string True if success, 'error' if error
+	 * @return boolean
 	 */
-	public function subscribe( $list_id, $email, array $merge_vars = array(), $email_type = 'html', $double_optin = true, $update_existing = false, $replace_interests = true, $send_welcome = false ) {
-		// TODO: Implement subscribe() method.
+	public function subscribe( $list_id, $email_address, array $merge_fields = array(), $email_type = 'html', $double_optin = true, $update_existing = false, $replace_interests = true, $send_welcome = false ) {
+
+		// TODO: Get "update existing" to work
+		// TODO: Get "replace_interests" to work
+		// TODO: Get "send"welcome" to work
+		// TODO: Get "groupings" to work
+
+		$status = $double_optin ? 'pending' : 'subscribed';
+		$data = $this->request( 'POST', sprintf( '/lists/%s/members', $list_id ), array(
+				'email_address' => $email_address,
+				'email_type' => $email_type,
+				'merge_fields' => $merge_fields,
+				'status' => $status,
+			)
+		);
+
+		return is_object( $data ) && ! empty( $data->id );
 	}
 
 	/**
 	 * Gets the Groupings for a given List
 	 *
-	 * @param int $list_id
-	 *
-	 * @return array|boolean
-	 */
-	public function get_list_groupings( $list_id ) {
-		// TODO: Implement get_list_groupings() method.
-	}
-
-	/**
-	 * @param array $list_ids Array of ID's of the lists to fetch. (optional)
-	 *
-	 * @return bool
-	 */
-	public function get_lists( $list_ids = array() ) {
-		// TODO: Implement get_lists() method.
-	}
-
-	/**
-	 * Get the lists an email address is subscribed to
-	 *
-	 * @param array|string $email
+	 * @param string $list_id
 	 *
 	 * @return array
 	 */
-	public function get_lists_for_email( $email ) {
-		// TODO: Implement get_lists_for_email() method.
+	public function get_list_groupings( $list_id ) {
+		$data = $this->request( 'GET', sprintf( '/lists/%s/interest-categories', $list_id ) );
+
+		if( is_object( $data ) && isset( $data->categories ) ) {
+			return $data->categories;
+		}
+
+		return array();
 	}
 
 	/**
-	 * Get lists with their merge_vars for a given array of list id's
+	 * Get merge vars for a given list
 	 *
-	 * @param array $list_ids
-	 *
-	 * @return array|boolean
+	 * @since 4.0
+	 * @param string $list_id
+	 * @return array
 	 */
-	public function get_lists_with_merge_vars( $list_ids ) {
-		// TODO: Implement get_lists_with_merge_vars() method.
+	public function get_list_merge_vars( $list_id ) {
+		$data = $this->request( 'GET', sprintf( '/lists/%s/merge-fields', $list_id ) );
+
+		if( is_object( $data ) && isset( $data->merge_fields ) ) {
+			return $data->merge_fields;
+		}
+
+		return array();
 	}
+
+	/**
+	 * @param array $list_ids Deprecated parameter.
+	 *
+	 * @return array
+	 */
+	public function get_lists( $list_ids = array() ) {
+		$data = $this->request( 'GET', '/lists' );
+
+		if( is_object( $data ) && isset( $data->lists ) ) {
+			return $data->lists;
+		}
+
+		return array();
+	}
+
+
 
 	/**
 	 * Gets the member info for one or multiple emails on a list
@@ -174,6 +224,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 */
 	public function get_subscriber_info( $list_id, array $emails ) {
 		// TODO: Implement get_subscriber_info() method.
+		_deprecated_function( __METHOD__, '4.0' );
 	}
 
 	/**
@@ -186,6 +237,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 */
 	public function list_has_subscriber( $list_id, $email ) {
 		// TODO: Implement list_has_subscriber() method.
+		_deprecated_function( __METHOD__, '4.0' );
 	}
 
 	/**
@@ -199,6 +251,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 */
 	public function update_subscriber( $list_id, $email, $merge_vars = array(), $email_type = 'html', $replace_interests = false ) {
 		// TODO: Implement update_subscriber() method.
+		_deprecated_function( __METHOD__, '4.0' );
 	}
 
 	/**
@@ -214,6 +267,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 */
 	public function unsubscribe( $list_id, $struct, $send_goodbye = true, $send_notification = false, $delete_member = false ) {
 		// TODO: Implement unsubscribe() method.
+		_deprecated_function( __METHOD__, '4.0' );
 	}
 
 	/**
@@ -225,6 +279,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 */
 	public function add_ecommerce_order( array $order_data ) {
 		// TODO: Implement add_ecommerce_order() method.
+		_deprecated_function( __METHOD__, '4.0' );
 	}
 
 	/**
@@ -237,6 +292,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 */
 	public function delete_ecommerce_order( $store_id, $order_id ) {
 		// TODO: Implement delete_ecommerce_order() method.
+		_deprecated_function( __METHOD__, '4.0' );
 	}
 
 	/**
@@ -271,4 +327,34 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 */
 	public function get_last_response() {
 		// TODO: Implement get_last_response() method.
-}}
+	}
+
+	/**
+	 * Get the lists an email address is subscribed to
+	 *
+	 * @param array|string $email
+	 *
+	 * @return array
+	 *
+	 * @deprecated 4.0 This method was deprecated because of MailChimp API v3
+	 */
+	public function get_lists_for_email( $email ) {
+		_deprecated_function( __METHOD__, '4.0' );
+		return array();
+	}
+
+	/**
+	 * Get lists with their merge_vars for a given array of list id's
+	 *
+	 * @param array $list_ids
+	 * @return array
+	 *
+	 * @deprecated 4.0 This method was deprecated because of MailChimp API v3
+	 * @see MC4WP_API_v3::get_list_merge_vars
+	 */
+	public function get_lists_with_merge_vars( $list_ids ) {
+		_deprecated_function( __METHOD__, '4.0' );
+		return array();
+	}
+
+}

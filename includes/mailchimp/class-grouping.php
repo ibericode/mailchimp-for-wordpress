@@ -49,12 +49,12 @@ class MC4WP_MailChimp_Grouping {
 	 */
 	public static function from_data( $data ) {
 
-		$instance = new self( $data->id, $data->name, $data->form_field );
+		$instance = new self( $data->id, $data->title, $data->type );
 
 		// add group names as strings
-		foreach( $data->groups as $group ) {
-			$instance->groups[ $group->id ] = $group->name;
-		}
+//		foreach( $data->groups as $group ) {
+//			$instance->groups[ $group->id ] = $group->name;
+//		}
 
 		return $instance;
 	}

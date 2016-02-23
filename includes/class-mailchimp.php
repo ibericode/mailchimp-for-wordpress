@@ -28,6 +28,13 @@ class MC4WP_MailChimp {
 	}
 
 	/**
+	 * @return MC4WP_API_v3
+	 */
+	private function api() {
+		return mc4wp('api');
+	}
+
+	/**
 	 * Get MailChimp lists
 	 * Try cache first, then try API, then try fallback cache.
 	 *
@@ -39,7 +46,7 @@ class MC4WP_MailChimp {
 
 		$cached_lists = get_transient( $this->lists_transient_name  );
 
-		// if force_fallback is true, get lists from older transient
+		// if force_fallback is true, get lists from transient with longer expiration
 		if( $force_fallback ) {
 			$cached_lists = get_transient( $this->lists_transient_name . '_fallback' );
 		}
@@ -49,21 +56,8 @@ class MC4WP_MailChimp {
 		}
 
 		// transient was empty, get lists from MailChimp
-		$api = mc4wp('api');
+		$api = $this->api();
 		$lists_data = $api->get_lists();
-
-		// if we did not get an array, something failed.
-		// try fallback transient (if not tried before)
-		if( ! is_array( $lists_data ) ) {
-			$cached_lists = get_transient( $this->lists_transient_name . '_fallback' );
-
-			if( is_array( $cached_lists ) ) {
-				return $cached_lists;
-			}
-
-			// fallback transient was empty as well...
-			return array();
-		}
 
 		/**
 		 * @var MC4WP_MailChimp_List[]
@@ -72,29 +66,23 @@ class MC4WP_MailChimp {
 
 		foreach ( $lists_data as $list_data ) {
 			// create local object
-			$list = new MC4WP_MailChimp_List( $list_data->id, $list_data->name, $list_data->web_id );
+			$list = new MC4WP_MailChimp_List( $list_data->id, $list_data->name );
 			$list->subscriber_count = $list_data->stats->member_count;
 
-			// fill groupings if list has some
-			if( $list_data->stats->grouping_count > 0 ) {
-				// get interest groupings
-				$groupings_data = $api->get_list_groupings( $list->id );
-				if ( $groupings_data ) {
-					$list->groupings = array_map( array( 'MC4WP_MailChimp_Grouping', 'from_data' ), $groupings_data );
-				}
+			// get merge vars
+			if( $list_data->stats->merge_field_count > 1 ) {
+				$field_data = $api->get_list_merge_vars( $list->id );
+				$list->merge_vars = array_map( array( 'MC4WP_MailChimp_Merge_Var', 'from_data' ), $field_data );
 			}
+
+			// get interest groupings
+			// TODO: See if we can do this only for list with groupings
+			// TODO: This doesn't fetch group names yet....
+			$groupings_data = $api->get_list_groupings( $list->id );
+			$list->groupings = array_map( array( 'MC4WP_MailChimp_Grouping', 'from_data' ), $groupings_data );
 
 			// add to array
 			$lists["{$list->id}"] = $list;
-		}
-
-		// get merge vars for all lists at once
-		$merge_vars_data = $api->get_lists_with_merge_vars( array_keys( $lists ) );
-		if ( $merge_vars_data ) {
-			foreach ( $merge_vars_data as $list ) {
-				// add merge vars to list
-				$lists["{$list->id}"]->merge_vars = array_map( array( 'MC4WP_MailChimp_Merge_Var', 'from_data' ), $list->merge_vars );
-			}
 		}
 
 		// store lists in transients

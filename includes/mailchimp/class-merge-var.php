@@ -10,6 +10,11 @@
 class MC4WP_MailChimp_Merge_Var {
 
 	/**
+	 * @var int
+	 */
+	public $id;
+
+	/**
 	 * @var string
 	 */
 	public $name;
@@ -42,7 +47,7 @@ class MC4WP_MailChimp_Merge_Var {
 	/**
 	 * @var string Default value for the field.
 	 */
-	public $default = '';
+	public $default_value = '';
 
 	/**
 	 * @param string $name
@@ -57,6 +62,9 @@ class MC4WP_MailChimp_Merge_Var {
 		$this->tag = strtoupper( $tag );
 		$this->required = $required;
 		$this->choices = $choices;
+
+		// TODO: test if this works
+		$this->default = &$this->default_value;
 	}
 
 	/**
@@ -68,12 +76,12 @@ class MC4WP_MailChimp_Merge_Var {
 	 */
 	public static function from_data( $data ) {
 
-		$instance = new self( $data->name, $data->field_type, $data->tag, $data->req );
+		$instance = new self( $data->name, $data->type, $data->tag, $data->required );
 
 		$optional = array(
 			'choices',
 			'public',
-			'default'
+			'default_value'
 		);
 
 		foreach( $optional as $key ) {
