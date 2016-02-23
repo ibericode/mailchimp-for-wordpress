@@ -67,7 +67,7 @@ function mc4wp_get_options() {
  */
 function mc4wp_get_api() {
 	$opts = mc4wp_get_options();
-	$instance = new MC4WP_API( $opts['api_key'] );
+	$instance = new MC4WP_API_v3( $opts['api_key'] );
 	return $instance;
 }
 

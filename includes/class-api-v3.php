@@ -3,12 +3,93 @@
 class MC4WP_API_v3 implements iMC4WP_API {
 
 	/**
+	 * @var string
+	 */
+	private $api_key;
+
+	/**
+	 * @var string
+	 */
+	private $api_url = 'https://api.mailchimp.com/3.0/';
+
+	/**
 	 * Constructor
 	 *
 	 * @param string $api_key
 	 */
 	public function __construct( $api_key ) {
-		// TODO: Implement constructor method
+		$this->api_key = $api_key;
+
+		$dash_position = strpos( $api_key, '-' );
+		if( $dash_position !== false ) {
+			$this->api_url = str_replace( '//api.', '//' . substr( $api_key, $dash_position + 1 ) . ".api.", $this->api_url );
+		}
+	}
+
+	/**
+	 * @param string $method
+	 * @param array $args
+	 *
+	 * @return mixed
+	 */
+	private function request( $method, $args = array() ) {
+
+		$args['body'] = isset( $args['body'] ) ? $args['body'] : array();
+		$args['headers'] = isset( $args['headers'] ) ? $args['headers'] : array();
+		$args['headers']['Authorization'] = 'Basic ' . base64_encode( 'mc4wp:' . $this->api_key );
+		$args['headers']['Accept'] = 'application/json';
+
+		// Copy Accept-Language from browser headers
+		if( ! empty( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
+			$args['headers']['Accept-Language'] = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+		}
+
+		$response = wp_remote_request( $this->api_url . $method, $args );
+		try {
+			$data = $this->parse_response( $response );
+		} catch( Exception $e ) {
+			// TODO: Handle error
+			return false;
+		}
+
+		return $data;
+	}
+
+	/**
+	 * @param array|WP_Error $response
+	 *
+	 * @return array|mixed|object
+	 * @throws Exception
+	 */
+	private function parse_response( $response ) {
+		if( is_wp_error( $response ) ) {
+			throw new Exception( 'Error connecting to MailChimp. ' . $response->get_error_message(), (int) $response->get_error_code() );
+		}
+
+		// decode response body
+		$body = wp_remote_retrieve_body( $response );
+		$data = json_decode( $body );
+		if( ! is_null( $data ) ) {
+			return $data;
+		}
+
+		$code = (int) wp_remote_retrieve_response_code( $response );
+		$message = wp_remote_retrieve_response_message( $response );
+
+		if( $code !== 200 ) {
+			$message = sprintf( 'The MailChimp API server returned the following response: <em>%s %s</em>.', $code, $message );
+
+			// check for Akamai firewall response
+			if( $code === 403 ) {
+				preg_match('/Reference (.*)/i', $body, $matches );
+
+				if( ! empty( $matches[1] ) ) {
+					$message .= '</strong><br /><br />' . sprintf( 'This usually means that your server is blacklisted by MailChimp\'s firewall. Please contact MailChimp support with the following reference number: %s </strong>', $matches[1] );
+				}
+			}
+		}
+
+		throw new Exception( $message, $code );
 	}
 
 	/**
@@ -19,7 +100,8 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @return boolean
 	 */
 	public function is_connected() {
-		// TODO: Implement is_connected() method.
+		$data = $this->request( '' );
+		return is_object( $data ) && isset( $data->account_id );
 	}
 
 	/**
