@@ -198,13 +198,13 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	/**
 	 * Gets the Groupings for a given List
 	 *
+	 * @since 4.0
+	 *
 	 * @param string $list_id
 	 *
 	 * @return array
-	 *
-	 * TODO: Rename this method to "interests"
 	 */
-	public function get_list_groupings( $list_id ) {
+	public function get_list_interest_categories( $list_id ) {
 		$data = $this->request( 'GET', sprintf( '/lists/%s/interest-categories', $list_id ) );
 
 		if( is_object( $data ) && isset( $data->categories ) ) {
@@ -240,7 +240,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @param string $list_id
 	 * @return array
 	 */
-	public function get_list_merge_vars( $list_id ) {
+	public function get_list_merge_fields( $list_id ) {
 		$data = $this->request( 'GET', sprintf( '/lists/%s/merge-fields', $list_id ) );
 
 		if( is_object( $data ) && isset( $data->merge_fields ) ) {
@@ -383,6 +383,24 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
+	 * @deprecated 4.0
+	 * @use MC4WP_API::get_list_merge_fields
+	 */
+	public function get_list_merge_vars( $list_id ) {
+		_deprecated_function( __METHOD__, '4.0', 'get_list_merge_fields' );
+		return $this->get_list_merge_fields( $list_id );
+	}
+
+	/**
+	 * @deprecated 4.0
+	 * @use MC4WP_API::get_list_interest_categories
+	 */
+	public function get_list_groupings( $list_id ) {
+		_deprecated_function( __METHOD__, '4.0', 'get_list_interest_categories' );
+		return $this->get_list_interest_categories( $list_id );
+	}
+
+	/**
 	 * Get the lists an email address is subscribed to
 	 *
 	 * @param array|string $email
@@ -403,7 +421,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @return array
 	 *
 	 * @deprecated 4.0 This method was deprecated because of MailChimp API v3
-	 * @see MC4WP_API_v3::get_list_merge_vars
+	 * @see MC4WP_API_v3::get_list_merge_fields
 	 */
 	public function get_lists_with_merge_vars( $list_ids ) {
 		_deprecated_function( __METHOD__, '4.0' );
