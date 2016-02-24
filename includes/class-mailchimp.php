@@ -135,39 +135,27 @@ class MC4WP_MailChimp {
 		}
 
 		// transient not valid, fetch from API
-		$api = mc4wp('api');
+		$api = $this->api();
 		$lists = $api->get_lists();
-
 		$list_counts = array();
 
-		if ( is_array( $lists ) ) {
-
-			// we got a valid response
-			foreach ( $lists as $list ) {
-				$list_counts["{$list->id}"] = $list->stats->member_count;
-			}
-
-			$seconds = 1200;
-
-			/**
-			 * Filters the cache time for MailChimp lists configuration. Defaults to 1200.
-			 *
-			 * @since 2.0
-			 * @param int $seconds
-			 */
-			$transient_lifetime = (int) apply_filters( 'mc4wp_lists_count_cache_time', $seconds );
-			set_transient( $this->list_counts_transient_name, $list_counts, $transient_lifetime );
-
-			// bail
-			return $list_counts;
+		// we got a valid response
+		foreach ( $lists as $list ) {
+			$list_counts["{$list->id}"] = $list->stats->member_count;
 		}
 
-		// api call failed, get from stored lists
-		$lists = $this->get_lists( true );
-		foreach( $lists as $list ) {
-			$list_counts["{$list->id}"] = $list->subscriber_count;
-		}
+		$seconds = 3600;
 
+		/**
+		 * Filters the cache time for MailChimp lists configuration, in seconds. Defaults to 3600 seconds (1 hour).
+		 *
+		 * @since 2.0
+		 * @param int $seconds
+		 */
+		$transient_lifetime = (int) apply_filters( 'mc4wp_lists_count_cache_time', $seconds );
+		set_transient( $this->list_counts_transient_name, $list_counts, $transient_lifetime );
+
+		// bail
 		return $list_counts;
 	}
 
@@ -175,14 +163,18 @@ class MC4WP_MailChimp {
 	/**
 	 * Returns number of subscribers on given lists.
 	 *
-	 * @param array $list_ids Array of list id's.
-	 * @return int Sum of subscribers for given lists.
+	 * @param array|string $list_ids Array of list ID's, or single string.
+	 * @return int Total # subscribers for given lists.
 	 */
 	public function get_subscriber_count( $list_ids ) {
 
+		// make sure we're getting an array
+		if( ! is_array( $list_ids ) ) {
+			$list_ids = array( $list_ids );
+		}
 
-		// don't count when $list_ids is empty or not an array
-		if( ! is_array( $list_ids ) || count( $list_ids ) === 0 ) {
+		// if we got an empty array, return 0
+		if( empty( $list_ids ) ) {
 			return 0;
 		}
 
@@ -199,7 +191,7 @@ class MC4WP_MailChimp {
 		 * Filters the total subscriber_count for the given List ID's.
 		 *
 		 * @since 2.0
-		 * @param int $count
+		 * @param string $count
 		 * @param array $list_ids
 		 */
 		return apply_filters( 'mc4wp_subscriber_count', $count, $list_ids );
