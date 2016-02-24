@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Class MC4WP_MailChimp_Grouping
+ * Class MC4WP_MailChimp_Interests_Category
  *
- * Represents an Interest Grouping in MailChimp.
+ * Represents an Interest Category in MailChimp.
  *
  * @access public
+ * @since 4.0
  */
-class MC4WP_MailChimp_Grouping {
+class MC4WP_MailChimp_Interest_Category {
 
 	/**
 	 * @var int
@@ -27,25 +28,25 @@ class MC4WP_MailChimp_Grouping {
 	/**
 	 * @var string[]
 	 */
-	public $groups = array();
+	public $interests = array();
 
 	/**
 	 * @param int $id
 	 * @param string $name
 	 * @param string $field_type
-	 * @param array $groups
+	 * @param array $interests
 	 */
-	public function __construct( $id, $name, $field_type, $groups = array() ) {
+	public function __construct( $id, $name, $field_type, $interests = array() ) {
 		$this->id = $id;
 		$this->name = $name;
 		$this->field_type = $field_type;
-		$this->groups = $groups;
+		$this->interests = $interests;
 	}
 
 	/**
 	 * @param object $data
 	 *
-	 * @return MC4WP_MailChimp_Grouping
+	 * @return MC4WP_MailChimp_Interest_Category
 	 */
 	public static function from_data( $data ) {
 

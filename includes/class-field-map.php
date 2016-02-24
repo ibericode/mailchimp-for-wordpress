@@ -6,6 +6,8 @@
  * @access private
  * @since 2.0
  * @ignore
+ *
+ * TODO: Write upgrade routine for new "INTERESTS" key
  */
 class MC4WP_Field_Map {
 
@@ -124,15 +126,17 @@ class MC4WP_Field_Map {
 	protected function extract_fields_for_list( MC4WP_MailChimp_List $list ) {
 
 		$this->list_fields[ $list->id ] = array(
-			'GROUPINGS' => array(),
+			//'INTERESTS' => array(),
 		);
 
 		// extract values for merge_vars & groupings
-		array_walk( $list->merge_vars, array( $this, 'extract_merge_var' ), $list );
-		array_walk( $list->groupings, array( $this, 'extract_grouping' ), $list );
+		array_walk( $list->merge_fields, array( $this, 'extract_merge_field' ), $list );
+
+		// TODO: Fix interest groupings
+		//array_walk( $list->interest_categories, array( $this, 'extract_interest_category' ), $list );
 
 		// filter out empty values
-		$this->list_fields[ $list->id ]['GROUPINGS'] = array_filter( $this->list_fields[ $list->id ]['GROUPINGS'] );
+		//$this->list_fields[ $list->id ]['INTERESTS'] = array_filter( $this->list_fields[ $list->id ]['INTERESTS'] );
 		$this->list_fields[ $list->id ] = array_filter( $this->list_fields[ $list->id ] );
 
 		// if we have values at this point, add global fields
@@ -144,51 +148,54 @@ class MC4WP_Field_Map {
 	}
 
 	/**
-	 * @param MC4WP_MailChimp_Merge_Var $merge_var
+	 * @param MC4WP_MailChimp_Merge_Field $merge_field
+	 * @param int $index
+	 * @param MC4WP_MailChimp_List $list
 	 *
 	 * @return mixed
 	 */
-	protected function extract_merge_var( MC4WP_MailChimp_Merge_Var $merge_var, $index, MC4WP_MailChimp_List $list ) {
+	protected function extract_merge_field( MC4WP_MailChimp_Merge_Field $merge_field, $index, MC4WP_MailChimp_List $list ) {
 
 		// if field is not set, continue.
 		// don't use empty here as empty fields are perfectly valid (for non-required fields)
-		if( ! isset( $this->raw_data[ $merge_var->tag ] ) ) {
+		if( ! isset( $this->raw_data[ $merge_field->tag ] ) ) {
 			return;
 		}
 
 		// grab field value from data
-		$value = $this->raw_data[ $merge_var->tag ];
-		unset( $this->custom_fields[ $merge_var->tag ] );
+		$value = $this->raw_data[ $merge_field->tag ];
+		unset( $this->custom_fields[ $merge_field->tag ] );
 
 		// format field value according to its type
-		$value = $this->format_merge_var_value( $value, $merge_var->field_type );
+		$value = $this->format_merge_field_value( $value, $merge_field->field_type );
 
 		// store
-		$this->list_fields[ $list->id ][ $merge_var->tag ] = $value;
-		$this->formatted_data[ $merge_var->tag ] = $value;
-		$this->pretty_data[ $merge_var->name ] = $value;
+		$this->list_fields[ $list->id ][ $merge_field->tag ] = $value;
+		$this->formatted_data[ $merge_field->tag ] = $value;
+		$this->pretty_data[ $merge_field->name ] = $value;
 	}
 
 	/**
-	 * @param MC4WP_MailChimp_Grouping $grouping
+	 * @param MC4WP_MailChimp_Interest_Category $grouping
 	 * @param string $index
 	 * @param MC4WP_MailChimp_List $list
 	 *
 	 * @return array|null
 	 */
-	protected function extract_grouping( MC4WP_MailChimp_Grouping $grouping, $index, MC4WP_MailChimp_List $list ) {
+	protected function extract_interest_category( MC4WP_MailChimp_Interest_Category $interest_category, $index, MC4WP_MailChimp_List $list ) {
 
 		// check if data for this group was sent
-		if( ! empty( $this->raw_data['GROUPINGS'][$grouping->id] ) ) {
-			$groups = $this->raw_data['GROUPINGS'][$grouping->id];
-		} elseif( ! empty( $this->raw_data['GROUPINGS'][$grouping->name] ) ) {
-			$groups = $this->raw_data['GROUPINGS'][$grouping->name];
+		if( ! empty( $this->raw_data['GROUPINGS'][$interest_category->id] ) ) {
+			$groups = $this->raw_data['GROUPINGS'][$interest_category->id];
+		} elseif( ! empty( $this->raw_data['GROUPINGS'][$interest_category->name] ) ) {
+			$groups = $this->raw_data['GROUPINGS'][$interest_category->name];
 		} else {
 			return;
 		}
 
 		// reset entire groupings array here
 		unset( $this->custom_fields['GROUPINGS'] );
+		$interests = array();
 
 		// make sure groups is an array
 		if( ! is_array( $groups ) ) {
@@ -197,23 +204,23 @@ class MC4WP_Field_Map {
 
 		// if groups is an array of id's, get the group name instead
 		foreach( $groups as $key => $group_name_or_id ) {
-			if( is_numeric( $group_name_or_id ) && isset( $grouping->groups[ $group_name_or_id ] ) ) {
-				$groups[ $key ] = $grouping->groups[ $group_name_or_id ];
+
+			if( is_numeric( $group_name_or_id ) && isset( $interest_category->interests[ $group_name_or_id ] ) ) {
+				$interests[ $group_name_or_id ] = true;
+			} else {
+				$id = array_search( $group_name_or_id, $interest_category->interests );
+				if( $id ) {
+					$interests[ $id ] = true;
+				}
 			}
 		}
 
-		// format grouping data for MailChimp
-		$formatted_grouping = array(
-			'id' => $grouping->id,
-			'groups' => $groups,
-		);
+		// TODO: Look at which data we pass to "formatted_data" here.
 
 		// add to list data
-		$this->list_fields[ $list->id ]['GROUPINGS'][] = $formatted_grouping;
-		$this->formatted_data['GROUPINGS'][ $grouping->id ] = $groups;
-
-		//
-		$this->pretty_data[ $grouping->name ] = $groups;
+		$this->list_fields[ $list->id ]['GROUPINGS'] = $interests;
+		$this->formatted_data['GROUPINGS'][ $interest_category->id ] = $interests;
+		$this->pretty_data[ $interest_category->name ] = $interests;
 	}
 
 
@@ -221,6 +228,9 @@ class MC4WP_Field_Map {
 	 * @return array
 	 */
 	protected function extract_global_fields() {
+
+		// TODO: These fields are handled differently now. Act accordingly.
+
 		// map global fields
 		$global_field_names = array(
 			'MC_LOCATION',
@@ -248,7 +258,7 @@ class MC4WP_Field_Map {
 	 *
 	 * @return array|string
 	 */
-	protected function format_merge_var_value( $field_value, $field_type ) {
+	protected function format_merge_field_value( $field_value, $field_type ) {
 
 		$field_type = strtolower( $field_type );
 

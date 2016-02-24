@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Class MC4WP_MailChimp_Merge_Var
+ * Class MC4WP_MailChimp_Merge_Field
  *
- * Represents a Merge Variable (AKA: field) in MailChimp
+ * Represents a Merge Field in MailChimp
  *
  * @access public
  */
-class MC4WP_MailChimp_Merge_Var {
+class MC4WP_MailChimp_Merge_Field {
 
 	/**
 	 * @var int
@@ -72,7 +72,7 @@ class MC4WP_MailChimp_Merge_Var {
 	 *
 	 * @param object $data
 	 *
-	 * @return MC4WP_MailChimp_Merge_Var
+	 * @return MC4WP_MailChimp_Merge_Field
 	 */
 	public static function from_data( $data ) {
 

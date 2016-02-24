@@ -186,7 +186,12 @@ class MC4WP_API_v3 implements iMC4WP_API {
 		}
 
 		// for backwards compatibility, copy over GROUPINGS from merge_fields array.
-		// TODO
+		if( ! empty( $merge_fields['GROUPINGS'] ) ) {
+			$args['interests'] = $merge_fields['GROUPINGS'];
+			unset( $merge_fields['GROUPINGS'] );
+		}
+
+
 
 		// set leftover merge fields
 		$args['merge_fields'] = $merge_fields;

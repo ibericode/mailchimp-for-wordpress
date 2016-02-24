@@ -71,28 +71,32 @@ class MC4WP_MailChimp {
 			$list = new MC4WP_MailChimp_List( $list_data->id, $list_data->name );
 			$list->subscriber_count = $list_data->stats->member_count;
 
+			// add to array
+			$lists["{$list->id}"] = $list;
+
 			// get merge vars
-			if( $list_data->stats->merge_field_count > 1 ) {
-				$field_data = $api->get_list_merge_vars( $list->id );
-				$list->merge_vars = array_map( array( 'MC4WP_MailChimp_Merge_Var', 'from_data' ), $field_data );
+			if( $list_data->stats->merge_field_count == 1 ) {
+				continue;
 			}
 
+			$field_data = $api->get_list_merge_fields( $list->id );
+			$list->merge_fields = array_map( array( 'MC4WP_MailChimp_Merge_Field', 'from_data' ), $field_data );
+
 			// get interest groupings
-			$groupings_data = $api->get_list_groupings( $list->id );
+			$groupings_data = $api->get_list_interest_categories( $list->id );
 			foreach( $groupings_data as $grouping_data ) {
-				$grouping = MC4WP_MailChimp_Grouping::from_data( $grouping_data );
+				$grouping = MC4WP_MailChimp_Interest_Category::from_data( $grouping_data );
 
 				// fetch groups for this interest
 				$interests_data = $api->get_list_interest_category_interests( $list->id, $grouping->id );
 				foreach( $interests_data as $interest_data ) {
-					$grouping->groups[ $interest_data->id ] = $interest_data->name;
+					$grouping->interests[ $interest_data->id ] = $interest_data->name;
 				}
 
-				$list->groupings[] = $grouping;
+				$list->interest_categories[] = $grouping;
 			}
 
-			// add to array
-			$lists["{$list->id}"] = $list;
+
 		}
 
 		// store lists in transients

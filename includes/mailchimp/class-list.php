@@ -16,6 +16,9 @@ class MC4WP_MailChimp_List {
 
 	/**
 	 * @var string Web ID of this list in MailChimp.com
+	 * @deprecated 4.0
+	 *
+	 * TODO: Find out if there's a way to link to MailChimp web interface.
 	 */
 	public $web_id;
 
@@ -30,30 +33,30 @@ class MC4WP_MailChimp_List {
 	public $subscriber_count = 0;
 
 	/**
-	 * @var MC4WP_MailChimp_Merge_Var[]
+	 * @var MC4WP_MailChimp_Merge_Field[]
 	 */
-	public $merge_vars = array();
+	public $merge_fields = array();
 
 	/**
-	 * @var MC4WP_MailChimp_Grouping[]
+	 * @var MC4WP_MailChimp_Interest_Category[]
 	 */
-	public $groupings = array();
+	public $interest_categories = array();
 
 	/**
 	 * @var array Array of merge var names (tag => name) KNOWN to be on the list
 	 */
-	protected $default_merge_vars = array();
+	protected $default_merge_fields = array();
 
 	/**
 	 * @param string $id
 	 * @param string $name
-	 * @param string $web_id
+	 * @param string $web_id (deprecated)
 	 */
 	public function __construct( $id, $name, $web_id = '' ) {
 		$this->id = $id;
 		$this->name = $name;
 		$this->web_id = $web_id;
-		$this->default_merge_vars = array(
+		$this->default_merge_fields = array(
 			'EMAIL' => 'Email Address',
 			'OPTIN_IP' => 'IP Address',
 			'MC_LANGUAGE' => 'Language'
@@ -71,12 +74,12 @@ class MC4WP_MailChimp_List {
 		$tag = strtoupper( $tag );
 
 		// search default merge vars first
-		if( isset( $this->default_merge_vars[ $tag ] ) ) {
-			return __( $this->default_merge_vars[ $tag ], 'mailchimp-for-wp' );
+		if( isset( $this->default_merge_fields[ $tag ] ) ) {
+			return __( $this->default_merge_fields[ $tag ], 'mailchimp-for-wp' );
 		}
 
 		// search merge vars
-		foreach( $this->merge_vars as $field ) {
+		foreach( $this->merge_fields as $field ) {
 
 			if( $field->tag !== $tag ) {
 				continue;
@@ -91,19 +94,19 @@ class MC4WP_MailChimp_List {
 	/**
 	 * Get the interest grouping object for a given list.
 	 *
-	 * @param string $grouping_id ID of the Interest Grouping
+	 * @param string $category_id ID of the Interest Grouping
 	 *
-	 * @return object|null
+	 * @return MC4WP_MailChimp_Interest_Category|null
 	 */
-	public function get_grouping( $grouping_id ) {
+	public function get_interest_category( $category_id ) {
 
-		foreach( $this->groupings as $grouping ) {
+		foreach( $this->interest_categories as $category ) {
 
-			if( $grouping->id !== $grouping_id ) {
+			if( $category->id !== $category_id ) {
 				continue;
 			}
 
-			return $grouping;
+			return $category;
 		}
 
 		return null;
@@ -111,17 +114,18 @@ class MC4WP_MailChimp_List {
 
 
 	/**
-	 * Get the name of a list grouping by its ID
+	 * Get the name of an interest category by its ID
 	 *
-	 * @param $grouping_id
+	 * @param $category_id
 	 *
 	 * @return string
 	 */
-	public function get_grouping_name( $grouping_id ) {
+	public function get_interest_category_name( $category_id ) {
 
-		$grouping = $this->get_grouping( $grouping_id );
-		if( isset( $grouping->name ) ) {
-			return $grouping->name;
+		$category = $this->get_interest_category( $category_id );
+
+		if( isset( $category->name ) ) {
+			return $category->name;
 		}
 
 		return '';
@@ -129,6 +133,8 @@ class MC4WP_MailChimp_List {
 
 	/**
 	 * Get link to this list in MailChimp
+	 *
+	 * TODO: Look at alternative ways to link to the MailChimp web interface.
 	 *
 	 * @return string
 	 */

@@ -532,7 +532,8 @@ var FieldFactory = function(settings, fields, i18n) {
 	/**
 	 * Helper function to quickly register a field and store it in local scope
 	 *
-	 * @param data
+	 * @param {object} data
+	 * @param {boolean} sticky
 	 */
 	function register(data, sticky) {
 		var field = fields.register(data);
@@ -564,24 +565,24 @@ var FieldFactory = function(settings, fields, i18n) {
 	/**
 	 * Register the various fields for a merge var
 	 *
-	 * @param mergeVar
+	 * @param mergeField
 	 * @returns {boolean}
 	 */
-	function registerMergeVar(mergeVar) {
+	function registerMergeField(mergeField) {
 
 		// only register merge var field if it's public
-		if( ! mergeVar.public ) {
+		if( ! mergeField.public ) {
 			return false;
 		}
 
 		// name, type, title, value, required, label, placeholder, choices, wrap
 		var data = {
-			name: mergeVar.tag,
-			title: mergeVar.name,
-			required: mergeVar.required,
-			forceRequired: mergeVar.required,
-			type: getFieldType(mergeVar.field_type),
-			choices: mergeVar.choices
+			name: mergeField.tag,
+			title: mergeField.name,
+			required: mergeField.required,
+			forceRequired: mergeField.required,
+			type: getFieldType(mergeField.field_type),
+			choices: mergeField.choices
 		};
 
 		if( data.type !== 'address' ) {
@@ -600,15 +601,15 @@ var FieldFactory = function(settings, fields, i18n) {
 	/**
 	 * Register a field for a MailChimp grouping
 	 *
-	 * @param grouping
+	 * @param interestCategory
 	 */
-	function registerGrouping(grouping){
+	function registerInterestCategory(interestCategory){
 
 		var data = {
-			title: grouping.name,
-			name: 'GROUPINGS[' + grouping.id + ']',
-			type: getFieldType(grouping.field_type),
-			choices: grouping.groups
+			title: interestCategory.name,
+			name: 'GROUPINGS[' + interestCategory.id + ']',
+			type: getFieldType(interestCategory.field_type),
+			choices: interestCategory.interests
 		};
 		register(data);
 	}
@@ -620,10 +621,10 @@ var FieldFactory = function(settings, fields, i18n) {
 	 */
 	function registerListFields(list) {
 		// loop through merge vars
-		list.merge_vars.forEach(registerMergeVar);
+		list.merge_fields.forEach(registerMergeField);
 
 		// loop through groupings
-		list.groupings.forEach(registerGrouping);
+		list.interest_categories.forEach(registerInterestCategory);
 	}
 
 	/**
