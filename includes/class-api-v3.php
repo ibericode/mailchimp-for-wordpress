@@ -131,6 +131,15 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
+	 * @param $email_address
+	 *
+	 * @return string
+	 */
+	public function get_email_address_hash( $email_address ) {
+		return md5( strtolower( trim( $email_address ) ) );
+	}
+
+	/**
 	 * Sends a subscription request to the MailChimp API
 	 *
 	 * @param string  $list_id           The list id to subscribe to
@@ -140,25 +149,48 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @param boolean $double_optin      Should this email be confirmed via double opt-in?
 	 * @param boolean $update_existing   Update information if this email is already on list?
 	 * @param boolean $replace_interests Replace interest groupings, only if update_existing is true.
-	 * @param boolean $send_welcome      Send a welcome e-mail, only if double_optin is false.
+	 * @param boolean $send_welcome      Unused. MailChimp deprecated this parameter in API v3.
 	 *
 	 * @return boolean
 	 */
-	public function subscribe( $list_id, $email_address, array $merge_fields = array(), $email_type = 'html', $double_optin = true, $update_existing = false, $replace_interests = true, $send_welcome = false ) {
+	public function subscribe( $list_id, $email_address, array $merge_fields = array(), $email_type = 'html', $double_optin = true, $update_existing = false, $replace_interests = true, $send_welcome = null ) {
 
-		// TODO: Get "update existing" to work
-		// TODO: Get "replace_interests" to work
-		// TODO: Get "send"welcome" to work
-		// TODO: Get "groupings" to work
+		$email_address_hash = $this->get_email_address_hash( $email_address );
 
+		// first, check if subscriber is already on the given list
+		$data = $this->request( 'GET', sprintf( '/lists/%s/members/%s', $list_id, $email_address_hash ) );
+		if( is_object( $data ) && ! empty( $data->id ) ) {
+
+			// email address is already subscribed, should we update?
+			if( $update_existing ) {
+				return $this->update_subscriber( $list_id, $email_address, $merge_fields, $email_type, $replace_interests );
+			}
+
+			// TODO: Pass "already_subscribed" error here.
+
+			return true;
+		}
+
+		// not on list, subscribe.
 		$status = $double_optin ? 'pending' : 'subscribed';
-		$data = $this->request( 'POST', sprintf( '/lists/%s/members', $list_id ), array(
-				'email_address' => $email_address,
-				'email_type' => $email_type,
-				'merge_fields' => $merge_fields,
-				'status' => $status,
-			)
+		$args = array(
+			'email_address' => $email_address,
+			'email_type' => $email_type,
+			'status' => $status,
 		);
+
+		// for backwards compatibility, copy over OPTIN_IP from merge_fields array.
+		if( ! empty( $merge_fields[ 'OPTIN_IP' ] ) ) {
+			$args['ip_signup'] = $merge_fields['OPTIN_IP'];
+			unset( $merge_fields['OPTIN_IP'] );
+		}
+
+		// for backwards compatibility, copy over GROUPINGS from merge_fields array.
+		// TODO
+
+		// set leftover merge fields
+		$args['merge_fields'] = $merge_fields;
+		$data = $this->request( 'POST', sprintf( '/lists/%s/members', $list_id ), $args );
 
 		return is_object( $data ) && ! empty( $data->id );
 	}
