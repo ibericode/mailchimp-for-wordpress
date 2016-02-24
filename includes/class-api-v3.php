@@ -201,12 +201,33 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @param string $list_id
 	 *
 	 * @return array
+	 *
+	 * TODO: Rename this method to "interests"
 	 */
 	public function get_list_groupings( $list_id ) {
 		$data = $this->request( 'GET', sprintf( '/lists/%s/interest-categories', $list_id ) );
 
 		if( is_object( $data ) && isset( $data->categories ) ) {
 			return $data->categories;
+		}
+
+		return array();
+	}
+
+	/**
+	 * @since 4.0
+	 *
+	 * @param $list_id
+	 * @param $interest_category_id
+	 *
+	 * @return array
+	 */
+	public function get_list_interest_category_interests( $list_id, $interest_category_id ) {
+		$resource = sprintf( '/lists/%s/interest-categories/%s/interests', $list_id, $interest_category_id );
+		$data = $this->request( 'GET', $resource );
+
+		if( is_object( $data ) && isset( $data->interests ) ) {
+			return $data->interests;
 		}
 
 		return array();

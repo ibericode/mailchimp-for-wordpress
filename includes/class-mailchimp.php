@@ -64,6 +64,8 @@ class MC4WP_MailChimp {
 		 */
 		$lists = array();
 
+		// TODO: See if we can combine this into less API calls.....
+
 		foreach ( $lists_data as $list_data ) {
 			// create local object
 			$list = new MC4WP_MailChimp_List( $list_data->id, $list_data->name );
@@ -76,10 +78,18 @@ class MC4WP_MailChimp {
 			}
 
 			// get interest groupings
-			// TODO: See if we can do this only for list with groupings
-			// TODO: This doesn't fetch group names yet....
 			$groupings_data = $api->get_list_groupings( $list->id );
-			$list->groupings = array_map( array( 'MC4WP_MailChimp_Grouping', 'from_data' ), $groupings_data );
+			foreach( $groupings_data as $grouping_data ) {
+				$grouping = MC4WP_MailChimp_Grouping::from_data( $grouping_data );
+
+				// fetch groups for this interest
+				$interests_data = $api->get_list_interest_category_interests( $list->id, $grouping->id );
+				foreach( $interests_data as $interest_data ) {
+					$grouping->groups[ $interest_data->id ] = $interest_data->name;
+				}
+
+				$list->groupings[] = $grouping;
+			}
 
 			// add to array
 			$lists["{$list->id}"] = $list;
