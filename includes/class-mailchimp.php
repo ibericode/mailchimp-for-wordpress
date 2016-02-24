@@ -96,8 +96,8 @@ class MC4WP_MailChimp {
 		}
 
 		// store lists in transients
-		set_transient(  $this->lists_transient_name, $lists, ( 24 * 3600 ) ); // 1 day
-		set_transient(  $this->lists_transient_name . '_fallback', $lists, 1209600 ); // 2 weeks
+		set_transient(  $this->lists_transient_name, $lists, ( 24 * 3600 * 2 ) ); // 2 days
+		set_transient(  $this->lists_transient_name . '_fallback', $lists, 24 * 3600 * 30 ); // 30 days
 
 		return $lists;
 	}
