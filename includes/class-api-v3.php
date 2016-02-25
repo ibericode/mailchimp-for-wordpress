@@ -168,7 +168,8 @@ class MC4WP_API_v3 implements iMC4WP_API {
 
 			// TODO: Pass "already_subscribed" error here.
 
-			return true;
+			// If subscriber is "pending", return true. 
+			return $data->status === 'pending';
 		}
 
 		// not on list, subscribe.
@@ -190,8 +191,6 @@ class MC4WP_API_v3 implements iMC4WP_API {
 			$args['interests'] = $merge_fields['GROUPINGS'];
 			unset( $merge_fields['GROUPINGS'] );
 		}
-
-
 
 		// set leftover merge fields
 		$args['merge_fields'] = $merge_fields;
@@ -299,33 +298,70 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
+	 * TODO: If someone subscribed, then unsubscribed this method won't re-subscribe them..
+	 *
 	 * @param              $list_id
-	 * @param array|string $email
-	 * @param array        $merge_vars
+	 * @param array|string $email_address
+	 * @param array        $merge_fields
 	 * @param string       $email_type
 	 * @param bool         $replace_interests
 	 *
 	 * @return bool
 	 */
-	public function update_subscriber( $list_id, $email, $merge_vars = array(), $email_type = 'html', $replace_interests = false ) {
-		// TODO: Implement update_subscriber() method.
-		_deprecated_function( __METHOD__, '4.0' );
+	public function update_subscriber( $list_id, $email_address, $merge_fields = array(), $email_type = 'html', $replace_interests = false ) {
+
+		$email_address_hash = $this->get_email_address_hash( $email_address );
+
+		$args = array(
+			'email_address' => $email_address,
+			'email_type' => $email_type,
+		);
+
+		// for backwards compatibility, copy over OPTIN_IP from merge_fields array.
+		if( ! empty( $merge_fields[ 'OPTIN_IP' ] ) ) {
+			$args['ip_signup'] = $merge_fields['OPTIN_IP'];
+			unset( $merge_fields['OPTIN_IP'] );
+		}
+
+		// for backwards compatibility, copy over GROUPINGS from merge_fields array.
+		if( ! empty( $merge_fields['GROUPINGS'] ) ) {
+			$args['interests'] = $merge_fields['GROUPINGS'];
+			unset( $merge_fields['GROUPINGS'] );
+		}
+
+		// set leftover merge fields
+		$args['merge_fields'] = $merge_fields;
+		$data = $this->request( 'PATCH', sprintf( '/lists/%s/members/%s', $list_id, $email_address_hash ), $args );
+
+		return is_object( $data ) && ! empty( $data->id );
 	}
 
 	/**
 	 * Unsubscribes the given email or luid from the given MailChimp list
 	 *
 	 * @param string       $list_id
-	 * @param array|string $struct
-	 * @param bool         $delete_member
-	 * @param bool         $send_goodbye
-	 * @param bool         $send_notification
+	 * @param string       $email_address
+	 * @param null         $delete_member       unused
+	 * @param null         $send_goodbye        unused
+	 * @param null         $send_notification   unused
 	 *
 	 * @return bool
 	 */
-	public function unsubscribe( $list_id, $struct, $send_goodbye = true, $send_notification = false, $delete_member = false ) {
-		// TODO: Implement unsubscribe() method.
-		_deprecated_function( __METHOD__, '4.0' );
+	public function unsubscribe( $list_id, $email_address, $send_goodbye = null, $send_notification = null, $delete_member = null ) {
+
+		// for backwards compatibility with API v2 (which accepted an array)
+		if( is_string( $email_address ) ) {
+			$email_address = $email_address['email'];
+		}
+
+		$email_address_hash = $this->get_email_address_hash( $email_address );
+		$args = array(
+			'status' => 'unsubscribed',
+			'email_address' => $email_address,
+		);
+		$data = $this->request( 'PATCH', sprintf( '/lists/%s/members/%s', $list_id, $email_address_hash ), $args );
+
+		return is_object( $data ) && ! empty( $data->id );
 	}
 
 	/**
