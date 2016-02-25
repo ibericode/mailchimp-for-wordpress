@@ -6,8 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'MC4WP_API' => $baseDir . '/includes/class-api.php',
-    'MC4WP_API_v3' => $baseDir . '/includes/class-api-v3.php',
+    'MC4WP_API' => $baseDir . '/includes/api/class-api.php',
+    'MC4WP_API_v3' => $baseDir . '/includes/api/class-api-v3.php',
     'MC4WP_Admin' => $baseDir . '/includes/admin/class-admin.php',
     'MC4WP_Admin_Ads' => $baseDir . '/includes/admin/class-ads.php',
     'MC4WP_Admin_Messages' => $baseDir . '/includes/admin/class-admin-messages.php',
@@ -60,7 +60,7 @@ return array(
     'MC4WP_Validator' => $baseDir . '/includes/class-validator.php',
     'MC4WP_Visitor_Tracking' => $baseDir . '/includes/class-visitor-tracking.php',
     'MC4WP_WooCommerce_Integration' => $baseDir . '/integrations/woocommerce/class-woocommerce.php',
-    'iMC4WP_API' => $baseDir . '/includes/class-api-interface.php',
+    'iMC4WP_API' => $baseDir . '/includes/api/class-api-interface.php',
     'xrstf\\Composer52\\AutoloadGenerator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
     'xrstf\\Composer52\\Generator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',
 );

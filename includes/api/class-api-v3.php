@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Class MC4WP_API_v3
+ *
+ * TODO: Method naming consistency (with MailChimp API and method chaining from v2)
+ * TODO: Error handling
+ */
 class MC4WP_API_v3 implements iMC4WP_API {
 
 	/**
@@ -16,6 +22,10 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @var bool Are we able to talk to the MailChimp API?
 	 */
 	private $connected;
+
+	private $error_message;
+	private $error_code;
+	private $last_response;
 
 	/**
 	 * Constructor
@@ -40,6 +50,8 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 */
 	private function request( $method, $resource, $data = array() ) {
 
+		$this->reset();
+
 		$url = $this->api_url . ltrim( $resource, '/' );
 		$args = array(
 			'method' => $method,
@@ -52,8 +64,24 @@ class MC4WP_API_v3 implements iMC4WP_API {
 		try {
 			$data = $this->parse_response( $response );
 		} catch( Exception $e ) {
-			// TODO: Handle error
+			$this->error_code = $e->getCode();
+			$this->error_message = $e->getMessage();
 			return false;
+		}
+
+		// store response
+		$this->last_response = $data;
+
+		// store error (if any)
+		if( is_object( $data ) ) {
+			if( ! empty( $data->title ) ) {
+				$this->error_message = $data->title;
+			}
+
+			// store error code (if any)
+			if( ! empty( $data->status ) ) {
+				$this->error_code = (int) $data->status;
+			}
 		}
 
 		return $data;
@@ -140,6 +168,10 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
+	 *
+	 * TODO: Look at "replace_interests"
+	 * TODO: Look at "send_welcome"
+	 *
 	 * Sends a subscription request to the MailChimp API
 	 *
 	 * @param string  $list_id           The list id to subscribe to
@@ -159,6 +191,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 
 		// first, check if subscriber is already on the given list
 		$data = $this->request( 'GET', sprintf( '/lists/%s/members/%s', $list_id, $email_address_hash ) );
+
 		if( is_object( $data ) && ! empty( $data->id ) ) {
 
 			// email address is already subscribed, should we update?
@@ -166,9 +199,13 @@ class MC4WP_API_v3 implements iMC4WP_API {
 				return $this->update_subscriber( $list_id, $email_address, $merge_fields, $email_type, $replace_interests );
 			}
 
-			// TODO: Pass "already_subscribed" error here.
+			// pass old "already_subscribed" error
+			if( $data->status === 'subscribed' ) {
+				$this->error_code = 214;
+				return false;
+			}
 
-			// If subscriber is "pending", return true. 
+			// If subscriber is "pending", return true.
 			return $data->status === 'pending';
 		}
 
@@ -394,7 +431,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @return boolean
 	 */
 	public function has_error() {
-		// TODO: Implement has_error() method.
+		return ! empty( $this->error_message );
 	}
 
 	/**
@@ -402,7 +439,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @return string
 	 */
 	public function get_error_message() {
-		// TODO: Implement get_error_message() method.
+		return $this->error_message;
 	}
 
 	/**
@@ -411,7 +448,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @return int
 	 */
 	public function get_error_code() {
-		// TODO: Implement get_error_code() method.
+		return $this->error_code;
 	}
 
 	/**
@@ -420,7 +457,16 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @return object
 	 */
 	public function get_last_response() {
-		// TODO: Implement get_last_response() method.
+		return $this->last_response;
+	}
+
+	/**
+	 * Empties all data from previous response
+	 */
+	private function reset() {
+		$this->last_response = null;
+		$this->error_code = 0;
+		$this->error_message = '';
 	}
 
 	/**
