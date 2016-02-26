@@ -627,7 +627,16 @@ class MC4WP_Form {
 
 		// explode required fields (generated in JS) to an array (uppercased)
 		$required_fields_string = strtoupper( $this->settings['required_fields'] );
+
+		// remove array-formatted fields
+		// workaround for #261 (https://github.com/ibericode/mailchimp-for-wordpress/issues/261)
+		$required_fields_string = preg_replace( '/\[\w+\]/', '', $required_fields_string );
+
+		// turn into an array
 		$required_fields = explode( ',', $required_fields_string );
+
+		// We only need unique values here.
+		$required_fields = array_unique( $required_fields );
 
 		// EMAIL is not a required field as it has its own validation rules
 		$required_fields = array_diff( $required_fields, array( 'EMAIL' ) );
@@ -647,7 +656,7 @@ class MC4WP_Form {
 		 * @param MC4WP_Form $form
 		 */
 		$required_fields = (array) apply_filters( 'mc4wp_form_required_fields', $required_fields, $form );
-		
+
 		return $required_fields;
 	}
 
