@@ -101,6 +101,8 @@ class MC4WP_Request {
 	}
 
 	/**
+	 * Get the IP address of the visitor. Takes proxies into account.
+	 *
 	 * @return string
 	 */
 	public function get_client_ip() {
