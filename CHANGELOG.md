@@ -1,6 +1,19 @@
 Changelog
 =========
 
+#### 3.1.4 - February 29, 2016
+
+**Fixes**
+
+- Forms with address fields never passing validation.
+
+**Improvements**
+
+- Perform type checks on global variables to prevent issues with poorly coded plugins.
+- Add Interest Category ID to list overview table for easier debugging.
+- Updated Russian translations.
+
+
 #### 3.1.3 - February 17, 2016
 
 **Fixes**
