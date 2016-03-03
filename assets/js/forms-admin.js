@@ -3062,6 +3062,7 @@ module.exports = render;
 
     d.sizer.style.paddingRight = (d.barWidth = sizes.right) + "px";
     d.sizer.style.paddingBottom = (d.barHeight = sizes.bottom) + "px";
+    d.heightForcer.style.borderBottom = sizes.bottom + "px solid transparent"
 
     if (sizes.right && sizes.bottom) {
       d.scrollbarFiller.style.display = "block";
@@ -3306,9 +3307,9 @@ module.exports = render;
 
   function setDocumentHeight(cm, measure) {
     cm.display.sizer.style.minHeight = measure.docHeight + "px";
-    var total = measure.docHeight + cm.display.barHeight;
-    cm.display.heightForcer.style.top = total + "px";
-    cm.display.gutters.style.height = Math.max(total + scrollGap(cm), measure.clientHeight) + "px";
+    cm.display.heightForcer.style.top = measure.docHeight + "px";
+    cm.display.gutters.style.height = Math.max(measure.docHeight + cm.display.barHeight + scrollGap(cm),
+                                               measure.clientHeight) + "px";
   }
 
   // Read the actual heights of the rendered lines, and update their
@@ -4001,10 +4002,11 @@ module.exports = render;
       if (reset && cm.doc.sel.contains(pos) == -1)
         operation(cm, setSelection)(cm.doc, simpleSelection(pos), sel_dontScroll);
 
-      var oldCSS = te.style.cssText;
-      input.wrapper.style.position = "absolute";
-      te.style.cssText = "position: fixed; width: 30px; height: 30px; top: " + (e.clientY - 5) +
-        "px; left: " + (e.clientX - 5) + "px; z-index: 1000; background: " +
+      var oldCSS = te.style.cssText, oldWrapperCSS = input.wrapper.style.cssText;
+      input.wrapper.style.cssText = "position: absolute"
+      var wrapperBox = input.wrapper.getBoundingClientRect()
+      te.style.cssText = "position: absolute; width: 30px; height: 30px; top: " + (e.clientY - wrapperBox.top - 5) +
+        "px; left: " + (e.clientX - wrapperBox.left - 5) + "px; z-index: 1000; background: " +
         (ie ? "rgba(255, 255, 255, .05)" : "transparent") +
         "; outline: none; border-width: 0; outline: none; overflow: hidden; opacity: .05; filter: alpha(opacity=5);";
       if (webkit) var oldScrollY = window.scrollY; // Work around Chrome issue (#2712)
@@ -4035,7 +4037,7 @@ module.exports = render;
       }
       function rehide() {
         input.contextMenuPending = false;
-        input.wrapper.style.position = "relative";
+        input.wrapper.style.cssText = oldWrapperCSS
         te.style.cssText = oldCSS;
         if (ie && ie_version < 9) display.scrollbars.setScrollTop(display.scroller.scrollTop = scrollPos);
 
@@ -5658,7 +5660,7 @@ module.exports = render;
       display.scroller.scrollTop = doc.scrollTop;
     }
     if (op.scrollLeft != null && (display.scroller.scrollLeft != op.scrollLeft || op.forceScroll)) {
-      doc.scrollLeft = Math.max(0, Math.min(display.scroller.scrollWidth - displayWidth(cm), op.scrollLeft));
+      doc.scrollLeft = Math.max(0, Math.min(display.scroller.scrollWidth - display.scroller.clientWidth, op.scrollLeft));
       display.scrollbars.setScrollLeft(doc.scrollLeft);
       display.scroller.scrollLeft = doc.scrollLeft;
       alignHorizontally(cm);
@@ -11403,7 +11405,7 @@ module.exports = render;
 
   // THE END
 
-  CodeMirror.version = "5.11.0";
+  CodeMirror.version = "5.12.0";
 
   return CodeMirror;
 });
@@ -12282,13 +12284,9 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
     return attrRegexpCache[attr] = new RegExp("\\s+" + attr + "\\s*=\\s*('|\")?([^'\"]+)('|\")?\\s*");
   }
 
-  function getAttrValue(stream, attr) {
-    var pos = stream.pos, match;
-    while (pos >= 0 && stream.string.charAt(pos) !== "<") pos--;
-    if (pos < 0) return pos;
-    if (match = stream.string.slice(pos, stream.pos).match(getAttrRegexp(attr)))
-      return match[2];
-    return "";
+  function getAttrValue(text, attr) {
+    var match = text.match(getAttrRegexp(attr))
+    return match ? match[2] : ""
   }
 
   function getTagRegexp(tagName, anchored) {
@@ -12304,10 +12302,10 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
     }
   }
 
-  function findMatchingMode(tagInfo, stream) {
+  function findMatchingMode(tagInfo, tagText) {
     for (var i = 0; i < tagInfo.length; i++) {
       var spec = tagInfo[i];
-      if (!spec[0] || spec[1].test(getAttrValue(stream, spec[0]))) return spec[2];
+      if (!spec[0] || spec[1].test(getAttrValue(tagText, spec[0]))) return spec[2];
     }
   }
 
@@ -12327,15 +12325,17 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
       tags.script.unshift(["type", configScript[i].matches, configScript[i].mode])
 
     function html(stream, state) {
-      var tagName = state.htmlState.tagName && state.htmlState.tagName.toLowerCase();
-      var tagInfo = tagName && tags.hasOwnProperty(tagName) && tags[tagName];
-
-      var style = htmlMode.token(stream, state.htmlState), modeSpec;
-
-      if (tagInfo && /\btag\b/.test(style) && stream.current() === ">" &&
-          (modeSpec = findMatchingMode(tagInfo, stream))) {
-        var mode = CodeMirror.getMode(config, modeSpec);
-        var endTagA = getTagRegexp(tagName, true), endTag = getTagRegexp(tagName, false);
+      var style = htmlMode.token(stream, state.htmlState), tag = /\btag\b/.test(style), tagName
+      if (tag && !/[<>\s\/]/.test(stream.current()) &&
+          (tagName = state.htmlState.tagName && state.htmlState.tagName.toLowerCase()) &&
+          tags.hasOwnProperty(tagName)) {
+        state.inTag = tagName + " "
+      } else if (state.inTag && tag && />$/.test(stream.current())) {
+        var inTag = /^([\S]+) (.*)/.exec(state.inTag)
+        state.inTag = null
+        var modeSpec = stream.current() == ">" && findMatchingMode(tags[inTag[1]], inTag[2])
+        var mode = CodeMirror.getMode(config, modeSpec)
+        var endTagA = getTagRegexp(inTag[1], true), endTag = getTagRegexp(inTag[1], false);
         state.token = function (stream, state) {
           if (stream.match(endTagA, false)) {
             state.token = html;
@@ -12346,6 +12346,9 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
         };
         state.localMode = mode;
         state.localState = CodeMirror.startState(mode, htmlMode.indent(state.htmlState, ""));
+      } else if (state.inTag) {
+        state.inTag += stream.current()
+        if (stream.eol()) state.inTag += " "
       }
       return style;
     };
@@ -12353,7 +12356,7 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
     return {
       startState: function () {
         var state = htmlMode.startState();
-        return {token: html, localMode: null, localState: null, htmlState: state};
+        return {token: html, inTag: null, localMode: null, localState: null, htmlState: state};
       },
 
       copyState: function (state) {
@@ -12361,7 +12364,8 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
         if (state.localState) {
           local = CodeMirror.copyState(state.localMode, state.localState);
         }
-        return {token: state.token, localMode: state.localMode, localState: local,
+        return {token: state.token, inTag: state.inTag,
+                localMode: state.localMode, localState: local,
                 htmlState: CodeMirror.copyState(htmlMode, state.htmlState)};
       },
 
@@ -13371,7 +13375,7 @@ CodeMirror.defineMode("xml", function(editorConf, config_) {
       if (state.context && state.context.tagName != tagName &&
           config.implicitlyClosed.hasOwnProperty(state.context.tagName))
         popContext(state);
-      if (state.context && state.context.tagName == tagName) {
+      if ((state.context && state.context.tagName == tagName) || config.matchClosing === false) {
         setStyle = "tag";
         return closeState;
       } else {
