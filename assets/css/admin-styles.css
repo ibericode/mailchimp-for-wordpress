@@ -711,6 +711,10 @@
   bottom: 0;
   top: 0; }
 
+.rtl .overlay .close {
+  right: auto;
+  left: 0; }
+
 .rtl #mc4wp-admin .CodeMirror-scroll {
   overflow-y: hidden !important; }
 
