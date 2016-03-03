@@ -715,6 +715,11 @@
   right: auto;
   left: 0; }
 
+.rtl #mc4wp-admin .page-title {
+  background-position: right center;
+  padding-left: 0;
+  padding-right: 42px; }
+
 .rtl #mc4wp-admin .CodeMirror-scroll {
   overflow-y: hidden !important; }
 

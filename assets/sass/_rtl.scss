@@ -1,6 +1,12 @@
 .rtl {
 	 #mc4wp-admin {
 
+		 .page-title {
+			 background-position: right center;
+			 padding-left: 0;
+			 padding-right: 42px;
+		 }
+
 		.CodeMirror-scroll {
 			overflow-y: hidden !important;
 		}
