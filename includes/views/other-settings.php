@@ -74,8 +74,6 @@ add_action( 'mc4wp_admin_other_settings', '__mc4wp_usage_tracking_setting', 70 )
 
 			<!-- Debug Log -->
 			<div class="medium-margin">
-				<h3><?php _e( 'Debug Log', 'mailchimp-for-wp' ); ?> <input type="text" id="debug-log-filter" class="regular-text" placeholder="<?php esc_attr_e( 'Filter..', 'mailchimp-for-wp' ); ?>" style="float: right;"/></h3>
-
 
 				<style scoped type="text/css">
 					#debug-log { font-family: monaco, monospace, courier, 'courier new', 'Bitstream Vera Sans Mono'; font-size: 13px; line-height: 140%; min-height: 100px; max-height: 300px; padding: 6px; border:1px solid #ccc; background: #262626; color: white; overflow-y: scroll; }
@@ -84,7 +82,11 @@ add_action( 'mc4wp_admin_other_settings', '__mc4wp_usage_tracking_setting', 70 )
 					#debug-log .empty { color: #ccc; font-style: italic; }
 					#debug-log .hidden { display: none; }
 					#debug-log a{ color: #ccc; text-decoration: underline; }
+					#debug-log-filter { float :right; }
+					.rtl #debug-log-filter{ float: left; }
 				</style>
+
+				<h3><?php _e( 'Debug Log', 'mailchimp-for-wp' ); ?> <input type="text" id="debug-log-filter" class="regular-text" placeholder="<?php esc_attr_e( 'Filter..', 'mailchimp-for-wp' ); ?>" /></h3>
 
 				<div id="debug-log" class="widefat">
 					<?php
