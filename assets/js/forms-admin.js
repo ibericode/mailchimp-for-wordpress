@@ -896,8 +896,8 @@ module.exports = function(m, events) {
 var FormEditor = function(element) {
 
 	// create dom representation of form
-	var _dom = document.createElement('form')
-		, domDirty = false,
+	var _dom = document.createElement('form'),
+		domDirty = false,
 		r = {},
 		editor;
 	_dom.innerHTML = element.value.toLowerCase();

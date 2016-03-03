@@ -17,7 +17,7 @@
   /* The rest of this file contains styles related to the mechanics of
    the editor. You probably shouldn't touch them. */
   /* The fake, visible scrollbars. Used to force redraw during scrolling
-   before actuall scrolling happens, thus preventing shaking and
+   before actual scrolling happens, thus preventing shaking and
    flickering artifacts. */
   /* Force content-box sizing for the elements where we expect it */
   /* IE7 hack to prevent it from returning funny offsetTops on the spans */
@@ -401,6 +401,7 @@
     white-space: normal;
     height: 100%;
     display: inline-block;
+    vertical-align: top;
     margin-bottom: -30px;
     /* Hack to make IE7 behave */
     *zoom: 1;
@@ -709,3 +710,10 @@
   right: 0;
   bottom: 0;
   top: 0; }
+
+.rtl #mc4wp-admin .CodeMirror-scroll {
+  overflow-y: hidden !important; }
+
+.rtl #mc4wp-admin .CodeMirror-vscrollbar {
+  left: 0 !important;
+  right: auto !important; }
