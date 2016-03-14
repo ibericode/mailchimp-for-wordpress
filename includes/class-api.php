@@ -134,7 +134,7 @@ class MC4WP_API {
 	public function subscribe($list_id, $email, array $merge_vars = array(), $email_type = 'html', $double_optin = true, $update_existing = false, $replace_interests = true, $send_welcome = false ) {
 		$data = array(
 			'id' => $list_id,
-			'email' => array( 'email' => $email),
+			'email' => array( 'email' => $email ),
 			'merge_vars' => $merge_vars,
 			'email_type' => $email_type,
 			'double_optin' => $double_optin,
@@ -277,7 +277,7 @@ class MC4WP_API {
 	}
 
 	/**
-	 * @param        $list_id
+	 * @param string $list_id
 	 * @param array|string $email
 	 * @param array  $merge_vars
 	 * @param string $email_type
@@ -288,7 +288,7 @@ class MC4WP_API {
 	public function update_subscriber( $list_id, $email, $merge_vars = array(), $email_type = 'html', $replace_interests = false ) {
 
 		// default to using email for updating
-		if( ! is_array( $email ) ) {
+		if( is_string( $email ) ) {
 			$email = array(
 				'email' => $email
 			);
@@ -442,7 +442,7 @@ class MC4WP_API {
 
 		$url = $this->api_url . $method . '.json';
 		$request_args = array(
-			'body' => $data,
+			'body' => json_encode( $data ),
 			'timeout' => 10,
 			'headers' => $this->get_headers(),
 			'sslverify' => apply_filters( 'mc4wp_use_sslverify', true ),
@@ -528,7 +528,8 @@ class MC4WP_API {
 	private function get_headers() {
 
 		$headers = array(
-			'Accept' => 'application/json'
+			'Accept' => 'application/json',
+			'Content-Type' => 'application/json',
 		);
 
 		// Copy Accept-Language from browser headers
