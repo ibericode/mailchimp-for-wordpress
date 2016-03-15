@@ -29,16 +29,17 @@ function triggerFormEvents(form, action, errors, data) {
 	}
 }
 
-function handleFormRequest(form,action,errors,data){
+function handleFormRequest(form, action, errors, data){
 
 	// re-populate form
 	if( errors ) {
 		form.setData(data);
 	}
 
-	if( scroll ) {
-		var animate = (scroll === 'animated');
-		form.placeIntoView(animate);
+	if( config.auto_scroll ) {
+		var animate = ( config.auto_scroll === 'animated' );
+		var arg = animate ? { behavior: 'smooth' } : false;
+		form.element.scrollIntoView(arg);
 	}
 
 	// trigger events on window.load so all other scripts have loaded
@@ -78,7 +79,7 @@ if( config.submitted_form ) {
 		element = document.getElementById(formConfig.element_id),
 		form = forms.getByElement(element);
 
-	handleFormRequest(form,formConfig.action, formConfig.errors,formConfig.data);
+	handleFormRequest(form, formConfig.action, formConfig.errors, formConfig.data);
 }
 
 // expose forms object
