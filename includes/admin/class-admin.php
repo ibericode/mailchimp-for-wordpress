@@ -204,6 +204,11 @@ class MC4WP_Admin {
 			MC4WP_Usage_Tracking::instance()->toggle( $settings['allow_usage_tracking'] );
 		}
 
+		// Make sure not to use obfuscated key
+		if( strpos( $settings['api_key'], '*' ) !== false ) {
+			$settings['api_key'] = $current['api_key'];
+		}
+
 		// Sanitize API key
 		$settings['api_key'] = sanitize_text_field( $settings['api_key'] );
 
@@ -211,6 +216,7 @@ class MC4WP_Admin {
 		if ( $settings['api_key'] !== $current['api_key'] ) {
 			$this->mailchimp->empty_cache();
 		}
+
 
 		/**
 		 * Runs right before general settings are saved.
@@ -403,6 +409,7 @@ class MC4WP_Admin {
 		$opts = mc4wp_get_options();
 		$connected = ( mc4wp('api')->is_connected() );
 		$lists = $this->mailchimp->get_lists();
+		$obfuscated_api_key = mc4wp_obfuscate_string( $opts['api_key'] );
 		require MC4WP_PLUGIN_DIR . 'includes/views/general-settings.php';
 	}
 
