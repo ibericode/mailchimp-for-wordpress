@@ -442,7 +442,7 @@ class MC4WP_API {
 
 		$url = $this->api_url . $method . '.json';
 		$request_args = array(
-			'body' => json_encode( $data ),
+			'body' => $data,
 			'timeout' => 10,
 			'headers' => $this->get_headers(),
 			'sslverify' => apply_filters( 'mc4wp_use_sslverify', true ),
@@ -528,8 +528,7 @@ class MC4WP_API {
 	private function get_headers() {
 
 		$headers = array(
-			'Accept' => 'application/json',
-			'Content-Type' => 'application/json',
+			'Accept' => 'application/json'
 		);
 
 		// Copy Accept-Language from browser headers
