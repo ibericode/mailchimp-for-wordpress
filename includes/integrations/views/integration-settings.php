@@ -44,9 +44,10 @@
 				 * @since 3.0
 				 *
 				 * @param MC4WP_Integration $integration
+				 * @param array $opts
 				 */
-				do_action( 'mc4wp_admin_before_integration_settings', $integration );
-				do_action( 'mc4wp_admin_before_' . $integration->slug . '_integration_settings' );
+				do_action( 'mc4wp_admin_before_integration_settings', $integration, $opts );
+				do_action( 'mc4wp_admin_before_' . $integration->slug . '_integration_settings', $integration, $opts );
 				?>
 
 				<table class="form-table">
@@ -225,9 +226,10 @@
 				 * Runs right after integration settings are outputted (before the submit button).
 				 *
 				 * @param MC4WP_Integration $integration
+				 * @param array $opts
 				 */
-				do_action( 'mc4wp_admin_after_integration_settings', $integration );
-				do_action( 'mc4wp_admin_after_' . $integration->slug . '_integration_settings' );
+				do_action( 'mc4wp_admin_after_integration_settings', $integration, $opts );
+				do_action( 'mc4wp_admin_after_' . $integration->slug . '_integration_settings', $integration, $opts );
 				?>
 
 				<?php submit_button(); ?>

@@ -4,8 +4,10 @@
  * Try to include a file before each integration's settings page
  *
  * @param MC4WP_Integration $integration
+ * @param array $opts
+ * @ignore
  */
-function mc4wp_admin_before_integration_settings( MC4WP_Integration $integration ) {
+function mc4wp_admin_before_integration_settings( MC4WP_Integration $integration, $opts ) {
 	$file = dirname( __FILE__ ) . sprintf( '/%s/admin-before.php', $integration->slug );
 
 	if( file_exists( $file ) ) {
@@ -13,7 +15,24 @@ function mc4wp_admin_before_integration_settings( MC4WP_Integration $integration
 	}
 }
 
-add_action( 'mc4wp_admin_before_integration_settings', 'mc4wp_admin_before_integration_settings' );
+/**
+ * Try to include a file before each integration's settings page
+ *
+ * @param MC4WP_Integration $integration
+ * @param array $opts
+ * @ignore
+ */
+function mc4wp_admin_after_integration_settings( MC4WP_Integration $integration, $opts ) {
+	$file = dirname( __FILE__ ) . sprintf( '/%s/admin-after.php', $integration->slug );
+
+	if( file_exists( $file ) ) {
+		include $file;
+	}
+}
+
+add_action( 'mc4wp_admin_before_integration_settings', 'mc4wp_admin_before_integration_settings', 30, 2 );
+add_action( 'mc4wp_admin_after_integration_settings', 'mc4wp_admin_after_integration_settings', 30, 2 );
+
 
 // Register core integrations
 mc4wp_register_integration( 'ninja-forms', 'MC4WP_Ninja_Forms_Integration' );
