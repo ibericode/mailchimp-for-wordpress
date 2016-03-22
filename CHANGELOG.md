@@ -1,6 +1,24 @@
 Changelog
 =========
 
+#### 3.1.5 - March 22, 2016
+
+**Fixes**
+
+- Response message was shown for unsubmitted forms when using `{response}` in the form mark-up with multiple forms on the same page.
+
+**Improvements**
+
+- Scroll to form after form submission now uses native browser method `scrollIntoView()`.
+- Various improvements for right-to-left (RTL) sites.
+- The MailChimp API key is now obfuscated on the settings page.
+- Contact Form 7 integration now uses an early hook priority to ensure we run before any page redirects.
+
+**Additions**
+
+- Add position option for WooCommerce integration.
+- Add `{post}` tag whch can be used in form mark-up to fetch properties of the current page or post.
+
 #### 3.1.4 - February 29, 2016
 
 **Fixes**
