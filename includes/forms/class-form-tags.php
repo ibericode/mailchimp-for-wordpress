@@ -109,6 +109,12 @@ class MC4WP_Form_Tags {
 			'example'     => "user property='user_email'"
 		);
 
+		$tags['post'] = array(
+			'description' => sprintf( __( "Property of the current page or post.", 'mailchimp-for-wp' ) ),
+			'callback'    => array( $this, 'get_post_property' ),
+			'example'     => "post property='ID'"
+		);
+
 		return $tags;
 	}
 
@@ -196,6 +202,24 @@ class MC4WP_Form_Tags {
 
 		if( $user instanceof WP_User ) {
 			return $user->{$property};
+		}
+
+		return '';
+	}
+
+	/*
+	 * Get property of viewed post
+	 *
+	 * @param array $args
+	 *
+	 * @return string
+	 */
+	public function get_post_property( $args = array() ) {
+		$property = empty( $args['property'] ) ? 'ID' : $args['property'];
+		global $post;
+
+		if( $post instanceof WP_Post ) {
+			return $post->{$property};
 		}
 
 		return '';
