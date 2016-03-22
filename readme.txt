@@ -1,10 +1,10 @@
 === MailChimp for WordPress ===
-Contributors: Ibericode, DvanKooten, hchouhan
+Contributors: Ibericode, DvanKooten, hchouhan, lapzor
 Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=donate-link
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp forms, mailchimp integrations
-Requires at least: 3.7
-Tested up to: 4.4
-Stable tag: 3.1.3
+Requires at least: 3.8
+Tested up to: 4.4.2
+Stable tag: 3.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -180,6 +180,37 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 6. Detailed statistics on which methods are generating the most subscribers. **(Pro Feature)**
 
 == Changelog == 
+
+
+#### 3.1.5 - March 22, 2016
+
+**Fixes**
+
+- Response message was shown for unsubmitted forms when using `{response}` in the form mark-up with multiple forms on the same page.
+
+**Improvements**
+
+- Scroll to form after form submission now uses native browser method `scrollIntoView()`.
+- Various improvements for right-to-left (RTL) sites.
+- The MailChimp API key is now obfuscated on the settings page.
+- Contact Form 7 integration now uses an early hook priority to ensure we run before any page redirects.
+
+**Additions**
+
+- Add position option for WooCommerce integration.
+- Add `{post}` tag whch can be used in form mark-up to fetch properties of the current page or post.
+
+#### 3.1.4 - February 29, 2016
+
+**Fixes**
+
+- Forms with address fields never passing validation.
+
+**Improvements**
+
+- Perform type checks on global variables to prevent issues with poorly coded plugins.
+- Add Interest Category ID to list overview table for easier debugging.
+- Updated Russian translations.
 
 
 #### 3.1.3 - February 17, 2016

@@ -30,16 +30,17 @@ function triggerFormEvents(form, action, errors, data) {
 	}
 }
 
-function handleFormRequest(form,action,errors,data){
+function handleFormRequest(form, action, errors, data){
 
 	// re-populate form
 	if( errors ) {
 		form.setData(data);
 	}
 
-	if( scroll ) {
-		var animate = (scroll === 'animated');
-		form.placeIntoView(animate);
+	if( config.auto_scroll ) {
+		var animate = ( config.auto_scroll === 'animated' );
+		var arg = animate ? { behavior: 'smooth' } : false;
+		form.element.scrollIntoView(arg);
 	}
 
 	// trigger events on window.load so all other scripts have loaded
@@ -79,12 +80,13 @@ if( config.submitted_form ) {
 		element = document.getElementById(formConfig.element_id),
 		form = forms.getByElement(element);
 
-	handleFormRequest(form,formConfig.action, formConfig.errors,formConfig.data);
+	handleFormRequest(form, formConfig.action, formConfig.errors, formConfig.data);
 }
 
 // expose forms object
 mc4wp.forms = forms;
 window.mc4wp = mc4wp;
+
 },{"./forms/forms.js":3,"gator":6}],2:[function(require,module,exports){
 'use strict';
 
@@ -118,37 +120,10 @@ var Form = function(id, element) {
 		form.element.querySelector('.mc4wp-response').innerHTML = msg;
 	};
 
-	this.placeIntoView = function( animate ) {
-		var scrollToHeight = 0;
-		var windowHeight = window.innerHeight;
-		var obj = form.element;
-
-		if (obj.offsetParent) {
-			do {
-				scrollToHeight += obj.offsetTop;
-			} while (obj = obj.offsetParent);
-		} else {
-			scrollToHeight = form.element.offsetTop;
-		}
-
-		if((windowHeight - 80) > form.element.clientHeight) {
-			// vertically center the form, but only if there's enough space for a decent margin
-			scrollToHeight = scrollToHeight - ((windowHeight - form.element.clientHeight) / 2);
-		} else {
-			// the form doesn't fit, scroll a little above the form
-			scrollToHeight = scrollToHeight - 80;
-		}
-
-		// scroll there. if jQuery is loaded, do it with an animation.
-		if( animate && window.jQuery ) {
-			window.jQuery('html, body').animate({ scrollTop: scrollToHeight }, 800);
-		} else {
-			window.scrollTo(0, scrollToHeight);
-		}
-	};
 };
 
 module.exports = Form;
+
 },{"../third-party/form2js.js":4,"../third-party/serialize.js":5,"populate.js":7}],3:[function(require,module,exports){
 'use strict';
 

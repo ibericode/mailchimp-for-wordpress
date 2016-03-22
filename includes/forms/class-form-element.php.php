@@ -56,6 +56,7 @@ class MC4WP_Form_Element {
 
 		$content = $this->form->content;
 		$form = $this->form;
+		$is_submitted = $this->is_submitted;
 
 		/**
 		 * Filters the HTML for the form fields.
@@ -64,9 +65,10 @@ class MC4WP_Form_Element {
 		 *
 		 * @param string $content
 		 * @param MC4WP_Form $form
+		 * @param boolean $is_submitted
 		 * @since 2.0
 		 */
-		$visible_fields = (string) apply_filters( 'mc4wp_form_content', $content, $form );
+		$visible_fields = (string) apply_filters( 'mc4wp_form_content', $content, $form, $is_submitted );
 
 		return $visible_fields;
 	}

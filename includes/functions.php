@@ -247,3 +247,18 @@ function __mc4wp_use_sslverify() {
 
 	return true;
 }
+
+/**
+ * This will replace the first half of a string with "*" characters.
+ *
+ * @param string $string
+ * @return string
+ */
+function mc4wp_obfuscate_string( $string ) {
+
+	$length = strlen( $string );
+	$obfuscated_length = ceil( $length / 2 );
+
+	$string = str_repeat( '*', $obfuscated_length ) . substr( $string, $obfuscated_length );
+	return $string;
+}

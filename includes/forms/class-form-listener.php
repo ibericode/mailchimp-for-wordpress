@@ -22,19 +22,14 @@ class MC4WP_Form_Listener {
 	/**
 	 * Listen for submitted forms
 	 *
-	 * @param $data
+	 * @param MC4WP_Request $request
 	 * @return bool
 	 */
-	public function listen( array $data ) {
+	public function listen( MC4WP_Request $request ) {
 
-		if( ! isset( $data['_mc4wp_form_id'] ) ) {
+		if( ! $request->post->get( '_mc4wp_form_id' ) ) {
 			return false;
 		}
-
-		/**
-		 * @var MC4WP_Request $request
-		 */
-		$request = mc4wp('request');
 
 		try {
 			$form = mc4wp_get_form( $request->params->get( '_mc4wp_form_id' ) );

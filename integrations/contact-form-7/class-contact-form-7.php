@@ -25,7 +25,7 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 	 */
 	public function add_hooks() {
 		add_action( 'wpcf7_init', array( $this, 'init') );
-		add_action( 'wpcf7_mail_sent', array( $this, 'process' ) );
+		add_action( 'wpcf7_mail_sent', array( $this, 'process' ), 1 );
 		add_action( 'wpcf7_posted_data', array( $this, 'alter_cf7_data') );
 	}
 

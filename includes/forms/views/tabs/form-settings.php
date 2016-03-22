@@ -25,7 +25,6 @@
 						</li>
 					<?php } ?>
 				</ul>
-
 				<p class="help"><?php _e( 'Select the list(s) to which people who submit this form should be subscribed.' ,'mailchimp-for-wp' ); ?></p>
 			</td>
 		<?php } ?>

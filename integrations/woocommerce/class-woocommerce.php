@@ -25,13 +25,24 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 	public function add_hooks() {
 
 		if( ! $this->options['implicit'] ) {
-
-			// TODO: Allow more positions
-			add_action( 'woocommerce_checkout_billing', array( $this, 'output_checkbox' ), 20 );
+			// create hook name based on position setting
+			$hook = sprintf( 'woocommerce_checkout_%s', $this->options['position'] );
+			add_action( $hook, array( $this, 'output_checkbox' ), 20 );
 			add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save_woocommerce_checkout_checkbox_value' ) );
 		}
 
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'subscribe_from_woocommerce_checkout' ) );
+	}
+
+	/**
+	 * Add default value for "position" setting
+	 *
+	 * @return array
+	 */
+	protected function get_default_options() {
+		$defaults = parent::get_default_options();
+		$defaults['position'] = 'billing';
+		return $defaults;
 	}
 
 

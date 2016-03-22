@@ -36,12 +36,17 @@ class MC4WP_Request {
 	 * @return MC4WP_Request
 	 */
 	public static function create_from_globals() {
-		$get = mc4wp_sanitize_deep( $_GET );
-		$get = stripslashes_deep( $get );
-		$post = mc4wp_sanitize_deep( $_POST );
-		$post = stripslashes_deep( $post );
-		$server = mc4wp_sanitize_deep( $_SERVER );
-		return new self( $get, $post, $server );
+		$get_data = is_array( $_GET ) ? $_GET : array();
+		$get_data = mc4wp_sanitize_deep( $get_data );
+		$get_data = stripslashes_deep( $get_data );
+
+		$post_data = is_array( $_POST ) ? $_POST : array();
+		$post_data = mc4wp_sanitize_deep( $post_data );
+		$post_data = stripslashes_deep( $post_data );
+
+		$server_data = is_array( $_SERVER ) ? $_SERVER : array();
+		$server_data = mc4wp_sanitize_deep( $server_data );
+		return new self( $get_data, $post_data, $server_data );
 	}
 
 	/**
@@ -96,6 +101,8 @@ class MC4WP_Request {
 	}
 
 	/**
+	 * Get the IP address of the visitor. Takes proxies into account.
+	 *
 	 * @return string
 	 */
 	public function get_client_ip() {
