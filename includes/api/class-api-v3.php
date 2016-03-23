@@ -26,6 +26,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	private $error_message;
 	private $error_code;
 	private $last_response;
+	private $last_response_raw;
 
 	/**
 	 * Constructor
@@ -45,8 +46,8 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @param string $resource
 	 * @return mixed
 	 */
-	public function get( $resource ) {
-		return $this->request( 'GET', $resource );
+	public function get( $resource, $args = array() ) {
+		return $this->request( 'GET', $resource, $args );
 	}
 
 	/**
@@ -99,8 +100,14 @@ class MC4WP_API_v3 implements iMC4WP_API {
 		$args = array(
 			'method' => $method,
 			'headers' => $this->get_headers(),
-			'body' => json_encode( $data ),
 		);
+
+		// attach arguments (in body or URL)
+		if( $method === 'GET' ) {
+			$url = add_query_arg( $data, $url );
+		} else {
+			$args['body'] = json_encode( $data );
+		}
 
 		$response = wp_remote_request( $url, $args );
 
@@ -113,6 +120,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 		}
 
 		// store response
+		$this->last_response_raw = $response;
 		$this->last_response = $data;
 
 		// store error (if any)
@@ -351,12 +359,13 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
-	 * @param array $list_ids Deprecated parameter.
+	 * @param array $args
 	 *
 	 * @return array
 	 */
-	public function get_lists( $list_ids = array() ) {
-		$data = $this->get( '/lists' );
+	public function get_lists( $args = array() ) {
+
+		$data = $this->get( '/lists', $args );
 
 		if( is_object( $data ) && isset( $data->lists ) ) {
 			return $data->lists;
@@ -518,6 +527,15 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 */
 	public function get_last_response() {
 		return $this->last_response;
+	}
+
+	/**
+	 * Get the most recent response object (raw)
+	 *
+	 * @return object
+	 */
+	public function get_last_response_raw() {
+		return $this->last_response_raw;
 	}
 
 	/**
