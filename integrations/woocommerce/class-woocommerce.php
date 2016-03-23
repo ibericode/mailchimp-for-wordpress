@@ -26,7 +26,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 
 		if( ! $this->options['implicit'] ) {
 			// create hook name based on position setting
-			$hook = sprintf( 'woocommerce_checkout_%s', $this->options['position'] );
+			$hook = sprintf( 'woocommerce_%s', $this->options['position'] );
 			add_action( $hook, array( $this, 'output_checkbox' ), 20 );
 			add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save_woocommerce_checkout_checkbox_value' ) );
 		}

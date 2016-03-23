@@ -1,9 +1,10 @@
 <?php
 
 $position_options = array(
-	'billing' => __( "After billing details", 'mailchimp-for-wp' ),
-	'shipping' => __( 'After shipping details', 'mailchimp-for-wp' ),
-	'after_customer_details' => __( 'After customer details', 'mailchimp-for-wp' ),
+	'checkout_billing' => __( "After billing details", 'mailchimp-for-wp' ),
+	'checkout_shipping' => __( 'After shipping details', 'mailchimp-for-wp' ),
+	'checkout_after_customer_details' => __( 'After customer details', 'mailchimp-for-wp' ),
+	'review_order_before_submit' => __( 'Before submit button', 'mailchimp-for-wp' ),
 );
 
 ?>
