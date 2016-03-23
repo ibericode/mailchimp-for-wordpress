@@ -42,6 +42,49 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
+	 * @param string $resource
+	 * @return mixed
+	 */
+	public function get( $resource ) {
+		return $this->request( 'GET', $resource );
+	}
+
+	/**
+	 * @param string $resource
+	 * @param array $data
+	 * @return mixed
+	 */
+	public function post( $resource, $data = array() ) {
+		return $this->request( 'POST', $resource, $data );
+	}
+
+	/**
+	 * @param string $resource
+	 * @param array $data
+	 * @return mixed
+	 */
+	public function put( $resource, $data = array() ) {
+		return $this->request( 'PUT', $resource, $data );
+	}
+
+	/**
+	 * @param string $resource
+	 * @param array $data
+	 * @return mixed
+	 */
+	public function patch( $resource, $data = array() ) {
+		return $this->request( 'PATCH', $resource, $data );
+	}
+
+	/**
+	 * @param string $resource
+	 * @return mixed
+	 */
+	public function delete( $resource ) {
+		return $this->request( 'DELETE', $resource );
+	}
+
+	/**
 	 * @param string $method
 	 * @param string $resource
 	 * @param array $data
@@ -116,14 +159,19 @@ class MC4WP_API_v3 implements iMC4WP_API {
 		}
 
 		// decode response body
+		$code = (int) wp_remote_retrieve_response_code( $response );
+		$message = wp_remote_retrieve_response_message( $response );
 		$body = wp_remote_retrieve_body( $response );
+
+		// set body to "true" in case MailChimp returned No Content
+		if( $code < 300 && empty( $body ) ) {
+			$body = "true";
+		}
+
 		$data = json_decode( $body );
 		if( ! is_null( $data ) ) {
 			return $data;
 		}
-
-		$code = (int) wp_remote_retrieve_response_code( $response );
-		$message = wp_remote_retrieve_response_message( $response );
 
 		if( $code !== 200 ) {
 			$message = sprintf( 'The MailChimp API server returned the following response: <em>%s %s</em>.', $code, $message );
@@ -151,7 +199,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	public function is_connected() {
 
 		if( is_null( $this->connected ) ) {
-			$data = $this->request( 'GET', '/' );
+			$data = $this->get( '/' );
 			$this->connected = is_object( $data ) && isset( $data->account_id );
 		}
 
@@ -163,7 +211,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 *
 	 * @return string
 	 */
-	public function get_email_address_hash( $email_address ) {
+	public function get_subscriber_hash( $email_address ) {
 		return md5( strtolower( trim( $email_address ) ) );
 	}
 
@@ -187,29 +235,40 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 */
 	public function subscribe( $list_id, $email_address, array $merge_fields = array(), $email_type = 'html', $double_optin = true, $update_existing = false, $replace_interests = true, $send_welcome = null ) {
 
-		$email_address_hash = $this->get_email_address_hash( $email_address );
+		$subscriber_hash = $this->get_subscriber_hash( $email_address );
+		$resource = sprintf( '/lists/%s/members/%s', $list_id, $subscriber_hash );
 
 		// first, check if subscriber is already on the given list
-		$data = $this->request( 'GET', sprintf( '/lists/%s/members/%s', $list_id, $email_address_hash ) );
+		$data = $this->get( $resource );
 
 		if( is_object( $data ) && ! empty( $data->id ) ) {
 
-			// email address is already subscribed, should we update?
-			if( $update_existing ) {
-				return $this->update_subscriber( $list_id, $email_address, $merge_fields, $email_type, $replace_interests );
-			}
-
-			// pass old "already_subscribed" error
+			// email address is already subscribed
 			if( $data->status === 'subscribed' ) {
+
+				// should we update?
+				if( $update_existing ) {
+					return $this->update_subscriber($list_id, $email_address, $merge_fields, $email_type, $replace_interests);
+				}
+
+				// return old "already_subscribed" error
+				// TODO: Maybe change this?
 				$this->error_code = 214;
 				return false;
 			}
 
-			// If subscriber is "pending", return true.
-			return $data->status === 'pending';
+			// if double opt-in is enabled, try to delete email from list first.
+			if( $double_optin ) {
+				$success = $this->delete( $resource );
+
+				// If this failed for some reason, assume success...
+				if( ! $success && $data->status === 'pending' ) {
+					return true;
+				}
+			}
 		}
 
-		// not on list, subscribe.
+		// not on list (or freshly deleted), subscribe.
 		$status = $double_optin ? 'pending' : 'subscribed';
 		$args = array(
 			'email_address' => $email_address,
@@ -231,7 +290,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 
 		// set leftover merge fields
 		$args['merge_fields'] = $merge_fields;
-		$data = $this->request( 'POST', sprintf( '/lists/%s/members', $list_id ), $args );
+		$data = $this->put( $resource, $args );
 
 		return is_object( $data ) && ! empty( $data->id );
 	}
@@ -246,7 +305,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @return array
 	 */
 	public function get_list_interest_categories( $list_id ) {
-		$data = $this->request( 'GET', sprintf( '/lists/%s/interest-categories', $list_id ) );
+		$data = $this->get( sprintf( '/lists/%s/interest-categories', $list_id ) );
 
 		if( is_object( $data ) && isset( $data->categories ) ) {
 			return $data->categories;
@@ -265,7 +324,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 */
 	public function get_list_interest_category_interests( $list_id, $interest_category_id ) {
 		$resource = sprintf( '/lists/%s/interest-categories/%s/interests', $list_id, $interest_category_id );
-		$data = $this->request( 'GET', $resource );
+		$data = $this->get( $resource );
 
 		if( is_object( $data ) && isset( $data->interests ) ) {
 			return $data->interests;
@@ -282,7 +341,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @return array
 	 */
 	public function get_list_merge_fields( $list_id ) {
-		$data = $this->request( 'GET', sprintf( '/lists/%s/merge-fields', $list_id ) );
+		$data = $this->get( sprintf( '/lists/%s/merge-fields', $list_id ) );
 
 		if( is_object( $data ) && isset( $data->merge_fields ) ) {
 			return $data->merge_fields;
@@ -297,7 +356,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @return array
 	 */
 	public function get_lists( $list_ids = array() ) {
-		$data = $this->request( 'GET', '/lists' );
+		$data = $this->get( '/lists' );
 
 		if( is_object( $data ) && isset( $data->lists ) ) {
 			return $data->lists;
@@ -335,7 +394,6 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
-	 * TODO: If someone subscribed, then unsubscribed this method won't re-subscribe them..
 	 *
 	 * @param              $list_id
 	 * @param array|string $email_address
@@ -347,11 +405,12 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 */
 	public function update_subscriber( $list_id, $email_address, $merge_fields = array(), $email_type = 'html', $replace_interests = false ) {
 
-		$email_address_hash = $this->get_email_address_hash( $email_address );
+		$email_address_hash = $this->get_subscriber_hash( $email_address );
 
 		$args = array(
 			'email_address' => $email_address,
 			'email_type' => $email_type,
+			'status' => 'subscribed',
 		);
 
 		// for backwards compatibility, copy over OPTIN_IP from merge_fields array.
@@ -368,7 +427,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 
 		// set leftover merge fields
 		$args['merge_fields'] = $merge_fields;
-		$data = $this->request( 'PATCH', sprintf( '/lists/%s/members/%s', $list_id, $email_address_hash ), $args );
+		$data = $this->patch( sprintf( '/lists/%s/members/%s', $list_id, $email_address_hash ), $args );
 
 		return is_object( $data ) && ! empty( $data->id );
 	}
@@ -387,16 +446,17 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	public function unsubscribe( $list_id, $email_address, $send_goodbye = null, $send_notification = null, $delete_member = null ) {
 
 		// for backwards compatibility with API v2 (which accepted an array)
-		if( is_string( $email_address ) ) {
+		if( ! is_string( $email_address ) ) {
 			$email_address = $email_address['email'];
 		}
 
-		$email_address_hash = $this->get_email_address_hash( $email_address );
+		$email_address_hash = $this->get_subscriber_hash( $email_address );
 		$args = array(
 			'status' => 'unsubscribed',
 			'email_address' => $email_address,
 		);
-		$data = $this->request( 'PATCH', sprintf( '/lists/%s/members/%s', $list_id, $email_address_hash ), $args );
+
+		$data = $this->patch( sprintf( '/lists/%s/members/%s', $list_id, $email_address_hash ), $args );
 
 		return is_object( $data ) && ! empty( $data->id );
 	}
