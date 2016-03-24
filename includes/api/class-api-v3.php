@@ -389,12 +389,12 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * Checks if an email address is on a given list with status "subscribed"
 	 *
 	 * @param string $list_id
-	 * @param string $email
+	 * @param string $email_address
 	 *
 	 * @return boolean
 	 */
-	public function list_has_subscriber( $list_id, $email ) {
-		$data = $this->get_list_member( $list_id, $email );
+	public function list_has_subscriber( $list_id, $email_address ) {
+		$data = $this->get_list_member( $list_id, $email_address );
 		return is_object( $data ) && ! empty( $data->id ) && $data->status === 'subscribed';
 	}
 
@@ -469,12 +469,12 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @since 4.0
 	 *
 	 * @param string $store_id
-	 * @param array $order_data
+	 * @param array $args
 	 *
 	 * @return boolean
 	 */
-	public function add_ecommerce_store_order( $store_id, array $order_data ) {
-		$data = $this->post( sprintf( '/ecommerce/stores/%s/orders', $store_id ), $order_data );
+	public function add_ecommerce_store_order( $store_id, array $args ) {
+		$data = $this->post( sprintf( '/ecommerce/stores/%s/orders', $store_id ), $args );
 		return is_object( $data ) && ! empty( $data->id );
 	}
 
