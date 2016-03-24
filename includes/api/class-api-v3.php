@@ -472,28 +472,29 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
-	 * @see https://apidocs.mailchimp.com/api/2.0/ecomm/order-add.php
+	 * @see http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/
 	 *
+	 * @param string $store_id
 	 * @param array $order_data
 	 *
 	 * @return boolean
 	 */
-	public function add_ecommerce_order( array $order_data ) {
-		// TODO: Implement add_ecommerce_order() method.
-		_deprecated_function( __METHOD__, '4.0' );
+	public function add_ecommerce_store_order( $store_id, array $order_data ) {
+		$data = $this->post( sprintf( '/ecommerce/stores/%s/orders', $store_id ), $order_data );
+		return is_object( $data ) && ! empty( $data->id );
 	}
 
 	/**
-	 * @see https://apidocs.mailchimp.com/api/2.0/ecomm/order-del.php
+	 * @see http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/
 	 *
 	 * @param string $store_id
 	 * @param string $order_id
 	 *
 	 * @return bool
 	 */
-	public function delete_ecommerce_order( $store_id, $order_id ) {
-		// TODO: Implement delete_ecommerce_order() method.
-		_deprecated_function( __METHOD__, '4.0' );
+	public function delete_ecommerce_store_order( $store_id, $order_id ) {
+		$data = $this->delete( sprintf( '/ecommerce/stores/%s/orders/%s', $store_id, $order_id ) );
+		return !! $data;
 	}
 
 	/**
