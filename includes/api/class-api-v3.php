@@ -390,7 +390,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
-	 * Checks if an email address is on a given list
+	 * Checks if an email address is on a given list with status "subscribed"
 	 *
 	 * @param string $list_id
 	 * @param string $email
