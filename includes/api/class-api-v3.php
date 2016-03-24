@@ -374,8 +374,6 @@ class MC4WP_API_v3 implements iMC4WP_API {
 		return array();
 	}
 
-
-
 	/**
 	 * Gets the member info for one or multiple emails on a list
 	 *
