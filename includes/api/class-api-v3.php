@@ -595,4 +595,70 @@ class MC4WP_API_v3 implements iMC4WP_API {
 		return array();
 	}
 
+	/**
+	 * @deprecated 4.0
+	 * @use MC4WP_API::add_ecommerce_store_order()
+	 *
+	 * @see https://apidocs.mailchimp.com/api/2.0/ecomm/order-add.php
+	 *
+	 * @param array $order_data
+	 *
+	 * @return boolean
+	 */
+	public function add_ecommerce_order( array $order_data ) {
+		_deprecated_function( __METHOD__, '4.0', 'MC4WP_API::add_ecommerce_store_order()' );
+
+		// get store id
+		$store_id = $order_data['store_id'];
+
+		// generate new $order_data format
+		$old = $order_data;
+		$order_data = array(
+			'id' => $old['id'],
+			'customer' => array(
+				'id' => '', 				// TODO: Generate (or find) customer ID
+				'email_address' => $old['email'],
+			),
+			'currency_code' => '',
+			'order_total' => $old['total'],
+			'tax_total' => $old['tax'],
+			'lines' => array(),
+			'processed_at_foreign' => $old['order_date'],
+		);
+
+		foreach( $old['items'] as $index => $item ) {
+			$line_id = sprintf( '%s-%s', $order_data['id'], $index + 1 );
+			$order_data['lines'][] = array(
+				'id' => $line_id,
+				'product_id' => $item['product_id'],
+				'product_variant_id' => '',     // TODO: Look at what value we need for this...
+				'quantity' => $item['qty'],
+				'price' => $item['cost']
+			);
+		}
+
+		if( isset( $old['campaign_id'] ) ) {
+			$order_data['campaign_id'] = $old['campaign_id'];
+		}
+
+		return $this->add_ecommerce_store_order( $store_id, $order_data );
+	}
+
+	/**
+	 *
+	 * @deprecated 4.0
+	 * @use MC4WP_API::delete_ecommerce_store_order()
+	 *
+	 * @see https://apidocs.mailchimp.com/api/2.0/ecomm/order-del.php
+	 *
+	 * @param string $store_id
+	 * @param string $order_id
+	 *
+	 * @return bool
+	 */
+	public function delete_ecommerce_order( $store_id, $order_id ) {
+		_deprecated_function( __METHOD__, '4.0', 'MC4WP_API::delete_ecommerce_store_order()' );
+		return $this->delete_ecommerce_store_order( $store_id, $order_id );
+	}
+
 }
