@@ -443,7 +443,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
-	 * Unsubscribes the given email or luid from the given MailChimp list
+	 * Unsubscribes the given email address from the given MailChimp list
 	 *
 	 * @param string       $list_id
 	 * @param string       $email_address
