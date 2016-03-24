@@ -398,8 +398,9 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @return boolean
 	 */
 	public function list_has_subscriber( $list_id, $email ) {
-		// TODO: Implement list_has_subscriber() method.
-		_deprecated_function( __METHOD__, '4.0' );
+		$subscriber_hash = $this->get_subscriber_hash( $email );
+		$data = $this->get( sprintf( '/lists/%s/members/%s', $list_id, $subscriber_hash ) );
+		return is_object( $data ) && ! empty( $data->id ) && $data->status === 'subscribed';
 	}
 
 	/**
