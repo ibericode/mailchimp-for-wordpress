@@ -308,11 +308,13 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @since 4.0
 	 *
 	 * @param string $list_id
+	 * @param array $args
 	 *
 	 * @return array
 	 */
-	public function get_list_interest_categories( $list_id ) {
-		$data = $this->get( sprintf( '/lists/%s/interest-categories', $list_id ) );
+	public function get_list_interest_categories( $list_id, array $args = array() ) {
+		$resource = sprintf( '/lists/%s/interest-categories', $list_id );
+		$data = $this->get( $resource, $args );
 
 		if( is_object( $data ) && isset( $data->categories ) ) {
 			return $data->categories;
@@ -325,14 +327,15 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/interest-categories/interests/#read-get_lists_list_id_interest_categories_interest_category_id_interests
 	 * @since 4.0
 	 *
-	 * @param $list_id
-	 * @param $interest_category_id
+	 * @param string $list_id
+	 * @param string $interest_category_id
+	 * @param array $args
 	 *
 	 * @return array
 	 */
-	public function get_list_interest_category_interests( $list_id, $interest_category_id ) {
+	public function get_list_interest_category_interests( $list_id, $interest_category_id, array $args = array() ) {
 		$resource = sprintf( '/lists/%s/interest-categories/%s/interests', $list_id, $interest_category_id );
-		$data = $this->get( $resource );
+		$data = $this->get( $resource, $args );
 
 		if( is_object( $data ) && isset( $data->interests ) ) {
 			return $data->interests;
@@ -348,12 +351,13 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @since 4.0
 	 *
 	 * @param string $list_id
+	 * @param array $args
 	 *
 	 * @return array
 	 */
-	public function get_list_merge_fields( $list_id ) {
+	public function get_list_merge_fields( $list_id, array $args = array() ) {
 		$resource = sprintf( '/lists/%s/merge-fields', $list_id );
-		$data = $this->get( $resource );
+		$data = $this->get( $resource, $args );
 
 		if( is_object( $data ) && isset( $data->merge_fields ) ) {
 			return $data->merge_fields;
@@ -402,13 +406,14 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 *
 	 * @param string $list_id
 	 * @param string $email_address
+	 * @param array $args
 	 *
 	 * @return object
 	 */
-	public function get_list_member( $list_id, $email_address ) {
+	public function get_list_member( $list_id, $email_address, array $args = array() ) {
 		$subscriber_hash = $this->get_subscriber_hash( $email_address );
 		$resource = sprintf( '/lists/%s/members/%s', $list_id, $subscriber_hash );
-		$data = $this->get( $resource );
+		$data = $this->get( $resource, $args );
 		return $data;
 	}
 
