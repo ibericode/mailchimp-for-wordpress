@@ -78,8 +78,11 @@ class MC4WP_MailChimp_Merge_Field {
 
 		$instance = new self( $data->name, $data->type, $data->tag, $data->required );
 
+		if( ! empty( $data->options->choices ) ) {
+			$instance->choices = $data->options->choices;
+		}
+
 		$optional = array(
-			'choices',
 			'public',
 			'default_value'
 		);
