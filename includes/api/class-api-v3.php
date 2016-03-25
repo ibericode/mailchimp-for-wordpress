@@ -304,6 +304,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	/**
 	 * Gets the Groupings for a given List
 	 *
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/interest-categories/#read-get_lists_list_id_interest_categories
 	 * @since 4.0
 	 *
 	 * @param string $list_id
@@ -321,6 +322,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/interest-categories/interests/#read-get_lists_list_id_interest_categories_interest_category_id_interests
 	 * @since 4.0
 	 *
 	 * @param $list_id
@@ -342,12 +344,16 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	/**
 	 * Get merge vars for a given list
 	 *
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/merge-fields/#read-get_lists_list_id_merge_fields
 	 * @since 4.0
+	 *
 	 * @param string $list_id
+	 *
 	 * @return array
 	 */
 	public function get_list_merge_fields( $list_id ) {
-		$data = $this->get( sprintf( '/lists/%s/merge-fields', $list_id ) );
+		$resource = sprintf( '/lists/%s/merge-fields', $list_id );
+		$data = $this->get( $resource );
 
 		if( is_object( $data ) && isset( $data->merge_fields ) ) {
 			return $data->merge_fields;
@@ -357,13 +363,16 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
+	 *
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/#read-get_lists
+	 *
 	 * @param array $args
 	 *
 	 * @return array
 	 */
 	public function get_lists( $args = array() ) {
-
-		$data = $this->get( '/lists', $args );
+		$resource = '/lists';
+		$data = $this->get( $resource, $args );
 
 		if( is_object( $data ) && isset( $data->lists ) ) {
 			return $data->lists;
@@ -388,7 +397,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 
 
 	/**
-	 * @see http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
 	 * @since 4.0
 	 *
 	 * @param string $list_id
@@ -404,7 +413,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
-	 * @see http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#create-post_lists_list_id_members
 	 * @since 4.0
 	 *
 	 * @param string $list_id
@@ -419,7 +428,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
-	 * @see http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#edit-patch_lists_list_id_members_subscriber_hash
 	 * @since 4.0
 	 *
 	 * @param $list_id
@@ -436,7 +445,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
-	 * @see http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
 	 * @since 4.0
 	 *
 	 * @param string $list_id
@@ -452,7 +461,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
-	 * @see http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/#create-post_ecommerce_stores_store_id_orders
 	 * @since 4.0
 	 *
 	 * @param string $store_id
@@ -466,7 +475,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
-	 * @see http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/#delete-delete_ecommerce_stores_store_id_orders_order_id
 	 * @since 4.0
 	 *
 	 * @param string $store_id
@@ -649,7 +658,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @deprecated 4.0
 	 * @use MC4WP_API::add_ecommerce_store_order()
 	 *
-	 * @see https://apidocs.mailchimp.com/api/2.0/ecomm/order-add.php
+	 * @link https://apidocs.mailchimp.com/api/2.0/ecomm/order-add.php
 	 *
 	 * @param array $order_data
 	 *
@@ -699,7 +708,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @deprecated 4.0
 	 * @use MC4WP_API::delete_ecommerce_store_order()
 	 *
-	 * @see https://apidocs.mailchimp.com/api/2.0/ecomm/order-del.php
+	 * @link https://apidocs.mailchimp.com/api/2.0/ecomm/order-del.php
 	 *
 	 * @param string $store_id
 	 * @param string $order_id
