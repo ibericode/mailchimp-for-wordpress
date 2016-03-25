@@ -57,9 +57,8 @@ class MC4WP_MailChimp {
 
 		// transient was empty, get lists from MailChimp
 		$api = $this->api();
-		$lists_data = $api->get_lists( array( 'fields' => 'lists.id,lists.name,lists.stats' ) );
-		//$lists_data = $api->get_lists( array( 'fields' => 'lists.id' ) );
-		//$list_ids = wp_list_pluck( $lists_data, 'id' );
+		$lists_data = $api->get_lists( array( 'fields' => 'lists.id' ) );
+		$list_ids = wp_list_pluck( $lists_data, 'id' );
 
 		/**
 		 * @var MC4WP_MailChimp_List[]
@@ -68,14 +67,21 @@ class MC4WP_MailChimp {
 
 		// TODO: See if we can combine this into less API calls.....
 
-		//foreach ( $list_ids as $list_id ) {
-		foreach ( $lists_data as $list_data ) {
+		foreach ( $list_ids as $list_id ) {
 
-			//$list_data = $api->get( sprintf( '/lists/%s', $list_id ) );
+			$list_data = $api->get_list( $list_id, array( 'fields' => 'id,name,stats') );
 
 			// create local object
 			$list = new MC4WP_MailChimp_List( $list_data->id, $list_data->name );
 			$list->subscriber_count = $list_data->stats->member_count;
+
+			// parse web_id from the "link" response header
+			$raw_response = $api->get_last_response_raw();
+			$link_header = $raw_response['headers']['link'];
+			preg_match( '/\?id=(\d+)/', $link_header, $matches );
+			if( ! empty( $matches[1] ) ) {
+				$list->web_id = $matches[1];
+			};
 
 			// add to array
 			$lists["{$list->id}"] = $list;

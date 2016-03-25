@@ -16,11 +16,8 @@ class MC4WP_MailChimp_List {
 
 	/**
 	 * @var string Web ID of this list in MailChimp.com
-	 * @deprecated 4.0
-	 *
-	 * TODO: Find out if there's a way to link to MailChimp web interface.
 	 */
-	public $web_id;
+	public $web_id = '';
 
 	/**
 	 * @var string Name of this list
@@ -133,8 +130,6 @@ class MC4WP_MailChimp_List {
 
 	/**
 	 * Get link to this list in MailChimp
-	 *
-	 * TODO: Look at alternative ways to link to the MailChimp web interface.
 	 *
 	 * @return string
 	 */
