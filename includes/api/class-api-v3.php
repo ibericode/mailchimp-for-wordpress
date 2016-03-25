@@ -367,6 +367,21 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/#read-get_lists_list_id
+	 * @since 4.0
+	 *
+	 * @param string $list_id
+	 * @param array $args
+	 *
+	 * @return object
+	 */
+	public function get_list( $list_id, array $args = array() ) {
+		$resource = sprintf( '/lists/%s', $list_id );
+		$data = $this->get( $resource, $args );
+		return $data;
+	}
+
+	/**
 	 *
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/#read-get_lists
 	 *
