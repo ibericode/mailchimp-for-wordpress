@@ -373,19 +373,6 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
-	 * Gets the member info for one or multiple emails on a list
-	 *
-	 * @param string $list_id
-	 * @param array  $emails
-	 *
-	 * @return array
-	 */
-	public function get_subscriber_info( $list_id, array $emails ) {
-		// TODO: Implement get_subscriber_info() method.
-		_deprecated_function( __METHOD__, '4.0' );
-	}
-
-	/**
 	 * Checks if an email address is on a given list with status "subscribed"
 	 *
 	 * @param string $list_id
@@ -722,6 +709,28 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	public function delete_ecommerce_order( $store_id, $order_id ) {
 		_deprecated_function( __METHOD__, '4.0', 'MC4WP_API::delete_ecommerce_store_order()' );
 		return $this->delete_ecommerce_store_order( $store_id, $order_id );
+	}
+
+	/**
+	 * Gets the member info for one or multiple emails on a list
+	 *
+	 * @deprecated 4.0
+	 * @use MC4WP_API::get_list_member()
+	 *
+	 * @param string $list_id
+	 * @param string $email
+	 *
+	 * @return array
+	 */
+	public function get_subscriber_info( $list_id, $email ) {
+
+		_deprecated_function( __METHOD__, '4.0', 'MC4WP_API::get_list_member()' );
+
+		if( is_array( $email ) ) {
+			$email = array_shift( $email );
+		}
+
+		return $this->get_list_member( $list_id, $email );
 	}
 
 }
