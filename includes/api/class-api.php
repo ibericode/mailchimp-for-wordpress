@@ -240,7 +240,7 @@ class MC4WP_API {
 	 * @param array $emails
 	 * @return array
 	 */
-	public function get_subscriber_info( $list_id, array $emails ) {
+	public function get_subscriber_info( $list_id, $emails ) {
 
 		if( is_string( $emails ) ) {
 			$emails = array( $emails );

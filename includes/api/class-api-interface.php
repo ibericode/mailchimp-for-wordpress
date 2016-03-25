@@ -73,10 +73,10 @@ interface iMC4WP_API {
 	 * Gets the member info for one or multiple emails on a list
 	 *
 	 * @param string $list_id
-	 * @param array $emails
+	 * @param array|string $emails
 	 * @return array
 	 */
-	public function get_subscriber_info( $list_id, array $emails );
+	public function get_subscriber_info( $list_id, $emails );
 
 	/**
 	 * Checks if an email address is on a given list
