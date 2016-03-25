@@ -85,16 +85,16 @@ class MC4WP_MailChimp {
 				continue;
 			}
 
-			$field_data = $api->get_list_merge_fields( $list->id );
+			$field_data = $api->get_list_merge_fields( $list->id, array( 'fields' => 'merge_fields.name,merge_fields.tag,merge_fields.type,merge_fields.required,merge_fields.default_value,merge_fields.options,merge_fields.public' ) );
 			$list->merge_fields = array_map( array( 'MC4WP_MailChimp_Merge_Field', 'from_data' ), $field_data );
 
 			// get interest groupings
-			$groupings_data = $api->get_list_interest_categories( $list->id );
+			$groupings_data = $api->get_list_interest_categories( $list->id, array( 'fields' => 'categories.id,categories.title,categories.type' ) );
 			foreach( $groupings_data as $grouping_data ) {
 				$grouping = MC4WP_MailChimp_Interest_Category::from_data( $grouping_data );
 
 				// fetch groups for this interest
-				$interests_data = $api->get_list_interest_category_interests( $list->id, $grouping->id );
+				$interests_data = $api->get_list_interest_category_interests( $list->id, $grouping->id, array( 'fields' => 'interests.id,interests.name') );
 				foreach( $interests_data as $interest_data ) {
 					$grouping->interests[ $interest_data->id ] = $interest_data->name;
 				}
@@ -102,8 +102,8 @@ class MC4WP_MailChimp {
 				$list->interest_categories[] = $grouping;
 			}
 
-
 		}
+
 
 		// store lists in transients
 		set_transient(  $this->lists_transient_name, $lists, ( 24 * 3600 * 2 ) ); // 2 days
