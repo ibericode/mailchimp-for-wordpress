@@ -43,6 +43,19 @@ class MC4WP_MailChimp_Grouping {
 	}
 
 	/**
+	 * @param int $id
+	 *
+	 * @return string
+	 */
+	public function get_group_name_by_id( $id ) {
+		if( isset( $this->groups[ $id ] ) ) {
+			return $this->groups[ $id ];
+		}
+
+		return $id;
+	}
+
+	/**
 	 * @param object $data
 	 *
 	 * @return MC4WP_MailChimp_Grouping
