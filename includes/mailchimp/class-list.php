@@ -99,7 +99,7 @@ class MC4WP_MailChimp_List {
 
 		foreach( $this->groupings as $grouping ) {
 
-			if( $grouping->id !== $grouping_id ) {
+			if( $grouping->id != $grouping_id ) {
 				continue;
 			}
 
