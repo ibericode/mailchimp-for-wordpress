@@ -3,7 +3,6 @@
 /**
  * Class MC4WP_API_v3
  *
- * TODO: Method naming consistency (with MailChimp API and method chaining from v2)
  * TODO: Error handling
  */
 class MC4WP_API_v3 implements iMC4WP_API {
