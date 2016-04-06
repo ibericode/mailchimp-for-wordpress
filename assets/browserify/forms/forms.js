@@ -33,7 +33,7 @@ function getByElement(element) {
 		}
 	}
 
-	return createFromElement(element);
+	return createFromElement(formElement);
 }
 
 // create form object from <form> element
