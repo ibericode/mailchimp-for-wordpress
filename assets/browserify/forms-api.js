@@ -64,7 +64,8 @@ Gator(document.body).on('focus', '.mc4wp-form', function(event) {
 	event = event || window.event;
 	var form = forms.getByElement(event.target || event.srcElement);
 	if( ! form.started ) {
-		forms.trigger('start', [form, event]);
+		forms.trigger('started', [form, event]);
+		form.started = true;
 	}
 });
 
