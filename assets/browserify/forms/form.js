@@ -27,18 +27,7 @@ var Form = function(id, element) {
 	};
 
 	this.setResponse = function( msg ) {
-		var responseEl = form.element.querySelector('.mc4wp-response');
-
-		if( responseEl ) {
-			if( msg.indexOf( 'mc4wp-response' ) > 0 ) {
-				responseEl.outerHTML = msg;
-			} else {
-				responseEl.innerHTML = msg;
-			}
-		} else {
-			form.element.innerHTML = form.element.innerHTML + msg;
-		}
-
+		form.element.querySelector('.mc4wp-response').innerHTML = msg;
 	};
 
 };

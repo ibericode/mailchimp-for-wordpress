@@ -27,7 +27,8 @@ function get(formId) {
 // get form by <form> element (or any input in form)
 function getByElement(element) {
 	var formElement = element.form || element;
-	for(var i=0; i<forms.length;i++) {
+
+	for(var i=0; i < forms.length; i++) {
 		if(forms[i].element == formElement) {
 			return forms[i];
 		}
@@ -37,9 +38,9 @@ function getByElement(element) {
 }
 
 // create form object from <form> element
-function createFromElement(formElement,id) {
+function createFromElement(formElement, id) {
 	id = id || parseInt( formElement.getAttribute('data-id') ) || 0;
-	var form = new Form(id,formElement);
+	var form = new Form(id, formElement);
 	forms.push(form);
 	return form;
 }
