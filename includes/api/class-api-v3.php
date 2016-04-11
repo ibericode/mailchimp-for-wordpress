@@ -441,8 +441,11 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 * @return object
 	 */
 	public function add_list_member( $list_id, array $args ) {
-		$resource = sprintf( '/lists/%s/members', $list_id );
-		$data = $this->post( $resource, $args );
+		$subscriber_hash = $this->get_subscriber_hash( $args['email_address'] );
+		$resource = sprintf( '/lists/%s/members/%s', $list_id, $subscriber_hash );
+
+		// "put" updates the member if it's already on the list... take notice
+		$data = $this->put( $resource, $args );
 		return $data;
 	}
 
