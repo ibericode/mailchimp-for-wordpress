@@ -92,7 +92,7 @@ class MC4WP_MailChimp {
 			}
 
 			$field_data = $api->get_list_merge_fields( $list->id, array( 'fields' => 'merge_fields.name,merge_fields.tag,merge_fields.type,merge_fields.required,merge_fields.default_value,merge_fields.options,merge_fields.public' ) );
-			$list->merge_fields = array_map( array( 'MC4WP_MailChimp_Merge_Field', 'from_data' ), $field_data );
+			$list->merge_fields = $list->merge_fields + array_map( array( 'MC4WP_MailChimp_Merge_Field', 'from_data' ), $field_data );
 
 			// get interest groupings
 			$groupings_data = $api->get_list_interest_categories( $list->id, array( 'fields' => 'categories.id,categories.title,categories.type' ) );
@@ -109,7 +109,6 @@ class MC4WP_MailChimp {
 			}
 
 		}
-
 
 		// store lists in transients
 		set_transient(  $this->lists_transient_name, $lists, ( 24 * 3600 * 2 ) ); // 2 days
