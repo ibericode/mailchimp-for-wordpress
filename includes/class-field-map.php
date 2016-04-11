@@ -190,6 +190,7 @@ class MC4WP_Field_Map {
 			return;
 		}
 
+
 		// reset entire groupings array here
 		unset( $this->custom_fields['INTERESTS'] );
 
@@ -199,6 +200,16 @@ class MC4WP_Field_Map {
 		}
 
 		foreach( $groups as $interest_id ) {
+
+			// since $interest_id might be a name instead of an ID, look in interests' values
+			if( ! isset( $interest_category->interests[ $interest_id ] ) ) {
+				$interest_id = array_search( $interest_id, $interest_category->interests );
+
+				if( ! $interest_id ) {
+					continue;
+				}
+			}
+
 			$this->list_fields[ $list->id ]['INTERESTS'][ $interest_id ] = true;
 		}
 
