@@ -147,6 +147,11 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 			return '';
 		}
 
+		// Return empty string if CF7 is no longer activated.
+		if( ! function_exists( 'wpcf7_contact_form' ) ) {
+			return '';
+		}
+
 		$form = wpcf7_contact_form( $object_id );
 		if( ! is_object( $form ) ) {
 			return '';

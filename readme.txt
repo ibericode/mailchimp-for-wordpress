@@ -43,6 +43,8 @@ MailChimp for WordPress helps you add more subscribers to your MailChimp lists u
 	- [MailChimp User Sync](https://wordpress.org/plugins/mailchimp-sync/)
 	- [Scroll Triggered Boxes](https://wordpress.org/plugins/scroll-triggered-boxes/)
 	- [Captcha](https://wordpress.org/plugins/mc4wp-captcha/)
+	- Third Party:
+	    - [WPBruiser](https://wordpress.org/plugins/goodbye-captcha/)
 
 - Well documented. Our [knowledge base](https://mc4wp.com/kb/) is updated daily.
 

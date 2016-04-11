@@ -141,48 +141,38 @@ class MC4WP_Form {
 
 	/**
 	 * Gets the form response string
-	 * // TODO: Move to `Form_Element`
 	 *
-	 * @param bool $submitted
+	 * This does not take the submitted form element into account.
+	 *
+	 * @see MC4WP_Form_Element::get_response_html()
+	 *
 	 * @return string
 	 */
-	public function get_response_html( $submitted = null ) {
+	public function get_response_html() {
+		return $this->get_element()->get_response_html( true );
+	}
 
-		if( is_null( $submitted ) ) {
-			$submitted = $this->is_submitted;
-		}
+	/**
+	 * Get HTML string for a message, including wrapper element.
+	 *
+	 * @deprecated 3.2
+	 *
+	 * @param string $key
+	 *
+	 * @return string
+	 */
+	public function get_message_html( $key ) {
+		_deprecated_function( __METHOD__, '3.2' );
+		return '';
+	}
 
-		$html = '';
-		$form = $this;
-
-		if( $submitted ) {
-			if( $this->has_errors() ) {
-
-				// create html string of all errors
-				foreach( $this->errors as $key ) {
-					$html .= $this->get_message_html( $key );
-				}
-
-			} else {
-				$html = $this->get_message_html( $this->get_action() . 'd' );
-			}
-		}
-
-		/**
-		 * Filter the form response HTML
-		 *
-		 * Use this to add your own HTML to the form response. The form instance is passed to the callback function.
-		 *
-		 * @since 3.0
-		 *
-		 * @param string $html The complete HTML string of the response, excluding the wrapper element.
-		 * @param MC4WP_Form $form The form object
-		 */
-		$html = (string) apply_filters( 'mc4wp_form_response_html', $html, $form );
-
-		// wrap entire response in div, regardless of a form was submitted
-		$html = '<div class="mc4wp-response">' . $html . '</div>';
-		return $html;
+	/**
+	 * @param string $element_id
+	 * @param array $config
+	 * @return MC4WP_Form_element
+	 */
+	public function get_element( $element_id = 'mc4wp-form', $config = array() ) {
+		return new MC4WP_Form_Element( $this, $element_id, $config );
 	}
 
 	/**
@@ -196,7 +186,7 @@ class MC4WP_Form {
 	 * @return string
 	 */
 	public function get_html( $element_id = 'mc4wp-form', array $config = array() ) {
-		$element = new MC4WP_Form_Element( $this, $element_id, $config );
+		$element = $this->get_element( $element_id, $config );
 		$html = $element->generate_html();
 		return $html;
 	}
@@ -310,21 +300,6 @@ class MC4WP_Form {
 		$field_types = $result[1];
 
 		return $field_types;
-	}
-
-	/**
-	 * Get HTML string for a message, including wrapper element.
-	 *
-	 * @param string $key
-	 *
-	 * @return string
-	 */
-	public function get_message_html( $key ) {
-		$message = $this->get_message( $key );
-
-		$html = sprintf( '<div class="mc4wp-alert mc4wp-%s"><p>%s</p></div>', esc_attr( $message->type ), $message->text );
-
-		return $html;
 	}
 
 	/**

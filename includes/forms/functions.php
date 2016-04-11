@@ -47,9 +47,10 @@ function mc4wp_get_forms( array $args = array() ) {
  * @return string
  */
 function mc4wp_show_form( $form_id = 0, $config = array(), $echo = true ) {
-	return mc4wp('forms')->output_form( $form_id, $config, $echo );
+	/** @var MC4WP_Form_Manager $forms */
+	$forms = mc4wp('forms');
+	return $forms->output_form( $form_id, $config, $echo );
 }
-
 
 /**
  * Check whether a form was submitted

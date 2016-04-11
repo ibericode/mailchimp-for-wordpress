@@ -64,8 +64,10 @@ Gator(document.body).on('submit', '.mc4wp-form', function(event) {
 Gator(document.body).on('focus', '.mc4wp-form', function(event) {
 	event = event || window.event;
 	var form = forms.getByElement(event.target || event.srcElement);
+
 	if( ! form.started ) {
-		forms.trigger('start', [form, event]);
+		forms.trigger('started', [form, event]);
+		form.started = true;
 	}
 });
 
@@ -103,7 +105,7 @@ var Form = function(id, element) {
 	this.name = this.element.getAttribute('data-name') || "Form #" + this.id;
 	this.errors = [];
 	this.started = false;
-
+	
 	this.setData = function(data) {
 		populate(form.element, data);
 	};
@@ -154,19 +156,20 @@ function get(formId) {
 // get form by <form> element (or any input in form)
 function getByElement(element) {
 	var formElement = element.form || element;
-	for(var i=0; i<forms.length;i++) {
+
+	for(var i=0; i < forms.length; i++) {
 		if(forms[i].element == formElement) {
 			return forms[i];
 		}
 	}
 
-	return createFromElement(element);
+	return createFromElement(formElement);
 }
 
 // create form object from <form> element
-function createFromElement(formElement,id) {
+function createFromElement(formElement, id) {
 	id = id || parseInt( formElement.getAttribute('data-id') ) || 0;
-	var form = new Form(id,formElement);
+	var form = new Form(id, formElement);
 	forms.push(form);
 	return form;
 }

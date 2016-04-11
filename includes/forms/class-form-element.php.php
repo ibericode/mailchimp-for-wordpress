@@ -52,11 +52,11 @@ class MC4WP_Form_Element {
 	/**
 	 * @return string
 	 */
-	public function get_visible_fields() {
+	protected function get_visible_fields() {
 
 		$content = $this->form->content;
 		$form = $this->form;
-		$is_submitted = $this->is_submitted;
+		$element = $this;
 
 		/**
 		 * Filters the HTML for the form fields.
@@ -65,10 +65,10 @@ class MC4WP_Form_Element {
 		 *
 		 * @param string $content
 		 * @param MC4WP_Form $form
-		 * @param boolean $is_submitted
+		 * @param MC4WP_Form_Element $element
 		 * @since 2.0
 		 */
-		$visible_fields = (string) apply_filters( 'mc4wp_form_content', $content, $form, $is_submitted );
+		$visible_fields = (string) apply_filters( 'mc4wp_form_content', $content, $form, $element );
 
 		return $visible_fields;
 	}
@@ -76,7 +76,7 @@ class MC4WP_Form_Element {
 	/**
 	 * @return string
 	 */
-	public function get_hidden_fields() {
+	protected function get_hidden_fields() {
 
 		// hidden fields
 		$hidden_fields =  '<div style="display: none;"><input type="text" name="_mc4wp_honeypot" value="" tabindex="-1" autocomplete="off" /></div>';
@@ -91,6 +91,60 @@ class MC4WP_Form_Element {
 		}
 
 		return (string) $hidden_fields;
+	}
+
+	/**
+	 * Get HTML string for a message, including wrapper element.
+	 *
+	 * @param string $key
+	 *
+	 * @return string
+	 */
+	protected function get_message_html( $key ) {
+		$message = $this->form->get_message( $key );
+		$html = sprintf( '<div class="mc4wp-alert mc4wp-%s"><p>%s</p></div>', esc_attr( $message->type ), $message->text );
+		return $html;
+	}
+
+	/**
+	 * Gets the form response string
+	 *
+	 * @param boolean $force_show
+	 * @return string
+	 */
+	public function get_response_html( $force_show = false ) {
+
+		$html = '';
+		$form = $this->form;
+
+		if( $this->is_submitted || $force_show ) {
+			if( $form->has_errors() ) {
+
+				// create html string of all errors
+				foreach( $form->errors as $key ) {
+					$html .= $this->get_message_html( $key );
+				}
+
+			} else {
+				$html = $this->get_message_html( $form->get_action() . 'd' );
+			}
+		}
+
+		/**
+		 * Filter the form response HTML
+		 *
+		 * Use this to add your own HTML to the form response. The form instance is passed to the callback function.
+		 *
+		 * @since 3.0
+		 *
+		 * @param string $html The complete HTML string of the response, excluding the wrapper element.
+		 * @param MC4WP_Form $form The form object
+		 */
+		$html = (string) apply_filters( 'mc4wp_form_response_html', $html, $form );
+
+		// wrap entire response in div, regardless of a form was submitted
+		$html = '<div class="mc4wp-response">' . $html . '</div>';
+		return $html;
 	}
 
 	/**
@@ -139,7 +193,7 @@ class MC4WP_Form_Element {
 		$html = (string) apply_filters( 'mc4wp_form_before_fields', $html, $form );
 
 		if( $this->get_response_position() === 'before' ) {
-			$html = $html . $this->form->get_response_html( $this->is_submitted );
+			$html = $html . $this->get_response_html();
 		}
 
 		return $html;
@@ -164,7 +218,7 @@ class MC4WP_Form_Element {
 		$html = (string) apply_filters( 'mc4wp_form_after_fields', $html, $form );
 
 		if( $this->get_response_position() === 'after' ) {
-			$html = $this->form->get_response_html( $this->is_submitted ) . $html;
+			$html = $this->get_response_html() . $html;
 		}
 
 		return $html;
@@ -264,7 +318,7 @@ class MC4WP_Form_Element {
 	 *
 	 * @return string
 	 */
-	public function get_css_classes() {
+	protected function get_css_classes() {
 
 		$classes = array();
 		$form = $this->form;

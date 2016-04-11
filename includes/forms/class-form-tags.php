@@ -19,9 +19,9 @@ class MC4WP_Form_Tags {
 	protected $form;
 
 	/**
-	 * @var bool
+	 * @var MC4WP_Form_Element
 	 */
-	protected $form_is_submitted = false;
+	protected $form_element;
 
 	/**
 	 * Constructor
@@ -130,12 +130,13 @@ class MC4WP_Form_Tags {
 	 *
 	 * @param string $string
 	 * @param MC4WP_Form $form
+	 * @param MC4WP_Form_Element $element
 	 *
 	 * @return string
 	 */
-	public function replace( $string, MC4WP_Form $form, $is_submitted = false ) {
+	public function replace( $string, MC4WP_Form $form, MC4WP_Form_Element $element = null ) {
 		$this->form = $form;
-		$this->form_is_submitted = $is_submitted;
+		$this->form_element = $element;
 		$string = $this->tags->replace( $string );
 		return $string;
 	}
@@ -170,7 +171,12 @@ class MC4WP_Form_Tags {
 	 * @return string
 	 */
 	public function get_form_response() {
-		return $this->form_is_submitted ? $this->form->get_response_html() : '';
+
+		if( $this->form_element instanceof MC4WP_Form_Element ) {
+			return $this->form_element->get_response_html();
+		}
+
+		return '';
 	}
 
 	/**
