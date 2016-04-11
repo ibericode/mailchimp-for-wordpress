@@ -43,6 +43,8 @@ class MC4WP_API_v3 implements iMC4WP_API {
 
 	/**
 	 * @param string $resource
+	 * @param array $args
+	 *
 	 * @return mixed
 	 */
 	public function get( $resource, $args = array() ) {
@@ -52,6 +54,7 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	/**
 	 * @param string $resource
 	 * @param array $data
+	 *
 	 * @return mixed
 	 */
 	public function post( $resource, $data = array() ) {
@@ -242,38 +245,43 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	 */
 	public function subscribe( $list_id, $email_address, array $merge_fields = array(), $email_type = 'html', $double_optin = true, $update_existing = false, $replace_interests = true, $send_welcome = null ) {
 
+		$status = $double_optin ? 'pending' : 'subscribed';
+
 		// first, check if subscriber is already on the given list
 		$data = $this->get_list_member( $list_id, $email_address );
+		$existing_interests = array();
 
 		if( is_object( $data ) && ! empty( $data->id ) ) {
+
+			// set every interest to false if $replace_interests is true
+			if( $replace_interests ) {
+				$existing_interests = (array) $data->interests;
+				$existing_interests = array_fill_keys( array_keys( $existing_interests ), false );
+			}
 
 			// email address is already subscribed
 			if( $data->status === 'subscribed' ) {
 
-				// should we update?
-				if( $update_existing ) {
-					return $this->update_subscriber($list_id, $email_address, $merge_fields, $email_type, $replace_interests);
+				// if we're not supposed to update, bail.
+				if( ! $update_existing ) {
+					$this->error_code = 214;
+					return false;
 				}
 
-				// return old "already_subscribed" error
-				// TODO: Maybe change this?
-				$this->error_code = 214;
-				return false;
-			}
+				$status = 'subscribed';
+			} else {
+				// if double opt-in is enabled, try to delete email from list first.
+				if( $double_optin ) {
+					$success = $this->delete_list_member( $list_id, $email_address );
 
-			// if double opt-in is enabled, try to delete email from list first.
-			if( $double_optin ) {
-				$success = $this->delete_list_member( $list_id, $email_address );
-
-				// If this failed for some reason, assume success... Only difference is no new confirmation email (and maybe old details..)
-				if( ! $success && $data->status === 'pending' ) {
-					return true;
+					// Only proceed if this succeeded
+					if( ! $success ) {
+						return false;
+					}
 				}
 			}
 		}
 
-		// not on list (or freshly deleted), subscribe.
-		$status = $double_optin ? 'pending' : 'subscribed';
 		$args = array(
 			'email_address' => $email_address,
 			'email_type' => $email_type,
@@ -299,9 +307,12 @@ class MC4WP_API_v3 implements iMC4WP_API {
 			unset( $merge_fields['INTERESTS'] );
 		}
 
+		// merge interests with existing interests
+		$args['interests'] = array_replace( $existing_interests, $args['interests'] );
+
 		// set leftover merge fields
 		$args['merge_fields'] = $merge_fields;
-
+		
 		$data = $this->add_list_member( $list_id, $args );
 		return is_object( $data ) && ! empty( $data->id );
 	}
