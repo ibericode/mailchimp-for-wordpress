@@ -53,10 +53,13 @@ return array(
     'MC4WP_Remote_Content_Block' => $baseDir . '/includes/admin/class-remote-content-block.php',
     'MC4WP_Request' => $baseDir . '/includes/class-request.php',
     'MC4WP_Tools' => $baseDir . '/includes/class-tools.php',
+    'MC4WP_Update_Optin' => $baseDir . '/includes/admin/class-update-optin.php',
     'MC4WP_Upgrade_Routines' => $baseDir . '/includes/admin/class-upgrade-routines.php',
     'MC4WP_Usage_Tracking' => $baseDir . '/includes/admin/class-usage-tracking.php',
     'MC4WP_User_Integration' => $baseDir . '/includes/integrations/class-user-integration.php',
     'MC4WP_Validator' => $baseDir . '/includes/class-validator.php',
     'MC4WP_Visitor_Tracking' => $baseDir . '/includes/class-visitor-tracking.php',
     'MC4WP_WooCommerce_Integration' => $baseDir . '/integrations/woocommerce/class-woocommerce.php',
+    'xrstf\\Composer52\\AutoloadGenerator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
+    'xrstf\\Composer52\\Generator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',
 );
