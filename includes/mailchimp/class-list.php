@@ -53,6 +53,12 @@ class MC4WP_MailChimp_List {
 		$this->id = $id;
 		$this->name = $name;
 		$this->web_id = $web_id;
+
+		// add email field
+		$email_field = new MC4WP_MailChimp_Merge_Field( 'Email Address', 'email', 'EMAIL', true );
+		$this->merge_fields[] = $email_field;
+
+		// set known merge fields
 		$this->default_merge_fields = array(
 			'EMAIL' => 'Email Address',
 			'OPTIN_IP' => 'IP Address',

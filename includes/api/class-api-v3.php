@@ -293,6 +293,12 @@ class MC4WP_API_v3 implements iMC4WP_API {
 			unset( $merge_fields['GROUPINGS'] );
 		}
 
+		// remove "interests" key from merge vars
+		if( ! empty( $merge_fields['INTERESTS'] ) ) {
+			$args['interests'] = $merge_fields['INTERESTS'];
+			unset( $merge_fields['INTERESTS'] );
+		}
+
 		// set leftover merge fields
 		$args['merge_fields'] = $merge_fields;
 
@@ -576,15 +582,17 @@ class MC4WP_API_v3 implements iMC4WP_API {
 
 		// for backwards compatibility, copy over OPTIN_IP from merge_fields array.
 		// TODO: Decouple this from this method.
-		if( ! empty( $merge_fields[ 'OPTIN_IP' ] ) ) {
-			$args['ip_signup'] = $merge_fields['OPTIN_IP'];
-			unset( $merge_fields['OPTIN_IP'] );
-		}
 
 		// for backwards compatibility, copy over GROUPINGS from merge_fields array.
 		if( ! empty( $merge_fields['GROUPINGS'] ) ) {
 			$args['interests'] = $merge_fields['GROUPINGS'];
 			unset( $merge_fields['GROUPINGS'] );
+		}
+
+		// remove "interests" key from merge vars
+		if( ! empty( $merge_fields['INTERESTS'] ) ) {
+			$args['interests'] = $merge_fields['INTERESTS'];
+			unset( $merge_fields['INTERESTS'] );
 		}
 
 		// set leftover merge fields

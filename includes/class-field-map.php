@@ -126,17 +126,14 @@ class MC4WP_Field_Map {
 	protected function extract_fields_for_list( MC4WP_MailChimp_List $list ) {
 
 		$this->list_fields[ $list->id ] = array(
-			//'INTERESTS' => array(),
+			'INTERESTS' => array(),
 		);
 
-		// extract values for merge_vars & groupings
+		// extract values for merge_vars & interest categories
 		array_walk( $list->merge_fields, array( $this, 'extract_merge_field' ), $list );
-
-		// TODO: Fix interest groupings
-		//array_walk( $list->interest_categories, array( $this, 'extract_interest_category' ), $list );
+		array_walk( $list->interest_categories, array( $this, 'extract_interest_category' ), $list );
 
 		// filter out empty values
-		//$this->list_fields[ $list->id ]['INTERESTS'] = array_filter( $this->list_fields[ $list->id ]['INTERESTS'] );
 		$this->list_fields[ $list->id ] = array_filter( $this->list_fields[ $list->id ] );
 
 		// if we have values at this point, add global fields
@@ -176,7 +173,7 @@ class MC4WP_Field_Map {
 	}
 
 	/**
-	 * @param MC4WP_MailChimp_Interest_Category $grouping
+	 * @param MC4WP_MailChimp_Interest_Category $interest_category
 	 * @param string $index
 	 * @param MC4WP_MailChimp_List $list
 	 *
@@ -185,42 +182,29 @@ class MC4WP_Field_Map {
 	protected function extract_interest_category( MC4WP_MailChimp_Interest_Category $interest_category, $index, MC4WP_MailChimp_List $list ) {
 
 		// check if data for this group was sent
-		if( ! empty( $this->raw_data['GROUPINGS'][$interest_category->id] ) ) {
-			$groups = $this->raw_data['GROUPINGS'][$interest_category->id];
-		} elseif( ! empty( $this->raw_data['GROUPINGS'][$interest_category->name] ) ) {
-			$groups = $this->raw_data['GROUPINGS'][$interest_category->name];
+		if( ! empty( $this->raw_data['INTERESTS'][$interest_category->id] ) ) {
+			$groups = $this->raw_data['INTERESTS'][$interest_category->id];
+		} elseif( ! empty( $this->raw_data['INTERESTS'][$interest_category->name] ) ) {
+			$groups = $this->raw_data['INTERESTS'][$interest_category->name];
 		} else {
 			return;
 		}
 
 		// reset entire groupings array here
-		unset( $this->custom_fields['GROUPINGS'] );
-		$interests = array();
+		unset( $this->custom_fields['INTERESTS'] );
 
 		// make sure groups is an array
 		if( ! is_array( $groups ) ) {
 			$groups = array_map( 'trim', explode( ',', $groups ) );
 		}
 
-		// if groups is an array of id's, get the group name instead
-		foreach( $groups as $key => $group_name_or_id ) {
-
-			if( is_numeric( $group_name_or_id ) && isset( $interest_category->interests[ $group_name_or_id ] ) ) {
-				$interests[ $group_name_or_id ] = true;
-			} else {
-				$id = array_search( $group_name_or_id, $interest_category->interests );
-				if( $id ) {
-					$interests[ $id ] = true;
-				}
-			}
+		foreach( $groups as $interest_id ) {
+			$this->list_fields[ $list->id ]['INTERESTS'][ $interest_id ] = true;
 		}
 
-		// TODO: Look at which data we pass to "formatted_data" here.
-
-		// add to list data
-		$this->list_fields[ $list->id ]['GROUPINGS'] = $interests;
-		$this->formatted_data['GROUPINGS'][ $interest_category->id ] = $interests;
-		$this->pretty_data[ $interest_category->name ] = $interests;
+		// TODO: Fix this too
+		//$this->formatted_data['GROUPINGS'][ $interest_category->id ] = $interests;
+		//$this->pretty_data[ $interest_category->name ] = $interests;
 	}
 
 

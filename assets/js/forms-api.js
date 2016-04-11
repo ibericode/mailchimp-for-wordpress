@@ -105,7 +105,7 @@ var Form = function(id, element) {
 	this.name = this.element.getAttribute('data-name') || "Form #" + this.id;
 	this.errors = [];
 	this.started = false;
-	
+
 	this.setData = function(data) {
 		populate(form.element, data);
 	};

@@ -607,7 +607,7 @@ var FieldFactory = function(settings, fields, i18n) {
 
 		var data = {
 			title: interestCategory.name,
-			name: 'GROUPINGS[' + interestCategory.id + ']',
+			name: 'INTERESTS[' + interestCategory.id + ']',
 			type: getFieldType(interestCategory.field_type),
 			choices: interestCategory.interests
 		};
@@ -620,6 +620,7 @@ var FieldFactory = function(settings, fields, i18n) {
 	 * @param list
 	 */
 	function registerListFields(list) {
+
 		// loop through merge vars
 		list.merge_fields.forEach(registerMergeField);
 

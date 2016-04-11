@@ -231,7 +231,7 @@ class MC4WP_Form_Listener {
 	}
 
 	/**
-	 * @return MC4WP_API
+	 * @return MC4WP_API_v3
 	 */
 	protected function get_api() {
 		return mc4wp('api');
