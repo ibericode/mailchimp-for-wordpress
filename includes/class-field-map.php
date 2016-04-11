@@ -155,7 +155,7 @@ class MC4WP_Field_Map {
 
 		// if field is not set, continue.
 		// don't use empty here as empty fields are perfectly valid (for non-required fields)
-		if( ! isset( $this->raw_data[ $merge_field->tag ] ) ) {
+		if( ! isset( $this->raw_data[ $merge_field->tag ] ) || $merge_field->tag === 'EMAIL' ) {
 			return;
 		}
 
