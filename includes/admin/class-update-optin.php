@@ -33,6 +33,11 @@ class MC4WP_Update_Optin {
     protected $option_notice;
 
     /**
+     * @var bool
+     */
+    protected $active = false;
+
+    /**
      * @param string $to_version
      * @param string $plugin_file
      * @param string $view_file
@@ -54,7 +59,8 @@ class MC4WP_Update_Optin {
         add_action( 'init', array( $this, 'listen' ) );
 
         global $pagenow;
-        if( $pagenow === 'plugins.php' || $pagenow === 'update-core.php'  ) {
+        $on_settings_page = isset( $_GET['page'] ) && stristr( $_GET['page'], dirname( $this->plugin_file ) ) !== false;
+        if( $pagenow === 'plugins.php' || $pagenow === 'update-core.php' || $on_settings_page ) {
             add_action( 'admin_notices', array( $this, 'show_update_optin' ) );
         }
     }
@@ -80,22 +86,20 @@ class MC4WP_Update_Optin {
      */
     public function maybe_hide_update( $data ) {
 
-        // for testing
-//        delete_option( $this->option_enable );
-//        delete_option( $this->option_notice );
-//        $data->response[ $this->plugin_file ] = $data->no_update[ $this->plugin_file ];
-//        $data->response[ $this->plugin_file ]->new_version = '4.0.0';
-
-        // do nothing if there's no update to act upon
-        if( empty( $data->response[ $this->plugin_file ]->new_version ) ) {
+        if( empty( $data->response ) ) {
             return $data;
         }
 
-        $wordpress_org_data = $data->response[ $this->plugin_file ];
+        // do nothing if the specified version is not out there yet..
+        if( empty( $data->response[ $this->plugin_file ]->new_version )
+            || version_compare( $data->response[ $this->plugin_file ]->new_version, $this->to_version, '<' ) ) {
 
-        // reset notice flag here in case we revert the update
-        if( version_compare( $wordpress_org_data->new_version, $this->to_version, '<' ) ) {
-            update_option( $this->option_notice, 0 );
+            // reset flags here in case we revert the update
+            if( ! $this->active ) {
+                delete_option( $this->option_notice );
+                delete_option( $this->option_enable );
+            }
+
             return $data;
         }
 
@@ -111,6 +115,9 @@ class MC4WP_Update_Optin {
         // unset update data
         unset( $data->response[ $this->plugin_file ] );
 
+        // set flag because this filter runs multiple times..
+        $this->active = true;
+
         return $data;
     }
 
@@ -118,6 +125,7 @@ class MC4WP_Update_Optin {
      * Enables major updates (opts-in to 3.x update)
      */
     public function enable_major_updates() {
+
         // update option
         update_option( $this->option_enable, 1 );
 
