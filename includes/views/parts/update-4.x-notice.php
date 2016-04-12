@@ -1,7 +1,7 @@
 <?php defined( 'ABSPATH') or exit;
 
 echo '<div class="notice is-dismissible updated">';
-echo '<h4>' . __( 'MailChimp for WordPress 4.0 is available for you', 'mailchimp-for-wp' ) . '</h4>';
+echo '<h4>' . __( 'Version 4.0 of MailChimp for WordPress is available for you', 'mailchimp-for-wp' ) . '</h4>';
 
 
 echo '<p>' . __( 'This version updates the plugin to use the new MailChimp API (a server the plugin "talks" to).', 'mailchimp-for-wp' ) . '</p>';
