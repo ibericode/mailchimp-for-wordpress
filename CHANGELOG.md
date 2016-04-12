@@ -1,6 +1,23 @@
 Changelog
 =========
 
+#### 3.1.6 - April 12, 2016
+
+**Fixes**
+
+- Form event for starting a form was named `start` where it should have been `started`.
+
+**Improvements**
+
+- Some preparations for the upcoming migration to the new MailChimp API (version 3).
+- Consistent hook parameters for `mc4wp_form_subscribed` action.
+- Improved logic for rendering form response.
+
+**Additions**
+
+- New checkbox position for WooCommerce checkout integration.
+
+
 #### 3.1.5 - March 22, 2016
 
 **Fixes**
