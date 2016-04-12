@@ -297,7 +297,17 @@ class MC4WP_API_v3 implements iMC4WP_API {
 
 		// for backwards compatibility, copy over GROUPINGS from merge_fields array.
 		if( ! empty( $merge_fields['GROUPINGS'] ) ) {
-			$args['interests'] = $merge_fields['GROUPINGS'];
+
+			// backwards compatibility for old interest groupings
+			$map = get_option( 'mc4wp_groupings_map', array() );
+			$interests = array();
+			foreach( $merge_fields['GROUPINGS'] as $grouping ) {
+				if( isset( $map[ $grouping['id'] ] ) ) {
+					$interests[ $map[ $grouping['id'] ] ] = true;
+				}
+			}
+
+			$args['interests'] = $interests;
 			unset( $merge_fields['GROUPINGS'] );
 		}
 
