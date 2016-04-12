@@ -15,7 +15,11 @@ var Form = function(id, element) {
 	this.started = false;
 
 	this.setData = function(data) {
-		populate(form.element, data);
+		try {
+			populate(form.element, data);
+		} catch(e) {
+			console.error(e);
+		}
 	};
 
 	this.getData = function() {

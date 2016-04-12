@@ -105,9 +105,13 @@ var Form = function(id, element) {
 	this.name = this.element.getAttribute('data-name') || "Form #" + this.id;
 	this.errors = [];
 	this.started = false;
-	
+
 	this.setData = function(data) {
-		populate(form.element, data);
+		try {
+			populate(form.element, data);
+		} catch(e) {
+			console.error(e);
+		}
 	};
 
 	this.getData = function() {
