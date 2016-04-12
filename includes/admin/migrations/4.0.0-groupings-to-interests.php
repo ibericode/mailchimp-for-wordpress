@@ -2,6 +2,11 @@
 
 defined( 'ABSPATH' ) or exit;
 
+// in case the migration is _very_ late to the party
+if( ! class_exists( 'MC4WP_API_v3' ) ) {
+    return;
+}
+
 $options = get_option( 'mc4wp', array() );
 if( empty( $options['api_key'] ) ) {
     return;
