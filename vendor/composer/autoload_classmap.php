@@ -60,6 +60,4 @@ return array(
     'MC4WP_Validator' => $baseDir . '/includes/class-validator.php',
     'MC4WP_Visitor_Tracking' => $baseDir . '/includes/class-visitor-tracking.php',
     'MC4WP_WooCommerce_Integration' => $baseDir . '/integrations/woocommerce/class-woocommerce.php',
-    'xrstf\\Composer52\\AutoloadGenerator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
-    'xrstf\\Composer52\\Generator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',
 );

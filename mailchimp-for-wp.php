@@ -52,8 +52,10 @@ function __mc4wp_load_plugin() {
 	define( 'MC4WP_PLUGIN_URL', plugins_url( '/' , __FILE__ ) );
 	define( 'MC4WP_PLUGIN_FILE', __FILE__ );
 
-	// load autoloader
-	require_once MC4WP_PLUGIN_DIR . 'vendor/autoload_52.php';
+	// load autoloader if function not yet exists (for compat with sitewide autoloader)
+	if( ! function_exists( 'mc4wp' ) ) {
+		require_once MC4WP_PLUGIN_DIR . 'vendor/autoload_52.php';
+	}
 
 	/**
 	 * @global MC4WP_Container $GLOBALS['mc4wp']
