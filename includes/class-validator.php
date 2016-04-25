@@ -28,7 +28,7 @@ class MC4WP_Validator {
 	 * @param array $rules
 	 */
 	public function __construct( array $fields, array $rules = array() ) {
-		$this->fields = $fields;
+		$this->fields = array_change_key_case( $fields, CASE_LOWER );
 		$this->rules = $rules;
 	}
 
@@ -151,6 +151,7 @@ class MC4WP_Validator {
 	 * @return mixed
 	 */
 	private function get_field_value( $key, $default = '' ) {
+		$key = strtolower( $key );
 		$location = &$this->fields;
 
 		foreach(explode('.', $key) as $step) {

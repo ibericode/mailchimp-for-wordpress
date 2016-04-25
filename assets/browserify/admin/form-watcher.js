@@ -32,6 +32,9 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
 				return;
 			}
 
+			// replace array brackets with dot style notation
+			name = name.replace(/\[(\w+)\]/g, '.$1' );
+
 			// only add field if it's not already in it
 			if( requiredFields.indexOf(name) === -1 ) {
 				requiredFields.push(name);
