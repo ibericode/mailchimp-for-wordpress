@@ -9,7 +9,12 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
 			// don't run for empty field names
 			if(field.name().length <= 0) return;
 
-			var inForm = editor.containsField( field.name() );
+			var fieldName = field.name();
+			if( field.type() === 'checkbox' ) {
+				fieldName += '[]';
+			}
+
+			var inForm = editor.containsField( fieldName );
 			field.inFormContent( inForm );
 		});
 
