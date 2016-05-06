@@ -84,8 +84,8 @@ class MC4WP_Field_Map {
 		$this->extract_list_fields();
 
 		// 4. Add all leftover fields to data but make sure not to overwrite known fields
-		$this->formatted_data = array_merge( $this->custom_fields, $this->formatted_data );
-		$this->pretty_data = array_merge( $this->custom_fields, $this->pretty_data );
+		$this->formatted_data = $this->merge( $this->custom_fields, $this->formatted_data );
+		$this->pretty_data = $this->merge( $this->custom_fields, $this->pretty_data );
 	}
 
 	/**
@@ -138,7 +138,7 @@ class MC4WP_Field_Map {
 		// if we have values at this point, add global fields
 		if( ! empty( $this->list_fields[ $list->id ] ) ) {
 			// add global fields (fields belong to ALL lists automatically)
-			$this->list_fields[ $list->id ] = array_merge( $this->list_fields[ $list->id ], $this->global_fields );
+			$this->list_fields[ $list->id ] = $this->merge( $this->list_fields[ $list->id ], $this->global_fields );
 		}
 
 	}
@@ -268,6 +268,22 @@ class MC4WP_Field_Map {
 		$field_value = apply_filters( 'mc4wp_format_field_value', $field_value, $field_type );
 
 		return $field_value;
+	}
+
+	/**
+	 * @param array $one
+	 * @param array $two
+	 *
+	 * @return array
+	 */
+	protected function merge( array $one, array $two ) {
+
+		// fallback for PHP 5.2
+		if( ! function_exists( 'array_replace_recursive' ) ) {
+			return array_merge( $one, $two );
+		}
+
+		return array_replace_recursive( $one, $two );
 	}
 
 }
