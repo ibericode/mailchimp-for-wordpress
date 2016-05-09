@@ -6,19 +6,21 @@
 # Cedric R <thorin31@gmail.com>, 2014
 # dlpscoop <charliebairdjersey@gmail.com>, 2015
 # Dario Spagnolo <i@dariospagnolo.org>, 2014
+# Emeline Seyer <emeline.seyer@gmail.com>, 2016
 # fgerber <gerber.francois@gmail.com>, 2014
 # François KUSZTOS <kukus___@hotmail.com>, 2014
 # fgerber <gerber.francois@gmail.com>, 2014-2015
 # Juliette Mouquod <juliette@lapinblanc.co.uk>, 2015
 # Lydie Lardoux <lafelilycouturiere@gmail.com>, 2015
 # sleininger <stef.leininger@gmail.com>, 2014
+# Yan Chardard <ychardard@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-11-30 10:15:18+00:00\n"
-"PO-Revision-Date: 2016-04-11 19:47+0000\n"
-"Last-Translator: baron vanessa <littlebirdyworld@gmail.com>\n"
+"PO-Revision-Date: 2016-05-06 18:23+0000\n"
+"Last-Translator: Emeline Seyer <emeline.seyer@gmail.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,11 +30,11 @@ msgstr ""
 
 #: config/default-form-content.php:3
 msgid "Email address"
-msgstr "Email address"
+msgstr "Adresse email"
 
 #: config/default-form-content.php:4
 msgid "Your email address"
-msgstr "Votre adresse de courrier électronique"
+msgstr "Votre adresse mail"
 
 #: config/default-form-content.php:5
 msgid "Sign up"
@@ -74,7 +76,7 @@ msgstr "Veuillez sélectionner au moins une liste d'abonnement."
 
 #: config/default-integration-options.php:5
 msgid "Sign me up for the newsletter!"
-msgstr "Inscrivez-vous pour recevoir notre lettre d'information !"
+msgstr "M'inscrire pour recevoir la lettre d'information !"
 
 #: includes/admin/class-admin-texts.php:62
 #: includes/forms/views/edit-form.php:6
@@ -88,7 +90,7 @@ msgstr "Documentation"
 #: includes/admin/class-admin.php:167
 msgid ""
 "Success! The cached configuration for your MailChimp lists has been renewed."
-msgstr "Succès ! La configuration en cache de vos listes MailChimp a été renouvelée."
+msgstr "Bravo ! La configuration en cache de vos listes MailChimp a été renouvelée."
 
 #: includes/admin/class-admin.php:257
 msgid ""
@@ -164,7 +166,7 @@ msgstr "Prévisualisation du formulaire"
 
 #: includes/forms/class-admin.php:279
 msgid "Form not found."
-msgstr "Le formulaire n'a pas été trouvé."
+msgstr "Formulaire introuvable."
 
 #: includes/forms/class-admin.php:281
 msgid "Go back"
@@ -434,7 +436,7 @@ msgstr "Messages du formulaire"
 
 #: includes/forms/views/tabs/form-messages.php:10
 msgid "Successfully subscribed"
-msgstr "Inscrit avec succès"
+msgstr "Inscription réussie"
 
 #: includes/forms/views/tabs/form-messages.php:13
 msgid ""
@@ -691,7 +693,7 @@ msgstr "Pré-sélectionner les cases à cocher ?"
 
 #: includes/integrations/views/integration-settings.php:119
 msgid "Select \"yes\" if the checkbox should be pre-checked."
-msgstr ""
+msgstr "Sélectionnez \"oui\" si vous voulez que la checkbox soit pré-cochée."
 
 #: includes/integrations/views/integration-settings.php:127
 msgid "Load some default CSS?"
@@ -721,11 +723,11 @@ msgid ""
 "fields</a> or <a href=\"%s\">log into your MailChimp account</a> and make "
 "sure only the email & name fields are marked as required fields for the "
 "selected list(s)."
-msgstr ""
+msgstr "Merci de vérifier que <a href=\"%s\">vous avez configuré le plugin pour envoyer tous les champs requis</a> ou <a href=\"%s\">connectez-vous sur votre compte MailChimp</a> et assurez-vous que seuls les champs email et nom sont marqués comme champs obligatoire pour la(les) liste(s) sélectionnée(s)."
 
 #: includes/integrations/views/integrations.php:30
 msgid "Enabled"
-msgstr "Incapable"
+msgstr "Activé"
 
 #: includes/integrations/views/integrations.php:31
 msgid "Name"
@@ -739,15 +741,15 @@ msgstr "Description"
 msgid ""
 "This integration is enabled by default as it requires manual actions to "
 "work."
-msgstr ""
+msgstr "L'intégration est activée par défaut du fait qu'elle requiert une action manuelle pour fonctionner."
 
 #: includes/integrations/views/integrations.php:57
 msgid "Configure this integration"
-msgstr ""
+msgstr "Configurer cette intégration"
 
 #: includes/views/general-settings.php:18
 msgid "General Settings"
-msgstr ""
+msgstr "Réglages généraux"
 
 #: includes/views/general-settings.php:35
 msgid "Status"
