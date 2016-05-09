@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp forms, mailchimp integrations
 Requires at least: 3.8
 Tested up to: 4.5.2
-Stable tag: 3.1.6
+Stable tag: 3.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,21 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 6. Detailed statistics on which methods are generating the most subscribers. **(Pro Feature)**
 
 == Changelog == 
+
+
+#### 3.1.7 - May 9, 2016
+
+**Fixes**
+
+- Shortcode wasn't accepting `element_id` as a valid attribute.
+- Take array style fields into account when checking if a form contains a given field.
+
+
+**Improvements**
+
+- Nested fields will now be properly validated when they're marked as required.
+- If plugin is installed using Composer, autoloader won't be loaded (again).
+
 
 
 #### 3.1.6 - April 12, 2016
