@@ -1,6 +1,21 @@
 Changelog
 =========
 
+#### 3.1.7 - May 9, 2016
+
+**Fixes**
+
+- Shortcode wasn't accepting `element_id` as a valid attribute.
+- Take array style fields into account when checking if a form contains a given field.
+
+
+**Improvements**
+
+- Nested fields will now be properly validated when they're marked as required.
+- If plugin is installed using Composer, autoloader won't be loaded (again).
+
+
+
 #### 3.1.6 - April 12, 2016
 
 **Fixes**
