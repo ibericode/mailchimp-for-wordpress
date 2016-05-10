@@ -363,6 +363,7 @@ class MC4WP_API {
 	 * @return boolean
 	 */
 	public function add_ecommerce_order( array $order_data ) {
+
 		$response = $this->call( 'ecomm/order-add', array( 'order' => $order_data ) );
 
 		if( is_object( $response ) ) {
@@ -372,8 +373,8 @@ class MC4WP_API {
 				return true;
 			}
 
-			// 330 means order was already added: great
-			if( isset( $response->code ) && $response->code == 330 ) {
+			// if order was already added: great
+			if( isset( $response->code, $response->error ) && $response->code == 330 && strpos( $response->error, 'already been recorded' ) !== false ) {
 				return true;
 			}
 		}
