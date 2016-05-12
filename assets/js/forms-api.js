@@ -126,6 +126,13 @@ var Form = function(id, element) {
 		form.element.querySelector('.mc4wp-response').innerHTML = msg;
 	};
 
+	// revert back to original state
+	this.reset = function() {
+		this.setResponse('');
+		form.element.querySelector('.mc4wp-form-fields').style.display = '';
+		form.element.reset();
+	}
+
 };
 
 module.exports = Form;
