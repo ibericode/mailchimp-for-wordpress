@@ -63,6 +63,14 @@
 		</td>
 	</tr>
 
+	<tr valign="top">
+		<th scope="row"><label for="mc4wp_form_previously_unsubscribed"><?php _e( 'Previously unsubscribed', 'mailchimp-for-wp' ); ?></label></th>
+		<td>
+			<input type="text" class="widefat" id="mc4wp_form_previously_unsubscribed" name="mc4wp_form[messages][previously_unsubscribed]" value="<?php echo esc_attr( $form->messages['previously_unsubscribed'] ); ?>" required />
+			<p class="help"><?php _e( 'When someone previously unsubscribed, the plugin can not resubscribe them automatically. Refer to your MailChimp hosted sign-up form here.', 'mailchimp-for-wp' ); ?></p>
+		</td>
+	</tr>
+
 	<?php do_action( 'mc4wp_admin_form_after_messages_settings_rows', $messages, $form ); ?>
 
 	<tr valign="top">
