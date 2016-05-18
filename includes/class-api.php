@@ -431,6 +431,8 @@ class MC4WP_API {
 
 		// do not make request when no api key was provided.
 		if( empty( $this->api_key ) ) {
+			$this->error_message = "Missing MailChimp API key.";
+			$this->error_code = 001;
 			return false;
 		}
 
