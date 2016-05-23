@@ -1,6 +1,23 @@
 Changelog
 =========
 
+#### 3.1.8 - May 23, 2016
+
+**Fixes**
+
+- Form Preview mode replaced all titles on that page with "Form Preview".
+- API class fix for [eCommerce360 functionality](https://mc4wp.com/kb/what-is-ecommerce360/).
+
+**Improvements**
+
+- Show dismissible notice when API key is not set.
+- Show empty API key errors in plugin log.
+- Friendlier error message for re-subscribe failures.
+
+**Additions**
+
+- Add `form.reset()` method to JS API.
+
 #### 3.1.7 - May 9, 2016
 
 **Fixes**
