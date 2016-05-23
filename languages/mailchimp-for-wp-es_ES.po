@@ -4,6 +4,7 @@
 # Carlos Faria <carlosgarciafaria@gmail.com>, 2015
 # eldietista <info@eldietista.es>, 2014
 # eldietista <info@eldietista.es>, 2014
+# Jaime Mota <mota.jt@gmail.com>, 2016
 # José Manuel Lucas <josemanuel@jmlweb.es>, 2015
 # jose Miranda <joseamirandavelez@gmail.com>, 2014
 # Judith Hita <jud.sanchez.hita@gmail.com>, 2016
@@ -21,8 +22,8 @@ msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-11-30 10:15:18+00:00\n"
-"PO-Revision-Date: 2016-02-11 12:10+0000\n"
-"Last-Translator: Kiyoaki Matsugae\n"
+"PO-Revision-Date: 2016-05-13 07:43+0000\n"
+"Last-Translator: Jaime Mota <mota.jt@gmail.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -74,7 +75,7 @@ msgstr "El correo proporcionado no está suscrito."
 
 #: config/default-form-messages.php:33
 msgid "Please select at least one list."
-msgstr "Selecciona al menos una lista."
+msgstr "Por favor seleccione al menos una lista."
 
 #: config/default-integration-options.php:5
 msgid "Sign me up for the newsletter!"
@@ -127,7 +128,7 @@ msgstr "Más suscritos, mejores newsletters."
 msgid ""
 "Learn how to best grow your lists & write better emails by subscribing to "
 "our monthly tips."
-msgstr ""
+msgstr "Aprende como hacer tus listas y redactar mejores emails suscribiéndote a nuestros consejos mensuales. "
 
 #: includes/admin/class-ads.php:66
 msgid "Email Address"
@@ -184,7 +185,7 @@ msgstr "Se reemplaza por la respuesta del formulario (mensajes de error ó éxit
 
 #: includes/forms/class-form-tags.php:56
 msgid "Data from the URL or a submitted form."
-msgstr ""
+msgstr "Datos desde una URL o un formulario enviado."
 
 #: includes/forms/class-form-tags.php:62
 #: includes/integrations/class-integration-tags.php:45
@@ -225,7 +226,7 @@ msgstr ""
 
 #: includes/forms/class-form.php:128
 msgid "There is no form with ID %d, perhaps it was deleted?"
-msgstr ""
+msgstr "No hay un formulario con la ID %d, quizá fue eliminado?"
 
 #: includes/forms/class-widget.php:26
 msgid "Newsletter"
@@ -317,19 +318,19 @@ msgstr "Añadir más campos"
 msgid ""
 "To add more fields to your form, you will need to create those fields in "
 "MailChimp first."
-msgstr ""
+msgstr "Para añadir más campos a tu formulario, primero necesitas crearlos en MailChimp."
 
 #: includes/forms/views/parts/add-fields-help.php:12
 msgid "Here's how:"
-msgstr ""
+msgstr "Aquí esta el cómo:"
 
 #: includes/forms/views/parts/add-fields-help.php:17
 msgid "Log in to your MailChimp account."
-msgstr ""
+msgstr "Entra a tu cuenta de MailChimp"
 
 #: includes/forms/views/parts/add-fields-help.php:22
 msgid "Add list fields to any of your selected lists."
-msgstr ""
+msgstr "Añade campos de la lista a cualquiera de tus listas seleccionadas."
 
 #: includes/forms/views/parts/add-fields-help.php:23
 msgid "Clicking the following links will take you to the right screen."
@@ -695,7 +696,7 @@ msgstr "¿Dejamos pre-marcada la casilla de verificación?"
 
 #: includes/integrations/views/integration-settings.php:119
 msgid "Select \"yes\" if the checkbox should be pre-checked."
-msgstr ""
+msgstr "Selecciona \"sí\" si la casilla debe aparecer marcada por defecto."
 
 #: includes/integrations/views/integration-settings.php:127
 msgid "Load some default CSS?"
@@ -817,7 +818,7 @@ msgid ""
 "The table below shows your MailChimp lists and their details. If you just "
 "applied changes to your MailChimp lists, please use the following button to "
 "renew the cached lists configuration."
-msgstr ""
+msgstr "La siguiente tabla muestra los datos de las listas de MailChimp. Si has efectuado cambios en las listas de MailChimp, por favor, utiliza el botón siguiente para renovar la configuración de sus listas guardadas."
 
 #: includes/views/parts/lists-overview.php:14
 msgid "No lists were found in your MailChimp account"
@@ -825,7 +826,7 @@ msgstr "No se encontró ninguna lista en tu cuenta de MailChimp"
 
 #: includes/views/parts/lists-overview.php:16
 msgid "A total of %d lists were found in your MailChimp account."
-msgstr ""
+msgstr "Un total de %d listas fueron encontradas en tu cuenta de MailChimp."
 
 #: includes/views/parts/lists-overview.php:21
 msgid "List Name"
@@ -845,27 +846,27 @@ msgstr "Editar esta lista en MailChimp"
 
 #: includes/views/parts/lists-overview.php:59
 msgid "%s (%s) with field type %s."
-msgstr ""
+msgstr "%s (%s) con tipo de campo %s."
 
 #: includes/views/parts/lists-overview.php:83
 msgid "%s (ID: %s) with type %s."
-msgstr ""
+msgstr "%s (ID: %s) con tipo %s."
 
 #: integrations/contact-form-7/admin-before.php:2
 msgid ""
 "To integrate with Contact Form 7, configure the settings below and then add "
 "%s to your CF7 form mark-up."
-msgstr ""
+msgstr "Para integrar con Contact Form 7, configura los siguientes ajustes y luego añade %s a tu etiqueta del formulario de CF7."
 
 #: integrations/custom/admin-before.php:2
 msgid ""
 "To get a custom integration to work, include the following HTML in the form "
 "you are trying to integrate with."
-msgstr ""
+msgstr "Para lograr que funcione una integración personalizada, incluye el siguiente HTML en el formulario que estas intentado integrar."
 
 #: integrations/woocommerce/class-woocommerce.php:102
 msgid "Order #%d"
-msgstr ""
+msgstr "Orden #%d"
 
 #. Plugin Name of the plugin/theme
 msgid "MailChimp for WordPress"
