@@ -163,6 +163,10 @@ class MC4WP_Form_Previewer {
 	 * @return string
 	 */
 	public function set_page_title( $title ) {
+		if( ! in_the_loop() ) {
+			return $title;
+		}
+
 		return __( 'Form preview', 'mailchimp-for-wp' );
 	}
 
@@ -171,6 +175,10 @@ class MC4WP_Form_Previewer {
 	 * @return string
 	 */
 	public function set_page_content( $content ) {
+		if( ! in_the_loop() ) {
+			return $content;
+		}
+
 		return $this->form;
 	}
 

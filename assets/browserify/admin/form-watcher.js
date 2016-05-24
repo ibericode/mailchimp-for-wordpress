@@ -9,7 +9,12 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
 			// don't run for empty field names
 			if(field.name().length <= 0) return;
 
-			var inForm = editor.containsField( field.name() );
+			var fieldName = field.name();
+			if( field.type() === 'checkbox' ) {
+				fieldName += '[]';
+			}
+
+			var inForm = editor.containsField( fieldName );
 			field.inFormContent( inForm );
 		});
 
@@ -31,6 +36,9 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
 			if( name[0] === '_' ) {
 				return;
 			}
+
+			// replace array brackets with dot style notation
+			name = name.replace(/\[(\w+)\]/g, '.$1' );
 
 			// only add field if it's not already in it
 			if( requiredFields.indexOf(name) === -1 ) {

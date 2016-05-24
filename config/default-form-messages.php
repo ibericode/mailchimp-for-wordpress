@@ -32,4 +32,8 @@ return array(
 		'type' => 'error',
 		'text' => __( 'Please select at least one list.', 'mailchimp-for-wp' )
 	),
+	'previously_unsubscribed' => array(
+		'type' => 'error',
+		'text' => __( 'It seems that you have previously unsubscribed, so we can not automatically resubscribe you.', 'mailchimp-for-wp' )
+	),
 );

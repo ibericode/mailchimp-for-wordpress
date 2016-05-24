@@ -3,8 +3,8 @@ Contributors: Ibericode, DvanKooten, hchouhan, lapzor
 Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=donate-link
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp forms, mailchimp integrations
 Requires at least: 3.8
-Tested up to: 4.4.2
-Stable tag: 3.1.5
+Tested up to: 4.5.2
+Stable tag: 3.1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,55 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 6. Detailed statistics on which methods are generating the most subscribers. **(Pro Feature)**
 
 == Changelog == 
+
+
+#### 3.1.8 - May 23, 2016
+
+**Fixes**
+
+- Form Preview mode replaced all titles on that page with "Form Preview".
+- API class fix for [eCommerce360 functionality](https://mc4wp.com/kb/what-is-ecommerce360/).
+
+**Improvements**
+
+- Show dismissible notice when API key is not set.
+- Show empty API key errors in plugin log.
+- Friendlier error message for re-subscribe failures.
+
+**Additions**
+
+- Add `form.reset()` method to JS API.
+
+#### 3.1.7 - May 9, 2016
+
+**Fixes**
+
+- Shortcode wasn't accepting `element_id` as a valid attribute.
+- Take array style fields into account when checking if a form contains a given field.
+
+
+**Improvements**
+
+- Nested fields will now be properly validated when they're marked as required.
+- If plugin is installed using Composer, autoloader won't be loaded (again).
+
+
+
+#### 3.1.6 - April 12, 2016
+
+**Fixes**
+
+- Form event for starting a form was named `start` where it should have been `started`.
+
+**Improvements**
+
+- Some preparations for the upcoming migration to the new MailChimp API (version 3).
+- Consistent hook parameters for `mc4wp_form_subscribed` action.
+- Improved logic for rendering form response.
+
+**Additions**
+
+- New checkbox position for WooCommerce checkout integration.
 
 
 #### 3.1.5 - March 22, 2016

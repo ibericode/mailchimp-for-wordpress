@@ -34,7 +34,8 @@ class MC4WP_Form_Output_Manager {
 	protected $shortcode_attributes = array(
 		'id' => '',
 		'lists' => '',
-		'email_type' => ''
+		'email_type' => '',
+		'element_id' => '',
 	);
 
 	/**

@@ -12,6 +12,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase {
 	protected $validator;
 
 	public function __construct() {
+		parent::__construct();
 		$this->validator = new MC4WP_Validator( array( 'foo' => '' ) );
 	}
 
@@ -73,6 +74,34 @@ class ValidatorTest extends PHPUnit_Framework_TestCase {
 		self::assertFalse( $this->validator->is_range( 6, array( 'max' => 5 ) ) );
 
 		self::assertTrue( $this->validator->is_range( 6, array( 'min' => 6, 'max' => 6 ) ) );
+	}
+
+	/**
+	 * @covers MC4WP_Validator::validate
+	 */
+	public function test_validate() {
+		$fields = array(
+			'foo' => 'bar',
+			'top' => array(
+				'a' => 'value',
+				'b' => '',
+			)
+		);
+
+		$validator = new MC4WP_Validator( $fields );
+		self::assertTrue( $validator->validate() );
+
+		$validator->add_rule( 'top.a', 'not_empty' );
+		self::assertTrue( $validator->validate() );
+
+		$validator->add_rule( 'top.b', 'empty' );
+		self::assertTrue( $validator->validate() );
+
+		$validator->add_rule( 'foo', 'empty' );
+		self::assertFalse( $validator->validate() );
+
+		$validator->add_rule( 'top.aaa', 'not_empty' );
+		$validator->validate();
 	}
 
 

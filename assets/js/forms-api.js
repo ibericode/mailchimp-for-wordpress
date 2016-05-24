@@ -107,7 +107,11 @@ var Form = function(id, element) {
 	this.started = false;
 
 	this.setData = function(data) {
-		populate(form.element, data);
+		try {
+			populate(form.element, data);
+		} catch(e) {
+			console.error(e);
+		}
 	};
 
 	this.getData = function() {
@@ -121,6 +125,13 @@ var Form = function(id, element) {
 	this.setResponse = function( msg ) {
 		form.element.querySelector('.mc4wp-response').innerHTML = msg;
 	};
+
+	// revert back to original state
+	this.reset = function() {
+		this.setResponse('');
+		form.element.querySelector('.mc4wp-form-fields').style.display = '';
+		form.element.reset();
+	}
 
 };
 

@@ -89,9 +89,16 @@ class MC4WP_Debug_Log{
 		$datetime = date( 'Y-m-d H:i:s', ( time() - date('Z') ) + ( get_option( 'gmt_offset', 0 ) * 3600 ) );
 		$message = sprintf( '[%s] %s: %s', $datetime, $level_name, $message ) . PHP_EOL;
 
-		// open file stream (write only)
-		if( is_null( $this->stream ) ) {
+		// did we open stream yet?
+		if( ! is_resource( $this->stream ) ) {
+
+			// open stream
 			$this->stream = fopen( $this->file, 'a' );
+
+			// if this failed, bail..
+			if ( ! is_resource( $this->stream ) ) {
+				return false;
+			}
 		}
 
 		// lock file while we write, ignore errors (not much we can do)
