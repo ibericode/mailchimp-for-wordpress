@@ -104,6 +104,7 @@ return array(
     'MC4WP_Integration_Fixture' => $baseDir . '/includes/integrations/class-integration-fixture.php',
     'MC4WP_Integration_Manager' => $baseDir . '/includes/integrations/class-integration-manager.php',
     'MC4WP_Integration_Tags' => $baseDir . '/includes/integrations/class-integration-tags.php',
+    'MC4WP_List_Data_Mapper' => $baseDir . '/includes/class-list-data-mapper.php',
     'MC4WP_MailChimp' => $baseDir . '/includes/class-mailchimp.php',
     'MC4WP_MailChimp_Grouping' => $baseDir . '/includes/mailchimp/class-grouping.php',
     'MC4WP_MailChimp_Interest_Category' => $baseDir . '/includes/mailchimp/class-interest-category.php',
