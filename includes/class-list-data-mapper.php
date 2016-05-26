@@ -34,7 +34,7 @@ class MC4WP_List_Data_Mapper {
 	}
 
 	/**
-	 * @return array
+	 * @return MC4WP_MailChimp_Member[]
 	 */
 	public function map() {
 		$mailchimp = new MC4WP_MailChimp();
@@ -54,15 +54,12 @@ class MC4WP_List_Data_Mapper {
 	/**
 	 * @param MC4WP_MailChimp_List $list
 	 *
-	 * @return array
+	 * @return MC4WP_MailChimp_Member
 	 */
 	public function map_list( MC4WP_MailChimp_List $list ) {
 
-		$map = (object) array(
-			'email' => $this->data['EMAIL'],
-			'merges' => array(),
-			'interests' => array(),
-		);
+		$member = new MC4WP_MailChimp_Member();
+		$member->email_address = $this->data['EMAIL'];
 
 		// find merge fields
 		foreach( $list->merge_fields as $merge_field ) {
@@ -75,7 +72,7 @@ class MC4WP_List_Data_Mapper {
 			$value = $this->format_merge_field_value( $value, $merge_field->field_type );
 
 			// add to map
-			$map->merges[ $merge_field->tag ] = $value;
+			$member->merges[ $merge_field->tag ] = $value;
 		}
 
 		// find interest categories
@@ -90,13 +87,14 @@ class MC4WP_List_Data_Mapper {
 			if( ! is_array( $interests ) ) {
 				$interests = array_map( 'trim', explode( ',', $interests ) );
 			}
-			
+
 			foreach( $interests as $interest_id ) {
-				$map->interests[ $interest_id ] = true;
+				$interest_id = (string) $interest_id;
+				$member->interests[ $interest_id ] = true;
 			}
 		}
 
-		return $map;
+		return $member;
 	}
 
 	/**

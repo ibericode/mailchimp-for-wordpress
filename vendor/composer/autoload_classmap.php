@@ -109,6 +109,7 @@ return array(
     'MC4WP_MailChimp_Grouping' => $baseDir . '/includes/mailchimp/class-grouping.php',
     'MC4WP_MailChimp_Interest_Category' => $baseDir . '/includes/mailchimp/class-interest-category.php',
     'MC4WP_MailChimp_List' => $baseDir . '/includes/mailchimp/class-list.php',
+    'MC4WP_MailChimp_Member' => $baseDir . '/includes/mailchimp/class-member.php',
     'MC4WP_MailChimp_Merge_Field' => $baseDir . '/includes/mailchimp/class-merge-field.php',
     'MC4WP_Ninja_Forms_Integration' => $baseDir . '/integrations/ninja-forms/class-ninja-forms.php',
     'MC4WP_Plugin' => $baseDir . '/includes/class-plugin.php',
@@ -125,7 +126,6 @@ return array(
     'MC4WP_Validator' => $baseDir . '/includes/class-validator.php',
     'MC4WP_Visitor_Tracking' => $baseDir . '/includes/class-visitor-tracking.php',
     'MC4WP_WooCommerce_Integration' => $baseDir . '/integrations/woocommerce/class-woocommerce.php',
-    'iMC4WP_API' => $baseDir . '/includes/api/class-api-interface.php',
     'xrstf\\Composer52\\AutoloadGenerator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
     'xrstf\\Composer52\\Generator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',
 );
