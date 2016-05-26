@@ -316,12 +316,12 @@ abstract class MC4WP_Integration {
 	/**
 	 * Makes a subscription request
 	 *
-	 * @param string $email
+	 * @param string $email_address
 	 * @param array $merge_vars
 	 * @param int $related_object_id
 	 * @return string|boolean
 	 */
-	protected function subscribe( $email, array $merge_vars = array(), $related_object_id = 0 ) {
+	protected function subscribe( $email_address, array $merge_vars = array(), $related_object_id = 0 ) {
 
 		$integration = $this;
 		$slug = $this->slug;
@@ -330,11 +330,15 @@ abstract class MC4WP_Integration {
 		 * @var MC4WP_API $api
 		 */
 		$api = mc4wp('api');
-		$lists = $this->get_lists();
+
+		/** @var MC4WP_Request $request */
+		$request = mc4wp('request');
+
+		$list_ids = $this->get_lists();
 		$result = false;
 
 		// validate lists
-		if( empty( $lists ) ) {
+		if( empty( $list_ids ) ) {
 			$this->get_log()->warning( sprintf( '%s > No MailChimp lists were selected', $this->name ) );
 			return false;
 		}
@@ -358,11 +362,15 @@ abstract class MC4WP_Integration {
 		$merge_vars = (array) apply_filters( 'mc4wp_integration_' . $slug . '_merge_vars', $merge_vars, $integration );
 		$email_type = mc4wp_get_email_type();
 
-		// create field map
-		$map = new MC4WP_Field_Map( $merge_vars, $lists );
+		$mapper = new MC4WP_List_Data_Mapper( $merge_vars, $list_ids );
+		$map = $mapper->map();
 
-		foreach( $map->list_fields as $list_id => $list_field_data ) {
-			$result = $api->subscribe( $list_id, $email, $list_field_data, $email_type, $this->options['double_optin'], $this->options['update_existing'], $this->options['replace_interests'], $this->options['send_welcome'] );
+		foreach( $map as $list_id => $member ) {
+			$member->email_type = $email_type;
+			$member->status = $this->options['double_optin'] ? 'pending' : 'subscribed';
+			$member->ip_signup = $request->get_client_ip();
+
+			$result = $api->subscribe( $list_id, $email_address, $member->to_array(), $this->options['update_existing'], $this->options['replace_interests'] );
 		}
 
 		// if result failed, show error message
@@ -370,7 +378,7 @@ abstract class MC4WP_Integration {
 
 			// log error
 			if( $api->get_error_code() === 214 ) {
-				$this->get_log()->warning( sprintf( "%s > %s is already subscribed to the selected list(s)", $this->name, mc4wp_obfuscate_string( $email ) ) );
+				$this->get_log()->warning( sprintf( "%s > %s is already subscribed to the selected list(s)", $this->name, mc4wp_obfuscate_string( $email_address ) ) );
 			} else {
 				$this->get_log()->error( sprintf( '%s > MailChimp API Error: %s', $this->name, $api->get_error_message() ) );
 			}
@@ -379,7 +387,7 @@ abstract class MC4WP_Integration {
 			return false;
 		}
 
-		$this->get_log()->info( sprintf( '%s > Successfully subscribed %s', $this->name, $email ) );
+		$this->get_log()->info( sprintf( '%s > Successfully subscribed %s', $this->name, $email_address ) );
 
 		/**
 		 * Runs right after someone is subscribed using an integration
@@ -387,11 +395,11 @@ abstract class MC4WP_Integration {
 		 * @since 3.0
 		 *
 		 * @param MC4WP_Integration $integration
-		 * @param string $email
+		 * @param string $email_address
 		 * @param array $merge_vars
 		 * @param int $related_object_id
 		 */
-		do_action( 'mc4wp_integration_subscribed', $integration, $email, $merge_vars, $related_object_id );
+		do_action( 'mc4wp_integration_subscribed', $integration, $email_address, $merge_vars, $related_object_id );
 
 		return $result;
 	}
