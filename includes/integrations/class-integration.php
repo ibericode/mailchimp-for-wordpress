@@ -325,14 +325,8 @@ abstract class MC4WP_Integration {
 
 		$integration = $this;
 		$slug = $this->slug;
-
-		/**
-		 * @var MC4WP_API $api
-		 */
-		$api = mc4wp('api');
-
-		/** @var MC4WP_Request $request */
-		$request = mc4wp('request');
+		$api = $this->get_api();
+		$request= $this->get_request();
 
 		$list_ids = $this->get_lists();
 		$result = false;
@@ -345,6 +339,8 @@ abstract class MC4WP_Integration {
 
 		/**
 		 * Filters the final merge variables before the request is sent to MailChimp, for all integrations.
+		 *
+		 * TODO: This filter name is off because it runs before the data mapper. It should be just data at this point.
 		 *
 		 * @param array $merge_vars
 		 * @param MC4WP_Integration $integration
@@ -370,7 +366,7 @@ abstract class MC4WP_Integration {
 			$member->status = $this->options['double_optin'] ? 'pending' : 'subscribed';
 			$member->ip_signup = $request->get_client_ip();
 
-			$result = $api->subscribe( $list_id, $email_address, $member->to_array(), $this->options['update_existing'], $this->options['replace_interests'] );
+			$result = $api->list_subscribe( $list_id, $email_address, $member->to_array(), $this->options['update_existing'], $this->options['replace_interests'] );
 		}
 
 		// if result failed, show error message
@@ -469,6 +465,20 @@ abstract class MC4WP_Integration {
 	 */
 	protected function get_log() {
 		return mc4wp('log');
+	}
+
+	/**
+	 * @return MC4WP_API_v3
+	 */
+	protected function get_api() {
+		return mc4wp('api');
+	}
+
+	/**
+	 * @return MC4WP_Request
+	 */
+	protected function get_request() {
+		return mc4wp('request');
 	}
 
 }

@@ -75,13 +75,12 @@ class MC4WP_Form_Listener {
 		/**
 		 * Filters merge vars which are sent to MailChimp, only fires for form requests.
 		 *
-		 * TODO: Re-enable this filter.
+		 * TODO: This filter name is off because it runs before the data mapper. It should be just data at this point.
 		 *
 		 * @param array $merge_vars
 		 * @param MC4WP_Form $form
-		 * @deprecated 4.0
 		 */
-		//$merge_vars = (array) apply_filters( 'mc4wp_form_merge_vars', $merge_vars, $form );
+		$merge_vars = (array) apply_filters( 'mc4wp_form_merge_vars', $data, $form );
 
 		// create a map of all lists with list-specific data
 		$mapper = new MC4WP_List_Data_Mapper( $data, $form->get_lists() );
@@ -95,7 +94,7 @@ class MC4WP_Form_Listener {
 			$member->ip_signup = $client_ip;
 
 			// send a subscribe request to MailChimp for each list
-			$result = $api->subscribe( $list_id, $member->email_address, $member->to_array(), $form->settings['update_existing'], $form->settings['replace_interests'] );
+			$result = $api->list_subscribe( $list_id, $member->email_address, $member->to_array(), $form->settings['update_existing'], $form->settings['replace_interests'] );
 		}
 
 		// do stuff on failure
@@ -143,7 +142,7 @@ class MC4WP_Form_Listener {
 		$result = null;
 
 		foreach( $form->get_lists() as $list_id ) {
-			$result = $api->unsubscribe( $list_id, $form->data['EMAIL'] );
+			$result = $api->list_unsubscribe( $list_id, $form->data['EMAIL'] );
 		}
 
 		if( ! $result ) {

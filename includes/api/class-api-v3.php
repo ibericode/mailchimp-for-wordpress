@@ -226,18 +226,27 @@ class MC4WP_API_v3 {
 	/**
 	 *
 	 * TODO: Force re-sending double opt-in email by deleting pending subscribers from list first.
+	 * TODO: Move this method out of API class?
 	 *
 	 * Sends a subscription request to the MailChimp API
 	 *
 	 * @param string  $list_id           The list id to subscribe to
 	 * @param string  $email_address             The email address to subscribe
-	 * @param array 	$args
+	 * @param array    $args
 	 * @param boolean $update_existing   Update information if this email is already on list?
 	 * @param boolean $replace_interests Replace interest groupings, only if update_existing is true.
 	 *
 	 * @return boolean
 	 */
-	public function subscribe( $list_id, $email_address, array $args = array(), $update_existing = false, $replace_interests = true ) {
+	public function list_subscribe( $list_id, $email_address, array $args = array(), $update_existing = false, $replace_interests = true ) {
+
+		$default_args = array(
+			'status' => 'pending',
+			'email_address' => $email_address
+		);
+
+		// setup default args
+		$args = $args + $default_args;
 
 		// first, check if subscriber is already on the given list
 		$existing_member_data = $this->get_list_member( $list_id, $email_address );
@@ -264,10 +273,6 @@ class MC4WP_API_v3 {
 			$args['interests'] = $args['interests'] + $existing_interests;
 		}
 
-		if( ! isset( $args['email_address'] ) ) {
-			$args['email_address'] = $email_address;
-		}
-
 //		// for backwards compatibility, copy over GROUPINGS from merge_fields array.
 //		if( ! empty( $merge_fields['GROUPINGS'] ) ) {
 //
@@ -284,9 +289,18 @@ class MC4WP_API_v3 {
 //			unset( $merge_fields['GROUPINGS'] );
 //		}
 
-		$data = $this->add_list_member( $list_id, $args );
+		return $this->add_list_member( $list_id, $args );
+	}
 
-		return is_object( $data ) && ! empty( $data->id );
+	/**
+	 * TODO: Move this method out of API class?
+	 *
+	 * @param string $list_id
+	 * @param string $email_address
+	 * @return object
+	 */
+	public function list_unsubscribe( $list_id, $email_address ) {
+		return $this->update_list_member( $list_id, $email_address, array( 'status' => 'unsubscribed' ) );
 	}
 
 	/**
@@ -546,70 +560,6 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @deprecated 4.0
-	 * @use MC4WP_API::update_list_member
-	 *
-	 * @param              $list_id
-	 * @param array|string $email_address
-	 * @param array        $merge_fields
-	 * @param string       $email_type
-	 * @param null         $replace_interests (unused)
-	 *
-	 * @return bool
-	 */
-	public function update_subscriber( $list_id, $email_address, $merge_fields = array(), $email_type = 'html', $replace_interests = null ) {
-		_deprecated_function( __METHOD__, '4.0', 'MC4WP_API::update_list_member' );
-
-		$args = array(
-			'email_type' => $email_type,
-			'status' => 'subscribed',
-		);
-
-		// for backwards compatibility, copy over OPTIN_IP from merge_fields array.
-		// TODO: Decouple this from this method.
-
-		// for backwards compatibility, copy over GROUPINGS from merge_fields array.
-		if( ! empty( $merge_fields['GROUPINGS'] ) ) {
-			$args['interests'] = $merge_fields['GROUPINGS'];
-			unset( $merge_fields['GROUPINGS'] );
-		}
-
-		// remove "interests" key from merge vars
-		if( ! empty( $merge_fields['INTERESTS'] ) ) {
-			$args['interests'] = $merge_fields['INTERESTS'];
-			unset( $merge_fields['INTERESTS'] );
-		}
-
-		// set leftover merge fields
-		$args['merge_fields'] = $merge_fields;
-
-		$data = $this->update_list_member( $list_id, $email_address, $args );
-
-		return is_object( $data ) && ! empty( $data->id );
-	}
-
-	/**
-	 * Unsubscribes the given email address from the given MailChimp list
-	 *
-	 * @see MC4WP_API::update_list_member()
-	 *
-	 * @param string       $list_id
-	 * @param string       $email_address
-	 *
-	 * @return bool
-	 */
-	public function unsubscribe( $list_id, $email_address ) {
-
-		// for backwards compatibility with API v2 (which accepted an array)
-		if( is_array( $email_address ) ) {
-			$email_address = $email_address['email'];
-		}
-
-		$data = $this->update_list_member( $list_id, $email_address, array( 'status' => 'unsubscribed' ) );
-		return is_object( $data ) && ! empty( $data->id );
-	}
-
-	/**
 	 * Empties all data from previous response
 	 */
 	private function reset() {
@@ -618,138 +568,6 @@ class MC4WP_API_v3 {
 		$this->error_message = '';
 	}
 
-	/**
-	 * @deprecated 4.0
-	 * @use MC4WP_API::get_list_merge_fields
-	 */
-	public function get_list_merge_vars( $list_id ) {
-		_deprecated_function( __METHOD__, '4.0', 'get_list_merge_fields' );
-		return $this->get_list_merge_fields( $list_id );
-	}
 
-	/**
-	 * @deprecated 4.0
-	 * @use MC4WP_API::get_list_interest_categories
-	 */
-	public function get_list_groupings( $list_id ) {
-		_deprecated_function( __METHOD__, '4.0', 'get_list_interest_categories' );
-		return $this->get_list_interest_categories( $list_id );
-	}
-
-	/**
-	 * Get the lists an email address is subscribed to
-	 *
-	 * @param array|string $email
-	 *
-	 * @return array
-	 *
-	 * @deprecated 4.0 This method was deprecated because of MailChimp API v3
-	 */
-	public function get_lists_for_email( $email ) {
-		_deprecated_function( __METHOD__, '4.0' );
-		return array();
-	}
-
-	/**
-	 * Get lists with their merge_vars for a given array of list id's
-	 *
-	 * @param array $list_ids
-	 * @return array
-	 *
-	 * @deprecated 4.0 This method was deprecated because of MailChimp API v3
-	 * @see MC4WP_API_v3::get_list_merge_fields
-	 */
-	public function get_lists_with_merge_vars( $list_ids ) {
-		_deprecated_function( __METHOD__, '4.0' );
-		return array();
-	}
-
-	/**
-	 * @deprecated 4.0
-	 * @use MC4WP_API::add_ecommerce_store_order()
-	 *
-	 * @link https://apidocs.mailchimp.com/api/2.0/ecomm/order-add.php
-	 *
-	 * @param array $order_data
-	 *
-	 * @return boolean
-	 */
-	public function add_ecommerce_order( array $order_data ) {
-		_deprecated_function( __METHOD__, '4.0', 'MC4WP_API::add_ecommerce_store_order()' );
-
-		// get store id
-		$store_id = $order_data['store_id'];
-
-		// generate new $order_data format
-		$old = $order_data;
-		$order_data = array(
-			'id' => $old['id'],
-			'customer' => array(
-				'id' => '', 				// TODO: Generate (or find) customer ID
-				'email_address' => $old['email'],
-			),
-			'currency_code' => '',
-			'order_total' => $old['total'],
-			'tax_total' => $old['tax'],
-			'lines' => array(),
-			'processed_at_foreign' => $old['order_date'],
-		);
-
-		foreach( $old['items'] as $index => $item ) {
-			$line_id = sprintf( '%s-%s', $order_data['id'], $index + 1 );
-			$order_data['lines'][] = array(
-				'id' => $line_id,
-				'product_id' => $item['product_id'],
-				'product_variant_id' => '',     // TODO: Look at what value we need for this...
-				'quantity' => $item['qty'],
-				'price' => $item['cost']
-			);
-		}
-
-		if( isset( $old['campaign_id'] ) ) {
-			$order_data['campaign_id'] = $old['campaign_id'];
-		}
-
-		return $this->add_ecommerce_store_order( $store_id, $order_data );
-	}
-
-	/**
-	 *
-	 * @deprecated 4.0
-	 * @use MC4WP_API::delete_ecommerce_store_order()
-	 *
-	 * @link https://apidocs.mailchimp.com/api/2.0/ecomm/order-del.php
-	 *
-	 * @param string $store_id
-	 * @param string $order_id
-	 *
-	 * @return bool
-	 */
-	public function delete_ecommerce_order( $store_id, $order_id ) {
-		_deprecated_function( __METHOD__, '4.0', 'MC4WP_API::delete_ecommerce_store_order()' );
-		return $this->delete_ecommerce_store_order( $store_id, $order_id );
-	}
-
-	/**
-	 * Gets the member info for one or multiple emails on a list
-	 *
-	 * @deprecated 4.0
-	 * @use MC4WP_API::get_list_member()
-	 *
-	 * @param string $list_id
-	 * @param string $email
-	 *
-	 * @return array
-	 */
-	public function get_subscriber_info( $list_id, $email ) {
-
-		_deprecated_function( __METHOD__, '4.0', 'MC4WP_API::get_list_member()' );
-
-		if( is_array( $email ) ) {
-			$email = array_shift( $email );
-		}
-
-		return $this->get_list_member( $list_id, $email );
-	}
 
 }
