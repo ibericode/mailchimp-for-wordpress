@@ -49,7 +49,7 @@ class MC4WP_Form_Listener {
 
 			// form was valid, do something
 			$method = 'process_' . $form->get_action() . '_form';
-			call_user_func( array( $this, $method ), $form );
+			call_user_func( array( $this, $method ), $form, $request );
 		} else {
 			$this->get_log()->info( sprintf( "Form %d > Submitted with errors: %s", $form->ID, join( ', ', $form->errors ) ) );
 		}
@@ -63,29 +63,39 @@ class MC4WP_Form_Listener {
 	 * Process a subscribe form.
 	 *
 	 * @param MC4WP_Form $form
+	 * @Param MC4WP_Request $request
 	 */
-	public function process_subscribe_form( MC4WP_Form $form ) {
-		$api = $this->get_api();
+	public function process_subscribe_form( MC4WP_Form $form, MC4WP_Request $request ) {
 		$result = false;
-		$email = $form->data['EMAIL'];
+		$api = $this->get_api();
 		$email_type = $form->get_email_type();
-		$merge_vars = $form->data;
+		$data = $form->data;
+		$client_ip = $request->get_client_ip();
 
 		/**
 		 * Filters merge vars which are sent to MailChimp, only fires for form requests.
 		 *
+		 * TODO: Re-enable this filter.
+		 *
 		 * @param array $merge_vars
 		 * @param MC4WP_Form $form
+		 * @deprecated 4.0
 		 */
-		$merge_vars = (array) apply_filters( 'mc4wp_form_merge_vars', $merge_vars, $form );
+		//$merge_vars = (array) apply_filters( 'mc4wp_form_merge_vars', $merge_vars, $form );
 
-		// create a map of all lists with list-specific merge vars
-		$map = new MC4WP_Field_Map( $merge_vars, $form->get_lists() );
+		// create a map of all lists with list-specific data
+		$mapper = new MC4WP_List_Data_Mapper( $data, $form->get_lists() );
+		$map = $mapper->map();
 
 		// loop through lists
-		foreach( $map->list_fields as $list_id => $merge_vars ) {
+		foreach( $map as $list_id => $member ) {
+
+			$member->status = $form->settings['double_optin'] ? 'pending' : 'subscribed';
+			$member->email_type = $email_type;
+			$member->ip_signup = $client_ip;
+
 			// send a subscribe request to MailChimp for each list
-			$result = $api->subscribe( $list_id, $email, $merge_vars, $email_type, $form->settings['double_optin'], $form->settings['update_existing'], $form->settings['replace_interests'], $form->settings['send_welcome'] );
+			$result = $api->subscribe( $list_id, $member->email_address, $member->to_array(), $form->settings['update_existing'], $form->settings['replace_interests'] );
 		}
 
 		// do stuff on failure
@@ -120,15 +130,15 @@ class MC4WP_Form_Listener {
 		 * @param MC4WP_Form $form Instance of the submitted form
 		 * @param string $email
 		 * @param array $merge_vars
-		 * @param array $pretty_data
 		 */
-		do_action( 'mc4wp_form_subscribed', $form, $email, $merge_vars, $map->pretty_data );
+		do_action( 'mc4wp_form_subscribed', $form, $form->data['EMAIL'], $form->data['EMAIL'] );
 	}
 
 	/**
 	 * @param MC4WP_Form $form
+	 * @param MC4WP_Request $request
 	 */
-	public function process_unsubscribe_form( MC4WP_Form $form ) {
+	public function process_unsubscribe_form( MC4WP_Form $form, MC4WP_Request $request = null ) {
 		$api = $this->get_api();
 		$result = null;
 

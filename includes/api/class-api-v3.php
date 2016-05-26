@@ -2,10 +2,8 @@
 
 /**
  * Class MC4WP_API_v3
- *
- * TODO: Error handling
  */
-class MC4WP_API_v3 implements iMC4WP_API {
+class MC4WP_API_v3 {
 
 	/**
 	 * @var string
@@ -227,103 +225,67 @@ class MC4WP_API_v3 implements iMC4WP_API {
 
 	/**
 	 *
-	 * TODO: Look at "replace_interests"
-	 * TODO: Look at "send_welcome"
+	 * TODO: Force re-sending double opt-in email by deleting pending subscribers from list first.
 	 *
 	 * Sends a subscription request to the MailChimp API
 	 *
 	 * @param string  $list_id           The list id to subscribe to
 	 * @param string  $email_address             The email address to subscribe
-	 * @param array   $merge_fields        Array of extra merge variables
-	 * @param string  $email_type        The email type to send to this email address. Possible values are `html` and `text`.
-	 * @param boolean $double_optin      Should this email be confirmed via double opt-in?
+	 * @param array 	$args
 	 * @param boolean $update_existing   Update information if this email is already on list?
-	 * @param boolean $replace_interests Unused. Replace interest groupings, only if update_existing is true.
-	 * @param boolean $send_welcome      Unused. MailChimp deprecated this parameter in API v3.
+	 * @param boolean $replace_interests Replace interest groupings, only if update_existing is true.
 	 *
 	 * @return boolean
 	 */
-	public function subscribe( $list_id, $email_address, array $merge_fields = array(), $email_type = 'html', $double_optin = true, $update_existing = false, $replace_interests = true, $send_welcome = null ) {
-
-		$status = $double_optin ? 'pending' : 'subscribed';
+	public function subscribe( $list_id, $email_address, array $args = array(), $update_existing = false, $replace_interests = true ) {
 
 		// first, check if subscriber is already on the given list
-		$data = $this->get_list_member( $list_id, $email_address );
-		$existing_interests = array();
+		$existing_member_data = $this->get_list_member( $list_id, $email_address );
+		$existing_member = is_object( $existing_member_data ) && ! empty( $existing_member_data->id );
 
-		if( is_object( $data ) && ! empty( $data->id ) ) {
+		// does this subscriber exist yet?
+		if(  $existing_member && $existing_member_data->status === 'subscribed' ) {
 
-			// set every interest to false if $replace_interests is true
+			// if we're not supposed to update, bail.
+			if( ! $update_existing ) {
+				$this->error_code = 214;
+				return false;
+			}
+
+			$args['status'] = 'subscribed';
+
+			$existing_interests = (array) $existing_member_data->interests;
+
+			// if replace, assume all existing interests disabled
 			if( $replace_interests ) {
-				$existing_interests = (array) $data->interests;
 				$existing_interests = array_fill_keys( array_keys( $existing_interests ), false );
 			}
 
-			// email address is already subscribed
-			if( $data->status === 'subscribed' ) {
-
-				// if we're not supposed to update, bail.
-				if( ! $update_existing ) {
-					$this->error_code = 214;
-					return false;
-				}
-
-				$status = 'subscribed';
-			} else {
-				// if double opt-in is enabled, try to delete email from list first.
-				if( $double_optin ) {
-					$success = $this->delete_list_member( $list_id, $email_address );
-
-					// Only proceed if this succeeded
-					if( ! $success ) {
-						return false;
-					}
-				}
-			}
+			$args['interests'] = $args['interests'] + $existing_interests;
 		}
 
-		$args = array(
-			'email_address' => $email_address,
-			'email_type' => $email_type,
-			'status' => $status,
-		);
-
-		// for backwards compatibility, copy over OPTIN_IP from merge_fields array.
-		// TODO: Decouple this from this method
-		if( ! empty( $merge_fields[ 'OPTIN_IP' ] ) ) {
-			$args['ip_signup'] = $merge_fields['OPTIN_IP'];
-			unset( $merge_fields['OPTIN_IP'] );
+		if( ! isset( $args['email_address'] ) ) {
+			$args['email_address'] = $email_address;
 		}
 
-		// for backwards compatibility, copy over GROUPINGS from merge_fields array.
-		if( ! empty( $merge_fields['GROUPINGS'] ) ) {
+//		// for backwards compatibility, copy over GROUPINGS from merge_fields array.
+//		if( ! empty( $merge_fields['GROUPINGS'] ) ) {
+//
+//			// backwards compatibility for old interest groupings
+//			$map = get_option( 'mc4wp_groupings_map', array() );
+//			$interests = array();
+//			foreach( $merge_fields['GROUPINGS'] as $grouping ) {
+//				if( isset( $map[ $grouping['id'] ] ) ) {
+//					$interests[ $map[ $grouping['id'] ] ] = true;
+//				}
+//			}
+//
+//			$args['interests'] = $interests;
+//			unset( $merge_fields['GROUPINGS'] );
+//		}
 
-			// backwards compatibility for old interest groupings
-			$map = get_option( 'mc4wp_groupings_map', array() );
-			$interests = array();
-			foreach( $merge_fields['GROUPINGS'] as $grouping ) {
-				if( isset( $map[ $grouping['id'] ] ) ) {
-					$interests[ $map[ $grouping['id'] ] ] = true;
-				}
-			}
-
-			$args['interests'] = $interests;
-			unset( $merge_fields['GROUPINGS'] );
-		}
-
-		// remove "interests" key from merge vars
-		if( ! empty( $merge_fields['INTERESTS'] ) ) {
-			$args['interests'] = $merge_fields['INTERESTS'];
-			unset( $merge_fields['INTERESTS'] );
-		}
-
-		// merge interests with existing interests
-		$args['interests'] = array_replace( $existing_interests, $args['interests'] );
-
-		// set leftover merge fields
-		$args['merge_fields'] = $merge_fields;
-		
 		$data = $this->add_list_member( $list_id, $args );
+
 		return is_object( $data ) && ! empty( $data->id );
 	}
 
@@ -459,6 +421,8 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	}
 
 	/**
+	 * Add or update (!) a member to a MailChimp list.
+	 *
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#create-post_lists_list_id_members
 	 * @since 4.0
 	 *
@@ -627,19 +591,14 @@ class MC4WP_API_v3 implements iMC4WP_API {
 	/**
 	 * Unsubscribes the given email address from the given MailChimp list
 	 *
-	 * @deprecated 4.0
-	 * @use MC4WP_API::update_list_member()
+	 * @see MC4WP_API::update_list_member()
 	 *
 	 * @param string       $list_id
 	 * @param string       $email_address
-	 * @param null         $delete_member       unused
-	 * @param null         $send_goodbye        unused
-	 * @param null         $send_notification   unused
 	 *
 	 * @return bool
 	 */
-	public function unsubscribe( $list_id, $email_address, $send_goodbye = null, $send_notification = null, $delete_member = null ) {
-		_deprecated_function( __METHOD__, '4.0', 'MC4WP_API::update_list_member()' );
+	public function unsubscribe( $list_id, $email_address ) {
 
 		// for backwards compatibility with API v2 (which accepted an array)
 		if( is_array( $email_address ) ) {
