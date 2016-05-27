@@ -172,10 +172,12 @@ class MC4WP_API_v3 {
 	/**
 	 * @param array|WP_Error $response
 	 *
-	 * @return array|mixed|object
+	 * @return mixed
+	 * 
 	 * @throws Exception
 	 */
 	private function parse_response( $response ) {
+
 		if( is_wp_error( $response ) ) {
 			throw new Exception( 'Error connecting to MailChimp. ' . $response->get_error_message(), (int) $response->get_error_code() );
 		}
