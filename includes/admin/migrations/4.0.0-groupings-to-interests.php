@@ -57,3 +57,5 @@ if( ! empty( $map ) ) {
     update_option( 'mc4wp_groupings_map', $map );
 }
 
+// delete old transient
+delete_transient( 'mc4wp_mailchimp_lists' );
