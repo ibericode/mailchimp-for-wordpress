@@ -4,7 +4,7 @@ class MC4WP_MailChimp_Member {
 
     public $email_address = '';
     public $interests = array();
-    public $merges = array();
+    public $merge_fields = array();
     public $status = 'pending';
     public $email_type = 'html';
     public $ip_signup;

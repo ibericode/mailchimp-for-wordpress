@@ -72,7 +72,7 @@ class MC4WP_List_Data_Mapper {
 			$value = $this->format_merge_field_value( $value, $merge_field->field_type );
 
 			// add to map
-			$member->merges[ $merge_field->tag ] = $value;
+			$member->merge_fields[ $merge_field->tag ] = $value;
 		}
 
 		// find interest categories
