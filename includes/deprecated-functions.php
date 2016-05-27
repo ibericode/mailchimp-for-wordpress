@@ -1,12 +1,25 @@
 <?php
 
 /**
+ * @use mc4wp_add_name_merge_vars()
+ * @deprecated 4.0
+ * @ignore
+ *
+ * @param array $merge_vars
+ * @return array
+ */
+function mc4wp_guess_merge_vars( $merge_vars = array() ) {
+	_deprecated_function( __FUNCTION__, 'MailChimp for WordPress v4.0' );
+	return $merge_vars;
+}
+
+/**
  * Echoes a sign-up checkbox.
  *
- * @since 1.0
- * @deprecated 3.0
- * @use `mc4wp_get_integration`
  * @ignore
+ * @deprecated 3.0
+ *
+ * @use mc4wp_get_integration()
  */
 function mc4wp_checkbox() {
 	_deprecated_function( __FUNCTION__, 'MailChimp for WordPress v3.0' );
@@ -17,11 +30,11 @@ function mc4wp_checkbox() {
  * Echoes a MailChimp for WordPress form
  *
  * @ignore
- * @since 1.0
  * @deprecated 3.0
  * @use mc4wp_show_form()
  *
- * @param   int     $id     The form ID
+ * @param int $id
+ * @param array $attributes
  *
  * @return MC4WP_Form
  *

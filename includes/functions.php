@@ -34,7 +34,7 @@ function mc4wp( $service = null ) {
  *
  * @since 1.0
  * @access public
- * @staticvar array $options
+ * @static array $options
  * @return array
  */
 function mc4wp_get_options() {
@@ -63,7 +63,7 @@ function mc4wp_get_options() {
  * @since 1.0
  * @access public
  *
- * @return MC4WP_API
+ * @return MC4WP_API_v3
  */
 function mc4wp_get_api() {
 	$opts = mc4wp_get_options();
@@ -163,31 +163,27 @@ function mc4wp_sanitize_deep( $value ) {
  *
  * @return array
  */
-function mc4wp_guess_merge_vars( $merge_vars = array() ) {
+function mc4wp_add_name_merge_vars( $merge_vars = array() ) {
 
-	// maybe guess first and last name
-	if ( isset( $merge_vars['NAME'] ) ) {
-		if( ! isset( $merge_vars['FNAME'] ) && ! isset( $merge_vars['LNAME'] ) ) {
-			$strpos = strpos( $merge_vars['NAME'], ' ' );
-			if ( $strpos !== false ) {
-				$merge_vars['FNAME'] = trim( substr( $merge_vars['NAME'], 0, $strpos ) );
-				$merge_vars['LNAME'] = trim( substr( $merge_vars['NAME'], $strpos ) );
-			} else {
-				$merge_vars['FNAME'] = $merge_vars['NAME'];
-			}
+	// Guess first and last name
+	if ( ! empty( $merge_vars['NAME'] ) &&  empty( $merge_vars['FNAME'] ) && empty( $merge_vars['LNAME'] ) ) {
+		$strpos = strpos( $merge_vars['NAME'], ' ' );
+		if ( $strpos !== false ) {
+			$merge_vars['FNAME'] = trim( substr( $merge_vars['NAME'], 0, $strpos ) );
+			$merge_vars['LNAME'] = trim( substr( $merge_vars['NAME'], $strpos ) );
+		} else {
+			$merge_vars['FNAME'] = $merge_vars['NAME'];
 		}
 	}
 
-	// set ip address
-	if( empty( $merge_vars['OPTIN_IP'] ) ) {
-		$optin_ip = mc4wp('request')->get_client_ip();
-
-		if( ! empty( $optin_ip ) ) {
-			$merge_vars['OPTIN_IP'] = $optin_ip;
-		}
+	// Set name value
+	if( empty( $merge_vars['NAME'] ) && ! empty( $merge_vars['FNAME'] ) && ! empty( $merge_vars['LNAME'] ) ) {
+		$merge_vars['NAME'] = sprintf( '%s %s', $merge_vars['FNAME'], $merge_vars['LNAME'] );
 	}
 
 	/**
+	 * TODO: Move this someplace else where it only has to be called once.
+	 *
 	 * Filters merge vars which are sent to MailChimp
 	 *
 	 * @param array $merge_vars
@@ -216,7 +212,7 @@ function mc4wp_get_email_type() {
 	 *
 	 * @param string $email_type
 	 */
-	$email_type = apply_filters( 'mc4wp_email_type', $email_type );
+	$email_type = (string) apply_filters( 'mc4wp_email_type', $email_type );
 
 	return $email_type;
 }
