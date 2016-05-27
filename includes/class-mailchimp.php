@@ -16,7 +16,12 @@ class MC4WP_MailChimp {
 	/**
 	 * @var string
 	 */
-	public $error = '';
+	public $error_code = '';
+
+	/**
+	 * @var string
+	 */
+	public $error_message = '';
 
 	/**
 	 * MC4WP_MailChimp constructor.
@@ -60,7 +65,8 @@ class MC4WP_MailChimp {
 
 			// if we're not supposed to update, bail.
 			if( ! $update_existing ) {
-				$this->error = 'already_subscribed';
+				$this->error_code = 214;
+				$this->error_message = 'That subscriber already exists.';
 				return false;
 			}
 
@@ -76,17 +82,27 @@ class MC4WP_MailChimp {
 			$args['interests'] = $args['interests'] + $existing_interests;
 		}
 
-		return $this->api->add_list_member( $list_id, $args );
+		$data = $this->api->add_list_member( $list_id, $args );
+
+		// copy over error properties
+		// TODO: Make this prettier?
+		$this->error_code = $this->api->get_error_code();
+		$this->error_message = $this->api->get_error_message();
+		return $data;
 	}
 
 	/**
 	 *
 	 * @param string $list_id
 	 * @param string $email_address
-	 * @return object
+	 *
+	 * @return boolean
 	 */
 	public function list_unsubscribe( $list_id, $email_address ) {
-		return $this->api->update_list_member( $list_id, $email_address, array( 'status' => 'unsubscribed' ) );
+		$data = $this->api->update_list_member( $list_id, $email_address, array( 'status' => 'unsubscribed' ) );
+		$this->error_code = $this->api->get_error_code();
+		$this->error_message = $this->api->get_error_message();
+		return $data;
 	}
 
 	/**
@@ -289,6 +305,20 @@ class MC4WP_MailChimp {
 		 * @param array $list_ids
 		 */
 		return apply_filters( 'mc4wp_subscriber_count', $count, $list_ids );
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_error_message() {
+		return $this->error_message;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_error_code() {
+		return $this->error_code;
 	}
 
 	/**
