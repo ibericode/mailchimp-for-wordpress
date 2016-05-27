@@ -8,23 +8,14 @@
  */
 class MC4WP_MailChimp {
 
-	/**
-	 * @var string
-	 */
-	protected $lists_transient_name = 'mc4wp_mailchimp_lists';
-
-	/**
-	 * @var string
-	 */
-	protected $list_counts_transient_name = 'mc4wp_list_counts';
 
 	/**
 	 * Empty the Lists cache
 	 */
 	public function empty_cache() {
-		delete_transient( $this->lists_transient_name );
-		delete_transient( $this->lists_transient_name . '_fallback' );
-		delete_transient( $this->list_counts_transient_name );
+		delete_transient( 'mc4wp_mailchimp_lists' );
+		delete_transient( 'mc4wp_mailchimp_lists_fallback' );
+		delete_transient( 'mc4wp_list_counts' );
 	}
 
 	/**
@@ -37,11 +28,11 @@ class MC4WP_MailChimp {
 	 */
 	public function get_lists( $force_fallback = false ) {
 
-		$cached_lists = get_transient( $this->lists_transient_name  );
+		$cached_lists = get_transient( 'mc4wp_mailchimp_lists_v3'  );
 
 		// if force_fallback is true, get lists from transient with longer expiration
 		if( $force_fallback ) {
-			$cached_lists = get_transient( $this->lists_transient_name . '_fallback' );
+			$cached_lists = get_transient( 'mc4wp_mailchimp_lists_v3_fallback' );
 		}
 
 		if( is_array( $cached_lists ) ) {
@@ -103,8 +94,8 @@ class MC4WP_MailChimp {
 		}
 
 		// store lists in transients
-		set_transient(  $this->lists_transient_name, $lists, ( 24 * 3600 * 2 ) ); // 2 days
-		set_transient(  $this->lists_transient_name . '_fallback', $lists, 24 * 3600 * 30 ); // 30 days
+		set_transient( 'mc4wp_mailchimp_lists_v3', $lists, ( 60 * 60 * 24 * 3 ) ); // 3 days
+		set_transient( 'mc4wp_mailchimp_lists_v3_fallback', $lists, 60 * 60 * 24 * 30 ); // 30 days
 
 		return $lists;
 	}
