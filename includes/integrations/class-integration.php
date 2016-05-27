@@ -367,7 +367,7 @@ abstract class MC4WP_Integration {
 			$member->status = $this->options['double_optin'] ? 'pending' : 'subscribed';
 			$member->ip_signup = $request->get_client_ip();
 
-			$result = $mailchimp->api->list_subscribe( $list_id, $email_address, $member->to_array(), $this->options['update_existing'], $this->options['replace_interests'] );
+			$result = $mailchimp->list_subscribe( $list_id, $email_address, $member->to_array(), $this->options['update_existing'], $this->options['replace_interests'] );
 		}
 
 		// if result failed, show error message
