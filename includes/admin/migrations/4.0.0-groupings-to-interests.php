@@ -16,7 +16,8 @@ if( empty( $options['api_key'] ) ) {
 $lists = get_transient( 'mc4wp_mailchimp_lists_fallback' );
 
 // for testing, store in a transient we'll never touch
-set_transient( 'mc4wp_old_mailchimp_list_data', $lists, WEEK_IN_SECONDS );
+$month_in_seconds = 60 * 60 * 24 * 30;
+set_transient( 'mc4wp_old_mailchimp_list_data', $lists, $month_in_seconds );
 
 if( empty( $lists ) ) {
     return;
