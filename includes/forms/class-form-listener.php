@@ -75,12 +75,10 @@ class MC4WP_Form_Listener {
 		/**
 		 * Filters merge vars which are sent to MailChimp, only fires for form requests.
 		 *
-		 * TODO: This filter name is off because it runs before the data mapper. It should be just data at this point.
-		 *
-		 * @param array $merge_vars
+		 * @param array $data
 		 * @param MC4WP_Form $form
 		 */
-		$merge_vars = (array) apply_filters( 'mc4wp_form_merge_vars', $data, $form );
+		$data = (array) apply_filters( 'mc4wp_form_merge_vars', $data, $form );
 
 		// create a map of all lists with list-specific data
 		$mapper = new MC4WP_List_Data_Mapper( $data, $form->get_lists() );
