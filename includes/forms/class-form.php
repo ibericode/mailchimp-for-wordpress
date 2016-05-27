@@ -273,6 +273,7 @@ class MC4WP_Form {
 			$type = ! empty( $message['type'] ) ? $message['type'] : '';
 			$text = isset( $message['text'] ) ? $message['text'] : $message;
 
+			// overwrite default text with text in form meta.
 			if( isset( $this->post_meta[ 'text_' . $key ][0] ) ) {
 				$text = $this->post_meta[ 'text_' . $key ][0];
 			}
@@ -280,7 +281,7 @@ class MC4WP_Form {
 			$message = new MC4WP_Form_Message( $text, $type );
 			$messages[ $key ] = $message;
 		}
-
+		
 		return $messages;
 	}
 
