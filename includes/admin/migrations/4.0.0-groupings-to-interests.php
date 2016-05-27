@@ -12,8 +12,6 @@ if( empty( $options['api_key'] ) ) {
     return;
 }
 
-$api_v3 = new MC4WP_API_v3( $options['api_key'] );
-
 // get current state from transient
 $lists = get_transient( 'mc4wp_mailchimp_lists_fallback' );
 
