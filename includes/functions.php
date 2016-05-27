@@ -161,19 +161,44 @@ function mc4wp_sanitize_deep( $value ) {
 function mc4wp_update_groupings_data( $data = array() ) {
 
 	if( ! empty( $data['GROUPINGS'] ) ) {
-		// get map from old grouping ID -> new interest ID
-		$map = get_option( 'mc4wp_groupings_map', array() );
-		$interests = array();
-		foreach( $data['GROUPINGS'] as $grouping ) {
-			if( isset( $map[ $grouping['id'] ] ) ) {
-				$interests[ $map[ $grouping['id'] ] ] = true;
-			}
-		}
 
-		$data['INTERESTS'] = $interests;
-		unset( $data['GROUPINGS'] );
+		$map = get_option( 'mc4wp_groupings_map', array() );
+
+		foreach( $data['GROUPINGS'] as $grouping_id => $groups ) {
+
+			// do we have transfer data for this grouping id?
+			if( ! isset( $map[ $grouping_id ] ) ) {
+				continue;
+			}
+
+			foreach( $groups as $group_name_or_id ) {
+				if( empty( $map[ $grouping_id ]['groups'][ $group_name_or_id ] ) ) {
+					continue;
+				}
+
+				$interest_category_id = $map[ $grouping_id ]['id'];
+				$interest_id = $map[ $grouping_id ]['groups'][ $group_name_or_id ];
+
+				if( ! isset( $data['INTERESTS'] ) ) {
+					$data['INTERESTS'] = array();
+				}
+
+				if( ! isset( $data['INTERESTS'][ $interest_category_id ] ) ) {
+					$data['INTERESTS'][ $interest_category_id ] = array();
+				}
+
+				$data['INTERESTS'][ $interest_category_id ][] = $interest_id;
+			}
+
+			unset( $data['GROUPINGS'][$grouping_id]);
+		}
 	}
 
+	// if everything went well, this is now empty.
+	if( empty( $data['GROUPINGS'] ) ) {
+		unset( $data['GROUPINGS'] );
+	}
+	
 	return $data;
 }
 
