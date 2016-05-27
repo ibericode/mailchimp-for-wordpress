@@ -325,7 +325,8 @@ abstract class MC4WP_Integration {
 
 		$integration = $this;
 		$slug = $this->slug;
-		$api = $this->get_api();
+		$mailchimp = new MC4WP_MailChimp();
+		$log = $this->get_log();
 		$request= $this->get_request();
 
 		$list_ids = $this->get_lists();
@@ -333,7 +334,7 @@ abstract class MC4WP_Integration {
 
 		// validate lists
 		if( empty( $list_ids ) ) {
-			$this->get_log()->warning( sprintf( '%s > No MailChimp lists were selected', $this->name ) );
+			$log->warning( sprintf( '%s > No MailChimp lists were selected', $this->name ) );
 			return false;
 		}
 
@@ -366,24 +367,24 @@ abstract class MC4WP_Integration {
 			$member->status = $this->options['double_optin'] ? 'pending' : 'subscribed';
 			$member->ip_signup = $request->get_client_ip();
 
-			$result = $api->list_subscribe( $list_id, $email_address, $member->to_array(), $this->options['update_existing'], $this->options['replace_interests'] );
+			$result = $mailchimp->api->list_subscribe( $list_id, $email_address, $member->to_array(), $this->options['update_existing'], $this->options['replace_interests'] );
 		}
 
 		// if result failed, show error message
 		if( ! $result ) {
 
 			// log error
-			if( $api->get_error_code() === 214 ) {
-				$this->get_log()->warning( sprintf( "%s > %s is already subscribed to the selected list(s)", $this->name, mc4wp_obfuscate_string( $email_address ) ) );
+			if( $mailchimp->api->get_error_code() === 214 ) {
+				$log->warning( sprintf( "%s > %s is already subscribed to the selected list(s)", $this->name, mc4wp_obfuscate_string( $email_address ) ) );
 			} else {
-				$this->get_log()->error( sprintf( '%s > MailChimp API Error: %s', $this->name, $api->get_error_message() ) );
+				$log->error( sprintf( '%s > MailChimp API Error: %s', $this->name, $mailchimp->api->get_error_message() ) );
 			}
 
 			// bail
 			return false;
 		}
 
-		$this->get_log()->info( sprintf( '%s > Successfully subscribed %s', $this->name, $email_address ) );
+		$log->info( sprintf( '%s > Successfully subscribed %s', $this->name, $email_address ) );
 
 		/**
 		 * Runs right after someone is subscribed using an integration

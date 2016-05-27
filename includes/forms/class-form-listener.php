@@ -67,7 +67,7 @@ class MC4WP_Form_Listener {
 	 */
 	public function process_subscribe_form( MC4WP_Form $form, MC4WP_Request $request ) {
 		$result = false;
-		$api = $this->get_api();
+		$mailchimp = new MC4WP_MailChimp();
 		$email_type = $form->get_email_type();
 		$data = $form->data;
 		$client_ip = $request->get_client_ip();
@@ -92,7 +92,7 @@ class MC4WP_Form_Listener {
 			$member->ip_signup = $client_ip;
 
 			// send a subscribe request to MailChimp for each list
-			$result = $api->list_subscribe( $list_id, $member->email_address, $member->to_array(), $form->settings['update_existing'], $form->settings['replace_interests'] );
+			$result = $mailchimp->list_subscribe( $list_id, $member->email_address, $member->to_array(), $form->settings['update_existing'], $form->settings['replace_interests'] );
 		}
 
 		$log = $this->get_log();
@@ -100,15 +100,17 @@ class MC4WP_Form_Listener {
 		// do stuff on failure
 		if( ! is_object( $result ) || empty( $result->id ) ) {
 
-			if( $api->get_error_code() == 212 ) {
-				$form->add_error('previously_unsubscribed');
-				$log->warning( sprintf( 'Form %d > %s has unsubscribed before and cannot be resubscribed by the plugin.', $form->ID, $form->data['EMAIL'] ) );
-			} elseif( $api->get_error_code() == 214 ) {
+//			if( $mailchimp->api->get_error_code() == 212 ) {
+//				$form->add_error('previously_unsubscribed');
+//				$log->warning( sprintf( 'Form %d > %s has unsubscribed before and cannot be resubscribed by the plugin.', $form->ID, $form->data['EMAIL'] ) );
+//			}
+
+			if( $mailchimp->error == 'already_subscribed' ) {
 				$form->add_error('already_subscribed');
 				$log->warning( sprintf( "Form %d > %s is already subscribed to the selected list(s)", $form->ID, mc4wp_obfuscate_string( $form->data['EMAIL'] ) ) );
 			} else {
 				$form->add_error('error');
-				$log->error( sprintf( 'Form %d > MailChimp API error: %s', $form->ID, $api->get_error_message() ) );
+				$log->error( sprintf( 'Form %d > MailChimp API error: %s', $form->ID, $mailchimp->api->get_error_message() ) );
 			}
 
 			// bail
@@ -141,21 +143,23 @@ class MC4WP_Form_Listener {
 	 * @param MC4WP_Request $request
 	 */
 	public function process_unsubscribe_form( MC4WP_Form $form, MC4WP_Request $request = null ) {
-		$api = $this->get_api();
+
+		$mailchimp = new MC4WP_MailChimp();
+		$log = $this->get_log();
 		$result = null;
 
 		foreach( $form->get_lists() as $list_id ) {
-			$result = $api->list_unsubscribe( $list_id, $form->data['EMAIL'] );
+			$result = $mailchimp->list_unsubscribe( $list_id, $form->data['EMAIL'] );
 		}
 
 		if( ! $result ) {
 			// not subscribed is a soft-error
-			if( in_array( $api->get_error_code(), array( 215, 232 ) ) ) {
+			if( in_array( $mailchimp->api->get_error_code(), array( 215, 232 ) ) ) {
 				$form->add_error( 'not_subscribed' );
-				$this->get_log()->info( sprintf( 'Form %d > %s is not subscribed to the selected list(s)', $form->ID, $form->data['EMAIL'] ) );
+				$log->info( sprintf( 'Form %d > %s is not subscribed to the selected list(s)', $form->ID, $form->data['EMAIL'] ) );
 			} else {
 				$form->add_error( 'error' );
-				$this->get_log()->error( sprintf( 'Form %d > MailChimp API error: %s', $form->ID, $api->get_error_message() ) );
+				$log->error( sprintf( 'Form %d > MailChimp API error: %s', $form->ID, $mailchimp->api->get_error_message() ) );
 			}
 		}
 

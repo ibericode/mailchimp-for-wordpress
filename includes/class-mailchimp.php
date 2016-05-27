@@ -8,6 +8,102 @@
  */
 class MC4WP_MailChimp {
 
+	/**
+	 * @var MC4WP_API_v3
+	 */
+	public $api;
+
+	/**
+	 * @var string
+	 */
+	public $error = '';
+
+	/**
+	 * MC4WP_MailChimp constructor.
+	 */
+	public function __construct() {
+		$this->api = mc4wp( 'api' );
+	}
+
+	/**
+	 *
+	 * TODO: Force re-sending double opt-in email by deleting pending subscribers from list first.
+	 *
+	 * Sends a subscription request to the MailChimp API
+	 *
+	 * @param string  $list_id           The list id to subscribe to
+	 * @param string  $email_address             The email address to subscribe
+	 * @param array    $args
+	 * @param boolean $update_existing   Update information if this email is already on list?
+	 * @param boolean $replace_interests Replace interest groupings, only if update_existing is true.
+	 *
+	 * @return object
+	 */
+	public function list_subscribe( $list_id, $email_address, array $args = array(), $update_existing = false, $replace_interests = true ) {
+
+		$this->error = '';
+
+		$default_args = array(
+			'status' => 'pending',
+			'email_address' => $email_address
+		);
+
+		// setup default args
+		$args = $args + $default_args;
+
+		// first, check if subscriber is already on the given list
+		$existing_member_data = $this->api->get_list_member( $list_id, $email_address );
+		$existing_member = is_object( $existing_member_data ) && ! empty( $existing_member_data->id );
+
+		// does this subscriber exist yet?
+		if(  $existing_member && $existing_member_data->status === 'subscribed' ) {
+
+			// if we're not supposed to update, bail.
+			if( ! $update_existing ) {
+				$this->error = 'already_subscribed';
+				return false;
+			}
+
+			$args['status'] = 'subscribed';
+
+			$existing_interests = (array) $existing_member_data->interests;
+
+			// if replace, assume all existing interests disabled
+			if( $replace_interests ) {
+				$existing_interests = array_fill_keys( array_keys( $existing_interests ), false );
+			}
+
+			$args['interests'] = $args['interests'] + $existing_interests;
+		}
+
+		return $this->api->add_list_member( $list_id, $args );
+	}
+
+	/**
+	 *
+	 * @param string $list_id
+	 * @param string $email_address
+	 * @return object
+	 */
+	public function list_unsubscribe( $list_id, $email_address ) {
+		return $this->api->update_list_member( $list_id, $email_address, array( 'status' => 'unsubscribed' ) );
+	}
+
+	/**
+	 * TODO: Move out of class.
+	 *
+	 * Checks if an email address is on a given list with status "subscribed"
+	 *
+	 * @param string $list_id
+	 * @param string $email_address
+	 *
+	 * @return boolean
+	 */
+	public function list_has_subscriber( $list_id, $email_address ) {
+		$data = $this->api->get_list_member( $list_id, $email_address );
+		return is_object( $data ) && ! empty( $data->id ) && $data->status === 'subscribed';
+	}
+
 
 	/**
 	 * Empty the Lists cache
