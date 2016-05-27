@@ -154,31 +154,55 @@ function mc4wp_sanitize_deep( $value ) {
 }
 
 /**
+ * @param array $data
+ * 
+ * @return array
+ */
+function mc4wp_update_groupings_data( $data = array() ) {
+
+	if( ! empty( $data['GROUPINGS'] ) ) {
+		// get map from old grouping ID -> new interest ID
+		$map = get_option( 'mc4wp_groupings_map', array() );
+		$interests = array();
+		foreach( $data['GROUPINGS'] as $grouping ) {
+			if( isset( $map[ $grouping['id'] ] ) ) {
+				$interests[ $map[ $grouping['id'] ] ] = true;
+			}
+		}
+
+		$data['INTERESTS'] = $interests;
+		unset( $data['GROUPINGS'] );
+	}
+
+	return $data;
+}
+
+/**
  * Guesses merge vars based on given data & current request.
  *
  * @since 3.0
  * @access public
  *
- * @param array $merge_vars
+ * @param array $data
  *
  * @return array
  */
-function mc4wp_add_name_merge_vars( $merge_vars = array() ) {
+function mc4wp_add_name_data( $data = array() ) {
 
 	// Guess first and last name
-	if ( ! empty( $merge_vars['NAME'] ) &&  empty( $merge_vars['FNAME'] ) && empty( $merge_vars['LNAME'] ) ) {
-		$strpos = strpos( $merge_vars['NAME'], ' ' );
+	if ( ! empty( $data['NAME'] ) &&  empty( $data['FNAME'] ) && empty( $data['LNAME'] ) ) {
+		$strpos = strpos( $data['NAME'], ' ' );
 		if ( $strpos !== false ) {
-			$merge_vars['FNAME'] = trim( substr( $merge_vars['NAME'], 0, $strpos ) );
-			$merge_vars['LNAME'] = trim( substr( $merge_vars['NAME'], $strpos ) );
+			$data['FNAME'] = trim( substr( $data['NAME'], 0, $strpos ) );
+			$data['LNAME'] = trim( substr( $data['NAME'], $strpos ) );
 		} else {
-			$merge_vars['FNAME'] = $merge_vars['NAME'];
+			$data['FNAME'] = $data['NAME'];
 		}
 	}
 
 	// Set name value
-	if( empty( $merge_vars['NAME'] ) && ! empty( $merge_vars['FNAME'] ) && ! empty( $merge_vars['LNAME'] ) ) {
-		$merge_vars['NAME'] = sprintf( '%s %s', $merge_vars['FNAME'], $merge_vars['LNAME'] );
+	if( empty( $data['NAME'] ) && ! empty( $data['FNAME'] ) && ! empty( $data['LNAME'] ) ) {
+		$data['NAME'] = sprintf( '%s %s', $data['FNAME'], $data['LNAME'] );
 	}
 
 	/**
@@ -188,9 +212,9 @@ function mc4wp_add_name_merge_vars( $merge_vars = array() ) {
 	 *
 	 * @param array $merge_vars
 	 */
-	$merge_vars = (array) apply_filters( 'mc4wp_merge_vars', $merge_vars );
+	$data = (array) apply_filters( 'mc4wp_merge_vars', $data );
 
-	return $merge_vars;
+	return $data;
 }
 
 /**
