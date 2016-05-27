@@ -116,6 +116,11 @@ class MC4WP_Form {
 	);
 
 	/**
+	 * @var array
+	 */
+	public $queued_messages = array();
+
+	/**
 	 * @param int $id The post ID
 	 * @throws Exception
 	 */
@@ -574,10 +579,10 @@ class MC4WP_Form {
 	 * @param string $error_code
 	 */
 	public function add_error( $error_code ) {
-
 		// only add each error once
 		if( ! in_array( $error_code, $this->errors ) ) {
 			$this->errors[] = $error_code;
+			$this->queue_message( $error_code );
 		}
 	}
 
@@ -668,5 +673,14 @@ class MC4WP_Form {
 		}
 
 		return $stylesheet;
+	}
+
+	/**
+	 * Add message that should be shown whenever this form is rendered.
+	 *
+	 * @param string $key
+	 */
+	public function queue_message( $key ) {
+		$this->queued_messages[] = $key;
 	}
 }
