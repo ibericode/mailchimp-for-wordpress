@@ -28,13 +28,6 @@ class MC4WP_MailChimp {
 	}
 
 	/**
-	 * @return MC4WP_API_v3
-	 */
-	private function api() {
-		return mc4wp('api');
-	}
-
-	/**
 	 * Get MailChimp lists
 	 * Try cache first, then try API, then try fallback cache.
 	 *
@@ -57,6 +50,9 @@ class MC4WP_MailChimp {
 
 		// transient was empty, get lists from MailChimp
 		$api = $this->api();
+
+		// try to increase time limit as this can take a while
+		@set_time_limit(300);
 		$lists_data = $api->get_lists( array( 'fields' => 'lists.id' ) );
 		$list_ids = wp_list_pluck( $lists_data, 'id' );
 
@@ -64,8 +60,6 @@ class MC4WP_MailChimp {
 		 * @var MC4WP_MailChimp_List[]
 		 */
 		$lists = array();
-
-		// TODO: See if we can combine this into less API calls.....
 
 		foreach ( $list_ids as $list_id ) {
 
@@ -86,15 +80,13 @@ class MC4WP_MailChimp {
 			// add to array
 			$lists["{$list->id}"] = $list;
 
-			// get merge vars
-			if( $list_data->stats->merge_field_count == 1 ) {
-				continue;
+			// get merge fields (if there's more than just "EMAIL")
+			if( $list_data->stats->merge_field_count > 1 ) {
+				$field_data = $api->get_list_merge_fields( $list->id, array( 'fields' => 'merge_fields.name,merge_fields.tag,merge_fields.type,merge_fields.required,merge_fields.default_value,merge_fields.options,merge_fields.public' ) );
+				$list->merge_fields = $list->merge_fields + array_map( array( 'MC4WP_MailChimp_Merge_Field', 'from_data' ), $field_data );
 			}
 
-			$field_data = $api->get_list_merge_fields( $list->id, array( 'fields' => 'merge_fields.name,merge_fields.tag,merge_fields.type,merge_fields.required,merge_fields.default_value,merge_fields.options,merge_fields.public' ) );
-			$list->merge_fields = $list->merge_fields + array_map( array( 'MC4WP_MailChimp_Merge_Field', 'from_data' ), $field_data );
-
-			// get interest groupings
+			// get interest categories
 			$groupings_data = $api->get_list_interest_categories( $list->id, array( 'fields' => 'categories.id,categories.title,categories.type' ) );
 			foreach( $groupings_data as $grouping_data ) {
 				$grouping = MC4WP_MailChimp_Interest_Category::from_data( $grouping_data );
@@ -210,6 +202,13 @@ class MC4WP_MailChimp {
 		 * @param array $list_ids
 		 */
 		return apply_filters( 'mc4wp_subscriber_count', $count, $list_ids );
+	}
+
+	/**
+	 * @return MC4WP_API_v3
+	 */
+	private function api() {
+		return mc4wp('api');
 	}
 
 
