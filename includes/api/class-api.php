@@ -6,6 +6,7 @@
  * @access public
  * @uses WP_HTTP
  * @since 1.0
+ * @deprecated 4.0
  */
 class MC4WP_API {
 
