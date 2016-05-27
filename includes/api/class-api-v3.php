@@ -20,9 +20,24 @@ class MC4WP_API_v3 {
 	 */
 	private $connected;
 
+	/**
+	 * @var string
+	 */
 	private $error_message;
+
+	/**
+	 * @var string
+	 */
 	private $error_code;
+
+	/**
+	 * @var mixed
+	 */
 	private $last_response;
+
+	/**
+	 * @var array
+	 */
 	private $last_response_raw;
 
 	/**
@@ -93,13 +108,12 @@ class MC4WP_API_v3 {
 	 * @return mixed
 	 */
 	private function request( $method, $resource, $data = array() ) {
-
 		$this->reset();
 
 		$url = $this->api_url . ltrim( $resource, '/' );
 		$args = array(
 			'method' => $method,
-			'headers' => $this->get_headers(),
+			'headers' => $this->get_headers()
 		);
 
 		// attach arguments (in body or URL)
@@ -236,7 +250,7 @@ class MC4WP_API_v3 {
 	 * @param boolean $update_existing   Update information if this email is already on list?
 	 * @param boolean $replace_interests Replace interest groupings, only if update_existing is true.
 	 *
-	 * @return boolean
+	 * @return object
 	 */
 	public function list_subscribe( $list_id, $email_address, array $args = array(), $update_existing = false, $replace_interests = true ) {
 
@@ -272,23 +286,6 @@ class MC4WP_API_v3 {
 
 			$args['interests'] = $args['interests'] + $existing_interests;
 		}
-
-//		TODO: Move this somewhere else.
-//		// for backwards compatibility, copy over GROUPINGS from merge_fields array.
-//		if( ! empty( $merge_fields['GROUPINGS'] ) ) {
-//
-//			// backwards compatibility for old interest groupings
-//			$map = get_option( 'mc4wp_groupings_map', array() );
-//			$interests = array();
-//			foreach( $merge_fields['GROUPINGS'] as $grouping ) {
-//				if( isset( $map[ $grouping['id'] ] ) ) {
-//					$interests[ $map[ $grouping['id'] ] ] = true;
-//				}
-//			}
-//
-//			$args['interests'] = $interests;
-//			unset( $merge_fields['GROUPINGS'] );
-//		}
 
 		return $this->add_list_member( $list_id, $args );
 	}
@@ -425,6 +422,8 @@ class MC4WP_API_v3 {
 	}
 
 	/**
+	 * TODO: Move out of class.
+	 *
 	 * Checks if an email address is on a given list with status "subscribed"
 	 *
 	 * @param string $list_id
