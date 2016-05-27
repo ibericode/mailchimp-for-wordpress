@@ -391,6 +391,15 @@ class MC4WP_API_v3 {
 		$subscriber_hash = $this->get_subscriber_hash( $args['email_address'] );
 		$resource = sprintf( '/lists/%s/members/%s', $list_id, $subscriber_hash );
 
+		// make sure we're sending an object as the MailChimp schema requires this
+		if( isset( $args['merge_fields'] ) ) {
+			$args['merge_fields'] = (object) $args['merge_fields'];
+		}
+
+		if( isset( $args['interests'] ) ) {
+			$args['interests'] = (object) $args['interests'];
+		}
+
 		// "put" updates the member if it's already on the list... take notice
 		$data = $this->put( $resource, $args );
 		return $data;
@@ -409,6 +418,16 @@ class MC4WP_API_v3 {
 	public function update_list_member( $list_id, $email_address, array $args = array() ) {
 		$subscriber_hash = $this->get_subscriber_hash( $email_address );
 		$resource = sprintf( '/lists/%s/members/%s', $list_id, $subscriber_hash );
+
+		// make sure we're sending an object as the MailChimp schema requires this
+		if( isset( $args['merge_fields'] ) ) {
+			$args['merge_fields'] = (object) $args['merge_fields'];
+		}
+
+		if( isset( $args['interests'] ) ) {
+			$args['interests'] = (object) $args['interests'];
+		}
+
 		$data = $this->patch( $resource, $args );
 		return $data;
 	}
