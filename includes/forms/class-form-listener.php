@@ -95,35 +95,34 @@ class MC4WP_Form_Listener {
 			$result = $api->list_subscribe( $list_id, $member->email_address, $member->to_array(), $form->settings['update_existing'], $form->settings['replace_interests'] );
 		}
 
+		$log = $this->get_log();
+
 		// do stuff on failure
 		if( ! is_object( $result ) || empty( $result->id ) ) {
 
 			if( $api->get_error_code() == 212 ) {
 				$form->add_error('previously_unsubscribed');
-				$this->get_log()->warning( sprintf( 'Form %d > %s has unsubscribed before and cannot be resubscribed by the plugin.', $form->ID, $form->data['EMAIL'] ) );
+				$log->warning( sprintf( 'Form %d > %s has unsubscribed before and cannot be resubscribed by the plugin.', $form->ID, $form->data['EMAIL'] ) );
 			} elseif( $api->get_error_code() == 214 ) {
-				// handle "already_subscribed" as a soft-error
 				$form->add_error('already_subscribed');
-				$this->get_log()->warning( sprintf( "Form %d > %s is already subscribed to the selected list(s)", $form->ID, mc4wp_obfuscate_string( $form->data['EMAIL'] ) ) );
+				$log->warning( sprintf( "Form %d > %s is already subscribed to the selected list(s)", $form->ID, mc4wp_obfuscate_string( $form->data['EMAIL'] ) ) );
 			} else {
-				// log error
-				$this->get_log()->error( sprintf( 'Form %d > MailChimp API error: %s', $form->ID, $api->get_error_message() ) );
-
-				// add error code to form object
 				$form->add_error('error');
+				$log->error( sprintf( 'Form %d > MailChimp API error: %s', $form->ID, $api->get_error_message() ) );
 			}
 
 			// bail
 			return;
 		}
 
+		// Success! Did we update or newly subscribe?
 		if( $result->status === 'subscribed' && $result->timestamp_signup < $result->last_changed ) {
 			$form->queue_message('updated');
 		} else {
 			$form->queue_message('subscribed');
 		}
 
-		$this->get_log()->info( sprintf( "Form %d > Successfully subscribed %s", $form->ID, $form->data['EMAIL'] ) );
+		$log->info( sprintf( "Form %d > Successfully subscribed %s", $form->ID, $form->data['EMAIL'] ) );
 
 		/**
 		 * Fires right after a form was used to subscribe.
