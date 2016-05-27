@@ -7,6 +7,5 @@ return array(
 	'redirect' => '',
 	'replace_interests' => 1,
 	'required_fields' => '',
-	'send_welcome' => 0,
 	'update_existing' => 0,
 );

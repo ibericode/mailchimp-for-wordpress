@@ -158,26 +158,7 @@
 							</td>
 						</tr>
 					<?php } // end if UI double_optin ?>
-
-					<?php if( $integration->has_ui_element( 'send_welcome' ) ) {
-						$config = array( 'element' => 'mc4wp_integrations['. $integration->slug .'][double_optin]', 'value' => 0 );
-						?>
-					<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
-						<th scope="row"><?php _e( 'Send Welcome Email?', 'mailchimp-for-wp' ); ?></th>
-						<td class="nowrap">
-							<label for="mc4wp_checkbox_send_welcome_1">
-								<input type="radio" id="mc4wp_checkbox_send_welcome_1" name="mc4wp_integrations[<?php echo $integration->slug; ?>][send_welcome]" value="1" <?php checked( $opts['send_welcome'], 1 ); ?> />
-								<?php _e( 'Yes', 'mailchimp-for-wp' ); ?>
-							</label> &nbsp;
-							<label for="mc4wp_checkbox_send_welcome_0">
-								<input type="radio" id="mc4wp_checkbox_send_welcome_0" name="mc4wp_integrations[<?php echo $integration->slug; ?>][send_welcome]" value="0" <?php checked( $opts['send_welcome'], 0 ); ?> />
-								<?php _e( 'No', 'mailchimp-for-wp' ); ?>
-							</label>
-							<p class="help"><?php _e( 'Select "yes" if you want to send your lists Welcome Email if a subscribe succeeds (only when double opt-in is disabled).', 'mailchimp-for-wp' ); ?></p>
-						</td>
-					</tr>
-					<?php } // end if UI send_welcome ?>
-
+					
 					<?php if( $integration->has_ui_element( 'update_existing' ) ) { ?>
 					<tr valign="top">
 						<th scope="row"><?php _e( 'Update existing subscribers?', 'mailchimp-for-wp' ); ?></th>

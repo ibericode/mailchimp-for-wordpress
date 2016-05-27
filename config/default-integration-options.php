@@ -7,7 +7,6 @@ return array(
 	'css'           => 0,
 	'lists'         => array(),
 	'double_optin'  => 1,
-	'send_welcome'  => 0,
 	'update_existing' => 0,
 	'replace_interests' => 0,
 );

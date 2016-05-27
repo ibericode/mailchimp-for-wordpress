@@ -44,22 +44,7 @@
 			<p class="help"><?php _e( 'Select "yes" if you want people to confirm their email address before being subscribed (recommended)', 'mailchimp-for-wp' ); ?></p>
 		</td>
 	</tr>
-	<?php $config = array( 'element' => 'mc4wp_form[settings][double_optin]', 'value' => 0 ); ?>
-	<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
-		<th scope="row"><?php _e( 'Send final welcome email?', 'mailchimp-for-wp' ); ?></th>
-		<td class="nowrap">
-			<label>
-				<input type="radio"  name="mc4wp_form[settings][send_welcome]" value="1" <?php checked( $opts['send_welcome'], 1 ); ?> />
-				<?php _e( 'Yes', 'mailchimp-for-wp' ); ?>
-			</label> &nbsp;
-			<label>
-				<input type="radio" name="mc4wp_form[settings][send_welcome]" value="0" <?php checked( $opts['send_welcome'], 0 ); ?> />
-				<?php _e( 'No', 'mailchimp-for-wp' ); ?>
-			</label>
-			<p class="help"><?php _e( 'Select "yes" if you want to send your lists Welcome Email if a subscribe succeeds (only when double opt-in is disabled).' ,'mailchimp-for-wp' ); ?></p>
-		</td>
-	</tr>
-
+	
 	<tr valign="top">
 		<th scope="row"><?php _e( 'Update existing subscribers?', 'mailchimp-for-wp' ); ?></th>
 		<td class="nowrap">
