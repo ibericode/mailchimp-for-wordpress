@@ -223,7 +223,7 @@ class MC4WP_MailChimp {
 	public function get_subscriber_counts() {
 
 		// get from transient
-		$list_counts = get_transient( $this->list_counts_transient_name );
+		$list_counts = get_transient( 'mc4wp_list_counts' );
 		if( is_array( $list_counts ) ) {
 			return $list_counts;
 		}
@@ -247,7 +247,7 @@ class MC4WP_MailChimp {
 		 * @param int $seconds
 		 */
 		$transient_lifetime = (int) apply_filters( 'mc4wp_lists_count_cache_time', $seconds );
-		set_transient( $this->list_counts_transient_name, $list_counts, $transient_lifetime );
+		set_transient( 'mc4wp_list_counts', $list_counts, $transient_lifetime );
 
 		// bail
 		return $list_counts;
