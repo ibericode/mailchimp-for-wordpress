@@ -273,6 +273,7 @@ class MC4WP_API_v3 {
 			$args['interests'] = $args['interests'] + $existing_interests;
 		}
 
+//		TODO: Move this somewhere else.
 //		// for backwards compatibility, copy over GROUPINGS from merge_fields array.
 //		if( ! empty( $merge_fields['GROUPINGS'] ) ) {
 //
@@ -301,6 +302,27 @@ class MC4WP_API_v3 {
 	 */
 	public function list_unsubscribe( $list_id, $email_address ) {
 		return $this->update_list_member( $list_id, $email_address, array( 'status' => 'unsubscribed' ) );
+	}
+
+	/**
+	 * Get recent daily, aggregated activity stats for a list.
+	 *
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/activity/#read-get_lists_list_id_activity
+	 * @since 4.0
+	 *
+	 * @param string $list_id
+	 *
+	 * @return array
+	 */
+	public function get_list_activity( $list_id ) {
+		$resource = sprintf( '/lists/%s/activity', $list_id );
+		$data = $this->get( $resource );
+
+		if( is_object( $data ) && isset( $data->activity ) ) {
+			return $data->activity;
+		}
+
+		return array();
 	}
 
 	/**
