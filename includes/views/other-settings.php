@@ -79,7 +79,7 @@ add_action( 'mc4wp_admin_other_settings', '__mc4wp_usage_tracking_setting', 70 )
 					#debug-log { font-family: monaco, monospace, courier, 'courier new', 'Bitstream Vera Sans Mono'; font-size: 13px; line-height: 140%; min-height: 100px; max-height: 300px; padding: 6px; border:1px solid #ccc; background: #262626; color: white; overflow-y: scroll; }
 					#debug-log .time { color: rgb(181, 137, 0); }
 					#debug-log .level { color: #35AECD; }
-					#debug-log .empty { color: #ccc; font-style: italic; }
+					#debug-log .debug-log-empty { color: #ccc; font-style: italic; }
 					#debug-log .hidden { display: none; }
 					#debug-log a{ color: #ccc; text-decoration: underline; }
 					#debug-log-filter { float :right; }
@@ -94,11 +94,11 @@ add_action( 'mc4wp_admin_other_settings', '__mc4wp_usage_tracking_setting', 70 )
 
 					if( ! empty( $line ) ) {
 						while ( $line ) {
-							echo '<div class="line">' . $line . '</div>';
+							echo '<div class="debug-log-line">' . $line . '</div>';
 							$line = $log_reader->read_as_html();
 						}
 					} else {
-						echo '<div class="empty">';
+						echo '<div class="debug-log-empty">';
 						echo '-- ' . __( 'Nothing here. Which means there are no errors!', 'mailchimp-for-wp' );
 						echo '</div>';
 					}
