@@ -1,6 +1,9 @@
 /* Tabs */
 .tab {
 	display: none;
+	background: inherit;
+	border: none;
+	font-weight: initial;
 }
 
 .tab.tab-active {

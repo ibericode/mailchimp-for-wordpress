@@ -402,7 +402,8 @@ span.CodeMirror-selectedtext {
 .CodeMirror {
   border: 1px solid #ccc;
   padding: 10px;
-  min-height: 500px; }
+  min-height: 500px;
+  font-weight: normal; }
 
 .CodeMirror-empty {
   color: #999; }
