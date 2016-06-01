@@ -15,8 +15,8 @@ function checkRequiredListFields( ) {
 	for( var i=0; i<lists.length; i++) {
 		var list = lists[i];
 
-		for( var j=0; j<list.merge_vars.length; j++) {
-			var f = list.merge_vars[j];
+		for( var j=0; j<list.merge_fields.length; j++) {
+			var f = list.merge_fields[j];
 
 			if(f.required && allowedFields.indexOf(f.tag) < 0) {
 				showNotice = true;
