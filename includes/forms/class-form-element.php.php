@@ -118,7 +118,7 @@ class MC4WP_Form_Element {
 		$form = $this->form;
 
 		if( $this->is_submitted || $force_show ) {
-			foreach( $this->form->queued_messages as $key ) {
+			foreach( $this->form->messages as $key ) {
 				$html .= $this->get_message_html( $key );
 			}
 		}

@@ -69,9 +69,14 @@ class MC4WP_Form {
 	public $settings = array();
 
 	/**
-	 * @var array Array of messages
+	 * @var array Array of message codes that will show when this form renders
 	 */
 	public $messages = array();
+
+	/**
+	 * @var array
+	 */
+	private $message_objects = array();
 
 	/**
 	 * @var WP_Post The internal post object that represents this form.
@@ -81,10 +86,10 @@ class MC4WP_Form {
 	/**
 	 * @var array Raw array or post_meta values.
 	 */
-	public $post_meta = array();
+	protected $post_meta = array();
 
 	/**
-	 * @var array Array of error code's
+	 * @var array Array of error codes
 	 */
 	public $errors = array();
 
@@ -116,11 +121,6 @@ class MC4WP_Form {
 	);
 
 	/**
-	 * @var array
-	 */
-	public $queued_messages = array();
-
-	/**
 	 * @param int $id The post ID
 	 * @throws Exception
 	 */
@@ -137,7 +137,6 @@ class MC4WP_Form {
 		$this->name = $post->post_title;
 		$this->content = $post->post_content;
 		$this->settings = $this->load_settings();
-		$this->messages = $this->load_messages();
 
 		// update config from settings
 		$this->config['lists'] = $this->settings['lists'];
@@ -155,20 +154,6 @@ class MC4WP_Form {
 	 */
 	public function get_response_html() {
 		return $this->get_element()->get_response_html( true );
-	}
-
-	/**
-	 * Get HTML string for a message, including wrapper element.
-	 *
-	 * @deprecated 3.2
-	 *
-	 * @param string $key
-	 *
-	 * @return string
-	 */
-	public function get_message_html( $key ) {
-		_deprecated_function( __METHOD__, '3.2' );
-		return '';
 	}
 
 	/**
@@ -309,6 +294,13 @@ class MC4WP_Form {
 	}
 
 	/**
+	 * @param $key
+	 */
+	public function add_message( $key ) {
+		$this->messages[] = $key;
+	}
+
+	/**
 	 * Get message object
 	 *
 	 * @param string $key
@@ -317,11 +309,17 @@ class MC4WP_Form {
 	 */
 	public function get_message( $key ) {
 
-		if( isset( $this->messages[ $key ] ) ) {
-			return $this->messages[ $key ];
+		// load messages once
+		if( empty( $this->message_objects ) ) {
+			$this->message_objects = $this->load_messages();
 		}
 
-		return $this->messages['error'];
+		if( isset( $this->message_objects[ $key ] ) ) {
+			return $this->message_objects[ $key ];
+		}
+
+		// default to general error message
+		return $this->message_objects['error'];
 	}
 
 	/**
@@ -583,7 +581,7 @@ class MC4WP_Form {
 		// only add each error once
 		if( ! in_array( $error_code, $this->errors ) ) {
 			$this->errors[] = $error_code;
-			$this->queue_message( $error_code );
+			$this->add_message( $error_code );
 		}
 	}
 
@@ -677,11 +675,17 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * Add message that should be shown whenever this form is rendered.
+	 * Get HTML string for a message, including wrapper element.
+	 *
+	 * @deprecated 3.1
 	 *
 	 * @param string $key
+	 *
+	 * @return string
 	 */
-	public function queue_message( $key ) {
-		$this->queued_messages[] = $key;
+	public function get_message_html( $key ) {
+		_deprecated_function( __METHOD__, '3.2' );
+		return '';
 	}
+
 }

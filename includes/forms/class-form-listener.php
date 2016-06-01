@@ -114,9 +114,9 @@ class MC4WP_Form_Listener {
 
 		// Success! Did we update or newly subscribe?
 		if( $result->status === 'subscribed' && $result->timestamp_signup < $result->last_changed ) {
-			$form->queue_message('updated');
+			$form->add_message('updated');
 		} else {
-			$form->queue_message('subscribed');
+			$form->add_message('subscribed');
 		}
 
 		$log->info( sprintf( "Form %d > Successfully subscribed %s", $form->ID, $form->data['EMAIL'] ) );
