@@ -52,7 +52,7 @@ var forms = function(m, i18n) {
 		if( config.choices().length > 0 ) {
 			config.value( config.choices().map(function(c) {
 				return c.label();
-			}).join(','));
+			}).join('|'));
 		}
 
 		return [

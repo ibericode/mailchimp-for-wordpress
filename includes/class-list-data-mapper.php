@@ -83,9 +83,9 @@ class MC4WP_List_Data_Mapper {
 
 			$interests = $this->data['INTERESTS'][ $interest_category->id ];
 
-			// accept comma-separated value strings
+			// accept pipe-separated value strings, eg "Group 1|Group 2"
 			if( ! is_array( $interests ) ) {
-				$interests = array_map( 'trim', explode( ',', $interests ) );
+				$interests = array_map( 'trim', explode( '|', $interests ) );
 			}
 
 			foreach( $interests as $interest_id ) {
