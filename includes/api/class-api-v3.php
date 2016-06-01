@@ -20,15 +20,6 @@ class MC4WP_API_v3 {
 	 */
 	private $connected;
 
-	/**
-	 * @var string
-	 */
-	private $error_message;
-
-	/**
-	 * @var string
-	 */
-	private $error_code;
 
 	/**
 	 * @var mixed
@@ -123,31 +114,15 @@ class MC4WP_API_v3 {
 			$args['body'] = json_encode( $data );
 		}
 
+		// perform request
 		$response = wp_remote_request( $url, $args );
 
-		try {
-			$data = $this->parse_response( $response );
-		} catch( Exception $e ) {
-			$this->error_code = $e->getCode();
-			$this->error_message = $e->getMessage();
-			return false;
-		}
+		// parse response
+		$data = $this->parse_response( $response );
 
 		// store response
 		$this->last_response_raw = $response;
 		$this->last_response = $data;
-
-		// store error (if any)
-		if( is_object( $data ) ) {
-			if( ! empty( $data->title ) ) {
-				$this->error_message = $data->title;
-			}
-
-			// store error code (if any)
-			if( ! empty( $data->status ) ) {
-				$this->error_code = (int) $data->status;
-			}
-		}
 
 		return $data;
 	}
@@ -174,12 +149,12 @@ class MC4WP_API_v3 {
 	 *
 	 * @return mixed
 	 * 
-	 * @throws Exception
+	 * @throws MC4WP_API_Exception
 	 */
 	private function parse_response( $response ) {
 
 		if( is_wp_error( $response ) ) {
-			throw new Exception( 'Error connecting to MailChimp. ' . $response->get_error_message(), (int) $response->get_error_code() );
+			throw new MC4WP_API_Exception( 'Error connecting to MailChimp. ' . $response->get_error_message(), (int) $response->get_error_code() );
 		}
 
 		// decode response body
@@ -193,24 +168,37 @@ class MC4WP_API_v3 {
 		}
 
 		$data = json_decode( $body );
+
+		if( $code >= 400 ) {
+			if( $code === 404 ) {
+				throw new MC4WP_API_Resource_Not_Found_Exception( $message, $code, $response, $data );
+			}
+
+			throw new MC4WP_API_Exception( $message, $code, $response , $data );
+		}
+
 		if( ! is_null( $data ) ) {
 			return $data;
 		}
 
-		if( $code !== 200 ) {
-			$message = sprintf( 'The MailChimp API server returned the following response: <em>%s %s</em>.', $code, $message );
+		// TODO: Move this to user land
+//		if( $code !== 200 ) {
+//			$message = sprintf( 'The MailChimp API server returned the following response: <em>%s %s</em>.', $code, $message );
+//
+//			// check for Akamai firewall response
+//			if( $code === 403 ) {
+//				preg_match('/Reference (.*)/i', $body, $matches );
+//
+//				if( ! empty( $matches[1] ) ) {
+//					$message .= '</strong><br /><br />' . sprintf( 'This usually means that your server is blacklisted by MailChimp\'s firewall. Please contact MailChimp support with the following reference number: %s </strong>', $matches[1] );
+//				}
+//			}
+//
+//
+//		}
 
-			// check for Akamai firewall response
-			if( $code === 403 ) {
-				preg_match('/Reference (.*)/i', $body, $matches );
-
-				if( ! empty( $matches[1] ) ) {
-					$message .= '</strong><br /><br />' . sprintf( 'This usually means that your server is blacklisted by MailChimp\'s firewall. Please contact MailChimp support with the following reference number: %s </strong>', $matches[1] );
-				}
-			}
-		}
-
-		throw new Exception( $message, $code );
+		// unable to decode response
+		throw new MC4WP_API_Exception( $message, $code, $response );
 	}
 
 	/**
@@ -477,32 +465,6 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * Checks if an error occured in the most recent request
-	 *
-	 * @return boolean
-	 */
-	public function has_error() {
-		return ! empty( $this->error_message );
-	}
-
-	/**
-	 * Gets the most recent error message
-	 * @return string
-	 */
-	public function get_error_message() {
-		return $this->error_message;
-	}
-
-	/**
-	 * Gets the most recent error code
-	 *
-	 * @return int
-	 */
-	public function get_error_code() {
-		return $this->error_code;
-	}
-
-	/**
 	 * Get the most recent response object
 	 *
 	 * @return object
@@ -525,8 +487,7 @@ class MC4WP_API_v3 {
 	 */
 	private function reset() {
 		$this->last_response = null;
-		$this->error_code = 0;
-		$this->error_message = '';
+		$this->last_response_raw = null;
 	}
 
 
