@@ -30,10 +30,10 @@ class ListTest extends PHPUnit_Framework_TestCase {
 		// we should always know email field name
 		self::assertStringStartsWith( 'Email', $list->get_field_name_by_tag( 'email' ) );
 
-		$field_name = 'Field Name';
-		$field_tag = 'tag';
-		$list->merge_vars[] = new MC4WP_MailChimp_Merge_Var( $field_name, 'email', $field_tag );
-		self::assertEquals( $list->get_field_name_by_tag( $field_tag ), $field_name );
+//		$field_name = 'Field Name';
+//		$field_tag = 'tag';
+//		$list->merge_vars[] = new MC4WP_MailChimp_Merge_Var( $field_name, 'email', $field_tag );
+//		self::assertEquals( $list->get_field_name_by_tag( $field_tag ), $field_name );
 	}
 
 	/**
@@ -45,12 +45,11 @@ class ListTest extends PHPUnit_Framework_TestCase {
 		$web_id = '500';
 		$list = new MC4WP_MailChimp_List( $id, $name, $web_id );
 
-		self::assertNull( $list->get_grouping( 'grouping-id' ) );
-
-		$grouping = new MC4WP_MailChimp_Grouping( 'sample-id', 'Grouping Name', 'dropdown' );
-		$list->groupings[]  = $grouping;
-		self::assertEquals( $list->get_grouping( $grouping->id ), $grouping );
-
+//		self::assertNull( $list->get_grouping( 'grouping-id' ) );
+//
+//		$grouping = new MC4WP_MailChimp_Grouping( 'sample-id', 'Grouping Name', 'dropdown' );
+//		$list->groupings[]  = $grouping;
+//		self::assertEquals( $list->get_grouping( $grouping->id ), $grouping );
 	}
 
 	/**
@@ -62,11 +61,11 @@ class ListTest extends PHPUnit_Framework_TestCase {
 		$web_id = '500';
 		$list = new MC4WP_MailChimp_List( $id, $name, $web_id );
 
-		self::assertEmpty( $list->get_grouping_name( 'sample-id' ) );
-
-		$grouping_name = 'Grouping Name';
-		$list->groupings[]  = new MC4WP_MailChimp_Grouping( 'sample-id', $grouping_name, 'dropdown' );
-		self::assertEquals( $list->get_grouping_name( 'sample-id' ), $grouping_name );
+//		self::assertEmpty( $list->get_grouping_name( 'sample-id' ) );
+//
+//		$grouping_name = 'Grouping Name';
+//		$list->groupings[]  = new MC4WP_MailChimp_Grouping( 'sample-id', $grouping_name, 'dropdown' );
+//		self::assertEquals( $list->get_grouping_name( 'sample-id' ), $grouping_name );
 	}
 
 }

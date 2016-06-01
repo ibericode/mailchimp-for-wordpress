@@ -44,6 +44,18 @@ class MC4WP_MailChimp_Interest_Category {
 	}
 
 	/**
+	 * @param string $name
+	 *
+	 * @return array|string[]
+	 */
+	public function __get( $name ) {
+		// for backwards compatibility with v3.x, channel these properties to their new names
+		if( $name === 'groups' ) {
+			return $this->interests;
+		}
+	}
+
+	/**
 	 * @param object $data
 	 *
 	 * @return MC4WP_MailChimp_Interest_Category

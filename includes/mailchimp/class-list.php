@@ -67,6 +67,21 @@ class MC4WP_MailChimp_List {
 	}
 
 	/**
+	 * @param string $name
+	 *
+	 * @return MC4WP_MailChimp_Merge_Field[]
+	 */
+	public function __get( $name ) {
+
+		// for backwards compatibility with 3.x, channel these properties to their new names
+		if( $name === 'merge_vars' ) {
+			return $this->merge_fields;
+		} elseif( $name === 'groupings' ) {
+			return $this->interest_categories;
+		}
+	}
+
+	/**
 	 * @param $tag
 	 *
 	 * @return string

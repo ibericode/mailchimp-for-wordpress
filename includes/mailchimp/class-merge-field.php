@@ -62,9 +62,19 @@ class MC4WP_MailChimp_Merge_Field {
 		$this->tag = strtoupper( $tag );
 		$this->required = $required;
 		$this->choices = $choices;
+	}
 
-		// TODO: test if this works
-		$this->default = &$this->default_value;
+	/**
+	 * @param string $name
+	 *
+	 * @return string
+	 */
+	public function __get( $name ) {
+
+		// for backwards compatibility with v3.x, channel these properties to their new names
+		if( $name === 'default' ) {
+			return $this->default_value;
+		}
 	}
 
 	/**
