@@ -158,10 +158,21 @@ class MC4WP_Admin {
 		$previous_version = get_option( 'mc4wp_version', 0 );
 
 		// This ! check means we're not running when installing the plugin
-		if( ! $previous_version || version_compare( MC4WP_VERSION, $previous_version, '<=' ) ) {
+		if( ! $previous_version ) {
 			return false;
 		}
 
+		// This means someone did a rollback.
+		if( version_compare( $previous_version, MC4WP_VERSION, '>' ) ) {
+			update_option( 'mc4wp_version', MC4WP_VERSION );
+			return false;
+		}
+
+		// This means we're good!
+		if( version_compare( $previous_version, 'MC4WP_VERSION', '==' ) ) {
+			return false;
+		}
+		
 		define( 'MC4WP_DOING_UPGRADE', true );
 		$upgrade_routines = new MC4WP_Upgrade_Routines( $previous_version, MC4WP_VERSION, dirname( __FILE__ ) . '/migrations' );
 		$upgrade_routines->run();

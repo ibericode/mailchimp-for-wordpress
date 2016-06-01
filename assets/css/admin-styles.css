@@ -149,7 +149,10 @@
     padding-bottom: 1em; }
   #mc4wp-admin .tab,
   .mc4wp-admin .tab {
-    display: none; }
+    display: none;
+    background: inherit;
+    border: none;
+    font-weight: initial; }
   #mc4wp-admin .tab.tab-active,
   .mc4wp-admin .tab.tab-active {
     display: block; }
@@ -555,7 +558,8 @@
   .mc4wp-admin .CodeMirror {
     border: 1px solid #ccc;
     padding: 10px;
-    min-height: 500px; }
+    min-height: 500px;
+    font-weight: normal; }
   #mc4wp-admin .CodeMirror-empty,
   .mc4wp-admin .CodeMirror-empty {
     color: #999; }
