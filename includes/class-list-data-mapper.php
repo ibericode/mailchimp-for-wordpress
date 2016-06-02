@@ -34,7 +34,7 @@ class MC4WP_List_Data_Mapper {
 	}
 
 	/**
-	 * @return MC4WP_MailChimp_Member[]
+	 * @return MC4WP_MailChimp_Subscriber_Data[]
 	 */
 	public function map() {
 		$mailchimp = new MC4WP_MailChimp();
@@ -63,6 +63,12 @@ class MC4WP_List_Data_Mapper {
 
 		// find merge fields
 		foreach( $list->merge_fields as $merge_field ) {
+
+			// skip EMAIL field as that is handled separately (see above)
+			if( $merge_field->tag === 'EMAIL' ) {
+				continue;
+			}
+
 			if( ! isset( $this->data[ $merge_field->tag ] ) ) {
 				continue;
 			}
@@ -93,6 +99,7 @@ class MC4WP_List_Data_Mapper {
 				$member->interests[ $interest_id ] = true;
 			}
 		}
+
 
 		return $member;
 	}
