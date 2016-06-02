@@ -84,7 +84,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 			return false;
 		}
 
-		$order = new WC_Order( $order_id );
+		$order = wc_get_order( $order_id );
 
 		$data = array(
 			'EMAIL' => $order->billing_email,
