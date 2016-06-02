@@ -62,7 +62,7 @@ function __mc4wp_load_plugin() {
 	 * @name $mc4wp
 	 */
 	$mc4wp = mc4wp();
-	$mc4wp['api'] = 'mc4wp_get_api';
+	$mc4wp['api'] = 'mc4wp_get_api_v3';
 	$mc4wp['request'] = array( 'MC4WP_Request', 'create_from_globals' );
 	$mc4wp['log'] = 'mc4wp_get_debug_log';
 

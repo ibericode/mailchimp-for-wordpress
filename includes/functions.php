@@ -54,20 +54,35 @@ function mc4wp_get_options() {
 	return apply_filters( 'mc4wp_settings', $options );
 }
 
-
 /**
- * Gets the MailChimp for WP API class and injects it with the API key
+ * Gets the MailChimp for WP API class (v3) and injects it with the API key
  *
- * @staticvar $instance
- *
- * @since 1.0
+ * @since 4.0
  * @access public
  *
  * @return MC4WP_API_v3
  */
-function mc4wp_get_api() {
+function mc4wp_get_api_v3() {
 	$opts = mc4wp_get_options();
 	$instance = new MC4WP_API_v3( $opts['api_key'] );
+	return $instance;
+}
+
+/**
+ * Gets the MailChimp for WP API class and injects it with the API key
+ *
+ * @deprecated 4.0
+ * @use mc4wp_get_api_v3
+ *
+ * @since 1.0
+ * @access public
+ *
+ * @return MC4WP_API
+ */
+function mc4wp_get_api() {
+	_deprecated_function( __FUNCTION__, '4.0', 'mc4wp_get_api_v3' );
+	$opts = mc4wp_get_options();
+	$instance = new MC4WP_API( $opts['api_key'] );
 	return $instance;
 }
 
