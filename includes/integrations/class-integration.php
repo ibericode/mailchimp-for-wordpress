@@ -360,14 +360,15 @@ abstract class MC4WP_Integration {
 		$email_type = mc4wp_get_email_type();
 
 		$mapper = new MC4WP_List_Data_Mapper( $merge_vars, $list_ids );
+
+		/** @var MC4WP_MailChimp_Subscriber_Data[] $map */
 		$map = $mapper->map();
 
-		foreach( $map as $list_id => $member ) {
-			$member->email_type = $email_type;
-			$member->status = $this->options['double_optin'] ? 'pending' : 'subscribed';
-			$member->ip_signup = $request->get_client_ip();
-
-			$result = $mailchimp->list_subscribe( $list_id, $email_address, $member->to_array(), $this->options['update_existing'], $this->options['replace_interests'] );
+		foreach( $map as $list_id => $subscriber_data ) {
+			$subscriber_data->email_type = $email_type;
+			$subscriber_data->status = $this->options['double_optin'] ? 'pending' : 'subscribed';
+			$subscriber_data->ip_opt = $request->get_client_ip();
+			$result = $mailchimp->list_subscribe( $list_id, $subscriber_data->email_address, $subscriber_data->to_array(), $this->options['update_existing'], $this->options['replace_interests'] );
 		}
 
 		// if result failed, show error message

@@ -71,8 +71,10 @@ class MC4WP_Form_Listener {
 		$email_type = $form->get_email_type();
 		$data = $form->data;
 		$client_ip = $request->get_client_ip();
-
+		
 		/**
+		 * TODO: Deprecate this filter in favor of clearer ones.
+		 *
 		 * Filters merge vars which are sent to MailChimp, only fires for form requests.
 		 *
 		 * @param array $data
@@ -82,17 +84,19 @@ class MC4WP_Form_Listener {
 
 		// create a map of all lists with list-specific data
 		$mapper = new MC4WP_List_Data_Mapper( $data, $form->get_lists() );
+
+		/** @var MC4WP_MailChimp_Subscriber_Data[] $map */
 		$map = $mapper->map();
 
 		// loop through lists
-		foreach( $map as $list_id => $member ) {
+		foreach( $map as $list_id => $subscriber_data ) {
 
-			$member->status = $form->settings['double_optin'] ? 'pending' : 'subscribed';
-			$member->email_type = $email_type;
-			$member->ip_signup = $client_ip;
+			$subscriber_data->status = $form->settings['double_optin'] ? 'pending' : 'subscribed';
+			$subscriber_data->email_type = $email_type;
+			$subscriber_data->ip_opt = $client_ip;
 
 			// send a subscribe request to MailChimp for each list
-			$result = $mailchimp->list_subscribe( $list_id, $member->email_address, $member->to_array(), $form->settings['update_existing'], $form->settings['replace_interests'] );
+			$result = $mailchimp->list_subscribe( $list_id, $subscriber_data->email_address, $subscriber_data->to_array(), $form->settings['update_existing'], $form->settings['replace_interests'] );
 		}
 
 		$log = $this->get_log();
