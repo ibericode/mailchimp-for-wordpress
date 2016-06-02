@@ -71,6 +71,7 @@ class MC4WP_Form_Listener {
 		$email_type = $form->get_email_type();
 		$data = $form->data;
 		$client_ip = $request->get_client_ip();
+		$subscriber_data = null;
 		
 		/**
 		 * TODO: Deprecate this filter in favor of clearer ones.
@@ -132,9 +133,10 @@ class MC4WP_Form_Listener {
 		 *
 		 * @param MC4WP_Form $form Instance of the submitted form
 		 * @param string $email
-		 * @param array $merge_vars
+		 * @param array $data
+		 * @param MC4WP_MailChimp_Subscriber_Data $subscriber_data
 		 */
-		do_action( 'mc4wp_form_subscribed', $form, $form->data['EMAIL'], $form->data['EMAIL'] );
+		do_action( 'mc4wp_form_subscribed', $form, $subscriber_data->email_address, $data, $subscriber_data );
 	}
 
 	/**
