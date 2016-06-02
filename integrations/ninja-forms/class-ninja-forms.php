@@ -90,7 +90,7 @@ class MC4WP_Ninja_Forms_Integration extends MC4WP_Integration {
 			return false;
 		}
 
-		return $this->subscribe( $data['EMAIL'], $data, $ninja_forms_processing->get_form_ID() );
+		return $this->subscribe( $data, $ninja_forms_processing->get_form_ID() );
 	}
 
 

@@ -79,7 +79,7 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 			return false;
 		}
 
-		return $this->subscribe( $data['EMAIL'], $data );
+		return $this->subscribe( $data );
 	}
 
 	/**

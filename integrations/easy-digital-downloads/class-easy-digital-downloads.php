@@ -87,26 +87,26 @@ class MC4WP_Easy_Digital_Downloads_Integration extends MC4WP_Integration {
 		}
 
 		$email = (string) edd_get_payment_user_email( $payment_id );
-		$merge_vars = array();
+		$data = array(
+			'EMAIL' => $email
+		);
 
 		// add first and last name to merge vars, if given
 		$user_info = (array) edd_get_payment_meta_user_info( $payment_id );
 
-		if( isset( $user_info['first_name'] ) && isset( $user_info['last_name'] ) ) {
-			$merge_vars['NAME'] = $user_info['first_name'] . ' ' . $user_info['last_name'];
+		if( ! empty( $user_info['first_name'] ) && ! empty( $user_info['last_name'] ) ) {
+			$data['NAME'] = $user_info['first_name'] . ' ' . $user_info['last_name'];
 		}
 
-		if( isset( $user_info['first_name'] ) ) {
-			$merge_vars['FNAME'] = $user_info['first_name'];
+		if( ! empty( $user_info['first_name'] ) ) {
+			$data['FNAME'] = $user_info['first_name'];
 		}
 
-		if( isset( $user_info['last_name'] ) ) {
-			$merge_vars['LNAME'] = $user_info['last_name'];
+		if( ! empty( $user_info['last_name'] ) ) {
+			$data['LNAME'] = $user_info['last_name'];
 		}
 
-
-
-		return $this->subscribe( $email, $merge_vars, $payment_id );
+		return $this->subscribe( $data, $payment_id );
 	}
 
 	/**

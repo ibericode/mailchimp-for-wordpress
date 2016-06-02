@@ -47,18 +47,18 @@ class MC4WP_Events_Manager_Integration extends MC4WP_Integration {
 			return false;
 		}
 
-		$data = $this->get_data();
-		if( empty( $data['user_email'] ) ) {
+		$em_data = $this->get_data();
+		if( empty( $em_data['user_email'] ) ) {
 			return false;
 		}
 
-		$email = $data['user_email'];
-		$merge_vars = array(
-			'NAME' => $data['user_name']
+		$data = array(
+			'EMAIL' => $em_data['user_email'],
+			'NAME' => $em_data['user_name']
 		);
 
 		// subscribe using email and name
-		return $this->subscribe( $email, $merge_vars, $args->booking_id );
+		return $this->subscribe( $data, $args->booking_id );
 
 	}
 

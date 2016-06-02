@@ -85,13 +85,13 @@ class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 
 		$comment = get_comment( $comment_id );
 
-		$email = $comment->comment_author_email;
-		$merge_vars = array(
+		$data = array(
+			'EMAIL' => $comment->comment_author_email,
 			'NAME' => $comment->comment_author,
 			'OPTIN_IP' => $comment->comment_author_IP,
 		);
 
-		return $this->subscribe( $email, $merge_vars, $comment_id );
+		return $this->subscribe( $data, $comment_id );
 	}
 
 	/**
