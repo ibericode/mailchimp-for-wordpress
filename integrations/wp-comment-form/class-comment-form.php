@@ -106,6 +106,11 @@ class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 	 */
 	public function get_object_link( $object_id ) {
 		$comment = get_comment( $object_id );
+		
+		if( ! $comment ) {
+			return '';
+		}
+
 		return sprintf( '<a href="%s">Comment #%d</a>', get_edit_comment_link( $object_id ), $object_id );
 	}
 
