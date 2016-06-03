@@ -40,11 +40,6 @@ class MC4WP_MailChimp_List {
 	public $interest_categories = array();
 
 	/**
-	 * @var array Array of merge var names (tag => name) KNOWN to be on the list
-	 */
-	protected $default_merge_fields = array();
-
-	/**
 	 * @param string $id
 	 * @param string $name
 	 * @param string $web_id (deprecated)
@@ -57,13 +52,6 @@ class MC4WP_MailChimp_List {
 		// add email field
 		$email_field = new MC4WP_MailChimp_Merge_Field( 'Email Address', 'email', 'EMAIL', true );
 		$this->merge_fields[] = $email_field;
-
-		// set known merge fields
-		$this->default_merge_fields = array(
-			'EMAIL' => 'Email Address',
-			'OPTIN_IP' => 'IP Address',
-			'MC_LANGUAGE' => 'Language'
-		);
 	}
 
 	/**
@@ -72,7 +60,6 @@ class MC4WP_MailChimp_List {
 	 * @return MC4WP_MailChimp_Merge_Field[]
 	 */
 	public function __get( $name ) {
-
 		// for backwards compatibility with 3.x, channel these properties to their new names
 		if( $name === 'merge_vars' ) {
 			return $this->merge_fields;
@@ -82,19 +69,14 @@ class MC4WP_MailChimp_List {
 	}
 
 	/**
-	 * @param $tag
+	 * @param string $tag
+	 * @return MC4WP_MailChimp_Merge_Field
 	 *
-	 * @return string
+	 * @throws Exception
 	 */
-	public function get_field_name_by_tag( $tag ) {
-
+	public function get_field_by_tag( $tag ) {
 		// ensure uppercase tagname
 		$tag = strtoupper( $tag );
-
-		// search default merge vars first
-		if( isset( $this->default_merge_fields[ $tag ] ) ) {
-			return __( $this->default_merge_fields[ $tag ], 'mailchimp-for-wp' );
-		}
 
 		// search merge vars
 		foreach( $this->merge_fields as $field ) {
@@ -103,10 +85,34 @@ class MC4WP_MailChimp_List {
 				continue;
 			}
 
-			return $field->name;
+			return $field;
 		}
 
-		return '';
+		throw new Exception( 'Field tag not found.' );
+	}
+
+	/**
+	 *
+	 * @since 4.0
+	 *
+	 * @param string $interest_id
+	 * @return MC4WP_MailChimp_Interest_Category
+	 *
+	 * @throws Exception
+	 */
+	public function get_interest_category_by_interest_id( $interest_id ) {
+
+		foreach( $this->interest_categories as $category ) {
+			foreach( $category->interests as $id => $name ) {
+				if( $id != $interest_id ) {
+					continue;
+				}
+
+				return $category;
+			}
+		}
+
+		throw new Exception( sprintf( 'No interest with ID %s', $interest_id ) );
 	}
 
 	/**
@@ -114,7 +120,9 @@ class MC4WP_MailChimp_List {
 	 *
 	 * @param string $category_id ID of the Interest Grouping
 	 *
-	 * @return MC4WP_MailChimp_Interest_Category|null
+	 * @return MC4WP_MailChimp_Interest_Category
+	 *
+	 * @throws Exception
 	 */
 	public function get_interest_category( $category_id ) {
 
@@ -127,26 +135,7 @@ class MC4WP_MailChimp_List {
 			return $category;
 		}
 
-		return null;
-	}
-
-
-	/**
-	 * Get the name of an interest category by its ID
-	 *
-	 * @param $category_id
-	 *
-	 * @return string
-	 */
-	public function get_interest_category_name( $category_id ) {
-
-		$category = $this->get_interest_category( $category_id );
-
-		if( isset( $category->name ) ) {
-			return $category->name;
-		}
-
-		return '';
+		throw new Exception( sprintf( 'No interest category with ID %s', $category_id ) );
 	}
 
 	/**
@@ -156,6 +145,34 @@ class MC4WP_MailChimp_List {
 	 */
 	public function get_web_url() {
 		return 'https://admin.mailchimp.com/lists/members/?id=' . $this->web_id;
+	}
+
+	/**
+	 * Get the name of an interest category by its ID
+	 *
+	 * @deprecated 4.0
+	 * @use MC4WP_MailChimp_List::get_interest_category
+	 *
+	 * @param string $category_id
+	 *
+	 * @return string
+	 */
+	public function get_interest_category_name( $category_id ) {
+		$category = $this->get_interest_category( $category_id );
+		return $category->name;
+	}
+
+	/**
+	 * @deprecated 4.0
+	 * @use MC4WP_MailChimp_List::get_field_by_tag
+	 *
+	 * @param string $tag
+	 *
+	 * @return string
+	 */
+	public function get_field_name_by_tag( $tag ) {
+		$field = $this->get_field_by_tag( $tag );
+		return $field->name;
 	}
 
 }
