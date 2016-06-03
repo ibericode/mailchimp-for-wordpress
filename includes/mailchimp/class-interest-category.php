@@ -65,4 +65,23 @@ class MC4WP_MailChimp_Interest_Category {
 		return $instance;
 	}
 
+	/**
+	 * @since 4.0
+	 *
+	 * @param string $interest_id
+	 * @return string
+	 *
+	 * @throws Exception
+	 */
+	public function get_interest_name_by_id( $interest_id ) {
+		foreach( $this->interests as $id => $name ) {
+			if( $id != $interest_id ) {
+				continue;
+			}
+
+			return $name;
+		}
+
+		throw new Exception( sprintf( 'No interest with ID %s', $interest_id ) );
+	}
 }
