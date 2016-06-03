@@ -395,10 +395,10 @@ abstract class MC4WP_Integration {
 		 * @param MC4WP_Integration $integration
 		 * @param string $email_address
 		 * @param array $merge_vars
-		 * @param MC4WP_MailChimp_Subscriber_Data $subscriber_data
+		 * @param MC4WP_MailChimp_Subscriber_Data[] $subscriber_data
 		 * @param int $related_object_id
 		 */
-		do_action( 'mc4wp_integration_subscribed', $integration, $subscriber_data->email_address, $subscriber_data->merge_fields, $subscriber_data, $related_object_id );
+		do_action( 'mc4wp_integration_subscribed', $integration, $subscriber_data->email_address, $subscriber_data->merge_fields, $map, $related_object_id );
 
 		return $result;
 	}

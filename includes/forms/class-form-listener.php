@@ -134,9 +134,9 @@ class MC4WP_Form_Listener {
 		 * @param MC4WP_Form $form Instance of the submitted form
 		 * @param string $email
 		 * @param array $data
-		 * @param MC4WP_MailChimp_Subscriber_Data $subscriber_data
+		 * @param MC4WP_MailChimp_Subscriber_Data[] $subscriber_data
 		 */
-		do_action( 'mc4wp_form_subscribed', $form, $subscriber_data->email_address, $data, $subscriber_data );
+		do_action( 'mc4wp_form_subscribed', $form, $subscriber_data->email_address, $data, $map );
 	}
 
 	/**
