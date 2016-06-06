@@ -21,6 +21,9 @@ function __mc4wp_admin_sidebar_support_notice() {
 	<?php
 }
 
+/**
+ * @ignore
+ */
 function __mc4wp_admin_sidebar_boxzilla_notice() {
 
 	// Don't show if Boxzilla is already running
