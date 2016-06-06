@@ -21,6 +21,22 @@ function __mc4wp_admin_sidebar_support_notice() {
 	<?php
 }
 
+function __mc4wp_admin_sidebar_boxzilla_notice() {
+
+	// Don't show if Boxzilla is already running
+	if( defined( 'BOXZILLA_VERSION' ) ) {
+		return;
+	}
+
+	?>
+	<div class="mc4wp-box">
+		<h4 class="mc4wp-title"><?php echo esc_html__( 'Looking to improve your sign-up rates?', 'mailchimp-for-wp' ); ?></h4>
+		<p><?php printf( __( 'Our <a href="%s">Boxzilla plugin</a> allows you to create pop-ups or slide-ins with a subscribe form. A sure way to grow your lists faster.', 'mailchimp-for-wp' ), 'https://boxzillaplugin.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=sidebar' ); ?></p>
+	</div>
+	<?php
+}
+
+add_action( 'mc4wp_admin_sidebar', '__mc4wp_admin_sidebar_boxzilla_notice', 40 );
 add_action( 'mc4wp_admin_sidebar', '__mc4wp_admin_sidebar_support_notice', 50 );
 
 /**
