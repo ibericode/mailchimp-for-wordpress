@@ -201,12 +201,18 @@ var forms = function(m, i18n) {
 	};
 
 	forms.choice = function(config) {
-		return [
+		var visibleRows = [
 			rows.label(config),
 			rows.choiceType(config),
 			rows.choices(config),
 			rows.useParagraphs(config)
-		]
+		];
+
+		if( config.type() === 'select' || config.type() === 'radio' ) {
+			visibleRows.push(rows.isRequired(config));
+		}
+
+		return visibleRows;
 	};
 
 	forms.hidden = function( config ) {
@@ -263,7 +269,11 @@ var g = function(m) {
 	 * @returns {*}
 	 */
 	generators.select = function (config) {
-		var field = m('select', {name: config.name()}, [
+		var attributes = {
+			name: config.name(),
+			required: config.required()
+		};
+		var field = m('select', attributes, [
 			config.choices().map(function (choice) {
 				return m('option', {
 					value   : ( choice.value() !== choice.label() ) ? choice.value() : undefined,
@@ -281,15 +291,15 @@ var g = function(m) {
 	 * @returns {*}
 	 */
 	generators.checkbox = function (config) {
-
-
 		var field = config.choices().map(function (choice) {
+			var name = config.name() + ( config.type() === 'checkbox' ? '[]' : '' );
 			return m('label', [
 					m('input', {
-						name    : config.name() + ( config.type() === 'checkbox' ? '[]' : '' ),
+						name    : name,
 						type    : config.type(),
 						value   : choice.value(),
-						checked : choice.selected()
+						checked : choice.selected(),
+						required: config.required()
 					}),
 					' ',
 					m('span', choice.label())
