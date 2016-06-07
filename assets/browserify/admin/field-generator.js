@@ -35,19 +35,22 @@ var g = function(m) {
 	generators.checkbox = function (config) {
 		var field = config.choices().map(function (choice) {
 			var name = config.name() + ( config.type() === 'checkbox' ? '[]' : '' );
+			var required = config.required() && config.type() === 'radio';
+
 			return m('label', [
 					m('input', {
 						name    : name,
 						type    : config.type(),
 						value   : choice.value(),
 						checked : choice.selected(),
-						required: config.required()
+						required: required
 					}),
 					' ',
 					m('span', choice.label())
 				]
 			)
 		});
+		
 		return field;
 	};
 	generators.radio = generators.checkbox;

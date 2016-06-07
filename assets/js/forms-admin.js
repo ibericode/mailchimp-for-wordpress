@@ -293,19 +293,22 @@ var g = function(m) {
 	generators.checkbox = function (config) {
 		var field = config.choices().map(function (choice) {
 			var name = config.name() + ( config.type() === 'checkbox' ? '[]' : '' );
+			var required = config.required() && config.type() === 'radio';
+
 			return m('label', [
 					m('input', {
 						name    : name,
 						type    : config.type(),
 						value   : choice.value(),
 						checked : choice.selected(),
-						required: config.required()
+						required: required
 					}),
 					' ',
 					m('span', choice.label())
 				]
 			)
 		});
+		
 		return field;
 	};
 	generators.radio = generators.checkbox;
@@ -712,7 +715,6 @@ module.exports = function(m, events) {
 	var Field = function (data) {
 		this.name = m.prop(data.name);
 		this.title = m.prop(data.title || data.name);
-
 		this.type = m.prop(data.type);
 		this.label = m.prop(data.title || '');
 		this.value = m.prop(data.value || '');
@@ -735,15 +737,15 @@ module.exports = function(m, events) {
 					choice.selected(true);
 				} else {
 					// only checkboxes allow for multiple selections
-					if(field.type() !== 'checkbox' ) {
+					if( field.type() !== 'checkbox' ) {
 						choice.selected(false);
 					}
 				}
 
 				return choice;
 
-			}) );
-		}
+			}));
+		};
 	};
 
 	/**
