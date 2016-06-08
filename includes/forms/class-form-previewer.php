@@ -22,7 +22,7 @@ class MC4WP_Form_Previewer {
 	/**
 	 * @var int
 	 */
-	public $preview_form_id = 0;
+	public $preview_id = 0;
 
 	/**
 	 * @var MC4WP_Form
@@ -52,8 +52,8 @@ class MC4WP_Form_Previewer {
 		define( 'MC4WP_FORM_IS_PREVIEW', true );
 
 		$form_id        = (int) $_GET[ 'form_id' ];
-		$is_preview     = isset( $_GET['preview'] );
-		$instance = new self( $form_id, $is_preview );
+		$preview_id     = isset( $_GET['preview_id'] ) ? (int) $_GET['preview_id'] : 0;
+		$instance = new self( $form_id, $preview_id );
 
 		add_filter( 'mc4wp_form_stylesheets', array( $instance, 'set_stylesheet' ) );
 		add_filter( 'mc4wp_form_css_classes', array( $instance, 'add_css_class' ), 10, 2 );
@@ -63,24 +63,20 @@ class MC4WP_Form_Previewer {
 
 	/**
 	 * @param int $form_id
-	 * @param bool $is_preview
+	 * @param int $preview_id
+	 *
+	 * @throws Exception
 	 */
-	public function __construct( $form_id, $is_preview = false ) {
+	public function __construct( $form_id, $preview_id = 0 ) {
 		$this->form_id = $form_id;
-		$this->is_preview = $is_preview;
+		$this->preview_id = $preview_id;
+		$this->is_preview = $preview_id > 0;
 
-		// get the preview form
-		if( $is_preview ) {
-			$this->preview_form_id = $this->get_preview_id();
+		if( ! $this->is_preview ) {
+			$this->preview_id = $form_id;
 		}
 
-		// if that failed, get the real form
-		if( empty( $this->preview_form_id ) ) {
-			$this->preview_form_id = $this->form_id;
-		}
-
-		// get form instance
-		$this->form = mc4wp_get_form( $this->preview_form_id );
+		$this->form = mc4wp_get_form( $this->preview_id );
 	}
 
 	/**
@@ -109,26 +105,6 @@ class MC4WP_Form_Previewer {
 	}
 
 	/**
-	 * Sets or updates the ID for the preview form
-	 *
-	 * @param int $id
-	 *
-	 * @return bool
-	 */
-	public function set_preview_id( $id ) {
-		return update_option( 'mc4wp_form_preview_id', $id, false );
-	}
-
-	/**
-	 * Gets the ID of the preview form
-	 *
-	 * @return int
-	 */
-	public function get_preview_id() {
-		return get_option( 'mc4wp_form_preview_id', 0 );
-	}
-
-	/**
 	 * Gets the full URL for the form preview page
 	 *
 	 * @return string
@@ -140,7 +116,7 @@ class MC4WP_Form_Previewer {
 		);
 
 		if( $this->is_preview ) {
-			$args['preview'] = '';
+			$args['preview_id'] = $this->preview_id;
 		}
 
 		$preview_url = add_query_arg( $args, $base_url );
@@ -150,9 +126,9 @@ class MC4WP_Form_Previewer {
 	/**
 	 * We only need the stylesheet of this form for this preview page.
 	 *
-	 * @param $stylesheets
+	 * @param array $stylesheets
 	 *
-	 * @return string
+	 * @return array
 	 */
 	public function set_stylesheet( $stylesheets ) {
 		return array( $this->form->get_stylesheet() );
@@ -186,6 +162,8 @@ class MC4WP_Form_Previewer {
 	 * Adds the real CSS class to the preview form-id
 	 *
 	 * @param array $classes
+	 * @param MC4WP_Form $form
+	 *
 	 * @return array
 	 */
 	public function add_css_class( $classes, $form ) {
@@ -197,9 +175,10 @@ class MC4WP_Form_Previewer {
 
 		// replace preview ID with actual form ID in all classes
 		foreach( $classes as $key => $class ) {
-			$classes[ $key ] = str_replace( $this->preview_form_id, $this->form_id, $class );
+			$classes[ $key ] = str_replace( $this->preview_id, $this->form_id, $class );
 		}
 
 		return $classes;
 	}
+
 }

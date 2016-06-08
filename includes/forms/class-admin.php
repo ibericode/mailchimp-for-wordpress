@@ -296,18 +296,20 @@ class MC4WP_Forms_Admin {
 	 */
 	public function prepare_form_preview() {
 		$form_id = (int) $_POST['mc4wp_form_id'];
-		$previewer = new MC4WP_Form_Previewer( $form_id, true );
+		$preview_id = (int) get_option( 'mc4wp_form_preview_id', 0 );
 
 		// get data
 		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
-		$form_data['ID'] =  $previewer->get_preview_id();
-		$form_data['status'] = 'draft';
+		$form_data['ID'] =  $preview_id;
+		$form_data['status'] = 'preview';
+		$real_preview_id = $this->save_form( $form_data );
 
-		// save as new post & update preview id
-		$preview_id = $this->save_form( $form_data );
-		$previewer->set_preview_id( $preview_id );
+		if( $real_preview_id != $preview_id ) {
+			update_option( 'mc4wp_form_preview_id', $real_preview_id, false );
+		}
 
 		// redirect to preview
+		$previewer = new MC4WP_Form_Previewer( $form_id, $real_preview_id );
 		wp_redirect( $previewer->get_preview_url() );
 		exit;
 	}
