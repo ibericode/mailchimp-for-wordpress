@@ -114,8 +114,9 @@ add_action( 'plugins_loaded', '__mc4wp_load_plugin', 20 );
  * @since 3.0
  */
 function __mc4wp_flush() {
-	delete_transient( 'mc4wp_mailchimp_lists' );
-	delete_transient( 'mc4wp_mailchimp_lists_fallback' );
+	delete_transient( 'mc4wp_mailchimp_lists_v3' );
+	delete_transient( 'mc4wp_mailchimp_lists_v3_fallback' );
+	delete_transient( 'mc4wp_list_counts' );
 }
 
 register_activation_hook( __FILE__, '__mc4wp_flush' );
