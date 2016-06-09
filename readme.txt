@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp forms, mailchimp integrations
 Requires at least: 3.8
 Tested up to: 4.5.2
-Stable tag: 3.1.8
+Stable tag: 3.1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,24 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 6. Detailed statistics on which methods are generating the most subscribers. **(Pro Feature)**
 
 == Changelog == 
+
+
+#### 3.1.9 - June 7, 2016
+
+**Fixes**
+
+- Placeholder polyfill wasn't loaded (only in IE8 and below).
+
+**Improvements**
+
+- Don't write to debug log if it is not writable.
+- Reset some CSS properties for commonly used class names in Form Editor & Debug Log.
+- Do not unnecessarily register styles which are then immediately enqueued.
+
+**Additions**
+
+- Add "is required field" option for dropdown & radio fields in Field Helper.
+- Link to [Boxzilla plugin](https://boxzillaplugin.com/) from admin sidebar.
 
 
 #### 3.1.8 - May 23, 2016

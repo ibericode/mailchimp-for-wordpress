@@ -35,12 +35,18 @@ var forms = function(m, i18n) {
 	};
 
 	forms.choice = function(config) {
-		return [
+		var visibleRows = [
 			rows.label(config),
 			rows.choiceType(config),
 			rows.choices(config),
 			rows.useParagraphs(config)
-		]
+		];
+
+		if( config.type() === 'select' || config.type() === 'radio' ) {
+			visibleRows.push(rows.isRequired(config));
+		}
+
+		return visibleRows;
 	};
 
 	forms.hidden = function( config ) {

@@ -11,7 +11,6 @@ module.exports = function(m, events) {
 	var Field = function (data) {
 		this.name = m.prop(data.name);
 		this.title = m.prop(data.title || data.name);
-
 		this.type = m.prop(data.type);
 		this.label = m.prop(data.title || '');
 		this.value = m.prop(data.value || '');
@@ -34,15 +33,15 @@ module.exports = function(m, events) {
 					choice.selected(true);
 				} else {
 					// only checkboxes allow for multiple selections
-					if(field.type() !== 'checkbox' ) {
+					if( field.type() !== 'checkbox' ) {
 						choice.selected(false);
 					}
 				}
 
 				return choice;
 
-			}) );
-		}
+			}));
+		};
 	};
 
 	/**

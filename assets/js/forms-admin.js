@@ -201,12 +201,18 @@ var forms = function(m, i18n) {
 	};
 
 	forms.choice = function(config) {
-		return [
+		var visibleRows = [
 			rows.label(config),
 			rows.choiceType(config),
 			rows.choices(config),
 			rows.useParagraphs(config)
-		]
+		];
+
+		if( config.type() === 'select' || config.type() === 'radio' ) {
+			visibleRows.push(rows.isRequired(config));
+		}
+
+		return visibleRows;
 	};
 
 	forms.hidden = function( config ) {
@@ -265,7 +271,11 @@ var g = function(m) {
 	 * @returns {*}
 	 */
 	generators.select = function (config) {
-		var field = m('select', {name: config.name()}, [
+		var attributes = {
+			name: config.name(),
+			required: config.required()
+		};
+		var field = m('select', attributes, [
 			config.choices().map(function (choice) {
 				return m('option', {
 					value   : ( choice.value() !== choice.label() ) ? choice.value() : undefined,
@@ -283,21 +293,24 @@ var g = function(m) {
 	 * @returns {*}
 	 */
 	generators.checkbox = function (config) {
-
-
 		var field = config.choices().map(function (choice) {
+			var name = config.name() + ( config.type() === 'checkbox' ? '[]' : '' );
+			var required = config.required() && config.type() === 'radio';
+
 			return m('label', [
 					m('input', {
-						name    : config.name() + ( config.type() === 'checkbox' ? '[]' : '' ),
+						name    : name,
 						type    : config.type(),
 						value   : choice.value(),
-						checked : choice.selected()
+						checked : choice.selected(),
+						required: required
 					}),
 					' ',
 					m('span', choice.label())
 				]
 			)
 		});
+		
 		return field;
 	};
 	generators.radio = generators.checkbox;
@@ -706,7 +719,6 @@ module.exports = function(m, events) {
 	var Field = function (data) {
 		this.name = m.prop(data.name);
 		this.title = m.prop(data.title || data.name);
-
 		this.type = m.prop(data.type);
 		this.label = m.prop(data.title || '');
 		this.value = m.prop(data.value || '');
@@ -729,15 +741,15 @@ module.exports = function(m, events) {
 					choice.selected(true);
 				} else {
 					// only checkboxes allow for multiple selections
-					if(field.type() !== 'checkbox' ) {
+					if( field.type() !== 'checkbox' ) {
 						choice.selected(false);
 					}
 				}
 
 				return choice;
 
-			}) );
-		}
+			}));
+		};
 	};
 
 	/**

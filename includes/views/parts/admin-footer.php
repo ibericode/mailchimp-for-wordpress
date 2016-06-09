@@ -4,9 +4,13 @@
  * @ignore
  */
 function __mc4wp_admin_translation_notice() {
+
+	// show for every language other than the default
 	if( stripos( get_locale(), 'en_us' ) === 0 ) {
 		return;
 	}
+
+	// TODO: Check translation progress from Transifex here. Only show when < 100.
 
 	echo '<p class="help">' . sprintf( __( 'MailChimp for WordPress is in need of translations. Is the plugin not translated in your language or do you spot errors with the current translations? Helping out is easy! Head over to <a href="%s">the translation project and click "help translate"</a>.', 'mailchimp-for-wp' ), 'https://www.transifex.com/projects/p/mailchimp-for-wordpress/' ) . '</p>';
 }
@@ -16,11 +20,11 @@ function __mc4wp_admin_translation_notice() {
  */
 function __mc4wp_admin_github_notice() {
 
-	if( strpos( $_SERVER['HTTP_HOST'], 'local' ) !== 0 ) {
+	if( strpos( $_SERVER['HTTP_HOST'], 'local' ) !== 0 && ! WP_DEBUG ) {
 		return;
 	}
 
-	echo '<p class="help">Developer? Follow or contribute to the <a href="https://github.com/ibericode/mailchimp-for-wordpress">MailChimp for WordPress project on GitHub</a>.</p>';
+	echo '<p class="help">Developer? Check out our <a href="http://developer.mc4wp.com/">developer documentation</a> or follow <a href="https://github.com/ibericode/mailchimp-for-wordpress">MailChimp for WordPress on GitHub</a>.</p>';
 
 }
 

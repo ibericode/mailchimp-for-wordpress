@@ -169,7 +169,7 @@ class MC4WP_Admin {
 		}
 
 		// This means we're good!
-		if( version_compare( $previous_version, 'MC4WP_VERSION', '==' ) ) {
+		if( version_compare( $previous_version, MC4WP_VERSION ) > -1 ) {
 			return false;
 		}
 		
