@@ -22,14 +22,9 @@ class MC4WP_API_v3 {
 
 
 	/**
-	 * @var mixed
-	 */
-	private $last_response;
-
-	/**
 	 * @var array
 	 */
-	private $last_response_raw;
+	private $last_response;
 
 	/**
 	 * Constructor
@@ -116,13 +111,10 @@ class MC4WP_API_v3 {
 
 		// perform request
 		$response = wp_remote_request( $url, $args );
+		$this->last_response = $response;
 
 		// parse response
 		$data = $this->parse_response( $response );
-
-		// store response
-		$this->last_response_raw = $response;
-		$this->last_response = $data;
 
 		return $data;
 	}
@@ -465,31 +457,32 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * Get the most recent response object
-	 *
-	 * @return object
-	 */
-	public function get_last_response() {
-		return $this->last_response;
-	}
-
-	/**
-	 * Get the most recent response object (raw)
-	 *
-	 * @return object
-	 */
-	public function get_last_response_raw() {
-		return $this->last_response_raw;
-	}
-
-	/**
 	 * Empties all data from previous response
 	 */
 	private function reset() {
 		$this->last_response = null;
-		$this->last_response_raw = null;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function get_last_response_body() {
+		return wp_remote_retrieve_body( $this->last_response );
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_last_response_headers() {
+		return wp_remote_retrieve_headers( $this->last_response );
+	}
+
+	/**
+	 * @return array|WP_Error
+	 */
+	public function get_last_response() {
+		return $this->last_response;
+	}
 
 
 }

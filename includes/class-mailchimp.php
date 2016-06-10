@@ -187,8 +187,8 @@ class MC4WP_MailChimp {
 				$list->subscriber_count = $list_data->stats->member_count;
 
 				// parse web_id from the "link" response header
-				$raw_response = $this->api->get_last_response_raw();
-				$link_header = $raw_response['headers']['link'];
+				$headers = $this->api->get_last_response_headers();
+				$link_header = $headers['link'];
 				preg_match( '/\?id=(\d+)/', $link_header, $matches );
 				if( ! empty( $matches[1] ) ) {
 					$list->web_id = $matches[1];
