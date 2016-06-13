@@ -46,7 +46,7 @@ class MC4WP_API_v3 {
 	 *
 	 * @return mixed
 	 */
-	public function get( $resource, $args = array() ) {
+	public function get( $resource, array $args = array() ) {
 		return $this->request( 'GET', $resource, $args );
 	}
 
@@ -56,7 +56,7 @@ class MC4WP_API_v3 {
 	 *
 	 * @return mixed
 	 */
-	public function post( $resource, $data = array() ) {
+	public function post( $resource, array $data ) {
 		return $this->request( 'POST', $resource, $data );
 	}
 
@@ -65,7 +65,7 @@ class MC4WP_API_v3 {
 	 * @param array $data
 	 * @return mixed
 	 */
-	public function put( $resource, $data = array() ) {
+	public function put( $resource, array $data ) {
 		return $this->request( 'PUT', $resource, $data );
 	}
 
@@ -74,7 +74,7 @@ class MC4WP_API_v3 {
 	 * @param array $data
 	 * @return mixed
 	 */
-	public function patch( $resource, $data = array() ) {
+	public function patch( $resource, array $data ) {
 		return $this->request( 'PATCH', $resource, $data );
 	}
 
@@ -93,7 +93,7 @@ class MC4WP_API_v3 {
 	 *
 	 * @return mixed
 	 */
-	private function request( $method, $resource, $data = array() ) {
+	private function request( $method, $resource, array $data = array() ) {
 		$this->reset();
 
 		$url = $this->api_url . ltrim( $resource, '/' );
