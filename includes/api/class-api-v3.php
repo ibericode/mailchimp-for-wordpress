@@ -429,6 +429,68 @@ class MC4WP_API_v3 {
 	}
 
 	/**
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#read-get_ecommerce_stores_store_id
+	 * @since 4.0
+	 *
+	 * @param string $store_id
+	 * @param array $args
+	 *
+	 * @return object
+	 */
+	public function get_ecommerce_store( $store_id, array $args = array() ) {
+		$resource =  sprintf( '/ecommerce/stores/%s', $store_id );
+		return $this->get( $resource, $args );
+	}
+
+	/**
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#create-post_ecommerce_stores
+	 * @since 4.0
+	 *
+	 * @param string $store_id The unique identifier for the store.
+	 * @param string $list_id The unique identifier for the MailChimp List associated with the store.
+	 * @param string $name The name of the store.
+	 * @param string $currency_code The three-letter ISO 4217 code for the currency that the store accepts.
+	 * @param array $args
+	 *
+	 * @return object
+	 */
+	public function add_ecommerce_store( $store_id, $list_id, $name, $currency_code, array $args = array() ) {
+		$resource = '/ecommerce/stores';
+		$args['id'] = $store_id;
+		$args['list_id'] = $list_id;
+		$args['name'] = $name;
+		$args['currency_code'] = $currency_code;
+		return $this->post( $resource, $args );
+	}
+
+	/**
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#edit-patch_ecommerce_stores_store_id
+	 * @since 4.0
+	 *
+	 * @param string $store_id
+	 * @param array $args
+	 *
+	 * @return object
+	 */
+	public function update_ecommerce_store( $store_id, array $args ) {
+		$resource =  sprintf( '/ecommerce/stores/%s', $store_id );
+		return $this->patch( $resource, $args );
+	}
+
+	/**
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#delete-delete_ecommerce_stores_store_id
+	 * @since 4.0
+	 *
+	 * @param string $store_id
+	 *
+	 * @return boolean
+	 */
+	public function delete_ecommerce_store( $store_id ) {
+		$resource = sprintf( '/ecommerce/stores/%s', $store_id );
+		return $this->delete( $resource );
+	}
+
+	/**
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/#create-post_ecommerce_stores_store_id_orders
 	 * @since 4.0
 	 *
