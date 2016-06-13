@@ -73,14 +73,17 @@ class MC4WP_MailChimp {
 
 				$args['status'] = 'subscribed';
 
-				$existing_interests = (array) $existing_member_data->interests;
+				// this key only exists if list actually has interests
+				if( isset( $existing_member_data->interests ) ) {
+					$existing_interests = (array) $existing_member_data->interests;
 
-				// if replace, assume all existing interests disabled
-				if( $replace_interests ) {
-					$existing_interests = array_fill_keys( array_keys( $existing_interests ), false );
+					// if replace, assume all existing interests disabled
+					if( $replace_interests ) {
+						$existing_interests = array_fill_keys( array_keys( $existing_interests ), false );
+					}
+
+					$args['interests'] = $args['interests'] + $existing_interests;
 				}
-
-				$args['interests'] = $args['interests'] + $existing_interests;
 			}
 		} catch ( MC4WP_API_Resource_Not_Found_Exception $e ) {
 			// subscriber does not exist (not an issue in this case)
