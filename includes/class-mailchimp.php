@@ -207,17 +207,17 @@ class MC4WP_MailChimp {
 				}
 
 				// get interest categories
-				$groupings_data = $this->api->get_list_interest_categories( $list->id, array( 'fields' => 'categories.id,categories.title,categories.type' ) );
-				foreach( $groupings_data as $grouping_data ) {
-					$grouping = MC4WP_MailChimp_Interest_Category::from_data( $grouping_data );
+				$interest_categories_data = $this->api->get_list_interest_categories( $list->id, array( 'fields' => 'categories.id,categories.title,categories.type' ) );
+				foreach( $interest_categories_data as $interest_category_data ) {
+					$interest_category = MC4WP_MailChimp_Interest_Category::from_data( $interest_category_data );
 
 					// fetch groups for this interest
 					$interests_data = $this->api->get_list_interest_category_interests( $list->id, $grouping->id, array( 'fields' => 'interests.id,interests.name') );
 					foreach( $interests_data as $interest_data ) {
-						$grouping->interests[ $interest_data->id ] = $interest_data->name;
+						$interest_category->interests[ $interest_data->id ] = $interest_data->name;
 					}
 
-					$list->interest_categories[] = $grouping;
+					$list->interest_categories[] = $interest_category;
 				}
 
 			}
