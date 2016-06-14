@@ -203,7 +203,8 @@ class MC4WP_MailChimp {
 				// get merge fields (if there's more than just "EMAIL")
 				if( $list_data->stats->merge_field_count > 1 ) {
 					$field_data = $this->api->get_list_merge_fields( $list->id, array( 'fields' => 'merge_fields.name,merge_fields.tag,merge_fields.type,merge_fields.required,merge_fields.default_value,merge_fields.options,merge_fields.public' ) );
-					$list->merge_fields = $list->merge_fields + array_map( array( 'MC4WP_MailChimp_Merge_Field', 'from_data' ), $field_data );
+					$objects = array_map( array( 'MC4WP_MailChimp_Merge_Field', 'from_data' ), $field_data );
+					$list->merge_fields = array_merge( $list->merge_fields, $objects );
 				}
 
 				// get interest categories
