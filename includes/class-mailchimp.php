@@ -212,7 +212,7 @@ class MC4WP_MailChimp {
 					$interest_category = MC4WP_MailChimp_Interest_Category::from_data( $interest_category_data );
 
 					// fetch groups for this interest
-					$interests_data = $this->api->get_list_interest_category_interests( $list->id, $grouping->id, array( 'fields' => 'interests.id,interests.name') );
+					$interests_data = $this->api->get_list_interest_category_interests( $list->id, $interest_category->id, array( 'fields' => 'interests.id,interests.name') );
 					foreach( $interests_data as $interest_data ) {
 						$interest_category->interests[ $interest_data->id ] = $interest_data->name;
 					}
