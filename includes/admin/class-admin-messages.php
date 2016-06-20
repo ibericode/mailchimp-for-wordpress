@@ -32,6 +32,12 @@ class MC4WP_Admin_Messages {
 		}
 	}
 
+	// empty flash bag
+	private function reset() {
+		$this->bag = array();
+		$this->dirty = true;
+	}
+
 	/**
 	 * Flash a message (shows on next pageload)
 	 *
@@ -47,6 +53,8 @@ class MC4WP_Admin_Messages {
 		$this->dirty = true;
 	}
 
+
+
 	/**
 	 * Show queued flash messages
 	 */
@@ -57,8 +65,7 @@ class MC4WP_Admin_Messages {
 			echo sprintf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', $message['type'], $message['text'] );
 		}
 
-		// empty flash bag
-		update_option( 'mc4wp_flash_messages', array(), false );
+		$this->reset();
 	}
 
 	/**
