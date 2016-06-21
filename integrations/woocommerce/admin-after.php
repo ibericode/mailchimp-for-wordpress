@@ -7,9 +7,13 @@ $position_options = array(
 	'review_order_before_submit' => __( 'Before submit button', 'mailchimp-for-wp' ),
 );
 
+
+/** @var MC4WP_Integration $integration */
+
 ?>
 <table class="form-table">
-	<tr valign="top">
+	<?php $config = array( 'element' => 'mc4wp_integrations['. $integration->slug .'][implicit]', 'value' => '0' ); ?>
+	<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
 		<th scope="row">
 			<?php _e( 'Position', 'mailchimp-for-wp' ); ?>
 		</th>
