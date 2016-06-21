@@ -29,7 +29,8 @@
   /** Core Customizations */ }
   #mc4wp-admin .row,
   .mc4wp-admin .row {
-    margin: 20px -20px; }
+    margin: 20px -20px;
+    float: none; }
   #mc4wp-admin .row:after,
   .mc4wp-admin .row:after {
     content: "";
