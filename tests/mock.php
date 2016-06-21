@@ -6,79 +6,56 @@ if( ! defined( 'ABSPATH' ) ) {
 
 define( 'MC4WP_PLUGIN_DIR', __DIR__ . '/../' );
 
-/**
- * @ignore
- */
-function add_filter( $hook, $callback, $prio = 10, $arguments = 1 ) {
+/** @ignore */
+function add_filter( $hook, $callback, $prio = 10, $arguments = 1 ) {}
 
-}
+/** @ignore */
+function add_action( $hook, $callback, $prio = 10, $arguments = 1) {}
 
-/**
- * @ignore
- */
-function add_action( $hook, $callback, $prio = 10, $arguments = 1) {
-
-}
-
-/**
- * @ignore
- */
+/** @ignore */
 function get_option( $option, $default = null ) {
 	return $default;
 }
 
-/**
- * @ignore
- */
+/** @ignore */
+function update_option( $a, $b, $c ) {}
+
+/** @ignore */
 function apply_filters( $hook, $value, $parameter_1 = null ) {
 	return $value;
 }
 
-/**
- * @ignore
- */
+/** @ignore */
 function is_user_logged_in() {
 	return false;
 }
 
-/**
- * @ignore
- */
+/** @ignore */
 function stripslashes_deep( $data ) {
 	return $data;
 }
 
-/**
- * @ignore
- */
+/** @ignore */
 function sanitize_text_field( $value ) {
 	return $value;
 }
 
-/**
- * @ignore
- */
+/** @ignore */
 function get_post_meta( $id, $meta_key = '', $single = true ) {
 	return false;
 }
 
-/**
- * @ignore
- */
+/** @ignore */
 function get_bloginfo( $key ) {
 	return '';
 }
 
-/**
- * @ignore
- */
+/** @ignore */
 function __( $string, $text_domain = '' ) {
 	return $string;
 }
 
-/**
- * @ignore
- */
+/** @ignore */
 function get_post( $id ) {
 	global $expected_post;
 
@@ -90,9 +67,7 @@ function get_post( $id ) {
 	return false;
 }
 
-/**
- * @ignore
- */
+/** @ignore */
 function mock_post( $data ) {
 	$post = (object) array_merge(
 		array(
@@ -107,32 +82,24 @@ function mock_post( $data ) {
 	return $post;
 }
 
-/**
- * @ignore
- */
+/** @ignore */
 function unmock_post() {
 	global $expected_post;
 	unset($expected_post);
 }
 
-/**
- * @ignore
- */
+/** @ignore */
 function mock_get_post( $data ) {
 	global $expected_post;
 	$expected_post = mock_post( $data );
 }
 
-/**
- * @ignore
- */
+/** @ignore */
 function wp_verify_nonce( $nonce, $action ) {
 	return true;
 }
 
-/**
- * @ignore
- */
+/** @ignore */
 function is_email( $email ) {
 	return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
