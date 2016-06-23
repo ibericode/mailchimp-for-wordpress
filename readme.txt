@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp forms, mailchimp integrations
 Requires at least: 3.8
 Tested up to: 4.5.2
-Stable tag: 3.1.9
+Stable tag: 3.1.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -183,6 +183,18 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 
 == Changelog == 
 
+
+#### 3.1.10 - June 21, 2016
+
+**Fixes**
+
+- Styles Builder in Premium not building because of incorrect flag in core plugin.
+
+**Improvements**
+
+- Don't show position option for WooCommerce integration when sign-up is implicit.
+- Improvements to form previewer logic.
+- Make sure admin notifications are always shown exactly one time.
 
 #### 3.1.9 - June 7, 2016
 

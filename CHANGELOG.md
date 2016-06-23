@@ -1,6 +1,18 @@
 Changelog
 =========
 
+#### 3.1.10 - June 21, 2016
+
+**Fixes**
+
+- Styles Builder in Premium not building because of incorrect flag in core plugin.
+
+**Improvements**
+
+- Don't show position option for WooCommerce integration when sign-up is implicit.
+- Improvements to form previewer logic.
+- Make sure admin notifications are always shown exactly one time.
+
 #### 3.1.9 - June 7, 2016
 
 **Fixes**

@@ -132,7 +132,7 @@ class MC4WP_Queue {
 			return false;
 		}
 
-		$success = update_option( $this->option_name, $this->jobs );
+		$success = update_option( $this->option_name, $this->jobs, false );
 
 		if( $success ) {
 			$this->dirty = false;

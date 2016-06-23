@@ -167,20 +167,16 @@ class MC4WP_Forms_Admin {
 
 		// if an `ID` is given, make sure post is of type `mc4wp-form`
 		if( ! empty( $data['ID'] ) ) {
-			$post_data['ID'] = $data['ID'];
-
 			$post = get_post( $data['ID'] );
 
-			// check if attempted post is of post_type `mc4wp-form`
-			if( ! is_object( $post ) || $post->post_type !== 'mc4wp-form' ) {
-				wp_nonce_ays( '' );
-				return 0;
-			}
+			if( $post instanceof WP_Post && $post->post_type === 'mc4wp-form' ) {
+				$post_data['ID'] = $data['ID'];
 
-			// merge new settings  with current settings to allow passing partial data
-			$current_settings = get_post_meta( $post->ID, '_mc4wp_settings', true );
-			if( is_array( $current_settings ) ) {
-				$data['settings'] = array_merge( $current_settings, $data['settings'] );
+				// merge new settings  with current settings to allow passing partial data
+				$current_settings = get_post_meta( $post->ID, '_mc4wp_settings', true );
+				if( is_array( $current_settings ) ) {
+					$data['settings'] = array_merge( $current_settings, $data['settings'] );
+				}
 			}
 		}
 
