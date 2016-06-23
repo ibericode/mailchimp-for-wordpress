@@ -12,6 +12,7 @@ class MC4WP_API_Exception extends Exception {
     public $status;
     public $detail;
     public $instance;
+    public $errors = array();
 
     /**
      * MC4WP_API_Exception constructor.
@@ -19,17 +20,17 @@ class MC4WP_API_Exception extends Exception {
      * @param string $message
      * @param int $code
      * @param array $response
-     * @param object $error_data
+     * @param mixed $data
      */
-    public function __construct( $message, $code, $response = null, $error_data = null ) {
+    public function __construct( $message, $code, $response = null, $data = null ) {
         parent::__construct( $message, $code );
 
         $this->response = $response;
 
-        static $error_properties = array( 'type', 'title', 'status', 'detail', 'instance' );
+        static $error_properties = array( 'type', 'title', 'status', 'detail', 'instance', 'errors' );
         foreach( $error_properties as $key ) {
-            if( ! empty( $error_data->$key ) ) {
-                $this->$key = $error_data->$key;
+            if( ! empty( $data->$key ) ) {
+                $this->$key = $data->$key;
             }
         }
     }

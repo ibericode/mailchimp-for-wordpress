@@ -160,13 +160,13 @@ class MC4WP_API_v3 {
 		}
 
 		$data = json_decode( $body );
-
+		
 		if( $code >= 400 ) {
 			if( $code === 404 ) {
 				throw new MC4WP_API_Resource_Not_Found_Exception( $message, $code, $response, $data );
 			}
 
-			throw new MC4WP_API_Exception( $message, $code, $response , $data );
+			throw new MC4WP_API_Exception( $message, $code, $response, $data );
 		}
 
 		if( ! is_null( $data ) ) {
