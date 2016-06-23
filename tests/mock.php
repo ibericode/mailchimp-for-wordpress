@@ -7,6 +7,9 @@ if( ! defined( 'ABSPATH' ) ) {
 define( 'MC4WP_PLUGIN_DIR', __DIR__ . '/../' );
 
 /** @ignore */
+function _deprecated_function( $a, $b, $c ) {}
+
+/** @ignore */
 function add_filter( $hook, $callback, $prio = 10, $arguments = 1 ) {}
 
 /** @ignore */
