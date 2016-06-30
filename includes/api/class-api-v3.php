@@ -54,7 +54,6 @@ class MC4WP_API_v3 {
 	 * Get recent daily, aggregated activity stats for a list.
 	 *
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/activity/#read-get_lists_list_id_activity
-	 * @since 4.0
 	 *
 	 * @param string $list_id
 	 *
@@ -72,10 +71,9 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * Gets the Groupings for a given List
+	 * Gets the interest categories for a given List
 	 *
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/interest-categories/#read-get_lists_list_id_interest_categories
-	 * @since 4.0
 	 *
 	 * @param string $list_id
 	 * @param array $args
@@ -95,7 +93,6 @@ class MC4WP_API_v3 {
 
 	/**
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/interest-categories/interests/#read-get_lists_list_id_interest_categories_interest_category_id_interests
-	 * @since 4.0
 	 *
 	 * @param string $list_id
 	 * @param string $interest_category_id
@@ -118,7 +115,6 @@ class MC4WP_API_v3 {
 	 * Get merge vars for a given list
 	 *
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/merge-fields/#read-get_lists_list_id_merge_fields
-	 * @since 4.0
 	 *
 	 * @param string $list_id
 	 * @param array $args
@@ -138,7 +134,6 @@ class MC4WP_API_v3 {
 
 	/**
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/#read-get_lists_list_id
-	 * @since 4.0
 	 *
 	 * @param string $list_id
 	 * @param array $args
@@ -152,7 +147,6 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 *
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/#read-get_lists
 	 *
 	 * @param array $args
@@ -172,7 +166,6 @@ class MC4WP_API_v3 {
 
 	/**
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
-	 * @since 4.0
 	 *
 	 * @param string $list_id
 	 * @param string $email_address
@@ -191,7 +184,6 @@ class MC4WP_API_v3 {
 	 * Add or update (!) a member to a MailChimp list.
 	 *
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#create-post_lists_list_id_members
-	 * @since 4.0
 	 *
 	 * @param string $list_id
 	 * @param array $args
@@ -218,7 +210,6 @@ class MC4WP_API_v3 {
 
 	/**
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#edit-patch_lists_list_id_members_subscriber_hash
-	 * @since 4.0
 	 *
 	 * @param $list_id
 	 * @param $email_address
@@ -245,8 +236,7 @@ class MC4WP_API_v3 {
 
 	/**
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
-	 * @since 4.0
-	 *
+	 	 *
 	 * @param string $list_id
 	 * @param string $email_address
 	 *
@@ -261,8 +251,7 @@ class MC4WP_API_v3 {
 
 	/**
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#read-get_ecommerce_stores_store_id
-	 * @since 4.0
-	 *
+	 	 *
 	 * @param string $store_id
 	 * @param array $args
 	 *
@@ -275,29 +264,19 @@ class MC4WP_API_v3 {
 
 	/**
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#create-post_ecommerce_stores
-	 * @since 4.0
-	 *
-	 * @param string $store_id The unique identifier for the store.
-	 * @param string $list_id The unique identifier for the MailChimp List associated with the store.
-	 * @param string $name The name of the store.
-	 * @param string $currency_code The three-letter ISO 4217 code for the currency that the store accepts.
+	 	 *
 	 * @param array $args
 	 *
 	 * @return object
 	 */
-	public function add_ecommerce_store( $store_id, $list_id, $name, $currency_code, array $args = array() ) {
+	public function add_ecommerce_store( array $args = array() ) {
 		$resource = '/ecommerce/stores';
-		$args['id'] = $store_id;
-		$args['list_id'] = $list_id;
-		$args['name'] = $name;
-		$args['currency_code'] = $currency_code;
 		return $this->client->post( $resource, $args );
 	}
 
 	/**
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#edit-patch_ecommerce_stores_store_id
-	 * @since 4.0
-	 *
+	 	 *
 	 * @param string $store_id
 	 * @param array $args
 	 *
@@ -310,8 +289,7 @@ class MC4WP_API_v3 {
 
 	/**
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#delete-delete_ecommerce_stores_store_id
-	 * @since 4.0
-	 *
+	 	 *
 	 * @param string $store_id
 	 *
 	 * @return boolean
@@ -322,22 +300,157 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/#create-post_ecommerce_stores_store_id_orders
-	 * @since 4.0
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#edit-put_ecommerce_stores_store_id_customers_customer_id
+	 *
+	 * @param $store_id
+	 * @param array $args
+	 *
+	 * @return object
+	 */
+	public function add_ecommerce_store_customer( $store_id, array $args ) {
+		$resource = sprintf( '/ecommerce/stores/%s/customers/%s', $store_id, $args['customer_id'] );
+		return $this->client->put( $resource, $args );
+	}
+
+	/**
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#read-get_ecommerce_stores_store_id_customers_customer_id
+	 *
+	 * @param string $store_id
+	 * @param string $customer_id
+	 * @param array $args
+	 *
+	 * @return object
+	 */
+	public function get_ecommerce_store_customer( $store_id, $customer_id, array $args = array() ) {
+		$resource = sprintf( '/ecommerce/stores/%s/customers/%s', $store_id, $customer_id );
+		return $this->client->get( $resource, $args );
+	}
+
+	/**
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#delete-delete_ecommerce_stores_store_id_customers_customer_id
+	 *
+	 * @param string $store_id
+	 * @param string $customer_id
+	 *
+	 * @return bool
+	 */
+	public function delete_ecommerce_store_customer( $store_id, $customer_id ) {
+		$resource = sprintf( '/ecommerce/stores/%s/customers/%s', $store_id, $customer_id );
+		return $this->client->delete( $resource );
+	}
+
+	/**
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#create-post_ecommerce_stores_store_id_products
 	 *
 	 * @param string $store_id
 	 * @param array $args
 	 *
+	 * @return object
+	 */
+	public function add_ecommerce_store_product( $store_id, array $args ) {
+		$resource = sprintf( '/ecommerce/stores/%s/products', $store_id );
+		return $this->client->post( $resource, $args );
+	}
+
+	/**
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#read-get_ecommerce_stores_store_id_products_product_id
+	 *
+	 * @param string $store_id
+	 * @param string $product_id
+	 * @param array $args
+	 *
+	 * @return object
+	 */
+	public function get_ecommerce_store_product( $store_id, $product_id, array $args = array() ) {
+		$resource = sprintf( '/ecommerce/stores/%s/products/%s', $store_id, $product_id );
+		return $this->client->get( $resource, $args );
+	}
+
+	/**
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#delete-delete_ecommerce_stores_store_id_products_product_id
+	 *
+	 * @param string $store_id
+	 * @param string $product_id
+	 *
 	 * @return boolean
 	 */
+	public function delete_ecommerce_store_product( $store_id, $product_id ) {
+		$resource = sprintf( '/ecommerce/stores/%s/products/%s', $store_id, $product_id );
+		return $this->client->delete( $resource );
+	}
+
+	/**
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/variants/#edit-put_ecommerce_stores_store_id_products_product_id_variants_variant_id
+	 *
+	 * @param string $store_id
+	 * @param string $product_id
+	 * @param array $args
+	 *
+	 * @return object
+	 */
+	public function add_ecommerce_store_product_variant( $store_id, $product_id, array $args ) {
+		$resource = sprintf( '/ecommerce/stores/%s/products/%s/variants/%s', $store_id, $product_id, $args['variant_id'] );
+		return $this->client->put( $resource, $args );
+	}
+
+	/**
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/variants/#read-get_ecommerce_stores_store_id_products_product_id_variants_variant_id
+	 *
+	 * @param string $store_id
+	 * @param string $product_id
+	 * @param string $variant_id
+	 * @param array $args
+	 *
+	 * @return object
+	 */
+	public function get_ecommerce_store_product_variant( $store_id, $product_id, $variant_id, array $args = array() ) {
+		$resource = sprintf( '/ecommerce/stores/%s/products/%s/variants/%s', $store_id, $product_id, $variant_id );
+		return $this->client->get( $resource, $args );
+	}
+
+	/**
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/variants/#delete-delete_ecommerce_stores_store_id_products_product_id_variants_variant_id
+	 *
+	 * @param string $store_id
+	 * @param string $product_id
+	 * @param string $variant_id
+	 *
+	 * @return boolean
+	 */
+	public function delete_ecommerce_store_product_variant( $store_id, $product_id, $variant_id ) {
+		$resource = sprintf( '/ecommerce/stores/%s/products/%s/variants/%s', $store_id, $product_id, $variant_id );
+		return $this->client->delete( $resource );
+	}
+
+	/**
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/#create-post_ecommerce_stores_store_id_orders
+	 *
+	 * @param string $store_id
+	 * @param array $args
+	 *
+	 * @return object
+	 */
 	public function add_ecommerce_store_order( $store_id, array $args ) {
-		$data = $this->client->post( sprintf( '/ecommerce/stores/%s/orders', $store_id ), $args );
-		return is_object( $data ) && ! empty( $data->id );
+		$resource = sprintf( '/ecommerce/stores/%s/orders', $store_id );
+		return $this->client->post( $resource, $args );
+	}
+
+	/**
+	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/#read-get_ecommerce_stores_store_id_orders_order_id
+	 *
+	 * @param string $store_id
+	 * @param string $order_id
+	 * @param array $args
+	 *
+	 * @return object
+	 */
+	public function get_ecommerce_store_order( $store_id, $order_id, array $args = array() ) {
+		$resource = sprintf( '/ecommerce/stores/%s/orders/%s', $store_id, $order_id );
+		return $this->client->get( $resource, $args );
 	}
 
 	/**
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/#delete-delete_ecommerce_stores_store_id_orders_order_id
-	 * @since 4.0
 	 *
 	 * @param string $store_id
 	 * @param string $order_id
