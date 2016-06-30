@@ -181,5 +181,22 @@ class MC4WP_Debug_Log{
 		return self::$levels[ $level ];
 	}
 
+	/**
+	 * Tests if the log file is writable
+	 *
+	 * @return bool
+	 */
+	public function test() {
+		$handle = @fopen( $this->file, 'a' );
+		$writable = false;
+
+		if( is_resource( $handle ) ) {
+			$writable = true;
+			fclose( $handle );
+		}
+
+		return $writable;
+	}
+
 }
 
