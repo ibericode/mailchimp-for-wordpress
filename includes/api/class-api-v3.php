@@ -217,7 +217,7 @@ class MC4WP_API_v3 {
 	 *
 	 * @return object
 	 */
-	public function update_list_member( $list_id, $email_address, array $args = array() ) {
+	public function update_list_member( $list_id, $email_address, array $args ) {
 		$subscriber_hash = $this->get_subscriber_hash( $email_address );
 		$resource = sprintf( '/lists/%s/members/%s', $list_id, $subscriber_hash );
 
@@ -264,12 +264,12 @@ class MC4WP_API_v3 {
 
 	/**
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#create-post_ecommerce_stores
-	 	 *
+	 *
 	 * @param array $args
 	 *
 	 * @return object
 	 */
-	public function add_ecommerce_store( array $args = array() ) {
+	public function add_ecommerce_store( array $args ) {
 		$resource = '/ecommerce/stores';
 		return $this->client->post( $resource, $args );
 	}
