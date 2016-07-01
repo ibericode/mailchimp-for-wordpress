@@ -340,6 +340,8 @@ class MC4WP_API_v3 {
 	}
 
 	/**
+	 * Add a product to a store
+	 *
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#create-post_ecommerce_stores_store_id_products
 	 *
 	 * @param string $store_id
