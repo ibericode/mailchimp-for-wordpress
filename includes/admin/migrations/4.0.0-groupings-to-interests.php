@@ -2,14 +2,8 @@
 
 defined( 'ABSPATH' ) or exit;
 
-/**
- * @param $groupings
- * @param $interest_category
- *
- * @return object|null
- */
-function mc4wp_400_find_grouping_for_interest_category( $groupings, $interest_category ) {
-
+/** @ignore */
+function __mc4wp_400_find_grouping_for_interest_category( $groupings, $interest_category ) {
     foreach( $groupings as $grouping ) {
         if( $grouping->name === $interest_category->title ) {
             return $grouping;
@@ -19,13 +13,8 @@ function mc4wp_400_find_grouping_for_interest_category( $groupings, $interest_ca
     return null;
 }
 
-/**
- * @param $groups
- * @param $interest
- *
- * @return object|null
- */
-function mc4wp_400_find_group_for_interest( $groups, $interest ) {
+/** @ignore */
+function __mc4wp_400_find_group_for_interest( $groups, $interest ) {
     foreach( $groups as $group_id => $group_name ) {
         if( $group_name === $interest->name ) {
             return (object) array(
@@ -72,7 +61,7 @@ foreach( $lists as $list ) {
     foreach( $interest_categories as $interest_category ) {
 
         // compare interest title with grouping name, if it matches, get new id.
-        $grouping = mc4wp_400_find_grouping_for_interest_category( $list->groupings, $interest_category );
+        $grouping = __mc4wp_400_find_grouping_for_interest_category( $list->groupings, $interest_category );
         if( ! $grouping ) {
             continue;
         }
@@ -80,7 +69,7 @@ foreach( $lists as $list ) {
         $groups = array();
         $interests = $api_v3->get_list_interest_category_interests( $list->id, $interest_category->id );
         foreach( $interests as $interest ) {
-            $group = mc4wp_400_find_group_for_interest( $grouping->groups, $interest );
+            $group = __mc4wp_400_find_group_for_interest( $grouping->groups, $interest );
 
             if( $group ) {
                 $groups[ $group->id ] = $interest->id;
