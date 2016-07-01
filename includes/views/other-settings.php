@@ -88,33 +88,46 @@ add_action( 'mc4wp_admin_other_settings', '__mc4wp_usage_tracking_setting', 70 )
 
 				<h3><?php _e( 'Debug Log', 'mailchimp-for-wp' ); ?> <input type="text" id="debug-log-filter" class="regular-text" placeholder="<?php esc_attr_e( 'Filter..', 'mailchimp-for-wp' ); ?>" /></h3>
 
-				<div id="debug-log" class="widefat">
-					<?php
-					$line = $log_reader->read_as_html();
-
-					if( ! empty( $line ) ) {
-						while ( $line ) {
-							echo '<div class="debug-log-line">' . $line . '</div>';
-							$line = $log_reader->read_as_html();
-						}
-					} else {
-						echo '<div class="debug-log-empty">';
-						echo '-- ' . __( 'Nothing here. Which means there are no errors!', 'mailchimp-for-wp' );
-						echo '</div>';
-					}
-					?>
-				</div>
-
-				<form method="post">
-					<input type="hidden" name="_mc4wp_action" value="empty_debug_log">
-					<p>
-						<input type="submit" class="button" value="<?php esc_attr_e( 'Empty Log', 'mailchimp-for-wp' ); ?>" />
-					</p>
-				</form>
-
 				<?php
-				if( $log->level > 200 ) {
 
+				if( ! $log->test() ) {
+					echo '<p>';
+					echo __( 'Log file is not writable.', 'mailchimp-for-wp' ) . ' ';
+					echo  sprintf( __( 'Please ensure %s has the proper <a href="%s">file permissions</a>.', 'mailchimp-for-wp' ), '<code>' . $log->file . '</code>', 'https://codex.wordpress.org/Changing_File_Permissions' );
+					echo '</p>';
+
+					// hack to hide filter input
+					echo '<style type="text/css">#debug-log-filter { display: none; }</style>';
+				} else {
+					?>
+					<div id="debug-log" class="widefat">
+						<?php
+						$line = $log_reader->read_as_html();
+
+						if (!empty($line)) {
+							while ($line) {
+								echo '<div class="debug-log-line">' . $line . '</div>';
+								$line = $log_reader->read_as_html();
+							}
+						} else {
+							echo '<div class="debug-log-empty">';
+							echo '-- ' . __('Nothing here. Which means there are no errors!', 'mailchimp-for-wp');
+							echo '</div>';
+						}
+						?>
+					</div>
+
+					<form method="post">
+						<input type="hidden" name="_mc4wp_action" value="empty_debug_log">
+						<p>
+							<input type="submit" class="button"
+								   value="<?php esc_attr_e('Empty Log', 'mailchimp-for-wp'); ?>"/>
+						</p>
+					</form>
+					<?php
+				} // end if is writable
+
+				if( $log->level >= 300 ) {
 					echo '<p>';
 					echo __( 'Right now, the plugin is configured to only log errors and warnings.', 'mailchimp-for-wp' ) . ' ';
 					echo  sprintf( __( 'Would you like to <a href="%s">log all events</a> instead?', 'mailchimp-for-wp' ), 'https://mc4wp.com/kb/how-to-enable-log-debugging/' );
