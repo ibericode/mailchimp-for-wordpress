@@ -229,7 +229,7 @@ var forms = function(m, i18n) {
 		if( config.type() === 'select' || config.type() === 'radio' ) {
 			visibleRows.push(rows.isRequired(config));
 		}
-		
+
 		return visibleRows;
 	};
 

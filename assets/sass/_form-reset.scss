@@ -53,6 +53,11 @@
 		max-width: 480px;
 	}
 
+	select {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+	}
+
 	input[type="number"] {
 		min-width: 40px;
 	}
