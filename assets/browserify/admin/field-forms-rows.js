@@ -19,7 +19,11 @@ var rows = function(m, i18n) {
 
 	r.value = function (config) {
 		return m("div", [
-			m("label", i18n.value),
+			m("label", [
+				i18n.value,
+				" ",
+				config.type() === 'hidden' ? '' : m('small', { "style": "float: right; font-weight: normal;" }, i18n.optional )
+			]),
 			m("input.widefat", {
 				type   : "text",
 				value  : config.value(),
@@ -71,7 +75,11 @@ var rows = function(m, i18n) {
 	r.placeholder = function (config) {
 
 		return m("div", [
-			m("label", i18n.placeholder),
+			m("label", [
+				i18n.placeholder,
+				" ",
+				m('small', { "style": "float: right; font-weight: normal;" }, i18n.optional )
+			]),
 			m("input.widefat", {
 				type   : "text",
 				value  : config.placeholder(),
@@ -120,9 +128,9 @@ var rows = function(m, i18n) {
 
 	r.choices = function (config) {
 
-
-		return m('div', [
-			m('label', i18n.choices ),
+		var html = [];
+		html.push(m('div', [
+			m('label', i18n.choices),
 			m('div.limit-height', [
 				m("table", [
 
@@ -132,22 +140,24 @@ var rows = function(m, i18n) {
 							'data-id': index
 						}, [
 							m('td.cb', m('input', {
-									name    : 'selected',
-									type    : (config.type() === 'checkbox' ) ? 'checkbox' : 'radio',
+									name: 'selected',
+									type: (config.type() === 'checkbox' ) ? 'checkbox' : 'radio',
 									onchange: m.withAttr('value', config.selectChoice.bind(config)),
 									checked: choice.selected(),
-									value: choice.value()
+									value: choice.value(),
+									title: i18n.preselect
 								})
 							),
 							m('td.stretch', m('input.widefat', {
-								type       : 'text',
-								value      : choice.label(),
+								type: 'text',
+								value: choice.label(),
 								placeholder: choice.title(),
-								onchange   : m.withAttr('value', choice.label)
+								onchange: m.withAttr('value', choice.label)
 							})),
 							m('td', m('span', {
+								"title": i18n.remove,
 								"class": 'dashicons dashicons-no-alt hover-activated',
-								onclick: function (key) {
+								"onclick": function (key) {
 									this.choices().splice(key, 1);
 								}.bind(config, index)
 							}, ''))
@@ -155,7 +165,10 @@ var rows = function(m, i18n) {
 					})
 				]) // end of table
 			]) // end of limit-height div
-		]);
+		]));
+		
+		return html;
+
 	};
 
 	return r;

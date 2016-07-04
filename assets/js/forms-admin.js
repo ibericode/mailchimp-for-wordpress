@@ -20,7 +20,11 @@ var rows = function(m, i18n) {
 
 	r.value = function (config) {
 		return m("div", [
-			m("label", i18n.value),
+			m("label", [
+				i18n.value,
+				" ",
+				config.type() === 'hidden' ? '' : m('small', { "style": "float: right; font-weight: normal;" }, i18n.optional )
+			]),
 			m("input.widefat", {
 				type   : "text",
 				value  : config.value(),
@@ -72,7 +76,11 @@ var rows = function(m, i18n) {
 	r.placeholder = function (config) {
 
 		return m("div", [
-			m("label", i18n.placeholder),
+			m("label", [
+				i18n.placeholder,
+				" ",
+				m('small', { "style": "float: right; font-weight: normal;" }, i18n.optional )
+			]),
 			m("input.widefat", {
 				type   : "text",
 				value  : config.placeholder(),
@@ -121,9 +129,9 @@ var rows = function(m, i18n) {
 
 	r.choices = function (config) {
 
-
-		return m('div', [
-			m('label', i18n.choices ),
+		var html = [];
+		html.push(m('div', [
+			m('label', i18n.choices),
 			m('div.limit-height', [
 				m("table", [
 
@@ -133,22 +141,24 @@ var rows = function(m, i18n) {
 							'data-id': index
 						}, [
 							m('td.cb', m('input', {
-									name    : 'selected',
-									type    : (config.type() === 'checkbox' ) ? 'checkbox' : 'radio',
+									name: 'selected',
+									type: (config.type() === 'checkbox' ) ? 'checkbox' : 'radio',
 									onchange: m.withAttr('value', config.selectChoice.bind(config)),
 									checked: choice.selected(),
-									value: choice.value()
+									value: choice.value(),
+									title: i18n.preselect
 								})
 							),
 							m('td.stretch', m('input.widefat', {
-								type       : 'text',
-								value      : choice.label(),
+								type: 'text',
+								value: choice.label(),
 								placeholder: choice.title(),
-								onchange   : m.withAttr('value', choice.label)
+								onchange: m.withAttr('value', choice.label)
 							})),
 							m('td', m('span', {
+								"title": i18n.remove,
 								"class": 'dashicons dashicons-no-alt hover-activated',
-								onclick: function (key) {
+								"onclick": function (key) {
 									this.choices().splice(key, 1);
 								}.bind(config, index)
 							}, ''))
@@ -156,7 +166,10 @@ var rows = function(m, i18n) {
 					})
 				]) // end of table
 			]) // end of limit-height div
-		]);
+		]));
+		
+		return html;
+
 	};
 
 	return r;
@@ -205,13 +218,18 @@ var forms = function(m, i18n) {
 			rows.label(config),
 			rows.choiceType(config),
 			rows.choices(config),
-			rows.useParagraphs(config)
 		];
+
+		if( config.type() === 'select' ) {
+			visibleRows.push(rows.placeholder(config));
+		}
+
+		visibleRows.push(rows.useParagraphs(config));
 
 		if( config.type() === 'select' || config.type() === 'radio' ) {
 			visibleRows.push(rows.isRequired(config));
 		}
-
+		
 		return visibleRows;
 	};
 
@@ -273,15 +291,32 @@ var g = function(m) {
 			name: config.name(),
 			required: config.required()
 		};
-		var field = m('select', attributes, [
-			config.choices().map(function (choice) {
-				return m('option', {
-					value   : ( choice.value() !== choice.label() ) ? choice.value() : undefined,
-					"selected": choice.selected()
-				}, choice.label())
-			})
-		]);
-		return field;
+		var hasSelection = false;
+
+		var options = config.choices().map(function (choice) {
+
+			if( choice.selected() ) {
+				hasSelection = true;
+			}
+
+			return m('option', {
+				value   : ( choice.value() !== choice.label() ) ? choice.value() : undefined,
+				"selected": choice.selected()
+			}, choice.label())
+		});
+
+		var placeholder = config.placeholder();
+		if(placeholder.length > 0 ) {
+			options.unshift(
+				m('option', {
+					'disabled': true,
+					'value': '',
+					'selected': ! hasSelection
+				}, placeholder)
+			);
+		}
+
+		return m('select', attributes, options );
 	};
 
 	/**
