@@ -1,6 +1,19 @@
 Changelog
 =========
 
+#### 3.1.11 - July 5, 2016
+
+**Improvements**
+
+- Update JavaScript dependencies for admin screens.
+- Test debug log & show notice when it's not writable.
+- Reset browser appearance of `<select>` elements in form themes.
+
+**Additions**
+
+- Add "placeholder" option for dropdown fields.
+
+
 #### 3.1.10 - June 21, 2016
 
 **Fixes**
