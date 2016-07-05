@@ -41,7 +41,7 @@ MailChimp for WordPress helps you add more subscribers to your MailChimp lists u
 	- [MailChimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/)
 	- [MailChimp Activity](https://wordpress.org/plugins/mc4wp-activity/)
 	- [MailChimp User Sync](https://wordpress.org/plugins/mailchimp-sync/)
-	- [Scroll Triggered Boxes](https://wordpress.org/plugins/scroll-triggered-boxes/)
+	- [Boxzilla Pop-ups](https://wordpress.org/plugins/boxzilla/)
 	- [Captcha](https://wordpress.org/plugins/mc4wp-captcha/)
 	- Third Party:
 	    - [WPBruiser](https://wordpress.org/plugins/goodbye-captcha/)
@@ -145,6 +145,10 @@ You can add your custom CSS to your theme stylesheet or (easier) by using a plug
 
 If you're getting an `HTTP Error` when trying to connect to your MailChimp account, please contact your webhost and ask them if they have PHP CURL installed and updated to the latest version (7.40.x).
 Also, please ask them to allow requests to `https://api.mailchimp.com/`.
+
+#### How do I show a sign-up form in a pop-up?
+
+We recommend the [Boxzilla pop-up plugin](https://wordpress.org/plugins/boxzilla/) for this. You can use the form shortcode in your pop-up box to show a sign-up form.
 
 #### My question is not listed
 
