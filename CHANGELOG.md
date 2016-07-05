@@ -7,7 +7,6 @@ Changelog
 
 - Update JavaScript dependencies for admin screens.
 - Test debug log & show notice when it's not writable.
-- Reset browser appearance of `<select>` elements in form themes.
 
 **Additions**
 
