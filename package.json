@@ -7,16 +7,16 @@
   },
   "devDependencies": {
     "browserify": "^12.0.1",
-    "globby": "^4.0.0",
+    "globby": "^4.1.0",
     "gulp": "^3.9.0",
     "gulp-cssmin": "^0.1.7",
     "gulp-derequire": "^2.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
-    "gulp-sass": "^2.2.0",
+    "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-streamify": "^1.0.2",
-    "gulp-uglify": "^1.5.3",
+    "gulp-uglify": "^1.5.4",
     "gulp-util": "^3.0.7",
     "gulp-wrap": "^0.11.0",
     "merge-stream": "^1.0.0",
@@ -25,9 +25,9 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
-    "codemirror": "^5.12.0",
+    "codemirror": "^5.16.0",
     "gator": "^1.2.4",
-    "mithril": "^0.2.3",
+    "mithril": "^0.2.5",
     "populate.js": "^1.0.2",
     "wolfy87-eventemitter": "^4.3.0"
   }

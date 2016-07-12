@@ -15,15 +15,32 @@ var g = function(m) {
 			name: config.name(),
 			required: config.required()
 		};
-		var field = m('select', attributes, [
-			config.choices().map(function (choice) {
-				return m('option', {
-					value   : ( choice.value() !== choice.label() ) ? choice.value() : undefined,
-					"selected": choice.selected()
-				}, choice.label())
-			})
-		]);
-		return field;
+		var hasSelection = false;
+
+		var options = config.choices().map(function (choice) {
+
+			if( choice.selected() ) {
+				hasSelection = true;
+			}
+
+			return m('option', {
+				value   : ( choice.value() !== choice.label() ) ? choice.value() : undefined,
+				"selected": choice.selected()
+			}, choice.label())
+		});
+
+		var placeholder = config.placeholder();
+		if(placeholder.length > 0 ) {
+			options.unshift(
+				m('option', {
+					'disabled': true,
+					'value': '',
+					'selected': ! hasSelection
+				}, placeholder)
+			);
+		}
+
+		return m('select', attributes, options );
 	};
 
 	/**

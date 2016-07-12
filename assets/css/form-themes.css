@@ -50,7 +50,7 @@
   .mc4wp-form-theme input[type="date"],
   .mc4wp-form-theme textarea,
   .mc4wp-form-theme select {
-    min-height: 28px;
+    min-height: 32px;
     width: 100%;
     max-width: 480px; }
   .mc4wp-form-basic input[type="number"],

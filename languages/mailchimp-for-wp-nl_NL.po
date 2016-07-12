@@ -3,6 +3,7 @@
 # Translators:
 # Danny van Kooten <dannyvankooten@gmail.com>, 2014-2016
 # Eelco Martens <eelco.martens@gmail.com>, 2015
+# Form App <formappmobile@gmail.com>, 2016
 # Martijn van Egmond <developer@tensheep.nl>, 2015
 # Yola Maas <post@basicsoflive.nl>, 2016
 msgid ""
@@ -10,7 +11,7 @@ msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-11-30 10:15:18+00:00\n"
-"PO-Revision-Date: 2016-02-15 14:25+0000\n"
+"PO-Revision-Date: 2016-07-05 08:40+0000\n"
 "Last-Translator: Danny van Kooten <dannyvankooten@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -63,7 +64,7 @@ msgstr "Dit emailadres is niet ingeschreven."
 
 #: config/default-form-messages.php:33
 msgid "Please select at least one list."
-msgstr "Selecteer ten minste een lijst."
+msgstr "Selecteer ten minste 1 lijst."
 
 #: config/default-integration-options.php:5
 msgid "Sign me up for the newsletter!"
@@ -210,7 +211,7 @@ msgstr "Bezoekers IP adres. Bijvoorbeeld: %s."
 
 #: includes/forms/class-form-tags.php:102
 msgid "The property of the currently logged-in user."
-msgstr ""
+msgstr "De rechten van de huidige ingelogte gebruiker."
 
 #: includes/forms/class-form.php:128
 msgid "There is no form with ID %d, perhaps it was deleted?"
@@ -347,7 +348,7 @@ msgstr "Voeg een dynamisch formulier variabelen toe"
 msgid ""
 "The following list of variables can be used to <a href=\"%s\">add some "
 "dynamic content to your form or success and error messages</a>."
-msgstr ""
+msgstr "De volgende lijst van variabelen kunnen worden gebruikt om <a href=\"%s\"> sommige dynamische content toe te voegen aan het formulier en/of met succes en foutmeldingen </a>."
 
 #: includes/forms/views/parts/dynamic-content-tags.php:8
 msgid "This allows you to personalise your form or response messages."
@@ -355,7 +356,7 @@ msgstr "Mogelijkheid je formulier te personaliseren of op je antwoord berichten"
 
 #: includes/forms/views/tabs/form-appearance.php:5
 msgid "Inherit from %s theme"
-msgstr ""
+msgstr "Neem het over van %s thema"
 
 #: includes/forms/views/tabs/form-appearance.php:6
 msgid "Basic"
@@ -596,7 +597,7 @@ msgstr "Interessegroepen vervangen?"
 msgid ""
 "Select \"no\" if you want to add the selected groupings to any previously "
 "selected groupings when updating a subscriber."
-msgstr ""
+msgstr "Selecteer \"nee\" als je de geselecteerde groepen wenst toe te voegen aan alle eerder geselecteerde groeperingen bij het updaten van een abonnee."
 
 #: includes/forms/views/tabs/form-settings.php:93
 #: includes/integrations/views/integration-settings.php:207
@@ -706,7 +707,7 @@ msgstr "Welkomstemail versturen?"
 msgid ""
 "The selected MailChimp lists require non-default fields, which may prevent "
 "this integration from working."
-msgstr ""
+msgstr "De geselecteerde MailChimp lijst vereist niet-standaard velden, waardoor de integratie mogelijk niet zal werken."
 
 #: includes/integrations/views/integration-settings.php:245
 msgid ""
@@ -714,7 +715,7 @@ msgid ""
 "fields</a> or <a href=\"%s\">log into your MailChimp account</a> and make "
 "sure only the email & name fields are marked as required fields for the "
 "selected list(s)."
-msgstr ""
+msgstr "Zorg ervoor dat je <a href=\"%s\"> om de plugin te configureren, alle verplichte velden </a> of <a href=\"%s\">  kunnen inloggen op je MailChimp account </a> en zorg ervoor dat alleen de e-mail en verzend naam velden zijn gemarkeerd als verplichte velden voor de geselecteerde lijst(en)."
 
 #: includes/integrations/views/integrations.php:30
 msgid "Enabled"
@@ -772,7 +773,7 @@ msgstr "Verkrijg hier je API sleutel."
 
 #: includes/views/general-settings.php:65
 msgid "Usage Tracking"
-msgstr ""
+msgstr "Gebruikstype bijhouden"
 
 #: includes/views/general-settings.php:71
 msgid ""
@@ -806,7 +807,7 @@ msgid ""
 "The table below shows your MailChimp lists and their details. If you just "
 "applied changes to your MailChimp lists, please use the following button to "
 "renew the cached lists configuration."
-msgstr ""
+msgstr "The tabel hieronder toont je MailChimp lijst configuratie. Wanneer je hier veranderingen aan hebt doorgevoerd die nog niet weergegeven worden kun je de volgende button gebruiken om je configuratie opnieuw in te laden."
 
 #: includes/views/parts/lists-overview.php:14
 msgid "No lists were found in your MailChimp account"
@@ -844,7 +845,7 @@ msgstr "%s (ID:%s) met type %s."
 msgid ""
 "To integrate with Contact Form 7, configure the settings below and then add "
 "%s to your CF7 form mark-up."
-msgstr ""
+msgstr "Om te integreren met Contact Form 7, configureer de onderstaande instellingen en voeg %s toe aan de markering van het CF7 formulier."
 
 #: integrations/custom/admin-before.php:2
 msgid ""
@@ -864,7 +865,7 @@ msgstr "MailChimp voor WordPress"
 msgid ""
 "https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-"
 "wp&utm_campaign=plugins-page"
-msgstr ""
+msgstr "https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=plugins-page"
 
 #. Description of the plugin/theme
 msgid ""

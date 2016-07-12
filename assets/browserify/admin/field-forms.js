@@ -39,8 +39,13 @@ var forms = function(m, i18n) {
 			rows.label(config),
 			rows.choiceType(config),
 			rows.choices(config),
-			rows.useParagraphs(config)
 		];
+
+		if( config.type() === 'select' ) {
+			visibleRows.push(rows.placeholder(config));
+		}
+
+		visibleRows.push(rows.useParagraphs(config));
 
 		if( config.type() === 'select' || config.type() === 'radio' ) {
 			visibleRows.push(rows.isRequired(config));

@@ -10,9 +10,13 @@
  *
  * When no service parameter is given, the entire container will be returned.
  *
+ * @ignore
+ * @access private
+ *
  * @param string $service (optional)
- * @throws Exception when service is not found
  * @return object
+ *
+ * @throws Exception when service is not found
  */
 function mc4wp( $service = null ) {
 	static $mc4wp;
