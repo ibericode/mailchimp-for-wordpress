@@ -2,9 +2,15 @@
 
 defined( 'ABSPATH' ) or exit;
 
-/** @ignore */
+/**
+ * @ignore
+ * @return object
+ */
 function __mc4wp_400_find_grouping_for_interest_category( $groupings, $interest_category ) {
     foreach( $groupings as $grouping ) {
+        // cast to stdClass because of missing class
+        $grouping = (object) (array) $grouping;
+
         if( $grouping->name === $interest_category->title ) {
             return $grouping;
         }
@@ -13,7 +19,10 @@ function __mc4wp_400_find_grouping_for_interest_category( $groupings, $interest_
     return null;
 }
 
-/** @ignore */
+/**
+ * @ignore
+ * @return object
+ */
 function __mc4wp_400_find_group_for_interest( $groups, $interest ) {
     foreach( $groups as $group_id => $group_name ) {
         if( $group_name === $interest->name ) {
@@ -39,7 +48,6 @@ if( empty( $options['api_key'] ) ) {
 
 // get current state from transient
 $lists = get_transient( 'mc4wp_mailchimp_lists_fallback' );
-
 if( empty( $lists ) ) {
     return;
 }
@@ -49,6 +57,9 @@ $api_v3 = new MC4WP_API_v3( $options['api_key'] );
 $map = array();
 
 foreach( $lists as $list ) {
+
+    // cast to stdClass because of missing classes
+    $list = (object) (array) $list;
 
     // no groupings? easy!
     if( empty( $list->groupings ) ) {
