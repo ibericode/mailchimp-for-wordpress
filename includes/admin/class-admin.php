@@ -116,7 +116,7 @@ class MC4WP_Admin {
 		do_action( 'mc4wp_admin_' . $action );
 
 		// redirect back to where we came from
-		$redirect_url = remove_query_arg( '_mc4wp_action' );
+		$redirect_url = ! empty( $_POST['_redirect_to'] ) ? $_POST['_redirect_to'] : remove_query_arg( '_mc4wp_action' );
 		wp_redirect( $redirect_url );
 		exit;
 	}
