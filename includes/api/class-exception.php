@@ -6,12 +6,11 @@ class MC4WP_API_Exception extends Exception {
      * @var array
      */
     public $response;
-
-    public $type;
-    public $title;
-    public $status;
-    public $detail;
-    public $instance;
+    public $type = '';
+    public $title = '';
+    public $status = '';
+    public $detail = '';
+    public $instance = '';
     public $errors = array();
 
     /**
@@ -27,10 +26,18 @@ class MC4WP_API_Exception extends Exception {
 
         $this->response = $response;
 
-        static $error_properties = array( 'type', 'title', 'status', 'detail', 'instance', 'errors' );
-        foreach( $error_properties as $key ) {
-            if( ! empty( $data->$key ) ) {
-                $this->$key = $data->$key;
+        if( ! empty( $data ) ) {
+            // fill error properties from json data
+            $error_properties = array( 'type', 'title', 'status', 'detail', 'instance', 'errors' );
+            foreach( $error_properties as $key ) {
+                if( ! empty( $data->$key ) ) {
+                    $this->$key = $data->$key;
+                }
+            }
+
+            // use MailChimp error as message
+            if( ! empty( $data->detail ) ) {
+                $this->message = $data->detail;
             }
         }
     }
