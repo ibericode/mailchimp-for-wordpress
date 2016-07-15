@@ -91,7 +91,9 @@ class MC4WP_Form_Listener {
 		// do stuff on failure
 		if( ! $result ) {
 
-			if( $api->get_error_code() == 212 ) {
+			$error_code_unsubscribed = 212;
+			$error_code_bounced = 213;
+			if( $api->get_error_code() == $error_code_unsubscribed || $api->get_error_code() == $error_code_bounced ) {
 				$form->errors[] = 'previously_unsubscribed';
 				$this->get_log()->warning( sprintf( 'Form %d > %s has unsubscribed before and cannot be resubscribed by the plugin.', $form->ID, $form->data['EMAIL'] ) );
 			} elseif( $api->get_error_code() == 214 ) {
