@@ -162,7 +162,8 @@ class MC4WP_Form_Tags {
 	 */
 	public function get_subscriber_count() {
 		$mailchimp = new MC4WP_MailChimp();
-		return $mailchimp->get_subscriber_count( $this->form->get_lists() );
+		$count = $mailchimp->get_subscriber_count( $this->form->get_lists() );
+		return number_format( $count );
 	}
 
 	/**
