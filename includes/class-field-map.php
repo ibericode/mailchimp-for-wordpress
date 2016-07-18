@@ -135,12 +135,8 @@ class MC4WP_Field_Map {
 		$this->list_fields[ $list->id ]['GROUPINGS'] = array_filter( $this->list_fields[ $list->id ]['GROUPINGS'] );
 		$this->list_fields[ $list->id ] = array_filter( $this->list_fields[ $list->id ] );
 
-		// if we have values at this point, add global fields
-		if( ! empty( $this->list_fields[ $list->id ] ) ) {
-			// add global fields (fields belong to ALL lists automatically)
-			$this->list_fields[ $list->id ] = $this->merge( $this->list_fields[ $list->id ], $this->global_fields );
-		}
-
+		// add global fields (fields belong to ALL lists automatically)
+		$this->list_fields[ $list->id ] = $this->merge( $this->list_fields[ $list->id ], $this->global_fields );
 	}
 
 	/**
