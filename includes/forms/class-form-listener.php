@@ -110,7 +110,7 @@ class MC4WP_Form_Listener {
 				$log->warning( sprintf( "Form %d > %s is already subscribed to the selected list(s)", $form->ID, mc4wp_obfuscate_string( $form->data['EMAIL'] ) ) );
 			} else {
 				$form->add_error('error');
-				$log->error( sprintf( 'Form %d > MailChimp API error: %s', $form->ID, $mailchimp->get_error_message() ) );
+				$log->error( sprintf( 'Form %d > MailChimp API error: %s %s', $form->ID, $mailchimp->get_error_code(), $mailchimp->get_error_message() ) );
 			}
 
 			// bail
