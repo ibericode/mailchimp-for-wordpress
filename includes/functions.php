@@ -248,16 +248,7 @@ function mc4wp_add_name_data( $data = array() ) {
 	if( empty( $data['NAME'] ) && ! empty( $data['FNAME'] ) && ! empty( $data['LNAME'] ) ) {
 		$data['NAME'] = sprintf( '%s %s', $data['FNAME'], $data['LNAME'] );
 	}
-
-	/**
-	 * TODO: Move this someplace else where it only has to be called once.
-	 *
-	 * Filters merge vars which are sent to MailChimp
-	 *
-	 * @param array $merge_vars
-	 */
-	$data = (array) apply_filters( 'mc4wp_merge_vars', $data );
-
+	
 	return $data;
 }
 

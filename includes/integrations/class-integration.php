@@ -328,8 +328,10 @@ abstract class MC4WP_Integration {
 		$mailchimp = new MC4WP_MailChimp();
 		$log = $this->get_log();
 		$request= $this->get_request();
-		$subscriber_data = null;
 		$list_ids = $this->get_lists();
+
+		/** @var MC4WP_MailChimp_Subscriber $subscriber */
+		$subscriber = null;
 		$result = false;
 
 		// validate lists
@@ -339,36 +341,69 @@ abstract class MC4WP_Integration {
 		}
 
 		/**
-		 * Filters the final merge variables before the request is sent to MailChimp, for all integrations.
+		 * Filters data for integration requests.
 		 *
-		 * TODO: This filter name is off because it runs before the data mapper. It should be just data at this point.
-		 *
-		 * @param array $merge_vars
+		 * @param array $data
 		 * @param MC4WP_Integration $integration
 		 */
-		$data = (array) apply_filters( 'mc4wp_integration_merge_vars', $data, $integration );
+		$data = apply_filters( 'mc4wp_integration_data', $data, $integration );
 
 		/**
-		 * Filters the final merge variables before the request is sent to MailChimp, for a specific integration.
+		 * Filters data for a specific integration request.
 		 *
 		 * The dynamic portion of the hook, `$slug`, refers to the integration slug.
 		 *
-		 * @param array $merge_vars
+		 * @param array $data
 		 * @param MC4WP_Integration $integration
 		 */
-		$data = (array) apply_filters( 'mc4wp_integration_' . $slug . '_merge_vars', $data, $integration );
+		$data = apply_filters( 'mc4wp_integration_' . $slug . '_data', $data, $integration );
+
+		/**
+		 * @ignore
+		 * @deprecated 4.0
+		 */
+		$data = apply_filters( 'mc4wp_merge_vars', $data );
+
+		/**
+		 * @deprecated 4.0
+		 * @use mc4wp_integration_data
+		 * @ignore
+		 */
+		$data = apply_filters( 'mc4wp_integration_merge_vars', $data, $integration );
+
+		/**
+		 * @deprecated 4.0
+		 * @ignore
+		 */
+		$data = apply_filters( 'mc4wp_integration_' . $slug . '_merge_vars', $data, $integration );
+
 		$email_type = mc4wp_get_email_type();
 
 		$mapper = new MC4WP_List_Data_Mapper( $data, $list_ids );
 
-		/** @var MC4WP_MailChimp_Subscriber_Data[] $map */
+		/** @var MC4WP_MailChimp_Subscriber[] $map */
 		$map = $mapper->map();
 
-		foreach( $map as $list_id => $subscriber_data ) {
-			$subscriber_data->email_type = $email_type;
-			$subscriber_data->status = $this->options['double_optin'] ? 'pending' : 'subscribed';
-			$subscriber_data->ip_opt = $request->get_client_ip();
-			$result = $mailchimp->list_subscribe( $list_id, $subscriber_data->email_address, $subscriber_data->to_array(), $this->options['update_existing'], $this->options['replace_interests'] );
+		foreach( $map as $list_id => $subscriber ) {
+			$subscriber->status = $this->options['double_optin'] ? 'pending' : 'subscribed';
+			$subscriber->email_type = $email_type;
+			$subscriber->ip_opt = $request->get_client_ip();
+
+			/**
+			 * Filters subscriber data before it is sent to MailChimp. Fires for both form & integration requests.
+			 *
+			 * @param MC4WP_MailChimp_Subscriber $subscriber
+			 */
+			$subscriber = apply_filters( 'mc4wp_subscriber_data', $subscriber );
+
+			/**
+			 * Filters subscriber data before it is sent to MailChimp. Only fires for integration requests.
+			 *
+			 * @param MC4WP_MailChimp_Subscriber $subscriber
+			 */
+			$subscriber = apply_filters( 'mc4wp_integration_subscriber_data', $subscriber );
+
+			$result = $mailchimp->list_subscribe( $list_id, $subscriber->email_address, $subscriber->to_array(), $this->options['update_existing'], $this->options['replace_interests'] );
 		}
 
 		// if result failed, show error message
@@ -376,7 +411,7 @@ abstract class MC4WP_Integration {
 
 			// log error
 			if( $mailchimp->get_error_code() == 214 ) {
-				$log->warning( sprintf( "%s > %s is already subscribed to the selected list(s)", $this->name, mc4wp_obfuscate_string( $subscriber_data->email_address ) ) );
+				$log->warning( sprintf( "%s > %s is already subscribed to the selected list(s)", $this->name, mc4wp_obfuscate_string( $subscriber->email_address ) ) );
 			} else {
 				$log->error( sprintf( '%s > MailChimp API Error: %s', $this->name, $mailchimp->get_error_message() ) );
 			}
@@ -385,7 +420,7 @@ abstract class MC4WP_Integration {
 			return false;
 		}
 
-		$log->info( sprintf( '%s > Successfully subscribed %s', $this->name, $subscriber_data->email_address ) );
+		$log->info( sprintf( '%s > Successfully subscribed %s', $this->name, $subscriber->email_address ) );
 
 		/**
 		 * Runs right after someone is subscribed using an integration
@@ -395,10 +430,10 @@ abstract class MC4WP_Integration {
 		 * @param MC4WP_Integration $integration
 		 * @param string $email_address
 		 * @param array $merge_vars
-		 * @param MC4WP_MailChimp_Subscriber_Data[] $subscriber_data
+		 * @param MC4WP_MailChimp_Subscriber[] $subscriber_data
 		 * @param int $related_object_id
 		 */
-		do_action( 'mc4wp_integration_subscribed', $integration, $subscriber_data->email_address, $subscriber_data->merge_fields, $map, $related_object_id );
+		do_action( 'mc4wp_integration_subscribed', $integration, $subscriber->email_address, $subscriber->merge_fields, $map, $related_object_id );
 
 		return $result;
 	}

@@ -69,35 +69,54 @@ class MC4WP_Form_Listener {
 		$result = false;
 		$mailchimp = new MC4WP_MailChimp();
 		$email_type = $form->get_email_type();
-		$data = $form->data;
+		$data = $form->get_data();
 		$client_ip = $request->get_client_ip();
-		$subscriber_data = null;
+
+		/** @var MC4WP_MailChimp_Subscriber $subscriber */
+		$subscriber = null;
+
+		/**
+		 * @ignore
+		 * @deprecated 4.0
+		 */
+		$data = apply_filters( 'mc4wp_merge_vars', $data );
 		
 		/**
-		 * TODO: Deprecate this filter in favor of clearer ones.
-		 *
-		 * Filters merge vars which are sent to MailChimp, only fires for form requests.
-		 *
-		 * @param array $data
-		 * @param MC4WP_Form $form
+		 * @ignore
+		 * @deprecated 4.0
+		 * @use mc4wp_form_data
 		 */
 		$data = (array) apply_filters( 'mc4wp_form_merge_vars', $data, $form );
 
 		// create a map of all lists with list-specific data
 		$mapper = new MC4WP_List_Data_Mapper( $data, $form->get_lists() );
 
-		/** @var MC4WP_MailChimp_Subscriber_Data[] $map */
+		/** @var MC4WP_MailChimp_Subscriber[] $map */
 		$map = $mapper->map();
 
 		// loop through lists
-		foreach( $map as $list_id => $subscriber_data ) {
+		foreach( $map as $list_id => $subscriber ) {
 
-			$subscriber_data->status = $form->settings['double_optin'] ? 'pending' : 'subscribed';
-			$subscriber_data->email_type = $email_type;
-			$subscriber_data->ip_opt = $client_ip;
+			$subscriber->status = $form->settings['double_optin'] ? 'pending' : 'subscribed';
+			$subscriber->email_type = $email_type;
+			$subscriber->ip_opt = $client_ip;
+
+			/**
+			 * Filters subscriber data before it is sent to MailChimp. Fires for both form & integration requests.
+			 *
+			 * @param MC4WP_MailChimp_Subscriber $subscriber
+			 */
+			$subscriber = apply_filters( 'mc4wp_subscriber_data', $subscriber );
+
+			/**
+			 * Filters subscriber data before it is sent to MailChimp. Only fires for form requests.
+			 *
+			 * @param MC4WP_MailChimp_Subscriber $subscriber
+			 */
+			$subscriber = apply_filters( 'mc4wp_form_subscriber_data', $subscriber );
 
 			// send a subscribe request to MailChimp for each list
-			$result = $mailchimp->list_subscribe( $list_id, $subscriber_data->email_address, $subscriber_data->to_array(), $form->settings['update_existing'], $form->settings['replace_interests'] );
+			$result = $mailchimp->list_subscribe( $list_id, $subscriber->email_address, $subscriber->to_array(), $form->settings['update_existing'], $form->settings['replace_interests'] );
 		}
 
 		$log = $this->get_log();
@@ -107,7 +126,7 @@ class MC4WP_Form_Listener {
 			
 			if( $mailchimp->get_error_code() == 214 ) {
 				$form->add_error('already_subscribed');
-				$log->warning( sprintf( "Form %d > %s is already subscribed to the selected list(s)", $form->ID, mc4wp_obfuscate_string( $form->data['EMAIL'] ) ) );
+				$log->warning( sprintf( "Form %d > %s is already subscribed to the selected list(s)", $form->ID, mc4wp_obfuscate_string( $data['EMAIL'] ) ) );
 			} else {
 				$form->add_error('error');
 				$log->error( sprintf( 'Form %d > MailChimp API error: %s %s', $form->ID, $mailchimp->get_error_code(), $mailchimp->get_error_message() ) );
@@ -124,7 +143,7 @@ class MC4WP_Form_Listener {
 			$form->add_message('subscribed');
 		}
 
-		$log->info( sprintf( "Form %d > Successfully subscribed %s", $form->ID, $form->data['EMAIL'] ) );
+		$log->info( sprintf( "Form %d > Successfully subscribed %s", $form->ID, $data['EMAIL'] ) );
 
 		/**
 		 * Fires right after a form was used to subscribe.
@@ -134,9 +153,9 @@ class MC4WP_Form_Listener {
 		 * @param MC4WP_Form $form Instance of the submitted form
 		 * @param string $email
 		 * @param array $data
-		 * @param MC4WP_MailChimp_Subscriber_Data[] $subscriber_data
+		 * @param MC4WP_MailChimp_Subscriber[] $subscriber
 		 */
-		do_action( 'mc4wp_form_subscribed', $form, $subscriber_data->email_address, $data, $map );
+		do_action( 'mc4wp_form_subscribed', $form, $subscriber->email_address, $data, $map );
 	}
 
 	/**

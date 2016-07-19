@@ -103,7 +103,7 @@ class MC4WP_Form {
 	 *
 	 * Keys in this array are uppercased and keys starting with _ are stripped.
 	 */
-	public $data = array();
+	private $data = array();
 
 	/**
 	 * @var array Array of the raw form data that was submitted.
@@ -140,6 +140,18 @@ class MC4WP_Form {
 
 		// update config from settings
 		$this->config['lists'] = $this->settings['lists'];
+	}
+
+	/**
+	 * @param string $name
+	 *
+	 * @return mixed
+	 */
+	public function __get( $name ) {
+		$method_name = sprintf( "get_%s", $name );
+		if( method_exists( $this, $method_name ) ) {
+			return $this->$method_name();
+		}
 	}
 
 
@@ -289,7 +301,6 @@ class MC4WP_Form {
 	public function get_field_types() {
 		preg_match_all( '/type=\"(\w+)?\"/', strtolower( $this->content ), $result );
 		$field_types = $result[1];
-
 		return $field_types;
 	}
 
@@ -487,20 +498,7 @@ class MC4WP_Form {
 		$data = array_diff_key( $data, array_flip( $ignored_field_names ) );
 
 		// uppercase all field keys
-		// @todo do this deep / recursive?
 		$data = array_change_key_case( $data, CASE_UPPER );
-
-		/**
-		 * Filters received data from a submitted form before it is processed.
-		 *
-		 * Keys are uppercased and internal fields have been stripped at this point.
-		 *
-		 * @since 3.0
-		 *
-		 * @param array $data Array containing all data in key-value pairs.
-		 * @param MC4WP_Form $form Instance of the submitted form.
-		 */
-		$data = (array) apply_filters( 'mc4wp_form_data', $data, $form );
 
 		return $data;
 	}
@@ -594,6 +592,24 @@ class MC4WP_Form {
 	 */
 	public function get_action() {
 		return $this->config['action'];
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_data() {
+		$data = $this->data;
+		$form = $this;
+
+		/**
+		 * Filters the form data.
+		 *
+		 * @param array $data
+		 * @param MC4WP_Form $form
+		 */
+		$data = apply_filters( 'mc4wp_form_data', $data, $form );
+
+		return $data;
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 
-class MC4WP_MailChimp_Subscriber_Data {
+class MC4WP_MailChimp_Subscriber {
 
     /**
      * @var string Email address for this subscriber.
