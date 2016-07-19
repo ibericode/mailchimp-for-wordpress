@@ -15,21 +15,19 @@ var listeners = window.mc4wp && window.mc4wp.listeners ? window.mc4wp.listeners 
 var config = window.mc4wp_forms_config || {};
 
 // funcs
-function triggerFormEvents(form, action, errors, data) {
-
-	// trigger events
-	forms.trigger( 'submitted', [form]);
-
-	if( errors ) {
-		forms.trigger('error', [form, errors]);
-	} else {
-		// form was successfully submitted
-		forms.trigger('success', [form, data]);
-		forms.trigger(action + "d", [form, data]);
-	}
+function scrollToForm(form) {
+	var animate = config.auto_scroll === 'animated';
+	var args = {
+		behavior: animate ? "smooth" : "instant",
+		block: "start"
+	};
+	form.element.scrollIntoView(args);
 }
 
 function handleFormRequest(form, action, errors, data){
+
+	var pageHeight = document.body.clientHeight;
+	var timeStart = Date.now();
 
 	// re-populate form
 	if( errors ) {
@@ -37,14 +35,29 @@ function handleFormRequest(form, action, errors, data){
 	}
 
 	if( config.auto_scroll ) {
-		var animate = ( config.auto_scroll === 'animated' );
-		var arg = animate ? { behavior: 'smooth' } : false;
-		form.element.scrollIntoView(arg);
+		scrollToForm(form);
 	}
 
 	// trigger events on window.load so all other scripts have loaded
-	window.addEventListener('load', function(){
-		triggerFormEvents(form, action, errors, data);
+	window.addEventListener('load', function() {
+		var timeElapsed = Date.now() - timeStart;
+
+		// scroll to form again if page height changed since last scroll
+		// (only if load didn't take more than 0.8 seconds to prevent overtaking user scroll)
+		if( config.auto_scroll && timeElapsed < 800 && document.body.clientHeight != pageHeight ) {
+			scrollToForm(form);
+		}
+
+		// trigger events
+		forms.trigger( 'submitted', [form]);
+
+		if( errors ) {
+			forms.trigger('error', [form, errors]);
+		} else {
+			// form was successfully submitted
+			forms.trigger('success', [form, data]);
+			forms.trigger(action + "d", [form, data]);
+		}
 	});
 }
 
@@ -53,15 +66,13 @@ for(var i=0; i<listeners.length;i++) {
 	forms.on(listeners[i].event, listeners[i].callback);
 }
 
-// Bind browser events to form events (using delegation to work with AJAX loaded forms as well)
+// Bind browser events to form events (using delegation)
 Gator(document.body).on('submit', '.mc4wp-form', function(event) {
-	event = event || window.event;
 	var form = forms.getByElement(event.target || event.srcElement);
 	forms.trigger('submit', [form, event]);
 });
 
 Gator(document.body).on('focus', '.mc4wp-form', function(event) {
-	event = event || window.event;
 	var form = forms.getByElement(event.target || event.srcElement);
 
 	if( ! form.started ) {
@@ -71,7 +82,6 @@ Gator(document.body).on('focus', '.mc4wp-form', function(event) {
 });
 
 Gator(document.body).on('change', '.mc4wp-form', function(event) {
-	event = event || window.event;
 	var form = forms.getByElement(event.target || event.srcElement);
 	forms.trigger('change', [form,event]);
 });
