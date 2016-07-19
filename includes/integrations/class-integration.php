@@ -389,11 +389,7 @@ abstract class MC4WP_Integration {
 			$subscriber->email_type = $email_type;
 			$subscriber->ip_opt = $request->get_client_ip();
 
-			/**
-			 * Filters subscriber data before it is sent to MailChimp. Fires for both form & integration requests.
-			 *
-			 * @param MC4WP_MailChimp_Subscriber $subscriber
-			 */
+			/** @ignore (documented elsewhere) */
 			$subscriber = apply_filters( 'mc4wp_subscriber_data', $subscriber );
 
 			/**
