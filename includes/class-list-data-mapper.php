@@ -34,7 +34,7 @@ class MC4WP_List_Data_Mapper {
 	}
 
 	/**
-	 * @return MC4WP_MailChimp_Subscriber_Data[]
+	 * @return MC4WP_MailChimp_Subscriber[]
 	 */
 	public function map() {
 		$mailchimp = new MC4WP_MailChimp();
@@ -54,11 +54,11 @@ class MC4WP_List_Data_Mapper {
 	/**
 	 * @param MC4WP_MailChimp_List $list
 	 *
-	 * @return MC4WP_MailChimp_Subscriber_Data
+	 * @return MC4WP_MailChimp_Subscriber
 	 */
-	public function map_list( MC4WP_MailChimp_List $list ) {
+	protected function map_list( MC4WP_MailChimp_List $list ) {
 
-		$member = new MC4WP_MailChimp_Subscriber_Data();
+		$member = new MC4WP_MailChimp_Subscriber();
 		$member->email_address = $this->data['EMAIL'];
 
 		// find merge fields
