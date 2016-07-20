@@ -190,6 +190,15 @@ function mc4wp_update_groupings_data( $data = array() ) {
 				continue;
 			}
 
+			if( ! is_array( $groups ) ) {
+				// for BC with 3.x: explode on comma's
+				// if people need comma's in their group name, they should not use GROUPINGS key.
+				$groups = explode(',', $groups );
+
+				// explode on current delimiter
+				$groups = explode( '|', $groups );
+			}
+
 			foreach( $groups as $group_name_or_id ) {
 				if( empty( $map[ $grouping_id ]['groups'][ $group_name_or_id ] ) ) {
 					continue;
