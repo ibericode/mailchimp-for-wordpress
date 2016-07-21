@@ -115,10 +115,13 @@ class MC4WP_API_v3_Client {
      * @return array
      */
     private function get_headers() {
+        global $wp_version;
+
         $headers = array();
         $headers['Authorization'] = 'Basic ' . base64_encode( 'mc4wp:' . $this->api_key );
         $headers['Accept'] = 'application/json';
         $headers['Content-Type'] = 'application/json';
+        $headers['User-Agent'] = 'mc4wp/' . MC4WP_VERSION . '; WordPress/' . $wp_version . '; ' . get_bloginfo( 'url' );
 
         // Copy Accept-Language from browser headers
         if( ! empty( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
@@ -137,7 +140,7 @@ class MC4WP_API_v3_Client {
      */
     private function parse_response( $response ) {
 
-        if( is_wp_error( $response ) ) {
+        if( $response instanceof WP_Error ) {
             throw new MC4WP_API_Exception( 'Error connecting to MailChimp. ' . $response->get_error_message(), (int) $response->get_error_code() );
         }
 
