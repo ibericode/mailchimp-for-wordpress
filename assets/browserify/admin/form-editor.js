@@ -1,4 +1,15 @@
-/* Editor */
+'use strict';
+
+// load CodeMirror & plugins
+var CodeMirror = require('codemirror');
+require('codemirror/mode/xml/xml');
+require('codemirror/mode/javascript/javascript');
+require('codemirror/mode/css/css');
+require('codemirror/mode/htmlmixed/htmlmixed');
+require('codemirror/addon/fold/xml-fold');
+require('codemirror/addon/edit/matchtags');
+require('codemirror/addon/edit/closetag.js');
+
 var FormEditor = function(element) {
 
 	// create dom representation of form
@@ -6,17 +17,8 @@ var FormEditor = function(element) {
 		domDirty = false,
 		r = {},
 		editor;
-	_dom.innerHTML = element.value.toLowerCase();
 
-	// load CodeMirror & plugins
-	var CodeMirror = require('codemirror');
-	require('codemirror/mode/xml/xml');
-	require('codemirror/mode/javascript/javascript');
-	require('codemirror/mode/css/css');
-	require('codemirror/mode/htmlmixed/htmlmixed');
-	require('codemirror/addon/fold/xml-fold');
-	require('codemirror/addon/edit/matchtags');
-	require('codemirror/addon/edit/closetag.js');
+	_dom.innerHTML = element.value.toLowerCase();
 
 	if( CodeMirror ) {
 		editor = CodeMirror.fromTextArea(element, {
@@ -38,8 +40,12 @@ var FormEditor = function(element) {
 		});
 	}
 
+	window.addEventListener('load', function() {
+		CodeMirror.signal(editor, "change");
+	});
+
 	// set domDirty to true everytime the "change" event fires (a lot..)
-	element.addEventListener && element.addEventListener('change',function() {
+	element.addEventListener('change',function() {
 		domDirty = true;
 	});
 
@@ -53,11 +59,7 @@ var FormEditor = function(element) {
 	}
 
 	r.getValue = function() {
-		if( editor ) {
-			return editor.getValue();
-		}
-
-		return element.value;
+		return editor ? editor.getValue() : element.value;
 	};
 
 	r.query = function(query) {
@@ -79,12 +81,8 @@ var FormEditor = function(element) {
 
 	r.on = function(event,callback) {
 		if( editor ) {
-
 			// translate "input" event for CodeMirror
-			if( event === 'input' ) {
-				event = 'changes';
-			}
-
+			event = ( event === 'input' ) ? 'changes' : event;
 			return editor.on(event,callback);
 		}
 

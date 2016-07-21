@@ -19,6 +19,7 @@ var textareaElement = document.getElementById('mc4wp-form-content');
 var editor = window.formEditor = new FormEditor( textareaElement );
 var watcher = new FormWatcher( m, formEditor, settings, fields, events, helpers );
 var fieldHelper = new FieldHelper( m, tabs, formEditor, fields, i18n );
+var notices = require('./admin/notices');
 
 // mount field helper on element
 m.mount( document.getElementById( 'mc4wp-field-wizard'), fieldHelper );
@@ -29,6 +30,9 @@ fieldsFactory.registerCustomFields(mc4wp_vars.mailchimp.lists);
 events.on('selectedLists.change', fieldsFactory.registerListsFields);
 fieldsFactory.registerListsFields(settings.getSelectedLists());
 window.setTimeout( function() { m.redraw();}, 2000 );
+
+// init notices
+notices.init(editor);
 
 // expose some methods
 window.mc4wp = window.mc4wp || {};

@@ -418,7 +418,7 @@ var g = function(m) {
 };
 
 module.exports = g;
-},{"../third-party/beautify-html.js":11,"../third-party/render.js":12}],4:[function(require,module,exports){
+},{"../third-party/beautify-html.js":12,"../third-party/render.js":13}],4:[function(require,module,exports){
 var FieldHelper = function(m, tabs, editor, fields, i18n) {
 	'use strict';
 
@@ -558,7 +558,7 @@ var FieldHelper = function(m, tabs, editor, fields, i18n) {
 };
 
 module.exports = FieldHelper;
-},{"./field-forms.js":2,"./field-generator.js":3,"./overlay.js":9}],5:[function(require,module,exports){
+},{"./field-forms.js":2,"./field-generator.js":3,"./overlay.js":10}],5:[function(require,module,exports){
 var FieldFactory = function(settings, fields, i18n) {
 	'use strict';
 
@@ -943,7 +943,18 @@ module.exports = function(m, events) {
 	};
 };
 },{}],7:[function(require,module,exports){
-/* Editor */
+'use strict';
+
+// load CodeMirror & plugins
+var CodeMirror = require('codemirror');
+require('codemirror/mode/xml/xml');
+require('codemirror/mode/javascript/javascript');
+require('codemirror/mode/css/css');
+require('codemirror/mode/htmlmixed/htmlmixed');
+require('codemirror/addon/fold/xml-fold');
+require('codemirror/addon/edit/matchtags');
+require('codemirror/addon/edit/closetag.js');
+
 var FormEditor = function(element) {
 
 	// create dom representation of form
@@ -951,17 +962,8 @@ var FormEditor = function(element) {
 		domDirty = false,
 		r = {},
 		editor;
-	_dom.innerHTML = element.value.toLowerCase();
 
-	// load CodeMirror & plugins
-	var CodeMirror = require('codemirror');
-	require('codemirror/mode/xml/xml');
-	require('codemirror/mode/javascript/javascript');
-	require('codemirror/mode/css/css');
-	require('codemirror/mode/htmlmixed/htmlmixed');
-	require('codemirror/addon/fold/xml-fold');
-	require('codemirror/addon/edit/matchtags');
-	require('codemirror/addon/edit/closetag.js');
+	_dom.innerHTML = element.value.toLowerCase();
 
 	if( CodeMirror ) {
 		editor = CodeMirror.fromTextArea(element, {
@@ -983,8 +985,12 @@ var FormEditor = function(element) {
 		});
 	}
 
+	window.addEventListener('load', function() {
+		CodeMirror.signal(editor, "change");
+	});
+
 	// set domDirty to true everytime the "change" event fires (a lot..)
-	element.addEventListener && element.addEventListener('change',function() {
+	element.addEventListener('change',function() {
 		domDirty = true;
 	});
 
@@ -998,11 +1004,7 @@ var FormEditor = function(element) {
 	}
 
 	r.getValue = function() {
-		if( editor ) {
-			return editor.getValue();
-		}
-
-		return element.value;
+		return editor ? editor.getValue() : element.value;
 	};
 
 	r.query = function(query) {
@@ -1024,12 +1026,8 @@ var FormEditor = function(element) {
 
 	r.on = function(event,callback) {
 		if( editor ) {
-
 			// translate "input" event for CodeMirror
-			if( event === 'input' ) {
-				event = 'changes';
-			}
-
+			event = ( event === 'input' ) ? 'changes' : event;
 			return editor.on(event,callback);
 		}
 
@@ -1044,7 +1042,7 @@ var FormEditor = function(element) {
 };
 
 module.exports = FormEditor;
-},{"codemirror":16,"codemirror/addon/edit/closetag.js":13,"codemirror/addon/edit/matchtags":14,"codemirror/addon/fold/xml-fold":15,"codemirror/mode/css/css":17,"codemirror/mode/htmlmixed/htmlmixed":18,"codemirror/mode/javascript/javascript":19,"codemirror/mode/xml/xml":20}],8:[function(require,module,exports){
+},{"codemirror":17,"codemirror/addon/edit/closetag.js":14,"codemirror/addon/edit/matchtags":15,"codemirror/addon/fold/xml-fold":16,"codemirror/mode/css/css":18,"codemirror/mode/htmlmixed/htmlmixed":19,"codemirror/mode/javascript/javascript":20,"codemirror/mode/xml/xml":21}],8:[function(require,module,exports){
 var FormWatcher = function(m, editor, settings, fields, events, helpers) {
 	'use strict';
 
@@ -1105,6 +1103,62 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
 
 module.exports = FormWatcher;
 },{}],9:[function(require,module,exports){
+'use strict';
+
+var notices = [];
+
+function message(txt) {
+    return '<div class="notice notice-warning"><p>' + txt + '</p></div>';
+}
+
+function show(txt) {
+    var index = notices.indexOf(txt);
+    if( index < 0 ) {
+        notices.push(txt);
+        render();
+    }
+}
+
+function hide(txt) {
+    var index = notices.indexOf(txt);
+    if( index > -1 ) {
+        delete notices[index];
+        render();
+    }
+}
+
+function render() {
+    var html = '';
+    for( var i=0; i < notices.length; i++) {
+        html += message(notices[i]);
+    }
+
+    var container = document.querySelector('.mc4wp-notices');
+    if( ! container ) {
+        container = document.createElement('div');
+        container.className = 'mc4wp-notices';
+        var heading = document.querySelector('h1');
+        heading.parentNode.insertBefore(container, heading.nextSibling);
+    }
+
+    container.innerHTML = html;
+}
+
+function init( editor ) {
+    editor.on('change', function() {
+        var text = "Your form contains old style <code>GROUPINGS</code> fields. <br /><br />Please remove these fields from your form and then re-add them through the available field buttons to make sure your data is getting through to MailChimp correctly.";
+        editor.getValue().toLowerCase().indexOf('name="groupings') > -1 ? show(text) : hide(text);
+    });
+}
+
+function groupingFields() {
+
+}
+
+module.exports = {
+    "init": init
+};
+},{}],10:[function(require,module,exports){
 var overlay = function(m, i18n) {
 	'use strict';
 
@@ -1180,7 +1234,7 @@ var overlay = function(m, i18n) {
 };
 
 module.exports = overlay;
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 // deps
@@ -1202,6 +1256,7 @@ var textareaElement = document.getElementById('mc4wp-form-content');
 var editor = window.formEditor = new FormEditor( textareaElement );
 var watcher = new FormWatcher( m, formEditor, settings, fields, events, helpers );
 var fieldHelper = new FieldHelper( m, tabs, formEditor, fields, i18n );
+var notices = require('./admin/notices');
 
 // mount field helper on element
 m.mount( document.getElementById( 'mc4wp-field-wizard'), fieldHelper );
@@ -1213,13 +1268,16 @@ events.on('selectedLists.change', fieldsFactory.registerListsFields);
 fieldsFactory.registerListsFields(settings.getSelectedLists());
 window.setTimeout( function() { m.redraw();}, 2000 );
 
+// init notices
+notices.init(editor);
+
 // expose some methods
 window.mc4wp = window.mc4wp || {};
 window.mc4wp.forms = window.mc4wp.forms || {};
 window.mc4wp.forms.editor = editor;
 window.mc4wp.forms.fields = fields;
 
-},{"./admin/field-helper.js":4,"./admin/fields-factory.js":5,"./admin/fields.js":6,"./admin/form-editor.js":7,"./admin/form-watcher.js":8}],11:[function(require,module,exports){
+},{"./admin/field-helper.js":4,"./admin/fields-factory.js":5,"./admin/fields.js":6,"./admin/form-editor.js":7,"./admin/form-watcher.js":8,"./admin/notices":9}],12:[function(require,module,exports){
 /*jshint curly:true, eqeqeq:true, laxbreak:true, noempty:false */
 /*
 
@@ -2036,7 +2094,7 @@ window.mc4wp.forms.fields = fields;
 	}
 
 }());
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 var VOID_TAGS = ['area', 'base', 'br', 'col', 'command', 'embed', 'hr',
@@ -2152,7 +2210,7 @@ function render(view) {
 }
 
 module.exports = render;
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -2323,7 +2381,7 @@ module.exports = render;
   }
 });
 
-},{"../../lib/codemirror":16,"../fold/xml-fold":15}],14:[function(require,module,exports){
+},{"../../lib/codemirror":17,"../fold/xml-fold":16}],15:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -2391,7 +2449,7 @@ module.exports = render;
   };
 });
 
-},{"../../lib/codemirror":16,"../fold/xml-fold":15}],15:[function(require,module,exports){
+},{"../../lib/codemirror":17,"../fold/xml-fold":16}],16:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -2575,7 +2633,7 @@ module.exports = render;
   };
 });
 
-},{"../../lib/codemirror":16}],16:[function(require,module,exports){
+},{"../../lib/codemirror":17}],17:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -11499,7 +11557,7 @@ module.exports = render;
   return CodeMirror;
 });
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -12326,7 +12384,7 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
 
 });
 
-},{"../../lib/codemirror":16}],18:[function(require,module,exports){
+},{"../../lib/codemirror":17}],19:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -12480,7 +12538,7 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
   CodeMirror.defineMIME("text/html", "htmlmixed");
 });
 
-},{"../../lib/codemirror":16,"../css/css":17,"../javascript/javascript":19,"../xml/xml":20}],19:[function(require,module,exports){
+},{"../../lib/codemirror":17,"../css/css":18,"../javascript/javascript":20,"../xml/xml":21}],20:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -13230,7 +13288,7 @@ CodeMirror.defineMIME("application/typescript", { name: "javascript", typescript
 
 });
 
-},{"../../lib/codemirror":16}],20:[function(require,module,exports){
+},{"../../lib/codemirror":17}],21:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -13626,5 +13684,5 @@ if (!CodeMirror.mimeModes.hasOwnProperty("text/html"))
 
 });
 
-},{"../../lib/codemirror":16}]},{},[10]);
+},{"../../lib/codemirror":17}]},{},[11]);
  })();
