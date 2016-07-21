@@ -222,7 +222,7 @@ class MC4WP_Forms_Admin {
 
 		// strip tags from messages
 		foreach( $data['messages'] as $key => $message ) {
-			$data['messages'][$key] = strip_tags( $message, '<strong><b><br><a><script><u><em><i><span>' );
+			$data['messages'][$key] = strip_tags( $message, '<strong><b><br><a><script><u><em><i><span><img>' );
 		}
 
 		// make sure lists is an array
