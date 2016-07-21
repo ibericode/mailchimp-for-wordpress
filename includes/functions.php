@@ -173,59 +173,77 @@ function mc4wp_sanitize_deep( $value ) {
 }
 
 /**
+ *
+ * @since 4.0
+ * @ignore
+ *
  * @param array $data
- * 
  * @return array
  */
 function mc4wp_update_groupings_data( $data = array() ) {
 
-	if( ! empty( $data['GROUPINGS'] ) ) {
+    // data still has old "GROUPINGS" key?
+	if( empty( $data['GROUPINGS'] ) ) {
+        return $data;
+    }
 
-		$map = get_option( 'mc4wp_groupings_map', array() );
+    // prepare new key
+    if( ! isset( $data['INTERESTS'] ) ) {
+        $data['INTERESTS'] = array();
+    }
 
-		foreach( $data['GROUPINGS'] as $grouping_id => $groups ) {
+    $map = get_option( 'mc4wp_groupings_map', array() );
 
-			// do we have transfer data for this grouping id?
-			if( ! isset( $map[ $grouping_id ] ) ) {
-				continue;
-			}
+    foreach( $data['GROUPINGS'] as $grouping_id => $groups ) {
 
-			if( ! is_array( $groups ) ) {
-				// for BC with 3.x: explode on comma's
-				// if people need comma's in their group name, they should not use GROUPINGS key.
-				$groups = explode(',', $groups );
+        // for compatibility with expanded grouping arrays
+        if( is_array( $groups ) && isset( $groups['id'] ) && isset( $groups['groups'] ) ) {
+            $grouping_id = $groups['id'];
+            $groups = $groups['groups'];
+        }
 
-				// explode on current delimiter
-				$groups = explode( '|', $groups );
-			}
+        // do we have transfer data for this grouping id?
+        if( ! isset( $map[ $grouping_id ] ) ) {
+            continue;
+        }
 
-			foreach( $groups as $group_name_or_id ) {
-				if( empty( $map[ $grouping_id ]['groups'][ $group_name_or_id ] ) ) {
-					continue;
-				}
+        if( ! is_array( $groups ) ) {
+            // for BC with 3.x: explode on comma's
+            // if people need comma's in their group name, they should not use GROUPINGS key.
+            $groups = explode(',', $groups );
 
-				$interest_category_id = $map[ $grouping_id ]['id'];
-				$interest_id = $map[ $grouping_id ]['groups'][ $group_name_or_id ];
+            // explode on current delimiter
+            $groups = explode( '|', $groups );
+        }
 
-				if( ! isset( $data['INTERESTS'] ) ) {
-					$data['INTERESTS'] = array();
-				}
+        foreach( $groups as $group_name_or_id ) {
+            if( empty( $map[ $grouping_id ]['groups'][ $group_name_or_id ] ) ) {
+                continue;
+            }
 
-				if( ! isset( $data['INTERESTS'][ $interest_category_id ] ) ) {
-					$data['INTERESTS'][ $interest_category_id ] = array();
-				}
+            $interest_category_id = $map[ $grouping_id ]['id'];
+            $interest_id = $map[ $grouping_id ]['groups'][ $group_name_or_id ];
 
-				$data['INTERESTS'][ $interest_category_id ][] = $interest_id;
-			}
+            if( ! isset( $data['INTERESTS'][ $interest_category_id ] ) ) {
+                $data['INTERESTS'][ $interest_category_id ] = array();
+            }
 
-			unset( $data['GROUPINGS'][$grouping_id]);
-		}
-	}
+            $data['INTERESTS'][ $interest_category_id ][] = $interest_id;
+        }
 
-	// if everything went well, this is now empty.
+        unset( $data['GROUPINGS'][$grouping_id]);
+    }
+
+
+	// if everything went well, this is now empty & moved to new INTERESTS key.
 	if( empty( $data['GROUPINGS'] ) ) {
 		unset( $data['GROUPINGS'] );
 	}
+
+	// is this empty? just unset it then.
+	if( empty( $data['INTERESTS'] ) ) {
+	    unset( $data['INTERESTS'] );
+    }
 	
 	return $data;
 }
