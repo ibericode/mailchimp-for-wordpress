@@ -19,6 +19,11 @@ class MC4WP_List_Data_Mapper {
 	 */
 	private $list_ids = array();
 
+    /**
+     * @var MC4WP_Field_Formatter
+     */
+    private $formatter;
+
 	/**
 	 * @param array $data
 	 * @param array $list_ids
