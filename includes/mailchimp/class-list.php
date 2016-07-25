@@ -57,7 +57,7 @@ class MC4WP_MailChimp_List {
 	/**
 	 * @param string $name
 	 *
-	 * @return MC4WP_MailChimp_Merge_Field[]
+	 * @return mixed
 	 */
 	public function __get( $name ) {
 		// for backwards compatibility with 3.x, channel these properties to their new names
