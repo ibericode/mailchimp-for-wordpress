@@ -36,7 +36,6 @@ class FormTest extends PHPUnit_Framework_TestCase {
 
 		// settings & messages should be loaded
 		self::assertNotEmpty( $form->settings );
-		self::assertNotEmpty( $form->messages );
 
 		// default form action should be "subscribe
 		self::assertEquals( 'subscribe', $form->config['action'] );
@@ -232,18 +231,11 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		mock_get_post( array( 'ID' => 15 ) );
 		$form = new MC4WP_Form(15);
 
-		$errorMessage = new MC4WP_Form_Message( 'Error text', 'error' );
-		$successMessage = new MC4WP_Form_Message( 'Success text', 'success' );
-
-		$form->messages = array(
-			'error' => $errorMessage,
-			'success' => $successMessage
-		);
+        $default_messages = require __DIR__ . '/../config/default-form-messages.php';
 
 		self::assertInstanceOf( 'MC4WP_Form_Message', $form->get_message( 'error' ) );
-		self::assertEquals( $errorMessage, $form->get_message( 'error' ) );
-		self::assertEquals( $errorMessage, $form->get_message( 'unexisting_error' ) );
-		self::assertEquals( $successMessage, $form->get_message( 'success' ) );
+		self::assertEquals( $default_messages['error']['text'], $form->get_message( 'error' ) );
+		self::assertEquals( $default_messages['subscribed']['text'], $form->get_message( 'subscribed' ) );
 	}
 
 	/**
