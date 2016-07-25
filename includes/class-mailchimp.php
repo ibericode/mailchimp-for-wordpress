@@ -68,7 +68,7 @@ class MC4WP_MailChimp {
 				if( ! $update_existing ) {
 					$this->error_code = 214;
 					$this->error_message = 'That subscriber already exists.';
-					return false;
+					return null;
 				}
 
 				$args['status'] = 'subscribed';
