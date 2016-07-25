@@ -87,27 +87,39 @@ class MC4WP_List_Data_Mapper {
 		}
 
 		// find interest categories
-		foreach( $list->interest_categories as $interest_category ) {
-			if( ! isset( $this->data['INTERESTS'][ $interest_category->id ] ) ) {
-				continue;
-			}
+        if( ! empty( $this->data['INTERESTS'] ) ) {
+            $interests_data = $this->array_flatten_and_explode( $this->data['INTERESTS'] );
 
-			$interests = $this->data['INTERESTS'][ $interest_category->id ];
-
-			// accept pipe-separated value strings, eg "Group 1|Group 2"
-			if( ! is_array( $interests ) ) {
-				$interests = array_map( 'trim', explode( '|', $interests ) );
-			}
-
-			foreach( $interests as $interest_id ) {
-				$interest_id = (string) $interest_id;
-				$member->interests[ $interest_id ] = true;
-			}
-		}
-
+            foreach( $list->interest_categories as $interest_category ) {
+                foreach( $interest_category->interests as $interest_id => $interest_name ) {
+                    if( in_array( $interest_id, $interests_data, false ) ) {
+                        $member->interests[ $interest_id ] = true;
+                    }
+                }
+            }
+        }
 
 		return $member;
 	}
+
+
+    /**
+     * @param array $input
+     * @return array
+     */
+	private function array_flatten_and_explode( array $input ) {
+        $output = array();
+
+        foreach( $input as $value ) {
+            if( is_array( $value ) ) {
+                $output = array_merge( $output, $this->array_flatten_and_explode( $value ) );
+            } else {
+                $output = array_merge( $output, array_map( 'trim', explode( '|', $value ) ) );
+            }
+        }
+
+        return $output;
+    }
 
 	/**
 	 * @param mixed $field_value
