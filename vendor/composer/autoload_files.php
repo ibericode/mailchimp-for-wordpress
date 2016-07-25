@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
+    '1d1b89d124cc9cb8219922c9d5569199' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
     'fca581ae5268210490253d58378748c5' => $baseDir . '/includes/functions.php',
     '59b5ebb4886cd7eeaf4afcc7f7bdfcdd' => $baseDir . '/includes/deprecated-functions.php',
     'd26f3384f491dc697dcc189393343bc3' => $baseDir . '/includes/forms/functions.php',
