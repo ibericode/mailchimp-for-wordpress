@@ -157,16 +157,11 @@ class MC4WP_Admin {
 		// Only run if db option is at older version than code constant
 		$previous_version = get_option( 'mc4wp_version', 0 );
 
-		// This ! check means we're not running when installing the plugin
-		if( ! $previous_version ) {
-			return false;
-		}
-
-		// This means someone did a rollback.
-		if( version_compare( $previous_version, MC4WP_VERSION, '>' ) ) {
-			update_option( 'mc4wp_version', MC4WP_VERSION );
-			return false;
-		}
+        // Installing or rollback?
+        if( empty( $previous_version ) || version_compare( $previous_version, MC4WP_VERSION, '>' ) ) {
+            update_option( 'mc4wp_version', MC4WP_VERSION );
+            return false;
+        }
 
 		// This means we're good!
 		if( version_compare( $previous_version, MC4WP_VERSION ) > -1 ) {
