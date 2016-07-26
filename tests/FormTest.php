@@ -158,8 +158,9 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		self::assertTrue( $form->is_submitted );
 
 		// data should have been filled
-		self::assertNotEmpty( $form->data );
-		self::assertEquals( $form->data, $data );
+        $form_data = $form->get_data();
+		self::assertNotEmpty( $form_data );
+		self::assertEquals( $form_data, $data );
 
 
 		// data should have been uppercased
@@ -170,7 +171,8 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		$data_uppercased = array_change_key_case( $data, CASE_UPPER );
 		$request = new MC4WP_Request( array(), $data );
 		$form->handle_request( $request );
-		self::assertEquals( $form->data, $data_uppercased );
+        $form_data = $form->get_data();
+		self::assertEquals( $form_data, $data_uppercased );
 	}
 
 	/**

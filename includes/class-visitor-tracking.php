@@ -33,7 +33,8 @@ class MC4WP_Visitor_Tracking {
 	 * @param MC4WP_Form $form
 	 */
 	public function on_form_success( MC4WP_Form $form ) {
-		$this->save( $form->data );
+	    $data = $form->get_data();
+		$this->save( $data );
 	}
 
 	/**
