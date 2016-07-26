@@ -153,12 +153,25 @@ class MC4WP_Admin {
 			delete_option( 'mc4wp_lite_version' );
 			update_option( 'mc4wp_version', $previous_version );
 		}
-
-		// Only run if db option is at older version than code constant
+        
 		$previous_version = get_option( 'mc4wp_version', 0 );
 
-        // Installing or rollback?
-        if( empty( $previous_version ) || version_compare( $previous_version, MC4WP_VERSION, '>' ) ) {
+        // Ran upgrade routines before?
+        if( empty( $previous_version ) ) {
+            update_option( 'mc4wp_version', MC4WP_VERSION );
+
+            // if we have at least one form, we're going to run upgrade routine for v3 => v4 anyway.
+            // TODO: Remove this once we hit 4.2.x
+            $posts = get_posts( array( 'post_type' => 'mc4wp-form', 'numberposts' => 1 ) );
+            if( empty( $posts ) ) {
+                return false;
+            }
+
+            $previous_version = '3.9';
+        }
+
+        // Rollback'ed?
+        if( version_compare( $previous_version, MC4WP_VERSION, '>' ) ) {
             update_option( 'mc4wp_version', MC4WP_VERSION );
             return false;
         }
