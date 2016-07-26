@@ -209,8 +209,7 @@ function mc4wp_update_groupings_data( $data = array() ) {
 
         if( ! is_array( $groups ) ) {
             // for BC with 3.x: explode on comma's
-            // if people need comma's in their group name, they should not use GROUPINGS key.
-            $groups = explode(',', $groups );
+            $groups = join('|', explode(',', $groups ) );
 
             // explode on current delimiter
             $groups = explode( '|', $groups );
@@ -233,7 +232,6 @@ function mc4wp_update_groupings_data( $data = array() ) {
 
         unset( $data['GROUPINGS'][$grouping_id]);
     }
-
 
 	// if everything went well, this is now empty & moved to new INTERESTS key.
 	if( empty( $data['GROUPINGS'] ) ) {
