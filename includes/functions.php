@@ -180,7 +180,7 @@ function mc4wp_sanitize_deep( $value ) {
  * @param array $data
  * @return array
  */
-function mc4wp_update_groupings_data( $data = array() ) {
+function __mc4wp_update_groupings_data( $data = array() ) {
 
     // data still has old "GROUPINGS" key?
 	if( empty( $data['GROUPINGS'] ) ) {
@@ -207,30 +207,37 @@ function mc4wp_update_groupings_data( $data = array() ) {
             continue;
         }
 
-        if( ! is_array( $groups ) ) {
+        // if we get a string, explode on delimiter(s)
+        if( is_string( $groups ) ) {
             // for BC with 3.x: explode on comma's
-            $groups = join('|', explode(',', $groups ) );
+            $groups = join( '|', explode(',', $groups ) );
 
             // explode on current delimiter
             $groups = explode( '|', $groups );
         }
 
-        foreach( $groups as $group_name_or_id ) {
+        // loop through groups and find interest ID
+        $migrated = 0;
+        foreach( $groups as $key => $group_name_or_id ) {
+
+            // do we know the new interest ID?
             if( empty( $map[ $grouping_id ]['groups'][ $group_name_or_id ] ) ) {
                 continue;
             }
 
-            $interest_category_id = $map[ $grouping_id ]['id'];
             $interest_id = $map[ $grouping_id ]['groups'][ $group_name_or_id ];
 
-            if( ! isset( $data['INTERESTS'][ $interest_category_id ] ) ) {
-                $data['INTERESTS'][ $interest_category_id ] = array();
+            // add to interests data
+            if( ! in_array( $interest_id, $data['INTERESTS'] ) ) {
+                $migrated++;
+                $data['INTERESTS'][] = $interest_id;
             }
-
-            $data['INTERESTS'][ $interest_category_id ][] = $interest_id;
         }
 
-        unset( $data['GROUPINGS'][$grouping_id]);
+        // remove old grouping ID if we migrated all groups.
+        if( $migrated === count( $groups ) ) {
+            unset( $data['GROUPINGS'][$grouping_id] );
+        }
     }
 
 	// if everything went well, this is now empty & moved to new INTERESTS key.
