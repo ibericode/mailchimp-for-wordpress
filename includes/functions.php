@@ -197,6 +197,7 @@ function __mc4wp_update_groupings_data( $data = array() ) {
     foreach( $data['GROUPINGS'] as $grouping_id => $groups ) {
 
         // for compatibility with expanded grouping arrays
+        $grouping_key = $grouping_id;
         if( is_array( $groups ) && isset( $groups['id'] ) && isset( $groups['groups'] ) ) {
             $grouping_id = $groups['id'];
             $groups = $groups['groups'];
@@ -233,10 +234,10 @@ function __mc4wp_update_groupings_data( $data = array() ) {
                 $data['INTERESTS'][] = $interest_id;
             }
         }
-
+        
         // remove old grouping ID if we migrated all groups.
         if( $migrated === count( $groups ) ) {
-            unset( $data['GROUPINGS'][$grouping_id] );
+            unset( $data['GROUPINGS'][$grouping_key] );
         }
     }
 
