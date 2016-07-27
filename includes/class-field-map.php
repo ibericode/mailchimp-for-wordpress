@@ -227,11 +227,17 @@ class MC4WP_Field_Map {
 
 		foreach( $global_field_names as $field_name ) {
 			if( isset( $this->raw_data[ $field_name ] ) ) {
+			    $value = $this->raw_data[ $field_name ];
 
-				$this->global_fields[ $field_name ] = $this->raw_data[ $field_name ];
-				unset( $this->custom_fields[ $field_name ] );
+                // MC_LANGUAGE expects a 2 char code.
+                if( $field_name === 'MC_LANGUAGE' ) {
+                    $value = substr( $value, 0, 2 );
+                }
 
-				$this->formatted_data[ $field_name ] = $this->raw_data[ $field_name ];
+				$this->global_fields[ $field_name ] = $value;
+				$this->formatted_data[ $field_name ] = $value;
+
+                unset( $this->custom_fields[ $field_name ] );
 			}
 		}
 	}
