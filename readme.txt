@@ -3,8 +3,8 @@ Contributors: Ibericode, DvanKooten, hchouhan, lapzor
 Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=donate-link
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp forms, mailchimp integrations
 Requires at least: 3.8
-Tested up to: 4.5.3
-Stable tag: 3.1.12-beta
+Tested up to: 4.6
+Stable tag: 3.1.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -186,6 +186,18 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 6. Detailed statistics on which methods are generating the most subscribers. **(Pro Feature)**
 
 == Changelog == 
+
+
+#### 3.1.12 - July 28. 2016
+
+**Improvements**
+
+- Smarter scrolling after submitting form & reloading page.
+- Format output of `{subscriber_count}` tag.
+- You can now use `<img>` in your form messages.
+- Add MailChimp API error code to debug log lines.
+- Add plugin name + version to User-Agent header for all MailChimp API requests.
+- Make sure value of MC_LANGUAGE field is limited to 2 characters.
 
 
 #### 3.1.11 - July 5, 2016
