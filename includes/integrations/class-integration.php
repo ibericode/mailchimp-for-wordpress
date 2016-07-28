@@ -399,6 +399,16 @@ abstract class MC4WP_Integration {
 			 */
 			$subscriber = apply_filters( 'mc4wp_integration_subscriber_data', $subscriber );
 
+			/**
+			 * Filters subscriber data before it is sent to MailChimp. Only fires for integration requests.
+			 *
+			 * The dynamic portion of the hook, `$slug`, refers to the integration slug.
+			 *
+			 * @param MC4WP_MailChimp_Subscriber $subscriber
+			 * @param int $related_object_id
+			 */
+			$subscriber = apply_filters( "mc4wp_integration_{$slug}_subscriber_data", $subscriber, $related_object_id );
+
 			$result = $mailchimp->list_subscribe( $list_id, $subscriber->email_address, $subscriber->to_array(), $this->options['update_existing'], $this->options['replace_interests'] );
 		}
 
