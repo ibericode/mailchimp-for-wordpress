@@ -219,19 +219,18 @@ class MC4WP_Field_Map {
 	protected function extract_global_fields() {
 		// map global fields
 		$global_field_names = array(
-			'MC_LOCATION',
-			'MC_NOTES',
-			'MC_LANGUAGE',
-			'OPTIN_IP',
+			'MC_LOCATION' => 'text',
+			'MC_NOTES' => 'text',
+			'MC_LANGUAGE' => 'language',
+			'OPTIN_IP' => 'text',
 		);
 
-		foreach( $global_field_names as $field_name ) {
+		foreach( $global_field_names as $field_name => $field_type ) {
 			if( isset( $this->raw_data[ $field_name ] ) ) {
 			    $value = $this->raw_data[ $field_name ];
 
-                // MC_LANGUAGE expects a 2 char code.
-                if( $field_name === 'MC_LANGUAGE' ) {
-                    $value = substr( $value, 0, 2 );
+                if( method_exists( $this->formatter, $field_type ) ) {
+                    $value = call_user_func( array( $this->formatter, $field_type ), $value );
                 }
 
 				$this->global_fields[ $field_name ] = $value;

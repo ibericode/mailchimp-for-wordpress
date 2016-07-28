@@ -91,4 +91,23 @@ class MC4WP_Field_Formatter {
 
 		return (string) date('Y-m-d', strtotime( $value ) );
 	}
+
+    /**
+     * @param string $value
+     *
+     * @return string
+     */
+	public function language( $value ) {
+	    $exceptions = array(
+            'pt_PT',
+            'es_ES',
+            'fr_CA',
+        );
+
+        if( ! in_array( $value, $exceptions ) ) {
+            $value = substr( $value, 0, 2 );
+        }
+
+        return $value;
+    }
 }
