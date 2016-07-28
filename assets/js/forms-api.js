@@ -19,8 +19,7 @@ var config = window.mc4wp_forms_config || {};
 function scrollToForm(form) {
 	var animate = config.auto_scroll === 'animated';
 	var args = {
-		behavior: animate ? "smooth" : "instant",
-		block: "start"
+		behavior: animate ? "smooth" : "instant"
 	};
 	form.element.scrollIntoView(args);
 }
