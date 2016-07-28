@@ -6,10 +6,46 @@
  */
 class Functions_Test extends PHPUnit_Framework_TestCase {
 
+    public $tests = array(
+        array(
+            'input' => array(),
+            'output' => array(),
+        ),
+        array(
+            'input' => array(
+                'SOME_FIELD' => 'Some value',
+                'SOME_OTHER_FIELD' => 'Some other value'
+            ),
+            'output' => array(
+                'SOME_FIELD' => 'Some value',
+                'SOME_OTHER_FIELD' => 'Some other value'
+            ),
+        ),
+        array(
+            'input' => array(
+                'NAME' => 'Danny van Kooten'
+            ),
+            'output' => array(
+                'NAME' => 'Danny van Kooten',
+                'FNAME' => 'Danny',
+                'LNAME' => 'van Kooten'
+            ),
+        ),
+        array(
+            'input' => array(
+                'NAME' => 'Danny'
+            ),
+            'output' => array(
+                'NAME' => 'Danny',
+                'FNAME' => 'Danny',
+            ),
+        ),
+    );
+
     /**
      * @covers mc4wp_obfuscate_string
      */
-    public function test_obfuscate_string() {
+    public function test_mc4wp_obfuscate_string() {
 
         // by no means should the two strings be similar
         $string = 'super-secret-string';
@@ -21,4 +57,22 @@ class Functions_Test extends PHPUnit_Framework_TestCase {
         self::assertTrue( $percentage <= 50 );
     }
 
+    /**
+     * @covers mc4wp_add_name_data
+     */
+    public function test_mc4wp_add_name_data() {
+        foreach( $this->tests as $test ) {
+            self::assertEquals( mc4wp_add_name_data( $test['input'] ), $test['output'] );
+        }
+    }
+
+    /**
+     * @covers mc4wp_guess_merge_vars
+     */
+    public function test_mc4wp_guess_merge_vars() {
+
+       foreach( $this->tests as $test ) {
+           self::assertEquals( mc4wp_guess_merge_vars( $test['input'] ), $test['output'] );
+       }
+    }
 }
