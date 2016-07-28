@@ -84,9 +84,16 @@ class MC4WP_API_v3_Client {
      * @param array $data
      *
      * @return mixed
+     *
+     * @throws MC4WP_API_Exception
      */
     private function request( $method, $resource, array $data = array() ) {
         $this->reset();
+
+        // don't bother if no API key was given.
+        if( empty( $this->api_key ) ) {
+            throw new MC4WP_API_Exception( "Missing API key.", 001 );
+        }
 
         $url = $this->api_url . ltrim( $resource, '/' );
         $args = array(
