@@ -84,11 +84,16 @@ class MC4WP_MailChimp {
 
 					$args['interests'] = $args['interests'] + $existing_interests;
 				}
-			}
+			} else {
+			    // delete list member so we can re-add it...
+			    $this->api->delete_list_member( $list_id, $email_address );
+            }
 		} catch ( MC4WP_API_Resource_Not_Found_Exception $e ) {
 			// subscriber does not exist (not an issue in this case)
 		} catch( MC4WP_API_Exception $e ) {
-			// other errors.
+            // other errors.
+            $this->error_code = $e->getCode();
+            $this->error_message = $e->getMessage();
 			return null;
 		}
 
