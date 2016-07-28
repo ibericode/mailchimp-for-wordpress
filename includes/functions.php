@@ -267,8 +267,10 @@ function __mc4wp_update_groupings_data( $data = array() ) {
 function mc4wp_add_name_data( $data = array() ) {
 
 	// Guess first and last name
-	if ( ! empty( $data['NAME'] ) &&  empty( $data['FNAME'] ) && empty( $data['LNAME'] ) ) {
+	if ( ! empty( $data['NAME'] ) && empty( $data['FNAME'] ) && empty( $data['LNAME'] ) ) {
+        $data['NAME'] = trim( $data['NAME'] );
 		$strpos = strpos( $data['NAME'], ' ' );
+
 		if ( $strpos !== false ) {
 			$data['FNAME'] = trim( substr( $data['NAME'], 0, $strpos ) );
 			$data['LNAME'] = trim( substr( $data['NAME'], $strpos ) );
