@@ -14,7 +14,7 @@
  * @access private
  *
  * @param string $service (optional)
- * @return object
+ * @return mixed
  *
  * @throws Exception when service is not found
  */
