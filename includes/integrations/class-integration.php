@@ -344,9 +344,8 @@ abstract class MC4WP_Integration {
 		 * Filters data for integration requests.
 		 *
 		 * @param array $data
-		 * @param MC4WP_Integration $integration
 		 */
-		$data = apply_filters( 'mc4wp_integration_data', $data, $integration );
+		$data = apply_filters( 'mc4wp_integration_data', $data );
 
 		/**
 		 * Filters data for a specific integration request.
@@ -354,9 +353,9 @@ abstract class MC4WP_Integration {
 		 * The dynamic portion of the hook, `$slug`, refers to the integration slug.
 		 *
 		 * @param array $data
-		 * @param MC4WP_Integration $integration
+		 * @param int $related_object_id
 		 */
-		$data = apply_filters( 'mc4wp_integration_' . $slug . '_data', $data, $integration );
+		$data = apply_filters( "mc4wp_integration_{$slug}_data", $data, $related_object_id );
 
 		/**
 		 * @ignore
@@ -366,7 +365,6 @@ abstract class MC4WP_Integration {
 
 		/**
 		 * @deprecated 4.0
-		 * @use mc4wp_integration_data
 		 * @ignore
 		 */
 		$data = apply_filters( 'mc4wp_integration_merge_vars', $data, $integration );
@@ -375,7 +373,7 @@ abstract class MC4WP_Integration {
 		 * @deprecated 4.0
 		 * @ignore
 		 */
-		$data = apply_filters( 'mc4wp_integration_' . $slug . '_merge_vars', $data, $integration );
+		$data = apply_filters( "mc4wp_integration_{$slug}_merge_vars", $data, $integration );
 
 		$email_type = mc4wp_get_email_type();
 
