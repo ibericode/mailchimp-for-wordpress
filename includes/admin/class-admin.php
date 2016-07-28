@@ -439,7 +439,13 @@ class MC4WP_Admin {
 	 */
 	public function show_generals_setting_page() {
 		$opts = mc4wp_get_options();
-		$connected = ( mc4wp('api')->is_connected() );
+
+        try {
+            $connected = $this->get_api()->is_connected();
+        } catch( Exception $e ) {
+            $connected = false;
+        }
+
 		$lists = $this->mailchimp->get_lists();
 		$obfuscated_api_key = mc4wp_obfuscate_string( $opts['api_key'] );
 		require MC4WP_PLUGIN_DIR . 'includes/views/general-settings.php';
@@ -522,5 +528,12 @@ class MC4WP_Admin {
 	protected function get_log() {
 		return mc4wp('log');
 	}
+
+    /**
+     * @return MC4WP_API_v3
+     */
+	protected function get_api() {
+	    return mc4wp('api');
+    }
 
 }
