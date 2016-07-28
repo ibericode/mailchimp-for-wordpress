@@ -63,8 +63,8 @@ class MC4WP_List_Data_Mapper {
 	 */
 	protected function map_list( MC4WP_MailChimp_List $list ) {
 
-		$member = new MC4WP_MailChimp_Subscriber();
-		$member->email_address = $this->data['EMAIL'];
+		$subscriber = new MC4WP_MailChimp_Subscriber();
+		$subscriber->email_address = $this->data['EMAIL'];
 
 		// find merge fields
 		foreach( $list->merge_fields as $merge_field ) {
@@ -83,7 +83,7 @@ class MC4WP_List_Data_Mapper {
 			$value = $this->format_merge_field_value( $value, $merge_field->field_type );
 
 			// add to map
-			$member->merge_fields[ $merge_field->tag ] = $value;
+			$subscriber->merge_fields[ $merge_field->tag ] = $value;
 		}
 
 		// find interest categories
@@ -93,13 +93,19 @@ class MC4WP_List_Data_Mapper {
             foreach( $list->interest_categories as $interest_category ) {
                 foreach( $interest_category->interests as $interest_id => $interest_name ) {
                     if( in_array( $interest_id, $interests_data, false ) ) {
-                        $member->interests[ $interest_id ] = true;
+                        $subscriber->interests[ $interest_id ] = true;
                     }
                 }
             }
         }
 
-		return $member;
+        // find language
+        /* @see http://kb.mailchimp.com/lists/managing-subscribers/view-and-edit-subscriber-languages?utm_source=mc-api&utm_medium=docs&utm_campaign=apidocs&_ga=1.211519638.2083589671.1469697070 */
+        if( ! empty( $this->data['MC_LANGUAGE'] ) ) {
+            $subscriber->language = substr( $this->data['MC_LANGUAGE'], 0, 2 );
+        }
+
+		return $subscriber;
 	}
 
 
