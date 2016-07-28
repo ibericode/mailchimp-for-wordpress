@@ -30,7 +30,7 @@ class MC4WP_MailChimp_Subscriber {
     /**
      * @var string IP address the subscriber signed up from.
      */
-    public $ip_opt;
+    public $ip_signup;
 
     /**
      * @var string The subscriber's language

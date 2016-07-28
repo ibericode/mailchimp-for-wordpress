@@ -98,7 +98,7 @@ class MC4WP_Form_Listener {
 
 			$subscriber->status = $form->settings['double_optin'] ? 'pending' : 'subscribed';
 			$subscriber->email_type = $email_type;
-			$subscriber->ip_opt = $client_ip;
+			$subscriber->ip_signup = $client_ip;
 
 			/**
 			 * Filters subscriber data before it is sent to MailChimp. Fires for both form & integration requests.

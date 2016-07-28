@@ -387,7 +387,7 @@ abstract class MC4WP_Integration {
 		foreach( $map as $list_id => $subscriber ) {
 			$subscriber->status = $this->options['double_optin'] ? 'pending' : 'subscribed';
 			$subscriber->email_type = $email_type;
-			$subscriber->ip_opt = $request->get_client_ip();
+			$subscriber->ip_signup = $request->get_client_ip();
 
 			/** @ignore (documented elsewhere) */
 			$subscriber = apply_filters( 'mc4wp_subscriber_data', $subscriber );
