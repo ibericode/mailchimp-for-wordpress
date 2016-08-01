@@ -45,7 +45,6 @@ class MC4WP_MailChimp {
 	 * @return object
 	 */
 	public function list_subscribe( $list_id, $email_address, array $args = array(), $update_existing = false, $replace_interests = true ) {
-
 		$this->reset_error();
 
 		$default_args = array(
@@ -119,14 +118,17 @@ class MC4WP_MailChimp {
 		$this->reset_error();
 
 		try {
-			$data = $this->api->update_list_member( $list_id, $email_address, array( 'status' => 'unsubscribed' ) );
-		} catch( MC4WP_API_Exception $e ) {
+			$this->api->update_list_member( $list_id, $email_address, array( 'status' => 'unsubscribed' ) );
+		} catch( MC4WP_API_Resource_Not_Found_Exception $e ) {
+		    // if email wasn't even on the list: great.
+		    return true;
+        } catch( MC4WP_API_Exception $e ) {
 			$this->error_code = $e->getCode();
 			$this->error_message = $e->getMessage();
 			return false;
 		}
 
-		return $data;
+		return true;
 	}
 
 	/**
