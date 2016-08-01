@@ -168,20 +168,24 @@ class MC4WP_Form_Listener {
 		$result = null;
         $data = $form->get_data();
 
+        // unsubscribe from each list
 		foreach( $form->get_lists() as $list_id ) {
+            // TODO: Check if on list before proceeding with unsubscribe call?
 			$result = $mailchimp->list_unsubscribe( $list_id, $data['EMAIL'] );
 		}
 
 		if( ! $result ) {
-			// not subscribed is a soft-error
-			if( in_array( $mailchimp->get_error_code(), array( 215, 232 ) ) ) {
-				$form->add_error( 'not_subscribed' );
-				$log->info( sprintf( 'Form %d > %s is not subscribed to the selected list(s)', $form->ID, $data['EMAIL'] ) );
-			} else {
-				$form->add_error( 'error' );
-				$log->error( sprintf( 'Form %d > MailChimp API error: %s', $form->ID, $mailchimp->get_error_message() ) );
-			}
+            $form->add_error( 'error' );
+            $log->error( sprintf( 'Form %d > MailChimp API error: %s', $form->ID, $mailchimp->get_error_message() ) );
+
+			// bail
+			return;
 		}
+
+		// Success! Unsubscribed.
+        $form->add_message('unsubscribed');
+        $log->info( sprintf( "Form %d > Successfully unsubscribed %s", $form->ID, $data['EMAIL'] ) );
+
 
 		/**
 		 * Fires right after a form was used to unsubscribe.
