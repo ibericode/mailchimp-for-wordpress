@@ -7,7 +7,10 @@
 
 <table class="form-table mc4wp-form-messages">
 
-	<?php do_action( 'mc4wp_admin_form_before_messages_settings_rows', $opts, $form ); ?>
+	<?php
+	/** @ignore */
+	do_action( 'mc4wp_admin_form_before_messages_settings_rows', $opts, $form );
+	?>
 
 	<tr valign="top">
 		<th scope="row"><label for="mc4wp_form_subscribed"><?php _e( 'Successfully subscribed', 'mailchimp-for-wp' ); ?></label></th>
@@ -84,7 +87,10 @@
 		</td>
 	</tr>
 
-	<?php do_action( 'mc4wp_admin_form_after_messages_settings_rows', array(), $form ); ?>
+	<?php
+	/** @ignore */
+	do_action( 'mc4wp_admin_form_after_messages_settings_rows', array(), $form );
+	?>
 
 	<tr valign="top">
 		<th></th>
