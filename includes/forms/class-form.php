@@ -417,7 +417,7 @@ class MC4WP_Form {
 		 * @param array $errors
 		 * @param MC4WP_Form $form
 		 */
-		$this->errors = (array) apply_filters( 'mc4wp_form_errors', $errors, $form );
+		$errors = (array) apply_filters( 'mc4wp_form_errors', $errors, $form );
 
 		/**
 		 * @ignore
@@ -425,9 +425,13 @@ class MC4WP_Form {
 		 */
 		$form_validity = apply_filters( 'mc4wp_valid_form_request', true, $this->data );
 		if( is_string( $form_validity ) ) {
-			$this->errors[] = $form_validity;
+			$errors[] = $form_validity;
 		}
 
+		// add each error to this form
+		array_map( array( $this, 'add_error' ), $errors );
+
+        // return whether we have errors
 		return ! $this->has_errors();
 	}
 
