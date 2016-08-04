@@ -227,26 +227,26 @@ abstract class MC4WP_Integration {
 	public function get_checkbox_html() {
 
 		ob_start();
-		?>
-		<!-- MailChimp for WordPress v<?php echo MC4WP_VERSION; ?> - https://mc4wp.com/ -->
 
-		<?php do_action( 'mc4wp_integration_before_checkbox_wrapper', $this ); ?>
-		<?php do_action( 'mc4wp_integration_'. $this->slug .'_before_checkbox_wrapper', $this ); ?>
+		echo sprintf( '<!-- MailChimp for WordPress v%s - https://mc4wp.com/ -->', MC4WP_VERSION );
+		do_action( 'mc4wp_integration_before_checkbox_wrapper', $this );
+		do_action( 'mc4wp_integration_'. $this->slug .'_before_checkbox_wrapper', $this );
 
-		<p class="mc4wp-checkbox mc4wp-checkbox-<?php echo esc_attr( $this->slug ); ?>">
-			<label>
-				<?php // Hidden field to make sure "0" is sent to server ?>
-				<input type="hidden" name="<?php echo esc_attr( $this->checkbox_name ); ?>" value="0" />
-				<input type="checkbox" name="<?php echo esc_attr( $this->checkbox_name ); ?>" value="1" <?php echo $this->get_checkbox_attributes(); ?> />
-				<span><?php echo $this->get_label_text(); ?></span>
-			</label>
-		</p>
+        echo sprintf( '<p class="mc4wp-checkbox mc4wp-checkbox-%s">', esc_attr( $this->slug ) );
+        echo '<label>';
 
-		<?php do_action( 'mc4wp_integration_after_checkbox_wrapper', $this ); ?>
-		<?php do_action( 'mc4wp_integration_'. $this->slug .'_after_checkbox_wrapper', $this ); ?>
+		// Hidden field to make sure "0" is sent to server
+		echo sprintf( '<input type="hidden" name="%s" value="0" />', esc_attr( $this->checkbox_name ) );
+		echo sprintf( '<input type="checkbox" name="%s" value="1" %s />', esc_attr( $this->checkbox_name ), $this->get_checkbox_attributes() );
+        echo sprintf( '<span>%s</span>', $this->get_label_text() );
 
-		<!-- / MailChimp for WordPress -->
-		<?php
+		echo '</label>';
+        echo '</p>';
+
+		do_action( 'mc4wp_integration_after_checkbox_wrapper', $this );
+		do_action( 'mc4wp_integration_'. $this->slug .'_after_checkbox_wrapper', $this );
+		echo '<!-- / MailChimp for WordPress -->';
+
 		$html = ob_get_clean();
 		return $html;
 	}

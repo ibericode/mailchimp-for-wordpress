@@ -1,7 +1,7 @@
 Changelog
 =========
 
-#### 3.1.12 - July 28. 2016
+#### 3.1.12 - July 28, 2016
 
 **Improvements**
 

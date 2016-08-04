@@ -66,7 +66,7 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 	* @return array
 	*/
 	public function alter_cf7_data( $data = array() ) {
-		$data['mc4wp_checkbox'] = $this->checkbox_was_checked() ? __( 'Yes', 'mailchimp-for-wp' ) : __( 'No', 'mailchimp-for-wp' );
+		$data['mc4wp_checkbox'] = $this->checkbox_was_checked() ? __( 'Yes' ) : __( 'No' );
 		return $data;
 	}
 
