@@ -69,15 +69,6 @@
 		</td>
 	</tr>
 
-	<?php // TODO: Can this be removed again, because of API 3? ?>
-	<tr valign="top">
-		<th scope="row"><label for="mc4wp_form_previously_unsubscribed"><?php _e( 'Previously unsubscribed', 'mailchimp-for-wp' ); ?></label></th>
-		<td>
-			<input type="text" class="widefat" id="mc4wp_form_previously_unsubscribed" name="mc4wp_form[messages][previously_unsubscribed]" value="<?php echo esc_attr( $form->get_message( 'previously_unsubscribed' ) ); ?>" required />
-			<p class="help"><?php _e( 'When someone previously unsubscribed, the plugin can not resubscribe them automatically. Refer to your MailChimp hosted sign-up form here.', 'mailchimp-for-wp' ); ?></p>
-		</td>
-	</tr>
-
 	<?php $config = array( 'element' => 'mc4wp_form[settings][update_existing]', 'value' => 1 ); ?>
 	<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
 		<th scope="row"><label for="mc4wp_form_updated"><?php _e( 'Updated', 'mailchimp-for-wp' ); ?></label></th>
