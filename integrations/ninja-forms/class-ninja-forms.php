@@ -38,6 +38,7 @@ class MC4WP_Ninja_Forms_Integration extends MC4WP_Integration {
             'edit_meta' => true,
             'edit_options' => '',
             'post_process' => array( $this, 'process' ),
+            'default_label' => $this->options['label']
 
 		);
 
