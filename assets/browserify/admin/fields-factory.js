@@ -13,9 +13,7 @@ var FieldFactory = function(settings, fields, i18n) {
 	 */
 	function reset() {
 		// clear all of our fields
-		registeredFields.forEach(function(field) {
-			fields.deregister(field);
-		});
+		registeredFields.forEach(fields.deregister);
 	}
 
 	/**
@@ -26,6 +24,7 @@ var FieldFactory = function(settings, fields, i18n) {
 	 */
 	function register(data, sticky) {
 		var field = fields.register(data);
+
 		if( ! sticky ) {
 			registeredFields.push(field);
 		}
@@ -58,11 +57,6 @@ var FieldFactory = function(settings, fields, i18n) {
 	 * @returns {boolean}
 	 */
 	function registerMergeField(mergeField) {
-
-		// only register merge var field if it's public
-		if( ! mergeField.public ) {
-			return false;
-		}
 
 		// name, type, title, value, required, label, placeholder, choices, wrap
 		var data = {
@@ -109,6 +103,19 @@ var FieldFactory = function(settings, fields, i18n) {
 	 * @param list
 	 */
 	function registerListFields(list) {
+
+		// make sure public fields come first
+		list.merge_fields = list.merge_fields.sort(function(a, b) {
+			if( a.name === 'EMAIL' || ( a.public && ! b.public ) ) {
+				return -1;
+			}
+
+			if( ! a.public && b.public ) {
+				return 1;
+			}
+
+			return 0;
+		});
 
 		// loop through merge vars
 		list.merge_fields.forEach(registerMergeField);
