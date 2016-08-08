@@ -1,19 +1,15 @@
 /* Grid */
 .row{
-	margin: 20px -20px;
+	margin-left: -20px;
+	margin-right: -20px;
 	float: none;
-}
-
-.row:after{
-	content: "";
-	clear: both;
-	display: table;
 }
 
 .row .col {
 	padding: 0 20px;
 	float: left;
 	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
@@ -39,6 +35,19 @@
 
 .row .col-6 {
 	width: 100%;
+}
+
+.row:before,
+.row:after,
+.clearfix:before,
+.clearfix:after {
+	content: " "; /* 1 */
+	display: table; /* 2 */
+}
+
+.row:after,
+.clearfix:after {
+	clear: both;
 }
 
 @media( max-width: 1200px ) {
