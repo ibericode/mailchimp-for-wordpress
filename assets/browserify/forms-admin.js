@@ -25,10 +25,11 @@ var notices = require('./admin/notices');
 m.mount( document.getElementById( 'mc4wp-field-wizard'), fieldHelper );
 
 // register fields and redraw screen in 2 seconds (fixes IE8 bug)
-var fieldsFactory = new FieldsFactory(settings, fields, i18n);
-fieldsFactory.registerCustomFields(mc4wp_vars.mailchimp.lists);
+var fieldsFactory = new FieldsFactory(fields, i18n);
 events.on('selectedLists.change', fieldsFactory.registerListsFields);
 fieldsFactory.registerListsFields(settings.getSelectedLists());
+fieldsFactory.registerCustomFields(mc4wp_vars.mailchimp.lists);
+
 window.setTimeout( function() { m.redraw();}, 2000 );
 
 // init notices

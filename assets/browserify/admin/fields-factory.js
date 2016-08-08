@@ -1,4 +1,4 @@
-var FieldFactory = function(settings, fields, i18n) {
+var FieldFactory = function(fields, i18n) {
 	'use strict';
 
 	/**
@@ -22,8 +22,8 @@ var FieldFactory = function(settings, fields, i18n) {
 	 * @param {object} data
 	 * @param {boolean} sticky
 	 */
-	function register(data, sticky) {
-		var field = fields.register(data);
+	function register(category, data, sticky) {
+		var field = fields.register(category, data);
 
 		if( ! sticky ) {
 			registeredFields.push(field);
@@ -32,8 +32,6 @@ var FieldFactory = function(settings, fields, i18n) {
 
 	/**
 	 * Normalizes the field type which is passed by MailChimp
-	 *
-	 * @todo Maybe do this server-side?
 	 *
 	 * @param type
 	 * @returns {*}
@@ -58,6 +56,8 @@ var FieldFactory = function(settings, fields, i18n) {
 	 */
 	function registerMergeField(mergeField) {
 
+		var category = "List fields";
+
 		// name, type, title, value, required, label, placeholder, choices, wrap
 		var data = {
 			name: mergeField.tag,
@@ -69,13 +69,13 @@ var FieldFactory = function(settings, fields, i18n) {
 		};
 
 		if( data.type !== 'address' ) {
-			register(data);
+			register(category, data, false);
 		} else {
-			register({ name: data.name + '[addr1]', type: 'text', title: i18n.streetAddress });
-			register({ name: data.name + '[city]', type: 'text', title: i18n.city });
-			register({ name: data.name + '[state]', type: 'text', title: i18n.state  });
-			register({ name: data.name + '[zip]', type: 'text', title: i18n.zip });
-			register({ name: data.name + '[country]', type: 'select', title: i18n.country, choices: mc4wp_vars.countries });
+			register(category, { name: data.name + '[addr1]', type: 'text', title: i18n.streetAddress });
+			register(category, { name: data.name + '[city]', type: 'text', title: i18n.city });
+			register(category, { name: data.name + '[state]', type: 'text', title: i18n.state  });
+			register(category, { name: data.name + '[zip]', type: 'text', title: i18n.zip });
+			register(category, { name: data.name + '[country]', type: 'select', title: i18n.country, choices: mc4wp_vars.countries });
 		}
 
 		return true;
@@ -87,6 +87,7 @@ var FieldFactory = function(settings, fields, i18n) {
 	 * @param interestCategory
 	 */
 	function registerInterestCategory(interestCategory){
+		var category = "Interest Categories";
 
 		var data = {
 			title: interestCategory.name,
@@ -94,7 +95,7 @@ var FieldFactory = function(settings, fields, i18n) {
 			type: getFieldType(interestCategory.field_type),
 			choices: interestCategory.interests
 		};
-		register(data);
+		register(category, data, false);
 	}
 
 	/**
@@ -104,9 +105,9 @@ var FieldFactory = function(settings, fields, i18n) {
 	 */
 	function registerListFields(list) {
 
-		// make sure public fields come first
+		// make sure EMAIL && public fields come first
 		list.merge_fields = list.merge_fields.sort(function(a, b) {
-			if( a.name === 'EMAIL' || ( a.public && ! b.public ) ) {
+			if( a.tag === 'EMAIL' || ( a.public && ! b.public ) ) {
 				return -1;
 			}
 
@@ -136,10 +137,11 @@ var FieldFactory = function(settings, fields, i18n) {
 
 	function registerCustomFields(lists) {
 
-		var choices;
+		var choices,
+			category = "Form fields";
 
 		// register submit button
-		register({
+		register(category, {
 			name: '',
 			value: i18n.subscribe,
 			type: "submit",
@@ -152,7 +154,7 @@ var FieldFactory = function(settings, fields, i18n) {
 			choices[lists[key].id] = lists[key].name;
 		}
 
-		register({
+		register(category, {
 			name: '_mc4wp_lists',
 			type: 'checkbox',
 			title: i18n.listChoice,
@@ -164,7 +166,7 @@ var FieldFactory = function(settings, fields, i18n) {
 			'subscribe': "Subscribe",
 			'unsubscribe': "Unsubscribe"
 		};
-		register({
+		register(category, {
 			name: '_mc4wp_action',
 			type: 'radio',
 			title: i18n.formAction,

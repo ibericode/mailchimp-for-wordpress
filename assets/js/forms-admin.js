@@ -474,38 +474,45 @@ var FieldHelper = function(m, tabs, editor, fields, i18n) {
 	function view() {
 
 		// build DOM for fields choice
+		var fieldCategories = fields.getCategories();
 		var availableFields = fields.getAll();
 
 		var fieldsChoice = m( "div.available-fields.small-margin", [
-			m("strong", i18n.chooseField),
+			m("h4", { style: "margin-top: 0; font-size: 14px;" }, i18n.chooseField),
 
-			(availableFields.length) ?
+			fieldCategories.map(function(category) {
+				var categoryFields = availableFields.filter(function(f) {
+					return f.category === category;
+				});
 
-				// render fields
-				availableFields.map(function(field, index) {
+				if( ! categoryFields.length ) {
+					return;
+				}
 
-					var className = "button";
-					if( field.forceRequired() ) {
-						className += " is-required";
-					}
+				return m("div.tiny-margin",[
+					m("strong", category),
 
-					var inForm = field.inFormContent();
-					if( inForm !== null ) {
-						className += " " + ( inForm ? 'in-form' : 'not-in-form' );
-					}
+					// render fields
+					categoryFields.map(function(field) {
+						var className = "button";
+						if( field.forceRequired() ) {
+							className += " is-required";
+						}
 
-					return m("button", {
-							"class": className,
+						var inForm = field.inFormContent();
+						if( inForm !== null ) {
+							className += " " + ( inForm ? 'in-form' : 'not-in-form' );
+						}
+
+						return m("button", {
+							className: className,
 							type   : 'button',
 							onclick: m.withAttr("value", setActiveField),
-							value  : index
+							value  : field.index
 						}, field.title() );
-				})
-
-				:
-
-				// no fields
-				m( "p", i18n.noAvailableFields )
+					})
+				]);
+			})
 		]);
 
 		// build DOM for overlay
@@ -560,7 +567,7 @@ var FieldHelper = function(m, tabs, editor, fields, i18n) {
 
 module.exports = FieldHelper;
 },{"./field-forms.js":2,"./field-generator.js":3,"./overlay.js":10}],5:[function(require,module,exports){
-var FieldFactory = function(settings, fields, i18n) {
+var FieldFactory = function(fields, i18n) {
 	'use strict';
 
 	/**
@@ -575,9 +582,7 @@ var FieldFactory = function(settings, fields, i18n) {
 	 */
 	function reset() {
 		// clear all of our fields
-		registeredFields.forEach(function(field) {
-			fields.deregister(field);
-		});
+		registeredFields.forEach(fields.deregister);
 	}
 
 	/**
@@ -586,8 +591,9 @@ var FieldFactory = function(settings, fields, i18n) {
 	 * @param {object} data
 	 * @param {boolean} sticky
 	 */
-	function register(data, sticky) {
-		var field = fields.register(data);
+	function register(category, data, sticky) {
+		var field = fields.register(category, data);
+
 		if( ! sticky ) {
 			registeredFields.push(field);
 		}
@@ -595,8 +601,6 @@ var FieldFactory = function(settings, fields, i18n) {
 
 	/**
 	 * Normalizes the field type which is passed by MailChimp
-	 *
-	 * @todo Maybe do this server-side?
 	 *
 	 * @param type
 	 * @returns {*}
@@ -621,10 +625,7 @@ var FieldFactory = function(settings, fields, i18n) {
 	 */
 	function registerMergeField(mergeField) {
 
-		// only register merge var field if it's public
-		if( ! mergeField.public ) {
-			return false;
-		}
+		var category = "List fields";
 
 		// name, type, title, value, required, label, placeholder, choices, wrap
 		var data = {
@@ -637,13 +638,13 @@ var FieldFactory = function(settings, fields, i18n) {
 		};
 
 		if( data.type !== 'address' ) {
-			register(data);
+			register(category, data, false);
 		} else {
-			register({ name: data.name + '[addr1]', type: 'text', title: i18n.streetAddress });
-			register({ name: data.name + '[city]', type: 'text', title: i18n.city });
-			register({ name: data.name + '[state]', type: 'text', title: i18n.state  });
-			register({ name: data.name + '[zip]', type: 'text', title: i18n.zip });
-			register({ name: data.name + '[country]', type: 'select', title: i18n.country, choices: mc4wp_vars.countries });
+			register(category, { name: data.name + '[addr1]', type: 'text', title: i18n.streetAddress });
+			register(category, { name: data.name + '[city]', type: 'text', title: i18n.city });
+			register(category, { name: data.name + '[state]', type: 'text', title: i18n.state  });
+			register(category, { name: data.name + '[zip]', type: 'text', title: i18n.zip });
+			register(category, { name: data.name + '[country]', type: 'select', title: i18n.country, choices: mc4wp_vars.countries });
 		}
 
 		return true;
@@ -655,6 +656,7 @@ var FieldFactory = function(settings, fields, i18n) {
 	 * @param interestCategory
 	 */
 	function registerInterestCategory(interestCategory){
+		var category = "Interest Categories";
 
 		var data = {
 			title: interestCategory.name,
@@ -662,7 +664,7 @@ var FieldFactory = function(settings, fields, i18n) {
 			type: getFieldType(interestCategory.field_type),
 			choices: interestCategory.interests
 		};
-		register(data);
+		register(category, data, false);
 	}
 
 	/**
@@ -671,6 +673,22 @@ var FieldFactory = function(settings, fields, i18n) {
 	 * @param list
 	 */
 	function registerListFields(list) {
+
+		// make sure public fields come first
+		list.merge_fields = list.merge_fields.sort(function(a, b) {
+			if( a.tag === 'EMAIL' || ( a.public && ! b.public ) ) {
+				return -1;
+			}
+
+			if( ! a.public && b.public ) {
+				return 1;
+			}
+
+			return 0;
+		});
+
+		console.log(list);
+
 
 		// loop through merge vars
 		list.merge_fields.forEach(registerMergeField);
@@ -691,10 +709,11 @@ var FieldFactory = function(settings, fields, i18n) {
 
 	function registerCustomFields(lists) {
 
-		var choices;
+		var choices,
+			category = "Form fields";
 
 		// register submit button
-		register({
+		register(category, {
 			name: '',
 			value: i18n.subscribe,
 			type: "submit",
@@ -707,7 +726,7 @@ var FieldFactory = function(settings, fields, i18n) {
 			choices[lists[key].id] = lists[key].name;
 		}
 
-		register({
+		register(category, {
 			name: '_mc4wp_lists',
 			type: 'checkbox',
 			title: i18n.listChoice,
@@ -719,7 +738,7 @@ var FieldFactory = function(settings, fields, i18n) {
 			'subscribe': "Subscribe",
 			'unsubscribe': "Unsubscribe"
 		};
-		register({
+		register(category, {
 			name: '_mc4wp_action',
 			type: 'radio',
 			title: i18n.formAction,
@@ -742,8 +761,13 @@ var FieldFactory = function(settings, fields, i18n) {
 
 module.exports = FieldFactory;
 },{}],6:[function(require,module,exports){
+'use strict';
+
 module.exports = function(m, events) {
-	'use strict';
+    var timeout;
+	var fields = [];
+	var categories = [];
+
 
 	/**
 	 * @internal
@@ -801,15 +825,6 @@ module.exports = function(m, events) {
 		this.value = m.prop(data.value || data.label);
 	};
 
-
-	/**
-	 * @api
-	 *
-	 * @returns {{fields: {}, get: get, getAll: getAll, deregister: deregister, register: register}}
-	 * @constructor
-	 */
-	var fields = [];
-
 	/**
 	 * Creates FieldChoice objects from an (associative) array of data objects
 	 *
@@ -840,7 +855,8 @@ module.exports = function(m, events) {
 	 * @param data
 	 * @returns {Field}
 	 */
-	function register(data) {
+	function register(category, data) {
+
 		var field;
 		var existingField = getAllWhere('name', data.name).shift();
 
@@ -870,14 +886,21 @@ module.exports = function(m, events) {
 			}
 		}
 
+		// register category
+		if( categories.indexOf(category) < 0 ) {
+			categories.push(category);
+		}
+
 		// create Field object
 		field = new Field(data);
+		field.category = category;
 
-		// add to start of array
-		fields.unshift(field);
+		// add to array
+		fields.push(field);
 
 		// redraw view
-		m.redraw();
+        timeout && window.clearTimeout(timeout);
+        timeout = window.setTimeout(m.redraw, 100);
 
 		// trigger event
 		events.trigger('fields.change');
@@ -914,7 +937,17 @@ module.exports = function(m, events) {
 	 * @returns {Array|*}
 	 */
 	function getAll() {
+		// rebuild index property on all fields
+		fields = fields.map(function(f, i) {
+			f.index = i;
+			return f;
+		});
+
 		return fields;
+	}
+
+	function getCategories() {
+		return categories;
 	}
 
 	/**
@@ -935,9 +968,9 @@ module.exports = function(m, events) {
 	 * Exposed methods
 	 */
 	return {
-		'fields'     : fields,
 		'get'        : get,
 		'getAll'     : getAll,
+		'getCategories': getCategories,
 		'deregister' : deregister,
 		'register'   : register,
 		'getAllWhere': getAllWhere
@@ -1256,10 +1289,11 @@ var notices = require('./admin/notices');
 m.mount( document.getElementById( 'mc4wp-field-wizard'), fieldHelper );
 
 // register fields and redraw screen in 2 seconds (fixes IE8 bug)
-var fieldsFactory = new FieldsFactory(settings, fields, i18n);
-fieldsFactory.registerCustomFields(mc4wp_vars.mailchimp.lists);
+var fieldsFactory = new FieldsFactory(fields, i18n);
 events.on('selectedLists.change', fieldsFactory.registerListsFields);
 fieldsFactory.registerListsFields(settings.getSelectedLists());
+fieldsFactory.registerCustomFields(mc4wp_vars.mailchimp.lists);
+
 window.setTimeout( function() { m.redraw();}, 2000 );
 
 // init notices

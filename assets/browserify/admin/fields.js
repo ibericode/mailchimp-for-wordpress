@@ -1,5 +1,10 @@
+'use strict';
+
 module.exports = function(m, events) {
-	'use strict';
+    var timeout;
+	var fields = [];
+	var categories = [];
+
 
 	/**
 	 * @internal
@@ -57,15 +62,6 @@ module.exports = function(m, events) {
 		this.value = m.prop(data.value || data.label);
 	};
 
-
-	/**
-	 * @api
-	 *
-	 * @returns {{fields: {}, get: get, getAll: getAll, deregister: deregister, register: register}}
-	 * @constructor
-	 */
-	var fields = [];
-
 	/**
 	 * Creates FieldChoice objects from an (associative) array of data objects
 	 *
@@ -96,7 +92,8 @@ module.exports = function(m, events) {
 	 * @param data
 	 * @returns {Field}
 	 */
-	function register(data) {
+	function register(category, data) {
+
 		var field;
 		var existingField = getAllWhere('name', data.name).shift();
 
@@ -126,14 +123,21 @@ module.exports = function(m, events) {
 			}
 		}
 
+		// register category
+		if( categories.indexOf(category) < 0 ) {
+			categories.push(category);
+		}
+
 		// create Field object
 		field = new Field(data);
+		field.category = category;
 
-		// add to start of array
-		fields.unshift(field);
+		// add to array
+		fields.push(field);
 
 		// redraw view
-		m.redraw();
+        timeout && window.clearTimeout(timeout);
+        timeout = window.setTimeout(m.redraw, 100);
 
 		// trigger event
 		events.trigger('fields.change');
@@ -170,7 +174,17 @@ module.exports = function(m, events) {
 	 * @returns {Array|*}
 	 */
 	function getAll() {
+		// rebuild index property on all fields
+		fields = fields.map(function(f, i) {
+			f.index = i;
+			return f;
+		});
+
 		return fields;
+	}
+
+	function getCategories() {
+		return categories;
 	}
 
 	/**
@@ -191,9 +205,9 @@ module.exports = function(m, events) {
 	 * Exposed methods
 	 */
 	return {
-		'fields'     : fields,
 		'get'        : get,
 		'getAll'     : getAll,
+		'getCategories': getCategories,
 		'deregister' : deregister,
 		'register'   : register,
 		'getAllWhere': getAllWhere

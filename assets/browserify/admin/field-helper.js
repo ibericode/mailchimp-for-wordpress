@@ -52,38 +52,45 @@ var FieldHelper = function(m, tabs, editor, fields, i18n) {
 	function view() {
 
 		// build DOM for fields choice
+		var fieldCategories = fields.getCategories();
 		var availableFields = fields.getAll();
 
 		var fieldsChoice = m( "div.available-fields.small-margin", [
-			m("strong", i18n.chooseField),
+			m("h4", { style: "margin-top: 0; font-size: 14px;" }, i18n.chooseField),
 
-			(availableFields.length) ?
+			fieldCategories.map(function(category) {
+				var categoryFields = availableFields.filter(function(f) {
+					return f.category === category;
+				});
 
-				// render fields
-				availableFields.map(function(field, index) {
+				if( ! categoryFields.length ) {
+					return;
+				}
 
-					var className = "button";
-					if( field.forceRequired() ) {
-						className += " is-required";
-					}
+				return m("div.tiny-margin",[
+					m("strong", category),
 
-					var inForm = field.inFormContent();
-					if( inForm !== null ) {
-						className += " " + ( inForm ? 'in-form' : 'not-in-form' );
-					}
+					// render fields
+					categoryFields.map(function(field) {
+						var className = "button";
+						if( field.forceRequired() ) {
+							className += " is-required";
+						}
 
-					return m("button", {
-							"class": className,
+						var inForm = field.inFormContent();
+						if( inForm !== null ) {
+							className += " " + ( inForm ? 'in-form' : 'not-in-form' );
+						}
+
+						return m("button", {
+							className: className,
 							type   : 'button',
 							onclick: m.withAttr("value", setActiveField),
-							value  : index
+							value  : field.index
 						}, field.title() );
-				})
-
-				:
-
-				// no fields
-				m( "p", i18n.noAvailableFields )
+					})
+				]);
+			})
 		]);
 
 		// build DOM for overlay
