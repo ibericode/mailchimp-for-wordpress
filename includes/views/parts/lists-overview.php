@@ -85,21 +85,30 @@
 					<thead>
 						<tr>
 							<th>Name</th>
-							<th>Groups</th>
+							<th>Type</th>
+							<th>Interests</th>
 						</tr>
 					</thead>
 					<?php foreach ( $list->interest_categories as $interest_category ) { ?>
 						<tr>
-							<td title="<?php esc_attr( printf( __( '%s (ID: %s) with type %s.', 'mailchimp-for-wp' ), $interest_category->name, $interest_category->id, $interest_category->field_type ) ); ?>"><?php echo esc_html( $interest_category->name ); ?></td>
+							<td><?php echo esc_html( $interest_category->name ); ?></td>
+							<td><?php echo esc_html( $interest_category->field_type ); ?></td>
 							<td>
+								<div class="row" style="border-bottom: 1px solid #efefef; margin-bottom: 4px;">
+									<div class="col col-3"><strong>Name</strong></div>
+									<div class="col col-3"><strong>ID</strong></div>
+								</div>
 								<?php
-								$string = '';
-								foreach ( $interest_category->interests as $id => $interest ) {
-									$string .= '<span title="' . esc_attr( sprintf( __( '%s (ID: %s)', 'mailchimp-for-wp' ), $interest, $id ) ) . '">' . esc_html( $interest ) . '</span>, ';
+								foreach( $interest_category->interests as $id => $interest ) {
+									echo '<div class="row">';
+									echo sprintf( '<div class="col col-3">%s</div><div class="col col-3"><code title="Interest ID">%s</code></div>', $interest, $id );
+									echo '<br style="clear: both;" />';
+									echo '</div>';
 								}
-								$string = rtrim( $string, ', ' );
-								echo $string;
 								?>
+
+
+
 							</td>
 						</tr>
 					<?php } ?>
