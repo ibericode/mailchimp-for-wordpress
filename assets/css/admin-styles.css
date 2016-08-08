@@ -641,10 +641,14 @@
     border: 1px solid #ccc;
     padding: 20px;
     background: white; }
+    #mc4wp-admin .available-fields h4,
+    .mc4wp-admin .available-fields h4 {
+      font-size: 14px;
+      margin-top: 0; }
     #mc4wp-admin .available-fields strong,
     .mc4wp-admin .available-fields strong {
       display: block;
-      margin-bottom: 10px; }
+      margin-bottom: 6px; }
     #mc4wp-admin .available-fields button,
     .mc4wp-admin .available-fields button {
       margin: 0 6px 6px 0; }

@@ -478,7 +478,7 @@ var FieldHelper = function(m, tabs, editor, fields, i18n) {
 		var availableFields = fields.getAll();
 
 		var fieldsChoice = m( "div.available-fields.small-margin", [
-			m("h4", { style: "margin-top: 0; font-size: 14px;" }, i18n.chooseField),
+			m("h4", i18n.chooseField),
 
 			fieldCategories.map(function(category) {
 				var categoryFields = availableFields.filter(function(f) {
