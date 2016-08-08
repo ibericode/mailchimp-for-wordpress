@@ -67,6 +67,12 @@ class MC4WP_Form_Tags {
 			'example'     => "data key='UTM_SOURCE' default='Default Source'"
 		);
 
+        $tags['cookie'] = array(
+            'description' => sprintf( __( "Data from a cookie.", 'mailchimp-for-wp' ) ),
+            'callback'    => array( $this, 'get_cookie' ),
+            'example'     => "cookie key='my_cookie' default='Default Value'"
+        );
+
 		$tags['subscriber_count'] = array(
 			'description' => __( 'Replaced with the number of subscribers on the selected list(s)', 'mailchimp-for-wp' ),
 			'callback'    => array( $this, 'get_subscriber_count' )
@@ -181,13 +187,13 @@ class MC4WP_Form_Tags {
 	}
 
 	/**
-	 *
+	 * Gets data value from GET or POST variables.
+     *
 	 * @param $args
 	 *
 	 * @return string
 	 */
 	public function get_data( $args = array() ) {
-
 		if( empty( $args['key'] ) ) {
 			return '';
 		}
@@ -200,6 +206,22 @@ class MC4WP_Form_Tags {
 		$request = mc4wp('request');
 		return esc_html( $request->params->get( $args['key'], $default ) );
 	}
+
+    /**
+     * Gets data variable from cookie.
+     *
+     * @param array $args
+     *
+     * @return string
+     */
+	public function get_cookie( $args = array() ) {
+        if( empty( $args['key'] ) ) {
+            return '';
+        }
+
+        $default = isset( $args['default'] ) ? $args['default'] : '';
+        return isset( $_COOKIE[ $args['key'] ] ) ? esc_html( stripslashes( $_COOKIE[ $args['key'] ] ) ) : $default;
+    }
 
 	/*
 	 * Get property of currently logged-in user
