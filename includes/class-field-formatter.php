@@ -98,6 +98,8 @@ class MC4WP_Field_Formatter {
      * @return string
      */
 	public function language( $value ) {
+	    $value = trim( $value );
+
 	    $exceptions = array(
             'pt_PT',
             'es_ES',

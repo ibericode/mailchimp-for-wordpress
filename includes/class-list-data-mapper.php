@@ -102,7 +102,7 @@ class MC4WP_List_Data_Mapper {
         // find language
         /* @see http://kb.mailchimp.com/lists/managing-subscribers/view-and-edit-subscriber-languages?utm_source=mc-api&utm_medium=docs&utm_campaign=apidocs&_ga=1.211519638.2083589671.1469697070 */
         if( ! empty( $this->data['MC_LANGUAGE'] ) ) {
-            $subscriber->language = substr( $this->data['MC_LANGUAGE'], 0, 2 );
+            $subscriber->language = $this->formatter->language( $this->data['MC_LANGUAGE'] );
         }
 
 		return $subscriber;
