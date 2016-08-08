@@ -25,15 +25,24 @@
 
 /** Whitespace control */
 .big-margin{
-	margin: 60px 0;
+	margin: {
+		top: 60px;
+		bottom: 60px;
+	}
 }
 
 .medium-margin {
-	margin: 40px 0;
+	margin: {
+		top: 40px;
+		bottom: 40px;
+	}
 }
 
 .small-margin {
-	margin: 20px 0;
+	margin: {
+		top: 20px;
+		bottom: 20px;
+	}
 }
 
 .hover-activated {

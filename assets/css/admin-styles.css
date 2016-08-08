@@ -102,13 +102,16 @@
     vertical-align: top !important; }
   #mc4wp-admin .big-margin,
   .mc4wp-admin .big-margin {
-    margin: 60px 0; }
+    margin-top: 60px;
+    margin-bottom: 60px; }
   #mc4wp-admin .medium-margin,
   .mc4wp-admin .medium-margin {
-    margin: 40px 0; }
+    margin-top: 40px;
+    margin-bottom: 40px; }
   #mc4wp-admin .small-margin,
   .mc4wp-admin .small-margin {
-    margin: 20px 0; }
+    margin-top: 20px;
+    margin-bottom: 20px; }
   #mc4wp-admin .hover-activated,
   .mc4wp-admin .hover-activated {
     opacity: 0.5; }
