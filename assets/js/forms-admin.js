@@ -276,11 +276,12 @@ var forms = function(m, i18n) {
 
 module.exports = forms;
 },{"./field-forms-rows.js":1}],3:[function(require,module,exports){
-var g = function(m) {
-	'use strict';
+'use strict';
 
-	var render = require('../third-party/render.js');
-	var html_beautify = require('../third-party/beautify-html.js');
+var render = require('../third-party/render.js');
+var html_beautify = require('../third-party/beautify-html.js');
+
+var g = function(m) {
 	var generators = {};
 
 	/**

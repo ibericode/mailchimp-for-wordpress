@@ -1,11 +1,13 @@
+'use strict';
+
+var URL = require('./url.js');
+
 // Tabs
 var Tabs = function(context) {
-	'use strict';
 
 	// @todo last piece of jQuery... can we get rid of it?
 	var $ = window.jQuery;
 
-	var URL = require('./url.js');
 	var $context = $(context);
 	var $tabs = $context.find('.tab');
 	var $tabNavs = $context.find('.nav-tab');
