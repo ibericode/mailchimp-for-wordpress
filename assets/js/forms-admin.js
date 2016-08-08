@@ -625,7 +625,7 @@ var FieldFactory = function(fields, i18n) {
 	 */
 	function registerMergeField(mergeField) {
 
-		var category = "List fields";
+		var category = i18n.listFields;
 
 		// name, type, title, value, required, label, placeholder, choices, wrap
 		var data = {
@@ -656,7 +656,7 @@ var FieldFactory = function(fields, i18n) {
 	 * @param interestCategory
 	 */
 	function registerInterestCategory(interestCategory){
-		var category = "Interest Categories";
+		var category = i18n.interestCategories;
 
 		var data = {
 			title: interestCategory.name,
@@ -674,7 +674,7 @@ var FieldFactory = function(fields, i18n) {
 	 */
 	function registerListFields(list) {
 
-		// make sure public fields come first
+		// make sure EMAIL && public fields come first
 		list.merge_fields = list.merge_fields.sort(function(a, b) {
 			if( a.tag === 'EMAIL' || ( a.public && ! b.public ) ) {
 				return -1;
@@ -686,9 +686,6 @@ var FieldFactory = function(fields, i18n) {
 
 			return 0;
 		});
-
-		console.log(list);
-
 
 		// loop through merge vars
 		list.merge_fields.forEach(registerMergeField);
@@ -710,7 +707,7 @@ var FieldFactory = function(fields, i18n) {
 	function registerCustomFields(lists) {
 
 		var choices,
-			category = "Form fields";
+			category = i18n.formFields;
 
 		// register submit button
 		register(category, {
