@@ -86,6 +86,7 @@ class MC4WP_Admin_Texts {
 		 *
 		 * @since 3.0
 		 * @param array $links
+         * @ignore
 		 */
 		$links = (array) apply_filters( 'mc4wp_admin_plugin_meta_links', $links );
 

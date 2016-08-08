@@ -160,6 +160,7 @@ class MC4WP_Integration_Manager {
 		 *
 		 * @since 3.0
 		 * @param array $options
+         * @ignore
 		 */
 		return (array) apply_filters( 'mc4wp_integration_options', $options );
 	}

@@ -182,6 +182,7 @@ class MC4WP_Form_Element {
 		 *
 		 * @param string $html
 		 * @param MC4WP_Form $form
+         * @ignore
 		 */
 		$html = (string) apply_filters( 'mc4wp_form_before_fields', $html, $form );
 
@@ -207,6 +208,7 @@ class MC4WP_Form_Element {
 		 *
 		 * @param string $html
 		 * @param MC4WP_Form $form
+         * @ignore
 		 */
 		$html = (string) apply_filters( 'mc4wp_form_after_fields', $html, $form );
 

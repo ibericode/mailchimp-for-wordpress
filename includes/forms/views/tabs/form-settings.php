@@ -6,7 +6,10 @@
 
 <table class="form-table" style="table-layout: fixed;">
 
-	<?php do_action( 'mc4wp_admin_form_after_mailchimp_settings_rows', $opts, $form ); ?>
+	<?php
+	/** @ignore */
+	do_action( 'mc4wp_admin_form_after_mailchimp_settings_rows', $opts, $form );
+	?>
 
 	<tr valign="top">
 		<th scope="row" style="width: 250px;"><?php _e( 'Lists this form subscribes to', 'mailchimp-for-wp' ); ?></th>
@@ -79,7 +82,10 @@
 		</td>
 	</tr>
 
-	<?php do_action( 'mc4wp_admin_form_after_mailchimp_settings_rows', $opts, $form ); ?>
+	<?php
+	/** @ignore */
+	do_action( 'mc4wp_admin_form_after_mailchimp_settings_rows', $opts, $form );
+	?>
 
 </table>
 
@@ -89,7 +95,10 @@
 
 <table class="form-table" style="table-layout: fixed;">
 
-	<?php do_action( 'mc4wp_admin_form_before_behaviour_settings_rows', $opts, $form ); ?>
+	<?php
+	/** @ignore */
+	do_action( 'mc4wp_admin_form_before_behaviour_settings_rows', $opts, $form );
+	?>
 
 	<tr valign="top">
 		<th scope="row"><?php _e( 'Hide form after a successful sign-up?', 'mailchimp-for-wp' ); ?></th>
@@ -115,7 +124,10 @@
 		</td>
 	</tr>
 
-	<?php do_action( 'mc4wp_admin_form_after_behaviour_settings_rows', $opts, $form ); ?>
+	<?php
+	/** @ignore */
+	do_action( 'mc4wp_admin_form_after_behaviour_settings_rows', $opts, $form );
+	?>
 
 </table>
 

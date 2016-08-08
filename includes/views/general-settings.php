@@ -68,6 +68,7 @@ defined( 'ABSPATH' ) or exit;
 			 * Runs right after general settings are outputted in admin.
 			 *
 			 * @since 3.0
+			 * @ignore
 			 */
 			do_action( 'mc4wp_admin_after_general_settings' );
 

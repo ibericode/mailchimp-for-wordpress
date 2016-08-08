@@ -136,6 +136,7 @@ class MC4WP_Admin {
 		 * Use this hook to register your own dashboard widgets for users with the required capability.
 		 *
 		 * @since 3.0
+         * @ignore
 		 */
 		do_action( 'mc4wp_dashboard_setup' );
 

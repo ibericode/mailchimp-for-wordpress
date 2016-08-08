@@ -239,6 +239,7 @@ class MC4WP_Forms_Admin {
 		 * @param array $raw_data Raw array of form data.
 		 *
 		 * @since 3.0.8
+         * @ignore
 		 */
 		$data = (array) apply_filters( 'mc4wp_form_sanitized_data', $data, $raw_data );
 

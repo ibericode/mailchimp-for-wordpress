@@ -45,8 +45,13 @@
 				 *
 				 * @param MC4WP_Integration $integration
 				 * @param array $opts
+				 * @ignore
 				 */
 				do_action( 'mc4wp_admin_before_integration_settings', $integration, $opts );
+
+				/**
+				 * @ignore
+				 */
 				do_action( 'mc4wp_admin_before_' . $integration->slug . '_integration_settings', $integration, $opts );
 				?>
 
@@ -208,8 +213,13 @@
 				 *
 				 * @param MC4WP_Integration $integration
 				 * @param array $opts
+				 * @ignore
 				 */
 				do_action( 'mc4wp_admin_after_integration_settings', $integration, $opts );
+
+				/**
+				 * @ignore
+				 */
 				do_action( 'mc4wp_admin_after_' . $integration->slug . '_integration_settings', $integration, $opts );
 				?>
 

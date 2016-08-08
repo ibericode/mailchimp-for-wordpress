@@ -50,7 +50,10 @@ $css_options = apply_filters( 'mc4wp_admin_form_css_options', $css_options );
 		</td>
 	</tr>
 
-	<?php do_action( 'mc4wp_admin_form_after_appearance_settings_rows', $opts, $form ); ?>
+	<?php
+	/** @ignore */
+	do_action( 'mc4wp_admin_form_after_appearance_settings_rows', $opts, $form );
+	?>
 
 </table>
 

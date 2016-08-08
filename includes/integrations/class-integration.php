@@ -86,6 +86,7 @@ abstract class MC4WP_Integration {
 		 * The dynamic portion of the hook, `$slug`, refers to the slug of the ingration.
 		 *
 		 * @param array $integration_options
+         * @ignore
 		 */
 		return (array) apply_filters( 'mc4wp_' . $slug . '_integration_options', $options );
 	}
@@ -155,6 +156,7 @@ abstract class MC4WP_Integration {
 		 *
 		 * @param string $label
 		 * @param MC4WP_Integration $integration
+         * @ignore
 		 */
 		$label = (string) apply_filters( 'mc4wp_integration_checkbox_label', $label, $integration );
 		return $label;
@@ -191,6 +193,7 @@ abstract class MC4WP_Integration {
 		 *
 		 * @param array $attributes
 		 * @param MC4WP_Integration $integration
+         * @ignore
 		 */
 		$attributes = (array) apply_filters( 'mc4wp_integration_checkbox_attributes', $attributes, $integration );
 
@@ -201,6 +204,7 @@ abstract class MC4WP_Integration {
 		 *
 		 * @param array $attributes
 		 * @param MC4WP_Integration $integration
+         * @ignore
 		 */
 		$attributes = (array) apply_filters( 'mc4wp_integration_' . $slug . '_checkbox_attributes', $attributes, $integration );
 
@@ -229,7 +233,11 @@ abstract class MC4WP_Integration {
 		ob_start();
 
 		echo sprintf( '<!-- MailChimp for WordPress v%s - https://mc4wp.com/ -->', MC4WP_VERSION );
-		do_action( 'mc4wp_integration_before_checkbox_wrapper', $this );
+
+        /** @ignore */
+        do_action( 'mc4wp_integration_before_checkbox_wrapper', $this );
+
+        /** @ignore */
 		do_action( 'mc4wp_integration_'. $this->slug .'_before_checkbox_wrapper', $this );
 
         echo sprintf( '<p class="mc4wp-checkbox mc4wp-checkbox-%s">', esc_attr( $this->slug ) );
@@ -243,7 +251,10 @@ abstract class MC4WP_Integration {
 		echo '</label>';
         echo '</p>';
 
+        /** @ignore */
 		do_action( 'mc4wp_integration_after_checkbox_wrapper', $this );
+
+        /** @ignore */
 		do_action( 'mc4wp_integration_'. $this->slug .'_after_checkbox_wrapper', $this );
 		echo '<!-- / MailChimp for WordPress -->';
 
