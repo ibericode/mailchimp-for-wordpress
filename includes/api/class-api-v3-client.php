@@ -98,7 +98,9 @@ class MC4WP_API_v3_Client {
         $url = $this->api_url . ltrim( $resource, '/' );
         $args = array(
             'method' => $method,
-            'headers' => $this->get_headers()
+            'headers' => $this->get_headers(),
+            'timeout' => 10,
+            'sslverify' => apply_filters( 'mc4wp_use_sslverify', true ),
         );
 
         // attach arguments (in body or URL)
