@@ -94,13 +94,13 @@
 							<td><?php echo esc_html( $interest_category->name ); ?></td>
 							<td><?php echo esc_html( $interest_category->field_type ); ?></td>
 							<td>
-								<div class="row" style="border-bottom: 1px solid #efefef; margin-bottom: 4px;">
-									<div class="col col-3"><strong>Name</strong></div>
-									<div class="col col-3"><strong>ID</strong></div>
+								<div class="row" style="margin-bottom: 4px;">
+									<div class="col col-3"><strong style="display: block; border-bottom: 1px solid #eee;">Name</strong></div>
+									<div class="col col-3"><strong style="display: block; border-bottom: 1px solid #eee;">ID</strong></div>
 								</div>
 								<?php
 								foreach( $interest_category->interests as $id => $interest ) {
-									echo '<div class="row">';
+									echo '<div class="row tiny-margin">';
 									echo sprintf( '<div class="col col-3">%s</div><div class="col col-3"><code title="Interest ID">%s</code></div>', $interest, $id );
 									echo '<br style="clear: both;" />';
 									echo '</div>';

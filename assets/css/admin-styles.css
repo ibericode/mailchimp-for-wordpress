@@ -79,7 +79,7 @@
     .mc4wp-admin .row .col {
       width: 100%;
       float: none;
-      margin: 20px 0; } }
+      margin: 10px 0; } }
   #mc4wp-admin .status,
   .mc4wp-admin .status {
     display: inline-block;
@@ -112,6 +112,10 @@
   .mc4wp-admin .small-margin {
     margin-top: 20px;
     margin-bottom: 20px; }
+  #mc4wp-admin .tiny-margin,
+  .mc4wp-admin .tiny-margin {
+    margin-top: 10px;
+    margin-bottom: 10px; }
   #mc4wp-admin .hover-activated,
   .mc4wp-admin .hover-activated {
     opacity: 0.5; }
