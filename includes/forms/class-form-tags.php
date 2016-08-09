@@ -70,7 +70,7 @@ class MC4WP_Form_Tags {
         $tags['cookie'] = array(
             'description' => sprintf( __( "Data from a cookie.", 'mailchimp-for-wp' ) ),
             'callback'    => array( $this, 'get_cookie' ),
-            'example'     => "cookie key='my_cookie' default='Default Value'"
+            'example'     => "cookie name='my_cookie' default='Default Value'"
         );
 
 		$tags['subscriber_count'] = array(
@@ -215,12 +215,13 @@ class MC4WP_Form_Tags {
      * @return string
      */
 	public function get_cookie( $args = array() ) {
-        if( empty( $args['key'] ) ) {
+        if( empty( $args['name'] ) ) {
             return '';
         }
 
+        $name = $args['name'];
         $default = isset( $args['default'] ) ? $args['default'] : '';
-        return isset( $_COOKIE[ $args['key'] ] ) ? esc_html( stripslashes( $_COOKIE[ $args['key'] ] ) ) : $default;
+        return isset( $_COOKIE[ $name ] ) ? esc_html( stripslashes( $_COOKIE[ $name ] ) ) : $default;
     }
 
 	/*
