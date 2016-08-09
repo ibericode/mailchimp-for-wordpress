@@ -190,7 +190,7 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 
 #### 4.0 - August 8, 2016
 
-This release updates the plugin to version 3 of the MailChimp API. Please [read through the upgrade guide](https://mc4wp.com/kb/upgrading-to-4-0/) to make sure things keep working as expected for you.
+This release updates the plugin to version 3 of the MailChimp API. Please [read through the upgrade guide](https://mc4wp.com/kb/upgrading-to-4-0/) before updating to make sure things keep working as expected for you.
 
 **Changes**
 
@@ -204,12 +204,15 @@ This release updates the plugin to version 3 of the MailChimp API. Please [read 
 
 - New filter: `mc4wp_form_subscriber_data`.
 - New filter: `mc4wp_integration_subscriber_data`.
+- New form tag: `{cookie}`
 
 **Improvements**
 
 - The plugin now communicates with the latest & greatest MailChimp API.
 - Previously unsubscribed subscribers can now be re-added without errors.
 - Add `User-Agent` header to all API requests.
+- Available fields in form editor are now split-up by category.
+- Birthday fields now accept a broader range of values and delimiters.
 
 
 #### 3.1.12 - July 28, 2016
