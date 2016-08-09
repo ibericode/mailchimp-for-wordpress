@@ -10,11 +10,6 @@
 class MC4WP_MailChimp_Merge_Field {
 
 	/**
-	 * @var int
-	 */
-	public $id;
-
-	/**
 	 * @var string
 	 */
 	public $name;
