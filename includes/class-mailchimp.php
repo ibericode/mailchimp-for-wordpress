@@ -175,12 +175,14 @@ class MC4WP_MailChimp {
 			return $cached_lists;
 		}
 
+		// TODO: Move this to the background via a queue.
+
 
 		// try to increase time limit as this can take a while
 		@set_time_limit(300);
 
 		try{
-			$lists_data = $this->api->get_lists( array( 'count' => 150, 'fields' => 'lists.id' ) );
+			$lists_data = $this->api->get_lists( array( 'count' => 100, 'fields' => 'lists.id' ) );
 			$list_ids = wp_list_pluck( $lists_data, 'id' );
 
 			/**
