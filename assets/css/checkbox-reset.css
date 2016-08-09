@@ -19,4 +19,5 @@
     display: block;
     cursor: pointer;
     width: auto;
-    position: static; }
+    position: static;
+    margin: 0 0 16px 0; }
