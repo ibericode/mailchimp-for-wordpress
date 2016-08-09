@@ -1,7 +1,7 @@
 Changelog
 =========
 
-#### 4.0 - August 8, 2016
+#### 4.0 - August 9, 2016
 
 This release updates the plugin to version 3 of the MailChimp API. Please [read through the upgrade guide](https://mc4wp.com/kb/upgrading-to-4-0/) before updating to make sure things keep working as expected for you.
 
@@ -17,7 +17,7 @@ This release updates the plugin to version 3 of the MailChimp API. Please [read 
 
 - New filter: `mc4wp_form_subscriber_data`.
 - New filter: `mc4wp_integration_subscriber_data`.
-- New form tag: `{cookie}`
+- New form tag: `{cookie name="mycookie"}`
 
 **Improvements**
 
