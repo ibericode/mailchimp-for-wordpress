@@ -67,7 +67,12 @@ foreach( $lists as $list ) {
     }
 
     // fetch (new) interest categories for this list
-    $interest_categories = $api_v3->get_list_interest_categories( $list->id );
+    try {
+        $interest_categories = $api_v3->get_list_interest_categories( $list->id );
+    } catch( MC4WP_API_Exception $e ) {
+        continue;
+    }
+
 
     foreach( $interest_categories as $interest_category ) {
 
@@ -78,7 +83,13 @@ foreach( $lists as $list ) {
         }
 
         $groups = array();
-        $interests = $api_v3->get_list_interest_category_interests( $list->id, $interest_category->id );
+        
+        try {
+            $interests = $api_v3->get_list_interest_category_interests( $list->id, $interest_category->id );
+        } catch( MC4WP_API_Exception $e ) {
+            continue;
+        }
+
         foreach( $interests as $interest ) {
             $group = __mc4wp_400_find_group_for_interest( $grouping->groups, $interest );
 
@@ -93,8 +104,8 @@ foreach( $lists as $list ) {
             'groups' => $groups,
         );
     }
-
 }
+
 
 if( ! empty( $map ) ) {
     update_option( 'mc4wp_groupings_map', $map );
