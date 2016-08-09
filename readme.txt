@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp forms, mailchimp integrations
 Requires at least: 3.8
 Tested up to: 4.6
-Stable tag: 4.0
+Stable tag: 4.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -188,7 +188,7 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 == Changelog == 
 
 
-#### 4.0 - August 9, 2016
+#### 4.0 & 4.0.1 - August 9, 2016
 
 This release updates the plugin to version 3 of the MailChimp API. Please [read through the upgrade guide](https://mc4wp.com/kb/upgrading-to-4-0/) before updating to make sure things keep working as expected for you.
 
@@ -213,6 +213,13 @@ This release updates the plugin to version 3 of the MailChimp API. Please [read 
 - Add `User-Agent` header to all API requests.
 - Available fields in form editor are now split-up by category.
 - Birthday fields now accept a broader range of values and delimiters.
+
+**Fixes**
+
+- Issue with only 10 MailChimp lists / fields / interests being returned.
+- Incorrect form message showing when double opt-in is disabled.
+- Error in upgrade routine when API request fails.
+- List fields not fetched when list has just 1 non-default merge field.
 
 
 #### 3.1.12 - July 28, 2016
