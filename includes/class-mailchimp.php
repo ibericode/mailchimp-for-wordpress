@@ -180,7 +180,7 @@ class MC4WP_MailChimp {
 		@set_time_limit(300);
 
 		try{
-			$lists_data = $this->api->get_lists( array( 'fields' => 'lists.id' ) );
+			$lists_data = $this->api->get_lists( array( 'count' => 150, 'fields' => 'lists.id' ) );
 			$list_ids = wp_list_pluck( $lists_data, 'id' );
 
 			/**
