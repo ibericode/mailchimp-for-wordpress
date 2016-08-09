@@ -134,7 +134,7 @@ class MC4WP_Form_Listener {
 			// bail
 			return;
 		}
-        
+
 		// Success! Did we update or newly subscribe?
 		if( $result->status === 'subscribed' && $result->was_already_on_list ) {
 			$form->add_message('updated');

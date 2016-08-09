@@ -83,7 +83,7 @@ foreach( $lists as $list ) {
         }
 
         $groups = array();
-        
+
         try {
             $interests = $api_v3->get_list_interest_category_interests( $list->id, $interest_category->id );
         } catch( MC4WP_API_Exception $e ) {

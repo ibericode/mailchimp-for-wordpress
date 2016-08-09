@@ -154,7 +154,7 @@ class MC4WP_Admin {
 			delete_option( 'mc4wp_lite_version' );
 			update_option( 'mc4wp_version', $previous_version );
 		}
-        
+
 		$previous_version = get_option( 'mc4wp_version', 0 );
 
         // Ran upgrade routines before?
