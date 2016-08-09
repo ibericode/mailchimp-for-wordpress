@@ -211,18 +211,18 @@ class MC4WP_MailChimp {
 
 				// get merge fields (if there's more than just "EMAIL")
 				if( $list_data->stats->merge_field_count > 1 ) {
-					$field_data = $this->api->get_list_merge_fields( $list->id, array( 'fields' => 'merge_fields.name,merge_fields.tag,merge_fields.type,merge_fields.required,merge_fields.default_value,merge_fields.options,merge_fields.public' ) );
+					$field_data = $this->api->get_list_merge_fields( $list->id, array( 'count' => 100, 'fields' => 'merge_fields.name,merge_fields.tag,merge_fields.type,merge_fields.required,merge_fields.default_value,merge_fields.options,merge_fields.public' ) );
 					$objects = array_map( array( 'MC4WP_MailChimp_Merge_Field', 'from_data' ), $field_data );
 					$list->merge_fields = array_merge( $list->merge_fields, $objects );
 				}
 
 				// get interest categories
-				$interest_categories_data = $this->api->get_list_interest_categories( $list->id, array( 'fields' => 'categories.id,categories.title,categories.type' ) );
+				$interest_categories_data = $this->api->get_list_interest_categories( $list->id, array( 'count' => 100, 'fields' => 'categories.id,categories.title,categories.type' ) );
 				foreach( $interest_categories_data as $interest_category_data ) {
 					$interest_category = MC4WP_MailChimp_Interest_Category::from_data( $interest_category_data );
 
 					// fetch groups for this interest
-					$interests_data = $this->api->get_list_interest_category_interests( $list->id, $interest_category->id, array( 'fields' => 'interests.id,interests.name') );
+					$interests_data = $this->api->get_list_interest_category_interests( $list->id, $interest_category->id, array( 'count' => 100, 'fields' => 'interests.id,interests.name') );
 					foreach( $interests_data as $interest_data ) {
 						$interest_category->interests[ $interest_data->id ] = $interest_data->name;
 					}
