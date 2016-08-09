@@ -53,6 +53,7 @@ class MC4WP_MailChimp {
 			'interests' => array(),
 			'merge_fields' => array(),
 		);
+        $already_on_list = false;
 
 		// setup default args
 		$args = $args + $default_args;
@@ -62,6 +63,7 @@ class MC4WP_MailChimp {
 			$existing_member_data = $this->api->get_list_member( $list_id, $email_address );
 
 			if( $existing_member_data->status === 'subscribed' ) {
+			    $already_on_list = true;
 
 				// if we're not supposed to update, bail.
 				if( ! $update_existing ) {
@@ -103,6 +105,8 @@ class MC4WP_MailChimp {
 			$this->error_message = $e->getMessage();
 			return null;
 		}
+
+		$data->was_already_on_list = $already_on_list;
 
 		return $data;
 	}
