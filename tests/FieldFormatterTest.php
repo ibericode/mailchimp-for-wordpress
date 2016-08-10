@@ -112,4 +112,25 @@ class FieldFormatterTest extends PHPUnit_Framework_TestCase {
             self::assertEquals( true, $formatter->boolean( $test ) );
         }
     }
+
+    /**
+     * @covers MC4WP_Field_Formatter::language
+     */
+    public function test_language() {
+        $formatter = new MC4WP_Field_Formatter();
+
+        $tests = array(
+            'pt_PT' => 'pt_PT',
+            'es_ES' => 'es_ES',
+            'fr_CA' => 'fr_CA',
+            'pt_BR' => 'pt',
+            'fr_FR' => 'fr',
+            'nl_NL' => 'nl',
+            'en_US' => 'en',
+        );
+
+        foreach( $tests as $input => $output ) {
+            self::assertEquals( $formatter->language( $input ), $output );
+        }
+    }
 }
