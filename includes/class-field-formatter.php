@@ -114,4 +114,20 @@ class MC4WP_Field_Formatter {
 
         return $value;
     }
+
+    /**
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public function boolean( $value ) {
+        $falsey = array( 'false', '0' );
+
+        if( in_array( $value, $falsey ) ) {
+            return false;
+        }
+
+        // otherwise, just cast.
+        return (bool) $value;
+    }
 }

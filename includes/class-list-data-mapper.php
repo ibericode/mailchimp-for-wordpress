@@ -88,12 +88,33 @@ class MC4WP_List_Data_Mapper {
 
 		// find interest categories
         if( ! empty( $this->data['INTERESTS'] ) ) {
-            $interests_data = $this->array_flatten_and_explode( $this->data['INTERESTS'] );
-
             foreach( $list->interest_categories as $interest_category ) {
                 foreach( $interest_category->interests as $interest_id => $interest_name ) {
-                    if( in_array( $interest_id, $interests_data, false ) ) {
+
+                    // straight lookup by ID as key with value copy.
+                    if( isset( $this->data['INTERESTS'][ $interest_id ] ) ) {
+                        $subscriber->interests[ $interest_id ] = $this->formatter->boolean( $this->data['INTERESTS'][ $interest_id ] );
+                    }
+
+                    // straight lookup by ID as top-level value
+                    if( in_array( $interest_id, $this->data['INTERESTS'], false ) ) {
                         $subscriber->interests[ $interest_id ] = true;
+                    }
+
+                    // look in array with category ID as key.
+                    if( isset( $this->data['INTERESTS'][ $interest_category->id ] ) ) {
+                        $value = $this->data['INTERESTS'][ $interest_category->id ];
+                        $values = is_array( $value ) ? $value : array_map( 'trim', explode( '|', $value ) );
+
+                        // find by category ID + interest ID
+                        if( in_array( $interest_id, $values, false ) ) {
+                            $subscriber->interests[ $interest_id ] = true;
+                        }
+
+                        // find by category ID + interest name
+                        if( in_array( $interest_name, $values ) ) {
+                            $subscriber->interests[ $interest_id ] = true;
+                        }
                     }
                 }
             }
@@ -108,24 +129,6 @@ class MC4WP_List_Data_Mapper {
 		return $subscriber;
 	}
 
-
-    /**
-     * @param array $input
-     * @return array
-     */
-	private function array_flatten_and_explode( array $input ) {
-        $output = array();
-
-        foreach( $input as $value ) {
-            if( is_array( $value ) ) {
-                $output = array_merge( $output, $this->array_flatten_and_explode( $value ) );
-            } else {
-                $output = array_merge( $output, array_map( 'trim', explode( '|', $value ) ) );
-            }
-        }
-
-        return $output;
-    }
 
 	/**
 	 * @param mixed $field_value
