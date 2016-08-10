@@ -123,7 +123,7 @@ class MC4WP_Field_Formatter {
     public function boolean( $value ) {
         $falsey = array( 'false', '0' );
 
-        if( in_array( $value, $falsey ) ) {
+        if( in_array( $value, $falsey, true ) ) {
             return false;
         }
 
