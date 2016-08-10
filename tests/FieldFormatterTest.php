@@ -95,4 +95,21 @@ class FieldFormatterTest extends PHPUnit_Framework_TestCase {
 		$value = $formatter->date( array( 'day' => 5, 'month' => 5, 'year' => 2016 ) );
 		self::assertEquals( $date, $value );
 	}
+
+    /**
+     * @covers MC4WP_Field_Formatter::boolean
+     */
+    public function test_boolean() {
+        $formatter = new MC4WP_Field_Formatter();
+
+        $falsey_tests = array( 'false', '0', 0, false );
+        foreach( $falsey_tests as $test ) {
+            self::assertEquals( false, $formatter->boolean( $test ) );
+        }
+
+        $truthy_tests = array( 'true', '1', 1, true );
+        foreach( $truthy_tests as $test ) {
+            self::assertEquals( true, $formatter->boolean( $test ) );
+        }
+    }
 }
