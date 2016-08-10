@@ -70,6 +70,10 @@ class FieldFormatterTest extends PHPUnit_Framework_TestCase {
 		// full year
 		$value = $formatter->birthday( '1990/7/29' );
 		self::assertEquals( $birthday, $value );
+
+        // other seperator
+        $value = $formatter->birthday( '1990-07-29' );
+        self::assertEquals( $birthday, $value );
 	}
 
 	/**
