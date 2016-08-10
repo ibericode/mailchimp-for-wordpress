@@ -77,7 +77,7 @@ class FieldFormatterTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Field_Formatter::birthday
+	 * @covers MC4WP_Field_Formatter::date
 	 */
 	public function test_date() {
 		$formatter = new MC4WP_Field_Formatter();
