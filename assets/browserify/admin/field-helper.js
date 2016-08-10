@@ -16,6 +16,14 @@ var FieldHelper = function(m, tabs, editor, fields, i18n) {
 	 */
 	function setActiveField(index) {
 		fieldConfig = fields.get(index);
+
+		// if this hidden field has choices (hidden groups), glue them together by their label.
+		if( fieldConfig.choices().length > 0 ) {
+			fieldConfig.value( fieldConfig.choices().map(function(c) {
+				return c.label();
+			}).join('|'));
+		}
+
 		m.redraw();
 	}
 

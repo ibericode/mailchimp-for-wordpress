@@ -238,20 +238,12 @@ var forms = function(m, i18n) {
 		config.label('');
 		config.wrap(false);
 
-		// if this hidden field has choices (hidden goups), glue them together by their label.
-		if( config.choices().length > 0 ) {
-			config.value( config.choices().map(function(c) {
-				return c.label();
-			}).join('|'));
-		}
-
 		return [
 			rows.value(config)
 		]
 	};
 
 	forms.submit = function(config) {
-
 		config.label('');
 		config.placeholder('');
 
@@ -438,6 +430,14 @@ var FieldHelper = function(m, tabs, editor, fields, i18n) {
 	 */
 	function setActiveField(index) {
 		fieldConfig = fields.get(index);
+
+		// if this hidden field has choices (hidden groups), glue them together by their label.
+		if( fieldConfig.choices().length > 0 ) {
+			fieldConfig.value( fieldConfig.choices().map(function(c) {
+				return c.label();
+			}).join('|'));
+		}
+
 		m.redraw();
 	}
 
