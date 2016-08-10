@@ -1,6 +1,18 @@
 Changelog
 =========
 
+#### 4.0.2 - August 10, 2016
+
+**Fixes**
+
+- Hidden fields which referenced interest groups by name were not sent to MailChimp.
+- Adding hidden field to form would reset value on every change.
+
+**Improvements**
+
+- Decrease file size of JavaScript for forms by about 30%.
+
+
 #### 4.0 & 4.0.1 - August 9, 2016
 
 This release updates the plugin to version 3 of the MailChimp API. Please [read through the upgrade guide](https://mc4wp.com/kb/upgrading-to-4-0/) before updating to make sure things keep working as expected for you.
