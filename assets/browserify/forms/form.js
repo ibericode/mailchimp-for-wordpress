@@ -1,8 +1,7 @@
 'use strict';
 
-var serialize = require('../third-party/serialize.js');
+var serialize = require('form-serialize');
 var populate = require('populate.js');
-var formToJson = require('../third-party/form2js.js');
 
 var Form = function(id, element) {
 
@@ -23,7 +22,7 @@ var Form = function(id, element) {
 	};
 
 	this.getData = function() {
-		return formToJson(form.element);
+		return serialize(form.element, { hash: true });
 	};
 
 	this.getSerializedData = function() {

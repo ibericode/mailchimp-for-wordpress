@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "codemirror": "^5.16.0",
+    "form-serialize": "^0.7.1",
     "gator": "^1.2.4",
     "mithril": "^0.2.5",
     "populate.js": "^1.0.2",

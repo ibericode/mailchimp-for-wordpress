@@ -98,12 +98,11 @@ if( config.submitted_form ) {
 mc4wp.forms = forms;
 window.mc4wp = mc4wp;
 
-},{"./forms/forms.js":3,"gator":6}],2:[function(require,module,exports){
+},{"./forms/forms.js":3,"gator":5}],2:[function(require,module,exports){
 'use strict';
 
-var serialize = require('../third-party/serialize.js');
+var serialize = require('form-serialize');
 var populate = require('populate.js');
-var formToJson = require('../third-party/form2js.js');
 
 var Form = function(id, element) {
 
@@ -124,7 +123,7 @@ var Form = function(id, element) {
 	};
 
 	this.getData = function() {
-		return formToJson(form.element);
+		return serialize(form.element, { hash: true });
 	};
 
 	this.getSerializedData = function() {
@@ -146,7 +145,7 @@ var Form = function(id, element) {
 
 module.exports = Form;
 
-},{"../third-party/form2js.js":4,"../third-party/serialize.js":5,"populate.js":7}],3:[function(require,module,exports){
+},{"form-serialize":4,"populate.js":6}],3:[function(require,module,exports){
 'use strict';
 
 // deps
@@ -220,357 +219,7 @@ module.exports = {
 };
 
 
-},{"./form.js":2,"wolfy87-eventemitter":8}],4:[function(require,module,exports){
-/**
- * Copyright (c) 2010 Maxim Vasiliev
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- * @author Maxim Vasiliev
- * Date: 09.09.2010
- * Time: 19:02:33
- */
-
-
-(function (root, factory)
-{
-	if (typeof exports !== 'undefined' && typeof module !== 'undefined' && module.exports) {
-		// NodeJS
-		module.exports = factory();
-	}
-	else if (typeof define === 'function' && define.amd)
-	{
-		// AMD. Register as an anonymous module.
-		define(factory);
-	}
-	else
-	{
-		// Browser globals
-		root.form2js = factory();
-	}
-}(this, function ()
-{
-	"use strict";
-
-	/**
-	 * Returns form values represented as Javascript object
-	 * "name" attribute defines structure of resulting object
-	 *
-	 * @param rootNode {Element|String} root form element (or it's id) or array of root elements
-	 * @param delimiter {String} structure parts delimiter defaults to '.'
-	 * @param skipEmpty {Boolean} should skip empty text values, defaults to true
-	 * @param nodeCallback {Function} custom function to get node value
-	 * @param useIdIfEmptyName {Boolean} if true value of id attribute of field will be used if name of field is empty
-	 */
-	function form2js(rootNode, delimiter, skipEmpty, nodeCallback, useIdIfEmptyName, getDisabled)
-	{
-		getDisabled = getDisabled ? true : false;
-		if (typeof skipEmpty == 'undefined' || skipEmpty == null) skipEmpty = true;
-		if (typeof delimiter == 'undefined' || delimiter == null) delimiter = '.';
-		if (arguments.length < 5) useIdIfEmptyName = false;
-
-		rootNode = typeof rootNode == 'string' ? document.getElementById(rootNode) : rootNode;
-
-		var formValues = [],
-			currNode,
-			i = 0;
-
-		/* If rootNode is array - combine values */
-		if (rootNode.constructor == Array || (typeof NodeList != "undefined" && rootNode.constructor == NodeList))
-		{
-			while(currNode = rootNode[i++])
-			{
-				formValues = formValues.concat(getFormValues(currNode, nodeCallback, useIdIfEmptyName, getDisabled));
-			}
-		}
-		else
-		{
-			formValues = getFormValues(rootNode, nodeCallback, useIdIfEmptyName, getDisabled);
-		}
-
-		return processNameValues(formValues, skipEmpty, delimiter);
-	}
-
-	/**
-	 * Processes collection of { name: 'name', value: 'value' } objects.
-	 * @param nameValues
-	 * @param skipEmpty if true skips elements with value == '' or value == null
-	 * @param delimiter
-	 */
-	function processNameValues(nameValues, skipEmpty, delimiter)
-	{
-		var result = {},
-			arrays = {},
-			i, j, k, l,
-			value,
-			nameParts,
-			currResult,
-			arrNameFull,
-			arrName,
-			arrIdx,
-			namePart,
-			name,
-			_nameParts;
-
-		for (i = 0; i < nameValues.length; i++)
-		{
-			value = nameValues[i].value;
-
-			if (skipEmpty && (value === '' || value === null)) continue;
-
-			name = nameValues[i].name;
-			_nameParts = name.split(delimiter);
-			nameParts = [];
-			currResult = result;
-			arrNameFull = '';
-
-			for(j = 0; j < _nameParts.length; j++)
-			{
-				namePart = _nameParts[j].split('][');
-				if (namePart.length > 1)
-				{
-					for(k = 0; k < namePart.length; k++)
-					{
-						if (k == 0)
-						{
-							namePart[k] = namePart[k] + ']';
-						}
-						else if (k == namePart.length - 1)
-						{
-							namePart[k] = '[' + namePart[k];
-						}
-						else
-						{
-							namePart[k] = '[' + namePart[k] + ']';
-						}
-
-						arrIdx = namePart[k].match(/([a-z_]+)?\[([a-z_][a-z0-9_]+?)\]/i);
-						if (arrIdx)
-						{
-							for(l = 1; l < arrIdx.length; l++)
-							{
-								if (arrIdx[l]) nameParts.push(arrIdx[l]);
-							}
-						}
-						else{
-							nameParts.push(namePart[k]);
-						}
-					}
-				}
-				else
-					nameParts = nameParts.concat(namePart);
-			}
-
-			for (j = 0; j < nameParts.length; j++)
-			{
-				namePart = nameParts[j];
-
-				if (namePart.indexOf('[]') > -1 && j == nameParts.length - 1)
-				{
-					arrName = namePart.substr(0, namePart.indexOf('['));
-					arrNameFull += arrName;
-
-					if (!currResult[arrName]) currResult[arrName] = [];
-					currResult[arrName].push(value);
-				}
-				else if (namePart.indexOf('[') > -1)
-				{
-					arrName = namePart.substr(0, namePart.indexOf('['));
-					arrIdx = namePart.replace(/(^([a-z_]+)?\[)|(\]$)/gi, '');
-
-					/* Unique array name */
-					arrNameFull += '_' + arrName + '_' + arrIdx;
-
-					/*
-					 * Because arrIdx in field name can be not zero-based and step can be
-					 * other than 1, we can't use them in target array directly.
-					 * Instead we're making a hash where key is arrIdx and value is a reference to
-					 * added array element
-					 */
-
-					if (!arrays[arrNameFull]) arrays[arrNameFull] = {};
-					if (arrName != '' && !currResult[arrName]) currResult[arrName] = [];
-
-					if (j == nameParts.length - 1)
-					{
-						if (arrName == '')
-						{
-							currResult.push(value);
-							arrays[arrNameFull][arrIdx] = currResult[currResult.length - 1];
-						}
-						else
-						{
-							currResult[arrName].push(value);
-							arrays[arrNameFull][arrIdx] = currResult[arrName][currResult[arrName].length - 1];
-						}
-					}
-					else
-					{
-						if (!arrays[arrNameFull][arrIdx])
-						{
-							if ((/^[0-9a-z_]+\[?/i).test(nameParts[j+1])) currResult[arrName].push({});
-							else currResult[arrName].push([]);
-
-							arrays[arrNameFull][arrIdx] = currResult[arrName][currResult[arrName].length - 1];
-						}
-					}
-
-					currResult = arrays[arrNameFull][arrIdx];
-				}
-				else
-				{
-					arrNameFull += namePart;
-
-					if (j < nameParts.length - 1) /* Not the last part of name - means object */
-					{
-						if (!currResult[namePart]) currResult[namePart] = {};
-						currResult = currResult[namePart];
-					}
-					else
-					{
-						currResult[namePart] = value;
-					}
-				}
-			}
-		}
-
-		return result;
-	}
-
-	function getFormValues(rootNode, nodeCallback, useIdIfEmptyName, getDisabled)
-	{
-		var result = extractNodeValues(rootNode, nodeCallback, useIdIfEmptyName, getDisabled);
-		return result.length > 0 ? result : getSubFormValues(rootNode, nodeCallback, useIdIfEmptyName, getDisabled);
-	}
-
-	function getSubFormValues(rootNode, nodeCallback, useIdIfEmptyName, getDisabled)
-	{
-		var result = [],
-			currentNode = rootNode.firstChild;
-
-		while (currentNode)
-		{
-			result = result.concat(extractNodeValues(currentNode, nodeCallback, useIdIfEmptyName, getDisabled));
-			currentNode = currentNode.nextSibling;
-		}
-
-		return result;
-	}
-
-	function extractNodeValues(node, nodeCallback, useIdIfEmptyName, getDisabled) {
-		if (node.disabled && !getDisabled) return [];
-
-		var callbackResult, fieldValue, result, fieldName = getFieldName(node, useIdIfEmptyName);
-
-		callbackResult = nodeCallback && nodeCallback(node);
-
-		if (callbackResult && callbackResult.name) {
-			result = [callbackResult];
-		}
-		else if (fieldName != '' && node.nodeName.match(/INPUT|TEXTAREA/i)) {
-			fieldValue = getFieldValue(node, getDisabled);
-			if (null === fieldValue) {
-				result = [];
-			} else {
-				result = [ { name: fieldName, value: fieldValue} ];
-			}
-		}
-		else if (fieldName != '' && node.nodeName.match(/SELECT/i)) {
-			fieldValue = getFieldValue(node, getDisabled);
-			result = [ { name: fieldName.replace(/\[\]$/, ''), value: fieldValue } ];
-		}
-		else {
-			result = getSubFormValues(node, nodeCallback, useIdIfEmptyName, getDisabled);
-		}
-
-		return result;
-	}
-
-	function getFieldName(node, useIdIfEmptyName)
-	{
-		if (node.name && node.name != '') return node.name;
-		else if (useIdIfEmptyName && node.id && node.id != '') return node.id;
-		else return '';
-	}
-
-
-	function getFieldValue(fieldNode, getDisabled)
-	{
-		if (fieldNode.disabled && !getDisabled) return null;
-
-		switch (fieldNode.nodeName) {
-			case 'INPUT':
-			case 'TEXTAREA':
-				switch (fieldNode.type.toLowerCase()) {
-					case 'radio':
-						if (fieldNode.checked && fieldNode.value === "false") return false;
-					case 'checkbox':
-						if (fieldNode.checked && fieldNode.value === "true") return true;
-						if (!fieldNode.checked && fieldNode.value === "true") return false;
-						if (fieldNode.checked) return fieldNode.value;
-						break;
-
-					case 'button':
-					case 'reset':
-					case 'submit':
-					case 'image':
-						return '';
-						break;
-
-					default:
-						return fieldNode.value;
-						break;
-				}
-				break;
-
-			case 'SELECT':
-				return getSelectedOptionValue(fieldNode);
-				break;
-
-			default:
-				break;
-		}
-
-		return null;
-	}
-
-	function getSelectedOptionValue(selectNode)
-	{
-		var multiple = selectNode.multiple,
-			result = [],
-			options,
-			i, l;
-
-		if (!multiple) return selectNode.value;
-
-		for (options = selectNode.getElementsByTagName("option"), i = 0, l = options.length; i < l; i++)
-		{
-			if (options[i].selected) result.push(options[i].value);
-		}
-
-		return result;
-	}
-
-	return form2js;
-
-}));
-},{}],5:[function(require,module,exports){
+},{"./form.js":2,"wolfy87-eventemitter":7}],4:[function(require,module,exports){
 // get successful control from form and assemble into object
 // http://www.w3.org/TR/html401/interact/forms.html#h-17.13.2
 
@@ -596,239 +245,243 @@ var brackets = /(\[[^\[\]]*\])/g;
 //    - disabled: [true | false]. If true serialize disabled fields.
 //    - empty: [true | false]. If true serialize empty fields
 function serialize(form, options) {
-	if (typeof options != 'object') {
-		options = { hash: !!options };
-	}
-	else if (options.hash === undefined) {
-		options.hash = true;
-	}
+    if (typeof options != 'object') {
+        options = { hash: !!options };
+    }
+    else if (options.hash === undefined) {
+        options.hash = true;
+    }
 
-	var result = (options.hash) ? {} : '';
-	var serializer = options.serializer || ((options.hash) ? hash_serializer : str_serialize);
+    var result = (options.hash) ? {} : '';
+    var serializer = options.serializer || ((options.hash) ? hash_serializer : str_serialize);
 
-	var elements = form && form.elements ? form.elements : [];
+    var elements = form && form.elements ? form.elements : [];
 
-	//Object store each radio and set if it's empty or not
-	var radio_store = Object.create(null);
+    //Object store each radio and set if it's empty or not
+    var radio_store = Object.create(null);
 
-	for (var i=0 ; i<elements.length ; ++i) {
-		var element = elements[i];
+    for (var i=0 ; i<elements.length ; ++i) {
+        var element = elements[i];
 
-		// ingore disabled fields
-		if ((!options.disabled && element.disabled) || !element.name) {
-			continue;
-		}
-		// ignore anyhting that is not considered a success field
-		if (!k_r_success_contrls.test(element.nodeName) ||
-			k_r_submitter.test(element.type)) {
-			continue;
-		}
+        // ingore disabled fields
+        if ((!options.disabled && element.disabled) || !element.name) {
+            continue;
+        }
+        // ignore anyhting that is not considered a success field
+        if (!k_r_success_contrls.test(element.nodeName) ||
+            k_r_submitter.test(element.type)) {
+            continue;
+        }
 
-		var key = element.name;
-		var val = element.value;
+        var key = element.name;
+        var val = element.value;
 
-		// we can't just use element.value for checkboxes cause some browsers lie to us
-		// they say "on" for value when the box isn't checked
-		if ((element.type === 'checkbox' || element.type === 'radio') && !element.checked) {
-			val = undefined;
-		}
+        // we can't just use element.value for checkboxes cause some browsers lie to us
+        // they say "on" for value when the box isn't checked
+        if ((element.type === 'checkbox' || element.type === 'radio') && !element.checked) {
+            val = undefined;
+        }
 
-		// If we want empty elements
-		if (options.empty) {
-			// for checkbox
-			if (element.type === 'checkbox' && !element.checked) {
-				val = '';
-			}
+        // If we want empty elements
+        if (options.empty) {
+            // for checkbox
+            if (element.type === 'checkbox' && !element.checked) {
+                val = '';
+            }
 
-			// for radio
-			if (element.type === 'radio') {
-				if (!radio_store[element.name] && !element.checked) {
-					radio_store[element.name] = false;
-				}
-				else if (element.checked) {
-					radio_store[element.name] = true;
-				}
-			}
+            // for radio
+            if (element.type === 'radio') {
+                if (!radio_store[element.name] && !element.checked) {
+                    radio_store[element.name] = false;
+                }
+                else if (element.checked) {
+                    radio_store[element.name] = true;
+                }
+            }
 
-			// if options empty is true, continue only if its radio
-			if (!val && element.type == 'radio') {
-				continue;
-			}
-		}
-		else {
-			// value-less fields are ignored unless options.empty is true
-			if (!val) {
-				continue;
-			}
-		}
+            // if options empty is true, continue only if its radio
+            if (!val && element.type == 'radio') {
+                continue;
+            }
+        }
+        else {
+            // value-less fields are ignored unless options.empty is true
+            if (!val) {
+                continue;
+            }
+        }
 
-		// multi select boxes
-		if (element.type === 'select-multiple') {
-			val = [];
+        // multi select boxes
+        if (element.type === 'select-multiple') {
+            val = [];
 
-			var selectOptions = element.options;
-			var isSelectedOptions = false;
-			for (var j=0 ; j<selectOptions.length ; ++j) {
-				var option = selectOptions[j];
-				var allowedEmpty = options.empty && !option.value;
-				var hasValue = (option.value || allowedEmpty);
-				if (option.selected && hasValue) {
-					isSelectedOptions = true;
+            var selectOptions = element.options;
+            var isSelectedOptions = false;
+            for (var j=0 ; j<selectOptions.length ; ++j) {
+                var option = selectOptions[j];
+                var allowedEmpty = options.empty && !option.value;
+                var hasValue = (option.value || allowedEmpty);
+                if (option.selected && hasValue) {
+                    isSelectedOptions = true;
 
-					// If using a hash serializer be sure to add the
-					// correct notation for an array in the multi-select
-					// context. Here the name attribute on the select element
-					// might be missing the trailing bracket pair. Both names
-					// "foo" and "foo[]" should be arrays.
-					if (options.hash && key.slice(key.length - 2) !== '[]') {
-						result = serializer(result, key + '[]', option.value);
-					}
-					else {
-						result = serializer(result, key, option.value);
-					}
-				}
-			}
+                    // If using a hash serializer be sure to add the
+                    // correct notation for an array in the multi-select
+                    // context. Here the name attribute on the select element
+                    // might be missing the trailing bracket pair. Both names
+                    // "foo" and "foo[]" should be arrays.
+                    if (options.hash && key.slice(key.length - 2) !== '[]') {
+                        result = serializer(result, key + '[]', option.value);
+                    }
+                    else {
+                        result = serializer(result, key, option.value);
+                    }
+                }
+            }
 
-			// Serialize if no selected options and options.empty is true
-			if (!isSelectedOptions && options.empty) {
-				result = serializer(result, key, '');
-			}
+            // Serialize if no selected options and options.empty is true
+            if (!isSelectedOptions && options.empty) {
+                result = serializer(result, key, '');
+            }
 
-			continue;
-		}
+            continue;
+        }
 
-		result = serializer(result, key, val);
-	}
+        result = serializer(result, key, val);
+    }
 
-	// Check for all empty radio buttons and serialize them with key=""
-	if (options.empty) {
-		for (var key in radio_store) {
-			if (!radio_store[key]) {
-				result = serializer(result, key, '');
-			}
-		}
-	}
+    // Check for all empty radio buttons and serialize them with key=""
+    if (options.empty) {
+        for (var key in radio_store) {
+            if (!radio_store[key]) {
+                result = serializer(result, key, '');
+            }
+        }
+    }
 
-	return result;
+    return result;
 }
 
 function parse_keys(string) {
-	var keys = [];
-	var prefix = /^([^\[\]]*)/;
-	var children = new RegExp(brackets);
-	var match = prefix.exec(string);
+    var keys = [];
+    var prefix = /^([^\[\]]*)/;
+    var children = new RegExp(brackets);
+    var match = prefix.exec(string);
 
-	if (match[1]) {
-		keys.push(match[1]);
-	}
+    if (match[1]) {
+        keys.push(match[1]);
+    }
 
-	while ((match = children.exec(string)) !== null) {
-		keys.push(match[1]);
-	}
+    while ((match = children.exec(string)) !== null) {
+        keys.push(match[1]);
+    }
 
-	return keys;
+    return keys;
 }
 
 function hash_assign(result, keys, value) {
-	if (keys.length === 0) {
-		result = value;
-		return result;
-	}
+    if (keys.length === 0) {
+        result = value;
+        return result;
+    }
 
-	var key = keys.shift();
-	var between = key.match(/^\[(.+?)\]$/);
+    var key = keys.shift();
+    var between = key.match(/^\[(.+?)\]$/);
 
-	if (key === '[]') {
-		result = result || [];
+    if (key === '[]') {
+        result = result || [];
 
-		if (Array.isArray(result)) {
-			result.push(hash_assign(null, keys, value));
-		}
-		else {
-			// This might be the result of bad name attributes like "[][foo]",
-			// in this case the original `result` object will already be
-			// assigned to an object literal. Rather than coerce the object to
-			// an array, or cause an exception the attribute "_values" is
-			// assigned as an array.
-			result._values = result._values || [];
-			result._values.push(hash_assign(null, keys, value));
-		}
+        if (Array.isArray(result)) {
+            result.push(hash_assign(null, keys, value));
+        }
+        else {
+            // This might be the result of bad name attributes like "[][foo]",
+            // in this case the original `result` object will already be
+            // assigned to an object literal. Rather than coerce the object to
+            // an array, or cause an exception the attribute "_values" is
+            // assigned as an array.
+            result._values = result._values || [];
+            result._values.push(hash_assign(null, keys, value));
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-	// Key is an attribute name and can be assigned directly.
-	if (!between) {
-		result[key] = hash_assign(result[key], keys, value);
-	}
-	else {
-		var string = between[1];
-		var index = parseInt(string, 10);
+    // Key is an attribute name and can be assigned directly.
+    if (!between) {
+        result[key] = hash_assign(result[key], keys, value);
+    }
+    else {
+        var string = between[1];
+        // +var converts the variable into a number
+        // better than parseInt because it doesn't truncate away trailing
+        // letters and actually fails if whole thing is not a number
+        var index = +string;
 
-		// If the characters between the brackets is not a number it is an
-		// attribute name and can be assigned directly.
-		if (isNaN(index)) {
-			result = result || {};
-			result[string] = hash_assign(result[string], keys, value);
-		}
-		else {
-			result = result || [];
-			result[index] = hash_assign(result[index], keys, value);
-		}
-	}
+        // If the characters between the brackets is not a number it is an
+        // attribute name and can be assigned directly.
+        if (isNaN(index)) {
+            result = result || {};
+            result[string] = hash_assign(result[string], keys, value);
+        }
+        else {
+            result = result || [];
+            result[index] = hash_assign(result[index], keys, value);
+        }
+    }
 
-	return result;
+    return result;
 }
 
 // Object/hash encoding serializer.
 function hash_serializer(result, key, value) {
-	var matches = key.match(brackets);
+    var matches = key.match(brackets);
 
-	// Has brackets? Use the recursive assignment function to walk the keys,
-	// construct any missing objects in the result tree and make the assignment
-	// at the end of the chain.
-	if (matches) {
-		var keys = parse_keys(key);
-		hash_assign(result, keys, value);
-	}
-	else {
-		// Non bracket notation can make assignments directly.
-		var existing = result[key];
+    // Has brackets? Use the recursive assignment function to walk the keys,
+    // construct any missing objects in the result tree and make the assignment
+    // at the end of the chain.
+    if (matches) {
+        var keys = parse_keys(key);
+        hash_assign(result, keys, value);
+    }
+    else {
+        // Non bracket notation can make assignments directly.
+        var existing = result[key];
 
-		// If the value has been assigned already (for instance when a radio and
-		// a checkbox have the same name attribute) convert the previous value
-		// into an array before pushing into it.
-		//
-		// NOTE: If this requirement were removed all hash creation and
-		// assignment could go through `hash_assign`.
-		if (existing) {
-			if (!Array.isArray(existing)) {
-				result[key] = [ existing ];
-			}
+        // If the value has been assigned already (for instance when a radio and
+        // a checkbox have the same name attribute) convert the previous value
+        // into an array before pushing into it.
+        //
+        // NOTE: If this requirement were removed all hash creation and
+        // assignment could go through `hash_assign`.
+        if (existing) {
+            if (!Array.isArray(existing)) {
+                result[key] = [ existing ];
+            }
 
-			result[key].push(value);
-		}
-		else {
-			result[key] = value;
-		}
-	}
+            result[key].push(value);
+        }
+        else {
+            result[key] = value;
+        }
+    }
 
-	return result;
+    return result;
 }
 
 // urlform encoding serializer
 function str_serialize(result, key, value) {
-	// encode newlines as \r\n cause the html spec says so
-	value = value.replace(/(\r)?\n/g, '\r\n');
-	value = encodeURIComponent(value);
+    // encode newlines as \r\n cause the html spec says so
+    value = value.replace(/(\r)?\n/g, '\r\n');
+    value = encodeURIComponent(value);
 
-	// spaces should be '+' rather than '%20'.
-	value = value.replace(/%20/g, '+');
-	return result + (result ? '&' : '') + encodeURIComponent(key) + '=' + value;
+    // spaces should be '+' rather than '%20'.
+    value = value.replace(/%20/g, '+');
+    return result + (result ? '&' : '') + encodeURIComponent(key) + '=' + value;
 }
 
 module.exports = serialize;
-},{}],6:[function(require,module,exports){
+
+},{}],5:[function(require,module,exports){
 /**
  * Copyright 2014 Craig Campbell
  *
@@ -1196,7 +849,7 @@ module.exports = serialize;
     window.Gator = Gator;
 }) ();
 
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 /*! populate.js v1.0.2 by @dannyvankooten | MIT license */
 ;(function(root) {
 
@@ -1281,7 +934,7 @@ module.exports = serialize;
 	}
 
 }(this));
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /*!
  * EventEmitter v4.2.11 - git.io/ee
  * Unlicense - http://unlicense.org/
