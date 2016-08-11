@@ -202,7 +202,7 @@ class MC4WP_MailChimp {
 
             // if any API call for this list fails, simply move on to next list.
             try {
-                $list_data = $this->api->get_list( $list_id, array( 'fields' => 'id,name,stats') );
+                $list_data = $this->api->get_list( $list_id, array( 'fields' => 'id,name,stats' ) );
 
                 // create local object
                 $list = new MC4WP_MailChimp_List( $list_data->id, $list_data->name );
@@ -289,7 +289,12 @@ class MC4WP_MailChimp {
 		}
 
 		// transient not valid, fetch from API
-		$lists = $this->api->get_lists();
+        try {
+		    $lists = $this->api->get_lists(  array( 'count' => 100, 'fields' => 'lists.id,lists.stats' ) );
+        } catch( MC4WP_API_Exception $e ) {
+            return array();
+        }
+
 		$list_counts = array();
 
 		// we got a valid response
