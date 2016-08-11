@@ -435,6 +435,7 @@ class MC4WP_Admin {
         try {
             $connected = $this->get_api()->is_connected();
         } catch( Exception $e ) {
+            $this->messages->flash( $e->getMessage(), 'error' );
             $connected = false;
         }
 

@@ -19,7 +19,10 @@ defined( 'ABSPATH' ) or exit;
 			</h1>
 
 			<h2 style="display: none;"></h2>
-			<?php settings_errors(); ?>
+			<?php
+			settings_errors();
+			$this->messages->show();
+			?>
 
 			<form action="<?php echo admin_url( 'options.php' ); ?>" method="post">
 				<?php settings_fields( 'mc4wp_settings' ); ?>
