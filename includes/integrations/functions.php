@@ -46,11 +46,8 @@ function mc4wp_register_integration( $slug, $class, $always_enabled = false ) {
  *
  * @since 3.0
  * @access public
- *
  * @param string $slug
- *
- * @return void
  */
 function mc4wp_deregister_integration( $slug ) {
-	return mc4wp('integrations')->deregister_integration( $slug );
+	mc4wp('integrations')->deregister_integration( $slug );
 }
