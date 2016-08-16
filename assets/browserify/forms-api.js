@@ -13,6 +13,7 @@ var Gator = require('gator');
 var forms = require('./forms/forms.js');
 var listeners = window.mc4wp && window.mc4wp.listeners ? window.mc4wp.listeners : [];
 var config = window.mc4wp_forms_config || {};
+var optionalInputs = document.querySelectorAll('.mc4wp-form [data-show-if]');
 
 // funcs
 function scrollToForm(form) {
@@ -24,7 +25,6 @@ function scrollToForm(form) {
 }
 
 function handleFormRequest(form, action, errors, data){
-
 	var pageHeight = document.body.clientHeight;
 	var timeStart = Date.now();
 
@@ -60,6 +60,29 @@ function handleFormRequest(form, action, errors, data){
 	});
 }
 
+function showIf(el, expectedValue ) {
+	return function() {
+		var value = this.value.trim();
+		var checked = ( this.getAttribute('type') !== 'radio' && this.getAttribute('type') !== 'checked' ) || this.checked;
+		var conditionMet = checked && ( value === expectedValue  || ( expectedValue === "" && value.length > 0 ) );
+		el.style.display = ( conditionMet ) ? '' : 'none';
+	}
+}
+
+// hide fields with [data-show-if] attribute
+[].forEach.call(optionalInputs, function(el) {
+	var condition = el.getAttribute('data-show-if').split(':');
+	var fields = document.querySelectorAll('.mc4wp-form [name="' + condition[0] + '"]');
+	var expectedValue = condition[1] || "";
+	var callback = showIf(el, expectedValue);
+
+	for(var i=0; i<fields.length; i++) {
+		fields[i].addEventListener('change', callback);
+		fields[i].addEventListener('keyup', callback);
+		callback.call(fields[i]);
+	}
+});
+
 // register early listeners
 for(var i=0; i<listeners.length;i++) {
 	forms.on(listeners[i].event, listeners[i].callback);
@@ -92,6 +115,7 @@ if( config.submitted_form ) {
 
 	handleFormRequest(form, formConfig.action, formConfig.errors, formConfig.data);
 }
+
 
 // expose forms object
 mc4wp.forms = forms;

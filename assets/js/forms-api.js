@@ -14,6 +14,7 @@ var Gator = require('gator');
 var forms = require('./forms/forms.js');
 var listeners = window.mc4wp && window.mc4wp.listeners ? window.mc4wp.listeners : [];
 var config = window.mc4wp_forms_config || {};
+var optionalInputs = document.querySelectorAll('.mc4wp-form [data-show-if]');
 
 // funcs
 function scrollToForm(form) {
@@ -25,7 +26,6 @@ function scrollToForm(form) {
 }
 
 function handleFormRequest(form, action, errors, data){
-
 	var pageHeight = document.body.clientHeight;
 	var timeStart = Date.now();
 
@@ -61,6 +61,29 @@ function handleFormRequest(form, action, errors, data){
 	});
 }
 
+function showIf(el, expectedValue ) {
+	return function() {
+		var value = this.value.trim();
+		var checked = ( this.getAttribute('type') !== 'radio' && this.getAttribute('type') !== 'checked' ) || this.checked;
+		var conditionMet = checked && ( value === expectedValue  || ( expectedValue === "" && value.length > 0 ) );
+		el.style.display = ( conditionMet ) ? '' : 'none';
+	}
+}
+
+// hide fields with [data-show-if] attribute
+[].forEach.call(optionalInputs, function(el) {
+	var condition = el.getAttribute('data-show-if').split(':');
+	var fields = document.querySelectorAll('.mc4wp-form [name="' + condition[0] + '"]');
+	var expectedValue = condition[1] || "";
+	var callback = showIf(el, expectedValue);
+
+	for(var i=0; i<fields.length; i++) {
+		fields[i].addEventListener('change', callback);
+		fields[i].addEventListener('keyup', callback);
+		callback.call(fields[i]);
+	}
+});
+
 // register early listeners
 for(var i=0; i<listeners.length;i++) {
 	forms.on(listeners[i].event, listeners[i].callback);
@@ -94,6 +117,7 @@ if( config.submitted_form ) {
 	handleFormRequest(form, formConfig.action, formConfig.errors, formConfig.data);
 }
 
+
 // expose forms object
 mc4wp.forms = forms;
 window.mc4wp = mc4wp;
@@ -105,42 +129,38 @@ var serialize = require('form-serialize');
 var populate = require('populate.js');
 
 var Form = function(id, element) {
-
-	var form = this;
-
 	this.id = id;
 	this.element = element || document.createElement('form');
 	this.name = this.element.getAttribute('data-name') || "Form #" + this.id;
 	this.errors = [];
 	this.started = false;
+};
 
-	this.setData = function(data) {
-		try {
-			populate(form.element, data);
-		} catch(e) {
-			console.error(e);
-		}
-	};
-
-	this.getData = function() {
-		return serialize(form.element, { hash: true });
-	};
-
-	this.getSerializedData = function() {
-		return serialize(form.element);
-	};
-
-	this.setResponse = function( msg ) {
-		form.element.querySelector('.mc4wp-response').innerHTML = msg;
-	};
-
-	// revert back to original state
-	this.reset = function() {
-		this.setResponse('');
-		form.element.querySelector('.mc4wp-form-fields').style.display = '';
-		form.element.reset();
+Form.prototype.setData = function(data) {
+	try {
+		populate(this.element, data);
+	} catch(e) {
+		console.error(e);
 	}
+};
 
+Form.prototype.getData = function() {
+	return serialize(this.element, { hash: true });
+};
+
+Form.prototype.getSerializedData = function() {
+	return serialize(this.element);
+};
+
+Form.prototype.setResponse = function( msg ) {
+	this.element.querySelector('.mc4wp-response').innerHTML = msg;
+};
+
+// revert back to original state
+Form.prototype.reset = function() {
+	this.setResponse('');
+	this.element.querySelector('.mc4wp-form-fields').style.display = '';
+	this.element.reset();
 };
 
 module.exports = Form;
