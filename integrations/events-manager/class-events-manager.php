@@ -29,7 +29,7 @@ class MC4WP_Events_Manager_Integration extends MC4WP_Integration {
 			add_action( 'em_booking_form_footer', array( $this, 'output_checkbox' ) );
 		}
 
-		add_action( 'em_bookings_added', array( $this, 'subscribe_from_events_manager' ) );
+		add_action( 'em_bookings_added', array( $this, 'subscribe_from_events_manager' ), 5 );
 	}
 
 
