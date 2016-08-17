@@ -45,7 +45,6 @@
 
 /* Form base theme */
 .mc4wp-form-theme {
-
 	input[type="text"],
 	input[type="email"],
 	input[type="tel"],
@@ -55,7 +54,6 @@
 	textarea,
 	select {
 		height: auto;
-		margin: 0;
 		padding: 8px 16px;
 		line-height: 1.428571429;
 		color: #555555 !important;
@@ -90,7 +88,6 @@
 	button {
 		display: inline-block;
 		padding: 8px 16px;
-		margin: 0;
 		font-weight: normal;
 		line-height: 1.428571429;
 		text-align: center;
@@ -100,7 +97,7 @@
 		border: 1px solid transparent;
 		border-radius: 2px;
 		@include vendor-prefix( user-select, none );
-		box-shadow: none;
+		@include vendor-prefix( box-shadow, none);
 		background: none;
 		text-shadow: none;
 		filter: none;
