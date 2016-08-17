@@ -159,7 +159,7 @@ class MC4WP_Form_Asset_Manager {
 		$config = array(
 			'submitted_form' => array(
 				'id' => $submitted_form->ID,
-				'data' => $submitted_form->data,
+				'data' => $submitted_form->get_data(),
 				'action' => $submitted_form->config['action'],
 				'element_id' => $submitted_form->config['element_id'],
 			)
@@ -190,7 +190,6 @@ class MC4WP_Form_Asset_Manager {
 
 	/**
 	 * Load JavaScript files
-	 * @return bool
 	 */
 	public function before_output_form() {
 
