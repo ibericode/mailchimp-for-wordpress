@@ -34,12 +34,40 @@ class MC4WP_Ninja_Forms_Integration extends MC4WP_Integration {
 			'display_function' => 'ninja_forms_field_checkbox_display',
 			'group' => 'standard_fields',
 			'sidebar' => 'template_fields',
+            'edit_label'        => true,
+            'edit_label_pos'    => true,
+            'label_pos_options' => array(
+                array('name' => __( 'Left of Element', 'ninja-forms' ), 'value' => 'left'),
+                array('name' => __( 'Above Element', 'ninja-forms' ), 'value' => 'above'),
+                array('name' => __( 'Below Element', 'ninja-forms' ), 'value' => 'below'),
+                array('name' => __( 'Right of Element', 'ninja-forms' ), 'value' => 'right'),
+            ),
 			'edit_placeholder' => false,
-            'edit_meta' => true,
-            'edit_options' => '',
+            'edit_req' => true,
+            'edit_custom_class' => true,
+            'edit_help' => true,
+            'edit_desc' => true,
+            'edit_meta' => false,
             'process' => array( $this, 'process' ),
-            'default_label' => $this->options['label']
-
+            'default_label' => $this->options['label'],
+            'edit_options' => array(
+                array(
+                    'type'    => 'select', //What type of input should this be?
+                    'options' => array(
+                        array(
+                            'name'  => __( 'Unchecked', 'ninja-forms' ),
+                            'value' => 'unchecked',
+                        ),
+                        array(
+                            'name'  => __( 'Checked', 'ninja-forms' ),
+                            'value' => 'checked',
+                        ),
+                    ),
+                    'name' => 'default_value', //What should it be named. This should always be a programmatic name, not a label.
+                    'label' => __( 'Default Value', 'ninja-forms' ),
+                    'class' => 'widefat', //Additional classes to be added to the input element.
+                ),
+            ),
 		);
 
 		ninja_forms_register_field( 'mc4wp-subscribe', $args );
