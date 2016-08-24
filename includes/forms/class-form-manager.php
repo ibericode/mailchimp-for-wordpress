@@ -38,7 +38,6 @@ class MC4WP_Form_Manager {
 	 * Hook!
 	 */
 	public function add_hooks() {
-
 		add_action( 'init', array( $this, 'initialize' ) );
 
 		// forms

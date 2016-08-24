@@ -1,6 +1,22 @@
 Changelog
 =========
 
+#### 4.0.3 - August 24, 2016
+
+**Fixes**
+
+- Ninja Forms integration not working when using PayPal integration.
+
+**Improvements**
+
+- Show connection errors on MailChimp settings page.
+
+**Additions**
+
+- Add pre-checked option to Ninja Forms integration.
+- You can now conditionally hide fields or elements using the `data-show-if` attribute.
+
+
 #### 4.0.2 - August 10, 2016
 
 **Fixes**
