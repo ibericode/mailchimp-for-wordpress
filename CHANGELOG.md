@@ -14,7 +14,7 @@ Changelog
 **Additions**
 
 - Add pre-checked option to Ninja Forms integration.
-- You can now conditionally hide fields or elements using the `data-show-if` attribute.
+- You can now [conditionally hide fields or elements](https://mc4wp.com/kb/conditional-fields-elements/) using the `data-show-if` attribute.
 
 
 #### 4.0.2 - August 10, 2016
