@@ -48,6 +48,11 @@ class MC4WP_Field_Formatter {
 	 * @return string
 	 */
 	public function birthday( $value ) {
+        $value = trim( $value );
+        if( empty( $value ) ) {
+            return $value;
+        }
+
 		if( is_array( $value ) ) {
 			// allow for "day" and "month" fields
 			if( isset( $value['month'] ) && isset( $value['day'] ) ) {
@@ -79,6 +84,11 @@ class MC4WP_Field_Formatter {
 	 * @return string
 	 */
 	public function date( $value ) {
+
+	    $value = trim( $value );
+        if( empty( $value ) ) {
+            return $value;
+        }
 
 		if( is_array( $value ) ) {
 
