@@ -114,6 +114,7 @@ class MC4WP_Ninja_Forms_Integration extends MC4WP_Integration {
 
 		// do nothing if no email was found
 		if( empty( $data['EMAIL'] ) ) {
+		    $this->get_log()->warning( sprintf( '%s > Unable to find EMAIL field.', $this->name ) );
 			return false;
 		}
 

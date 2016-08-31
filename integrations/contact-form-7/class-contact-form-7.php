@@ -90,7 +90,8 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 
 		// do nothing if no email was found
 		if( empty( $data['EMAIL'] ) ) {
-			return false;
+            $this->get_log()->warning( sprintf( '%s > Unable to find EMAIL field.', $this->name ) );
+            return false;
 		}
 
 		return $this->subscribe( $data, $cf7_form->id() );
