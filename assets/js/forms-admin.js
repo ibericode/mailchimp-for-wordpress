@@ -105,25 +105,35 @@ var rows = function(m, i18n) {
 	};
 
 	r.choiceType = function (config) {
+
+
+		var options = [
+			m('option', {
+				value   : 'select',
+				selected: config.type() === 'select' ? 'selected' : false
+			}, i18n.dropdown ),
+			m('option', {
+				value   : 'radio',
+				selected: config.type() === 'radio' ? 'selected' : false
+			}, i18n.radioButtons )
+		];
+
+		// only add checkbox choice if field accepts multiple values
+		if( config.acceptsMultipleValues ) {
+			options.push(
+				m('option', {
+					value   : 'checkbox',
+					selected: config.type() === 'checkbox' ? 'selected' : false
+				}, i18n.checkboxes )
+			);
+		}
+
 		return m('div', [
 			m('label', i18n.choiceType ),
 			m('select', {
 				value   : config.type(),
 				onchange: m.withAttr('value', config.type)
-			}, [
-				m('option', {
-					value   : 'select',
-					selected: config.type() === 'select' ? 'selected' : false
-				}, i18n.dropdown ),
-				m('option', {
-					value   : 'radio',
-					selected: config.type() === 'radio' ? 'selected' : false
-				}, i18n.radioButtons ),
-				m('option', {
-					value   : 'checkbox',
-					selected: config.type() === 'checkbox' ? 'selected' : false
-				}, i18n.checkboxes )
-			])
+			}, options)
 		]);
 	};
 
@@ -429,10 +439,11 @@ var FieldHelper = function(m, tabs, editor, fields, i18n) {
 	 * @returns {*}
 	 */
 	function setActiveField(index) {
+
 		fieldConfig = fields.get(index);
 
 		// if this hidden field has choices (hidden groups), glue them together by their label.
-		if( fieldConfig.choices().length > 0 ) {
+		if( fieldConfig && fieldConfig.choices().length > 0 ) {
 			fieldConfig.value( fieldConfig.choices().map(function(c) {
 				return c.label();
 			}).join('|'));
@@ -626,6 +637,7 @@ var FieldFactory = function(fields, i18n) {
 	function registerMergeField(mergeField) {
 
 		var category = i18n.listFields;
+		var fieldType = getFieldType(mergeField.field_type);
 
 		// name, type, title, value, required, label, placeholder, choices, wrap
 		var data = {
@@ -633,8 +645,9 @@ var FieldFactory = function(fields, i18n) {
 			title: mergeField.name,
 			required: mergeField.required,
 			forceRequired: mergeField.required,
-			type: getFieldType(mergeField.field_type),
-			choices: mergeField.choices
+			type: fieldType,
+			choices: mergeField.choices,
+			acceptsMultipleValues: false // merge fields never accept multiple values.
 		};
 
 		if( data.type !== 'address' ) {
@@ -657,12 +670,14 @@ var FieldFactory = function(fields, i18n) {
 	 */
 	function registerInterestCategory(interestCategory){
 		var category = i18n.interestCategories;
+		var fieldType = getFieldType(interestCategory.field_type);
 
 		var data = {
 			title: interestCategory.name,
 			name: 'INTERESTS[' + interestCategory.id + ']',
-			type: getFieldType(interestCategory.field_type),
-			choices: interestCategory.interests
+			type: fieldType,
+			choices: interestCategory.interests,
+			acceptsMultipleValues: fieldType === 'checkbox'
 		};
 		register(category, data, false);
 	}
@@ -788,6 +803,7 @@ module.exports = function(m, events) {
 		this.help = m.prop(data.help || '');
 		this.choices = m.prop(data.choices || []);
 		this.inFormContent = m.prop(null);
+		this.acceptsMultipleValues = data.acceptsMultipleValues;
 
 		this.selectChoice = function(value) {
 			var field = this;

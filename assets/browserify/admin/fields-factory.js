@@ -57,6 +57,7 @@ var FieldFactory = function(fields, i18n) {
 	function registerMergeField(mergeField) {
 
 		var category = i18n.listFields;
+		var fieldType = getFieldType(mergeField.field_type);
 
 		// name, type, title, value, required, label, placeholder, choices, wrap
 		var data = {
@@ -64,8 +65,9 @@ var FieldFactory = function(fields, i18n) {
 			title: mergeField.name,
 			required: mergeField.required,
 			forceRequired: mergeField.required,
-			type: getFieldType(mergeField.field_type),
-			choices: mergeField.choices
+			type: fieldType,
+			choices: mergeField.choices,
+			acceptsMultipleValues: false // merge fields never accept multiple values.
 		};
 
 		if( data.type !== 'address' ) {
@@ -88,12 +90,14 @@ var FieldFactory = function(fields, i18n) {
 	 */
 	function registerInterestCategory(interestCategory){
 		var category = i18n.interestCategories;
+		var fieldType = getFieldType(interestCategory.field_type);
 
 		var data = {
 			title: interestCategory.name,
 			name: 'INTERESTS[' + interestCategory.id + ']',
-			type: getFieldType(interestCategory.field_type),
-			choices: interestCategory.interests
+			type: fieldType,
+			choices: interestCategory.interests,
+			acceptsMultipleValues: fieldType === 'checkbox'
 		};
 		register(category, data, false);
 	}

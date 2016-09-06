@@ -28,6 +28,7 @@ module.exports = function(m, events) {
 		this.help = m.prop(data.help || '');
 		this.choices = m.prop(data.choices || []);
 		this.inFormContent = m.prop(null);
+		this.acceptsMultipleValues = data.acceptsMultipleValues;
 
 		this.selectChoice = function(value) {
 			var field = this;

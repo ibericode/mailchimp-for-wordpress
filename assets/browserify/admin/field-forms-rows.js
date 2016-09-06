@@ -104,25 +104,35 @@ var rows = function(m, i18n) {
 	};
 
 	r.choiceType = function (config) {
+
+
+		var options = [
+			m('option', {
+				value   : 'select',
+				selected: config.type() === 'select' ? 'selected' : false
+			}, i18n.dropdown ),
+			m('option', {
+				value   : 'radio',
+				selected: config.type() === 'radio' ? 'selected' : false
+			}, i18n.radioButtons )
+		];
+
+		// only add checkbox choice if field accepts multiple values
+		if( config.acceptsMultipleValues ) {
+			options.push(
+				m('option', {
+					value   : 'checkbox',
+					selected: config.type() === 'checkbox' ? 'selected' : false
+				}, i18n.checkboxes )
+			);
+		}
+
 		return m('div', [
 			m('label', i18n.choiceType ),
 			m('select', {
 				value   : config.type(),
 				onchange: m.withAttr('value', config.type)
-			}, [
-				m('option', {
-					value   : 'select',
-					selected: config.type() === 'select' ? 'selected' : false
-				}, i18n.dropdown ),
-				m('option', {
-					value   : 'radio',
-					selected: config.type() === 'radio' ? 'selected' : false
-				}, i18n.radioButtons ),
-				m('option', {
-					value   : 'checkbox',
-					selected: config.type() === 'checkbox' ? 'selected' : false
-				}, i18n.checkboxes )
-			])
+			}, options)
 		]);
 	};
 
