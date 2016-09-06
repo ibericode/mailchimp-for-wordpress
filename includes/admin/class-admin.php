@@ -148,6 +148,11 @@ class MC4WP_Admin {
 
 		$previous_version = get_option( 'mc4wp_version', 0 );
 
+        // allow setting migration version from URL, to easily re-run previous migrations.
+        if( isset( $_GET['mc4wp_run_migration'] ) ) {
+            $previous_version = $_GET['mc4wp_run_migration'];
+        }
+
         // Ran upgrade routines before?
         if( empty( $previous_version ) ) {
             update_option( 'mc4wp_version', MC4WP_VERSION );
