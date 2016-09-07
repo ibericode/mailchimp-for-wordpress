@@ -73,6 +73,7 @@ return array(
     'Composer\\Installers\\ZendInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/ZendInstaller.php',
     'Composer\\Installers\\ZikulaInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/ZikulaInstaller.php',
     'MC4WP_API' => $baseDir . '/includes/api/class-api.php',
+    'MC4WP_API_Connection_Exception' => $baseDir . '/includes/api/class-connection-exception.php',
     'MC4WP_API_Exception' => $baseDir . '/includes/api/class-exception.php',
     'MC4WP_API_Resource_Not_Found_Exception' => $baseDir . '/includes/api/class-resource-not-found-exception.php',
     'MC4WP_API_v3' => $baseDir . '/includes/api/class-api-v3.php',
