@@ -181,12 +181,11 @@ class MC4WP_MailChimp {
 
 		// TODO: Move this to the background via a queue.
 
-
 		// try to increase time limit as this can take a while
-		@set_time_limit(300);
+		@set_time_limit(600);
 
 		try{
-			$lists_data = $this->api->get_lists( array( 'count' => 100, 'fields' => 'lists.id' ) );
+			$lists_data = $this->api->get_lists( array( 'count' => 1000, 'fields' => 'lists.id' ) );
         } catch( MC4WP_API_Exception $e ) {
             return array();
         }
