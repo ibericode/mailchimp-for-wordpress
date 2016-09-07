@@ -84,7 +84,7 @@ class MC4WP_Field_Formatter {
 	 * @return string
 	 */
 	public function date( $value ) {
-        
+
 		if( is_array( $value ) ) {
 
 			// allow for "year", "month" and "day" keys

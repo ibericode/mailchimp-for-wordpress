@@ -94,7 +94,7 @@ class MC4WP_MailChimp {
 		} catch( MC4WP_API_Exception $e ) {
             // other errors.
             $this->error_code = $e->getCode();
-            $this->error_message = $e->getMessage();
+            $this->error_message = $e;
 			return null;
 		}
 
@@ -102,7 +102,7 @@ class MC4WP_MailChimp {
 			$data = $this->api->add_list_member( $list_id, $args );
 		} catch ( MC4WP_API_Exception $e ) {
 			$this->error_code = $e->getCode();
-			$this->error_message = $e->getMessage();
+			$this->error_message = $e;
 			return null;
 		}
 
@@ -128,7 +128,7 @@ class MC4WP_MailChimp {
 		    return true;
         } catch( MC4WP_API_Exception $e ) {
 			$this->error_code = $e->getCode();
-			$this->error_message = $e->getMessage();
+			$this->error_message = $e;
 			return false;
 		}
 
