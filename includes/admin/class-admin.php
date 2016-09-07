@@ -436,7 +436,7 @@ class MC4WP_Admin {
 	 */
 	public function show_generals_setting_page() {
 		$opts = mc4wp_get_options();
-
+        
         try {
             $connected = $this->get_api()->is_connected();
         } catch( MC4WP_API_Connection_Exception $e ) {
