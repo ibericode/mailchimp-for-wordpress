@@ -17,9 +17,9 @@
 		if( empty( $lists ) ) {
 			?><td colspan="2"><?php printf( __( 'No lists found, <a href="%s">are you connected to MailChimp</a>?', 'mailchimp-for-wp' ), admin_url( 'admin.php?page=mailchimp-for-wp' ) ); ?></td><?php
 		} else { ?>
-			<td>
+			<td >
 
-				<ul id="mc4wp-lists" style="margin-bottom: 20px;">
+				<ul id="mc4wp-lists" style="margin-bottom: 20px; max-height: 300px; overflow-y: auto;">
 					<?php foreach( $lists as $list ) { ?>
 						<li>
 							<label>
