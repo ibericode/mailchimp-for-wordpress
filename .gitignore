@@ -12,3 +12,4 @@ vendor/*
 vendor/composer/installers
 vendor/composer/installed.json
 
+npm-debug.log
