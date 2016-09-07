@@ -185,7 +185,7 @@ class MC4WP_MailChimp {
 		@set_time_limit(600);
 
 		try{
-			$lists_data = $this->api->get_lists( array( 'count' => 1000, 'fields' => 'lists.id' ) );
+			$lists_data = $this->api->get_lists( array( 'count' => 500, 'fields' => 'lists.id' ) );
         } catch( MC4WP_API_Exception $e ) {
             return array();
         }
