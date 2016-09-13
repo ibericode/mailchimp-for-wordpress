@@ -139,7 +139,10 @@ class MC4WP_Forms_Admin {
 			)
 		);
 
-		update_post_meta( $form_id, '_mc4wp_settings', $form_data['settings'] );
+        // if settings were passed, save those too.
+        if( isset( $form_data['settings'] ) ) {
+            update_post_meta( $form_id, '_mc4wp_settings', $form_data['settings'] );
+        }
 
 		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) );
 		wp_redirect( mc4wp_get_edit_form_url( $form_id ) );
