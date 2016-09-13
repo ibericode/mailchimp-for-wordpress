@@ -12,7 +12,7 @@ if( empty( $options['allow_usage_tracking'] ) ) {
 /**
  * @ignore
  */
-function __mc4wp_303_add_monthly_cron_schedule( $schedules ) {
+function _mc4wp_303_add_monthly_cron_schedule( $schedules ) {
 	$schedules['monthly'] = array(
 		'interval' => 30 * DAY_IN_SECONDS,
 		'display' => 'Once a month'
@@ -21,7 +21,7 @@ function __mc4wp_303_add_monthly_cron_schedule( $schedules ) {
 	return $schedules;
 }
 
-add_filter( 'cron_schedules', '__mc4wp_303_add_monthly_cron_schedule', 1 );
+add_filter( 'cron_schedules', '_mc4wp_303_add_monthly_cron_schedule', 1 );
 
 // reschedule usage tracking event
 wp_clear_scheduled_hook( 'mc4wp_usage_tracking' );

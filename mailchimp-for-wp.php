@@ -37,7 +37,7 @@ defined( 'ABSPATH' ) or exit;
  * @access private
  * @return bool
  */
-function __mc4wp_load_plugin() {
+function _mc4wp_load_plugin() {
 
 	global $mc4wp;
 
@@ -104,7 +104,7 @@ function __mc4wp_load_plugin() {
 	return true;
 }
 
-add_action( 'plugins_loaded', '__mc4wp_load_plugin', 20 );
+add_action( 'plugins_loaded', '_mc4wp_load_plugin', 20 );
 
 /**
  * Flushes all MailChimp caches
@@ -113,10 +113,10 @@ add_action( 'plugins_loaded', '__mc4wp_load_plugin', 20 );
  * @access private
  * @since 3.0
  */
-function __mc4wp_flush() {
+function _mc4wp_flush() {
 	delete_transient( 'mc4wp_mailchimp_lists_v3' );
 	delete_transient( 'mc4wp_mailchimp_lists_v3_fallback' );
 	delete_transient( 'mc4wp_list_counts' );
 }
 
-register_activation_hook( __FILE__, '__mc4wp_flush' );
+register_activation_hook( __FILE__, '_mc4wp_flush' );

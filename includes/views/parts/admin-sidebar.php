@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) or exit;
 /**
  * @ignore
  */
-function __mc4wp_admin_sidebar_support_notice() {
+function _mc4wp_admin_sidebar_support_notice() {
 	?>
 	<div class="mc4wp-box">
 		<h4 class="mc4wp-title"><?php echo esc_html__( 'Looking for help?', 'mailchimp-for-wp' ); ?></h4>
@@ -24,7 +24,7 @@ function __mc4wp_admin_sidebar_support_notice() {
 /**
  * @ignore
  */
-function __mc4wp_admin_sidebar_boxzilla_notice() {
+function _mc4wp_admin_sidebar_boxzilla_notice() {
 
 	// Don't show if Boxzilla is already running
 	if( defined( 'BOXZILLA_VERSION' ) ) {
@@ -39,8 +39,8 @@ function __mc4wp_admin_sidebar_boxzilla_notice() {
 	<?php
 }
 
-add_action( 'mc4wp_admin_sidebar', '__mc4wp_admin_sidebar_boxzilla_notice', 40 );
-add_action( 'mc4wp_admin_sidebar', '__mc4wp_admin_sidebar_support_notice', 50 );
+add_action( 'mc4wp_admin_sidebar', '_mc4wp_admin_sidebar_boxzilla_notice', 40 );
+add_action( 'mc4wp_admin_sidebar', '_mc4wp_admin_sidebar_support_notice', 50 );
 
 /**
  * Runs when the sidebar is outputted on MailChimp for WordPress settings pages.

@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) or exit;
  * @ignore
  * @return object
  */
-function __mc4wp_400_find_grouping_for_interest_category( $groupings, $interest_category ) {
+function _mc4wp_400_find_grouping_for_interest_category( $groupings, $interest_category ) {
     foreach( $groupings as $grouping ) {
         // cast to stdClass because of missing class
         $grouping = (object) (array) $grouping;
@@ -23,7 +23,7 @@ function __mc4wp_400_find_grouping_for_interest_category( $groupings, $interest_
  * @ignore
  * @return object
  */
-function __mc4wp_400_find_group_for_interest( $groups, $interest ) {
+function _mc4wp_400_find_group_for_interest( $groups, $interest ) {
     foreach( $groups as $group_id => $group_name ) {
         if( $group_name === $interest->name ) {
             return (object) array(
@@ -77,7 +77,7 @@ foreach( $lists as $list ) {
     foreach( $interest_categories as $interest_category ) {
 
         // compare interest title with grouping name, if it matches, get new id.
-        $grouping = __mc4wp_400_find_grouping_for_interest_category( $list->groupings, $interest_category );
+        $grouping = _mc4wp_400_find_grouping_for_interest_category( $list->groupings, $interest_category );
         if( ! $grouping ) {
             continue;
         }
@@ -91,7 +91,7 @@ foreach( $lists as $list ) {
         }
 
         foreach( $interests as $interest ) {
-            $group = __mc4wp_400_find_group_for_interest( $grouping->groups, $interest );
+            $group = _mc4wp_400_find_group_for_interest( $grouping->groups, $interest );
 
             if( $group ) {
                 $groups[ $group->id ] = $interest->id;

@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) or exit;
  *
  * @param array $opts
  */
-function __mc4wp_usage_tracking_setting( $opts ) {
+function _mc4wp_usage_tracking_setting( $opts ) {
 	?>
 	<div class="medium-margin">
 	<h3><?php _e( 'Usage Tracking', 'mailchimp-for-wp' ); ?></h3>
@@ -28,7 +28,7 @@ function __mc4wp_usage_tracking_setting( $opts ) {
 	<?php
 }
 
-add_action( 'mc4wp_admin_other_settings', '__mc4wp_usage_tracking_setting', 70 );
+add_action( 'mc4wp_admin_other_settings', '_mc4wp_usage_tracking_setting', 70 );
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
