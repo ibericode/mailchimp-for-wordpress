@@ -132,14 +132,12 @@ class MC4WP_Forms_Admin {
 
 		$form_id = wp_insert_post(
 			array(
-				'post_type' => 'mc4wp-form',
-				'post_status' => 'publish',
-				'post_title' => $form_data['name'],
+				'post_type'    => 'mc4wp-form',
+				'post_status'  => 'publish',
+				'post_title'   => $form_data['name'],
 				'post_content' => $form_content,
 			)
 		);
-
-		update_post_meta( $form_id, '_mc4wp_settings', $form_data['settings'] );
 
 		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) );
 		wp_redirect( mc4wp_get_edit_form_url( $form_id ) );
