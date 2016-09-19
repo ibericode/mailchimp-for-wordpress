@@ -352,3 +352,14 @@ function mc4wp_obfuscate_string( $string ) {
 	$string = str_repeat( '*', $obfuscated_length ) . substr( $string, $obfuscated_length );
 	return $string;
 }
+
+/**
+ * Refreshes MailChimp lists. This can take a while if the connected MailChimp account has many lists.
+ *
+ * @return void
+ */
+function mc4wp_refresh_mailchimp_lists() {
+    $mailchimp = new MC4WP_MailChimp();
+    $mailchimp->empty_cache();
+    $mailchimp->get_lists();
+}

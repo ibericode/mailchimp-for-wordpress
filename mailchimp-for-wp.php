@@ -110,16 +110,28 @@ function _mc4wp_load_plugin() {
 add_action( 'plugins_loaded', '_mc4wp_load_plugin', 20 );
 
 /**
- * Flushes all MailChimp caches
+ * Flushes transient cache & schedules refresh hook.
  *
  * @ignore
- * @access private
  * @since 3.0
  */
-function _mc4wp_flush() {
+function _mc4wp_on_plugin_activation() {
 	delete_transient( 'mc4wp_mailchimp_lists_v3' );
 	delete_transient( 'mc4wp_mailchimp_lists_v3_fallback' );
 	delete_transient( 'mc4wp_list_counts' );
+
+    wp_schedule_event( strtotime('tomorrow 3 am'), 'daily', 'mc4wp_refresh_mailchimp_lists' );
 }
 
-register_activation_hook( __FILE__, '_mc4wp_flush' );
+/**
+ * Clears scheduled hook for refreshing MailChimp lists.
+ *
+ * @ignore
+ * @since 4.0.3
+ */
+function _mc4wp_on_plugin_deactivation() {
+    wp_clear_scheduled_hook( 'mc4wp_refresh_mailchimp_lists' );
+}
+
+register_activation_hook( __FILE__, '_mc4wp_on_plugin_activation' );
+register_deactivation_hook( __FILE__, '_mc4wp_on_plugin_deactivation' );
