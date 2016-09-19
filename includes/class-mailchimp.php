@@ -151,10 +151,16 @@ class MC4WP_MailChimp {
 
 	/**
 	 * Empty the Lists cache
+     *
+     * @param bool $incl_fallback
 	 */
-	public function empty_cache() {
+	public function empty_cache( $incl_fallback = false ) {
 		delete_transient( 'mc4wp_mailchimp_lists_v3' );
 		delete_transient( 'mc4wp_list_counts' );
+
+        if( $incl_fallback ) {
+            delete_transient( 'mc4wp_mailchimp_lists_v3_fallback' );
+        }
 	}
 
 	/**

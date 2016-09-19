@@ -192,6 +192,7 @@ class MC4WP_Admin {
 
 		// try getting new lists to fill cache again
 		$lists = $this->mailchimp->get_lists();
+
 		if( ! empty( $lists ) ) {
 			$this->messages->flash( __( 'Success! The cached configuration for your MailChimp lists has been renewed.', 'mailchimp-for-wp' ) );
 		}
@@ -243,7 +244,7 @@ class MC4WP_Admin {
 
 		// if API key changed, empty MailChimp cache
 		if ( $settings['api_key'] !== $current['api_key'] ) {
-			$this->mailchimp->empty_cache();
+			$this->mailchimp->empty_cache( true );
 		}
 
 
