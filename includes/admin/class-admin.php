@@ -294,7 +294,7 @@ class MC4WP_Admin {
 		wp_localize_script( 'mc4wp-admin', 'mc4wp_vars',
 			array(
 				'mailchimp' => array(
-					'lists' => $this->mailchimp->get_lists()
+					'lists' => $this->mailchimp->get_lists( true )
 				),
 				'countries' => MC4WP_Tools::get_countries(),
 				'l10n' => array(
