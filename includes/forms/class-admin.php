@@ -144,6 +144,9 @@ class MC4WP_Forms_Admin {
             update_post_meta( $form_id, '_mc4wp_settings', $form_data['settings'] );
         }
 
+        // set default form ID
+        $this->set_default_form_id( $form_id );
+
 		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) );
 		wp_redirect( mc4wp_get_edit_form_url( $form_id ) );
 		exit;
@@ -264,17 +267,23 @@ class MC4WP_Forms_Admin {
 		$form_data['ID'] = $form_id;
 
 		$this->save_form( $form_data );
-
-		// update default form id?
-		$default_form_id = (int) get_option( 'mc4wp_default_form_id', 0 );
-		if( empty( $default_form_id ) ) {
-			update_option( 'mc4wp_default_form_id', $form_id );
-		}
+		$this->set_default_form_id( $form_id );
 
 		$previewer = new MC4WP_Form_Previewer( $form_id );
 
 		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) . sprintf( ' <a href="%s">', $previewer->get_preview_url() ) . __( 'Preview form', 'mailchimp-for-wp' ) . '</a>' );
 	}
+
+    /**
+     * @param int $form_id
+     */
+	private function set_default_form_id( $form_id ) {
+        $default_form_id = (int) get_option( 'mc4wp_default_form_id', 0 );
+
+        if( empty( $default_form_id ) ) {
+            update_option( 'mc4wp_default_form_id', $form_id );
+        }
+    }
 
 	/**
 	 * Goes through each form and aggregates array of stylesheet slugs to load.
