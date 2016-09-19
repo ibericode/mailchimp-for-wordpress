@@ -92,7 +92,7 @@ class MC4WP_API_v3_Client {
 
         // don't bother if no API key was given.
         if( empty( $this->api_key ) ) {
-            throw new MC4WP_API_Exception( "Missing API key.", 001 );
+            throw new MC4WP_API_Exception( "Missing API key", 001 );
         }
 
         $url = $this->api_url . ltrim( $resource, '/' );
