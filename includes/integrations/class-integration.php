@@ -240,14 +240,13 @@ abstract class MC4WP_Integration {
         /** @ignore */
 		do_action( 'mc4wp_integration_'. $this->slug .'_before_checkbox_wrapper', $this );
 
+        // Hidden field to make sure "0" is sent to server
+        echo sprintf( '<input type="hidden" name="%s" value="0" />', esc_attr( $this->checkbox_name ) );
+
         echo sprintf( '<p class="mc4wp-checkbox mc4wp-checkbox-%s">', esc_attr( $this->slug ) );
         echo '<label>';
-
-		// Hidden field to make sure "0" is sent to server
-		echo sprintf( '<input type="hidden" name="%s" value="0" />', esc_attr( $this->checkbox_name ) );
 		echo sprintf( '<input type="checkbox" name="%s" value="1" %s />', esc_attr( $this->checkbox_name ), $this->get_checkbox_attributes() );
         echo sprintf( '<span>%s</span>', $this->get_label_text() );
-
 		echo '</label>';
         echo '</p>';
 
