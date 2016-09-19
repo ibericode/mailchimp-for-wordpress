@@ -154,7 +154,6 @@ class MC4WP_MailChimp {
 	 */
 	public function empty_cache() {
 		delete_transient( 'mc4wp_mailchimp_lists_v3' );
-		delete_transient( 'mc4wp_mailchimp_lists_v3_fallback' );
 		delete_transient( 'mc4wp_list_counts' );
 	}
 
