@@ -83,22 +83,25 @@ function _mc4wp_load_plugin() {
 	}
 
 	// Initialize admin section of plugin
-	if( is_admin()
-	    && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
+	if( is_admin() ) {
+	    if( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+	        $ajax = new MC4WP_Admin_Ajax();
+            $ajax->add_hooks();
+        } else {
+            $messages = new MC4WP_Admin_Messages();
+            $mc4wp['admin.messages'] = $messages;
 
-		$messages = new MC4WP_Admin_Messages();
-		$mc4wp['admin.messages'] = $messages;
+            $mailchimp = new MC4WP_MailChimp();
 
-		$mailchimp = new MC4WP_MailChimp();
+            $admin = new MC4WP_Admin( $messages, $mailchimp );
+            $admin->add_hooks();
 
-		$admin = new MC4WP_Admin( $messages, $mailchimp );
-		$admin->add_hooks();
+            $forms_admin = new MC4WP_Forms_Admin( $messages, $mailchimp );
+            $forms_admin->add_hooks();
 
-		$forms_admin = new MC4WP_Forms_Admin( $messages, $mailchimp );
-		$forms_admin->add_hooks();
-
-		$integrations_admin = new MC4WP_Integration_Admin( $mc4wp['integrations'], $messages, $mailchimp );
-		$integrations_admin->add_hooks();
+            $integrations_admin = new MC4WP_Integration_Admin( $mc4wp['integrations'], $messages, $mailchimp );
+            $integrations_admin->add_hooks();
+        }
 	}
 
 	return true;

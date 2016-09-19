@@ -41,6 +41,7 @@ helpers.debounce = function(func, wait, immediate) {
 	};
 };
 
+
 /**
  * Showif.js
  */

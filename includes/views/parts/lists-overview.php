@@ -1,13 +1,16 @@
 <h3><?php _e( 'Your MailChimp Account' ,'mailchimp-for-wp' ); ?></h3>
 <p><?php _e( 'The table below shows your MailChimp lists and their details. If you just applied changes to your MailChimp lists, please use the following button to renew the cached lists configuration.', 'mailchimp-for-wp' ); ?></p>
 
-<form method="post" action="">
-	<input type="hidden" name="_mc4wp_action" value="empty_lists_cache" />
 
-	<p>
-		<input type="submit" value="<?php _e( 'Renew MailChimp lists', 'mailchimp-for-wp' ); ?>" class="button" />
-	</p>
-</form>
+<div id="mc4wp-list-fetcher">
+	<form method="post" action="">
+		<input type="hidden" name="_mc4wp_action" value="empty_lists_cache" />
+
+		<p>
+			<input type="submit" value="<?php _e( 'Renew MailChimp lists', 'mailchimp-for-wp' ); ?>" class="button" />
+		</p>
+	</form>
+</div>
 
 <div class="mc4wp-lists-overview">
 	<?php if( empty( $lists ) ) { ?>

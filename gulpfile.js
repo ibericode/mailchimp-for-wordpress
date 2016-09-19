@@ -67,6 +67,5 @@ gulp.task('uglify', ['browserify'], function() {
 
 gulp.task('watch', function () {
 	gulp.watch('./assets/sass/**/*.scss', ['sass']);
-	gulp.watch('./assets/js/src/**/*.js', ['browserify']);
-	gulp.watch(['./assets/js/**/*.js','!./assets/js/**/*.min.js'], ['uglify']);
+	gulp.watch('./assets/browserify/**/*.js', ['browserify']);
 });

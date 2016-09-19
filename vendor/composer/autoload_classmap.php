@@ -14,6 +14,7 @@ return array(
     'MC4WP_API_v3_Client' => $baseDir . '/includes/api/class-api-v3-client.php',
     'MC4WP_Admin' => $baseDir . '/includes/admin/class-admin.php',
     'MC4WP_Admin_Ads' => $baseDir . '/includes/admin/class-ads.php',
+    'MC4WP_Admin_Ajax' => $baseDir . '/includes/admin/class-admin-ajax.php',
     'MC4WP_Admin_Messages' => $baseDir . '/includes/admin/class-admin-messages.php',
     'MC4WP_Admin_Texts' => $baseDir . '/includes/admin/class-admin-texts.php',
     'MC4WP_Array_Bag' => $baseDir . '/includes/class-array-bag.php',
