@@ -13,8 +13,10 @@ class MC4WP_Admin_Ajax {
      * Empty lists cache & fetch lists again.
      */
     public function refresh_mailchimp_lists() {
-        mc4wp_refresh_mailchimp_lists();
-        wp_send_json(true);
+        $mailchimp = new MC4WP_MailChimp();
+        $lists = $mailchimp->fetch_lists();
+        $success = ! empty( $lists );
+        wp_send_json( $success );
     }
 
 

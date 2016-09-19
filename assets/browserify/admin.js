@@ -11,8 +11,12 @@ var tabs = require ('./admin/tabs.js')(context);
 var helpers = require('./admin/helpers.js');
 var settings = require('./admin/settings.js')(context, helpers, events);
 
+// list fetcher
 var listFetcher = require('./admin/list-fetcher.js');
-m.mount(document.getElementById('mc4wp-list-fetcher'), listFetcher);
+var mount = document.getElementById('mc4wp-list-fetcher');
+if( mount ) {
+    m.mount(mount, listFetcher);
+}
 
 // expose some things
 window.mc4wp = window.mc4wp || {};

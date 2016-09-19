@@ -360,6 +360,5 @@ function mc4wp_obfuscate_string( $string ) {
  */
 function mc4wp_refresh_mailchimp_lists() {
     $mailchimp = new MC4WP_MailChimp();
-    $mailchimp->empty_cache();
-    $mailchimp->get_lists();
+    $mailchimp->fetch_lists();
 }

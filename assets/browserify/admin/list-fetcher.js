@@ -1,13 +1,20 @@
 'use strict';
 
 var $ = window.jQuery;
+var config = mc4wp_vars;
+var i18n = config.i18n;
 
 function ListFetcher() {
     this.working = false;
+
+    // start fetching right away when no lists but api key given
+    if( config.mailchimp.api_connected && config.mailchimp.lists.length == 0 ) {
+        this.fetch();
+    }
 }
 
 ListFetcher.prototype.fetch = function (e) {
-    e.preventDefault();
+    e && e.preventDefault();
 
     this.working = true;
     this.done = false;
@@ -17,6 +24,9 @@ ListFetcher.prototype.fetch = function (e) {
     }).always(function (data) {
         this.working = false;
         this.done = true;
+        window.setTimeout(function() {
+            location.reload();
+        }, 3000 );
         m.redraw();
     }.bind(this));
 };
@@ -31,7 +41,7 @@ ListFetcher.prototype.view = function () {
         m('p', [
             m('input', {
                 type: "submit",
-                value: "Renew MailChimp lists",
+                value: this.working ? i18n.fetching_mailchimp_lists : i18n.renew_mailchimp_lists,
                 className: "button",
                 disabled: !!this.working
             }),
@@ -40,11 +50,11 @@ ListFetcher.prototype.view = function () {
             this.working ? [
                 m('div.loader', "Loading..."),
                 m.trust(' &nbsp; '),
-                m('em.help', "This can take a while if you have many MailChimp lists.")
+                m('em.help', i18n.fetching_mailchimp_lists_can_take_a_while)
             ]: '',
 
             this.done ? [
-                m( 'em.help.green', "Done! MailChimp lists renewed.")
+                m( 'em.help.green', i18n.fetching_mailchimp_lists_done )
             ] : ''
         ])
     ]);
