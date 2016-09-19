@@ -51,6 +51,7 @@ return array(
     'MC4WP_MailChimp_List' => $baseDir . '/includes/mailchimp/class-list.php',
     'MC4WP_MailChimp_Merge_Field' => $baseDir . '/includes/mailchimp/class-merge-field.php',
     'MC4WP_MailChimp_Subscriber' => $baseDir . '/includes/mailchimp/class-subscriber.php',
+    'MC4WP_MemberPress_Integration' => $baseDir . '/integrations/memberpress/class-memberpress.php',
     'MC4WP_Ninja_Forms_Integration' => $baseDir . '/integrations/ninja-forms/class-ninja-forms.php',
     'MC4WP_Plugin' => $baseDir . '/includes/class-plugin.php',
     'MC4WP_Queue' => $baseDir . '/includes/class-queue.php',
