@@ -12,10 +12,10 @@ var helpers = require('./admin/helpers.js');
 var settings = require('./admin/settings.js')(context, helpers, events);
 
 // list fetcher
-var listFetcher = require('./admin/list-fetcher.js');
+var ListFetcher = require('./admin/list-fetcher.js');
 var mount = document.getElementById('mc4wp-list-fetcher');
 if( mount ) {
-    m.mount(mount, listFetcher);
+    m.mount(mount, new ListFetcher);
 }
 
 // expose some things

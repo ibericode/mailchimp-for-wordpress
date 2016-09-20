@@ -13,10 +13,10 @@ var helpers = require('./admin/helpers.js');
 var settings = require('./admin/settings.js')(context, helpers, events);
 
 // list fetcher
-var listFetcher = require('./admin/list-fetcher.js');
+var ListFetcher = require('./admin/list-fetcher.js');
 var mount = document.getElementById('mc4wp-list-fetcher');
 if( mount ) {
-    m.mount(mount, listFetcher);
+    m.mount(mount, new ListFetcher);
 }
 
 // expose some things
@@ -128,6 +128,7 @@ var i18n = config.i18n;
 
 function ListFetcher() {
     this.working = false;
+    this.done = false;
 
     // start fetching right away when no lists but api key given
     if( config.mailchimp.api_connected && config.mailchimp.lists.length == 0 ) {
@@ -143,19 +144,20 @@ ListFetcher.prototype.fetch = function (e) {
 
     $.post(ajaxurl, {
         action: "mc4wp_renew_mailchimp_lists"
+    }).done(function(data) {
+        if(data) {
+            window.setTimeout(function() { window.location.reload(); }, 3000 );
+        }
     }).always(function (data) {
         this.working = false;
         this.done = true;
-        window.setTimeout(function() {
-            location.reload();
-        }, 3000 );
+
         m.redraw();
     }.bind(this));
 };
 
-
-
 ListFetcher.prototype.view = function () {
+    console.log("Rendering view..");
     return m('form', {
         method: "POST",
         onsubmit: this.fetch.bind(this)
@@ -170,7 +172,7 @@ ListFetcher.prototype.view = function () {
             m.trust(' &nbsp; '),
 
             this.working ? [
-                m('div.loader', "Loading..."),
+                m('span.mc4wp-loader', "Loading..."),
                 m.trust(' &nbsp; '),
                 m('em.help', i18n.fetching_mailchimp_lists_can_take_a_while)
             ]: '',
@@ -182,7 +184,7 @@ ListFetcher.prototype.view = function () {
     ]);
 };
 
-module.exports = new ListFetcher;
+module.exports = ListFetcher;
 },{}],4:[function(require,module,exports){
 var Settings = function(context, helpers, events ) {
 	'use strict';
