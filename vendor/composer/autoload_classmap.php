@@ -17,6 +17,7 @@ return array(
     'MC4WP_Admin_Ajax' => $baseDir . '/includes/admin/class-admin-ajax.php',
     'MC4WP_Admin_Messages' => $baseDir . '/includes/admin/class-admin-messages.php',
     'MC4WP_Admin_Texts' => $baseDir . '/includes/admin/class-admin-texts.php',
+    'MC4WP_Admin_Tools' => $baseDir . '/includes/admin/class-admin-tools.php',
     'MC4WP_Array_Bag' => $baseDir . '/includes/class-array-bag.php',
     'MC4WP_BuddyPress_Integration' => $baseDir . '/integrations/buddypress/class-buddypress.php',
     'MC4WP_Comment_Form_Integration' => $baseDir . '/integrations/wp-comment-form/class-comment-form.php',

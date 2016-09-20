@@ -84,8 +84,11 @@ function _mc4wp_load_plugin() {
 
 	// Initialize admin section of plugin
 	if( is_admin() ) {
+
+	    $admin_tools = new MC4WP_Admin_Tools();
+
 	    if( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-	        $ajax = new MC4WP_Admin_Ajax();
+	        $ajax = new MC4WP_Admin_Ajax( $admin_tools );
             $ajax->add_hooks();
         } else {
             $messages = new MC4WP_Admin_Messages();
@@ -93,7 +96,7 @@ function _mc4wp_load_plugin() {
 
             $mailchimp = new MC4WP_MailChimp();
 
-            $admin = new MC4WP_Admin( $messages, $mailchimp );
+            $admin = new MC4WP_Admin( $admin_tools, $messages, $mailchimp );
             $admin->add_hooks();
 
             $forms_admin = new MC4WP_Forms_Admin( $messages, $mailchimp );
