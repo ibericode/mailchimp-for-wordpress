@@ -296,7 +296,7 @@ class MC4WP_API_v3 {
 	 */
 	public function delete_ecommerce_store( $store_id ) {
 		$resource = sprintf( '/ecommerce/stores/%s', $store_id );
-		return $this->client->delete( $resource );
+		return !!$this->client->delete( $resource );
 	}
 
 	/**
@@ -336,7 +336,7 @@ class MC4WP_API_v3 {
 	 */
 	public function delete_ecommerce_store_customer( $store_id, $customer_id ) {
 		$resource = sprintf( '/ecommerce/stores/%s/customers/%s', $store_id, $customer_id );
-		return $this->client->delete( $resource );
+		return !!$this->client->delete( $resource );
 	}
 
 	/**
@@ -378,7 +378,7 @@ class MC4WP_API_v3 {
 	 */
 	public function delete_ecommerce_store_product( $store_id, $product_id ) {
 		$resource = sprintf( '/ecommerce/stores/%s/products/%s', $store_id, $product_id );
-		return $this->client->delete( $resource );
+		return !!$this->client->delete( $resource );
 	}
 
 	/**
@@ -421,7 +421,7 @@ class MC4WP_API_v3 {
 	 */
 	public function delete_ecommerce_store_product_variant( $store_id, $product_id, $variant_id ) {
 		$resource = sprintf( '/ecommerce/stores/%s/products/%s/variants/%s', $store_id, $product_id, $variant_id );
-		return $this->client->delete( $resource );
+		return !!$this->client->delete( $resource );
 	}
 
 	/**
@@ -460,8 +460,7 @@ class MC4WP_API_v3 {
 	 * @return bool
 	 */
 	public function delete_ecommerce_store_order( $store_id, $order_id ) {
-		$data = $this->client->delete( sprintf( '/ecommerce/stores/%s/orders/%s', $store_id, $order_id ) );
-		return !! $data;
+		return !! $this->client->delete( sprintf( '/ecommerce/stores/%s/orders/%s', $store_id, $order_id ) );
 	}
 
 	/**
