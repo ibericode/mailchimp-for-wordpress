@@ -39,13 +39,17 @@ class QueueTest extends PHPUnit_Framework_TestCase {
 		self::assertInstanceOf( 'MC4WP_Queue_Job', $job );
 		self::assertEquals( $job->data, $data );
 
-		// calling `get` again without deleting job should return same job instance
+        // calling get again should return same job
 		self::assertTrue( $job === $queue->get() );
 
-		$queue->put( 'two' );
-
-		// job should be added at the end, so still same instance
+        // job should be added at the end, so still same instance
+		$added = $queue->put( 'two' );
+        self::assertTrue( $added );
 		self::assertTrue( $job === $queue->get() );
+
+        // add same job again, should not be added
+        $added = $queue->put( 'two' );
+        self::assertFalse( $added );
 	}
 
 	/**
