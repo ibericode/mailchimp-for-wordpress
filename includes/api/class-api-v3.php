@@ -300,6 +300,8 @@ class MC4WP_API_v3 {
 	}
 
 	/**
+     * Add OR update a store customer
+     *
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#edit-put_ecommerce_stores_store_id_customers_customer_id
 	 *
 	 * @param $store_id
@@ -308,7 +310,7 @@ class MC4WP_API_v3 {
 	 * @return object
 	 */
 	public function add_ecommerce_store_customer( $store_id, array $args ) {
-		$resource = sprintf( '/ecommerce/stores/%s/customers/%s', $store_id, $args['customer_id'] );
+		$resource = sprintf( '/ecommerce/stores/%s/customers/%s', $store_id, $args['id'] );
 		return $this->client->put( $resource, $args );
 	}
 
@@ -382,6 +384,8 @@ class MC4WP_API_v3 {
 	}
 
 	/**
+     * Add OR update a product variant.
+     *
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/variants/#edit-put_ecommerce_stores_store_id_products_product_id_variants_variant_id
 	 *
 	 * @param string $store_id
@@ -391,7 +395,7 @@ class MC4WP_API_v3 {
 	 * @return object
 	 */
 	public function add_ecommerce_store_product_variant( $store_id, $product_id, array $args ) {
-		$resource = sprintf( '/ecommerce/stores/%s/products/%s/variants/%s', $store_id, $product_id, $args['variant_id'] );
+		$resource = sprintf( '/ecommerce/stores/%s/products/%s/variants/%s', $store_id, $product_id, $args['id'] );
 		return $this->client->put( $resource, $args );
 	}
 
