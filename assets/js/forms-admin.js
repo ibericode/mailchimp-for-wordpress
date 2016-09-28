@@ -743,7 +743,8 @@ var FieldFactory = function(fields, i18n) {
 			type: 'checkbox',
 			title: i18n.listChoice,
 			choices: choices,
-			help: i18n.listChoiceDescription
+			help: i18n.listChoiceDescription,
+			acceptsMultipleValues: true
 		}, true);
 
 		choices = {
