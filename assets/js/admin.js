@@ -157,7 +157,6 @@ ListFetcher.prototype.fetch = function (e) {
 };
 
 ListFetcher.prototype.view = function () {
-    console.log("Rendering view..");
     return m('form', {
         method: "POST",
         onsubmit: this.fetch.bind(this)
