@@ -221,7 +221,12 @@ class MC4WP_Form_Tags {
 
         $name = $args['name'];
         $default = isset( $args['default'] ) ? $args['default'] : '';
-        return isset( $_COOKIE[ $name ] ) ? esc_html( stripslashes( $_COOKIE[ $name ] ) ) : $default;
+
+        if( isset( $_COOKIE[ $name ] ) ) {
+            return esc_html( stripslashes( $_COOKIE[ $name ] ) );
+        }
+
+        return $default;
     }
 
 	/*
@@ -233,13 +238,14 @@ class MC4WP_Form_Tags {
 	 */
 	public function get_user_property( $args = array() ) {
 		$property = empty( $args['property'] ) ? 'user_email' : $args['property'];
+        $default = isset( $args['default'] ) ? $args['default'] : '';
 		$user = wp_get_current_user();
 
-		if( $user instanceof WP_User ) {
-			return $user->{$property};
+		if( $user instanceof WP_User && isset( $user->{$property} ) ) {
+			return esc_html( $user->{$property} );
 		}
 
-		return '';
+		return $default;
 	}
 
 	/*
@@ -250,14 +256,16 @@ class MC4WP_Form_Tags {
 	 * @return string
 	 */
 	public function get_post_property( $args = array() ) {
+        global $post;
 		$property = empty( $args['property'] ) ? 'ID' : $args['property'];
-		global $post;
+        $default = isset( $args['default'] ) ? $args['default'] : '';
 
-		if( $post instanceof WP_Post ) {
+
+		if( $post instanceof WP_Post && isset( $post->{$property} ) ) {
 			return $post->{$property};
 		}
 
-		return '';
+		return $default;
 	}
 
 	/**
@@ -279,7 +287,6 @@ class MC4WP_Form_Tags {
 		}
 
 		// TODO: Read from cookie? Or add $_COOKIE support to {data} tag?
-
 		return '';
 	}
 
