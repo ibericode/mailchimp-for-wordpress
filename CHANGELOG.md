@@ -1,6 +1,26 @@
 Changelog
 =========
 
+#### 4.0.5 - September 29, 2016
+
+**Fixes**
+
+- Allow checkbox option for the List Choice field (again).
+
+**Improvements**
+
+- Fetch MailChimp lists over AJAX, to speed up perceived performance (especially when your account has many lists).
+- Periodically fetch MailChimp lists, so cache is always fresh.
+- Improved `<label>` element accessibility for checkbox integrations.
+- Stop using double underscore prefix in function names, as these are reserved in PHP 7.
+- `{post}` and `{user}` shortcodes now accept a `default` parameter.
+
+**Additions**
+
+- Add [MemberPress](https://www.memberpress.com/) integration.
+- Add missing e-commerce related API methods for next week's [WooCommerce MailChimp e-commerce integration](https://mc4wp.com/kb/what-is-ecommerce360/) release.
+
+
 #### 4.0.4 - September 7, 2016
 
 **Improvements**
