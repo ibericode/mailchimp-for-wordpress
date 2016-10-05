@@ -148,10 +148,9 @@ function mc4wp_get_current_url() {
 }
 
 /**
- * Sanitizes all values in a mixed variable.
+ * Strips all HTML tags from all values in a mixed variable, then trims the result.
  *
  * @access public
- *
  * @param mixed $value
  *
  * @return mixed
@@ -159,7 +158,7 @@ function mc4wp_get_current_url() {
 function mc4wp_sanitize_deep( $value ) {
 
 	if ( is_scalar( $value ) ) {
-		$value = sanitize_text_field( $value );
+		$value = trim( strip_tags( $value ) );
 	} elseif( is_array( $value ) ) {
 		$value = array_map( 'mc4wp_sanitize_deep', $value );
 	} elseif ( is_object($value) ) {
