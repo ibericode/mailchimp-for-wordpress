@@ -180,6 +180,20 @@ class MC4WP_API_v3 {
 		return $data;
 	}
 
+    /**
+     * Batch subscribe / unsubscribe list members.
+     *
+     * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/#create-post_lists_list_id
+     *
+     * @param string $list_id
+     * @param array $args
+     * @return object
+     */
+	public function add_list_members( $list_id, array $args ) {
+	    $resource = sprintf( '/lists/%s', $list_id );
+        return $this->client->post( $resource, $args );
+    }
+
 	/**
 	 * Add or update (!) a member to a MailChimp list.
 	 *
