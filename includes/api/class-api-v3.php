@@ -381,6 +381,20 @@ class MC4WP_API_v3 {
         return $this->client->get( $resource, $args );
     }
 
+    /**
+     * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#read-get_ecommerce_stores_store_id_products_product_id
+     *
+     * @param string $store_id
+     * @param string $product_id
+     * @param array $args
+     *
+     * @return object
+     */
+    public function get_ecommerce_store_product( $store_id, $product_id, array $args = array() ) {
+        $resource = sprintf( '/ecommerce/stores/%s/products/%s', $store_id, $product_id );
+        return $this->client->get( $resource, $args );
+    }
+
 	/**
 	 * Add a product to a store
 	 *
@@ -394,20 +408,6 @@ class MC4WP_API_v3 {
 	public function add_ecommerce_store_product( $store_id, array $args ) {
 		$resource = sprintf( '/ecommerce/stores/%s/products', $store_id );
 		return $this->client->post( $resource, $args );
-	}
-
-	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#read-get_ecommerce_stores_store_id_products_product_id
-	 *
-	 * @param string $store_id
-	 * @param string $product_id
-	 * @param array $args
-	 *
-	 * @return object
-	 */
-	public function get_ecommerce_store_product( $store_id, $product_id, array $args = array() ) {
-		$resource = sprintf( '/ecommerce/stores/%s/products/%s', $store_id, $product_id );
-		return $this->client->get( $resource, $args );
 	}
 
 	/**
