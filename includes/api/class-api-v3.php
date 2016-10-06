@@ -656,6 +656,78 @@ class MC4WP_API_v3 {
         return !! $this->client->delete( sprintf( '/ecommerce/stores/%s/carts/%s', $store_id, $cart_id ) );
     }
 
+    /**
+     * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/lines/#read-get_ecommerce_stores_store_id_carts_cart_id_lines
+     *
+     * @param string $store_id
+     * @param string $cart_id
+     * @param array $args
+     *
+     * @return object
+     */
+    public function get_ecommerce_store_cart_lines( $store_id, $cart_id, array $args = array() ) {
+        $resource = sprintf( '/ecommerce/stores/%s/carts/%/lines', $store_id, $cart_id);
+        return $this->client->get( $resource, $args );
+    }
+
+    /**
+     * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/lines/#read-get_ecommerce_stores_store_id_carts_cart_id_lines_line_id
+     *
+     * @param string $store_id
+     * @param string $cart_id
+     * @param string $line_id
+     * @param array $args
+     *
+     * @return object
+     */
+    public function get_ecommerce_store_cart_line( $store_id, $cart_id, $line_id, array $args = array() ) {
+        $resource = sprintf( '/ecommerce/stores/%s/carts/%s/lines/%s', $store_id, $cart_id, $line_id );
+        return $this->client->get( $resource, $args );
+    }
+
+    /**
+     * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/lines/#create-post_ecommerce_stores_store_id_carts_cart_id_lines
+     *
+     * @param string $store_id
+     * @param string $cart_id
+     * @param array $args
+     *
+     * @return object
+     */
+    public function add_ecommerce_store_cart_line( $store_id, $cart_id, array $args ) {
+        $resource = sprintf( '/ecommerce/stores/%s/carts/%s/lines', $store_id, $cart_id );
+        return $this->client->post( $resource, $args );
+    }
+
+    /**
+     * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/lines/#edit-patch_ecommerce_stores_store_id_carts_cart_id_lines_line_id
+     *
+     * @param string $store_id
+     * @param string $cart_id
+     * @param string $line_id
+     * @param array $args
+     *
+     * @return object
+     */
+    public function update_ecommerce_store_cart_line( $store_id, $cart_id, $line_id, array $args ) {
+        $resource = sprintf( '/ecommerce/stores/%s/carts/%s/lines/%s', $store_id, $cart_id, $line_id );
+        return $this->client->patch( $resource, $args );
+    }
+
+    /**
+     * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/lines/#delete-delete_ecommerce_stores_store_id_carts_cart_id_lines_line_id
+     *
+     * @param string $store_id
+     * @param string $cart_id
+     * @param string $line_id
+     *
+     * @return bool
+     */
+    public function delete_ecommerce_store_cart_line( $store_id, $cart_id, $line_id ) {
+        $resource = sprintf( '/ecommerce/stores/%s/carts/%s/lines/%s', $store_id, $cart_id, $line_id );
+        return !! $this->client->delete( $resource );
+    }
+
 	/**
 	 * @return string
 	 */
