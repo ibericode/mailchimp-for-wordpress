@@ -355,6 +355,20 @@ class MC4WP_API_v3 {
 		return $this->client->put( $resource, $args );
 	}
 
+    /**
+     * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#edit-patch_ecommerce_stores_store_id_customers_customer_id
+     *
+     * @param string $store_id
+     * @param string $customer_id
+     * @param array $args
+     *
+     * @return object
+     */
+    public function update_ecommerce_store_customer( $store_id, $customer_id, array $args ) {
+        $resource = sprintf( '/ecommerce/stores/%s/customers/%s', $store_id, $customer_id );
+        return $this->client->patch( $resource, $args );
+    }
+
 	/**
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#delete-delete_ecommerce_stores_store_id_customers_customer_id
 	 *
