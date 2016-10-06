@@ -562,6 +562,21 @@ class MC4WP_API_v3 {
         return $this->client->post( $resource, $args );
     }
 
+
+    /**
+     * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/lines/#read-get_ecommerce_stores_store_id_orders_order_id_lines
+     *
+     * @param string $store_id
+     * @param string $order_id
+     * @param array $args
+     *
+     * @return object
+     */
+    public function get_ecommerce_store_order_lines( $store_id, $order_id, array $args = array() ) {
+        $resource = sprintf( '/ecommerce/stores/%s/orders/%s/lines', $store_id, $order_id );
+        return $this->client->get( $resource, $args );
+    }
+
     /**
      * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/lines/#read-get_ecommerce_stores_store_id_orders_order_id_lines_line_id
      *
@@ -578,6 +593,21 @@ class MC4WP_API_v3 {
     }
 
     /**
+     * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/lines/#edit-patch_ecommerce_stores_store_id_orders_order_id_lines_line_id
+     *
+     * @param string $store_id
+     * @param string $order_id
+     * @param string $line_id
+     * @param array $args
+     *
+     * @return object
+     */
+    public function update_ecommerce_store_order_line( $store_id, $order_id, $line_id, array $args ) {
+        $resource = sprintf( '/ecommerce/stores/%s/orders/%s/lines/%s', $store_id, $order_id, $line_id );
+        return $this->client->patch( $resource, $args );
+    }
+
+    /**
      * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/lines/#delete-delete_ecommerce_stores_store_id_orders_order_id_lines_line_id
      *
      * @param string $store_id
@@ -587,7 +617,8 @@ class MC4WP_API_v3 {
      * @return bool
      */
     public function delete_ecommerce_store_order_line( $store_id, $order_id, $line_id ) {
-        return !! $this->client->delete( sprintf( '/ecommerce/stores/%s/orders/%s/lines/%s', $store_id, $order_id, $line_id ) );
+        $resource = sprintf( '/ecommerce/stores/%s/orders/%s/lines/%s', $store_id, $order_id, $line_id );
+        return !! $this->client->delete( $resource );
     }
 
     /**
