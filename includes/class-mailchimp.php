@@ -159,18 +159,20 @@ class MC4WP_MailChimp {
 	}
 
     /**
-     * Get MailChimp lists from cache, never triggering a remote API call.
+     * Get MailChimp lists from cache.
      *
+     * @param boolean $force Force a result, by hitting remote API.
      * @return array
      */
-	public function get_cached_lists() {
-        $cached_lists = get_option( 'mc4wp_mailchimp_lists_v3_fallback' );
+	public function get_cached_lists( $force = false ) {
 
+	    // then, get from option cache
+        $cached_lists = get_option( 'mc4wp_mailchimp_lists_v3_fallback' );
         if( is_array( $cached_lists ) ) {
             return $cached_lists;
         }
 
-        return array();
+        return $force ? $this->fetch_lists() : array();
     }
 
 	/**
@@ -178,29 +180,79 @@ class MC4WP_MailChimp {
      *
      * The following data sources are tried in the following order.
      *
-     * - Cache (2 days)
-     * - API
-     * - Cache (14 days)
+     * - Transient Cache (5 days)
+     * - Remote MailChimp API
+     * - Option Cache (forever)
      *
 	 * @return array
 	 */
 	public function get_lists() {
 
-	    // first, try to get from 3-day transient.
+	    // first, try to get from transient.
 		$lists = get_transient( 'mc4wp_mailchimp_lists_v3'  );
 		if( is_array( $lists ) ) {
 			return $lists;
 		}
 
-		// then, fetch from MailChimp API.
-		$lists = $this->fetch_lists();
+        // then, fetch from MailChimp API.
+        $lists = $this->fetch_lists();
         if( ! empty( $lists ) ) {
             return $lists;
         }
 
-        // if that failed, get from 2-week transient.
+        // if that failed, get from option cache.
 		return $this->get_cached_lists();
 	}
+
+    /**
+     * @param string $list_id
+     *
+     * @return MC4WP_MailChimp_List
+     */
+	private function fetch_list( $list_id ) {
+        $list_data = $this->api->get_list( $list_id, array( 'fields' => 'id,name,stats' ) );
+
+        // create local object
+        $list = new MC4WP_MailChimp_List( $list_data->id, $list_data->name );
+        $list->subscriber_count = $list_data->stats->member_count;
+
+        // parse web_id from the "link" response header
+        $headers = $this->api->get_last_response_headers();
+        $link_header = $headers['link'];
+        preg_match( '/\?id=(\d+)/', $link_header, $matches );
+        if( ! empty( $matches[1] ) ) {
+            $list->web_id = $matches[1];
+        };
+
+        // get merge fields (if any)
+        if( $list_data->stats->merge_field_count > 0 ) {
+            $field_data = $this->api->get_list_merge_fields( $list->id, array( 'count' => 100, 'fields' => 'merge_fields.name,merge_fields.tag,merge_fields.type,merge_fields.required,merge_fields.default_value,merge_fields.options,merge_fields.public' ) );
+
+            // hydrate data into object
+            foreach( $field_data as $data ) {
+                $object = MC4WP_MailChimp_Merge_Field::from_data( $data );
+                $list->merge_fields[] = $object;
+            }
+        }
+
+        // get interest categories
+        $interest_categories_data = $this->api->get_list_interest_categories( $list->id, array( 'count' => 100, 'fields' => 'categories.id,categories.title,categories.type' ) );
+        foreach( $interest_categories_data as $interest_category_data ) {
+            $interest_category = MC4WP_MailChimp_Interest_Category::from_data( $interest_category_data );
+
+            // fetch groups for this interest
+            $interests_data = $this->api->get_list_interest_category_interests( $list->id, $interest_category->id, array( 'count' => 100, 'fields' => 'interests.id,interests.name') );
+            foreach( $interests_data as $interest_data ) {
+                $interest_category->interests[ $interest_data->id ] = $interest_data->name;
+            }
+
+            $list->interest_categories[] = $interest_category;
+        }
+
+        return $list;
+    }
+
+
 
     /**
      * @return array
@@ -222,52 +274,9 @@ class MC4WP_MailChimp {
          * @var MC4WP_MailChimp_List[]
          */
         $lists = array();
-
         foreach ( $list_ids as $list_id ) {
-
-            // if any API call for this list fails, simply move on to next list.
             try {
-                $list_data = $this->api->get_list( $list_id, array( 'fields' => 'id,name,stats' ) );
-
-                // create local object
-                $list = new MC4WP_MailChimp_List( $list_data->id, $list_data->name );
-                $list->subscriber_count = $list_data->stats->member_count;
-
-                // parse web_id from the "link" response header
-                $headers = $this->api->get_last_response_headers();
-                $link_header = $headers['link'];
-                preg_match( '/\?id=(\d+)/', $link_header, $matches );
-                if( ! empty( $matches[1] ) ) {
-                    $list->web_id = $matches[1];
-                };
-
-                // get merge fields (if any)
-                if( $list_data->stats->merge_field_count > 0 ) {
-                    $field_data = $this->api->get_list_merge_fields( $list->id, array( 'count' => 100, 'fields' => 'merge_fields.name,merge_fields.tag,merge_fields.type,merge_fields.required,merge_fields.default_value,merge_fields.options,merge_fields.public' ) );
-
-                    // hydrate data into object
-                    foreach( $field_data as $data ) {
-                        $object = MC4WP_MailChimp_Merge_Field::from_data( $data );
-                        $list->merge_fields[] = $object;
-                    }
-                }
-
-                // get interest categories
-                $interest_categories_data = $this->api->get_list_interest_categories( $list->id, array( 'count' => 100, 'fields' => 'categories.id,categories.title,categories.type' ) );
-                foreach( $interest_categories_data as $interest_category_data ) {
-                    $interest_category = MC4WP_MailChimp_Interest_Category::from_data( $interest_category_data );
-
-                    // fetch groups for this interest
-                    $interests_data = $this->api->get_list_interest_category_interests( $list->id, $interest_category->id, array( 'count' => 100, 'fields' => 'interests.id,interests.name') );
-                    foreach( $interests_data as $interest_data ) {
-                        $interest_category->interests[ $interest_data->id ] = $interest_data->name;
-                    }
-
-                    $list->interest_categories[] = $interest_category;
-                }
-
-                // add to array
-                $lists["{$list->id}"] = $list;
+                $lists["{$list_id}"] = $this->fetch_list( $list_id );
             } catch( MC4WP_API_Exception $e ) {
                 continue;
             }
@@ -275,7 +284,7 @@ class MC4WP_MailChimp {
 
         // store lists in transients
         if( ! empty( $lists ) ) {
-            set_transient( 'mc4wp_mailchimp_lists_v3', $lists, ( 60 * 60 * 24 * 7 ) ); // 1 week
+            set_transient( 'mc4wp_mailchimp_lists_v3', $lists, ( 60 * 60 * 24 * 5 ) ); // 5 days
             update_option( 'mc4wp_mailchimp_lists_v3_fallback', $lists, false ); // forever
         }
 
@@ -290,13 +299,12 @@ class MC4WP_MailChimp {
 	 * @return MC4WP_MailChimp_List
 	 */
 	public function get_list( $list_id ) {
-		$lists = $this->get_cached_lists();
+		$lists = $this->get_cached_lists( true );
 
 		if( isset( $lists[$list_id] ) ) {
 			return $lists[$list_id];
 		}
 
-		// return dummy list object
 		return new MC4WP_MailChimp_List( '', 'Unknown List' );
 	}
 
