@@ -4,13 +4,14 @@
 # Kappei Nakano <nakano.kappei@gmail.com>, 2016
 # kihoshin <kiho7777@gmail.com>, 2015
 # monaye win <winmonaye@gmail.com>, 2016
+# Sugahara Masayuki <brindflontia@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-11-30 10:15:18+00:00\n"
-"PO-Revision-Date: 2016-05-05 23:20+0000\n"
-"Last-Translator: Kappei Nakano <nakano.kappei@gmail.com>\n"
+"PO-Revision-Date: 2016-09-30 15:37+0000\n"
+"Last-Translator: Sugahara Masayuki <brindflontia@gmail.com>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,7 +63,7 @@ msgstr "このメールアドレスは未登録です。"
 
 #: config/default-form-messages.php:33
 msgid "Please select at least one list."
-msgstr "必ず1つのリストを選んでください。"
+msgstr "少なくとも1つのリストを選んでください。"
 
 #: config/default-integration-options.php:5
 msgid "Sign me up for the newsletter!"
@@ -115,7 +116,7 @@ msgstr "購読者を増やして、よいニュースレターを作ろう"
 msgid ""
 "Learn how to best grow your lists & write better emails by subscribing to "
 "our monthly tips."
-msgstr "リストを増やたり、よいメールを書く一番の方法は、当社の毎月のTIPSを購読すると学べます。"
+msgstr "リストのユーザーを増やしたり、よいメールを書いたりする一番の方法は、当社の毎月のTIPSを購読すると学べます。"
 
 #: includes/admin/class-ads.php:66
 msgid "Email Address"
@@ -148,11 +149,11 @@ msgstr "フォーム"
 
 #: includes/forms/class-admin.php:101 includes/forms/class-admin.php:176
 msgid "<strong>Success!</strong> Form successfully saved."
-msgstr "<strong>成功！</strong> フォームを保存は完了しました。"
+msgstr "<strong>成功！</strong> フォームを保存しました。"
 
 #: includes/forms/class-admin.php:176
 msgid "Preview form"
-msgstr "プレビューフォーム"
+msgstr "フォームをプレビュー"
 
 #: includes/forms/class-admin.php:279
 msgid "Form not found."
