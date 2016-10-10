@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp forms, mailchimp integrations
 Requires at least: 3.8
 Tested up to: 4.6.1
-Stable tag: 4.0.5
+Stable tag: 4.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -57,7 +57,7 @@ MailChimp for WordPress helps you add more subscribers to your MailChimp lists u
 <p>MailChimp for WordPress has a Premium add-on which comes with several additional benefits.</p>
 <ul>
 <li>Multiple forms (with AJAX)</li>
-<li>eCommerce360 integration for WooCommerce and Easy Digital Downloads</li>
+<li>Advanced MailChimp e-commerce integration for WooCommerce</li>
 <li>Email notifications</li>
 <li>An easy way to style your forms</li>
 <li>Detailed reports & statistics</li>
@@ -188,6 +188,21 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 6. Detailed statistics on which methods are generating the most subscribers. **(Pro Feature)**
 
 == Changelog == 
+
+
+#### 4.0.6 - October 10, 2016
+
+**Fixes**
+
+- Issue with lists not showing when using W3 Total Cache with APCu object cache enabled.
+
+**Improvements**
+
+- We're no longer stripping newlines from text fields.
+
+**Additions**
+
+- Added missing e-commerce related API methods to API class.
 
 
 #### 4.0.5 - September 29, 2016
