@@ -155,7 +155,7 @@ class MC4WP_MailChimp {
 	public function empty_cache() {
 		delete_transient( 'mc4wp_mailchimp_lists_v3' );
 		delete_transient( 'mc4wp_list_counts' );
-        delete_transient( 'mc4wp_mailchimp_lists_v3_fallback' );
+        delete_option( 'mc4wp_mailchimp_lists_v3_fallback' );
 	}
 
     /**
@@ -164,7 +164,7 @@ class MC4WP_MailChimp {
      * @return array
      */
 	public function get_cached_lists() {
-        $cached_lists = get_transient( 'mc4wp_mailchimp_lists_v3_fallback' );
+        $cached_lists = get_option( 'mc4wp_mailchimp_lists_v3_fallback' );
 
         if( is_array( $cached_lists ) ) {
             return $cached_lists;
@@ -275,8 +275,8 @@ class MC4WP_MailChimp {
 
         // store lists in transients
         if( ! empty( $lists ) ) {
-            set_transient( 'mc4wp_mailchimp_lists_v3', $lists, ( 60 * 60 * 24 * 3 ) ); // 3 days
-            set_transient( 'mc4wp_mailchimp_lists_v3_fallback', $lists, 60 * 60 * 24 * 30 ); // 30 days
+            set_transient( 'mc4wp_mailchimp_lists_v3', $lists, ( 60 * 60 * 24 * 7 ) ); // 1 week
+            update_option( 'mc4wp_mailchimp_lists_v3_fallback', $lists, false ); // forever
         }
 
         return $lists;
