@@ -1,6 +1,21 @@
 Changelog
 =========
 
+#### 4.0.6 - October 10, 2016
+
+**Fixes**
+
+- Issue with lists not showing when using W3 Total Cache with APCu object cache enabled.
+
+**Improvements**
+
+- We're no longer stripping newlines from text fields.
+
+**Additions**
+
+- Added missing e-commerce related API methods to API class.
+
+
 #### 4.0.5 - September 29, 2016
 
 **Fixes**
