@@ -46,6 +46,7 @@ class MC4WP_Admin {
 		$this->messages = $messages;
 		$this->plugin_file = plugin_basename( MC4WP_PLUGIN_FILE );
 		$this->ads = new MC4WP_Admin_Ads();
+        $this->review_notice = new MC4WP_Admin_Review_Notice( $tools );
 		$this->load_translations();
 	}
 
@@ -69,6 +70,7 @@ class MC4WP_Admin {
 
 		$this->ads->add_hooks();
 		$this->messages->add_hooks();
+        $this->review_notice->add_hooks();
 	}
 
 	/**

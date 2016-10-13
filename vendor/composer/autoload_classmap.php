@@ -16,6 +16,7 @@ return array(
     'MC4WP_Admin_Ads' => $baseDir . '/includes/admin/class-ads.php',
     'MC4WP_Admin_Ajax' => $baseDir . '/includes/admin/class-admin-ajax.php',
     'MC4WP_Admin_Messages' => $baseDir . '/includes/admin/class-admin-messages.php',
+    'MC4WP_Admin_Review_Notice' => $baseDir . '/includes/admin/class-review-notice.php',
     'MC4WP_Admin_Texts' => $baseDir . '/includes/admin/class-admin-texts.php',
     'MC4WP_Admin_Tools' => $baseDir . '/includes/admin/class-admin-tools.php',
     'MC4WP_Array_Bag' => $baseDir . '/includes/class-array-bag.php',
