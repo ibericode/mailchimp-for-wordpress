@@ -177,22 +177,6 @@ class MC4WP_API_v3_Client {
             return $data;
         }
 
-        // TODO: Move this to user land
-//		if( $code !== 200 ) {
-//			$message = sprintf( 'The MailChimp API server returned the following response: <em>%s %s</em>.', $code, $message );
-//
-//			// check for Akamai firewall response
-//			if( $code === 403 ) {
-//				preg_match('/Reference (.*)/i', $body, $matches );
-//
-//				if( ! empty( $matches[1] ) ) {
-//					$message .= '</strong><br /><br />' . sprintf( 'This usually means that your server is blacklisted by MailChimp\'s firewall. Please contact MailChimp support with the following reference number: %s </strong>', $matches[1] );
-//				}
-//			}
-//
-//
-//		}
-
         // unable to decode response
         throw new MC4WP_API_Exception( $message, $code, $response );
     }
