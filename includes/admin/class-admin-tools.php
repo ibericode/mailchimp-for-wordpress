@@ -2,8 +2,17 @@
 
 class MC4WP_Admin_Tools {
 
-    public function __construct()
-    {
+    public function __construct() {
+    }
+
+    /**
+     * @param string $page
+     *
+     * @return bool
+     */
+    public function on_plugin_page( $page = '') {
+        $page = $page ? 'mailchimp-for-wp-'. $page : 'mailchimp-for-wp';
+        return isset( $_GET['page'] ) && strpos( $_GET['page'], $page ) === 0;
     }
 
     /**
