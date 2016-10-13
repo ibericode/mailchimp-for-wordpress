@@ -160,6 +160,10 @@
     background: #d9edf7;
     border: 1px solid #bce8f1;
     margin: 1em 0 !important; }
+  #mc4wp-admin .mc4wp-is-dismissible,
+  .mc4wp-admin .mc4wp-is-dismissible {
+    padding-right: 38px;
+    position: relative; }
   #mc4wp-admin .column-ID,
   .mc4wp-admin .column-ID {
     width: 10%; }
@@ -798,3 +802,8 @@
 .rtl #mc4wp-admin .CodeMirror-vscrollbar {
   left: 0 !important;
   right: auto !important; }
+
+.rtl .mc4wp-is-dismissible {
+  padding-left: 38px;
+  padding-right: initial;
+  position: relative; }

@@ -1,6 +1,5 @@
 .rtl {
 	 #mc4wp-admin {
-
 		 .page-title {
 			 background-position: right center;
 			 padding-left: 0;
@@ -15,6 +14,11 @@
 			left:  0 !important;;
 			right: auto !important;;
 		}
-
 	 }
+
+	.mc4wp-is-dismissible {
+		padding-left: 38px;
+		padding-right: initial;
+		position: relative;
 	}
+}
