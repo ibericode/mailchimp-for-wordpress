@@ -272,16 +272,13 @@ class MC4WP_Admin {
 
 		global $wp_scripts;
 
-		$prefix = 'mailchimp-for-wp';
 
-		// only load asset files on the MailChimp for WordPress settings pages
-		if( empty( $_GET['page'] ) || strpos( $_GET['page'], $prefix ) !== 0 ) {
-			return false;
-		}
+        if( ! $this->tools->on_plugin_page() ) {
+            return false;
+        }
 
 		$opts = mc4wp_get_options();
-
-		$page = ltrim( substr( $_GET['page'], strlen( $prefix ) ), '-' );
+        $page = $this->tools->get_plugin_page();
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		// css
@@ -466,10 +463,10 @@ class MC4WP_Admin {
 	 */
 	public function show_api_key_notice() {
 
-		// don't show if on settings page already
-		if( isset( $_GET['page'] ) && $_GET['page'] === 'mailchimp-for-wp' ) {
-			return;
-		}
+        // don't show if on settings page already
+	    if( $this->tools->on_plugin_page( '' ) ) {
+	        return;
+        }
 
 		// only show to user with proper permissions
 		if( ! $this->tools->is_user_authorized() ) {
