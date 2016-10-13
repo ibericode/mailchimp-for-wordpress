@@ -487,7 +487,7 @@ class MC4WP_Admin {
 			return;
 		}
 
-		echo '<div class="notice notice-warning" style="position: relative; padding-right: 36px;">';
+		echo '<div class="notice notice-warning mc4wp-is-dismissible">';
 		echo '<p>' . sprintf( __( 'To get started with MailChimp for WordPress, please <a href="%s">enter your MailChimp API key on the settings page of the plugin</a>.', 'mailchimp-for-wp' ), admin_url( 'admin.php?page=mailchimp-for-wp' ) ) . '</p>';
 		echo '<form method="post"><input type="hidden" name="_mc4wp_action" value="dismiss_api_key_notice" /><button type="submit" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></form>';
 		echo '</div>';
