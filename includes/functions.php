@@ -99,7 +99,7 @@ function mc4wp_get_debug_log() {
 
 	// get default log file location
 	$upload_dir = wp_upload_dir();
-	$file = trailingslashit( $upload_dir['basedir'] ) . 'mc4wp-debug.log';
+	$file = trailingslashit( $upload_dir['basedir'] ) . 'mc4wp-debug-log.php';
 
 	/**
 	 * Filters the log file to write to.
