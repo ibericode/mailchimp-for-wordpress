@@ -50,6 +50,11 @@ class MC4WP_Debug_Log_Reader {
 			}
 
 			$this->handle = fopen( $this->file, 'r' );
+
+            // unable to read?
+            if( ! is_resource( $this->handle ) ) {
+                return '';
+            }
 		}
 
 		// read line, up to 8kb
