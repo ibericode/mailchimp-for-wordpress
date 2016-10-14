@@ -42,6 +42,24 @@ class Functions_Test extends PHPUnit_Framework_TestCase {
         ),
     );
 
+
+    /**
+     * @covers mc4wp_obfuscate_email_addresses()
+     */
+    public function test_mc4wp_obfuscate_email_addresses() {
+
+        // by no means should the two strings be similar
+        $string = 'MailChimp API error: Recipient "johnnydoe@gmail.com" has too many recent signup requests';
+        $obfuscated = mc4wp_obfuscate_email_addresses( $string );
+        self::assertNotEquals( $string, $obfuscated );
+
+        // less than 70% of the string should be similar
+        $string = 'johnnydoe@gmail.com';
+        $obfuscated = mc4wp_obfuscate_email_addresses( $string );
+        similar_text( $string, $obfuscated, $percentage );
+        self::assertTrue( $percentage <= 70 );
+    }
+
     /**
      * @covers mc4wp_obfuscate_string
      */

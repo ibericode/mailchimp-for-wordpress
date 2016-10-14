@@ -344,12 +344,31 @@ function _mc4wp_use_sslverify() {
  * @return string
  */
 function mc4wp_obfuscate_string( $string ) {
-
 	$length = strlen( $string );
 	$obfuscated_length = ceil( $length / 2 );
-
 	$string = str_repeat( '*', $obfuscated_length ) . substr( $string, $obfuscated_length );
 	return $string;
+}
+
+/**
+ * @internal
+ * @ignore
+ */
+function _mc4wp_obfuscate_email_addresses_callback( $m ) {
+    $one = $m[1] . str_repeat( '*', strlen( $m[2] ) );
+    $two = $m[3] . str_repeat( '*', strlen( $m[4] ) );
+    $three = $m[5];
+    return sprintf( '%s@%s.%s', $one, $two, $three );
+}
+
+/**
+ * Obfuscates email addresses in a string.
+ *
+ * @param $string String possibly containing email address
+ * @return string
+ */
+function mc4wp_obfuscate_email_addresses( $string ) {
+    return preg_replace_callback( '/([\w\.]{1,4})([\w\.]*)\@(\w{1,2})(\w*)\.(\w+)/', '_mc4wp_obfuscate_email_addresses_callback', $string );
 }
 
 /**
