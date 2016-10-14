@@ -10,9 +10,9 @@ class DebugLogReaderTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @var string
 	 */
-	protected $sample_log = array(
-		'[2016-01-20 05:33:02] INFO: eCommerce360 > Successfully added order 101',
-		'[2016-01-20 05:33:47] INFO: eCommerce360 > Order 101 deleted',
+	protected $sample_log_lines = array(
+		'eCommerce360 > Successfully added order 101',
+		'eCommerce360 > Order 101 deleted',
 	);
 
 	/**
@@ -21,8 +21,11 @@ class DebugLogReaderTest extends PHPUnit_Framework_TestCase {
 	public function __construct() {
 		parent::__construct();
 
-		$contents = join( PHP_EOL, $this->sample_log ) . PHP_EOL;
-		file_put_contents( $this->file, $contents );
+        $log = new MC4WP_Debug_Log( $this->file );
+        foreach( $this->sample_log_lines as $line ) {
+            $log->error( $line );
+        }
+
 	}
 
 	/**
@@ -40,10 +43,11 @@ class DebugLogReaderTest extends PHPUnit_Framework_TestCase {
 		$reader = new MC4WP_Debug_Log_Reader( $this->file );
 
 		// first read should return first line
-		self::assertEquals( $reader->read(), $this->sample_log[0] . PHP_EOL );
+		self::assertContains( $this->sample_log_lines[0] . PHP_EOL, $reader->read() );
 
-		// consecutive read should return second line
-		self::assertEquals( $reader->read(), $this->sample_log[1] . PHP_EOL );
+        // read should match format
+        self::assertRegExp('/^\[([0-9-: ]+)\] (INFO|WARNING|ERROR)\: (.*)\n$/', $reader->read() );
+
 	}
 
 	/**
@@ -51,8 +55,6 @@ class DebugLogReaderTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_read_as_html() {
 		$reader = new MC4WP_Debug_Log_Reader( $this->file );
-
-		$html = '<span class="time">[2016-01-20 05:33:02]</span> <span class="level">INFO:</span> <span class="message">eCommerce360 > Successfully added order 101</span>';
-		self::assertEquals( $reader->read_as_html(), $html . PHP_EOL );
+        self::assertRegExp('/^<span .*>\[([0-9-: ]+)\]<\/span> <span .*>(INFO|WARNING|ERROR)\:<\/span> <span .*>(.*)<\/span>\n$/', $reader->read_as_html() );
 	}
 }
