@@ -98,7 +98,7 @@ function mc4wp_get_api() {
 function mc4wp_get_debug_log() {
 
 	// get default log file location
-	$upload_dir = wp_upload_dir();
+	$upload_dir = wp_upload_dir( null, false );
 	$file = trailingslashit( $upload_dir['basedir'] ) . 'mc4wp-debug-log.php';
 
 	/**
