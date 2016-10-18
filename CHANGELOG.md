@@ -1,6 +1,14 @@
 Changelog
 =========
 
+#### 4.0.7 (trunk)
+
+**Improvements**
+
+- Obfuscate email addresses in debug log. Thanks [Sauli Lepola](https://twitter.com/SJLfi).
+- Ask for confirmation before disabling double opt-in, which we do not recommend.
+
+
 #### 4.0.6 - October 10, 2016
 
 **Fixes**
