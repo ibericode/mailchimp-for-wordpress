@@ -23,10 +23,9 @@ class MC4WP_Admin_Ads {
 		add_action( 'mc4wp_admin_form_after_appearance_settings_rows', array( $this, 'after_form_appearance_settings_rows' ) );
 		add_action( 'mc4wp_admin_sidebar', array( $this, 'admin_sidebar' ) );
 		add_action( 'mc4wp_admin_footer', array( $this, 'admin_footer' ) );
-		add_action( 'mc4wp_admin_other_settings', array( $this, 'ecommerce360' ), 90 );
+		add_action( 'mc4wp_admin_other_settings', array( $this, 'ecommerce' ), 90 );
 
-		add_action( 'mc4wp_admin_after_woocommerce_integration_settings', array( $this, 'ecommerce360' ) );
-		add_action( 'mc4wp_admin_after_easy-digital-downloads_integration_settings', array( $this, 'ecommerce360' ) );
+		add_action( 'mc4wp_admin_after_woocommerce_integration_settings', array( $this, 'ecommerce' ) );
 		return true;
 	}
 
@@ -136,26 +135,23 @@ class MC4WP_Admin_Ads {
 	}
 
 	/**
-	 * Show notice about eCommerce360 integration in Premium.
+	 * Show notice about E-Commerce integration in Premium.
 	 */
-	public function ecommerce360() {
+	public function ecommerce() {
 
-		// detect whether WooCommerce or Easy Digital Downloads is installed
-		$shops = array(
-			'WooCommerce' => class_exists( 'WooCommerce' ),
-			'Easy Digital Downloads' => class_exists( 'Easy Digital Downloads' )
-		);
-		$shops = array_filter( $shops );
-		$shops = array_keys( $shops );
-		if( empty( $shops ) ) {
+		// detect whether WooCommerce is installed & activated.
+		if( ! class_exists( 'WooCommerce' ) ) {
 			return;
 		}
 
-		$shop = array_shift( $shops );
-
 		echo '<div class="medium-margin">';
-		echo '<h3>eCommerce360</h3>';
-		echo sprintf( '<p>' . __( 'Want to track all your %s sales in MailChimp so you can send emails based on the purchases of your subscribers? <a href="%s">Upgrade to MailChimp for WordPress Premium</a> or <a href="%s">read more about eCommerce360</a>.', 'mailchimp-for-wp' ) . '</p>', $shop, 'https://mc4wp.com/features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=other-settings-link', 'https://mc4wp.com/kb/what-is-ecommerce360/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=other-settings-link' );
+		echo '<h3>Advanced WooCommerce integration for MailChimp</h3>';
+		echo '<p>';
+		echo __( 'Do you want to track all WooCommerce orders in MailChimp so you can send emails based on the purchase activity of your subscribers?', 'mailchimp-for-wp' );
+		echo '</p>';
+		echo '<p>';
+		echo sprintf( __( '<a href="%s">Upgrade to MailChimp for WordPress Premium</a> or <a href="%s">read more about MailChimp\'s E-Commerce features</a>.', 'mailchimp-for-wp' ) . '</p>', 'https://mc4wp.com/features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=other-settings-link', 'https://mc4wp.com/kb/what-is-ecommerce360/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=other-settings-link' );
+		echo '</p>';
 		echo '</div>';
 	}
 
