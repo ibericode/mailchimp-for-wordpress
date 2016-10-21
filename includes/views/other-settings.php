@@ -76,7 +76,7 @@ add_action( 'mc4wp_admin_other_settings', '_mc4wp_usage_tracking_setting', 70 );
 			<div class="medium-margin">
 
 				<style scoped type="text/css">
-					#debug-log { font-family: monaco, monospace, courier, 'courier new', 'Bitstream Vera Sans Mono'; font-size: 13px; line-height: 140%; min-height: 100px; max-height: 300px; padding: 6px; border:1px solid #ccc; background: #262626; color: white; overflow-y: scroll; }
+					#debug-log { font-family: monaco, monospace, courier, 'courier new', 'Bitstream Vera Sans Mono'; font-size: 13px; resize: vertical; line-height: 140%; height: 200px; padding: 6px; border:1px solid #ccc; background: #262626; color: white; overflow-y: scroll; }
 					#debug-log .time { color: rgb(181, 137, 0); }
 					#debug-log .level { color: #35AECD; }
 					#debug-log .debug-log-empty { color: #ccc; font-style: italic; }
