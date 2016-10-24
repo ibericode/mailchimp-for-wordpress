@@ -2,9 +2,8 @@
 
 var mc4wp = window.mc4wp || {};
 
-// bail early if we're on IE8..
-// TODO: just don't load in IE8
-if( ! window.addEventListener ) {
+// bail early if we're on IE8 OR if already inited (when script is included twice)
+if( ! window.addEventListener || mc4wp.ready ) {
 	return;
 }
 
@@ -119,4 +118,5 @@ if( config.submitted_form ) {
 
 // expose forms object
 mc4wp.forms = forms;
+mc4wp.ready = true;
 window.mc4wp = mc4wp;
