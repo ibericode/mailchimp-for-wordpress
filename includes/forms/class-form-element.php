@@ -342,6 +342,11 @@ class MC4WP_Form_Element {
 			$classes[] = 'mc4wp-form-' . $form->settings['css'];
 		}
 
+		// add classes from config array
+		if( ! empty( $this->config['element_class'] ) ) {
+		    $classes = array_merge( $classes, explode( ' ', $this->config['element_class'] ) );
+        }
+
 		/**
 		 * Filters `class` attributes for the `<form>` element.
 		 *
