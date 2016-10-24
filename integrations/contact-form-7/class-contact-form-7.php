@@ -118,6 +118,9 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 			}
 		}
 
+		// disable paragraph wrap because CF7 defaults to `wpautop`
+		$this->options['wrap_p'] = 0;
+
 		return $this->get_checkbox_html();
 	}
 
