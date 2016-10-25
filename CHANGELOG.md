@@ -1,12 +1,20 @@
 Changelog
 =========
 
-#### 4.0.7 (trunk)
+#### 4.0.7 - October 25, 2016
 
 **Improvements**
 
-- Obfuscate email addresses in debug log. Thanks [Sauli Lepola](https://twitter.com/SJLfi).
+- Obfuscate all email addresses in debug log. Thanks [Sauli Lepola](https://twitter.com/SJLfi).
 - Ask for confirmation before disabling double opt-in, which we do not recommend.
+- Allow vertical resizing of debug log.
+- Failsafe against including JavaScript file twice.
+- No longer wrapping CF7 checkbox in paragraph tags.
+
+**Additions**
+
+- Added `mc4wp_form_api_error` action hook for API errors encountered by forms.
+- Added `element_class` argument to `[mc4wp_form]` shortcode for adding CSS classes.
 
 
 #### 4.0.6 - October 10, 2016
