@@ -122,13 +122,24 @@ class MC4WP_Form_Listener {
 
 		// do stuff on failure
 		if( ! is_object( $result ) || empty( $result->id ) ) {
+
+            $error_code = $mailchimp->get_error_code();
+            $error_message = $mailchimp->get_error_message();
 			
 			if( $mailchimp->get_error_code() == 214 ) {
 				$form->add_error('already_subscribed');
 				$log->warning( sprintf( "Form %d > %s is already subscribed to the selected list(s)", $form->ID, $data['EMAIL'] ) );
 			} else {
 				$form->add_error('error');
-				$log->error( sprintf( 'Form %d > MailChimp API error: %s %s', $form->ID, $mailchimp->get_error_code(), $mailchimp->get_error_message() ) );
+				$log->error( sprintf( 'Form %d > MailChimp API error: %s %s', $form->ID, $error_code, $error_message ) );
+
+                /**
+                 * Fire action hook so API errors can be hooked into.
+                 *
+                 * @param MC4WP_Form $form
+                 * @param string $error_message
+                 */
+                do_action( 'mc4wp_form_api_error', $form, $error_message );
 			}
 
 			// bail
