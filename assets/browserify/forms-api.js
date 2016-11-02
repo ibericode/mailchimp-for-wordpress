@@ -63,7 +63,7 @@ function showIf(el, expectedValue ) {
 	return function() {
 		var value = this.value.trim();
 		var checked = ( this.getAttribute('type') !== 'radio' && this.getAttribute('type') !== 'checked' ) || this.checked;
-		var conditionMet = checked && ( value === expectedValue  || ( expectedValue === "" && value.length > 0 ) );
+		var conditionMet = checked && ( ( value === expectedValue && expectedValue !== "" ) || ( expectedValue === "" && value.length > 0 ) );
 		el.style.display = ( conditionMet ) ? '' : 'none';
 	}
 }
