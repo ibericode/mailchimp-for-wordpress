@@ -50,13 +50,13 @@ class MC4WP_Field_Guesser {
 		foreach( $fields as $field => $value ) {
 
             // transform value into array to support 1-level arrays
-            $value = is_array( $value ) ? $value : array( $value );
-            foreach( $value as $field ) {
+            $sub_fields = is_array( $value ) ? $value : array( $value );
+            foreach( $sub_fields as $sub_field_value ) {
 
                 // is this an email value? if so, assume it's the EMAIL field
-                if( empty( $guessed['EMAIL'] ) && is_string( $field ) && is_email( $field ) ) {
-                    $guessed['EMAIL'] = $field;
-                    continue 1;
+                if( empty( $guessed['EMAIL'] ) && is_string( $sub_field_value ) && is_email( $sub_field_value ) ) {
+                    $guessed['EMAIL'] = $sub_field_value;
+                    continue 2;
                 }
             }
 
