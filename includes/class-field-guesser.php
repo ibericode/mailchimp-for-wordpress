@@ -56,7 +56,7 @@ class MC4WP_Field_Guesser {
                 // is this an email value? if so, assume it's the EMAIL field
                 if( empty( $guessed['EMAIL'] ) && is_string( $field ) && is_email( $field ) ) {
                     $guessed['EMAIL'] = $field;
-                    continue 2;
+                    continue 1;
                 }
             }
 
