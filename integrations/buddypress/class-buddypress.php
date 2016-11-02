@@ -50,26 +50,22 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 		/**
 		 * There is one further issue to consider, which is that many BuddyPress
 		 * installs have a user moderation plugin (e.g. BP Registration Options)
-		 * installed. This is because email activation is not enough to ensure
+		 * installed. This is because email activation on itself is sometimes not enough to ensure
 		 * that user signups are not spammers. There should therefore be a way for
 		 * plugins to delay the MailChimp signup process.
 		 *
-		 * A plugin can hook into the 'mc4wp_delay_subscription' filter to prevent
-		 * subscriptions from taking place on activation:
+		 * Plugins can hook into the 'mc4wp_integration_buddypress_should_subscribe' filter to prevent
+		 * subscriptions from taking place:
 		 *
-		 * add_filter( 'mc4wp_delay_subscription', 'my_delay_function' );
-		 * function my_delay_function( $user_id ) {
-		 *     // store a flag in their usermeta, for example
-		 *     return false;
-		 * }
-		 *
+		 * add_filter( 'mc4wp_integration_buddypress_should_subscribe', '__return_false' );
+         *
 		 * The plugin would then then call:
 		 *
-		 * do_action( 'mc4wp_do_delayed_subscription', $user_id );
+		 * do_action( 'mc4wp_integration_buddypress_subscribe_user', $user_id );
 		 *
 		 * to perform the subscription at a later point.
 		 */
-		add_action( 'mc4wp_do_delayed_subscription', array( $this, 'subscribe_buddypress_user' ), 10, 1 );
+		add_action( 'mc4wp_integration_buddypress_subscribe_user', array( $this, 'subscribe_buddypress_user' ), 10, 1 );
 
 	}
 
@@ -88,18 +84,21 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 			return false;
 		}
 
+		$subscribe = true;
+
 		/**
-		 * Allow other plugins to delay MailChimp subscription.
+		 * Allow other plugins to prevent the MailChimp sign-up.
 		 *
-		 * @param bool False does not delay subscription (default)
+		 * @param bool $subscribe False does not subscribe the user.
 		 * @param int $user_id The user ID to subscribe
-		 * @return bool False does not delay subscription, otherwise enforces delay
 		 */
-		if ( false !== apply_filters( 'mc4wp_delay_subscription', false, $user_id ) ) {
-			return;
+        $subscribe = apply_filters( 'mc4wp_integration_buddypress_should_subscribe', $subscribe, $user_id );
+
+		if ( ! $subscribe ) {
+			return false;
 		}
 
-		$this->subscribe_buddypress_user( $user_id );
+		return $this->subscribe_buddypress_user( $user_id );
 	}
 
 	/**
@@ -110,11 +109,9 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 	 */
 	public function store_usermeta( $usermeta ) {
 
-		// do not subscribe if not triggered
-		if ( ! $this->triggered() ) {
-			$usermeta['mc4wp_delayed_subscribe'] = 'n';
-		} else {
-			$usermeta['mc4wp_delayed_subscribe'] = 'y';
+		// only add meta if triggered (checked)
+		if ( $this->triggered() ) {
+			$usermeta['mc4wp_subscribe'] = '1';
 		}
 
 		return $usermeta;
@@ -126,39 +123,39 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 	 * @param int $user_id The activated user ID
 	 * @param string $key the activation key (not used)
 	 * @param array $userdata An array containing the activated user data
+     * @return bool
 	 */
 	public function subscribe_from_usermeta( $user_id, $key, $userdata ) {
 
+        // sanity check
 		if ( empty( $user_id ) ) {
 			return false;
 		}
 
-		// get metadata
+        // bail if our usermeta key is not switched on
 		$meta = ( isset( $userdata['meta'] ) ) ? $userdata['meta'] : array();
-
-		// bail if usermeta key doesn't exist or user chose not to subscribe
-		if ( ! isset( $meta['mc4wp_delayed_subscribe'] ) || $meta['mc4wp_delayed_subscribe'] == 'n' ) {
+        if ( empty( $meta['mc4wp_subscribe'] ) ) {
 			return false;
 		}
 
-		/**
-		 * Allow other plugins to delay MailChimp subscription.
-		 *
-		 * @param bool False does not delay subscription (default)
-		 * @param int $user_id The user ID to subscribe
-		 * @return bool False does not delay subscription, otherwise enforces delay
-		 */
-		if ( false !== apply_filters( 'mc4wp_delay_subscription', false, $user_id ) ) {
-			return;
-		}
+		$subscribe = false;
 
-		$this->subscribe_buddypress_user( $user_id );
+        /**
+         * @ignore Documented elsewhere, see MC4WP_BuddyPress_Integration::subscribe_from_form.
+         */
+        $subscribe = apply_filters( 'mc4wp_integration_buddypress_should_subscribe', $subscribe, $user_id );
+        if( ! $subscribe ) {
+            return false;
+        }
+
+		return $this->subscribe_buddypress_user( $user_id );
 	}
 
 	/**
 	 * Subscribes a user to MailChimp list(s).
 	 *
 	 * @param int $user_id The user ID to subscribe
+     * @return bool
 	 */
 	public function subscribe_buddypress_user( $user_id ) {
 
