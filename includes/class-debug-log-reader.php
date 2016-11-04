@@ -49,7 +49,7 @@ class MC4WP_Debug_Log_Reader {
 				return '';
 			}
 
-			$this->handle = fopen( $this->file, 'r' );
+			$this->handle = @fopen( $this->file, 'r' );
 
             // unable to read?
             if( ! is_resource( $this->handle ) ) {

@@ -95,7 +95,7 @@ class MC4WP_Debug_Log{
 		if( ! is_resource( $this->stream ) ) {
 
 			// open stream
-			$this->stream = fopen( $this->file, 'c+' );
+			$this->stream = @fopen( $this->file, 'c+' );
 
 			// if this failed, bail..
 			if ( ! is_resource( $this->stream ) ) {
