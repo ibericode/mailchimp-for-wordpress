@@ -44,6 +44,12 @@ function sanitize_text_field( $value ) {
 }
 
 /** @ignore */
+function esc_html( $value ) {
+    return $value;
+}
+
+
+/** @ignore */
 function get_post_meta( $id, $meta_key = '', $single = true ) {
 	return false;
 }

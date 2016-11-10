@@ -18,7 +18,7 @@ var fields = require('./admin/fields.js')(m, events);
 var textareaElement = document.getElementById('mc4wp-form-content');
 var editor = window.formEditor = new FormEditor( textareaElement );
 var watcher = new FormWatcher( m, formEditor, settings, fields, events, helpers );
-var fieldHelper = new FieldHelper( m, tabs, formEditor, fields, i18n );
+var fieldHelper = new FieldHelper( m, tabs, formEditor, fields, events, i18n );
 var notices = require('./admin/notices');
 
 // mount field helper on element
