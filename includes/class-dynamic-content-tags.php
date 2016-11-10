@@ -33,36 +33,6 @@ class MC4WP_Dynamic_Content_Tags {
 		$this->tags = $tags;
 	}
 
-//	/**
-//	 * Add a dynamic content tag
-//	 *
-//	 * @param string $tag
-//	 * @param string|array Replacement string or configuration array
-//	 * @return void
-//	 */
-//	public function add( $tag, $config ) {
-//
-//		if( ! is_array( $config ) ) {
-//			$config = array(
-//				'replacement' => $config
-//			);
-//		}
-//
-//		$this->tags[ $tag ] = $config;
-//	}
-//
-//	/**
-//	 * Add multiple dynamic content tags at once.
-//	 *
-//	 * @param array $tags
-//	 * @return void
-//	 */
-//	public function add_many( array $tags ) {
-//		foreach( $tags as $tag => $config ) {
-//			$this->add( $tag, $config );
-//		}
-//	}
-
 	/**
 	 * Return all registered tags
 	 *
@@ -140,8 +110,15 @@ class MC4WP_Dynamic_Content_Tags {
 	 * @return string
 	 */
 	public function replace( $string, $escape_mode = '' ) {
-		$this->escape_mode = $escape_mode;
-		$string = preg_replace_callback( '/\{(\w+)(\ +(?:[^}\n])+)*\}/', array( $this, 'replace_tag' ), $string );
+        if( ! empty( $escape_mode ) ) {
+            $this->escape_mode = $escape_mode;
+        }
+
+        // replace strings like this: {tagname attr="value"}
+        $string = preg_replace_callback( '/\{(\w+)(\ +(?:(?!\{)[^}\n])+)*\}/', array( $this, 'replace_tag' ), $string );
+
+        // call again to take care of nested variables
+        $string = preg_replace_callback( '/\{(\w+)(\ +(?:(?!\{)[^}\n])+)*\}/', array( $this, 'replace_tag' ), $string );
 		return $string;
 	}
 
