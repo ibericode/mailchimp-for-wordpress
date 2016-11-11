@@ -13,7 +13,12 @@ class MC4WP_Debug_Log_Reader {
 	/**
 	 * @var string
 	 */
-	private static $regex = '/^(\[[\d \-\:]+\]) (\w+\:) (.*)$/';
+	private static $regex = '/^(\[[\d \-\:]+\]) (\w+\:) (.*)$/S';
+
+    /**
+     * @var string
+     */
+    private static $html_template = '<span class="time">$1</span> <span class="level">$2</span> <span class="message">$3</span>';
 
 	/**
 	 * @var string The log file location.
@@ -36,8 +41,37 @@ class MC4WP_Debug_Log_Reader {
 		return file_get_contents( $this->file );
 	}
 
+    /**
+     * Sets file pointer to $n of lines from the end of file.
+     *
+     * @param int $n
+     */
+	private function seek_line_from_end( $n ) {
+        $line_count = 0;
+
+        // get line count
+        while( ! feof( $this->handle ) ) {
+            fgets( $this->handle );
+            $line_count++;
+        }
+
+        // rewind to beginning
+        rewind( $this->handle );
+
+        // calculate target
+        $target = $line_count - $n;
+        $target = $target > 1 ? $target : 1; // always skip first line because oh PHP header
+        $current = 0;
+
+        // keep reading until we're at target
+        while( $current < $target ) {
+            fgets( $this->handle );
+            $current++;
+        }
+    }
+
 	/**
-	 * @return string
+	 * @return string|null
 	 */
 	public function read() {
 
@@ -46,29 +80,29 @@ class MC4WP_Debug_Log_Reader {
 
 			// doesn't exist?
 			if( ! file_exists( $this->file ) ) {
-				return '';
+				return null;
 			}
 
 			$this->handle = @fopen( $this->file, 'r' );
 
             // unable to read?
             if( ! is_resource( $this->handle ) ) {
-                return '';
+                return null;
             }
 
-            // skip first line (PHP exit header)
-            fgets( $this->handle );
+            // set pointer to 1000 files from EOF
+            $this->seek_line_from_end( 1000 );
 		}
+
+		// stop reading once we're at the end
+		if( feof( $this->handle ) ) {
+            fclose( $this->handle );
+            $this->handle = null;
+            return null;
+        }
 
 		// read line, up to 8kb
 		$text = fgets( $this->handle );
-
-		// close file as soon as we reach an empty line
-		if( empty( $text ) ) {
-			fclose( $this->handle );
-			$this->handle = null;
-			return '';
-		}
 
 		return $text;
 	}
@@ -77,15 +111,13 @@ class MC4WP_Debug_Log_Reader {
 	 * @return string
 	 */
 	public function read_as_html() {
-
 		$line = $this->read();
 
-		if( empty( $line ) ) {
-			return '';
-		}
+        if( is_null( $line ) ) {
+            return null;
+        }
 
-		$line = preg_replace( self::$regex, '<span class="time">$1</span> <span class="level">$2</span> <span class="message">$3</span>', $line );
-
+		$line = preg_replace( self::$regex, self::$html_template, $line );
 		return $line;
 	}
 

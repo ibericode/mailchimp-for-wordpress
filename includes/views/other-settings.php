@@ -89,7 +89,6 @@ add_action( 'mc4wp_admin_other_settings', '_mc4wp_usage_tracking_setting', 70 );
 				<h3><?php _e( 'Debug Log', 'mailchimp-for-wp' ); ?> <input type="text" id="debug-log-filter" class="regular-text" placeholder="<?php esc_attr_e( 'Filter..', 'mailchimp-for-wp' ); ?>" /></h3>
 
 				<?php
-
 				if( ! $log->test() ) {
 					echo '<p>';
 					echo __( 'Log file is not writable.', 'mailchimp-for-wp' ) . ' ';
@@ -105,7 +104,7 @@ add_action( 'mc4wp_admin_other_settings', '_mc4wp_usage_tracking_setting', 70 );
 						$line = $log_reader->read_as_html();
 
 						if (!empty($line)) {
-							while ($line) {
+							while( is_string( $line ) ) {
 								echo '<div class="debug-log-line">' . $line . '</div>';
 								$line = $log_reader->read_as_html();
 							}
