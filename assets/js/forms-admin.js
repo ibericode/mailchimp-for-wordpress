@@ -422,7 +422,7 @@ var g = function(m) {
 
 module.exports = g;
 },{"../third-party/beautify-html.js":12,"../third-party/render.js":13}],4:[function(require,module,exports){
-var FieldHelper = function(m, tabs, editor, fields, i18n) {
+var FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 	'use strict';
 
 	var generate = require('./field-generator.js')(m);
@@ -1296,7 +1296,7 @@ var fields = require('./admin/fields.js')(m, events);
 var textareaElement = document.getElementById('mc4wp-form-content');
 var editor = window.formEditor = new FormEditor( textareaElement );
 var watcher = new FormWatcher( m, formEditor, settings, fields, events, helpers );
-var fieldHelper = new FieldHelper( m, tabs, formEditor, fields, i18n );
+var fieldHelper = new FieldHelper( m, tabs, formEditor, fields, events, i18n );
 var notices = require('./admin/notices');
 
 // mount field helper on element
