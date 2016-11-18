@@ -33,7 +33,7 @@ fieldsFactory.registerCustomFields(mc4wp_vars.mailchimp.lists);
 window.setTimeout( function() { m.redraw();}, 2000 );
 
 // init notices
-notices.init(editor);
+notices.init(editor, fields);
 
 // expose some methods
 window.mc4wp = window.mc4wp || {};

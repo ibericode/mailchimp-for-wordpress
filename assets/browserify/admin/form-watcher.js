@@ -4,7 +4,6 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
 	var requiredFieldsInput = document.getElementById('required-fields');
 
 	function updateFields() {
-
 		fields.getAll().forEach(function(field) {
 			// don't run for empty field names
 			if(field.name().length <= 0) return;
