@@ -13,6 +13,7 @@ var forms = require('./forms/forms.js');
 var listeners = window.mc4wp && window.mc4wp.listeners ? window.mc4wp.listeners : [];
 var config = window.mc4wp_forms_config || {};
 var optionalInputs = document.querySelectorAll('.mc4wp-form [data-show-if]');
+var hiddenInputs = document.querySelectorAll('.mc4wp-form [data-hide-if]');
 
 // funcs
 function scrollToForm(form) {
@@ -59,12 +60,16 @@ function handleFormRequest(form, action, errors, data){
 	});
 }
 
-function showIf(el, expectedValue ) {
+function showHideIf(visibility, el, expectedValue ) {
 	return function() {
 		var value = this.value.trim();
 		var checked = ( this.getAttribute('type') !== 'radio' && this.getAttribute('type') !== 'checked' ) || this.checked;
 		var conditionMet = checked && ( ( value === expectedValue && expectedValue !== "" ) || ( expectedValue === "" && value.length > 0 ) );
-		el.style.display = ( conditionMet ) ? '' : 'none';
+		if(visibility == 'show'){
+			el.style.display = ( conditionMet ) ? '' : 'none';
+		}else{
+			el.style.display = ( conditionMet ) ? 'none' : '';
+		}
 	}
 }
 
@@ -73,7 +78,21 @@ function showIf(el, expectedValue ) {
 	var condition = el.getAttribute('data-show-if').split(':');
 	var fields = document.querySelectorAll('.mc4wp-form [name="' + condition[0] + '"]');
 	var expectedValue = condition[1] || "";
-	var callback = showIf(el, expectedValue);
+	var callback = showHideIf('show', el, expectedValue);
+
+	for(var i=0; i<fields.length; i++) {
+		fields[i].addEventListener('change', callback);
+		fields[i].addEventListener('keyup', callback);
+		callback.call(fields[i]);
+	}
+});
+
+// hide fields with [data-hide-if] attribute
+[].forEach.call(hiddenInputs, function(el) {
+	var condition = el.getAttribute('data-hide-if').split(':');
+	var fields = document.querySelectorAll('.mc4wp-form [name="' + condition[0] + '"]');
+	var expectedValue = condition[1] || "";
+	var callback = showHideIf('hide', el, expectedValue);
 
 	for(var i=0; i<fields.length; i++) {
 		fields[i].addEventListener('change', callback);
