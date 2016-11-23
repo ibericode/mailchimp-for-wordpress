@@ -5,7 +5,6 @@
  *
  * @since 3.0
  * @access private
- * @ignore
  */
 class MC4WP_Form_Listener {
 
