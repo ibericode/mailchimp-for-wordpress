@@ -106,13 +106,11 @@ class MC4WP_Dynamic_Content_Tags {
 
 	/**
 	 * @param string $string The string containing dynamic content tags.
-	 * @param string $escape_mode Escape mode for the replacement value.
+	 * @param string $escape_mode Escape mode for the replacement value. Leave empty for no escaping.
 	 * @return string
 	 */
 	public function replace( $string, $escape_mode = '' ) {
-        if( ! empty( $escape_mode ) ) {
-            $this->escape_mode = $escape_mode;
-        }
+        $this->escape_mode = $escape_mode;
 
         // replace strings like this: {tagname attr="value"}
         $string = preg_replace_callback( '/\{(\w+)(\ +(?:(?!\{)[^}\n])+)*\}/', array( $this, 'replace_tag' ), $string );

@@ -1,6 +1,14 @@
 Changelog
 =========
 
+
+#### 4.0.9 - November 23, 2016
+
+**Fixes**
+
+- Issue with escaped HTML when using form tags introduced by previous update.
+
+
 #### 4.0.8 - November 23, 2016
 
 **Improvements**
