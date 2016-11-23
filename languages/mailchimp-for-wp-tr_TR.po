@@ -6,14 +6,15 @@
 # Emre YILMAZ <emreyilmaz@yandex.com>, 2016
 # Ferhat, 2015
 # Hüseyin Sekmenoğlu <inactive+sekmenhuseyin@transifex.com>, 2015
+# Müge Çevik <muge.cevik@gmail.com>, 2016
 # Murat Aksoy <istanbuldaemlakk@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-11-30 10:15:18+00:00\n"
-"PO-Revision-Date: 2016-05-05 13:03+0000\n"
-"Last-Translator: Emre YILMAZ <emreyilmaz@yandex.com>\n"
+"PO-Revision-Date: 2016-11-03 10:33+0000\n"
+"Last-Translator: Müge Çevik <muge.cevik@gmail.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -708,7 +709,7 @@ msgstr "Hoşgeldin Mesajı gönderilsin mi?"
 msgid ""
 "The selected MailChimp lists require non-default fields, which may prevent "
 "this integration from working."
-msgstr ""
+msgstr "Seçilen MailChimp listeleleri bu entegrasyonun çalışmasını engelleyebilecek varsayılan olmayan alanlar gerektirmektedir."
 
 #: includes/integrations/views/integration-settings.php:245
 msgid ""
@@ -720,33 +721,33 @@ msgstr ""
 
 #: includes/integrations/views/integrations.php:30
 msgid "Enabled"
-msgstr ""
+msgstr "Etkinleştirilmiş"
 
 #: includes/integrations/views/integrations.php:31
 msgid "Name"
-msgstr ""
+msgstr "Ad Soyad"
 
 #: includes/integrations/views/integrations.php:32
 msgid "Description"
-msgstr ""
+msgstr "Tanım"
 
 #: includes/integrations/views/integrations.php:50
 msgid ""
 "This integration is enabled by default as it requires manual actions to "
 "work."
-msgstr ""
+msgstr "Bu entegrasyon çalışmak için manuel işlemlere ihtiyaç duyduğundan varsayılan olarak etkinleştirilmiştir."
 
 #: includes/integrations/views/integrations.php:57
 msgid "Configure this integration"
-msgstr ""
+msgstr "Bu entegrasyonu konfigüre edin"
 
 #: includes/views/general-settings.php:18
 msgid "General Settings"
-msgstr ""
+msgstr "Genel Ayarlar"
 
 #: includes/views/general-settings.php:35
 msgid "Status"
-msgstr ""
+msgstr "Durum"
 
 #: includes/views/general-settings.php:39
 msgid "CONNECTED"
@@ -766,7 +767,7 @@ msgstr "MailChimp API anahtarınız"
 
 #: includes/views/general-settings.php:52
 msgid "The API key for connecting with your MailChimp account."
-msgstr ""
+msgstr "Mailchimp hesabınızın bağlanması için gerekli API anahtarı"
 
 #: includes/views/general-settings.php:53
 msgid "Get your API key here."
@@ -840,7 +841,7 @@ msgstr ""
 
 #: includes/views/parts/lists-overview.php:83
 msgid "%s (ID: %s) with type %s."
-msgstr ""
+msgstr "%s (ID: %s) %s tipi ile"
 
 #: integrations/contact-form-7/admin-before.php:2
 msgid ""
@@ -856,7 +857,7 @@ msgstr ""
 
 #: integrations/woocommerce/class-woocommerce.php:102
 msgid "Order #%d"
-msgstr ""
+msgstr "Sipariş #%d"
 
 #. Plugin Name of the plugin/theme
 msgid "MailChimp for WordPress"
