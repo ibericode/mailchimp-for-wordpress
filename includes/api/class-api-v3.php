@@ -65,12 +65,13 @@ class MC4WP_API_v3 {
 	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/activity/#read-get_lists_list_id_activity
 	 *
 	 * @param string $list_id
-	 *
+	 * @param array $args
+     *
 	 * @return array
 	 */
-	public function get_list_activity( $list_id ) {
+	public function get_list_activity( $list_id, array $args = array() ) {
 		$resource = sprintf( '/lists/%s/activity', $list_id );
-		$data = $this->client->get( $resource );
+		$data = $this->client->get( $resource, $args );
 
 		if( is_object( $data ) && isset( $data->activity ) ) {
 			return $data->activity;
