@@ -4,6 +4,17 @@ var rows = function(m, i18n) {
 
 	var r = {};
 
+	r.showType = function(config) {
+		// ucfirst
+		var fieldType = config.type();
+		fieldType = fieldType.charAt(0).toUpperCase() + fieldType.slice(1);
+
+		return m('div', [
+			m("label", i18n.fieldType),
+			m('span', fieldType ),
+		]);
+	};
+
 	r.label = function (config) {
 		// label row
 		return m("div", [
@@ -18,18 +29,19 @@ var rows = function(m, i18n) {
 	};
 
 	r.value = function (config) {
+		var isHidden = config.type() === 'hidden';
 		return m("div", [
 			m("label", [
-				i18n.value,
+				isHidden ? i18n.value : i18n.initialValue,
 				" ",
-				config.type() === 'hidden' ? '' : m('small', { "style": "float: right; font-weight: normal;" }, i18n.optional )
+				isHidden ? '' : m('small', { "style": "float: right; font-weight: normal;" }, i18n.optional )
 			]),
 			m("input.widefat", {
 				type   : "text",
 				value  : config.value(),
 				onchange: m.withAttr('value', config.value)
 			}),
-			m('p.help', i18n.valueHelp)
+			isHidden ? '' : m('p.help', i18n.valueHelp)
 		]);
 	};
 

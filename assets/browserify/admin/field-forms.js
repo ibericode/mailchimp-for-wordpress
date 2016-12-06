@@ -60,6 +60,7 @@ var forms = function(m, i18n) {
 		config.wrap(false);
 
 		return [
+			rows.showType(config),
 			rows.value(config)
 		]
 	};
@@ -75,7 +76,6 @@ var forms = function(m, i18n) {
 	};
 
 	forms.number = function(config) {
-
 		return [
 			forms.text(config),
 			rows.numberMinMax(config)
