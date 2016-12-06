@@ -2,6 +2,15 @@ Changelog
 =========
 
 
+#### 4.0.10 - December 6, 2016
+
+**Improvements**
+
+- You can now enable or disable debug logging from the "Other" settings page.
+- No longer using deprecated function in Contact Form 7, thanks to [stodorovic](https://github.com/stodorovic).
+- Improved UI for adding hidden interest groupings fields to a form.
+
+
 #### 4.0.9 - November 23, 2016
 
 **Fixes**
