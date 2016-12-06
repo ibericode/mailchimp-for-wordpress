@@ -1,6 +1,7 @@
 # Copyright (C) 2015 MailChimp for WordPress
 # This file is distributed under the same license as the MailChimp for WordPress package.
 # Translators:
+# Dušan Marcinko <prectusi@gmail.com>, 2016
 # Jan Toman <toman.jan@gmail.com>, 2014-2015
 # Libor Matějka <libor.matejka@hotmail.cz>, 2015
 # Ondra <subrt.ondra@gmail.com>, 2015
@@ -10,8 +11,8 @@ msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-11-30 10:15:18+00:00\n"
-"PO-Revision-Date: 2016-05-20 00:31+0000\n"
-"Last-Translator: Roman Klimeš <roman@romanklimes.cz>\n"
+"PO-Revision-Date: 2016-11-29 21:44+0000\n"
+"Last-Translator: Dušan Marcinko <prectusi@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,7 +64,7 @@ msgstr "Zadaná e-mailová adresa není registrována k odběru."
 
 #: config/default-form-messages.php:33
 msgid "Please select at least one list."
-msgstr ""
+msgstr "Vyberte prosím alespoň jednu položku"
 
 #: config/default-integration-options.php:5
 msgid "Sign me up for the newsletter!"
@@ -81,13 +82,13 @@ msgstr "Dokumentace"
 #: includes/admin/class-admin.php:167
 msgid ""
 "Success! The cached configuration for your MailChimp lists has been renewed."
-msgstr ""
+msgstr "Dostu"
 
 #: includes/admin/class-admin.php:257
 msgid ""
 "This is a pro-only feature. Please upgrade to the premium version to be able"
 " to use it."
-msgstr ""
+msgstr "Dostupné pouze v PRO verzi. Pro použití musíte přejít na premiovou PRO verzi."
 
 #: includes/admin/class-admin.php:323 includes/views/general-settings.php:28
 msgid "MailChimp API Settings"
@@ -106,7 +107,7 @@ msgstr "Upgrade na Pro verzi pluginu."
 msgid ""
 "Enjoying this plugin? <a href=\"%s\">Purchase our bundle of premium "
 "features</a> for an even better plugin."
-msgstr ""
+msgstr "Líbí se Vám tento doplněk? <a href=\"%s\">Zakupte náš balíček premiových funkcí</a> pro ještě lepší doplněk."
 
 #: includes/admin/class-ads.php:62
 msgid "More subscribers, better newsletters."
@@ -116,7 +117,7 @@ msgstr "Více registrovaných, přinese úspěšnější newslettery."
 msgid ""
 "Learn how to best grow your lists & write better emails by subscribing to "
 "our monthly tips."
-msgstr ""
+msgstr "Naučte se jak více rozšířit Váš seznam a jak psát lepší emaily odběrem našich typů každý měsíčních."
 
 #: includes/admin/class-ads.php:66
 msgid "Email Address"
@@ -136,11 +137,11 @@ msgstr "Jednou měsíčně"
 
 #: includes/admin/migrations/3.0-form-1-post-type.php:35
 msgid "Default sign-up form"
-msgstr ""
+msgstr "Výchozí pole pro přihlášení"
 
 #: includes/class-api.php:83
 msgid "Read more about common connectivity issues."
-msgstr ""
+msgstr "Více informací o běžných problémech s připojením."
 
 #: includes/forms/class-admin.php:71 includes/forms/class-admin.php:72
 #: includes/forms/views/edit-form.php:17
@@ -149,7 +150,7 @@ msgstr "Formuláře"
 
 #: includes/forms/class-admin.php:101 includes/forms/class-admin.php:176
 msgid "<strong>Success!</strong> Form successfully saved."
-msgstr ""
+msgstr "<strong>Hotovo!</strong> Formulář úspěšně uložen."
 
 #: includes/forms/class-admin.php:176
 msgid "Preview form"
@@ -173,7 +174,7 @@ msgstr "Bude nahrazeno potvrzovací, chybovou či jinou hláškou."
 
 #: includes/forms/class-form-tags.php:56
 msgid "Data from the URL or a submitted form."
-msgstr ""
+msgstr "Data z URL adresy nebo z potvrzovacího pole."
 
 #: includes/forms/class-form-tags.php:62
 #: includes/integrations/class-integration-tags.php:45
@@ -182,7 +183,7 @@ msgstr "Bude nahrazeno počtem odběratelů na vybraném seznamu adres."
 
 #: includes/forms/class-form-tags.php:67
 msgid "The email address of the current visitor (if known)."
-msgstr ""
+msgstr "Emailová adresa aktuálního návštěvníka (pokud je známa)."
 
 #: includes/forms/class-form-tags.php:72
 msgid "The URL of the page."
@@ -190,31 +191,31 @@ msgstr "URL webové stránky"
 
 #: includes/forms/class-form-tags.php:77
 msgid "The path of the page."
-msgstr ""
+msgstr "Cesta k webové stránce."
 
 #: includes/forms/class-form-tags.php:82
 msgid "The current date. Example: %s."
-msgstr ""
+msgstr "Aktuální datum. Příklad: %s."
 
 #: includes/forms/class-form-tags.php:87
 msgid "The current time. Example: %s."
-msgstr ""
+msgstr "Aktuální čas. Příklad: %s."
 
 #: includes/forms/class-form-tags.php:92
 msgid "The site's language. Example: %s."
-msgstr ""
+msgstr "Jazyk stránek. Příklad: %s."
 
 #: includes/forms/class-form-tags.php:97
 msgid "The visitor's IP address. Example: %s."
-msgstr ""
+msgstr "Návštěvníkova IP adresa. Příklad: %s."
 
 #: includes/forms/class-form-tags.php:102
 msgid "The property of the currently logged-in user."
-msgstr ""
+msgstr "Majetkem aktuálně přihlášeného uživatele."
 
 #: includes/forms/class-form.php:128
 msgid "There is no form with ID %d, perhaps it was deleted?"
-msgstr ""
+msgstr "Žádné pole s ID %d, pravděpodobně bylo smazáno."
 
 #: includes/forms/class-widget.php:26
 msgid "Newsletter"
@@ -240,27 +241,27 @@ msgstr "Editovat nastavení přihlašovacích formulářů pluginu \"Mailchimp f
 
 #: includes/forms/views/add-form.php:10 includes/forms/views/add-form.php:60
 msgid "Add new form"
-msgstr ""
+msgstr "Přidat nový formulář"
 
 #: includes/forms/views/add-form.php:27
 msgid "What is the name of this form?"
-msgstr ""
+msgstr "Jméno tohoto formuláře?"
 
 #: includes/forms/views/add-form.php:30
 msgid "Enter your form title.."
-msgstr ""
+msgstr "Vyplň vlastní název formuláře.."
 
 #: includes/forms/views/add-form.php:37
 msgid "To which MailChimp lists should this form subscribe?"
-msgstr ""
+msgstr "K jakému MailChimpovému seznamu má být tento formulář spárován?"
 
 #: includes/forms/views/add-form.php:54
 msgid "No lists found. Did you <a href=\"%s\">connect with MailChimp</a>?"
-msgstr ""
+msgstr "Seznamy nenalezeny. Jste <a href=\"%s\">spárováni s MailChimpem</a>?"
 
 #: includes/forms/views/edit-form.php:4
 msgid "Fields"
-msgstr ""
+msgstr "Pole"
 
 #: includes/forms/views/edit-form.php:5
 msgid "Messages"
@@ -268,14 +269,14 @@ msgstr "Hlášky"
 
 #: includes/forms/views/edit-form.php:7
 msgid "Appearance"
-msgstr ""
+msgstr "Vzhled"
 
 #: includes/forms/views/edit-form.php:15
 #: includes/integrations/views/integration-settings.php:8
 #: includes/integrations/views/integrations.php:7
 #: includes/views/general-settings.php:7
 msgid "You are here: "
-msgstr ""
+msgstr "Tady jsi:"
 
 #: includes/forms/views/edit-form.php:27
 msgid "Edit Form"
@@ -283,56 +284,56 @@ msgstr "Upravit formulář"
 
 #: includes/forms/views/edit-form.php:45
 msgid "Enter form title here"
-msgstr ""
+msgstr "Zde vyplň název formuláře"
 
 #: includes/forms/views/edit-form.php:46
 msgid "Enter the title of your sign-up form"
-msgstr ""
+msgstr "Vyplň název tvého přihlašovacího formuláře"
 
 #: includes/forms/views/edit-form.php:54
 msgid "Get shortcode"
-msgstr ""
+msgstr "Získat shortcode"
 
 #: includes/forms/views/edit-form.php:59
 msgid "Preview this form"
-msgstr ""
+msgstr "Náhled formuláře"
 
 #: includes/forms/views/parts/add-fields-help.php:4
 #: includes/forms/views/tabs/form-fields.php:10
 msgid "Add more fields"
-msgstr ""
+msgstr "Přidat další pole"
 
 #: includes/forms/views/parts/add-fields-help.php:9
 msgid ""
 "To add more fields to your form, you will need to create those fields in "
 "MailChimp first."
-msgstr ""
+msgstr "K přidání více polí, je nejprve musíte vytvořit v MailChimpu."
 
 #: includes/forms/views/parts/add-fields-help.php:12
 msgid "Here's how:"
-msgstr ""
+msgstr "Zde je návod:"
 
 #: includes/forms/views/parts/add-fields-help.php:17
 msgid "Log in to your MailChimp account."
-msgstr ""
+msgstr "Přihlašte se do Vašeho MailChimpového účtu."
 
 #: includes/forms/views/parts/add-fields-help.php:22
 msgid "Add list fields to any of your selected lists."
-msgstr ""
+msgstr "Přidejte seznam polí pro Váš vybraný seznam."
 
 #: includes/forms/views/parts/add-fields-help.php:23
 msgid "Clicking the following links will take you to the right screen."
-msgstr ""
+msgstr "Kliknutím na následující odkaz budete přesměrováni na správnou obrazovku."
 
 #: includes/forms/views/parts/add-fields-help.php:29
 msgid "Edit list fields for"
-msgstr ""
+msgstr "Upravit seznam polí pro"
 
 #: includes/forms/views/parts/add-fields-help.php:38
 msgid ""
 "Click the following button to have MailChimp for WordPress pick up on your "
 "changes."
-msgstr ""
+msgstr "Klikněte na následující tlačítko aby MailChimp mohl WordPressu odeslat  Vaše změny."
 
 #: includes/forms/views/parts/add-fields-help.php:43
 #: includes/views/parts/lists-overview.php:8
@@ -341,29 +342,29 @@ msgstr "Aktualizovat seznamy adres"
 
 #: includes/forms/views/parts/dynamic-content-tags.php:6
 msgid "Add dynamic form variable"
-msgstr ""
+msgstr "Přidat dynamické proměné formuláře"
 
 #: includes/forms/views/parts/dynamic-content-tags.php:8
 msgid ""
 "The following list of variables can be used to <a href=\"%s\">add some "
 "dynamic content to your form or success and error messages</a>."
-msgstr ""
+msgstr "Následující seznam proměných se používá k <a href=\"%s\"> přidání dynamického obsahu do formuláře nebo do úspěšné vyplněné a chybové zprávy</a>."
 
 #: includes/forms/views/parts/dynamic-content-tags.php:8
 msgid "This allows you to personalise your form or response messages."
-msgstr ""
+msgstr "Umožní Vám upravit Váš formulář nebo odpovědi."
 
 #: includes/forms/views/tabs/form-appearance.php:5
 msgid "Inherit from %s theme"
-msgstr ""
+msgstr "Převzít z %s šablony"
 
 #: includes/forms/views/tabs/form-appearance.php:6
 msgid "Basic"
-msgstr ""
+msgstr "Základní"
 
 #: includes/forms/views/tabs/form-appearance.php:7
 msgid "Form Themes"
-msgstr ""
+msgstr "Šablony formuláře"
 
 #: includes/forms/views/tabs/form-appearance.php:8
 msgid "Light Theme"
@@ -387,11 +388,11 @@ msgstr "Modrá šablona"
 
 #: includes/forms/views/tabs/form-appearance.php:25
 msgid "Form Appearance"
-msgstr ""
+msgstr "Vzhled formuláře"
 
 #: includes/forms/views/tabs/form-appearance.php:29
 msgid "Form Style"
-msgstr ""
+msgstr "Styl formuláře"
 
 #: includes/forms/views/tabs/form-appearance.php:48
 msgid ""
@@ -401,15 +402,15 @@ msgstr "Pokud chcete načíst nějaké výchozí CSS styly, vyberte \"Ano, chci 
 
 #: includes/forms/views/tabs/form-fields.php:6
 msgid "Form variables"
-msgstr ""
+msgstr "Proměné formuláře"
 
 #: includes/forms/views/tabs/form-fields.php:13
 msgid "Form Fields"
-msgstr ""
+msgstr "Pole formuláře"
 
 #: includes/forms/views/tabs/form-fields.php:19
 msgid "Enter the HTML code for your form fields.."
-msgstr ""
+msgstr "Vložte HTML kód Vašich formulářových polí."
 
 #: includes/forms/views/tabs/form-fields.php:27
 msgid "Your form is missing the following (required) form fields:"
@@ -423,17 +424,17 @@ msgstr "Pro zobrazení tohoto formuláře v příspěvku, stránce nebo ve texto
 
 #: includes/forms/views/tabs/form-messages.php:3
 msgid "Form Messages"
-msgstr ""
+msgstr "Zprávy formuláře"
 
 #: includes/forms/views/tabs/form-messages.php:10
 msgid "Successfully subscribed"
-msgstr ""
+msgstr "Úspešně přihlášen"
 
 #: includes/forms/views/tabs/form-messages.php:13
 msgid ""
 "The text that shows when an email address is successfully subscribed to the "
 "selected list(s)."
-msgstr ""
+msgstr "Text zobrazující se po úspěšném odeslaní emailu  do vybraného seznamu(ů). "
 
 #: includes/forms/views/tabs/form-messages.php:17
 msgid "Invalid email address"
@@ -441,55 +442,55 @@ msgstr "Neplatná emailová adresa"
 
 #: includes/forms/views/tabs/form-messages.php:20
 msgid "The text that shows when an invalid email address is given."
-msgstr ""
+msgstr "Text zobrazovaný při špatném vyplnění emailové adresy."
 
 #: includes/forms/views/tabs/form-messages.php:24
 msgid "Required field missing"
-msgstr ""
+msgstr "Chybí požadované pole"
 
 #: includes/forms/views/tabs/form-messages.php:27
 msgid ""
 "The text that shows when a required field for the selected list(s) is "
 "missing."
-msgstr ""
+msgstr "Text zobrazený pokud chybí požadované pole vybraného seznamu(ů)."
 
 #: includes/forms/views/tabs/form-messages.php:31
 msgid "Already subscribed"
-msgstr ""
+msgstr "Jste již přihlášen"
 
 #: includes/forms/views/tabs/form-messages.php:34
 msgid ""
 "The text that shows when the given email is already subscribed to the "
 "selected list(s)."
-msgstr ""
+msgstr "Text zobrazený pokud odeslaný email již je v seznamu(ech)."
 
 #: includes/forms/views/tabs/form-messages.php:38
 msgid "General error"
-msgstr ""
+msgstr "Obecná chyba"
 
 #: includes/forms/views/tabs/form-messages.php:41
 msgid "The text that shows when a general error occured."
-msgstr ""
+msgstr "Text zobrazující se pokud nastane obecná chyba."
 
 #: includes/forms/views/tabs/form-messages.php:45
 msgid "Unsubscribed"
-msgstr ""
+msgstr "Odhlášen z odběru"
 
 #: includes/forms/views/tabs/form-messages.php:48
 msgid ""
 "When using the unsubscribe method, this is the text that shows when the "
 "given email address is successfully unsubscribed from the selected list(s)."
-msgstr ""
+msgstr "Pokud používáte metodu k odjlášení z odběru, bude tento text zobrazen, když odeslaná emailová adresa bude úspěšně odhlášena z vybraného seznamu(ů)."
 
 #: includes/forms/views/tabs/form-messages.php:52
 msgid "Not subscribed"
-msgstr ""
+msgstr "Nepřihlášen k odběru"
 
 #: includes/forms/views/tabs/form-messages.php:55
 msgid ""
 "When using the unsubscribe method, this is the text that shows when the "
 "given email address is not on the selected list(s)."
-msgstr ""
+msgstr "Pokud používáte metodu k odhlášení z odběru, bude tento text zobrazen vpřípadě, že odeslaná emailová adresa nebude na vybraném seznamu(ech)."
 
 #: includes/forms/views/tabs/form-messages.php:64
 msgid "HTML tags like %s are allowed in the message fields."
@@ -501,7 +502,7 @@ msgstr "Nastavení formuláře"
 
 #: includes/forms/views/tabs/form-settings.php:5
 msgid "MailChimp specific settings"
-msgstr ""
+msgstr "Specifická nastavení MailChimp"
 
 #: includes/forms/views/tabs/form-settings.php:12
 msgid "Lists this form subscribes to"
@@ -520,7 +521,7 @@ msgstr "Vyberte jeden či více seznamů adres, do kterých budou zařazeni vši
 
 #: includes/forms/views/tabs/form-settings.php:35
 msgid "Use double opt-in?"
-msgstr ""
+msgstr "Používat dvojí opt-in?"
 
 #: includes/forms/views/tabs/form-settings.php:39
 #: includes/forms/views/tabs/form-settings.php:54
@@ -565,7 +566,7 @@ msgstr "Pokud chcete, aby uživatelé museli potvrdit zadanou e-mailovou adresu 
 
 #: includes/forms/views/tabs/form-settings.php:50
 msgid "Send final welcome email?"
-msgstr ""
+msgstr "Zaslat finální uvítací mail?"
 
 #: includes/forms/views/tabs/form-settings.php:60
 #: includes/integrations/views/integration-settings.php:169
@@ -584,28 +585,28 @@ msgstr "Chcete upravovat již existující uživatele?"
 msgid ""
 "Select \"yes\" if you want to update existing subscribers with the data that"
 " is sent."
-msgstr ""
+msgstr "Vyberte \"ano\" pokud chcete aktualizovat stávající odběratele s daty které se posílají."
 
 #: includes/forms/views/tabs/form-settings.php:81
 #: includes/integrations/views/integration-settings.php:195
 msgid "Replace interest groups?"
-msgstr ""
+msgstr "Vyměnit zájmové skupiny?"
 
 #: includes/forms/views/tabs/form-settings.php:92
 #: includes/integrations/views/integration-settings.php:206
 msgid ""
 "Select \"no\" if you want to add the selected groupings to any previously "
 "selected groupings when updating a subscriber."
-msgstr ""
+msgstr "Vyberte \"ne\" pokud chtete aby se vybrané skupiny přidaly do již dříve vybraným při aktualizaci a přihlášení k odběru."
 
 #: includes/forms/views/tabs/form-settings.php:93
 #: includes/integrations/views/integration-settings.php:207
 msgid "What does this do?"
-msgstr ""
+msgstr "K čemu to slouží?"
 
 #: includes/forms/views/tabs/form-settings.php:104
 msgid "Form behaviour"
-msgstr ""
+msgstr "Chování formuláře"
 
 #: includes/forms/views/tabs/form-settings.php:111
 msgid "Hide form after a successful sign-up?"
@@ -627,7 +628,7 @@ msgstr "Příklad: %s"
 msgid ""
 "Leave empty or enter <code>0</code> for no redirect. Otherwise, use complete"
 " (absolute) URLs, including <code>http://</code>."
-msgstr ""
+msgstr "Nechte prázdné nebo vložte <code>0</code> pro nepřesměrování. Jinak, použijte plnou (absolutní) URLs, obsahující <code>http://</code>."
 
 #: includes/integrations/class-admin.php:79
 #: includes/integrations/class-admin.php:80
@@ -635,7 +636,7 @@ msgstr ""
 #: includes/integrations/views/integrations.php:9
 #: includes/integrations/views/integrations.php:17
 msgid "Integrations"
-msgstr ""
+msgstr "Integrace"
 
 #: includes/integrations/views/integration-settings.php:20
 msgid "%s integration"
@@ -658,7 +659,7 @@ msgstr "Určitě?"
 msgid ""
 "Select \"no\" if you want to ask your visitors before they are subscribed "
 "(recommended)."
-msgstr ""
+msgstr "Vyberte \"ne\" pokud chcte aby návštěvníci potvrzovali přihlášení k odběru (doporučeno)."
 
 #: includes/integrations/views/integration-settings.php:78
 msgid "MailChimp Lists"
@@ -706,7 +707,7 @@ msgstr "Chcete posílat uvítací e-mail?"
 msgid ""
 "The selected MailChimp lists require non-default fields, which may prevent "
 "this integration from working."
-msgstr ""
+msgstr "Vybrané MailChimpové seznamy požadují nestandardní pole. To může způsobit nefunkčnost integrace."
 
 #: includes/integrations/views/integration-settings.php:245
 msgid ""
@@ -714,7 +715,7 @@ msgid ""
 "fields</a> or <a href=\"%s\">log into your MailChimp account</a> and make "
 "sure only the email & name fields are marked as required fields for the "
 "selected list(s)."
-msgstr ""
+msgstr "Ujistěte se prosím <a href=\"%s\"> že jste nastavili plugin k odeslání všech požadovaných polí </a> nebo <a href=\"%s\"> přihlášte se do svého účtu MailChimp </a> a ujistěte se, že jen pole e-mailová a název jsou označena jako povinná pole pro vybraný seznam(y)."
 
 #: includes/integrations/views/integrations.php:30
 msgid "Enabled"
@@ -790,7 +791,7 @@ msgid ""
 "translated in your language or do you spot errors with the current "
 "translations? Helping out is easy! Head over to <a href=\"%s\">the "
 "translation project and click \"help translate\"</a>."
-msgstr ""
+msgstr "MailChimp for WordPress potřebuje přeložit. Není dosud přeložen ve Vašem jazyce nebo jste zaznamenali chyby v současném překladu? Pomoc je snadná! Přejděte na <a href=\"%s\">projekt překladu a klikněte na \"pomoc s překladem\"</a>."
 
 #: includes/views/parts/admin-footer.php:31
 msgid ""
@@ -806,7 +807,7 @@ msgid ""
 "The table below shows your MailChimp lists and their details. If you just "
 "applied changes to your MailChimp lists, please use the following button to "
 "renew the cached lists configuration."
-msgstr ""
+msgstr "Tabulka níže zobrazuje MailChimp seznam a jeho detaily. Pokud jste právě provedli změny Vašeho MailChimp seznamu, prosím použijte následující tlačítko k přepsání seznamů nastavení uložených v mezipaměti."
 
 #: includes/views/parts/lists-overview.php:14
 msgid "No lists were found in your MailChimp account"
@@ -834,23 +835,23 @@ msgstr "Upravit tento seznam odběratelů v MailChimpu"
 
 #: includes/views/parts/lists-overview.php:59
 msgid "%s (%s) with field type %s."
-msgstr ""
+msgstr "%s (%s) s druhem pole %s."
 
 #: includes/views/parts/lists-overview.php:83
 msgid "%s (ID: %s) with type %s."
-msgstr ""
+msgstr "%s (ID: %s) s druhem %s."
 
 #: integrations/contact-form-7/admin-before.php:2
 msgid ""
 "To integrate with Contact Form 7, configure the settings below and then add "
 "%s to your CF7 form mark-up."
-msgstr ""
+msgstr "Pro spárování s Contact Form 7, upravte nastavení níže a poté přidejte %s k Vašemu CF7 formuláři."
 
 #: integrations/custom/admin-before.php:2
 msgid ""
 "To get a custom integration to work, include the following HTML in the form "
 "you are trying to integrate with."
-msgstr ""
+msgstr "Pro zprovoznění vlastní integrace, je vyžadována následující HTML ve formuláři, který se pokoušíte integrovat."
 
 #: integrations/woocommerce/class-woocommerce.php:102
 msgid "Order #%d"
