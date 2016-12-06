@@ -23,7 +23,16 @@ class MC4WP_API_v3 {
 	public function __construct( $api_key ) {
 		$this->client = new MC4WP_API_v3_Client( $api_key );
 	}
-	
+
+    /**
+     * Gets the API client to perform raw API calls.
+     *
+     * @return MC4WP_API_v3_Client
+     */
+	public function get_client() {
+        return $this->client;
+    }
+
 	/**
 	 * Pings the MailChimp API to see if we're connected
 	 *

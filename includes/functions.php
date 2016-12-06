@@ -96,6 +96,7 @@ function mc4wp_get_api() {
  * @return MC4WP_Debug_Log
  */
 function mc4wp_get_debug_log() {
+    $opts = mc4wp_get_options();
 
 	// get default log file location
 	$upload_dir = wp_upload_dir( null, false );
@@ -115,7 +116,7 @@ function mc4wp_get_debug_log() {
 	 *
 	 * @param string|int $level The minimum level of messages which should be logged.
 	 */
-	$level = apply_filters( 'mc4wp_debug_log_level', 'warning' );
+	$level = apply_filters( 'mc4wp_debug_log_level', $opts['debug_log_level'] );
 
 	return new MC4WP_Debug_Log( $file, $level );
 }

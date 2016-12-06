@@ -58,5 +58,12 @@
 
 }
 
+.mc4wp-log { font-family: monaco, monospace, courier, 'courier new', 'Bitstream Vera Sans Mono'; font-size: 13px; resize: vertical; line-height: 140%; height: 200px; padding: 6px; border:1px solid #ccc; background: #262626; color: white; overflow-y: scroll; }
+.mc4wp-log .time { color: rgb(181, 137, 0); }
+.mc4wp-log .level { color: #35AECD; }
+.mc4wp-log .debug-log-empty { color: #ccc; font-style: italic; }
+.mc4wp-log .hidden { display: none; }
+.mc4wp-log a{ color: #ccc; text-decoration: underline; }
+
 @import "overlay";
 @import "rtl";
