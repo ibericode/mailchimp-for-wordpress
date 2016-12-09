@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp forms, mailchimp integrations
 Requires at least: 4.1
 Tested up to: 4.7
-Stable tag: 4.0.10
+Stable tag: 4.0.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -189,6 +189,16 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 
 == Changelog == 
 
+
+#### 4.0.11 - December 9, 2016
+
+**Fixes**
+
+- Unescaped request variable on integration settings page, allowing for authenticated XSS. Thanks to [dxwsecurity](https://security.dxw.com/) for responsibly disclosing.
+
+**Improvements**
+
+- Add `$args` parameter to `API::get_lists_activity` method. Relates to the [MailChimp Activity](https://wordpress.org/plugins/mc4wp-activity/) plugin.
 
 
 #### 4.0.10 - December 6, 2016
