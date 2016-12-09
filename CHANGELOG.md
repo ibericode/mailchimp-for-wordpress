@@ -1,6 +1,16 @@
 Changelog
 =========
 
+#### 4.0.11 - December 9, 2016
+
+**Fixes**
+
+- Unescaped request variable on integration settings page, allowing for authenticated XSS. Thanks to [dxwsecurity](https://security.dxw.com/) for responsibly disclosing.
+
+**Improvements**
+
+- Add `$args` parameter to `API::get_lists_activity` method. Relates to the [MailChimp Activity](https://wordpress.org/plugins/mc4wp-activity/) plugin.
+
 
 #### 4.0.10 - December 6, 2016
 
