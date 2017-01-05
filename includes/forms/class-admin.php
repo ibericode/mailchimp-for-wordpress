@@ -126,7 +126,7 @@ class MC4WP_Forms_Admin {
 
 		check_admin_referer( 'add_form', '_mc4wp_nonce' );
 
-		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
+		$form_data = $_POST['mc4wp_form'];
 		$form_content = include MC4WP_PLUGIN_DIR . 'config/default-form-content.php';
 
 		// Fix for MultiSite stripping KSES for roles other than administrator
@@ -265,7 +265,7 @@ class MC4WP_Forms_Admin {
 		check_admin_referer( 'edit_form', '_mc4wp_nonce' );
 		$form_id = (int) $_POST['mc4wp_form_id'];
 
-		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
+		$form_data = $_POST['mc4wp_form'];
 		$form_data['ID'] = $form_id;
 
 		$this->save_form( $form_data );
@@ -316,7 +316,7 @@ class MC4WP_Forms_Admin {
 		$preview_id = (int) get_option( 'mc4wp_form_preview_id', 0 );
 
 		// get data
-		$form_data = stripslashes_deep( $_POST['mc4wp_form'] );
+		$form_data = $_POST['mc4wp_form'];
 		$form_data['ID'] =  $preview_id;
 		$form_data['status'] = 'preview';
 		$real_preview_id = $this->save_form( $form_data );
