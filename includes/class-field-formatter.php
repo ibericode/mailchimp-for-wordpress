@@ -74,7 +74,7 @@ class MC4WP_Field_Formatter {
 			$value = join( '/', $values );
 		}
 
-		$value = (string) strtotime('m/d', strtotime( $value ) );
+		$value = (string) date('m/d', strtotime( $value ) );
 
 		return $value;
 	}
