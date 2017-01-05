@@ -49,24 +49,12 @@ function all() {
 	return forms;
 }
 
-function on(event,callback) {
-	return events.on(event,callback);
-}
-
-function trigger(event,args) {
-	return events.trigger(event,args);
-}
-
-function off(event,callback) {
-	return events.off(event,callback);
-}
-
 module.exports = {
 	"all": all,
 	"get": get,
 	"getByElement": getByElement,
-	"on": on,
-	"trigger": trigger,
-	"off": off
+	"on": events.on.bind(events),
+	"trigger": events.trigger.bind(events),
+	"off": events.off.bind(events)
 };
 
