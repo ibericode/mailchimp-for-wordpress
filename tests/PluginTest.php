@@ -47,10 +47,4 @@ class PluginTest extends PHPUnit_Framework_TestCase {
 		self::assertEquals( $plugin->version(), $version );
 	}
 
-	/**
-	 * @covers MC4WP_Plugin::url
-	 */
-	public function test_url() {
-		// @todo mock plugins_url function
-	}
 }

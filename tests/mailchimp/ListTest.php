@@ -31,36 +31,4 @@ class ListTest extends PHPUnit_Framework_TestCase {
         self::assertStringStartsWith('Email', $list->get_field_name_by_tag('email'));
     }
 
-	/**
-	 * @covers MC4WP_MailChimp_List::get_grouping
-	 */
-	public function test_get_grouping() {
-		$id = 'abcdefg';
-		$name = 'My MailChimp List';
-		$web_id = '500';
-		$list = new MC4WP_MailChimp_List( $id, $name, $web_id );
-
-//		self::assertNull( $list->get_grouping( 'grouping-id' ) );
-//
-//		$grouping = new MC4WP_MailChimp_Grouping( 'sample-id', 'Grouping Name', 'dropdown' );
-//		$list->groupings[]  = $grouping;
-//		self::assertEquals( $list->get_grouping( $grouping->id ), $grouping );
-	}
-
-	/**
-	 * @covers MC4WP_MailChimp_List::get_grouping_name
-	 */
-	public function test_get_grouping_name() {
-		$id = 'abcdefg';
-		$name = 'My MailChimp List';
-		$web_id = '500';
-		$list = new MC4WP_MailChimp_List( $id, $name, $web_id );
-
-//		self::assertEmpty( $list->get_grouping_name( 'sample-id' ) );
-//
-//		$grouping_name = 'Grouping Name';
-//		$list->groupings[]  = new MC4WP_MailChimp_Grouping( 'sample-id', $grouping_name, 'dropdown' );
-//		self::assertEquals( $list->get_grouping_name( 'sample-id' ), $grouping_name );
-	}
-
 }

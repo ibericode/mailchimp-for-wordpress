@@ -9,8 +9,6 @@ class UpgradeRoutineTest extends PHPUnit_Framework_TestCase {
 
 	private $dir = '/tmp/mc4wp-tests/migrations';
 
-	public function test_construct() {}
-
 	/**
 	 * Create the sample migrations directory
 	 */
