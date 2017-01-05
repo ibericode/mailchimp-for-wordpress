@@ -11,11 +11,6 @@ class MC4WP_Form_Asset_Manager {
 	/**
 	 * @var bool
 	 */
-	protected $dummy_printed = false;
-
-	/**
-	 * @var bool
-	 */
 	protected $load_scripts = false;
 
 	/**
@@ -192,18 +187,11 @@ class MC4WP_Form_Asset_Manager {
 	 * Load JavaScript files
 	 */
 	public function before_output_form() {
-
-		// only run once
-		if( $this->dummy_printed ) {
-			return;
-		}
-
 		// print dummy JS
 		$this->print_dummy_javascript();
 
 		// set flags
 		$this->load_scripts = true;
-		$this->dummy_printed = true;
 	}
 
 	/**
