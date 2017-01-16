@@ -11,7 +11,7 @@ Domain Path: /languages
 License: GPL v3
 
 MailChimp for WordPress
-Copyright (C) 2012-2016, Danny van Kooten, hi@dannyvankooten.com
+Copyright (C) 2012-2017, Danny van Kooten, hi@dannyvankooten.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
