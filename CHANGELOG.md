@@ -1,6 +1,23 @@
 Changelog
 =========
 
+#### 4.0.12 - January 16, 2017
+
+**Fixes**
+
+- Don't call `stripslashes` on POST data twice.
+
+**Improvements**
+
+- Plugin review notice is now dismissible over AJAX.
+- Improved formatting of birthday fields.
+
+**Additions**
+
+- Add `update_ecommerce_store_product` method to API class.
+- Throw form specific JavaScript events, like `15.subscribed` to hook into "subscribed" events for form with ID 15.
+
+
 #### 4.0.11 - December 9, 2016
 
 **Fixes**
