@@ -200,6 +200,8 @@ MailChimp for WordPress is being developed on GitHub. If you want to collaborate
 
 - Plugin review notice is now dismissible over AJAX.
 - Improved formatting of birthday fields.
+- Updated Polish translations, thanks to Mateusz Lomber.
+- Updated German translations, thanks to Sven de Vries.
 
 **Additions**
 
