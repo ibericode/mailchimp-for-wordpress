@@ -13,15 +13,16 @@
 # Stefan Oderbolz <oderbolz@gmail.com>, 2015
 # Steffi Zehnder, 2016
 # Sven B. <sven.balje@esb-stade.de>, 2015
-# Tobias Vogler <tobi@tvdesign.ch>, 2016
+# Sven de Vries <signor.aglie@gmail.com>, 2016
+# Tobias Vogler <inactive+tobiv@transifex.com>, 2016
 # Uwe <uwe.keim@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-11-30 10:15:18+00:00\n"
-"PO-Revision-Date: 2016-08-06 18:12+0000\n"
-"Last-Translator: Steffi Zehnder\n"
+"PO-Revision-Date: 2016-12-18 10:42+0000\n"
+"Last-Translator: Sven de Vries <signor.aglie@gmail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,7 +50,7 @@ msgstr "Danke, deine Registrierung war erfolgreich! Bitte prüfe dein E-Mail-Kon
 
 #: config/default-form-messages.php:9
 msgid "Oops. Something went wrong. Please try again later."
-msgstr "Oops. Irgendwas ist schief gelaufen. Bitte versuche es später noch mal."
+msgstr "Hoppla. Irgendwas ist schief gelaufen. Bitte versuche es später noch mal."
 
 #: config/default-form-messages.php:13
 msgid "Please provide a valid email address."
@@ -351,7 +352,7 @@ msgstr "MailChimp Listen neu laden"
 
 #: includes/forms/views/parts/dynamic-content-tags.php:6
 msgid "Add dynamic form variable"
-msgstr ""
+msgstr "Dynamische Formular-Variablen hinzufügen"
 
 #: includes/forms/views/parts/dynamic-content-tags.php:8
 msgid ""
@@ -369,7 +370,7 @@ msgstr "Vom Theme %s übernehmen"
 
 #: includes/forms/views/tabs/form-appearance.php:6
 msgid "Basic"
-msgstr ""
+msgstr "Standard"
 
 #: includes/forms/views/tabs/form-appearance.php:7
 msgid "Form Themes"
@@ -397,7 +398,7 @@ msgstr "Blaues Theme"
 
 #: includes/forms/views/tabs/form-appearance.php:25
 msgid "Form Appearance"
-msgstr ""
+msgstr "Formulargestaltung"
 
 #: includes/forms/views/tabs/form-appearance.php:29
 msgid "Form Style"
@@ -662,7 +663,7 @@ msgstr "%s-Integration aktivieren? Es wird eine Sign-Up-Checkbox zum Formular hi
 
 #: includes/integrations/views/integration-settings.php:64
 msgid "Implicit?"
-msgstr ""
+msgstr "erforderlich?"
 
 #: includes/integrations/views/integration-settings.php:68
 msgid ""
@@ -724,7 +725,7 @@ msgid ""
 "fields</a> or <a href=\"%s\">log into your MailChimp account</a> and make "
 "sure only the email & name fields are marked as required fields for the "
 "selected list(s)."
-msgstr ""
+msgstr "Sie müssen alles so einstellen, dass das Plugin <a href=\"%s\">alle zum Absenden des Formulars erforderlichen Felder ihres Formulars enthält</a> oder sich bei <a href=\"%s\">Mailchimp einloggen</a> und nur das E-Mail & Name-Feld für Ihre Liste(n) als \"erforderlich\" (required) markieren."
 
 #: includes/integrations/views/integrations.php:30
 msgid "Enabled"
@@ -860,7 +861,7 @@ msgstr "Integration mit Contact Form 7: Konfiguriere die folgenden Einstellungen
 msgid ""
 "To get a custom integration to work, include the following HTML in the form "
 "you are trying to integrate with."
-msgstr ""
+msgstr "Damit die angepasste Integration funktioniert, müssen Sie folgendes HTML in das entsprechende Formular einfügen."
 
 #: integrations/woocommerce/class-woocommerce.php:102
 msgid "Order #%d"
