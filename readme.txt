@@ -178,6 +178,10 @@ The plugin is translated using Transifex. If you want to help out, please head o
 
 MailChimp for WordPress is being developed on GitHub. If you want to collaborate, please look at [ibericode/mailchimp-for-wordpress](https://github.com/ibericode/mailchimp-for-wordpress).
 
+#### Customizing the plugin
+
+MailChimp for WordPress comes with many filter & action hooks which allow you to modify the default plugin behavior. We're also maintaining a [collection of common code snippets for MailChimp for WordPress](https://github.com/ibericode/mc4wp-snippets).
+
 == Screenshots ==
 
 1. A static sign-up form in the sidebar of the Twenty Fifteen theme.
