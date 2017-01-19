@@ -32,8 +32,6 @@ class MC4WP_MailChimp {
 
 	/**
 	 *
-	 * TODO: Force re-sending double opt-in email by deleting pending subscribers from list first.
-	 *
 	 * Sends a subscription request to the MailChimp API
 	 *
 	 * @param string  $list_id           The list id to subscribe to
