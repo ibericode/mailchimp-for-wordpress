@@ -2,19 +2,20 @@
 # This file is distributed under the same license as the MailChimp for WordPress package.
 # Translators:
 # B Z <info@stockholmsbif.se>, 2016
-# Dan West <acc@dnw.st>, 2015
+# Daniel Sjöberg <sjbrg@protonmail.com>, 2015
 # Elger Lindgren <elger@bilddigital.se>, 2015
 # Gunnar Norin <blittan@xbmc.org>, 2014
 # Habil Kantur <habil66@hotmail.com>, 2015
 # Joakim Bergman <joakimber@gmail.com>, 2014
+# Mari Pantzar, 2017
 # Sebastian Pierre <diephallan@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-11-30 10:15:18+00:00\n"
-"PO-Revision-Date: 2016-02-21 21:41+0000\n"
-"Last-Translator: B Z <info@stockholmsbif.se>\n"
+"PO-Revision-Date: 2017-01-18 10:57+0000\n"
+"Last-Translator: Mari Pantzar\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/sv_SE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -84,7 +85,7 @@ msgstr "Dokumentation"
 #: includes/admin/class-admin.php:167
 msgid ""
 "Success! The cached configuration for your MailChimp lists has been renewed."
-msgstr ""
+msgstr "Hurra! Den cachade konfigurationen av din MailChimp-lista har förnyats."
 
 #: includes/admin/class-admin.php:257
 msgid ""
@@ -109,17 +110,17 @@ msgstr "Uppgradera till MailChimp för WordPress Pro"
 msgid ""
 "Enjoying this plugin? <a href=\"%s\">Purchase our bundle of premium "
 "features</a> for an even better plugin."
-msgstr ""
+msgstr "Tycker du om tillägget? <a href=\"%s\">Köp vårt paket med premiumfunktioner</a> för ett ännu bättre tillägg."
 
 #: includes/admin/class-ads.php:62
 msgid "More subscribers, better newsletters."
-msgstr ""
+msgstr "Fler prenumeranter, bättre nyhetsbrev."
 
 #: includes/admin/class-ads.php:63
 msgid ""
 "Learn how to best grow your lists & write better emails by subscribing to "
 "our monthly tips."
-msgstr ""
+msgstr "Lär dig hur du bäst får dina listor att växa och skriver bättre meddelanden genom att prenumerera på våra månadstips."
 
 #: includes/admin/class-ads.php:66
 msgid "Email Address"
@@ -139,7 +140,7 @@ msgstr "Månadsvis"
 
 #: includes/admin/migrations/3.0-form-1-post-type.php:35
 msgid "Default sign-up form"
-msgstr ""
+msgstr "Standard prenumerationsformulär"
 
 #: includes/class-api.php:83
 msgid "Read more about common connectivity issues."
@@ -152,7 +153,7 @@ msgstr "Formulär"
 
 #: includes/forms/class-admin.php:101 includes/forms/class-admin.php:176
 msgid "<strong>Success!</strong> Form successfully saved."
-msgstr ""
+msgstr "<strong>Hurra!</strong> Formuläret sparades."
 
 #: includes/forms/class-admin.php:176
 msgid "Preview form"
@@ -176,7 +177,7 @@ msgstr "Ersatt med formulärets svar (fel- eller framgångs-meddelanden)."
 
 #: includes/forms/class-form-tags.php:56
 msgid "Data from the URL or a submitted form."
-msgstr ""
+msgstr "Data från URL:en eller inskickat formulär."
 
 #: includes/forms/class-form-tags.php:62
 #: includes/integrations/class-integration-tags.php:45
@@ -185,31 +186,31 @@ msgstr "Ersatt med prenumerantens nummer på vald lista(or)"
 
 #: includes/forms/class-form-tags.php:67
 msgid "The email address of the current visitor (if known)."
-msgstr ""
+msgstr "E-postadressen för nuvarande besökare (om känd)."
 
 #: includes/forms/class-form-tags.php:72
 msgid "The URL of the page."
-msgstr ""
+msgstr "Sidans URL."
 
 #: includes/forms/class-form-tags.php:77
 msgid "The path of the page."
-msgstr ""
+msgstr "Vägen till sidan."
 
 #: includes/forms/class-form-tags.php:82
 msgid "The current date. Example: %s."
-msgstr ""
+msgstr "Nuvarande datum. Exempel: %s."
 
 #: includes/forms/class-form-tags.php:87
 msgid "The current time. Example: %s."
-msgstr ""
+msgstr "Nuvarande tid. Exempel: %s."
 
 #: includes/forms/class-form-tags.php:92
 msgid "The site's language. Example: %s."
-msgstr ""
+msgstr "Webbplatsens språk. Exempel: %s."
 
 #: includes/forms/class-form-tags.php:97
 msgid "The visitor's IP address. Example: %s."
-msgstr ""
+msgstr "Besökarens IP-adress. Exempel: %s."
 
 #: includes/forms/class-form-tags.php:102
 msgid "The property of the currently logged-in user."
@@ -217,7 +218,7 @@ msgstr ""
 
 #: includes/forms/class-form.php:128
 msgid "There is no form with ID %d, perhaps it was deleted?"
-msgstr ""
+msgstr "Det finns inget formulär med ID %d, kanske har det raderats?"
 
 #: includes/forms/class-widget.php:26
 msgid "Newsletter"
@@ -243,7 +244,7 @@ msgstr "Du kan redigera ditt registreringsformulär i <a href=\"%s\">formulärin
 
 #: includes/forms/views/add-form.php:10 includes/forms/views/add-form.php:60
 msgid "Add new form"
-msgstr ""
+msgstr "Lägg till nytt formulär"
 
 #: includes/forms/views/add-form.php:27
 msgid "What is the name of this form?"
@@ -255,11 +256,11 @@ msgstr "Ange formulärets titel .."
 
 #: includes/forms/views/add-form.php:37
 msgid "To which MailChimp lists should this form subscribe?"
-msgstr ""
+msgstr "På vilka MailChimp-listor ska detta formulär prenumerera?"
 
 #: includes/forms/views/add-form.php:54
 msgid "No lists found. Did you <a href=\"%s\">connect with MailChimp</a>?"
-msgstr ""
+msgstr "Inga listor hittades. Har du <a href=\"%s\">länkat ihop med MailChimp</a>?"
 
 #: includes/forms/views/edit-form.php:4
 msgid "Fields"
@@ -271,7 +272,7 @@ msgstr "Meddelanden"
 
 #: includes/forms/views/edit-form.php:7
 msgid "Appearance"
-msgstr ""
+msgstr "Utseende"
 
 #: includes/forms/views/edit-form.php:15
 #: includes/integrations/views/integration-settings.php:8
@@ -290,11 +291,11 @@ msgstr "Ange formulärets titel här"
 
 #: includes/forms/views/edit-form.php:46
 msgid "Enter the title of your sign-up form"
-msgstr ""
+msgstr "Fyll i titeln på ditt prenumerationsformulär"
 
 #: includes/forms/views/edit-form.php:54
 msgid "Get shortcode"
-msgstr ""
+msgstr "Hämta kortkod"
 
 #: includes/forms/views/edit-form.php:59
 msgid "Preview this form"
@@ -309,27 +310,27 @@ msgstr "Lägg till fält"
 msgid ""
 "To add more fields to your form, you will need to create those fields in "
 "MailChimp first."
-msgstr ""
+msgstr "För att lägga till fler fält i formuläret måste du skapa dem i MailChimp först."
 
 #: includes/forms/views/parts/add-fields-help.php:12
 msgid "Here's how:"
-msgstr ""
+msgstr "Här är hur:"
 
 #: includes/forms/views/parts/add-fields-help.php:17
 msgid "Log in to your MailChimp account."
-msgstr ""
+msgstr "Logga in på ditt MailChimp-konto."
 
 #: includes/forms/views/parts/add-fields-help.php:22
 msgid "Add list fields to any of your selected lists."
-msgstr ""
+msgstr "Lägg till listfält till en av dina valda listor."
 
 #: includes/forms/views/parts/add-fields-help.php:23
 msgid "Clicking the following links will take you to the right screen."
-msgstr ""
+msgstr "Följande länkar tar dig till rätt skärm."
 
 #: includes/forms/views/parts/add-fields-help.php:29
 msgid "Edit list fields for"
-msgstr ""
+msgstr "Redigera listfält för"
 
 #: includes/forms/views/parts/add-fields-help.php:38
 msgid ""
@@ -344,7 +345,7 @@ msgstr "Förnya MailChimplistor"
 
 #: includes/forms/views/parts/dynamic-content-tags.php:6
 msgid "Add dynamic form variable"
-msgstr ""
+msgstr "Lägg till dynamiska formulärvariabler"
 
 #: includes/forms/views/parts/dynamic-content-tags.php:8
 msgid ""
@@ -358,7 +359,7 @@ msgstr "Detta gör att du kan anpassa ditt formulär eller svarsmeddelanden."
 
 #: includes/forms/views/tabs/form-appearance.php:5
 msgid "Inherit from %s theme"
-msgstr ""
+msgstr "Ärv från %s tema"
 
 #: includes/forms/views/tabs/form-appearance.php:6
 msgid "Basic"
@@ -366,7 +367,7 @@ msgstr ""
 
 #: includes/forms/views/tabs/form-appearance.php:7
 msgid "Form Themes"
-msgstr ""
+msgstr "Formulärteman"
 
 #: includes/forms/views/tabs/form-appearance.php:8
 msgid "Light Theme"
@@ -390,11 +391,11 @@ msgstr "Blått tema"
 
 #: includes/forms/views/tabs/form-appearance.php:25
 msgid "Form Appearance"
-msgstr ""
+msgstr "Formulärutseende"
 
 #: includes/forms/views/tabs/form-appearance.php:29
 msgid "Form Style"
-msgstr ""
+msgstr "Formulärstil"
 
 #: includes/forms/views/tabs/form-appearance.php:48
 msgid ""
@@ -404,15 +405,15 @@ msgstr "Om du vill ladda in förvalda CSS-stilar,  välj \" Grundläggande forma
 
 #: includes/forms/views/tabs/form-fields.php:6
 msgid "Form variables"
-msgstr ""
+msgstr "Formulärvariabler"
 
 #: includes/forms/views/tabs/form-fields.php:13
 msgid "Form Fields"
-msgstr ""
+msgstr "Formulärfält"
 
 #: includes/forms/views/tabs/form-fields.php:19
 msgid "Enter the HTML code for your form fields.."
-msgstr ""
+msgstr "Fyll i HTML-koden för ditt formulärfält."
 
 #: includes/forms/views/tabs/form-fields.php:27
 msgid "Your form is missing the following (required) form fields:"
@@ -426,7 +427,7 @@ msgstr "Använd kortkoden %s för att visa detta formulär inuti ett inlägg, si
 
 #: includes/forms/views/tabs/form-messages.php:3
 msgid "Form Messages"
-msgstr ""
+msgstr "Formulärmeddelanden"
 
 #: includes/forms/views/tabs/form-messages.php:10
 msgid "Successfully subscribed"
@@ -504,7 +505,7 @@ msgstr "Formulärinställningar"
 
 #: includes/forms/views/tabs/form-settings.php:5
 msgid "MailChimp specific settings"
-msgstr ""
+msgstr "MailChimp specifika inställningar"
 
 #: includes/forms/views/tabs/form-settings.php:12
 msgid "Lists this form subscribes to"
@@ -568,7 +569,7 @@ msgstr "Välj \"ja\" om du vill att folk ska bekräfta sin emailadress innan de 
 
 #: includes/forms/views/tabs/form-settings.php:50
 msgid "Send final welcome email?"
-msgstr ""
+msgstr "Skicka ett sista välkomstmeddelande?"
 
 #: includes/forms/views/tabs/form-settings.php:60
 #: includes/integrations/views/integration-settings.php:169
@@ -599,16 +600,16 @@ msgstr "Ersätt intressegrupper?"
 msgid ""
 "Select \"no\" if you want to add the selected groupings to any previously "
 "selected groupings when updating a subscriber."
-msgstr ""
+msgstr "Välj \"nej\" om du vill lägga till den valda grupperingen till en tidigare gruppering när en prenumerant uppdateras."
 
 #: includes/forms/views/tabs/form-settings.php:93
 #: includes/integrations/views/integration-settings.php:207
 msgid "What does this do?"
-msgstr ""
+msgstr "Vad gör detta?"
 
 #: includes/forms/views/tabs/form-settings.php:104
 msgid "Form behaviour"
-msgstr ""
+msgstr "Formulärbeteende"
 
 #: includes/forms/views/tabs/form-settings.php:111
 msgid "Hide form after a successful sign-up?"
@@ -638,30 +639,30 @@ msgstr "Lämna tomt eller ange <code>0</code> för ingen omdirigering. Använd f
 #: includes/integrations/views/integrations.php:9
 #: includes/integrations/views/integrations.php:17
 msgid "Integrations"
-msgstr ""
+msgstr "Integrationer"
 
 #: includes/integrations/views/integration-settings.php:20
 msgid "%s integration"
-msgstr ""
+msgstr "%s integration"
 
 #: includes/integrations/views/integration-settings.php:51
 msgid "Enabled?"
-msgstr ""
+msgstr "Aktiverad?"
 
 #: includes/integrations/views/integration-settings.php:55
 msgid ""
 "Enable the %s integration? This will add a sign-up checkbox to the form."
-msgstr ""
+msgstr "Aktivera %sintegrationen? Detta lägger till en kryssruta för prenumeration i formuläret."
 
 #: includes/integrations/views/integration-settings.php:64
 msgid "Implicit?"
-msgstr ""
+msgstr "Implicit?"
 
 #: includes/integrations/views/integration-settings.php:68
 msgid ""
 "Select \"no\" if you want to ask your visitors before they are subscribed "
 "(recommended)."
-msgstr ""
+msgstr "Välj \"nej\" om du vill fråga besökarna innan de prenumererar (rekommenderas)."
 
 #: includes/integrations/views/integration-settings.php:78
 msgid "MailChimp Lists"
@@ -687,7 +688,7 @@ msgstr "Kryssa i kryssrutan i förväg?"
 
 #: includes/integrations/views/integration-settings.php:119
 msgid "Select \"yes\" if the checkbox should be pre-checked."
-msgstr ""
+msgstr "Välj \"ja\" om kryssrutan ska vara förifylld."
 
 #: includes/integrations/views/integration-settings.php:127
 msgid "Load some default CSS?"
@@ -709,7 +710,7 @@ msgstr "Skicka välkomste-post?"
 msgid ""
 "The selected MailChimp lists require non-default fields, which may prevent "
 "this integration from working."
-msgstr ""
+msgstr "De valda MailChimp-listorna kräver ickestandardfält vilket kan hindra integrationen från att fungera."
 
 #: includes/integrations/views/integration-settings.php:245
 msgid ""
@@ -721,33 +722,33 @@ msgstr ""
 
 #: includes/integrations/views/integrations.php:30
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiverad"
 
 #: includes/integrations/views/integrations.php:31
 msgid "Name"
-msgstr ""
+msgstr "Namn"
 
 #: includes/integrations/views/integrations.php:32
 msgid "Description"
-msgstr ""
+msgstr "Beskrivning"
 
 #: includes/integrations/views/integrations.php:50
 msgid ""
 "This integration is enabled by default as it requires manual actions to "
 "work."
-msgstr ""
+msgstr "Denna integration är aktiverad som standard då den kräver manuella åtgärder för att fungera."
 
 #: includes/integrations/views/integrations.php:57
 msgid "Configure this integration"
-msgstr ""
+msgstr "Konfigurera den här integrationen"
 
 #: includes/views/general-settings.php:18
 msgid "General Settings"
-msgstr ""
+msgstr "Allmänna inställningar"
 
 #: includes/views/general-settings.php:35
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: includes/views/general-settings.php:39
 msgid "CONNECTED"
@@ -767,7 +768,7 @@ msgstr "Din MailChimp API-nyckel"
 
 #: includes/views/general-settings.php:52
 msgid "The API key for connecting with your MailChimp account."
-msgstr ""
+msgstr "API-nyckeln för att sammankoppla med ditt MailChimp-konto."
 
 #: includes/views/general-settings.php:53
 msgid "Get your API key here."
@@ -775,17 +776,17 @@ msgstr "Hitta din API-nyckel här."
 
 #: includes/views/general-settings.php:65
 msgid "Usage Tracking"
-msgstr ""
+msgstr "Användarspårning"
 
 #: includes/views/general-settings.php:71
 msgid ""
 "Allow us to anonymously track how this plugin is used to help us make it "
 "better fit your needs."
-msgstr ""
+msgstr "Tillåter oss att anonymt spåra hur detta tillägg används och hjälpa oss att förbättra det för dina behov."
 
 #: includes/views/general-settings.php:73
 msgid "This is what we track."
-msgstr ""
+msgstr "Detta är vad vi spårar."
 
 #: includes/views/parts/admin-footer.php:11
 msgid ""
@@ -802,14 +803,14 @@ msgstr "Denna plugin är inte utvecklat av eller har något samröre med MailChi
 
 #: includes/views/parts/lists-overview.php:1
 msgid "Your MailChimp Account"
-msgstr ""
+msgstr "Ditt MailChimp-konto"
 
 #: includes/views/parts/lists-overview.php:2
 msgid ""
 "The table below shows your MailChimp lists and their details. If you just "
 "applied changes to your MailChimp lists, please use the following button to "
 "renew the cached lists configuration."
-msgstr ""
+msgstr "Tabellen nedan visar dina MailChimp-listor och dess detaljer. Om du nyligen gjort ändringar i dina MailChimp-listor kan du använda denna knapp för att förnya listans cache."
 
 #: includes/views/parts/lists-overview.php:14
 msgid "No lists were found in your MailChimp account"
@@ -817,11 +818,11 @@ msgstr "Inga listor kunde hittas i ditt MailChimp-konto."
 
 #: includes/views/parts/lists-overview.php:16
 msgid "A total of %d lists were found in your MailChimp account."
-msgstr ""
+msgstr "Totalt %s listor hittades på ditt MailChimp-konto."
 
 #: includes/views/parts/lists-overview.php:21
 msgid "List Name"
-msgstr ""
+msgstr "Listnamn"
 
 #: includes/views/parts/lists-overview.php:22
 msgid "ID"
@@ -829,35 +830,35 @@ msgstr "ID"
 
 #: includes/views/parts/lists-overview.php:23
 msgid "Subscribers"
-msgstr ""
+msgstr "Prenumeranter"
 
 #: includes/views/parts/lists-overview.php:45
 msgid "Edit this list in MailChimp"
-msgstr ""
+msgstr "Redigera denna lista i MailChimp"
 
 #: includes/views/parts/lists-overview.php:59
 msgid "%s (%s) with field type %s."
-msgstr ""
+msgstr "%s (%s) med fälttyp %s."
 
 #: includes/views/parts/lists-overview.php:83
 msgid "%s (ID: %s) with type %s."
-msgstr ""
+msgstr "%s (ID: %s) med typ %s."
 
 #: integrations/contact-form-7/admin-before.php:2
 msgid ""
 "To integrate with Contact Form 7, configure the settings below and then add "
 "%s to your CF7 form mark-up."
-msgstr ""
+msgstr "För att integrera med Contact Form 7 får du justera inställningarna nedan och sedan lägga till %s i ditt CF7-formulärs uppmärkning."
 
 #: integrations/custom/admin-before.php:2
 msgid ""
 "To get a custom integration to work, include the following HTML in the form "
 "you are trying to integrate with."
-msgstr ""
+msgstr "För att en anpassad integration ska fungera ska du inkludera följande HTML i det formulär du försöker integrera med."
 
 #: integrations/woocommerce/class-woocommerce.php:102
 msgid "Order #%d"
-msgstr ""
+msgstr "Order #%d"
 
 #. Plugin Name of the plugin/theme
 msgid "MailChimp for WordPress"
@@ -867,18 +868,18 @@ msgstr "MailChimp for WordPress"
 msgid ""
 "https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-"
 "wp&utm_campaign=plugins-page"
-msgstr ""
+msgstr "https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=plugins-page"
 
 #. Description of the plugin/theme
 msgid ""
 "MailChimp for WordPress by ibericode. Adds various highly effective sign-up "
 "methods to your site."
-msgstr ""
+msgstr "MailChimp för WordPress av Ibericode. Lägger till högeffektiva prenumerationsmetoder på din webbplats."
 
 #. Author of the plugin/theme
 msgid "ibericode"
-msgstr ""
+msgstr "ibericode"
 
 #. Author URI of the plugin/theme
 msgid "https://ibericode.com/"
-msgstr ""
+msgstr "https://ibericode.com/"
