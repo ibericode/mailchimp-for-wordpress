@@ -591,196 +591,196 @@ var FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 module.exports = FieldHelper;
 },{"./field-forms.js":2,"./field-generator.js":3,"./overlay.js":10}],5:[function(require,module,exports){
 var FieldFactory = function(fields, i18n) {
-	'use strict';
+    'use strict';
 
-	/**
-	 * Array of registered fields
-	 *
-	 * @type {Array}
-	 */
-	var registeredFields = [];
+    /**
+     * Array of registered fields
+     *
+     * @type {Array}
+     */
+    var registeredFields = [];
 
-	/**
-	 * Reset all previously registered fields
-	 */
-	function reset() {
-		// clear all of our fields
-		registeredFields.forEach(fields.deregister);
-	}
+    /**
+     * Reset all previously registered fields
+     */
+    function reset() {
+        // clear all of our fields
+        registeredFields.forEach(fields.deregister);
+    }
 
-	/**
-	 * Helper function to quickly register a field and store it in local scope
-	 *
-	 * @param {object} data
-	 * @param {boolean} sticky
-	 */
-	function register(category, data, sticky) {
-		var field = fields.register(category, data);
+    /**
+     * Helper function to quickly register a field and store it in local scope
+     *
+     * @param {object} data
+     * @param {boolean} sticky
+     */
+    function register(category, data, sticky) {
+        var field = fields.register(category, data);
 
-		if( ! sticky ) {
-			registeredFields.push(field);
-		}
-	}
+        if( ! sticky ) {
+            registeredFields.push(field);
+        }
+    }
 
-	/**
-	 * Normalizes the field type which is passed by MailChimp
-	 *
-	 * @param type
-	 * @returns {*}
-	 */
-	function getFieldType(type) {
+    /**
+     * Normalizes the field type which is passed by MailChimp
+     *
+     * @param type
+     * @returns {*}
+     */
+    function getFieldType(type) {
 
-		var map = {
-			'phone' : 'tel',
-			'dropdown': 'select',
-			'checkboxes': 'checkbox',
-			'birthday': 'text'
-		};
+        var map = {
+            'phone' : 'tel',
+            'dropdown': 'select',
+            'checkboxes': 'checkbox',
+            'birthday': 'text'
+        };
 
-		return typeof map[ type ] !== "undefined" ? map[type] : type;
-	}
+        return typeof map[ type ] !== "undefined" ? map[type] : type;
+    }
 
-	/**
-	 * Register the various fields for a merge var
-	 *
-	 * @param mergeField
-	 * @returns {boolean}
-	 */
-	function registerMergeField(mergeField) {
+    /**
+     * Register the various fields for a merge var
+     *
+     * @param mergeField
+     * @returns {boolean}
+     */
+    function registerMergeField(mergeField) {
 
-		var category = i18n.listFields;
-		var fieldType = getFieldType(mergeField.field_type);
+        var category = i18n.listFields;
+        var fieldType = getFieldType(mergeField.field_type);
 
-		// name, type, title, value, required, label, placeholder, choices, wrap
-		var data = {
-			name: mergeField.tag,
-			title: mergeField.name,
-			required: mergeField.required,
-			forceRequired: mergeField.required,
-			type: fieldType,
-			choices: mergeField.choices,
-			acceptsMultipleValues: false // merge fields never accept multiple values.
-		};
+        // name, type, title, value, required, label, placeholder, choices, wrap
+        var data = {
+            name: mergeField.tag,
+            title: mergeField.name,
+            required: mergeField.required,
+            forceRequired: mergeField.required,
+            type: fieldType,
+            choices: mergeField.choices,
+            acceptsMultipleValues: false // merge fields never accept multiple values.
+        };
 
-		if( data.type !== 'address' ) {
-			register(category, data, false);
-		} else {
-			register(category, { name: data.name + '[addr1]', type: 'text', mailchimpType: 'address', title: i18n.streetAddress });
-			register(category, { name: data.name + '[city]', type: 'text', mailchimpType: 'address', title: i18n.city });
-			register(category, { name: data.name + '[state]', type: 'text', mailchimpType: 'address', title: i18n.state  });
-			register(category, { name: data.name + '[zip]', type: 'text', mailchimpType: 'address', title: i18n.zip });
-			register(category, { name: data.name + '[country]', type: 'select', mailchimpType: 'address', title: i18n.country, choices: mc4wp_vars.countries });
-		}
+        if( data.type !== 'address' ) {
+            register(category, data, false);
+        } else {
+            register(category, { name: data.name + '[addr1]', type: 'text', mailchimpType: 'address', title: i18n.streetAddress });
+            register(category, { name: data.name + '[city]', type: 'text', mailchimpType: 'address', title: i18n.city });
+            register(category, { name: data.name + '[state]', type: 'text', mailchimpType: 'address', title: i18n.state  });
+            register(category, { name: data.name + '[zip]', type: 'text', mailchimpType: 'address', title: i18n.zip });
+            register(category, { name: data.name + '[country]', type: 'select', mailchimpType: 'address', title: i18n.country, choices: mc4wp_vars.countries });
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * Register a field for a MailChimp grouping
-	 *
-	 * @param interestCategory
-	 */
-	function registerInterestCategory(interestCategory){
-		var category = i18n.interestCategories;
-		var fieldType = getFieldType(interestCategory.field_type);
+    /**
+     * Register a field for a MailChimp grouping
+     *
+     * @param interestCategory
+     */
+    function registerInterestCategory(interestCategory){
+        var category = i18n.interestCategories;
+        var fieldType = getFieldType(interestCategory.field_type);
 
-		var data = {
-			title: interestCategory.name,
-			name: 'INTERESTS[' + interestCategory.id + ']',
-			type: fieldType,
-			choices: interestCategory.interests,
-			acceptsMultipleValues: fieldType === 'checkbox'
-		};
-		register(category, data, false);
-	}
+        var data = {
+            title: interestCategory.name,
+            name: 'INTERESTS[' + interestCategory.id + ']',
+            type: fieldType,
+            choices: interestCategory.interests,
+            acceptsMultipleValues: fieldType === 'checkbox'
+        };
+        register(category, data, false);
+    }
 
-	/**
-	 * Register all fields belonging to a list
-	 *
-	 * @param list
-	 */
-	function registerListFields(list) {
+    /**
+     * Register all fields belonging to a list
+     *
+     * @param list
+     */
+    function registerListFields(list) {
 
-		// make sure EMAIL && public fields come first
-		list.merge_fields = list.merge_fields.sort(function(a, b) {
-			if( a.tag === 'EMAIL' || ( a.public && ! b.public ) ) {
-				return -1;
-			}
+        // make sure EMAIL && public fields come first
+        list.merge_fields = list.merge_fields.sort(function(a, b) {
+            if( a.tag === 'EMAIL' || ( a.public && ! b.public ) ) {
+                return -1;
+            }
 
-			if( ! a.public && b.public ) {
-				return 1;
-			}
+            if( ! a.public && b.public ) {
+                return 1;
+            }
 
-			return 0;
-		});
+            return 0;
+        });
 
-		// loop through merge vars
-		list.merge_fields.forEach(registerMergeField);
+        // loop through merge vars
+        list.merge_fields.forEach(registerMergeField);
 
-		// loop through groupings
-		list.interest_categories.forEach(registerInterestCategory);
-	}
+        // loop through groupings
+        list.interest_categories.forEach(registerInterestCategory);
+    }
 
-	/**
-	 * Register all lists fields
-	 *
-	 * @param lists
-	 */
-	function registerListsFields(lists) {
-		reset();
-		lists.forEach(registerListFields);
-	}
+    /**
+     * Register all lists fields
+     *
+     * @param lists
+     */
+    function registerListsFields(lists) {
+        reset();
+        lists.forEach(registerListFields);
+    }
 
-	function registerCustomFields(lists) {
+    function registerCustomFields(lists) {
 
-		var choices,
-			category = i18n.formFields;
+        var choices,
+            category = i18n.formFields;
 
-		// register submit button
-		register(category, {
-			name: '',
-			value: i18n.subscribe,
-			type: "submit",
-			title: i18n.submitButton
-		}, true);
+        // register submit button
+        register(category, {
+            name: '',
+            value: i18n.subscribe,
+            type: "submit",
+            title: i18n.submitButton
+        }, true);
 
-		// register lists choice field
-		choices = {};
-		for(var key in lists) {
-			choices[lists[key].id] = lists[key].name;
-		}
+        // register lists choice field
+        choices = {};
+        for(var key in lists) {
+            choices[lists[key].id] = lists[key].name;
+        }
 
-		register(category, {
-			name: '_mc4wp_lists',
-			type: 'checkbox',
-			title: i18n.listChoice,
-			choices: choices,
-			help: i18n.listChoiceDescription,
-			acceptsMultipleValues: true
-		}, true);
+        register(category, {
+            name: '_mc4wp_lists',
+            type: 'checkbox',
+            title: i18n.listChoice,
+            choices: choices,
+            help: i18n.listChoiceDescription,
+            acceptsMultipleValues: true
+        }, true);
 
-		choices = {
-			'subscribe': "Subscribe",
-			'unsubscribe': "Unsubscribe"
-		};
-		register(category, {
-			name: '_mc4wp_action',
-			type: 'radio',
-			title: i18n.formAction,
-			choices: choices,
-			value: 'subscribe',
-			help: i18n.formActionDescription
-		}, true);
-	}
+        choices = {
+            'subscribe': "Subscribe",
+            'unsubscribe': "Unsubscribe"
+        };
+        register(category, {
+            name: '_mc4wp_action',
+            type: 'radio',
+            title: i18n.formAction,
+            choices: choices,
+            value: 'subscribe',
+            help: i18n.formActionDescription
+        }, true);
+    }
 
-	/**
-	 * Expose some methods
-	 */
-	return {
-		'registerCustomFields': registerCustomFields,
-		'registerListFields': registerListFields,
-		'registerListsFields': registerListsFields
-	}
+    /**
+     * Expose some methods
+     */
+    return {
+        'registerCustomFields': registerCustomFields,
+        'registerListFields': registerListFields,
+        'registerListsFields': registerListsFields
+    }
 
 };
 
@@ -790,218 +790,218 @@ module.exports = FieldFactory;
 
 module.exports = function(m, events) {
     var timeout;
-	var fields = [];
-	var categories = [];
+    var fields = [];
+    var categories = [];
 
 
-	/**
-	 * @internal
-	 *
-	 *
-	 * @param data
-	 * @constructor
-	 */
-	var Field = function (data) {
-		this.name = m.prop(data.name);
-		this.title = m.prop(data.title || data.name);
-		this.type = m.prop(data.type);
-		this.mailchimpType = m.prop(data.mailchimpType || '');
-		this.label = m.prop(data.title || '');
-		this.value = m.prop(data.value || '');
-		this.placeholder = m.prop(data.placeholder || '');
-		this.required = m.prop(data.required || false);
-		this.forceRequired = m.prop( data.forceRequired || false );
-		this.wrap = m.prop(data.wrap || true);
-		this.min = m.prop(data.min || null);
-		this.max = m.prop(data.max || null);
-		this.help = m.prop(data.help || '');
-		this.choices = m.prop(data.choices || []);
-		this.inFormContent = m.prop(null);
-		this.acceptsMultipleValues = data.acceptsMultipleValues;
+    /**
+     * @internal
+     *
+     *
+     * @param data
+     * @constructor
+     */
+    var Field = function (data) {
+        this.name = m.prop(data.name);
+        this.title = m.prop(data.title || data.name);
+        this.type = m.prop(data.type);
+        this.mailchimpType = m.prop(data.mailchimpType || '');
+        this.label = m.prop(data.title || '');
+        this.value = m.prop(data.value || '');
+        this.placeholder = m.prop(data.placeholder || '');
+        this.required = m.prop(data.required || false);
+        this.forceRequired = m.prop( data.forceRequired || false );
+        this.wrap = m.prop(data.wrap || true);
+        this.min = m.prop(data.min || null);
+        this.max = m.prop(data.max || null);
+        this.help = m.prop(data.help || '');
+        this.choices = m.prop(data.choices || []);
+        this.inFormContent = m.prop(null);
+        this.acceptsMultipleValues = data.acceptsMultipleValues;
 
-		this.selectChoice = function(value) {
-			var field = this;
+        this.selectChoice = function(value) {
+            var field = this;
 
-			this.choices(this.choices().map(function(choice) {
+            this.choices(this.choices().map(function(choice) {
 
-				if( choice.value() === value ) {
-					choice.selected(true);
-				} else {
-					// only checkboxes allow for multiple selections
-					if( field.type() !== 'checkbox' ) {
-						choice.selected(false);
-					}
-				}
+                if( choice.value() === value ) {
+                    choice.selected(true);
+                } else {
+                    // only checkboxes allow for multiple selections
+                    if( field.type() !== 'checkbox' ) {
+                        choice.selected(false);
+                    }
+                }
 
-				return choice;
+                return choice;
 
-			}));
-		};
-	};
+            }));
+        };
+    };
 
-	/**
-	 * @internal
-	 *
-	 * @param data
-	 * @constructor
-	 */
-	var FieldChoice = function (data) {
-		this.label = m.prop(data.label);
-		this.title = m.prop(data.title || data.label);
-		this.selected = m.prop(data.selected || false);
-		this.value = m.prop(data.value || data.label);
-	};
+    /**
+     * @internal
+     *
+     * @param data
+     * @constructor
+     */
+    var FieldChoice = function (data) {
+        this.label = m.prop(data.label);
+        this.title = m.prop(data.title || data.label);
+        this.selected = m.prop(data.selected || false);
+        this.value = m.prop(data.value || data.label);
+    };
 
-	/**
-	 * Creates FieldChoice objects from an (associative) array of data objects
-	 *
-	 * @param data
-	 * @returns {Array}
-	 */
-	function createChoices(data) {
-		var choices = [];
-		if (typeof( data.map ) === "function") {
-			choices = data.map(function (choiceLabel) {
-				return new FieldChoice({label: choiceLabel});
-			});
-		} else {
-			choices = Object.keys(data).map(function (key) {
-				var choiceLabel = data[key];
-				return new FieldChoice({label: choiceLabel, value: key});
-			});
-		}
+    /**
+     * Creates FieldChoice objects from an (associative) array of data objects
+     *
+     * @param data
+     * @returns {Array}
+     */
+    function createChoices(data) {
+        var choices = [];
+        if (typeof( data.map ) === "function") {
+            choices = data.map(function (choiceLabel) {
+                return new FieldChoice({label: choiceLabel});
+            });
+        } else {
+            choices = Object.keys(data).map(function (key) {
+                var choiceLabel = data[key];
+                return new FieldChoice({label: choiceLabel, value: key});
+            });
+        }
 
-		return choices;
-	}
+        return choices;
+    }
 
-	/**
-	 * Factory method
-	 *
-	 * @api
-	 *
-	 * @param data
-	 * @returns {Field}
-	 */
-	function register(category, data) {
+    /**
+     * Factory method
+     *
+     * @api
+     *
+     * @param data
+     * @returns {Field}
+     */
+    function register(category, data) {
 
-		var field;
-		var existingField = getAllWhere('name', data.name).shift();
+        var field;
+        var existingField = getAllWhere('name', data.name).shift();
 
-		// a field with the same "name" already exists
-		if(existingField) {
+        // a field with the same "name" already exists
+        if(existingField) {
 
-			// update "required" status
-			if( ! existingField.forceRequired() && data.forceRequired ) {
-				existingField.forceRequired(true);
-			}
+            // update "required" status
+            if( ! existingField.forceRequired() && data.forceRequired ) {
+                existingField.forceRequired(true);
+            }
 
-			// bail
-			return undefined;
-		}
+            // bail
+            return undefined;
+        }
 
-		// array of choices given? convert to FieldChoice objects
-		if (data.choices) {
-			data.choices = createChoices(data.choices);
+        // array of choices given? convert to FieldChoice objects
+        if (data.choices) {
+            data.choices = createChoices(data.choices);
 
-			if( data.value) {
-				data.choices = data.choices.map(function(choice) {
-					if(choice.value() === data.value) {
-						choice.selected(true);
-					}
-					return choice;
-				});
-			}
-		}
+            if( data.value) {
+                data.choices = data.choices.map(function(choice) {
+                    if(choice.value() === data.value) {
+                        choice.selected(true);
+                    }
+                    return choice;
+                });
+            }
+        }
 
-		// register category
-		if( categories.indexOf(category) < 0 ) {
-			categories.push(category);
-		}
+        // register category
+        if( categories.indexOf(category) < 0 ) {
+            categories.push(category);
+        }
 
-		// create Field object
-		field = new Field(data);
-		field.category = category;
+        // create Field object
+        field = new Field(data);
+        field.category = category;
 
-		// add to array
-		fields.push(field);
+        // add to array
+        fields.push(field);
 
-		// redraw view
+        // redraw view
         timeout && window.clearTimeout(timeout);
         timeout = window.setTimeout(m.redraw, 200);
 
-		// trigger event
-		events.trigger('fields.change');
+        // trigger event
+        events.trigger('fields.change');
 
-		return field;
-	}
+        return field;
+    }
 
-	/**
-	 * @api
-	 *
-	 * @param field
-	 */
-	function deregister(field) {
-		var index = fields.indexOf(field);
-		if (index > -1) {
-			delete fields[index];
-			m.redraw();
-		}
-	}
+    /**
+     * @api
+     *
+     * @param field
+     */
+    function deregister(field) {
+        var index = fields.indexOf(field);
+        if (index > -1) {
+            delete fields[index];
+            m.redraw();
+        }
+    }
 
-	/**
-	 * Get a field config object
-	 *
-	 * @param name
-	 * @returns {*}
-	 */
-	function get(name) {
-		return fields[name];
-	}
+    /**
+     * Get a field config object
+     *
+     * @param name
+     * @returns {*}
+     */
+    function get(name) {
+        return fields[name];
+    }
 
-	/**
-	 * Get all field config objects
-	 *
-	 * @returns {Array|*}
-	 */
-	function getAll() {
-		// rebuild index property on all fields
-		fields = fields.map(function(f, i) {
-			f.index = i;
-			return f;
-		});
+    /**
+     * Get all field config objects
+     *
+     * @returns {Array|*}
+     */
+    function getAll() {
+        // rebuild index property on all fields
+        fields = fields.map(function(f, i) {
+            f.index = i;
+            return f;
+        });
 
-		return fields;
-	}
+        return fields;
+    }
 
-	function getCategories() {
-		return categories;
-	}
+    function getCategories() {
+        return categories;
+    }
 
-	/**
-	 * Get all fields where a property matches the given value
-	 *
-	 * @param searchKey
-	 * @param searchValue
-	 * @returns {Array|*}
-	 */
-	function getAllWhere(searchKey, searchValue) {
-		return fields.filter(function (field) {
-			return field[searchKey]() === searchValue;
-		});
-	}
+    /**
+     * Get all fields where a property matches the given value
+     *
+     * @param searchKey
+     * @param searchValue
+     * @returns {Array|*}
+     */
+    function getAllWhere(searchKey, searchValue) {
+        return fields.filter(function (field) {
+            return field[searchKey]() === searchValue;
+        });
+    }
 
 
-	/**
-	 * Exposed methods
-	 */
-	return {
-		'get'        : get,
-		'getAll'     : getAll,
-		'getCategories': getCategories,
-		'deregister' : deregister,
-		'register'   : register,
-		'getAllWhere': getAllWhere
-	};
+    /**
+     * Exposed methods
+     */
+    return {
+        'get'        : get,
+        'getAll'     : getAll,
+        'getCategories': getCategories,
+        'deregister' : deregister,
+        'register'   : register,
+        'getAllWhere': getAllWhere
+    };
 };
 },{}],7:[function(require,module,exports){
 'use strict';
@@ -1018,163 +1018,163 @@ require('codemirror/addon/edit/closetag.js');
 
 var FormEditor = function(element) {
 
-	// create dom representation of form
-	var _dom = document.createElement('form'),
-		domDirty = false,
-		r = {},
-		editor;
+    // create dom representation of form
+    var _dom = document.createElement('form'),
+        domDirty = false,
+        r = {},
+        editor;
 
-	_dom.innerHTML = element.value.toLowerCase();
+    _dom.innerHTML = element.value.toLowerCase();
 
-	if( CodeMirror ) {
-		editor = CodeMirror.fromTextArea(element, {
-			selectionPointer: true,
-			matchTags: { bothTags: true },
-			mode: "htmlmixed",
-			htmlMode: true,
-			autoCloseTags: true,
-			autoRefresh: true
-		});
+    if( CodeMirror ) {
+        editor = CodeMirror.fromTextArea(element, {
+            selectionPointer: true,
+            matchTags: { bothTags: true },
+            mode: "htmlmixed",
+            htmlMode: true,
+            autoCloseTags: true,
+            autoRefresh: true
+        });
 
-		// dispatch regular "change" on element event every time editor changes (IE9+ only)
-		window.dispatchEvent && editor.on('change',function() {
-			if(typeof(Event) === "function") {
-				// Create a new 'change' event
-				var event = new Event('change', { bubbles: true });
-				element.dispatchEvent(event);
-			}
-		});
-	}
+        // dispatch regular "change" on element event every time editor changes (IE9+ only)
+        window.dispatchEvent && editor.on('change',function() {
+            if(typeof(Event) === "function") {
+                // Create a new 'change' event
+                var event = new Event('change', { bubbles: true });
+                element.dispatchEvent(event);
+            }
+        });
+    }
 
-	window.addEventListener('load', function() {
-		CodeMirror.signal(editor, "change");
-	});
+    window.addEventListener('load', function() {
+        CodeMirror.signal(editor, "change");
+    });
 
-	// set domDirty to true everytime the "change" event fires (a lot..)
-	element.addEventListener('change',function() {
-		domDirty = true;
-	});
+    // set domDirty to true everytime the "change" event fires (a lot..)
+    element.addEventListener('change',function() {
+        domDirty = true;
+    });
 
-	function dom() {
-		if( domDirty ) {
-			_dom.innerHTML = r.getValue().toLowerCase();
-			domDirty = false;
-		}
+    function dom() {
+        if( domDirty ) {
+            _dom.innerHTML = r.getValue().toLowerCase();
+            domDirty = false;
+        }
 
-		return _dom;
-	}
+        return _dom;
+    }
 
-	r.getValue = function() {
-		return editor ? editor.getValue() : element.value;
-	};
+    r.getValue = function() {
+        return editor ? editor.getValue() : element.value;
+    };
 
-	r.query = function(query) {
-		return dom().querySelectorAll(query.toLowerCase());
-	};
+    r.query = function(query) {
+        return dom().querySelectorAll(query.toLowerCase());
+    };
 
-	r.containsField = function(fieldName){
-		return dom().elements.namedItem(fieldName.toLowerCase()) !== null;
-	};
+    r.containsField = function(fieldName){
+        return dom().elements.namedItem(fieldName.toLowerCase()) !== null;
+    };
 
-	r.insert = function( html ) {
-		if( editor ) {
-			editor.replaceSelection( html );
-			editor.focus();
-		} else {
-			element.value += html;
-		}
-	};
+    r.insert = function( html ) {
+        if( editor ) {
+            editor.replaceSelection( html );
+            editor.focus();
+        } else {
+            element.value += html;
+        }
+    };
 
-	r.on = function(event,callback) {
-		if( editor ) {
-			// translate "input" event for CodeMirror
-			event = ( event === 'input' ) ? 'changes' : event;
-			return editor.on(event,callback);
-		}
+    r.on = function(event,callback) {
+        if( editor ) {
+            // translate "input" event for CodeMirror
+            event = ( event === 'input' ) ? 'changes' : event;
+            return editor.on(event,callback);
+        }
 
-		return element.addEventListener(event,callback);
-	};
+        return element.addEventListener(event,callback);
+    };
 
-	r.refresh = function() {
-		editor && editor.refresh();
-	};
+    r.refresh = function() {
+        editor && editor.refresh();
+    };
 
-	return r;
+    return r;
 };
 
 module.exports = FormEditor;
 },{"codemirror":17,"codemirror/addon/edit/closetag.js":14,"codemirror/addon/edit/matchtags":15,"codemirror/addon/fold/xml-fold":16,"codemirror/mode/css/css":18,"codemirror/mode/htmlmixed/htmlmixed":19,"codemirror/mode/javascript/javascript":20,"codemirror/mode/xml/xml":21}],8:[function(require,module,exports){
 var FormWatcher = function(m, editor, settings, fields, events, helpers) {
-	'use strict';
+    'use strict';
 
-	var requiredFieldsInput = document.getElementById('required-fields');
+    var requiredFieldsInput = document.getElementById('required-fields');
 
-	function updateFields() {
-		fields.getAll().forEach(function(field) {
-			// don't run for empty field names
-			if(field.name().length <= 0) return;
+    function updateFields() {
+        fields.getAll().forEach(function(field) {
+            // don't run for empty field names
+            if(field.name().length <= 0) return;
 
-			var fieldName = field.name();
-			if( field.type() === 'checkbox' ) {
-				fieldName += '[]';
-			}
+            var fieldName = field.name();
+            if( field.type() === 'checkbox' ) {
+                fieldName += '[]';
+            }
 
-			var inForm = editor.containsField( fieldName );
-			field.inFormContent( inForm );
+            var inForm = editor.containsField( fieldName );
+            field.inFormContent( inForm );
 
-			// if form contains 1 address field of group, mark all fields in this group as "required"
-			if( field.mailchimpType() === 'address' ) {
-				field.originalRequiredValue = field.originalRequiredValue === undefined ? field.forceRequired() : field.originalRequiredValue;
+            // if form contains 1 address field of group, mark all fields in this group as "required"
+            if( field.mailchimpType() === 'address' ) {
+                field.originalRequiredValue = field.originalRequiredValue === undefined ? field.forceRequired() : field.originalRequiredValue;
 
-				// query other fields for this address group
-				var nameGroup = field.name().replace(/\[(\w+)\]/g, '' );
+                // query other fields for this address group
+                var nameGroup = field.name().replace(/\[(\w+)\]/g, '' );
                 if( editor.query('[name^="' + nameGroup + '"]').length > 0 ) {
-					if( field.originalRequiredValue === undefined ) {
+                    if( field.originalRequiredValue === undefined ) {
                         field.originalRequiredValue = field.forceRequired();
                     }
                     field.forceRequired(true);
                 } else {
-					field.forceRequired(field.originalRequiredValue);
+                    field.forceRequired(field.originalRequiredValue);
                 }
-			}
+            }
 
-		});
+        });
 
-		findRequiredFields();
-		m.redraw();
-	}
+        findRequiredFields();
+        m.redraw();
+    }
 
-	function findRequiredFields() {
+    function findRequiredFields() {
 
-		// query fields required by MailChimp
-		var requiredFields = fields.getAllWhere('forceRequired', true).map(function(f) { return f.name().toUpperCase().replace(/\[(\w+)\]/g, '.$1' ); });
+        // query fields required by MailChimp
+        var requiredFields = fields.getAllWhere('forceRequired', true).map(function(f) { return f.name().toUpperCase().replace(/\[(\w+)\]/g, '.$1' ); });
 
-		// query fields in form with [required] attribute
-		var requiredFieldElements = editor.query('[required]');
-		Array.prototype.forEach.call(requiredFieldElements, function(el) {
-			var name = el.name.toUpperCase();
+        // query fields in form with [required] attribute
+        var requiredFieldElements = editor.query('[required]');
+        Array.prototype.forEach.call(requiredFieldElements, function(el) {
+            var name = el.name.toUpperCase();
 
-			// bail if name attr starts with underscore
-			if( name[0] === '_' ) {
-				return;
-			}
+            // bail if name attr starts with underscore
+            if( name[0] === '_' ) {
+                return;
+            }
 
-			// replace array brackets with dot style notation
-			name = name.replace(/\[(\w+)\]/g, '.$1' );
+            // replace array brackets with dot style notation
+            name = name.replace(/\[(\w+)\]/g, '.$1' );
 
-			// only add field if it's not already in it
-			if( requiredFields.indexOf(name) === -1 ) {
-				requiredFields.push(name);
-			}
-		});
+            // only add field if it's not already in it
+            if( requiredFields.indexOf(name) === -1 ) {
+                requiredFields.push(name);
+            }
+        });
 
-		// update meta
-		requiredFieldsInput.value = requiredFields.join(',');
-	}
+        // update meta
+        requiredFieldsInput.value = requiredFields.join(',');
+    }
 
-	// events
-	editor.on('change', helpers.debounce(updateFields, 500));
-	events.on('fields.change', helpers.debounce(updateFields, 500));
+    // events
+    editor.on('change', helpers.debounce(updateFields, 500));
+    events.on('fields.change', helpers.debounce(updateFields, 500));
 
 };
 
