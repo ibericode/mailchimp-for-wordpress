@@ -159,7 +159,11 @@ function mc4wp_get_current_url() {
 function mc4wp_sanitize_deep( $value ) {
 
 	if ( is_scalar( $value ) ) {
+	    // strip all HTML tags & whitespace
 		$value = trim( strip_tags( $value ) );
+
+		// convert &amp; back to &
+        $value = html_entity_decode( $value, ENT_NOQUOTES );
 	} elseif( is_array( $value ) ) {
 		$value = array_map( 'mc4wp_sanitize_deep', $value );
 	} elseif ( is_object($value) ) {
