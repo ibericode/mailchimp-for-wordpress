@@ -73,11 +73,11 @@ var FieldFactory = function(fields, i18n) {
 		if( data.type !== 'address' ) {
 			register(category, data, false);
 		} else {
-			register(category, { name: data.name + '[addr1]', type: 'text', title: i18n.streetAddress });
-			register(category, { name: data.name + '[city]', type: 'text', title: i18n.city });
-			register(category, { name: data.name + '[state]', type: 'text', title: i18n.state  });
-			register(category, { name: data.name + '[zip]', type: 'text', title: i18n.zip });
-			register(category, { name: data.name + '[country]', type: 'select', title: i18n.country, choices: mc4wp_vars.countries });
+			register(category, { name: data.name + '[addr1]', type: 'text', mailchimpType: 'address', title: i18n.streetAddress });
+			register(category, { name: data.name + '[city]', type: 'text', mailchimpType: 'address', title: i18n.city });
+			register(category, { name: data.name + '[state]', type: 'text', mailchimpType: 'address', title: i18n.state  });
+			register(category, { name: data.name + '[zip]', type: 'text', mailchimpType: 'address', title: i18n.zip });
+			register(category, { name: data.name + '[country]', type: 'select', mailchimpType: 'address', title: i18n.country, choices: mc4wp_vars.countries });
 		}
 
 		return true;

@@ -17,6 +17,7 @@ module.exports = function(m, events) {
 		this.name = m.prop(data.name);
 		this.title = m.prop(data.title || data.name);
 		this.type = m.prop(data.type);
+		this.mailchimpType = m.prop(data.mailchimpType || '');
 		this.label = m.prop(data.title || '');
 		this.value = m.prop(data.value || '');
 		this.placeholder = m.prop(data.placeholder || '');
@@ -102,8 +103,8 @@ module.exports = function(m, events) {
 		if(existingField) {
 
 			// update "required" status
-			if( ! existingField.required() && data.required ) {
-				existingField.required(true);
+			if( ! existingField.forceRequired() && data.forceRequired ) {
+				existingField.forceRequired(true);
 			}
 
 			// bail
@@ -138,7 +139,7 @@ module.exports = function(m, events) {
 
 		// redraw view
         timeout && window.clearTimeout(timeout);
-        timeout = window.setTimeout(m.redraw, 100);
+        timeout = window.setTimeout(m.redraw, 200);
 
 		// trigger event
 		events.trigger('fields.change');

@@ -665,11 +665,11 @@ var FieldFactory = function(fields, i18n) {
 		if( data.type !== 'address' ) {
 			register(category, data, false);
 		} else {
-			register(category, { name: data.name + '[addr1]', type: 'text', title: i18n.streetAddress });
-			register(category, { name: data.name + '[city]', type: 'text', title: i18n.city });
-			register(category, { name: data.name + '[state]', type: 'text', title: i18n.state  });
-			register(category, { name: data.name + '[zip]', type: 'text', title: i18n.zip });
-			register(category, { name: data.name + '[country]', type: 'select', title: i18n.country, choices: mc4wp_vars.countries });
+			register(category, { name: data.name + '[addr1]', type: 'text', mailchimpType: 'address', title: i18n.streetAddress });
+			register(category, { name: data.name + '[city]', type: 'text', mailchimpType: 'address', title: i18n.city });
+			register(category, { name: data.name + '[state]', type: 'text', mailchimpType: 'address', title: i18n.state  });
+			register(category, { name: data.name + '[zip]', type: 'text', mailchimpType: 'address', title: i18n.zip });
+			register(category, { name: data.name + '[country]', type: 'select', mailchimpType: 'address', title: i18n.country, choices: mc4wp_vars.countries });
 		}
 
 		return true;
@@ -805,6 +805,7 @@ module.exports = function(m, events) {
 		this.name = m.prop(data.name);
 		this.title = m.prop(data.title || data.name);
 		this.type = m.prop(data.type);
+		this.mailchimpType = m.prop(data.mailchimpType || '');
 		this.label = m.prop(data.title || '');
 		this.value = m.prop(data.value || '');
 		this.placeholder = m.prop(data.placeholder || '');
@@ -890,8 +891,8 @@ module.exports = function(m, events) {
 		if(existingField) {
 
 			// update "required" status
-			if( ! existingField.required() && data.required ) {
-				existingField.required(true);
+			if( ! existingField.forceRequired() && data.forceRequired ) {
+				existingField.forceRequired(true);
 			}
 
 			// bail
@@ -926,7 +927,7 @@ module.exports = function(m, events) {
 
 		// redraw view
         timeout && window.clearTimeout(timeout);
-        timeout = window.setTimeout(m.redraw, 100);
+        timeout = window.setTimeout(m.redraw, 200);
 
 		// trigger event
 		events.trigger('fields.change');
@@ -1068,7 +1069,7 @@ var FormEditor = function(element) {
 	};
 
 	r.query = function(query) {
-		return dom().querySelectorAll(query);
+		return dom().querySelectorAll(query.toLowerCase());
 	};
 
 	r.containsField = function(fieldName){
@@ -1120,6 +1121,23 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
 
 			var inForm = editor.containsField( fieldName );
 			field.inFormContent( inForm );
+
+			// if form contains 1 address field of group, mark all fields in this group as "required"
+			if( field.mailchimpType() === 'address' ) {
+				field.originalRequiredValue = field.originalRequiredValue === undefined ? field.forceRequired() : field.originalRequiredValue;
+
+				// query other fields for this address group
+				var nameGroup = field.name().replace(/\[(\w+)\]/g, '' );
+                if( editor.query('[name^="' + nameGroup + '"]').length > 0 ) {
+					if( field.originalRequiredValue === undefined ) {
+                        field.originalRequiredValue = field.forceRequired();
+                    }
+                    field.forceRequired(true);
+                } else {
+					field.forceRequired(field.originalRequiredValue);
+                }
+			}
+
 		});
 
 		findRequiredFields();
@@ -1129,7 +1147,7 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
 	function findRequiredFields() {
 
 		// query fields required by MailChimp
-		var requiredFields = fields.getAllWhere('forceRequired', true).map(function(f) { return f.name().toUpperCase(); });
+		var requiredFields = fields.getAllWhere('forceRequired', true).map(function(f) { return f.name().toUpperCase().replace(/\[(\w+)\]/g, '.$1' ); });
 
 		// query fields in form with [required] attribute
 		var requiredFieldElements = editor.query('[required]');

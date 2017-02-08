@@ -63,7 +63,7 @@ var FormEditor = function(element) {
 	};
 
 	r.query = function(query) {
-		return dom().querySelectorAll(query);
+		return dom().querySelectorAll(query.toLowerCase());
 	};
 
 	r.containsField = function(fieldName){

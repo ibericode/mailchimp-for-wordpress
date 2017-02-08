@@ -1,6 +1,14 @@
 Changelog
 =========
 
+#### 4.0.13 - February 8, 2017
+
+**Improvements**
+
+- Ensure fields are HTML decoded before sending to MailChimp.
+- Better OptimizePress compatibility.
+
+
 #### 4.0.12 - January 16, 2017
 
 **Fixes**

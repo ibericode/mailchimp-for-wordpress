@@ -15,6 +15,23 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
 
 			var inForm = editor.containsField( fieldName );
 			field.inFormContent( inForm );
+
+			// if form contains 1 address field of group, mark all fields in this group as "required"
+			if( field.mailchimpType() === 'address' ) {
+				field.originalRequiredValue = field.originalRequiredValue === undefined ? field.forceRequired() : field.originalRequiredValue;
+
+				// query other fields for this address group
+				var nameGroup = field.name().replace(/\[(\w+)\]/g, '' );
+                if( editor.query('[name^="' + nameGroup + '"]').length > 0 ) {
+					if( field.originalRequiredValue === undefined ) {
+                        field.originalRequiredValue = field.forceRequired();
+                    }
+                    field.forceRequired(true);
+                } else {
+					field.forceRequired(field.originalRequiredValue);
+                }
+			}
+
 		});
 
 		findRequiredFields();
@@ -24,7 +41,7 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
 	function findRequiredFields() {
 
 		// query fields required by MailChimp
-		var requiredFields = fields.getAllWhere('forceRequired', true).map(function(f) { return f.name().toUpperCase(); });
+		var requiredFields = fields.getAllWhere('forceRequired', true).map(function(f) { return f.name().toUpperCase().replace(/\[(\w+)\]/g, '.$1' ); });
 
 		// query fields in form with [required] attribute
 		var requiredFieldElements = editor.query('[required]');
