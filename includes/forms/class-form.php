@@ -410,7 +410,9 @@ class MC4WP_Form {
 
 		/**
 		 * Filters whether this form has errors. Runs only when a form is submitted.
-		 * Expects an array of message keys.
+		 * Expects an array of message keys with an error type (string).
+         *
+         * Beware: all non-string values added to this array will be filtered out.
 		 *
 		 * @since 3.0
 		 *
@@ -427,6 +429,9 @@ class MC4WP_Form {
 		if( is_string( $form_validity ) ) {
 			$errors[] = $form_validity;
 		}
+
+		// filter out all non-string values
+        $errors = array_filter( $errors, 'is_string' );
 
 		// add each error to this form
 		array_map( array( $this, 'add_error' ), $errors );
