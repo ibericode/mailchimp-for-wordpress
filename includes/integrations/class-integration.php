@@ -220,6 +220,16 @@ abstract class MC4WP_Integration {
 	 * Outputs a checkbox
 	 */
 	public function output_checkbox() {
+        echo $this->get_checkbox_html();
+	}
+
+	/**
+	 * Get HTML for the checkbox
+	 *
+	 * @return string
+	 */
+	public function get_checkbox_html() {
+
         $show_checkbox = empty( $this->options['implicit'] );
         $integration_slug = $this->slug;
 
@@ -231,17 +241,9 @@ abstract class MC4WP_Integration {
          */
         $show_checkbox = (bool) apply_filters( 'mc4wp_integration_show_checkbox', $show_checkbox, $integration_slug );
 
-	    if( $show_checkbox ) {
-            echo $this->get_checkbox_html();
+        if( ! $show_checkbox ) {
+            return '';
         }
-	}
-
-	/**
-	 * Get HTML for the checkbox
-	 *
-	 * @return string
-	 */
-	public function get_checkbox_html() {
 
 		ob_start();
 
