@@ -220,7 +220,20 @@ abstract class MC4WP_Integration {
 	 * Outputs a checkbox
 	 */
 	public function output_checkbox() {
-		echo $this->get_checkbox_html();
+        $show_checkbox = empty( $this->options['implicit'] );
+        $integration_slug = $this->slug;
+
+        /**
+         * Filters whether to show the sign-up checkbox for this integration.
+         *
+         * @param bool $show_checkbox
+         * @param string $integration_slug
+         */
+        $show_checkbox = (bool) apply_filters( 'mc4wp_integration_show_checkbox', $show_checkbox, $integration_slug );
+
+	    if( $show_checkbox ) {
+            echo $this->get_checkbox_html();
+        }
 	}
 
 	/**
