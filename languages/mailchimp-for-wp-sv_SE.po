@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "POT-Creation-Date: 2015-11-30 10:15:18+00:00\n"
-"PO-Revision-Date: 2017-01-18 10:57+0000\n"
+"PO-Revision-Date: 2017-02-14 12:40+0000\n"
 "Last-Translator: Mari Pantzar\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/sv_SE/)\n"
 "MIME-Version: 1.0\n"
@@ -214,7 +214,7 @@ msgstr "Besökarens IP-adress. Exempel: %s."
 
 #: includes/forms/class-form-tags.php:102
 msgid "The property of the currently logged-in user."
-msgstr ""
+msgstr "Egenskapen hos den inloggade användaren."
 
 #: includes/forms/class-form.php:128
 msgid "There is no form with ID %d, perhaps it was deleted?"
@@ -336,7 +336,7 @@ msgstr "Redigera listfält för"
 msgid ""
 "Click the following button to have MailChimp for WordPress pick up on your "
 "changes."
-msgstr ""
+msgstr "Klicka på följande knapp för att få MailChimp för Wordpress att hämta dina ändringar."
 
 #: includes/forms/views/parts/add-fields-help.php:43
 #: includes/views/parts/lists-overview.php:8
@@ -363,7 +363,7 @@ msgstr "Ärv från %s tema"
 
 #: includes/forms/views/tabs/form-appearance.php:6
 msgid "Basic"
-msgstr ""
+msgstr "Grundläggande"
 
 #: includes/forms/views/tabs/form-appearance.php:7
 msgid "Form Themes"
@@ -441,7 +441,7 @@ msgstr "Den text som visas när en epostadress lyckats prenumerera på vald list
 
 #: includes/forms/views/tabs/form-messages.php:17
 msgid "Invalid email address"
-msgstr "Ogiltig epostadress"
+msgstr "Ogiltig e-postadress"
 
 #: includes/forms/views/tabs/form-messages.php:20
 msgid "The text that shows when an invalid email address is given."
@@ -524,7 +524,7 @@ msgstr "Välj lista(or) som folk som lämnar in detta formulär skall prenumerer
 
 #: includes/forms/views/tabs/form-settings.php:35
 msgid "Use double opt-in?"
-msgstr ""
+msgstr "Använd dubbel opt-in?"
 
 #: includes/forms/views/tabs/form-settings.php:39
 #: includes/forms/views/tabs/form-settings.php:54
@@ -565,7 +565,7 @@ msgstr "Nej"
 msgid ""
 "Select \"yes\" if you want people to confirm their email address before "
 "being subscribed (recommended)"
-msgstr "Välj \"ja\" om du vill att folk ska bekräfta sin emailadress innan de läggs till i listan (rekommenderas)"
+msgstr "Välj \"ja\" om du vill att folk ska bekräfta sin e-postadress innan de läggs till i listan (rekommenderas)"
 
 #: includes/forms/views/tabs/form-settings.php:50
 msgid "Send final welcome email?"
@@ -718,7 +718,7 @@ msgid ""
 "fields</a> or <a href=\"%s\">log into your MailChimp account</a> and make "
 "sure only the email & name fields are marked as required fields for the "
 "selected list(s)."
-msgstr ""
+msgstr "Se till att du <a href=\"%s\"> konfigurerar tillägget för att skicka alla obligatoriska fält </a> eller <a href=\"%s\"> logga in på ditt MailChimp-konto </a> och se till att endast e-post- & namn-fälten är markerade som obligatoriska fält för den valda listan(orna)."
 
 #: includes/integrations/views/integrations.php:30
 msgid "Enabled"
