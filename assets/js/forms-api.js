@@ -1,19 +1,52 @@
 (function () { var require = undefined; var define = undefined; (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
+// deps & vars
 var mc4wp = window.mc4wp || {};
+var Gator = require('gator');
+var forms = require('./forms/forms.js');
+var config = window.mc4wp_forms_config || {};
 
-// bail early if we're on IE8 OR if already inited (when script is included twice)
-if( ! window.addEventListener || mc4wp.ready ) {
+// expose forms object
+mc4wp.forms = forms;
+
+// bail early if we're on IE8
+if( ! window.addEventListener ) {
 	return;
 }
 
-// deps & vars
-var Gator = require('gator');
-var forms = require('./forms/forms.js');
-var listeners = window.mc4wp && window.mc4wp.listeners ? window.mc4wp.listeners : [];
-var config = window.mc4wp_forms_config || {};
-var optionalInputs = document.querySelectorAll('.mc4wp-form [data-show-if], .mc4wp-form [data-hide-if]');
+mc4wp.init = function() {
+	// hide fields with [data-show-if] attribute
+    var optionalInputs = document.querySelectorAll('.mc4wp-form [data-show-if], .mc4wp-form [data-hide-if]');
+    [].forEach.call(optionalInputs, function(el) {
+        var show = !!el.getAttribute('data-show-if');
+        var condition = show ? el.getAttribute('data-show-if').split(':') : el.getAttribute('data-hide-if').split(':');
+        var fields = document.querySelectorAll('.mc4wp-form [name="' + condition[0] + '"]');
+        var expectedValue = condition[1] || "";
+        var callback = toggleElement(el, expectedValue, show);
+
+        for(var i=0; i<fields.length; i++) {
+            fields[i].addEventListener('change', callback);
+            fields[i].addEventListener('keyup', callback);
+            callback.call(fields[i]);
+        }
+
+        // remove attribute so we don't bind twice
+		el.removeAttribute('data-show-if');
+        el.removeAttribute('data-hide-if');
+    });
+
+	// register early listeners
+	if( mc4wp.listeners ) {
+		var listeners = mc4wp.listeners;
+        for(var i=0; i<listeners.length;i++) {
+            forms.on(listeners[i].event, listeners[i].callback);
+        }
+
+        // delete temp listeners array, so we don't bind twice
+        delete mc4wp["listeners"];
+	}
+};
 
 // funcs
 function scrollToForm(form) {
@@ -79,26 +112,6 @@ function toggleElement(el, expectedValue, show ) {
 	}
 }
 
-// hide fields with [data-show-if] attribute
-[].forEach.call(optionalInputs, function(el) {
-	var show = !!el.getAttribute('data-show-if');
-	var condition = show ? el.getAttribute('data-show-if').split(':') : el.getAttribute('data-hide-if').split(':');
-	var fields = document.querySelectorAll('.mc4wp-form [name="' + condition[0] + '"]');
-	var expectedValue = condition[1] || "";
-	var callback = toggleElement(el, expectedValue, show);
-
-	for(var i=0; i<fields.length; i++) {
-		fields[i].addEventListener('change', callback);
-		fields[i].addEventListener('keyup', callback);
-		callback.call(fields[i]);
-	}
-});
-
-
-// register early listeners
-for(var i=0; i<listeners.length;i++) {
-	forms.on(listeners[i].event, listeners[i].callback);
-}
 
 // Bind browser events to form events (using delegation)
 Gator(document.body).on('submit', '.mc4wp-form', function(event) {
@@ -123,6 +136,11 @@ Gator(document.body).on('change', '.mc4wp-form', function(event) {
 	forms.trigger(form.id + '.change', [form,event]);
 });
 
+
+// call init func
+mc4wp.init();
+
+// handle submitted form
 if( config.submitted_form ) {
 	var formConfig = config.submitted_form,
 		element = document.getElementById(formConfig.element_id),
@@ -131,11 +149,9 @@ if( config.submitted_form ) {
 	handleFormRequest(form, formConfig.action, formConfig.errors, formConfig.data);
 }
 
-
-// expose forms object
-mc4wp.forms = forms;
-mc4wp.ready = true;
+// expose mc4wp object globally
 window.mc4wp = mc4wp;
+
 
 },{"./forms/forms.js":3,"gator":5}],2:[function(require,module,exports){
 'use strict';

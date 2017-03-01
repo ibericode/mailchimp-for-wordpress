@@ -8,6 +8,8 @@ $position_options = array(
 );
 
 
+
+
 /** @var MC4WP_Integration $integration */
 
 ?>

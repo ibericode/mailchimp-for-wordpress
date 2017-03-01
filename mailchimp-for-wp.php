@@ -138,3 +138,4 @@ function _mc4wp_on_plugin_deactivation() {
 
 register_activation_hook( __FILE__, '_mc4wp_on_plugin_activation' );
 register_deactivation_hook( __FILE__, '_mc4wp_on_plugin_deactivation' );
+
