@@ -1,25 +1,26 @@
 'use strict';
 
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var uglify = require('gulp-uglify');
-var rename = require("gulp-rename");
-var cssmin = require('gulp-cssmin');
-var source = require('vinyl-source-stream');
-var browserify = require('browserify');
-var replace = require('gulp-replace');
-var merge = require('merge-stream');
-var streamify = require('gulp-streamify');
-var globby = require('globby');
-var buffer = require('vinyl-buffer');
-var through = require('through2');
-var sourcemaps = require('gulp-sourcemaps');
-var wrap = require('gulp-wrap');
+const gulp = require('gulp');
+const sass = require('gulp-sass');
+const uglify = require('gulp-uglify');
+const rename = require("gulp-rename");
+const cssmin = require('gulp-cssmin');
+const source = require('vinyl-source-stream');
+const browserify = require('browserify');
+const replace = require('gulp-replace');
+const merge = require('merge-stream');
+const streamify = require('gulp-streamify');
+const globby = require('globby');
+const buffer = require('vinyl-buffer');
+const through = require('through2');
+const sourcemaps = require('gulp-sourcemaps');
+const wrap = require('gulp-wrap');
+const wpPot = require('gulp-wp-pot');
 
-gulp.task('default', ['sass', 'browserify', 'uglify']);
+gulp.task('default', ['sass', 'browserify', 'uglify', 'pot']);
 
 gulp.task('sass', function () {
-	var files = './assets/sass/[^_]*.scss';
+	let files = './assets/sass/[^_]*.scss';
 
 	return gulp.src(files)
 		// create .css file
@@ -34,12 +35,12 @@ gulp.task('sass', function () {
 });
 
 gulp.task('browserify', function () {
-	var bundledStream = through()
+	let bundledStream = through()
 		.pipe(buffer());
 
 	globby("./assets/browserify/[^_]*.js").then(function(entries) {
 		 merge(entries.map(function(entry) {
-			 var filename = entry.split('/').pop();
+             let filename = entry.split('/').pop();
 			return browserify({entries: [entry]})
 				.bundle()
 				.pipe(source(filename))
@@ -63,6 +64,13 @@ gulp.task('uglify', ['browserify'], function() {
 		.pipe(rename({extname: '.min.js'}))
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest('./assets/js'));
+});
+
+gulp.task('pot', function () {
+	const domain = 'mailchimp-for-wp';
+    return gulp.src('includes/**/**/*.php')
+        .pipe(wpPot({ domain: domain}))
+        .pipe(gulp.dest(`languages/${domain}.pot`));
 });
 
 gulp.task('watch', function () {
