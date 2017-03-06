@@ -34,13 +34,15 @@ function _mc4wp_integrations_table( $integrations ) {
 					if( $installed ) {
 						printf( '<strong><a href="%s" title="%s">%s</a></strong>', add_query_arg( array( 'integration' => $integration->slug ) ), __( 'Configure this integration', 'mailchimp-for-wp' ), $integration->name );
 					} else {
-						echo $integration->name ;
+						echo $integration->name;
 					} ?>
 
 
 				</td>
 				<td class="desc">
-					<?php echo $integration->description; ?>
+					<?php
+                    echo $integration->description;
+                    ?>
 				</td>
 			</tr>
 		<?php } ?>
@@ -83,8 +85,10 @@ function _mc4wp_integrations_table( $integrations ) {
 
 				<h3><?php _e( 'Available integrations', 'mailchimp-for-wp' ); ?></h3>
 				<?php _mc4wp_integrations_table( $available_integrations ); ?>
+                <p><?php echo __( "Greyed out integrations will become available after installing & activating the corresponding plugin.", 'mailchimp-for-wp' ); ?></p>
 
-			</form>
+
+            </form>
 
 		</div>
 
