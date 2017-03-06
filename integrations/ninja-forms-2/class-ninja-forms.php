@@ -3,16 +3,16 @@
 defined( 'ABSPATH' ) or exit;
 
 /**
- * Class MC4WP_Events_Manager_Integration
+ * Class MC4WP_Ninja_Forms_v2_Integration
  *
  * @ignore
  */
-class MC4WP_Ninja_Forms_Integration extends MC4WP_Integration {
+class MC4WP_Ninja_Forms_v2_Integration extends MC4WP_Integration {
 
 	/**
 	 * @var string
 	 */
-	public $name = "Ninja Forms";
+	public $name = "Ninja Forms (v2)";
 
 	/**
 	 * @var string

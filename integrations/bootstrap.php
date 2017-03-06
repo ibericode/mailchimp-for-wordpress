@@ -35,6 +35,7 @@ add_action( 'mc4wp_admin_after_integration_settings', 'mc4wp_admin_after_integra
 
 
 // Register core integrations
+mc4wp_register_integration( 'ninja-forms-2', 'MC4WP_Ninja_Forms_v2_Integration', true );
 mc4wp_register_integration( 'ninja-forms', 'MC4WP_Ninja_Forms_Integration', true );
 mc4wp_register_integration( 'wp-comment-form', 'MC4WP_Comment_Form_Integration' );
 mc4wp_register_integration( 'wp-registration-form', 'MC4WP_Registration_Form_Integration' );
