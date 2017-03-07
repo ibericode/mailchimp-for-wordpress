@@ -44,6 +44,11 @@ class MC4WP_Form_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance_settings ) {
 
+	    // ensure $instance_settings is an array
+        if( ! is_array( $instance_settings ) ) {
+            $instance_settings = array();
+        }
+
 		$instance_settings = array_merge( $this->default_instance_settings, $instance_settings );
 		$title = apply_filters( 'widget_title', $instance_settings['title'] );
 
