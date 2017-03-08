@@ -27,7 +27,6 @@ class MC4WP_Ninja_Forms_Field extends NF_Abstracts_Input
     {
         parent::__construct();
 
-        $this->_settings['mc4wp_checkbox'] = true;
         $this->_settings[ 'label_pos' ][ 'value' ] = 'right';
 
         add_filter( 'ninja_forms_custom_columns', array( $this, 'custom_columns' ), 10, 2 );
@@ -82,10 +81,4 @@ class MC4WP_Ninja_Forms_Field extends NF_Abstracts_Input
         }
     }
 
-    // TODO: fix this.
-    public function process( $settings, $data ) {
-//        var_dump( $settings );
-//        var_dump( $data );
-//        die();
-    }
 }
