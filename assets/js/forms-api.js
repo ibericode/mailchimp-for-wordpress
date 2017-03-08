@@ -15,39 +15,6 @@ if( ! window.addEventListener ) {
 	return;
 }
 
-mc4wp.init = function() {
-	// hide fields with [data-show-if] attribute
-    var optionalInputs = document.querySelectorAll('.mc4wp-form [data-show-if], .mc4wp-form [data-hide-if]');
-    [].forEach.call(optionalInputs, function(el) {
-        var show = !!el.getAttribute('data-show-if');
-        var condition = show ? el.getAttribute('data-show-if').split(':') : el.getAttribute('data-hide-if').split(':');
-        var fields = document.querySelectorAll('.mc4wp-form [name="' + condition[0] + '"]');
-        var expectedValue = condition[1] || "";
-        var callback = toggleElement(el, expectedValue, show);
-
-        for(var i=0; i<fields.length; i++) {
-            fields[i].addEventListener('change', callback);
-            fields[i].addEventListener('keyup', callback);
-            callback.call(fields[i]);
-        }
-
-        // remove attribute so we don't bind twice
-		el.removeAttribute('data-show-if');
-        el.removeAttribute('data-hide-if');
-    });
-
-	// register early listeners
-	if( mc4wp.listeners ) {
-		var listeners = mc4wp.listeners;
-        for(var i=0; i<listeners.length;i++) {
-            forms.on(listeners[i].event, listeners[i].callback);
-        }
-
-        // delete temp listeners array, so we don't bind twice
-        delete mc4wp["listeners"];
-	}
-};
-
 // funcs
 function scrollToForm(form) {
 	var animate = config.auto_scroll === 'animated';
@@ -112,6 +79,33 @@ function toggleElement(el, expectedValue, show ) {
 	}
 }
 
+function toggleConditionalElements() {
+	var input = this;
+	var elements = input.form.querySelectorAll('[data-show-if], [data-hide-if]');
+	var inputName = (input.getAttribute('name') || '').toLowerCase();
+
+	[].forEach.call(elements, function(el) {
+		var show = !!el.getAttribute('data-show-if');
+		var conditions = show ? el.getAttribute('data-show-if').split(':') : el.getAttribute('data-hide-if').split(':');
+		var nameCondition = conditions[0];
+        var valueCondition = conditions[1] || "";
+
+        if (inputName !== nameCondition.toLowerCase() ) {
+			return;
+    	}
+
+		var callback = toggleElement(el, valueCondition, show);
+		callback.call(input);
+	});
+}
+
+Gator(document.body).on('keyup', '.mc4wp-form input, .mc4wp-form textarea, .mc4wp-form select', toggleConditionalElements);
+Gator(document.body).on('change', '.mc4wp-form input, .mc4wp-form textarea, .mc4wp-form select', toggleConditionalElements);
+window.addEventListener('load', function() {
+    [].forEach.call( document.querySelectorAll('.mc4wp-form input, .mc4wp-form textarea, .mc4wp-form select'), function(el) {
+        toggleConditionalElements.call(el);
+    });
+});
 
 // Bind browser events to form events (using delegation)
 Gator(document.body).on('submit', '.mc4wp-form', function(event) {
@@ -136,9 +130,16 @@ Gator(document.body).on('change', '.mc4wp-form', function(event) {
 	forms.trigger(form.id + '.change', [form,event]);
 });
 
+// register early listeners
+if( mc4wp.listeners ) {
+    var listeners = mc4wp.listeners;
+    for(var i=0; i<listeners.length;i++) {
+        forms.on(listeners[i].event, listeners[i].callback);
+    }
 
-// call init func
-mc4wp.init();
+    // delete temp listeners array, so we don't bind twice
+    delete mc4wp["listeners"];
+}
 
 // handle submitted form
 if( config.submitted_form ) {
