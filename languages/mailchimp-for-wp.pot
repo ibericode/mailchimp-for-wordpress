@@ -377,19 +377,19 @@ msgstr ""
 msgid "Displays your MailChimp for WordPress sign-up form"
 msgstr ""
 
-#: includes/forms/class-widget.php:75
+#: includes/forms/class-widget.php:80
 msgid "Title:"
 msgstr ""
 
-#: includes/forms/class-widget.php:92
+#: includes/forms/class-widget.php:97
 msgid "You can edit your sign-up form in the <a href=\"%s\">MailChimp for WordPress form settings</a>."
 msgstr ""
 
-#: includes/integrations/class-admin.php:79, includes/integrations/class-admin.php:80, includes/integrations/views/integration-settings.php:10, includes/integrations/views/integrations.php:57, includes/integrations/views/integrations.php:65
+#: includes/integrations/class-admin.php:79, includes/integrations/class-admin.php:80, includes/integrations/views/integration-settings.php:10, includes/integrations/views/integrations.php:59, includes/integrations/views/integrations.php:67
 msgid "Integrations"
 msgstr ""
 
-#: includes/views/general-settings.php:7, includes/views/other-settings.php:58, includes/forms/views/edit-form.php:22, includes/integrations/views/integration-settings.php:8, includes/integrations/views/integrations.php:55
+#: includes/views/general-settings.php:7, includes/views/other-settings.php:58, includes/forms/views/edit-form.php:22, includes/integrations/views/integration-settings.php:8, includes/integrations/views/integrations.php:57
 msgid "You are here: "
 msgstr ""
 
@@ -645,20 +645,24 @@ msgstr ""
 msgid "Configure this integration"
 msgstr ""
 
-#: includes/integrations/views/integrations.php:71
+#: includes/integrations/views/integrations.php:73
 msgid "The table below shows all available integrations."
 msgstr ""
 
-#: includes/integrations/views/integrations.php:72
+#: includes/integrations/views/integrations.php:74
 msgid "Click on the name of an integration to edit all settings specific to that integration."
 msgstr ""
 
-#: includes/integrations/views/integrations.php:79
+#: includes/integrations/views/integrations.php:81
 msgid "Enabled integrations"
 msgstr ""
 
-#: includes/integrations/views/integrations.php:84
+#: includes/integrations/views/integrations.php:86
 msgid "Available integrations"
+msgstr ""
+
+#: includes/integrations/views/integrations.php:88
+msgid "Greyed out integrations will become available after installing & activating the corresponding plugin."
 msgstr ""
 
 #: includes/views/parts/admin-footer.php:15
