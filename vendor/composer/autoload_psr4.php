@@ -6,4 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CodeClimate\\PhpTestReporter\\' => array($vendorDir . '/codeclimate/php-test-reporter/src'),
 );

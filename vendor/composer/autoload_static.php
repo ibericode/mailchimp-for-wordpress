@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1edae564917e500f561e7cac8a887a14
+class ComposerStaticInitc16a50fb3cb50a786a944e8e9cbf2f72
 {
     public static $files = array (
         'fca581ae5268210490253d58378748c5' => __DIR__ . '/../..' . '/includes/functions.php',
@@ -13,6 +13,20 @@ class ComposerStaticInit1edae564917e500f561e7cac8a887a14
         '90c3516593b5de6b5d4528b70e2399dd' => __DIR__ . '/../..' . '/includes/integrations/functions.php',
         '1961896a7f482d8affe08226795bf674' => __DIR__ . '/../..' . '/includes/default-actions.php',
         'cb296d991e3145f10320ab99c1b9ed05' => __DIR__ . '/../..' . '/includes/default-filters.php',
+    );
+
+    public static $prefixLengthsPsr4 = array (
+        'C' => 
+        array (
+            'CodeClimate\\PhpTestReporter\\' => 28,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'CodeClimate\\PhpTestReporter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/codeclimate/php-test-reporter/src',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -75,6 +89,7 @@ class ComposerStaticInit1edae564917e500f561e7cac8a887a14
         'MC4WP_MailChimp_Merge_Field' => __DIR__ . '/../..' . '/includes/mailchimp/class-merge-field.php',
         'MC4WP_MailChimp_Subscriber' => __DIR__ . '/../..' . '/includes/mailchimp/class-subscriber.php',
         'MC4WP_MemberPress_Integration' => __DIR__ . '/../..' . '/integrations/memberpress/class-memberpress.php',
+        'MC4WP_Ninja_Forms_Action' => __DIR__ . '/../..' . '/integrations/ninja-forms-3/class-action.php',
         'MC4WP_Ninja_Forms_Field' => __DIR__ . '/../..' . '/integrations/ninja-forms-3/class-field.php',
         'MC4WP_Ninja_Forms_Integration' => __DIR__ . '/../..' . '/integrations/ninja-forms-3/class-ninja-forms.php',
         'MC4WP_Ninja_Forms_v2_Integration' => __DIR__ . '/../..' . '/integrations/ninja-forms-2/class-ninja-forms.php',
@@ -92,15 +107,15 @@ class ComposerStaticInit1edae564917e500f561e7cac8a887a14
         'MC4WP_Validator' => __DIR__ . '/../..' . '/includes/class-validator.php',
         'MC4WP_Visitor_Tracking' => __DIR__ . '/../..' . '/includes/class-visitor-tracking.php',
         'MC4WP_WooCommerce_Integration' => __DIR__ . '/../..' . '/integrations/woocommerce/class-woocommerce.php',
-        'xrstf\\Composer52\\AutoloadGenerator' => __DIR__ . '/..' . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
-        'xrstf\\Composer52\\Generator' => __DIR__ . '/..' . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixesPsr0 = ComposerStaticInit1edae564917e500f561e7cac8a887a14::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit1edae564917e500f561e7cac8a887a14::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc16a50fb3cb50a786a944e8e9cbf2f72::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc16a50fb3cb50a786a944e8e9cbf2f72::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitc16a50fb3cb50a786a944e8e9cbf2f72::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitc16a50fb3cb50a786a944e8e9cbf2f72::$classMap;
 
         }, null, ClassLoader::class);
     }

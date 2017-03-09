@@ -24,7 +24,8 @@ class MC4WP_Ninja_Forms_Integration extends MC4WP_Integration {
 	 * Add hooks
 	 */
 	public function add_hooks() {
-	    $this->register_field();
+	    $this->register_classes();
+
 	    add_action( 'ninja_forms_after_submission', array( $this, 'after_submission' ) );
 	}
 
@@ -36,10 +37,14 @@ class MC4WP_Ninja_Forms_Integration extends MC4WP_Integration {
      * Adds the field to the Ninja Forms class $fields property.
      * A nicer way would be to use the Ninja Forms `ninja_forms_register_fields` filter here, but that is running on `plugins_loaded`....
      */
-    public function register_field() {
+    public function register_classes() {
 	   $ninja_forms = Ninja_Forms::instance();
-       $field = new MC4WP_Ninja_Forms_Field();
-	   $ninja_forms->fields['mc4wp'] = $field;
+	   // TODO: Add support for this field.
+//       $field = new MC4WP_Ninja_Forms_Field();
+//	   $ninja_forms->fields['mc4wp'] = $field;
+
+	   $action = new MC4WP_Ninja_Forms_Action();
+	   $ninja_forms->actions['mc4wp'] = $action;
     }
 
 	/**

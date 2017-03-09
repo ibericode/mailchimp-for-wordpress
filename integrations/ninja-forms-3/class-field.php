@@ -5,7 +5,7 @@
  */
 class MC4WP_Ninja_Forms_Field extends NF_Abstracts_Input
 {
-    protected $_name = 'checkbox';
+    protected $_name = 'mc4wp';
 
     protected $_nicename = 'MailChimp';
 
