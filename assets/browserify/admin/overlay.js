@@ -1,7 +1,7 @@
-var overlay = function(m, i18n) {
+const overlay = function(m, i18n) {
 	'use strict';
 
-	var _element,
+	let _element,
 		_onCloseCallback;
 
 	function close() {
@@ -28,14 +28,19 @@ var overlay = function(m, i18n) {
 		if( ! _element ) return;
 
 		// fix for window width in IE8
-		var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-		var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+		const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
-		var marginLeft = ( windowWidth - _element.clientWidth - 40 ) / 2;
-		var marginTop  = ( windowHeight - _element.clientHeight - 40 ) / 2;
+        const marginLeft = ( windowWidth - _element.clientWidth - 40 ) / 2;
+        const marginTop  = ( windowHeight - _element.clientHeight - 40 ) / 2;
 
 		_element.style.left = ( marginLeft > 0 ? marginLeft : 0 ) + "px";
 		_element.style.top = ( marginTop > 0 ? marginTop : 0 ) + "px";
+	}
+
+	function storeElementReference(vnode) {
+        _element = vnode.dom;
+        position();
 	}
 
 	return function (content, onCloseCallback) {
@@ -46,13 +51,7 @@ var overlay = function(m, i18n) {
 
 		return [
 			m('div.overlay-wrap',
-				m("div.overlay", {
-					config: function (el) {
-						_element = el;
-						position();
-					}
-				},[
-
+				m("div.overlay", { oncreate: storeElementReference },[
 					// close icon
 					m('span', {
 						"class": 'close dashicons dashicons-no',

@@ -1,5 +1,7 @@
 'use strict';
 
+const prop = require("mithril/stream");
+
 module.exports = function(m, events) {
     var timeout;
     var fields = [];
@@ -14,21 +16,21 @@ module.exports = function(m, events) {
      * @constructor
      */
     var Field = function (data) {
-        this.name = m.prop(data.name);
-        this.title = m.prop(data.title || data.name);
-        this.type = m.prop(data.type);
-        this.mailchimpType = m.prop(data.mailchimpType || '');
-        this.label = m.prop(data.title || '');
-        this.value = m.prop(data.value || '');
-        this.placeholder = m.prop(data.placeholder || '');
-        this.required = m.prop(data.required || false);
-        this.forceRequired = m.prop( data.forceRequired || false );
-        this.wrap = m.prop(data.wrap || true);
-        this.min = m.prop(data.min || null);
-        this.max = m.prop(data.max || null);
-        this.help = m.prop(data.help || '');
-        this.choices = m.prop(data.choices || []);
-        this.inFormContent = m.prop(null);
+        this.name = prop(data.name);
+        this.title = prop(data.title || data.name);
+        this.type = prop(data.type);
+        this.mailchimpType = prop(data.mailchimpType || '');
+        this.label = prop(data.title || '');
+        this.value = prop(data.value || '');
+        this.placeholder = prop(data.placeholder || '');
+        this.required = prop(data.required || false);
+        this.forceRequired = prop( data.forceRequired || false );
+        this.wrap = prop(data.wrap || true);
+        this.min = prop(data.min || null);
+        this.max = prop(data.max || null);
+        this.help = prop(data.help || '');
+        this.choices = prop(data.choices || []);
+        this.inFormContent = prop(null);
         this.acceptsMultipleValues = data.acceptsMultipleValues;
 
         this.selectChoice = function(value) {
@@ -58,10 +60,10 @@ module.exports = function(m, events) {
      * @constructor
      */
     var FieldChoice = function (data) {
-        this.label = m.prop(data.label);
-        this.title = m.prop(data.title || data.label);
-        this.selected = m.prop(data.selected || false);
-        this.value = m.prop(data.value || data.label);
+        this.label = prop(data.label);
+        this.title = prop(data.title || data.label);
+        this.selected = prop(data.selected || false);
+        this.value = prop(data.value || data.label);
     };
 
     /**

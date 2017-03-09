@@ -1,12 +1,12 @@
 'use strict';
 
-var rows = function(m, i18n) {
+const rows = function(m, i18n) {
 
-	var r = {};
+	let r = {};
 
 	r.showType = function(config) {
 		// ucfirst
-		var fieldType = config.type();
+		let fieldType = config.type();
 		fieldType = fieldType.charAt(0).toUpperCase() + fieldType.slice(1);
 
 		return m('div', [
@@ -29,7 +29,7 @@ var rows = function(m, i18n) {
 	};
 
 	r.value = function (config) {
-		var isHidden = config.type() === 'hidden';
+		const isHidden = config.type() === 'hidden';
 		return m("div", [
 			m("label", [
 				isHidden ? i18n.value : i18n.initialValue,
@@ -62,12 +62,12 @@ var rows = function(m, i18n) {
 
 
 	r.isRequired = function (config) {
-		var inputAtts = {
+		let inputAtts = {
 			type : 'checkbox',
 			checked : config.required(),
 			onchange: m.withAttr('checked', config.required)
 		};
-		var desc;
+        let desc;
 
 		if( config.forceRequired() ) {
 			inputAtts.required = true;
@@ -116,9 +116,7 @@ var rows = function(m, i18n) {
 	};
 
 	r.choiceType = function (config) {
-
-
-		var options = [
+        let options = [
 			m('option', {
 				value   : 'select',
 				selected: config.type() === 'select' ? 'selected' : false
@@ -150,7 +148,7 @@ var rows = function(m, i18n) {
 
 	r.choices = function (config) {
 
-		var html = [];
+        let html = [];
 		html.push(m('div', [
 			m('label', i18n.choices),
 			m('div.limit-height', [

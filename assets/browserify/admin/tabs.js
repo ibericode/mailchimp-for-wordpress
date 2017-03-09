@@ -1,22 +1,22 @@
 'use strict';
 
-var URL = require('./url.js');
+const URL = require('./url.js');
 
 // Tabs
-var Tabs = function(context) {
+const Tabs = function(context) {
 
-	// @todo last piece of jQuery... can we get rid of it?
-	var $ = window.jQuery;
+	// TODO: last piece of jQuery... can we get rid of it?
+	const $ = window.jQuery;
 
-	var $context = $(context);
-	var $tabs = $context.find('.tab');
-	var $tabNavs = $context.find('.nav-tab');
-	var refererField = context.querySelector('input[name="_wp_http_referer"]');
-	var tabs = [];
+	const $context = $(context);
+	let $tabs = $context.find('.tab');
+    let $tabNavs = $context.find('.nav-tab');
+    let refererField = context.querySelector('input[name="_wp_http_referer"]');
+    let tabs = [];
 
 	$.each($tabs, function(i,t) {
-		var id = t.id.substring(4);
-		var title = $(t).find('h2').first().text();
+		const id = t.id.substring(4);
+		const title = $(t).find('h2').first().text();
 
 		tabs.push({
 			id: id,
@@ -29,7 +29,7 @@ var Tabs = function(context) {
 
 	function get(id) {
 
-		for( var i=0; i<tabs.length; i++){
+		for( let i=0; i<tabs.length; i++){
 			if(tabs[i].id === id ) {
 				return tabs[i];
 			}
@@ -86,7 +86,7 @@ var Tabs = function(context) {
 		}
 
 		// refresh editor after switching tabs
-		// TODO: decouple decouple decouple
+		// TODO: decouple this! law of demeter etc.
 		if( tab.id === 'fields' && window.mc4wp && window.mc4wp.forms && window.mc4wp.forms.editor ) {
 			mc4wp.forms.editor.refresh();
 		}

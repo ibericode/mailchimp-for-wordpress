@@ -1,11 +1,11 @@
-var forms = function(m, i18n) {
-	var forms = {};
-	var rows = require('./field-forms-rows.js')(m, i18n);
+const forms = function(m, i18n) {
+	let forms = {};
+	const rows = require('./field-forms-rows.js')(m, i18n);
 
 	// route to one of the other form configs, default to "text"
 	forms.render = function(config) {
 
-		var type = config.type();
+		const type = config.type();
 
 		if( typeof( forms[type] ) === "function" ) {
 			return forms[ type ](config);
@@ -35,7 +35,7 @@ var forms = function(m, i18n) {
 	};
 
 	forms.choice = function(config) {
-		var visibleRows = [
+		let visibleRows = [
 			rows.label(config),
 			rows.choiceType(config),
 			rows.choices(config),

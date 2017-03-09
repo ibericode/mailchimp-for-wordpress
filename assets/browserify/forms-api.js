@@ -6,13 +6,7 @@ var Gator = require('gator');
 var forms = require('./forms/forms.js');
 var config = window.mc4wp_forms_config || {};
 
-// expose forms object
-mc4wp.forms = forms;
 
-// bail early if we're on IE8
-if( ! window.addEventListener ) {
-	return;
-}
 
 // funcs
 function scrollToForm(form) {
@@ -139,6 +133,9 @@ if( mc4wp.listeners ) {
     // delete temp listeners array, so we don't bind twice
     delete mc4wp["listeners"];
 }
+
+// expose forms object
+mc4wp.forms = forms;
 
 // handle submitted form
 if( config.submitted_form ) {
