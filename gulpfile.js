@@ -42,6 +42,7 @@ gulp.task('browserify', function () {
 		 merge(entries.map(function(entry) {
              let filename = entry.split('/').pop();
 			return browserify({entries: [entry]})
+                .transform("babelify", {presets: ["es2015"]})
 				.bundle()
 				.pipe(source(filename))
 				.pipe(wrap('(function () { var require = undefined; var define = undefined; <%=contents%> })();'))

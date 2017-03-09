@@ -1,218 +1,156 @@
 (function () { var require = undefined; var define = undefined; (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-var rows = function(m, i18n) {
+var rows = function rows(m, i18n) {
 
 	var r = {};
 
-	r.showType = function(config) {
+	r.showType = function (config) {
 		// ucfirst
 		var fieldType = config.type();
 		fieldType = fieldType.charAt(0).toUpperCase() + fieldType.slice(1);
 
-		return m('div', [
-			m("label", i18n.fieldType),
-			m('span', fieldType ),
-		]);
+		return m('div', [m("label", i18n.fieldType), m('span', fieldType)]);
 	};
 
 	r.label = function (config) {
 		// label row
-		return m("div", [
-			m("label", i18n.fieldLabel),
-			m("input.widefat", {
-				type       : "text",
-				value      : config.label(),
-				onchange   : m.withAttr('value', config.label),
-				placeholder: config.title()
-			})
-		]);
+		return m("div", [m("label", i18n.fieldLabel), m("input.widefat", {
+			type: "text",
+			value: config.label(),
+			onchange: m.withAttr('value', config.label),
+			placeholder: config.title()
+		})]);
 	};
 
 	r.value = function (config) {
 		var isHidden = config.type() === 'hidden';
-		return m("div", [
-			m("label", [
-				isHidden ? i18n.value : i18n.initialValue,
-				" ",
-				isHidden ? '' : m('small', { "style": "float: right; font-weight: normal;" }, i18n.optional )
-			]),
-			m("input.widefat", {
-				type   : "text",
-				value  : config.value(),
-				onchange: m.withAttr('value', config.value)
-			}),
-			isHidden ? '' : m('p.help', i18n.valueHelp)
-		]);
+		return m("div", [m("label", [isHidden ? i18n.value : i18n.initialValue, " ", isHidden ? '' : m('small', { "style": "float: right; font-weight: normal;" }, i18n.optional)]), m("input.widefat", {
+			type: "text",
+			value: config.value(),
+			onchange: m.withAttr('value', config.value)
+		}), isHidden ? '' : m('p.help', i18n.valueHelp)]);
 	};
 
 	r.numberMinMax = function (config) {
-		return m('div', [
-			m('div.row', [
-				m('div.col.col-3', [
-					m('label', i18n.min),
-					m('input', {type: 'number', onchange: m.withAttr('value', config.min)})
-				]),
-				m('div.col.col-3', [
-					m('label', i18n.max),
-					m('input', {type: 'number', onchange: m.withAttr('value', config.max)})
-				])
-			])
-		])
+		return m('div', [m('div.row', [m('div.col.col-3', [m('label', i18n.min), m('input', { type: 'number', onchange: m.withAttr('value', config.min) })]), m('div.col.col-3', [m('label', i18n.max), m('input', { type: 'number', onchange: m.withAttr('value', config.max) })])])]);
 	};
-
 
 	r.isRequired = function (config) {
 		var inputAtts = {
-			type : 'checkbox',
-			checked : config.required(),
+			type: 'checkbox',
+			checked: config.required(),
 			onchange: m.withAttr('checked', config.required)
 		};
-		var desc;
+		var desc = void 0;
 
-		if( config.forceRequired() ) {
+		if (config.forceRequired()) {
 			inputAtts.required = true;
 			inputAtts.disabled = true;
-			desc = m('p.help', i18n.forceRequired );
+			desc = m('p.help', i18n.forceRequired);
 		}
 
-		return m('div', [
-			m('label.cb-wrap', [
-				m('input', inputAtts),
-				i18n.isFieldRequired
-			]),
-			desc
-		]);
+		return m('div', [m('label.cb-wrap', [m('input', inputAtts), i18n.isFieldRequired]), desc]);
 	};
 
 	r.placeholder = function (config) {
 
-		return m("div", [
-			m("label", [
-				i18n.placeholder,
-				" ",
-				m('small', { "style": "float: right; font-weight: normal;" }, i18n.optional )
-			]),
-			m("input.widefat", {
-				type   : "text",
-				value  : config.placeholder(),
-				onchange: m.withAttr('value', config.placeholder),
-				placeholder: ""
-			}),
-			m("p.help", i18n.placeholderHelp)
-		]);
+		return m("div", [m("label", [i18n.placeholder, " ", m('small', { "style": "float: right; font-weight: normal;" }, i18n.optional)]), m("input.widefat", {
+			type: "text",
+			value: config.placeholder(),
+			onchange: m.withAttr('value', config.placeholder),
+			placeholder: ""
+		}), m("p.help", i18n.placeholderHelp)]);
 	};
 
 	r.useParagraphs = function (config) {
-		return m('div', [
-			m('label.cb-wrap', [
-				m('input', {
-					type    : 'checkbox',
-					checked : config.wrap(),
-					onchange: m.withAttr('checked', config.wrap)
-				}),
-				i18n.wrapInParagraphTags
-			])
-		]);
+		return m('div', [m('label.cb-wrap', [m('input', {
+			type: 'checkbox',
+			checked: config.wrap(),
+			onchange: m.withAttr('checked', config.wrap)
+		}), i18n.wrapInParagraphTags])]);
 	};
 
 	r.choiceType = function (config) {
-
-
-		var options = [
-			m('option', {
-				value   : 'select',
-				selected: config.type() === 'select' ? 'selected' : false
-			}, i18n.dropdown ),
-			m('option', {
-				value   : 'radio',
-				selected: config.type() === 'radio' ? 'selected' : false
-			}, i18n.radioButtons )
-		];
+		var options = [m('option', {
+			value: 'select',
+			selected: config.type() === 'select' ? 'selected' : false
+		}, i18n.dropdown), m('option', {
+			value: 'radio',
+			selected: config.type() === 'radio' ? 'selected' : false
+		}, i18n.radioButtons)];
 
 		// only add checkbox choice if field accepts multiple values
-		if( config.acceptsMultipleValues ) {
-			options.push(
-				m('option', {
-					value   : 'checkbox',
-					selected: config.type() === 'checkbox' ? 'selected' : false
-				}, i18n.checkboxes )
-			);
+		if (config.acceptsMultipleValues) {
+			options.push(m('option', {
+				value: 'checkbox',
+				selected: config.type() === 'checkbox' ? 'selected' : false
+			}, i18n.checkboxes));
 		}
 
-		return m('div', [
-			m('label', i18n.choiceType ),
-			m('select', {
-				value   : config.type(),
-				onchange: m.withAttr('value', config.type)
-			}, options)
-		]);
+		return m('div', [m('label', i18n.choiceType), m('select', {
+			value: config.type(),
+			onchange: m.withAttr('value', config.type)
+		}, options)]);
 	};
 
 	r.choices = function (config) {
 
 		var html = [];
-		html.push(m('div', [
-			m('label', i18n.choices),
-			m('div.limit-height', [
-				m("table", [
+		html.push(m('div', [m('label', i18n.choices), m('div.limit-height', [m("table", [
 
-					// table body
-					config.choices().map(function (choice, index) {
-						return m('tr', {
-							'data-id': index
-						}, [
-							m('td.cb', m('input', {
-									name: 'selected',
-									type: (config.type() === 'checkbox' ) ? 'checkbox' : 'radio',
-									onchange: m.withAttr('value', config.selectChoice.bind(config)),
-									checked: choice.selected(),
-									value: choice.value(),
-									title: i18n.preselect
-								})
-							),
-							m('td.stretch', m('input.widefat', {
-								type: 'text',
-								value: choice.label(),
-								placeholder: choice.title(),
-								onchange: m.withAttr('value', choice.label)
-							})),
-							m('td', m('span', {
-								"title": i18n.remove,
-								"class": 'dashicons dashicons-no-alt hover-activated',
-								"onclick": function (key) {
-									this.choices().splice(key, 1);
-								}.bind(config, index)
-							}, ''))
-						])
-					})
-				]) // end of table
-			]) // end of limit-height div
+		// table body
+		config.choices().map(function (choice, index) {
+			return m('tr', {
+				'data-id': index
+			}, [m('td.cb', m('input', {
+				name: 'selected',
+				type: config.type() === 'checkbox' ? 'checkbox' : 'radio',
+				onchange: m.withAttr('value', config.selectChoice.bind(config)),
+				checked: choice.selected(),
+				value: choice.value(),
+				title: i18n.preselect
+			})), m('td.stretch', m('input.widefat', {
+				type: 'text',
+				value: choice.label(),
+				placeholder: choice.title(),
+				onchange: m.withAttr('value', choice.label)
+			})), m('td', m('span', {
+				"title": i18n.remove,
+				"class": 'dashicons dashicons-no-alt hover-activated',
+				"onclick": function (key) {
+					this.choices().splice(key, 1);
+				}.bind(config, index)
+			}, ''))]);
+		})]) // end of table
+		]) // end of limit-height div
 		]));
-		
-		return html;
 
+		return html;
 	};
 
 	return r;
 };
 
 module.exports = rows;
+
 },{}],2:[function(require,module,exports){
-var forms = function(m, i18n) {
+'use strict';
+
+var forms = function forms(m, i18n) {
 	var forms = {};
 	var rows = require('./field-forms-rows.js')(m, i18n);
 
 	// route to one of the other form configs, default to "text"
-	forms.render = function(config) {
+	forms.render = function (config) {
 
 		var type = config.type();
 
-		if( typeof( forms[type] ) === "function" ) {
-			return forms[ type ](config);
+		if (typeof forms[type] === "function") {
+			return forms[type](config);
 		}
 
-		switch( type ) {
+		switch (type) {
 			case 'select':
 			case 'radio':
 			case 'checkbox':
@@ -224,85 +162,63 @@ var forms = function(m, i18n) {
 		return forms.text(config);
 	};
 
-
-	forms.text = function(config) {
-		return [
-			rows.label(config),
-			rows.placeholder(config),
-			rows.value(config),
-			rows.isRequired(config),
-			rows.useParagraphs(config)
-		]
+	forms.text = function (config) {
+		return [rows.label(config), rows.placeholder(config), rows.value(config), rows.isRequired(config), rows.useParagraphs(config)];
 	};
 
-	forms.choice = function(config) {
-		var visibleRows = [
-			rows.label(config),
-			rows.choiceType(config),
-			rows.choices(config),
-		];
+	forms.choice = function (config) {
+		var visibleRows = [rows.label(config), rows.choiceType(config), rows.choices(config)];
 
-		if( config.type() === 'select' ) {
+		if (config.type() === 'select') {
 			visibleRows.push(rows.placeholder(config));
 		}
 
 		visibleRows.push(rows.useParagraphs(config));
 
-		if( config.type() === 'select' || config.type() === 'radio' ) {
+		if (config.type() === 'select' || config.type() === 'radio') {
 			visibleRows.push(rows.isRequired(config));
 		}
 
 		return visibleRows;
 	};
 
-	forms.hidden = function( config ) {
+	forms.hidden = function (config) {
 		config.placeholder('');
 		config.label('');
 		config.wrap(false);
 
-		return [
-			rows.showType(config),
-			rows.value(config)
-		]
+		return [rows.showType(config), rows.value(config)];
 	};
 
-	forms.submit = function(config) {
+	forms.submit = function (config) {
 		config.label('');
 		config.placeholder('');
 
-		return [
-			rows.value(config),
-			rows.useParagraphs(config)
-		]
+		return [rows.value(config), rows.useParagraphs(config)];
 	};
 
-	forms.number = function(config) {
-		return [
-			forms.text(config),
-			rows.numberMinMax(config)
-		];
+	forms.number = function (config) {
+		return [forms.text(config), rows.numberMinMax(config)];
 	};
 
 	return forms;
 };
 
-
-
 module.exports = forms;
+
 },{"./field-forms-rows.js":1}],3:[function(require,module,exports){
 'use strict';
 
-var render = require('../third-party/render.js');
-var html_beautify = require('../third-party/beautify-html.js');
+var htmlutil = require('html');
 
-var g = function(m) {
+var g = function g(m) {
 	var generators = {};
 
 	/**
-	 * Generates a <select> field
-	 * @param config
-	 * @returns {*}
-	 */
+  * Generates a <select> field
+  * @param config
+  * @returns {*}
+  */
 	generators.select = function (config) {
 		var attributes = {
 			name: config.name(),
@@ -312,73 +228,74 @@ var g = function(m) {
 
 		var options = config.choices().map(function (choice) {
 
-			if( choice.selected() ) {
+			if (choice.selected()) {
 				hasSelection = true;
 			}
 
 			return m('option', {
-				value   : ( choice.value() !== choice.label() ) ? choice.value() : undefined,
-				"selected": choice.selected()
-			}, choice.label())
+				value: choice.value() !== choice.label() ? choice.value() : undefined,
+				"selected": choice.selected(),
+				oncreate: function oncreate(vnode) {
+					if (vnode.dom.selected) {
+						vnode.dom.setAttribute("selected", "true");
+					}
+				}
+			}, choice.label());
 		});
 
 		var placeholder = config.placeholder();
-		if(placeholder.length > 0 ) {
-			options.unshift(
-				m('option', {
-					'disabled': true,
-					'value': '',
-					'selected': ! hasSelection
-				}, placeholder)
-			);
+		if (placeholder.length > 0) {
+			options.unshift(m('option', {
+				'disabled': true,
+				'value': '',
+				'selected': !hasSelection
+			}, placeholder));
 		}
 
-		return m('select', attributes, options );
+		return m('select', attributes, options);
 	};
 
 	/**
-	 * Generates a checkbox or radio type input field.
-	 *
-	 * @param config
-	 * @returns {*}
-	 */
+  * Generates a checkbox or radio type input field.
+  *
+  * @param config
+  * @returns {*}
+  */
 	generators.checkbox = function (config) {
-		var field = config.choices().map(function (choice) {
-			var name = config.name() + ( config.type() === 'checkbox' ? '[]' : '' );
+		var fields = config.choices().map(function (choice) {
+			var name = config.name() + (config.type() === 'checkbox' ? '[]' : '');
 			var required = config.required() && config.type() === 'radio';
 
-			return m('label', [
-					m('input', {
-						name    : name,
-						type    : config.type(),
-						value   : choice.value(),
-						checked : choice.selected(),
-						required: required
-					}),
-					' ',
-					m('span', choice.label())
-				]
-			)
+			return m('label', [m('input', {
+				name: name,
+				type: config.type(),
+				value: choice.value(),
+				checked: choice.selected(),
+				required: required,
+				oncreate: function oncreate(vnode) {
+					if (vnode.dom.checked) {
+						vnode.dom.setAttribute("checked", "true");
+					}
+				}
+			}), ' ', m('span', choice.label())]);
 		});
-		
-		return field;
+
+		return fields;
 	};
 	generators.radio = generators.checkbox;
 
 	/**
-	 * Generates a default field
-	 *
-	 * - text, url, number, email, date
-	 *
-	 * @param config
-	 * @returns {*}
-	 */
+  * Generates a default field
+  *
+  * - text, url, number, email, date
+  *
+  * @param config
+  * @returns {*}
+  */
 	generators['default'] = function (config) {
-
 		var attributes = {
 			type: config.type()
 		};
-		var field;
 
 		if (config.name()) {
 			attributes.name = config.name();
@@ -396,35 +313,37 @@ var g = function(m) {
 			attributes.value = config.value();
 		}
 
-		if( config.placeholder().length > 0 ) {
+		if (config.placeholder().length > 0) {
 			attributes.placeholder = config.placeholder();
 		}
 
 		attributes.required = config.required();
 
-		field = m('input', attributes);
-		return field;
+		return m('input', attributes);
 	};
 
 	/**
-	 * Generates an HTML string based on a field (config) object
-	 *
-	 * @param config
-	 * @returns {*}
-	 */
+  * Generates an HTML string based on a field (config) object
+  *
+  * @param config
+  * @returns {*}
+  */
 	function generate(config) {
-		var label, field, htmlTemplate, html;
+		var label = void 0,
+		    field = void 0,
+		    htmlTemplate = void 0,
+		    html = void 0,
+		    vdom = document.createElement('div');
 
-		label = config.label().length ? m("label", config.label()) : '';
-		field = typeof(generators[config.type()]) === "function" ? generators[config.type()](config) : generators['default'](config);
-
+		label = config.label().length > 0 ? m("label", {}, config.label()) : '';
+		field = typeof generators[config.type()] === "function" ? generators[config.type()](config) : generators['default'](config);
 		htmlTemplate = config.wrap() ? m('p', [label, field]) : [label, field];
 
-		// render HTML on memory node
-		html = render(htmlTemplate);
+		// render in vdom
+		m.render(vdom, htmlTemplate);
 
 		// prettify html
-		html = html_beautify(html);
+		html = htmlutil.prettyPrint(vdom.innerHTML);
 
 		return html + "\n";
 	}
@@ -433,30 +352,33 @@ var g = function(m) {
 };
 
 module.exports = g;
-},{"../third-party/beautify-html.js":12,"../third-party/render.js":13}],4:[function(require,module,exports){
-var FieldHelper = function(m, tabs, editor, fields, events, i18n) {
+
+},{"html":20}],4:[function(require,module,exports){
+'use strict';
+
+var FieldHelper = function FieldHelper(m, tabs, editor, fields, events, i18n) {
 	'use strict';
 
 	var generate = require('./field-generator.js')(m);
-	var overlay = require('./overlay.js')(m,i18n);
+	var overlay = require('./overlay.js')(m, i18n);
 	var forms = require('./field-forms.js')(m, i18n);
 	var fieldConfig;
 
 	editor.on('blur', m.redraw);
 
 	/**
-	 * Choose a field to open the helper form for
-	 *
-	 * @param index
-	 * @returns {*}
-	 */
+  * Choose a field to open the helper form for
+  *
+  * @param index
+  * @returns {*}
+  */
 	function setActiveField(index) {
 
 		fieldConfig = fields.get(index);
 
 		// if this hidden field has choices (hidden groups), glue them together by their label.
-		if( fieldConfig && fieldConfig.choices().length > 0 ) {
-			fieldConfig.value( fieldConfig.choices().map(function(c) {
+		if (fieldConfig && fieldConfig.choices().length > 0) {
+			fieldConfig.value(fieldConfig.choices().map(function (c) {
 				return c.label();
 			}).join('|'));
 		}
@@ -464,24 +386,21 @@ var FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 		m.redraw();
 	}
 
+	/**
+  * Controller
+  */
+	function controller() {}
 
 	/**
-	 * Controller
-	 */
-	function controller() {
-
-	}
-
-	/**
-	 * Create HTML based on current config object
-	 */
+  * Create HTML based on current config object
+  */
 	function createFieldHTMLAndAddToForm() {
 
 		// generate html
 		var html = generate(fieldConfig);
 
 		// add to editor
-		editor.insert( html );
+		editor.insert(html);
 
 		// reset field form
 		setActiveField('');
@@ -491,106 +410,93 @@ var FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 	}
 
 	/**
-	 * View
-	 * @returns {*}
-	 */
+  * View
+  * @returns {*}
+  */
 	function view() {
 
 		// build DOM for fields choice
 		var fieldCategories = fields.getCategories();
 		var availableFields = fields.getAll();
 
-		var fieldsChoice = m( "div.available-fields.small-margin", [
-			m("h4", i18n.chooseField),
+		var fieldsChoice = m("div.available-fields.small-margin", [m("h4", i18n.chooseField), fieldCategories.map(function (category) {
+			var categoryFields = availableFields.filter(function (f) {
+				return f.category === category;
+			});
 
-			fieldCategories.map(function(category) {
-				var categoryFields = availableFields.filter(function(f) {
-					return f.category === category;
-				});
+			if (!categoryFields.length) {
+				return;
+			}
 
-				if( ! categoryFields.length ) {
-					return;
+			return m("div.tiny-margin", [m("strong", category),
+
+			// render fields
+			categoryFields.map(function (field) {
+				var className = "button";
+				if (field.forceRequired()) {
+					className += " is-required";
 				}
 
-				return m("div.tiny-margin",[
-					m("strong", category),
+				var inForm = field.inFormContent();
+				if (inForm !== null) {
+					className += " " + (inForm ? 'in-form' : 'not-in-form');
+				}
 
-					// render fields
-					categoryFields.map(function(field) {
-						var className = "button";
-						if( field.forceRequired() ) {
-							className += " is-required";
-						}
-
-						var inForm = field.inFormContent();
-						if( inForm !== null ) {
-							className += " " + ( inForm ? 'in-form' : 'not-in-form' );
-						}
-
-						return m("button", {
-							className: className,
-							type   : 'button',
-							onclick: m.withAttr("value", setActiveField),
-							value  : field.index
-						}, field.title() );
-					})
-				]);
-			})
-		]);
+				return m("button", {
+					className: className,
+					type: 'button',
+					onclick: m.withAttr("value", setActiveField),
+					value: field.index
+				}, field.title());
+			})]);
+		})]);
 
 		// build DOM for overlay
 		var form = null;
-		if( fieldConfig ) {
+		if (fieldConfig) {
 			form = overlay(
-				// field wizard
-				m("div.field-wizard", [
+			// field wizard
+			m("div.field-wizard", [
 
-					//heading
-					m("h3", [
-						fieldConfig.title(),
-						fieldConfig.forceRequired() ? m('span.red', '*' ) : '',
-						fieldConfig.name().length ? m("code", fieldConfig.name()) : ''
-					]),
+			//heading
+			m("h3", [fieldConfig.title(), fieldConfig.forceRequired() ? m('span.red', '*') : '', fieldConfig.name().length ? m("code", fieldConfig.name()) : '']),
 
-					// help text
-					( fieldConfig.help().length ) ? m('p', m.trust( fieldConfig.help() ) ) : '',
+			// help text
+			fieldConfig.help().length ? m('p', m.trust(fieldConfig.help())) : '',
 
-					// actual form
-					forms.render(fieldConfig),
+			// actual form
+			forms.render(fieldConfig),
 
-					// add to form button
-					m("p", [
-						m("button", {
-							"class": "button-primary",
-							type: "button",
-							onkeydown: function(e) {
-								e = e || window.event;
-								if(e.keyCode == 13) {
-									createFieldHTMLAndAddToForm();
-								}
-							},
-							onclick: createFieldHTMLAndAddToForm
-						}, i18n.addToForm )
-					])
-				]), setActiveField);
+			// add to form button
+			m("p", [m("button", {
+				"class": "button-primary",
+				type: "button",
+				onkeydown: function onkeydown(e) {
+					e = e || window.event;
+					if (e.keyCode == 13) {
+						createFieldHTMLAndAddToForm();
+					}
+				},
+				onclick: createFieldHTMLAndAddToForm
+			}, i18n.addToForm)])]), setActiveField);
 		}
 
-		return [
-			fieldsChoice,
-			form
-		];
+		return [fieldsChoice, form];
 	}
 
 	// expose some variables
 	return {
 		view: view,
 		controller: controller
-	}
+	};
 };
 
 module.exports = FieldHelper;
+
 },{"./field-forms.js":2,"./field-generator.js":3,"./overlay.js":10}],5:[function(require,module,exports){
-var FieldFactory = function(fields, i18n) {
+'use strict';
+
+var FieldFactory = function FieldFactory(fields, i18n) {
     'use strict';
 
     /**
@@ -598,6 +504,7 @@ var FieldFactory = function(fields, i18n) {
      *
      * @type {Array}
      */
+
     var registeredFields = [];
 
     /**
@@ -617,7 +524,7 @@ var FieldFactory = function(fields, i18n) {
     function register(category, data, sticky) {
         var field = fields.register(category, data);
 
-        if( ! sticky ) {
+        if (!sticky) {
             registeredFields.push(field);
         }
     }
@@ -631,13 +538,13 @@ var FieldFactory = function(fields, i18n) {
     function getFieldType(type) {
 
         var map = {
-            'phone' : 'tel',
+            'phone': 'tel',
             'dropdown': 'select',
             'checkboxes': 'checkbox',
             'birthday': 'text'
         };
 
-        return typeof map[ type ] !== "undefined" ? map[type] : type;
+        return typeof map[type] !== "undefined" ? map[type] : type;
     }
 
     /**
@@ -662,12 +569,12 @@ var FieldFactory = function(fields, i18n) {
             acceptsMultipleValues: false // merge fields never accept multiple values.
         };
 
-        if( data.type !== 'address' ) {
+        if (data.type !== 'address') {
             register(category, data, false);
         } else {
             register(category, { name: data.name + '[addr1]', type: 'text', mailchimpType: 'address', title: i18n.streetAddress });
             register(category, { name: data.name + '[city]', type: 'text', mailchimpType: 'address', title: i18n.city });
-            register(category, { name: data.name + '[state]', type: 'text', mailchimpType: 'address', title: i18n.state  });
+            register(category, { name: data.name + '[state]', type: 'text', mailchimpType: 'address', title: i18n.state });
             register(category, { name: data.name + '[zip]', type: 'text', mailchimpType: 'address', title: i18n.zip });
             register(category, { name: data.name + '[country]', type: 'select', mailchimpType: 'address', title: i18n.country, choices: mc4wp_vars.countries });
         }
@@ -680,7 +587,7 @@ var FieldFactory = function(fields, i18n) {
      *
      * @param interestCategory
      */
-    function registerInterestCategory(interestCategory){
+    function registerInterestCategory(interestCategory) {
         var category = i18n.interestCategories;
         var fieldType = getFieldType(interestCategory.field_type);
 
@@ -702,12 +609,12 @@ var FieldFactory = function(fields, i18n) {
     function registerListFields(list) {
 
         // make sure EMAIL && public fields come first
-        list.merge_fields = list.merge_fields.sort(function(a, b) {
-            if( a.tag === 'EMAIL' || ( a.public && ! b.public ) ) {
+        list.merge_fields = list.merge_fields.sort(function (a, b) {
+            if (a.tag === 'EMAIL' || a.public && !b.public) {
                 return -1;
             }
 
-            if( ! a.public && b.public ) {
+            if (!a.public && b.public) {
                 return 1;
             }
 
@@ -746,7 +653,7 @@ var FieldFactory = function(fields, i18n) {
 
         // register lists choice field
         choices = {};
-        for(var key in lists) {
+        for (var key in lists) {
             choices[lists[key].id] = lists[key].name;
         }
 
@@ -780,19 +687,20 @@ var FieldFactory = function(fields, i18n) {
         'registerCustomFields': registerCustomFields,
         'registerListFields': registerListFields,
         'registerListsFields': registerListsFields
-    }
-
+    };
 };
 
 module.exports = FieldFactory;
+
 },{}],6:[function(require,module,exports){
 'use strict';
 
-module.exports = function(m, events) {
+var prop = require("mithril/stream");
+
+module.exports = function (m, events) {
     var timeout;
     var fields = [];
     var categories = [];
-
 
     /**
      * @internal
@@ -801,40 +709,39 @@ module.exports = function(m, events) {
      * @param data
      * @constructor
      */
-    var Field = function (data) {
-        this.name = m.prop(data.name);
-        this.title = m.prop(data.title || data.name);
-        this.type = m.prop(data.type);
-        this.mailchimpType = m.prop(data.mailchimpType || '');
-        this.label = m.prop(data.title || '');
-        this.value = m.prop(data.value || '');
-        this.placeholder = m.prop(data.placeholder || '');
-        this.required = m.prop(data.required || false);
-        this.forceRequired = m.prop( data.forceRequired || false );
-        this.wrap = m.prop(data.wrap || true);
-        this.min = m.prop(data.min || null);
-        this.max = m.prop(data.max || null);
-        this.help = m.prop(data.help || '');
-        this.choices = m.prop(data.choices || []);
-        this.inFormContent = m.prop(null);
+    var Field = function Field(data) {
+        this.name = prop(data.name);
+        this.title = prop(data.title || data.name);
+        this.type = prop(data.type);
+        this.mailchimpType = prop(data.mailchimpType || '');
+        this.label = prop(data.title || '');
+        this.value = prop(data.value || '');
+        this.placeholder = prop(data.placeholder || '');
+        this.required = prop(data.required || false);
+        this.forceRequired = prop(data.forceRequired || false);
+        this.wrap = prop(data.wrap || true);
+        this.min = prop(data.min || null);
+        this.max = prop(data.max || null);
+        this.help = prop(data.help || '');
+        this.choices = prop(data.choices || []);
+        this.inFormContent = prop(null);
         this.acceptsMultipleValues = data.acceptsMultipleValues;
 
-        this.selectChoice = function(value) {
+        this.selectChoice = function (value) {
             var field = this;
 
-            this.choices(this.choices().map(function(choice) {
+            this.choices(this.choices().map(function (choice) {
 
-                if( choice.value() === value ) {
+                if (choice.value() === value) {
                     choice.selected(true);
                 } else {
                     // only checkboxes allow for multiple selections
-                    if( field.type() !== 'checkbox' ) {
+                    if (field.type() !== 'checkbox') {
                         choice.selected(false);
                     }
                 }
 
                 return choice;
-
             }));
         };
     };
@@ -845,11 +752,11 @@ module.exports = function(m, events) {
      * @param data
      * @constructor
      */
-    var FieldChoice = function (data) {
-        this.label = m.prop(data.label);
-        this.title = m.prop(data.title || data.label);
-        this.selected = m.prop(data.selected || false);
-        this.value = m.prop(data.value || data.label);
+    var FieldChoice = function FieldChoice(data) {
+        this.label = prop(data.label);
+        this.title = prop(data.title || data.label);
+        this.selected = prop(data.selected || false);
+        this.value = prop(data.value || data.label);
     };
 
     /**
@@ -860,14 +767,14 @@ module.exports = function(m, events) {
      */
     function createChoices(data) {
         var choices = [];
-        if (typeof( data.map ) === "function") {
+        if (typeof data.map === "function") {
             choices = data.map(function (choiceLabel) {
-                return new FieldChoice({label: choiceLabel});
+                return new FieldChoice({ label: choiceLabel });
             });
         } else {
             choices = Object.keys(data).map(function (key) {
                 var choiceLabel = data[key];
-                return new FieldChoice({label: choiceLabel, value: key});
+                return new FieldChoice({ label: choiceLabel, value: key });
             });
         }
 
@@ -888,10 +795,10 @@ module.exports = function(m, events) {
         var existingField = getAllWhere('name', data.name).shift();
 
         // a field with the same "name" already exists
-        if(existingField) {
+        if (existingField) {
 
             // update "required" status
-            if( ! existingField.forceRequired() && data.forceRequired ) {
+            if (!existingField.forceRequired() && data.forceRequired) {
                 existingField.forceRequired(true);
             }
 
@@ -903,9 +810,9 @@ module.exports = function(m, events) {
         if (data.choices) {
             data.choices = createChoices(data.choices);
 
-            if( data.value) {
-                data.choices = data.choices.map(function(choice) {
-                    if(choice.value() === data.value) {
+            if (data.value) {
+                data.choices = data.choices.map(function (choice) {
+                    if (choice.value() === data.value) {
                         choice.selected(true);
                     }
                     return choice;
@@ -914,7 +821,7 @@ module.exports = function(m, events) {
         }
 
         // register category
-        if( categories.indexOf(category) < 0 ) {
+        if (categories.indexOf(category) < 0) {
             categories.push(category);
         }
 
@@ -965,7 +872,7 @@ module.exports = function(m, events) {
      */
     function getAll() {
         // rebuild index property on all fields
-        fields = fields.map(function(f, i) {
+        fields = fields.map(function (f, i) {
             f.index = i;
             return f;
         });
@@ -990,23 +897,24 @@ module.exports = function(m, events) {
         });
     }
 
-
     /**
      * Exposed methods
      */
     return {
-        'get'        : get,
-        'getAll'     : getAll,
+        'get': get,
+        'getAll': getAll,
         'getCategories': getCategories,
-        'deregister' : deregister,
-        'register'   : register,
+        'deregister': deregister,
+        'register': register,
         'getAllWhere': getAllWhere
     };
 };
-},{}],7:[function(require,module,exports){
+
+},{"mithril/stream":21}],7:[function(require,module,exports){
 'use strict';
 
 // load CodeMirror & plugins
+
 var CodeMirror = require('codemirror');
 require('codemirror/mode/xml/xml');
 require('codemirror/mode/javascript/javascript');
@@ -1016,7 +924,7 @@ require('codemirror/addon/fold/xml-fold');
 require('codemirror/addon/edit/matchtags');
 require('codemirror/addon/edit/closetag.js');
 
-var FormEditor = function(element) {
+var FormEditor = function FormEditor(element) {
 
     // create dom representation of form
     var _dom = document.createElement('form'),
@@ -1026,7 +934,7 @@ var FormEditor = function(element) {
 
     _dom.innerHTML = element.value.toLowerCase();
 
-    if( CodeMirror ) {
+    if (CodeMirror) {
         editor = CodeMirror.fromTextArea(element, {
             selectionPointer: true,
             matchTags: { bothTags: true },
@@ -1037,8 +945,8 @@ var FormEditor = function(element) {
         });
 
         // dispatch regular "change" on element event every time editor changes (IE9+ only)
-        window.dispatchEvent && editor.on('change',function() {
-            if(typeof(Event) === "function") {
+        window.dispatchEvent && editor.on('change', function () {
+            if (typeof Event === "function") {
                 // Create a new 'change' event
                 var event = new Event('change', { bubbles: true });
                 element.dispatchEvent(event);
@@ -1046,17 +954,17 @@ var FormEditor = function(element) {
         });
     }
 
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
         CodeMirror.signal(editor, "change");
     });
 
     // set domDirty to true everytime the "change" event fires (a lot..)
-    element.addEventListener('change',function() {
+    element.addEventListener('change', function () {
         domDirty = true;
     });
 
     function dom() {
-        if( domDirty ) {
+        if (domDirty) {
             _dom.innerHTML = r.getValue().toLowerCase();
             domDirty = false;
         }
@@ -1064,38 +972,38 @@ var FormEditor = function(element) {
         return _dom;
     }
 
-    r.getValue = function() {
+    r.getValue = function () {
         return editor ? editor.getValue() : element.value;
     };
 
-    r.query = function(query) {
+    r.query = function (query) {
         return dom().querySelectorAll(query.toLowerCase());
     };
 
-    r.containsField = function(fieldName){
+    r.containsField = function (fieldName) {
         return dom().elements.namedItem(fieldName.toLowerCase()) !== null;
     };
 
-    r.insert = function( html ) {
-        if( editor ) {
-            editor.replaceSelection( html );
+    r.insert = function (html) {
+        if (editor) {
+            editor.replaceSelection(html);
             editor.focus();
         } else {
             element.value += html;
         }
     };
 
-    r.on = function(event,callback) {
-        if( editor ) {
+    r.on = function (event, callback) {
+        if (editor) {
             // translate "input" event for CodeMirror
-            event = ( event === 'input' ) ? 'changes' : event;
-            return editor.on(event,callback);
+            event = event === 'input' ? 'changes' : event;
+            return editor.on(event, callback);
         }
 
-        return element.addEventListener(event,callback);
+        return element.addEventListener(event, callback);
     };
 
-    r.refresh = function() {
+    r.refresh = function () {
         editor && editor.refresh();
     };
 
@@ -1103,33 +1011,36 @@ var FormEditor = function(element) {
 };
 
 module.exports = FormEditor;
-},{"codemirror":17,"codemirror/addon/edit/closetag.js":14,"codemirror/addon/edit/matchtags":15,"codemirror/addon/fold/xml-fold":16,"codemirror/mode/css/css":18,"codemirror/mode/htmlmixed/htmlmixed":19,"codemirror/mode/javascript/javascript":20,"codemirror/mode/xml/xml":21}],8:[function(require,module,exports){
-var FormWatcher = function(m, editor, settings, fields, events, helpers) {
+
+},{"codemirror":15,"codemirror/addon/edit/closetag.js":12,"codemirror/addon/edit/matchtags":13,"codemirror/addon/fold/xml-fold":14,"codemirror/mode/css/css":16,"codemirror/mode/htmlmixed/htmlmixed":17,"codemirror/mode/javascript/javascript":18,"codemirror/mode/xml/xml":19}],8:[function(require,module,exports){
+'use strict';
+
+var FormWatcher = function FormWatcher(m, editor, settings, fields, events, helpers) {
     'use strict';
 
     var requiredFieldsInput = document.getElementById('required-fields');
 
     function updateFields() {
-        fields.getAll().forEach(function(field) {
+        fields.getAll().forEach(function (field) {
             // don't run for empty field names
-            if(field.name().length <= 0) return;
+            if (field.name().length <= 0) return;
 
             var fieldName = field.name();
-            if( field.type() === 'checkbox' ) {
+            if (field.type() === 'checkbox') {
                 fieldName += '[]';
             }
 
-            var inForm = editor.containsField( fieldName );
-            field.inFormContent( inForm );
+            var inForm = editor.containsField(fieldName);
+            field.inFormContent(inForm);
 
             // if form contains 1 address field of group, mark all fields in this group as "required"
-            if( field.mailchimpType() === 'address' ) {
+            if (field.mailchimpType() === 'address') {
                 field.originalRequiredValue = field.originalRequiredValue === undefined ? field.forceRequired() : field.originalRequiredValue;
 
                 // query other fields for this address group
-                var nameGroup = field.name().replace(/\[(\w+)\]/g, '' );
-                if( editor.query('[name^="' + nameGroup + '"]').length > 0 ) {
-                    if( field.originalRequiredValue === undefined ) {
+                var nameGroup = field.name().replace(/\[(\w+)\]/g, '');
+                if (editor.query('[name^="' + nameGroup + '"]').length > 0) {
+                    if (field.originalRequiredValue === undefined) {
                         field.originalRequiredValue = field.forceRequired();
                     }
                     field.forceRequired(true);
@@ -1137,7 +1048,6 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
                     field.forceRequired(field.originalRequiredValue);
                 }
             }
-
         });
 
         findRequiredFields();
@@ -1147,23 +1057,25 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
     function findRequiredFields() {
 
         // query fields required by MailChimp
-        var requiredFields = fields.getAllWhere('forceRequired', true).map(function(f) { return f.name().toUpperCase().replace(/\[(\w+)\]/g, '.$1' ); });
+        var requiredFields = fields.getAllWhere('forceRequired', true).map(function (f) {
+            return f.name().toUpperCase().replace(/\[(\w+)\]/g, '.$1');
+        });
 
         // query fields in form with [required] attribute
         var requiredFieldElements = editor.query('[required]');
-        Array.prototype.forEach.call(requiredFieldElements, function(el) {
+        Array.prototype.forEach.call(requiredFieldElements, function (el) {
             var name = el.name.toUpperCase();
 
             // bail if name attr starts with underscore
-            if( name[0] === '_' ) {
+            if (name[0] === '_') {
                 return;
             }
 
             // replace array brackets with dot style notation
-            name = name.replace(/\[(\w+)\]/g, '.$1' );
+            name = name.replace(/\[(\w+)\]/g, '.$1');
 
             // only add field if it's not already in it
-            if( requiredFields.indexOf(name) === -1 ) {
+            if (requiredFields.indexOf(name) === -1) {
                 requiredFields.push(name);
             }
         });
@@ -1175,10 +1087,10 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
     // events
     editor.on('change', helpers.debounce(updateFields, 500));
     events.on('fields.change', helpers.debounce(updateFields, 500));
-
 };
 
 module.exports = FormWatcher;
+
 },{}],9:[function(require,module,exports){
 'use strict';
 
@@ -1196,39 +1108,41 @@ function hide(id) {
 
 function render() {
     var html = '';
-    for(var key in notices) {
+    for (var key in notices) {
         html += '<div class="notice notice-warning inline"><p>' + notices[key] + '</p></div>';
     }
 
     var container = document.querySelector('.mc4wp-notices');
-    if( ! container ) {
+    if (!container) {
         container = document.createElement('div');
         container.className = 'mc4wp-notices';
         var heading = document.querySelector('h1, h2');
         heading.parentNode.insertBefore(container, heading.nextSibling);
     }
-    
+
     container.innerHTML = html;
 }
 
-function init( editor, fields ) {
+function init(editor, fields) {
 
-    var groupingsNotice = function() {
+    var groupingsNotice = function groupingsNotice() {
         var text = "Your form contains old style <code>GROUPINGS</code> fields. <br /><br />Please remove these fields from your form and then re-add them through the available field buttons to make sure your data is getting through to MailChimp correctly.";
         var formCode = editor.getValue().toLowerCase();
-        ( formCode.indexOf('name="groupings') > -1 ) ? show('deprecated_groupings', text) : hide('deprecated_groupings');
+        formCode.indexOf('name="groupings') > -1 ? show('deprecated_groupings', text) : hide('deprecated_groupings');
     };
 
-    var requiredFieldsNotice = function() {
+    var requiredFieldsNotice = function requiredFieldsNotice() {
         var requiredFields = fields.getAllWhere('forceRequired', true);
-        var missingFields = requiredFields.filter(function(f) {
-            return ! editor.containsField(f.name().toUpperCase());
+        var missingFields = requiredFields.filter(function (f) {
+            return !editor.containsField(f.name().toUpperCase());
         });
 
         var text = '<strong>Heads up!</strong> Your form is missing list fields that are required in MailChimp. Either add these fields to your form or mark them as optional in MailChimp.';
-        text += "<br /><ul class=\"ul-square\" style=\"margin-bottom: 0;\"><li>" + missingFields.map(function(f) { return f.title(); }).join('</li><li>') + '</li></ul>';
+        text += "<br /><ul class=\"ul-square\" style=\"margin-bottom: 0;\"><li>" + missingFields.map(function (f) {
+            return f.title();
+        }).join('</li><li>') + '</li></ul>';
 
-        ( missingFields.length > 0 ) ? show('required_fields_missing', text) : hide('required_fields_missing');
+        missingFields.length > 0 ? show('required_fields_missing', text) : hide('required_fields_missing');
     };
 
     // old groupings
@@ -1242,17 +1156,18 @@ function init( editor, fields ) {
     editor.on('focus', requiredFieldsNotice);
 }
 
-
-
 module.exports = {
     "init": init
 };
+
 },{}],10:[function(require,module,exports){
-var overlay = function(m, i18n) {
+'use strict';
+
+var overlay = function overlay(m, i18n) {
 	'use strict';
 
-	var _element,
-		_onCloseCallback;
+	var _element = void 0,
+	    _onCloseCallback = void 0;
 
 	function close() {
 		document.removeEventListener('keydown', onKeyDown);
@@ -1264,28 +1179,33 @@ var overlay = function(m, i18n) {
 		e = e || window.event;
 
 		// close overlay when pressing ESC
-		if(e.keyCode == 27) {
+		if (e.keyCode == 27) {
 			close();
 		}
 
 		// prevent ENTER
-		if(e.keyCode == 13 ) {
+		if (e.keyCode == 13) {
 			e.preventDefault();
 		}
 	}
 
 	function position() {
-		if( ! _element ) return;
+		if (!_element) return;
 
 		// fix for window width in IE8
 		var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 		var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
-		var marginLeft = ( windowWidth - _element.clientWidth - 40 ) / 2;
-		var marginTop  = ( windowHeight - _element.clientHeight - 40 ) / 2;
+		var marginLeft = (windowWidth - _element.clientWidth - 40) / 2;
+		var marginTop = (windowHeight - _element.clientHeight - 40) / 2;
 
-		_element.style.left = ( marginLeft > 0 ? marginLeft : 0 ) + "px";
-		_element.style.top = ( marginTop > 0 ? marginTop : 0 ) + "px";
+		_element.style.left = (marginLeft > 0 ? marginLeft : 0) + "px";
+		_element.style.top = (marginTop > 0 ? marginTop : 0) + "px";
+	}
+
+	function storeElementReference(vnode) {
+		_element = vnode.dom;
+		position();
 	}
 
 	return function (content, onCloseCallback) {
@@ -1294,39 +1214,26 @@ var overlay = function(m, i18n) {
 		document.addEventListener('keydown', onKeyDown);
 		window.addEventListener('resize', position);
 
-		return [
-			m('div.overlay-wrap',
-				m("div.overlay", {
-					config: function (el) {
-						_element = el;
-						position();
-					}
-				},[
-
-					// close icon
-					m('span', {
-						"class": 'close dashicons dashicons-no',
-						title  : i18n.close,
-						onclick: close
-					}),
-
-					content
-				])
-			)
-			,
-			m('div.overlay-background', {
-				title: i18n.close,
-				onclick: close
-			})
-		];
+		return [m('div.overlay-wrap', m("div.overlay", { oncreate: storeElementReference }, [
+		// close icon
+		m('span', {
+			"class": 'close dashicons dashicons-no',
+			title: i18n.close,
+			onclick: close
+		}), content])), m('div.overlay-background', {
+			title: i18n.close,
+			onclick: close
+		})];
 	};
 };
 
 module.exports = overlay;
+
 },{}],11:[function(require,module,exports){
 'use strict';
 
 // deps
+
 var i18n = window.mc4wp_forms_i18n;
 var m = window.mc4wp.deps.mithril;
 var events = mc4wp.events;
@@ -1342,13 +1249,13 @@ var fields = require('./admin/fields.js')(m, events);
 
 // vars
 var textareaElement = document.getElementById('mc4wp-form-content');
-var editor = window.formEditor = new FormEditor( textareaElement );
-var watcher = new FormWatcher( m, formEditor, settings, fields, events, helpers );
-var fieldHelper = new FieldHelper( m, tabs, formEditor, fields, events, i18n );
+var editor = window.formEditor = new FormEditor(textareaElement);
+var watcher = new FormWatcher(m, formEditor, settings, fields, events, helpers);
+var fieldHelper = new FieldHelper(m, tabs, formEditor, fields, events, i18n);
 var notices = require('./admin/notices');
 
 // mount field helper on element
-m.mount( document.getElementById( 'mc4wp-field-wizard'), fieldHelper );
+m.mount(document.getElementById('mc4wp-field-wizard'), fieldHelper);
 
 // register fields and redraw screen in 2 seconds (fixes IE8 bug)
 var fieldsFactory = new FieldsFactory(fields, i18n);
@@ -1356,7 +1263,9 @@ events.on('selectedLists.change', fieldsFactory.registerListsFields);
 fieldsFactory.registerListsFields(settings.getSelectedLists());
 fieldsFactory.registerCustomFields(mc4wp_vars.mailchimp.lists);
 
-window.setTimeout( function() { m.redraw();}, 2000 );
+window.setTimeout(function () {
+  m.redraw();
+}, 2000);
 
 // init notices
 notices.init(editor, fields);
@@ -1368,939 +1277,6 @@ window.mc4wp.forms.editor = editor;
 window.mc4wp.forms.fields = fields;
 
 },{"./admin/field-helper.js":4,"./admin/fields-factory.js":5,"./admin/fields.js":6,"./admin/form-editor.js":7,"./admin/form-watcher.js":8,"./admin/notices":9}],12:[function(require,module,exports){
-/*jshint curly:true, eqeqeq:true, laxbreak:true, noempty:false */
-/*
-
-  The MIT License (MIT)
-
-  Copyright (c) 2007-2013 Einar Lielmanis and contributors.
-
-  Permission is hereby granted, free of charge, to any person
-  obtaining a copy of this software and associated documentation files
-  (the "Software"), to deal in the Software without restriction,
-  including without limitation the rights to use, copy, modify, merge,
-  publish, distribute, sublicense, and/or sell copies of the Software,
-  and to permit persons to whom the Software is furnished to do so,
-  subject to the following conditions:
-
-  The above copyright notice and this permission notice shall be
-  included in all copies or substantial portions of the Software.
-
-  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
-  BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
-  ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-  SOFTWARE.
-
-
- Style HTML
----------------
-
-  Written by Nochum Sossonko, (nsossonko@hotmail.com)
-
-  Based on code initially developed by: Einar Lielmanis, <elfz@laacz.lv>
-    http://jsbeautifier.org/
-
-  Usage:
-    style_html(html_source);
-
-    style_html(html_source, options);
-
-  The options are:
-    indent_inner_html (default false)  — indent <head> and <body> sections,
-    indent_size (default 4)          — indentation size,
-    indent_char (default space)      — character to indent with,
-    wrap_line_length (default 250)            -  maximum amount of characters per line (0 = disable)
-    brace_style (default "collapse") - "collapse" | "expand" | "end-expand"
-            put braces on the same line as control statements (default), or put braces on own line (Allman / ANSI style), or just put end braces on own line.
-    unformatted (defaults to inline tags) - list of tags, that shouldn't be reformatted
-    indent_scripts (default normal)  - "keep"|"separate"|"normal"
-    preserve_newlines (default true) - whether existing line breaks before elements should be preserved
-                                        Only works before elements, not inside tags or for text.
-    max_preserve_newlines (default unlimited) - maximum number of line breaks to be preserved in one chunk
-    indent_handlebars (default false) - format and indent {{#foo}} and {{/foo}}
-
-    e.g.
-
-    style_html(html_source, {
-      'indent_inner_html': false,
-      'indent_size': 2,
-      'indent_char': ' ',
-      'wrap_line_length': 78,
-      'brace_style': 'expand',
-      'unformatted': ['a', 'sub', 'sup', 'b', 'i', 'u'],
-      'preserve_newlines': true,
-      'max_preserve_newlines': 5,
-      'indent_handlebars': false
-    });
-*/
-
-(function() {
-
-    function trim(s) {
-        return s.replace(/^\s+|\s+$/g, '');
-    }
-
-    function ltrim(s) {
-        return s.replace(/^\s+/g, '');
-    }
-
-    function style_html(html_source, options, js_beautify, css_beautify) {
-        //Wrapper function to invoke all the necessary constructors and deal with the output.
-
-        var multi_parser,
-            indent_inner_html,
-            indent_size,
-            indent_character,
-            wrap_line_length,
-            brace_style,
-            unformatted,
-            preserve_newlines,
-            max_preserve_newlines;
-
-        options = options || {};
-
-        // backwards compatibility to 1.3.4
-        if ((options.wrap_line_length === undefined || parseInt(options.wrap_line_length, 10) === 0) &&
-                (options.max_char === undefined || parseInt(options.max_char, 10) === 0)) {
-            options.wrap_line_length = options.max_char;
-        }
-
-        indent_inner_html = options.indent_inner_html || false;
-        indent_size = parseInt(options.indent_size || 4, 10);
-        indent_character = options.indent_char || ' ';
-        brace_style = options.brace_style || 'collapse';
-        wrap_line_length =  parseInt(options.wrap_line_length, 10) === 0 ? 32786 : parseInt(options.wrap_line_length || 250, 10);
-        unformatted = options.unformatted || ['a', 'span', 'bdo', 'em', 'strong', 'dfn', 'code', 'samp', 'kbd', 'var', 'cite', 'abbr', 'acronym', 'q', 'sub', 'sup', 'tt', 'i', 'b', 'big', 'small', 'u', 's', 'strike', 'font', 'ins', 'del', 'pre', 'address', 'dt', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
-        preserve_newlines = options.preserve_newlines || true;
-        max_preserve_newlines = preserve_newlines ? parseInt(options.max_preserve_newlines || 32786, 10) : 0;
-        indent_handlebars = options.indent_handlebars || false;
-
-        function Parser() {
-
-            this.pos = 0; //Parser position
-            this.token = '';
-            this.current_mode = 'CONTENT'; //reflects the current Parser mode: TAG/CONTENT
-            this.tags = { //An object to hold tags, their position, and their parent-tags, initiated with default values
-                parent: 'parent1',
-                parentcount: 1,
-                parent1: ''
-            };
-            this.tag_type = '';
-            this.token_text = this.last_token = this.last_text = this.token_type = '';
-            this.newlines = 0;
-            this.indent_content = indent_inner_html;
-
-            this.Utils = { //Uilities made available to the various functions
-                whitespace: "\n\r\t ".split(''),
-                single_token: 'br,input,link,meta,!doctype,basefont,base,area,hr,wbr,param,img,isindex,?xml,embed,?php,?,?='.split(','), //all the single tags for HTML
-                extra_liners: 'head,body,/html'.split(','), //for tags that need a line of whitespace before them
-                in_array: function(what, arr) {
-                    for (var i = 0; i < arr.length; i++) {
-                        if (what === arr[i]) {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-            };
-
-            this.traverse_whitespace = function() {
-                var input_char = '';
-
-                input_char = this.input.charAt(this.pos);
-                if (this.Utils.in_array(input_char, this.Utils.whitespace)) {
-                    this.newlines = 0;
-                    while (this.Utils.in_array(input_char, this.Utils.whitespace)) {
-                        if (preserve_newlines && input_char === '\n' && this.newlines <= max_preserve_newlines) {
-                            this.newlines += 1;
-                        }
-
-                        this.pos++;
-                        input_char = this.input.charAt(this.pos);
-                    }
-                    return true;
-                }
-                return false;
-            };
-
-            this.get_content = function() { //function to capture regular content between tags
-
-                var input_char = '',
-                    content = [],
-                    space = false; //if a space is needed
-
-                while (this.input.charAt(this.pos) !== '<') {
-                    if (this.pos >= this.input.length) {
-                        return content.length ? content.join('') : ['', 'TK_EOF'];
-                    }
-
-                    if (this.traverse_whitespace()) {
-                        if (content.length) {
-                            space = true;
-                        }
-                        continue; //don't want to insert unnecessary space
-                    }
-
-                    if (indent_handlebars) {
-                        // Handlebars parsing is complicated.
-                        // {{#foo}} and {{/foo}} are formatted tags.
-                        // {{something}} should get treated as content, except:
-                        // {{else}} specifically behaves like {{#if}} and {{/if}}
-                        var peek3 = this.input.substr(this.pos, 3);
-                        if (peek3 === '{{#' || peek3 === '{{/') {
-                            // These are tags and not content.
-                            break;
-                        } else if (this.input.substr(this.pos, 2) === '{{') {
-                            if (this.get_tag(true) === '{{else}}') {
-                                break;
-                            }
-                        }
-                    }
-
-                    input_char = this.input.charAt(this.pos);
-                    this.pos++;
-
-                    if (space) {
-                        if (this.line_char_count >= this.wrap_line_length) { //insert a line when the wrap_line_length is reached
-                            this.print_newline(false, content);
-                            this.print_indentation(content);
-                        } else {
-                            this.line_char_count++;
-                            content.push(' ');
-                        }
-                        space = false;
-                    }
-                    this.line_char_count++;
-                    content.push(input_char); //letter at-a-time (or string) inserted to an array
-                }
-                return content.length ? content.join('') : '';
-            };
-
-            this.get_contents_to = function(name) { //get the full content of a script or style to pass to js_beautify
-                if (this.pos === this.input.length) {
-                    return ['', 'TK_EOF'];
-                }
-                var input_char = '';
-                var content = '';
-                var reg_match = new RegExp('</' + name + '\\s*>', 'igm');
-                reg_match.lastIndex = this.pos;
-                var reg_array = reg_match.exec(this.input);
-                var end_script = reg_array ? reg_array.index : this.input.length; //absolute end of script
-                if (this.pos < end_script) { //get everything in between the script tags
-                    content = this.input.substring(this.pos, end_script);
-                    this.pos = end_script;
-                }
-                return content;
-            };
-
-            this.record_tag = function(tag) { //function to record a tag and its parent in this.tags Object
-                if (this.tags[tag + 'count']) { //check for the existence of this tag type
-                    this.tags[tag + 'count']++;
-                    this.tags[tag + this.tags[tag + 'count']] = this.indent_level; //and record the present indent level
-                } else { //otherwise initialize this tag type
-                    this.tags[tag + 'count'] = 1;
-                    this.tags[tag + this.tags[tag + 'count']] = this.indent_level; //and record the present indent level
-                }
-                this.tags[tag + this.tags[tag + 'count'] + 'parent'] = this.tags.parent; //set the parent (i.e. in the case of a div this.tags.div1parent)
-                this.tags.parent = tag + this.tags[tag + 'count']; //and make this the current parent (i.e. in the case of a div 'div1')
-            };
-
-            this.retrieve_tag = function(tag) { //function to retrieve the opening tag to the corresponding closer
-                if (this.tags[tag + 'count']) { //if the openener is not in the Object we ignore it
-                    var temp_parent = this.tags.parent; //check to see if it's a closable tag.
-                    while (temp_parent) { //till we reach '' (the initial value);
-                        if (tag + this.tags[tag + 'count'] === temp_parent) { //if this is it use it
-                            break;
-                        }
-                        temp_parent = this.tags[temp_parent + 'parent']; //otherwise keep on climbing up the DOM Tree
-                    }
-                    if (temp_parent) { //if we caught something
-                        this.indent_level = this.tags[tag + this.tags[tag + 'count']]; //set the indent_level accordingly
-                        this.tags.parent = this.tags[temp_parent + 'parent']; //and set the current parent
-                    }
-                    delete this.tags[tag + this.tags[tag + 'count'] + 'parent']; //delete the closed tags parent reference...
-                    delete this.tags[tag + this.tags[tag + 'count']]; //...and the tag itself
-                    if (this.tags[tag + 'count'] === 1) {
-                        delete this.tags[tag + 'count'];
-                    } else {
-                        this.tags[tag + 'count']--;
-                    }
-                }
-            };
-
-            this.indent_to_tag = function(tag) {
-                // Match the indentation level to the last use of this tag, but don't remove it.
-                if (!this.tags[tag + 'count']) {
-                    return;
-                }
-                var temp_parent = this.tags.parent;
-                while (temp_parent) {
-                    if (tag + this.tags[tag + 'count'] === temp_parent) {
-                        break;
-                    }
-                    temp_parent = this.tags[temp_parent + 'parent'];
-                }
-                if (temp_parent) {
-                    this.indent_level = this.tags[tag + this.tags[tag + 'count']];
-                }
-            };
-
-            this.get_tag = function(peek) { //function to get a full tag and parse its type
-                var input_char = '',
-                    content = [],
-                    comment = '',
-                    space = false,
-                    tag_start, tag_end,
-                    tag_start_char,
-                    orig_pos = this.pos,
-                    orig_line_char_count = this.line_char_count;
-
-                peek = peek !== undefined ? peek : false;
-
-                do {
-                    if (this.pos >= this.input.length) {
-                        if (peek) {
-                            this.pos = orig_pos;
-                            this.line_char_count = orig_line_char_count;
-                        }
-                        return content.length ? content.join('') : ['', 'TK_EOF'];
-                    }
-
-                    input_char = this.input.charAt(this.pos);
-                    this.pos++;
-
-                    if (this.Utils.in_array(input_char, this.Utils.whitespace)) { //don't want to insert unnecessary space
-                        space = true;
-                        continue;
-                    }
-
-                    if (input_char === "'" || input_char === '"') {
-                        input_char += this.get_unformatted(input_char);
-                        space = true;
-
-                    }
-
-                    if (input_char === '=') { //no space before =
-                        space = false;
-                    }
-
-                    if (content.length && content[content.length - 1] !== '=' && input_char !== '>' && space) {
-                        //no space after = or before >
-                        if (this.line_char_count >= this.wrap_line_length) {
-                            this.print_newline(false, content);
-                            this.print_indentation(content);
-                        } else {
-                            content.push(' ');
-                            this.line_char_count++;
-                        }
-                        space = false;
-                    }
-
-                    if (indent_handlebars && tag_start_char === '<') {
-                        // When inside an angle-bracket tag, put spaces around
-                        // handlebars not inside of strings.
-                        if ((input_char + this.input.charAt(this.pos)) === '{{') {
-                            input_char += this.get_unformatted('}}');
-                            if (content.length && content[content.length - 1] !== ' ' && content[content.length - 1] !== '<') {
-                                input_char = ' ' + input_char;
-                            }
-                            space = true;
-                        }
-                    }
-
-                    if (input_char === '<' && !tag_start_char) {
-                        tag_start = this.pos - 1;
-                        tag_start_char = '<';
-                    }
-
-                    if (indent_handlebars && !tag_start_char) {
-                        if (content.length >= 2 && content[content.length - 1] === '{' && content[content.length - 2] == '{') {
-                            if (input_char === '#' || input_char === '/') {
-                                tag_start = this.pos - 3;
-                            } else {
-                                tag_start = this.pos - 2;
-                            }
-                            tag_start_char = '{';
-                        }
-                    }
-
-                    this.line_char_count++;
-                    content.push(input_char); //inserts character at-a-time (or string)
-
-                    if (content[1] && content[1] === '!') { //if we're in a comment, do something special
-                        // We treat all comments as literals, even more than preformatted tags
-                        // we just look for the appropriate close tag
-                        content = [this.get_comment(tag_start)];
-                        break;
-                    }
-
-                    if (indent_handlebars && tag_start_char === '{' && content.length > 2 && content[content.length - 2] === '}' && content[content.length - 1] === '}') {
-                        break;
-                    }
-                } while (input_char !== '>');
-
-                var tag_complete = content.join('');
-                var tag_index;
-                var tag_offset;
-
-                if (tag_complete.indexOf(' ') !== -1) { //if there's whitespace, thats where the tag name ends
-                    tag_index = tag_complete.indexOf(' ');
-                } else if (tag_complete[0] === '{') {
-                    tag_index = tag_complete.indexOf('}');
-                } else { //otherwise go with the tag ending
-                    tag_index = tag_complete.indexOf('>');
-                }
-                if (tag_complete[0] === '<' || !indent_handlebars) {
-                    tag_offset = 1;
-                } else {
-                    tag_offset = tag_complete[2] === '#' ? 3 : 2;
-                }
-                var tag_check = tag_complete.substring(tag_offset, tag_index).toLowerCase();
-                if (tag_complete.charAt(tag_complete.length - 2) === '/' ||
-                    this.Utils.in_array(tag_check, this.Utils.single_token)) { //if this tag name is a single tag type (either in the list or has a closing /)
-                    if (!peek) {
-                        this.tag_type = 'SINGLE';
-                    }
-                } else if (indent_handlebars && tag_complete[0] === '{' && tag_check === 'else') {
-                    if (!peek) {
-                        this.indent_to_tag('if');
-                        this.tag_type = 'HANDLEBARS_ELSE';
-                        this.indent_content = true;
-                        this.traverse_whitespace();
-                    }
-                } else if (tag_check === 'script') { //for later script handling
-                    if (!peek) {
-                        this.record_tag(tag_check);
-                        this.tag_type = 'SCRIPT';
-                    }
-                } else if (tag_check === 'style') { //for future style handling (for now it justs uses get_content)
-                    if (!peek) {
-                        this.record_tag(tag_check);
-                        this.tag_type = 'STYLE';
-                    }
-                } else if (this.is_unformatted(tag_check, unformatted)) { // do not reformat the "unformatted" tags
-                    comment = this.get_unformatted('</' + tag_check + '>', tag_complete); //...delegate to get_unformatted function
-                    content.push(comment);
-                    // Preserve collapsed whitespace either before or after this tag.
-                    if (tag_start > 0 && this.Utils.in_array(this.input.charAt(tag_start - 1), this.Utils.whitespace)) {
-                        content.splice(0, 0, this.input.charAt(tag_start - 1));
-                    }
-                    tag_end = this.pos - 1;
-                    if (this.Utils.in_array(this.input.charAt(tag_end + 1), this.Utils.whitespace)) {
-                        content.push(this.input.charAt(tag_end + 1));
-                    }
-                    this.tag_type = 'SINGLE';
-                } else if (tag_check.charAt(0) === '!') { //peek for <! comment
-                    // for comments content is already correct.
-                    if (!peek) {
-                        this.tag_type = 'SINGLE';
-                        this.traverse_whitespace();
-                    }
-                } else if (!peek) {
-                    if (tag_check.charAt(0) === '/') { //this tag is a double tag so check for tag-ending
-                        this.retrieve_tag(tag_check.substring(1)); //remove it and all ancestors
-                        this.tag_type = 'END';
-                        this.traverse_whitespace();
-                    } else { //otherwise it's a start-tag
-                        this.record_tag(tag_check); //push it on the tag stack
-                        if (tag_check.toLowerCase() !== 'html') {
-                            this.indent_content = true;
-                        }
-                        this.tag_type = 'START';
-
-                        // Allow preserving of newlines after a start tag
-                        this.traverse_whitespace();
-                    }
-                    if (this.Utils.in_array(tag_check, this.Utils.extra_liners)) { //check if this double needs an extra line
-                        this.print_newline(false, this.output);
-                        if (this.output.length && this.output[this.output.length - 2] !== '\n') {
-                            this.print_newline(true, this.output);
-                        }
-                    }
-                }
-
-                if (peek) {
-                    this.pos = orig_pos;
-                    this.line_char_count = orig_line_char_count;
-                }
-
-                return content.join(''); //returns fully formatted tag
-            };
-
-            this.get_comment = function(start_pos) { //function to return comment content in its entirety
-                // this is will have very poor perf, but will work for now.
-                var comment = '',
-                    delimiter = '>',
-                    matched = false;
-
-                this.pos = start_pos;
-                input_char = this.input.charAt(this.pos);
-                this.pos++;
-
-                while (this.pos <= this.input.length) {
-                    comment += input_char;
-
-                    // only need to check for the delimiter if the last chars match
-                    if (comment[comment.length - 1] === delimiter[delimiter.length - 1] &&
-                        comment.indexOf(delimiter) !== -1) {
-                        break;
-                    }
-
-                    // only need to search for custom delimiter for the first few characters
-                    if (!matched && comment.length < 10) {
-                        if (comment.indexOf('<![if') === 0) { //peek for <![if conditional comment
-                            delimiter = '<![endif]>';
-                            matched = true;
-                        } else if (comment.indexOf('<![cdata[') === 0) { //if it's a <[cdata[ comment...
-                            delimiter = ']]>';
-                            matched = true;
-                        } else if (comment.indexOf('<![') === 0) { // some other ![ comment? ...
-                            delimiter = ']>';
-                            matched = true;
-                        } else if (comment.indexOf('<!--') === 0) { // <!-- comment ...
-                            delimiter = '-->';
-                            matched = true;
-                        }
-                    }
-
-                    input_char = this.input.charAt(this.pos);
-                    this.pos++;
-                }
-
-                return comment;
-            };
-
-            this.get_unformatted = function(delimiter, orig_tag) { //function to return unformatted content in its entirety
-
-                if (orig_tag && orig_tag.toLowerCase().indexOf(delimiter) !== -1) {
-                    return '';
-                }
-                var input_char = '';
-                var content = '';
-                var min_index = 0;
-                var space = true;
-                do {
-
-                    if (this.pos >= this.input.length) {
-                        return content;
-                    }
-
-                    input_char = this.input.charAt(this.pos);
-                    this.pos++;
-
-                    if (this.Utils.in_array(input_char, this.Utils.whitespace)) {
-                        if (!space) {
-                            this.line_char_count--;
-                            continue;
-                        }
-                        if (input_char === '\n' || input_char === '\r') {
-                            content += '\n';
-                            /*  Don't change tab indention for unformatted blocks.  If using code for html editing, this will greatly affect <pre> tags if they are specified in the 'unformatted array'
-                for (var i=0; i<this.indent_level; i++) {
-                  content += this.indent_string;
-                }
-                space = false; //...and make sure other indentation is erased
-                */
-                            this.line_char_count = 0;
-                            continue;
-                        }
-                    }
-                    content += input_char;
-                    this.line_char_count++;
-                    space = true;
-
-                    if (indent_handlebars && input_char === '{' && content.length && content[content.length - 2] === '{') {
-                        // Handlebars expressions in strings should also be unformatted.
-                        content += this.get_unformatted('}}');
-                        // These expressions are opaque.  Ignore delimiters found in them.
-                        min_index = content.length;
-                    }
-                } while (content.toLowerCase().indexOf(delimiter, min_index) === -1);
-                return content;
-            };
-
-            this.get_token = function() { //initial handler for token-retrieval
-                var token;
-
-                if (this.last_token === 'TK_TAG_SCRIPT' || this.last_token === 'TK_TAG_STYLE') { //check if we need to format javascript
-                    var type = this.last_token.substr(7);
-                    token = this.get_contents_to(type);
-                    if (typeof token !== 'string') {
-                        return token;
-                    }
-                    return [token, 'TK_' + type];
-                }
-                if (this.current_mode === 'CONTENT') {
-                    token = this.get_content();
-                    if (typeof token !== 'string') {
-                        return token;
-                    } else {
-                        return [token, 'TK_CONTENT'];
-                    }
-                }
-
-                if (this.current_mode === 'TAG') {
-                    token = this.get_tag();
-                    if (typeof token !== 'string') {
-                        return token;
-                    } else {
-                        var tag_name_type = 'TK_TAG_' + this.tag_type;
-                        return [token, tag_name_type];
-                    }
-                }
-            };
-
-            this.get_full_indent = function(level) {
-                level = this.indent_level + level || 0;
-                if (level < 1) {
-                    return '';
-                }
-
-                return Array(level + 1).join(this.indent_string);
-            };
-
-            this.is_unformatted = function(tag_check, unformatted) {
-                //is this an HTML5 block-level link?
-                if (!this.Utils.in_array(tag_check, unformatted)) {
-                    return false;
-                }
-
-                if (tag_check.toLowerCase() !== 'a' || !this.Utils.in_array('a', unformatted)) {
-                    return true;
-                }
-
-                //at this point we have an  tag; is its first child something we want to remain
-                //unformatted?
-                var next_tag = this.get_tag(true /* peek. */ );
-
-                // test next_tag to see if it is just html tag (no external content)
-                var tag = (next_tag || "").match(/^\s*<\s*\/?([a-z]*)\s*[^>]*>\s*$/);
-
-                // if next_tag comes back but is not an isolated tag, then
-                // let's treat the 'a' tag as having content
-                // and respect the unformatted option
-                if (!tag || this.Utils.in_array(tag, unformatted)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            };
-
-            this.printer = function(js_source, indent_character, indent_size, wrap_line_length, brace_style) { //handles input/output and some other printing functions
-
-                this.input = js_source || ''; //gets the input for the Parser
-                this.output = [];
-                this.indent_character = indent_character;
-                this.indent_string = '';
-                this.indent_size = indent_size;
-                this.brace_style = brace_style;
-                this.indent_level = 0;
-                this.wrap_line_length = wrap_line_length;
-                this.line_char_count = 0; //count to see if wrap_line_length was exceeded
-
-                for (var i = 0; i < this.indent_size; i++) {
-                    this.indent_string += this.indent_character;
-                }
-
-                this.print_newline = function(force, arr) {
-                    this.line_char_count = 0;
-                    if (!arr || !arr.length) {
-                        return;
-                    }
-                    if (force || (arr[arr.length - 1] !== '\n')) { //we might want the extra line
-                        arr.push('\n');
-                    }
-                };
-
-                this.print_indentation = function(arr) {
-                    for (var i = 0; i < this.indent_level; i++) {
-                        arr.push(this.indent_string);
-                        this.line_char_count += this.indent_string.length;
-                    }
-                };
-
-                this.print_token = function(text) {
-                    if (text || text !== '') {
-                        if (this.output.length && this.output[this.output.length - 1] === '\n') {
-                            this.print_indentation(this.output);
-                            text = ltrim(text);
-                        }
-                    }
-                    this.print_token_raw(text);
-                };
-
-                this.print_token_raw = function(text) {
-                    if (text && text !== '') {
-                        if (text.length > 1 && text[text.length - 1] === '\n') {
-                            // unformatted tags can grab newlines as their last character
-                            this.output.push(text.slice(0, -1));
-                            this.print_newline(false, this.output);
-                        } else {
-                            this.output.push(text);
-                        }
-                    }
-
-                    for (var n = 0; n < this.newlines; n++) {
-                        this.print_newline(n > 0, this.output);
-                    }
-                    this.newlines = 0;
-                };
-
-                this.indent = function() {
-                    this.indent_level++;
-                };
-
-                this.unindent = function() {
-                    if (this.indent_level > 0) {
-                        this.indent_level--;
-                    }
-                };
-            };
-            return this;
-        }
-
-        /*_____________________--------------------_____________________*/
-
-        multi_parser = new Parser(); //wrapping functions Parser
-        multi_parser.printer(html_source, indent_character, indent_size, wrap_line_length, brace_style); //initialize starting values
-
-        while (true) {
-            var t = multi_parser.get_token();
-            multi_parser.token_text = t[0];
-            multi_parser.token_type = t[1];
-
-            if (multi_parser.token_type === 'TK_EOF') {
-                break;
-            }
-
-            switch (multi_parser.token_type) {
-                case 'TK_TAG_START':
-                    multi_parser.print_newline(false, multi_parser.output);
-                    multi_parser.print_token(multi_parser.token_text);
-                    if (multi_parser.indent_content) {
-                        multi_parser.indent();
-                        multi_parser.indent_content = false;
-                    }
-                    multi_parser.current_mode = 'CONTENT';
-                    break;
-                case 'TK_TAG_STYLE':
-                case 'TK_TAG_SCRIPT':
-                    multi_parser.print_newline(false, multi_parser.output);
-                    multi_parser.print_token(multi_parser.token_text);
-                    multi_parser.current_mode = 'CONTENT';
-                    break;
-                case 'TK_TAG_END':
-                    //Print new line only if the tag has no content and has child
-                    if (multi_parser.last_token === 'TK_CONTENT' && multi_parser.last_text === '') {
-                        var tag_name = multi_parser.token_text.match(/\w+/)[0];
-                        var tag_extracted_from_last_output = null;
-                        if (multi_parser.output.length) {
-                            tag_extracted_from_last_output = multi_parser.output[multi_parser.output.length - 1].match(/(?:<|{{#)\s*(\w+)/);
-                        }
-                        if (tag_extracted_from_last_output === null ||
-                            tag_extracted_from_last_output[1] !== tag_name) {
-                            multi_parser.print_newline(false, multi_parser.output);
-                        }
-                    }
-                    multi_parser.print_token(multi_parser.token_text);
-                    multi_parser.current_mode = 'CONTENT';
-                    break;
-                case 'TK_TAG_SINGLE':
-                    // Don't add a newline before elements that should remain unformatted.
-                    var tag_check = multi_parser.token_text.match(/^\s*<([a-z]+)/i);
-                    if (!tag_check || !multi_parser.Utils.in_array(tag_check[1], unformatted)) {
-                        multi_parser.print_newline(false, multi_parser.output);
-                    }
-                    multi_parser.print_token(multi_parser.token_text);
-                    multi_parser.current_mode = 'CONTENT';
-                    break;
-                case 'TK_TAG_HANDLEBARS_ELSE':
-                    multi_parser.print_token(multi_parser.token_text);
-                    if (multi_parser.indent_content) {
-                        multi_parser.indent();
-                        multi_parser.indent_content = false;
-                    }
-                    multi_parser.current_mode = 'CONTENT';
-                    break;
-                case 'TK_CONTENT':
-                    multi_parser.print_token(multi_parser.token_text);
-                    multi_parser.current_mode = 'TAG';
-                    break;
-                case 'TK_STYLE':
-                case 'TK_SCRIPT':
-                    if (multi_parser.token_text !== '') {
-                        multi_parser.print_newline(false, multi_parser.output);
-                        var text = multi_parser.token_text,
-                            _beautifier,
-                            script_indent_level = 1;
-                        if (multi_parser.token_type === 'TK_SCRIPT') {
-                            _beautifier = typeof js_beautify === 'function' && js_beautify;
-                        } else if (multi_parser.token_type === 'TK_STYLE') {
-                            _beautifier = typeof css_beautify === 'function' && css_beautify;
-                        }
-
-                        if (options.indent_scripts === "keep") {
-                            script_indent_level = 0;
-                        } else if (options.indent_scripts === "separate") {
-                            script_indent_level = -multi_parser.indent_level;
-                        }
-
-                        var indentation = multi_parser.get_full_indent(script_indent_level);
-                        if (_beautifier) {
-                            // call the Beautifier if avaliable
-                            text = _beautifier(text.replace(/^\s*/, indentation), options);
-                        } else {
-                            // simply indent the string otherwise
-                            var white = text.match(/^\s*/)[0];
-                            var _level = white.match(/[^\n\r]*$/)[0].split(multi_parser.indent_string).length - 1;
-                            var reindent = multi_parser.get_full_indent(script_indent_level - _level);
-                            text = text.replace(/^\s*/, indentation)
-                                .replace(/\r\n|\r|\n/g, '\n' + reindent)
-                                .replace(/\s+$/, '');
-                        }
-                        if (text) {
-                            multi_parser.print_token_raw(indentation + trim(text));
-                            multi_parser.print_newline(false, multi_parser.output);
-                        }
-                    }
-                    multi_parser.current_mode = 'TAG';
-                    break;
-            }
-            multi_parser.last_token = multi_parser.token_type;
-            multi_parser.last_text = multi_parser.token_text;
-        }
-        return multi_parser.output.join('');
-    }
-
-    if (typeof module !== "undefined" && typeof( module.exports ) !== "undefined" ) {
-		module.exports = style_html;
-    } else if (typeof window !== "undefined") {
-		// If we're running a web page and don't have either of the above, add our one global
-		window.html_beautify = style_html;
-	}
-
-}());
-},{}],13:[function(require,module,exports){
-'use strict';
-
-var VOID_TAGS = ['area', 'base', 'br', 'col', 'command', 'embed', 'hr',
-	'img', 'input', 'keygen', 'link', 'meta', 'param', 'source', 'track',
-	'wbr', '!doctype'];
-
-function isArray(thing) {
-	return Object.prototype.toString.call(thing) === '[object Array]';
-}
-
-function camelToDash(str) {
-	return str.replace(/\W+/g, '-')
-		.replace(/([a-z\d])([A-Z])/g, '$1-$2');
-}
-
-function removeEmpties(n) {
-	return n != '';
-}
-
-// shameless stolen from https://github.com/punkave/sanitize-html
-function escapeHtml(s, replaceDoubleQuote) {
-	if (s === 'undefined') {
-		s = '';
-	}
-	if (typeof(s) !== 'string') {
-		s = s + '';
-	}
-	s =  s.replace(/\&/g, '&amp;').replace(/</g, '&lt;').replace(/\>/g, '&gt;');
-	if (replaceDoubleQuote) {
-		return s.replace(/\"/g, '&quot;');
-	}
-	return s;
-}
-
-function createAttrString(attrs) {
-	if (!attrs || !Object.keys(attrs).length) {
-		return '';
-	}
-
-	return Object.keys(attrs).map(function(name) {
-		var value = attrs[name];
-		if (typeof value === 'undefined' || value === null || typeof value === 'function') {
-			return;
-		}
-		if (typeof value === 'boolean') {
-			return value ? ' ' + name : '';
-		}
-		if (name === 'style') {
-			if (!value) {
-				return;
-			}
-			var styles = attrs.style;
-			if (typeof styles === 'object') {
-				styles = Object.keys(styles).map(function(property) {
-					return styles[property] != '' ? [camelToDash(property).toLowerCase(), styles[property]].join(':') : '';
-				}).filter(removeEmpties).join(';');
-			}
-			return styles != '' ? ' style="' + escapeHtml(styles, true) + '"' : '';
-		}
-		return ' ' + escapeHtml(name === 'className' ? 'class' : name) + '="' + escapeHtml(value, true) + '"';
-	}).join('');
-}
-
-function createChildrenContent(view) {
-	if(isArray(view.children) && !view.children.length) {
-		return '';
-	}
-
-	return render(view.children);
-}
-
-function render(view) {
-	var type = typeof view;
-
-	if (type === 'string') {
-		return escapeHtml(view);
-	}
-
-	if(type === 'number' || type === 'boolean') {
-		return view;
-	}
-
-	if (!view) {
-		return '';
-	}
-
-	if (isArray(view)) {
-		return view.map(render).join('');
-	}
-
-	//compontent
-	if (view.view) {
-		var scope = view.controller ? new view.controller : {};
-		var result = render(view.view(scope));
-		if (scope.onunload) {
-			scope.onunload();
-		}
-		return result;
-	}
-
-	if (view.$trusted) {
-		return '' + view;
-	}
-	var children = createChildrenContent(view);
-	if (!children && VOID_TAGS.indexOf(view.tag.toLowerCase()) >= 0) {
-		return '<' + view.tag + createAttrString(view.attrs) + '>';
-	}
-	return [
-		'<', view.tag, createAttrString(view.attrs), '>',
-		children,
-		'</', view.tag, '>',
-	].join('');
-}
-
-module.exports = render;
-},{}],14:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -2471,7 +1447,7 @@ module.exports = render;
   }
 });
 
-},{"../../lib/codemirror":17,"../fold/xml-fold":16}],15:[function(require,module,exports){
+},{"../../lib/codemirror":15,"../fold/xml-fold":14}],13:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -2539,7 +1515,7 @@ module.exports = render;
   };
 });
 
-},{"../../lib/codemirror":17,"../fold/xml-fold":16}],16:[function(require,module,exports){
+},{"../../lib/codemirror":15,"../fold/xml-fold":14}],14:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -2723,7 +1699,7 @@ module.exports = render;
   };
 });
 
-},{"../../lib/codemirror":17}],17:[function(require,module,exports){
+},{"../../lib/codemirror":15}],15:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -11955,7 +10931,7 @@ CodeMirror.version = "5.24.2"
 return CodeMirror;
 
 })));
-},{}],18:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -12788,7 +11764,7 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
 
 });
 
-},{"../../lib/codemirror":17}],19:[function(require,module,exports){
+},{"../../lib/codemirror":15}],17:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -12942,7 +11918,7 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
   CodeMirror.defineMIME("text/html", "htmlmixed");
 });
 
-},{"../../lib/codemirror":17,"../css/css":18,"../javascript/javascript":20,"../xml/xml":21}],20:[function(require,module,exports){
+},{"../../lib/codemirror":15,"../css/css":16,"../javascript/javascript":18,"../xml/xml":19}],18:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -13744,7 +12720,7 @@ CodeMirror.defineMIME("application/typescript", { name: "javascript", typescript
 
 });
 
-},{"../../lib/codemirror":17}],21:[function(require,module,exports){
+},{"../../lib/codemirror":15}],19:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -14140,5 +13116,662 @@ if (!CodeMirror.mimeModes.hasOwnProperty("text/html"))
 
 });
 
-},{"../../lib/codemirror":17}]},{},[11]);
+},{"../../lib/codemirror":15}],20:[function(require,module,exports){
+/*
+
+ Style HTML
+---------------
+
+  Written by Nochum Sossonko, (nsossonko@hotmail.com)
+
+  Based on code initially developed by: Einar Lielmanis, <elfz@laacz.lv>
+    http://jsbeautifier.org/
+
+
+  You are free to use this in any way you want, in case you find this useful or working for you.
+
+  Usage:
+    style_html(html_source);
+
+    style_html(html_source, options);
+
+  The options are:
+    indent_size (default 4)          — indentation size,
+    indent_char (default space)      — character to indent with,
+    max_char (default 70)            -  maximum amount of characters per line,
+    brace_style (default "collapse") - "collapse" | "expand" | "end-expand"
+            put braces on the same line as control statements (default), or put braces on own line (Allman / ANSI style), or just put end braces on own line.
+    unformatted (defaults to inline tags) - list of tags, that shouldn't be reformatted
+    indent_scripts (default normal)  - "keep"|"separate"|"normal"
+
+    e.g.
+
+    style_html(html_source, {
+      'indent_size': 2,
+      'indent_char': ' ',
+      'max_char': 78,
+      'brace_style': 'expand',
+      'unformatted': ['a', 'sub', 'sup', 'b', 'i', 'u']
+    });
+*/
+
+function style_html(html_source, options) {
+//Wrapper function to invoke all the necessary constructors and deal with the output.
+
+  var multi_parser,
+      indent_size,
+      indent_character,
+      max_char,
+      brace_style,
+      unformatted;
+
+  options = options || {};
+  indent_size = options.indent_size || 4;
+  indent_character = options.indent_char || ' ';
+  brace_style = options.brace_style || 'collapse';
+  max_char = options.max_char == 0 ? Infinity : options.max_char || 70;
+  unformatted = options.unformatted || ['a', 'span', 'bdo', 'em', 'strong', 'dfn', 'code', 'samp', 'kbd', 'var', 'cite', 'abbr', 'acronym', 'q', 'sub', 'sup', 'tt', 'i', 'b', 'big', 'small', 'u', 's', 'strike', 'font', 'ins', 'del', 'pre', 'address', 'dt', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+
+  function Parser() {
+
+    this.pos = 0; //Parser position
+    this.token = '';
+    this.current_mode = 'CONTENT'; //reflects the current Parser mode: TAG/CONTENT
+    this.tags = { //An object to hold tags, their position, and their parent-tags, initiated with default values
+      parent: 'parent1',
+      parentcount: 1,
+      parent1: ''
+    };
+    this.tag_type = '';
+    this.token_text = this.last_token = this.last_text = this.token_type = '';
+
+    this.Utils = { //Uilities made available to the various functions
+      whitespace: "\n\r\t ".split(''),
+      single_token: 'br,input,link,meta,!doctype,basefont,base,area,hr,wbr,param,img,isindex,?xml,embed,?php,?,?='.split(','), //all the single tags for HTML
+      extra_liners: 'head,body,/html'.split(','), //for tags that need a line of whitespace before them
+      in_array: function (what, arr) {
+        for (var i=0; i<arr.length; i++) {
+          if (what === arr[i]) {
+            return true;
+          }
+        }
+        return false;
+      }
+    }
+
+    this.get_content = function () { //function to capture regular content between tags
+
+      var input_char = '',
+          content = [],
+          space = false; //if a space is needed
+
+      while (this.input.charAt(this.pos) !== '<') {
+        if (this.pos >= this.input.length) {
+          return content.length?content.join(''):['', 'TK_EOF'];
+        }
+
+        input_char = this.input.charAt(this.pos);
+        this.pos++;
+        this.line_char_count++;
+
+        if (this.Utils.in_array(input_char, this.Utils.whitespace)) {
+          if (content.length) {
+            space = true;
+          }
+          this.line_char_count--;
+          continue; //don't want to insert unnecessary space
+        }
+        else if (space) {
+          if (this.line_char_count >= this.max_char) { //insert a line when the max_char is reached
+            content.push('\n');
+            for (var i=0; i<this.indent_level; i++) {
+              content.push(this.indent_string);
+            }
+            this.line_char_count = 0;
+          }
+          else{
+            content.push(' ');
+            this.line_char_count++;
+          }
+          space = false;
+        }
+        content.push(input_char); //letter at-a-time (or string) inserted to an array
+      }
+      return content.length?content.join(''):'';
+    }
+
+    this.get_contents_to = function (name) { //get the full content of a script or style to pass to js_beautify
+      if (this.pos == this.input.length) {
+        return ['', 'TK_EOF'];
+      }
+      var input_char = '';
+      var content = '';
+      var reg_match = new RegExp('\<\/' + name + '\\s*\>', 'igm');
+      reg_match.lastIndex = this.pos;
+      var reg_array = reg_match.exec(this.input);
+      var end_script = reg_array?reg_array.index:this.input.length; //absolute end of script
+      if(this.pos < end_script) { //get everything in between the script tags
+        content = this.input.substring(this.pos, end_script);
+        this.pos = end_script;
+      }
+      return content;
+    }
+
+    this.record_tag = function (tag){ //function to record a tag and its parent in this.tags Object
+      if (this.tags[tag + 'count']) { //check for the existence of this tag type
+        this.tags[tag + 'count']++;
+        this.tags[tag + this.tags[tag + 'count']] = this.indent_level; //and record the present indent level
+      }
+      else { //otherwise initialize this tag type
+        this.tags[tag + 'count'] = 1;
+        this.tags[tag + this.tags[tag + 'count']] = this.indent_level; //and record the present indent level
+      }
+      this.tags[tag + this.tags[tag + 'count'] + 'parent'] = this.tags.parent; //set the parent (i.e. in the case of a div this.tags.div1parent)
+      this.tags.parent = tag + this.tags[tag + 'count']; //and make this the current parent (i.e. in the case of a div 'div1')
+    }
+
+    this.retrieve_tag = function (tag) { //function to retrieve the opening tag to the corresponding closer
+      if (this.tags[tag + 'count']) { //if the openener is not in the Object we ignore it
+        var temp_parent = this.tags.parent; //check to see if it's a closable tag.
+        while (temp_parent) { //till we reach '' (the initial value);
+          if (tag + this.tags[tag + 'count'] === temp_parent) { //if this is it use it
+            break;
+          }
+          temp_parent = this.tags[temp_parent + 'parent']; //otherwise keep on climbing up the DOM Tree
+        }
+        if (temp_parent) { //if we caught something
+          this.indent_level = this.tags[tag + this.tags[tag + 'count']]; //set the indent_level accordingly
+          this.tags.parent = this.tags[temp_parent + 'parent']; //and set the current parent
+        }
+        delete this.tags[tag + this.tags[tag + 'count'] + 'parent']; //delete the closed tags parent reference...
+        delete this.tags[tag + this.tags[tag + 'count']]; //...and the tag itself
+        if (this.tags[tag + 'count'] == 1) {
+          delete this.tags[tag + 'count'];
+        }
+        else {
+          this.tags[tag + 'count']--;
+        }
+      }
+    }
+
+    this.get_tag = function () { //function to get a full tag and parse its type
+      var input_char = '',
+          content = [],
+          space = false,
+          tag_start, tag_end;
+
+      do {
+        if (this.pos >= this.input.length) {
+          return content.length?content.join(''):['', 'TK_EOF'];
+        }
+
+        input_char = this.input.charAt(this.pos);
+        this.pos++;
+        this.line_char_count++;
+
+        if (this.Utils.in_array(input_char, this.Utils.whitespace)) { //don't want to insert unnecessary space
+          space = true;
+          this.line_char_count--;
+          continue;
+        }
+
+        if (input_char === "'" || input_char === '"') {
+          if (!content[1] || content[1] !== '!') { //if we're in a comment strings don't get treated specially
+            input_char += this.get_unformatted(input_char);
+            space = true;
+          }
+        }
+
+        if (input_char === '=') { //no space before =
+          space = false;
+        }
+
+        if (content.length && content[content.length-1] !== '=' && input_char !== '>'
+            && space) { //no space after = or before >
+          if (this.line_char_count >= this.max_char) {
+            this.print_newline(false, content);
+            this.line_char_count = 0;
+          }
+          else {
+            content.push(' ');
+            this.line_char_count++;
+          }
+          space = false;
+        }
+        if (input_char === '<') {
+            tag_start = this.pos - 1;
+        }
+        content.push(input_char); //inserts character at-a-time (or string)
+      } while (input_char !== '>');
+
+      var tag_complete = content.join('');
+      var tag_index;
+      if (tag_complete.indexOf(' ') != -1) { //if there's whitespace, thats where the tag name ends
+        tag_index = tag_complete.indexOf(' ');
+      }
+      else { //otherwise go with the tag ending
+        tag_index = tag_complete.indexOf('>');
+      }
+      var tag_check = tag_complete.substring(1, tag_index).toLowerCase();
+      if (tag_complete.charAt(tag_complete.length-2) === '/' ||
+          this.Utils.in_array(tag_check, this.Utils.single_token)) { //if this tag name is a single tag type (either in the list or has a closing /)
+        this.tag_type = 'SINGLE';
+      }
+      else if (tag_check === 'script') { //for later script handling
+        this.record_tag(tag_check);
+        this.tag_type = 'SCRIPT';
+      }
+      else if (tag_check === 'style') { //for future style handling (for now it justs uses get_content)
+        this.record_tag(tag_check);
+        this.tag_type = 'STYLE';
+      }
+      else if (this.Utils.in_array(tag_check, unformatted)) { // do not reformat the "unformatted" tags
+        var comment = this.get_unformatted('</'+tag_check+'>', tag_complete); //...delegate to get_unformatted function
+        content.push(comment);
+        // Preserve collapsed whitespace either before or after this tag.
+        if (tag_start > 0 && this.Utils.in_array(this.input.charAt(tag_start - 1), this.Utils.whitespace)){
+            content.splice(0, 0, this.input.charAt(tag_start - 1));
+        }
+        tag_end = this.pos - 1;
+        if (this.Utils.in_array(this.input.charAt(tag_end + 1), this.Utils.whitespace)){
+            content.push(this.input.charAt(tag_end + 1));
+        }
+        this.tag_type = 'SINGLE';
+      }
+      else if (tag_check.charAt(0) === '!') { //peek for <!-- comment
+        if (tag_check.indexOf('[if') != -1) { //peek for <!--[if conditional comment
+          if (tag_complete.indexOf('!IE') != -1) { //this type needs a closing --> so...
+            var comment = this.get_unformatted('-->', tag_complete); //...delegate to get_unformatted
+            content.push(comment);
+          }
+          this.tag_type = 'START';
+        }
+        else if (tag_check.indexOf('[endif') != -1) {//peek for <!--[endif end conditional comment
+          this.tag_type = 'END';
+          this.unindent();
+        }
+        else if (tag_check.indexOf('[cdata[') != -1) { //if it's a <[cdata[ comment...
+          var comment = this.get_unformatted(']]>', tag_complete); //...delegate to get_unformatted function
+          content.push(comment);
+          this.tag_type = 'SINGLE'; //<![CDATA[ comments are treated like single tags
+        }
+        else {
+          var comment = this.get_unformatted('-->', tag_complete);
+          content.push(comment);
+          this.tag_type = 'SINGLE';
+        }
+      }
+      else {
+        if (tag_check.charAt(0) === '/') { //this tag is a double tag so check for tag-ending
+          this.retrieve_tag(tag_check.substring(1)); //remove it and all ancestors
+          this.tag_type = 'END';
+        }
+        else { //otherwise it's a start-tag
+          this.record_tag(tag_check); //push it on the tag stack
+          this.tag_type = 'START';
+        }
+        if (this.Utils.in_array(tag_check, this.Utils.extra_liners)) { //check if this double needs an extra line
+          this.print_newline(true, this.output);
+        }
+      }
+      return content.join(''); //returns fully formatted tag
+    }
+
+    this.get_unformatted = function (delimiter, orig_tag) { //function to return unformatted content in its entirety
+
+      if (orig_tag && orig_tag.toLowerCase().indexOf(delimiter) != -1) {
+        return '';
+      }
+      var input_char = '';
+      var content = '';
+      var space = true;
+      do {
+
+        if (this.pos >= this.input.length) {
+          return content;
+        }
+
+        input_char = this.input.charAt(this.pos);
+        this.pos++
+
+        if (this.Utils.in_array(input_char, this.Utils.whitespace)) {
+          if (!space) {
+            this.line_char_count--;
+            continue;
+          }
+          if (input_char === '\n' || input_char === '\r') {
+            content += '\n';
+            /*  Don't change tab indention for unformatted blocks.  If using code for html editing, this will greatly affect <pre> tags if they are specified in the 'unformatted array'
+            for (var i=0; i<this.indent_level; i++) {
+              content += this.indent_string;
+            }
+            space = false; //...and make sure other indentation is erased
+            */
+            this.line_char_count = 0;
+            continue;
+          }
+        }
+        content += input_char;
+        this.line_char_count++;
+        space = true;
+
+
+      } while (content.toLowerCase().indexOf(delimiter) == -1);
+      return content;
+    }
+
+    this.get_token = function () { //initial handler for token-retrieval
+      var token;
+
+      if (this.last_token === 'TK_TAG_SCRIPT' || this.last_token === 'TK_TAG_STYLE') { //check if we need to format javascript
+       var type = this.last_token.substr(7)
+       token = this.get_contents_to(type);
+        if (typeof token !== 'string') {
+          return token;
+        }
+        return [token, 'TK_' + type];
+      }
+      if (this.current_mode === 'CONTENT') {
+        token = this.get_content();
+        if (typeof token !== 'string') {
+          return token;
+        }
+        else {
+          return [token, 'TK_CONTENT'];
+        }
+      }
+
+      if (this.current_mode === 'TAG') {
+        token = this.get_tag();
+        if (typeof token !== 'string') {
+          return token;
+        }
+        else {
+          var tag_name_type = 'TK_TAG_' + this.tag_type;
+          return [token, tag_name_type];
+        }
+      }
+    }
+
+    this.get_full_indent = function (level) {
+      level = this.indent_level + level || 0;
+      if (level < 1)
+        return '';
+
+      return Array(level + 1).join(this.indent_string);
+    }
+
+
+    this.printer = function (js_source, indent_character, indent_size, max_char, brace_style) { //handles input/output and some other printing functions
+
+      this.input = js_source || ''; //gets the input for the Parser
+      this.output = [];
+      this.indent_character = indent_character;
+      this.indent_string = '';
+      this.indent_size = indent_size;
+      this.brace_style = brace_style;
+      this.indent_level = 0;
+      this.max_char = max_char;
+      this.line_char_count = 0; //count to see if max_char was exceeded
+
+      for (var i=0; i<this.indent_size; i++) {
+        this.indent_string += this.indent_character;
+      }
+
+      this.print_newline = function (ignore, arr) {
+        this.line_char_count = 0;
+        if (!arr || !arr.length) {
+          return;
+        }
+        if (!ignore) { //we might want the extra line
+          while (this.Utils.in_array(arr[arr.length-1], this.Utils.whitespace)) {
+            arr.pop();
+          }
+        }
+        arr.push('\n');
+        for (var i=0; i<this.indent_level; i++) {
+          arr.push(this.indent_string);
+        }
+      }
+
+      this.print_token = function (text) {
+        this.output.push(text);
+      }
+
+      this.indent = function () {
+        this.indent_level++;
+      }
+
+      this.unindent = function () {
+        if (this.indent_level > 0) {
+          this.indent_level--;
+        }
+      }
+    }
+    return this;
+  }
+
+  /*_____________________--------------------_____________________*/
+
+  multi_parser = new Parser(); //wrapping functions Parser
+  multi_parser.printer(html_source, indent_character, indent_size, max_char, brace_style); //initialize starting values
+
+  while (true) {
+      var t = multi_parser.get_token();
+      multi_parser.token_text = t[0];
+      multi_parser.token_type = t[1];
+
+    if (multi_parser.token_type === 'TK_EOF') {
+      break;
+    }
+
+    switch (multi_parser.token_type) {
+      case 'TK_TAG_START':
+        multi_parser.print_newline(false, multi_parser.output);
+        multi_parser.print_token(multi_parser.token_text);
+        multi_parser.indent();
+        multi_parser.current_mode = 'CONTENT';
+        break;
+      case 'TK_TAG_STYLE':
+      case 'TK_TAG_SCRIPT':
+        multi_parser.print_newline(false, multi_parser.output);
+        multi_parser.print_token(multi_parser.token_text);
+        multi_parser.current_mode = 'CONTENT';
+        break;
+      case 'TK_TAG_END':
+        //Print new line only if the tag has no content and has child
+        if (multi_parser.last_token === 'TK_CONTENT' && multi_parser.last_text === '') {
+            var tag_name = multi_parser.token_text.match(/\w+/)[0];
+            var tag_extracted_from_last_output = multi_parser.output[multi_parser.output.length -1].match(/<\s*(\w+)/);
+            if (tag_extracted_from_last_output === null || tag_extracted_from_last_output[1] !== tag_name)
+                multi_parser.print_newline(true, multi_parser.output);
+        }
+        multi_parser.print_token(multi_parser.token_text);
+        multi_parser.current_mode = 'CONTENT';
+        break;
+      case 'TK_TAG_SINGLE':
+        // Don't add a newline before elements that should remain unformatted.
+        var tag_check = multi_parser.token_text.match(/^\s*<([a-z]+)/i);
+        if (!tag_check || !multi_parser.Utils.in_array(tag_check[1], unformatted)){
+            multi_parser.print_newline(false, multi_parser.output);
+        }
+        multi_parser.print_token(multi_parser.token_text);
+        multi_parser.current_mode = 'CONTENT';
+        break;
+      case 'TK_CONTENT':
+        if (multi_parser.token_text !== '') {
+          multi_parser.print_token(multi_parser.token_text);
+        }
+        multi_parser.current_mode = 'TAG';
+        break;
+      case 'TK_STYLE':
+      case 'TK_SCRIPT':
+        if (multi_parser.token_text !== '') {
+          multi_parser.output.push('\n');
+          var text = multi_parser.token_text;
+          if (multi_parser.token_type == 'TK_SCRIPT') {
+            var _beautifier = typeof js_beautify == 'function' && js_beautify;
+          } else if (multi_parser.token_type == 'TK_STYLE') {
+            var _beautifier = typeof css_beautify == 'function' && css_beautify;
+          }
+
+          if (options.indent_scripts == "keep") {
+            var script_indent_level = 0;
+          } else if (options.indent_scripts == "separate") {
+            var script_indent_level = -multi_parser.indent_level;
+          } else {
+            var script_indent_level = 1;
+          }
+
+          var indentation = multi_parser.get_full_indent(script_indent_level);
+          if (_beautifier) {
+            // call the Beautifier if avaliable
+            text = _beautifier(text.replace(/^\s*/, indentation), options);
+          } else {
+            // simply indent the string otherwise
+            var white = text.match(/^\s*/)[0];
+            var _level = white.match(/[^\n\r]*$/)[0].split(multi_parser.indent_string).length - 1;
+            var reindent = multi_parser.get_full_indent(script_indent_level -_level);
+            text = text.replace(/^\s*/, indentation)
+                   .replace(/\r\n|\r|\n/g, '\n' + reindent)
+                   .replace(/\s*$/, '');
+          }
+          if (text) {
+            multi_parser.print_token(text);
+            multi_parser.print_newline(true, multi_parser.output);
+          }
+        }
+        multi_parser.current_mode = 'TAG';
+        break;
+    }
+    multi_parser.last_token = multi_parser.token_type;
+    multi_parser.last_text = multi_parser.token_text;
+  }
+  return multi_parser.output.join('');
+}
+
+module.exports = {
+  prettyPrint: style_html
+};
+},{}],21:[function(require,module,exports){
+module.exports = require("./stream/stream")
+},{"./stream/stream":22}],22:[function(require,module,exports){
+"use strict"
+
+var guid = 0, HALT = {}
+function createStream() {
+	function stream() {
+		if (arguments.length > 0 && arguments[0] !== HALT) updateStream(stream, arguments[0])
+		return stream._state.value
+	}
+	initStream(stream)
+
+	if (arguments.length > 0 && arguments[0] !== HALT) updateStream(stream, arguments[0])
+
+	return stream
+}
+function initStream(stream) {
+	stream.constructor = createStream
+	stream._state = {id: guid++, value: undefined, state: 0, derive: undefined, recover: undefined, deps: {}, parents: [], endStream: undefined}
+	stream.map = stream["fantasy-land/map"] = map, stream["fantasy-land/ap"] = ap, stream["fantasy-land/of"] = createStream
+	stream.valueOf = valueOf, stream.toJSON = toJSON, stream.toString = valueOf
+
+	Object.defineProperties(stream, {
+		end: {get: function() {
+			if (!stream._state.endStream) {
+				var endStream = createStream()
+				endStream.map(function(value) {
+					if (value === true) unregisterStream(stream), unregisterStream(endStream)
+					return value
+				})
+				stream._state.endStream = endStream
+			}
+			return stream._state.endStream
+		}}
+	})
+}
+function updateStream(stream, value) {
+	updateState(stream, value)
+	for (var id in stream._state.deps) updateDependency(stream._state.deps[id], false)
+	finalize(stream)
+}
+function updateState(stream, value) {
+	stream._state.value = value
+	stream._state.changed = true
+	if (stream._state.state !== 2) stream._state.state = 1
+}
+function updateDependency(stream, mustSync) {
+	var state = stream._state, parents = state.parents
+	if (parents.length > 0 && parents.every(active) && (mustSync || parents.some(changed))) {
+		var value = stream._state.derive()
+		if (value === HALT) return false
+		updateState(stream, value)
+	}
+}
+function finalize(stream) {
+	stream._state.changed = false
+	for (var id in stream._state.deps) stream._state.deps[id]._state.changed = false
+}
+
+function combine(fn, streams) {
+	if (!streams.every(valid)) throw new Error("Ensure that each item passed to m.prop.combine/m.prop.merge is a stream")
+	return initDependency(createStream(), streams, function() {
+		return fn.apply(this, streams.concat([streams.filter(changed)]))
+	})
+}
+
+function initDependency(dep, streams, derive) {
+	var state = dep._state
+	state.derive = derive
+	state.parents = streams.filter(notEnded)
+
+	registerDependency(dep, state.parents)
+	updateDependency(dep, true)
+
+	return dep
+}
+function registerDependency(stream, parents) {
+	for (var i = 0; i < parents.length; i++) {
+		parents[i]._state.deps[stream._state.id] = stream
+		registerDependency(stream, parents[i]._state.parents)
+	}
+}
+function unregisterStream(stream) {
+	for (var i = 0; i < stream._state.parents.length; i++) {
+		var parent = stream._state.parents[i]
+		delete parent._state.deps[stream._state.id]
+	}
+	for (var id in stream._state.deps) {
+		var dependent = stream._state.deps[id]
+		var index = dependent._state.parents.indexOf(stream)
+		if (index > -1) dependent._state.parents.splice(index, 1)
+	}
+	stream._state.state = 2 //ended
+	stream._state.deps = {}
+}
+
+function map(fn) {return combine(function(stream) {return fn(stream())}, [this])}
+function ap(stream) {return combine(function(s1, s2) {return s1()(s2())}, [stream, this])}
+function valueOf() {return this._state.value}
+function toJSON() {return this._state.value != null && typeof this._state.value.toJSON === "function" ? this._state.value.toJSON() : this._state.value}
+
+function valid(stream) {return stream._state }
+function active(stream) {return stream._state.state === 1}
+function changed(stream) {return stream._state.changed}
+function notEnded(stream) {return stream._state.state !== 2}
+
+function merge(streams) {
+	return combine(function() {
+		return streams.map(function(s) {return s()})
+	}, streams)
+}
+createStream["fantasy-land/of"] = createStream
+createStream.merge = merge
+createStream.combine = combine
+createStream.HALT = HALT
+
+if (typeof module !== "undefined") module["exports"] = createStream
+else window.stream = createStream
+
+},{}]},{},[11]);
  })();

@@ -1,11 +1,11 @@
-var Settings = function(context, helpers, events ) {
+const Settings = function(context, helpers, events ) {
 	'use strict';
 
 	// vars
-	var form = context.querySelector('form');
-	var listInputs = context.querySelectorAll('.mc4wp-list-input');
-	var lists = mc4wp_vars.mailchimp.lists;
-	var selectedLists = [];
+    let form = context.querySelector('form');
+    let listInputs = context.querySelectorAll('.mc4wp-list-input');
+    let lists = mc4wp_vars.mailchimp.lists;
+    let selectedLists = [];
 
 	// functions
 	function getSelectedListsWhere(searchKey,searchValue) {
@@ -37,11 +37,11 @@ var Settings = function(context, helpers, events ) {
 	}
 
 	function toggleVisibleLists() {
-		var rows = document.querySelectorAll('.lists--only-selected > *');
+		let rows = document.querySelectorAll('.lists--only-selected > *');
 		Array.prototype.forEach.call(rows, function(el) {
 
-			var listId = el.getAttribute('data-list-id');
-			var isSelected = getSelectedListsWhere('id', listId).length > 0;
+            let listId = el.getAttribute('data-list-id');
+            let isSelected = getSelectedListsWhere('id', listId).length > 0;
 
 			if( isSelected ) {
 				el.setAttribute('class', el.getAttribute('class').replace('hidden',''));

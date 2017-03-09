@@ -1,10 +1,9 @@
 'use strict';
 
-var render = require('../third-party/render.js');
-var html_beautify = require('../third-party/beautify-html.js');
+const htmlutil = require('html');
 
-var g = function(m) {
-	var generators = {};
+const g = function(m) {
+	let generators = {};
 
 	/**
 	 * Generates a <select> field
@@ -12,25 +11,30 @@ var g = function(m) {
 	 * @returns {*}
 	 */
 	generators.select = function (config) {
-		var attributes = {
+        let attributes = {
 			name: config.name(),
 			required: config.required()
 		};
-		var hasSelection = false;
+        let hasSelection = false;
 
-		var options = config.choices().map(function (choice) {
+        let options = config.choices().map(function (choice) {
 
 			if( choice.selected() ) {
 				hasSelection = true;
 			}
 
 			return m('option', {
-				value   : ( choice.value() !== choice.label() ) ? choice.value() : undefined,
-				"selected": choice.selected()
+				value: ( choice.value() !== choice.label() ) ? choice.value() : undefined,
+				"selected": choice.selected(),
+                oncreate: function(vnode) {
+                    if(vnode.dom.selected) {
+                        vnode.dom.setAttribute("selected", "true");
+                    }
+                }
 			}, choice.label())
 		});
 
-		var placeholder = config.placeholder();
+		const placeholder = config.placeholder();
 		if(placeholder.length > 0 ) {
 			options.unshift(
 				m('option', {
@@ -51,9 +55,9 @@ var g = function(m) {
 	 * @returns {*}
 	 */
 	generators.checkbox = function (config) {
-		var field = config.choices().map(function (choice) {
-			var name = config.name() + ( config.type() === 'checkbox' ? '[]' : '' );
-			var required = config.required() && config.type() === 'radio';
+		let fields = config.choices().map(function (choice) {
+            const name = config.name() + ( config.type() === 'checkbox' ? '[]' : '' );
+			const required = config.required() && config.type() === 'radio';
 
 			return m('label', [
 					m('input', {
@@ -61,7 +65,12 @@ var g = function(m) {
 						type    : config.type(),
 						value   : choice.value(),
 						checked : choice.selected(),
-						required: required
+						required: required,
+                        oncreate: function(vnode) {
+						    if(vnode.dom.checked) {
+						        vnode.dom.setAttribute("checked", "true");
+                            }
+                        },
 					}),
 					' ',
 					m('span', choice.label())
@@ -69,7 +78,7 @@ var g = function(m) {
 			)
 		});
 		
-		return field;
+		return fields;
 	};
 	generators.radio = generators.checkbox;
 
@@ -82,11 +91,10 @@ var g = function(m) {
 	 * @returns {*}
 	 */
 	generators['default'] = function (config) {
-
-		var attributes = {
+		let attributes = {
 			type: config.type()
 		};
-		var field;
+
 
 		if (config.name()) {
 			attributes.name = config.name();
@@ -110,8 +118,7 @@ var g = function(m) {
 
 		attributes.required = config.required();
 
-		field = m('input', attributes);
-		return field;
+		return m('input', attributes);
 	};
 
 	/**
@@ -121,18 +128,18 @@ var g = function(m) {
 	 * @returns {*}
 	 */
 	function generate(config) {
-		var label, field, htmlTemplate, html;
+		let label, field, htmlTemplate, html,
+			vdom = document.createElement('div');
 
-		label = config.label().length ? m("label", config.label()) : '';
+		label = config.label().length > 0 ? m("label", {}, config.label()) : '';
 		field = typeof(generators[config.type()]) === "function" ? generators[config.type()](config) : generators['default'](config);
-
 		htmlTemplate = config.wrap() ? m('p', [label, field]) : [label, field];
 
-		// render HTML on memory node
-		html = render(htmlTemplate);
+		// render in vdom
+		m.render(vdom, htmlTemplate);
 
 		// prettify html
-		html = html_beautify(html);
+		html = htmlutil.prettyPrint(vdom.innerHTML);
 
 		return html + "\n";
 	}

@@ -2,51 +2,11 @@
 'use strict';
 
 // deps & vars
+
 var mc4wp = window.mc4wp || {};
 var Gator = require('gator');
 var forms = require('./forms/forms.js');
 var config = window.mc4wp_forms_config || {};
-
-// expose forms object
-mc4wp.forms = forms;
-
-// bail early if we're on IE8
-if( ! window.addEventListener ) {
-	return;
-}
-
-mc4wp.init = function() {
-	// hide fields with [data-show-if] attribute
-    var optionalInputs = document.querySelectorAll('.mc4wp-form [data-show-if], .mc4wp-form [data-hide-if]');
-    [].forEach.call(optionalInputs, function(el) {
-        var show = !!el.getAttribute('data-show-if');
-        var condition = show ? el.getAttribute('data-show-if').split(':') : el.getAttribute('data-hide-if').split(':');
-        var fields = document.querySelectorAll('.mc4wp-form [name="' + condition[0] + '"]');
-        var expectedValue = condition[1] || "";
-        var callback = toggleElement(el, expectedValue, show);
-
-        for(var i=0; i<fields.length; i++) {
-            fields[i].addEventListener('change', callback);
-            fields[i].addEventListener('keyup', callback);
-            callback.call(fields[i]);
-        }
-
-        // remove attribute so we don't bind twice
-		el.removeAttribute('data-show-if');
-        el.removeAttribute('data-hide-if');
-    });
-
-	// register early listeners
-	if( mc4wp.listeners ) {
-		var listeners = mc4wp.listeners;
-        for(var i=0; i<listeners.length;i++) {
-            forms.on(listeners[i].event, listeners[i].callback);
-        }
-
-        // delete temp listeners array, so we don't bind twice
-        delete mc4wp["listeners"];
-	}
-};
 
 // funcs
 function scrollToForm(form) {
@@ -57,26 +17,26 @@ function scrollToForm(form) {
 	form.element.scrollIntoView(args);
 }
 
-function handleFormRequest(form, action, errors, data){
+function handleFormRequest(form, action, errors, data) {
 	var pageHeight = document.body.clientHeight;
 	var timeStart = Date.now();
 
 	// re-populate form
-	if( errors ) {
+	if (errors) {
 		form.setData(data);
 	}
 
-	if( config.auto_scroll ) {
+	if (config.auto_scroll) {
 		scrollToForm(form);
 	}
 
 	// trigger events on window.load so all other scripts have loaded
-	window.addEventListener('load', function() {
+	window.addEventListener('load', function () {
 		var timeElapsed = Date.now() - timeStart;
 
 		// scroll to form again if page height changed since last scroll
 		// (only if load didn't take more than 0.8 seconds to prevent overtaking user scroll)
-		if( config.auto_scroll && timeElapsed < 800 && document.body.clientHeight != pageHeight ) {
+		if (config.auto_scroll && timeElapsed < 800 && document.body.clientHeight != pageHeight) {
 			scrollToForm(form);
 		}
 
@@ -84,7 +44,7 @@ function handleFormRequest(form, action, errors, data){
 		forms.trigger('submitted', [form]);
 		forms.trigger(form.id + '.submitted', [form]);
 
-		if( errors ) {
+		if (errors) {
 			forms.trigger('error', [form, errors]);
 			forms.trigger(form.id + '.error', [form, errors]);
 		} else {
@@ -99,52 +59,89 @@ function handleFormRequest(form, action, errors, data){
 	});
 }
 
-function toggleElement(el, expectedValue, show ) {
-	return function() {
+function toggleElement(el, expectedValue, show) {
+	return function () {
 		var value = this.value.trim();
-		var checked = ( this.getAttribute('type') !== 'radio' && this.getAttribute('type') !== 'checked' ) || this.checked;
-		var conditionMet = checked && ( ( value === expectedValue && expectedValue !== "" ) || ( expectedValue === "" && value.length > 0 ) );
-		if(show){
-			el.style.display = ( conditionMet ) ? '' : 'none';
-		}else{
-			el.style.display = ( conditionMet ) ? 'none' : '';
+		var checked = this.getAttribute('type') !== 'radio' && this.getAttribute('type') !== 'checked' || this.checked;
+		var conditionMet = checked && (value === expectedValue && expectedValue !== "" || expectedValue === "" && value.length > 0);
+		if (show) {
+			el.style.display = conditionMet ? '' : 'none';
+		} else {
+			el.style.display = conditionMet ? 'none' : '';
 		}
-	}
+	};
 }
 
+function toggleConditionalElements() {
+	var input = this;
+	var elements = input.form.querySelectorAll('[data-show-if], [data-hide-if]');
+	var inputName = (input.getAttribute('name') || '').toLowerCase();
 
-// Bind browser events to form events (using delegation)
-Gator(document.body).on('submit', '.mc4wp-form', function(event) {
-	var form = forms.getByElement(event.target || event.srcElement);
-	forms.trigger('submit', [form, event]);
-	forms.trigger(form.id + '.submit', [ form, event]);
+	[].forEach.call(elements, function (el) {
+		var show = !!el.getAttribute('data-show-if');
+		var conditions = show ? el.getAttribute('data-show-if').split(':') : el.getAttribute('data-hide-if').split(':');
+		var nameCondition = conditions[0];
+		var valueCondition = conditions[1] || "";
+
+		if (inputName !== nameCondition.toLowerCase()) {
+			return;
+		}
+
+		var callback = toggleElement(el, valueCondition, show);
+		callback.call(input);
+	});
+}
+
+Gator(document.body).on('keyup', '.mc4wp-form input, .mc4wp-form textarea, .mc4wp-form select', toggleConditionalElements);
+Gator(document.body).on('change', '.mc4wp-form input, .mc4wp-form textarea, .mc4wp-form select', toggleConditionalElements);
+window.addEventListener('load', function () {
+	[].forEach.call(document.querySelectorAll('.mc4wp-form input, .mc4wp-form textarea, .mc4wp-form select'), function (el) {
+		toggleConditionalElements.call(el);
+	});
 });
 
-Gator(document.body).on('focus', '.mc4wp-form', function(event) {
+// Bind browser events to form events (using delegation)
+Gator(document.body).on('submit', '.mc4wp-form', function (event) {
+	var form = forms.getByElement(event.target || event.srcElement);
+	forms.trigger('submit', [form, event]);
+	forms.trigger(form.id + '.submit', [form, event]);
+});
+
+Gator(document.body).on('focus', '.mc4wp-form', function (event) {
 	var form = forms.getByElement(event.target || event.srcElement);
 
-	if( ! form.started ) {
+	if (!form.started) {
 		forms.trigger('started', [form, event]);
 		forms.trigger(form.id + '.started', [form, event]);
 		form.started = true;
 	}
 });
 
-Gator(document.body).on('change', '.mc4wp-form', function(event) {
+Gator(document.body).on('change', '.mc4wp-form', function (event) {
 	var form = forms.getByElement(event.target || event.srcElement);
-	forms.trigger('change', [form,event]);
-	forms.trigger(form.id + '.change', [form,event]);
+	forms.trigger('change', [form, event]);
+	forms.trigger(form.id + '.change', [form, event]);
 });
 
+// register early listeners
+if (mc4wp.listeners) {
+	var listeners = mc4wp.listeners;
+	for (var i = 0; i < listeners.length; i++) {
+		forms.on(listeners[i].event, listeners[i].callback);
+	}
 
-// call init func
-mc4wp.init();
+	// delete temp listeners array, so we don't bind twice
+	delete mc4wp["listeners"];
+}
+
+// expose forms object
+mc4wp.forms = forms;
 
 // handle submitted form
-if( config.submitted_form ) {
+if (config.submitted_form) {
 	var formConfig = config.submitted_form,
-		element = document.getElementById(formConfig.element_id),
-		form = forms.getByElement(element);
+	    element = document.getElementById(formConfig.element_id),
+	    form = forms.getByElement(element);
 
 	handleFormRequest(form, formConfig.action, formConfig.errors, formConfig.data);
 }
@@ -152,14 +149,13 @@ if( config.submitted_form ) {
 // expose mc4wp object globally
 window.mc4wp = mc4wp;
 
-
 },{"./forms/forms.js":3,"gator":5}],2:[function(require,module,exports){
 'use strict';
 
 var serialize = require('form-serialize');
 var populate = require('populate.js');
 
-var Form = function(id, element) {
+var Form = function Form(id, element) {
 	this.id = id;
 	this.element = element || document.createElement('form');
 	this.name = this.element.getAttribute('data-name') || "Form #" + this.id;
@@ -167,28 +163,28 @@ var Form = function(id, element) {
 	this.started = false;
 };
 
-Form.prototype.setData = function(data) {
+Form.prototype.setData = function (data) {
 	try {
 		populate(this.element, data);
-	} catch(e) {
+	} catch (e) {
 		console.error(e);
 	}
 };
 
-Form.prototype.getData = function() {
+Form.prototype.getData = function () {
 	return serialize(this.element, { hash: true });
 };
 
-Form.prototype.getSerializedData = function() {
+Form.prototype.getSerializedData = function () {
 	return serialize(this.element);
 };
 
-Form.prototype.setResponse = function( msg ) {
+Form.prototype.setResponse = function (msg) {
 	this.element.querySelector('.mc4wp-response').innerHTML = msg;
 };
 
 // revert back to original state
-Form.prototype.reset = function() {
+Form.prototype.reset = function () {
 	this.setResponse('');
 	this.element.querySelector('.mc4wp-form-fields').style.display = '';
 	this.element.reset();
@@ -200,6 +196,7 @@ module.exports = Form;
 'use strict';
 
 // deps
+
 var EventEmitter = require('wolfy87-eventemitter');
 var Form = require('./form.js');
 
@@ -212,23 +209,23 @@ var forms = [];
 function get(formId) {
 
 	// do we have form for this one already?
-	for(var i=0; i<forms.length;i++) {
-		if(forms[i].id == formId) {
+	for (var i = 0; i < forms.length; i++) {
+		if (forms[i].id == formId) {
 			return forms[i];
 		}
 	}
 
 	// try to create from first occurence of this element
 	var formElement = document.querySelector('.mc4wp-form-' + formId);
-	return createFromElement(formElement,formId);
+	return createFromElement(formElement, formId);
 }
 
 // get form by <form> element (or any input in form)
 function getByElement(element) {
 	var formElement = element.form || element;
 
-	for(var i=0; i < forms.length; i++) {
-		if(forms[i].element == formElement) {
+	for (var i = 0; i < forms.length; i++) {
+		if (forms[i].element == formElement) {
 			return forms[i];
 		}
 	}
@@ -238,7 +235,7 @@ function getByElement(element) {
 
 // create form object from <form> element
 function createFromElement(formElement, id) {
-	id = id || parseInt( formElement.getAttribute('data-id') ) || 0;
+	id = id || parseInt(formElement.getAttribute('data-id')) || 0;
 	var form = new Form(id, formElement);
 	forms.push(form);
 	return form;
@@ -256,7 +253,6 @@ module.exports = {
 	"trigger": events.trigger.bind(events),
 	"off": events.off.bind(events)
 };
-
 
 },{"./form.js":2,"wolfy87-eventemitter":7}],4:[function(require,module,exports){
 // get successful control from form and assemble into object
@@ -975,13 +971,13 @@ module.exports = serialize;
 }(this));
 },{}],7:[function(require,module,exports){
 /*!
- * EventEmitter v4.2.11 - git.io/ee
+ * EventEmitter v5.1.0 - git.io/ee
  * Unlicense - http://unlicense.org/
  * Oliver Caldwell - http://oli.me.uk/
  * @preserve
  */
 
-;(function () {
+;(function (exports) {
     'use strict';
 
     /**
@@ -994,7 +990,6 @@ module.exports = serialize;
 
     // Shortcuts to improve speed and size
     var proto = EventEmitter.prototype;
-    var exports = this;
     var originalGlobalValue = exports.EventEmitter;
 
     /**
@@ -1095,6 +1090,16 @@ module.exports = serialize;
         return response || listeners;
     };
 
+    function isValidListener (listener) {
+        if (typeof listener === 'function' || listener instanceof RegExp) {
+            return true
+        } else if (listener && typeof listener === 'object') {
+            return isValidListener(listener.listener)
+        } else {
+            return false
+        }
+    }
+
     /**
      * Adds a listener function to the specified event.
      * The listener will not be added if it is a duplicate.
@@ -1106,6 +1111,10 @@ module.exports = serialize;
      * @return {Object} Current instance of EventEmitter for chaining.
      */
     proto.addListener = function addListener(evt, listener) {
+        if (!isValidListener(listener)) {
+            throw new TypeError('listener must be a function');
+        }
+
         var listeners = this.getListenersAsObject(evt);
         var listenerIsWrapped = typeof listener === 'object';
         var key;
@@ -1344,9 +1353,8 @@ module.exports = serialize;
         for (key in listenersMap) {
             if (listenersMap.hasOwnProperty(key)) {
                 listeners = listenersMap[key].slice(0);
-                i = listeners.length;
 
-                while (i--) {
+                for (i = 0; i < listeners.length; i++) {
                     // If the listener returns true then it shall be removed from the event
                     // The function is executed either with a basic call or an apply if there is an args array
                     listener = listeners[i];
@@ -1447,7 +1455,7 @@ module.exports = serialize;
     else {
         exports.EventEmitter = EventEmitter;
     }
-}.call(this));
+}(this || {}));
 
 },{}]},{},[1]);
  })();
