@@ -225,7 +225,7 @@
 				do_action( 'mc4wp_admin_after_' . $integration->slug . '_integration_settings', $integration, $opts );
 				?>
 
-				<?php submit_button(); ?>
+				<?php if( count( $integration->get_ui_elements() ) > 0 ) { submit_button(); } ?>
 
 			</form>
 
