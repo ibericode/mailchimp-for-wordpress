@@ -1,0 +1,166 @@
+<?php if ( ! defined( 'ABSPATH' ) ) exit;
+
+/**
+ * Class MC4WP_Ninja_Forms_Action
+ */
+final class MC4WP_Ninja_Forms_Action extends NF_Abstracts_ActionNewsletter
+{
+    /**
+     * @var string
+     */
+    protected $_name  = 'mc4wp_subscribe';
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->_nicename = __( 'MailChimp', 'mailchimp-for-wp' );
+
+        $this->_settings[ 'double_optin' ] = array(
+            'name' => 'double_optin',
+            'type' => 'select',
+            'label' => __( 'Use double opt-in?', 'mailchimp-for-wp'),
+            'width' => 'full',
+            'group' => 'primary',
+            'value' => 1,
+            'options' => array(
+               array(
+                   'value' => 1,
+                   'label' => 'Yes',
+               ),
+                array(
+                    'value' => 0,
+                    'label' => 'No',
+                ),
+            ),
+        );
+
+        $this->_settings[ 'update_existing' ] = array(
+            'name' => 'update_existing',
+            'type' => 'select',
+            'label' => __( 'Update existing subscribers?', 'mailchimp-for-wp'),
+            'width' => 'full',
+            'group' => 'primary',
+            'value' => 0,
+            'options' => array(
+                array(
+                    'value' => 1,
+                    'label' => 'Yes',
+                ),
+                array(
+                    'value' => 0,
+                    'label' => 'No',
+                ),
+            ),
+        );
+
+        $this->_settings[ 'replace_interests' ] = array(
+            'name' => 'replace_interests',
+            'type' => 'select',
+            'label' => __( 'Replace existing interest groups?', 'mailchimp-for-wp'),
+            'width' => 'full',
+            'group' => 'primary',
+            'value' => 0,
+            'options' => array(
+                array(
+                    'value' => 1,
+                    'label' => 'Yes',
+                ),
+                array(
+                    'value' => 0,
+                    'label' => 'No',
+                ),
+            ),
+        );
+    }
+
+    /*
+    * PUBLIC METHODS
+    */
+
+    public function save( $action_settings )
+    {
+
+    }
+
+    public function process( $action_settings, $form_id, $data )
+    {
+        if( empty( $action_settings['newsletter_list'] ) || empty( $action_settings['EMAIL'] ) ) {
+            return;
+        }
+
+        // find "mc4wp_optin" type field, bail if not checked.
+        foreach( $data['fields'] as $field_data ) {
+            if( $field_data['type'] === 'mc4wp_optin' && empty( $field_data['value'] ) ) {
+                return;
+            }
+        }
+
+        $list_id = $action_settings['newsletter_list'];
+        $email_address = $action_settings['EMAIL'];
+        $mailchimp = new MC4WP_MailChimp();
+        $list = $mailchimp->get_list( $list_id );
+
+        $merge_fields = array();
+        foreach( $list->merge_fields as $merge_field ) {
+            if( ! empty( $action_settings[ $merge_field->tag ] ) ) {
+                $merge_fields[ $merge_field->tag ] = $action_settings[ $merge_field->tag ];
+            }
+        }
+
+        $args = array(
+            'email_address' => $email_address,
+            'merge_fields' => $merge_fields,
+            'status' => $action_settings['double_optin'] == '0' ? 'subscribed' : 'pending',
+        );
+
+        $update_existing = $action_settings['update_existing'] == '1';
+        $replace_interests = $action_settings['replace_interests'] == '1';
+
+        // make API call
+        $subscriber = $mailchimp->list_subscribe( $list_id, $email_address, $args, $update_existing, $replace_interests );
+
+        // log errors
+        if( ! $subscriber && $mailchimp->has_error() ) {
+            $log = mc4wp('log');
+            $log->error( sprintf( 'Ninja Forms > MailChimp API error: %s %s', $mailchimp->get_error_code(), $mailchimp->get_error_message() ) );
+        }
+    }
+
+    protected function get_lists()
+    {
+        $mailchimp = new MC4WP_MailChimp();
+
+        /** @var MC4WP_MailChimp_List[] $lists */
+        $lists = $mailchimp->get_cached_lists();
+        $return = array();
+
+        foreach( $lists as $list ) {
+
+            $list_fields = array();
+            foreach( $list->merge_fields as $merge_field ) {
+                $list_fields[] = array(
+                    'value' => $merge_field->tag,
+                    'label' => $merge_field->name,
+                );
+            }
+
+//            TODO: Add support for groups once base class supports this.
+//            $list_groups = array();
+//            foreach( $list->interest_categories as $category ) {
+//
+//            }
+
+            $return[] = array(
+                'value' => $list->id,
+                'label' => $list->name,
+                'fields' => $list_fields,
+            );
+        }
+
+        return $return;
+    }
+}

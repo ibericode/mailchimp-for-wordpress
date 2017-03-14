@@ -110,7 +110,7 @@ function _mc4wp_load_plugin() {
 	return true;
 }
 
-add_action( 'plugins_loaded', '_mc4wp_load_plugin', 20 );
+add_action( 'plugins_loaded', '_mc4wp_load_plugin', 8 );
 
 /**
  * Flushes transient cache & schedules refresh hook.
