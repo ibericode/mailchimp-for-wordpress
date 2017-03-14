@@ -180,7 +180,6 @@ class MC4WP_Form_Listener {
 
         // unsubscribe from each list
 		foreach( $form->get_lists() as $list_id ) {
-            // TODO: Check if on list before proceeding with unsubscribe call?
 			$result = $mailchimp->list_unsubscribe( $list_id, $data['EMAIL'] );
 		}
 

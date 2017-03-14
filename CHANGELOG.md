@@ -1,6 +1,22 @@
 Changelog
 =========
 
+#### 4.1.0 - March 14, 2017
+
+**Improvements**
+
+- Updated all JavaScript dependencies in the plugin.
+- Failsafed filter hooks to prevent invalid variable types.
+- Explain that greyed out integrations means that specific plugin is not activated.
+- Conditional form elements now uses event delegation, so it works with forms in [Boxzilla pop-ups](https://boxzillaplugin.com/).
+- Updated language files.
+
+**Additions**
+
+- Added support for Ninja Forms 3.
+- Added `mc4wp_integration_show_checkbox` filter.
+
+
 #### 4.0.13 - February 8, 2017
 
 **Improvements**
