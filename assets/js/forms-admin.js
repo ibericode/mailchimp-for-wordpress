@@ -211,6 +211,20 @@ module.exports = forms;
 
 var htmlutil = require('html');
 
+var setAttributes = function setAttributes(vnode) {
+	if (vnode.dom.checked) {
+		vnode.dom.setAttribute("checked", "true");
+	}
+
+	if (vnode.dom.value) {
+		vnode.dom.setAttribute('value', vnode.dom.value);
+	}
+
+	if (vnode.dom.selected) {
+		vnode.dom.setAttribute("selected", "true");
+	}
+};
+
 var g = function g(m) {
 	var generators = {};
 
@@ -235,11 +249,7 @@ var g = function g(m) {
 			return m('option', {
 				value: choice.value() !== choice.label() ? choice.value() : undefined,
 				"selected": choice.selected(),
-				oncreate: function oncreate(vnode) {
-					if (vnode.dom.selected) {
-						vnode.dom.setAttribute("selected", "true");
-					}
-				}
+				oncreate: setAttributes
 			}, choice.label());
 		});
 
@@ -248,7 +258,8 @@ var g = function g(m) {
 			options.unshift(m('option', {
 				'disabled': true,
 				'value': '',
-				'selected': !hasSelection
+				'selected': !hasSelection,
+				oncreate: setAttributes
 			}, placeholder));
 		}
 
@@ -272,11 +283,7 @@ var g = function g(m) {
 				value: choice.value(),
 				checked: choice.selected(),
 				required: required,
-				oncreate: function oncreate(vnode) {
-					if (vnode.dom.checked) {
-						vnode.dom.setAttribute("checked", "true");
-					}
-				}
+				oncreate: setAttributes
 			}), ' ', m('span', choice.label())]);
 		});
 
@@ -318,6 +325,7 @@ var g = function g(m) {
 		}
 
 		attributes.required = config.required();
+		attributes.oncreate = setAttributes;
 
 		return m('input', attributes);
 	};

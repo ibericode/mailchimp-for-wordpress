@@ -2,6 +2,20 @@
 
 const htmlutil = require('html');
 
+const setAttributes = function(vnode) {
+    if(vnode.dom.checked) {
+        vnode.dom.setAttribute("checked", "true");
+    }
+
+    if(vnode.dom.value) {
+        vnode.dom.setAttribute('value', vnode.dom.value);
+    }
+
+    if(vnode.dom.selected) {
+        vnode.dom.setAttribute("selected", "true");
+    }
+};
+
 const g = function(m) {
 	let generators = {};
 
@@ -26,11 +40,7 @@ const g = function(m) {
 			return m('option', {
 				value: ( choice.value() !== choice.label() ) ? choice.value() : undefined,
 				"selected": choice.selected(),
-                oncreate: function(vnode) {
-                    if(vnode.dom.selected) {
-                        vnode.dom.setAttribute("selected", "true");
-                    }
-                }
+                oncreate: setAttributes,
 			}, choice.label())
 		});
 
@@ -40,7 +50,8 @@ const g = function(m) {
 				m('option', {
 					'disabled': true,
 					'value': '',
-					'selected': ! hasSelection
+					'selected': ! hasSelection,
+                    oncreate: setAttributes,
 				}, placeholder)
 			);
 		}
@@ -66,11 +77,7 @@ const g = function(m) {
 						value   : choice.value(),
 						checked : choice.selected(),
 						required: required,
-                        oncreate: function(vnode) {
-						    if(vnode.dom.checked) {
-						        vnode.dom.setAttribute("checked", "true");
-                            }
-                        },
+                        oncreate: setAttributes,
 					}),
 					' ',
 					m('span', choice.label())
@@ -117,6 +124,7 @@ const g = function(m) {
 		}
 
 		attributes.required = config.required();
+		attributes.oncreate = setAttributes;
 
 		return m('input', attributes);
 	};
