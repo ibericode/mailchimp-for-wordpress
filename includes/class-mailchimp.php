@@ -297,15 +297,15 @@ class MC4WP_MailChimp {
 	/**
 	 * Get a given MailChimp list
 	 *
-	 * @param int $list_id
+	 * @param string $list_id
 	 *
 	 * @return MC4WP_MailChimp_List
 	 */
 	public function get_list( $list_id ) {
 		$lists = $this->get_cached_lists( true );
 
-		if( isset( $lists[$list_id] ) ) {
-			return $lists[$list_id];
+		if( isset( $lists["{$list_id}"] ) ) {
+			return $lists["{$list_id}"];
 		}
 
 		return new MC4WP_MailChimp_List( '', 'Unknown List' );
@@ -378,7 +378,7 @@ class MC4WP_MailChimp {
 		// start calculating subscribers count for all given list ID's combined
 		$count = 0;
 		foreach ( $list_ids as $id ) {
-			$count += ( isset( $counts[$id] ) ) ? $counts[$id] : 0;
+			$count += ( isset( $counts["{$id}"] ) ) ? $counts["{$id}"] : 0;
 		}
 
 		/**
