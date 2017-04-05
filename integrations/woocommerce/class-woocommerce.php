@@ -87,10 +87,10 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 		$order = wc_get_order( $order_id );
 
 		$data = array(
-			'EMAIL' => $order->billing_email,
-			'NAME' => "{$order->billing_first_name} {$order->billing_last_name}",
-			'FNAME' => $order->billing_first_name,
-			'LNAME' => $order->billing_last_name,
+			'EMAIL' => $order->get_billing_email(),
+			'NAME' => "{$order->get_billing_first_name()} {$order->get_billing_last_name()}",
+			'FNAME' => $order->get_billing_first_name(),
+			'LNAME' => $order->get_billing_last_name(),
 		);
 
 		// TODO: add billing address fields, maybe by finding MailChimp field of type "address"?
