@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp forms, mailchimp integrations
 Requires at least: 4.1
 Tested up to: 4.7.3
-Stable tag: 4.1.0
+Stable tag: 4.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -192,6 +192,18 @@ MailChimp for WordPress comes with many filter & action hooks which allow you to
 6. Detailed statistics on which methods are generating the most subscribers. **(Pro Feature)**
 
 == Changelog == 
+
+
+#### 4.1.1 - April 11, 2017
+
+**Fixes**
+
+- WPML String Translation not working with the checkbox label for sign-up integrations.
+
+**Improvements**
+
+- Use updated order methods when using WooCommerce 3.0, thanks to Liam McArthur.
+- Updated JavaScript dependencies.
 
 
 #### 4.1.0 - March 14, 2017
