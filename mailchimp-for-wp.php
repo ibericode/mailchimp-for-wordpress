@@ -74,10 +74,11 @@ function _mc4wp_load_plugin() {
 	$mc4wp['integrations'] = new MC4WP_Integration_Manager();
 	$mc4wp['integrations']->add_hooks();
 
-	// bootstrap custom integrations
-	require_once MC4WP_PLUGIN_DIR . 'integrations/bootstrap.php';
+	// schedule bootstrapping of core integrations
+    add_action( 'plugins_loaded', '_mc4wp_bootstrap_integrations', 90 );
 
-	// Doing cron? Load Usage Tracking class.
+
+    // Doing cron? Load Usage Tracking class.
 	if( defined( 'DOING_CRON' ) && DOING_CRON ) {
 		MC4WP_Usage_Tracking::instance()->add_hooks();
 	}
@@ -108,6 +109,11 @@ function _mc4wp_load_plugin() {
 	}
 
 	return true;
+}
+
+// bootstrap custom integrations
+function _mc4wp_bootstrap_integrations() {
+    require_once MC4WP_PLUGIN_DIR . 'integrations/bootstrap.php';
 }
 
 add_action( 'plugins_loaded', '_mc4wp_load_plugin', 8 );
