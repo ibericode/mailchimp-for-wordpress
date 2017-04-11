@@ -28,12 +28,12 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
-    "codemirror": "^5.24.2",
+    "codemirror": "^5.25.0",
     "form-serialize": "^0.7.1",
     "gator": "^1.2.4",
     "html": "^1.0.0",
-    "mithril": "^1.0.1",
-    "populate.js": "^1.0.2",
+    "mithril": "^1.1.1",
+    "populate.js": "^1.0.3",
     "wolfy87-eventemitter": "^5.1.0"
   }
 }

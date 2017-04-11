@@ -906,6 +906,14 @@ module.exports = serialize;
 			var name = key;
 			var value = data[key];
 
+                        if ('undefined' === typeof value) {
+                            value = '';
+                        }
+
+                        if (null === value) {
+                            value = '';
+                        }
+
 			// handle array name attributes
 			if(typeof(basename) !== "undefined") {
 				name = basename + "[" + key + "]";
@@ -950,7 +958,9 @@ module.exports = serialize;
 				case 'select-one':
 					element.value = value.toString() || value;
 					break;
-
+				case 'date':
+          				element.value = new Date(value).toISOString().split('T')[0];	
+					break;
 			}
 
 		}
@@ -969,6 +979,7 @@ module.exports = serialize;
 	}
 
 }(this));
+
 },{}],7:[function(require,module,exports){
 /*!
  * EventEmitter v5.1.0 - git.io/ee
