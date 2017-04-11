@@ -17,12 +17,13 @@
 # Lydie Lardoux <lafelilycouturiere@gmail.com>, 2015
 # Mamadou Gaye Diop <ridialass@gmail.com>, 2016
 # Marie Chausse <mariechausse83@gmail.com>, 2016
+# Martin Dulude <mdulude@duludeit.ca>, 2017
 # sleininger <stef.leininger@gmail.com>, 2014
 # Yan Chardard <ychardard@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2017-03-12 09:52+0000\n"
+"PO-Revision-Date: 2017-03-17 21:29+0000\n"
 "Last-Translator: JAILLET Christophe <c.jaillet@meci.fr>\n"
 "Language-Team: French (France) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -93,13 +94,13 @@ msgstr "Divers"
 
 #: includes/admin/class-admin.php:458
 msgid "Log successfully emptied."
-msgstr ""
+msgstr "Traces vider avec succès."
 
 #: includes/admin/class-admin.php:488
 msgid ""
 "To get started with MailChimp for WordPress, please <a href=\"%s\">enter "
 "your MailChimp API key on the settings page of the plugin</a>."
-msgstr ""
+msgstr "Pour débuter avec MailChimp pour Wordpress, veuillez <a href=\"%s\">inscrire votre clé API de MailChimp dans la page de réglages de l'extension"
 
 #: includes/admin/class-ads.php:39
 msgid ""
@@ -199,7 +200,7 @@ msgstr "En lire plus sur les problèmes de connectivité courants."
 
 #: includes/forms/class-admin.php:62
 msgid "Add to form"
-msgstr ""
+msgstr "Ajouter au formulaire"
 
 #: includes/forms/class-admin.php:63
 msgid "City"
@@ -211,11 +212,11 @@ msgstr "Cases à cocher"
 
 #: includes/forms/class-admin.php:65
 msgid "Choices"
-msgstr ""
+msgstr "Choix"
 
 #: includes/forms/class-admin.php:66
 msgid "Choice type"
-msgstr ""
+msgstr "Type de choix"
 
 #: includes/forms/class-admin.php:67
 msgid "Choose a field to add to the form"
@@ -231,7 +232,7 @@ msgstr "Pays"
 
 #: includes/forms/class-admin.php:70
 msgid "Dropdown"
-msgstr ""
+msgstr "Liste déroulante"
 
 #: includes/forms/class-admin.php:71
 msgid "Field type"
@@ -239,7 +240,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:72
 msgid "Field label"
-msgstr ""
+msgstr "Titre du champ"
 
 #: includes/forms/class-admin.php:73
 msgid "Form action"
@@ -249,7 +250,7 @@ msgstr "Action de formulaire"
 msgid ""
 "This field will allow your visitors to choose whether they would like to "
 "subscribe or unsubscribe"
-msgstr ""
+msgstr "Ce champ va permettre à vos visiteurs de choisir s'ils veulent s'abonner ou se désinscrire. "
 
 #: includes/forms/class-admin.php:75
 msgid "Form fields"
@@ -269,7 +270,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:79
 msgid "Is this field required?"
-msgstr ""
+msgstr "Ce champ est il obligatoire ?"
 
 #: includes/forms/class-admin.php:80
 msgid "List choice"
@@ -306,7 +307,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:88
 msgid "Text to show when field has no value."
-msgstr ""
+msgstr "Texte à afficher lorsque le champ n'est pas renseigné."
 
 #: includes/forms/class-admin.php:89
 msgid "Preselect"
@@ -318,7 +319,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:91
 msgid "Radio buttons"
-msgstr ""
+msgstr "Boutons radio"
 
 #: includes/forms/class-admin.php:92
 msgid "Street Address"
@@ -342,7 +343,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:98
 msgid "Text to prefill this field with."
-msgstr ""
+msgstr "Libellé utilisé pour remplir ce champ."
 
 #: includes/forms/class-admin.php:99
 msgid "ZIP"
@@ -515,25 +516,25 @@ msgstr "Voici ce que nous traçons."
 
 #: includes/views/other-settings.php:37
 msgid "Logging"
-msgstr ""
+msgstr "Journalisation"
 
 #: includes/views/other-settings.php:44
 msgid ""
 "Determines what events should be written to <a href=\"%s\">the debug log</a>"
 " (see below)."
-msgstr ""
+msgstr "Détermine quels événements doivent être enregistrés dans <a href=\"%s\">les traces de mise au point</a> (voir ci-dessous)"
 
 #: includes/views/other-settings.php:99
 msgid "Debug Log"
-msgstr ""
+msgstr "Trace de mise au point"
 
 #: includes/views/other-settings.php:99
 msgid "Filter.."
-msgstr ""
+msgstr "Filtre.."
 
 #: includes/views/other-settings.php:104
 msgid "Log file is not writable."
-msgstr ""
+msgstr "Le fichier de traces n'est pas accessible en écriture."
 
 #: includes/views/other-settings.php:105
 msgid "Please ensure %s has the proper <a href=\"%s\">file permissions</a>."
@@ -541,15 +542,15 @@ msgstr ""
 
 #: includes/views/other-settings.php:123
 msgid "Nothing here. Which means there are no errors!"
-msgstr ""
+msgstr "Rien à signaler. Cela veut dire qu'il n'y a pas d'erreurs !"
 
 #: includes/views/other-settings.php:133
 msgid "Empty Log"
-msgstr ""
+msgstr "Vider les traces"
 
 #: includes/views/other-settings.php:141
 msgid "Right now, the plugin is configured to only log errors and warnings."
-msgstr ""
+msgstr "Actuellement, cette extension est configurée pour ne tracer que les erreurs et les avertissements."
 
 #: includes/admin/migrations/3.0.0-form-1-post-type.php:35
 msgid "Default sign-up form"
@@ -689,7 +690,7 @@ msgstr "Chargement de code CSS par défaut ?"
 
 #: includes/integrations/views/integration-settings.php:145
 msgid "Select \"yes\" if the checkbox appears in a weird place."
-msgstr "Sélectionner \"oui\" si la case à cocher apparaît à un endroit bizarre."
+msgstr "Sélectionnez \"oui\" si la case à cocher apparaît à un endroit bizarre."
 
 #: includes/integrations/views/integration-settings.php:152
 msgid "Double opt-in?"
@@ -711,7 +712,7 @@ msgstr "Mise à jour des données des internautes déjà inscrits ?"
 msgid ""
 "Select \"yes\" if you want to update existing subscribers with the data that"
 " is sent."
-msgstr "Sélectionner \"oui\" si vous souhaitez mettre à jour la liste des abonnés avec les données envoyées."
+msgstr "Sélectionnez \"oui\" si vous souhaitez mettre à jour la liste des abonnés avec les données envoyées."
 
 #: includes/integrations/views/integration-settings.php190,
 #: includes/forms/views/tabs/form-settings.php:68
@@ -766,7 +767,7 @@ msgid ""
 "translated in your language or do you spot errors with the current "
 "translations? Helping out is easy! Head over to <a href=\"%s\">the "
 "translation project and click \"help translate\"</a>."
-msgstr "MailChimp for WordPress a besoin de traductions. Le plugin n'est pas traduit dans votre langue ou vous avez localisé des erreurs dans la traduction? Nous aider est facile! Rendez vous sur <a href=\"%s\">le site de traduction du projet et cliquez sur \"help translate\"</a>"
+msgstr "MailChimp for WordPress a besoin de traductions. Le plugin n'est pas traduit dans votre langue ou vous avez localisé des erreurs dans la traduction ? Nous aider est facile ! Rendez vous sur <a href=\"%s\">le site de traduction du projet et cliquez sur \"help translate\"</a>"
 
 #: includes/views/parts/admin-footer.php:35
 msgid ""
@@ -779,7 +780,7 @@ msgstr "Vous cherchez de l'aide ?"
 
 #: includes/views/parts/admin-sidebar.php:12
 msgid "We have some resources available to help you in the right direction."
-msgstr ""
+msgstr "Nous avons des ressources disponibles pour vous guider."
 
 #: includes/views/parts/admin-sidebar.php:14
 msgid "Knowledge Base"
@@ -859,7 +860,7 @@ msgstr "Voici comment :"
 
 #: includes/forms/views/parts/add-fields-help.php:17
 msgid "Log in to your MailChimp account."
-msgstr "Connectez-vous à votre compte MailChimp"
+msgstr "Connectez-vous à votre compte MailChimp."
 
 #: includes/forms/views/parts/add-fields-help.php:22
 msgid "Add list fields to any of your selected lists."
@@ -927,11 +928,11 @@ msgstr "Thème bleu"
 
 #: includes/forms/views/tabs/form-appearance.php:25
 msgid "Form Appearance"
-msgstr "Apparence du Formulaire"
+msgstr "Apparence du formulaire"
 
 #: includes/forms/views/tabs/form-appearance.php:29
 msgid "Form Style"
-msgstr "Style du Formulaire"
+msgstr "Style du formulaire"
 
 #: includes/forms/views/tabs/form-appearance.php:48
 msgid ""
@@ -1039,7 +1040,7 @@ msgstr "Quand une liste de choix est proposée, c'est ce texte qui s'affiche qua
 
 #: includes/forms/views/tabs/form-messages.php:74
 msgid "Updated"
-msgstr ""
+msgstr "Mis à jour"
 
 #: includes/forms/views/tabs/form-messages.php:77
 msgid "The text that shows when an existing subscriber is updated."

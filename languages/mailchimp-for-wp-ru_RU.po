@@ -9,14 +9,15 @@
 # Eugen Morozov <burateen@gmail.com>, 2015
 # Iggy Pritzker <info@web-design.co.il>, 2016
 # Serge Yurovsky <serge@theleftlane.com>, 2014
+# stinger <ssteves@rambler.ru>, 2017
 # Vadim <sfai.88@gmail.com>, 2015
 # Игорь Игорь <krescigo+trans@ya.ru>, 2017
 # Инна <vorobinn@yandex.ru>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2017-03-14 03:54+0000\n"
-"Last-Translator: Игорь Игорь <krescigo+trans@ya.ru>\n"
+"PO-Revision-Date: 2017-04-11 01:03+0000\n"
+"Last-Translator: stinger <ssteves@rambler.ru>\n"
 "Language-Team: Russian (Russia) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/ru_RU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -598,7 +599,7 @@ msgstr "Введите название вашей формы подписки"
 
 #: includes/forms/views/edit-form.php:65
 msgid "Shortcode"
-msgstr ""
+msgstr "Шорткод"
 
 #: includes/forms/views/edit-form.php:67
 msgid "Get shortcode"
@@ -747,11 +748,11 @@ msgstr "Щелкните имя интеграции, чтобы отредак�
 
 #: includes/integrations/views/integrations.php:79
 msgid "Enabled integrations"
-msgstr ""
+msgstr "Подключенные интеграции"
 
 #: includes/integrations/views/integrations.php:84
 msgid "Available integrations"
-msgstr ""
+msgstr "Доступные интеграции"
 
 #: includes/views/parts/admin-footer.php:15
 msgid ""
@@ -768,7 +769,7 @@ msgstr "Этот плагин никоим образом не связан с �
 
 #: includes/views/parts/admin-sidebar.php:11
 msgid "Looking for help?"
-msgstr ""
+msgstr "Нужна помощь?"
 
 #: includes/views/parts/admin-sidebar.php:12
 msgid "We have some resources available to help you in the right direction."
@@ -776,11 +777,11 @@ msgstr ""
 
 #: includes/views/parts/admin-sidebar.php:14
 msgid "Knowledge Base"
-msgstr ""
+msgstr "База знаний"
 
 #: includes/views/parts/admin-sidebar.php:15
 msgid "Frequently Asked Questions"
-msgstr ""
+msgstr "Часто задаваемые вопросы"
 
 #: includes/views/parts/admin-sidebar.php:16
 msgid "Code reference for developers"
@@ -1032,7 +1033,7 @@ msgstr ""
 
 #: includes/forms/views/tabs/form-messages.php:74
 msgid "Updated"
-msgstr ""
+msgstr "Обновлено"
 
 #: includes/forms/views/tabs/form-messages.php:77
 msgid "The text that shows when an existing subscriber is updated."
