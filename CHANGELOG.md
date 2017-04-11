@@ -9,7 +9,7 @@ Changelog
 
 **Improvements**
 
-- Use updated order methods in WooCommerce 3.0, thanks to Liam McArthur.
+- Use updated order methods when using WooCommerce 3.0, thanks to Liam McArthur.
 - Updated JavaScript dependencies.
 
 
