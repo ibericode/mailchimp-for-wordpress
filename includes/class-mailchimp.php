@@ -268,6 +268,7 @@ class MC4WP_MailChimp {
         }
 
         $list_ids = wp_list_pluck( $lists_data, 'id' );
+		$last_save = time();
 
         /**
          * @var MC4WP_MailChimp_List[]
@@ -278,7 +279,14 @@ class MC4WP_MailChimp {
                 $lists["{$list_id}"] = $this->fetch_list( $list_id );
             } catch( MC4WP_API_Exception $e ) {
                 continue;
-            }
+			}
+
+			// save lists every 20 seconds
+			//if( (time() - $last_save) > 20 ) {
+			//	set_transient( 'mc4wp_mailchimp_lists_v3', $lists, ( 60 * 60 * 24 * 5 ) ); // 5 days
+			//	update_option( 'mc4wp_mailchimp_lists_v3_fallback', $lists, false ); // forever  
+			//	$last_save = time();
+			//}
         }
 
         // store lists in transients
