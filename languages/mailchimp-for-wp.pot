@@ -45,27 +45,31 @@ msgstr ""
 msgid "This can take a while if you have many MailChimp lists."
 msgstr ""
 
-#: includes/admin/class-admin.php:336, includes/views/general-settings.php:31
+#: includes/admin/class-admin.php:309
+msgid "Failed to renew your lists. An error occured."
+msgstr ""
+
+#: includes/admin/class-admin.php:337, includes/views/general-settings.php:31
 msgid "MailChimp API Settings"
 msgstr ""
 
-#: includes/admin/class-admin.php:337
+#: includes/admin/class-admin.php:338
 msgid "MailChimp"
 msgstr ""
 
-#: includes/admin/class-admin.php:343, includes/views/other-settings.php:60, includes/views/other-settings.php:70
+#: includes/admin/class-admin.php:344, includes/views/other-settings.php:60, includes/views/other-settings.php:70
 msgid "Other Settings"
 msgstr ""
 
-#: includes/admin/class-admin.php:344
+#: includes/admin/class-admin.php:345
 msgid "Other"
 msgstr ""
 
-#: includes/admin/class-admin.php:458
+#: includes/admin/class-admin.php:459
 msgid "Log successfully emptied."
 msgstr ""
 
-#: includes/admin/class-admin.php:488
+#: includes/admin/class-admin.php:489
 msgid "To get started with MailChimp for WordPress, please <a href=\"%s\">enter your MailChimp API key on the settings page of the plugin</a>."
 msgstr ""
 

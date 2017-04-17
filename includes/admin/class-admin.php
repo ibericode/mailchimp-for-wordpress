@@ -305,7 +305,8 @@ class MC4WP_Admin {
                     'renew_mailchimp_lists' => __( 'Renew MailChimp lists', 'mailchimp-for-wp' ),
                     'fetching_mailchimp_lists' => __( 'Fetching MailChimp lists', 'mailchimp-for-wp' ),
                     'fetching_mailchimp_lists_done' => __( 'Done! MailChimp lists renewed.', 'mailchimp-for-wp' ),
-                    'fetching_mailchimp_lists_can_take_a_while' => __( 'This can take a while if you have many MailChimp lists.', 'mailchimp-for-wp' )
+					'fetching_mailchimp_lists_can_take_a_while' => __( 'This can take a while if you have many MailChimp lists.', 'mailchimp-for-wp' ),
+					'fetching_mailchimp_lists_error' => __( 'Failed to renew your lists. An error occured.', 'mailchimp-for-wp' ),
 				)
 			)
 		);
