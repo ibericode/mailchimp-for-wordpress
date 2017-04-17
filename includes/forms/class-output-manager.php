@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * Class MC4WP_Form_Output_Manager
  *

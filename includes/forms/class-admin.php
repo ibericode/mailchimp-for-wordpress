@@ -385,7 +385,7 @@ class MC4WP_Forms_Admin {
 	 */
 	public function show_edit_page() {
 		$form_id = ( ! empty( $_GET['form_id'] ) ) ? (int) $_GET['form_id'] : 0;
-		$lists = $this->mailchimp->get_lists();
+		$lists = $this->mailchimp->get_cached_lists(true);
 
 		try{
 			$form = mc4wp_get_form( $form_id );
@@ -408,7 +408,7 @@ class MC4WP_Forms_Admin {
 	 * @internal
 	 */
 	public function show_add_page() {
-		$lists = $this->mailchimp->get_lists();
+		$lists = $this->mailchimp->get_cached_lists(true);
 		$number_of_lists = count( $lists );
 		require dirname( __FILE__ ) . '/views/add-form.php';
 	}
