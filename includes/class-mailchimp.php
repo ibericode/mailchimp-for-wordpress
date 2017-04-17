@@ -256,10 +256,13 @@ class MC4WP_MailChimp {
 	public function fetch_lists() {
 
         // try to increase time limit as this can take a while
-        @set_time_limit(600);
+		$success = set_time_limit(300);
+
+		// if time limit failed, limit result to just 30 lists
+		$limit = $success ? 300 : 30;
 
         try{
-            $lists_data = $this->api->get_lists( array( 'count' => 500, 'fields' => 'lists.id' ) );
+            $lists_data = $this->api->get_lists( array( 'count' => $limit, 'fields' => 'lists.id' ) );
         } catch( MC4WP_API_Exception $e ) {
             return array();
         }
