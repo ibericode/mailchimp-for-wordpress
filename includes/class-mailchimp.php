@@ -213,19 +213,12 @@ class MC4WP_MailChimp {
      * @return MC4WP_MailChimp_List
      */
 	private function fetch_list( $list_id ) {
-        $list_data = $this->api->get_list( $list_id, array( 'fields' => 'id,name,stats' ) );
+        $list_data = $this->api->get_list( $list_id, array( 'fields' => 'id,name,stats,web_id' ) );
 
         // create local object
         $list = new MC4WP_MailChimp_List( $list_data->id, $list_data->name );
         $list->subscriber_count = $list_data->stats->member_count;
-
-        // parse web_id from the "link" response header
-        $headers = $this->api->get_last_response_headers();
-        $link_header = $headers['link'];
-        preg_match( '/\?id=(\d+)/', $link_header, $matches );
-        if( ! empty( $matches[1] ) ) {
-            $list->web_id = $matches[1];
-        };
+		$list->web_id = $list_data->web_id;
 
         // get merge fields (if any)
         if( $list_data->stats->merge_field_count > 0 ) {
