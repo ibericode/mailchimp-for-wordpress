@@ -184,12 +184,12 @@ MailChimp for WordPress comes with many filter & action hooks which allow you to
 
 == Screenshots ==
 
-1. A static sign-up form in the sidebar of the Twenty Fifteen theme.
-2. Highly effective 1-click subscribe option in your comment, registration or other forms.
-3. Use your own fields or use our Field Builder.
-4. Integrations for many popular plugins.
-5. Don't know CSS? No worries, our Styles Builder will do the heavy lifting for you! **(Pro Feature)**
-6. Detailed statistics on which methods are generating the most subscribers. **(Pro Feature)**
+1. Create beautiful sign-up forms that blend in with your theme.
+2. Integrate with any other plugin out there.
+3. Add a highly converting top bar form to your site.
+4. Style your form with our Styles Builder (premium feature).
+5. Integrate your WooCommerce store with MailChimp (premium feature).
+6. Dive into detailed sign-up statistics (premium feature).
 
 == Changelog == 
 
