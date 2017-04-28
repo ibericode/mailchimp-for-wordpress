@@ -74,9 +74,8 @@ function _mc4wp_load_plugin() {
 	$mc4wp['integrations'] = new MC4WP_Integration_Manager();
 	$mc4wp['integrations']->add_hooks();
 
-	// schedule bootstrapping of core integrations
-    add_action( 'plugins_loaded', '_mc4wp_bootstrap_integrations', 90 );
-
+	// bootstrapping of core integrations
+	_mc4wp_bootstrap_integrations();
 
     // Doing cron? Load Usage Tracking class.
 	if( defined( 'DOING_CRON' ) && DOING_CRON ) {
