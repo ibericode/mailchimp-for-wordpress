@@ -91,7 +91,6 @@ class ComposerStaticInitc16a50fb3cb50a786a944e8e9cbf2f72
         'MC4WP_Usage_Tracking' => __DIR__ . '/../..' . '/includes/admin/class-usage-tracking.php',
         'MC4WP_User_Integration' => __DIR__ . '/../..' . '/includes/integrations/class-user-integration.php',
         'MC4WP_Validator' => __DIR__ . '/../..' . '/includes/class-validator.php',
-        'MC4WP_Visitor_Tracking' => __DIR__ . '/../..' . '/includes/class-visitor-tracking.php',
         'MC4WP_WooCommerce_Integration' => __DIR__ . '/../..' . '/integrations/woocommerce/class-woocommerce.php',
         'xrstf\\Composer52\\AutoloadGenerator' => __DIR__ . '/..' . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
         'xrstf\\Composer52\\Generator' => __DIR__ . '/..' . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',

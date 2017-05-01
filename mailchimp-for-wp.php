@@ -124,10 +124,6 @@ add_action( 'plugins_loaded', '_mc4wp_load_plugin', 8 );
  * @since 3.0
  */
 function _mc4wp_on_plugin_activation() {
-	delete_transient( 'mc4wp_mailchimp_lists_v3' );
-	delete_transient( 'mc4wp_mailchimp_lists_v3_fallback' );
-	delete_transient( 'mc4wp_list_counts' );
-
     wp_schedule_event( strtotime('tomorrow 3 am'), 'daily', 'mc4wp_refresh_mailchimp_lists' );
 }
 
@@ -138,7 +134,10 @@ function _mc4wp_on_plugin_activation() {
  * @since 4.0.3
  */
 function _mc4wp_on_plugin_deactivation() {
-    wp_clear_scheduled_hook( 'mc4wp_refresh_mailchimp_lists' );
+	global $wpdb;
+	wp_clear_scheduled_hook( 'mc4wp_refresh_mailchimp_lists' );
+
+	$wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE 'mc4wp_mailchimp_list_%'");
 }
 
 register_activation_hook( __FILE__, '_mc4wp_on_plugin_activation' );
