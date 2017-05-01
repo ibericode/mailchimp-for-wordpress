@@ -46,7 +46,7 @@ class MC4WP_List_Data_Mapper {
 		$map = array();
 
 		foreach( $this->list_ids as $list_id ) {
-			$list = $mailchimp->get_list( $list_id );
+			$list = $mailchimp->get_list( $list_id, true );
 
 			if( $list instanceof MC4WP_MailChimp_List ) {
 				$map[ $list_id ] = $this->map_list( $list );

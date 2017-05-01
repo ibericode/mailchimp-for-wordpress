@@ -297,7 +297,7 @@ class MC4WP_Admin {
 			array(
 				'mailchimp' => array(
 				    'api_connected' => ! empty( $opts['api_key'] ),
-					'lists' => $this->mailchimp->get_cached_lists()
+					'lists' => $this->mailchimp->get_lists()
 				),
 				'countries' => MC4WP_Tools::get_countries(),
 				'i18n' => array(
@@ -422,7 +422,7 @@ class MC4WP_Admin {
             }
         }
 
-		$lists = $this->mailchimp->get_cached_lists();
+		$lists = $this->mailchimp->get_lists();
 		$obfuscated_api_key = mc4wp_obfuscate_string( $opts['api_key'] );
 		require MC4WP_PLUGIN_DIR . 'includes/views/general-settings.php';
 	}

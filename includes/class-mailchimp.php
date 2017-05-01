@@ -162,8 +162,6 @@ class MC4WP_MailChimp {
 		delete_transient( 'mc4wp_list_counts' );
 		
 		/* deprecated */
-		delete_transient( 'mc4wp_mailchimp_lists_v3' );
-        delete_option( 'mc4wp_mailchimp_lists_v3_fallback' );
 	}
 
     /**
@@ -172,7 +170,7 @@ class MC4WP_MailChimp {
      * @param boolean deprecated parameter. 
      * @return array
      */
-	public function get_cached_lists( $force = false ) {
+	public function get_cached_lists() {
 		return $this->get_lists( false );
     }
 
@@ -183,7 +181,7 @@ class MC4WP_MailChimp {
      * @param boolean $force Whether to force a result by hitting MailChimp API 
 	 * @return array
 	 */
-	public function get_lists( $force = false ) {
+	public function get_lists( $force = true ) {
 
 		$list_ids = get_option( 'mc4wp_mailchimp_list_ids', array() );
 		if( empty( $list_ids ) && $force ) {

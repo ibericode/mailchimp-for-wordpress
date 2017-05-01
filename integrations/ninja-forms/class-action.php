@@ -135,7 +135,7 @@ final class MC4WP_Ninja_Forms_Action extends NF_Abstracts_ActionNewsletter
         $mailchimp = new MC4WP_MailChimp();
 
         /** @var MC4WP_MailChimp_List[] $lists */
-        $lists = $mailchimp->get_cached_lists();
+        $lists = $mailchimp->get_lists();
         $return = array();
 
         foreach( $lists as $list ) {
