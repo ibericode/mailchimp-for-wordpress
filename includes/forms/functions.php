@@ -26,7 +26,7 @@ function mc4wp_get_form( $form_id = 0 ) {
 function mc4wp_get_forms( array $args = array() ) {
 	$default_args = array(
 		'post_status' => 'publish',
-		'numberposts' => -1
+		'numberposts' => -1,
 	);
 	$args = array_merge( $default_args, $args );
 	$args['post_type'] = 'mc4wp-form';

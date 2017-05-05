@@ -99,8 +99,10 @@ class MC4WP_Admin_Ads {
 	public function admin_sidebar() {
 
 		echo '<div class="mc4wp-box">';
-		$block = new MC4WP_Remote_Content_Block( 'https://mc4wp.com/api/content-blocks?id=106689' );
-		echo $block;
+			echo '<div style="border: 5px dotted #cc4444; padding: 0 20px; background: white;">';
+				echo '<h3>MailChimp for WordPress Premium</h3>';
+				echo '<p>This plugin has a Premium add-on, unlocking several powerful features. <a href="https://mc4wp.com/features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=upgrade-box">Have a look at its benefits</a>!</p>';
+			echo '</div>';
 		echo '</div>';
 
 		?>

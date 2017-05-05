@@ -83,7 +83,6 @@ class ComposerStaticInitc16a50fb3cb50a786a944e8e9cbf2f72
         'MC4WP_Queue' => __DIR__ . '/../..' . '/includes/class-queue.php',
         'MC4WP_Queue_Job' => __DIR__ . '/../..' . '/includes/class-queue-job.php',
         'MC4WP_Registration_Form_Integration' => __DIR__ . '/../..' . '/integrations/wp-registration-form/class-registration-form.php',
-        'MC4WP_Remote_Content_Block' => __DIR__ . '/../..' . '/includes/admin/class-remote-content-block.php',
         'MC4WP_Request' => __DIR__ . '/../..' . '/includes/class-request.php',
         'MC4WP_Tools' => __DIR__ . '/../..' . '/includes/class-tools.php',
         'MC4WP_Update_Optin' => __DIR__ . '/../..' . '/includes/admin/class-update-optin.php',
