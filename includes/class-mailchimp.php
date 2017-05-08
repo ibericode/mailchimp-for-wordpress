@@ -183,7 +183,7 @@ class MC4WP_MailChimp {
 	 */
 	public function get_lists( $force = true ) {
 
-		$list_ids = get_option( 'mc4wp_mailchimp_list_ids', array() );
+		$list_ids = (array) get_option( 'mc4wp_mailchimp_list_ids', array() );
 		if( empty( $list_ids ) && $force ) {
 			$list_ids = $this->fetch_list_ids();	
 		}
@@ -269,7 +269,11 @@ class MC4WP_MailChimp {
         // try to increase time limit as this can take a while
 		@set_time_limit(300);
 		$list_ids = $this->fetch_list_ids();
-      
+
+		// randomize array order
+		shuffle( $list_ids );
+
+		// fetch individual list details
         foreach ( $list_ids as $list_id ) {
 			$list = $this->fetch_list( $list_id );
 	     }
