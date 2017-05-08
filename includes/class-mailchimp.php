@@ -177,17 +177,15 @@ class MC4WP_MailChimp {
 	/**
 	 * Get MailChimp lists, from cache or remote API.
      *
-     * The following data sources are tried in the following order.
      * @param boolean $force Whether to force a result by hitting MailChimp API 
 	 * @return array
 	 */
 	public function get_lists( $force = true ) {
 
-		$list_ids = (array) get_option( 'mc4wp_mailchimp_list_ids', array() );
-		if( empty( $list_ids ) && $force ) {
-			$list_ids = $this->fetch_list_ids();	
-		}
+		// first, get all list id's
+		$list_ids = $this->get_list_ids( $force );
 
+		// then, fill $lists array with individual list details
 		$lists = array();
 		foreach( $list_ids as $list_id ) {
 			$list = $this->get_list( $list_id, $force );
@@ -245,13 +243,29 @@ class MC4WP_MailChimp {
 	}
 
 	/**
+	 * Get MailChimp list ID's
+	 *
+	 * @param bool $force Force result by hitting MailChimp API
+	 * @return array
+	 */ 
+	public function get_list_ids( $force = false ) {
+		$list_ids = (array) get_option( 'mc4wp_mailchimp_list_ids', array() );
+
+		if( empty( $list_ids ) && $force ) {
+			$list_ids = $this->fetch_list_ids();	
+		}
+		
+		return $list_ids;
+	}
+
+	/**
 	 * @return array
 	 */ 
 	public function fetch_list_ids() {
 	   try{
             $lists_data = $this->api->get_lists( array( 'count' => 200, 'fields' => 'lists.id' ) );
         } catch( MC4WP_API_Exception $e ) {
-            return;
+            return array();
         }
 
 		$list_ids = wp_list_pluck( $lists_data, 'id' );
