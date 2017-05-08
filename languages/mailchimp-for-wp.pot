@@ -101,31 +101,31 @@ msgstr ""
 msgid "Are you enjoying this plugin? The Premium add-on unlocks several powerful features. <a href=\"%s\">Find out about all benefits now</a>."
 msgstr ""
 
-#: includes/admin/class-ads.php:112
+#: includes/admin/class-ads.php:114
 msgid "More subscribers, better newsletters."
 msgstr ""
 
-#: includes/admin/class-ads.php:113
+#: includes/admin/class-ads.php:115
 msgid "Learn how to best grow your lists & write better emails by subscribing to our monthly tips."
 msgstr ""
 
-#: includes/admin/class-ads.php:116
+#: includes/admin/class-ads.php:118
 msgid "Email Address"
 msgstr ""
 
-#: includes/admin/class-ads.php:120
+#: includes/admin/class-ads.php:122
 msgid "First Name"
 msgstr ""
 
-#: includes/admin/class-ads.php:127, includes/forms/class-admin.php:94
+#: includes/admin/class-ads.php:129, includes/forms/class-admin.php:94
 msgid "Subscribe"
 msgstr ""
 
-#: includes/admin/class-ads.php:150
+#: includes/admin/class-ads.php:152
 msgid "Do you want to track all WooCommerce orders in MailChimp so you can send emails based on the purchase activity of your subscribers?"
 msgstr ""
 
-#: includes/admin/class-ads.php:153
+#: includes/admin/class-ads.php:155
 msgid "<a href=\"%s\">Upgrade to MailChimp for WordPress Premium</a> or <a href=\"%s\">read more about MailChimp's E-Commerce features</a>."
 msgstr ""
 
