@@ -26,12 +26,14 @@ class MC4WP_Form_Listener {
 	 */
 	public function listen( MC4WP_Request $request ) {
 
-		if( ! $request->post->get( '_mc4wp_form_id' ) ) {
+		$form_id = $request->post->get( '_mc4wp_form_id' );
+		if( empty( $form_id ) ) {
 			return false;
 		}
 
+		// get form instance
 		try {
-			$form = mc4wp_get_form( $request->post->get( '_mc4wp_form_id' ) );
+			$form = mc4wp_get_form( $form_id );
 		} catch( Exception $e ) {
 			return false;
 		}
