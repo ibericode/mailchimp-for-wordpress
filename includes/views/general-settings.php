@@ -75,7 +75,7 @@ defined( 'ABSPATH' ) or exit;
 			 */
 			do_action( 'mc4wp_admin_after_general_settings' );
 
-			if( $connected ) {
+			if( ! empty( $opts['api_key'] ) ) {
 				echo '<hr />';
 				include dirname( __FILE__ ) . '/parts/lists-overview.php';
 			}

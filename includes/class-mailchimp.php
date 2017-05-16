@@ -157,11 +157,10 @@ class MC4WP_MailChimp {
      */
 	public function empty_cache() {
 		global $wpdb;
-		$wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE 'mc4wp_mailchimp_list_%'");
 
+		delete_option( 'mc4wp_mailchimp_list_ids' );
+		$wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE 'mc4wp_mailchimp_list_%'" );
 		delete_transient( 'mc4wp_list_counts' );
-		
-		/* deprecated */
 	}
 
     /**
@@ -172,7 +171,17 @@ class MC4WP_MailChimp {
      */
 	public function get_cached_lists() {
 		return $this->get_lists( false );
-    }
+	}
+
+	/**
+	 * Get a specific MailChimp list from local DB.
+	 *
+	 * @param string $list_id
+	 * @return MC4WP_MailChimp_List
+	 */ 
+	public function get_cached_list( $list_id ) {
+		return $this->get_list( $list_id, false );
+	}
 
 	/**
 	 * Get MailChimp lists, from cache or remote API.
@@ -277,7 +286,9 @@ class MC4WP_MailChimp {
 	}
 
     /**
-     * Fetch list ID's + lists from MailChimp.
+	 * Fetch list ID's + lists from MailChimp.
+	 *
+	 * @return bool
      */
 	public function fetch_lists() {
         // try to increase time limit as this can take a while
@@ -288,9 +299,11 @@ class MC4WP_MailChimp {
 		shuffle( $list_ids );
 
 		// fetch individual list details
-        foreach ( $list_ids as $list_id ) {
+		foreach ( $list_ids as $list_id ) {
 			$list = $this->fetch_list( $list_id );
-	     }
+		}
+
+		return ! empty( $list_ids );
     }
 
 	/**
