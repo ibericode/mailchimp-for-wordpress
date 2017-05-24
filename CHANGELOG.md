@@ -1,6 +1,14 @@
 Changelog
 =========
 
+#### 4.1.3 - May 24, 2017
+
+**Improvements**
+
+- Randomise time of cron event that renews MailChimp lists.
+- Always try to show MailChimp list info when API key is given.
+
+
 #### 4.1.2 - May 8, 2017
 
 **Fixes**
