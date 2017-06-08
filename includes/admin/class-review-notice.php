@@ -70,7 +70,6 @@ class MC4WP_Admin_Review_Notice {
         echo '</p>';
         echo '<form method="POST" id="mc4wp-dismiss-review-form"><button type="submit" class="notice-dismiss"><span class="screen-reader-text">'. __( 'Dismiss this notice.', 'mailchimp-for-wp' ) .'</span></button><input type="hidden" name="_mc4wp_action" value="dismiss_review_notice"/></form>';
         echo '</div>';
-        echo "<script>window.jQuery('#mc4wp-review-notice form').submit(function(e) { e.preventDefault(); window.jQuery.post( ajaxurl, { _mc4wp_action: 'dismiss_review_notice' }, function() { window.jQuery('#mc4wp-review-notice').fadeOut(); }); });</script>";
         return true;
     }
 
