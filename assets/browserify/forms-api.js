@@ -50,7 +50,7 @@ function handleFormRequest(form, action, errors, data){
 		} else {
 			// form was successfully submitted
 			forms.trigger('success', [form, data]);
-			forms.trigger(form.id + ',success', [form, data]);
+			forms.trigger(form.id + '.success', [form, data]);
 
 			// subscribed / unsubscribed
 			forms.trigger(action + "d", [form, data]);
