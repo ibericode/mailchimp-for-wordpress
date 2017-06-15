@@ -693,15 +693,11 @@ msgstr ""
 msgid "Frequently Asked Questions"
 msgstr ""
 
-#: includes/views/parts/admin-sidebar.php:16
-msgid "Code reference for developers"
-msgstr ""
-
-#: includes/views/parts/admin-sidebar.php:36
+#: includes/views/parts/admin-sidebar.php:35
 msgid "Looking to improve your sign-up rates?"
 msgstr ""
 
-#: includes/views/parts/admin-sidebar.php:37
+#: includes/views/parts/admin-sidebar.php:36
 msgid "Our <a href=\"%s\">Boxzilla plugin</a> allows you to create pop-ups or slide-ins with a subscribe form. A sure way to grow your lists faster."
 msgstr ""
 
