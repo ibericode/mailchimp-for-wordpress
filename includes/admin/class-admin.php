@@ -413,7 +413,7 @@ class MC4WP_Admin {
                 $connected = $this->get_api()->is_connected();
             } catch( MC4WP_API_Connection_Exception $e ) {
                 $message = sprintf( "<strong>%s</strong><br /> %s", __( "Error connecting to MailChimp:", 'mailchimp-for-wp' ), $e );
-                $message .= '<br /><br />' . sprintf( '<a href="%s">' . __( 'Here\'s some info on solving common connectivity issues.', 'mailchimp-for-wp' ) . '</a>', 'https://mc4wp.com/kb/solving-connectivity-issues/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-notice' );
+                $message .= '<br /><br />' . sprintf( '<a href="%s">' . __( 'Here\'s some info on solving common connectivity issues.', 'mailchimp-for-wp' ) . '</a>', 'https://kb.mc4wp.com/solving-connectivity-issues/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-notice' );
                 $this->messages->flash( $message, 'error' );
                 $connected = false;
             } catch( MC4WP_API_Exception $e ) {

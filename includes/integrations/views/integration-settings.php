@@ -25,7 +25,7 @@
 
 			<div id="notice-additional-fields" class="notice notice-info" style="display: none;">
 				<p><?php _e( 'The selected MailChimp lists require non-default fields, which may prevent this integration from working.', 'mailchimp-for-wp' ); ?></p>
-				<p><?php echo sprintf( __( 'Please ensure you <a href="%s">configure the plugin to send all required fields</a> or <a href="%s">log into your MailChimp account</a> and make sure only the email & name fields are marked as required fields for the selected list(s).', 'mailchimp-for-wp' ), 'https://mc4wp.com/kb/send-additional-fields-from-integrations/', 'https://admin.mailchimp.com/lists/' ); ?></p>
+				<p><?php echo sprintf( __( 'Please ensure you <a href="%s">configure the plugin to send all required fields</a> or <a href="%s">log into your MailChimp account</a> and make sure only the email & name fields are marked as required fields for the selected list(s).', 'mailchimp-for-wp' ), 'https://kb.mc4wp.com/send-additional-fields-from-integrations/', 'https://admin.mailchimp.com/lists/' ); ?></p>
 			</div>
 
 			<p>
@@ -199,7 +199,7 @@
 								</label>
 								<p class="help">
 									<?php _e( 'Select "no" if you want to add the selected interests to any previously selected interests when updating a subscriber.', 'mailchimp-for-wp' ); ?>
-									<?php printf( ' <a href="%s" target="_blank">' . __( 'What does this do?', 'mailchimp-for-wp' ) . '</a>', 'https://mc4wp.com/kb/what-does-replace-groupings-mean/' ); ?>
+									<?php printf( ' <a href="%s" target="_blank">' . __( 'What does this do?', 'mailchimp-for-wp' ) . '</a>', 'https://kb.mc4wp.com/what-does-replace-groupings-mean/' ); ?>
 								</p>
 							</td>
 						</tr>
