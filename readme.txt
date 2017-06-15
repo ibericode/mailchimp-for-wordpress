@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp forms, mailchimp integrations
 Requires at least: 4.1
 Tested up to: 4.7.5
-Stable tag: 4.1.3
+Stable tag: 4.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -194,6 +194,15 @@ MailChimp for WordPress comes with many filter & action hooks which allow you to
 == Changelog == 
 
 
+#### 4.1.4 - June 15, 2017
+
+**Fixes**
+
+- Some form specific JS events were not firing due to incorrect event names.
+- Registration form integration now works with WooCommerce registration form.
+- Notice that asks for a plugin review would re-appear after dismissing it.
+
+
 #### 4.1.3 - May 24, 2017
 
 **Improvements**
@@ -309,7 +318,7 @@ MailChimp for WordPress comes with many filter & action hooks which allow you to
 
 **Additions**
 
-- Add `data-hide-if` attribute logic to forms. See [conditionally hide form fields](https://mc4wp.com/kb/conditional-fields-elements/). Thanks to [Kurt Zenisek](http://kurtzenisek.com/).
+- Add `data-hide-if` attribute logic to forms. See [conditionally hide form fields](https://kb.mc4wp.com/conditional-fields-elements/). Thanks to [Kurt Zenisek](http://kurtzenisek.com/).
 - Add hooks for delayed BuddyPress sign-up. Thanks to [Christian Wach](https://profiles.wordpress.org/needle).
 
 
@@ -747,7 +756,7 @@ Added `mc4wp_use_sslverify` filter to disable or explicitly enable SSL certifica
 
 **Improvements**
 
-- Add form-specific classes to preview form element. This allows the [Styles Builder](https://mc4wp.com/features/) to work with the Form Preview.
+- Add form-specific classes to preview form element. This allows the [Styles Builder](https://mc4wp.com/premium-features/) to work with the Form Preview.
 - Form events are now triggered _after_ the page has finished loading, so all scripts are loaded & ready to use.
 - Reset background-color in Form Themes stylesheets.
 
