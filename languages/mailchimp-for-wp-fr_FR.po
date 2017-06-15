@@ -18,6 +18,7 @@
 # Mamadou Gaye Diop <ridialass@gmail.com>, 2016
 # Marie Chausse <mariechausse83@gmail.com>, 2016
 # Martin Dulude <mdulude@duludeit.ca>, 2017
+# Mathieu Leblanc <spiky.ing@gmail.com>, 2017
 # Sabrina Antunez <sabrina.antunez@hotmail.com>, 2017
 # rafie <s.rafie@gmail.com>, 2017
 # sleininger <stef.leininger@gmail.com>, 2014
@@ -25,8 +26,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2017-05-04 15:20+0000\n"
-"Last-Translator: Sabrina Antunez <sabrina.antunez@hotmail.com>\n"
+"PO-Revision-Date: 2017-06-01 16:29+0000\n"
+"Last-Translator: Mathieu Leblanc <spiky.ing@gmail.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -108,7 +109,7 @@ msgstr "Pour débuter avec MailChimp pour Wordpress, veuillez <a href=\"%s\">ins
 msgid ""
 "Want to customize the style of your form? <a href=\"%s\">Try our Styles "
 "Builder</a> & edit the look of your forms with just a few clicks."
-msgstr ""
+msgstr "Vous voulez modifier le style de votre formulaire? <a href=\"%s\">Essayez le Constructeur de styles</a> et modifiez l'allure de votre formulaire en quelques clics."
 
 #: includes/admin/class-ads.php:54
 msgid ""
@@ -122,7 +123,7 @@ msgid ""
 "Increased conversions? <a href=\"%s\">MailChimp for WordPress Premium</a> "
 "submits forms without reloading the entire page, resulting in a much better "
 "experience for your visitors."
-msgstr ""
+msgstr "Plus de conversions? <a href=\"%s\">MailChimp pour WordPress Premium</a> soumets les formulaires sans recharger toute la page, résultant en une meilleure expérience pour vos visiteurs."
 
 #: includes/admin/class-ads.php:70
 msgid "Upgrade to Premium"
@@ -138,13 +139,13 @@ msgstr "Vous souhaitez avoir des formulaires traduits pour toutes vos langues ? 
 msgid ""
 "Do you want to create more than one form? Our Premium add-on does just that!"
 " <a href=\"%s\">Have a look at all Premium benefits</a>."
-msgstr ""
+msgstr "Vous voulez créer plus d'un formulaire?  Notre add-on Premium fait exactement ça! <a href=\"%s\">Regardez tous les bénéfices de Premium</a>."
 
 #: includes/admin/class-ads.php:93
 msgid ""
 "Are you enjoying this plugin? The Premium add-on unlocks several powerful "
 "features. <a href=\"%s\">Find out about all benefits now</a>."
-msgstr ""
+msgstr "Aimez-vous ce plugin?  L'add-on Premium débarre plusieurs fonctionalités avancées. <a href=\"%s\">Découvrez tous les bénéfices</a>."
 
 #: includes/admin/class-ads.php:112
 msgid "More subscribers, better newsletters."
@@ -172,13 +173,13 @@ msgstr "Abonnez-vous"
 msgid ""
 "Do you want to track all WooCommerce orders in MailChimp so you can send "
 "emails based on the purchase activity of your subscribers?"
-msgstr ""
+msgstr "Voulez-vous suivre toutes les commandes WooCommerce dans MailChimp, pour pouvoir envoyer des courriels selon les comportements d'achat de vos abonnés?"
 
 #: includes/admin/class-ads.php:153
 msgid ""
 "<a href=\"%s\">Upgrade to MailChimp for WordPress Premium</a> or <a "
 "href=\"%s\">read more about MailChimp's E-Commerce features</a>."
-msgstr ""
+msgstr "<a href=\"%s\">Upgradez à MailChimp pour WordPress Premium</a> ou <href=\"%s\">lisez davantage à propos des fonctionnalités d'e-commerce de MailChimp</a>."
 
 #: includes/admin/class-review-notice.php:68
 msgid ""
@@ -194,7 +195,7 @@ msgstr ""
 
 #: includes/admin/class-review-notice.php:71
 msgid "Dismiss this notice."
-msgstr ""
+msgstr "Fermez cette notification"
 
 #: includes/api/class-api.php:84
 msgid "Read more about common connectivity issues."
@@ -260,7 +261,7 @@ msgstr "Champs de formulaire"
 
 #: includes/forms/class-admin.php:76
 msgid "This field is marked as required in MailChimp."
-msgstr ""
+msgstr "Ceci est un champ requis dans MailChimp."
 
 #: includes/forms/class-admin.php:77
 msgid "Initial value"
@@ -268,7 +269,7 @@ msgstr "Valeur initiale"
 
 #: includes/forms/class-admin.php:78
 msgid "Interest categories"
-msgstr ""
+msgstr "Catégories d'intérêts"
 
 #: includes/forms/class-admin.php:79
 msgid "Is this field required?"
@@ -313,7 +314,7 @@ msgstr "Texte à afficher lorsque le champ n'est pas renseigné."
 
 #: includes/forms/class-admin.php:89
 msgid "Preselect"
-msgstr ""
+msgstr "Pré-sélection"
 
 #: includes/forms/class-admin.php:90
 msgid "Remove"

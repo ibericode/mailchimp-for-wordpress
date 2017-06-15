@@ -4,6 +4,7 @@
 # Adriano Genovese <adrygese@gmail.com>, 2014-2015
 # Adriano Genovese <adrygese@gmail.com>, 2015
 # andrea.gatopoulos <andrea.gatopoulos@gmail.com>, 2015
+# Cinzia Caleffi <cinzia.caleffi@gmail.com>, 2017
 # Cristiano Guerra <cristianoguerra75@gmail.com>, 2017
 # Dan <d.murtas@gmail.com>, 2014
 # francesca mecca <meccafrancesca@gmail.com>, 2015-2016
@@ -13,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2017-03-28 16:48+0000\n"
-"Last-Translator: Cristiano Guerra <cristianoguerra75@gmail.com>\n"
+"PO-Revision-Date: 2017-06-05 16:19+0000\n"
+"Last-Translator: Cinzia Caleffi <cinzia.caleffi@gmail.com>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/it_IT/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -76,7 +77,7 @@ msgstr "MailChimp"
 #: includes/admin/class-admin.php343, includes/views/other-settings.php60,
 #: includes/views/other-settings.php:70
 msgid "Other Settings"
-msgstr ""
+msgstr "Altre Impostazioni"
 
 #: includes/admin/class-admin.php:344
 msgid "Other"
@@ -84,19 +85,19 @@ msgstr "Altro"
 
 #: includes/admin/class-admin.php:458
 msgid "Log successfully emptied."
-msgstr ""
+msgstr "Log eliminato con successo."
 
 #: includes/admin/class-admin.php:488
 msgid ""
 "To get started with MailChimp for WordPress, please <a href=\"%s\">enter "
 "your MailChimp API key on the settings page of the plugin</a>."
-msgstr ""
+msgstr "Per iniziare con MailChimp for WordPress, per favore <a href=\"%s\">immetti la tua API key di MailChimp nella pagina impostazioni del plugin</a>."
 
 #: includes/admin/class-ads.php:39
 msgid ""
 "Want to customize the style of your form? <a href=\"%s\">Try our Styles "
 "Builder</a> & edit the look of your forms with just a few clicks."
-msgstr ""
+msgstr "Vuoi personalizzare lo stile del tuo Form? <a href=\"%s\">Prova il nostro Styles Builder</a> e modifica lo stile del tuo form in pochi click."
 
 #: includes/admin/class-ads.php:54
 msgid ""
@@ -182,7 +183,7 @@ msgstr ""
 
 #: includes/admin/class-review-notice.php:71
 msgid "Dismiss this notice."
-msgstr ""
+msgstr "Rimuovi questa notifica."
 
 #: includes/api/class-api.php:84
 msgid "Read more about common connectivity issues."
@@ -190,51 +191,51 @@ msgstr "Per saperne di più sui problemi di connettività comuni."
 
 #: includes/forms/class-admin.php:62
 msgid "Add to form"
-msgstr ""
+msgstr "Aggiungi al form"
 
 #: includes/forms/class-admin.php:63
 msgid "City"
-msgstr ""
+msgstr "Città"
 
 #: includes/forms/class-admin.php:64
 msgid "Checkboxes"
-msgstr ""
+msgstr "Checkbox"
 
 #: includes/forms/class-admin.php:65
 msgid "Choices"
-msgstr ""
+msgstr "Scelte"
 
 #: includes/forms/class-admin.php:66
 msgid "Choice type"
-msgstr ""
+msgstr "Tipo di scelta"
 
 #: includes/forms/class-admin.php:67
 msgid "Choose a field to add to the form"
-msgstr ""
+msgstr "Scegli un campo da aggiungere al form"
 
 #: includes/forms/class-admin.php:68
 msgid "Close"
-msgstr ""
+msgstr "Chiudi"
 
 #: includes/forms/class-admin.php:69
 msgid "Country"
-msgstr ""
+msgstr "Nazione"
 
 #: includes/forms/class-admin.php:70
 msgid "Dropdown"
-msgstr ""
+msgstr "Dropdown"
 
 #: includes/forms/class-admin.php:71
 msgid "Field type"
-msgstr ""
+msgstr "Tipo di campo"
 
 #: includes/forms/class-admin.php:72
 msgid "Field label"
-msgstr ""
+msgstr "Ettichetta del campo"
 
 #: includes/forms/class-admin.php:73
 msgid "Form action"
-msgstr ""
+msgstr "Azione del form"
 
 #: includes/forms/class-admin.php:74
 msgid ""
@@ -244,15 +245,15 @@ msgstr ""
 
 #: includes/forms/class-admin.php:75
 msgid "Form fields"
-msgstr ""
+msgstr "Campi del form"
 
 #: includes/forms/class-admin.php:76
 msgid "This field is marked as required in MailChimp."
-msgstr ""
+msgstr "Questo campo è settato come obbligatorio su MailChimp"
 
 #: includes/forms/class-admin.php:77
 msgid "Initial value"
-msgstr ""
+msgstr "Valore iniziale"
 
 #: includes/forms/class-admin.php:78
 msgid "Interest categories"
@@ -260,7 +261,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:79
 msgid "Is this field required?"
-msgstr ""
+msgstr "Questo campo è obbligatorio?"
 
 #: includes/forms/class-admin.php:80
 msgid "List choice"
@@ -276,11 +277,11 @@ msgstr ""
 
 #: includes/forms/class-admin.php:83
 msgid "Min"
-msgstr ""
+msgstr "Min"
 
 #: includes/forms/class-admin.php:84
 msgid "Max"
-msgstr ""
+msgstr "Max"
 
 #: includes/forms/class-admin.php:85
 msgid ""
@@ -293,35 +294,35 @@ msgstr ""
 
 #: includes/forms/class-admin.php:87
 msgid "Placeholder"
-msgstr ""
+msgstr "Segnaposto"
 
 #: includes/forms/class-admin.php:88
 msgid "Text to show when field has no value."
-msgstr ""
+msgstr "Testo da mostrare quando il campo non è popolato."
 
 #: includes/forms/class-admin.php:89
 msgid "Preselect"
-msgstr ""
+msgstr "Preselezionato"
 
 #: includes/forms/class-admin.php:90
 msgid "Remove"
-msgstr ""
+msgstr "Rimuovi"
 
 #: includes/forms/class-admin.php:91
 msgid "Radio buttons"
-msgstr ""
+msgstr "Bottoni radio"
 
 #: includes/forms/class-admin.php:92
 msgid "Street Address"
-msgstr ""
+msgstr "Indirizzo"
 
 #: includes/forms/class-admin.php:93
 msgid "State"
-msgstr ""
+msgstr "Stato"
 
 #: includes/forms/class-admin.php:95
 msgid "Submit button"
-msgstr ""
+msgstr "Bottone di invio"
 
 #: includes/forms/class-admin.php:96
 msgid "Wrap in paragraph tags?"
@@ -329,15 +330,15 @@ msgstr ""
 
 #: includes/forms/class-admin.php:97
 msgid "Value"
-msgstr ""
+msgstr "Valore"
 
 #: includes/forms/class-admin.php:98
 msgid "Text to prefill this field with."
-msgstr ""
+msgstr "Testo precompilato per questo campo."
 
 #: includes/forms/class-admin.php:99
 msgid "ZIP"
-msgstr ""
+msgstr "CAP"
 
 #: includes/forms/class-admin.php111, includes/forms/class-admin.php112,
 #: includes/forms/views/edit-form.php:24
@@ -415,7 +416,7 @@ msgstr "Proprietà dell'utente attualmente connesso."
 
 #: includes/forms/class-form-tags.php:123
 msgid "Property of the current page or post."
-msgstr ""
+msgstr "Proprietà della pagina o dell'articolo corrente"
 
 #: includes/forms/class-form.php:133
 msgid "There is no form with ID %d, perhaps it was deleted?"
@@ -1020,7 +1021,7 @@ msgstr "Qundo usi l'opzione unsubscribe questo testo verrà mostrato quando l'in
 
 #: includes/forms/views/tabs/form-messages.php:65
 msgid "No list selected"
-msgstr ""
+msgstr "Nessuna lista selezionata"
 
 #: includes/forms/views/tabs/form-messages.php:68
 msgid ""
@@ -1030,7 +1031,7 @@ msgstr ""
 
 #: includes/forms/views/tabs/form-messages.php:74
 msgid "Updated"
-msgstr ""
+msgstr "Aggiornato"
 
 #: includes/forms/views/tabs/form-messages.php:77
 msgid "The text that shows when an existing subscriber is updated."
@@ -1064,13 +1065,13 @@ msgstr "Utilizza doppia conferma?"
 
 #: includes/forms/views/tabs/form-settings.php:44
 msgid "Are you sure you want to disable double opt-in?"
-msgstr ""
+msgstr "Sei sicuro di voler disabilitare la doppia conferma?"
 
 #: includes/forms/views/tabs/form-settings.php:47
 msgid ""
 "We strongly suggest keeping double opt-in enabled. Disabling double opt-in "
 "may result in abuse."
-msgstr ""
+msgstr "Si consiglia vivamente di mantenere attiva la doppia conferma. Disabilitarla potrebbe causare abusi."
 
 #: includes/forms/views/tabs/form-settings.php:94
 msgid "Form behaviour"
