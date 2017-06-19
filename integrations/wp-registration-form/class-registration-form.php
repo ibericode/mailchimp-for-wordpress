@@ -20,16 +20,31 @@ class MC4WP_Registration_Form_Integration extends MC4WP_User_Integration {
 	public $description = "Subscribes people from your WordPress registration form.";
 
 	/**
+	 * @var bool
+	 */ 
+	public $shown = false;
+
+	/**
 	 * Add hooks
 	 */
 	public function add_hooks() {
 		if( ! $this->options['implicit'] ) {
 			add_action( 'login_head', array( $this, 'print_css_reset' ) );
 			add_action( 'register_form', array( $this, 'output_checkbox' ), 20 );
-			add_action( 'woocommerce_register_form', array( $this, 'output_checkbox' ), 20 );
+			add_action( 'woocommerce_register_form', array( $this, 'maybe_output_checkbox' ), 20 );
 		}
 
 		add_action( 'user_register', array( $this, 'subscribe_from_registration' ), 90, 1 );
+	}
+
+	/**
+	 * Output checkbox, once.
+	 */ 
+	public function maybe_output_checkbox() {
+		if( ! $this->shown ) {
+			$this->output_checkbox();
+			$this->shown = true;
+		}
 	}
 
 	/**
