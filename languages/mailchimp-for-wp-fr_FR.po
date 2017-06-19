@@ -6,6 +6,7 @@
 # Cedric R <thorin31@gmail.com>, 2014
 # dlpscoop <charliebairdjersey@gmail.com>, 2015
 # wissim <christophe@wissim.fr>, 2017
+# Danny van Kooten <dannyvankooten@gmail.com>, 2017
 # Dario Spagnolo <i@dariospagnolo.org>, 2014
 # Emeline Seyer <emeline.seyer@gmail.com>, 2016
 # fgerber <gerber.francois@gmail.com>, 2014
@@ -26,8 +27,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2017-06-01 16:29+0000\n"
-"Last-Translator: Mathieu Leblanc <spiky.ing@gmail.com>\n"
+"PO-Revision-Date: 2017-06-19 09:05+0000\n"
+"Last-Translator: Danny van Kooten <dannyvankooten@gmail.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -103,7 +104,7 @@ msgstr "Traces vider avec succès."
 msgid ""
 "To get started with MailChimp for WordPress, please <a href=\"%s\">enter "
 "your MailChimp API key on the settings page of the plugin</a>."
-msgstr "Pour débuter avec MailChimp pour Wordpress, veuillez <a href=\"%s\">inscrire votre clé API de MailChimp dans la page de réglages de l'extension"
+msgstr "Pour débuter avec MailChimp pour Wordpress, veuillez <a href=\"%s\">inscrire votre clé API de MailChimp dans la page de réglages de l'extension </a>"
 
 #: includes/admin/class-ads.php:39
 msgid ""
