@@ -84,7 +84,7 @@ class MC4WP_Form {
     public $post;
 
     /**
-     * @var array Raw array or post_meta values.
+     * @var array Raw array of post_meta values.
      */
     protected $post_meta = array();
 
@@ -96,7 +96,7 @@ class MC4WP_Form {
     /**
      * @var bool Was this form submitted?
      */
-    public $is_submitted = false;
+	public $is_submitted = false;
 
     /**
      * @var array Array of the data that was submitted, in name => value pairs.
