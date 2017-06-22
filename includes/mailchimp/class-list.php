@@ -40,6 +40,11 @@ class MC4WP_MailChimp_List {
 	public $interest_categories = array();
 
 	/**
+	 * @var object
+	 */ 
+	public $campaign_defaults;
+
+	/**
 	 * @param string $id
 	 * @param string $name
 	 * @param string $web_id (deprecated)

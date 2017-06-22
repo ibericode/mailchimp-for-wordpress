@@ -211,12 +211,13 @@ class MC4WP_MailChimp {
      */
 	private function fetch_list( $list_id ) {
 		try{
-			$list_data = $this->api->get_list( $list_id, array( 'fields' => 'id,name,stats,web_id' ) );
+			$list_data = $this->api->get_list( $list_id, array( 'fields' => 'id,name,stats,web_id,campaign_defaults.from_name,campaign_defaults.from_email' ) );
 
 			// create local object
 			$list = new MC4WP_MailChimp_List( $list_data->id, $list_data->name );
 			$list->subscriber_count = $list_data->stats->member_count;
 			$list->web_id = $list_data->web_id;
+			$list->campaign_defaults = $list_data->campaign_defaults;
 
 			// get merge fields (if any)
 			if( $list_data->stats->merge_field_count > 0 ) {
