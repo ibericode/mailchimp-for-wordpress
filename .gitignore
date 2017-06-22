@@ -14,3 +14,4 @@ vendor/composer/installed.json
 
 npm-debug.log
 yarn.lock
+*.swp

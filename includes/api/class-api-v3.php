@@ -810,7 +810,96 @@ class MC4WP_API_v3 {
     public function delete_ecommerce_store_cart_line( $store_id, $cart_id, $line_id ) {
         $resource = sprintf( '/ecommerce/stores/%s/carts/%s/lines/%s', $store_id, $cart_id, $line_id );
         return !! $this->client->delete( $resource );
-    }
+	}
+
+	/**
+	 * Get a list of an account's available templates
+	 *
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/templates/#read-get_templates
+	 * @param array $args
+	 * @return object
+	 */
+	public function get_templates( array $args = array() ) {
+		$resource = '/templates';
+		return $this->client->get( $resource, $args );
+	}
+
+	/**
+	 * Create a new campaign
+	 *
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/#create-post_campaigns
+	 * @param array $args
+	 * @return object
+	 */ 
+	public function add_campaign( array $args ) {
+		$resource = '/campaigns';
+		return $this->client->post( $resource, $args );
+	}
+
+	/**
+	 * Get all campaigns in an account
+	 *
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/#read-get_campaigns
+	 * @param array $args
+	 * @return object
+	 */ 
+	public function get_campaigns( array $args = array() ) {
+		$resource = '/campaigns';
+		return $this->client->get( $resource, $args );
+	}
+	
+	/**
+	 * Get information about a specific campaign.
+	 *
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/#read-get_campaigns_campaign_id
+	 * @param string $campaign_id
+	 * @param array $args
+	 * @return object
+	 */ 
+	public function get_campaign( $campaign_id, array $args = array() ) {
+		$resource = sprintf( '/campaigns/%s', $campaign_id );
+		return $this->get( $resource, $args );
+	}
+
+	/**
+	 * Update some or all of the settings for a specific campaign.
+	 *
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/#edit-patch_campaigns_campaign_id
+	 * @param string $campaign_id
+	 * @param array $args
+	 * @return object
+	 */ 
+	public function update_campaign( $campaign_id, array $args ) {
+		$resource = sprintf( '/campaigns/%s', $campaign_id );
+		return $this->client->patch( $resource, $args );
+	}
+
+	/**
+	 * Remove a campaign from the MailChimp account
+	 *
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/#delete-delete_campaigns_campaign_id
+	 * @param string $campaign_id
+	 * @return bool
+	 */  
+	public function delete_campaign( $campaign_id ) {
+		$resource = sprintf( '/campaigns/%s', $campaign_id );
+		return !! $this->client->delete( $resource );
+	}
+
+	/**
+	 * Perform an action on a MailChimp campaign
+	 *
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/#action-post_campaigns
+	 *
+	 * @param string $campaign_id
+	 * @param string $action 
+	 * @param array $args
+	 * @return object
+	 */ 
+	public function campaign_action( $campaign_id, $action, array $args = array() ) {
+		$resource = sprintf( '/campaigns/%s/actions/%s', $campaign_id, $action );
+		return $this->post( $resource, $args );
+	}
 
 	/**
 	 * @return string
