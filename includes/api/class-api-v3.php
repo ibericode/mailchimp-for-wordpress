@@ -898,7 +898,33 @@ class MC4WP_API_v3 {
 	 */ 
 	public function campaign_action( $campaign_id, $action, array $args = array() ) {
 		$resource = sprintf( '/campaigns/%s/actions/%s', $campaign_id, $action );
-		return $this->post( $resource, $args );
+		return $this->client->post( $resource, $args );
+	}
+
+	/**
+	 * Get the HTML and plain-text content for a campaign
+	 * 
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/content/#read-get_campaigns_campaign_id_content
+	 * @param string $campaign_id
+	 * @param array $args
+	 * @return object
+	 */ 
+	public function get_campaign_content( $campaign_id, array $args = array() ) {
+		$resource = sprintf( '/campaigns/%s/content', $campaign_id );
+		return $this->client->get( $resource, $args );
+	}
+	
+	/**
+	 * Set the content for a campaign
+	 *
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/content/#edit-put_campaigns_campaign_id_content
+	 * @param string $campaign_id
+	 * @param array $args 
+	 * @return object
+	 */ 
+	public function update_campaign_content( $campaign_id, array $args ) {
+		$resource = sprintf( '/campaigns/%s/content', $campaign_id );
+		return $this->client->put( $resource, $args );
 	}
 
 	/**
