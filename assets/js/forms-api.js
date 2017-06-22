@@ -335,7 +335,7 @@ function serialize(form, options) {
             }
 
             // if options empty is true, continue only if its radio
-            if (!val && element.type == 'radio') {
+            if (val == undefined && element.type == 'radio') {
                 continue;
             }
         }
