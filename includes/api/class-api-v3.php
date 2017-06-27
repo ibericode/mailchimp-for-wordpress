@@ -825,6 +825,28 @@ class MC4WP_API_v3 {
 	}
 
 	/**
+	 * Get information about a specific template.
+	 *
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/templates/#read-get_templates_template_id
+	 * @param string $template_id
+	 * @return object
+	 */ 
+	public function get_template( $template_id, array $args = array() ) {
+		$resource = sprintf( '/templates/%s', $template_id );
+		return $this->client->get( $resource, $args );
+	}
+
+	/**
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/templates/default-content/
+	 * @param string $template_id
+	 * @return object
+	 */ 
+	public function get_template_default_content( $template_id, array $args = array() ) {
+		$resource = sprintf( '/templates/%s/default-content', $template_id );
+		return $this->client->get( $resource, $args );
+	}
+
+	/**
 	 * Create a new campaign
 	 *
 	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/#create-post_campaigns
