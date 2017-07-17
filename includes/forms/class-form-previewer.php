@@ -155,7 +155,7 @@ class MC4WP_Form_Previewer {
 			return $content;
 		}
 
-		return $this->form;
+		return $this->form->get_html();
 	}
 
 	/**
