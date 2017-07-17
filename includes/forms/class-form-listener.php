@@ -150,7 +150,7 @@ class MC4WP_Form_Listener {
 		// Success! Did we update or newly subscribe?
 		if( $result->status === 'subscribed' && $result->was_already_on_list ) {
 			$form->add_message( 'updated' );
-		
+
 			$log->info( sprintf( "Form %d > Successfully updated %s", $form->ID, $data['EMAIL'] ) );
 
 			/**

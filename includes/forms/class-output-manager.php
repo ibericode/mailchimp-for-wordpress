@@ -117,23 +117,29 @@ class MC4WP_Form_Output_Manager {
 		$this->printed_field_types += $form->get_field_types();
 		$this->printed_field_types = array_unique( $this->printed_field_types );
 
-		// start new output buffer
-		ob_start();
+		$form_html = $form->get_html( $config['element_id'], $config );
 
-		/**
-		 * Runs just before a form element is outputted.
-		 *
-		 * @since 3.0
-		 *
-		 * @param MC4WP_Form $form
-		 */
-		do_action( 'mc4wp_output_form', $form );
+		try {
+			// start new output buffer
+			ob_start();
 
-		// output the form (in output buffer)
-		echo $form->get_html( $config['element_id'], $config );
+			/**
+			 * Runs just before a form element is outputted.
+			 *
+			 * @since 3.0
+			 *
+			 * @param MC4WP_Form $form
+			 */
+			do_action( 'mc4wp_output_form', $form );
 
-		// grab all contents in current output buffer & then clean it.
-		$html = ob_get_clean();
+			// output the form (in output buffer)
+			echo $form_html;
+
+			// grab all contents in current output buffer & then clean + end it.
+			$html = ob_get_clean();
+		} catch( Error $e ) {
+			$html = $form_html;
+		}
 
 		// echo content if necessary
 		if( $echo ) {
