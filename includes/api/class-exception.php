@@ -6,6 +6,11 @@ class MC4WP_API_Exception extends Exception {
      * @var array
      */
     public $response;
+
+    /**
+    * @var mixed
+    */
+    public $data;
     public $type = '';
     public $title = '';
     public $status = '';
@@ -25,6 +30,7 @@ class MC4WP_API_Exception extends Exception {
         parent::__construct( $message, $code );
 
         $this->response = $response;
+        $this->data = $data;
 
         if( ! empty( $data ) ) {
             // fill error properties from json data
@@ -43,11 +49,12 @@ class MC4WP_API_Exception extends Exception {
     public function __toString() {
         $string = $this->message . '.';
 
+        // add detail message
         if( ! empty( $this->detail ) ) {
             $string .= ' ' . $this->detail;
         }
 
-
+        // add field specific errors
         if( ! empty( $this->errors ) && isset( $this->errors[0]->field ) ) {
 
             // strip off obsolete msg

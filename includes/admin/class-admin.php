@@ -412,15 +412,21 @@ class MC4WP_Admin {
 					try {
 						$connected = $this->get_api()->is_connected();
 					} catch( MC4WP_API_Connection_Exception $e ) {
-						$message = sprintf( "<strong>%s</strong><br /> %s", __( "Error connecting to MailChimp:", 'mailchimp-for-wp' ), $e );
+						$message = sprintf( "<strong>%s</strong> %s %s ", __( "Error connecting to MailChimp:", 'mailchimp-for-wp' ), $e->getCode(), $e->getMessage() );
+
+						if( is_object( $e->data ) && ! empty( $e->data->ref_no ) ) {
+							$message .= '<br />' . sprintf( __( 'Looks like your server is blocked by MailChimp\'s firewall. Please contact MailChimp support and include the following reference number: %s', 'mailchimp-for-wp' ), $e->data->ref_no );
+						}
+
 						$message .= '<br /><br />' . sprintf( '<a href="%s">' . __( 'Here\'s some info on solving common connectivity issues.', 'mailchimp-for-wp' ) . '</a>', 'https://kb.mc4wp.com/solving-connectivity-issues/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-notice' );
-							$this->messages->flash( $message, 'error' );
-							$connected = false;
-						} catch( MC4WP_API_Exception $e ) {
+
+						$this->messages->flash( $message, 'error' );
+						$connected = false;
+					} catch( MC4WP_API_Exception $e ) {
 							$this->messages->flash( sprintf( "<strong>%s</strong><br /> %s", __( "MailChimp returned the following error:", 'mailchimp-for-wp' ), $e ), 'error' );
 							$connected = false;
-						}
 					}
+				}
 
 					$lists = $this->mailchimp->get_cached_lists();
 					$obfuscated_api_key = mc4wp_obfuscate_string( $opts['api_key'] );
