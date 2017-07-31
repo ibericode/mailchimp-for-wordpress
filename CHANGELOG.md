@@ -1,6 +1,18 @@
 Changelog
 =========
 
+#### 4.1.6 - July 31, 2017
+
+**Fixes**
+
+- Method on API class for retrieving campaign data.
+
+**Improvements**
+
+- Show Akamai reference number when an API request is blocked by MailChimp's firewall.
+- Minor output buffering improvements in form previewer.
+
+
 #### 4.1.5 - June 27, 2017
 
 **Fixes**
