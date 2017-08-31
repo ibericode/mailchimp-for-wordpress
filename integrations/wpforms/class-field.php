@@ -23,7 +23,7 @@ class MC4WP_WPForms_Field extends WPForms_Field {
         $this->icon     = 'fa-envelope-o';
         $this->order    = 21;
         $this->defaults = array(
-            1 => array(
+            0 => array(
                 'label'   => __( 'Sign-up to our newsletter?', 'mailchimp-for-wp' ),
                 'value'   => '1',
                 'default' => '',
@@ -165,38 +165,30 @@ class MC4WP_WPForms_Field extends WPForms_Field {
     public function field_display( $field, $field_atts, $form_data ) {
 
         // Setup and sanitize the necessary data
-        $field             = apply_filters( 'wpforms_checkbox_field_display', $field, $field_atts, $form_data );
         $field_required    = !empty( $field['required'] ) ? ' required' : '';
         $field_class       = implode( ' ', array_map( 'sanitize_html_class', $field_atts['input_class'] ) );
         $field_id          = implode( ' ', array_map( 'sanitize_html_class', $field_atts['input_id'] ) );
-        $field_data        = '';
         $form_id           = $form_data['id'];
         $choices           = $field['choices'];
 
-        if ( !empty( $field_atts['input_data'] ) ) {
-            foreach ( $field_atts['input_data'] as $key => $val ) {
-                $field_data .= ' data-' . $key . '="' . $val . '"';
-            }
-        }
 
         // List
-        printf( '<ul id="%s" class="%s" %s>', $field_id, $field_class, $field_data );
+        printf( '<ul id="%s" class="%s">', $field_id, $field_class );
 
         foreach( $choices as $key => $choice ) {
 
             $selected = isset( $choice['default'] ) ? '1' : '0' ;
-            $val      = isset( $field['show_values'] ) ?  esc_attr( $choice['value'] ) : esc_attr( $choice['label'] );
             $depth    = isset( $choice['depth'] ) ? absint( $choice['depth'] ) : 1;
 
             printf( '<li class="choice-%d depth-%d">', $key, $depth );
 
             // Checkbox elements
-            printf( '<input type="checkbox" id="wpforms-%d-field_%d_%d" name="wpforms[fields][%d][]" value="%s" %s %s>',
+            printf( '<input type="checkbox" id="wpforms-%d-field_%d_%d" name="wpforms[fields][%d]" value="%s" %s %s>',
                 $form_id,
                 $field['id'],
                 $key,
                 $field['id'],
-                $val,
+                esc_attr( $choice['value'] ),
                 checked( '1', $selected, false ),
                 $field_required
             );
@@ -219,45 +211,26 @@ class MC4WP_WPForms_Field extends WPForms_Field {
      */
     public function format( $field_id, $field_submit, $form_data ) {
 
-        $field_submit = (array) $field_submit;
         $field        = $form_data['fields'][$field_id];
-        $name         = sanitize_text_field( $field['label'] );
-        $value_raw    = implode( "\n", array_map( 'sanitize_text_field', $field_submit ) );
-        $value        = '';
-
+        $choice = array_pop( $field['choices' ] );
+        $name         = sanitize_text_field( $choice['label'] );
+        
         $data = array(
             'name'      => $name,
-            'value'     => '',
-            'value_raw' => $value_raw,
+            'value'     => empty( $field_submit ) ? __( 'No' ) : __( 'Yes' ),
+            'value_raw' => $field_submit,
             'id'        => absint( $field_id ),
             'type'      => $this->type,
         );
 
-        // Normal processing, dynamic population is off
-
-        // If show_values is true, that means values posted are the raw values
-        // and not the labels. So we need to get the label values.
-        if ( !empty( $field['show_values'] ) && '1' == $field['show_values'] ) {
-
-            $value = array();
-
-            foreach( $field_submit as $field_submit_single ) {
-                foreach( $field['choices'] as $choice ) {
-                    if ( $choice['value'] == $field_submit_single ) {
-                        $value[] = $choice['label'];
-                        break;
-                    }
-                }
-            }
-
-            $data['value'] = !empty( $value ) ? implode( "\n", array_map( 'sanitize_text_field', $value ) ) : '';
-
-        } else {
-            $data['value'] = $value_raw;
-        }
-
 
         // Push field details to be saved
         wpforms()->process->fields[$field_id] = $data;
+
+        // Subscribe to MailChimp
+        if( ! empty( $field_submit ) ) {
+           // TODO: Find email and subscribe to MailChimp.
+        }
+
     }
 }
