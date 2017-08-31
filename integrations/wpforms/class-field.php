@@ -11,6 +11,11 @@
 class MC4WP_WPForms_Field extends WPForms_Field {
 
     /**
+     * @var MC4WP_MailChimp
+     */
+    private $mailchimp;
+
+    /**
      * Primary class constructor.
      *
      * @since 1.0.0
@@ -46,8 +51,11 @@ class MC4WP_WPForms_Field extends WPForms_Field {
         // Options open markup
         $this->field_option( 'basic-options', $field, array( 'markup' => 'open' ) );
 
+        // MailChimp list
+        $this->field_option_mailchimp_list( $field );
+
         // Choices
-        $this->field_choices( $field );
+        $this->field_option_choices( $field );
 
         // Description
         $this->field_option( 'description',   $field );
@@ -72,9 +80,44 @@ class MC4WP_WPForms_Field extends WPForms_Field {
         $this->field_option( 'advanced-options', $field, array( 'markup' => 'close' ) );
     }
 
-    private function field_choices( $field ) {
-        $tooltip = __( 'Add choices for the form field.', 'wpforms' );
-        $dynamic = ! empty( $field['dynamic_choices'] ) ? esc_html( $field['dynamic_choices'] ) : '';
+    private function field_option_mailchimp_list( $field ) {
+        $mailchimp = new MC4WP_MailChimp();
+
+        // Field option label
+        $tooltip = __( 'Select the MailChimp list to subscribe to.', 'mailchimp-for-wp' );
+        $option_label = $this->field_element(
+            'label',
+            $field,
+            array(
+                'slug'          => 'mailchimp-list',
+                'value'         => __( 'MailChimp list', 'mailchimp-for-wp' ),
+                'tooltip' => $tooltip,
+            ),
+            false
+        );
+
+        $option_select = sprintf( '<select name="fields[%s][mailchimp_list]" data-field-id="%d" data-field-type="%s">', $field['id'], $field['id'], $this->type );
+        $lists = $mailchimp->get_cached_lists();
+        foreach( $lists as $list ) {
+            $option_select .= sprintf( '<option value="%s" %s>%s</option>', $list->id, selected( $list->id, $field['mailchimp_list'], false), $list->name );
+        }
+        $option_select .= '</select>';
+
+
+        // Field option row (markup) including label and input.
+        $output = $this->field_element(
+            'row',
+            $field,
+            array(
+                'slug'    => 'mailchimp-list',
+                'content' => $option_label . $option_select,
+            )
+        );
+
+    }
+
+    private function field_option_choices( $field ) {
+        $tooltip = __( 'Set your sign-up label text and whether it should be pre-checked.', 'mailchimp-for-wp' );
         $values  = ! empty( $field['choices'] ) ? $field['choices'] : $this->defaults;
         $class   = ! empty( $field['show_values'] ) && $field['show_values'] == '1' ? 'show-values' : '';
         $class  .= ! empty( $dynamic ) ? ' wpforms-hidden' : '';
@@ -84,15 +127,15 @@ class MC4WP_WPForms_Field extends WPForms_Field {
             'label',
             $field,
             array(
-                'slug'          => 'choices',
-                'value'         => __( 'Choices', 'wpforms' ),
+                'slug'          => 'mailchimp-checkbox',
+                'value'         => __( 'Sign-up checkbox', 'mailchimp-for-wp' ),
                 'tooltip'       => $tooltip,
             ),
             false
         );
 
         // Field option choices inputs
-        $option_choices = sprintf( '<ul data-next-id="%s" class="choices-list %s" data-field-id="%d" data-field-type="%s">', max( array_keys( $values ) ) +1, $class, $field['id'], $this->type );
+        $option_choices = sprintf( '<ul class="choices-list %s" data-field-id="%d" data-field-type="%s">', $class, $field['id'], $this->type );
         foreach ( $values as $key => $value ) {
             $default = ! empty( $value['default'] ) ? $value['default'] : '';
             $option_choices .= sprintf( '<li data-key="%d">', $key );
@@ -112,8 +155,6 @@ class MC4WP_WPForms_Field extends WPForms_Field {
                 'content' => $option_label . $option_choices,
             )
         );
-
-        echo $output;
     }
     
     /**
@@ -214,7 +255,7 @@ class MC4WP_WPForms_Field extends WPForms_Field {
         $field        = $form_data['fields'][$field_id];
         $choice = array_pop( $field['choices' ] );
         $name         = sanitize_text_field( $choice['label'] );
-        
+
         $data = array(
             'name'      => $name,
             'value'     => empty( $field_submit ) ? __( 'No' ) : __( 'Yes' ),
@@ -229,8 +270,46 @@ class MC4WP_WPForms_Field extends WPForms_Field {
 
         // Subscribe to MailChimp
         if( ! empty( $field_submit ) ) {
-           // TODO: Find email and subscribe to MailChimp.
+            $this->subscribe( $field, $form_data, $_POST['wpforms'] );
         }
 
+    }
+
+    /**
+     * @param $field
+     * @param $form
+     * @param $data
+     */
+    private function subscribe( $field, $form, $data ) {
+        $mailchimp = new MC4WP_MailChimp();
+
+        // get id of email field
+        foreach( $form['fields'] as $form_field ) {
+            if( $form_field['type'] === 'email' ) {
+                $email_field_id = $form_field['id'];
+                break;
+            }
+        }
+
+        if( empty( $email_field_id ) || empty( $data['fields'][$email_field_id] ) ) {
+            return;
+        }
+
+        $email_address = $data['fields'][$email_field_id];
+        $mailchimp_list_id = $field['mailchimp_list'];
+
+        $success = $mailchimp->list_subscribe( $mailchimp_list_id, $email_address );
+        $log = mc4wp('log');
+
+        if( $success ) {
+            $log->info( sprintf( '%s > Successfully subscribed %s', 'WPForms', $email_address ) );
+        } else {
+            // log error
+            if( $mailchimp->get_error_code() == 214 ) {
+                $log->warning( sprintf( "%s > %s is already subscribed to the selected list(s)", 'WPForms', $email_address ) );
+            } else {
+                $log->error( sprintf( '%s > MailChimp API Error: %s', 'WPForms', $mailchimp->get_error_message() ) );
+            }
+        }
     }
 }
