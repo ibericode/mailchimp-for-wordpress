@@ -32,7 +32,7 @@ function _mc4wp_integrations_table( $integrations ) {
 
 					<?php
 					if( $installed ) {
-						printf( '<strong><a href="%s" title="%s">%s</a></strong>', add_query_arg( array( 'integration' => $integration->slug ) ), __( 'Configure this integration', 'mailchimp-for-wp' ), $integration->name );
+						printf( '<strong><a href="%s" title="%s">%s</a></strong>', esc_attr( add_query_arg( array( 'integration' => $integration->slug ) ) ), __( 'Configure this integration', 'mailchimp-for-wp' ), $integration->name );
 					} else {
 						echo $integration->name;
 					} ?>

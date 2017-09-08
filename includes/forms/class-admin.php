@@ -273,7 +273,7 @@ class MC4WP_Forms_Admin {
 
 		$previewer = new MC4WP_Form_Previewer( $form_id );
 
-		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) . sprintf( ' <a href="%s">', $previewer->get_preview_url() ) . __( 'Preview form', 'mailchimp-for-wp' ) . '</a>' );
+		$this->messages->flash( __( "<strong>Success!</strong> Form successfully saved.", 'mailchimp-for-wp' ) . sprintf( ' <a href="%s">', esc_attr( $previewer->get_preview_url() ) ) . __( 'Preview form', 'mailchimp-for-wp' ) . '</a>' );
 	}
 
     /**
