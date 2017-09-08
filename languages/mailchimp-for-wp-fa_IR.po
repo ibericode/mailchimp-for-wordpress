@@ -4,12 +4,13 @@
 # A.Mehraban <Mehr.Ban@chmail.ir>, 2015
 # Ardavan Afrasiyabi <abox@usa.com>, 2015
 # mahnaz vahedi <mahnazvn@yahoo.com>, 2016
+# Salar Gholizadeh <salar.g@gmail.com>, 2017
 # zeinab bakhtiari <carolinazb9@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2017-06-11 11:48+0000\n"
-"Last-Translator: zeinab bakhtiari <carolinazb9@gmail.com>\n"
+"PO-Revision-Date: 2017-08-06 10:43+0000\n"
+"Last-Translator: Salar Gholizadeh <salar.g@gmail.com>\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/fa_IR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,11 +51,11 @@ msgstr "تازه سازی لیست های MailChimp"
 
 #: includes/admin/class-admin.php:306
 msgid "Fetching MailChimp lists"
-msgstr "تازه سازی لیست های MailChimp"
+msgstr "در حال تازه سازی لیست های MailChimp"
 
 #: includes/admin/class-admin.php:307
 msgid "Done! MailChimp lists renewed."
-msgstr ""
+msgstr "لیست های MailChimp تازه سازی شدند."
 
 #: includes/admin/class-admin.php:308
 msgid "This can take a while if you have many MailChimp lists."
@@ -197,7 +198,7 @@ msgstr "چک باکس"
 
 #: includes/forms/class-admin.php:65
 msgid "Choices"
-msgstr "انتخاب"
+msgstr "انتخاب ها"
 
 #: includes/forms/class-admin.php:66
 msgid "Choice type"
@@ -209,11 +210,11 @@ msgstr ""
 
 #: includes/forms/class-admin.php:68
 msgid "Close"
-msgstr ""
+msgstr "بستن"
 
 #: includes/forms/class-admin.php:69
 msgid "Country"
-msgstr ""
+msgstr "کشور"
 
 #: includes/forms/class-admin.php:70
 msgid "Dropdown"
@@ -483,7 +484,7 @@ msgstr "کلید API خود را از اینجا دریافت کنید."
 
 #: includes/views/other-settings.php:14
 msgid "Miscellaneous settings"
-msgstr ""
+msgstr "سایر تنظیمات"
 
 #: includes/views/other-settings.php:17
 msgid "Usage Tracking"
@@ -1015,7 +1016,7 @@ msgstr "وقتی که از متد لغو اشتراک استفاده شود ، �
 
 #: includes/forms/views/tabs/form-messages.php:65
 msgid "No list selected"
-msgstr ""
+msgstr "لیستی انتخاب نشده"
 
 #: includes/forms/views/tabs/form-messages.php:68
 msgid ""
