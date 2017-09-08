@@ -210,6 +210,7 @@ MailChimp for WordPress comes with many filter & action hooks which allow you to
 **Improvements**
 
 - Updated internal JS dependencies.
+- Form tag `{data key="foo.bar"}` now allows you to access nested array values.
 
 
 #### 4.1.6 - July 31, 2017
