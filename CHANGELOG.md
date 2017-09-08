@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-#### 4.1.7 - September 8, 2017
+#### 4.1.7 & 4.1.8 - September 8, 2017
 
 **Fixes**
 
