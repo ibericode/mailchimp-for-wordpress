@@ -42,12 +42,21 @@ class MC4WP_Array_Bag {
 	 * @return mixed
 	 */
 	public function get( $name, $default = null ) {
+        if( isset( $this->array[ $name ] ) ) {
+            return $this->array[ $name ];
+        }
 
-		if( isset( $this->array[ $name ] ) ) {
-			return $this->array[ $name ];
-		}
+        // allow dot access for nested array keys: key.subkey
+        $array = $this->array;
+        foreach(explode('.', $name) as $segment) {
+            if ( ! array_key_exists( $segment, $array )) {
+                return $default;
+            }
 
-		return $default;
+            $array = $array[$segment];
+         }
+
+         return $array;
 	}
 
 	/**
