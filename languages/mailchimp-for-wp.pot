@@ -517,31 +517,31 @@ msgstr ""
 msgid "Appearance"
 msgstr ""
 
-#: includes/forms/views/edit-form.php:25
+#: includes/forms/views/edit-form.php:26
 msgid "Form"
 msgstr ""
 
-#: includes/forms/views/edit-form.php:34
+#: includes/forms/views/edit-form.php:36
 msgid "Edit Form"
 msgstr ""
 
-#: includes/forms/views/edit-form.php:58
+#: includes/forms/views/edit-form.php:61
 msgid "Enter form title here"
 msgstr ""
 
-#: includes/forms/views/edit-form.php:59
+#: includes/forms/views/edit-form.php:65
 msgid "Enter the title of your sign-up form"
 msgstr ""
 
-#: includes/forms/views/edit-form.php:65
+#: includes/forms/views/edit-form.php:74
 msgid "Shortcode"
 msgstr ""
 
-#: includes/forms/views/edit-form.php:67
+#: includes/forms/views/edit-form.php:76
 msgid "Get shortcode"
 msgstr ""
 
-#: includes/forms/views/edit-form.php:72
+#: includes/forms/views/edit-form.php:84
 msgid "Preview this form"
 msgstr ""
 
