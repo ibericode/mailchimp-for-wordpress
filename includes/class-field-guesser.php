@@ -51,28 +51,32 @@ class MC4WP_Field_Guesser {
 
             // transform value into array to support 1-level arrays
             $sub_fields = is_array( $value ) ? $value : array( $value );
+
             foreach( $sub_fields as $sub_field_value ) {
+
+                // poor man's urldecode, to get Enfold theme's contact element to work.
+                $sub_field_value = str_replace( '%40', '@', $sub_field_value );
 
                 // is this an email value? if so, assume it's the EMAIL field
                 if( empty( $guessed['EMAIL'] ) && is_string( $sub_field_value ) && is_email( $sub_field_value ) ) {
                     $guessed['EMAIL'] = $sub_field_value;
                     continue 2;
                 }
+
+                // remove special characters from field name
+                $simple_key = str_replace( array( '-', '_', ' ' ), '', $field );
+
+                if( empty( $guessed['FNAME'] ) && $this->string_contains( $simple_key, array( 'FIRSTNAME', 'FNAME', 'GIVENNAME', 'FORENAME' ) ) ) {
+                    // find first name field
+                    $guessed['FNAME'] = $sub_field_value;
+                } elseif( empty( $guessed['LNAME'] ) && $this->string_contains( $simple_key, array( 'LASTNAME', 'LNAME', 'SURNAME', 'FAMILYNAME' ) ) ) {
+                    // find last name field
+                    $guessed['LNAME'] = $sub_field_value;
+                } elseif( empty( $guessed['NAME'] ) && $this->string_contains( $simple_key, 'NAME' ) ){
+                    // find name field
+                    $guessed['NAME'] = $sub_field_value;
+                }
             }
-
-			// remove special characters from field name
-			$simple_key = str_replace( array( '-', '_', ' ' ), '', $field );
-
-			if( empty( $guessed['FNAME'] ) && $this->string_contains( $simple_key, array( 'FIRSTNAME', 'FNAME', 'GIVENNAME', 'FORENAME' ) ) ) {
-				// find first name field
-				$guessed['FNAME'] = $value;
-			} elseif( empty( $guessed['LNAME'] ) && $this->string_contains( $simple_key, array( 'LASTNAME', 'LNAME', 'SURNAME', 'FAMILYNAME' ) ) ) {
-				// find last name field
-				$guessed['LNAME'] = $value;
-			} elseif( empty( $guessed['NAME'] ) && $this->string_contains( $simple_key, 'NAME' ) ){
-				// find name field
-				$guessed['NAME'] = $value;
-			}
 
 		}
 
