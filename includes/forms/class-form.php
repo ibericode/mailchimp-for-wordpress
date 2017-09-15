@@ -21,29 +21,42 @@ class MC4WP_Form {
     /**
      * Get a shared form instance.
      *
-     * @param int|WP_Post $form_id
+     * @param WP_Post|int $post Post instance or post ID.
      * @return MC4WP_Form
      * @throws Exception
      */
-    public static function get_instance( $form_id = 0 ) {
+    public static function get_instance( $post = 0 ) {
 
-        if( $form_id instanceof WP_Post ) {
-            $form_id = $form_id->ID;
+        if( $post instanceof WP_Post ) {
+            $post_id = $post->ID;
         } else {
-            $form_id = (int) $form_id;
+            $post_id = (int) $post;
 
-            if( empty( $form_id ) ) {
-                $form_id = (int) get_option( 'mc4wp_default_form_id', 0 );
+            if( empty( $post_id ) ) {
+                $post_id = (int) get_option( 'mc4wp_default_form_id', 0 );
             }
         }
 
-        if( isset( self::$instances[ $form_id ] ) ) {
-            return self::$instances[ $form_id ];
+        if( isset( self::$instances[ $post_id ] ) ) {
+            return self::$instances[ $post_id ];
         }
 
-        $form = new MC4WP_Form( $form_id );
+        // get post object if we don't have it by now
+        if( ! $post instanceof WP_Post ) {
+            $post = get_post( $post_id );
+        }
 
-        self::$instances[ $form_id ] = $form;
+        // check post object
+        if( ! is_object( $post ) || ! isset( $post->post_type ) || $post->post_type !== 'mc4wp-form' ) {
+            $message = sprintf( __( 'There is no form with ID %d, perhaps it was deleted?', 'mailchimp-for-wp' ), $post_id );
+            throw new Exception( $message );
+        }
+
+        $post_meta = get_post_meta( $post_id );
+        $form = new MC4WP_Form( $post_id, $post, $post_meta );
+
+        // store instance
+        self::$instances[ $post_id ] = $form;
 
         return $form;
     }
@@ -122,18 +135,13 @@ class MC4WP_Form {
 
     /**
      * @param int $id The post ID
-     * @throws Exception
+     * @param WP_Post $post
+     * @param array $post_meta
      */
-    public function __construct( $id ) {
+    public function __construct( $id, $post, $post_meta = array() ) {
         $this->ID = $id = (int) $id;
-        $this->post = $post = get_post( $this->ID );
-        $this->post_meta = get_post_meta( $this->ID );
-
-        if( ! is_object( $post ) || ! isset( $post->post_type ) || $post->post_type !== 'mc4wp-form' ) {
-            $message = sprintf( __( 'There is no form with ID %d, perhaps it was deleted?', 'mailchimp-for-wp' ), $id );
-            throw new Exception( $message );
-        }
-
+        $this->post = $post;
+        $this->post_meta = $post_meta;
         $this->name = $post->post_title;
         $this->content = $post->post_content;
         $this->settings = $this->load_settings();
