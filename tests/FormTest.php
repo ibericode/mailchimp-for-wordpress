@@ -20,7 +20,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 
 		// we should get an exception when getting non-existing form
 		self::setExpectedException( 'Exception' );
-		new MC4WP_Form( 500 );
+		MC4WP_Form::get_instance(500 );
 		self::setExpectedException(null);
 	}
 
@@ -93,7 +93,8 @@ class FormTest extends PHPUnit_Framework_TestCase {
 				'post_content' => '',
 			)
 		);
-		$form = new MC4WP_Form(1);
+		$post = get_post( 1 );
+		$form = new MC4WP_Form(1, $post );
 		self::assertEmpty( $form->get_field_types() );
 	}
 
