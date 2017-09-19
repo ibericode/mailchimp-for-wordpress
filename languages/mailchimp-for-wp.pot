@@ -313,6 +313,10 @@ msgstr ""
 msgid "Select the form to show"
 msgstr ""
 
+#: includes/forms/class-form-element.php:82
+msgid "Leave this field empty if you're human:"
+msgstr ""
+
 #: includes/forms/class-form-previewer.php:146
 msgid "Form preview"
 msgstr ""
@@ -369,7 +373,7 @@ msgstr ""
 msgid "Property of the current page or post."
 msgstr ""
 
-#: includes/forms/class-form.php:133
+#: includes/forms/class-form.php:51
 msgid "There is no form with ID %d, perhaps it was deleted?"
 msgstr ""
 

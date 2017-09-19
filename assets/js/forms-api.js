@@ -12,7 +12,9 @@ var config = window.mc4wp_forms_config || {};
 function scrollToForm(form) {
 	var animate = config.auto_scroll === 'animated';
 	var args = {
-		behavior: animate ? "smooth" : "instant"
+		behavior: animate ? "smooth" : "instant",
+		block: "center",
+		inline: "center"
 	};
 	form.element.scrollIntoView(args);
 }
@@ -36,7 +38,7 @@ function handleFormRequest(form, action, errors, data) {
 
 		// scroll to form again if page height changed since last scroll
 		// (only if load didn't take more than 0.8 seconds to prevent overtaking user scroll)
-		if (config.auto_scroll && timeElapsed < 800 && document.body.clientHeight != pageHeight) {
+		if (config.auto_scroll && timeElapsed < 800 && document.body.clientHeight !== pageHeight) {
 			scrollToForm(form);
 		}
 
