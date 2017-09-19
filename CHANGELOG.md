@@ -1,6 +1,13 @@
 Changelog
 =========
 
+#### 4.1.9 - September 19, 2017
+
+**Improvements**
+
+- Add `<label>` element to sign-up checkbox for WCAG compatibility.
+- Custom integration now works with Enfold theme's contact form element.
+
 
 #### 4.1.7 & 4.1.8 - September 8, 2017
 
