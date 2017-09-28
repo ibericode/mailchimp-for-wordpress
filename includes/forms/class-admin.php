@@ -39,10 +39,8 @@ class MC4WP_Forms_Admin {
 		add_action( 'mc4wp_admin_edit_form', array( $this, 'process_save_form' ) );
 		add_action( 'mc4wp_admin_add_form', array( $this, 'process_add_form' ) );
 		add_filter( 'mc4wp_admin_menu_items', array( $this, 'add_menu_item' ), 5 );
-
 		add_action( 'mc4wp_admin_show_forms_page-edit-form', array( $this, 'show_edit_page' ) );
 		add_action( 'mc4wp_admin_show_forms_page-add-form', array( $this, 'show_add_page' ) );
-
 		add_action( 'mc4wp_admin_enqueue_assets', array( $this, 'enqueue_assets' ), 10, 2 );
 	}
 
@@ -109,7 +107,7 @@ class MC4WP_Forms_Admin {
 
 		$items['forms'] = array(
 			'title' => __( 'Forms', 'mailchimp-for-wp' ),
-			'text' => __( 'Forms', 'mailchimp-for-wp' ),
+			'text' => __( 'Form', 'mailchimp-for-wp' ),
 			'slug' => 'forms',
 			'callback' => array( $this, 'show_forms_page' ),
 			'load_callback' => array( $this, 'redirect_to_form_action' ),
