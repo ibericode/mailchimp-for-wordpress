@@ -45,7 +45,8 @@ mc4wp_register_integration( 'contact-form-7', 'MC4WP_Contact_Form_7_Integration'
 mc4wp_register_integration( 'events-manager', 'MC4WP_Events_Manager_Integration' );
 mc4wp_register_integration( 'memberpress', 'MC4WP_MemberPress_Integration' );
 mc4wp_register_integration( 'custom', 'MC4WP_Custom_Integration', true );
-require dirname(__FILE__) . '/ninja-forms/bootstrap.php';
-require dirname(__FILE__) . '/wpforms/bootstrap.php';
-
+$dir = dirname( __FILE__ );
+require $dir . '/ninja-forms/bootstrap.php';
+require $dir . '/wpforms/bootstrap.php';
+require $dir . '/gravity-forms/bootstrap.php';
 

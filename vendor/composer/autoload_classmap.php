@@ -43,6 +43,8 @@ return array(
     'MC4WP_Form_Tags' => $baseDir . '/includes/forms/class-form-tags.php',
     'MC4WP_Form_Widget' => $baseDir . '/includes/forms/class-widget.php',
     'MC4WP_Forms_Admin' => $baseDir . '/includes/forms/class-admin.php',
+    'MC4WP_Gravity_Forms_Field' => $baseDir . '/integrations/gravity-forms/class-field.php',
+    'MC4WP_Gravity_Forms_Integration' => $baseDir . '/integrations/gravity-forms/class-gravity-forms.php',
     'MC4WP_Integration' => $baseDir . '/includes/integrations/class-integration.php',
     'MC4WP_Integration_Admin' => $baseDir . '/includes/integrations/class-admin.php',
     'MC4WP_Integration_Fixture' => $baseDir . '/includes/integrations/class-integration-fixture.php',
