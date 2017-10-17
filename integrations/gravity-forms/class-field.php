@@ -4,6 +4,38 @@ class MC4WP_Gravity_Forms_Field extends GF_Field {
 
     public $type = 'mailchimp';
 
+    /**
+     * Returns the field markup; including field label, description, validation, and the form editor admin buttons.
+     *
+     * The {FIELD} placeholder will be replaced in GFFormDisplay::get_field_content with the markup returned by GF_Field::get_field_input().
+     *
+     * @param string|array $value                The field value. From default/dynamic population, $_POST, or a resumed incomplete submission.
+     * @param bool         $force_frontend_label Should the frontend label be displayed in the admin even if an admin label is configured.
+     * @param array        $form                 The Form Object currently being processed.
+     *
+     * @return string
+     */
+    public function get_field_content( $value, $force_frontend_label, $form ) {
+
+        $validation_message = ( $this->failed_validation && ! empty( $this->validation_message ) ) ? sprintf( "<div class='gfield_description validation_message'>%s</div>", $this->validation_message ) : '';
+
+        $is_form_editor  = $this->is_form_editor();
+        $is_entry_detail = $this->is_entry_detail();
+        $is_admin        = $is_form_editor || $is_entry_detail;
+
+        $admin_buttons = $this->get_admin_buttons();
+
+        $description = $this->get_description( $this->description, 'gfield_description' );
+        if ( $this->is_description_above( $form ) ) {
+            $clear         = $is_admin ? "<div class='gf_clear'></div>" : '';
+            $field_content = sprintf( "%s%s{FIELD}%s$clear", $admin_buttons, $description, $validation_message );
+        } else {
+            $field_content = sprintf( "%s{FIELD}%s%s", $admin_buttons, $description, $validation_message );
+        }
+
+        return $field_content;
+    }
+
     public function get_form_editor_field_title() {
         return esc_attr__( 'MailChimp', 'mailchimp-for-wp' );
     }
@@ -11,15 +43,11 @@ class MC4WP_Gravity_Forms_Field extends GF_Field {
     public function get_form_editor_field_settings() {
         return array(
             'label_setting',
-            'rules_setting',
             'description_setting',
             'css_class_setting',
             'mailchimp_list_setting',
+            'mailchimp_double_optin'
         );
-    }
-
-    public function get_field_label( $force_frontend_label, $value ) {
-        return '';
     }
 
     public function get_field_input( $form, $value = '', $entry = null ) {
@@ -42,7 +70,7 @@ class MC4WP_Gravity_Forms_Field extends GF_Field {
         $is_form_editor  = $this->is_form_editor();
 
         $choice = array(
-            'text' => $this->label,
+            'text' => $this->get_field_label( false, $value ),
             'value' => 1,
             'isSelected' => false,
         );
