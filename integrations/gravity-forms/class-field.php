@@ -18,7 +18,6 @@ class MC4WP_Gravity_Forms_Field extends GF_Field {
     public function get_field_content( $value, $force_frontend_label, $form ) {
 
         $validation_message = ( $this->failed_validation && ! empty( $this->validation_message ) ) ? sprintf( "<div class='gfield_description validation_message'>%s</div>", $this->validation_message ) : '';
-
         $is_form_editor  = $this->is_form_editor();
         $is_entry_detail = $this->is_entry_detail();
         $is_admin        = $is_form_editor || $is_entry_detail;
@@ -71,17 +70,15 @@ class MC4WP_Gravity_Forms_Field extends GF_Field {
 
         $choice = array(
             'text' => $this->get_field_label( false, $value ),
-            'value' => 1,
+            'value' => "1",
             'isSelected' => false,
         );
 
-        $choice_number = 1;
-        $input_id = $this->id . '.' . $choice_number;
-
+        $input_id = $this->id;
         if ( $is_entry_detail || $is_form_editor || $form_id == 0 ){
-            $id = $this->id . '_' . $choice_number ++;
+            $id = $this->id;
         } else {
-            $id = $form_id . '_' . $this->id . '_' . $choice_number ++;
+            $id = $form_id . '_' . $this->id;
         }
 
         if ( ! isset( $_GET['gf_token'] ) && empty( $_POST ) && rgar( $choice, 'isSelected' ) ) {

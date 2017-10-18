@@ -58,8 +58,6 @@ class MC4WP_WPForms_Integration extends MC4WP_Integration {
             }
         }
 
-
-
         $mailchimp_list_id = $form_data['fields'][$checkbox_field_id]['mailchimp_list'];
         $this->options['lists'] = array( $mailchimp_list_id );
 
