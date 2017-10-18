@@ -34,6 +34,7 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration {
         $subscribe = false;
         $email_address = '';
         $mailchimp_list_id = '';
+        $double_optin = $this->options['double_optin'];
 
         // find email field & checkbox value
         foreach( $form['fields'] as $field ) {
@@ -44,6 +45,10 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration {
             if( $field->type === 'mailchimp' && ! empty( $submission[ $field->id ] ) ) {
                 $subscribe = true;
                 $mailchimp_list_id = $field->mailchimp_list;
+
+                if( isset( $field->mailchimp_double_optin ) ) {
+                    $double_optin = $field->mailchimp_double_optin;
+                }
             }
         }
 
@@ -51,8 +56,16 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration {
             return;
         }
 
+        // override integration settings with field options
+        $orig_options = $this->options;
         $this->options['lists'] = array( $mailchimp_list_id );
+        $this->options['double_optin'] = $double_optin;
+
+        // perform the sign-up
         $this->subscribe( array( 'EMAIL' => $email_address ), $submission['form_id'] );
+
+        // revert back to original options in case request lives on
+        $this->options = $orig_options;
     }
 
     public function editor_js() {
