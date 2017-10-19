@@ -59,4 +59,12 @@ class MC4WP_Ninja_Forms_Integration extends MC4WP_Integration {
         return array();
     }
 
+    /**
+     * @param int $form_id
+     * @return string
+     */
+    public function get_object_link( $form_id ) {
+        return '<a href="' . admin_url( sprintf( 'admin.php?page=ninja-forms&form_id=%d', $form_id ) ) . '">Ninja Forms</a>';
+    }
+
 }

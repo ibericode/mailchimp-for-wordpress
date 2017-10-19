@@ -66,4 +66,12 @@ class MC4WP_WPForms_Integration extends MC4WP_Integration {
         }
     }
 
+    /**
+     * @param int $form_id
+     * @return string
+     */
+    public function get_object_link( $form_id ) {
+        return '<a href="' . admin_url( sprintf( 'admin.php?page=wpforms-builder&view=fields&form_id=%d', $form_id ) ) . '">WPForms</a>';
+    }
+
 }

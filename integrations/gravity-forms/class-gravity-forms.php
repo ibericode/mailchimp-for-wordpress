@@ -126,4 +126,12 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration {
         return array();
     }
 
+    /**
+     * @param int $form_id
+     * @return string
+     */
+    public function get_object_link( $form_id ) {
+        return '<a href="'. admin_url( sprintf( 'admin.php?page=gf_edit_forms&id=%d', $form_id ) ) . '">Gravity Forms</a>';
+    }
+
 }
