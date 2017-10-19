@@ -1,74 +1,28 @@
-# Copyright (C) 2015 MailChimp for WordPress
-# This file is distributed under the same license as the MailChimp for WordPress package.
+# Copyright (C) 2017 mailchimp-for-wp
+# This file is distributed under the same license as the mailchimp-for-wp package.
 # Translators:
 # Erik Wolf <increst@gmail.com>, 2015
+# László Sallér <saller.laszlo@gmail.com>, 2017
 # Németh Balázs <nb0000@gmail.com>, 2014-2015
 # Reka Szendrei <szendreka@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailchimp-for-wp\n"
-"POT-Creation-Date: 2015-11-30 10:15:18+00:00\n"
-"PO-Revision-Date: 2017-02-13 11:18+0000\n"
-"Last-Translator: Reka Szendrei <szendreka@gmail.com>\n"
+"PO-Revision-Date: 2017-09-27 19:26+0000\n"
+"Last-Translator: László Sallér <saller.laszlo@gmail.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
-#: config/default-form-content.php:3
-msgid "Email address"
-msgstr "Emailcím"
-
-#: config/default-form-content.php:4
-msgid "Your email address"
-msgstr "Az emailcímed"
-
-#: config/default-form-content.php:5
-msgid "Sign up"
-msgstr "Feliratkozás"
-
-#: config/default-form-messages.php:5
-msgid ""
-"Thank you, your sign-up request was successful! Please check your email "
-"inbox to confirm."
-msgstr "Köszönjük, a feliratkozás kérés sikeres volt. Kérjük, nézze meg a bejövő leveleit!"
-
-#: config/default-form-messages.php:9
-msgid "Oops. Something went wrong. Please try again later."
-msgstr "Hoppá! Valami nem működött. Kérjük, próbálja újra később!"
-
-#: config/default-form-messages.php:13
-msgid "Please provide a valid email address."
-msgstr "Kérjük, érvényes emailcímet adjon meg."
-
-#: config/default-form-messages.php:17
-msgid "Given email address is already subscribed, thank you!"
-msgstr "Ez az emailcím már feliratkozott. Köszönjük."
-
-#: config/default-form-messages.php:21
-msgid "Please fill in the required fields."
-msgstr "Kérjük, töltse ki a kötelező mezőket."
-
-#: config/default-form-messages.php:25
-msgid "You were successfully unsubscribed."
-msgstr "Sikeresen leiratkoztattuk."
-
-#: config/default-form-messages.php:29
-msgid "Given email address is not subscribed."
-msgstr "A megadott emailcím nincs feliratkozva."
-
-#: config/default-form-messages.php:33
-msgid "Please select at least one list."
-msgstr "Legalább egy listát válasszon ki a feliratkozáshoz."
-
-#: config/default-integration-options.php:5
-msgid "Sign me up for the newsletter!"
-msgstr "Irj fel a hírlevél címlistára!"
-
-#: includes/admin/class-admin-texts.php:62
+#: includes/admin/class-admin-texts.php62,
 #: includes/forms/views/edit-form.php:6
 msgid "Settings"
 msgstr "Beállítások"
@@ -77,151 +31,394 @@ msgstr "Beállítások"
 msgid "Documentation"
 msgstr "Dokumentáció"
 
-#: includes/admin/class-admin.php:167
+#: includes/admin/class-admin.php:204
 msgid ""
 "Success! The cached configuration for your MailChimp lists has been renewed."
-msgstr ""
+msgstr "Sikerült! A MailChimp eltárolt beállítási listája frissítésre került."
 
-#: includes/admin/class-admin.php:257
+#: includes/admin/class-admin.php:304
 msgid ""
 "This is a pro-only feature. Please upgrade to the premium version to be able"
 " to use it."
-msgstr ""
+msgstr "Ez egy kizárólag-prémium lehetőség. Váltson prémium verzióra hogy használni tudja."
 
-#: includes/admin/class-admin.php:323 includes/views/general-settings.php:28
+#: includes/admin/class-admin.php305,
+#: includes/views/parts/lists-overview.php10,
+#: includes/forms/views/parts/add-fields-help.php:43
+msgid "Renew MailChimp lists"
+msgstr "MailChimp listák frissítése"
+
+#: includes/admin/class-admin.php:306
+msgid "Fetching MailChimp lists"
+msgstr "MailChimp listák feldolgozása"
+
+#: includes/admin/class-admin.php:307
+msgid "Done! MailChimp lists renewed."
+msgstr "Kész! MailChimp listák frissítve."
+
+#: includes/admin/class-admin.php:308
+msgid "This can take a while if you have many MailChimp lists."
+msgstr "Ez altarthat egy darabig, ha több Mailchimp listát használsz."
+
+#: includes/admin/class-admin.php336, includes/views/general-settings.php:31
 msgid "MailChimp API Settings"
 msgstr "MailChimp API beállítások"
 
-#: includes/admin/class-admin.php:324
-#: integrations/ninja-forms/class-ninja-forms.php:34
+#: includes/admin/class-admin.php:337
 msgid "MailChimp"
 msgstr "MailChimp"
 
-#: includes/admin/class-ads.php:33
-msgid "Upgrade to MailChimp for WordPress Pro"
-msgstr "Frissítés a MailChimp for WordPress Pro verzióra"
+#: includes/admin/class-admin.php343, includes/views/other-settings.php60,
+#: includes/views/other-settings.php:70
+msgid "Other Settings"
+msgstr "Egyéb beállítások"
 
-#: includes/admin/class-ads.php:41
+#: includes/admin/class-admin.php:344
+msgid "Other"
+msgstr "Egyéb"
+
+#: includes/admin/class-admin.php:458
+msgid "Log successfully emptied."
+msgstr "Napló sikeresen törölve."
+
+#: includes/admin/class-admin.php:488
 msgid ""
-"Enjoying this plugin? <a href=\"%s\">Purchase our bundle of premium "
-"features</a> for an even better plugin."
+"To get started with MailChimp for WordPress, please <a href=\"%s\">enter "
+"your MailChimp API key on the settings page of the plugin</a>."
+msgstr "Hogy használni tudd a MailChimpet WordPressben <a href=\"%s\">írd be a MailChimpes API kulcsodat a beépülő modul beállítás oldalán</a>."
+
+#: includes/admin/class-ads.php:39
+msgid ""
+"Want to customize the style of your form? <a href=\"%s\">Try our Styles "
+"Builder</a> & edit the look of your forms with just a few clicks."
 msgstr ""
 
-#: includes/admin/class-ads.php:62
+#: includes/admin/class-ads.php:54
+msgid ""
+"Be notified whenever someone subscribes? <a href=\"%s\">MailChimp for "
+"WordPress Premium</a> allows you to set up email notifications for your "
+"forms."
+msgstr ""
+
+#: includes/admin/class-ads.php:56
+msgid ""
+"Increased conversions? <a href=\"%s\">MailChimp for WordPress Premium</a> "
+"submits forms without reloading the entire page, resulting in a much better "
+"experience for your visitors."
+msgstr ""
+
+#: includes/admin/class-ads.php:70
+msgid "Upgrade to Premium"
+msgstr "Frissíts Prémiumra"
+
+#: includes/admin/class-ads.php:83
+msgid ""
+"Do you want translated forms for all of your languages? <a href=\"%s\">Try "
+"MailChimp for WordPress Premium</a>, which does just that plus more."
+msgstr ""
+
+#: includes/admin/class-ads.php:88
+msgid ""
+"Do you want to create more than one form? Our Premium add-on does just that!"
+" <a href=\"%s\">Have a look at all Premium benefits</a>."
+msgstr ""
+
+#: includes/admin/class-ads.php:93
+msgid ""
+"Are you enjoying this plugin? The Premium add-on unlocks several powerful "
+"features. <a href=\"%s\">Find out about all benefits now</a>."
+msgstr ""
+
+#: includes/admin/class-ads.php:112
 msgid "More subscribers, better newsletters."
-msgstr ""
+msgstr "Több feliratkozó, jobb hírlevelek."
 
-#: includes/admin/class-ads.php:63
+#: includes/admin/class-ads.php:113
 msgid ""
 "Learn how to best grow your lists & write better emails by subscribing to "
 "our monthly tips."
 msgstr ""
 
-#: includes/admin/class-ads.php:66
+#: includes/admin/class-ads.php:116
 msgid "Email Address"
 msgstr "Email cím"
 
-#: includes/admin/class-ads.php:70
+#: includes/admin/class-ads.php:120
 msgid "First Name"
 msgstr "Keresztnév"
 
-#: includes/admin/class-ads.php:77
+#: includes/admin/class-ads.php127, includes/forms/class-admin.php:94
 msgid "Subscribe"
 msgstr "Feliratkozás"
 
-#: includes/admin/class-usage-tracking.php:57
-msgid "Once a month"
+#: includes/admin/class-ads.php:150
+msgid ""
+"Do you want to track all WooCommerce orders in MailChimp so you can send "
+"emails based on the purchase activity of your subscribers?"
 msgstr ""
 
-#: includes/admin/migrations/3.0-form-1-post-type.php:35
-msgid "Default sign-up form"
+#: includes/admin/class-ads.php:153
+msgid ""
+"<a href=\"%s\">Upgrade to MailChimp for WordPress Premium</a> or <a "
+"href=\"%s\">read more about MailChimp's E-Commerce features</a>."
 msgstr ""
 
-#: includes/class-api.php:83
+#: includes/admin/class-review-notice.php:68
+msgid ""
+"You've been using MailChimp for WordPress for some time now; we hope you "
+"love it!"
+msgstr ""
+
+#: includes/admin/class-review-notice.php:69
+msgid ""
+"If you do, please <a href=\"%s\">leave us a 5★ rating on WordPress.org</a>. "
+"It would be of great help to us."
+msgstr ""
+
+#: includes/admin/class-review-notice.php:71
+msgid "Dismiss this notice."
+msgstr "Figyelmeztetés figyelmen kívül hagyása."
+
+#: includes/api/class-api.php:84
 msgid "Read more about common connectivity issues."
-msgstr ""
+msgstr "További információ az általános kapcsolódási problémákról."
 
-#: includes/forms/class-admin.php:71 includes/forms/class-admin.php:72
-#: includes/forms/views/edit-form.php:17
+#: includes/forms/class-admin.php:62
+msgid "Add to form"
+msgstr "Hozzáadás mintához."
+
+#: includes/forms/class-admin.php:63
+msgid "City"
+msgstr "Város"
+
+#: includes/forms/class-admin.php:64
+msgid "Checkboxes"
+msgstr "Jelölőnégyzetek"
+
+#: includes/forms/class-admin.php:65
+msgid "Choices"
+msgstr "Választások"
+
+#: includes/forms/class-admin.php:66
+msgid "Choice type"
+msgstr "Választás tipusa"
+
+#: includes/forms/class-admin.php:67
+msgid "Choose a field to add to the form"
+msgstr "Válaszon egy mezőt amit űrlaphoz ad"
+
+#: includes/forms/class-admin.php:68
+msgid "Close"
+msgstr "Bezár"
+
+#: includes/forms/class-admin.php:69
+msgid "Country"
+msgstr "Ország"
+
+#: includes/forms/class-admin.php:70
+msgid "Dropdown"
+msgstr "Legördülő"
+
+#: includes/forms/class-admin.php:71
+msgid "Field type"
+msgstr "Mező típusa"
+
+#: includes/forms/class-admin.php:72
+msgid "Field label"
+msgstr "Mező cimke"
+
+#: includes/forms/class-admin.php:73
+msgid "Form action"
+msgstr "Űrlap művelet"
+
+#: includes/forms/class-admin.php:74
+msgid ""
+"This field will allow your visitors to choose whether they would like to "
+"subscribe or unsubscribe"
+msgstr "Ez a mező lehetőséget ad arra a látogatóknak, hogy feliratkozzanak, vagy leiratkozzanak."
+
+#: includes/forms/class-admin.php:75
+msgid "Form fields"
+msgstr "Űrlapmezők"
+
+#: includes/forms/class-admin.php:76
+msgid "This field is marked as required in MailChimp."
+msgstr "Ez a mező kötelezőként van jelőlve a MailChimpben."
+
+#: includes/forms/class-admin.php:77
+msgid "Initial value"
+msgstr "Kezdeti érték"
+
+#: includes/forms/class-admin.php:78
+msgid "Interest categories"
+msgstr "Érdeklődési körök"
+
+#: includes/forms/class-admin.php:79
+msgid "Is this field required?"
+msgstr "Szükséges ez a mező?"
+
+#: includes/forms/class-admin.php:80
+msgid "List choice"
+msgstr "Listás kiválasztó elem"
+
+#: includes/forms/class-admin.php:81
+msgid "This field will allow your visitors to choose a list to subscribe to."
+msgstr "Ez a mező lehetőséget biztosít a látogatóknak, hogy válassznak, hogy hova akarnak feliratkozni."
+
+#: includes/forms/class-admin.php:82
+msgid "List fields"
+msgstr "Lista mezők"
+
+#: includes/forms/class-admin.php:83
+msgid "Min"
+msgstr "Minimum"
+
+#: includes/forms/class-admin.php:84
+msgid "Max"
+msgstr "Maximum"
+
+#: includes/forms/class-admin.php:85
+msgid ""
+"No available fields. Did you select a MailChimp list in the form settings?"
+msgstr "Nincs elérhető mező. MailChimpes listát választottál az űrlap beállításoknál?"
+
+#: includes/forms/class-admin.php:86
+msgid "Optional"
+msgstr "Opcionális"
+
+#: includes/forms/class-admin.php:87
+msgid "Placeholder"
+msgstr "Helyőrző"
+
+#: includes/forms/class-admin.php:88
+msgid "Text to show when field has no value."
+msgstr "Megjelenítendő szöveg, amennyiben a mezőnek nincs értéke."
+
+#: includes/forms/class-admin.php:89
+msgid "Preselect"
+msgstr "Előválasztás"
+
+#: includes/forms/class-admin.php:90
+msgid "Remove"
+msgstr "Visszavonás"
+
+#: includes/forms/class-admin.php:91
+msgid "Radio buttons"
+msgstr "Rádió gombok"
+
+#: includes/forms/class-admin.php:92
+msgid "Street Address"
+msgstr "Utca cím"
+
+#: includes/forms/class-admin.php:93
+msgid "State"
+msgstr "Állam"
+
+#: includes/forms/class-admin.php:95
+msgid "Submit button"
+msgstr "Elküldés gomb"
+
+#: includes/forms/class-admin.php:96
+msgid "Wrap in paragraph tags?"
+msgstr "Legyen bekezdés elembe foglalva?"
+
+#: includes/forms/class-admin.php:97
+msgid "Value"
+msgstr "Érték"
+
+#: includes/forms/class-admin.php:98
+msgid "Text to prefill this field with."
+msgstr "Előre beállított szöveg ehhez a mezőhöz."
+
+#: includes/forms/class-admin.php:99
+msgid "ZIP"
+msgstr "Irányító szám"
+
+#: includes/forms/class-admin.php111, includes/forms/class-admin.php112,
+#: includes/forms/views/edit-form.php:24
 msgid "Forms"
 msgstr "Űrlapok"
 
-#: includes/forms/class-admin.php:101 includes/forms/class-admin.php:176
+#: includes/forms/class-admin.php152, includes/forms/class-admin.php:276
 msgid "<strong>Success!</strong> Form successfully saved."
-msgstr ""
+msgstr "<strong>Sikerült!</strong> Űrlap sikeresen elmentve"
 
-#: includes/forms/class-admin.php:176
+#: includes/forms/class-admin.php:276
 msgid "Preview form"
-msgstr ""
+msgstr "Űrlap előnézete"
 
-#: includes/forms/class-admin.php:279
-msgid "Form not found."
-msgstr ""
+#: includes/forms/class-admin.php449, includes/forms/class-widget.php:30
+msgid "MailChimp Sign-Up Form"
+msgstr "MailChimp feliratkozás űrlap"
 
-#: includes/forms/class-admin.php:281
-msgid "Go back"
-msgstr ""
+#: includes/forms/class-admin.php:453
+msgid "Select the form to show"
+msgstr "Válassza ki a megjelenítendő űrlapot"
 
-#: includes/forms/class-form-previewer.php:162
+#: includes/forms/class-form-previewer.php:146
 msgid "Form preview"
 msgstr "Űrlap előnézet"
 
-#: includes/forms/class-form-tags.php:51
+#: includes/forms/class-form-tags.php:60
 msgid "Replaced with the form response (error or success messages)."
 msgstr "Lecserélve az űrlap válasz üzenetére (hiba vagy siker üzenet)."
 
-#: includes/forms/class-form-tags.php:56
+#: includes/forms/class-form-tags.php:65
 msgid "Data from the URL or a submitted form."
-msgstr ""
+msgstr "Adat az URL-ből, vagy beküldött űrlapból."
 
-#: includes/forms/class-form-tags.php:62
+#: includes/forms/class-form-tags.php:71
+msgid "Data from a cookie."
+msgstr "Adat sütiből (cookie)."
+
+#: includes/forms/class-form-tags.php77,
 #: includes/integrations/class-integration-tags.php:45
 msgid "Replaced with the number of subscribers on the selected list(s)"
 msgstr "Lecserélve a feliratkozók számára a kijelölt listá(k)ban."
 
-#: includes/forms/class-form-tags.php:67
-msgid "The email address of the current visitor (if known)."
-msgstr ""
-
-#: includes/forms/class-form-tags.php:72
-msgid "The URL of the page."
-msgstr ""
-
-#: includes/forms/class-form-tags.php:77
-msgid "The path of the page."
-msgstr ""
-
 #: includes/forms/class-form-tags.php:82
-msgid "The current date. Example: %s."
-msgstr ""
+msgid "The email address of the current visitor (if known)."
+msgstr "Az aktuális látogató e-mail címe (ha ismert)."
 
 #: includes/forms/class-form-tags.php:87
-msgid "The current time. Example: %s."
-msgstr ""
+msgid "The URL of the page."
+msgstr "Az oldal URL-je."
 
 #: includes/forms/class-form-tags.php:92
-msgid "The site's language. Example: %s."
-msgstr ""
+msgid "The path of the page."
+msgstr "Az oldal elérési útja."
 
 #: includes/forms/class-form-tags.php:97
-msgid "The visitor's IP address. Example: %s."
-msgstr ""
+msgid "The current date. Example: %s."
+msgstr "Aktuális dátum. Például: %s."
 
 #: includes/forms/class-form-tags.php:102
+msgid "The current time. Example: %s."
+msgstr "Aktuális idő. Például: %s."
+
+#: includes/forms/class-form-tags.php:107
+msgid "The site's language. Example: %s."
+msgstr "Az oldal nyelve. Például: %s."
+
+#: includes/forms/class-form-tags.php:112
+msgid "The visitor's IP address. Example: %s."
+msgstr "A látogató IP címe. Például: %s."
+
+#: includes/forms/class-form-tags.php:117
 msgid "The property of the currently logged-in user."
 msgstr ""
 
-#: includes/forms/class-form.php:128
+#: includes/forms/class-form-tags.php:123
+msgid "Property of the current page or post."
+msgstr ""
+
+#: includes/forms/class-form.php:133
 msgid "There is no form with ID %d, perhaps it was deleted?"
 msgstr ""
 
 #: includes/forms/class-widget.php:26
 msgid "Newsletter"
 msgstr "Hírlevél"
-
-#: includes/forms/class-widget.php:30
-msgid "MailChimp Sign-Up Form"
-msgstr "MailChimp feliratkozás űrlap"
 
 #: includes/forms/class-widget.php:32
 msgid "Displays your MailChimp for WordPress sign-up form"
@@ -237,7 +434,114 @@ msgid ""
 " form settings</a>."
 msgstr "A feliratkozás űrlapot a <a href=\"%s\">MailChimp for WordPress űrlap beállítások</a>nál lehet szerkeszteni."
 
-#: includes/forms/views/add-form.php:10 includes/forms/views/add-form.php:60
+#: includes/integrations/class-admin.php79,
+#: includes/integrations/class-admin.php80,
+#: includes/integrations/views/integration-settings.php10,
+#: includes/integrations/views/integrations.php57,
+#: includes/integrations/views/integrations.php:65
+msgid "Integrations"
+msgstr "Integrációk"
+
+#: includes/views/general-settings.php7, includes/views/other-settings.php58,
+#: includes/forms/views/edit-form.php22,
+#: includes/integrations/views/integration-settings.php8,
+#: includes/integrations/views/integrations.php:55
+msgid "You are here: "
+msgstr "Itt vagy:"
+
+#: includes/views/general-settings.php:18
+msgid "General Settings"
+msgstr "Általános beállítások"
+
+#: includes/views/general-settings.php:38
+msgid "Status"
+msgstr "Állapot"
+
+#: includes/views/general-settings.php:42
+msgid "CONNECTED"
+msgstr "ÖSSZEKÖTVE"
+
+#: includes/views/general-settings.php:44
+msgid "NOT CONNECTED"
+msgstr "NINCS ÖSSZEKÖTVE"
+
+#: includes/views/general-settings.php:51
+msgid "API Key"
+msgstr "API kulcs"
+
+#: includes/views/general-settings.php:53
+msgid "Your MailChimp API key"
+msgstr "A MailChimp API kulcs"
+
+#: includes/views/general-settings.php:55
+msgid "The API key for connecting with your MailChimp account."
+msgstr "API kulcs a MailChimp fiókoddal való összekapcsoláshoz."
+
+#: includes/views/general-settings.php:56
+msgid "Get your API key here."
+msgstr "API kulcsot itt szerezhet."
+
+#: includes/views/other-settings.php:14
+msgid "Miscellaneous settings"
+msgstr ""
+
+#: includes/views/other-settings.php:17
+msgid "Usage Tracking"
+msgstr "Használat követése"
+
+#: includes/views/other-settings.php:29
+msgid ""
+"Allow us to anonymously track how this plugin is used to help us make it "
+"better fit your needs."
+msgstr "Engedélyezd számunkra, hogy anonim módon kövessük ennek a bővítménynek a működését, hogy jobbá tegyük, és még inkább az igényeidhez illeszkedjen."
+
+#: includes/views/other-settings.php:31
+msgid "This is what we track."
+msgstr "Ez az, amit követünk."
+
+#: includes/views/other-settings.php:37
+msgid "Logging"
+msgstr ""
+
+#: includes/views/other-settings.php:44
+msgid ""
+"Determines what events should be written to <a href=\"%s\">the debug log</a>"
+" (see below)."
+msgstr ""
+
+#: includes/views/other-settings.php:99
+msgid "Debug Log"
+msgstr ""
+
+#: includes/views/other-settings.php:99
+msgid "Filter.."
+msgstr ""
+
+#: includes/views/other-settings.php:104
+msgid "Log file is not writable."
+msgstr ""
+
+#: includes/views/other-settings.php:105
+msgid "Please ensure %s has the proper <a href=\"%s\">file permissions</a>."
+msgstr ""
+
+#: includes/views/other-settings.php:123
+msgid "Nothing here. Which means there are no errors!"
+msgstr ""
+
+#: includes/views/other-settings.php:133
+msgid "Empty Log"
+msgstr ""
+
+#: includes/views/other-settings.php:141
+msgid "Right now, the plugin is configured to only log errors and warnings."
+msgstr ""
+
+#: includes/admin/migrations/3.0.0-form-1-post-type.php:35
+msgid "Default sign-up form"
+msgstr ""
+
+#: includes/forms/views/add-form.php10, includes/forms/views/add-form.php:60
 msgid "Add new form"
 msgstr "Új űrlap hozzáadása"
 
@@ -269,34 +573,262 @@ msgstr "Üzenetek"
 msgid "Appearance"
 msgstr "Megjelenés"
 
-#: includes/forms/views/edit-form.php:15
-#: includes/integrations/views/integration-settings.php:8
-#: includes/integrations/views/integrations.php:7
-#: includes/views/general-settings.php:7
-msgid "You are here: "
-msgstr "Itt vagy:"
+#: includes/forms/views/edit-form.php:25
+msgid "Form"
+msgstr ""
 
-#: includes/forms/views/edit-form.php:27
+#: includes/forms/views/edit-form.php:34
 msgid "Edit Form"
 msgstr "Űrlap szerkesztése"
 
-#: includes/forms/views/edit-form.php:45
+#: includes/forms/views/edit-form.php:58
 msgid "Enter form title here"
 msgstr "Írd ide az űrlap címét"
 
-#: includes/forms/views/edit-form.php:46
+#: includes/forms/views/edit-form.php:59
 msgid "Enter the title of your sign-up form"
 msgstr "Saját feliratkozás űrlap címe"
 
-#: includes/forms/views/edit-form.php:54
+#: includes/forms/views/edit-form.php:65
+msgid "Shortcode"
+msgstr ""
+
+#: includes/forms/views/edit-form.php:67
 msgid "Get shortcode"
 msgstr "Gyorskód kérése"
 
-#: includes/forms/views/edit-form.php:59
+#: includes/forms/views/edit-form.php:72
 msgid "Preview this form"
 msgstr "Űrlap előnézete"
 
-#: includes/forms/views/parts/add-fields-help.php:4
+#: includes/integrations/views/integration-settings.php:20
+msgid "%s integration"
+msgstr ""
+
+#: includes/integrations/views/integration-settings.php:27
+msgid ""
+"The selected MailChimp lists require non-default fields, which may prevent "
+"this integration from working."
+msgstr ""
+
+#: includes/integrations/views/integration-settings.php:28
+msgid ""
+"Please ensure you <a href=\"%s\">configure the plugin to send all required "
+"fields</a> or <a href=\"%s\">log into your MailChimp account</a> and make "
+"sure only the email & name fields are marked as required fields for the "
+"selected list(s)."
+msgstr ""
+
+#: includes/integrations/views/integration-settings.php:62
+msgid "Enabled?"
+msgstr "Engedélyezett?"
+
+#: includes/integrations/views/integration-settings.php:66
+msgid ""
+"Enable the %s integration? This will add a sign-up checkbox to the form."
+msgstr ""
+
+#: includes/integrations/views/integration-settings.php:76
+msgid "Implicit?"
+msgstr ""
+
+#: includes/integrations/views/integration-settings.php:80
+msgid ""
+"Select \"no\" if you want to ask your visitors before they are subscribed "
+"(recommended)."
+msgstr ""
+
+#: includes/integrations/views/integration-settings.php:90
+msgid "MailChimp Lists"
+msgstr "MailChimp listák"
+
+#: includes/integrations/views/integration-settings.php:103
+msgid ""
+"Select the list(s) to which people who check the checkbox should be "
+"subscribed."
+msgstr "Válassza ki a listá(ka)t, amelyre az űrlapot kitöltők fel lesznek iratva."
+
+#: includes/integrations/views/integration-settings.php107,
+#: includes/forms/views/tabs/form-settings.php:18
+msgid "No lists found, <a href=\"%s\">are you connected to MailChimp</a>?"
+msgstr "Nem találtam listákat, <a href=\"%s\">össze van kötve a MailChimppel</a>?"
+
+#: includes/integrations/views/integration-settings.php:116
+msgid "Checkbox label text"
+msgstr "Jelölőnégyzethez tartozó felirat."
+
+#: includes/integrations/views/integration-settings.php:119
+msgid "HTML tags like %s are allowed in the label text."
+msgstr "HTML elemek (például %s) lehetnek a címkék szövegeiben."
+
+#: includes/integrations/views/integration-settings.php:129
+msgid "Pre-check the checkbox?"
+msgstr "Jelölőnégyzet bejelölése előre?"
+
+#: includes/integrations/views/integration-settings.php:133
+msgid "Select \"yes\" if the checkbox should be pre-checked."
+msgstr ""
+
+#: includes/integrations/views/integration-settings.php:141
+msgid "Load some default CSS?"
+msgstr "Kell némi alap CSS?"
+
+#: includes/integrations/views/integration-settings.php:145
+msgid "Select \"yes\" if the checkbox appears in a weird place."
+msgstr "Válassza az „Igen”-t, ha a jelölő négyzet fura helyen jelenik meg."
+
+#: includes/integrations/views/integration-settings.php:152
+msgid "Double opt-in?"
+msgstr "Dupla megerősítés?"
+
+#: includes/integrations/views/integration-settings.php:163
+msgid ""
+"Select \"yes\" if you want people to confirm their email address before "
+"being subscribed (recommended)"
+msgstr "Válassza az „Igen”-t, ha a feliratkozóknak meg kell erősíteniük az emailcímüket (ajánlott)"
+
+#: includes/integrations/views/integration-settings.php171,
+#: includes/forms/views/tabs/form-settings.php:52
+msgid "Update existing subscribers?"
+msgstr "Meglévő feliratkozók frissítése?"
+
+#: includes/integrations/views/integration-settings.php181,
+#: includes/forms/views/tabs/form-settings.php:62
+msgid ""
+"Select \"yes\" if you want to update existing subscribers with the data that"
+" is sent."
+msgstr "Válassza az „igen”-t, ha a meglévő feliratkozók adatait szeretné frissíteni a most küldött adatokkal."
+
+#: includes/integrations/views/integration-settings.php190,
+#: includes/forms/views/tabs/form-settings.php:68
+msgid "Replace interest groups?"
+msgstr "Érdeklődési körök cseréje?"
+
+#: includes/integrations/views/integration-settings.php201,
+#: includes/forms/views/tabs/form-settings.php:79
+msgid ""
+"Select \"no\" if you want to add the selected interests to any previously "
+"selected interests when updating a subscriber."
+msgstr ""
+
+#: includes/integrations/views/integration-settings.php202,
+#: includes/forms/views/tabs/form-settings.php:80
+msgid "What does this do?"
+msgstr ""
+
+#: includes/integrations/views/integrations.php:17
+msgid "Name"
+msgstr "Név"
+
+#: includes/integrations/views/integrations.php:18
+msgid "Description"
+msgstr "Leírás"
+
+#: includes/integrations/views/integrations.php:35
+msgid "Configure this integration"
+msgstr "Integráció konfigurálása"
+
+#: includes/integrations/views/integrations.php:71
+msgid "The table below shows all available integrations."
+msgstr ""
+
+#: includes/integrations/views/integrations.php:72
+msgid ""
+"Click on the name of an integration to edit all settings specific to that "
+"integration."
+msgstr ""
+
+#: includes/integrations/views/integrations.php:79
+msgid "Enabled integrations"
+msgstr ""
+
+#: includes/integrations/views/integrations.php:84
+msgid "Available integrations"
+msgstr ""
+
+#: includes/views/parts/admin-footer.php:15
+msgid ""
+"MailChimp for WordPress is in need of translations. Is the plugin not "
+"translated in your language or do you spot errors with the current "
+"translations? Helping out is easy! Head over to <a href=\"%s\">the "
+"translation project and click \"help translate\"</a>."
+msgstr "A MailChimp for WordPress fordításokra vár. Nincs lefordítva a bővítmény az Ön nyelvére, vagy hibákat talált az aktuális fordításban? Könnyen segíthet nekünk. Menjen át a <a href=\"%s\">fordításokhoz és kattintson „help translate” linkre</a>!"
+
+#: includes/views/parts/admin-footer.php:35
+msgid ""
+"This plugin is not developed by or affiliated with MailChimp in any way."
+msgstr "Ezt a bővítményt nem a MailChimp fejleszti, és nem áll vele közvetlen kapcsolatban."
+
+#: includes/views/parts/admin-sidebar.php:11
+msgid "Looking for help?"
+msgstr ""
+
+#: includes/views/parts/admin-sidebar.php:12
+msgid "We have some resources available to help you in the right direction."
+msgstr ""
+
+#: includes/views/parts/admin-sidebar.php:14
+msgid "Knowledge Base"
+msgstr ""
+
+#: includes/views/parts/admin-sidebar.php:15
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: includes/views/parts/admin-sidebar.php:16
+msgid "Code reference for developers"
+msgstr ""
+
+#: includes/views/parts/admin-sidebar.php:36
+msgid "Looking to improve your sign-up rates?"
+msgstr ""
+
+#: includes/views/parts/admin-sidebar.php:37
+msgid ""
+"Our <a href=\"%s\">Boxzilla plugin</a> allows you to create pop-ups or "
+"slide-ins with a subscribe form. A sure way to grow your lists faster."
+msgstr ""
+
+#: includes/views/parts/lists-overview.php:1
+msgid "Your MailChimp Account"
+msgstr "MailChimp fiókod"
+
+#: includes/views/parts/lists-overview.php:2
+msgid ""
+"The table below shows your MailChimp lists and their details. If you just "
+"applied changes to your MailChimp lists, please use the following button to "
+"renew the cached lists configuration."
+msgstr "A táblázat a MailChimp listáidat és azok részleteit mutatja. Amennyiben változtatsz a MailChimp listáidon, az alábbi gomb segítségével frissítsd a tárolt konfigurációkat."
+
+#: includes/views/parts/lists-overview.php:17
+msgid "No lists were found in your MailChimp account"
+msgstr "Nem találhatók listák a MailChimp fiókjában."
+
+#: includes/views/parts/lists-overview.php:19
+msgid "A total of %d lists were found in your MailChimp account."
+msgstr "%d lista található a MailChimp fiókodban."
+
+#: includes/views/parts/lists-overview.php:24
+msgid "List Name"
+msgstr "Lista neve"
+
+#: includes/views/parts/lists-overview.php:25
+msgid "ID"
+msgstr "azonosító"
+
+#: includes/views/parts/lists-overview.php:26
+msgid "Subscribers"
+msgstr "Feliratkozók"
+
+#: includes/views/parts/lists-overview.php:48
+msgid "Edit this list in MailChimp"
+msgstr "Lista szerkesztése MailChimp-ben"
+
+#: includes/views/parts/lists-overview.php:62
+msgid "%s (%s) with field type %s."
+msgstr ""
+
+#: includes/forms/views/parts/add-fields-help.php4,
 #: includes/forms/views/tabs/form-fields.php:10
 msgid "Add more fields"
 msgstr "Mezők hozzáadása"
@@ -333,14 +865,9 @@ msgid ""
 "changes."
 msgstr ""
 
-#: includes/forms/views/parts/add-fields-help.php:43
-#: includes/views/parts/lists-overview.php:8
-msgid "Renew MailChimp lists"
-msgstr "MailChimp listák frissítése"
-
 #: includes/forms/views/parts/dynamic-content-tags.php:6
 msgid "Add dynamic form variable"
-msgstr ""
+msgstr "Dinamikus űrlap változók hozzáadása"
 
 #: includes/forms/views/parts/dynamic-content-tags.php:8
 msgid ""
@@ -354,15 +881,15 @@ msgstr "Ezzel testre szabhatja az űrlapokat vagy a válasz üzeneteket."
 
 #: includes/forms/views/tabs/form-appearance.php:5
 msgid "Inherit from %s theme"
-msgstr ""
+msgstr "Sablonból %s leszármaztatva"
 
 #: includes/forms/views/tabs/form-appearance.php:6
 msgid "Basic"
-msgstr ""
+msgstr "Alap"
 
 #: includes/forms/views/tabs/form-appearance.php:7
 msgid "Form Themes"
-msgstr ""
+msgstr "Űrlap sablonok"
 
 #: includes/forms/views/tabs/form-appearance.php:8
 msgid "Light Theme"
@@ -386,11 +913,11 @@ msgstr "Kék sablon"
 
 #: includes/forms/views/tabs/form-appearance.php:25
 msgid "Form Appearance"
-msgstr ""
+msgstr "Úrlap megjelenése"
 
 #: includes/forms/views/tabs/form-appearance.php:29
 msgid "Form Style"
-msgstr ""
+msgstr "Űrlap stílus"
 
 #: includes/forms/views/tabs/form-appearance.php:48
 msgid ""
@@ -400,97 +927,111 @@ msgstr "Ha be akar tölteni néhány alap CSS stílust, akkor válassza az„ala
 
 #: includes/forms/views/tabs/form-fields.php:6
 msgid "Form variables"
-msgstr ""
+msgstr "Űrlap változók"
 
 #: includes/forms/views/tabs/form-fields.php:13
 msgid "Form Fields"
-msgstr ""
+msgstr "Űrlapmezők"
 
 #: includes/forms/views/tabs/form-fields.php:19
 msgid "Enter the HTML code for your form fields.."
-msgstr ""
+msgstr "Írja be a HTML kódot az űrlap mezőinek létrehozásához."
 
-#: includes/forms/views/tabs/form-fields.php:27
-msgid "Your form is missing the following (required) form fields:"
-msgstr "Hiányoznak az űrlapról a következő (kötelező) mezők:"
-
-#: includes/forms/views/tabs/form-fields.php:34
+#: includes/forms/views/tabs/form-fields.php:26
 msgid ""
 "Use the shortcode %s to display this form inside a post, page or text "
 "widget."
 msgstr "Használja a %s gyorskódot az űrlap megjelenítéséhez bejegyzésben, oldalon vagy widgetben."
 
-#: includes/forms/views/tabs/form-messages.php:3
+#: includes/forms/views/tabs/form-messages.php:6
 msgid "Form Messages"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:10
+#: includes/forms/views/tabs/form-messages.php:16
 msgid "Successfully subscribed"
 msgstr "Sikeresen feliratkoztatva."
 
-#: includes/forms/views/tabs/form-messages.php:13
+#: includes/forms/views/tabs/form-messages.php:19
 msgid ""
 "The text that shows when an email address is successfully subscribed to the "
 "selected list(s)."
 msgstr "A szöveg, ami megjelenik, ha egy emailcímet sikeresen feliratkoztattunk a kiválasztott listá(k)ra."
 
-#: includes/forms/views/tabs/form-messages.php:17
+#: includes/forms/views/tabs/form-messages.php:23
 msgid "Invalid email address"
 msgstr "Érvénytelen emailcím"
 
-#: includes/forms/views/tabs/form-messages.php:20
+#: includes/forms/views/tabs/form-messages.php:26
 msgid "The text that shows when an invalid email address is given."
 msgstr "A szöveg, ami megjelenik, ha egy érvénytelen emailcímet adnak meg."
 
-#: includes/forms/views/tabs/form-messages.php:24
+#: includes/forms/views/tabs/form-messages.php:30
 msgid "Required field missing"
 msgstr "Kötelező mező nincs kitöltve"
 
-#: includes/forms/views/tabs/form-messages.php:27
+#: includes/forms/views/tabs/form-messages.php:33
 msgid ""
 "The text that shows when a required field for the selected list(s) is "
 "missing."
 msgstr "A szöveg, ami megjelenik, ha egy, a listá(k)hoz szükséges mező nincs kitöltve."
 
-#: includes/forms/views/tabs/form-messages.php:31
+#: includes/forms/views/tabs/form-messages.php:37
 msgid "Already subscribed"
 msgstr "Már feliratkozott"
 
-#: includes/forms/views/tabs/form-messages.php:34
+#: includes/forms/views/tabs/form-messages.php:40
 msgid ""
 "The text that shows when the given email is already subscribed to the "
 "selected list(s)."
 msgstr "A szöveg, ami megjelenik, ha a megadott emailcím már fel van iratkozva a kiválasztott listá(k)ra."
 
-#: includes/forms/views/tabs/form-messages.php:38
+#: includes/forms/views/tabs/form-messages.php:44
 msgid "General error"
 msgstr "Általános hiba"
 
-#: includes/forms/views/tabs/form-messages.php:41
+#: includes/forms/views/tabs/form-messages.php:47
 msgid "The text that shows when a general error occured."
 msgstr "A szöveg, ami megjelenik, ha általános hiba történt."
 
-#: includes/forms/views/tabs/form-messages.php:45
+#: includes/forms/views/tabs/form-messages.php:51
 msgid "Unsubscribed"
 msgstr "Leiratkoztatva"
 
-#: includes/forms/views/tabs/form-messages.php:48
+#: includes/forms/views/tabs/form-messages.php:54
 msgid ""
 "When using the unsubscribe method, this is the text that shows when the "
 "given email address is successfully unsubscribed from the selected list(s)."
 msgstr "A leiratkozás használatakor ez a szöveg jelenik meg egy adott emailcím sikeres leiratkoztatásakor a kijelölt listá(k)ról."
 
-#: includes/forms/views/tabs/form-messages.php:52
+#: includes/forms/views/tabs/form-messages.php:58
 msgid "Not subscribed"
 msgstr "Nem feliratkoztatva"
 
-#: includes/forms/views/tabs/form-messages.php:55
+#: includes/forms/views/tabs/form-messages.php:61
 msgid ""
 "When using the unsubscribe method, this is the text that shows when the "
 "given email address is not on the selected list(s)."
 msgstr "A leiratkozás használatakor ez a szöveg jelenik meg egy adott emailcím nincs a kijelölt listá(ko)n."
 
-#: includes/forms/views/tabs/form-messages.php:64
+#: includes/forms/views/tabs/form-messages.php:65
+msgid "No list selected"
+msgstr "Nincs lista kiválasztva"
+
+#: includes/forms/views/tabs/form-messages.php:68
+msgid ""
+"When offering a list choice, this is the text that shows when no lists were "
+"selected."
+msgstr ""
+
+#: includes/forms/views/tabs/form-messages.php:74
+msgid "Updated"
+msgstr "Frissítve"
+
+#: includes/forms/views/tabs/form-messages.php:77
+msgid "The text that shows when an existing subscriber is updated."
+msgstr ""
+
+#: includes/forms/views/tabs/form-messages.php:89
 msgid "HTML tags like %s are allowed in the message fields."
 msgstr "HTML elemek (például: %s) lehetnek az üzenet mezőkben."
 
@@ -502,379 +1043,52 @@ msgstr "Űrlap beállítások"
 msgid "MailChimp specific settings"
 msgstr ""
 
-#: includes/forms/views/tabs/form-settings.php:12
+#: includes/forms/views/tabs/form-settings.php:15
 msgid "Lists this form subscribes to"
 msgstr "Ez az űrlap ezekre a listákra iratkoztat fel"
 
-#: includes/forms/views/tabs/form-settings.php:15
-#: includes/integrations/views/integration-settings.php:93
-msgid "No lists found, <a href=\"%s\">are you connected to MailChimp</a>?"
-msgstr "Nem találtam listákat, <a href=\"%s\">össze van kötve a MailChimppel</a>?"
-
-#: includes/forms/views/tabs/form-settings.php:29
+#: includes/forms/views/tabs/form-settings.php:31
 msgid ""
 "Select the list(s) to which people who submit this form should be "
 "subscribed."
 msgstr "Adja meg a listá(ka)t, amire az űrlapot beküldők fel lesznek iratkozva."
 
-#: includes/forms/views/tabs/form-settings.php:35
+#: includes/forms/views/tabs/form-settings.php:37
 msgid "Use double opt-in?"
 msgstr ""
 
-#: includes/forms/views/tabs/form-settings.php:39
-#: includes/forms/views/tabs/form-settings.php:54
-#: includes/forms/views/tabs/form-settings.php:69
-#: includes/forms/views/tabs/form-settings.php:85
-#: includes/forms/views/tabs/form-settings.php:115
-#: includes/integrations/views/integration-settings.php:53
-#: includes/integrations/views/integration-settings.php:66
-#: includes/integrations/views/integration-settings.php:117
-#: includes/integrations/views/integration-settings.php:129
-#: includes/integrations/views/integration-settings.php:142
-#: includes/integrations/views/integration-settings.php:163
-#: includes/integrations/views/integration-settings.php:180
-#: includes/integrations/views/integration-settings.php:199
-#: integrations/contact-form-7/class-contact-form-7.php:69
-msgid "Yes"
-msgstr "Igen"
-
-#: includes/forms/views/tabs/form-settings.php:43
-#: includes/forms/views/tabs/form-settings.php:58
-#: includes/forms/views/tabs/form-settings.php:73
-#: includes/forms/views/tabs/form-settings.php:89
-#: includes/forms/views/tabs/form-settings.php:119
-#: includes/integrations/views/integration-settings.php:54
-#: includes/integrations/views/integration-settings.php:67
-#: includes/integrations/views/integration-settings.php:118
-#: includes/integrations/views/integration-settings.php:130
-#: includes/integrations/views/integration-settings.php:146
-#: includes/integrations/views/integration-settings.php:167
-#: includes/integrations/views/integration-settings.php:184
-#: includes/integrations/views/integration-settings.php:203
-#: integrations/contact-form-7/class-contact-form-7.php:69
-msgid "No"
-msgstr "Nem"
-
-#: includes/forms/views/tabs/form-settings.php:45
-#: includes/integrations/views/integration-settings.php:149
-msgid ""
-"Select \"yes\" if you want people to confirm their email address before "
-"being subscribed (recommended)"
-msgstr "Válassza az „Igen”-t, ha a feliratkozóknak meg kell erősíteniük az emailcímüket (ajánlott)"
-
-#: includes/forms/views/tabs/form-settings.php:50
-msgid "Send final welcome email?"
+#: includes/forms/views/tabs/form-settings.php:44
+msgid "Are you sure you want to disable double opt-in?"
 msgstr ""
 
-#: includes/forms/views/tabs/form-settings.php:60
-#: includes/integrations/views/integration-settings.php:169
+#: includes/forms/views/tabs/form-settings.php:47
 msgid ""
-"Select \"yes\" if you want to send your lists Welcome Email if a subscribe "
-"succeeds (only when double opt-in is disabled)."
-msgstr "Ha „Igen”-t választ, akkor a feliratkozók kapnak egy üdvözlő email (csak ha nincs dupla megerősítés)."
-
-#: includes/forms/views/tabs/form-settings.php:65
-#: includes/integrations/views/integration-settings.php:176
-msgid "Update existing subscribers?"
-msgstr "Meglévő feliratkozók frissítése?"
-
-#: includes/forms/views/tabs/form-settings.php:75
-#: includes/integrations/views/integration-settings.php:186
-msgid ""
-"Select \"yes\" if you want to update existing subscribers with the data that"
-" is sent."
-msgstr "Válassza az „igen”-t, ha a meglévő feliratkozók adatait szeretné frissíteni a most küldött adatokkal."
-
-#: includes/forms/views/tabs/form-settings.php:81
-#: includes/integrations/views/integration-settings.php:195
-msgid "Replace interest groups?"
-msgstr "Érdeklődési körök cseréje?"
-
-#: includes/forms/views/tabs/form-settings.php:92
-#: includes/integrations/views/integration-settings.php:206
-msgid ""
-"Select \"no\" if you want to add the selected groupings to any previously "
-"selected groupings when updating a subscriber."
+"We strongly suggest keeping double opt-in enabled. Disabling double opt-in "
+"may result in abuse."
 msgstr ""
 
-#: includes/forms/views/tabs/form-settings.php:93
-#: includes/integrations/views/integration-settings.php:207
-msgid "What does this do?"
-msgstr ""
+#: includes/forms/views/tabs/form-settings.php:94
+msgid "Form behaviour"
+msgstr "Úrlap viselkedése"
 
 #: includes/forms/views/tabs/form-settings.php:104
-msgid "Form behaviour"
-msgstr ""
-
-#: includes/forms/views/tabs/form-settings.php:111
 msgid "Hide form after a successful sign-up?"
 msgstr "Űrlap elrejtése a sikeres feliratkozás után?"
 
-#: includes/forms/views/tabs/form-settings.php:122
+#: includes/forms/views/tabs/form-settings.php:115
 msgid "Select \"yes\" to hide the form fields after a successful sign-up."
 msgstr "Ha „Igen”,  akkor sikeres feliratkozás után el lesznek rejtve az űrlap mezői."
 
-#: includes/forms/views/tabs/form-settings.php:127
+#: includes/forms/views/tabs/form-settings.php:120
 msgid "Redirect to URL after successful sign-ups"
 msgstr "Átirányítás az URL-re sikeres feliratkozás után"
 
-#: includes/forms/views/tabs/form-settings.php:129
+#: includes/forms/views/tabs/form-settings.php:122
 msgid "Example: %s"
 msgstr "Példa: %s"
 
-#: includes/forms/views/tabs/form-settings.php:130
+#: includes/forms/views/tabs/form-settings.php:123
 msgid ""
 "Leave empty or enter <code>0</code> for no redirect. Otherwise, use complete"
 " (absolute) URLs, including <code>http://</code>."
 msgstr "Hagyja üresen, vagy írjon be <code>0</code>-t, hogy ne legyen átirányítás. Egyébként használjon teljes (abszolút) URLeket, amiben van <code>http://</code>."
-
-#: includes/integrations/class-admin.php:79
-#: includes/integrations/class-admin.php:80
-#: includes/integrations/views/integration-settings.php:10
-#: includes/integrations/views/integrations.php:9
-#: includes/integrations/views/integrations.php:17
-msgid "Integrations"
-msgstr "Integrációk"
-
-#: includes/integrations/views/integration-settings.php:20
-msgid "%s integration"
-msgstr ""
-
-#: includes/integrations/views/integration-settings.php:51
-msgid "Enabled?"
-msgstr "Engedélyezett?"
-
-#: includes/integrations/views/integration-settings.php:55
-msgid ""
-"Enable the %s integration? This will add a sign-up checkbox to the form."
-msgstr ""
-
-#: includes/integrations/views/integration-settings.php:64
-msgid "Implicit?"
-msgstr ""
-
-#: includes/integrations/views/integration-settings.php:68
-msgid ""
-"Select \"no\" if you want to ask your visitors before they are subscribed "
-"(recommended)."
-msgstr ""
-
-#: includes/integrations/views/integration-settings.php:78
-msgid "MailChimp Lists"
-msgstr "MailChimp listák"
-
-#: includes/integrations/views/integration-settings.php:89
-msgid ""
-"Select the list(s) to which people who check the checkbox should be "
-"subscribed."
-msgstr "Válassza ki a listá(ka)t, amelyre az űrlapot kitöltők fel lesznek iratva."
-
-#: includes/integrations/views/integration-settings.php:102
-msgid "Checkbox label text"
-msgstr "Jelölőnégyzethez tartozó felirat."
-
-#: includes/integrations/views/integration-settings.php:105
-msgid "HTML tags like %s are allowed in the label text."
-msgstr "HTML elemek (például %s) lehetnek a címkék szövegeiben."
-
-#: includes/integrations/views/integration-settings.php:115
-msgid "Pre-check the checkbox?"
-msgstr "Jelölőnégyzet bejelölése előre?"
-
-#: includes/integrations/views/integration-settings.php:119
-msgid "Select \"yes\" if the checkbox should be pre-checked."
-msgstr ""
-
-#: includes/integrations/views/integration-settings.php:127
-msgid "Load some default CSS?"
-msgstr "Kell némi alap CSS?"
-
-#: includes/integrations/views/integration-settings.php:131
-msgid "Select \"yes\" if the checkbox appears in a weird place."
-msgstr "Válassza az „Igen”-t, ha a jelölő négyzet fura helyen jelenik meg."
-
-#: includes/integrations/views/integration-settings.php:138
-msgid "Double opt-in?"
-msgstr "Dupla megerősítés?"
-
-#: includes/integrations/views/integration-settings.php:159
-msgid "Send Welcome Email?"
-msgstr "Üdvözlő email küldése?"
-
-#: includes/integrations/views/integration-settings.php:244
-msgid ""
-"The selected MailChimp lists require non-default fields, which may prevent "
-"this integration from working."
-msgstr ""
-
-#: includes/integrations/views/integration-settings.php:245
-msgid ""
-"Please ensure you <a href=\"%s\">configure the plugin to send all required "
-"fields</a> or <a href=\"%s\">log into your MailChimp account</a> and make "
-"sure only the email & name fields are marked as required fields for the "
-"selected list(s)."
-msgstr ""
-
-#: includes/integrations/views/integrations.php:30
-msgid "Enabled"
-msgstr "Engedélyezett"
-
-#: includes/integrations/views/integrations.php:31
-msgid "Name"
-msgstr "Név"
-
-#: includes/integrations/views/integrations.php:32
-msgid "Description"
-msgstr "Leírás"
-
-#: includes/integrations/views/integrations.php:50
-msgid ""
-"This integration is enabled by default as it requires manual actions to "
-"work."
-msgstr ""
-
-#: includes/integrations/views/integrations.php:57
-msgid "Configure this integration"
-msgstr "Integráció konfigurálása"
-
-#: includes/views/general-settings.php:18
-msgid "General Settings"
-msgstr "Általános beállítások"
-
-#: includes/views/general-settings.php:35
-msgid "Status"
-msgstr "Állapot"
-
-#: includes/views/general-settings.php:39
-msgid "CONNECTED"
-msgstr "ÖSSZEKÖTVE"
-
-#: includes/views/general-settings.php:41
-msgid "NOT CONNECTED"
-msgstr "NINCS ÖSSZEKÖTVE"
-
-#: includes/views/general-settings.php:48
-msgid "API Key"
-msgstr "API kulcs"
-
-#: includes/views/general-settings.php:50
-msgid "Your MailChimp API key"
-msgstr "A MailChimp API kulcs"
-
-#: includes/views/general-settings.php:52
-msgid "The API key for connecting with your MailChimp account."
-msgstr "API kulcs a MailChimp fiókoddal való összekapcsoláshoz."
-
-#: includes/views/general-settings.php:53
-msgid "Get your API key here."
-msgstr "API kulcsot itt szerezhet."
-
-#: includes/views/general-settings.php:65
-msgid "Usage Tracking"
-msgstr "Használat követése"
-
-#: includes/views/general-settings.php:71
-msgid ""
-"Allow us to anonymously track how this plugin is used to help us make it "
-"better fit your needs."
-msgstr "Engedélyezd számunkra, hogy anonim módon kövessük ennek a bővítménynek a működését, hogy jobbá tegyük, és még inkább az igényeidhez illeszkedjen."
-
-#: includes/views/general-settings.php:73
-msgid "This is what we track."
-msgstr "Ez az, amit követünk."
-
-#: includes/views/parts/admin-footer.php:11
-msgid ""
-"MailChimp for WordPress is in need of translations. Is the plugin not "
-"translated in your language or do you spot errors with the current "
-"translations? Helping out is easy! Head over to <a href=\"%s\">the "
-"translation project and click \"help translate\"</a>."
-msgstr "A MailChimp for WordPress fordításokra vár. Nincs lefordítva a bővítmény az Ön nyelvére, vagy hibákat talált az aktuális fordításban? Könnyen segíthet nekünk. Menjen át a <a href=\"%s\">fordításokhoz és kattintson „help translate” linkre</a>!"
-
-#: includes/views/parts/admin-footer.php:31
-msgid ""
-"This plugin is not developed by or affiliated with MailChimp in any way."
-msgstr "Ezt a bővítményt nem a MailChimp fejleszti, és nem áll vele közvetlen kapcsolatban."
-
-#: includes/views/parts/lists-overview.php:1
-msgid "Your MailChimp Account"
-msgstr "MailChimp fiókod"
-
-#: includes/views/parts/lists-overview.php:2
-msgid ""
-"The table below shows your MailChimp lists and their details. If you just "
-"applied changes to your MailChimp lists, please use the following button to "
-"renew the cached lists configuration."
-msgstr "A táblázat a MailChimp listáidat és azok részleteit mutatja. Amennyiben változtatsz a MailChimp listáidon, az alábbi gomb segítségével frissítsd a tárolt konfigurációkat."
-
-#: includes/views/parts/lists-overview.php:14
-msgid "No lists were found in your MailChimp account"
-msgstr "Nem találhatók listák a MailChimp fiókjában."
-
-#: includes/views/parts/lists-overview.php:16
-msgid "A total of %d lists were found in your MailChimp account."
-msgstr "%d lista található a MailChimp fiókodban."
-
-#: includes/views/parts/lists-overview.php:21
-msgid "List Name"
-msgstr "Lista neve"
-
-#: includes/views/parts/lists-overview.php:22
-msgid "ID"
-msgstr "azonosító"
-
-#: includes/views/parts/lists-overview.php:23
-msgid "Subscribers"
-msgstr "Feliratkozók"
-
-#: includes/views/parts/lists-overview.php:45
-msgid "Edit this list in MailChimp"
-msgstr "Lista szerkesztése MailChimp-ben"
-
-#: includes/views/parts/lists-overview.php:59
-msgid "%s (%s) with field type %s."
-msgstr ""
-
-#: includes/views/parts/lists-overview.php:83
-msgid "%s (ID: %s) with type %s."
-msgstr ""
-
-#: integrations/contact-form-7/admin-before.php:2
-msgid ""
-"To integrate with Contact Form 7, configure the settings below and then add "
-"%s to your CF7 form mark-up."
-msgstr ""
-
-#: integrations/custom/admin-before.php:2
-msgid ""
-"To get a custom integration to work, include the following HTML in the form "
-"you are trying to integrate with."
-msgstr ""
-
-#: integrations/woocommerce/class-woocommerce.php:102
-msgid "Order #%d"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "MailChimp for WordPress"
-msgstr "MailChimp for WordPress"
-
-#. Plugin URI of the plugin/theme
-msgid ""
-"https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-"
-"wp&utm_campaign=plugins-page"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid ""
-"MailChimp for WordPress by ibericode. Adds various highly effective sign-up "
-"methods to your site."
-msgstr "MailChimp for WordPress by ibericode. Adj számos hatékony feliratkozó módszert honlapodhoz!"
-
-#. Author of the plugin/theme
-msgid "ibericode"
-msgstr "ibericode"
-
-#. Author URI of the plugin/theme
-msgid "https://ibericode.com/"
-msgstr "https://ibericode.com/"

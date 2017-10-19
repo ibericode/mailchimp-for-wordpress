@@ -28,7 +28,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2017-07-25 19:59+0000\n"
+"PO-Revision-Date: 2017-09-23 20:18+0000\n"
 "Last-Translator: jb78180 <jblum66@gmail.com>\n"
 "Language-Team: French (France) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -1065,7 +1065,7 @@ msgstr "Paramètres spécifiques de MailChimp"
 
 #: includes/forms/views/tabs/form-settings.php:15
 msgid "Lists this form subscribes to"
-msgstr "Listes auxquelles ce formulaire permet de s'inscrire"
+msgstr ""
 
 #: includes/forms/views/tabs/form-settings.php:31
 msgid ""

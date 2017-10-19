@@ -20,7 +20,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2017-07-03 11:41+0000\n"
+"PO-Revision-Date: 2017-09-20 15:49+0000\n"
 "Last-Translator: Mike Borgers <borgersmike@googlemail.com>\n"
 "Language-Team: German (Germany) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/de_DE/)\n"
 "MIME-Version: 1.0\n"
