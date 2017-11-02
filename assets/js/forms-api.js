@@ -982,7 +982,7 @@ module.exports = serialize;
 
 },{}],7:[function(require,module,exports){
 /*!
- * EventEmitter v5.2.2 - git.io/ee
+ * EventEmitter v5.2.3 - git.io/ee
  * Unlicense - http://unlicense.org/
  * Oliver Caldwell - http://oli.me.uk/
  * @preserve
