@@ -7,6 +7,10 @@ Changelog
 
 - Filter out empty array values when overriding selected MailChimp lists via `_mc4wp_lists`. 
 
+**Improvements**
+
+- Updated JavaScript dependencies.
+
 **Additions**
 
 - Link to the [HTML Forms](https://www.htmlforms.io/) from the plugin settings pages.
