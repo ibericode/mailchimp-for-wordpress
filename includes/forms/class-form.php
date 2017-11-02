@@ -572,6 +572,9 @@ class MC4WP_Form {
          */
         $lists = (array) apply_filters( 'mc4wp_form_lists', $lists, $form );
 
+        // filter out empty array elements
+        $lists = array_filter( $lists );
+
         return $lists;
     }
 
