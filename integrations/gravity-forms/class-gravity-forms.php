@@ -115,7 +115,7 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration {
      * @return bool
      */
     public function is_installed() {
-        return class_exists( 'GF_Field' );
+        return class_exists( 'GF_Field' ) && class_exists( 'GF_Fields' );
     }
 
     /**
