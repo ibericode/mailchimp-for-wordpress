@@ -697,12 +697,16 @@ msgstr ""
 msgid "Frequently Asked Questions"
 msgstr ""
 
-#: includes/views/parts/admin-sidebar.php:35
-msgid "Looking to improve your sign-up rates?"
+#: includes/views/parts/admin-sidebar.php:29
+msgid "Other plugins by ibericode"
 msgstr ""
 
 #: includes/views/parts/admin-sidebar.php:36
-msgid "Our <a href=\"%s\">Boxzilla plugin</a> allows you to create pop-ups or slide-ins with a subscribe form. A sure way to grow your lists faster."
+msgid "Pop-ups or boxes that slide-in with a newsletter sign-up form. A sure-fire way to grow your email lists."
+msgstr ""
+
+#: includes/views/parts/admin-sidebar.php:42
+msgid "Super flexible forms using native HTML. Just like with MailChimp for WordPress forms but for other purposes, like a contact form."
 msgstr ""
 
 #: includes/views/parts/lists-overview.php:1
