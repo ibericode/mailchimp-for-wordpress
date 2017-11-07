@@ -392,7 +392,7 @@ class MC4WP_Form {
             $errors[] = 'no_lists_selected';
         }
 
-        if( $this->raw_data['_mc4wp_timestamp'] > ( time() - 2 ) ) {
+        if( ! isset( $this->raw_data['_mc4wp_timestamp'] ) || $this->raw_data['_mc4wp_timestamp'] > ( time() - 2 ) ) {
             $errors[] = 'spam';
         } else if( ! isset( $this->raw_data['_mc4wp_honeypot'] ) || ! empty( $this->raw_data['_mc4wp_honeypot'] ) ) {
             $errors[] = 'spam';
