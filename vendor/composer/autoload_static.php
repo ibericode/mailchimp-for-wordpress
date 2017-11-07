@@ -91,7 +91,6 @@ class ComposerStaticInit53de4def9f9611d4493d50d1c639cfa8
         'MC4WP_Upgrade_Routines' => __DIR__ . '/../..' . '/includes/admin/class-upgrade-routines.php',
         'MC4WP_Usage_Tracking' => __DIR__ . '/../..' . '/includes/admin/class-usage-tracking.php',
         'MC4WP_User_Integration' => __DIR__ . '/../..' . '/includes/integrations/class-user-integration.php',
-        'MC4WP_Validator' => __DIR__ . '/../..' . '/includes/class-validator.php',
         'MC4WP_WPForms_Field' => __DIR__ . '/../..' . '/integrations/wpforms/class-field.php',
         'MC4WP_WPForms_Integration' => __DIR__ . '/../..' . '/integrations/wpforms/class-wpforms.php',
         'MC4WP_WooCommerce_Integration' => __DIR__ . '/../..' . '/integrations/woocommerce/class-woocommerce.php',

@@ -386,35 +386,32 @@ class MC4WP_Form {
         }
 
         $form = $this;
+        $errors = array();
 
-        // validate config
-        $validator = new MC4WP_Validator( $this->config );
-        $validator->add_rule( 'lists', 'not_empty', 'no_lists_selected' );
-        $valid = $validator->validate();
-
-        // validate internal fields
-        if( $valid ) {
-            $validator = new MC4WP_Validator( $this->raw_data );
-            $validator->add_rule( '_mc4wp_timestamp', 'range', 'spam', array( 'max' => time() - 2 ) );
-            $validator->add_rule( '_mc4wp_honeypot', 'empty', 'spam' );
-            $valid = $validator->validate();
-
-            // validate actual (visible) fields
-            if( $valid ) {
-                $validator = new MC4WP_Validator( $this->data );
-
-                $validator->add_rule( 'EMAIL', 'email', 'invalid_email' );
-
-                foreach( $this->get_required_fields() as $field ) {
-                    $validator->add_rule( $field, 'not_empty', 'required_field_missing' );
-                }
-
-                $valid = $validator->validate();
-            }
+        if( empty( $this->config['lists'] ) ) {
+            $errors[] = 'no_lists_selected';
         }
 
-        // get validation errors
-        $errors = $validator->get_errors();
+        if( $this->raw_data['_mc4wp_timestamp'] > ( time() - 2 ) ) {
+            $errors[] = 'spam';
+        } else if( ! isset( $this->raw_data['_mc4wp_honeypot'] ) || ! empty( $this->raw_data['_mc4wp_honeypot'] ) ) {
+            $errors[] = 'spam';
+        }
+
+        if( empty( $errors ) ) {
+            // validate email field
+            if( empty( $this->data['EMAIL'] ) || ! is_email( $this->data['EMAIL'] ) ) {
+                $errors[] = 'invalid_email';
+            }
+
+            // validate other required fields
+            foreach( $this->get_required_fields() as $field ) {
+                if( empty( $this->data[ $field] ) ) {
+                    $errors[] = 'required_field_missing';
+                    break;
+                }
+            }
+        }
 
         /**
          * Filters whether this form has errors. Runs only when a form is submitted.
@@ -516,6 +513,8 @@ class MC4WP_Form {
 
         // uppercase all field keys
         $data = array_change_key_case( $data, CASE_UPPER );
+
+
 
         return $data;
     }

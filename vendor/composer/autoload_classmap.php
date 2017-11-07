@@ -71,7 +71,6 @@ return array(
     'MC4WP_Upgrade_Routines' => $baseDir . '/includes/admin/class-upgrade-routines.php',
     'MC4WP_Usage_Tracking' => $baseDir . '/includes/admin/class-usage-tracking.php',
     'MC4WP_User_Integration' => $baseDir . '/includes/integrations/class-user-integration.php',
-    'MC4WP_Validator' => $baseDir . '/includes/class-validator.php',
     'MC4WP_WPForms_Field' => $baseDir . '/integrations/wpforms/class-field.php',
     'MC4WP_WPForms_Integration' => $baseDir . '/integrations/wpforms/class-wpforms.php',
     'MC4WP_WooCommerce_Integration' => $baseDir . '/integrations/woocommerce/class-woocommerce.php',
