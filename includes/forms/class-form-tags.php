@@ -208,6 +208,7 @@ class MC4WP_Form_Tags {
 
         // turn array into readable value
         if( is_array( $value ) ) {
+            $value = array_filter( $value );
             $value = join( ', ', $value );
         }
 

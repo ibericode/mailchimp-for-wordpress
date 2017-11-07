@@ -514,7 +514,13 @@ class MC4WP_Form {
         // uppercase all field keys
         $data = array_change_key_case( $data, CASE_UPPER );
 
-
+        // filter empty values
+        $data = array_filter( $data );
+        foreach( $data as $key => $value ) {
+            if( is_array( $value ) ) {
+                $data[$key] = array_filter( $value );
+            }
+        }
 
         return $data;
     }
