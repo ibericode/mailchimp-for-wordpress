@@ -1,11 +1,13 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Class ContainerTest
  *
  * @ignore
  */
-class ContainerTest extends PHPUnit_Framework_TestCase {
+class ContainerTest extends TestCase {
 
 	/**
 	 * @covers MC4WP_Container::get
@@ -13,9 +15,9 @@ class ContainerTest extends PHPUnit_Framework_TestCase {
 	public function test_get() {
 		$container = new MC4WP_Container();
 
-		$this->setExpectedException('Exception');
+		$this->expectException('Exception');
 		$container->get( 'foo' );
-		$this->setExpectedException('');
+		$this->expectException('');
 
 		$container['foo'] = 'bar';
 		self::assertEquals( $container->get('foo'), 'bar');

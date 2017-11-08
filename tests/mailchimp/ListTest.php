@@ -1,6 +1,7 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
-class ListTest extends PHPUnit_Framework_TestCase {
+class ListTest extends TestCase {
 
 	/**
 	 * @covers MC4WP_MailChimp_List::__construct

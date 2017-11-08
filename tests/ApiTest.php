@@ -1,5 +1,8 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Assert;
+
 // Debug class used for testing, no remote requests..
 
 /**
@@ -42,7 +45,7 @@ class ApiDebug extends MC4WP_API {
 
 }
 
-class ApiTest extends PHPUnit_Framework_TestCase {
+class ApiTest extends TestCase {
 
 	/**
 	 * @var MC4WP_API
@@ -61,7 +64,7 @@ class ApiTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_api_url() {
 		$instance = new MC4WP_API( 'aaaaaaaaaaaaaaaaaaaa-us1');
-		$property = PHPUnit_Framework_Assert::readAttribute( $instance, 'api_url' );
+		$property = Assert::readAttribute( $instance, 'api_url' );
 
 		self::assertEquals( 'https://us1.api.mailchimp.com/2.0/', $property );
 	}

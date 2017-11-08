@@ -1,10 +1,11 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class Functions_Test
  * @ignore
  */
-class Functions_Test extends PHPUnit_Framework_TestCase {
+class Functions_Test extends TestCase {
 
     public $tests = array(
         array(

@@ -1,5 +1,7 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 use Brain\Monkey;
 use Brain\Monkey\Functions;
 
@@ -7,7 +9,7 @@ use Brain\Monkey\Functions;
  * Class DynamicContentTagTest
  * @ignore
  */
-class DynamicContentTagTest extends PHPUnit_Framework_TestCase {
+class DynamicContentTagTest extends TestCase {
 
 	/**
 	 * @var MC4WP_Dynamic_Content_Tags
@@ -19,7 +21,7 @@ class DynamicContentTagTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
-		Monkey::setUp();
+		Monkey\setUp();
 		$this->instance = new MC4WP_Dynamic_Content_Tags( 'context' );
 	}
 
@@ -27,7 +29,7 @@ class DynamicContentTagTest extends PHPUnit_Framework_TestCase {
 	 * Runs after all tests
 	 */
 	protected function tearDown() {
-		Monkey::tearDown();
+		Monkey\tearDown();
 		parent::tearDown();
 	}
 
@@ -64,7 +66,7 @@ class DynamicContentTagTest extends PHPUnit_Framework_TestCase {
 		$value = '<script>alert("hi");</script>';
 
 		// just test if "esc_html" is called
-		Functions::when('esc_html')->justReturn('called');
+		Functions\when('esc_html')->justReturn('called');
 		self::assertEquals( $method->invoke( $this->instance, $value ), 'called' );
 	}
 
@@ -79,7 +81,7 @@ class DynamicContentTagTest extends PHPUnit_Framework_TestCase {
 		$value = 'an-invalid="attribute string"';
 
 		// just test if "esc_html" is called
-		Functions::when('esc_attr')->justReturn('called');
+		Functions\when('esc_attr')->justReturn('called');
 		self::assertEquals( $method->invoke( $this->instance, $value ), 'called' );
 	}
 

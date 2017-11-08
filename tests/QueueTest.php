@@ -1,17 +1,19 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
 use Brain\Monkey\Functions;
 
-class QueueTest extends PHPUnit_Framework_TestCase {
+class QueueTest extends TestCase {
 
 	protected function setUp() {
 		parent::setUp();
-		Monkey::setUp();
+
+		Monkey\setUp();
 	}
 
 	protected function tearDown() {
-		Monkey::tearDown();
+		Monkey\tearDown();
 		parent::tearDown();
 	}
 
@@ -91,7 +93,7 @@ class QueueTest extends PHPUnit_Framework_TestCase {
 
 		// add something, then save
 		$queue->put( array( 'key' => 'value' ) );
-		Functions::when('update_option')->justReturn(true);
+		Functions\when('update_option')->justReturn(true);
 		self::assertTrue( $queue->save() );
 	}
 

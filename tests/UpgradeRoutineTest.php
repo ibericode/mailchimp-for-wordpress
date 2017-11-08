@@ -1,11 +1,12 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class UpgradeRoutineTest
  *
  * @ignore
  */
-class UpgradeRoutineTest extends PHPUnit_Framework_TestCase {
+class UpgradeRoutineTest extends TestCase {
 
 	private $dir = '/tmp/mc4wp-tests/migrations';
 

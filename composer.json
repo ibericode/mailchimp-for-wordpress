@@ -22,10 +22,10 @@
     "xrstf/composer-php52": "1.*"
   },
   "require-dev": {
-    "phpunit/phpunit": "^4.8",
     "wp-coding-standards/wpcs": "dev-master",
     "codeclimate/php-test-reporter": "dev-master",
-    "brain/monkey": "1.*"
+    "phpunit/phpunit": "^6.4",
+    "brain/monkey": "^2.1"
   },
   "scripts": {
     "post-install-cmd": [

@@ -1,10 +1,11 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class FormTest
  * @ignore
  */
-class FormTest extends PHPUnit_Framework_TestCase {
+class FormTest extends TestCase {
 
 	/**
 	 * Unmock posts after every test
@@ -19,9 +20,9 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	public function test_get_instance() {
 
 		// we should get an exception when getting non-existing form
-		self::setExpectedException( 'Exception' );
+		self::expectException( 'Exception' );
 		MC4WP_Form::get_instance(500 );
-		self::setExpectedException(null);
+		self::expectException(null);
 	}
 
 	/**

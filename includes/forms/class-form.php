@@ -17,7 +17,6 @@ class MC4WP_Form {
      */
     public static $instances = array();
 
-
     /**
      * Get a shared form instance.
      *
@@ -494,6 +493,8 @@ class MC4WP_Form {
     protected function parse_request_data( array $data ) {
         $form = $this;
         $filtered = array();
+
+        $ignored_field_names = array();
 
          /**
          * Filters field names which should be ignored when showing data.

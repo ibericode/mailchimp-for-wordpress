@@ -1,10 +1,11 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class PluginTest
  * @ignore
  */
-class PluginTest extends PHPUnit_Framework_TestCase {
+class PluginTest extends TestCase {
 
 	/**
 	 * @covers MC4WP_Plugin::file

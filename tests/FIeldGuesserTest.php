@@ -1,11 +1,12 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class FieldGuesserTest
  *
  * @ignore
  */
-class FieldGuesserTest extends PHPUnit_Framework_TestCase {
+class FieldGuesserTest extends TestCase {
 
 	/**
 	 * @covers MC4WP_Field_Guesser::namespaced

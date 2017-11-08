@@ -1,10 +1,12 @@
 <?php
+use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Assert;
 
 /**
  * Class IntegrationTest
  * @ignore
  */
-class IntegrationTest extends PHPUnit_Framework_TestCase {
+class IntegrationTest extends TestCase {
 
 	/**
 	 * @covers MC4WP_Integration::__construct
@@ -32,7 +34,7 @@ class IntegrationTest extends PHPUnit_Framework_TestCase {
 		self::assertFalse( $instance->checkbox_was_checked() );
 
 		// copy of request data is stored in constructor so we should create a new instance to replicate
-		$_POST[ PHPUnit_Framework_Assert::readAttribute( $instance, 'checkbox_name' ) ] = 1;
+		$_POST[ Assert::readAttribute( $instance, 'checkbox_name' ) ] = 1;
 		self::assertTrue( $instance->checkbox_was_checked() );
 	}
 
