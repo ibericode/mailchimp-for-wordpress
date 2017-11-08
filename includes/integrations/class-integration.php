@@ -354,7 +354,6 @@ abstract class MC4WP_Integration {
 		$slug = $this->slug;
 		$mailchimp = new MC4WP_MailChimp();
 		$log = $this->get_log();
-		$request= $this->get_request();
 		$list_ids = $this->get_lists();
 
 		/** @var MC4WP_MailChimp_Subscriber $subscriber */
@@ -412,7 +411,7 @@ abstract class MC4WP_Integration {
 		foreach( $map as $list_id => $subscriber ) {
 			$subscriber->status = $this->options['double_optin'] ? 'pending' : 'subscribed';
 			$subscriber->email_type = $email_type;
-			$subscriber->ip_signup = $request->get_client_ip();
+			$subscriber->ip_signup = mc4wp_get_request_ip_address();
 
 			/** @ignore (documented elsewhere) */
 			$subscriber = apply_filters( 'mc4wp_subscriber_data', $subscriber );
@@ -524,8 +523,7 @@ abstract class MC4WP_Integration {
 	 * @return array
 	 */
 	public function get_data() {
-		$request = mc4wp('request');
-		$data = $request->params->all();
+		$data = array_merge( $_GET, $_POST );
 		return $data;
 	}
 
@@ -542,12 +540,4 @@ abstract class MC4WP_Integration {
 	protected function get_api() {
 		return mc4wp('api');
 	}
-
-	/**
-	 * @return MC4WP_Request
-	 */
-	protected function get_request() {
-		return mc4wp('request');
-	}
-
 }

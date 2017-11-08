@@ -449,13 +449,13 @@ class MC4WP_Form {
      * Handle an incoming request. Should be called before calling validate() method.
      *
      * @see MC4WP_Form::validate
-     * @param MC4WP_Request $request
+     * @param array $data
      * @return void
      */
-    public function handle_request( MC4WP_Request $request ) {
+    public function handle_request( array $data ) {
         $this->is_submitted = true;
-        $this->raw_data = $request->post->all();
-        $this->data = $this->parse_request_data( $request );
+        $this->raw_data = $data;
+        $this->data = $this->parse_request_data( $data );
 
         // update form configuration from given data
         $config = array();
@@ -487,20 +487,15 @@ class MC4WP_Form {
      * - Remove fields which are set to be ignored.
      * - Uppercase all field names
      *
-     * @param MC4WP_Request $request
+     * @param array $data
      *
      * @return array
      */
-    protected function parse_request_data( MC4WP_Request $request ) {
+    protected function parse_request_data( array $data ) {
         $form = $this;
+        $filtered = array();
 
-        // get all fields that do NOT start with an underscore.
-        $data = $request->post->all_without_prefix( '_' );
-
-        // get rid of ignored field names
-        $ignored_field_names = array();
-
-        /**
+         /**
          * Filters field names which should be ignored when showing data.
          *
          * @since 3.0
@@ -509,20 +504,30 @@ class MC4WP_Form {
          * @param MC4WP_Form $form The form instance.
          */
         $ignored_field_names = apply_filters( 'mc4wp_form_ignored_field_names', $ignored_field_names, $form );
-        $data = array_diff_key( $data, array_flip( $ignored_field_names ) );
 
-        // uppercase all field keys
-        $data = array_change_key_case( $data, CASE_UPPER );
-
-        // filter empty values
-        $data = array_filter( $data );
         foreach( $data as $key => $value ) {
-            if( is_array( $value ) ) {
-                $data[$key] = array_filter( $value );
+            // skip fields that start with underscore
+            if( $key[0] === '_' ) {
+                continue;
             }
+
+            // skip fields in ignored field names
+            if( in_array( $key, $ignored_field_names) ) {
+                continue;
+            }
+
+            // uppercase key
+            $key = strtoupper( $key );
+
+            // filter empty array values
+            if( is_array( $value ) ) {
+                $value = array_filter( $value );
+            }
+
+            $filtered[ $key ] = $value;
         }
 
-        return $data;
+        return $filtered;
     }
 
     /**

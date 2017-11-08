@@ -20,58 +20,56 @@ class MC4WP_Form_Listener {
 
 	/**
 	 * Listen for submitted forms
-	 *
-	 * @param MC4WP_Request $request
 	 * @return bool
 	 */
-		public function listen( MC4WP_Request $request ) {
+	public function listen() {
 
-			$form_id = $request->post->get( '_mc4wp_form_id' );
-			if( empty( $form_id ) ) {
-				return false;
-			}
-
-			// get form instance
-			try {
-				$form = mc4wp_get_form( $form_id );
-			} catch( Exception $e ) {
-				return false;
-			}
-
-			// where the magic happens
-			$form->handle_request( $request );
-			$form->validate();
-
-			// store submitted form
-			$this->submitted_form = $form;
-
-			// did form have errors?
-			if( ! $form->has_errors() ) {
-
-				// form was valid, do something
-				$method = 'process_' . $form->get_action() . '_form';
-				call_user_func( array( $this, $method ), $form, $request );
-			} else {
-				$this->get_log()->info( sprintf( "Form %d > Submitted with errors: %s", $form->ID, join( ', ', $form->errors ) ) );
-			}
-
-			$this->respond( $form );
-
-			return true;
+		$request = array_merge( $_GET, $_POST );
+		if( empty( $request['_mc4wp_form_id'] ) ) {
+			return false;
 		}
+
+		// get form instance
+		try {
+			$form_id = (int) $request['_mc4wp_form_id'];
+			$form = mc4wp_get_form( $form_id );
+		} catch( Exception $e ) {
+			return false;
+		}
+
+		// where the magic happens
+		$form->handle_request( $_POST );
+		$form->validate();
+
+		// store submitted form
+		$this->submitted_form = $form;
+
+		// did form have errors?
+		if( ! $form->has_errors() ) {
+
+			// form was valid, do something
+			$method = 'process_' . $form->get_action() . '_form';
+			call_user_func( array( $this, $method ), $form );
+		} else {
+			$this->get_log()->info( sprintf( "Form %d > Submitted with errors: %s", $form->ID, join( ', ', $form->errors ) ) );
+		}
+
+		$this->respond( $form );
+
+		return true;
+	}
 
 	/**
 	 * Process a subscribe form.
 	 *
 	 * @param MC4WP_Form $form
-	 * @param MC4WP_Request $request
 	 */
-	public function process_subscribe_form( MC4WP_Form $form, MC4WP_Request $request ) {
+	public function process_subscribe_form( MC4WP_Form $form ) {
 		$result = false;
 		$mailchimp = new MC4WP_MailChimp();
 		$email_type = $form->get_email_type();
 		$data = $form->get_data();
-		$client_ip = $request->get_client_ip();
+		$ip_address = mc4wp_get_request_ip_address();
 
 		/** @var MC4WP_MailChimp_Subscriber $subscriber */
 		$subscriber = null;
@@ -99,7 +97,7 @@ class MC4WP_Form_Listener {
 
 			$subscriber->status = $form->settings['double_optin'] ? 'pending' : 'subscribed';
 			$subscriber->email_type = $email_type;
-			$subscriber->ip_signup = $client_ip;
+			$subscriber->ip_signup = $ip_address;
 
 			/**
 			 * Filters subscriber data before it is sent to MailChimp. Fires for both form & integration requests.
@@ -184,9 +182,8 @@ class MC4WP_Form_Listener {
 
 	/**
 	 * @param MC4WP_Form $form
-	 * @param MC4WP_Request $request
 	 */
-	public function process_unsubscribe_form( MC4WP_Form $form, MC4WP_Request $request = null ) {
+	public function process_unsubscribe_form( MC4WP_Form $form ) {
 
 		$mailchimp = new MC4WP_MailChimp();
 		$log = $this->get_log();
