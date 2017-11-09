@@ -114,7 +114,7 @@ final class MC4WP_Ninja_Forms_Action extends NF_Abstracts_ActionNewsletter
             }
         }
 
-        $double_optin = $action_settings['double_optin'] == '0';
+        $double_optin = $action_settings['double_optin'] != '0';
         $update_existing = $action_settings['update_existing'] == '1';
         $replace_interests = isset( $action_settings['replace_interests'] ) && $action_settings['replace_interests'] == '1';
 
