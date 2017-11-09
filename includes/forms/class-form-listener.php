@@ -214,8 +214,9 @@ class MC4WP_Form_Listener {
 		 * @since 3.0
 		 *
 		 * @param MC4WP_Form $form Instance of the submitted form.
+		 * @param string $email
 		 */
-		do_action( 'mc4wp_form_unsubscribed', $form );
+		do_action( 'mc4wp_form_unsubscribed', $form, $data['EMAIL'] );
 	}
 
 	/**
