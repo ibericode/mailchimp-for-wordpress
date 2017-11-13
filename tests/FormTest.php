@@ -255,8 +255,8 @@ class FormTest extends TestCase {
 		$form = new MC4WP_Form( 1, $post );
 
 		$form->add_notice( 'Text', 'notice' );
-		self::assertCount( $form->notices, 1 );
+		self::assertCount( 1, $form->notices );
 	}
 
-	
+
 }
