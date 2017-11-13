@@ -34,7 +34,6 @@ class FormTest extends TestCase {
 		$post = get_post( $id );
 		$form = new MC4WP_Form( $id, $post, array() );
 		self::assertEquals( $id, $form->ID );
-		self::assertEquals( $id, $form->post->ID );
 
 		// settings & messages should be loaded
 		self::assertNotEmpty( $form->settings );
@@ -250,5 +249,14 @@ class FormTest extends TestCase {
 
 	}
 
+	public function test_add_notice() {
+		mock_get_post( array( 'ID' => 1 ) );
+		$post = get_post( 1 );
+		$form = new MC4WP_Form( 1, $post );
 
+		$form->add_notice( 'Text', 'notice' );
+		self::assertCount( $form->notices, 1 );
+	}
+
+	
 }
