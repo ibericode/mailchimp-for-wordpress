@@ -94,15 +94,14 @@ class MC4WP_Form_Element {
 	}
 
 	/**
-	 * Get HTML string for a message, including wrapper element.
+	 * Get HTML string for a notice, including wrapper element.
 	 *
-	 * @param string $key
+	 * @param MC4WP_Form_Notice $notice
 	 *
 	 * @return string
 	 */
-	protected function get_message_html( $key ) {
-		$message = $this->form->get_message( $key );
-		$html = sprintf( '<div class="mc4wp-alert mc4wp-%s"><p>%s</p></div>', esc_attr( $message->type ), $message->text );
+	protected function get_notice_html( MC4WP_Form_Notice $notice ) {
+		$html = sprintf( '<div class="mc4wp-alert mc4wp-%s"><p>%s</p></div>', esc_attr( $notice->type ), $notice->text );
 		return $html;
 	}
 
@@ -118,8 +117,8 @@ class MC4WP_Form_Element {
 		$form = $this->form;
 
 		if( $this->is_submitted || $force_show ) {
-			foreach( $this->form->messages as $key ) {
-				$html .= $this->get_message_html( $key );
+			foreach( $this->form->notices as $notice ) {
+				$html .= $this->get_notice_html( $notice );
 			}
 		}
 

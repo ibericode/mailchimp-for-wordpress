@@ -81,24 +81,14 @@ class MC4WP_Form {
     public $settings = array();
 
     /**
-     * @var array Array of message codes that will show when this form renders
+     * @var array Array of messages
      */
     public $messages = array();
 
     /**
-     * @var array
+     * @var array Array of notices to be shown when this form is rendered
      */
-    private $message_objects = array();
-
-    /**
-     * @var WP_Post The internal post object that represents this form.
-     */
-    public $post;
-
-    /**
-     * @var array Raw array of post_meta values.
-     */
-    protected $post_meta = array();
+    public $notices = array();
 
     /**
      * @var array Array of error codes
@@ -139,11 +129,10 @@ class MC4WP_Form {
      */
     public function __construct( $id, $post, $post_meta = array() ) {
         $this->ID = $id = (int) $id;
-        $this->post = $post;
-        $this->post_meta = $post_meta;
         $this->name = $post->post_title;
         $this->content = $post->post_content;
-        $this->settings = $this->load_settings();
+        $this->settings = $this->load_settings( $post_meta );
+        $this->messages = $this->load_messages( $post_meta );
 
         // update config from settings
         $this->config['lists'] = $this->settings['lists'];
@@ -205,22 +194,22 @@ class MC4WP_Form {
      * @staticvar $defaults
      * @return array
      */
-    protected function load_settings() {
+    protected function load_settings( $post_meta = array() ) {
 
         $form = $this;
-        static $defaults;
+        static $default_settings;
 
         // get default settings
-        if( ! $defaults ) {
-            $defaults = include MC4WP_PLUGIN_DIR . 'config/default-form-settings.php';
+        if( ! $default_settings ) {
+            $default_settings = include MC4WP_PLUGIN_DIR . 'config/default-form-settings.php';
         }
 
         // start with defaults
-        $settings = $defaults;
+        $settings = $default_settings;
 
         // get custom settings from meta
-        if( ! empty( $this->post_meta['_mc4wp_settings'] ) ) {
-            $meta = $this->post_meta['_mc4wp_settings'][0];
+        if( ! empty( $post_meta['_mc4wp_settings'] ) ) {
+            $meta = $post_meta['_mc4wp_settings'][0];
             $meta = (array) maybe_unserialize( $meta );
 
             // ensure lists is an array
@@ -249,7 +238,7 @@ class MC4WP_Form {
      * @staticvar $default_messages
      * @return array
      */
-    protected function load_messages() {
+    protected function load_messages( $post_meta = array() ) {
 
         $form = $this;
 
@@ -272,18 +261,14 @@ class MC4WP_Form {
          */
         $messages = (array) apply_filters( 'mc4wp_form_messages', $messages, $form );
 
-        foreach( $messages as $key => $message ) {
-
-            $type = ! empty( $message['type'] ) ? $message['type'] : '';
-            $text = isset( $message['text'] ) ? $message['text'] : $message;
+        foreach( $messages as $key => $message_text ) {
 
             // overwrite default text with text in form meta.
-            if( isset( $this->post_meta[ 'text_' . $key ][0] ) ) {
-                $text = $this->post_meta[ 'text_' . $key ][0];
+            if( isset( $post_meta[ 'text_' . $key ][0] ) ) {
+                $message_text = $post_meta[ 'text_' . $key ][0];
             }
 
-            $message = new MC4WP_Form_Message( $text, $type );
-            $messages[ $key ] = $message;
+            $messages[ $key ] = $message_text;
         }
 
         return $messages;
@@ -312,32 +297,12 @@ class MC4WP_Form {
     }
 
     /**
-     * @param $key
-     */
-    public function add_message( $key ) {
-        $this->messages[] = $key;
-    }
-
-    /**
-     * Get message object
-     *
-     * @param string $key
-     *
-     * @return MC4WP_Form_Message
-     */
-    public function get_message( $key ) {
-
-        // load messages once
-        if( empty( $this->message_objects ) ) {
-            $this->message_objects = $this->load_messages();
-        }
-
-        if( isset( $this->message_objects[ $key ] ) ) {
-            return $this->message_objects[ $key ];
-        }
-
-        // default to general error message
-        return $this->message_objects['error'];
+    * Add notice to this form when it is rendered
+    * @param string $text
+    * @param string $type
+    */
+    public function add_notice( $text, $type = 'notice' ) {
+        $this->notices[] = new MC4WP_Form_Notice( $text, $type );
     }
 
     /**
@@ -437,8 +402,8 @@ class MC4WP_Form {
         // filter out all non-string values
         $errors = array_filter( $errors, 'is_string' );
 
-        // add each error to this form
-        array_map( array( $this, 'add_error' ), $errors );
+        // set property on self
+        $this->errors = $errors;
 
         // return whether we have errors
         return ! $this->has_errors();
@@ -472,7 +437,7 @@ class MC4WP_Form {
                 if( is_array( $value ) ) {
                     $value = array_filter( $value );
                 }
-                
+
                 $config[ $config_key ] = $value;
             }
         }
@@ -615,7 +580,6 @@ class MC4WP_Form {
         // only add each error once
         if( ! in_array( $error_code, $this->errors ) ) {
             $this->errors[] = $error_code;
-            $this->add_message( $error_code );
         }
     }
 
@@ -724,6 +688,20 @@ class MC4WP_Form {
         }
 
         return $stylesheet;
+    }
+
+    /**
+    * @param string $key
+    * @return string
+    */
+    public function get_message( $key ) {
+        $message = isset( $this->messages[ $key] ) ? $this->messages[ $key ] : $this->messages['error'] ;
+
+        if( $key === 'no_lists_selected' && current_user_can( 'manage_options' ) ) {
+            $message .= sprintf( ' (<a href="%s">%s</a>)', mc4wp_get_edit_form_url( $this->ID ), 'edit form settings' );
+        }
+
+        return $message;
     }
 
     /**

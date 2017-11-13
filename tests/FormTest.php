@@ -221,21 +221,6 @@ class FormTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Form::get_message
-	 */
-	public function test_get_message() {
-		mock_get_post( array( 'ID' => 15 ) );
-        $post = get_post( 15 );
-        $form = new MC4WP_Form(15, $post );
-
-        $default_messages = require __DIR__ . '/../config/default-form-messages.php';
-
-		self::assertInstanceOf( 'MC4WP_Form_Message', $form->get_message( 'error' ) );
-		self::assertEquals( $default_messages['error']['text'], $form->get_message( 'error' ) );
-		self::assertEquals( $default_messages['subscribed']['text'], $form->get_message( 'subscribed' ) );
-	}
-
-	/**
 	 * @covers MC4WP_Form::set_config
 	 */
 	public function test_set_config() {

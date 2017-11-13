@@ -50,6 +50,7 @@
       "includes/functions.php",
       "includes/deprecated-functions.php",
       "includes/forms/functions.php",
+      "includes/forms/admin-functions.php",
       "includes/integrations/functions.php",
       "includes/default-actions.php",
       "includes/default-filters.php"

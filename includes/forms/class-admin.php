@@ -25,8 +25,6 @@ class MC4WP_Forms_Admin {
 	public function __construct( MC4WP_Admin_Messages $messages, MC4WP_MailChimp $mailchimp ) {
 		$this->messages = $messages;
 		$this->mailchimp = $mailchimp;
-
-		require dirname( __FILE__ ) . '/admin-functions.php';
 	}
 
 	/**

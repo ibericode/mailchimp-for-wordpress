@@ -46,16 +46,18 @@ class MC4WP_Form_Listener {
 
 		// did form have errors?
 		if( ! $form->has_errors() ) {
-
 			// form was valid, do something
 			$method = 'process_' . $form->get_action() . '_form';
 			call_user_func( array( $this, $method ), $form );
 		} else {
+			foreach( $form->errors as $error_code ) {
+				$form->add_notice( $form->get_message( $error_code ), 'error' );
+			}
+
 			$this->get_log()->info( sprintf( "Form %d > Submitted with errors: %s", $form->ID, join( ', ', $form->errors ) ) );
 		}
 
 		$this->respond( $form );
-
 		return true;
 	}
 
@@ -94,7 +96,6 @@ class MC4WP_Form_Listener {
 
 		// loop through lists
 		foreach( $map as $list_id => $subscriber ) {
-
 			$subscriber->status = $form->settings['double_optin'] ? 'pending' : 'subscribed';
 			$subscriber->email_type = $email_type;
 			$subscriber->ip_signup = $ip_address;
@@ -126,10 +127,10 @@ class MC4WP_Form_Listener {
 			$error_message = $mailchimp->get_error_message();
 
 			if( $mailchimp->get_error_code() == 214 ) {
-				$form->add_error('already_subscribed');
+				$form->add_notice( $form->messages['already_subscribed'], 'notice' );
 				$log->warning( sprintf( "Form %d > %s is already subscribed to the selected list(s)", $form->ID, $data['EMAIL'] ) );
 			} else {
-				$form->add_error('error');
+				$form->add_notice( $form->messages['error'], 'error' );
 				$log->error( sprintf( 'Form %d > MailChimp API error: %s %s', $form->ID, $error_code, $error_message ) );
 
 				/**
@@ -147,8 +148,7 @@ class MC4WP_Form_Listener {
 
 		// Success! Did we update or newly subscribe?
 		if( $result->status === 'subscribed' && $result->was_already_on_list ) {
-			$form->add_message( 'updated' );
-
+			$form->add_notice( $form->messages['updated'], 'success' );
 			$log->info( sprintf( "Form %d > Successfully updated %s", $form->ID, $data['EMAIL'] ) );
 
 			/**
@@ -162,8 +162,7 @@ class MC4WP_Form_Listener {
 			 */
 			do_action( 'mc4wp_form_updated_subscriber', $form, $subscriber->email_address, $data );
 		} else {
-			$form->add_message( 'subscribed' );
-
+			$form->add_notice( $form->messages['subscribed'], 'success' );
 			$log->info( sprintf( "Form %d > Successfully subscribed %s", $form->ID, $data['EMAIL'] ) );
 		}
 
