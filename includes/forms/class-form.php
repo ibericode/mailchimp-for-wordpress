@@ -468,7 +468,12 @@ class MC4WP_Form {
         // use isset here to allow empty lists (which should show a notice)
         foreach( $map as $param_key => $config_key ) {
             if( isset( $this->raw_data[ $param_key ] ) ) {
-                $config[ $config_key ] = $this->raw_data[ $param_key ];
+                $value = $this->raw_data[ $param_key ];
+                if( is_array( $value ) ) {
+                    $value = array_filter( $value );
+                }
+                
+                $config[ $config_key ] = $value;
             }
         }
 
