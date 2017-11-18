@@ -123,6 +123,11 @@ class MC4WP_Form {
     );
 
     /**
+    * @var string
+    */
+    public $last_event = '';
+
+    /**
      * @param int $id The post ID
      * @param WP_Post $post
      * @param array $post_meta
@@ -420,6 +425,7 @@ class MC4WP_Form {
         $this->is_submitted = true;
         $this->raw_data = $data;
         $this->data = $this->parse_request_data( $data );
+        $this->last_event = '';
 
         // update form configuration from given data
         $config = array();
@@ -716,6 +722,14 @@ class MC4WP_Form {
     public function get_message_html( $key ) {
         _deprecated_function( __METHOD__, '3.2' );
         return '';
+    }
+
+    /**
+    * Add a notice to this form
+    */
+    public function add_message( $key ) {
+        _deprecated_function( __METHOD__, '3.3' );
+        $this->add_notice( $this->get_message( $key ) );
     }
 
 }

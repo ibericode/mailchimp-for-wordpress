@@ -148,6 +148,7 @@ class MC4WP_Form_Listener {
 
 		// Success! Did we update or newly subscribe?
 		if( $result->status === 'subscribed' && $result->was_already_on_list ) {
+			$form->last_event = 'updated_subscriber';
 			$form->add_notice( $form->messages['updated'], 'success' );
 			$log->info( sprintf( "Form %d > Successfully updated %s", $form->ID, $data['EMAIL'] ) );
 
@@ -162,6 +163,7 @@ class MC4WP_Form_Listener {
 			 */
 			do_action( 'mc4wp_form_updated_subscriber', $form, $subscriber->email_address, $data );
 		} else {
+			$form->last_event = 'subscribed';
 			$form->add_notice( $form->messages['subscribed'], 'success' );
 			$log->info( sprintf( "Form %d > Successfully subscribed %s", $form->ID, $data['EMAIL'] ) );
 		}
@@ -203,6 +205,7 @@ class MC4WP_Form_Listener {
 		}
 
 		// Success! Unsubscribed.
+		$form->last_event = 'unsubscribed';
 		$form->add_notice( $form->messages['unsubscribed'], 'notice' );
 		$log->info( sprintf( "Form %d > Successfully unsubscribed %s", $form->ID, $data['EMAIL'] ) );
 
