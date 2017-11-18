@@ -195,7 +195,7 @@ class MC4WP_Form_Listener {
 		}
 
 		if( ! $result ) {
-			$form->add_error( 'error' );
+			$form->add_notice( $form->messages['error'], 'error' );
 			$log->error( sprintf( 'Form %d > MailChimp API error: %s', $form->ID, $mailchimp->get_error_message() ) );
 
 			// bail
@@ -203,7 +203,7 @@ class MC4WP_Form_Listener {
 		}
 
 		// Success! Unsubscribed.
-		$form->add_message('unsubscribed');
+		$form->add_notice( $form->messages['unsubscribed'], 'notice' );
 		$log->info( sprintf( "Form %d > Successfully unsubscribed %s", $form->ID, $data['EMAIL'] ) );
 
 
