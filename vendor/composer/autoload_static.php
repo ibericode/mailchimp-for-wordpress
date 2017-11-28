@@ -754,6 +754,7 @@ class ComposerStaticInitabc72b64e84efd76b3cb10d2a10a9768
         'MC4WP_Admin_Review_Notice' => __DIR__ . '/../..' . '/includes/admin/class-review-notice.php',
         'MC4WP_Admin_Texts' => __DIR__ . '/../..' . '/includes/admin/class-admin-texts.php',
         'MC4WP_Admin_Tools' => __DIR__ . '/../..' . '/includes/admin/class-admin-tools.php',
+        'MC4WP_AffiliateWP_Integration' => __DIR__ . '/../..' . '/integrations/affiliatewp/class-affiliatewp.php',
         'MC4WP_Array_Bag' => __DIR__ . '/../..' . '/includes/class-array-bag.php',
         'MC4WP_BuddyPress_Integration' => __DIR__ . '/../..' . '/integrations/buddypress/class-buddypress.php',
         'MC4WP_Comment_Form_Integration' => __DIR__ . '/../..' . '/integrations/wp-comment-form/class-comment-form.php',

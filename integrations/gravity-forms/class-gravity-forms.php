@@ -52,7 +52,7 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration {
             }
         }
 
-        if( ! $subscribe || empty( $email_address ) || empty( $mailchimp_list_id ) ) {
+        if( ! $subscribe || empty( $email_address ) ) {
             return;
         }
 
@@ -84,7 +84,10 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration {
     }
 
     public function settings_fields( $pos, $form_id ) {
-        if( $pos !== 0 ) { return; }
+        if( $pos !== 0 ) { 
+            return; 
+        }
+        
         $mailchimp = new MC4WP_MailChimp();
         $lists = $mailchimp->get_cached_lists();
         ?>
