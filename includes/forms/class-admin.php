@@ -224,6 +224,9 @@ class MC4WP_Forms_Admin {
 		// strip <form> tags from content
 		$data['content'] =  preg_replace( '/<\/?form(.|\s)*?>/i', '', $data['content'] );
 
+		// replace lowercased name="name" to prevent 404
+		$data['content'] = str_ireplace( ' name=\"name\"', ' name=\"NAME\"', $data['content'] );
+
 		// sanitize text fields
 		$data['settings']['redirect'] = sanitize_text_field( $data['settings']['redirect'] );
 
