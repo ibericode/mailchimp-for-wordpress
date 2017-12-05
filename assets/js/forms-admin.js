@@ -4986,8 +4986,10 @@ function updateHeightsInViewport(cm) {
 // Read and store the height of line widgets associated with the
 // given line.
 function updateWidgetHeight(line) {
-  if (line.widgets) { for (var i = 0; i < line.widgets.length; ++i)
-    { line.widgets[i].height = line.widgets[i].node.parentNode.offsetHeight; } }
+  if (line.widgets) { for (var i = 0; i < line.widgets.length; ++i) {
+    var w = line.widgets[i], parent = w.node.parentNode;
+    if (parent) { w.height = parent.offsetHeight; }
+  } }
 }
 
 // Compute the lines that are visible in a given viewport (defaults
@@ -8783,18 +8785,26 @@ function lookupKeyForEditor(cm, name, handle) {
 // for bound mouse clicks.
 
 var stopSeq = new Delayed;
+
 function dispatchKey(cm, name, e, handle) {
   var seq = cm.state.keySeq;
   if (seq) {
     if (isModifierKey(name)) { return "handled" }
-    stopSeq.set(50, function () {
-      if (cm.state.keySeq == seq) {
-        cm.state.keySeq = null;
-        cm.display.input.reset();
-      }
-    });
-    name = seq + " " + name;
+    if (/\'$/.test(name))
+      { cm.state.keySeq = null; }
+    else
+      { stopSeq.set(50, function () {
+        if (cm.state.keySeq == seq) {
+          cm.state.keySeq = null;
+          cm.display.input.reset();
+        }
+      }); }
+    if (dispatchKeyInner(cm, seq + " " + name, e, handle)) { return true }
   }
+  return dispatchKeyInner(cm, name, e, handle)
+}
+
+function dispatchKeyInner(cm, name, e, handle) {
   var result = lookupKeyForEditor(cm, name, handle);
 
   if (result == "multi")
@@ -8807,10 +8817,6 @@ function dispatchKey(cm, name, e, handle) {
     restartBlink(cm);
   }
 
-  if (seq && !result && /\'$/.test(name)) {
-    e_preventDefault(e);
-    return true
-  }
   return !!result
 }
 
@@ -11362,7 +11368,7 @@ CodeMirror$1.fromTextArea = fromTextArea;
 
 addLegacyProps(CodeMirror$1);
 
-CodeMirror$1.version = "5.31.0";
+CodeMirror$1.version = "5.32.0";
 
 return CodeMirror$1;
 
@@ -12406,8 +12412,6 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
         "interface": kw("class"),
         "implements": C,
         "namespace": C,
-        "module": kw("module"),
-        "enum": kw("module"),
 
         // scope modifiers
         "public": kw("modifier"),
@@ -12514,7 +12518,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
           var kw = keywords[word]
           return ret(kw.type, kw.style, word)
         }
-        if (word == "async" && stream.match(/^\s*[\(\w]/, false))
+        if (word == "async" && stream.match(/^(\s|\/\*.*?\*\/)*[\(\w]/, false))
           return ret("async", "keyword", word)
       }
       return ret("variable", "variable", word)
@@ -12731,9 +12735,12 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
       if (isTS && value == "type") {
         cx.marked = "keyword"
         return cont(typeexpr, expect("operator"), typeexpr, expect(";"));
-      } if (isTS && value == "declare") {
+      } else if (isTS && value == "declare") {
         cx.marked = "keyword"
         return cont(statement)
+      } else if (isTS && (value == "module" || value == "enum") && cx.stream.match(/^\s*\w/, false)) {
+        cx.marked = "keyword"
+        return cont(pushlex("form"), pattern, expect("{"), pushlex("}"), block, poplex, poplex)
       } else {
         return cont(pushlex("stat"), maybelabel);
       }
@@ -12747,7 +12754,6 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     if (type == "class") return cont(pushlex("form"), className, poplex);
     if (type == "export") return cont(pushlex("stat"), afterExport, poplex);
     if (type == "import") return cont(pushlex("stat"), afterImport, poplex);
-    if (type == "module") return cont(pushlex("form"), pattern, expect("{"), pushlex("}"), block, poplex, poplex)
     if (type == "async") return cont(statement)
     if (value == "@") return cont(expression, statement)
     return pass(pushlex("stat"), expression, expect(";"), poplex);
@@ -12797,6 +12803,8 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     if (type == "=>") return cont(pushcontext, noComma ? arrowBodyNoComma : arrowBody, popcontext);
     if (type == "operator") {
       if (/\+\+|--/.test(value) || isTS && value == "!") return cont(me);
+      if (isTS && value == "<" && cx.stream.match(/^([^>]|<.*?>)*>\s*\(/, false))
+        return cont(pushlex(">"), commasep(typeexpr, ">"), poplex, me);
       if (value == "?") return cont(expression, expect(":"), expr);
       return cont(expr);
     }
@@ -12923,6 +12931,18 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
       if (value == "?") return cont(maybetype);
     }
   }
+  function mayberettype(type) {
+    if (isTS && type == ":") {
+      if (cx.stream.match(/^\s*\w+\s+is\b/, false)) return cont(expression, isKW, typeexpr)
+      else return cont(typeexpr)
+    }
+  }
+  function isKW(_, value) {
+    if (value == "is") {
+      cx.marked = "keyword"
+      return cont()
+    }
+  }
   function typeexpr(type, value) {
     if (type == "variable" || value == "void") {
       if (value == "keyof") {
@@ -12965,6 +12985,12 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
   }
   function maybeTypeArgs(_, value) {
     if (value == "<") return cont(pushlex(">"), commasep(typeexpr, ">"), poplex, afterType)
+  }
+  function typeparam() {
+    return pass(typeexpr, maybeTypeDefault)
+  }
+  function maybeTypeDefault(_, value) {
+    if (value == "=") return cont(typeexpr)
   }
   function vardef() {
     return pass(pattern, maybetype, maybeAssign, vardefCont);
@@ -13019,8 +13045,8 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
   function functiondef(type, value) {
     if (value == "*") {cx.marked = "keyword"; return cont(functiondef);}
     if (type == "variable") {register(value); return cont(functiondef);}
-    if (type == "(") return cont(pushcontext, pushlex(")"), commasep(funarg, ")"), poplex, maybetype, statement, popcontext);
-    if (isTS && value == "<") return cont(pushlex(">"), commasep(typeexpr, ">"), poplex, functiondef)
+    if (type == "(") return cont(pushcontext, pushlex(")"), commasep(funarg, ")"), poplex, mayberettype, statement, popcontext);
+    if (isTS && value == "<") return cont(pushlex(">"), commasep(typeparam, ">"), poplex, functiondef)
   }
   function funarg(type, value) {
     if (value == "@") cont(expression, funarg)
@@ -13036,7 +13062,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     if (type == "variable") {register(value); return cont(classNameAfter);}
   }
   function classNameAfter(type, value) {
-    if (value == "<") return cont(pushlex(">"), commasep(typeexpr, ">"), poplex, classNameAfter)
+    if (value == "<") return cont(pushlex(">"), commasep(typeparam, ">"), poplex, classNameAfter)
     if (value == "extends" || value == "implements" || (isTS && type == ","))
       return cont(isTS ? typeexpr : expression, classNameAfter);
     if (type == "{") return cont(pushlex("}"), classBody, poplex);

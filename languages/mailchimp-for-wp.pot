@@ -65,6 +65,22 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
+#: includes/admin/class-admin.php:415
+msgid "Error connecting to MailChimp:"
+msgstr ""
+
+#: includes/admin/class-admin.php:418
+msgid "Looks like your server is blocked by MailChimp's firewall. Please contact MailChimp support and include the following reference number: %s"
+msgstr ""
+
+#: includes/admin/class-admin.php:421
+msgid "Here's some info on solving common connectivity issues."
+msgstr ""
+
+#: includes/admin/class-admin.php:426
+msgid "MailChimp returned the following error:"
+msgstr ""
+
 #: includes/admin/class-admin.php:465
 msgid "Log successfully emptied."
 msgstr ""
@@ -301,19 +317,23 @@ msgstr ""
 msgid "Form"
 msgstr ""
 
-#: includes/forms/class-admin.php:148, includes/forms/class-admin.php:272
+#: includes/forms/class-admin.php:148, includes/forms/class-admin.php:275
 msgid "<strong>Success!</strong> Form successfully saved."
 msgstr ""
 
-#: includes/forms/class-admin.php:272
+#: includes/forms/class-admin.php:275
 msgid "Preview form"
 msgstr ""
 
-#: includes/forms/class-admin.php:445, includes/forms/class-widget.php:30
+#: includes/forms/class-admin.php:392
+msgid "Form not found."
+msgstr ""
+
+#: includes/forms/class-admin.php:448, includes/forms/class-widget.php:30
 msgid "MailChimp Sign-Up Form"
 msgstr ""
 
-#: includes/forms/class-admin.php:449
+#: includes/forms/class-admin.php:452
 msgid "Select the form to show"
 msgstr ""
 
