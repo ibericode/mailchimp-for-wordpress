@@ -27,7 +27,7 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 	* Add hooks
 	*/
 	public function add_hooks() {
-		add_action( 'init', array( $this, 'listen'), 90 );
+		add_action( 'init', array( $this, 'listen'), 50 );
 	}
 
 	/**

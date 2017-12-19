@@ -248,11 +248,8 @@ class MC4WP_Form {
         $form = $this;
 
         // get default messages
-        static $default_messages;
-        if( ! $default_messages ) {
-            $default_messages = include MC4WP_PLUGIN_DIR . 'config/default-form-messages.php';
-        }
-
+        $default_messages = include MC4WP_PLUGIN_DIR . 'config/default-form-messages.php';
+    
         // start with default messages
         $messages = $default_messages;
 
@@ -266,6 +263,13 @@ class MC4WP_Form {
          */
         $messages = (array) apply_filters( 'mc4wp_form_messages', $messages, $form );
 
+        // for backwards compatiblity, grab text of each message (if is array)
+        foreach( $messages as $key => $message ) {
+            if( is_array( $message ) && isset( $message['text'] ) ) {
+                $messages[$key] = $message['text'];
+            }
+        }
+
         foreach( $messages as $key => $message_text ) {
 
             // overwrite default text with text in form meta.
@@ -273,7 +277,7 @@ class MC4WP_Form {
                 $message_text = $post_meta[ 'text_' . $key ][0];
             }
 
-            $messages[ $key ] = $message_text;
+            $messages[$key] = $message_text;
         }
 
         return $messages;
