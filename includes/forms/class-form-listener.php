@@ -37,6 +37,11 @@ class MC4WP_Form_Listener {
 			return false;
 		}
 
+		$nonce = isset( $request['_mc4wp_form_nonce'] ) ? $request['_mc4wp_form_nonce'] : '';
+		if ( ! wp_verify_nonce( $nonce, 'mc4wp-process-form-' . $form_id ) ) {
+			wp_die( __( 'Sorry, you are not allowed to process this form.', 'mailchimp-for-wp' ) );
+		}
+
 		// where the magic happens
 		$form->handle_request( $_POST );
 		$form->validate();
