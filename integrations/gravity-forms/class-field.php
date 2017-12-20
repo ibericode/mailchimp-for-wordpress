@@ -45,7 +45,8 @@ class MC4WP_Gravity_Forms_Field extends GF_Field {
             'description_setting',
             'css_class_setting',
             'mailchimp_list_setting',
-            'mailchimp_double_optin'
+            'mailchimp_double_optin',
+            'rules_setting',
         );
     }
 
