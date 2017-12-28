@@ -7,11 +7,12 @@
 # Katie Aggelakou <e.ecodress@gmail.com>, 2015
 # Michael Kotsarinis <mk73628@gmail.com>, 2015
 # Spyros Tzortzis <spytzo@gmail.com>, 2015
+# Valera Litvinov <val76era@yandex.ru>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2017-11-23 14:44+0000\n"
-"Last-Translator: Athanasia Sal <pcxmanagement@gmail.com>\n"
+"PO-Revision-Date: 2017-12-22 21:11+0000\n"
+"Last-Translator: Valera Litvinov <val76era@yandex.ru>\n"
 "Language-Team: Greek (Greece) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/el_GR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -81,26 +82,26 @@ msgstr "Άλλο"
 
 #: includes/admin/class-admin.php:458
 msgid "Log successfully emptied."
-msgstr ""
+msgstr "Καταγραφή με επιτυχία διαγράφτηκε."
 
 #: includes/admin/class-admin.php:488
 msgid ""
 "To get started with MailChimp for WordPress, please <a href=\"%s\">enter "
 "your MailChimp API key on the settings page of the plugin</a>."
-msgstr ""
+msgstr "Για να ξεκινήσετε με το λογισμικό MailChimp για το WordPress, παρακαλούμε <a href=\"%s\">να εισαγάγετε το κλειδί API του MailChimp στη σελίδα ρυθμίσεων του plugin</a>."
 
 #: includes/admin/class-ads.php:39
 msgid ""
 "Want to customize the style of your form? <a href=\"%s\">Try our Styles "
 "Builder</a> & edit the look of your forms with just a few clicks."
-msgstr ""
+msgstr "Θέλετε να προσαρμόσετε το στυλ της φόρμας σας; <a href=\"%s\">Δοκιμάστε το Styles Builder</a> και επεξεργαστείτε την εμφάνιση των φορμών σας με μερικά μόνο κλικ."
 
 #: includes/admin/class-ads.php:54
 msgid ""
 "Be notified whenever someone subscribes? <a href=\"%s\">MailChimp for "
 "WordPress Premium</a> allows you to set up email notifications for your "
 "forms."
-msgstr ""
+msgstr "Να ενημερώνεστε όταν κάποιος έκανε εγγραφή; <a href=\"%s\">Το MailChimp για το WordPress Premium</a> σας επιτρέπει να ρυθμίσετε ειδοποιήσεις μέσω ηλεκτρονικού ταχυδρομείου για τις φόρμες σας."
 
 #: includes/admin/class-ads.php:56
 msgid ""
