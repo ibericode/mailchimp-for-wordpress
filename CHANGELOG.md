@@ -1,6 +1,17 @@
 Changelog
 =========
 
+#### 4.1.13 - December 28, 2017
+
+**Fixes**
+
+- Array to string conversion in default form messages.
+
+**Additions**
+
+- Allow marking Gravity Forms sign-up checkbox as a required field.
+
+
 #### 4.1.12 - December 11, 2017
 
 **Fixes**
