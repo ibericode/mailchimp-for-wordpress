@@ -1,15 +1,18 @@
 <?php
+use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Assert;
+
 
 /**
  * Class IntegrationManagerTest
  *
  * @ignore
  */
-class IntegrationManagerTest extends PHPUnit_Framework_TestCase {
+class IntegrationManagerTest extends TestCase {
 
 	public function test_constructor() {
 		$instance = new MC4WP_Integration_Manager();
-		$property = PHPUnit_Framework_Assert::readAttribute( $instance, 'tags' );
+		$property = Assert::readAttribute( $instance, 'tags' );
 		self::assertInstanceOf( 'MC4WP_Integration_Tags', $property );
 	}
 
@@ -52,12 +55,12 @@ class IntegrationManagerTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_get() {
 		$instance = new MC4WP_Integration_Manager();
-		self::setExpectedException( 'Exception' );
+		self::expectException( 'Exception' );
 		$instance->get('non-existing-slug');
 
 
 		$instance->register_integration( 'slug', 'MC4WP_Sample_Integration', true );
-		self::setExpectedException(null);
+		self::expectException(null);
 		self::assertInstanceOf( 'MC4WP_Sample_Integration', $instance->get('slug') );
 	}
 

@@ -1,10 +1,11 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class FormTest
  * @ignore
  */
-class FormTest extends PHPUnit_Framework_TestCase {
+class FormTest extends TestCase {
 
 	/**
 	 * Unmock posts after every test
@@ -19,9 +20,9 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	public function test_get_instance() {
 
 		// we should get an exception when getting non-existing form
-		self::setExpectedException( 'Exception' );
-		new MC4WP_Form( 500 );
-		self::setExpectedException(null);
+		self::expectException( 'Exception' );
+		MC4WP_Form::get_instance(500 );
+		self::expectException(null);
 	}
 
 	/**
@@ -30,9 +31,9 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	public function test_constructor() {
 		$id = 12;
 		mock_get_post( array( 'ID' => $id ) );
-		$form = new MC4WP_Form( $id );
+		$post = get_post( $id );
+		$form = new MC4WP_Form( $id, $post, array() );
 		self::assertEquals( $id, $form->ID );
-		self::assertEquals( $id, $form->post->ID );
 
 		// settings & messages should be loaded
 		self::assertNotEmpty( $form->settings );
@@ -54,7 +55,8 @@ class FormTest extends PHPUnit_Framework_TestCase {
 			)
 		);
 
-		$form = new MC4WP_Form( 1 );
+        $post = get_post( 1 );
+		$form = new MC4WP_Form( 1, $post );
 		self::assertTrue( $form->has_field_type( 'email' ) );
 		self::assertFalse( $form->has_field_type( 'date' ) );
 
@@ -64,7 +66,8 @@ class FormTest extends PHPUnit_Framework_TestCase {
 				'post_content' => '<input type="email" name="EMAIL" /><input type="date" name="EMAIL" /><input type="url" name="EMAIL" />'
 			)
 		);
-		$form = new MC4WP_Form( 1 );
+        $post = get_post( 1 );
+		$form = new MC4WP_Form( 1, $post );
 		self::assertTrue( $form->has_field_type( 'email' ) );
 		self::assertTrue( $form->has_field_type( 'date' ) );
 		self::assertTrue( $form->has_field_type( 'url' ) );
@@ -81,7 +84,8 @@ class FormTest extends PHPUnit_Framework_TestCase {
 				'post_content' => '<input type="number"><input type="email" name="EMAIL" /><input type="date" name="EMAIL" /><input type="url" name="EMAIL" />'
 			)
 		);
-		$form = new MC4WP_Form(15);
+		$post = get_post( 15 );
+		$form = new MC4WP_Form(15, $post );
 		self::assertEquals( $form->get_field_types(), $types );
 
 		mock_get_post(
@@ -89,7 +93,8 @@ class FormTest extends PHPUnit_Framework_TestCase {
 				'post_content' => '',
 			)
 		);
-		$form = new MC4WP_Form(1);
+		$post = get_post( 1 );
+		$form = new MC4WP_Form(1, $post );
 		self::assertEmpty( $form->get_field_types() );
 	}
 
@@ -98,35 +103,19 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_is_valid() {
 		mock_get_post( array( 'ID' => 1 ) );
-		$form = new MC4WP_Form(1);
+		$post = get_post( 1 );
+		$form = new MC4WP_Form(1, $post );
 		self::assertTrue( $form->validate() );
 
 		// empty data should not validate
-		$request = new MC4WP_Request();
-		$form = new MC4WP_Form(1);
-		$form->handle_request( $request );
+		$data = array();
+		$form = new MC4WP_Form(1, $post );
+		$form->handle_request( $data );
 		$valid = $form->validate();
 		self::assertFalse( $valid );
 
 		// errors array should have been filled
 		self::assertNotEmpty( $form->errors );
-
-
-//		// with lists and mocked nonce, form should be valid
-		// @todo fix this test
-//		define( 'WP_CACHE', true );
-//		$valid_data = array(
-//			'email' => 'johngreene@hotmail.com',
-//			'_mc4wp_lists' => array( 'list-id' ),
-//			'_mc4wp_timestamp' => time() - 100
-//		);
-//
-//		$request = new MC4WP_Request( array(), $valid_data );
-//		$form = new MC4WP_Form(1);
-//		$form->handle_request( $request );
-//		self::assertTrue( $form->is_valid() );
-
-		// todo: required fields
 	}
 
 	/**
@@ -134,7 +123,8 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_has_errors() {
 		mock_get_post( array( 'ID' => 1 ) );
-		$form = new MC4WP_Form(1);
+		$post = get_post( 1 );
+		$form = new MC4WP_Form(1, $post );
 		$form->errors = array( 'required_field_missing' );
 		self::assertTrue( $form->has_errors() );
 
@@ -147,12 +137,13 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_handle_request() {
 		mock_get_post( array( 'ID' => 15 ) );
-		$form = new MC4WP_Form(15);
+        $post = get_post( 15 );
+        $form = new MC4WP_Form(15, $post );
 		$data = array(
 			'EMAIL' => 'value'
 		);
-		$request = new MC4WP_Request( array(), $data );
-		$form->handle_request( $request );
+
+		$form->handle_request( $data );
 
 		// form should show as submitted
 		self::assertTrue( $form->is_submitted );
@@ -164,13 +155,12 @@ class FormTest extends PHPUnit_Framework_TestCase {
 
 
 		// data should have been uppercased
-		$form = new MC4WP_Form(15);
+		$form = new MC4WP_Form(15, $post );
 		$data = array(
 			'email' => 'value'
 		);
 		$data_uppercased = array_change_key_case( $data, CASE_UPPER );
-		$request = new MC4WP_Request( array(), $data );
-		$form->handle_request( $request );
+		$form->handle_request( $data );
         $form_data = $form->get_data();
 		self::assertEquals( $form_data, $data_uppercased );
 	}
@@ -180,7 +170,8 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_get_required_fields() {
 		mock_get_post( array( 'ID' => 15 ) );
-		$form = new MC4WP_Form(15);
+        $post = get_post( 15 );
+        $form = new MC4WP_Form(15, $post );
 		$form->settings['required_fields'] = 'EMAIL';
 		self::assertEquals( $form->get_required_fields(), array() );
 
@@ -197,7 +188,8 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_get_stylesheet() {
 		mock_get_post( array( 'ID' => 15 ) );
-		$form = new MC4WP_Form(15);
+        $post = get_post( 15 );
+        $form = new MC4WP_Form(15, $post );
 		$form->settings['css'] = false;
 		self::assertEmpty( $form->get_stylesheet() );
 
@@ -215,7 +207,8 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function test_errors() {
 		mock_get_post( array( 'ID' => 15 ) );
-		$form = new MC4WP_Form(15);
+        $post = get_post( 15 );
+        $form = new MC4WP_Form(15, $post );
 
 		self::assertFalse( $form->has_errors() );
 
@@ -227,25 +220,12 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Form::get_message
-	 */
-	public function test_get_message() {
-		mock_get_post( array( 'ID' => 15 ) );
-		$form = new MC4WP_Form(15);
-
-        $default_messages = require __DIR__ . '/../config/default-form-messages.php';
-
-		self::assertInstanceOf( 'MC4WP_Form_Message', $form->get_message( 'error' ) );
-		self::assertEquals( $default_messages['error']['text'], $form->get_message( 'error' ) );
-		self::assertEquals( $default_messages['subscribed']['text'], $form->get_message( 'subscribed' ) );
-	}
-
-	/**
 	 * @covers MC4WP_Form::set_config
 	 */
 	public function test_set_config() {
 		mock_get_post( array( 'ID' => 15 ) );
-		$form = new MC4WP_Form(15);
+        $post = get_post( 15 );
+        $form = new MC4WP_Form(15, $post );
 
 		$list_id = 'some-list-id';
 		$form->set_config( array(
@@ -267,6 +247,15 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		self::assertFalse( in_array( 'unexisting-list-id', $form->config['lists'] ) );
 
 
+	}
+
+	public function test_add_notice() {
+		mock_get_post( array( 'ID' => 1 ) );
+		$post = get_post( 1 );
+		$form = new MC4WP_Form( 1, $post );
+
+		$form->add_notice( 'Text', 'notice' );
+		self::assertCount( 1, $form->notices );
 	}
 
 

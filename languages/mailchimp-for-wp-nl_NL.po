@@ -6,12 +6,13 @@
 # Form App <formappmobile@gmail.com>, 2016
 # Maartje L <maartje2@hotmail.com>, 2017
 # Martijn van Egmond <developer@tensheep.nl>, 2015
+# Syrene Mos <syrenemos@gmail.com>, 2017
 # Yola Maas <post@basicsoflive.nl>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2017-05-08 08:23+0000\n"
-"Last-Translator: Maartje L <maartje2@hotmail.com>\n"
+"PO-Revision-Date: 2017-11-18 16:12+0000\n"
+"Last-Translator: Syrene Mos <syrenemos@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -81,7 +82,7 @@ msgstr "Overig"
 
 #: includes/admin/class-admin.php:458
 msgid "Log successfully emptied."
-msgstr ""
+msgstr "Log succesvol geleegd."
 
 #: includes/admin/class-admin.php:488
 msgid ""
@@ -169,7 +170,7 @@ msgstr ""
 msgid ""
 "You've been using MailChimp for WordPress for some time now; we hope you "
 "love it!"
-msgstr ""
+msgstr "Je gebruikt MailChimp voor WordPress nu al een tijdje; we hopen dat je het leuk vindt! "
 
 #: includes/admin/class-review-notice.php:69
 msgid ""
@@ -179,7 +180,7 @@ msgstr ""
 
 #: includes/admin/class-review-notice.php:71
 msgid "Dismiss this notice."
-msgstr ""
+msgstr "Verberg dit bericht."
 
 #: includes/api/class-api.php:84
 msgid "Read more about common connectivity issues."
@@ -195,7 +196,7 @@ msgstr "Stad"
 
 #: includes/forms/class-admin.php:64
 msgid "Checkboxes"
-msgstr ""
+msgstr "Selectievakjes"
 
 #: includes/forms/class-admin.php:65
 msgid "Choices"
@@ -253,7 +254,7 @@ msgstr "Beginwaarde"
 
 #: includes/forms/class-admin.php:78
 msgid "Interest categories"
-msgstr ""
+msgstr "Interessecategorieën"
 
 #: includes/forms/class-admin.php:79
 msgid "Is this field required?"
@@ -290,7 +291,7 @@ msgstr "Optioneel"
 
 #: includes/forms/class-admin.php:87
 msgid "Placeholder"
-msgstr ""
+msgstr "Placeholder"
 
 #: includes/forms/class-admin.php:88
 msgid "Text to show when field has no value."
@@ -310,19 +311,19 @@ msgstr "Radioknoppen"
 
 #: includes/forms/class-admin.php:92
 msgid "Street Address"
-msgstr ""
+msgstr "Adres"
 
 #: includes/forms/class-admin.php:93
 msgid "State"
-msgstr ""
+msgstr "Provincie"
 
 #: includes/forms/class-admin.php:95
 msgid "Submit button"
-msgstr ""
+msgstr "Verzendknop"
 
 #: includes/forms/class-admin.php:96
 msgid "Wrap in paragraph tags?"
-msgstr ""
+msgstr "Omsluiten in alinea tags?"
 
 #: includes/forms/class-admin.php:97
 msgid "Value"
@@ -513,15 +514,15 @@ msgstr ""
 
 #: includes/views/other-settings.php:99
 msgid "Debug Log"
-msgstr ""
+msgstr "Debug log"
 
 #: includes/views/other-settings.php:99
 msgid "Filter.."
-msgstr ""
+msgstr "Filter.."
 
 #: includes/views/other-settings.php:104
 msgid "Log file is not writable."
-msgstr ""
+msgstr "Log bestand is niet schrijfbaar."
 
 #: includes/views/other-settings.php:105
 msgid "Please ensure %s has the proper <a href=\"%s\">file permissions</a>."
@@ -529,7 +530,7 @@ msgstr ""
 
 #: includes/views/other-settings.php:123
 msgid "Nothing here. Which means there are no errors!"
-msgstr ""
+msgstr "Er is hier niets. Wat betekent dat er geen fouten zijn!"
 
 #: includes/views/other-settings.php:133
 msgid "Empty Log"
@@ -732,21 +733,21 @@ msgstr "Configureer deze integratie"
 
 #: includes/integrations/views/integrations.php:71
 msgid "The table below shows all available integrations."
-msgstr ""
+msgstr "De onderstaande tabel geeft alle beschikbare integraties weer."
 
 #: includes/integrations/views/integrations.php:72
 msgid ""
 "Click on the name of an integration to edit all settings specific to that "
 "integration."
-msgstr ""
+msgstr "Klik op de naam van een integratie om alle instellingen voor de betreffende integratie te wijzigen."
 
 #: includes/integrations/views/integrations.php:79
 msgid "Enabled integrations"
-msgstr ""
+msgstr "Ingeschakelde integraties"
 
 #: includes/integrations/views/integrations.php:84
 msgid "Available integrations"
-msgstr ""
+msgstr "Beschikbare integraties"
 
 #: includes/views/parts/admin-footer.php:15
 msgid ""
@@ -767,11 +768,11 @@ msgstr "Hulp nodig?"
 
 #: includes/views/parts/admin-sidebar.php:12
 msgid "We have some resources available to help you in the right direction."
-msgstr ""
+msgstr "We hebben enkele middelen beschikbaar om je in de juiste richting te helpen."
 
 #: includes/views/parts/admin-sidebar.php:14
 msgid "Knowledge Base"
-msgstr ""
+msgstr "Kennisbank"
 
 #: includes/views/parts/admin-sidebar.php:15
 msgid "Frequently Asked Questions"
@@ -1061,13 +1062,13 @@ msgstr "Gebruik dubbele opt-in?"
 
 #: includes/forms/views/tabs/form-settings.php:44
 msgid "Are you sure you want to disable double opt-in?"
-msgstr ""
+msgstr "Weet je zeker dat je de dubbele opt-in wil deactiveren?"
 
 #: includes/forms/views/tabs/form-settings.php:47
 msgid ""
 "We strongly suggest keeping double opt-in enabled. Disabling double opt-in "
 "may result in abuse."
-msgstr ""
+msgstr "We raden je sterk aan om de dubbele opt-in ingeschakeld te houden. Deactivering kan resulteren in misbruik."
 
 #: includes/forms/views/tabs/form-settings.php:94
 msgid "Form behaviour"

@@ -1,10 +1,12 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Class ArrayBagTest
  * @ignore
  */
-class ArrayBagTest extends PHPUnit_Framework_TestCase {
+class ArrayBagTest extends TestCase {
 
 	/**
 	 * @covers MC4WP_Array_Bag::keys

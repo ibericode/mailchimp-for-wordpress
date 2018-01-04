@@ -1,6 +1,8 @@
 <?php
 
-class DebugLogTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class DebugLogTest extends TestCase {
 
 	/**
 	 * @var string
@@ -19,7 +21,7 @@ class DebugLogTest extends PHPUnit_Framework_TestCase {
 		self::assertStringEndsWith( $message . PHP_EOL, file_get_contents( $this->file ) );
 
 		// "something" is an invalid log level, should throw exception
-		self::setExpectedException( 'InvalidArgumentException' );
+		self::expectException( 'InvalidArgumentException' );
 		$logger->log( 'something', 'Message' );
 	}
 

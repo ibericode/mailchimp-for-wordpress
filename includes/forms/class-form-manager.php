@@ -82,9 +82,8 @@ class MC4WP_Form_Manager {
 	 * @hooked `init`
 	 */
 	public function init_form_listener() {
-		$request = $this->get_request();
 		$this->listener = new MC4WP_Form_Listener();
-		$this->listener->listen( $request );
+		$this->listener->listen();
 	}
 
 	/**
@@ -135,12 +134,5 @@ class MC4WP_Form_Manager {
 	 */
 	public function get_tags() {
 		return $this->tags->get();
-	}
-
-	/**
-	 * @return MC4WP_Request
-	 */
-	private function get_request() {
-		return mc4wp('request');
 	}
 }

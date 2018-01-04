@@ -4,13 +4,14 @@
 # A.Mehraban <Mehr.Ban@chmail.ir>, 2015
 # Ardavan Afrasiyabi <abox@usa.com>, 2015
 # mahnaz vahedi <mahnazvn@yahoo.com>, 2016
+# rokhiran <rokhiran@gmail.com>, 2017
 # Salar Gholizadeh <salar.g@gmail.com>, 2017
 # zeinab bakhtiari <carolinazb9@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2017-08-06 10:43+0000\n"
-"Last-Translator: Salar Gholizadeh <salar.g@gmail.com>\n"
+"PO-Revision-Date: 2017-10-16 19:17+0000\n"
+"Last-Translator: rokhiran <rokhiran@gmail.com>\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/fa_IR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,11 +48,11 @@ msgstr "این ویژگی تنها در نسخه پیشرفته این افزو�
 #: includes/views/parts/lists-overview.php10,
 #: includes/forms/views/parts/add-fields-help.php:43
 msgid "Renew MailChimp lists"
-msgstr "تازه سازی لیست های MailChimp"
+msgstr "تازه سازی لیست‌های MailChimp"
 
 #: includes/admin/class-admin.php:306
 msgid "Fetching MailChimp lists"
-msgstr "در حال تازه سازی لیست های MailChimp"
+msgstr "در حال تازه سازی لیست‌های MailChimp"
 
 #: includes/admin/class-admin.php:307
 msgid "Done! MailChimp lists renewed."
@@ -59,7 +60,7 @@ msgstr "لیست های MailChimp تازه سازی شدند."
 
 #: includes/admin/class-admin.php:308
 msgid "This can take a while if you have many MailChimp lists."
-msgstr ""
+msgstr "این می‌تواند مدتی طول بکشد اگر تعداد زیادی لیست MailChimp داشته باشید."
 
 #: includes/admin/class-admin.php336, includes/views/general-settings.php:31
 msgid "MailChimp API Settings"
@@ -110,7 +111,7 @@ msgstr ""
 
 #: includes/admin/class-ads.php:70
 msgid "Upgrade to Premium"
-msgstr "بروز رسانی به نسخه حرفه ای"
+msgstr "بروز رسانی به نسخه حرفه‌ای"
 
 #: includes/admin/class-ads.php:83
 msgid ""
@@ -132,7 +133,7 @@ msgstr ""
 
 #: includes/admin/class-ads.php:112
 msgid "More subscribers, better newsletters."
-msgstr "داشتن مشترکین بیشتر منجر به داشتن خبرنامه بهتر می شود"
+msgstr "داشتن مشترکین بیشتر منجر به داشتن خبرنامه بهتر می‌شود."
 
 #: includes/admin/class-ads.php:113
 msgid ""
@@ -178,7 +179,7 @@ msgstr ""
 
 #: includes/admin/class-review-notice.php:71
 msgid "Dismiss this notice."
-msgstr ""
+msgstr "این اطلاعیه را پنهان کنید."
 
 #: includes/api/class-api.php:84
 msgid "Read more about common connectivity issues."
@@ -198,15 +199,15 @@ msgstr "چک باکس"
 
 #: includes/forms/class-admin.php:65
 msgid "Choices"
-msgstr "انتخاب ها"
+msgstr "انتخاب‌ها"
 
 #: includes/forms/class-admin.php:66
 msgid "Choice type"
-msgstr ""
+msgstr "نوع انتخاب"
 
 #: includes/forms/class-admin.php:67
 msgid "Choose a field to add to the form"
-msgstr ""
+msgstr "یک فیلد را انتخاب نمائید تا به فرم اضافه شود."
 
 #: includes/forms/class-admin.php:68
 msgid "Close"
@@ -218,15 +219,15 @@ msgstr "کشور"
 
 #: includes/forms/class-admin.php:70
 msgid "Dropdown"
-msgstr ""
+msgstr "کرکره‌ای"
 
 #: includes/forms/class-admin.php:71
 msgid "Field type"
-msgstr ""
+msgstr "نوع فیلد"
 
 #: includes/forms/class-admin.php:72
 msgid "Field label"
-msgstr ""
+msgstr "برچسب فیلد"
 
 #: includes/forms/class-admin.php:73
 msgid "Form action"
@@ -236,88 +237,88 @@ msgstr ""
 msgid ""
 "This field will allow your visitors to choose whether they would like to "
 "subscribe or unsubscribe"
-msgstr ""
+msgstr "این قسمت حق انتخاب را به بازدید کنندگان می‌دهد تا مواردی که می‌خواهند در آنها اشتراک و یا لغو اشتراک بنمایند را انتخاب کنند."
 
 #: includes/forms/class-admin.php:75
 msgid "Form fields"
-msgstr ""
+msgstr "فیلدهای فرم"
 
 #: includes/forms/class-admin.php:76
 msgid "This field is marked as required in MailChimp."
-msgstr ""
+msgstr "این فیلد در میل چیمپ ( MailChimp ) به عنوان مورد نیاز مشخص شده است."
 
 #: includes/forms/class-admin.php:77
 msgid "Initial value"
-msgstr ""
+msgstr "مقدار پیش‌فرض"
 
 #: includes/forms/class-admin.php:78
 msgid "Interest categories"
-msgstr ""
+msgstr "دسته‌بندی‌های مورد علاقه"
 
 #: includes/forms/class-admin.php:79
 msgid "Is this field required?"
-msgstr ""
+msgstr "آیا این فیلد مورد نیاز است ؟"
 
 #: includes/forms/class-admin.php:80
 msgid "List choice"
-msgstr ""
+msgstr "انتخاب لیست"
 
 #: includes/forms/class-admin.php:81
 msgid "This field will allow your visitors to choose a list to subscribe to."
-msgstr ""
+msgstr "این قسمت به بازدید کنندگان شما اجازه انتخاب یک لیست برای اشتراک را می‌دهد."
 
 #: includes/forms/class-admin.php:82
 msgid "List fields"
-msgstr ""
+msgstr "فیلدهای لیست"
 
 #: includes/forms/class-admin.php:83
 msgid "Min"
-msgstr ""
+msgstr "حداقل"
 
 #: includes/forms/class-admin.php:84
 msgid "Max"
-msgstr ""
+msgstr "حداکثر"
 
 #: includes/forms/class-admin.php:85
 msgid ""
 "No available fields. Did you select a MailChimp list in the form settings?"
-msgstr ""
+msgstr "هیچ فیلدی در دسترس نیست. آیا یک لیست MailChimp را در تنظیمات فرم انتخاب کردید؟"
 
 #: includes/forms/class-admin.php:86
 msgid "Optional"
-msgstr ""
+msgstr "اختیاری"
 
 #: includes/forms/class-admin.php:87
 msgid "Placeholder"
-msgstr ""
+msgstr "محل نگهداری"
 
 #: includes/forms/class-admin.php:88
 msgid "Text to show when field has no value."
-msgstr ""
+msgstr "متن برای نمایش دادن، هنگامی که فیلد هیچ مقداری ندارد."
 
 #: includes/forms/class-admin.php:89
 msgid "Preselect"
-msgstr ""
+msgstr "پیش‌گزینش"
 
 #: includes/forms/class-admin.php:90
 msgid "Remove"
-msgstr ""
+msgstr "حذف"
 
 #: includes/forms/class-admin.php:91
 msgid "Radio buttons"
-msgstr ""
+msgstr "دکمه‌های رادیویی"
 
 #: includes/forms/class-admin.php:92
 msgid "Street Address"
-msgstr ""
+msgstr "آدرس خیابان"
 
 #: includes/forms/class-admin.php:93
 msgid "State"
-msgstr ""
+msgstr "وضعیت"
 
 #: includes/forms/class-admin.php:95
 msgid "Submit button"
-msgstr ""
+msgstr "دکمه ارسال"
 
 #: includes/forms/class-admin.php:96
 msgid "Wrap in paragraph tags?"
@@ -325,7 +326,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:97
 msgid "Value"
-msgstr ""
+msgstr "مقدار"
 
 #: includes/forms/class-admin.php:98
 msgid "Text to prefill this field with."
@@ -333,7 +334,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:99
 msgid "ZIP"
-msgstr ""
+msgstr "کدپستی"
 
 #: includes/forms/class-admin.php111, includes/forms/class-admin.php112,
 #: includes/forms/views/edit-form.php:24
@@ -407,11 +408,11 @@ msgstr "آدرس آی پی کاربر. مثال : %s."
 
 #: includes/forms/class-form-tags.php:117
 msgid "The property of the currently logged-in user."
-msgstr "مشخصه های کاربر حاضر در سایت"
+msgstr "مشخصه‌های کاربر حاضر در سایت"
 
 #: includes/forms/class-form-tags.php:123
 msgid "Property of the current page or post."
-msgstr ""
+msgstr "مشخصه‌های صفحه با مطلب جاری."
 
 #: includes/forms/class-form.php:133
 msgid "There is no form with ID %d, perhaps it was deleted?"
@@ -441,7 +442,7 @@ msgstr "شما می توانید فرم ثبت نام خود را از<a href=\"
 #: includes/integrations/views/integrations.php57,
 #: includes/integrations/views/integrations.php:65
 msgid "Integrations"
-msgstr "انضمامها "
+msgstr "انضمام‌ها "
 
 #: includes/views/general-settings.php7, includes/views/other-settings.php58,
 #: includes/forms/views/edit-form.php22,
@@ -502,7 +503,7 @@ msgstr "این مواردی است که ما بررسی می کنیم."
 
 #: includes/views/other-settings.php:37
 msgid "Logging"
-msgstr ""
+msgstr "ثبت وقایع"
 
 #: includes/views/other-settings.php:44
 msgid ""
@@ -516,7 +517,7 @@ msgstr ""
 
 #: includes/views/other-settings.php:99
 msgid "Filter.."
-msgstr ""
+msgstr "صاقی.."
 
 #: includes/views/other-settings.php:104
 msgid "Log file is not writable."
@@ -576,7 +577,7 @@ msgstr "ظاهر"
 
 #: includes/forms/views/edit-form.php:25
 msgid "Form"
-msgstr ""
+msgstr "فرم"
 
 #: includes/forms/views/edit-form.php:34
 msgid "Edit Form"
@@ -592,7 +593,7 @@ msgstr "عنوان فرم اشتراک خود را در این قسمت وارد
 
 #: includes/forms/views/edit-form.php:65
 msgid "Shortcode"
-msgstr ""
+msgstr "کد کوتاه"
 
 #: includes/forms/views/edit-form.php:67
 msgid "Get shortcode"
@@ -703,7 +704,7 @@ msgstr "اگر می خواهید به روزرسانی مشترکین موجود
 #: includes/integrations/views/integration-settings.php190,
 #: includes/forms/views/tabs/form-settings.php:68
 msgid "Replace interest groups?"
-msgstr "جایگزین interest groups؟"
+msgstr "جایگزین گروه‌های مورد علاقه بشود؟"
 
 #: includes/integrations/views/integration-settings.php201,
 #: includes/forms/views/tabs/form-settings.php:79
@@ -753,7 +754,7 @@ msgid ""
 "translated in your language or do you spot errors with the current "
 "translations? Helping out is easy! Head over to <a href=\"%s\">the "
 "translation project and click \"help translate\"</a>."
-msgstr "این افزونه به زبان فارسی توسط <a href=\"https://profiles.wordpress.org/mehrban\"> Mehr@ban </a> ترجمه شده است و با ارایه هر بروزرسانی افزونه بهینه تر خواهد شد. اگر مایل هستید که ترجمه های دیگری را از این افزونه ارایه دهید و به بهود آن کمک کنید از بخش <a href=\"%s\"> پروژه ترجمه بازدید کنید</a>."
+msgstr "این افزونه توسط <a href=\"https://www.MahinNews.ir\"> پرتال خبری تحلیلی ماهین‌نیوز </a> به زبان فارسی ترجمه شده است و با ارایه هر بروزرسانی افزونه بهینه‌تر خواهد شد. اگر مایل هستید که ترجمه‌های دیگری را از این افزونه ارایه دهید و به بهبود آن کمک کنید از بخش <a href=\"%s\"> پروژه ترجمه بازدید کنید</a>."
 
 #: includes/views/parts/admin-footer.php:35
 msgid ""
@@ -762,7 +763,7 @@ msgstr "این افزونه به هیچ عنوان وابسته و یا توسط
 
 #: includes/views/parts/admin-sidebar.php:11
 msgid "Looking for help?"
-msgstr ""
+msgstr "به دنبال کمک هستید؟"
 
 #: includes/views/parts/admin-sidebar.php:12
 msgid "We have some resources available to help you in the right direction."
@@ -770,15 +771,15 @@ msgstr ""
 
 #: includes/views/parts/admin-sidebar.php:14
 msgid "Knowledge Base"
-msgstr ""
+msgstr "پایگاه دانش"
 
 #: includes/views/parts/admin-sidebar.php:15
 msgid "Frequently Asked Questions"
-msgstr ""
+msgstr "سوالات متداول"
 
 #: includes/views/parts/admin-sidebar.php:16
 msgid "Code reference for developers"
-msgstr ""
+msgstr "مرجع کد برای توسعه دهنده‌ها"
 
 #: includes/views/parts/admin-sidebar.php:36
 msgid "Looking to improve your sign-up rates?"
@@ -890,7 +891,7 @@ msgstr "اولیه"
 
 #: includes/forms/views/tabs/form-appearance.php:7
 msgid "Form Themes"
-msgstr "تم های فرم"
+msgstr "تم‌های فرم"
 
 #: includes/forms/views/tabs/form-appearance.php:8
 msgid "Light Theme"
@@ -1012,25 +1013,25 @@ msgstr "مشترک نشده"
 msgid ""
 "When using the unsubscribe method, this is the text that shows when the "
 "given email address is not on the selected list(s)."
-msgstr "وقتی که از متد لغو اشتراک استفاده شود ، این نوشته برای ایمیل هایی که جزو مشترکین نبوده اند نمایش داده میشود."
+msgstr "وقتی که از متد لغو اشتراک استفاده شود، این نوشته برای ایمیل‌هایی که جزو مشترکین نبوده‌اند نمایش داده می‌شود."
 
 #: includes/forms/views/tabs/form-messages.php:65
 msgid "No list selected"
-msgstr "لیستی انتخاب نشده"
+msgstr "هیچ لیستی انتخاب نشده"
 
 #: includes/forms/views/tabs/form-messages.php:68
 msgid ""
 "When offering a list choice, this is the text that shows when no lists were "
 "selected."
-msgstr ""
+msgstr "زمان ارائه یک انتخاب لیست، این متن موقعی نمایش داده می‌شود که هیچ لیستی انتخاب نشده باشد."
 
 #: includes/forms/views/tabs/form-messages.php:74
 msgid "Updated"
-msgstr ""
+msgstr "بروز رسانی شده است"
 
 #: includes/forms/views/tabs/form-messages.php:77
 msgid "The text that shows when an existing subscriber is updated."
-msgstr ""
+msgstr "این متن موقعی نمایش داده می‌شود که یک اشتراک موجود به روز رسانی شده است."
 
 #: includes/forms/views/tabs/form-messages.php:89
 msgid "HTML tags like %s are allowed in the message fields."

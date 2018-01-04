@@ -18,6 +18,9 @@ final class MC4WP_Ninja_Forms_Action extends NF_Abstracts_ActionNewsletter
         parent::__construct();
 
         $this->_nicename = __( 'MailChimp', 'mailchimp-for-wp' );
+        $prefix = $this->get_name();
+
+        unset( $this->_settings[ $prefix . 'newsletter_list_groups' ] );
 
         $this->_settings[ 'double_optin' ] = array(
             'name' => 'double_optin',
@@ -57,24 +60,24 @@ final class MC4WP_Ninja_Forms_Action extends NF_Abstracts_ActionNewsletter
             ),
         );
 
-        $this->_settings[ 'replace_interests' ] = array(
-            'name' => 'replace_interests',
-            'type' => 'select',
-            'label' => __( 'Replace existing interest groups?', 'mailchimp-for-wp'),
-            'width' => 'full',
-            'group' => 'primary',
-            'value' => 0,
-            'options' => array(
-                array(
-                    'value' => 1,
-                    'label' => 'Yes',
-                ),
-                array(
-                    'value' => 0,
-                    'label' => 'No',
-                ),
-            ),
-        );
+//        $this->_settings[ 'replace_interests' ] = array(
+//            'name' => 'replace_interests',
+//            'type' => 'select',
+//            'label' => __( 'Replace existing interest groups?', 'mailchimp-for-wp'),
+//            'width' => 'full',
+//            'group' => 'primary',
+//            'value' => 0,
+//            'options' => array(
+//                array(
+//                    'value' => 1,
+//                    'label' => 'Yes',
+//                ),
+//                array(
+//                    'value' => 0,
+//                    'label' => 'No',
+//                ),
+//            ),
+//        );
     }
 
     /*
@@ -111,23 +114,11 @@ final class MC4WP_Ninja_Forms_Action extends NF_Abstracts_ActionNewsletter
             }
         }
 
-        $args = array(
-            'email_address' => $email_address,
-            'merge_fields' => $merge_fields,
-            'status' => $action_settings['double_optin'] == '0' ? 'subscribed' : 'pending',
-        );
-
+        $double_optin = $action_settings['double_optin'] != '0';
         $update_existing = $action_settings['update_existing'] == '1';
-        $replace_interests = $action_settings['replace_interests'] == '1';
+        $replace_interests = isset( $action_settings['replace_interests'] ) && $action_settings['replace_interests'] == '1';
 
-        // make API call
-        $subscriber = $mailchimp->list_subscribe( $list_id, $email_address, $args, $update_existing, $replace_interests );
-
-        // log errors
-        if( ! $subscriber && $mailchimp->has_error() ) {
-            $log = mc4wp('log');
-            $log->error( sprintf( 'Ninja Forms > MailChimp API error: %s %s', $mailchimp->get_error_code(), $mailchimp->get_error_message() ) );
-        }
+        do_action( 'mc4wp_integration_ninja_forms_subscribe', $email_address, $merge_fields, $list_id, $double_optin, $update_existing, $replace_interests, $form_id );
     }
 
     protected function get_lists()

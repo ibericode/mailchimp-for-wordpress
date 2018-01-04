@@ -36,7 +36,7 @@ function handleFormRequest(form, action, errors, data) {
 
 		// scroll to form again if page height changed since last scroll
 		// (only if load didn't take more than 0.8 seconds to prevent overtaking user scroll)
-		if (config.auto_scroll && timeElapsed < 800 && document.body.clientHeight != pageHeight) {
+		if (config.auto_scroll && timeElapsed < 800 && document.body.clientHeight !== pageHeight) {
 			scrollToForm(form);
 		}
 
@@ -172,11 +172,11 @@ Form.prototype.setData = function (data) {
 };
 
 Form.prototype.getData = function () {
-	return serialize(this.element, { hash: true });
+	return serialize(this.element, { hash: true, empty: true });
 };
 
 Form.prototype.getSerializedData = function () {
-	return serialize(this.element);
+	return serialize(this.element, { hash: false, empty: true });
 };
 
 Form.prototype.setResponse = function (msg) {
@@ -982,7 +982,7 @@ module.exports = serialize;
 
 },{}],7:[function(require,module,exports){
 /*!
- * EventEmitter v5.2.2 - git.io/ee
+ * EventEmitter v5.2.4 - git.io/ee
  * Unlicense - http://unlicense.org/
  * Oliver Caldwell - http://oli.me.uk/
  * @preserve

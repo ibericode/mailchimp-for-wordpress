@@ -1,4 +1,5 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
 
 /**
@@ -6,7 +7,7 @@
  *
  * @ignore
  */
-class FieldFormatterTest extends PHPUnit_Framework_TestCase {
+class FieldFormatterTest extends TestCase {
 
 	/**
 	 * @covers MC4WP_Field_Formatter::address

@@ -46,3 +46,11 @@ function mc4wp_form( $id = 0, $attributes = array() ) {
 	return mc4wp_show_form( $id, $attributes );
 }
 
+/**
+ * @deprecated 4.1.12
+ * @return string
+ */
+function mc4wp_get_current_url()
+{
+   return $mc4wp_get_current_url();
+}

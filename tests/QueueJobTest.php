@@ -1,6 +1,7 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
-class QueueJobTest extends PHPUnit_Framework_TestCase {
+class QueueJobTest extends TestCase {
 
 
 	public function test_constructor() {

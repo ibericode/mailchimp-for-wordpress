@@ -260,7 +260,6 @@ class MC4WP_WPForms_Field extends WPForms_Field
      */
     public function format($field_id, $field_submit, $form_data)
     {
-
         $field = $form_data['fields'][$field_id];
         $choice = array_pop($field['choices']);
         $name = sanitize_text_field($choice['label']);
@@ -273,53 +272,6 @@ class MC4WP_WPForms_Field extends WPForms_Field
             'type' => $this->type,
         );
 
-
-        // Push field details to be saved
         wpforms()->process->fields[$field_id] = $data;
-
-        // Subscribe to MailChimp
-        if (!empty($field_submit)) {
-            $this->subscribe($field, $form_data, $_POST['wpforms']);
-        }
-
-    }
-
-    /**
-     * @param $field
-     * @param $form
-     * @param $data
-     */
-    private function subscribe($field, $form, $data)
-    {
-        $mailchimp = new MC4WP_MailChimp();
-
-        // get id of email field
-        foreach ($form['fields'] as $form_field) {
-            if ($form_field['type'] === 'email') {
-                $email_field_id = $form_field['id'];
-                break;
-            }
-        }
-
-        if (empty($email_field_id) || empty($data['fields'][$email_field_id])) {
-            return;
-        }
-
-        $email_address = $data['fields'][$email_field_id];
-        $mailchimp_list_id = $field['mailchimp_list'];
-
-        $success = $mailchimp->list_subscribe($mailchimp_list_id, $email_address);
-        $log = mc4wp('log');
-
-        if ($success) {
-            $log->info(sprintf('%s > Successfully subscribed %s', 'WPForms', $email_address));
-        } else {
-            // log error
-            if ($mailchimp->get_error_code() == 214) {
-                $log->warning(sprintf("%s > %s is already subscribed to the selected list(s)", 'WPForms', $email_address));
-            } else {
-                $log->error(sprintf('%s > MailChimp API Error: %s', 'WPForms', $mailchimp->get_error_message()));
-            }
-        }
     }
 }

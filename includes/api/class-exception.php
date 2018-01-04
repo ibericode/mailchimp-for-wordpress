@@ -50,6 +50,11 @@ class MC4WP_API_Exception extends Exception {
         $string = $this->message . '.';
 
         // add detail message
+        if( ! empty( $this->title ) ) {
+            $string .= ' ' . $this->title;
+        }
+
+        // add detail message
         if( ! empty( $this->detail ) ) {
             $string .= ' ' . $this->detail;
         }

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Class MC4WP_Form_Message
+ * Class MC4WP_Form_Notice
  *
  * @ignore
  * @access private
  */
-class MC4WP_Form_Message {
+class MC4WP_Form_Notice {
 
 	/**
 	 * @var string
@@ -14,7 +14,7 @@ class MC4WP_Form_Message {
 	public $type = 'error';
 
 	/**
-	 * @var
+	 * @var string
 	 */
 	public $text;
 

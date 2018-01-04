@@ -1,10 +1,11 @@
 <?php
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class RequestTest
  * @ignore
  */
-class RequestTest extends PHPUnit_Framework_TestCase {
+class RequestTest extends TestCase {
 
 	/**
 	 * @covers MC4WP_Request::create_from_globals

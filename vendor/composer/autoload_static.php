@@ -4,15 +4,30 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit53de4def9f9611d4493d50d1c639cfa8
+class ComposerStaticInitabc72b64e84efd76b3cb10d2a10a9768
 {
     public static $files = array (
         'fca581ae5268210490253d58378748c5' => __DIR__ . '/../..' . '/includes/functions.php',
         '59b5ebb4886cd7eeaf4afcc7f7bdfcdd' => __DIR__ . '/../..' . '/includes/deprecated-functions.php',
         'd26f3384f491dc697dcc189393343bc3' => __DIR__ . '/../..' . '/includes/forms/functions.php',
+        '5a75ca1db309a7972c23644d951fa1be' => __DIR__ . '/../..' . '/includes/forms/admin-functions.php',
         '90c3516593b5de6b5d4528b70e2399dd' => __DIR__ . '/../..' . '/includes/integrations/functions.php',
         '1961896a7f482d8affe08226795bf674' => __DIR__ . '/../..' . '/includes/default-actions.php',
         'cb296d991e3145f10320ab99c1b9ed05' => __DIR__ . '/../..' . '/includes/default-filters.php',
+    );
+
+    public static $prefixLengthsPsr4 = array (
+        'C' => 
+        array (
+            'CodeClimate\\PhpTestReporter\\' => 28,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'CodeClimate\\PhpTestReporter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/codeclimate/php-test-reporter/src',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -39,6 +54,7 @@ class ComposerStaticInit53de4def9f9611d4493d50d1c639cfa8
         'MC4WP_Admin_Review_Notice' => __DIR__ . '/../..' . '/includes/admin/class-review-notice.php',
         'MC4WP_Admin_Texts' => __DIR__ . '/../..' . '/includes/admin/class-admin-texts.php',
         'MC4WP_Admin_Tools' => __DIR__ . '/../..' . '/includes/admin/class-admin-tools.php',
+        'MC4WP_AffiliateWP_Integration' => __DIR__ . '/../..' . '/integrations/affiliatewp/class-affiliatewp.php',
         'MC4WP_Array_Bag' => __DIR__ . '/../..' . '/includes/class-array-bag.php',
         'MC4WP_BuddyPress_Integration' => __DIR__ . '/../..' . '/integrations/buddypress/class-buddypress.php',
         'MC4WP_Comment_Form_Integration' => __DIR__ . '/../..' . '/integrations/wp-comment-form/class-comment-form.php',
@@ -57,12 +73,14 @@ class ComposerStaticInit53de4def9f9611d4493d50d1c639cfa8
         'MC4WP_Form_Element' => __DIR__ . '/../..' . '/includes/forms/class-form-element.php',
         'MC4WP_Form_Listener' => __DIR__ . '/../..' . '/includes/forms/class-form-listener.php',
         'MC4WP_Form_Manager' => __DIR__ . '/../..' . '/includes/forms/class-form-manager.php',
-        'MC4WP_Form_Message' => __DIR__ . '/../..' . '/includes/forms/class-form-message.php',
+        'MC4WP_Form_Notice' => __DIR__ . '/../..' . '/includes/forms/class-form-message.php',
         'MC4WP_Form_Output_Manager' => __DIR__ . '/../..' . '/includes/forms/class-output-manager.php',
         'MC4WP_Form_Previewer' => __DIR__ . '/../..' . '/includes/forms/class-form-previewer.php',
         'MC4WP_Form_Tags' => __DIR__ . '/../..' . '/includes/forms/class-form-tags.php',
         'MC4WP_Form_Widget' => __DIR__ . '/../..' . '/includes/forms/class-widget.php',
         'MC4WP_Forms_Admin' => __DIR__ . '/../..' . '/includes/forms/class-admin.php',
+        'MC4WP_Gravity_Forms_Field' => __DIR__ . '/../..' . '/integrations/gravity-forms/class-field.php',
+        'MC4WP_Gravity_Forms_Integration' => __DIR__ . '/../..' . '/integrations/gravity-forms/class-gravity-forms.php',
         'MC4WP_Integration' => __DIR__ . '/../..' . '/includes/integrations/class-integration.php',
         'MC4WP_Integration_Admin' => __DIR__ . '/../..' . '/includes/integrations/class-admin.php',
         'MC4WP_Integration_Fixture' => __DIR__ . '/../..' . '/includes/integrations/class-integration-fixture.php',
@@ -89,7 +107,6 @@ class ComposerStaticInit53de4def9f9611d4493d50d1c639cfa8
         'MC4WP_Upgrade_Routines' => __DIR__ . '/../..' . '/includes/admin/class-upgrade-routines.php',
         'MC4WP_Usage_Tracking' => __DIR__ . '/../..' . '/includes/admin/class-usage-tracking.php',
         'MC4WP_User_Integration' => __DIR__ . '/../..' . '/includes/integrations/class-user-integration.php',
-        'MC4WP_Validator' => __DIR__ . '/../..' . '/includes/class-validator.php',
         'MC4WP_WPForms_Field' => __DIR__ . '/../..' . '/integrations/wpforms/class-field.php',
         'MC4WP_WPForms_Integration' => __DIR__ . '/../..' . '/integrations/wpforms/class-wpforms.php',
         'MC4WP_WooCommerce_Integration' => __DIR__ . '/../..' . '/integrations/woocommerce/class-woocommerce.php',
@@ -100,8 +117,10 @@ class ComposerStaticInit53de4def9f9611d4493d50d1c639cfa8
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixesPsr0 = ComposerStaticInit53de4def9f9611d4493d50d1c639cfa8::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit53de4def9f9611d4493d50d1c639cfa8::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitabc72b64e84efd76b3cb10d2a10a9768::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitabc72b64e84efd76b3cb10d2a10a9768::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitabc72b64e84efd76b3cb10d2a10a9768::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitabc72b64e84efd76b3cb10d2a10a9768::$classMap;
 
         }, null, ClassLoader::class);
     }

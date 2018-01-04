@@ -9,6 +9,7 @@ return array(
     'fca581ae5268210490253d58378748c5' => $baseDir . '/includes/functions.php',
     '59b5ebb4886cd7eeaf4afcc7f7bdfcdd' => $baseDir . '/includes/deprecated-functions.php',
     'd26f3384f491dc697dcc189393343bc3' => $baseDir . '/includes/forms/functions.php',
+    '5a75ca1db309a7972c23644d951fa1be' => $baseDir . '/includes/forms/admin-functions.php',
     '90c3516593b5de6b5d4528b70e2399dd' => $baseDir . '/includes/integrations/functions.php',
     '1961896a7f482d8affe08226795bf674' => $baseDir . '/includes/default-actions.php',
     'cb296d991e3145f10320ab99c1b9ed05' => $baseDir . '/includes/default-filters.php',

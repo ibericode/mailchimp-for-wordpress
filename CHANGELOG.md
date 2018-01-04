@@ -1,6 +1,68 @@
 Changelog
 =========
 
+#### 4.1.13 - December 28, 2017
+
+**Fixes**
+
+- Array to string conversion in default form messages.
+
+**Additions**
+
+- Allow marking Gravity Forms sign-up checkbox as a required field.
+
+
+#### 4.1.12 - December 11, 2017
+
+**Fixes**
+
+- Ninja Forms double opt-in setting was incorrectly inversed.
+
+**Improvements**
+
+- Simplified form processing & notice logic.
+- Prevent 404 errors by proactively replacing lowercased `name="name"` input attributes.
+- Updated JavaScript dependencies.
+
+**Additions**
+
+- Integration for AffiliateWP.
+
+
+#### 4.1.11 - November 2, 2017
+
+**Fixes**
+
+- Filter out empty array values when overriding selected MailChimp lists via `_mc4wp_lists`. 
+
+**Improvements**
+
+- Updated JavaScript dependencies.
+
+**Additions**
+
+- Link to the [HTML Forms](https://www.htmlforms.io/) from the plugin settings pages.
+
+
+#### 4.1.10 - October 19, 2017
+
+**Improvements**
+
+- Remove unused options from Ninja Forms integration.
+- Now logging all sign-ups from Ninja Forms integrations when using [MailChimp for WordPress Premium](https://mc4wp.com/premium-features/). 
+
+**Additions**
+
+- Added Gravity Forms integration. You can now integrate with Gravity Forms by adding the "MailChimp" field to your forms.
+
+
+#### 4.1.9 - September 19, 2017
+
+**Improvements**
+
+- Add `<label>` element to sign-up checkbox for WCAG compatibility.
+- Custom integration now works with Enfold theme's contact form element.
+
 
 #### 4.1.7 & 4.1.8 - September 8, 2017
 
