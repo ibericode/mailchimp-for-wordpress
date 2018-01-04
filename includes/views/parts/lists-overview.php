@@ -49,13 +49,13 @@
 
 			// Fields
 			if ( ! empty( $list->merge_fields ) ) { ?>
-				<h3>Merge Fields</h3>
+				<h3><?php _e('Merge Fields', 'mailchimp-for-wp');?></h3>
 				<table class="widefat striped">
 					<thead>
 						<tr>
-							<th>Name</th>
-							<th>Tag</th>
-							<th>Type</th>
+							<th><?php _e('Name', 'mailchimp-for-wp');?></th>
+							<th><?php _e('Tag', 'mailchimp-for-wp');?></th>
+							<th><?php _e('Type', 'mailchimp-for-wp');?></th>
 						</tr>
 					</thead>
 					<?php foreach ( $list->merge_fields as $merge_field ) { ?>
@@ -83,13 +83,13 @@
 			// interest_categories
 			if ( ! empty( $list->interest_categories ) ) { ?>
 
-				<h3>Interest Categories</h3>
+				<h3><?php _e('Interest Categories', 'mailchimp-for-wp');?></h3>
 				<table class="widefat striped">
 					<thead>
 						<tr>
-							<th>Name</th>
-							<th>Type</th>
-							<th>Interests</th>
+							<th><?php _e('Name', 'mailchimp-for-wp');?></th>
+							<th><?php _e('Type', 'mailchimp-for-wp');?></th>
+							<th><?php _e('Interests', 'mailchimp-for-wp');?></th>
 						</tr>
 					</thead>
 					<?php foreach ( $list->interest_categories as $interest_category ) { ?>
