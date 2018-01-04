@@ -29,7 +29,7 @@
 			</div>
 
 			<p>
-				<?php echo $integration->description; ?>
+				<?php _e($integration->description, 'newsletter-for-wp'); ?>
 			</p>
 
 			<!-- Settings form -->
