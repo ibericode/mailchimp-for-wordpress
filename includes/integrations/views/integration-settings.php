@@ -29,7 +29,7 @@
 			</div>
 
 			<p>
-				<?php _e($integration->description, 'newsletter-for-wp'); ?>
+				<?php _e($integration->description, 'mailchimp-for-wp'); ?>
 			</p>
 
 			<!-- Settings form -->
