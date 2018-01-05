@@ -41,7 +41,7 @@ function _mc4wp_integrations_table( $integrations ) {
 				</td>
 				<td class="desc">
 					<?php
-                   _e($integration->description, 'newsletter-for-wp');
+                   _e($integration->description, 'mailchimp-for-wp');
                     ?>
 				</td>
 			</tr>
