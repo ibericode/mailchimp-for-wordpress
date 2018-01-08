@@ -41,7 +41,7 @@ function _mc4wp_integrations_table( $integrations ) {
 				</td>
 				<td class="desc">
 					<?php
-                    echo $integration->description;
+                   _e($integration->description, 'mailchimp-for-wp');
                     ?>
 				</td>
 			</tr>

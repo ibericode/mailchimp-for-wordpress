@@ -37,8 +37,8 @@ function _mc4wp_usage_tracking_setting( $opts ) {
 				<th><?php _e( 'Logging', 'mailchimp-for-wp' ); ?></th>
 				<td>
 					<select name="mc4wp[debug_log_level]">
-						<option value="warning" <?php selected( 'warning', $opts['debug_log_level'] ); ?>><?php _e( 'Errors & warnings only', 'mc4wp-ecommerce' ); ?></option>
-						<option value="debug" <?php selected( 'debug', $opts['debug_log_level'] ); ?>><?php _e( 'Everything', 'mc4wp-ecommerce' ); ?></option>
+						<option value="warning" <?php selected( 'warning', $opts['debug_log_level'] ); ?>><?php _e( 'Errors & warnings only', 'mailchimp-for-wp' ); ?></option>
+						<option value="debug" <?php selected( 'debug', $opts['debug_log_level'] ); ?>><?php _e( 'Everything', 'mailchimp-for-wp' ); ?></option>
 					</select>
 					<p class="help">
 						<?php printf( __( 'Determines what events should be written to <a href="%s">the debug log</a> (see below).', 'mailchimp-for-wp' ), 'https://kb.mc4wp.com/how-to-enable-log-debugging/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page' ); ?>
