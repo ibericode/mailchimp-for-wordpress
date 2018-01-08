@@ -7,12 +7,12 @@
 # Gunnar Norin <blittan@xbmc.org>, 2014
 # Habil Kantur <habil66@hotmail.com>, 2015
 # Joakim Bergman <joakimber@gmail.com>, 2014
-# Mari Pantzar, 2017
+# Mari Pantzar, 2017-2018
 # Sebastian Pierre <diephallan@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2017-09-20 15:59+0000\n"
+"PO-Revision-Date: 2018-01-03 07:39+0000\n"
 "Last-Translator: Mari Pantzar\n"
 "Language-Team: Swedish (Sweden) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/sv_SE/)\n"
 "MIME-Version: 1.0\n"
@@ -209,7 +209,7 @@ msgstr "Typval"
 
 #: includes/forms/class-admin.php:67
 msgid "Choose a field to add to the form"
-msgstr ""
+msgstr "Välj ett fält att lägga till i formuläret"
 
 #: includes/forms/class-admin.php:68
 msgid "Close"
@@ -221,7 +221,7 @@ msgstr "Land"
 
 #: includes/forms/class-admin.php:70
 msgid "Dropdown"
-msgstr ""
+msgstr "Rullgardinslista"
 
 #: includes/forms/class-admin.php:71
 msgid "Field type"
@@ -292,15 +292,15 @@ msgstr "Valfritt"
 
 #: includes/forms/class-admin.php:87
 msgid "Placeholder"
-msgstr ""
+msgstr "Platshållare"
 
 #: includes/forms/class-admin.php:88
 msgid "Text to show when field has no value."
-msgstr ""
+msgstr "Text att visa när fältet saknar värde."
 
 #: includes/forms/class-admin.php:89
 msgid "Preselect"
-msgstr ""
+msgstr "Förvalt"
 
 #: includes/forms/class-admin.php:90
 msgid "Remove"
@@ -324,7 +324,7 @@ msgstr "Skicka-knapp"
 
 #: includes/forms/class-admin.php:96
 msgid "Wrap in paragraph tags?"
-msgstr ""
+msgstr "Bädda in i styckestaggar?"
 
 #: includes/forms/class-admin.php:97
 msgid "Value"
@@ -357,7 +357,7 @@ msgstr "MailChimp Registreringsformulär"
 
 #: includes/forms/class-admin.php:453
 msgid "Select the form to show"
-msgstr ""
+msgstr "Välj formulär att visa"
 
 #: includes/forms/class-form-previewer.php:146
 msgid "Form preview"
@@ -487,7 +487,7 @@ msgstr "Hitta din API-nyckel här."
 
 #: includes/views/other-settings.php:14
 msgid "Miscellaneous settings"
-msgstr ""
+msgstr "Övriga inställningar"
 
 #: includes/views/other-settings.php:17
 msgid "Usage Tracking"
@@ -519,7 +519,7 @@ msgstr ""
 
 #: includes/views/other-settings.php:99
 msgid "Filter.."
-msgstr ""
+msgstr "Filtrera..."
 
 #: includes/views/other-settings.php:104
 msgid "Log file is not writable."
@@ -781,7 +781,7 @@ msgstr "Vanliga frågor"
 
 #: includes/views/parts/admin-sidebar.php:16
 msgid "Code reference for developers"
-msgstr ""
+msgstr "Kodreferens för utvecklare"
 
 #: includes/views/parts/admin-sidebar.php:36
 msgid "Looking to improve your sign-up rates?"
