@@ -1,4 +1,4 @@
-# Copyright (C) 2017 mailchimp-for-wp
+# Copyright (C) 2018 mailchimp-for-wp
 # This file is distributed under the same license as the mailchimp-for-wp package.
 msgid ""
 msgstr ""

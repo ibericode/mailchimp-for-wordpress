@@ -46,7 +46,7 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
         // query fields in form with [required] attribute
         var requiredFieldElements = editor.query('[required]');
         Array.prototype.forEach.call(requiredFieldElements, function(el) {
-            var name = el.name.toUpperCase();
+            var name = el.name;
 
             // bail if name attr starts with underscore
             if( name[0] === '_' ) {
@@ -55,6 +55,11 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
 
             // replace array brackets with dot style notation
             name = name.replace(/\[(\w+)\]/g, '.$1' );
+
+            // uppercase everything before the .
+            var pos = name.indexOf('.');
+            pos = pos > 0 ? pos : name.length;
+            name = name.substr(0, pos).toUpperCase() + name.substr(pos);
 
             // only add field if it's not already in it
             if( requiredFields.indexOf(name) === -1 ) {
