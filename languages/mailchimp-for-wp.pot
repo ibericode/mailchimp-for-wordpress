@@ -477,6 +477,14 @@ msgstr ""
 msgid "Logging"
 msgstr ""
 
+#: includes/views/other-settings.php:40
+msgid "Errors & warnings only"
+msgstr ""
+
+#: includes/views/other-settings.php:41
+msgid "Everything"
+msgstr ""
+
 #: includes/views/other-settings.php:44
 msgid "Determines what events should be written to <a href=\"%s\">the debug log</a> (see below)."
 msgstr ""
@@ -581,6 +589,10 @@ msgstr ""
 msgid "Please ensure you <a href=\"%s\">configure the plugin to send all required fields</a> or <a href=\"%s\">log into your MailChimp account</a> and make sure only the email & name fields are marked as required fields for the selected list(s)."
 msgstr ""
 
+#: includes/integrations/views/integration-settings.php:32, includes/integrations/views/integrations.php:44
+msgid "$integration->description"
+msgstr ""
+
 #: includes/integrations/views/integration-settings.php:62
 msgid "Enabled?"
 msgstr ""
@@ -661,7 +673,7 @@ msgstr ""
 msgid "What does this do?"
 msgstr ""
 
-#: includes/integrations/views/integrations.php:17
+#: includes/integrations/views/integrations.php:17, includes/views/parts/lists-overview.php:56, includes/views/parts/lists-overview.php:90
 msgid "Name"
 msgstr ""
 
@@ -761,8 +773,28 @@ msgstr ""
 msgid "Edit this list in MailChimp"
 msgstr ""
 
+#: includes/views/parts/lists-overview.php:52
+msgid "Merge Fields"
+msgstr ""
+
+#: includes/views/parts/lists-overview.php:57
+msgid "Tag"
+msgstr ""
+
+#: includes/views/parts/lists-overview.php:58, includes/views/parts/lists-overview.php:91
+msgid "Type"
+msgstr ""
+
 #: includes/views/parts/lists-overview.php:62
 msgid "%s (%s) with field type %s."
+msgstr ""
+
+#: includes/views/parts/lists-overview.php:86
+msgid "Interest Categories"
+msgstr ""
+
+#: includes/views/parts/lists-overview.php:92
+msgid "Interests"
 msgstr ""
 
 #: includes/forms/views/parts/add-fields-help.php:4, includes/forms/views/tabs/form-fields.php:10
@@ -873,79 +905,79 @@ msgstr ""
 msgid "Form Messages"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:16
+#: includes/forms/views/tabs/form-messages.php:17
 msgid "Successfully subscribed"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:19
+#: includes/forms/views/tabs/form-messages.php:20
 msgid "The text that shows when an email address is successfully subscribed to the selected list(s)."
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:23
+#: includes/forms/views/tabs/form-messages.php:24
 msgid "Invalid email address"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:26
+#: includes/forms/views/tabs/form-messages.php:27
 msgid "The text that shows when an invalid email address is given."
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:30
+#: includes/forms/views/tabs/form-messages.php:31
 msgid "Required field missing"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:33
+#: includes/forms/views/tabs/form-messages.php:34
 msgid "The text that shows when a required field for the selected list(s) is missing."
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:37
+#: includes/forms/views/tabs/form-messages.php:38
 msgid "Already subscribed"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:40
+#: includes/forms/views/tabs/form-messages.php:41
 msgid "The text that shows when the given email is already subscribed to the selected list(s)."
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:44
+#: includes/forms/views/tabs/form-messages.php:45
 msgid "General error"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:47
+#: includes/forms/views/tabs/form-messages.php:48
 msgid "The text that shows when a general error occured."
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:51
+#: includes/forms/views/tabs/form-messages.php:52
 msgid "Unsubscribed"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:54
+#: includes/forms/views/tabs/form-messages.php:55
 msgid "When using the unsubscribe method, this is the text that shows when the given email address is successfully unsubscribed from the selected list(s)."
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:58
+#: includes/forms/views/tabs/form-messages.php:59
 msgid "Not subscribed"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:61
+#: includes/forms/views/tabs/form-messages.php:62
 msgid "When using the unsubscribe method, this is the text that shows when the given email address is not on the selected list(s)."
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:65
+#: includes/forms/views/tabs/form-messages.php:66
 msgid "No list selected"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:68
+#: includes/forms/views/tabs/form-messages.php:69
 msgid "When offering a list choice, this is the text that shows when no lists were selected."
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:74
+#: includes/forms/views/tabs/form-messages.php:75
 msgid "Updated"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:77
+#: includes/forms/views/tabs/form-messages.php:78
 msgid "The text that shows when an existing subscriber is updated."
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:89
+#: includes/forms/views/tabs/form-messages.php:90
 msgid "HTML tags like %s are allowed in the message fields."
 msgstr ""
 
@@ -997,6 +1029,10 @@ msgstr ""
 msgid "Example: %s"
 msgstr ""
 
-#: includes/forms/views/tabs/form-settings.php:123
+#: includes/forms/views/tabs/form-settings.php:124
 msgid "Leave empty or enter <code>0</code> for no redirect. Otherwise, use complete (absolute) URLs, including <code>http://</code>."
+msgstr ""
+
+#: includes/forms/views/tabs/form-settings.php:127
+msgid "Your \"subscribed\" message will not show when redirecting to another page, so make sure to let your visitors know they were successfully subscribed."
 msgstr ""
