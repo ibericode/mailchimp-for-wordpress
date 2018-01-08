@@ -94,4 +94,14 @@ class Functions_Test extends TestCase {
            self::assertEquals( mc4wp_guess_merge_vars( $test['input'] ), $test['output'] );
        }
     }
+
+    /**
+     * @covers mc4wp_array_get
+     */
+    public function test_mc4wp_array_get() {
+        self::assertEquals( mc4wp_array_get( array( 'foo' => 'bar' ), 'foo' ), 'bar' );
+        self::assertEquals( mc4wp_array_get( array( 'foo' => 'bar' ), 'foofoo', 'default' ), 'default' );
+        self::assertEquals( mc4wp_array_get( array( 'foo' => array( 'bar' => 'foobar' ) ), 'foo.bar' ), 'foobar' );
+        self::assertEquals( mc4wp_array_get( array( 'foo' => array( 'bar' => 'foobar' ) ), 'foo.foo', 'default' ), 'default' );     
+    }
 }
