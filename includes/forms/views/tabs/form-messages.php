@@ -12,7 +12,8 @@
 	do_action( 'mc4wp_admin_form_before_messages_settings_rows', $opts, $form );
 	?>
 
-	<tr valign="top">
+	<?php $config = array( 'element' => 'mc4wp_form[settings][redirect]', 'value' => '', 'hide' => false ); ?>
+	<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
 		<th scope="row"><label for="mc4wp_form_subscribed"><?php _e( 'Successfully subscribed', 'mailchimp-for-wp' ); ?></label></th>
 		<td>
 			<input type="text" class="widefat" id="mc4wp_form_subscribed" name="mc4wp_form[messages][subscribed]" value="<?php echo esc_attr( $form->messages['subscribed'] ); ?>" required />
