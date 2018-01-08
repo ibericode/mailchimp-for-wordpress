@@ -427,3 +427,30 @@ function mc4wp_refresh_mailchimp_lists()
     $mailchimp->fetch_lists();
 }
 
+/**
+* Get element from array, allows for dot notation eg: "foo.bar"
+*
+* @param array $array
+* @param string $key
+* @param mixed $default
+* @return mixed
+*/
+function mc4wp_array_get( $array, $key, $default = null ) {
+    if ( is_null( $key ) ) {
+        return $array;
+    }
+
+    if ( isset( $array[$key] ) ) {
+        return $array[$key];
+    }
+
+    foreach (explode( '.', $key ) as $segment) {
+        if ( ! is_array( $array ) || ! array_key_exists( $segment, $array ) ) {
+            return $default;
+        }
+
+        $array = $array[$segment];
+    }
+
+    return $array;
+}
