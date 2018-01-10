@@ -90,7 +90,6 @@ class MC4WP_List_Data_Mapper {
 		if( ! empty( $this->data['INTERESTS'] ) ) {
 			foreach( $list->interest_categories as $interest_category ) {
 				foreach( $interest_category->interests as $interest_id => $interest_name ) {
-
 					// straight lookup by ID as key with value copy.
 					if( isset( $this->data['INTERESTS'][ $interest_id ] ) ) {
 						$subscriber->interests[ $interest_id ] = $this->formatter->boolean( $this->data['INTERESTS'][ $interest_id ] );

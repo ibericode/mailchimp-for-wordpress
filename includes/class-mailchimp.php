@@ -81,7 +81,7 @@ class MC4WP_MailChimp {
 						$existing_interests = array_fill_keys( array_keys( $existing_interests ), false );
 					}
 
-					$args['interests'] = $args['interests'] + $existing_interests;
+					$args['interests'] = array_merge( $existing_interests, $args['interests'] );
 				}
 			} else {
 				// delete list member so we can re-add it...
@@ -238,7 +238,7 @@ class MC4WP_MailChimp {
 				// fetch groups for this interest
 				$interests_data = $this->api->get_list_interest_category_interests( $list->id, $interest_category->id, array( 'count' => 100, 'fields' => 'interests.id,interests.name') );
 				foreach( $interests_data as $interest_data ) {
-					$interest_category->interests[ $interest_data->id ] = $interest_data->name;
+					$interest_category->interests[ (string) $interest_data->id ] = $interest_data->name;
 				}
 
 				$list->interest_categories[] = $interest_category;
