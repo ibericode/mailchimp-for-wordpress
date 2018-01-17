@@ -81,7 +81,12 @@ class MC4WP_MailChimp {
 						$existing_interests = array_fill_keys( array_keys( $existing_interests ), false );
 					}
 
-					$args['interests'] = array_merge( $existing_interests, $args['interests'] );
+					// TODO: Use array_replace here (PHP 5.3+)
+					$new_interests = $args['interests'];
+					$args['interests'] = $existing_interests;
+					foreach( $new_interests as $interest_id => $interest_status ) {
+						$args['interests']["{$interest_id}"] = $interest_status;
+					}
 				}
 			} else {
 				// delete list member so we can re-add it...
