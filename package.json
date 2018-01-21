@@ -36,6 +36,7 @@
     "html": "^1.0.0",
     "mithril": "^1.1",
     "populate.js": "^1.0.3",
+    "scroll-to-element": "^2.0.0",
     "wolfy87-eventemitter": "^5.2.4"
   }
 }

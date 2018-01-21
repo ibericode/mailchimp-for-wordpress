@@ -5,40 +5,34 @@ var mc4wp = window.mc4wp || {};
 var Gator = require('gator');
 var forms = require('./forms/forms.js');
 var config = window.mc4wp_forms_config || {};
-
+var scrollToElement = require('scroll-to-element');
 
 // funcs
 function scrollToForm(form) {
 	var animate = config.auto_scroll === 'animated';
-	var args = {
-		behavior: animate ? "smooth" : "instant"
-	};
-	form.element.scrollIntoView(args);
+
+	scrollToElement(form.element, { 
+		duration: animate ? 800 : 1, 
+		alignment: 'middle'
+	});
 }
 
 function handleFormRequest(form, action, errors, data){
-	var pageHeight = document.body.clientHeight;
 	var timeStart = Date.now();
+	var pageHeight = document.body.clientHeight;
 
 	// re-populate form
 	if( errors ) {
 		form.setData(data);
 	}
 
-	if( config.auto_scroll ) {
+	// scroll to form
+	if( window.scrollY <= 10 && config.auto_scroll ) {
 		scrollToForm(form);
 	}
 
 	// trigger events on window.load so all other scripts have loaded
 	window.addEventListener('load', function() {
-		var timeElapsed = Date.now() - timeStart;
-
-		// scroll to form again if page height changed since last scroll
-		// (only if load didn't take more than 0.8 seconds to prevent overtaking user scroll)
-		if( config.auto_scroll && timeElapsed < 800 && document.body.clientHeight !== pageHeight ) {
-			scrollToForm(form);
-		}
-
 		// trigger events
 		forms.trigger('submitted', [form]);
 		forms.trigger(form.id + '.submitted', [form]);
@@ -55,6 +49,13 @@ function handleFormRequest(form, action, errors, data){
 			forms.trigger(action + "d", [form, data]);
 			forms.trigger(form.id + "." + action + "d", [form, data]);
 		}
+
+		// scroll to form again if page height changed since last scroll, eg because of slow loading images
+		// (only if load didn't take more than 0.8 seconds to prevent overtaking user scroll)
+		var timeElapsed = Date.now() - timeStart;
+ 		if( config.auto_scroll && timeElapsed > 1000 && timeElapsed < 2000 && document.body.clientHeight != pageHeight ) {
+ 			scrollToForm(form);
+ 		}
 	});
 }
 
