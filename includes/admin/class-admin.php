@@ -34,6 +34,11 @@ class MC4WP_Admin {
 	protected $tools;
 
 	/**
+	* @var MC4WP_Admin_Review_Notice
+	*/
+	protected $review_notice;
+
+	/**
 	* Constructor
 	*
 	* @param MC4WP_Admin_Tools $tools
