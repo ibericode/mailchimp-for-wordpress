@@ -1,6 +1,20 @@
 Changelog
 =========
 
+#### 4.1.15 - February 7, 2018
+
+**Fixes**
+
+- Dropdown fields with special characters were not properly passed to MailChimp.
+- Interest groups with an all-numeric ID were not properly passed to MailChimp.
+
+**Improvements**
+
+- Various minor code optimizations
+- Do not redirect when showing "already subscribed" warning.
+- Improved scroll to form handling after a form is submitted without AJAX.
+
+
 #### 4.1.14 - January 8, 2018
 
 **Fixes**

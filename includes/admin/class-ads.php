@@ -33,11 +33,11 @@ class MC4WP_Admin_Ads {
 
 	public function add_menu_item( $items ) {
 		$items['extensions'] = array(
-				'title' => __( 'Add-ons', 'mailchimp-for-wp' ),
-				'text' => '<span style="color: #c44;">' . __( 'Add-ons', 'mailchimp-for-wp' ) . '</span>',
-				'slug' => 'extensions',
-				'callback' => array( $this, 'show_extensions_page' ),
-				'position' => 100
+			'title' => __( 'Add-ons', 'mailchimp-for-wp' ),
+			'text' => '<span style="color: #c44;">' . __( 'Add-ons', 'mailchimp-for-wp' ) . '</span>',
+			'slug' => 'extensions',
+			'callback' => array( $this, 'show_extensions_page' ),
+			'position' => 100
 		);
 
 		return $items;
