@@ -103,11 +103,12 @@ class MC4WP_API_v3_Client {
       'sslverify' => apply_filters( 'mc4wp_use_sslverify', true ),
     );
 
-    // attach arguments (in body or URL)
-    if( $method === 'GET' ) {
-      $url = add_query_arg( $data, $url );
-    } else {
-      $args['body'] = json_encode( $data );
+    if( ! empty( $data ) ) {
+      if( in_array( $method, array( 'GET', 'DELETE' ) ) ) {
+        $url = add_query_arg( $data, $url );
+      } else {
+        $args['body'] = json_encode( $data );
+      }
     }
 
     // perform request

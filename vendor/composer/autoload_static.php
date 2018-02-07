@@ -16,20 +16,6 @@ class ComposerStaticInitabc72b64e84efd76b3cb10d2a10a9768
         'cb296d991e3145f10320ab99c1b9ed05' => __DIR__ . '/../..' . '/includes/default-filters.php',
     );
 
-    public static $prefixLengthsPsr4 = array (
-        'C' => 
-        array (
-            'CodeClimate\\PhpTestReporter\\' => 28,
-        ),
-    );
-
-    public static $prefixDirsPsr4 = array (
-        'CodeClimate\\PhpTestReporter\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/codeclimate/php-test-reporter/src',
-        ),
-    );
-
     public static $prefixesPsr0 = array (
         'x' => 
         array (
@@ -117,8 +103,6 @@ class ComposerStaticInitabc72b64e84efd76b3cb10d2a10a9768
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitabc72b64e84efd76b3cb10d2a10a9768::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitabc72b64e84efd76b3cb10d2a10a9768::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInitabc72b64e84efd76b3cb10d2a10a9768::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitabc72b64e84efd76b3cb10d2a10a9768::$classMap;
 

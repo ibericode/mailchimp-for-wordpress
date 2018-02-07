@@ -90,6 +90,11 @@ class MC4WP_Form_Element {
 			$hidden_fields .= '<input type="hidden" name="_mc4wp_lists" value="'. esc_attr( $lists_string ) . '" />';
 		}
 
+		// was "lists" parameter passed in shortcode arguments?
+		if( ! empty( $this->config['email_type'] ) ) {
+			$hidden_fields .= '<input type="hidden" name="_mc4wp_email_type" value="'. esc_attr( $this->config['email_type'] ) . '" />';
+		}
+
 		return (string) $hidden_fields;
 	}
 

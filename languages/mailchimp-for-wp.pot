@@ -21,127 +21,131 @@ msgstr ""
 msgid "Documentation"
 msgstr ""
 
-#: includes/admin/class-admin.php:204
+#: includes/admin/class-admin.php:209
 msgid "Success! The cached configuration for your MailChimp lists has been renewed."
 msgstr ""
 
-#: includes/admin/class-admin.php:304
+#: includes/admin/class-admin.php:309
 msgid "This is a pro-only feature. Please upgrade to the premium version to be able to use it."
 msgstr ""
 
-#: includes/admin/class-admin.php:305, includes/views/parts/lists-overview.php:10, includes/forms/views/parts/add-fields-help.php:43
+#: includes/admin/class-admin.php:310, includes/views/parts/lists-overview.php:10, includes/forms/views/parts/add-fields-help.php:43
 msgid "Renew MailChimp lists"
 msgstr ""
 
-#: includes/admin/class-admin.php:306
+#: includes/admin/class-admin.php:311
 msgid "Fetching MailChimp lists"
 msgstr ""
 
-#: includes/admin/class-admin.php:307
+#: includes/admin/class-admin.php:312
 msgid "Done! MailChimp lists renewed."
 msgstr ""
 
-#: includes/admin/class-admin.php:308
+#: includes/admin/class-admin.php:313
 msgid "This can take a while if you have many MailChimp lists."
 msgstr ""
 
-#: includes/admin/class-admin.php:309
+#: includes/admin/class-admin.php:314
 msgid "Failed to renew your lists. An error occured."
 msgstr ""
 
-#: includes/admin/class-admin.php:337, includes/views/general-settings.php:31
+#: includes/admin/class-admin.php:342, includes/views/general-settings.php:31
 msgid "MailChimp API Settings"
 msgstr ""
 
-#: includes/admin/class-admin.php:338
+#: includes/admin/class-admin.php:343
 msgid "MailChimp"
 msgstr ""
 
-#: includes/admin/class-admin.php:344, includes/views/other-settings.php:60, includes/views/other-settings.php:70
+#: includes/admin/class-admin.php:349, includes/views/other-settings.php:60, includes/views/other-settings.php:70
 msgid "Other Settings"
 msgstr ""
 
-#: includes/admin/class-admin.php:345
+#: includes/admin/class-admin.php:350
 msgid "Other"
 msgstr ""
 
-#: includes/admin/class-admin.php:415
+#: includes/admin/class-admin.php:421
 msgid "Error connecting to MailChimp:"
 msgstr ""
 
-#: includes/admin/class-admin.php:418
+#: includes/admin/class-admin.php:424
 msgid "Looks like your server is blocked by MailChimp's firewall. Please contact MailChimp support and include the following reference number: %s"
 msgstr ""
 
-#: includes/admin/class-admin.php:421
+#: includes/admin/class-admin.php:427
 msgid "Here's some info on solving common connectivity issues."
 msgstr ""
 
-#: includes/admin/class-admin.php:426
+#: includes/admin/class-admin.php:432
 msgid "MailChimp returned the following error:"
 msgstr ""
 
-#: includes/admin/class-admin.php:465
+#: includes/admin/class-admin.php:471
 msgid "Log successfully emptied."
 msgstr ""
 
-#: includes/admin/class-admin.php:495
+#: includes/admin/class-admin.php:501
 msgid "To get started with MailChimp for WordPress, please <a href=\"%s\">enter your MailChimp API key on the settings page of the plugin</a>."
 msgstr ""
 
-#: includes/admin/class-ads.php:39
+#: includes/admin/class-ads.php:36, includes/admin/class-ads.php:37
+msgid "Add-ons"
+msgstr ""
+
+#: includes/admin/class-ads.php:53
 msgid "Want to customize the style of your form? <a href=\"%s\">Try our Styles Builder</a> & edit the look of your forms with just a few clicks."
 msgstr ""
 
-#: includes/admin/class-ads.php:54
+#: includes/admin/class-ads.php:68
 msgid "Be notified whenever someone subscribes? <a href=\"%s\">MailChimp for WordPress Premium</a> allows you to set up email notifications for your forms."
 msgstr ""
 
-#: includes/admin/class-ads.php:56
+#: includes/admin/class-ads.php:70
 msgid "Increased conversions? <a href=\"%s\">MailChimp for WordPress Premium</a> submits forms without reloading the entire page, resulting in a much better experience for your visitors."
 msgstr ""
 
-#: includes/admin/class-ads.php:70
+#: includes/admin/class-ads.php:84
 msgid "Upgrade to Premium"
 msgstr ""
 
-#: includes/admin/class-ads.php:83
+#: includes/admin/class-ads.php:97
 msgid "Do you want translated forms for all of your languages? <a href=\"%s\">Try MailChimp for WordPress Premium</a>, which does just that plus more."
 msgstr ""
 
-#: includes/admin/class-ads.php:88
+#: includes/admin/class-ads.php:102
 msgid "Do you want to create more than one form? Our Premium add-on does just that! <a href=\"%s\">Have a look at all Premium benefits</a>."
 msgstr ""
 
-#: includes/admin/class-ads.php:93
+#: includes/admin/class-ads.php:107
 msgid "Are you enjoying this plugin? The Premium add-on unlocks several powerful features. <a href=\"%s\">Find out about all benefits now</a>."
 msgstr ""
 
-#: includes/admin/class-ads.php:114
+#: includes/admin/class-ads.php:128
 msgid "More subscribers, better newsletters."
 msgstr ""
 
-#: includes/admin/class-ads.php:115
+#: includes/admin/class-ads.php:129
 msgid "Learn how to best grow your lists & write better emails by subscribing to our monthly tips."
 msgstr ""
 
-#: includes/admin/class-ads.php:118
+#: includes/admin/class-ads.php:132
 msgid "Email Address"
 msgstr ""
 
-#: includes/admin/class-ads.php:122
+#: includes/admin/class-ads.php:136
 msgid "First Name"
 msgstr ""
 
-#: includes/admin/class-ads.php:129, includes/forms/class-admin.php:90
+#: includes/admin/class-ads.php:143, includes/forms/class-admin.php:90
 msgid "Subscribe"
 msgstr ""
 
-#: includes/admin/class-ads.php:152
+#: includes/admin/class-ads.php:166
 msgid "Do you want to track all WooCommerce orders in MailChimp so you can send emails based on the purchase activity of your subscribers?"
 msgstr ""
 
-#: includes/admin/class-ads.php:155
+#: includes/admin/class-ads.php:169
 msgid "<a href=\"%s\">Upgrade to MailChimp for WordPress Premium</a> or <a href=\"%s\">read more about MailChimp's E-Commerce features</a>."
 msgstr ""
 
@@ -905,79 +909,79 @@ msgstr ""
 msgid "Form Messages"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:17
+#: includes/forms/views/tabs/form-messages.php:16
 msgid "Successfully subscribed"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:20
+#: includes/forms/views/tabs/form-messages.php:19
 msgid "The text that shows when an email address is successfully subscribed to the selected list(s)."
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:24
+#: includes/forms/views/tabs/form-messages.php:23
 msgid "Invalid email address"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:27
+#: includes/forms/views/tabs/form-messages.php:26
 msgid "The text that shows when an invalid email address is given."
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:31
+#: includes/forms/views/tabs/form-messages.php:30
 msgid "Required field missing"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:34
+#: includes/forms/views/tabs/form-messages.php:33
 msgid "The text that shows when a required field for the selected list(s) is missing."
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:38
+#: includes/forms/views/tabs/form-messages.php:37
 msgid "Already subscribed"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:41
+#: includes/forms/views/tabs/form-messages.php:40
 msgid "The text that shows when the given email is already subscribed to the selected list(s)."
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:45
+#: includes/forms/views/tabs/form-messages.php:44
 msgid "General error"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:48
+#: includes/forms/views/tabs/form-messages.php:47
 msgid "The text that shows when a general error occured."
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:52
+#: includes/forms/views/tabs/form-messages.php:51
 msgid "Unsubscribed"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:55
+#: includes/forms/views/tabs/form-messages.php:54
 msgid "When using the unsubscribe method, this is the text that shows when the given email address is successfully unsubscribed from the selected list(s)."
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:59
+#: includes/forms/views/tabs/form-messages.php:58
 msgid "Not subscribed"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:62
+#: includes/forms/views/tabs/form-messages.php:61
 msgid "When using the unsubscribe method, this is the text that shows when the given email address is not on the selected list(s)."
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:66
+#: includes/forms/views/tabs/form-messages.php:65
 msgid "No list selected"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:69
+#: includes/forms/views/tabs/form-messages.php:68
 msgid "When offering a list choice, this is the text that shows when no lists were selected."
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:75
+#: includes/forms/views/tabs/form-messages.php:74
 msgid "Updated"
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:78
+#: includes/forms/views/tabs/form-messages.php:77
 msgid "The text that shows when an existing subscriber is updated."
 msgstr ""
 
-#: includes/forms/views/tabs/form-messages.php:90
+#: includes/forms/views/tabs/form-messages.php:89
 msgid "HTML tags like %s are allowed in the message fields."
 msgstr ""
 

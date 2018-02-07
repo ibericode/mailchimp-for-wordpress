@@ -6,13 +6,14 @@
 # Form App <formappmobile@gmail.com>, 2016
 # Maartje L <maartje2@hotmail.com>, 2017
 # Martijn van Egmond <developer@tensheep.nl>, 2015
+# Rob Boxman <rob.boxman@gmail.com>, 2018
 # Syrene Mos <syrenemos@gmail.com>, 2017
 # Yola Maas <post@basicsoflive.nl>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2017-11-18 16:12+0000\n"
-"Last-Translator: Syrene Mos <syrenemos@gmail.com>\n"
+"PO-Revision-Date: 2018-01-15 09:52+0000\n"
+"Last-Translator: Rob Boxman <rob.boxman@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -74,7 +75,7 @@ msgstr "MailChimp"
 #: includes/admin/class-admin.php343, includes/views/other-settings.php60,
 #: includes/views/other-settings.php:70
 msgid "Other Settings"
-msgstr "Andere instellingen"
+msgstr "Overige instellingen"
 
 #: includes/admin/class-admin.php:344
 msgid "Other"
@@ -108,7 +109,7 @@ msgid ""
 "Increased conversions? <a href=\"%s\">MailChimp for WordPress Premium</a> "
 "submits forms without reloading the entire page, resulting in a much better "
 "experience for your visitors."
-msgstr ""
+msgstr "Meer omzettingen? <a href=\"%s\">MailChimp for WordPress Premium</a> verstuurt formulieren zonder de complete pagina te verversen, wat een betere ervaring voor je bezoekers oplevert."
 
 #: includes/admin/class-ads.php:70
 msgid "Upgrade to Premium"
@@ -188,7 +189,7 @@ msgstr "Lees meer over veel voorkomende verbindingsproblemen."
 
 #: includes/forms/class-admin.php:62
 msgid "Add to form"
-msgstr "Voeg toe aan formulier"
+msgstr "Toevoegen aan formulier"
 
 #: includes/forms/class-admin.php:63
 msgid "City"
@@ -490,7 +491,7 @@ msgstr "Diverse instellingen"
 
 #: includes/views/other-settings.php:17
 msgid "Usage Tracking"
-msgstr "Gebruikstype bijhouden"
+msgstr "Gebruik bijhouden"
 
 #: includes/views/other-settings.php:29
 msgid ""
@@ -504,13 +505,13 @@ msgstr "Dit is wat we tracken."
 
 #: includes/views/other-settings.php:37
 msgid "Logging"
-msgstr ""
+msgstr "Logging"
 
 #: includes/views/other-settings.php:44
 msgid ""
 "Determines what events should be written to <a href=\"%s\">the debug log</a>"
 " (see below)."
-msgstr ""
+msgstr "Bepaalt welke gebeurtenissen naar <a href=\"%s\">de debug log</a> moeten worden (zie hieronder)."
 
 #: includes/views/other-settings.php:99
 msgid "Debug Log"
@@ -526,7 +527,7 @@ msgstr "Log bestand is niet schrijfbaar."
 
 #: includes/views/other-settings.php:105
 msgid "Please ensure %s has the proper <a href=\"%s\">file permissions</a>."
-msgstr ""
+msgstr "Zorg dat %s de juiste <a href=\"%s\">bestandsrechten</a> heeft."
 
 #: includes/views/other-settings.php:123
 msgid "Nothing here. Which means there are no errors!"
@@ -534,11 +535,11 @@ msgstr "Er is hier niets. Wat betekent dat er geen fouten zijn!"
 
 #: includes/views/other-settings.php:133
 msgid "Empty Log"
-msgstr ""
+msgstr "Leeg Log"
 
 #: includes/views/other-settings.php:141
 msgid "Right now, the plugin is configured to only log errors and warnings."
-msgstr ""
+msgstr "Momenteel is de plugin geconfigureerd om enkel errors en waarschuwingen te loggen."
 
 #: includes/admin/migrations/3.0.0-form-1-post-type.php:35
 msgid "Default sign-up form"
@@ -550,7 +551,7 @@ msgstr "Voeg nieuw formulier toe"
 
 #: includes/forms/views/add-form.php:27
 msgid "What is the name of this form?"
-msgstr "Wat is de naam van het formulier?"
+msgstr "Wat is de naam van dit formulier?"
 
 #: includes/forms/views/add-form.php:30
 msgid "Enter your form title.."
@@ -586,19 +587,19 @@ msgstr "Wijzig Formulier"
 
 #: includes/forms/views/edit-form.php:58
 msgid "Enter form title here"
-msgstr "Typ je formulier titel hier"
+msgstr "Vul hier de titel van het formulier in"
 
 #: includes/forms/views/edit-form.php:59
 msgid "Enter the title of your sign-up form"
-msgstr "Typ de titel van je inschrijfformulier"
+msgstr "Vul de titel van je aanmeldformulier in"
 
 #: includes/forms/views/edit-form.php:65
 msgid "Shortcode"
-msgstr "Shortcode"
+msgstr "Korte code"
 
 #: includes/forms/views/edit-form.php:67
 msgid "Get shortcode"
-msgstr "Toon shortcode"
+msgstr "Toon korte code"
 
 #: includes/forms/views/edit-form.php:72
 msgid "Preview this form"
@@ -693,7 +694,7 @@ msgstr "Selecteer \"ja\" wanneer je wilt dat mensen hun emailadres moeten bevest
 #: includes/integrations/views/integration-settings.php171,
 #: includes/forms/views/tabs/form-settings.php:52
 msgid "Update existing subscribers?"
-msgstr "Bestaande inschrijven updaten?"
+msgstr "Bestaande abonnees bijwerken?"
 
 #: includes/integrations/views/integration-settings.php181,
 #: includes/forms/views/tabs/form-settings.php:62
@@ -712,7 +713,7 @@ msgstr "Interessegroepen vervangen?"
 msgid ""
 "Select \"no\" if you want to add the selected interests to any previously "
 "selected interests when updating a subscriber."
-msgstr ""
+msgstr "Kies \"nee\" als je de geselecteerde intesesses wil toegevoegen aan eerdere geselecteerde intesesses bij het bijwerken van een abonnee."
 
 #: includes/integrations/views/integration-settings.php202,
 #: includes/forms/views/tabs/form-settings.php:80
@@ -780,11 +781,11 @@ msgstr "Veelgestelde Vragen"
 
 #: includes/views/parts/admin-sidebar.php:16
 msgid "Code reference for developers"
-msgstr ""
+msgstr "Codereferentie voor ontwikkelaars"
 
 #: includes/views/parts/admin-sidebar.php:36
 msgid "Looking to improve your sign-up rates?"
-msgstr ""
+msgstr "Hat aantal aanmeldingen verbeteren?"
 
 #: includes/views/parts/admin-sidebar.php:37
 msgid ""
@@ -848,7 +849,7 @@ msgstr "Dit is hoe:"
 
 #: includes/forms/views/parts/add-fields-help.php:17
 msgid "Log in to your MailChimp account."
-msgstr "Login tot je MailChimp acount."
+msgstr "Aanmelden bij je MailChimp acount."
 
 #: includes/forms/views/parts/add-fields-help.php:22
 msgid "Add list fields to any of your selected lists."
@@ -870,13 +871,13 @@ msgstr "Klik op de volgende knop, voor MailChimp voor Wordpress pick up en jouw 
 
 #: includes/forms/views/parts/dynamic-content-tags.php:6
 msgid "Add dynamic form variable"
-msgstr "Voeg een dynamisch formulier variabelen toe"
+msgstr "Voeg een dynamische variabele toe"
 
 #: includes/forms/views/parts/dynamic-content-tags.php:8
 msgid ""
 "The following list of variables can be used to <a href=\"%s\">add some "
 "dynamic content to your form or success and error messages</a>."
-msgstr "De volgende lijst van variabelen kunnen worden gebruikt om <a href=\"%s\"> sommige dynamische content toe te voegen aan het formulier en/of met succes en foutmeldingen </a>."
+msgstr "De volgende lijst van variabelen kunnen worden gebruikt om <a href=\"%s\"> bepaalde dynamische content toe te voegen aan het formulier en/of met succes en foutmeldingen </a>."
 
 #: includes/forms/views/parts/dynamic-content-tags.php:8
 msgid "This allows you to personalise your form or response messages."
@@ -884,7 +885,7 @@ msgstr "Mogelijkheid je formulier te personaliseren of op je antwoord berichten"
 
 #: includes/forms/views/tabs/form-appearance.php:5
 msgid "Inherit from %s theme"
-msgstr "Neem het over van %s thema"
+msgstr "Overnemen van thema %s "
 
 #: includes/forms/views/tabs/form-appearance.php:6
 msgid "Basic"
@@ -1024,7 +1025,7 @@ msgstr "Geen lijst geselecteerd"
 msgid ""
 "When offering a list choice, this is the text that shows when no lists were "
 "selected."
-msgstr ""
+msgstr "De tekst die getoond wordt als er nog geen keuze is gemaakt uit een keuzelijst."
 
 #: includes/forms/views/tabs/form-messages.php:74
 msgid "Updated"
@@ -1032,7 +1033,7 @@ msgstr "Bijgewerkt"
 
 #: includes/forms/views/tabs/form-messages.php:77
 msgid "The text that shows when an existing subscriber is updated."
-msgstr ""
+msgstr "De tekst die getoond wordt als een bestaande abonnee is bijgewerkt."
 
 #: includes/forms/views/tabs/form-messages.php:89
 msgid "HTML tags like %s are allowed in the message fields."

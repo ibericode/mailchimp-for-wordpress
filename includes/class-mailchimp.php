@@ -9,11 +9,6 @@
 class MC4WP_MailChimp {
 
 	/**
-	* @var MC4WP_API_v3
-	*/
-	public $api;
-
-	/**
 	* @var string
 	*/
 	public $error_code = '';
@@ -22,13 +17,6 @@ class MC4WP_MailChimp {
 	* @var string
 	*/
 	public $error_message = '';
-
-	/**
-	* MC4WP_MailChimp constructor.
-	*/
-	public function __construct() {
-		$this->api = mc4wp( 'api' );
-	}
 
 	/**
 	*
@@ -58,7 +46,7 @@ class MC4WP_MailChimp {
 
 		// first, check if subscriber is already on the given list
 		try {
-			$existing_member_data = $this->api->get_list_member( $list_id, $email_address );
+			$existing_member_data = $this->get_api()->get_list_member( $list_id, $email_address );
 
 			if( $existing_member_data->status === 'subscribed' ) {
 				$already_on_list = true;
@@ -90,9 +78,9 @@ class MC4WP_MailChimp {
 				}
 			} else {
 				// delete list member so we can re-add it...
-				$this->api->delete_list_member( $list_id, $email_address );
+				$this->get_api()->delete_list_member( $list_id, $email_address );
 			}
-		} catch ( MC4WP_API_Resource_Not_Found_Exception $e ) {
+		} catch( MC4WP_API_Resource_Not_Found_Exception $e ) {
 			// subscriber does not exist (not an issue in this case)
 		} catch( MC4WP_API_Exception $e ) {
 			// other errors.
@@ -102,7 +90,7 @@ class MC4WP_MailChimp {
 		}
 
 		try {
-			$data = $this->api->add_list_member( $list_id, $args );
+			$data = $this->get_api()->add_list_member( $list_id, $args );
 		} catch ( MC4WP_API_Exception $e ) {
 			$this->error_code = $e->getCode();
 			$this->error_message = $e;
@@ -125,7 +113,7 @@ class MC4WP_MailChimp {
 		$this->reset_error();
 
 		try {
-			$this->api->update_list_member( $list_id, $email_address, array( 'status' => 'unsubscribed' ) );
+			$this->get_api()->update_list_member( $list_id, $email_address, array( 'status' => 'unsubscribed' ) );
 		} catch( MC4WP_API_Resource_Not_Found_Exception $e ) {
 			// if email wasn't even on the list: great.
 			return true;
@@ -148,7 +136,7 @@ class MC4WP_MailChimp {
 	*/
 	public function list_has_subscriber( $list_id, $email_address ) {
 		try{
-			$data = $this->api->get_list_member( $list_id, $email_address );
+			$data = $this->get_api()->get_list_member( $list_id, $email_address );
 		} catch( MC4WP_API_Resource_Not_Found_Exception $e ) {
 			return false;
 		}
@@ -216,7 +204,7 @@ class MC4WP_MailChimp {
 	*/
 	private function fetch_list( $list_id ) {
 		try{
-			$list_data = $this->api->get_list( $list_id, array( 'fields' => 'id,name,stats,web_id,campaign_defaults.from_name,campaign_defaults.from_email' ) );
+			$list_data = $this->get_api()->get_list( $list_id, array( 'fields' => 'id,name,stats,web_id,campaign_defaults.from_name,campaign_defaults.from_email' ) );
 
 			// create local object
 			$list = new MC4WP_MailChimp_List( $list_data->id, $list_data->name );
@@ -226,7 +214,7 @@ class MC4WP_MailChimp {
 
 			// get merge fields (if any)
 			if( $list_data->stats->merge_field_count > 0 ) {
-				$field_data = $this->api->get_list_merge_fields( $list->id, array( 'count' => 100, 'fields' => 'merge_fields.name,merge_fields.tag,merge_fields.type,merge_fields.required,merge_fields.default_value,merge_fields.options,merge_fields.public' ) );
+				$field_data = $this->get_api()->get_list_merge_fields( $list->id, array( 'count' => 100, 'fields' => 'merge_fields.name,merge_fields.tag,merge_fields.type,merge_fields.required,merge_fields.default_value,merge_fields.options,merge_fields.public' ) );
 
 				// hydrate data into object
 				foreach( $field_data as $data ) {
@@ -236,12 +224,12 @@ class MC4WP_MailChimp {
 			}
 
 			// get interest categories
-			$interest_categories_data = $this->api->get_list_interest_categories( $list->id, array( 'count' => 100, 'fields' => 'categories.id,categories.title,categories.type' ) );
+			$interest_categories_data = $this->get_api()->get_list_interest_categories( $list->id, array( 'count' => 100, 'fields' => 'categories.id,categories.title,categories.type' ) );
 			foreach( $interest_categories_data as $interest_category_data ) {
 				$interest_category = MC4WP_MailChimp_Interest_Category::from_data( $interest_category_data );
 
 				// fetch groups for this interest
-				$interests_data = $this->api->get_list_interest_category_interests( $list->id, $interest_category->id, array( 'count' => 100, 'fields' => 'interests.id,interests.name') );
+				$interests_data = $this->get_api()->get_list_interest_category_interests( $list->id, $interest_category->id, array( 'count' => 100, 'fields' => 'interests.id,interests.name') );
 				foreach( $interests_data as $interest_data ) {
 					$interest_category->interests[ (string) $interest_data->id ] = $interest_data->name;
 				}
@@ -278,7 +266,7 @@ class MC4WP_MailChimp {
 	*/
 	public function fetch_list_ids() {
 		try{
-			$lists_data = $this->api->get_lists( array( 'count' => 200, 'fields' => 'lists.id' ) );
+			$lists_data = $this->get_api()->get_lists( array( 'count' => 200, 'fields' => 'lists.id' ) );
 		} catch( MC4WP_API_Exception $e ) {
 			return array();
 		}
@@ -348,7 +336,7 @@ class MC4WP_MailChimp {
 
 		// transient not valid, fetch from API
 		try {
-			$lists = $this->api->get_lists(  array( 'count' => 100, 'fields' => 'lists.id,lists.stats' ) );
+			$lists = $this->get_api()->get_lists(  array( 'count' => 100, 'fields' => 'lists.id,lists.stats' ) );
 		} catch( MC4WP_API_Exception $e ) {
 			return array();
 		}
@@ -442,5 +430,11 @@ class MC4WP_MailChimp {
 		return $this->error_code;
 	}
 
+	/**
+	* @return MC4WP_API_v3
+	*/
+	private function get_api() {
+		return mc4wp( 'api' );
+	}
 
 }

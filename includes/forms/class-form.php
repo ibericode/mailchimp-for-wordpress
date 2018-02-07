@@ -709,7 +709,7 @@ class MC4WP_Form {
         $message = isset( $this->messages[ $key] ) ? $this->messages[ $key ] : $this->messages['error'] ;
 
         if( $key === 'no_lists_selected' && current_user_can( 'manage_options' ) ) {
-            $message .= sprintf( ' (<a href="%s">%s</a>)', mc4wp_get_edit_form_url( $this->ID ), 'edit form settings' );
+            $message .= sprintf( ' (<a href="%s">%s</a>)', mc4wp_get_edit_form_url( $this->ID, 'settings' ), 'edit form settings' );
         }
 
         return $message;

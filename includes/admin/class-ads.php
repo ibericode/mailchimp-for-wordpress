@@ -25,8 +25,22 @@ class MC4WP_Admin_Ads {
 		add_action( 'mc4wp_admin_footer', array( $this, 'admin_footer' ) );
 		add_action( 'mc4wp_admin_other_settings', array( $this, 'ecommerce' ), 90 );
 
+		add_filter( 'mc4wp_admin_menu_items', array( $this, 'add_menu_item' ) );
+
 		add_action( 'mc4wp_admin_after_woocommerce_integration_settings', array( $this, 'ecommerce' ) );
 		return true;
+	}
+
+	public function add_menu_item( $items ) {
+		$items['extensions'] = array(
+			'title' => __( 'Add-ons', 'mailchimp-for-wp' ),
+			'text' => '<span style="color: #c44;">' . __( 'Add-ons', 'mailchimp-for-wp' ) . '</span>',
+			'slug' => 'extensions',
+			'callback' => array( $this, 'show_extensions_page' ),
+			'position' => 100
+		);
+
+		return $items;
 	}
 
 	/**
@@ -155,6 +169,10 @@ class MC4WP_Admin_Ads {
 		echo sprintf( __( '<a href="%s">Upgrade to MailChimp for WordPress Premium</a> or <a href="%s">read more about MailChimp\'s E-Commerce features</a>.', 'mailchimp-for-wp' ) . '</p>', 'https://mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=other-settings-link', 'https://kb.mc4wp.com/what-is-ecommerce360/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=other-settings-link' );
 		echo '</p>';
 		echo '</div>';
+	}
+
+	public function show_extensions_page() {
+		require MC4WP_PLUGIN_DIR . 'includes/views/extensions.php';
 	}
 
 }
