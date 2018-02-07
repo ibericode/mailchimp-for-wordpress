@@ -23,22 +23,25 @@ class MC4WP_Form_Listener {
 	 * @return bool
 	 */
 	public function listen() {
-
-		$request = array_merge( $_GET, $_POST );
-		if( empty( $request['_mc4wp_form_id'] ) ) {
+		if( empty( $_POST['_mc4wp_form_id'] ) ) {
 			return false;
 		}
 
 		// get form instance
 		try {
-			$form_id = (int) $request['_mc4wp_form_id'];
+			$form_id = (int) $_POST['_mc4wp_form_id'];
 			$form = mc4wp_get_form( $form_id );
 		} catch( Exception $e ) {
 			return false;
 		}
 
-		// where the magic happens
-		$form->handle_request( $_POST );
+		// sanitize request data
+		$request_data = $_POST;
+		$request_data = mc4wp_sanitize_deep( $request_data );
+		$request_data = stripslashes_deep( $request_data );
+
+		// bind request to form & validate
+		$form->handle_request( $request_data );
 		$form->validate();
 
 		// store submitted form
@@ -46,9 +49,15 @@ class MC4WP_Form_Listener {
 
 		// did form have errors?
 		if( ! $form->has_errors() ) {
-			// form was valid, do something
-			$method = 'process_' . $form->get_action() . '_form';
-			call_user_func( array( $this, $method ), $form );
+			switch( $form->get_action() ) {
+				case "subscribe":
+					$result = $this->process_subscribe_form( $form );
+				break;
+
+				case "unsubscribe":
+					$result = $this->process_unsubscribe_form( $form );
+				break;
+			}
 		} else {
 			foreach( $form->errors as $error_code ) {
 				$form->add_notice( $form->get_message( $error_code ), 'error' );
