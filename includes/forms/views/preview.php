@@ -37,6 +37,7 @@ $GLOBALS['post'] = new \WP_Post((object) array( 'filter' => 'raw' ));
 	        height: 100%;
 	        padding: 20px;
             border: 0;
+            margin: 0; 
         }
     </style>
 </head>

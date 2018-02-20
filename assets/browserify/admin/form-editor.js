@@ -20,10 +20,11 @@ var editor;
 var element = document.getElementById('mc4wp-form-content');
 var previewFrame = document.getElementById('mc4wp-form-preview');
 var previewDom;
+var templateRegex = /\{[^{}]+\}/g
 
 /* functions */
 function setPreviewDom() {
-    let frameContent = previewFrame.contentDocument || previewFrame.contentWindow.document;
+    var frameContent = previewFrame.contentDocument || previewFrame.contentWindow.document;
     previewDom = frameContent.querySelector('.mc4wp-form-fields');
     
     if(previewDom) { 
@@ -32,16 +33,10 @@ function setPreviewDom() {
 }
 
 function updatePreview() {
-    let markup = FormEditor.getValue();
+    var markup = FormEditor.getValue();
 
-    // replace template tags
-    // markup = markup.replace(templateRegex, function(s, m) {
-    //     if(arguments[3]) {
-    //         return arguments[3];
-    //     }
-
-    //     return '';
-    // });
+    // replace template tags (twice, to allow for nested tags)
+    markup = markup.replace(templateRegex, '').replace(templateRegex, '');
 
     // update dom
     previewDom.innerHTML = markup;
