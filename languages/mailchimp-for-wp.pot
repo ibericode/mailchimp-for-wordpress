@@ -137,7 +137,7 @@ msgstr ""
 msgid "First Name"
 msgstr ""
 
-#: includes/admin/class-ads.php:143, includes/forms/class-admin.php:90
+#: includes/admin/class-ads.php:143, includes/forms/class-admin.php:89
 msgid "Subscribe"
 msgstr ""
 
@@ -165,188 +165,180 @@ msgstr ""
 msgid "Read more about common connectivity issues."
 msgstr ""
 
-#: includes/forms/class-admin.php:58
+#: includes/forms/class-admin.php:57
 msgid "Add to form"
 msgstr ""
 
-#: includes/forms/class-admin.php:59
+#: includes/forms/class-admin.php:58
 msgid "City"
 msgstr ""
 
-#: includes/forms/class-admin.php:60
+#: includes/forms/class-admin.php:59
 msgid "Checkboxes"
 msgstr ""
 
-#: includes/forms/class-admin.php:61
+#: includes/forms/class-admin.php:60
 msgid "Choices"
 msgstr ""
 
-#: includes/forms/class-admin.php:62
+#: includes/forms/class-admin.php:61
 msgid "Choice type"
 msgstr ""
 
-#: includes/forms/class-admin.php:63
+#: includes/forms/class-admin.php:62
 msgid "Choose a field to add to the form"
 msgstr ""
 
-#: includes/forms/class-admin.php:64
+#: includes/forms/class-admin.php:63
 msgid "Close"
 msgstr ""
 
-#: includes/forms/class-admin.php:65
+#: includes/forms/class-admin.php:64
 msgid "Country"
 msgstr ""
 
-#: includes/forms/class-admin.php:66
+#: includes/forms/class-admin.php:65
 msgid "Dropdown"
 msgstr ""
 
-#: includes/forms/class-admin.php:67
+#: includes/forms/class-admin.php:66
 msgid "Field type"
 msgstr ""
 
-#: includes/forms/class-admin.php:68
+#: includes/forms/class-admin.php:67
 msgid "Field label"
 msgstr ""
 
-#: includes/forms/class-admin.php:69
+#: includes/forms/class-admin.php:68
 msgid "Form action"
 msgstr ""
 
-#: includes/forms/class-admin.php:70
+#: includes/forms/class-admin.php:69
 msgid "This field will allow your visitors to choose whether they would like to subscribe or unsubscribe"
 msgstr ""
 
-#: includes/forms/class-admin.php:71
+#: includes/forms/class-admin.php:70
 msgid "Form fields"
 msgstr ""
 
-#: includes/forms/class-admin.php:72
+#: includes/forms/class-admin.php:71
 msgid "This field is marked as required in MailChimp."
 msgstr ""
 
-#: includes/forms/class-admin.php:73
+#: includes/forms/class-admin.php:72
 msgid "Initial value"
 msgstr ""
 
-#: includes/forms/class-admin.php:74
+#: includes/forms/class-admin.php:73
 msgid "Interest categories"
 msgstr ""
 
-#: includes/forms/class-admin.php:75
+#: includes/forms/class-admin.php:74
 msgid "Is this field required?"
 msgstr ""
 
-#: includes/forms/class-admin.php:76
+#: includes/forms/class-admin.php:75
 msgid "List choice"
 msgstr ""
 
-#: includes/forms/class-admin.php:77
+#: includes/forms/class-admin.php:76
 msgid "This field will allow your visitors to choose a list to subscribe to."
 msgstr ""
 
-#: includes/forms/class-admin.php:78
+#: includes/forms/class-admin.php:77
 msgid "List fields"
 msgstr ""
 
-#: includes/forms/class-admin.php:79
+#: includes/forms/class-admin.php:78
 msgid "Min"
 msgstr ""
 
-#: includes/forms/class-admin.php:80
+#: includes/forms/class-admin.php:79
 msgid "Max"
 msgstr ""
 
-#: includes/forms/class-admin.php:81
+#: includes/forms/class-admin.php:80
 msgid "No available fields. Did you select a MailChimp list in the form settings?"
 msgstr ""
 
-#: includes/forms/class-admin.php:82
+#: includes/forms/class-admin.php:81
 msgid "Optional"
 msgstr ""
 
-#: includes/forms/class-admin.php:83
+#: includes/forms/class-admin.php:82
 msgid "Placeholder"
 msgstr ""
 
-#: includes/forms/class-admin.php:84
+#: includes/forms/class-admin.php:83
 msgid "Text to show when field has no value."
 msgstr ""
 
-#: includes/forms/class-admin.php:85
+#: includes/forms/class-admin.php:84
 msgid "Preselect"
 msgstr ""
 
-#: includes/forms/class-admin.php:86
+#: includes/forms/class-admin.php:85
 msgid "Remove"
 msgstr ""
 
-#: includes/forms/class-admin.php:87
+#: includes/forms/class-admin.php:86
 msgid "Radio buttons"
 msgstr ""
 
-#: includes/forms/class-admin.php:88
+#: includes/forms/class-admin.php:87
 msgid "Street Address"
 msgstr ""
 
-#: includes/forms/class-admin.php:89
+#: includes/forms/class-admin.php:88
 msgid "State"
 msgstr ""
 
-#: includes/forms/class-admin.php:91
+#: includes/forms/class-admin.php:90
 msgid "Submit button"
 msgstr ""
 
-#: includes/forms/class-admin.php:92
+#: includes/forms/class-admin.php:91
 msgid "Wrap in paragraph tags?"
 msgstr ""
 
-#: includes/forms/class-admin.php:93
+#: includes/forms/class-admin.php:92
 msgid "Value"
 msgstr ""
 
-#: includes/forms/class-admin.php:94
+#: includes/forms/class-admin.php:93
 msgid "Text to prefill this field with."
 msgstr ""
 
-#: includes/forms/class-admin.php:95
+#: includes/forms/class-admin.php:94
 msgid "ZIP"
 msgstr ""
 
-#: includes/forms/class-admin.php:107, includes/forms/views/edit-form.php:24
+#: includes/forms/class-admin.php:106, includes/forms/views/edit-form.php:24
 msgid "Forms"
 msgstr ""
 
-#: includes/forms/class-admin.php:108, includes/forms/views/edit-form.php:26
+#: includes/forms/class-admin.php:107, includes/forms/views/edit-form.php:26
 msgid "Form"
 msgstr ""
 
-#: includes/forms/class-admin.php:148, includes/forms/class-admin.php:275
+#: includes/forms/class-admin.php:147, includes/forms/class-admin.php:272
 msgid "<strong>Success!</strong> Form successfully saved."
 msgstr ""
 
-#: includes/forms/class-admin.php:275
-msgid "Preview form"
-msgstr ""
-
-#: includes/forms/class-admin.php:392
+#: includes/forms/class-admin.php:366
 msgid "Form not found."
 msgstr ""
 
-#: includes/forms/class-admin.php:448, includes/forms/class-widget.php:30
+#: includes/forms/class-admin.php:426, includes/forms/class-widget.php:30
 msgid "MailChimp Sign-Up Form"
 msgstr ""
 
-#: includes/forms/class-admin.php:452
+#: includes/forms/class-admin.php:430
 msgid "Select the form to show"
 msgstr ""
 
 #: includes/forms/class-form-element.php:82
 msgid "Leave this field empty if you're human:"
-msgstr ""
-
-#: includes/forms/class-form-previewer.php:146
-msgid "Form preview"
 msgstr ""
 
 #: includes/forms/class-form-tags.php:54
@@ -569,16 +561,8 @@ msgstr ""
 msgid "Enter the title of your sign-up form"
 msgstr ""
 
-#: includes/forms/views/edit-form.php:74
-msgid "Shortcode"
-msgstr ""
-
-#: includes/forms/views/edit-form.php:76
-msgid "Get shortcode"
-msgstr ""
-
-#: includes/forms/views/edit-form.php:84
-msgid "Preview this form"
+#: includes/forms/views/edit-form.php:69, includes/forms/views/tabs/form-fields.php:36
+msgid "Use the shortcode %s to display this form inside a post, page or text widget."
 msgstr ""
 
 #: includes/integrations/views/integration-settings.php:20
@@ -897,12 +881,20 @@ msgstr ""
 msgid "Form Fields"
 msgstr ""
 
-#: includes/forms/views/tabs/form-fields.php:19
+#: includes/forms/views/tabs/form-fields.php:20
+msgid "Form code"
+msgstr ""
+
+#: includes/forms/views/tabs/form-fields.php:22
 msgid "Enter the HTML code for your form fields.."
 msgstr ""
 
-#: includes/forms/views/tabs/form-fields.php:26
-msgid "Use the shortcode %s to display this form inside a post, page or text widget."
+#: includes/forms/views/tabs/form-fields.php:25
+msgid "Form preview"
+msgstr ""
+
+#: includes/forms/views/tabs/form-fields.php:25
+msgid "The form may look slightly different than this when shown in a post, page or widget area."
 msgstr ""
 
 #: includes/forms/views/tabs/form-messages.php:6
