@@ -247,12 +247,25 @@ function all() {
 	return forms;
 }
 
+function triggerEvent(eventName, eventArgs) {
+	if (eventName === 'submit') {
+		// don't spin up new thread for submit event as we want to preventDefault()... 
+		// TODO: Fix that in Premium.
+		events.trigger(eventName, eventArgs);
+	} else {
+		// process in separate thread to prevent errors from breaking core functionality
+		window.setTimeout(function () {
+			events.trigger(eventName, eventArgs);
+		}, 1);
+	}
+}
+
 module.exports = {
 	"all": all,
 	"get": get,
 	"getByElement": getByElement,
 	"on": events.on.bind(events),
-	"trigger": events.trigger.bind(events),
+	"trigger": triggerEvent,
 	"off": events.off.bind(events)
 };
 
