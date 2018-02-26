@@ -56,6 +56,9 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
             // replace array brackets with dot style notation
             name = name.replace(/\[(\w+)\]/g, '.$1' );
 
+            // replace array-style fields
+            name = name.replace(/\[\]$/, '');
+
             // uppercase everything before the .
             var pos = name.indexOf('.');
             pos = pos > 0 ? pos : name.length;
