@@ -38,7 +38,7 @@
 			/** @var MC4WP_MailChimp_List $list */
 			echo '<tr>';
 			echo sprintf( '<td><a href="javascript:mc4wp.helpers.toggleElement(\'.list-%s-details\')">%s</a><span class="row-actions alignright"></span></td>', $list->id, esc_html( $list->name ) );
-			echo sprintf( '<td>%s</td>', esc_html( $list->id ) );
+			echo sprintf( '<td><code>%s</code></td>', esc_html( $list->id ) );
 			echo sprintf( '<td>%s</td>', esc_html( $list->subscriber_count ) );
 			echo '</tr>';
 
@@ -94,7 +94,10 @@
 					</thead>
 					<?php foreach ( $list->interest_categories as $interest_category ) { ?>
 						<tr>
-							<td><?php echo esc_html( $interest_category->name ); ?></td>
+							<td>
+								<strong><?php echo esc_html( $interest_category->name ); ?></strong><br /><br />
+								ID: <code><?php echo esc_html( $interest_category->id ); ?></code>
+							</td>
 							<td><?php echo esc_html( $interest_category->field_type ); ?></td>
 							<td>
 								<div class="row" style="margin-bottom: 4px;">
