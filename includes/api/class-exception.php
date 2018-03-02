@@ -33,6 +33,19 @@ class MC4WP_API_Exception extends Exception {
     }
 
     /**
+    * Backwards compatibility for direct property access.
+    */
+    public function __get( $property ) {
+        if( in_array( $property, array( 'title', 'detail', 'errors' ) ) {
+            if( ! empty( $this->response_data ) && isset( $this->response_data->{$property} ) ) {
+                return $this->response_data->{$property};
+            }
+
+            return '';
+        }
+    }
+
+    /**
      * @return string
      */
     public function __toString() {
