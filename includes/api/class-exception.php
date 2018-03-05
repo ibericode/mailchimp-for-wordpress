@@ -57,7 +57,7 @@ class MC4WP_API_Exception extends Exception {
 
         // add errors from response data returned by MailChimp
         if( ! empty( $this->response_data ) ) {
-            if( ! empty( $this->response_data->title ) && $this->response_data->title !== $this->getMessage() {
+            if( ! empty( $this->response_data->title ) && $this->response_data->title !== $this->getMessage() ) {
                 $string .= ' ' . $this->response_data->title . '.';
             }
 
