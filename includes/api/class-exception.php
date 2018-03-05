@@ -2,33 +2,37 @@
 
 class MC4WP_API_Exception extends Exception {
 
+  
     /**
-     * @var array
-     */
-    public $response;
+    * @var object
+    */
+    public $response = array();
 
     /**
     * @var object
+    */
+    public $request= array();
+
+    /**
+    * @var array
     */
     public $response_data = array();
-
-    /**
-    * @var object
-    */
-    public $request_data = array();
 
     /**
      * MC4WP_API_Exception constructor.
      *
      * @param string $message
      * @param int $code
+     * @param array $request
      * @param array $response
      * @param object $data
      */
-    public function __construct( $message, $code, $response = null, $data = null ) {
+    public function __construct( $message, $code, $request = null, $response = null, $data = null ) {
         parent::__construct( $message, $code );
 
+        $this->request = $request;
         $this->response = $response;
+
         $this->response_data = $data;
     }
 
@@ -82,9 +86,21 @@ class MC4WP_API_Exception extends Exception {
             }
         }
 
-        // Add request data to the string representation of this error, if set.
-        if( ! empty( $this->request_data ) ) {
-             $string .= "\n" . sprintf( 'Request body: %s', json_encode( $this->request_data ) );
+        // Add request data
+        if( ! empty( $this->request ) ) {
+            $string .= "\n" . sprintf( 'Request: %s %s', $this->request['method'], $this->request['url'] );
+
+            if( ! empty( $this->request['body'] ) ) {
+                $string .= sprintf( ' - %s', $this->request['body'] );
+            }
+        }
+
+        // Add response data
+        if( ! empty( $this->response ) && is_array( $this->response ) ) {
+            $response_code = wp_remote_retrieve_response_code( $this->response );
+            $response_message = wp_remote_retrieve_response_message( $this->response );
+            $response_body = wp_remote_retrieve_body( $this->response );
+            $string .= "\n" . sprintf( 'Response: %d %s - %s', $response_code, $response_message, $response_body );
         }
 
         return $string;
