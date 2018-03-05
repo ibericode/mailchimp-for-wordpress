@@ -57,7 +57,7 @@ class MC4WP_API_Exception extends Exception {
 
         // add errors from response data returned by MailChimp
         if( ! empty( $this->response_data ) ) {
-            if( ! empty( $this->response_data->title ) ) {
+            if( ! empty( $this->response_data->title ) && $this->response_data->title !== $this->getMessage() {
                 $string .= ' ' . $this->response_data->title . '.';
             }
 
@@ -87,7 +87,7 @@ class MC4WP_API_Exception extends Exception {
         }
 
         // Add request data
-        if( ! empty( $this->request ) ) {
+        if( ! empty( $this->request ) && is_array( $this->request ) ) {
             $string .= "\n" . sprintf( 'Request: %s %s', $this->request['method'], $this->request['url'] );
 
             if( ! empty( $this->request['body'] ) ) {

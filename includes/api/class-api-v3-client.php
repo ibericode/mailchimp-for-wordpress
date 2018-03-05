@@ -202,6 +202,7 @@ class MC4WP_API_v3_Client {
   */
   private function reset() {
     $this->last_response = null;
+    $this->last_request = null;
   }
 
   /**
