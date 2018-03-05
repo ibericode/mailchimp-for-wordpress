@@ -41,7 +41,7 @@ This plugin helps you grow your MailChimp lists and write better newsletters thr
 	- Easy Digital Downloads
 
 - A multitude of available add-on plugins:
-	- [MailChimp for WordPress Premium](https://mc4wp.com/)
+	- [MailChimp for WordPress Premium](https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=add-on-list)
 	- [MailChimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/)
 	- [MailChimp Activity](https://wordpress.org/plugins/mc4wp-activity/)
 	- [MailChimp User Sync](https://wordpress.org/plugins/mailchimp-sync/)
