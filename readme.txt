@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp form
 Requires at least: 4.1
 Tested up to: 4.9.4
-Stable tag: 4.1.15
+Stable tag: 4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.2.4
@@ -195,6 +195,26 @@ The plugin provides various filter & action hooks that allow you to modify or ex
 6. Dive into detailed sign-up statistics (premium feature).
 
 == Changelog == 
+
+
+#### 4.2 - March 5, 2018
+
+**Additions**
+
+- Live form preview while editing form. 
+
+**Improvements**
+
+- Improved [conditional fields logic](https://kb.mc4wp.com/conditional-fields-elements/).
+- Debug log now includes request & response data.
+- [Form JavaScript events](https://kb.mc4wp.com/javascript-form-events/) are fired in an isolated thread now, to prevent errors in event callbacks from breaking form functionality.
+- Don't send empty field values to MailChimp when updating subscribers.
+- Show interest grouping ID in list overview on settings page.
+
+**Fixes**
+
+- Ninja Forms export checkbox would always state "checked" when form contained a MailChimp sign-up checkbox.
+
 
 
 #### 4.1.15 - February 7, 2018
