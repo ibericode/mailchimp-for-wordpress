@@ -6,6 +6,7 @@ var Gator = require('gator');
 var forms = require('./forms/forms.js');
 var config = window.mc4wp_forms_config || {};
 var scrollToElement = require('scroll-to-element');
+import ConditionalElements from './forms/conditional-elements.js';
 
 // funcs
 function scrollToForm(form) {
@@ -59,47 +60,6 @@ function handleFormRequest(form, action, errors, data){
 	});
 }
 
-function toggleElement(el, expectedValue, show ) {
-	return function() {
-		var value = this.value.trim();
-		var checked = ( this.getAttribute('type') !== 'radio' && this.getAttribute('type') !== 'checked' ) || this.checked;
-		var conditionMet = checked && ( ( value === expectedValue && expectedValue !== "" ) || ( expectedValue === "" && value.length > 0 ) );
-		if(show){
-			el.style.display = ( conditionMet ) ? '' : 'none';
-		}else{
-			el.style.display = ( conditionMet ) ? 'none' : '';
-		}
-	}
-}
-
-function toggleConditionalElements() {
-	var input = this;
-	var elements = input.form.querySelectorAll('[data-show-if], [data-hide-if]');
-	var inputName = (input.getAttribute('name') || '').toLowerCase();
-
-	[].forEach.call(elements, function(el) {
-		var show = !!el.getAttribute('data-show-if');
-		var conditions = show ? el.getAttribute('data-show-if').split(':') : el.getAttribute('data-hide-if').split(':');
-		var nameCondition = conditions[0];
-        var valueCondition = conditions[1] || "";
-
-        if (inputName !== nameCondition.toLowerCase() ) {
-			return;
-    	}
-
-		var callback = toggleElement(el, valueCondition, show);
-		callback.call(input);
-	});
-}
-
-Gator(document.body).on('keyup', '.mc4wp-form input, .mc4wp-form textarea, .mc4wp-form select', toggleConditionalElements);
-Gator(document.body).on('change', '.mc4wp-form input, .mc4wp-form textarea, .mc4wp-form select', toggleConditionalElements);
-window.addEventListener('load', function() {
-    [].forEach.call( document.querySelectorAll('.mc4wp-form input, .mc4wp-form textarea, .mc4wp-form select'), function(el) {
-        toggleConditionalElements.call(el);
-    });
-});
-
 // Bind browser events to form events (using delegation)
 Gator(document.body).on('submit', '.mc4wp-form', function(event) {
 	var form = forms.getByElement(event.target || event.srcElement);
@@ -122,6 +82,9 @@ Gator(document.body).on('change', '.mc4wp-form', function(event) {
 	forms.trigger('change', [form,event]);
 	forms.trigger(form.id + '.change', [form,event]);
 });
+
+// init conditional elements
+ConditionalElements.init();
 
 // register early listeners
 if( mc4wp.listeners ) {

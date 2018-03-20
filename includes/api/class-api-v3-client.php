@@ -18,6 +18,11 @@ class MC4WP_API_v3_Client {
   private $last_response;
 
   /**
+  * @var array
+  */
+  private $last_request;
+
+  /**
   * Constructor
   *
   * @param string $api_key
@@ -97,6 +102,7 @@ class MC4WP_API_v3_Client {
 
     $url = $this->api_url . ltrim( $resource, '/' );
     $args = array(
+      'url' => $url,
       'method' => $method,
       'headers' => $this->get_headers(),
       'timeout' => 10,
@@ -113,6 +119,9 @@ class MC4WP_API_v3_Client {
 
     // perform request
     $response = wp_remote_request( $url, $args );
+
+    // store request & response 
+    $this->last_request = $args;
     $this->last_response = $response;
 
     // parse response
@@ -169,14 +178,15 @@ class MC4WP_API_v3_Client {
       // check for akamai errors
       // {"type":"akamai_error_message","title":"akamai_503","status":503,"ref_no":"Reference Number: 00.950e16c3.1498559813.1450dbe2"}
       if( is_object( $data ) && isset( $data->type ) && $data->type === 'akamai_error_message' ) {
-        throw new MC4WP_API_Connection_Exception( $message, $code, $response, $data );
+        throw new MC4WP_API_Connection_Exception( $message, $code, $this->last_request, $this->last_response, $data );
       }
 
       if( $code === 404 ) {
-        throw new MC4WP_API_Resource_Not_Found_Exception( $message, $code, $response, $data );
+        throw new MC4WP_API_Resource_Not_Found_Exception( $message, $code, $this->last_request, $this->last_response, $data );
       }
 
-      throw new MC4WP_API_Exception( $message, $code, $response, $data );
+      // mailchimp returned an error..
+      throw new MC4WP_API_Exception( $message, $code, $this->last_request, $this->last_response, $data );
     }
 
     if( ! is_null( $data ) ) {
@@ -184,7 +194,7 @@ class MC4WP_API_v3_Client {
     }
 
     // unable to decode response
-    throw new MC4WP_API_Exception( $message, $code, $response );
+    throw new MC4WP_API_Exception( $message, $code, $this->last_request, $this->last_response );
   }
 
   /**
@@ -192,6 +202,7 @@ class MC4WP_API_v3_Client {
   */
   private function reset() {
     $this->last_response = null;
+    $this->last_request = null;
   }
 
   /**

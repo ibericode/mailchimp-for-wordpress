@@ -13,10 +13,9 @@ class MC4WP_Form_Listener {
 	 */
 	public $submitted_form;
 
-	/**
-	 * Constructor
-	 */
-	public function __construct() {}
+	public function add_hooks() {
+		add_action( 'init', array( $this, 'listen' ) );
+	}
 
 	/**
 	 * Listen for submitted forms

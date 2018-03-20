@@ -62,7 +62,7 @@ class MC4WP_API_v3 {
 	/**
 	 * Get recent daily, aggregated activity stats for a list.
 	 *
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/activity/#read-get_lists_list_id_activity
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/activity/#read-get_lists_list_id_activity
 	 *
 	 * @param string $list_id
 	 * @param array $args
@@ -83,7 +83,7 @@ class MC4WP_API_v3 {
 	/**
 	 * Gets the interest categories for a given List
 	 *
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/interest-categories/#read-get_lists_list_id_interest_categories
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/interest-categories/#read-get_lists_list_id_interest_categories
 	 *
 	 * @param string $list_id
 	 * @param array $args
@@ -102,7 +102,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/interest-categories/interests/#read-get_lists_list_id_interest_categories_interest_category_id_interests
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/interest-categories/interests/#read-get_lists_list_id_interest_categories_interest_category_id_interests
 	 *
 	 * @param string $list_id
 	 * @param string $interest_category_id
@@ -124,7 +124,7 @@ class MC4WP_API_v3 {
 	/**
 	 * Get merge vars for a given list
 	 *
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/merge-fields/#read-get_lists_list_id_merge_fields
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/merge-fields/#read-get_lists_list_id_merge_fields
 	 *
 	 * @param string $list_id
 	 * @param array $args
@@ -143,7 +143,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/#read-get_lists_list_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/#read-get_lists_list_id
 	 *
 	 * @param string $list_id
 	 * @param array $args
@@ -157,7 +157,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/#read-get_lists
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/#read-get_lists
 	 *
 	 * @param array $args
 	 *
@@ -175,7 +175,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
 	 *
 	 * @param string $list_id
 	 * @param string $email_address
@@ -193,7 +193,7 @@ class MC4WP_API_v3 {
 	/**
 	 * Batch subscribe / unsubscribe list members.
 	 *
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/#create-post_lists_list_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/#create-post_lists_list_id
 	 *
 	 * @param string $list_id
 	 * @param array $args
@@ -207,7 +207,7 @@ class MC4WP_API_v3 {
 	/**
 	 * Add or update (!) a member to a MailChimp list.
 	 *
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#create-post_lists_list_id_members
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#create-post_lists_list_id_members
 	 *
 	 * @param string $list_id
 	 * @param array $args
@@ -233,7 +233,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#edit-patch_lists_list_id_members_subscriber_hash
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#edit-patch_lists_list_id_members_subscriber_hash
 	 *
 	 * @param $list_id
 	 * @param $email_address
@@ -259,7 +259,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
 	 *
 	 * @param string $list_id
 	 * @param string $email_address
@@ -274,7 +274,19 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#read-get_ecommerce_stores_store_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#read-get_ecommerce_stores
+	 *
+	 * @param array $args
+	 *
+	 * @return object
+	 */
+	public function get_ecommerce_stores( array $args = array() ) {
+		$resource = '/ecommerce/stores';
+		return $this->client->get( $resource, $args );
+	}
+
+	/**
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#read-get_ecommerce_stores_store_id
 	 *
 	 * @param string $store_id
 	 * @param array $args
@@ -287,7 +299,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#create-post_ecommerce_stores
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#create-post_ecommerce_stores
 	 *
 	 * @param array $args
 	 *
@@ -299,7 +311,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#edit-patch_ecommerce_stores_store_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#edit-patch_ecommerce_stores_store_id
 	 *
 	 * @param string $store_id
 	 * @param array $args
@@ -312,7 +324,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#delete-delete_ecommerce_stores_store_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#delete-delete_ecommerce_stores_store_id
 	 *
 	 * @param string $store_id
 	 *
@@ -324,7 +336,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#read-get_ecommerce_stores_store_id_customers
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#read-get_ecommerce_stores_store_id_customers
 	 *
 	 * @param string $store_id
 	 * @param array $args
@@ -337,7 +349,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#read-get_ecommerce_stores_store_id_customers_customer_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#read-get_ecommerce_stores_store_id_customers_customer_id
 	 *
 	 * @param string $store_id
 	 * @param string $customer_id
@@ -353,7 +365,7 @@ class MC4WP_API_v3 {
 	/**
 	 * Add OR update a store customer
 	 *
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#edit-put_ecommerce_stores_store_id_customers_customer_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#edit-put_ecommerce_stores_store_id_customers_customer_id
 	 *
 	 * @param $store_id
 	 * @param array $args
@@ -366,7 +378,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#edit-patch_ecommerce_stores_store_id_customers_customer_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#edit-patch_ecommerce_stores_store_id_customers_customer_id
 	 *
 	 * @param string $store_id
 	 * @param string $customer_id
@@ -380,7 +392,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#delete-delete_ecommerce_stores_store_id_customers_customer_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/customers/#delete-delete_ecommerce_stores_store_id_customers_customer_id
 	 *
 	 * @param string $store_id
 	 * @param string $customer_id
@@ -393,7 +405,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#read-get_ecommerce_stores_store_id_products
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#read-get_ecommerce_stores_store_id_products
 	 *
 	 * @param string $store_id
 	 * @param array $args
@@ -406,7 +418,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#read-get_ecommerce_stores_store_id_products_product_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#read-get_ecommerce_stores_store_id_products_product_id
 	 *
 	 * @param string $store_id
 	 * @param string $product_id
@@ -422,7 +434,7 @@ class MC4WP_API_v3 {
 	/**
 	 * Add a product to a store
 	 *
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#create-post_ecommerce_stores_store_id_products
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#create-post_ecommerce_stores_store_id_products
 	 *
 	 * @param string $store_id
 	 * @param array $args
@@ -435,7 +447,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#edit-patch_ecommerce_stores_store_id_products_product_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#edit-patch_ecommerce_stores_store_id_products_product_id
 	 *
 	 * @param string $store_id
 	 * @param string $product_id
@@ -449,7 +461,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#delete-delete_ecommerce_stores_store_id_products_product_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/#delete-delete_ecommerce_stores_store_id_products_product_id
 	 *
 	 * @param string $store_id
 	 * @param string $product_id
@@ -462,7 +474,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/variants/#read-get_ecommerce_stores_store_id_products_product_id_variants
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/variants/#read-get_ecommerce_stores_store_id_products_product_id_variants
 	 *
 	 * @param string $store_id
 	 * @param string $product_id
@@ -476,7 +488,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/variants/#read-get_ecommerce_stores_store_id_products_product_id_variants_variant_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/variants/#read-get_ecommerce_stores_store_id_products_product_id_variants_variant_id
 	 *
 	 * @param string $store_id
 	 * @param string $product_id
@@ -493,7 +505,7 @@ class MC4WP_API_v3 {
 	/**
 	 * Add OR update a product variant.
 	 *
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/variants/#edit-put_ecommerce_stores_store_id_products_product_id_variants_variant_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/variants/#edit-put_ecommerce_stores_store_id_products_product_id_variants_variant_id
 	 *
 	 * @param string $store_id
 	 * @param string $product_id
@@ -507,7 +519,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/variants/#edit-patch_ecommerce_stores_store_id_products_product_id_variants_variant_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/variants/#edit-patch_ecommerce_stores_store_id_products_product_id_variants_variant_id
 	 *
 	 * @param string $store_id
 	 * @param string $product_id
@@ -522,7 +534,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/variants/#delete-delete_ecommerce_stores_store_id_products_product_id_variants_variant_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/products/variants/#delete-delete_ecommerce_stores_store_id_products_product_id_variants_variant_id
 	 *
 	 * @param string $store_id
 	 * @param string $product_id
@@ -536,7 +548,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/#read-get_ecommerce_stores_store_id_orders
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/#read-get_ecommerce_stores_store_id_orders
 	 *
 	 * @param string $store_id
 	 * @param array $args
@@ -549,7 +561,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/#read-get_ecommerce_stores_store_id_orders_order_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/#read-get_ecommerce_stores_store_id_orders_order_id
 	 *
 	 * @param string $store_id
 	 * @param string $order_id
@@ -563,7 +575,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/#create-post_ecommerce_stores_store_id_orders
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/#create-post_ecommerce_stores_store_id_orders
 	 *
 	 * @param string $store_id
 	 * @param array $args
@@ -576,7 +588,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/#edit-patch_ecommerce_stores_store_id_orders_order_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/#edit-patch_ecommerce_stores_store_id_orders_order_id
 	 *
 	 * @param string $store_id
 	 * @param string $order_id
@@ -590,7 +602,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/#delete-delete_ecommerce_stores_store_id_orders_order_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/#delete-delete_ecommerce_stores_store_id_orders_order_id
 	 *
 	 * @param string $store_id
 	 * @param string $order_id
@@ -602,7 +614,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/lines/#create-post_ecommerce_stores_store_id_orders_order_id_lines
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/lines/#create-post_ecommerce_stores_store_id_orders_order_id_lines
 	 *
 	 * @param string $store_id
 	 * @param string $order_id
@@ -617,7 +629,7 @@ class MC4WP_API_v3 {
 
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/lines/#read-get_ecommerce_stores_store_id_orders_order_id_lines
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/lines/#read-get_ecommerce_stores_store_id_orders_order_id_lines
 	 *
 	 * @param string $store_id
 	 * @param string $order_id
@@ -631,7 +643,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/lines/#read-get_ecommerce_stores_store_id_orders_order_id_lines_line_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/lines/#read-get_ecommerce_stores_store_id_orders_order_id_lines_line_id
 	 *
 	 * @param string $store_id
 	 * @param string $order_id
@@ -646,7 +658,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/lines/#edit-patch_ecommerce_stores_store_id_orders_order_id_lines_line_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/lines/#edit-patch_ecommerce_stores_store_id_orders_order_id_lines_line_id
 	 *
 	 * @param string $store_id
 	 * @param string $order_id
@@ -661,7 +673,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/lines/#delete-delete_ecommerce_stores_store_id_orders_order_id_lines_line_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/orders/lines/#delete-delete_ecommerce_stores_store_id_orders_order_id_lines_line_id
 	 *
 	 * @param string $store_id
 	 * @param string $order_id
@@ -675,7 +687,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/#read-get_ecommerce_stores_store_id_carts
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/#read-get_ecommerce_stores_store_id_carts
 	 *
 	 * @param string $store_id
 	 * @param array $args
@@ -688,7 +700,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/#read-get_ecommerce_stores_store_id_carts_cart_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/#read-get_ecommerce_stores_store_id_carts_cart_id
 	 *
 	 * @param string $store_id
 	 * @param string $cart_id
@@ -702,7 +714,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/#create-post_ecommerce_stores_store_id_carts
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/#create-post_ecommerce_stores_store_id_carts
 	 *
 	 * @param string $store_id
 	 * @param array $args
@@ -715,7 +727,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/#edit-patch_ecommerce_stores_store_id_carts_cart_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/#edit-patch_ecommerce_stores_store_id_carts_cart_id
 	 *
 	 * @param string $store_id
 	 * @param string $cart_id
@@ -729,7 +741,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/#delete-delete_ecommerce_stores_store_id_carts_cart_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/#delete-delete_ecommerce_stores_store_id_carts_cart_id
 	 *
 	 * @param string $store_id
 	 * @param string $cart_id
@@ -741,7 +753,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/lines/#read-get_ecommerce_stores_store_id_carts_cart_id_lines
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/lines/#read-get_ecommerce_stores_store_id_carts_cart_id_lines
 	 *
 	 * @param string $store_id
 	 * @param string $cart_id
@@ -755,7 +767,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/lines/#read-get_ecommerce_stores_store_id_carts_cart_id_lines_line_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/lines/#read-get_ecommerce_stores_store_id_carts_cart_id_lines_line_id
 	 *
 	 * @param string $store_id
 	 * @param string $cart_id
@@ -770,7 +782,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/lines/#create-post_ecommerce_stores_store_id_carts_cart_id_lines
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/lines/#create-post_ecommerce_stores_store_id_carts_cart_id_lines
 	 *
 	 * @param string $store_id
 	 * @param string $cart_id
@@ -784,7 +796,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/lines/#edit-patch_ecommerce_stores_store_id_carts_cart_id_lines_line_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/lines/#edit-patch_ecommerce_stores_store_id_carts_cart_id_lines_line_id
 	 *
 	 * @param string $store_id
 	 * @param string $cart_id
@@ -799,7 +811,7 @@ class MC4WP_API_v3 {
 	}
 
 	/**
-	 * @link http://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/lines/#delete-delete_ecommerce_stores_store_id_carts_cart_id_lines_line_id
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/lines/#delete-delete_ecommerce_stores_store_id_carts_cart_id_lines_line_id
 	 *
 	 * @param string $store_id
 	 * @param string $cart_id

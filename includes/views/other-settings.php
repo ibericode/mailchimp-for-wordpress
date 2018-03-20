@@ -143,7 +143,7 @@ add_action( 'mc4wp_admin_other_settings', '_mc4wp_usage_tracking_setting', 70 );
 				}
 				?>
 
-				<script type="text/javascript">
+				<script>
 					(function() {
 						'use strict';
 						// scroll to bottom of log

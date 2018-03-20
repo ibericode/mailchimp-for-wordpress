@@ -297,9 +297,9 @@ class MC4WP_Form_Element {
 
 			// add HTML for fields + wrapper element.
 			$fields = '<div class="mc4wp-form-fields">' .
-			            $this->get_visible_fields() .
-			            $this->get_hidden_fields() .
-						'</div>';
+			    $this->get_visible_fields() .
+				'</div>' . 
+				$this->get_hidden_fields();
 		}
 
 		// concatenate everything

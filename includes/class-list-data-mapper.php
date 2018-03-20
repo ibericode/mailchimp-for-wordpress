@@ -74,7 +74,8 @@ class MC4WP_List_Data_Mapper {
 				continue;
 			}
 
-			if( ! isset( $this->data[ $merge_field->tag ] ) ) {
+			// use empty() here to skip empty field values
+			if( empty( $this->data[ $merge_field->tag ] ) ) {
 				continue;
 			}
 

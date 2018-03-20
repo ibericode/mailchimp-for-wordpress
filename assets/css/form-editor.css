@@ -4,7 +4,8 @@
   /* Set height, width, borders, and global font properties here */
   font-family: monospace;
   height: 300px;
-  color: black; }
+  color: black;
+  direction: ltr; }
 
 /* PADDING */
 .CodeMirror-lines {
@@ -50,11 +51,17 @@
 
 .cm-fat-cursor .CodeMirror-cursor {
   width: auto;
-  border: 0;
+  border: 0 !important;
   background: #7e7; }
 
 .cm-fat-cursor div.CodeMirror-cursors {
   z-index: 1; }
+
+.cm-fat-cursor-mark {
+  background-color: rgba(20, 255, 20, 0.5);
+  -webkit-animation: blink 1.06s steps(1) infinite;
+  -moz-animation: blink 1.06s steps(1) infinite;
+  animation: blink 1.06s steps(1) infinite; }
 
 .cm-animate-fat-cursor {
   width: auto;
@@ -87,8 +94,18 @@
   display: inline-block;
   text-decoration: inherit; }
 
+.CodeMirror-rulers {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -50px;
+  bottom: -20px;
+  overflow: hidden; }
+
 .CodeMirror-ruler {
   border-left: 1px solid #ccc;
+  top: 0;
+  bottom: 0;
   position: absolute; }
 
 /* DEFAULT THEME */
@@ -131,7 +148,7 @@
 .cm-s-default .cm-variable-2 {
   color: #05a; }
 
-.cm-s-default .cm-variable-3 {
+.cm-s-default .cm-variable-3, .cm-s-default .cm-type {
   color: #085; }
 
 .cm-s-default .cm-comment {
@@ -178,10 +195,10 @@
 
 /* Default styles for common addons */
 div.CodeMirror span.CodeMirror-matchingbracket {
-  color: #0f0; }
+  color: #0b0; }
 
 div.CodeMirror span.CodeMirror-nonmatchingbracket {
-  color: #f22; }
+  color: #a22; }
 
 .CodeMirror-matchingtag {
   background: rgba(255, 150, 0, 0.3); }
@@ -246,6 +263,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   position: absolute;
   left: 0;
   top: 0;
+  min-height: 100%;
   z-index: 3; }
 
 .CodeMirror-gutter {
@@ -253,10 +271,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   height: 100%;
   display: inline-block;
   vertical-align: top;
-  margin-bottom: -30px;
-  /* Hack to make IE7 behave */
-  *zoom: 1;
-  *display: inline; }
+  margin-bottom: -30px; }
 
 .CodeMirror-gutter-wrapper {
   position: absolute;
@@ -275,10 +290,11 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   cursor: default;
   z-index: 4; }
 
-.CodeMirror-gutter-wrapper {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none; }
+.CodeMirror-gutter-wrapper ::selection {
+  background-color: transparent; }
+
+.CodeMirror-gutter-wrapper ::-moz-selection {
+  background-color: transparent; }
 
 .CodeMirror-lines {
   cursor: text;
@@ -302,7 +318,9 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   z-index: 2;
   position: relative;
   overflow: visible;
-  -webkit-tap-highlight-color: transparent; }
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-variant-ligatures: contextual;
+  font-variant-ligatures: contextual; }
 
 .CodeMirror-wrap pre {
   word-wrap: break-word;
@@ -320,7 +338,11 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 .CodeMirror-linewidget {
   position: relative;
   z-index: 2;
-  overflow: auto; }
+  padding: 0.1px;
+  /* Force widget margins to stay inside of the container */ }
+
+.CodeMirror-rtl pre {
+  direction: rtl; }
 
 .CodeMirror-code {
   outline: none; }
@@ -342,7 +364,8 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   visibility: hidden; }
 
 .CodeMirror-cursor {
-  position: absolute; }
+  position: absolute;
+  pointer-events: none; }
 
 .CodeMirror-measure pre {
   position: static; }
@@ -374,12 +397,8 @@ div.CodeMirror-dragcursors {
   background: #d7d4f0; }
 
 .cm-searching {
-  background: #ffa;
-  background: rgba(255, 255, 0, 0.4); }
-
-/* IE7 hack to prevent it from returning funny offsetTops on the spans */
-.CodeMirror span {
-  *vertical-align: text-bottom; }
+  background-color: #ffa;
+  background-color: rgba(255, 255, 0, 0.4); }
 
 /* Used to force a border model for a node */
 .cm-force-border {
@@ -401,12 +420,31 @@ span.CodeMirror-selectedtext {
 /* Codemirror */
 .CodeMirror {
   border: 1px solid #ccc;
-  padding: 10px;
   min-height: 500px;
-  font-weight: normal; }
+  font-weight: normal;
+  padding: 0 4px; }
 
 .CodeMirror-empty {
   color: #999; }
+
+#mc4wp-form-preview {
+  border: 1px solid #ddd;
+  height: 500px;
+  /* codemirror + padding */
+  width: 100%;
+  border-left-width: 0;
+  border-right-width: 2px;
+  /* for scrollbar */ }
+
+@media (min-width: 1186px) {
+  .mc4wp-form-editor-wrap {
+    padding-right: 0 !important; }
+  .mc4wp-form-preview-wrap {
+    padding-left: 0 !important; } }
+
+@media (max-width: 1186px) {
+  #mc4wp-form-preview {
+    border-left-width: 1px; } }
 
 .field-wizard {
   /* table */

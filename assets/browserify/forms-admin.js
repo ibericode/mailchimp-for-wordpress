@@ -15,8 +15,7 @@ var FieldsFactory = require('./admin/fields-factory.js');
 var fields = require('./admin/fields.js')(m, events);
 
 // vars
-var textareaElement = document.getElementById('mc4wp-form-content');
-var editor = window.formEditor = new FormEditor( textareaElement );
+var editor = window.formEditor = FormEditor;
 var watcher = new FormWatcher( m, formEditor, settings, fields, events, helpers );
 var fieldHelper = new FieldHelper( m, tabs, formEditor, fields, events, i18n );
 var notices = require('./admin/notices');

@@ -11,6 +11,9 @@ var tabs = require ('./admin/tabs.js')(context);
 var helpers = require('./admin/helpers.js');
 var settings = require('./admin/settings.js')(context, helpers, events);
 
+import tlite from 'tlite';
+tlite(el => el.className.indexOf('mc4wp-tooltip') > -1 );
+
 // list fetcher
 var ListFetcher = require('./admin/list-fetcher.js');
 var mount = document.getElementById('mc4wp-list-fetcher');

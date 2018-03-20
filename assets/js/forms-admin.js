@@ -1,4 +1,4 @@
-(function () { var require = undefined; var define = undefined; (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function () { var require = undefined; var define = undefined; (function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 'use strict';
 
 var rows = function rows(m, i18n) {
@@ -361,7 +361,7 @@ var g = function g(m) {
 
 module.exports = g;
 
-},{"html":20}],4:[function(require,module,exports){
+},{"html":22}],4:[function(require,module,exports){
 'use strict';
 
 var FieldHelper = function FieldHelper(m, tabs, editor, fields, events, i18n) {
@@ -918,7 +918,7 @@ module.exports = function (m, events) {
     };
 };
 
-},{"mithril/stream":21}],7:[function(require,module,exports){
+},{"mithril/stream":23}],7:[function(require,module,exports){
 'use strict';
 
 // load CodeMirror & plugins
@@ -928,99 +928,129 @@ require('codemirror/mode/xml/xml');
 require('codemirror/mode/javascript/javascript');
 require('codemirror/mode/css/css');
 require('codemirror/mode/htmlmixed/htmlmixed');
-require('codemirror/addon/fold/xml-fold');
-require('codemirror/addon/edit/matchtags');
+require('codemirror/addon/fold/xml-fold.js');
+require('codemirror/addon/edit/matchtags.js');
 require('codemirror/addon/edit/closetag.js');
+require('codemirror/addon/selection/active-line.js');
+require('codemirror/addon/edit/matchbrackets.js');
 
-var FormEditor = function FormEditor(element) {
+/* variables */
+var FormEditor = {};
+var _dom = document.createElement('form');
+var domDirty = false;
+var editor;
+var element = document.getElementById('mc4wp-form-content');
+var previewFrame = document.getElementById('mc4wp-form-preview');
+var previewDom;
+var templateRegex = /\{[^{}]+\}/g;
 
-    // create dom representation of form
-    var _dom = document.createElement('form'),
-        domDirty = false,
-        r = {},
-        editor;
+/* functions */
+function setPreviewDom() {
+    var frameContent = previewFrame.contentDocument || previewFrame.contentWindow.document;
+    previewDom = frameContent.querySelector('.mc4wp-form-fields');
 
-    _dom.innerHTML = element.value.toLowerCase();
+    if (previewDom) {
+        updatePreview();
+    }
+}
 
-    if (CodeMirror) {
-        editor = CodeMirror.fromTextArea(element, {
-            selectionPointer: true,
-            matchTags: { bothTags: true },
-            mode: "htmlmixed",
-            htmlMode: true,
-            autoCloseTags: true,
-            autoRefresh: true
-        });
+function updatePreview() {
+    var markup = FormEditor.getValue();
 
-        // dispatch regular "change" on element event every time editor changes (IE9+ only)
-        window.dispatchEvent && editor.on('change', function () {
-            if (typeof Event === "function") {
-                // Create a new 'change' event
-                var event = new Event('change', { bubbles: true });
-                element.dispatchEvent(event);
-            }
-        });
+    // replace template tags (twice, to allow for nested tags)
+    markup = markup.replace(templateRegex, '').replace(templateRegex, '');
+
+    // update dom
+    previewDom.innerHTML = markup;
+    previewDom.dispatchEvent(new Event('mc4wp-refresh'));
+}
+
+window.addEventListener('load', function () {
+    CodeMirror.signal(editor, "change");
+});
+
+// set domDirty to true everytime the "change" event fires (a lot..)
+element.addEventListener('change', function () {
+    domDirty = true;
+    updatePreview();
+});
+
+function dom() {
+    if (domDirty) {
+        _dom.innerHTML = FormEditor.getValue().toLowerCase();
+        domDirty = false;
     }
 
-    window.addEventListener('load', function () {
-        CodeMirror.signal(editor, "change");
-    });
+    return _dom;
+}
 
-    // set domDirty to true everytime the "change" event fires (a lot..)
-    element.addEventListener('change', function () {
-        domDirty = true;
-    });
-
-    function dom() {
-        if (domDirty) {
-            _dom.innerHTML = r.getValue().toLowerCase();
-            domDirty = false;
-        }
-
-        return _dom;
-    }
-
-    r.getValue = function () {
-        return editor ? editor.getValue() : element.value;
-    };
-
-    r.query = function (query) {
-        return dom().querySelectorAll(query.toLowerCase());
-    };
-
-    r.containsField = function (fieldName) {
-        return dom().elements.namedItem(fieldName.toLowerCase()) !== null;
-    };
-
-    r.insert = function (html) {
-        if (editor) {
-            editor.replaceSelection(html);
-            editor.focus();
-        } else {
-            element.value += html;
-        }
-    };
-
-    r.on = function (event, callback) {
-        if (editor) {
-            // translate "input" event for CodeMirror
-            event = event === 'input' ? 'changes' : event;
-            return editor.on(event, callback);
-        }
-
-        return element.addEventListener(event, callback);
-    };
-
-    r.refresh = function () {
-        editor && editor.refresh();
-    };
-
-    return r;
+FormEditor.getValue = function () {
+    return editor ? editor.getValue() : element.value;
 };
 
+FormEditor.query = function (query) {
+    return dom().querySelectorAll(query.toLowerCase());
+};
+
+FormEditor.containsField = function (fieldName) {
+    return dom().elements.namedItem(fieldName.toLowerCase()) !== null;
+};
+
+FormEditor.insert = function (html) {
+    if (editor) {
+        editor.replaceSelection(html);
+        editor.focus();
+    } else {
+        element.value += html;
+    }
+};
+
+FormEditor.on = function (event, callback) {
+    if (editor) {
+        // translate "input" event for CodeMirror
+        event = event === 'input' ? 'changes' : event;
+        return editor.on(event, callback);
+    }
+
+    return element.addEventListener(event, callback);
+};
+
+FormEditor.refresh = function () {
+    editor && editor.refresh();
+};
+
+/* bootstrap */
+_dom.innerHTML = element.value.toLowerCase();
+
+if (CodeMirror) {
+    editor = CodeMirror.fromTextArea(element, {
+        selectionPointer: true,
+        mode: "htmlmixed",
+        htmlMode: true,
+        autoCloseTags: true,
+        autoRefresh: true,
+        styleActiveLine: true,
+        matchBrackets: true,
+        matchTags: { bothTags: true }
+    });
+
+    // dispatch regular "change" on element event every time editor changes (IE9+ only)
+    window.dispatchEvent && editor.on('change', function () {
+        if (typeof Event === "function") {
+            // Create a new 'change' event
+            var event = new Event('change', { bubbles: true });
+            element.dispatchEvent(event);
+        }
+    });
+}
+
+previewFrame.addEventListener('load', setPreviewDom);
+setPreviewDom.call();
+
+/* exports */
 module.exports = FormEditor;
 
-},{"codemirror":15,"codemirror/addon/edit/closetag.js":12,"codemirror/addon/edit/matchtags":13,"codemirror/addon/fold/xml-fold":14,"codemirror/mode/css/css":16,"codemirror/mode/htmlmixed/htmlmixed":17,"codemirror/mode/javascript/javascript":18,"codemirror/mode/xml/xml":19}],8:[function(require,module,exports){
+},{"codemirror":17,"codemirror/addon/edit/closetag.js":12,"codemirror/addon/edit/matchbrackets.js":13,"codemirror/addon/edit/matchtags.js":14,"codemirror/addon/fold/xml-fold.js":15,"codemirror/addon/selection/active-line.js":16,"codemirror/mode/css/css":18,"codemirror/mode/htmlmixed/htmlmixed":19,"codemirror/mode/javascript/javascript":20,"codemirror/mode/xml/xml":21}],8:[function(require,module,exports){
 'use strict';
 
 var FormWatcher = function FormWatcher(m, editor, settings, fields, events, helpers) {
@@ -1074,13 +1104,16 @@ var FormWatcher = function FormWatcher(m, editor, settings, fields, events, help
         Array.prototype.forEach.call(requiredFieldElements, function (el) {
             var name = el.name;
 
-            // bail if name attr starts with underscore
-            if (name[0] === '_') {
+            // bail if name attr empty or starts with underscore
+            if (!name || name.length < 0 || name[0] === '_') {
                 return;
             }
 
             // replace array brackets with dot style notation
             name = name.replace(/\[(\w+)\]/g, '.$1');
+
+            // replace array-style fields
+            name = name.replace(/\[\]$/, '');
 
             // uppercase everything before the .
             var pos = name.indexOf('.');
@@ -1261,8 +1294,7 @@ var FieldsFactory = require('./admin/fields-factory.js');
 var fields = require('./admin/fields.js')(m, events);
 
 // vars
-var textareaElement = document.getElementById('mc4wp-form-content');
-var editor = window.formEditor = new FormEditor(textareaElement);
+var editor = window.formEditor = FormEditor;
 var watcher = new FormWatcher(m, formEditor, settings, fields, events, helpers);
 var fieldHelper = new FieldHelper(m, tabs, formEditor, fields, events, i18n);
 var notices = require('./admin/notices');
@@ -1460,7 +1492,149 @@ window.mc4wp.forms.fields = fields;
   }
 });
 
-},{"../../lib/codemirror":15,"../fold/xml-fold":14}],13:[function(require,module,exports){
+},{"../../lib/codemirror":17,"../fold/xml-fold":15}],13:[function(require,module,exports){
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// Distributed under an MIT license: http://codemirror.net/LICENSE
+
+(function(mod) {
+  if (typeof exports == "object" && typeof module == "object") // CommonJS
+    mod(require("../../lib/codemirror"));
+  else if (typeof define == "function" && define.amd) // AMD
+    define(["../../lib/codemirror"], mod);
+  else // Plain browser env
+    mod(CodeMirror);
+})(function(CodeMirror) {
+  var ie_lt8 = /MSIE \d/.test(navigator.userAgent) &&
+    (document.documentMode == null || document.documentMode < 8);
+
+  var Pos = CodeMirror.Pos;
+
+  var matching = {"(": ")>", ")": "(<", "[": "]>", "]": "[<", "{": "}>", "}": "{<"};
+
+  function findMatchingBracket(cm, where, config) {
+    var line = cm.getLineHandle(where.line), pos = where.ch - 1;
+    var afterCursor = config && config.afterCursor
+    if (afterCursor == null)
+      afterCursor = /(^| )cm-fat-cursor($| )/.test(cm.getWrapperElement().className)
+
+    // A cursor is defined as between two characters, but in in vim command mode
+    // (i.e. not insert mode), the cursor is visually represented as a
+    // highlighted box on top of the 2nd character. Otherwise, we allow matches
+    // from before or after the cursor.
+    var match = (!afterCursor && pos >= 0 && matching[line.text.charAt(pos)]) ||
+        matching[line.text.charAt(++pos)];
+    if (!match) return null;
+    var dir = match.charAt(1) == ">" ? 1 : -1;
+    if (config && config.strict && (dir > 0) != (pos == where.ch)) return null;
+    var style = cm.getTokenTypeAt(Pos(where.line, pos + 1));
+
+    var found = scanForBracket(cm, Pos(where.line, pos + (dir > 0 ? 1 : 0)), dir, style || null, config);
+    if (found == null) return null;
+    return {from: Pos(where.line, pos), to: found && found.pos,
+            match: found && found.ch == match.charAt(0), forward: dir > 0};
+  }
+
+  // bracketRegex is used to specify which type of bracket to scan
+  // should be a regexp, e.g. /[[\]]/
+  //
+  // Note: If "where" is on an open bracket, then this bracket is ignored.
+  //
+  // Returns false when no bracket was found, null when it reached
+  // maxScanLines and gave up
+  function scanForBracket(cm, where, dir, style, config) {
+    var maxScanLen = (config && config.maxScanLineLength) || 10000;
+    var maxScanLines = (config && config.maxScanLines) || 1000;
+
+    var stack = [];
+    var re = config && config.bracketRegex ? config.bracketRegex : /[(){}[\]]/;
+    var lineEnd = dir > 0 ? Math.min(where.line + maxScanLines, cm.lastLine() + 1)
+                          : Math.max(cm.firstLine() - 1, where.line - maxScanLines);
+    for (var lineNo = where.line; lineNo != lineEnd; lineNo += dir) {
+      var line = cm.getLine(lineNo);
+      if (!line) continue;
+      var pos = dir > 0 ? 0 : line.length - 1, end = dir > 0 ? line.length : -1;
+      if (line.length > maxScanLen) continue;
+      if (lineNo == where.line) pos = where.ch - (dir < 0 ? 1 : 0);
+      for (; pos != end; pos += dir) {
+        var ch = line.charAt(pos);
+        if (re.test(ch) && (style === undefined || cm.getTokenTypeAt(Pos(lineNo, pos + 1)) == style)) {
+          var match = matching[ch];
+          if ((match.charAt(1) == ">") == (dir > 0)) stack.push(ch);
+          else if (!stack.length) return {pos: Pos(lineNo, pos), ch: ch};
+          else stack.pop();
+        }
+      }
+    }
+    return lineNo - dir == (dir > 0 ? cm.lastLine() : cm.firstLine()) ? false : null;
+  }
+
+  function matchBrackets(cm, autoclear, config) {
+    // Disable brace matching in long lines, since it'll cause hugely slow updates
+    var maxHighlightLen = cm.state.matchBrackets.maxHighlightLineLength || 1000;
+    var marks = [], ranges = cm.listSelections();
+    for (var i = 0; i < ranges.length; i++) {
+      var match = ranges[i].empty() && findMatchingBracket(cm, ranges[i].head, config);
+      if (match && cm.getLine(match.from.line).length <= maxHighlightLen) {
+        var style = match.match ? "CodeMirror-matchingbracket" : "CodeMirror-nonmatchingbracket";
+        marks.push(cm.markText(match.from, Pos(match.from.line, match.from.ch + 1), {className: style}));
+        if (match.to && cm.getLine(match.to.line).length <= maxHighlightLen)
+          marks.push(cm.markText(match.to, Pos(match.to.line, match.to.ch + 1), {className: style}));
+      }
+    }
+
+    if (marks.length) {
+      // Kludge to work around the IE bug from issue #1193, where text
+      // input stops going to the textare whever this fires.
+      if (ie_lt8 && cm.state.focused) cm.focus();
+
+      var clear = function() {
+        cm.operation(function() {
+          for (var i = 0; i < marks.length; i++) marks[i].clear();
+        });
+      };
+      if (autoclear) setTimeout(clear, 800);
+      else return clear;
+    }
+  }
+
+  var currentlyHighlighted = null;
+  function doMatchBrackets(cm) {
+    cm.operation(function() {
+      if (currentlyHighlighted) {currentlyHighlighted(); currentlyHighlighted = null;}
+      currentlyHighlighted = matchBrackets(cm, false, cm.state.matchBrackets);
+    });
+  }
+
+  CodeMirror.defineOption("matchBrackets", false, function(cm, val, old) {
+    if (old && old != CodeMirror.Init) {
+      cm.off("cursorActivity", doMatchBrackets);
+      if (currentlyHighlighted) {currentlyHighlighted(); currentlyHighlighted = null;}
+    }
+    if (val) {
+      cm.state.matchBrackets = typeof val == "object" ? val : {};
+      cm.on("cursorActivity", doMatchBrackets);
+    }
+  });
+
+  CodeMirror.defineExtension("matchBrackets", function() {matchBrackets(this, true);});
+  CodeMirror.defineExtension("findMatchingBracket", function(pos, config, oldConfig){
+    // Backwards-compatibility kludge
+    if (oldConfig || typeof config == "boolean") {
+      if (!oldConfig) {
+        config = config ? {strict: true} : null
+      } else {
+        oldConfig.strict = config
+        config = oldConfig
+      }
+    }
+    return findMatchingBracket(this, pos, config)
+  });
+  CodeMirror.defineExtension("scanForBracket", function(pos, dir, style, config){
+    return scanForBracket(this, pos, dir, style, config);
+  });
+});
+
+},{"../../lib/codemirror":17}],14:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -1528,7 +1702,7 @@ window.mc4wp.forms.fields = fields;
   };
 });
 
-},{"../../lib/codemirror":15,"../fold/xml-fold":14}],14:[function(require,module,exports){
+},{"../../lib/codemirror":17,"../fold/xml-fold":15}],15:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -1712,7 +1886,81 @@ window.mc4wp.forms.fields = fields;
   };
 });
 
-},{"../../lib/codemirror":15}],15:[function(require,module,exports){
+},{"../../lib/codemirror":17}],16:[function(require,module,exports){
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// Distributed under an MIT license: http://codemirror.net/LICENSE
+
+(function(mod) {
+  if (typeof exports == "object" && typeof module == "object") // CommonJS
+    mod(require("../../lib/codemirror"));
+  else if (typeof define == "function" && define.amd) // AMD
+    define(["../../lib/codemirror"], mod);
+  else // Plain browser env
+    mod(CodeMirror);
+})(function(CodeMirror) {
+  "use strict";
+  var WRAP_CLASS = "CodeMirror-activeline";
+  var BACK_CLASS = "CodeMirror-activeline-background";
+  var GUTT_CLASS = "CodeMirror-activeline-gutter";
+
+  CodeMirror.defineOption("styleActiveLine", false, function(cm, val, old) {
+    var prev = old == CodeMirror.Init ? false : old;
+    if (val == prev) return
+    if (prev) {
+      cm.off("beforeSelectionChange", selectionChange);
+      clearActiveLines(cm);
+      delete cm.state.activeLines;
+    }
+    if (val) {
+      cm.state.activeLines = [];
+      updateActiveLines(cm, cm.listSelections());
+      cm.on("beforeSelectionChange", selectionChange);
+    }
+  });
+
+  function clearActiveLines(cm) {
+    for (var i = 0; i < cm.state.activeLines.length; i++) {
+      cm.removeLineClass(cm.state.activeLines[i], "wrap", WRAP_CLASS);
+      cm.removeLineClass(cm.state.activeLines[i], "background", BACK_CLASS);
+      cm.removeLineClass(cm.state.activeLines[i], "gutter", GUTT_CLASS);
+    }
+  }
+
+  function sameArray(a, b) {
+    if (a.length != b.length) return false;
+    for (var i = 0; i < a.length; i++)
+      if (a[i] != b[i]) return false;
+    return true;
+  }
+
+  function updateActiveLines(cm, ranges) {
+    var active = [];
+    for (var i = 0; i < ranges.length; i++) {
+      var range = ranges[i];
+      var option = cm.getOption("styleActiveLine");
+      if (typeof option == "object" && option.nonEmpty ? range.anchor.line != range.head.line : !range.empty())
+        continue
+      var line = cm.getLineHandleVisualStart(range.head.line);
+      if (active[active.length - 1] != line) active.push(line);
+    }
+    if (sameArray(cm.state.activeLines, active)) return;
+    cm.operation(function() {
+      clearActiveLines(cm);
+      for (var i = 0; i < active.length; i++) {
+        cm.addLineClass(active[i], "wrap", WRAP_CLASS);
+        cm.addLineClass(active[i], "background", BACK_CLASS);
+        cm.addLineClass(active[i], "gutter", GUTT_CLASS);
+      }
+      cm.state.activeLines = active;
+    });
+  }
+
+  function selectionChange(cm, sel) {
+    updateActiveLines(cm, sel.ranges);
+  }
+});
+
+},{"../../lib/codemirror":17}],17:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -11379,7 +11627,7 @@ return CodeMirror$1;
 
 })));
 
-},{}],16:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -12213,7 +12461,7 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
 
 });
 
-},{"../../lib/codemirror":15}],17:[function(require,module,exports){
+},{"../../lib/codemirror":17}],19:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -12367,7 +12615,7 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
   CodeMirror.defineMIME("text/html", "htmlmixed");
 });
 
-},{"../../lib/codemirror":15,"../css/css":16,"../javascript/javascript":18,"../xml/xml":19}],18:[function(require,module,exports){
+},{"../../lib/codemirror":17,"../css/css":18,"../javascript/javascript":20,"../xml/xml":21}],20:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -13244,7 +13492,7 @@ CodeMirror.defineMIME("application/typescript", { name: "javascript", typescript
 
 });
 
-},{"../../lib/codemirror":15}],19:[function(require,module,exports){
+},{"../../lib/codemirror":17}],21:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -13640,7 +13888,7 @@ if (!CodeMirror.mimeModes.hasOwnProperty("text/html"))
 
 });
 
-},{"../../lib/codemirror":15}],20:[function(require,module,exports){
+},{"../../lib/codemirror":17}],22:[function(require,module,exports){
 /*
 
  Style HTML
@@ -14177,12 +14425,12 @@ function style_html(html_source, options) {
 module.exports = {
   prettyPrint: style_html
 };
-},{}],21:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 "use strict"
 
 module.exports = require("./stream/stream")
 
-},{"./stream/stream":22}],22:[function(require,module,exports){
+},{"./stream/stream":24}],24:[function(require,module,exports){
 /* eslint-disable */
 ;(function() {
 "use strict"

@@ -199,7 +199,7 @@ class MC4WP_Form_Asset_Manager {
 	 */
 	public function print_dummy_javascript() {
 		$file = dirname( __FILE__ ) . '/views/js/dummy-api.js';
-		echo '<script type="text/javascript">';
+		echo '<script>';
 		include $file;
 		echo '</script>';
 	}
@@ -228,7 +228,7 @@ class MC4WP_Form_Asset_Manager {
 		$wp_scripts->add_data( 'mc4wp-forms-placeholders', 'conditional', 'lte IE 9' );
 
 		// print inline scripts depending on printed fields
-		echo '<script type="text/javascript">';
+		echo '<script>';
 		echo '(function() {';
 		include dirname( __FILE__ ) . '/views/js/general-form-enhancements.js';
 		include dirname( __FILE__ ) . '/views/js/url-fields.js';

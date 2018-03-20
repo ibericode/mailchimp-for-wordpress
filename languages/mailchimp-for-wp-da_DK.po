@@ -1,6 +1,7 @@
 # Copyright (C) 2017 mailchimp-for-wp
 # This file is distributed under the same license as the mailchimp-for-wp package.
 # Translators:
+# J.C., 2018
 # Jens Bindløv <jens.bindlov@gmail.com>, 2017
 # John Viuf <john@johnviuf.dk>, 2018
 # Mathias Brask <seo@bravocom.dk>, 2015
@@ -9,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2018-01-14 08:47+0000\n"
-"Last-Translator: John Viuf <john@johnviuf.dk>\n"
+"PO-Revision-Date: 2018-02-16 20:03+0000\n"
+"Last-Translator: J.C.\n"
 "Language-Team: Danish (Denmark) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -106,7 +107,7 @@ msgid ""
 "Increased conversions? <a href=\"%s\">MailChimp for WordPress Premium</a> "
 "submits forms without reloading the entire page, resulting in a much better "
 "experience for your visitors."
-msgstr ""
+msgstr "Forøg konverteringer? <a href=\"%s\">MailChimp for WordPress Premium</a> sender formularer, uden genindlæsning af hele siden, hvilket resulterer i en meget bedre oplevelse for dine besøgende."
 
 #: includes/admin/class-ads.php:70
 msgid "Upgrade to Premium"
@@ -168,13 +169,13 @@ msgstr "Opgrader til MailChip til WordPress Premium eller læs mere om MailChimp
 msgid ""
 "You've been using MailChimp for WordPress for some time now; we hope you "
 "love it!"
-msgstr "Du har brug MailChimp til WordPress i nogen tid nu. Vi håber, du kan lide det!"
+msgstr "Du har brugt MailChimp til WordPress i nogen tid nu. Vi håber, du kan lide det!"
 
 #: includes/admin/class-review-notice.php:69
 msgid ""
 "If you do, please <a href=\"%s\">leave us a 5★ rating on WordPress.org</a>. "
 "It would be of great help to us."
-msgstr "Hvis du gør, så venligst giv en 5-stjernet vurdering på WordPress.Org. Det er en stor hjælp for os."
+msgstr "Hvis du gør, så venligst giv en 5-stjernet vurdering på WordPress.org. Det er en stor hjælp for os."
 
 #: includes/admin/class-review-notice.php:71
 msgid "Dismiss this notice."
@@ -194,7 +195,7 @@ msgstr "By"
 
 #: includes/forms/class-admin.php:64
 msgid "Checkboxes"
-msgstr "Checkbokse"
+msgstr "Afkrydsningsfelter"
 
 #: includes/forms/class-admin.php:65
 msgid "Choices"
@@ -226,7 +227,7 @@ msgstr "Felt type"
 
 #: includes/forms/class-admin.php:72
 msgid "Field label"
-msgstr "Felt label"
+msgstr "Feltetiket"
 
 #: includes/forms/class-admin.php:73
 msgid "Form action"
@@ -244,7 +245,7 @@ msgstr "Formularfelter"
 
 #: includes/forms/class-admin.php:76
 msgid "This field is marked as required in MailChimp."
-msgstr "Dette felt er markeret som nødvendigt i MailChimp"
+msgstr "Dette felt er markeret som påkrævet af MailChimp"
 
 #: includes/forms/class-admin.php:77
 msgid "Initial value"
@@ -268,7 +269,7 @@ msgstr "Dette felt vil tillade dine besøgende at vælge en liste de kan tilmeld
 
 #: includes/forms/class-admin.php:82
 msgid "List fields"
-msgstr "List felter"
+msgstr "Vis felter"
 
 #: includes/forms/class-admin.php:83
 msgid "Min"
@@ -289,7 +290,7 @@ msgstr "Valgfri"
 
 #: includes/forms/class-admin.php:87
 msgid "Placeholder"
-msgstr "Placeholder"
+msgstr "Eksempeltekst"
 
 #: includes/forms/class-admin.php:88
 msgid "Text to show when field has no value."
@@ -301,7 +302,7 @@ msgstr "Forvalg"
 
 #: includes/forms/class-admin.php:90
 msgid "Remove"
-msgstr "Slet"
+msgstr "Fjern"
 
 #: includes/forms/class-admin.php:91
 msgid "Radio buttons"
@@ -317,7 +318,7 @@ msgstr "Stat"
 
 #: includes/forms/class-admin.php:95
 msgid "Submit button"
-msgstr "Tilmeldknap"
+msgstr "Tilmeldingsknap"
 
 #: includes/forms/class-admin.php:96
 msgid "Wrap in paragraph tags?"
@@ -350,7 +351,7 @@ msgstr "Vis formular"
 
 #: includes/forms/class-admin.php449, includes/forms/class-widget.php:30
 msgid "MailChimp Sign-Up Form"
-msgstr "MailChimp tilmeldings formular"
+msgstr "MailChimp tilmeldingsformular"
 
 #: includes/forms/class-admin.php:453
 msgid "Select the form to show"
@@ -358,7 +359,7 @@ msgstr "Vælg den formular du vil have vist"
 
 #: includes/forms/class-form-previewer.php:146
 msgid "Form preview"
-msgstr "Vis formular"
+msgstr "Eksempelvisning af formular"
 
 #: includes/forms/class-form-tags.php:60
 msgid "Replaced with the form response (error or success messages)."
@@ -379,7 +380,7 @@ msgstr "Erstattet med antallet af abonnenter på den valgte liste(r)"
 
 #: includes/forms/class-form-tags.php:82
 msgid "The email address of the current visitor (if known)."
-msgstr "Email-adressen på den aktuelle besøgende (hvis kendt)."
+msgstr "E-mailadressen på den aktuelle besøgende (hvis kendt)."
 
 #: includes/forms/class-form-tags.php:87
 msgid "The URL of the page."
@@ -411,7 +412,7 @@ msgstr "Ejet af den bruger som er logget på."
 
 #: includes/forms/class-form-tags.php:123
 msgid "Property of the current page or post."
-msgstr "Værdi fra den forrige side eller post."
+msgstr "Værdi fra den forrige side eller indlæg."
 
 #: includes/forms/class-form.php:133
 msgid "There is no form with ID %d, perhaps it was deleted?"
@@ -423,7 +424,7 @@ msgstr "Nyhedsbrev"
 
 #: includes/forms/class-widget.php:32
 msgid "Displays your MailChimp for WordPress sign-up form"
-msgstr "Viser din MailChimp for WordPress tilmeldings formular"
+msgstr "Viser din MailChimp for WordPress tilmeldingsformular"
 
 #: includes/forms/class-widget.php:75
 msgid "Title:"
@@ -502,17 +503,17 @@ msgstr "Dette er hvad vi sporer."
 
 #: includes/views/other-settings.php:37
 msgid "Logging"
-msgstr "Logging"
+msgstr "Logning"
 
 #: includes/views/other-settings.php:44
 msgid ""
 "Determines what events should be written to <a href=\"%s\">the debug log</a>"
 " (see below)."
-msgstr "Afgør hvilke hændelser, der skal skrives i debugloggen (se nedenfor)."
+msgstr "Afgør hvilke hændelser, der skal skrives i fejlfindingsloggen (se nedenfor)."
 
 #: includes/views/other-settings.php:99
 msgid "Debug Log"
-msgstr "Debuglog"
+msgstr "Fejlfindingslog"
 
 #: includes/views/other-settings.php:99
 msgid "Filter.."
@@ -524,7 +525,7 @@ msgstr "Du kan ikke skrive i logfilen."
 
 #: includes/views/other-settings.php:105
 msgid "Please ensure %s has the proper <a href=\"%s\">file permissions</a>."
-msgstr "Sikr dig venligst 1%s har de korrekte filrettigheder."
+msgstr "Vær sikker på, at %s har de korrekte filrettigheder."
 
 #: includes/views/other-settings.php:123
 msgid "Nothing here. Which means there are no errors!"
@@ -540,7 +541,7 @@ msgstr "Lige nu er dette plugin konfigureret til kun at logge fejl og advarsler.
 
 #: includes/admin/migrations/3.0.0-form-1-post-type.php:35
 msgid "Default sign-up form"
-msgstr "Standard tilmeldings formular"
+msgstr "Standard tilmeldingsformular"
 
 #: includes/forms/views/add-form.php10, includes/forms/views/add-form.php:60
 msgid "Add new form"
@@ -560,7 +561,7 @@ msgstr "Hvilken MailChimp liste skal denne formular tilmeldes?"
 
 #: includes/forms/views/add-form.php:54
 msgid "No lists found. Did you <a href=\"%s\">connect with MailChimp</a>?"
-msgstr "Ingen lister fundet. Har du <a href=“%s”>forbundet med MailChimp?</a>"
+msgstr "Ingen lister fundet. Har du <a href=\"%s\">forbundet med MailChimp</a>?"
 
 #: includes/forms/views/edit-form.php:4
 msgid "Fields"
@@ -588,7 +589,7 @@ msgstr "Indtast formular titel her"
 
 #: includes/forms/views/edit-form.php:59
 msgid "Enter the title of your sign-up form"
-msgstr "Indtast titlen på din tilmeldings formular"
+msgstr "Indtast titlen på din tilmeldingsformular"
 
 #: includes/forms/views/edit-form.php:65
 msgid "Shortcode"
@@ -691,7 +692,7 @@ msgstr "Vælg “Ja”, hvis du vil have folk til at bekræfte deres e-mail adre
 #: includes/integrations/views/integration-settings.php171,
 #: includes/forms/views/tabs/form-settings.php:52
 msgid "Update existing subscribers?"
-msgstr "Opdatere eksisterende abonnenter?"
+msgstr "Opdater eksisterende abonnenter?"
 
 #: includes/integrations/views/integration-settings.php181,
 #: includes/forms/views/tabs/form-settings.php:62
@@ -703,7 +704,7 @@ msgstr "Vælg “Ja”, hvis du ønsker at opdatere eksisterende abonnenter med 
 #: includes/integrations/views/integration-settings.php190,
 #: includes/forms/views/tabs/form-settings.php:68
 msgid "Replace interest groups?"
-msgstr "Udskift interesse grupper?"
+msgstr "Udskift interessegrupper?"
 
 #: includes/integrations/views/integration-settings.php201,
 #: includes/forms/views/tabs/form-settings.php:79
@@ -727,25 +728,25 @@ msgstr "Beskrivelse"
 
 #: includes/integrations/views/integrations.php:35
 msgid "Configure this integration"
-msgstr "Konfigurere denne integration"
+msgstr "Konfigurer denne integration"
 
 #: includes/integrations/views/integrations.php:71
 msgid "The table below shows all available integrations."
-msgstr ""
+msgstr "Tabellen nedenfor viser alle tilgængelige integrationer."
 
 #: includes/integrations/views/integrations.php:72
 msgid ""
 "Click on the name of an integration to edit all settings specific to that "
 "integration."
-msgstr ""
+msgstr "Klik på navnet på en integration for at redigere alle indstillinger, der er specifikke for den integration."
 
 #: includes/integrations/views/integrations.php:79
 msgid "Enabled integrations"
-msgstr ""
+msgstr "Aktiverede integrationer"
 
 #: includes/integrations/views/integrations.php:84
 msgid "Available integrations"
-msgstr ""
+msgstr "Tilgængelige integrationer"
 
 #: includes/views/parts/admin-footer.php:15
 msgid ""
@@ -762,33 +763,33 @@ msgstr "Dette plugin er ikke udviklet af eller tilknyttet MailChimp på nogen m�
 
 #: includes/views/parts/admin-sidebar.php:11
 msgid "Looking for help?"
-msgstr ""
+msgstr "Har du brug for hjælp?"
 
 #: includes/views/parts/admin-sidebar.php:12
 msgid "We have some resources available to help you in the right direction."
-msgstr ""
+msgstr "Vi har nogle ressourcer til rådighed til, at hjælpe dig i den rigtige retning."
 
 #: includes/views/parts/admin-sidebar.php:14
 msgid "Knowledge Base"
-msgstr ""
+msgstr "Vidensbase"
 
 #: includes/views/parts/admin-sidebar.php:15
 msgid "Frequently Asked Questions"
-msgstr ""
+msgstr "Ofte stillede spørgsmål"
 
 #: includes/views/parts/admin-sidebar.php:16
 msgid "Code reference for developers"
-msgstr ""
+msgstr "Kodereference for udviklere"
 
 #: includes/views/parts/admin-sidebar.php:36
 msgid "Looking to improve your sign-up rates?"
-msgstr ""
+msgstr "Ønsker du, at forbedre din tilmeldingsprocent?"
 
 #: includes/views/parts/admin-sidebar.php:37
 msgid ""
 "Our <a href=\"%s\">Boxzilla plugin</a> allows you to create pop-ups or "
 "slide-ins with a subscribe form. A sure way to grow your lists faster."
-msgstr ""
+msgstr "Vores <a href=\"%s\">Boxzilla plugin</a> giver dig mulighed for at oprette pop op-vinduer eller dias-vinduer med en tilmeldingsformular. En sikker måde, at få dine lister til, at vokse hurtigt."
 
 #: includes/views/parts/lists-overview.php:1
 msgid "Your MailChimp Account"
@@ -1016,21 +1017,21 @@ msgstr "Ved brug af “afmelde metode”, er dette den tekst, der viser, hvis de
 
 #: includes/forms/views/tabs/form-messages.php:65
 msgid "No list selected"
-msgstr ""
+msgstr "Ingen liste er valgt"
 
 #: includes/forms/views/tabs/form-messages.php:68
 msgid ""
 "When offering a list choice, this is the text that shows when no lists were "
 "selected."
-msgstr ""
+msgstr "Når du tilbyder et listevalg, er det den tekst, der vises, når der ikke er valgt en liste."
 
 #: includes/forms/views/tabs/form-messages.php:74
 msgid "Updated"
-msgstr ""
+msgstr "Opdateret"
 
 #: includes/forms/views/tabs/form-messages.php:77
 msgid "The text that shows when an existing subscriber is updated."
-msgstr ""
+msgstr "Teksten der viser når en eksisterende abonnent er opdateret."
 
 #: includes/forms/views/tabs/form-messages.php:89
 msgid "HTML tags like %s are allowed in the message fields."
@@ -1060,13 +1061,13 @@ msgstr "Brug dobbelt opt-in?"
 
 #: includes/forms/views/tabs/form-settings.php:44
 msgid "Are you sure you want to disable double opt-in?"
-msgstr ""
+msgstr "Er du sikker på, at du vil deaktivere dobbelt-samtykke?"
 
 #: includes/forms/views/tabs/form-settings.php:47
 msgid ""
 "We strongly suggest keeping double opt-in enabled. Disabling double opt-in "
 "may result in abuse."
-msgstr ""
+msgstr "Vi anbefaler kraftigt, at beholde dobbelt-samtykke aktiveret. Deaktivering af dobbelt-samtykke kan resultere i misbrug."
 
 #: includes/forms/views/tabs/form-settings.php:94
 msgid "Form behaviour"

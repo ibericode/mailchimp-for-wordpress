@@ -48,13 +48,16 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
         Array.prototype.forEach.call(requiredFieldElements, function(el) {
             var name = el.name;
 
-            // bail if name attr starts with underscore
-            if( name[0] === '_' ) {
-                return;
+            // bail if name attr empty or starts with underscore
+            if(!name || name.length < 0 || name[0] === '_') { 
+                return; 
             }
 
             // replace array brackets with dot style notation
             name = name.replace(/\[(\w+)\]/g, '.$1' );
+
+            // replace array-style fields
+            name = name.replace(/\[\]$/, '');
 
             // uppercase everything before the .
             var pos = name.indexOf('.');

@@ -1,13 +1,20 @@
-(function () { var require = undefined; var define = undefined; (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function () { var require = undefined; var define = undefined; (function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 'use strict';
 
 // deps & vars
+
+var _conditionalElements = require('./forms/conditional-elements.js');
+
+var _conditionalElements2 = _interopRequireDefault(_conditionalElements);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mc4wp = window.mc4wp || {};
 var Gator = require('gator');
 var forms = require('./forms/forms.js');
 var config = window.mc4wp_forms_config || {};
 var scrollToElement = require('scroll-to-element');
+
 
 // funcs
 function scrollToForm(form) {
@@ -61,47 +68,6 @@ function handleFormRequest(form, action, errors, data) {
 	});
 }
 
-function toggleElement(el, expectedValue, show) {
-	return function () {
-		var value = this.value.trim();
-		var checked = this.getAttribute('type') !== 'radio' && this.getAttribute('type') !== 'checked' || this.checked;
-		var conditionMet = checked && (value === expectedValue && expectedValue !== "" || expectedValue === "" && value.length > 0);
-		if (show) {
-			el.style.display = conditionMet ? '' : 'none';
-		} else {
-			el.style.display = conditionMet ? 'none' : '';
-		}
-	};
-}
-
-function toggleConditionalElements() {
-	var input = this;
-	var elements = input.form.querySelectorAll('[data-show-if], [data-hide-if]');
-	var inputName = (input.getAttribute('name') || '').toLowerCase();
-
-	[].forEach.call(elements, function (el) {
-		var show = !!el.getAttribute('data-show-if');
-		var conditions = show ? el.getAttribute('data-show-if').split(':') : el.getAttribute('data-hide-if').split(':');
-		var nameCondition = conditions[0];
-		var valueCondition = conditions[1] || "";
-
-		if (inputName !== nameCondition.toLowerCase()) {
-			return;
-		}
-
-		var callback = toggleElement(el, valueCondition, show);
-		callback.call(input);
-	});
-}
-
-Gator(document.body).on('keyup', '.mc4wp-form input, .mc4wp-form textarea, .mc4wp-form select', toggleConditionalElements);
-Gator(document.body).on('change', '.mc4wp-form input, .mc4wp-form textarea, .mc4wp-form select', toggleConditionalElements);
-window.addEventListener('load', function () {
-	[].forEach.call(document.querySelectorAll('.mc4wp-form input, .mc4wp-form textarea, .mc4wp-form select'), function (el) {
-		toggleConditionalElements.call(el);
-	});
-});
-
 // Bind browser events to form events (using delegation)
 Gator(document.body).on('submit', '.mc4wp-form', function (event) {
 	var form = forms.getByElement(event.target || event.srcElement);
@@ -124,6 +90,9 @@ Gator(document.body).on('change', '.mc4wp-form', function (event) {
 	forms.trigger('change', [form, event]);
 	forms.trigger(form.id + '.change', [form, event]);
 });
+
+// init conditional elements
+_conditionalElements2.default.init();
 
 // register early listeners
 if (mc4wp.listeners) {
@@ -151,7 +120,115 @@ if (config.submitted_form) {
 // expose mc4wp object globally
 window.mc4wp = mc4wp;
 
-},{"./forms/forms.js":3,"gator":11,"scroll-to-element":13}],2:[function(require,module,exports){
+},{"./forms/conditional-elements.js":2,"./forms/forms.js":4,"gator":12,"scroll-to-element":14}],2:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+function getFieldValues(form, fieldName) {
+    var values = [];
+    var inputs = form.querySelectorAll('input[name="' + fieldName + '"], select[name="' + fieldName + '"], textarea[name="' + fieldName + '"]');
+
+    for (var i = 0; i < inputs.length; i++) {
+        var input = inputs[i];
+        var type = input.getAttribute("type");
+
+        if ((type === "radio" || type === "checkbox") && !input.checked) {
+            continue;
+        }
+
+        values.push(input.value);
+    }
+
+    return values;
+}
+
+function findForm(element) {
+    var bubbleElement = element;
+
+    while (bubbleElement.parentElement) {
+        bubbleElement = bubbleElement.parentElement;
+
+        if (bubbleElement.tagName === 'FORM') {
+            return bubbleElement;
+        }
+    }
+
+    return null;
+}
+
+function toggleElement(el) {
+    var show = !!el.getAttribute('data-show-if');
+    var conditions = show ? el.getAttribute('data-show-if').split(':') : el.getAttribute('data-hide-if').split(':');
+    var fieldName = conditions[0];
+    var expectedValues = (conditions.length > 1 ? conditions[1] : "*").split('|');
+    var form = findForm(el);
+    var values = getFieldValues(form, fieldName);
+
+    // determine whether condition is met
+    var conditionMet = false;
+    for (var i = 0; i < values.length; i++) {
+        var value = values[i];
+
+        // condition is met when value is in array of expected values OR expected values contains a wildcard and value is not empty
+        conditionMet = expectedValues.indexOf(value) > -1 || expectedValues.indexOf('*') > -1 && value.length > 0;
+
+        if (conditionMet) {
+            break;
+        }
+    }
+
+    // toggle element display
+    if (show) {
+        el.style.display = conditionMet ? '' : 'none';
+    } else {
+        el.style.display = conditionMet ? 'none' : '';
+    }
+
+    // find all inputs inside this element and toggle [required] attr (to prevent HTML5 validation on hidden elements)
+    var inputs = el.querySelectorAll('input, select, textarea');
+    [].forEach.call(inputs, function (el) {
+        if ((conditionMet || show) && el.getAttribute('data-was-required')) {
+            el.required = true;
+            el.removeAttribute('data-was-required');
+        }
+
+        if ((!conditionMet || !show) && el.required) {
+            el.setAttribute('data-was-required', "true");
+            el.required = false;
+        }
+    });
+}
+
+// evaluate conditional elements globally
+function evaluate() {
+    var elements = document.querySelectorAll('.mc4wp-form [data-show-if], .mc4wp-form [data-hide-if]');
+    [].forEach.call(elements, toggleElement);
+}
+
+// re-evaluate conditional elements for change events on forms
+function handleInputEvent(evt) {
+    if (!evt.target || !evt.target.form || evt.target.form.className.indexOf('mc4wp-form') < 0) {
+        return;
+    }
+
+    var form = evt.target.form;
+    var elements = form.querySelectorAll('[data-show-if], [data-hide-if]');
+    [].forEach.call(elements, toggleElement);
+}
+
+exports.default = {
+    'init': function init() {
+        document.addEventListener('keyup', handleInputEvent, true);
+        document.addEventListener('change', handleInputEvent, true);
+        document.addEventListener('mc4wp-refresh', evaluate, true);
+        window.addEventListener('load', evaluate);
+        evaluate();
+    }
+};
+
+},{}],3:[function(require,module,exports){
 'use strict';
 
 var serialize = require('form-serialize');
@@ -194,7 +271,7 @@ Form.prototype.reset = function () {
 
 module.exports = Form;
 
-},{"form-serialize":10,"populate.js":12}],3:[function(require,module,exports){
+},{"form-serialize":11,"populate.js":13}],4:[function(require,module,exports){
 'use strict';
 
 // deps
@@ -247,16 +324,29 @@ function all() {
 	return forms;
 }
 
+function triggerEvent(eventName, eventArgs) {
+	if (eventName === 'submit') {
+		// don't spin up new thread for submit event as we want to preventDefault()... 
+		// TODO: Fix that in Premium.
+		events.trigger(eventName, eventArgs);
+	} else {
+		// process in separate thread to prevent errors from breaking core functionality
+		window.setTimeout(function () {
+			events.trigger(eventName, eventArgs);
+		}, 1);
+	}
+}
+
 module.exports = {
 	"all": all,
 	"get": get,
 	"getByElement": getByElement,
 	"on": events.on.bind(events),
-	"trigger": events.trigger.bind(events),
+	"trigger": triggerEvent,
 	"off": events.off.bind(events)
 };
 
-},{"./form.js":2,"wolfy87-eventemitter":15}],4:[function(require,module,exports){
+},{"./form.js":3,"wolfy87-eventemitter":16}],5:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -315,7 +405,7 @@ function clone(obj){
   }
 }
 
-},{"component-type":8,"type":8}],5:[function(require,module,exports){
+},{"component-type":9,"type":9}],6:[function(require,module,exports){
 
 /**
  * Expose `Emitter`.
@@ -478,7 +568,7 @@ Emitter.prototype.hasListeners = function(event){
   return !! this.listeners(event).length;
 };
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /**
  * Expose `requestAnimationFrame()`.
  */
@@ -514,7 +604,7 @@ exports.cancel = function(id){
   cancel.call(window, id);
 };
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -693,7 +783,7 @@ Tween.prototype.update = function(fn){
   this._update = fn;
   return this;
 };
-},{"clone":4,"ease":9,"emitter":5,"type":8}],8:[function(require,module,exports){
+},{"clone":5,"ease":10,"emitter":6,"type":9}],9:[function(require,module,exports){
 /**
  * toString ref.
  */
@@ -729,7 +819,7 @@ module.exports = function(val){
   return typeof val;
 };
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 
 // easing functions from "Tween.js"
 
@@ -901,7 +991,7 @@ exports['in-bounce'] = exports.inBounce;
 exports['out-bounce'] = exports.outBounce;
 exports['in-out-bounce'] = exports.inOutBounce;
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 // get successful control from form and assemble into object
 // http://www.w3.org/TR/html401/interact/forms.html#h-17.13.2
 
@@ -1163,7 +1253,7 @@ function str_serialize(result, key, value) {
 
 module.exports = serialize;
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 /**
  * Copyright 2014 Craig Campbell
  *
@@ -1531,7 +1621,7 @@ module.exports = serialize;
     window.Gator = Gator;
 }) ();
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 /*! populate.js v1.0.2 by @dannyvankooten | MIT license */
 ;(function(root) {
 
@@ -1627,7 +1717,7 @@ module.exports = serialize;
 
 }(this));
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 var scroll = require('scroll-to');
 
 function calculateScrollOffset(elem, additionalOffset, alignment) {
@@ -1661,7 +1751,7 @@ module.exports = function (elem, options) {
   if (elem) return scroll(0, calculateScrollOffset(elem, options.offset, options.align), options);
 };
 
-},{"scroll-to":14}],14:[function(require,module,exports){
+},{"scroll-to":15}],15:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -1729,7 +1819,7 @@ function scroll() {
   return { top: y, left: x };
 }
 
-},{"raf":6,"tween":7}],15:[function(require,module,exports){
+},{"raf":7,"tween":8}],16:[function(require,module,exports){
 /*!
  * EventEmitter v5.2.4 - git.io/ee
  * Unlicense - http://unlicense.org/
