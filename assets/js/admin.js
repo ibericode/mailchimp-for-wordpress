@@ -3,6 +3,12 @@
 
 // dependencies
 
+var _tlite = require('tlite');
+
+var _tlite2 = _interopRequireDefault(_tlite);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var m = window.m = require('mithril');
 var EventEmitter = require('wolfy87-eventemitter');
 
@@ -12,6 +18,10 @@ var events = new EventEmitter();
 var tabs = require('./admin/tabs.js')(context);
 var helpers = require('./admin/helpers.js');
 var settings = require('./admin/settings.js')(context, helpers, events);
+
+(0, _tlite2.default)(function (el) {
+    return el.className.indexOf('mc4wp-tooltip') > -1;
+});
 
 // list fetcher
 var ListFetcher = require('./admin/list-fetcher.js');
@@ -29,7 +39,7 @@ window.mc4wp.events = events;
 window.mc4wp.settings = settings;
 window.mc4wp.tabs = tabs;
 
-},{"./admin/helpers.js":2,"./admin/list-fetcher.js":3,"./admin/settings.js":4,"./admin/tabs.js":5,"mithril":7,"wolfy87-eventemitter":8}],2:[function(require,module,exports){
+},{"./admin/helpers.js":2,"./admin/list-fetcher.js":3,"./admin/settings.js":4,"./admin/tabs.js":5,"mithril":7,"tlite":8,"wolfy87-eventemitter":9}],2:[function(require,module,exports){
 'use strict';
 
 var helpers = {};
@@ -1712,6 +1722,142 @@ else window.m = m
 }());
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],8:[function(require,module,exports){
+function tlite(getTooltipOpts) {
+  document.addEventListener('mouseover', function (e) {
+    var el = e.target;
+    var opts = getTooltipOpts(el);
+
+    if (!opts) {
+      el = el.parentElement;
+      opts = el && getTooltipOpts(el);
+    }
+
+    opts && tlite.show(el, opts, true);
+  });
+}
+
+tlite.show = function (el, opts, isAuto) {
+  var fallbackAttrib = 'data-tlite';
+  opts = opts || {};
+
+  (el.tooltip || Tooltip(el, opts)).show();
+
+  function Tooltip(el, opts) {
+    var tooltipEl;
+    var showTimer;
+    var text;
+
+    el.addEventListener('mousedown', autoHide);
+    el.addEventListener('mouseleave', autoHide);
+
+    function show() {
+      text = el.title || el.getAttribute(fallbackAttrib) || text;
+      el.title = '';
+      el.setAttribute(fallbackAttrib, '');
+      text && !showTimer && (showTimer = setTimeout(fadeIn, isAuto ? 150 : 1))
+    }
+
+    function autoHide() {
+      tlite.hide(el, true);
+    }
+
+    function hide(isAutoHiding) {
+      if (isAuto === isAutoHiding) {
+        showTimer = clearTimeout(showTimer);
+        var parent = tooltipEl && tooltipEl.parentNode;
+        parent && parent.removeChild(tooltipEl);
+        tooltipEl = undefined;
+      }
+    }
+
+    function fadeIn() {
+      if (!tooltipEl) {
+        tooltipEl = createTooltip(el, text, opts);
+      }
+    }
+
+    return el.tooltip = {
+      show: show,
+      hide: hide
+    };
+  }
+
+  function createTooltip(el, text, opts) {
+    var tooltipEl = document.createElement('span');
+    var grav = opts.grav || el.getAttribute('data-tlite') || 'n';
+
+    tooltipEl.innerHTML = text;
+
+    el.appendChild(tooltipEl);
+
+    var vertGrav = grav[0] || '';
+    var horzGrav = grav[1] || '';
+
+    function positionTooltip() {
+      tooltipEl.className = 'tlite ' + 'tlite-' + vertGrav + horzGrav;
+
+      var arrowSize = 10;
+      var top = el.offsetTop;
+      var left = el.offsetLeft;
+
+      if (tooltipEl.offsetParent === el) {
+        top = left = 0;
+      }
+
+      var width = el.offsetWidth;
+      var height = el.offsetHeight;
+      var tooltipHeight = tooltipEl.offsetHeight;
+      var tooltipWidth = tooltipEl.offsetWidth;
+      var centerEl = left + (width / 2);
+
+      tooltipEl.style.top = (
+        vertGrav === 's' ? (top - tooltipHeight - arrowSize) :
+        vertGrav === 'n' ? (top + height + arrowSize) :
+        (top + (height / 2) - (tooltipHeight / 2))
+      ) + 'px';
+
+      tooltipEl.style.left = (
+        horzGrav === 'w' ? left :
+        horzGrav === 'e' ? left + width - tooltipWidth :
+        vertGrav === 'w' ? (left + width + arrowSize) :
+        vertGrav === 'e' ? (left - tooltipWidth - arrowSize) :
+        (centerEl - tooltipWidth / 2)
+      ) + 'px';
+    }
+
+    positionTooltip();
+
+    var rect = tooltipEl.getBoundingClientRect();
+
+    if (vertGrav === 's' && rect.top < 0) {
+      vertGrav = 'n';
+      positionTooltip();
+    } else if (vertGrav === 'n' && rect.bottom > window.innerHeight) {
+      vertGrav = 's';
+      positionTooltip();
+    } else if (vertGrav === 'e' && rect.left < 0) {
+      vertGrav = 'w';
+      positionTooltip();
+    } else if (vertGrav === 'w' && rect.right > window.innerWidth) {
+      vertGrav = 'e';
+      positionTooltip();
+    }
+
+    tooltipEl.className += ' tlite-visible';
+
+    return tooltipEl;
+  }
+};
+
+tlite.hide = function (el, isAuto) {
+  el.tooltip && el.tooltip.hide(isAuto);
+};
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = tlite;
+}
+
+},{}],9:[function(require,module,exports){
 /*!
  * EventEmitter v5.2.4 - git.io/ee
  * Unlicense - http://unlicense.org/

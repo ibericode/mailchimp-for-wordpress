@@ -22,7 +22,11 @@
 		<textarea class="widefat" cols="160" rows="20" id="mc4wp-form-content" name="mc4wp_form[content]" placeholder="<?php _e( 'Enter the HTML code for your form fields..', 'mailchimp-for-wp' ); ?>" autocomplete="false" autocorrect="false" autocapitalize="false" spellcheck="false"><?php echo htmlspecialchars( $form->content, ENT_QUOTES, get_option( 'blog_charset' ) ); ?></textarea>
 	</div>
 	<div class="mc4wp-col mc4wp-col-3 mc4wp-form-preview-wrap">
-		<h4 style="margin: 0;"><label><?php _e( 'Form preview', 'mailchimp-for-wp' ); ?> <span class="dashicons dashicons-editor-help hf-tooltip" title="<?php esc_attr_e( 'The form may look slightly different than this when shown in a post, page or widget area.', 'mailchimp-for-wp' ); ?>"></span></label></h4>
+		<h4 style="margin: 0;">
+			<label><?php _e( 'Form preview', 'mailchimp-for-wp' ); ?> 
+			<span class="mc4wp-tooltip dashicons dashicons-editor-help" title="<?php esc_attr_e( 'The form may look slightly different than this when shown in a post, page or widget area.', 'mailchimp-for-wp' ); ?>"></span>
+			</label>
+		</h4>
 		<iframe id="mc4wp-form-preview" src="<?php echo esc_attr( $form_preview_url ); ?>"></iframe>
 	</div>
 </div>

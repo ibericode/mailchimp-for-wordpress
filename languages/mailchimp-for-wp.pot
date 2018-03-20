@@ -321,19 +321,19 @@ msgstr ""
 msgid "Form"
 msgstr ""
 
-#: includes/forms/class-admin.php:147, includes/forms/class-admin.php:272
+#: includes/forms/class-admin.php:147, includes/forms/class-admin.php:271
 msgid "<strong>Success!</strong> Form successfully saved."
 msgstr ""
 
-#: includes/forms/class-admin.php:366
+#: includes/forms/class-admin.php:365
 msgid "Form not found."
 msgstr ""
 
-#: includes/forms/class-admin.php:426, includes/forms/class-widget.php:30
+#: includes/forms/class-admin.php:425, includes/forms/class-widget.php:30
 msgid "MailChimp Sign-Up Form"
 msgstr ""
 
-#: includes/forms/class-admin.php:430
+#: includes/forms/class-admin.php:429
 msgid "Select the form to show"
 msgstr ""
 
@@ -561,7 +561,7 @@ msgstr ""
 msgid "Enter the title of your sign-up form"
 msgstr ""
 
-#: includes/forms/views/edit-form.php:69, includes/forms/views/tabs/form-fields.php:36
+#: includes/forms/views/edit-form.php:69, includes/forms/views/tabs/form-fields.php:40
 msgid "Use the shortcode %s to display this form inside a post, page or text widget."
 msgstr ""
 
@@ -889,11 +889,11 @@ msgstr ""
 msgid "Enter the HTML code for your form fields.."
 msgstr ""
 
-#: includes/forms/views/tabs/form-fields.php:25
+#: includes/forms/views/tabs/form-fields.php:26
 msgid "Form preview"
 msgstr ""
 
-#: includes/forms/views/tabs/form-fields.php:25
+#: includes/forms/views/tabs/form-fields.php:27
 msgid "The form may look slightly different than this when shown in a post, page or widget area."
 msgstr ""
 

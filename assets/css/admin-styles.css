@@ -900,3 +900,75 @@
   padding-left: 38px;
   padding-right: initial;
   position: relative; }
+
+.tlite {
+  background: #111;
+  color: white;
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  font-weight: normal;
+  text-decoration: none;
+  text-align: left;
+  padding: 0.6em 0.75rem;
+  border-radius: 4px;
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s;
+  white-space: nowrap;
+  box-shadow: 0 0.5rem 1rem -0.5rem black;
+  z-index: 1000;
+  -webkit-backface-visibility: hidden; }
+
+.tlite-table td,
+.tlite-table th {
+  position: relative; }
+
+.tlite-visible {
+  visibility: visible;
+  opacity: 0.9; }
+
+.tlite::before {
+  content: ' ';
+  display: block;
+  background: inherit;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  transform: rotate(45deg); }
+
+.tlite-n::before {
+  top: -3px;
+  left: 50%;
+  margin-left: -5px; }
+
+.tlite-nw::before {
+  top: -3px;
+  left: 10px; }
+
+.tlite-ne::before {
+  top: -3px;
+  right: 10px; }
+
+.tlite-s::before {
+  bottom: -3px;
+  left: 50%;
+  margin-left: -5px; }
+
+.tlite-se::before {
+  bottom: -3px;
+  right: 10px; }
+
+.tlite-sw::before {
+  bottom: -3px;
+  left: 10px; }
+
+.tlite-w::before {
+  left: -3px;
+  top: 50%;
+  margin-top: -5px; }
+
+.tlite-e::before {
+  right: -3px;
+  top: 50%;
+  margin-top: -5px; }
