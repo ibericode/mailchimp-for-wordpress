@@ -13,7 +13,7 @@ class MC4WP_Form_Previewer {
 
         try {
             $form = mc4wp_get_form( $_GET['mc4wp_preview_form'] );
-        } catch( \Exception $e ) {
+        } catch( Exception $e ) {
             return;
         }  
 
