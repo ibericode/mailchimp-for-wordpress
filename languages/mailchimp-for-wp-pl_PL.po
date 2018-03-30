@@ -8,11 +8,12 @@
 # Mateusz Lomber <lumberpack@gmail.com>, 2017
 # Paweł Tomkiel <neonkowy@gmail.com>, 2016
 # Sebastian Małecki <sebastian0.0malecki@gmail.com>, 2016
+# Sebastian Żurawski <s.zurawski5@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2017-09-20 15:59+0000\n"
-"Last-Translator: Albert Zasłonka <bercik156@gmail.com>\n"
+"PO-Revision-Date: 2018-03-06 21:58+0000\n"
+"Last-Translator: Sebastian Żurawski <s.zurawski5@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -200,7 +201,7 @@ msgstr "Pola wyboru"
 
 #: includes/forms/class-admin.php:65
 msgid "Choices"
-msgstr ""
+msgstr "Wybory"
 
 #: includes/forms/class-admin.php:66
 msgid "Choice type"
@@ -208,7 +209,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:67
 msgid "Choose a field to add to the form"
-msgstr ""
+msgstr "Wybierz pole i dodaj do formularza"
 
 #: includes/forms/class-admin.php:68
 msgid "Close"
@@ -224,15 +225,15 @@ msgstr "Upuść"
 
 #: includes/forms/class-admin.php:71
 msgid "Field type"
-msgstr ""
+msgstr "Typ pola"
 
 #: includes/forms/class-admin.php:72
 msgid "Field label"
-msgstr ""
+msgstr "Pole tablicy"
 
 #: includes/forms/class-admin.php:73
 msgid "Form action"
-msgstr ""
+msgstr "Formularz akcji"
 
 #: includes/forms/class-admin.php:74
 msgid ""
@@ -242,7 +243,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:75
 msgid "Form fields"
-msgstr ""
+msgstr "Formularz pól"
 
 #: includes/forms/class-admin.php:76
 msgid "This field is marked as required in MailChimp."
@@ -254,11 +255,11 @@ msgstr ""
 
 #: includes/forms/class-admin.php:78
 msgid "Interest categories"
-msgstr ""
+msgstr "Ciekawe kategorie"
 
 #: includes/forms/class-admin.php:79
 msgid "Is this field required?"
-msgstr ""
+msgstr "Czy to pole jest wymagane?"
 
 #: includes/forms/class-admin.php:80
 msgid "List choice"
@@ -274,11 +275,11 @@ msgstr ""
 
 #: includes/forms/class-admin.php:83
 msgid "Min"
-msgstr ""
+msgstr "Min"
 
 #: includes/forms/class-admin.php:84
 msgid "Max"
-msgstr ""
+msgstr "Max"
 
 #: includes/forms/class-admin.php:85
 msgid ""
@@ -287,7 +288,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:86
 msgid "Optional"
-msgstr ""
+msgstr "Opcjonalny"
 
 #: includes/forms/class-admin.php:87
 msgid "Placeholder"
@@ -303,7 +304,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:90
 msgid "Remove"
-msgstr ""
+msgstr "Usuń"
 
 #: includes/forms/class-admin.php:91
 msgid "Radio buttons"
@@ -311,7 +312,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:92
 msgid "Street Address"
-msgstr ""
+msgstr "Ulica"
 
 #: includes/forms/class-admin.php:93
 msgid "State"
@@ -335,7 +336,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:99
 msgid "ZIP"
-msgstr ""
+msgstr "ZIP"
 
 #: includes/forms/class-admin.php111, includes/forms/class-admin.php112,
 #: includes/forms/views/edit-form.php:24
@@ -356,7 +357,7 @@ msgstr "Formularz rejestracyjny MailChimp"
 
 #: includes/forms/class-admin.php:453
 msgid "Select the form to show"
-msgstr ""
+msgstr "Zaznacz formularz do wyświetlenia"
 
 #: includes/forms/class-form-previewer.php:146
 msgid "Form preview"
@@ -372,7 +373,7 @@ msgstr "Dane z adresu URL lub formularza."
 
 #: includes/forms/class-form-tags.php:71
 msgid "Data from a cookie."
-msgstr ""
+msgstr "Dane z ciasteczek"
 
 #: includes/forms/class-form-tags.php77,
 #: includes/integrations/class-integration-tags.php:45
@@ -514,15 +515,15 @@ msgstr ""
 
 #: includes/views/other-settings.php:99
 msgid "Debug Log"
-msgstr ""
+msgstr "Debug Log"
 
 #: includes/views/other-settings.php:99
 msgid "Filter.."
-msgstr ""
+msgstr "Filtr.."
 
 #: includes/views/other-settings.php:104
 msgid "Log file is not writable."
-msgstr ""
+msgstr "Log pliku nie do nadpisu."
 
 #: includes/views/other-settings.php:105
 msgid "Please ensure %s has the proper <a href=\"%s\">file permissions</a>."
@@ -534,7 +535,7 @@ msgstr ""
 
 #: includes/views/other-settings.php:133
 msgid "Empty Log"
-msgstr ""
+msgstr "Pusty Log"
 
 #: includes/views/other-settings.php:141
 msgid "Right now, the plugin is configured to only log errors and warnings."
@@ -578,7 +579,7 @@ msgstr "Wygląd"
 
 #: includes/forms/views/edit-form.php:25
 msgid "Form"
-msgstr ""
+msgstr "Formularz"
 
 #: includes/forms/views/edit-form.php:34
 msgid "Edit Form"
@@ -594,7 +595,7 @@ msgstr "Wprowadź tytuł fromularza do zapisu subskrybentów"
 
 #: includes/forms/views/edit-form.php:65
 msgid "Shortcode"
-msgstr ""
+msgstr "Kod"
 
 #: includes/forms/views/edit-form.php:67
 msgid "Get shortcode"
@@ -743,11 +744,11 @@ msgstr ""
 
 #: includes/integrations/views/integrations.php:79
 msgid "Enabled integrations"
-msgstr ""
+msgstr "Możliwe integracje"
 
 #: includes/integrations/views/integrations.php:84
 msgid "Available integrations"
-msgstr ""
+msgstr "Integracje nie możliwe"
 
 #: includes/views/parts/admin-footer.php:15
 msgid ""
@@ -772,7 +773,7 @@ msgstr ""
 
 #: includes/views/parts/admin-sidebar.php:14
 msgid "Knowledge Base"
-msgstr ""
+msgstr "Baza wiedzy"
 
 #: includes/views/parts/admin-sidebar.php:15
 msgid "Frequently Asked Questions"
