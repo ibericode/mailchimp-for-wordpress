@@ -79,10 +79,10 @@
 								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][implicit]" value="0" <?php checked( $opts['implicit'], 0 ); ?> /> <?php _e( 'No' ); ?> <?php echo '<em>' . __( '(recommended)', 'mailchimp-for-wp' ) . '</em>'; ?>
 							</label>
 								<p class="help">
-									<?php _e( 'Select "no" if you want to ask your visitors before they are subscribed..', 'mailchimp-for-wp' ); 
+									<?php _e( 'Select "yes" if you want to subscribe people without asking them explicitly.', 'mailchimp-for-wp' ); 
 									echo '<br />';
 
-									printf( __( '<strong>Warning: </strong> enabling this may have consequences for your <a href="%s">GDPR compliance</a>.', 'mailchimp-for-wp' ), 'https://kb.mc4wp.com/gdpr-compliance/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page' ); ?>
+									printf( __( '<strong>Warning: </strong> enabling this may affect your <a href="%s">GDPR compliance</a>.', 'mailchimp-for-wp' ), 'https://kb.mc4wp.com/gdpr-compliance/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page' ); ?>
 									</p>
 							</td>
 						</tr>
@@ -139,7 +139,7 @@
 								<p class="help">
 									<?php _e( 'Select "yes" if the checkbox should be pre-checked.', 'mailchimp-for-wp' ); 
 									echo '<br />';
-									printf( __( '<strong>Warning: </strong> enabling this may have consequences for your <a href="%s">GDPR compliance</a>.', 'mailchimp-for-wp' ), 'https://kb.mc4wp.com/gdpr-compliance/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page' ); ?>
+									printf( __( '<strong>Warning: </strong> enabling this may affect your <a href="%s">GDPR compliance</a>.', 'mailchimp-for-wp' ), 'https://kb.mc4wp.com/gdpr-compliance/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page' ); ?>
 								</p>
 							</td>
 					<?php } // end if UI precheck ?>
