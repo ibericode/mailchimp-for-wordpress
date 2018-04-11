@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp form
 Requires at least: 4.1
 Tested up to: 4.9.5
-Stable tag: 4.2
+Stable tag: 4.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.2.4
@@ -196,6 +196,20 @@ The plugin provides various filter & action hooks that allow you to modify or ex
 
 == Changelog == 
 
+
+#### 4.2.1 - April 11, 2018
+
+**Fixes**
+
+- Namespace usage warning when running PHP 5.2
+
+**Improvements**
+
+- Remove obsolete `type` attribute from all `<script>` tags printed by the plugin.
+- Improved tooltips on settings pages.
+- Do not pre-check integration checkboxes by default. 
+- Add textual warnings to settings that may affect [GDPR compliance](https://kb.mc4wp.com/gdpr-compliance/).
+- Update translation files.
 
 #### 4.2 - March 5, 2018
 
