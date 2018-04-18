@@ -135,7 +135,7 @@ class MC4WP_MailChimp {
 	*
 	* @return boolean
 	*/
-	public function list_delete( $list_id, $email_address ) {
+	public function list_unsubscribe_delete( $list_id, $email_address ) {
 		$this->reset_error();
 
 		try {
