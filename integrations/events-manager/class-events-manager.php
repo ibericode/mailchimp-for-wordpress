@@ -48,6 +48,14 @@ class MC4WP_Events_Manager_Integration extends MC4WP_Integration {
 		}
 
 		$em_data = $this->get_data();
+
+		// logged-in users do not have these form fields, so grab from user object instead
+		if( empty( $em_data['user_email'] ) && is_user_logged_in() ) {
+			$user = wp_get_current_user();
+			$em_data['user_email'] = $user->user_email;
+			$em_data['user_name'] = sprintf("%s %s", $user->first_name, $user->last_name );
+		}
+
 		if( empty( $em_data['user_email'] ) ) {
 			return false;
 		}
@@ -68,5 +76,6 @@ class MC4WP_Events_Manager_Integration extends MC4WP_Integration {
 	public function is_installed() {
 		return defined( 'EM_VERSION' );
 	}
+
 
 }
