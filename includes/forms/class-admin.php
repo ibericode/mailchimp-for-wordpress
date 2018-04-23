@@ -314,18 +314,24 @@ class MC4WP_Forms_Admin {
 			return;
 		}
 
-		// query first available form and go there
-		$forms = mc4wp_get_forms( array( 'numberposts' => 1 ) );
+		try{
+			// try default form first
+			$default_form = mc4wp_get_form();
+			$redirect_url = mc4wp_get_edit_form_url( $default_form->ID );
+		} catch(Exception $e) {
+			// no default form, query first available form and go there
+			$forms = mc4wp_get_forms( array( 'numberposts' => 1 ) );
 
-		if( $forms ) {
-			// if we have a post, go to the "edit form" screen
-			$form = array_pop( $forms );
-			$redirect_url = mc4wp_get_edit_form_url( $form->ID );
-		} else {
-			// we don't have a form yet, go to "add new" screen
-			$redirect_url = mc4wp_get_add_form_url();
+			if( $forms ) {
+				// if we have a post, go to the "edit form" screen
+				$form = array_pop( $forms );
+				$redirect_url = mc4wp_get_edit_form_url( $form->ID );
+			} else {
+				// we don't have a form yet, go to "add new" screen
+				$redirect_url = mc4wp_get_add_form_url();
+			}
 		}
-
+		
 		wp_redirect( $redirect_url );
 		exit;
 	}
