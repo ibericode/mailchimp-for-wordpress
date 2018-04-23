@@ -122,7 +122,7 @@ class MC4WP_API_v3_Client {
     *
     * @param array $args
     */
-    $args = add_filter( 'mc4wp_http_request_args', $args, $url );
+    $args = apply_filters( 'mc4wp_http_request_args', $args, $url );
 
     // perform request
     $response = wp_remote_request( $url, $args );
