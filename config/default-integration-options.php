@@ -6,7 +6,7 @@ return array(
 	'implicit'      => 0,
 	'label'         => __( 'Sign me up for the newsletter!', 'mailchimp-for-wp' ),
     'lists'         => array(),
-	'precheck'      => 1,
+	'precheck'      => 0,
     'replace_interests' => 0,
 	'update_existing' => 0,
     'wrap_p' => 1

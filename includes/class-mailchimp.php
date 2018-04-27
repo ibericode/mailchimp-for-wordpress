@@ -103,6 +103,7 @@ class MC4WP_MailChimp {
 	}
 
 	/**
+	* Changes the subscriber status to "unsubscribed" 
 	*
 	* @param string $list_id
 	* @param string $email_address
@@ -114,6 +115,31 @@ class MC4WP_MailChimp {
 
 		try {
 			$this->get_api()->update_list_member( $list_id, $email_address, array( 'status' => 'unsubscribed' ) );
+		} catch( MC4WP_API_Resource_Not_Found_Exception $e ) {
+			// if email wasn't even on the list: great.
+			return true;
+		} catch( MC4WP_API_Exception $e ) {
+			$this->error_code = $e->getCode();
+			$this->error_message = $e;
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	* Deletes the subscriber from the given list.
+	*
+	* @param string $list_id
+	* @param string $email_address
+	*
+	* @return boolean
+	*/
+	public function list_unsubscribe_delete( $list_id, $email_address ) {
+		$this->reset_error();
+
+		try {
+			$this->get_api()->delete_list_member( $list_id, $email_address );
 		} catch( MC4WP_API_Resource_Not_Found_Exception $e ) {
 			// if email wasn't even on the list: great.
 			return true;

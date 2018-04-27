@@ -25,7 +25,7 @@
 
 			<div id="notice-additional-fields" class="notice notice-info" style="display: none;">
 				<p><?php _e( 'The selected MailChimp lists require non-default fields, which may prevent this integration from working.', 'mailchimp-for-wp' ); ?></p>
-				<p><?php echo sprintf( __( 'Please ensure you <a href="%s">configure the plugin to send all required fields</a> or <a href="%s">log into your MailChimp account</a> and make sure only the email & name fields are marked as required fields for the selected list(s).', 'mailchimp-for-wp' ), 'https://kb.mc4wp.com/send-additional-fields-from-integrations/', 'https://admin.mailchimp.com/lists/' ); ?></p>
+				<p><?php echo sprintf( __( 'Please ensure you <a href="%s">configure the plugin to send all required fields</a> or <a href="%s">log into your MailChimp account</a> and make sure only the email & name fields are marked as required fields for the selected list(s).', 'mailchimp-for-wp' ), 'https://kb.mc4wp.com/send-additional-fields-from-integrations/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page', 'https://admin.mailchimp.com/lists/' ); ?></p>
 			</div>
 
 			<p>
@@ -76,8 +76,14 @@
 							<th scope="row"><?php _e( 'Implicit?', 'mailchimp-for-wp' ); ?></th>
 							<td class="nowrap">
 								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][implicit]" value="1" <?php checked( $opts['implicit'], 1 ); ?> /> <?php _e( 'Yes' ); ?></label> &nbsp;
-								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][implicit]" value="0" <?php checked( $opts['implicit'], 0 ); ?> /> <?php _e( 'No' ); ?></label>
-								<p class="help"><?php _e( 'Select "no" if you want to ask your visitors before they are subscribed (recommended).', 'mailchimp-for-wp' ); ?></p>
+								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][implicit]" value="0" <?php checked( $opts['implicit'], 0 ); ?> /> <?php _e( 'No' ); ?> <?php echo '<em>' . __( '(recommended)', 'mailchimp-for-wp' ) . '</em>'; ?>
+							</label>
+								<p class="help">
+									<?php _e( 'Select "yes" if you want to subscribe people without asking them explicitly.', 'mailchimp-for-wp' ); 
+									echo '<br />';
+
+									printf( __( '<strong>Warning: </strong> enabling this may affect your <a href="%s">GDPR compliance</a>.', 'mailchimp-for-wp' ), 'https://kb.mc4wp.com/gdpr-compliance/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page' ); ?>
+									</p>
 							</td>
 						</tr>
 					<?php } ?>
@@ -129,8 +135,12 @@
 							<th scope="row"><?php _e( 'Pre-check the checkbox?', 'mailchimp-for-wp' ); ?></th>
 							<td class="nowrap">
 								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][precheck]" value="1" <?php checked( $opts['precheck'], 1 ); ?> /> <?php _e( 'Yes' ); ?></label> &nbsp;
-								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][precheck]" value="0" <?php checked( $opts['precheck'], 0 ); ?> /> <?php _e( 'No' ); ?></label>
-								<p class="help"><?php _e( 'Select "yes" if the checkbox should be pre-checked.', 'mailchimp-for-wp' ); ?></p>
+								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][precheck]" value="0" <?php checked( $opts['precheck'], 0 ); ?> /> <?php _e( 'No' ); ?> <?php echo '<em>' . __( '(recommended)', 'mailchimp-for-wp' ) . '</em>'; ?></label>
+								<p class="help">
+									<?php _e( 'Select "yes" if the checkbox should be pre-checked.', 'mailchimp-for-wp' ); 
+									echo '<br />';
+									printf( __( '<strong>Warning: </strong> enabling this may affect your <a href="%s">GDPR compliance</a>.', 'mailchimp-for-wp' ), 'https://kb.mc4wp.com/gdpr-compliance/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page' ); ?>
+								</p>
 							</td>
 					<?php } // end if UI precheck ?>
 
@@ -199,7 +209,7 @@
 								</label>
 								<p class="help">
 									<?php _e( 'Select "no" if you want to add the selected interests to any previously selected interests when updating a subscriber.', 'mailchimp-for-wp' ); ?>
-									<?php printf( ' <a href="%s" target="_blank">' . __( 'What does this do?', 'mailchimp-for-wp' ) . '</a>', 'https://kb.mc4wp.com/what-does-replace-groupings-mean/' ); ?>
+									<?php printf( ' <a href="%s" target="_blank">' . __( 'What does this do?', 'mailchimp-for-wp' ) . '</a>', 'https://kb.mc4wp.com/what-does-replace-groupings-mean/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page' ); ?>
 								</p>
 							</td>
 						</tr>
