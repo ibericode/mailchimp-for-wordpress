@@ -377,9 +377,10 @@ class MC4WP_Forms_Admin {
 		$opts = $form->settings;
 		$active_tab = ( isset( $_GET['tab'] ) ) ? $_GET['tab'] : 'fields';
 
+
 		$form_preview_url = add_query_arg( array( 
             'mc4wp_preview_form' => $form_id,
-        ), get_option( 'home' ) );
+        ), site_url( '/', 'admin' ) );
 
 		require dirname( __FILE__ ) . '/views/edit-form.php';
 	}
