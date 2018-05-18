@@ -20,18 +20,20 @@ module.exports = function(m, events) {
         this.title = prop(data.title || data.name);
         this.type = prop(data.type);
         this.mailchimpType = prop(data.mailchimpType || '');
-        this.label = prop(data.title || '');
+        this.label = prop(data.label || data.title || '');
+        this.showLabel = prop(data.showLabel !== undefined ? data.showLabel : true);
         this.value = prop(data.value || '');
         this.placeholder = prop(data.placeholder || '');
         this.required = prop(data.required || false);
         this.forceRequired = prop( data.forceRequired || false );
-        this.wrap = prop(data.wrap || true);
+        this.wrap = prop(data.wrap !== undefined ? data.wrap : true);
         this.min = prop(data.min || null);
         this.max = prop(data.max || null);
         this.help = prop(data.help || '');
         this.choices = prop(data.choices || []);
         this.inFormContent = prop(null);
         this.acceptsMultipleValues = data.acceptsMultipleValues;
+        this.link = prop(data.link || '');
 
         this.selectChoice = function(value) {
             var field = this;

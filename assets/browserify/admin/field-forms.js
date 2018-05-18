@@ -75,6 +75,15 @@ const forms = function(m, i18n) {
 		]
 	};
 
+	forms['terms-checkbox'] = function(config) {
+		return [
+			rows.label(config),
+			rows.linkToTerms(config),
+			rows.isRequired(config),
+			rows.useParagraphs(config),
+		];
+	};
+
 	forms.number = function(config) {
 		return [
 			forms.text(config),
