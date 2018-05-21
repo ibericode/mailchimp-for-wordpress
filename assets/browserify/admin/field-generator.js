@@ -40,7 +40,7 @@ const g = function(m) {
 			return m('option', {
 				value: ( choice.value() !== choice.label() ) ? choice.value() : undefined,
 				"selected": choice.selected(),
-                oncreate: setAttributes,
+            oncreate: setAttributes,
 			}, choice.label())
 		});
 
@@ -59,6 +59,26 @@ const g = function(m) {
 		return m('select', attributes, options );
 	};
 
+	generators['terms-checkbox'] = function(config) {
+		let checkbox = [
+			m('input', {
+				name    : config.name(),
+				type    : 'checkbox',
+				value   : config.value(),
+				required: config.required(),
+			}),
+			m.trust(' ' + config.label())
+		];
+
+		let content = checkbox;
+
+		if( config.link().length > 0 ) {
+			content = m('a', { href: config.link(), target: "_blank" }, checkbox );
+		}
+
+		return m('label', content)
+	};
+
 	/**
 	 * Generates a checkbox or radio type input field.
 	 *
@@ -67,7 +87,7 @@ const g = function(m) {
 	 */
 	generators.checkbox = function (config) {
 		let fields = config.choices().map(function (choice) {
-            const name = config.name() + ( config.type() === 'checkbox' ? '[]' : '' );
+         const name = config.name() + ( config.type() === 'checkbox' ? '[]' : '' );
 			const required = config.required() && config.type() === 'radio';
 
 			return m('label', [
@@ -139,7 +159,7 @@ const g = function(m) {
 		let label, field, htmlTemplate, html,
 			vdom = document.createElement('div');
 
-		label = config.label().length > 0 ? m("label", {}, config.label()) : '';
+		label = config.label().length  > 0 && config.showLabel() ? m("label", {}, config.label()) : '';
 		field = typeof(generators[config.type()]) === "function" ? generators[config.type()](config) : generators['default'](config);
 		htmlTemplate = config.wrap() ? m('p', [label, field]) : [label, field];
 

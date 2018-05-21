@@ -55,6 +55,9 @@ class MC4WP_Forms_Admin {
 		wp_enqueue_script( 'mc4wp-forms-admin');
 		wp_localize_script( 'mc4wp-forms-admin', 'mc4wp_forms_i18n', array(
 			'addToForm'     => __( "Add to form", 'mailchimp-for-wp' ),
+			'agreeToTerms' => __( "I have read and agree to the terms & conditions", 'mailchimp-for-wp' ),
+			'agreeToTermsShort' => __( "Agree to terms", 'mailchimp-for-wp' ),
+			'agreeToTermsLink' => __( 'Link to your terms & conditions page', 'mailchimp-for-wp' ),
 			'city'          => __( 'City', 'mailchimp-for-wp' ),
 			'checkboxes'    => __( 'Checkboxes', 'mailchimp-for-wp' ),
 			'choices'       => __( 'Choices', 'mailchimp-for-wp' ),
@@ -377,9 +380,10 @@ class MC4WP_Forms_Admin {
 		$opts = $form->settings;
 		$active_tab = ( isset( $_GET['tab'] ) ) ? $_GET['tab'] : 'fields';
 
+
 		$form_preview_url = add_query_arg( array( 
             'mc4wp_preview_form' => $form_id,
-        ), get_option( 'home' ) );
+        ), site_url( '/', 'admin' ) );
 
 		require dirname( __FILE__ ) . '/views/edit-form.php';
 	}

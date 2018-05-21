@@ -191,6 +191,19 @@ const rows = function(m, i18n) {
 
 	};
 
+
+	r.linkToTerms = function (config) {
+		// label row
+		return m("div", [
+			m("label", i18n.agreeToTermsLink),
+			m("input.widefat", {
+				type       : "text",
+				value      : config.link,
+				onchange   : m.withAttr('value', config.link),
+				placeholder: 'https://...',
+			})
+		]);
+	};
 	return r;
 };
 

@@ -179,6 +179,16 @@ var FieldFactory = function(fields, i18n) {
             value: 'subscribe',
             help: i18n.formActionDescription
         }, true);
+
+        register(category, {
+            name: '_mc4wp_agree_to_terms',
+            value: 1,
+            type: "terms-checkbox",
+            label: i18n.agreeToTerms,
+            title: i18n.agreeToTermsShort,
+            showLabel: false,
+            required: true,
+        }, true);
     }
 
     /**

@@ -129,6 +129,15 @@ var rows = function rows(m, i18n) {
 		return html;
 	};
 
+	r.linkToTerms = function (config) {
+		// label row
+		return m("div", [m("label", i18n.agreeToTermsLink), m("input.widefat", {
+			type: "text",
+			value: config.link,
+			onchange: m.withAttr('value', config.link),
+			placeholder: 'https://...'
+		})]);
+	};
 	return r;
 };
 
@@ -195,6 +204,10 @@ var forms = function forms(m, i18n) {
 		config.placeholder('');
 
 		return [rows.value(config), rows.useParagraphs(config)];
+	};
+
+	forms['terms-checkbox'] = function (config) {
+		return [rows.label(config), rows.linkToTerms(config), rows.isRequired(config), rows.useParagraphs(config)];
 	};
 
 	forms.number = function (config) {
@@ -264,6 +277,23 @@ var g = function g(m) {
 		}
 
 		return m('select', attributes, options);
+	};
+
+	generators['terms-checkbox'] = function (config) {
+		var checkbox = [m('input', {
+			name: config.name(),
+			type: 'checkbox',
+			value: config.value(),
+			required: config.required()
+		}), m.trust(' ' + config.label())];
+
+		var content = checkbox;
+
+		if (config.link().length > 0) {
+			content = m('a', { href: config.link(), target: "_blank" }, checkbox);
+		}
+
+		return m('label', content);
 	};
 
 	/**
@@ -343,7 +373,7 @@ var g = function g(m) {
 		    html = void 0,
 		    vdom = document.createElement('div');
 
-		label = config.label().length > 0 ? m("label", {}, config.label()) : '';
+		label = config.label().length > 0 && config.showLabel() ? m("label", {}, config.label()) : '';
 		field = typeof generators[config.type()] === "function" ? generators[config.type()](config) : generators['default'](config);
 		htmlTemplate = config.wrap() ? m('p', [label, field]) : [label, field];
 
@@ -686,6 +716,16 @@ var FieldFactory = function FieldFactory(fields, i18n) {
             value: 'subscribe',
             help: i18n.formActionDescription
         }, true);
+
+        register(category, {
+            name: '_mc4wp_agree_to_terms',
+            value: 1,
+            type: "terms-checkbox",
+            label: i18n.agreeToTerms,
+            title: i18n.agreeToTermsShort,
+            showLabel: false,
+            required: true
+        }, true);
     }
 
     /**
@@ -722,18 +762,20 @@ module.exports = function (m, events) {
         this.title = prop(data.title || data.name);
         this.type = prop(data.type);
         this.mailchimpType = prop(data.mailchimpType || '');
-        this.label = prop(data.title || '');
+        this.label = prop(data.label || data.title || '');
+        this.showLabel = prop(data.showLabel !== undefined ? data.showLabel : true);
         this.value = prop(data.value || '');
         this.placeholder = prop(data.placeholder || '');
         this.required = prop(data.required || false);
         this.forceRequired = prop(data.forceRequired || false);
-        this.wrap = prop(data.wrap || true);
+        this.wrap = prop(data.wrap !== undefined ? data.wrap : true);
         this.min = prop(data.min || null);
         this.max = prop(data.max || null);
         this.help = prop(data.help || '');
         this.choices = prop(data.choices || []);
         this.inFormContent = prop(null);
         this.acceptsMultipleValues = data.acceptsMultipleValues;
+        this.link = prop(data.link || '');
 
         this.selectChoice = function (value) {
             var field = this;
