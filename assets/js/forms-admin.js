@@ -285,7 +285,7 @@ var g = function g(m) {
 			type: 'checkbox',
 			value: config.value(),
 			required: config.required()
-		}), m.trust(' ' + config.label())];
+		}), ' ', config.label()];
 
 		var content = checkbox;
 

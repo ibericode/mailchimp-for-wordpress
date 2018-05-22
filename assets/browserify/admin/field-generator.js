@@ -67,7 +67,8 @@ const g = function(m) {
 				value   : config.value(),
 				required: config.required(),
 			}),
-			m.trust(' ' + config.label())
+			' ',
+			config.label()
 		];
 
 		let content = checkbox;
