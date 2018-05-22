@@ -7,13 +7,14 @@
 # Maartje L <maartje2@hotmail.com>, 2017
 # Martijn van Egmond <developer@tensheep.nl>, 2015
 # Rob Boxman <rob.boxman@gmail.com>, 2018
+# Sander G. <transifex@sander.goudswaard.com>, 2018
 # Syrene Mos <syrenemos@gmail.com>, 2017
 # Yola Maas <post@basicsoflive.nl>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2018-01-15 09:52+0000\n"
-"Last-Translator: Rob Boxman <rob.boxman@gmail.com>\n"
+"PO-Revision-Date: 2018-05-08 21:20+0000\n"
+"Last-Translator: Sander G. <transifex@sander.goudswaard.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -713,7 +714,7 @@ msgstr "Interessegroepen vervangen?"
 msgid ""
 "Select \"no\" if you want to add the selected interests to any previously "
 "selected interests when updating a subscriber."
-msgstr "Kies \"nee\" als je de geselecteerde intesesses wil toegevoegen aan eerdere geselecteerde intesesses bij het bijwerken van een abonnee."
+msgstr "Kies \"nee\" als je de geselecteerde interesses wilt toegevoegen aan eerdere geselecteerde interesses bij het bijwerken van een abonnee."
 
 #: includes/integrations/views/integration-settings.php202,
 #: includes/forms/views/tabs/form-settings.php:80
