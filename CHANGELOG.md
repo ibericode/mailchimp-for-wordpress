@@ -1,6 +1,23 @@
 Changelog
 =========
 
+#### 4.2.2 - May 22, 2018
+
+**Fixes**
+
+- Events Manager integration was not working with logged-in users.
+- Form preview URL should respect admin HTTP(S) scheme.
+- Removed use of PHP 5.4 function.
+
+**Improvements**
+
+- Add "agree to terms" checkbox to field helper.
+
+**Additions**
+
+- Add filter `mc4wp_http_request_args`.
+
+
 #### 4.2.1 - April 11, 2018
 
 **Fixes**
