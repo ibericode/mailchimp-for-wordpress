@@ -718,7 +718,7 @@ var FieldFactory = function FieldFactory(fields, i18n) {
         }, true);
 
         register(category, {
-            name: '_mc4wp_agree_to_terms',
+            name: 'AGREE_TO_TERMS',
             value: 1,
             type: "terms-checkbox",
             label: i18n.agreeToTerms,
