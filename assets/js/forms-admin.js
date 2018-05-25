@@ -492,7 +492,7 @@ var FieldHelper = function FieldHelper(m, tabs, editor, fields, events, i18n) {
 		// build DOM for overlay
 		var form = null;
 		if (fieldConfig) {
-			form = overlay(
+			form = m(overlay(
 			// field wizard
 			m("div.field-wizard", [
 
@@ -516,7 +516,7 @@ var FieldHelper = function FieldHelper(m, tabs, editor, fields, events, i18n) {
 					}
 				},
 				onclick: createFieldHTMLAndAddToForm
-			}, i18n.addToForm)])]), setActiveField);
+			}, i18n.addToForm)])]), setActiveField));
 		}
 
 		return [fieldsChoice, form];
@@ -1299,19 +1299,28 @@ var overlay = function overlay(m, i18n) {
 	return function (content, onCloseCallback) {
 		_onCloseCallback = onCloseCallback;
 
-		document.addEventListener('keydown', onKeyDown);
-		window.addEventListener('resize', position);
-
-		return [m('div.overlay-wrap', m("div.overlay", { oncreate: storeElementReference }, [
-		// close icon
-		m('span', {
-			"class": 'close dashicons dashicons-no',
-			title: i18n.close,
-			onclick: close
-		}), content])), m('div.overlay-background', {
-			title: i18n.close,
-			onclick: close
-		})];
+		return {
+			oncreate: function oncreate() {
+				document.addEventListener('keydown', onKeyDown);
+				window.addEventListener('resize', position);
+			},
+			onremove: function onremove() {
+				document.removeEventListener('keydown', onKeyDown);
+				window.removeEventListener('resize', position);
+			},
+			view: function view() {
+				return [m('div.overlay-wrap', m("div.overlay", { oncreate: storeElementReference }, [
+				// close icon
+				m('span', {
+					"class": 'close dashicons dashicons-no',
+					title: i18n.close,
+					onclick: close
+				}), content])), m('div.overlay-background', {
+					title: i18n.close,
+					onclick: close
+				})];
+			}
+		};
 	};
 };
 
