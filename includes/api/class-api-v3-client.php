@@ -42,6 +42,7 @@ class MC4WP_API_v3_Client {
   * @param array $args
   *
   * @return mixed
+  * @throws MC4WP_API_Exception
   */
   public function get( $resource, array $args = array() ) {
     return $this->request( 'GET', $resource, $args );
@@ -52,6 +53,7 @@ class MC4WP_API_v3_Client {
   * @param array $data
   *
   * @return mixed
+  * @throws MC4WP_API_Exception
   */
   public function post( $resource, array $data ) {
     return $this->request( 'POST', $resource, $data );
@@ -61,6 +63,7 @@ class MC4WP_API_v3_Client {
   * @param string $resource
   * @param array $data
   * @return mixed
+  * @throws MC4WP_API_Exception
   */
   public function put( $resource, array $data ) {
     return $this->request( 'PUT', $resource, $data );
@@ -70,6 +73,7 @@ class MC4WP_API_v3_Client {
   * @param string $resource
   * @param array $data
   * @return mixed
+  * @throws MC4WP_API_Exception
   */
   public function patch( $resource, array $data ) {
     return $this->request( 'PATCH', $resource, $data );
@@ -78,6 +82,7 @@ class MC4WP_API_v3_Client {
   /**
   * @param string $resource
   * @return mixed
+  * @throws MC4WP_API_Exception
   */
   public function delete( $resource ) {
     return $this->request( 'DELETE', $resource );
