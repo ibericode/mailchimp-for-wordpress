@@ -75,7 +75,7 @@ function _mc4wp_load_plugin() {
 	$mc4wp['integrations']->add_hooks();
 
 	// Doing cron? Load Usage Tracking class.
-	if( defined( 'DOING_CRON' ) && DOING_CRON ) {
+	if( isset( $_GET['doing_wp_cron'] ) || ( defined( 'DOING_CRON' ) && DOING_CRON ) || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 		MC4WP_Usage_Tracking::instance()->add_hooks();
 	}
 
