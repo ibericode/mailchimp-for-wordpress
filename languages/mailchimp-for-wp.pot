@@ -337,15 +337,15 @@ msgstr ""
 msgid "<strong>Success!</strong> Form successfully saved."
 msgstr ""
 
-#: includes/forms/class-admin.php:374
+#: includes/forms/class-admin.php:379
 msgid "Form not found."
 msgstr ""
 
-#: includes/forms/class-admin.php:435, includes/forms/class-widget.php:30
+#: includes/forms/class-admin.php:440, includes/forms/class-widget.php:30
 msgid "MailChimp Sign-Up Form"
 msgstr ""
 
-#: includes/forms/class-admin.php:439
+#: includes/forms/class-admin.php:444
 msgid "Select the form to show"
 msgstr ""
 

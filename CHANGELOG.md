@@ -1,6 +1,19 @@
 Changelog
 =========
 
+#### 4.2.3 - June 11, 2018
+
+**Fixes**
+
+- Don't wrap "agree to terms" input in hyperlink element.
+- Allow [ENTER] key again after field helper overlay is closed.
+
+**Improvements**
+
+- Fallback to meta-refresh if redirect fails because of "headers already sent" error.
+
+
+
 #### 4.2.2 - May 22, 2018
 
 **Fixes**
