@@ -75,7 +75,7 @@ class MC4WP_Integration_Admin {
 	 * @return array
 	 */
 	public function add_menu_item( $items ) {
-		$items['integrations'] = array(
+		$items[] = array(
 			'title' => __( 'Integrations', 'mailchimp-for-wp' ),
 			'text' => __( 'Integrations', 'mailchimp-for-wp' ),
 			'slug' => 'integrations',

@@ -105,7 +105,7 @@ class MC4WP_Forms_Admin {
 	 */
 	public function add_menu_item( $items ) {
 
-		$items['forms'] = array(
+		$items[] = array(
 			'title' => __( 'Forms', 'mailchimp-for-wp' ),
 			'text' => __( 'Form', 'mailchimp-for-wp' ),
 			'slug' => 'forms',
