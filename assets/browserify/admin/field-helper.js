@@ -105,7 +105,7 @@ var FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 		// build DOM for overlay
 		var form = null;
 		if( fieldConfig ) {
-			form = overlay(
+			form = m(overlay(
 				// field wizard
 				m("div.field-wizard", [
 
@@ -136,7 +136,7 @@ var FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 							onclick: createFieldHTMLAndAddToForm
 						}, i18n.addToForm )
 					])
-				]), setActiveField);
+				]), setActiveField));
 		}
 
 		return [

@@ -16,7 +16,8 @@ defined( 'ABSPATH' ) or exit;
 		<ul class="ul-square">
 			<li><strong>Better forms</strong> &mdash; unlimited, AJAX powered forms with detailed statistics.</li>
 			<li><strong>E-Commerce integration</strong> &mdash; tightly integrate your WooCommerce store with MailChimp.</li>
-			<li><strong>Styles Builder</strong> &mdash; prettify your forms, no CSS code required.</li>
+			<li><strong>Form designer</strong> &mdash; make your forms look pretty without having to know or write a single line of CSS.</li>
+			<li><strong>Append form to posts</strong> &mdash; automatically add a certain form to all posts (in a certain category)</li>
 			<li><strong>Priority support</strong> &mdash; gain access to our 24/7 support team.</li>
 		</ul>
 		<p>
@@ -24,7 +25,7 @@ defined( 'ABSPATH' ) or exit;
 			<a href="https://mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=extensions-page"><span style="text-decoration: none; vertical-align: middle; margin-right: 6px;" class="dashicons dashicons-info"> </span>More information</a>
 		</p>
 
-		<p><em>Comes with our 30-day no questions asked money back guarantee.</em>
+		<p><em>Comes with <a href="https://mc4wp.com/refund-policy/">our 30-day no questions asked money back guarantee</a>.</em>
 	</div>
 
 	<hr />

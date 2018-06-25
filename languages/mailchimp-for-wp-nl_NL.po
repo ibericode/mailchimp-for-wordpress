@@ -2,18 +2,21 @@
 # This file is distributed under the same license as the mailchimp-for-wp package.
 # Translators:
 # Danny van Kooten <dannyvankooten@gmail.com>, 2014-2017
+# Dennis Swennen <dennis.swennen@gmail.com>, 2018
 # Eelco Martens <eelco.martens@gmail.com>, 2015
 # Form App <formappmobile@gmail.com>, 2016
+# Lassooy Design <edwin@lassooydesign.nl>, 2018
 # Maartje L <maartje2@hotmail.com>, 2017
 # Martijn van Egmond <developer@tensheep.nl>, 2015
 # Rob Boxman <rob.boxman@gmail.com>, 2018
+# Sander G. <transifex@sander.goudswaard.com>, 2018
 # Syrene Mos <syrenemos@gmail.com>, 2017
 # Yola Maas <post@basicsoflive.nl>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2018-01-15 09:52+0000\n"
-"Last-Translator: Rob Boxman <rob.boxman@gmail.com>\n"
+"PO-Revision-Date: 2018-05-25 10:43+0000\n"
+"Last-Translator: Dennis Swennen <dennis.swennen@gmail.com>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -119,19 +122,19 @@ msgstr "Upgraden naar Premium"
 msgid ""
 "Do you want translated forms for all of your languages? <a href=\"%s\">Try "
 "MailChimp for WordPress Premium</a>, which does just that plus more."
-msgstr ""
+msgstr "Wil je vertaalde formulieren voor al je talen? Dit en meer kan met <a href=\"%s\">Mailchimp voor Wordpress Premium.</a>"
 
 #: includes/admin/class-ads.php:88
 msgid ""
 "Do you want to create more than one form? Our Premium add-on does just that!"
 " <a href=\"%s\">Have a look at all Premium benefits</a>."
-msgstr ""
+msgstr "Wil je meer dan één formulier creëren? Dat kan met onze Premium add-on! <a href=\"%s\">Bekijk alle Premium voordelen</a>."
 
 #: includes/admin/class-ads.php:93
 msgid ""
 "Are you enjoying this plugin? The Premium add-on unlocks several powerful "
 "features. <a href=\"%s\">Find out about all benefits now</a>."
-msgstr ""
+msgstr "Bevalt deze plugin? De Premium add-on ontsluit diverse krachtige opties. <a href=\"%s\">Ontdek direct meer over alle voordelen</a>."
 
 #: includes/admin/class-ads.php:112
 msgid "More subscribers, better newsletters."
@@ -159,13 +162,13 @@ msgstr "Inschrijven"
 msgid ""
 "Do you want to track all WooCommerce orders in MailChimp so you can send "
 "emails based on the purchase activity of your subscribers?"
-msgstr ""
+msgstr "Wil je alle WooCommerce bestellingen in Mailchimp opvolgen zodat je emails kan versturen op basis van de koopacties van je abonnees?"
 
 #: includes/admin/class-ads.php:153
 msgid ""
 "<a href=\"%s\">Upgrade to MailChimp for WordPress Premium</a> or <a "
 "href=\"%s\">read more about MailChimp's E-Commerce features</a>."
-msgstr ""
+msgstr "<a href=\"%s\">Upgrade naar Mailchimp voor WordPress Premium</a>of<a href=\"%s\">lees meer over MailChimp's E-Commerce mogelijkheden</a>."
 
 #: includes/admin/class-review-notice.php:68
 msgid ""
@@ -177,7 +180,7 @@ msgstr "Je gebruikt MailChimp voor WordPress nu al een tijdje; we hopen dat je h
 msgid ""
 "If you do, please <a href=\"%s\">leave us a 5★ rating on WordPress.org</a>. "
 "It would be of great help to us."
-msgstr ""
+msgstr "Als dat zo is, gelieve <a href=\"%s\">ons een 5★ beoordeling te geven op WordPress.org</a>. Dit zou ons ontzettend helpen."
 
 #: includes/admin/class-review-notice.php:71
 msgid "Dismiss this notice."
@@ -713,7 +716,7 @@ msgstr "Interessegroepen vervangen?"
 msgid ""
 "Select \"no\" if you want to add the selected interests to any previously "
 "selected interests when updating a subscriber."
-msgstr "Kies \"nee\" als je de geselecteerde intesesses wil toegevoegen aan eerdere geselecteerde intesesses bij het bijwerken van een abonnee."
+msgstr "Kies \"nee\" als je de geselecteerde interesses wilt toegevoegen aan eerdere geselecteerde interesses bij het bijwerken van een abonnee."
 
 #: includes/integrations/views/integration-settings.php202,
 #: includes/forms/views/tabs/form-settings.php:80
@@ -791,7 +794,7 @@ msgstr "Hat aantal aanmeldingen verbeteren?"
 msgid ""
 "Our <a href=\"%s\">Boxzilla plugin</a> allows you to create pop-ups or "
 "slide-ins with a subscribe form. A sure way to grow your lists faster."
-msgstr ""
+msgstr "Onze <a href=\"%s\">Boxzilla plugin</a>laat toe om pop-ups of slide-ins met een inschrijvingsformulier te maken. Een goede manier om je lijst sneller te doen groeien."
 
 #: includes/views/parts/lists-overview.php:1
 msgid "Your MailChimp Account"

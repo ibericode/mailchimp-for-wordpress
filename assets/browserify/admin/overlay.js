@@ -46,28 +46,36 @@ const overlay = function(m, i18n) {
 	return function (content, onCloseCallback) {
 		_onCloseCallback = onCloseCallback;
 
-		document.addEventListener('keydown', onKeyDown);
-		window.addEventListener('resize', position);
+		return { 
+			oncreate: function() {
+				document.addEventListener('keydown', onKeyDown);
+				window.addEventListener('resize', position);
+			},
+			onremove: function() {
+				document.removeEventListener('keydown', onKeyDown);
+				window.removeEventListener('resize', position);
+			},
+			view: function() { 
+				return [
+					m('div.overlay-wrap',
+						m("div.overlay", { oncreate: storeElementReference },[
+							// close icon
+							m('span', {
+								"class": 'close dashicons dashicons-no',
+								title  : i18n.close,
+								onclick: close
+							}),
 
-		return [
-			m('div.overlay-wrap',
-				m("div.overlay", { oncreate: storeElementReference },[
-					// close icon
-					m('span', {
-						"class": 'close dashicons dashicons-no',
-						title  : i18n.close,
+							content
+						])
+					),
+					m('div.overlay-background', {
+						title: i18n.close,
 						onclick: close
-					}),
-
-					content
-				])
-			)
-			,
-			m('div.overlay-background', {
-				title: i18n.close,
-				onclick: close
-			})
-		];
+					})
+				]; 
+			}
+		};
 	};
 };
 

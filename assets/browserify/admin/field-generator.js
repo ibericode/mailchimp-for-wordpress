@@ -60,23 +60,24 @@ const g = function(m) {
 	};
 
 	generators['terms-checkbox'] = function(config) {
-		let checkbox = [
+		let label;
+		
+		if( config.link().length > 0 ) {
+			label = m('a', { href: config.link(), target: "_blank" }, config.label() );
+		} else {
+			label = config.label();
+		}
+
+		return m('label', [ 
 			m('input', {
 				name    : config.name(),
 				type    : 'checkbox',
 				value   : config.value(),
 				required: config.required(),
 			}),
-			m.trust(' ' + config.label())
-		];
-
-		let content = checkbox;
-
-		if( config.link().length > 0 ) {
-			content = m('a', { href: config.link(), target: "_blank" }, checkbox );
-		}
-
-		return m('label', content)
+			' ',
+			label
+		]);
 	};
 
 	/**

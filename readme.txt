@@ -3,8 +3,8 @@ Contributors: Ibericode, DvanKooten, hchouhan, lapzor
 Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=donate-link
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp form
 Requires at least: 4.1
-Tested up to: 4.9.5
-Stable tag: 4.2.2-trunk
+Tested up to: 4.9.6
+Stable tag: 4.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.2.4
@@ -36,7 +36,7 @@ This plugin helps you grow your MailChimp lists and write better newsletters thr
 	- Ninja Forms 3
 	- WPForms
 	- BuddyPress
-    - MemberPress
+   - MemberPress
 	- Events Manager
 	- Easy Digital Downloads
 
@@ -195,6 +195,36 @@ The plugin provides various filter & action hooks that allow you to modify or ex
 6. Dive into detailed sign-up statistics (premium feature).
 
 == Changelog == 
+
+
+#### 4.2.3 - June 11, 2018
+
+**Fixes**
+
+- Don't wrap "agree to terms" input in hyperlink element.
+- Allow [ENTER] key again after field helper overlay is closed.
+
+**Improvements**
+
+- Fallback to meta-refresh if redirect fails because of "headers already sent" error.
+
+
+
+#### 4.2.2 - May 22, 2018
+
+**Fixes**
+
+- Events Manager integration was not working with logged-in users.
+- Form preview URL should respect admin HTTP(S) scheme.
+- Removed use of PHP 5.4 function.
+
+**Improvements**
+
+- Add "agree to terms" checkbox to field helper.
+
+**Additions**
+
+- Add filter `mc4wp_http_request_args`.
 
 
 #### 4.2.1 - April 11, 2018

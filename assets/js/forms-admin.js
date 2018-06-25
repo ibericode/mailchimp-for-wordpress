@@ -280,20 +280,20 @@ var g = function g(m) {
 	};
 
 	generators['terms-checkbox'] = function (config) {
-		var checkbox = [m('input', {
+		var label = void 0;
+
+		if (config.link().length > 0) {
+			label = m('a', { href: config.link(), target: "_blank" }, config.label());
+		} else {
+			label = config.label();
+		}
+
+		return m('label', [m('input', {
 			name: config.name(),
 			type: 'checkbox',
 			value: config.value(),
 			required: config.required()
-		}), m.trust(' ' + config.label())];
-
-		var content = checkbox;
-
-		if (config.link().length > 0) {
-			content = m('a', { href: config.link(), target: "_blank" }, checkbox);
-		}
-
-		return m('label', content);
+		}), ' ', label]);
 	};
 
 	/**
@@ -492,7 +492,7 @@ var FieldHelper = function FieldHelper(m, tabs, editor, fields, events, i18n) {
 		// build DOM for overlay
 		var form = null;
 		if (fieldConfig) {
-			form = overlay(
+			form = m(overlay(
 			// field wizard
 			m("div.field-wizard", [
 
@@ -516,7 +516,7 @@ var FieldHelper = function FieldHelper(m, tabs, editor, fields, events, i18n) {
 					}
 				},
 				onclick: createFieldHTMLAndAddToForm
-			}, i18n.addToForm)])]), setActiveField);
+			}, i18n.addToForm)])]), setActiveField));
 		}
 
 		return [fieldsChoice, form];
@@ -718,7 +718,7 @@ var FieldFactory = function FieldFactory(fields, i18n) {
         }, true);
 
         register(category, {
-            name: '_mc4wp_agree_to_terms',
+            name: 'AGREE_TO_TERMS',
             value: 1,
             type: "terms-checkbox",
             label: i18n.agreeToTerms,
@@ -1299,19 +1299,28 @@ var overlay = function overlay(m, i18n) {
 	return function (content, onCloseCallback) {
 		_onCloseCallback = onCloseCallback;
 
-		document.addEventListener('keydown', onKeyDown);
-		window.addEventListener('resize', position);
-
-		return [m('div.overlay-wrap', m("div.overlay", { oncreate: storeElementReference }, [
-		// close icon
-		m('span', {
-			"class": 'close dashicons dashicons-no',
-			title: i18n.close,
-			onclick: close
-		}), content])), m('div.overlay-background', {
-			title: i18n.close,
-			onclick: close
-		})];
+		return {
+			oncreate: function oncreate() {
+				document.addEventListener('keydown', onKeyDown);
+				window.addEventListener('resize', position);
+			},
+			onremove: function onremove() {
+				document.removeEventListener('keydown', onKeyDown);
+				window.removeEventListener('resize', position);
+			},
+			view: function view() {
+				return [m('div.overlay-wrap', m("div.overlay", { oncreate: storeElementReference }, [
+				// close icon
+				m('span', {
+					"class": 'close dashicons dashicons-no',
+					title: i18n.close,
+					onclick: close
+				}), content])), m('div.overlay-background', {
+					title: i18n.close,
+					onclick: close
+				})];
+			}
+		};
 	};
 };
 

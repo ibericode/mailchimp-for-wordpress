@@ -11,7 +11,7 @@ class MC4WP_API_Exception extends Exception {
     /**
     * @var object
     */
-    public $request= array();
+    public $request = array();
 
     /**
     * @var array

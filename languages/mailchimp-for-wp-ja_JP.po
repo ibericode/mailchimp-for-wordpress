@@ -7,11 +7,12 @@
 # Sugahara Masayuki <brindflontia@gmail.com>, 2016
 # Rockers <sumorock@hotmail.com>, 2018
 # 亀山 翔大 <shotakame@gmail.com>, 2017
+# 長澤良次 <yoshi4181@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2018-02-20 05:49+0000\n"
-"Last-Translator: Rockers <sumorock@hotmail.com>\n"
+"PO-Revision-Date: 2018-05-04 04:50+0000\n"
+"Last-Translator: 長澤良次 <yoshi4181@gmail.com>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -187,7 +188,7 @@ msgstr "接続に関するよくある問題についてもっと読む"
 
 #: includes/forms/class-admin.php:62
 msgid "Add to form"
-msgstr ""
+msgstr "フォームを追加する"
 
 #: includes/forms/class-admin.php:63
 msgid "City"
@@ -211,7 +212,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:68
 msgid "Close"
-msgstr ""
+msgstr "閉じる"
 
 #: includes/forms/class-admin.php:69
 msgid "Country"
@@ -249,7 +250,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:77
 msgid "Initial value"
-msgstr ""
+msgstr "初期値"
 
 #: includes/forms/class-admin.php:78
 msgid "Interest categories"
@@ -273,11 +274,11 @@ msgstr ""
 
 #: includes/forms/class-admin.php:83
 msgid "Min"
-msgstr ""
+msgstr "最小"
 
 #: includes/forms/class-admin.php:84
 msgid "Max"
-msgstr ""
+msgstr "最大"
 
 #: includes/forms/class-admin.php:85
 msgid ""
@@ -306,7 +307,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:91
 msgid "Radio buttons"
-msgstr ""
+msgstr "ラジオボタン"
 
 #: includes/forms/class-admin.php:92
 msgid "Street Address"
@@ -318,7 +319,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:95
 msgid "Submit button"
-msgstr ""
+msgstr "送信ボタン"
 
 #: includes/forms/class-admin.php:96
 msgid "Wrap in paragraph tags?"
@@ -326,7 +327,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:97
 msgid "Value"
-msgstr ""
+msgstr "値"
 
 #: includes/forms/class-admin.php:98
 msgid "Text to prefill this field with."
@@ -334,7 +335,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:99
 msgid "ZIP"
-msgstr ""
+msgstr "郵便番号"
 
 #: includes/forms/class-admin.php111, includes/forms/class-admin.php112,
 #: includes/forms/views/edit-form.php:24
@@ -355,7 +356,7 @@ msgstr "MailChimp登録フォーム"
 
 #: includes/forms/class-admin.php:453
 msgid "Select the form to show"
-msgstr ""
+msgstr "表示するフォームを選択する"
 
 #: includes/forms/class-form-previewer.php:146
 msgid "Form preview"
@@ -485,7 +486,7 @@ msgstr "（このリンクから取得できます）"
 
 #: includes/views/other-settings.php:14
 msgid "Miscellaneous settings"
-msgstr ""
+msgstr "その他の設定"
 
 #: includes/views/other-settings.php:17
 msgid "Usage Tracking"
@@ -593,7 +594,7 @@ msgstr "登録フォームのタイトルを入力"
 
 #: includes/forms/views/edit-form.php:65
 msgid "Shortcode"
-msgstr ""
+msgstr "ショートコード"
 
 #: includes/forms/views/edit-form.php:67
 msgid "Get shortcode"
@@ -775,11 +776,11 @@ msgstr ""
 
 #: includes/views/parts/admin-sidebar.php:15
 msgid "Frequently Asked Questions"
-msgstr ""
+msgstr "よくある質問"
 
 #: includes/views/parts/admin-sidebar.php:16
 msgid "Code reference for developers"
-msgstr ""
+msgstr "開発者向けコードリファレンス"
 
 #: includes/views/parts/admin-sidebar.php:36
 msgid "Looking to improve your sign-up rates?"
@@ -1017,7 +1018,7 @@ msgstr "登録解除機能の使用時、指定されたメールアドレスが
 
 #: includes/forms/views/tabs/form-messages.php:65
 msgid "No list selected"
-msgstr ""
+msgstr "リストが選択されていません"
 
 #: includes/forms/views/tabs/form-messages.php:68
 msgid ""
@@ -1027,7 +1028,7 @@ msgstr ""
 
 #: includes/forms/views/tabs/form-messages.php:74
 msgid "Updated"
-msgstr ""
+msgstr "更新しました"
 
 #: includes/forms/views/tabs/form-messages.php:77
 msgid "The text that shows when an existing subscriber is updated."
@@ -1061,7 +1062,7 @@ msgstr "ダブルオプトインを使いますか？"
 
 #: includes/forms/views/tabs/form-settings.php:44
 msgid "Are you sure you want to disable double opt-in?"
-msgstr ""
+msgstr "ダブルオプトインを無効にしてもよろしいですか？"
 
 #: includes/forms/views/tabs/form-settings.php:47
 msgid ""
