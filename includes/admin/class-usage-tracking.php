@@ -123,7 +123,7 @@ class MC4WP_Usage_Tracking {
 			'mc4wp_version' => $this->get_mc4wp_version(),
 			'mc4wp_premium_version' => $this->get_mc4wp_premium_version(),
 			'plugins' => (array) get_option( 'active_plugins', array() ),
-			'php_version' => PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION,
+			'php_version' => $this->get_php_version(),
 			'curl_version' => $this->get_curl_version(),
 			'wp_version' => $GLOBALS['wp_version'],
 			'wp_language' => get_locale(),
@@ -132,6 +132,14 @@ class MC4WP_Usage_Tracking {
 		);
 
 		return $data;
+	}
+
+	public function get_php_version() {
+		if( ! defined('PHP_MAJOR_VERSION' ) ) { // defined since PHP 5.2.7
+			return null;
+		}
+
+		return PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;
 	}
 
 	/**
