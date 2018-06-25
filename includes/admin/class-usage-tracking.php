@@ -138,7 +138,7 @@ class MC4WP_Usage_Tracking {
 	 * @return string
 	 */
 	public function get_mc4wp_premium_version() {
-		return defined( 'MC4WP_PREMIUM_VERSION' ) ? MC4WP_PREMIUM_VERSION : 0;
+		return defined( 'MC4WP_PREMIUM_VERSION' ) ? MC4WP_PREMIUM_VERSION : null;
 	}
 
 	/**
@@ -164,9 +164,8 @@ class MC4WP_Usage_Tracking {
 	 * @return string
 	 */
 	protected function get_curl_version() {
-
 		if( ! function_exists( 'curl_version' ) ) {
-			return 0;
+			return null;
 		}
 
 		$curl_version_info = curl_version();
@@ -178,16 +177,15 @@ class MC4WP_Usage_Tracking {
 	 */
 	protected function is_site_using_https() {
 		$site_url = site_url();
-		return strpos( $site_url, 'https://' ) === 0;
+		return stripos( $site_url, 'https' ) === 0;
 	}
 
 	/**
 	 * @return string
 	 */
 	protected function get_server_software() {
-
 		if( ! isset( $_SERVER['SERVER_SOFTWARE'] ) ) {
-			return '';
+			return null;
 		}
 
 		return $_SERVER['SERVER_SOFTWARE'];
