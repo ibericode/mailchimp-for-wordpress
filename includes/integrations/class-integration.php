@@ -523,7 +523,7 @@ abstract class MC4WP_Integration {
 	 * @return array
 	 */
 	public function get_data() {
-		$data = array_merge( $_GET, $_POST );
+		$data = array_merge( (array) $_GET, (array) $_POST );
 		return $data;
 	}
 
