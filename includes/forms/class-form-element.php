@@ -283,6 +283,11 @@ class MC4WP_Form_Element {
 			$this->config = $config;
 		}
 
+		// return empty string if form is in trash
+		if( $this->form->status !== 'publish' ) {
+			return '';
+		}
+
 		// Start building content string
 		$opening_html = '<!-- MailChimp for WordPress v' . MC4WP_VERSION . ' - https://wordpress.org/plugins/mailchimp-for-wp/ -->';
 		$opening_html .= '<form '. $this->get_form_element_attributes() .'>';
