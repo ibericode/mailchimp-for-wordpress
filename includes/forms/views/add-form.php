@@ -43,7 +43,7 @@
 							<?php foreach( $lists as $list ) { ?>
 								<li>
 									<label>
-										<input type="checkbox" name="mc4wp_form[settings][lists][<?php echo esc_attr( $list->id ); ?>]" value="<?php echo esc_attr( $list->id ); ?>" <?php selected( $number_of_lists, 1 ); ?> >
+										<input type="checkbox" name="mc4wp_form[settings][lists][<?php echo esc_attr( $list->id ); ?>]" value="<?php echo esc_attr( $list->id ); ?>" <?php checked( $number_of_lists, 1 ); ?> >
 										<?php echo esc_html( $list->name ); ?>
 									</label>
 								</li>
