@@ -104,6 +104,10 @@ class MC4WP_Debug_Log_Reader {
 		// read line, up to 8kb
 		$text = fgets( $this->handle );
 
+      // strip tags & trim 
+      $text = strip_tags( $text );
+      $text = trim( $text );
+
 		return $text;
 	}
 
@@ -113,9 +117,15 @@ class MC4WP_Debug_Log_Reader {
 	public function read_as_html() {
 		$line = $this->read();
 
-        if( is_null( $line ) ) {
-            return null;
-        }
+      // null means end of file
+      if( is_null( $line ) ) {
+         return null;
+      }
+
+      // empty string means empty line, but not yet eof
+      if( empty( $line ) ) {
+         return '';
+      }
 
 		$line = preg_replace( self::$regex, self::$html_template, $line );
 		return $line;

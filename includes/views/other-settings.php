@@ -115,7 +115,10 @@ add_action( 'mc4wp_admin_other_settings', '_mc4wp_usage_tracking_setting', 70 );
 
 						if (!empty($line)) {
 							while( is_string( $line ) ) {
-								echo '<div class="debug-log-line">' . $line . '</div>';
+								if( ! empty( $line ) ) { 
+									echo '<div class="debug-log-line">' . $line . '</div>'; 
+								}
+								
 								$line = $log_reader->read_as_html();
 							}
 						} else {

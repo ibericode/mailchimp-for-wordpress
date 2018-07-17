@@ -84,7 +84,14 @@ class MC4WP_Debug_Log{
 		}
 
 		// obfuscate email addresses in log message since log might be public.
-        $message = mc4wp_obfuscate_email_addresses( (string) $message );
+      $message = mc4wp_obfuscate_email_addresses( (string) $message );
+
+      // first, get rid of everything between "invisible" tags
+      $message = preg_replace( '/<(?:style|script|head)>.+?<\/(?:style|script|head)>/is', '', $message );
+      	
+      // then, strip tags (while retaining content of these tags)
+      $message = strip_tags( $message );
+      $message = trim( $message );
 
 		// generate line
 		$level_name = self::get_level_name( $level );
