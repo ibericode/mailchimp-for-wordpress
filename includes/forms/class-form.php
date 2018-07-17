@@ -128,6 +128,11 @@ class MC4WP_Form {
     public $last_event = '';
 
     /**
+    * @var string
+    */
+    public $status;
+
+    /**
      * @param int $id The post ID
      * @param WP_Post $post
      * @param array $post_meta
@@ -136,6 +141,7 @@ class MC4WP_Form {
         $this->ID = $id = (int) $id;
         $this->name = $post->post_title;
         $this->content = $post->post_content;
+        $this->status = $post->post_status;
         $this->settings = $this->load_settings( $post_meta );
         $this->messages = $this->load_messages( $post_meta );
 

@@ -876,6 +876,151 @@ class MC4WP_API_v3 {
 	}
 
 	/**
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/promo-rules/#create-post_ecommerce_stores_store_id_promo_rules
+	 *
+	 * @param string $store_id
+	 * @param array $args
+	 *
+	 * @return object
+	 * @throws MC4WP_API_Exception
+	 */
+	public function add_ecommerce_store_promo_rule( $store_id, array $args ) {
+		$resource = sprintf( '/ecommerce/stores/%s/promo-rules', $store_id );
+		return $this->client->post( $resource, $args );
+	}
+
+	/**
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/promo-rules/#read-get_ecommerce_stores_store_id_promo_rules
+	 *
+	 * @param string $store_id
+	 * @param array $args
+	 *
+	 * @return object
+	 * @throws MC4WP_API_Exception
+	 */
+	public function get_ecommerce_store_promo_rules( $store_id, array $args = array() ) {
+		$resource = sprintf( '/ecommerce/stores/%s/promo-rules', $store_id );
+		return $this->client->get( $resource, $args );
+	}
+
+	/**
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/promo-rules/#read-get_ecommerce_stores_store_id_promo_rules_promo_rule_id
+	 *
+	 * @param string $store_id
+	 * @param string $promo_rule_id
+	 * @param array $args
+	 *
+	 * @return object
+	 * @throws MC4WP_API_Exception
+	 */
+	public function get_ecommerce_store_promo_rule( $store_id, $promo_rule_id, array $args = array() ) {
+		$resource = sprintf( '/ecommerce/stores/%s/promo-rules/%s', $store_id, $promo_rule_id );
+		return $this->client->get( $resource, $args );
+	}
+
+	/**
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/promo-rules/#edit-patch_ecommerce_stores_store_id_promo_rules_promo_rule_id
+	 *
+	 * @param string $store_id
+	 * @param string $promo_rule_id
+	 * @param array $args
+	 *
+	 * @return object
+	 * @throws MC4WP_API_Exception
+	 */
+	public function update_ecommerce_store_promo_rule( $store_id, $promo_rule_id, array $args ) {
+		$resource = sprintf( '/ecommerce/stores/%s/promo-rules/%s', $store_id, $promo_rule_id );
+		return $this->client->patch( $resource, $args );
+	}
+
+	/**
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/promo-rules/#delete-delete_ecommerce_stores_store_id_promo_rules_promo_rule_id
+	 *
+	 * @param string $store_id
+	 * @param string $promo_rule_id
+	 *
+	 * @return boolean
+	 * @throws MC4WP_API_Exception
+	 */
+	public function delete_ecommerce_store_promo_rule( $store_id, $promo_rule_id ) {
+		$resource = sprintf( '/ecommerce/stores/%s/promo-rules/%s', $store_id, $promo_rule_id );
+		return !! $this->client->delete( $resource );
+	}
+
+	/**
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/promo-rules/promo-codes/#create-post_ecommerce_stores_store_id_promo_rules_promo_rule_id_promo_codes
+	 *
+	 * @param string $store_id
+	 * @param array $args
+	 *
+	 * @return object
+	 * @throws MC4WP_API_Exception
+	 */
+	public function add_ecommerce_store_promo_rule_promo_code( $store_id, $promo_rule_id, array $args ) {
+		$resource = sprintf( '/ecommerce/stores/%s/promo-rules/%s/promo-codes', $store_id, $promo_rule_id );
+		return $this->client->post( $resource, $args );
+	}
+
+	/**
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/promo-rules/promo-codes/#read-get_ecommerce_stores_store_id_promo_rules_promo_rule_id_promo_codes
+	 *
+	 * @param string $store_id
+	 * @param array $args
+	 *
+	 * @return object
+	 * @throws MC4WP_API_Exception
+	 */
+	public function get_ecommerce_store_promo_rule_promo_codes( $store_id, $promo_rule_id, array $args = array() ) {
+		$resource = sprintf( '/ecommerce/stores/%s/promo-rules/%s/promo-codes', $store_id, $promo_rule_id );
+		return $this->client->get( $resource, $args );
+	}
+
+	/**
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/promo-rules/promo-codes/#read-get_ecommerce_stores_store_id_promo_rules_promo_rule_id_promo_codes_promo_code_id
+	 *
+	 * @param string $store_id
+	 * @param string $promo_rule_id
+	 * @param array $args
+	 *
+	 * @return object
+	 * @throws MC4WP_API_Exception
+	 */
+	public function get_ecommerce_store_promo_rule_promo_code( $store_id, $promo_rule_id, $promo_code_id, array $args = array() ) {
+		$resource = sprintf( '/ecommerce/stores/%s/promo-rules/%s/promo-codes/%s', $store_id, $promo_rule_id, $promo_code_id );
+		return $this->client->get( $resource, $args );
+	}
+
+	/**
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/promo-rules/promo-codes/#edit-patch_ecommerce_stores_store_id_promo_rules_promo_rule_id_promo_codes_promo_code_id
+	 *
+	 * @param string $store_id
+	 * @param string $promo_rule_id
+	 * @param array $args
+	 *
+	 * @return object
+	 * @throws MC4WP_API_Exception
+	 */
+	public function update_ecommerce_store_promo_rule_promo_code( $store_id, $promo_rule_id, $promo_code_id, array $args ) {
+		$resource = sprintf( '/ecommerce/stores/%s/promo-rules/%s/promo-codes/%s', $store_id, $promo_rule_id, $promo_code_id );
+		return $this->client->patch( $resource, $args );
+	}
+
+	/**
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/promo-rules/promo-codes/#delete-delete_ecommerce_stores_store_id_promo_rules_promo_rule_id_promo_codes_promo_code_id
+	 *
+	 * @param string $store_id
+	 * @param string $promo_rule_id
+	 *
+	 * @return boolean
+	 * @throws MC4WP_API_Exception
+	 */
+	public function delete_ecommerce_store_promo_rule_promo_code( $store_id, $promo_rule_id, $promo_code_id ) {
+		$resource = sprintf( '/ecommerce/stores/%s/promo-rules/%s/promo-codes/%s', $store_id, $promo_rule_id, $promo_code_id );
+		return !! $this->client->delete( $resource );
+	}
+
+
+	/**
 	 * Get a list of an account's available templates
 	 *
 	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/templates/#read-get_templates

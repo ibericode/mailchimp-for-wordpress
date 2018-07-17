@@ -83,7 +83,8 @@ function mock_post( $data ) {
 			'ID' => 1,
 			'post_type' => 'mc4wp-form',
 			'post_title' => 'Form Title',
-			'post_content' => ''
+			'post_content' => '',
+			'post_status' => 'publish',
 		),
 		$data
 	);
