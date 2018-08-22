@@ -65,27 +65,27 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: includes/admin/class-admin.php:421
+#: includes/admin/class-admin.php:423
 msgid "Error connecting to MailChimp:"
 msgstr ""
 
-#: includes/admin/class-admin.php:424
+#: includes/admin/class-admin.php:426
 msgid "Looks like your server is blocked by MailChimp's firewall. Please contact MailChimp support and include the following reference number: %s"
 msgstr ""
 
-#: includes/admin/class-admin.php:427
+#: includes/admin/class-admin.php:429
 msgid "Here's some info on solving common connectivity issues."
 msgstr ""
 
-#: includes/admin/class-admin.php:432
+#: includes/admin/class-admin.php:434
 msgid "MailChimp returned the following error:"
 msgstr ""
 
-#: includes/admin/class-admin.php:471
+#: includes/admin/class-admin.php:473
 msgid "Log successfully emptied."
 msgstr ""
 
-#: includes/admin/class-admin.php:501
+#: includes/admin/class-admin.php:503
 msgid "To get started with MailChimp for WordPress, please <a href=\"%s\">enter your MailChimp API key on the settings page of the plugin</a>."
 msgstr ""
 
@@ -513,15 +513,15 @@ msgstr ""
 msgid "Please ensure %s has the proper <a href=\"%s\">file permissions</a>."
 msgstr ""
 
-#: includes/views/other-settings.php:123
+#: includes/views/other-settings.php:126
 msgid "Nothing here. Which means there are no errors!"
 msgstr ""
 
-#: includes/views/other-settings.php:133
+#: includes/views/other-settings.php:136
 msgid "Empty Log"
 msgstr ""
 
-#: includes/views/other-settings.php:141
+#: includes/views/other-settings.php:144
 msgid "Right now, the plugin is configured to only log errors and warnings."
 msgstr ""
 
