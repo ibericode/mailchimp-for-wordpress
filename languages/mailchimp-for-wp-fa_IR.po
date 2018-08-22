@@ -3,6 +3,7 @@
 # Translators:
 # A.Mehraban <Mehr.Ban@chmail.ir>, 2015
 # Ardavan Afrasiyabi <abox@usa.com>, 2015
+# farzad Noruzi <farzad.noruzi2@gmail.com>, 2018
 # mahnaz vahedi <mahnazvn@yahoo.com>, 2016
 # rokhiran <rokhiran@gmail.com>, 2017
 # Salar Gholizadeh <salar.g@gmail.com>, 2017
@@ -10,14 +11,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2017-10-16 19:17+0000\n"
-"Last-Translator: rokhiran <rokhiran@gmail.com>\n"
+"PO-Revision-Date: 2018-07-14 17:27+0000\n"
+"Last-Translator: farzad Noruzi <farzad.noruzi2@gmail.com>\n"
 "Language-Team: Persian (Iran) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/fa_IR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa_IR\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -93,14 +94,14 @@ msgstr "برای شروع به کار میل چیمپ برای وردپرس لط
 msgid ""
 "Want to customize the style of your form? <a href=\"%s\">Try our Styles "
 "Builder</a> & edit the look of your forms with just a few clicks."
-msgstr ""
+msgstr "آیا میخواهید فرم خود را اختصاصی سازی کنید ؟ از نرم افزار اختصاص ساز ما استفاده کنید.با چند کلیک ویرایش کرده و مشاهده نمایید."
 
 #: includes/admin/class-ads.php:54
 msgid ""
 "Be notified whenever someone subscribes? <a href=\"%s\">MailChimp for "
 "WordPress Premium</a> allows you to set up email notifications for your "
 "forms."
-msgstr ""
+msgstr "آیا میخواهید برای هر ثبت نام کننده اعلان دریافت نمائید؟ میل چیمپ پریمیوم وردپرس به شما این امکان را میدهد تا برای فرم های خود اعلان ایجاد کنید."
 
 #: includes/admin/class-ads.php:56
 msgid ""
@@ -129,7 +130,7 @@ msgstr ""
 msgid ""
 "Are you enjoying this plugin? The Premium add-on unlocks several powerful "
 "features. <a href=\"%s\">Find out about all benefits now</a>."
-msgstr ""
+msgstr "آیا این پلاگین برای شما مفید بود ؟ افزونه های پریمیوم چند امکان قدرتمند دیگر برای شما به ارمغان خواهد آورد. در مورد تخفیفات و امکانات فوق العاده بیشتر بدانید."
 
 #: includes/admin/class-ads.php:112
 msgid "More subscribers, better newsletters."
@@ -187,7 +188,7 @@ msgstr "درباره خطاهای متداول اتصال می توانید در
 
 #: includes/forms/class-admin.php:62
 msgid "Add to form"
-msgstr "اضافه کردن فرم"
+msgstr "افزودن به فرم"
 
 #: includes/forms/class-admin.php:63
 msgid "City"
@@ -195,7 +196,7 @@ msgstr "شهر"
 
 #: includes/forms/class-admin.php:64
 msgid "Checkboxes"
-msgstr "چک باکس"
+msgstr "چک باکس‌ها"
 
 #: includes/forms/class-admin.php:65
 msgid "Choices"
@@ -521,7 +522,7 @@ msgstr "صاقی.."
 
 #: includes/views/other-settings.php:104
 msgid "Log file is not writable."
-msgstr ""
+msgstr "فایل لاگ قابل نوشتن نمی باشد"
 
 #: includes/views/other-settings.php:105
 msgid "Please ensure %s has the proper <a href=\"%s\">file permissions</a>."
@@ -533,7 +534,7 @@ msgstr ""
 
 #: includes/views/other-settings.php:133
 msgid "Empty Log"
-msgstr ""
+msgstr "لاگ را خالی کنید."
 
 #: includes/views/other-settings.php:141
 msgid "Right now, the plugin is configured to only log errors and warnings."
@@ -1061,7 +1062,7 @@ msgstr "استفاده از قابلیت double opt-in؟"
 
 #: includes/forms/views/tabs/form-settings.php:44
 msgid "Are you sure you want to disable double opt-in?"
-msgstr ""
+msgstr "آیا شما مطمئن هستید که میخواهد ورود دوگانه را غیر فعال کنید ؟ "
 
 #: includes/forms/views/tabs/form-settings.php:47
 msgid ""
