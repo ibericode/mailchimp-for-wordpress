@@ -76,8 +76,9 @@ class MC4WP_MailChimp {
 						$args['interests']["{$interest_id}"] = $interest_status;
 					}
 				}
-			} else {
-				// delete list member so we can re-add it...
+			} else if( $args['status']  === 'pending' && $existing_member_data->status === 'pending' ) {
+				// if status is "pending", delete & then re-subscribe
+				// this ensures that a new double opt-in email is send out
 				$this->get_api()->delete_list_member( $list_id, $email_address );
 			}
 		} catch( MC4WP_API_Resource_Not_Found_Exception $e ) {
