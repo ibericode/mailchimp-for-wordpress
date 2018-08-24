@@ -3,11 +3,11 @@
 defined( 'ABSPATH' ) or exit;
 
 /**
- * Class MC4WP_Ninja_Forms_Integration
+ * Class PL4WP_Ninja_Forms_Integration
  *
  * @ignore
  */
-class MC4WP_Ninja_Forms_Integration extends MC4WP_Integration {
+class PL4WP_Ninja_Forms_Integration extends PL4WP_Integration {
 
 	/**
 	 * @var string
@@ -24,7 +24,7 @@ class MC4WP_Ninja_Forms_Integration extends MC4WP_Integration {
 	 * Add hooks
 	 */
 	public function add_hooks() {
-	    add_action( 'mc4wp_integration_ninja_forms_subscribe', array( $this, 'subscribe_from_ninja_forms' ), 10, 7 );
+	    add_action( 'pl4wp_integration_ninja_forms_subscribe', array( $this, 'subscribe_from_ninja_forms' ), 10, 7 );
     }
 
     public function subscribe_from_ninja_forms( $email_address, $merge_fields, $list_id, $double_optin = true, $update_existing = false, $replace_interests = false, $form_id = 0 ) {

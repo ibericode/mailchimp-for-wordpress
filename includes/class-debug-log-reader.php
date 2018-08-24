@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class MC4WP_Debug_Log_Reader
+ * Class PL4WP_Debug_Log_Reader
  */
-class MC4WP_Debug_Log_Reader {
+class PL4WP_Debug_Log_Reader {
 
 	/**
 	 * @var resource|null
@@ -26,7 +26,7 @@ class MC4WP_Debug_Log_Reader {
 	private $file;
 
 	/**
-	 * MC4WP_Debug_Log_Reader constructor.
+	 * PL4WP_Debug_Log_Reader constructor.
 	 *
 	 * @param $file
 	 */

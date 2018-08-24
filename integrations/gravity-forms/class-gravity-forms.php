@@ -3,11 +3,11 @@
 defined( 'ABSPATH' ) or exit;
 
 /**
- * Class MC4WP_Ninja_Forms_Integration
+ * Class PL4WP_Ninja_Forms_Integration
  *
  * @ignore
  */
-class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration {
+class PL4WP_Gravity_Forms_Integration extends PL4WP_Integration {
 
     /**
      * @var string
@@ -33,7 +33,7 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration {
 
         $subscribe = false;
         $email_address = '';
-        $mailchimp_list_id = '';
+        $phplist_list_id = '';
         $double_optin = $this->options['double_optin'];
 
         // find email field & checkbox value
@@ -42,12 +42,12 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration {
                 $email_address = $submission[ $field->id ];
             }
 
-            if( $field->type === 'mailchimp' && ! empty( $submission[ $field->id ] ) ) {
+            if( $field->type === 'phplist' && ! empty( $submission[ $field->id ] ) ) {
                 $subscribe = true;
-                $mailchimp_list_id = $field->mailchimp_list;
+                $phplist_list_id = $field->phplist_list;
 
-                if( isset( $field->mailchimp_double_optin ) ) {
-                    $double_optin = $field->mailchimp_double_optin;
+                if( isset( $field->phplist_double_optin ) ) {
+                    $double_optin = $field->phplist_double_optin;
                 }
             }
         }
@@ -58,7 +58,7 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration {
 
         // override integration settings with field options
         $orig_options = $this->options;
-        $this->options['lists'] = array( $mailchimp_list_id );
+        $this->options['lists'] = array( $phplist_list_id );
         $this->options['double_optin'] = $double_optin;
 
         // perform the sign-up
@@ -76,37 +76,37 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration {
             * the custom field setting.
             */
             jQuery(document).on('gform_load_field_settings', function(ev, field) {
-                jQuery('#field_mailchimp_list').val(field.mailchimp_list || '');
-                jQuery('#field_mailchimp_double_optin').val(field.mailchimp_double_optin || "1");
+                jQuery('#field_phplist_list').val(field.phplist_list || '');
+                jQuery('#field_phplist_double_optin').val(field.phplist_double_optin || "1");
             });
         </script>
         <?php
     }
 
     public function settings_fields( $pos, $form_id ) {
-        if( $pos !== 0 ) { 
-            return; 
+        if( $pos !== 0 ) {
+            return;
         }
-        
-        $mailchimp = new MC4WP_MailChimp();
-        $lists = $mailchimp->get_cached_lists();
+
+        $phplist = new PL4WP_PhpList();
+        $lists = $phplist->get_cached_lists();
         ?>
-        <li class="mailchimp_list_setting field_setting">
-            <label for="field_mailchimp_list" class="section_label">
-                <?php esc_html_e( 'MailChimp list', 'mailchimp-for-wp' ); ?>
+        <li class="phplist_list_setting field_setting">
+            <label for="field_phplist_list" class="section_label">
+                <?php esc_html_e( 'PhpList list', 'phplist-for-wp' ); ?>
             </label>
-            <select id="field_mailchimp_list" onchange="SetFieldProperty('mailchimp_list', this.value)">
-                <option value="" disabled><?php _e( 'Select a MailChimp list', 'mailchimp-for-wp' ); ?></option>
+            <select id="field_phplist_list" onchange="SetFieldProperty('phplist_list', this.value)">
+                <option value="" disabled><?php _e( 'Select a PhpList list', 'phplist-for-wp' ); ?></option>
                 <?php foreach( $lists as $list ) {
                     echo sprintf( '<option value="%s">%s</option>', $list->id, $list->name );
                 } ?>
             </select>
         </li>
-        <li class="mailchimp_double_optin field_setting">
-            <label for="field_mailchimp_double_optin" class="section_label">
-                <?php esc_html_e( 'Double opt-in?', 'mailchimp-for-wp' ); ?>
+        <li class="phplist_double_optin field_setting">
+            <label for="field_phplist_double_optin" class="section_label">
+                <?php esc_html_e( 'Double opt-in?', 'phplist-for-wp' ); ?>
             </label>
-            <select id="field_mailchimp_double_optin" onchange="SetFieldProperty('mailchimp_double_optin', this.value)">
+            <select id="field_phplist_double_optin" onchange="SetFieldProperty('phplist_double_optin', this.value)">
                 <option value="1"><?php echo __( 'Yes' ); ?></option>
                 <option value="0"><?php echo __( 'No' ); ?></option>
             </select>

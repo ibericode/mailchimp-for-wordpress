@@ -568,7 +568,7 @@ var FieldFactory = function FieldFactory(fields, i18n) {
     }
 
     /**
-     * Normalizes the field type which is passed by MailChimp
+     * Normalizes the field type which is passed by PhpList
      *
      * @param type
      * @returns {*}
@@ -610,18 +610,18 @@ var FieldFactory = function FieldFactory(fields, i18n) {
         if (data.type !== 'address') {
             register(category, data, false);
         } else {
-            register(category, { name: data.name + '[addr1]', type: 'text', mailchimpType: 'address', title: i18n.streetAddress });
-            register(category, { name: data.name + '[city]', type: 'text', mailchimpType: 'address', title: i18n.city });
-            register(category, { name: data.name + '[state]', type: 'text', mailchimpType: 'address', title: i18n.state });
-            register(category, { name: data.name + '[zip]', type: 'text', mailchimpType: 'address', title: i18n.zip });
-            register(category, { name: data.name + '[country]', type: 'select', mailchimpType: 'address', title: i18n.country, choices: mc4wp_vars.countries });
+            register(category, { name: data.name + '[addr1]', type: 'text', phplistType: 'address', title: i18n.streetAddress });
+            register(category, { name: data.name + '[city]', type: 'text', phplistType: 'address', title: i18n.city });
+            register(category, { name: data.name + '[state]', type: 'text', phplistType: 'address', title: i18n.state });
+            register(category, { name: data.name + '[zip]', type: 'text', phplistType: 'address', title: i18n.zip });
+            register(category, { name: data.name + '[country]', type: 'select', phplistType: 'address', title: i18n.country, choices: pl4wp_vars.countries });
         }
 
         return true;
     }
 
     /**
-     * Register a field for a MailChimp grouping
+     * Register a field for a PhpList grouping
      *
      * @param interestCategory
      */
@@ -696,7 +696,7 @@ var FieldFactory = function FieldFactory(fields, i18n) {
         }
 
         register(category, {
-            name: '_mc4wp_lists',
+            name: '_pl4wp_lists',
             type: 'checkbox',
             title: i18n.listChoice,
             choices: choices,
@@ -709,7 +709,7 @@ var FieldFactory = function FieldFactory(fields, i18n) {
             'unsubscribe': "Unsubscribe"
         };
         register(category, {
-            name: '_mc4wp_action',
+            name: '_pl4wp_action',
             type: 'radio',
             title: i18n.formAction,
             choices: choices,
@@ -761,7 +761,7 @@ module.exports = function (m, events) {
         this.name = prop(data.name);
         this.title = prop(data.title || data.name);
         this.type = prop(data.type);
-        this.mailchimpType = prop(data.mailchimpType || '');
+        this.phplistType = prop(data.phplistType || '');
         this.label = prop(data.label || data.title || '');
         this.showLabel = prop(data.showLabel !== undefined ? data.showLabel : true);
         this.value = prop(data.value || '');
@@ -981,15 +981,15 @@ var FormEditor = {};
 var _dom = document.createElement('form');
 var domDirty = false;
 var editor;
-var element = document.getElementById('mc4wp-form-content');
-var previewFrame = document.getElementById('mc4wp-form-preview');
+var element = document.getElementById('pl4wp-form-content');
+var previewFrame = document.getElementById('pl4wp-form-preview');
 var previewDom;
 var templateRegex = /\{[^{}]+\}/g;
 
 /* functions */
 function setPreviewDom() {
     var frameContent = previewFrame.contentDocument || previewFrame.contentWindow.document;
-    previewDom = frameContent.querySelector('.mc4wp-form-fields');
+    previewDom = frameContent.querySelector('.pl4wp-form-fields');
 
     if (previewDom) {
         updatePreview();
@@ -1004,7 +1004,7 @@ function updatePreview() {
 
     // update dom
     previewDom.innerHTML = markup;
-    previewDom.dispatchEvent(new Event('mc4wp-refresh'));
+    previewDom.dispatchEvent(new Event('pl4wp-refresh'));
 }
 
 window.addEventListener('load', function () {
@@ -1114,7 +1114,7 @@ var FormWatcher = function FormWatcher(m, editor, settings, fields, events, help
             field.inFormContent(inForm);
 
             // if form contains 1 address field of group, mark all fields in this group as "required"
-            if (field.mailchimpType() === 'address') {
+            if (field.phplistType() === 'address') {
                 field.originalRequiredValue = field.originalRequiredValue === undefined ? field.forceRequired() : field.originalRequiredValue;
 
                 // query other fields for this address group
@@ -1136,7 +1136,7 @@ var FormWatcher = function FormWatcher(m, editor, settings, fields, events, help
 
     function findRequiredFields() {
 
-        // query fields required by MailChimp
+        // query fields required by PhpList
         var requiredFields = fields.getAllWhere('forceRequired', true).map(function (f) {
             return f.name().toUpperCase().replace(/\[(\w+)\]/g, '.$1');
         });
@@ -1200,10 +1200,10 @@ function render() {
         html += '<div class="notice notice-warning inline"><p>' + notices[key] + '</p></div>';
     }
 
-    var container = document.querySelector('.mc4wp-notices');
+    var container = document.querySelector('.pl4wp-notices');
     if (!container) {
         container = document.createElement('div');
-        container.className = 'mc4wp-notices';
+        container.className = 'pl4wp-notices';
         var heading = document.querySelector('h1, h2');
         heading.parentNode.insertBefore(container, heading.nextSibling);
     }
@@ -1214,7 +1214,7 @@ function render() {
 function init(editor, fields) {
 
     var groupingsNotice = function groupingsNotice() {
-        var text = "Your form contains old style <code>GROUPINGS</code> fields. <br /><br />Please remove these fields from your form and then re-add them through the available field buttons to make sure your data is getting through to MailChimp correctly.";
+        var text = "Your form contains old style <code>GROUPINGS</code> fields. <br /><br />Please remove these fields from your form and then re-add them through the available field buttons to make sure your data is getting through to PhpList correctly.";
         var formCode = editor.getValue().toLowerCase();
         formCode.indexOf('name="groupings') > -1 ? show('deprecated_groupings', text) : hide('deprecated_groupings');
     };
@@ -1225,7 +1225,7 @@ function init(editor, fields) {
             return !editor.containsField(f.name().toUpperCase());
         });
 
-        var text = '<strong>Heads up!</strong> Your form is missing list fields that are required in MailChimp. Either add these fields to your form or mark them as optional in MailChimp.';
+        var text = '<strong>Heads up!</strong> Your form is missing list fields that are required in PhpList. Either add these fields to your form or mark them as optional in PhpList.';
         text += "<br /><ul class=\"ul-square\" style=\"margin-bottom: 0;\"><li>" + missingFields.map(function (f) {
             return f.title();
         }).join('</li><li>') + '</li></ul>';
@@ -1331,13 +1331,13 @@ module.exports = overlay;
 
 // deps
 
-var i18n = window.mc4wp_forms_i18n;
-var m = window.mc4wp.deps.mithril;
-var events = mc4wp.events;
-var settings = mc4wp.settings;
-var helpers = mc4wp.helpers;
+var i18n = window.pl4wp_forms_i18n;
+var m = window.pl4wp.deps.mithril;
+var events = pl4wp.events;
+var settings = pl4wp.settings;
+var helpers = pl4wp.helpers;
 
-var tabs = mc4wp.tabs;
+var tabs = pl4wp.tabs;
 var FormWatcher = require('./admin/form-watcher.js');
 var FormEditor = require('./admin/form-editor.js');
 var FieldHelper = require('./admin/field-helper.js');
@@ -1351,13 +1351,13 @@ var fieldHelper = new FieldHelper(m, tabs, formEditor, fields, events, i18n);
 var notices = require('./admin/notices');
 
 // mount field helper on element
-m.mount(document.getElementById('mc4wp-field-wizard'), fieldHelper);
+m.mount(document.getElementById('pl4wp-field-wizard'), fieldHelper);
 
 // register fields and redraw screen in 2 seconds (fixes IE8 bug)
 var fieldsFactory = new FieldsFactory(fields, i18n);
 events.on('selectedLists.change', fieldsFactory.registerListsFields);
 fieldsFactory.registerListsFields(settings.getSelectedLists());
-fieldsFactory.registerCustomFields(mc4wp_vars.mailchimp.lists);
+fieldsFactory.registerCustomFields(pl4wp_vars.phplist.lists);
 
 window.setTimeout(function () {
   m.redraw();
@@ -1367,10 +1367,10 @@ window.setTimeout(function () {
 notices.init(editor, fields);
 
 // expose some methods
-window.mc4wp = window.mc4wp || {};
-window.mc4wp.forms = window.mc4wp.forms || {};
-window.mc4wp.forms.editor = editor;
-window.mc4wp.forms.fields = fields;
+window.pl4wp = window.pl4wp || {};
+window.pl4wp.forms = window.pl4wp.forms || {};
+window.pl4wp.forms.editor = editor;
+window.pl4wp.forms.fields = fields;
 
 },{"./admin/field-helper.js":4,"./admin/fields-factory.js":5,"./admin/fields.js":6,"./admin/form-editor.js":7,"./admin/form-watcher.js":8,"./admin/notices":9}],12:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others

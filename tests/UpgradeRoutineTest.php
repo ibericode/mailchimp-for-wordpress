@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
  */
 class UpgradeRoutineTest extends TestCase {
 
-	private $dir = '/tmp/mc4wp-tests/migrations';
+	private $dir = '/tmp/pl4wp-tests/migrations';
 
 	/**
 	 * Create the sample migrations directory
@@ -20,10 +20,10 @@ class UpgradeRoutineTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Upgrade_Routines::find_migrations
+	 * @covers PL4WP_Upgrade_Routines::find_migrations
 	 */
 	public function test_find_migrations() {
-		$instance = new MC4WP_Upgrade_Routines( '1.0', '1.1', $this->dir );
+		$instance = new PL4WP_Upgrade_Routines( '1.0', '1.1', $this->dir );
 		self::assertEquals( $instance->find_migrations(), array() );
 
 		// create correct migration file

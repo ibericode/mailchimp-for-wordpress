@@ -1,12 +1,12 @@
 <?php
 defined( 'ABSPATH' ) or exit;
 
-$global_options = (array) get_option( 'mc4wp_form', array() );
+$global_options = (array) get_option( 'pl4wp_form', array() );
 
 // find all form posts
 $posts = get_posts(
 	array(
-		'post_type' => 'mc4wp-form',
+		'post_type' => 'pl4wp-form',
 		'post_status' => 'publish',
 		'numberposts' => -1
 	)
@@ -28,7 +28,7 @@ $stylesheets = array();
 foreach( $posts as $post ) {
 
 	// get form options from post meta directly
-	$options = (array) get_post_meta( $post->ID, '_mc4wp_settings', true );
+	$options = (array) get_post_meta( $post->ID, '_pl4wp_settings', true );
 
 	// store all global options in scoped form settings
 	// do this BEFORE changing css key, so we take that as well.
@@ -55,11 +55,11 @@ foreach( $posts as $post ) {
 		}
 	}
 
-	update_post_meta( $post->ID, '_mc4wp_settings', $options );
+	update_post_meta( $post->ID, '_pl4wp_settings', $options );
 }
 
 // update stylesheets option
-update_option( 'mc4wp_form_stylesheets', $stylesheets );
+update_option( 'pl4wp_form_stylesheets', $stylesheets );
 
 // delete old options
-delete_option( 'mc4wp_form' );
+delete_option( 'pl4wp_form' );

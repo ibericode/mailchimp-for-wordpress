@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 class FieldGuesserTest extends TestCase {
 
 	/**
-	 * @covers MC4WP_Field_Guesser::namespaced
+	 * @covers PL4WP_Field_Guesser::namespaced
 	 */
 	public function test_namespaced() {
 		$data = array(
@@ -17,7 +17,7 @@ class FieldGuesserTest extends TestCase {
 			'foo' => 'barbar'
 		);
 
-		$instance = new MC4WP_Field_Guesser( $data );
+		$instance = new PL4WP_Field_Guesser( $data );
 		self::assertEquals( array(
 			'FOO' => 'bar'
 			),
@@ -26,7 +26,7 @@ class FieldGuesserTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Field_Guesser::guessed
+	 * @covers PL4WP_Field_Guesser::guessed
 	 */
 	public function test_guessed() {
 		$data = array(
@@ -35,7 +35,7 @@ class FieldGuesserTest extends TestCase {
 			'lname' => 'van Kooten'
 		);
 
-		$instance = new MC4WP_Field_Guesser( $data );
+		$instance = new PL4WP_Field_Guesser( $data );
 		self::assertEquals( array(
 				'NAME' => 'Danny van Kooten',
 				'FNAME' => 'Danny',
@@ -46,7 +46,7 @@ class FieldGuesserTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Field_Guesser::combine
+	 * @covers PL4WP_Field_Guesser::combine
 	 */
 	public function test_combine() {
 		$data = array(
@@ -55,7 +55,7 @@ class FieldGuesserTest extends TestCase {
 			'foo' => 'bar'
 		);
 
-		$instance = new MC4WP_Field_Guesser( $data );
+		$instance = new PL4WP_Field_Guesser( $data );
 		$result = $instance->combine(array( 'namespaced', 'guessed' ));
 
 		self::assertEquals( $result['NAME'], $data['name'] );
@@ -65,15 +65,15 @@ class FieldGuesserTest extends TestCase {
 		// test order (latter overwrites former)
 		$data = array(
 			'name' => 'Danny van Kooten',
-			'mc4wp-name' => 'Danny Janssen'
+			'pl4wp-name' => 'Danny Janssen'
 		);
 
-		$instance = new MC4WP_Field_Guesser( $data );
+		$instance = new PL4WP_Field_Guesser( $data );
 		$result = $instance->combine(array( 'namespaced', 'guessed' ));
 		self::assertEquals( $result['NAME'], $data['name'] );
 
 		$result = $instance->combine(array( 'guessed', 'namespaced' ));
-		self::assertEquals( $result['NAME'], $data['mc4wp-name'] );
+		self::assertEquals( $result['NAME'], $data['pl4wp-name'] );
 
 
 	}

@@ -9,7 +9,7 @@ use PHPUnit\Framework\Assert;
  * Class ApiDebug
  * @ignore
  */
-class ApiDebug extends MC4WP_API {
+class ApiDebug extends PL4WP_API {
 
 	/**
 	 * Default response
@@ -48,7 +48,7 @@ class ApiDebug extends MC4WP_API {
 class ApiTest extends TestCase {
 
 	/**
-	 * @var MC4WP_API
+	 * @var PL4WP_API
 	 */
 	private $api;
 
@@ -63,14 +63,14 @@ class ApiTest extends TestCase {
 	 * Tests if API url is correctly set from given API key
 	 */
 	public function test_api_url() {
-		$instance = new MC4WP_API( 'aaaaaaaaaaaaaaaaaaaa-us1');
+		$instance = new PL4WP_API( 'aaaaaaaaaaaaaaaaaaaa-us1');
 		$property = Assert::readAttribute( $instance, 'api_url' );
 
-		self::assertEquals( 'https://us1.api.mailchimp.com/2.0/', $property );
+		self::assertEquals( 'https://us1.api.phplist.com/2.0/', $property );
 	}
 
 	/**
-	 * @covers MC4WP_Api::is_connected
+	 * @covers PL4WP_Api::is_connected
 	 */
 	public function test_is_connected() {
 
@@ -90,7 +90,7 @@ class ApiTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_API::subscribe
+	 * @covers PL4WP_API::subscribe
 	 */
 	public function test_subscribe() {
 		// test request error
@@ -111,7 +111,7 @@ class ApiTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_API::get_lists
+	 * @covers PL4WP_API::get_lists
 	 */
 	public function test_get_lists() {
 		// test error
@@ -129,7 +129,7 @@ class ApiTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_API::get_list_groupings
+	 * @covers PL4WP_API::get_list_groupings
 	 */
 	public function test_get_list_groupings() {
 		// test error
@@ -147,7 +147,7 @@ class ApiTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_API::get_lists_with_merge_vars
+	 * @covers PL4WP_API::get_lists_with_merge_vars
 	 */
 	public function test_get_lists_with_merge_vars() {
 		// test error
@@ -165,7 +165,7 @@ class ApiTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_API::has_error
+	 * @covers PL4WP_API::has_error
 	 */
 	public function test_has_error() {
 		// no error by default
@@ -178,7 +178,7 @@ class ApiTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_API::get_error_message
+	 * @covers PL4WP_API::get_error_message
 	 */
 	public function test_get_error_message() {
 		// no error by default
@@ -199,7 +199,7 @@ class ApiTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_API::get_last_response
+	 * @covers PL4WP_API::get_last_response
 	 */
 	public function test_get_last_response() {
 		// no response by default

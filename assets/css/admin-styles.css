@@ -1,6 +1,6 @@
 /* settings pages */
-#mc4wp-admin,
-.mc4wp-admin {
+#pl4wp-admin,
+.pl4wp-admin {
   /* Grid */
   /** Whitespace control */
   /* Tabs */
@@ -26,184 +26,184 @@
   /* Codemirror */
   /* Add logo to page title */
   /** Core Customizations */ }
-  #mc4wp-admin .row,
-  #mc4wp-admin .mc4wp-row,
-  .mc4wp-admin .row,
-  .mc4wp-admin .mc4wp-row {
+  #pl4wp-admin .row,
+  #pl4wp-admin .pl4wp-row,
+  .pl4wp-admin .row,
+  .pl4wp-admin .pl4wp-row {
     margin-left: -20px;
     margin-right: -20px;
     float: none; }
-  #mc4wp-admin .row .col,
-  #mc4wp-admin .mc4wp-row .mc4wp-col,
-  .mc4wp-admin .row .col,
-  .mc4wp-admin .mc4wp-row .mc4wp-col {
+  #pl4wp-admin .row .col,
+  #pl4wp-admin .pl4wp-row .pl4wp-col,
+  .pl4wp-admin .row .col,
+  .pl4wp-admin .pl4wp-row .pl4wp-col {
     padding: 0 20px;
     float: left;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box; }
-  #mc4wp-admin .row .col-1,
-  #mc4wp-admin .mc4wp-row .mc4wp-col-1,
-  .mc4wp-admin .row .col-1,
-  .mc4wp-admin .mc4wp-row .mc4wp-col-1 {
+  #pl4wp-admin .row .col-1,
+  #pl4wp-admin .pl4wp-row .pl4wp-col-1,
+  .pl4wp-admin .row .col-1,
+  .pl4wp-admin .pl4wp-row .pl4wp-col-1 {
     width: 16.666%; }
-  #mc4wp-admin .row .col-2,
-  #mc4wp-admin .mc4wp-row .mc4wp-col-2,
-  .mc4wp-admin .row .col-2,
-  .mc4wp-admin .mc4wp-row .mc4wp-col-2 {
+  #pl4wp-admin .row .col-2,
+  #pl4wp-admin .pl4wp-row .pl4wp-col-2,
+  .pl4wp-admin .row .col-2,
+  .pl4wp-admin .pl4wp-row .pl4wp-col-2 {
     width: 33.333%; }
-  #mc4wp-admin .row .col-3,
-  #mc4wp-admin .mc4wp-row .mc4wp-col-3,
-  .mc4wp-admin .row .col-3,
-  .mc4wp-admin .mc4wp-row .mc4wp-col-3 {
+  #pl4wp-admin .row .col-3,
+  #pl4wp-admin .pl4wp-row .pl4wp-col-3,
+  .pl4wp-admin .row .col-3,
+  .pl4wp-admin .pl4wp-row .pl4wp-col-3 {
     width: 50%; }
-  #mc4wp-admin .row .col-4,
-  #mc4wp-admin .mc4wp-row .mc4wp-col-4,
-  .mc4wp-admin .row .col-4,
-  .mc4wp-admin .mc4wp-row .mc4wp-col-4 {
+  #pl4wp-admin .row .col-4,
+  #pl4wp-admin .pl4wp-row .pl4wp-col-4,
+  .pl4wp-admin .row .col-4,
+  .pl4wp-admin .pl4wp-row .pl4wp-col-4 {
     width: 66.666%; }
-  #mc4wp-admin .row .col-5,
-  #mc4wp-admin .mc4wp-row .mc4wp-col-5,
-  .mc4wp-admin .row .col-5,
-  .mc4wp-admin .mc4wp-row .mc4wp-col-5 {
+  #pl4wp-admin .row .col-5,
+  #pl4wp-admin .pl4wp-row .pl4wp-col-5,
+  .pl4wp-admin .row .col-5,
+  .pl4wp-admin .pl4wp-row .pl4wp-col-5 {
     width: 83.333%; }
-  #mc4wp-admin .row .col-6,
-  #mc4wp-admin .mc4wp-row .mc4wp-col-6,
-  .mc4wp-admin .row .col-6,
-  .mc4wp-admin .mc4wp-row .mc4wp-col-6 {
+  #pl4wp-admin .row .col-6,
+  #pl4wp-admin .pl4wp-row .pl4wp-col-6,
+  .pl4wp-admin .row .col-6,
+  .pl4wp-admin .pl4wp-row .pl4wp-col-6 {
     width: 100%; }
-  #mc4wp-admin .row:before,
-  #mc4wp-admin .row:after,
-  #mc4wp-admin .mc4wp-row:before,
-  #mc4wp-admin .mc4wp-row:after,
-  #mc4wp-admin .clearfix:before,
-  #mc4wp-admin .clearfix:after,
-  .mc4wp-admin .row:before,
-  .mc4wp-admin .row:after,
-  .mc4wp-admin .mc4wp-row:before,
-  .mc4wp-admin .mc4wp-row:after,
-  .mc4wp-admin .clearfix:before,
-  .mc4wp-admin .clearfix:after {
+  #pl4wp-admin .row:before,
+  #pl4wp-admin .row:after,
+  #pl4wp-admin .pl4wp-row:before,
+  #pl4wp-admin .pl4wp-row:after,
+  #pl4wp-admin .clearfix:before,
+  #pl4wp-admin .clearfix:after,
+  .pl4wp-admin .row:before,
+  .pl4wp-admin .row:after,
+  .pl4wp-admin .pl4wp-row:before,
+  .pl4wp-admin .pl4wp-row:after,
+  .pl4wp-admin .clearfix:before,
+  .pl4wp-admin .clearfix:after {
     content: " ";
     /* 1 */
     display: table;
     /* 2 */ }
-  #mc4wp-admin .row:after,
-  #mc4wp-admin .mc4wp-row:after,
-  #mc4wp-admin .clearfix:after,
-  .mc4wp-admin .row:after,
-  .mc4wp-admin .mc4wp-row:after,
-  .mc4wp-admin .clearfix:after {
+  #pl4wp-admin .row:after,
+  #pl4wp-admin .pl4wp-row:after,
+  #pl4wp-admin .clearfix:after,
+  .pl4wp-admin .row:after,
+  .pl4wp-admin .pl4wp-row:after,
+  .pl4wp-admin .clearfix:after {
     clear: both; }
   @media (max-width: 1200px) {
-    #mc4wp-admin .row .col,
-    #mc4wp-admin .mc4wp-row .mc4wp-col,
-    .mc4wp-admin .row .col,
-    .mc4wp-admin .mc4wp-row .mc4wp-col {
+    #pl4wp-admin .row .col,
+    #pl4wp-admin .pl4wp-row .pl4wp-col,
+    .pl4wp-admin .row .col,
+    .pl4wp-admin .pl4wp-row .pl4wp-col {
       width: 100%;
       float: none;
       margin: 10px 0; } }
-  #mc4wp-admin .status,
-  .mc4wp-admin .status {
+  #pl4wp-admin .status,
+  .pl4wp-admin .status {
     display: inline-block;
     margin-left: 1em;
     padding: 3px 6px;
     color: white;
     font-size: 12px;
     font-weight: bold; }
-    #mc4wp-admin .status.positive,
-    .mc4wp-admin .status.positive {
+    #pl4wp-admin .status.positive,
+    .pl4wp-admin .status.positive {
       background-color: limeGreen; }
-    #mc4wp-admin .status.negative,
-    .mc4wp-admin .status.negative {
+    #pl4wp-admin .status.negative,
+    .pl4wp-admin .status.negative {
       background-color: red; }
-    #mc4wp-admin .status.neutral,
-    .mc4wp-admin .status.neutral {
+    #pl4wp-admin .status.neutral,
+    .pl4wp-admin .status.neutral {
       background: gray; }
-  #mc4wp-admin .green,
-  .mc4wp-admin .green {
+  #pl4wp-admin .green,
+  .pl4wp-admin .green {
     color: green; }
-  #mc4wp-admin .red,
-  .mc4wp-admin .red {
+  #pl4wp-admin .red,
+  .pl4wp-admin .red {
     color: red; }
-  #mc4wp-admin .valigntop,
-  .mc4wp-admin .valigntop {
+  #pl4wp-admin .valigntop,
+  .pl4wp-admin .valigntop {
     vertical-align: top !important; }
-  #mc4wp-admin .big-margin,
-  .mc4wp-admin .big-margin {
+  #pl4wp-admin .big-margin,
+  .pl4wp-admin .big-margin {
     margin-top: 60px;
     margin-bottom: 60px; }
-  #mc4wp-admin .medium-margin,
-  .mc4wp-admin .medium-margin {
+  #pl4wp-admin .medium-margin,
+  .pl4wp-admin .medium-margin {
     margin-top: 40px;
     margin-bottom: 40px; }
-  #mc4wp-admin .small-margin,
-  .mc4wp-admin .small-margin {
+  #pl4wp-admin .small-margin,
+  .pl4wp-admin .small-margin {
     margin-top: 20px;
     margin-bottom: 20px; }
-  #mc4wp-admin .tiny-margin,
-  .mc4wp-admin .tiny-margin {
+  #pl4wp-admin .tiny-margin,
+  .pl4wp-admin .tiny-margin {
     margin-top: 10px;
     margin-bottom: 10px; }
-  #mc4wp-admin .hover-activated,
-  .mc4wp-admin .hover-activated {
+  #pl4wp-admin .hover-activated,
+  .pl4wp-admin .hover-activated {
     opacity: 0.5; }
-  #mc4wp-admin .hover-activated:hover,
-  .mc4wp-admin .hover-activated:hover {
+  #pl4wp-admin .hover-activated:hover,
+  .pl4wp-admin .hover-activated:hover {
     cursor: pointer;
     opacity: 1; }
-  #mc4wp-admin .help-text,
-  .mc4wp-admin .help-text {
+  #pl4wp-admin .help-text,
+  .pl4wp-admin .help-text {
     font-size: 14px; }
-    #mc4wp-admin .help-text p,
-    .mc4wp-admin .help-text p {
+    #pl4wp-admin .help-text p,
+    .pl4wp-admin .help-text p {
       margin: 10px 0;
       font-size: 14px; }
-    #mc4wp-admin .help-text ul,
-    .mc4wp-admin .help-text ul {
+    #pl4wp-admin .help-text ul,
+    .pl4wp-admin .help-text ul {
       list-style: square;
       margin-top: 15px;
       padding-left: 40px; }
-  #mc4wp-admin .help,
-  .mc4wp-admin .help {
+  #pl4wp-admin .help,
+  .pl4wp-admin .help {
     font-style: italic; }
-  #mc4wp-admin .muted,
-  .mc4wp-admin .muted {
+  #pl4wp-admin .muted,
+  .pl4wp-admin .muted {
     color: #aaa; }
-  #mc4wp-admin .red,
-  .mc4wp-admin .red {
+  #pl4wp-admin .red,
+  .pl4wp-admin .red {
     color: red; }
-  #mc4wp-admin .green,
-  .mc4wp-admin .green {
+  #pl4wp-admin .green,
+  .pl4wp-admin .green {
     color: #32cd32; }
-  #mc4wp-admin .mc4wp-notice,
-  .mc4wp-admin .mc4wp-notice {
+  #pl4wp-admin .pl4wp-notice,
+  .pl4wp-admin .pl4wp-notice {
     padding: 6px 12px;
     color: #31708f;
     background: #d9edf7;
     border: 1px solid #bce8f1;
     margin: 1em 0 !important; }
-  #mc4wp-admin .mc4wp-is-dismissible,
-  .mc4wp-admin .mc4wp-is-dismissible {
+  #pl4wp-admin .pl4wp-is-dismissible,
+  .pl4wp-admin .pl4wp-is-dismissible {
     padding-right: 38px;
     position: relative; }
-  #mc4wp-admin .column-ID,
-  .mc4wp-admin .column-ID {
+  #pl4wp-admin .column-ID,
+  .pl4wp-admin .column-ID {
     width: 10%; }
-  #mc4wp-admin .block,
-  .mc4wp-admin .block {
+  #pl4wp-admin .block,
+  .pl4wp-admin .block {
     display: block; }
-  #mc4wp-admin .code-sample,
-  .mc4wp-admin .code-sample {
+  #pl4wp-admin .code-sample,
+  .pl4wp-admin .code-sample {
     font-family: Consolas, Monaco, Lucida Console, monospace;
     font-size: 12px;
     background: white; }
-  #mc4wp-admin .breadcrumbs,
-  .mc4wp-admin .breadcrumbs {
+  #pl4wp-admin .breadcrumbs,
+  .pl4wp-admin .breadcrumbs {
     border-bottom: 1px solid #ccc;
     padding-bottom: 1em; }
-  #mc4wp-admin .mc4wp-loader,
-  .mc4wp-admin .mc4wp-loader {
+  #pl4wp-admin .pl4wp-loader,
+  .pl4wp-admin .pl4wp-loader {
     position: relative;
     display: inline-block;
     text-indent: -9999999px;
@@ -238,80 +238,80 @@
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg); } }
-  #mc4wp-admin .tab,
-  .mc4wp-admin .tab {
+  #pl4wp-admin .tab,
+  .pl4wp-admin .tab {
     display: none;
     background: inherit;
     border: none;
     font-weight: initial; }
-  #mc4wp-admin .tab.tab-active,
-  .mc4wp-admin .tab.tab-active {
+  #pl4wp-admin .tab.tab-active,
+  .pl4wp-admin .tab.tab-active {
     display: block; }
-  #mc4wp-admin .tab h2,
-  .mc4wp-admin .tab h2 {
+  #pl4wp-admin .tab h2,
+  .pl4wp-admin .tab h2 {
     margin-top: 20px; }
-  #mc4wp-admin .CodeMirror,
-  .mc4wp-admin .CodeMirror {
+  #pl4wp-admin .CodeMirror,
+  .pl4wp-admin .CodeMirror {
     /* Set height, width, borders, and global font properties here */
     font-family: monospace;
     height: 300px;
     color: black;
     direction: ltr; }
-  #mc4wp-admin .CodeMirror-lines,
-  .mc4wp-admin .CodeMirror-lines {
+  #pl4wp-admin .CodeMirror-lines,
+  .pl4wp-admin .CodeMirror-lines {
     padding: 4px 0;
     /* Vertical padding around content */ }
-  #mc4wp-admin .CodeMirror pre,
-  .mc4wp-admin .CodeMirror pre {
+  #pl4wp-admin .CodeMirror pre,
+  .pl4wp-admin .CodeMirror pre {
     padding: 0 4px;
     /* Horizontal padding of content */ }
-  #mc4wp-admin .CodeMirror-scrollbar-filler, #mc4wp-admin .CodeMirror-gutter-filler,
-  .mc4wp-admin .CodeMirror-scrollbar-filler,
-  .mc4wp-admin .CodeMirror-gutter-filler {
+  #pl4wp-admin .CodeMirror-scrollbar-filler, #pl4wp-admin .CodeMirror-gutter-filler,
+  .pl4wp-admin .CodeMirror-scrollbar-filler,
+  .pl4wp-admin .CodeMirror-gutter-filler {
     background-color: white;
     /* The little square between H and V scrollbars */ }
-  #mc4wp-admin .CodeMirror-gutters,
-  .mc4wp-admin .CodeMirror-gutters {
+  #pl4wp-admin .CodeMirror-gutters,
+  .pl4wp-admin .CodeMirror-gutters {
     border-right: 1px solid #ddd;
     background-color: #f7f7f7;
     white-space: nowrap; }
-  #mc4wp-admin .CodeMirror-linenumber,
-  .mc4wp-admin .CodeMirror-linenumber {
+  #pl4wp-admin .CodeMirror-linenumber,
+  .pl4wp-admin .CodeMirror-linenumber {
     padding: 0 3px 0 5px;
     min-width: 20px;
     text-align: right;
     color: #999;
     white-space: nowrap; }
-  #mc4wp-admin .CodeMirror-guttermarker,
-  .mc4wp-admin .CodeMirror-guttermarker {
+  #pl4wp-admin .CodeMirror-guttermarker,
+  .pl4wp-admin .CodeMirror-guttermarker {
     color: black; }
-  #mc4wp-admin .CodeMirror-guttermarker-subtle,
-  .mc4wp-admin .CodeMirror-guttermarker-subtle {
+  #pl4wp-admin .CodeMirror-guttermarker-subtle,
+  .pl4wp-admin .CodeMirror-guttermarker-subtle {
     color: #999; }
-  #mc4wp-admin .CodeMirror-cursor,
-  .mc4wp-admin .CodeMirror-cursor {
+  #pl4wp-admin .CodeMirror-cursor,
+  .pl4wp-admin .CodeMirror-cursor {
     border-left: 1px solid black;
     border-right: none;
     width: 0; }
-  #mc4wp-admin .CodeMirror div.CodeMirror-secondarycursor,
-  .mc4wp-admin .CodeMirror div.CodeMirror-secondarycursor {
+  #pl4wp-admin .CodeMirror div.CodeMirror-secondarycursor,
+  .pl4wp-admin .CodeMirror div.CodeMirror-secondarycursor {
     border-left: 1px solid silver; }
-  #mc4wp-admin .cm-fat-cursor .CodeMirror-cursor,
-  .mc4wp-admin .cm-fat-cursor .CodeMirror-cursor {
+  #pl4wp-admin .cm-fat-cursor .CodeMirror-cursor,
+  .pl4wp-admin .cm-fat-cursor .CodeMirror-cursor {
     width: auto;
     border: 0 !important;
     background: #7e7; }
-  #mc4wp-admin .cm-fat-cursor div.CodeMirror-cursors,
-  .mc4wp-admin .cm-fat-cursor div.CodeMirror-cursors {
+  #pl4wp-admin .cm-fat-cursor div.CodeMirror-cursors,
+  .pl4wp-admin .cm-fat-cursor div.CodeMirror-cursors {
     z-index: 1; }
-  #mc4wp-admin .cm-fat-cursor-mark,
-  .mc4wp-admin .cm-fat-cursor-mark {
+  #pl4wp-admin .cm-fat-cursor-mark,
+  .pl4wp-admin .cm-fat-cursor-mark {
     background-color: rgba(20, 255, 20, 0.5);
     -webkit-animation: blink 1.06s steps(1) infinite;
     -moz-animation: blink 1.06s steps(1) infinite;
     animation: blink 1.06s steps(1) infinite; }
-  #mc4wp-admin .cm-animate-fat-cursor,
-  .mc4wp-admin .cm-animate-fat-cursor {
+  #pl4wp-admin .cm-animate-fat-cursor,
+  .pl4wp-admin .cm-animate-fat-cursor {
     width: auto;
     border: 0;
     -webkit-animation: blink 1.06s steps(1) infinite;
@@ -336,129 +336,129 @@
   50% {
     background-color: transparent; }
   100% { } }
-  #mc4wp-admin .cm-tab,
-  .mc4wp-admin .cm-tab {
+  #pl4wp-admin .cm-tab,
+  .pl4wp-admin .cm-tab {
     display: inline-block;
     text-decoration: inherit; }
-  #mc4wp-admin .CodeMirror-rulers,
-  .mc4wp-admin .CodeMirror-rulers {
+  #pl4wp-admin .CodeMirror-rulers,
+  .pl4wp-admin .CodeMirror-rulers {
     position: absolute;
     left: 0;
     right: 0;
     top: -50px;
     bottom: -20px;
     overflow: hidden; }
-  #mc4wp-admin .CodeMirror-ruler,
-  .mc4wp-admin .CodeMirror-ruler {
+  #pl4wp-admin .CodeMirror-ruler,
+  .pl4wp-admin .CodeMirror-ruler {
     border-left: 1px solid #ccc;
     top: 0;
     bottom: 0;
     position: absolute; }
-  #mc4wp-admin .cm-s-default .cm-header,
-  .mc4wp-admin .cm-s-default .cm-header {
+  #pl4wp-admin .cm-s-default .cm-header,
+  .pl4wp-admin .cm-s-default .cm-header {
     color: blue; }
-  #mc4wp-admin .cm-s-default .cm-quote,
-  .mc4wp-admin .cm-s-default .cm-quote {
+  #pl4wp-admin .cm-s-default .cm-quote,
+  .pl4wp-admin .cm-s-default .cm-quote {
     color: #090; }
-  #mc4wp-admin .cm-negative,
-  .mc4wp-admin .cm-negative {
+  #pl4wp-admin .cm-negative,
+  .pl4wp-admin .cm-negative {
     color: #d44; }
-  #mc4wp-admin .cm-positive,
-  .mc4wp-admin .cm-positive {
+  #pl4wp-admin .cm-positive,
+  .pl4wp-admin .cm-positive {
     color: #292; }
-  #mc4wp-admin .cm-header, #mc4wp-admin .cm-strong,
-  .mc4wp-admin .cm-header,
-  .mc4wp-admin .cm-strong {
+  #pl4wp-admin .cm-header, #pl4wp-admin .cm-strong,
+  .pl4wp-admin .cm-header,
+  .pl4wp-admin .cm-strong {
     font-weight: bold; }
-  #mc4wp-admin .cm-em,
-  .mc4wp-admin .cm-em {
+  #pl4wp-admin .cm-em,
+  .pl4wp-admin .cm-em {
     font-style: italic; }
-  #mc4wp-admin .cm-link,
-  .mc4wp-admin .cm-link {
+  #pl4wp-admin .cm-link,
+  .pl4wp-admin .cm-link {
     text-decoration: underline; }
-  #mc4wp-admin .cm-strikethrough,
-  .mc4wp-admin .cm-strikethrough {
+  #pl4wp-admin .cm-strikethrough,
+  .pl4wp-admin .cm-strikethrough {
     text-decoration: line-through; }
-  #mc4wp-admin .cm-s-default .cm-keyword,
-  .mc4wp-admin .cm-s-default .cm-keyword {
+  #pl4wp-admin .cm-s-default .cm-keyword,
+  .pl4wp-admin .cm-s-default .cm-keyword {
     color: #708; }
-  #mc4wp-admin .cm-s-default .cm-atom,
-  .mc4wp-admin .cm-s-default .cm-atom {
+  #pl4wp-admin .cm-s-default .cm-atom,
+  .pl4wp-admin .cm-s-default .cm-atom {
     color: #219; }
-  #mc4wp-admin .cm-s-default .cm-number,
-  .mc4wp-admin .cm-s-default .cm-number {
+  #pl4wp-admin .cm-s-default .cm-number,
+  .pl4wp-admin .cm-s-default .cm-number {
     color: #164; }
-  #mc4wp-admin .cm-s-default .cm-def,
-  .mc4wp-admin .cm-s-default .cm-def {
+  #pl4wp-admin .cm-s-default .cm-def,
+  .pl4wp-admin .cm-s-default .cm-def {
     color: #00f; }
-  #mc4wp-admin .cm-s-default .cm-variable-2,
-  .mc4wp-admin .cm-s-default .cm-variable-2 {
+  #pl4wp-admin .cm-s-default .cm-variable-2,
+  .pl4wp-admin .cm-s-default .cm-variable-2 {
     color: #05a; }
-  #mc4wp-admin .cm-s-default .cm-variable-3, #mc4wp-admin .cm-s-default .cm-type,
-  .mc4wp-admin .cm-s-default .cm-variable-3,
-  .mc4wp-admin .cm-s-default .cm-type {
+  #pl4wp-admin .cm-s-default .cm-variable-3, #pl4wp-admin .cm-s-default .cm-type,
+  .pl4wp-admin .cm-s-default .cm-variable-3,
+  .pl4wp-admin .cm-s-default .cm-type {
     color: #085; }
-  #mc4wp-admin .cm-s-default .cm-comment,
-  .mc4wp-admin .cm-s-default .cm-comment {
+  #pl4wp-admin .cm-s-default .cm-comment,
+  .pl4wp-admin .cm-s-default .cm-comment {
     color: #a50; }
-  #mc4wp-admin .cm-s-default .cm-string,
-  .mc4wp-admin .cm-s-default .cm-string {
+  #pl4wp-admin .cm-s-default .cm-string,
+  .pl4wp-admin .cm-s-default .cm-string {
     color: #a11; }
-  #mc4wp-admin .cm-s-default .cm-string-2,
-  .mc4wp-admin .cm-s-default .cm-string-2 {
+  #pl4wp-admin .cm-s-default .cm-string-2,
+  .pl4wp-admin .cm-s-default .cm-string-2 {
     color: #f50; }
-  #mc4wp-admin .cm-s-default .cm-meta,
-  .mc4wp-admin .cm-s-default .cm-meta {
+  #pl4wp-admin .cm-s-default .cm-meta,
+  .pl4wp-admin .cm-s-default .cm-meta {
     color: #555; }
-  #mc4wp-admin .cm-s-default .cm-qualifier,
-  .mc4wp-admin .cm-s-default .cm-qualifier {
+  #pl4wp-admin .cm-s-default .cm-qualifier,
+  .pl4wp-admin .cm-s-default .cm-qualifier {
     color: #555; }
-  #mc4wp-admin .cm-s-default .cm-builtin,
-  .mc4wp-admin .cm-s-default .cm-builtin {
+  #pl4wp-admin .cm-s-default .cm-builtin,
+  .pl4wp-admin .cm-s-default .cm-builtin {
     color: #30a; }
-  #mc4wp-admin .cm-s-default .cm-bracket,
-  .mc4wp-admin .cm-s-default .cm-bracket {
+  #pl4wp-admin .cm-s-default .cm-bracket,
+  .pl4wp-admin .cm-s-default .cm-bracket {
     color: #997; }
-  #mc4wp-admin .cm-s-default .cm-tag,
-  .mc4wp-admin .cm-s-default .cm-tag {
+  #pl4wp-admin .cm-s-default .cm-tag,
+  .pl4wp-admin .cm-s-default .cm-tag {
     color: #170; }
-  #mc4wp-admin .cm-s-default .cm-attribute,
-  .mc4wp-admin .cm-s-default .cm-attribute {
+  #pl4wp-admin .cm-s-default .cm-attribute,
+  .pl4wp-admin .cm-s-default .cm-attribute {
     color: #00c; }
-  #mc4wp-admin .cm-s-default .cm-hr,
-  .mc4wp-admin .cm-s-default .cm-hr {
+  #pl4wp-admin .cm-s-default .cm-hr,
+  .pl4wp-admin .cm-s-default .cm-hr {
     color: #999; }
-  #mc4wp-admin .cm-s-default .cm-link,
-  .mc4wp-admin .cm-s-default .cm-link {
+  #pl4wp-admin .cm-s-default .cm-link,
+  .pl4wp-admin .cm-s-default .cm-link {
     color: #00c; }
-  #mc4wp-admin .cm-s-default .cm-error,
-  .mc4wp-admin .cm-s-default .cm-error {
+  #pl4wp-admin .cm-s-default .cm-error,
+  .pl4wp-admin .cm-s-default .cm-error {
     color: #f00; }
-  #mc4wp-admin .cm-invalidchar,
-  .mc4wp-admin .cm-invalidchar {
+  #pl4wp-admin .cm-invalidchar,
+  .pl4wp-admin .cm-invalidchar {
     color: #f00; }
-  #mc4wp-admin .CodeMirror-composing,
-  .mc4wp-admin .CodeMirror-composing {
+  #pl4wp-admin .CodeMirror-composing,
+  .pl4wp-admin .CodeMirror-composing {
     border-bottom: 2px solid; }
-  #mc4wp-admin div.CodeMirror span.CodeMirror-matchingbracket,
-  .mc4wp-admin div.CodeMirror span.CodeMirror-matchingbracket {
+  #pl4wp-admin div.CodeMirror span.CodeMirror-matchingbracket,
+  .pl4wp-admin div.CodeMirror span.CodeMirror-matchingbracket {
     color: #0b0; }
-  #mc4wp-admin div.CodeMirror span.CodeMirror-nonmatchingbracket,
-  .mc4wp-admin div.CodeMirror span.CodeMirror-nonmatchingbracket {
+  #pl4wp-admin div.CodeMirror span.CodeMirror-nonmatchingbracket,
+  .pl4wp-admin div.CodeMirror span.CodeMirror-nonmatchingbracket {
     color: #a22; }
-  #mc4wp-admin .CodeMirror-matchingtag,
-  .mc4wp-admin .CodeMirror-matchingtag {
+  #pl4wp-admin .CodeMirror-matchingtag,
+  .pl4wp-admin .CodeMirror-matchingtag {
     background: rgba(255, 150, 0, 0.3); }
-  #mc4wp-admin .CodeMirror-activeline-background,
-  .mc4wp-admin .CodeMirror-activeline-background {
+  #pl4wp-admin .CodeMirror-activeline-background,
+  .pl4wp-admin .CodeMirror-activeline-background {
     background: #e8f2ff; }
-  #mc4wp-admin .CodeMirror,
-  .mc4wp-admin .CodeMirror {
+  #pl4wp-admin .CodeMirror,
+  .pl4wp-admin .CodeMirror {
     position: relative;
     overflow: hidden;
     background: white; }
-  #mc4wp-admin .CodeMirror-scroll,
-  .mc4wp-admin .CodeMirror-scroll {
+  #pl4wp-admin .CodeMirror-scroll,
+  .pl4wp-admin .CodeMirror-scroll {
     overflow: scroll !important;
     /* Things will break if this is overridden */
     /* 30px is the magic margin used to hide the element's real scrollbars */
@@ -470,82 +470,82 @@
     outline: none;
     /* Prevent dragging from highlighting the element */
     position: relative; }
-  #mc4wp-admin .CodeMirror-sizer,
-  .mc4wp-admin .CodeMirror-sizer {
+  #pl4wp-admin .CodeMirror-sizer,
+  .pl4wp-admin .CodeMirror-sizer {
     position: relative;
     border-right: 30px solid transparent; }
-  #mc4wp-admin .CodeMirror-vscrollbar, #mc4wp-admin .CodeMirror-hscrollbar, #mc4wp-admin .CodeMirror-scrollbar-filler, #mc4wp-admin .CodeMirror-gutter-filler,
-  .mc4wp-admin .CodeMirror-vscrollbar,
-  .mc4wp-admin .CodeMirror-hscrollbar,
-  .mc4wp-admin .CodeMirror-scrollbar-filler,
-  .mc4wp-admin .CodeMirror-gutter-filler {
+  #pl4wp-admin .CodeMirror-vscrollbar, #pl4wp-admin .CodeMirror-hscrollbar, #pl4wp-admin .CodeMirror-scrollbar-filler, #pl4wp-admin .CodeMirror-gutter-filler,
+  .pl4wp-admin .CodeMirror-vscrollbar,
+  .pl4wp-admin .CodeMirror-hscrollbar,
+  .pl4wp-admin .CodeMirror-scrollbar-filler,
+  .pl4wp-admin .CodeMirror-gutter-filler {
     position: absolute;
     z-index: 6;
     display: none; }
-  #mc4wp-admin .CodeMirror-vscrollbar,
-  .mc4wp-admin .CodeMirror-vscrollbar {
+  #pl4wp-admin .CodeMirror-vscrollbar,
+  .pl4wp-admin .CodeMirror-vscrollbar {
     right: 0;
     top: 0;
     overflow-x: hidden;
     overflow-y: scroll; }
-  #mc4wp-admin .CodeMirror-hscrollbar,
-  .mc4wp-admin .CodeMirror-hscrollbar {
+  #pl4wp-admin .CodeMirror-hscrollbar,
+  .pl4wp-admin .CodeMirror-hscrollbar {
     bottom: 0;
     left: 0;
     overflow-y: hidden;
     overflow-x: scroll; }
-  #mc4wp-admin .CodeMirror-scrollbar-filler,
-  .mc4wp-admin .CodeMirror-scrollbar-filler {
+  #pl4wp-admin .CodeMirror-scrollbar-filler,
+  .pl4wp-admin .CodeMirror-scrollbar-filler {
     right: 0;
     bottom: 0; }
-  #mc4wp-admin .CodeMirror-gutter-filler,
-  .mc4wp-admin .CodeMirror-gutter-filler {
+  #pl4wp-admin .CodeMirror-gutter-filler,
+  .pl4wp-admin .CodeMirror-gutter-filler {
     left: 0;
     bottom: 0; }
-  #mc4wp-admin .CodeMirror-gutters,
-  .mc4wp-admin .CodeMirror-gutters {
+  #pl4wp-admin .CodeMirror-gutters,
+  .pl4wp-admin .CodeMirror-gutters {
     position: absolute;
     left: 0;
     top: 0;
     min-height: 100%;
     z-index: 3; }
-  #mc4wp-admin .CodeMirror-gutter,
-  .mc4wp-admin .CodeMirror-gutter {
+  #pl4wp-admin .CodeMirror-gutter,
+  .pl4wp-admin .CodeMirror-gutter {
     white-space: normal;
     height: 100%;
     display: inline-block;
     vertical-align: top;
     margin-bottom: -30px; }
-  #mc4wp-admin .CodeMirror-gutter-wrapper,
-  .mc4wp-admin .CodeMirror-gutter-wrapper {
+  #pl4wp-admin .CodeMirror-gutter-wrapper,
+  .pl4wp-admin .CodeMirror-gutter-wrapper {
     position: absolute;
     z-index: 4;
     background: none !important;
     border: none !important; }
-  #mc4wp-admin .CodeMirror-gutter-background,
-  .mc4wp-admin .CodeMirror-gutter-background {
+  #pl4wp-admin .CodeMirror-gutter-background,
+  .pl4wp-admin .CodeMirror-gutter-background {
     position: absolute;
     top: 0;
     bottom: 0;
     z-index: 4; }
-  #mc4wp-admin .CodeMirror-gutter-elt,
-  .mc4wp-admin .CodeMirror-gutter-elt {
+  #pl4wp-admin .CodeMirror-gutter-elt,
+  .pl4wp-admin .CodeMirror-gutter-elt {
     position: absolute;
     cursor: default;
     z-index: 4; }
-  #mc4wp-admin .CodeMirror-gutter-wrapper ::selection,
-  .mc4wp-admin .CodeMirror-gutter-wrapper ::selection {
+  #pl4wp-admin .CodeMirror-gutter-wrapper ::selection,
+  .pl4wp-admin .CodeMirror-gutter-wrapper ::selection {
     background-color: transparent; }
-  #mc4wp-admin .CodeMirror-gutter-wrapper ::-moz-selection,
-  .mc4wp-admin .CodeMirror-gutter-wrapper ::-moz-selection {
+  #pl4wp-admin .CodeMirror-gutter-wrapper ::-moz-selection,
+  .pl4wp-admin .CodeMirror-gutter-wrapper ::-moz-selection {
     background-color: transparent; }
-  #mc4wp-admin .CodeMirror-lines,
-  .mc4wp-admin .CodeMirror-lines {
+  #pl4wp-admin .CodeMirror-lines,
+  .pl4wp-admin .CodeMirror-lines {
     cursor: text;
     min-height: 1px;
     /* prevents collapsing before first draw */ }
-  #mc4wp-admin .CodeMirror pre,
-  .mc4wp-admin .CodeMirror pre {
+  #pl4wp-admin .CodeMirror pre,
+  .pl4wp-admin .CodeMirror pre {
     /* Reset some styles that the rest of the page might have set */
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
@@ -565,118 +565,118 @@
     -webkit-tap-highlight-color: transparent;
     -webkit-font-variant-ligatures: contextual;
     font-variant-ligatures: contextual; }
-  #mc4wp-admin .CodeMirror-wrap pre,
-  .mc4wp-admin .CodeMirror-wrap pre {
+  #pl4wp-admin .CodeMirror-wrap pre,
+  .pl4wp-admin .CodeMirror-wrap pre {
     word-wrap: break-word;
     white-space: pre-wrap;
     word-break: normal; }
-  #mc4wp-admin .CodeMirror-linebackground,
-  .mc4wp-admin .CodeMirror-linebackground {
+  #pl4wp-admin .CodeMirror-linebackground,
+  .pl4wp-admin .CodeMirror-linebackground {
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
     z-index: 0; }
-  #mc4wp-admin .CodeMirror-linewidget,
-  .mc4wp-admin .CodeMirror-linewidget {
+  #pl4wp-admin .CodeMirror-linewidget,
+  .pl4wp-admin .CodeMirror-linewidget {
     position: relative;
     z-index: 2;
     padding: 0.1px;
     /* Force widget margins to stay inside of the container */ }
-  #mc4wp-admin .CodeMirror-rtl pre,
-  .mc4wp-admin .CodeMirror-rtl pre {
+  #pl4wp-admin .CodeMirror-rtl pre,
+  .pl4wp-admin .CodeMirror-rtl pre {
     direction: rtl; }
-  #mc4wp-admin .CodeMirror-code,
-  .mc4wp-admin .CodeMirror-code {
+  #pl4wp-admin .CodeMirror-code,
+  .pl4wp-admin .CodeMirror-code {
     outline: none; }
-  #mc4wp-admin .CodeMirror-scroll,
-  #mc4wp-admin .CodeMirror-sizer,
-  #mc4wp-admin .CodeMirror-gutter,
-  #mc4wp-admin .CodeMirror-gutters,
-  #mc4wp-admin .CodeMirror-linenumber,
-  .mc4wp-admin .CodeMirror-scroll,
-  .mc4wp-admin .CodeMirror-sizer,
-  .mc4wp-admin .CodeMirror-gutter,
-  .mc4wp-admin .CodeMirror-gutters,
-  .mc4wp-admin .CodeMirror-linenumber {
+  #pl4wp-admin .CodeMirror-scroll,
+  #pl4wp-admin .CodeMirror-sizer,
+  #pl4wp-admin .CodeMirror-gutter,
+  #pl4wp-admin .CodeMirror-gutters,
+  #pl4wp-admin .CodeMirror-linenumber,
+  .pl4wp-admin .CodeMirror-scroll,
+  .pl4wp-admin .CodeMirror-sizer,
+  .pl4wp-admin .CodeMirror-gutter,
+  .pl4wp-admin .CodeMirror-gutters,
+  .pl4wp-admin .CodeMirror-linenumber {
     -moz-box-sizing: content-box;
     box-sizing: content-box; }
-  #mc4wp-admin .CodeMirror-measure,
-  .mc4wp-admin .CodeMirror-measure {
+  #pl4wp-admin .CodeMirror-measure,
+  .pl4wp-admin .CodeMirror-measure {
     position: absolute;
     width: 100%;
     height: 0;
     overflow: hidden;
     visibility: hidden; }
-  #mc4wp-admin .CodeMirror-cursor,
-  .mc4wp-admin .CodeMirror-cursor {
+  #pl4wp-admin .CodeMirror-cursor,
+  .pl4wp-admin .CodeMirror-cursor {
     position: absolute;
     pointer-events: none; }
-  #mc4wp-admin .CodeMirror-measure pre,
-  .mc4wp-admin .CodeMirror-measure pre {
+  #pl4wp-admin .CodeMirror-measure pre,
+  .pl4wp-admin .CodeMirror-measure pre {
     position: static; }
-  #mc4wp-admin div.CodeMirror-cursors,
-  .mc4wp-admin div.CodeMirror-cursors {
+  #pl4wp-admin div.CodeMirror-cursors,
+  .pl4wp-admin div.CodeMirror-cursors {
     visibility: hidden;
     position: relative;
     z-index: 3; }
-  #mc4wp-admin div.CodeMirror-dragcursors,
-  .mc4wp-admin div.CodeMirror-dragcursors {
+  #pl4wp-admin div.CodeMirror-dragcursors,
+  .pl4wp-admin div.CodeMirror-dragcursors {
     visibility: visible; }
-  #mc4wp-admin .CodeMirror-focused div.CodeMirror-cursors,
-  .mc4wp-admin .CodeMirror-focused div.CodeMirror-cursors {
+  #pl4wp-admin .CodeMirror-focused div.CodeMirror-cursors,
+  .pl4wp-admin .CodeMirror-focused div.CodeMirror-cursors {
     visibility: visible; }
-  #mc4wp-admin .CodeMirror-selected,
-  .mc4wp-admin .CodeMirror-selected {
+  #pl4wp-admin .CodeMirror-selected,
+  .pl4wp-admin .CodeMirror-selected {
     background: #d9d9d9; }
-  #mc4wp-admin .CodeMirror-focused .CodeMirror-selected,
-  .mc4wp-admin .CodeMirror-focused .CodeMirror-selected {
+  #pl4wp-admin .CodeMirror-focused .CodeMirror-selected,
+  .pl4wp-admin .CodeMirror-focused .CodeMirror-selected {
     background: #d7d4f0; }
-  #mc4wp-admin .CodeMirror-crosshair,
-  .mc4wp-admin .CodeMirror-crosshair {
+  #pl4wp-admin .CodeMirror-crosshair,
+  .pl4wp-admin .CodeMirror-crosshair {
     cursor: crosshair; }
-  #mc4wp-admin .CodeMirror-line::selection, #mc4wp-admin .CodeMirror-line > span::selection, #mc4wp-admin .CodeMirror-line > span > span::selection,
-  .mc4wp-admin .CodeMirror-line::selection,
-  .mc4wp-admin .CodeMirror-line > span::selection,
-  .mc4wp-admin .CodeMirror-line > span > span::selection {
+  #pl4wp-admin .CodeMirror-line::selection, #pl4wp-admin .CodeMirror-line > span::selection, #pl4wp-admin .CodeMirror-line > span > span::selection,
+  .pl4wp-admin .CodeMirror-line::selection,
+  .pl4wp-admin .CodeMirror-line > span::selection,
+  .pl4wp-admin .CodeMirror-line > span > span::selection {
     background: #d7d4f0; }
-  #mc4wp-admin .CodeMirror-line::-moz-selection, #mc4wp-admin .CodeMirror-line > span::-moz-selection, #mc4wp-admin .CodeMirror-line > span > span::-moz-selection,
-  .mc4wp-admin .CodeMirror-line::-moz-selection,
-  .mc4wp-admin .CodeMirror-line > span::-moz-selection,
-  .mc4wp-admin .CodeMirror-line > span > span::-moz-selection {
+  #pl4wp-admin .CodeMirror-line::-moz-selection, #pl4wp-admin .CodeMirror-line > span::-moz-selection, #pl4wp-admin .CodeMirror-line > span > span::-moz-selection,
+  .pl4wp-admin .CodeMirror-line::-moz-selection,
+  .pl4wp-admin .CodeMirror-line > span::-moz-selection,
+  .pl4wp-admin .CodeMirror-line > span > span::-moz-selection {
     background: #d7d4f0; }
-  #mc4wp-admin .cm-searching,
-  .mc4wp-admin .cm-searching {
+  #pl4wp-admin .cm-searching,
+  .pl4wp-admin .cm-searching {
     background-color: #ffa;
     background-color: rgba(255, 255, 0, 0.4); }
-  #mc4wp-admin .cm-force-border,
-  .mc4wp-admin .cm-force-border {
+  #pl4wp-admin .cm-force-border,
+  .pl4wp-admin .cm-force-border {
     padding-right: .1px; }
   @media print {
-    #mc4wp-admin,
-    .mc4wp-admin {
+    #pl4wp-admin,
+    .pl4wp-admin {
       /* Hide the cursor when printing */ }
-      #mc4wp-admin .CodeMirror div.CodeMirror-cursors,
-      .mc4wp-admin .CodeMirror div.CodeMirror-cursors {
+      #pl4wp-admin .CodeMirror div.CodeMirror-cursors,
+      .pl4wp-admin .CodeMirror div.CodeMirror-cursors {
         visibility: hidden; } }
-  #mc4wp-admin .cm-tab-wrap-hack:after,
-  .mc4wp-admin .cm-tab-wrap-hack:after {
+  #pl4wp-admin .cm-tab-wrap-hack:after,
+  .pl4wp-admin .cm-tab-wrap-hack:after {
     content: ''; }
-  #mc4wp-admin span.CodeMirror-selectedtext,
-  .mc4wp-admin span.CodeMirror-selectedtext {
+  #pl4wp-admin span.CodeMirror-selectedtext,
+  .pl4wp-admin span.CodeMirror-selectedtext {
     background: none; }
-  #mc4wp-admin .CodeMirror,
-  .mc4wp-admin .CodeMirror {
+  #pl4wp-admin .CodeMirror,
+  .pl4wp-admin .CodeMirror {
     border: 1px solid #ccc;
     min-height: 500px;
     font-weight: normal;
     padding: 0 4px; }
-  #mc4wp-admin .CodeMirror-empty,
-  .mc4wp-admin .CodeMirror-empty {
+  #pl4wp-admin .CodeMirror-empty,
+  .pl4wp-admin .CodeMirror-empty {
     color: #999; }
-  #mc4wp-admin #mc4wp-form-preview,
-  .mc4wp-admin #mc4wp-form-preview {
+  #pl4wp-admin #pl4wp-form-preview,
+  .pl4wp-admin #pl4wp-form-preview {
     border: 1px solid #ddd;
     height: 500px;
     /* codemirror + padding */
@@ -685,138 +685,138 @@
     border-right-width: 2px;
     /* for scrollbar */ }
   @media (min-width: 1186px) {
-    #mc4wp-admin .mc4wp-form-editor-wrap,
-    .mc4wp-admin .mc4wp-form-editor-wrap {
+    #pl4wp-admin .pl4wp-form-editor-wrap,
+    .pl4wp-admin .pl4wp-form-editor-wrap {
       padding-right: 0 !important; }
-    #mc4wp-admin .mc4wp-form-preview-wrap,
-    .mc4wp-admin .mc4wp-form-preview-wrap {
+    #pl4wp-admin .pl4wp-form-preview-wrap,
+    .pl4wp-admin .pl4wp-form-preview-wrap {
       padding-left: 0 !important; } }
   @media (max-width: 1186px) {
-    #mc4wp-admin #mc4wp-form-preview,
-    .mc4wp-admin #mc4wp-form-preview {
+    #pl4wp-admin #pl4wp-form-preview,
+    .pl4wp-admin #pl4wp-form-preview {
       border-left-width: 1px; } }
-  #mc4wp-admin .field-wizard,
-  .mc4wp-admin .field-wizard {
+  #pl4wp-admin .field-wizard,
+  .pl4wp-admin .field-wizard {
     /* table */
     /* checkboxes in label */ }
-    #mc4wp-admin .field-wizard h3,
-    .mc4wp-admin .field-wizard h3 {
+    #pl4wp-admin .field-wizard h3,
+    .pl4wp-admin .field-wizard h3 {
       margin-top: 0;
       padding-bottom: 12px;
       border-bottom: 1px solid #eee;
       margin-bottom: 12px; }
-    #mc4wp-admin .field-wizard code,
-    .mc4wp-admin .field-wizard code {
+    #pl4wp-admin .field-wizard code,
+    .pl4wp-admin .field-wizard code {
       margin-left: 10px; }
-    #mc4wp-admin .field-wizard > div,
-    .mc4wp-admin .field-wizard > div {
+    #pl4wp-admin .field-wizard > div,
+    .pl4wp-admin .field-wizard > div {
       margin: 24px 0; }
-    #mc4wp-admin .field-wizard label,
-    .mc4wp-admin .field-wizard label {
+    #pl4wp-admin .field-wizard label,
+    .pl4wp-admin .field-wizard label {
       font-weight: 600;
       display: block;
       margin-bottom: 3px; }
-    #mc4wp-admin .field-wizard table,
-    .mc4wp-admin .field-wizard table {
+    #pl4wp-admin .field-wizard table,
+    .pl4wp-admin .field-wizard table {
       table-layout: fixed;
       border-collapse: collapse;
       border-spacing: 0; }
-    #mc4wp-admin .field-wizard tr, #mc4wp-admin .field-wizard td,
-    .mc4wp-admin .field-wizard tr,
-    .mc4wp-admin .field-wizard td {
+    #pl4wp-admin .field-wizard tr, #pl4wp-admin .field-wizard td,
+    .pl4wp-admin .field-wizard tr,
+    .pl4wp-admin .field-wizard td {
       vertical-align: middle; }
-    #mc4wp-admin .field-wizard td.stretch,
-    .mc4wp-admin .field-wizard td.stretch {
+    #pl4wp-admin .field-wizard td.stretch,
+    .pl4wp-admin .field-wizard td.stretch {
       width: 100%; }
-    #mc4wp-admin .field-wizard .cb-wrap,
-    .mc4wp-admin .field-wizard .cb-wrap {
+    #pl4wp-admin .field-wizard .cb-wrap,
+    .pl4wp-admin .field-wizard .cb-wrap {
       font-weight: normal; }
-      #mc4wp-admin .field-wizard .cb-wrap input,
-      .mc4wp-admin .field-wizard .cb-wrap input {
+      #pl4wp-admin .field-wizard .cb-wrap input,
+      .pl4wp-admin .field-wizard .cb-wrap input {
         margin-right: 6px; }
-    #mc4wp-admin .field-wizard .limit-height,
-    .mc4wp-admin .field-wizard .limit-height {
+    #pl4wp-admin .field-wizard .limit-height,
+    .pl4wp-admin .field-wizard .limit-height {
       border: 1px solid #eee;
       padding: 6px;
       max-height: 200px;
       overflow-y: scroll; }
-    #mc4wp-admin .field-wizard .dashicons,
-    .mc4wp-admin .field-wizard .dashicons {
+    #pl4wp-admin .field-wizard .dashicons,
+    .pl4wp-admin .field-wizard .dashicons {
       vertical-align: middle; }
-    #mc4wp-admin .field-wizard .help,
-    .mc4wp-admin .field-wizard .help {
+    #pl4wp-admin .field-wizard .help,
+    .pl4wp-admin .field-wizard .help {
       margin-top: 0; }
-  #mc4wp-admin .available-fields,
-  .mc4wp-admin .available-fields {
+  #pl4wp-admin .available-fields,
+  .pl4wp-admin .available-fields {
     border: 1px solid #ccc;
     padding: 20px;
     background: white; }
-    #mc4wp-admin .available-fields h4,
-    .mc4wp-admin .available-fields h4 {
+    #pl4wp-admin .available-fields h4,
+    .pl4wp-admin .available-fields h4 {
       font-size: 14px;
       margin-top: 0; }
-    #mc4wp-admin .available-fields strong,
-    .mc4wp-admin .available-fields strong {
+    #pl4wp-admin .available-fields strong,
+    .pl4wp-admin .available-fields strong {
       display: block;
       margin-bottom: 6px; }
-    #mc4wp-admin .available-fields button,
-    .mc4wp-admin .available-fields button {
+    #pl4wp-admin .available-fields button,
+    .pl4wp-admin .available-fields button {
       margin: 0 6px 6px 0; }
-    #mc4wp-admin .available-fields .is-required:after,
-    .mc4wp-admin .available-fields .is-required:after {
+    #pl4wp-admin .available-fields .is-required:after,
+    .pl4wp-admin .available-fields .is-required:after {
       content: " *";
       color: red; }
-    #mc4wp-admin .available-fields .is-required.not-in-form,
-    .mc4wp-admin .available-fields .is-required.not-in-form {
+    #pl4wp-admin .available-fields .is-required.not-in-form,
+    .pl4wp-admin .available-fields .is-required.not-in-form {
       -webkit-box-shadow: 0 0 3px 1px red;
       -moz-box-shadow: 0 0 3px 1px red;
       box-shadow: 0 0 3px 1px red; }
-    #mc4wp-admin .available-fields .in-form,
-    .mc4wp-admin .available-fields .in-form {
+    #pl4wp-admin .available-fields .in-form,
+    .pl4wp-admin .available-fields .in-form {
       opacity: 0.5; }
-  #mc4wp-admin .page-title,
-  .mc4wp-admin .page-title {
+  #pl4wp-admin .page-title,
+  .pl4wp-admin .page-title {
     background: url("../img/icon-large.png") no-repeat left center;
     padding-left: 42px;
     line-height: 32px;
     margin-bottom: 20px; }
-    #mc4wp-admin .page-title small,
-    .mc4wp-admin .page-title small {
+    #pl4wp-admin .page-title small,
+    .pl4wp-admin .page-title small {
       font-size: 12px;
       color: #777;
       display: inline-block;
       margin-left: 10px; }
-  #mc4wp-admin .page-title-action .dashicons,
-  #mc4wp-admin .button .dashicons,
-  #mc4wp-admin .button-secondary .dashicons,
-  .mc4wp-admin .page-title-action .dashicons,
-  .mc4wp-admin .button .dashicons,
-  .mc4wp-admin .button-secondary .dashicons {
+  #pl4wp-admin .page-title-action .dashicons,
+  #pl4wp-admin .button .dashicons,
+  #pl4wp-admin .button-secondary .dashicons,
+  .pl4wp-admin .page-title-action .dashicons,
+  .pl4wp-admin .button .dashicons,
+  .pl4wp-admin .button-secondary .dashicons {
     vertical-align: middle;
     line-height: 16px;
     margin: 0 4px 0 0; }
-  #mc4wp-admin .form-table td p,
-  .mc4wp-admin .form-table td p {
+  #pl4wp-admin .form-table td p,
+  .pl4wp-admin .form-table td p {
     margin-top: 1em; }
-  #mc4wp-admin .sidebar,
-  .mc4wp-admin .sidebar {
+  #pl4wp-admin .sidebar,
+  .pl4wp-admin .sidebar {
     border-left: 1px solid #ccc; }
-  #mc4wp-admin .sidebar h3,
-  #mc4wp-admin .sidebar h4,
-  .mc4wp-admin .sidebar h3,
-  .mc4wp-admin .sidebar h4 {
+  #pl4wp-admin .sidebar h3,
+  #pl4wp-admin .sidebar h4,
+  .pl4wp-admin .sidebar h3,
+  .pl4wp-admin .sidebar h4 {
     font-size: 16px;
     margin-bottom: 0; }
-  #mc4wp-admin .sidebar > div,
-  .mc4wp-admin .sidebar > div {
+  #pl4wp-admin .sidebar > div,
+  .pl4wp-admin .sidebar > div {
     border-bottom: 1px solid #ccc;
     margin-bottom: 20px;
     padding-bottom: 20px; }
-    #mc4wp-admin .sidebar > div:last-of-type,
-    .mc4wp-admin .sidebar > div:last-of-type {
+    #pl4wp-admin .sidebar > div:last-of-type,
+    .pl4wp-admin .sidebar > div:last-of-type {
       border-bottom: 0; }
 
-.mc4wp-log {
+.pl4wp-log {
   font-family: monaco, monospace, courier, 'courier new', 'Bitstream Vera Sans Mono';
   font-size: 13px;
   resize: vertical;
@@ -828,20 +828,20 @@
   color: white;
   overflow-y: scroll; }
 
-.mc4wp-log .time {
+.pl4wp-log .time {
   color: #b58900; }
 
-.mc4wp-log .level {
+.pl4wp-log .level {
   color: #35AECD; }
 
-.mc4wp-log .debug-log-empty {
+.pl4wp-log .debug-log-empty {
   color: #ccc;
   font-style: italic; }
 
-.mc4wp-log .hidden {
+.pl4wp-log .hidden {
   display: none; }
 
-.mc4wp-log a {
+.pl4wp-log a {
   color: #ccc;
   text-decoration: underline; }
 
@@ -884,19 +884,19 @@
   right: auto;
   left: 0; }
 
-.rtl #mc4wp-admin .page-title {
+.rtl #pl4wp-admin .page-title {
   background-position: right center;
   padding-left: 0;
   padding-right: 42px; }
 
-.rtl #mc4wp-admin .CodeMirror-scroll {
+.rtl #pl4wp-admin .CodeMirror-scroll {
   overflow-y: hidden !important; }
 
-.rtl #mc4wp-admin .CodeMirror-vscrollbar {
+.rtl #pl4wp-admin .CodeMirror-vscrollbar {
   left: 0 !important;
   right: auto !important; }
 
-.rtl .mc4wp-is-dismissible {
+.rtl .pl4wp-is-dismissible {
   padding-left: 38px;
   padding-right: initial;
   position: relative; }

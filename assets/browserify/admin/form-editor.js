@@ -17,15 +17,15 @@ var FormEditor = {};
 var _dom = document.createElement('form');
 var domDirty = false;
 var editor;
-var element = document.getElementById('mc4wp-form-content');
-var previewFrame = document.getElementById('mc4wp-form-preview');
+var element = document.getElementById('pl4wp-form-content');
+var previewFrame = document.getElementById('pl4wp-form-preview');
 var previewDom;
 var templateRegex = /\{[^{}]+\}/g
 
 /* functions */
 function setPreviewDom() {
     var frameContent = previewFrame.contentDocument || previewFrame.contentWindow.document;
-    previewDom = frameContent.querySelector('.mc4wp-form-fields');
+    previewDom = frameContent.querySelector('.pl4wp-form-fields');
     
     if(previewDom) { 
         updatePreview();
@@ -40,7 +40,7 @@ function updatePreview() {
 
     // update dom
     previewDom.innerHTML = markup;
-    previewDom.dispatchEvent(new Event('mc4wp-refresh'));
+    previewDom.dispatchEvent(new Event('pl4wp-refresh'));
 }
 
 window.addEventListener('load', function() {

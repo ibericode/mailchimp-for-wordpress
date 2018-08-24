@@ -1,8 +1,8 @@
 <?php
 
-class MC4WP_Gravity_Forms_Field extends GF_Field {
+class PL4WP_Gravity_Forms_Field extends GF_Field {
 
-    public $type = 'mailchimp';
+    public $type = 'phplist';
 
     /**
      * Returns the field markup; including field label, description, validation, and the form editor admin buttons.
@@ -36,7 +36,7 @@ class MC4WP_Gravity_Forms_Field extends GF_Field {
     }
 
     public function get_form_editor_field_title() {
-        return esc_attr__( 'MailChimp', 'mailchimp-for-wp' );
+        return esc_attr__( 'PhpList', 'phplist-for-wp' );
     }
 
     public function get_form_editor_field_settings() {
@@ -44,8 +44,8 @@ class MC4WP_Gravity_Forms_Field extends GF_Field {
             'label_setting',
             'description_setting',
             'css_class_setting',
-            'mailchimp_list_setting',
-            'mailchimp_double_optin',
+            'phplist_list_setting',
+            'phplist_double_optin',
             'rules_setting',
         );
     }

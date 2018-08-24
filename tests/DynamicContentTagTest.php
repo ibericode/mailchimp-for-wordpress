@@ -12,7 +12,7 @@ use Brain\Monkey\Functions;
 class DynamicContentTagTest extends TestCase {
 
 	/**
-	 * @var MC4WP_Dynamic_Content_Tags
+	 * @var PL4WP_Dynamic_Content_Tags
 	 */
 	protected $instance;
 
@@ -22,7 +22,7 @@ class DynamicContentTagTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 		Monkey\setUp();
-		$this->instance = new MC4WP_Dynamic_Content_Tags( 'context' );
+		$this->instance = new PL4WP_Dynamic_Content_Tags( 'context' );
 	}
 
 	/**
@@ -34,19 +34,19 @@ class DynamicContentTagTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Dynamic_Content_Tags::__construct
+	 * @covers PL4WP_Dynamic_Content_Tags::__construct
 	 */
 	public function test_constructor() {
 		$context = 'something';
-		self::assertAttributeEquals( $context, 'context', new MC4WP_Dynamic_Content_Tags( $context ) );
+		self::assertAttributeEquals( $context, 'context', new PL4WP_Dynamic_Content_Tags( $context ) );
 	}
 
 	/**
-	 * @covers MC4WP_Dynamic_Content_Tags::escape_value_url
+	 * @covers PL4WP_Dynamic_Content_Tags::escape_value_url
 	 */
 	public function test_escape_value_url() {
 
-		$reflectionOfUser = new ReflectionClass('MC4WP_Dynamic_Content_Tags');
+		$reflectionOfUser = new ReflectionClass('PL4WP_Dynamic_Content_Tags');
 		$method = $reflectionOfUser->getMethod('escape_value_url');
 		$method->setAccessible(true);
 
@@ -55,11 +55,11 @@ class DynamicContentTagTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Dynamic_Content_Tags::escape_value_html
+	 * @covers PL4WP_Dynamic_Content_Tags::escape_value_html
 	 */
 	public function test_escape_value_html() {
 
-		$reflection = new ReflectionClass('MC4WP_Dynamic_Content_Tags');
+		$reflection = new ReflectionClass('PL4WP_Dynamic_Content_Tags');
 		$method = $reflection->getMethod('escape_value_html');
 		$method->setAccessible(true);
 
@@ -71,10 +71,10 @@ class DynamicContentTagTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Dynamic_Content_Tags::escape_value_url
+	 * @covers PL4WP_Dynamic_Content_Tags::escape_value_url
 	 */
 	public function test_escape_attributes() {
-		$reflection = new ReflectionClass('MC4WP_Dynamic_Content_Tags');
+		$reflection = new ReflectionClass('PL4WP_Dynamic_Content_Tags');
 		$method = $reflection->getMethod('escape_value_attributes');
 		$method->setAccessible(true);
 
@@ -86,7 +86,7 @@ class DynamicContentTagTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Dynamic_Content_Tags::replace
+	 * @covers PL4WP_Dynamic_Content_Tags::replace
 	 */
 	public function test_replace() {
 
@@ -95,7 +95,7 @@ class DynamicContentTagTest extends TestCase {
 				'replacement' => 'sample replacement'
 			)
 		);
-		$instance = new MC4WP_Dynamic_Content_Tags( 'context', $tags );
+		$instance = new PL4WP_Dynamic_Content_Tags( 'context', $tags );
 
 		// default
 		$string = "String with {sample_tag} in it.";
@@ -119,7 +119,7 @@ class DynamicContentTagTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Dynamic_Content_Tags::replace
+	 * @covers PL4WP_Dynamic_Content_Tags::replace
 	 */
 	public function test_replace_with_callback() {
 		$tags = array(
@@ -134,7 +134,7 @@ class DynamicContentTagTest extends TestCase {
 				}
 			)
 		);
-		$instance = new MC4WP_Dynamic_Content_Tags( 'context', $tags );
+		$instance = new PL4WP_Dynamic_Content_Tags( 'context', $tags );
 
 		// normal
 		$string = "String with {sample_tag} in it.";

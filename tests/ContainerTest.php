@@ -10,10 +10,10 @@ use PHPUnit\Framework\TestCase;
 class ContainerTest extends TestCase {
 
 	/**
-	 * @covers MC4WP_Container::get
+	 * @covers PL4WP_Container::get
 	 */
 	public function test_get() {
-		$container = new MC4WP_Container();
+		$container = new PL4WP_Container();
 
 		$this->expectException('Exception');
 		$container->get( 'foo' );
@@ -28,10 +28,10 @@ class ContainerTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Container::has
+	 * @covers PL4WP_Container::has
 	 */
 	public function test_has() {
-		$container = new MC4WP_Container();
+		$container = new PL4WP_Container();
 
 		self::assertFalse( $container->has('foo') );
 
@@ -42,7 +42,7 @@ class ContainerTest extends TestCase {
 
 	public function test_resolving_service() {
 		// assert services are resolved
-		$container = new MC4WP_Container();
+		$container = new PL4WP_Container();
 		$container['service'] = function() {
 			return 'resolved';
 		};

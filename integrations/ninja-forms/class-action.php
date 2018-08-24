@@ -1,14 +1,14 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Class MC4WP_Ninja_Forms_Action
+ * Class PL4WP_Ninja_Forms_Action
  */
-final class MC4WP_Ninja_Forms_Action extends NF_Abstracts_ActionNewsletter
+final class PL4WP_Ninja_Forms_Action extends NF_Abstracts_ActionNewsletter
 {
     /**
      * @var string
      */
-    protected $_name  = 'mc4wp_subscribe';
+    protected $_name  = 'pl4wp_subscribe';
 
     /**
      * Constructor
@@ -17,7 +17,7 @@ final class MC4WP_Ninja_Forms_Action extends NF_Abstracts_ActionNewsletter
     {
         parent::__construct();
 
-        $this->_nicename = __( 'MailChimp', 'mailchimp-for-wp' );
+        $this->_nicename = __( 'PhpList', 'phplist-for-wp' );
         $prefix = $this->get_name();
 
         unset( $this->_settings[ $prefix . 'newsletter_list_groups' ] );
@@ -25,7 +25,7 @@ final class MC4WP_Ninja_Forms_Action extends NF_Abstracts_ActionNewsletter
         $this->_settings[ 'double_optin' ] = array(
             'name' => 'double_optin',
             'type' => 'select',
-            'label' => __( 'Use double opt-in?', 'mailchimp-for-wp'),
+            'label' => __( 'Use double opt-in?', 'phplist-for-wp'),
             'width' => 'full',
             'group' => 'primary',
             'value' => 1,
@@ -44,7 +44,7 @@ final class MC4WP_Ninja_Forms_Action extends NF_Abstracts_ActionNewsletter
         $this->_settings[ 'update_existing' ] = array(
             'name' => 'update_existing',
             'type' => 'select',
-            'label' => __( 'Update existing subscribers?', 'mailchimp-for-wp'),
+            'label' => __( 'Update existing subscribers?', 'phplist-for-wp'),
             'width' => 'full',
             'group' => 'primary',
             'value' => 0,
@@ -63,7 +63,7 @@ final class MC4WP_Ninja_Forms_Action extends NF_Abstracts_ActionNewsletter
 //        $this->_settings[ 'replace_interests' ] = array(
 //            'name' => 'replace_interests',
 //            'type' => 'select',
-//            'label' => __( 'Replace existing interest groups?', 'mailchimp-for-wp'),
+//            'label' => __( 'Replace existing interest groups?', 'phplist-for-wp'),
 //            'width' => 'full',
 //            'group' => 'primary',
 //            'value' => 0,
@@ -95,17 +95,17 @@ final class MC4WP_Ninja_Forms_Action extends NF_Abstracts_ActionNewsletter
             return;
         }
 
-        // find "mc4wp_optin" type field, bail if not checked.
+        // find "pl4wp_optin" type field, bail if not checked.
         foreach( $data['fields'] as $field_data ) {
-            if( $field_data['type'] === 'mc4wp_optin' && empty( $field_data['value'] ) ) {
+            if( $field_data['type'] === 'pl4wp_optin' && empty( $field_data['value'] ) ) {
                 return;
             }
         }
 
         $list_id = $action_settings['newsletter_list'];
         $email_address = $action_settings['EMAIL'];
-        $mailchimp = new MC4WP_MailChimp();
-        $list = $mailchimp->get_list( $list_id, true );
+        $phplist = new PL4WP_PhpList();
+        $list = $phplist->get_list( $list_id, true );
 
         $merge_fields = array();
         foreach( $list->merge_fields as $merge_field ) {
@@ -118,15 +118,15 @@ final class MC4WP_Ninja_Forms_Action extends NF_Abstracts_ActionNewsletter
         $update_existing = $action_settings['update_existing'] == '1';
         $replace_interests = isset( $action_settings['replace_interests'] ) && $action_settings['replace_interests'] == '1';
 
-        do_action( 'mc4wp_integration_ninja_forms_subscribe', $email_address, $merge_fields, $list_id, $double_optin, $update_existing, $replace_interests, $form_id );
+        do_action( 'pl4wp_integration_ninja_forms_subscribe', $email_address, $merge_fields, $list_id, $double_optin, $update_existing, $replace_interests, $form_id );
     }
 
     protected function get_lists()
     {
-        $mailchimp = new MC4WP_MailChimp();
+        $phplist = new PL4WP_PhpList();
 
-        /** @var MC4WP_MailChimp_List[] $lists */
-        $lists = $mailchimp->get_lists();
+        /** @var PL4WP_PhpList_List[] $lists */
+        $lists = $phplist->get_lists();
         $return = array();
 
         foreach( $lists as $list ) {

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Class MC4WP_Admin_Texts
+ * Class PL4WP_Admin_Texts
  *
  * @ignore
  * @since 3.0
  */
-class MC4WP_Admin_Texts {
+class PL4WP_Admin_Texts {
 
 	/**
 	 * @param string $plugin_file
@@ -39,8 +39,8 @@ class MC4WP_Admin_Texts {
 	 */
 	public function footer_text( $text ) {
 
-		if(! empty( $_GET['page'] ) && strpos( $_GET['page'], 'mailchimp-for-wp' ) === 0 ) {
-			$text = sprintf( 'If you enjoy using <strong>MailChimp for WordPress</strong>, please <a href="%s" target="_blank">leave us a ★★★★★ rating</a>. A <strong style="text-decoration: underline;">huge</strong> thank you in advance!', 'https://wordpress.org/support/view/plugin-reviews/mailchimp-for-wp?rate=5#postform' );
+		if(! empty( $_GET['page'] ) && strpos( $_GET['page'], 'phplist-for-wp' ) === 0 ) {
+			$text = sprintf( 'If you enjoy using <strong>PhpList for WordPress</strong>, please <a href="%s" target="_blank">leave us a ★★★★★ rating</a>. A <strong style="text-decoration: underline;">huge</strong> thank you in advance!', 'https://wordpress.org/support/view/plugin-reviews/phplist-for-wp?rate=5#postform' );
 		}
 
 		return $text;
@@ -59,7 +59,7 @@ class MC4WP_Admin_Texts {
 			return $links;
 		}
 
-		$settings_link = '<a href="' . admin_url( 'admin.php?page=mailchimp-for-wp' ) . '">'. __( 'Settings', 'mailchimp-for-wp' ) . '</a>';
+		$settings_link = '<a href="' . admin_url( 'admin.php?page=phplist-for-wp' ) . '">'. __( 'Settings', 'phplist-for-wp' ) . '</a>';
 		array_unshift( $links, $settings_link );
 		return $links;
 	}
@@ -77,7 +77,7 @@ class MC4WP_Admin_Texts {
 			return $links;
 		}
 
-		$links[] = '<a href="https://kb.mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=plugins-page">'. __( 'Documentation', 'mailchimp-for-wp' ) . '</a>';
+		$links[] = '<a href="https://kb.pl4wp.com/#utm_source=wp-plugin&utm_medium=phplist-for-wp&utm_campaign=plugins-page">'. __( 'Documentation', 'phplist-for-wp' ) . '</a>';
 
 		/**
 		 * Filters meta links shown on the Plugins overview page
@@ -88,7 +88,7 @@ class MC4WP_Admin_Texts {
 		 * @param array $links
          * @ignore
 		 */
-		$links = (array) apply_filters( 'mc4wp_admin_plugin_meta_links', $links );
+		$links = (array) apply_filters( 'pl4wp_admin_plugin_meta_links', $links );
 
 		return $links;
 	}

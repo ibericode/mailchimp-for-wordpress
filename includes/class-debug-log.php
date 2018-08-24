@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Class MC4WP_Debug_Log
+ * Class PL4WP_Debug_Log
  *
  * Simple logging class which writes to a file, loosely based on PSR-3.
  */
-class MC4WP_Debug_Log{
+class PL4WP_Debug_Log{
 
 	/**
 	 * Detailed debug information
@@ -59,7 +59,7 @@ class MC4WP_Debug_Log{
 	protected $stream;
 
 	/**
-	 * MC4WP_Debug_Log constructor.
+	 * PL4WP_Debug_Log constructor.
 	 *
 	 * @param string $file
 	 * @param mixed $level;
@@ -84,7 +84,7 @@ class MC4WP_Debug_Log{
 		}
 
 		// obfuscate email addresses in log message since log might be public.
-      $message = mc4wp_obfuscate_email_addresses( (string) $message );
+      $message = pl4wp_obfuscate_email_addresses( (string) $message );
 
       // first, get rid of everything between "invisible" tags
       $message = preg_replace( '/<(?:style|script|head)>.+?<\/(?:style|script|head)>/is', '', $message );

@@ -4,7 +4,7 @@ if( ! defined( 'ABSPATH' ) ) {
 	define( 'ABSPATH', '/' );
 }
 
-define( 'MC4WP_PLUGIN_DIR', __DIR__ . '/../' );
+define( 'PL4WP_PLUGIN_DIR', __DIR__ . '/../' );
 
 /** @ignore */
 function _deprecated_function( $a, $b, $c = null ) {}
@@ -81,7 +81,7 @@ function mock_post( $data ) {
 	$post = (object) array_merge(
 		array(
 			'ID' => 1,
-			'post_type' => 'mc4wp-form',
+			'post_type' => 'pl4wp-form',
 			'post_title' => 'Form Title',
 			'post_content' => '',
 			'post_status' => 'publish',

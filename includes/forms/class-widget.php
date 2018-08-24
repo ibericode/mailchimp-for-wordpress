@@ -3,11 +3,11 @@
 defined( 'ABSPATH' ) or exit;
 
 /**
- * Adds MC4WP_Widget widget.
+ * Adds PL4WP_Widget widget.
  *
  * @ignore
  */
-class MC4WP_Form_Widget extends WP_Widget {
+class PL4WP_Form_Widget extends WP_Widget {
 
 	/**
 	 * @var array
@@ -23,13 +23,13 @@ class MC4WP_Form_Widget extends WP_Widget {
 	function __construct() {
 
 		// translate default widget title
-		$this->default_instance_settings['title'] = __( 'Newsletter', 'mailchimp-for-wp' );
+		$this->default_instance_settings['title'] = __( 'Newsletter', 'phplist-for-wp' );
 
 		parent::__construct(
-			'mc4wp_form_widget', // Base ID
-			__( 'MailChimp Sign-Up Form', 'mailchimp-for-wp' ), // Name
+			'pl4wp_form_widget', // Base ID
+			__( 'PhpList Sign-Up Form', 'phplist-for-wp' ), // Name
 			array(
-				'description' => __( 'Displays your MailChimp for WordPress sign-up form', 'mailchimp-for-wp' ),
+				'description' => __( 'Displays your PhpList for WordPress sign-up form', 'phplist-for-wp' ),
 			)
 		);
 	}
@@ -58,7 +58,7 @@ class MC4WP_Form_Widget extends WP_Widget {
 			echo $args['before_title'] . $title . $args['after_title'];
 		}
 
-		mc4wp_show_form( $instance_settings['form_id'] );
+		pl4wp_show_form( $instance_settings['form_id'] );
 
 		echo $args['after_widget'];
 	}
@@ -77,7 +77,7 @@ class MC4WP_Form_Widget extends WP_Widget {
 
 		?>
         <p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'mailchimp-for-wp' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'phplist-for-wp' ); ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $settings['title'] ); ?>" />
         </p>
 
@@ -87,14 +87,14 @@ class MC4WP_Form_Widget extends WP_Widget {
 		 * Runs right after the widget settings form is outputted
 		 *
 		 * @param array $settings
-		 * @param MC4WP_Form_Widget $this
+		 * @param PL4WP_Form_Widget $this
 		 * @ignore
 		 */
-		do_action( 'mc4wp_form_widget_form', $settings, $this );
+		do_action( 'pl4wp_form_widget_form', $settings, $this );
 		?>
 
         <p class="help">
-			<?php printf( __( 'You can edit your sign-up form in the <a href="%s">MailChimp for WordPress form settings</a>.', 'mailchimp-for-wp' ), admin_url( 'admin.php?page=mailchimp-for-wp-forms' ) ); ?>
+			<?php printf( __( 'You can edit your sign-up form in the <a href="%s">PhpList for WordPress form settings</a>.', 'phplist-for-wp' ), admin_url( 'admin.php?page=phplist-for-wp-forms' ) ); ?>
         </p>
 		<?php
 	}
@@ -120,12 +120,12 @@ class MC4WP_Form_Widget extends WP_Widget {
 		 *
 		 * @param array $new_settings
 		 * @param array $old_settings
-		 * @param MC4WP_Form_Widget $widget
+		 * @param PL4WP_Form_Widget $widget
 		 * @ignore
 		 */
-		$new_settings = apply_filters( 'mc4wp_form_widget_update_settings', $new_settings, $old_settings, $this );
+		$new_settings = apply_filters( 'pl4wp_form_widget_update_settings', $new_settings, $old_settings, $this );
 
 		return $new_settings;
 	}
 
-} // class MC4WP_Widget
+} // class PL4WP_Widget

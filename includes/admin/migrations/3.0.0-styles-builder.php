@@ -3,7 +3,7 @@
 defined( 'ABSPATH' ) or exit;
 
 // move stylebuilders file to bundle
-$file = (string) get_option( 'mc4wp_custom_css_file', '' );
+$file = (string) get_option( 'pl4wp_custom_css_file', '' );
 if( empty( $file ) ) {
 	return;
 }
@@ -26,7 +26,7 @@ $file = $uploads['basedir'] . $relative_path;
 if( file_exists( $file ) ) {
 
 	// create directory, if necessary
-	$dir = $uploads['basedir'] . '/mc4wp-stylesheets';
+	$dir = $uploads['basedir'] . '/pl4wp-stylesheets';
 	if( ! file_exists( $dir ) ) {
 		@mkdir( $dir, 0755 );
 	}
@@ -39,4 +39,4 @@ if( file_exists( $file ) ) {
 }
 
 // remove old option
-delete_option( 'mc4wp_custom_css_file' );
+delete_option( 'pl4wp_custom_css_file' );

@@ -9,10 +9,10 @@ var _conditionalElements2 = _interopRequireDefault(_conditionalElements);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var mc4wp = window.mc4wp || {};
+var pl4wp = window.pl4wp || {};
 var Gator = require('gator');
 var forms = require('./forms/forms.js');
-var config = window.mc4wp_forms_config || {};
+var config = window.pl4wp_forms_config || {};
 var scrollToElement = require('scroll-to-element');
 
 
@@ -69,13 +69,13 @@ function handleFormRequest(form, action, errors, data) {
 }
 
 // Bind browser events to form events (using delegation)
-Gator(document.body).on('submit', '.mc4wp-form', function (event) {
+Gator(document.body).on('submit', '.pl4wp-form', function (event) {
 	var form = forms.getByElement(event.target || event.srcElement);
 	forms.trigger('submit', [form, event]);
 	forms.trigger(form.id + '.submit', [form, event]);
 });
 
-Gator(document.body).on('focus', '.mc4wp-form', function (event) {
+Gator(document.body).on('focus', '.pl4wp-form', function (event) {
 	var form = forms.getByElement(event.target || event.srcElement);
 
 	if (!form.started) {
@@ -85,7 +85,7 @@ Gator(document.body).on('focus', '.mc4wp-form', function (event) {
 	}
 });
 
-Gator(document.body).on('change', '.mc4wp-form', function (event) {
+Gator(document.body).on('change', '.pl4wp-form', function (event) {
 	var form = forms.getByElement(event.target || event.srcElement);
 	forms.trigger('change', [form, event]);
 	forms.trigger(form.id + '.change', [form, event]);
@@ -95,18 +95,18 @@ Gator(document.body).on('change', '.mc4wp-form', function (event) {
 _conditionalElements2.default.init();
 
 // register early listeners
-if (mc4wp.listeners) {
-	var listeners = mc4wp.listeners;
+if (pl4wp.listeners) {
+	var listeners = pl4wp.listeners;
 	for (var i = 0; i < listeners.length; i++) {
 		forms.on(listeners[i].event, listeners[i].callback);
 	}
 
 	// delete temp listeners array, so we don't bind twice
-	delete mc4wp["listeners"];
+	delete pl4wp["listeners"];
 }
 
 // expose forms object
-mc4wp.forms = forms;
+pl4wp.forms = forms;
 
 // handle submitted form
 if (config.submitted_form) {
@@ -117,8 +117,8 @@ if (config.submitted_form) {
 	handleFormRequest(form, formConfig.action, formConfig.errors, formConfig.data);
 }
 
-// expose mc4wp object globally
-window.mc4wp = mc4wp;
+// expose pl4wp object globally
+window.pl4wp = pl4wp;
 
 },{"./forms/conditional-elements.js":2,"./forms/forms.js":4,"gator":6,"scroll-to-element":8}],2:[function(require,module,exports){
 'use strict';
@@ -203,13 +203,13 @@ function toggleElement(el) {
 
 // evaluate conditional elements globally
 function evaluate() {
-    var elements = document.querySelectorAll('.mc4wp-form [data-show-if], .mc4wp-form [data-hide-if]');
+    var elements = document.querySelectorAll('.pl4wp-form [data-show-if], .pl4wp-form [data-hide-if]');
     [].forEach.call(elements, toggleElement);
 }
 
 // re-evaluate conditional elements for change events on forms
 function handleInputEvent(evt) {
-    if (!evt.target || !evt.target.form || evt.target.form.className.indexOf('mc4wp-form') < 0) {
+    if (!evt.target || !evt.target.form || evt.target.form.className.indexOf('pl4wp-form') < 0) {
         return;
     }
 
@@ -222,7 +222,7 @@ exports.default = {
     'init': function init() {
         document.addEventListener('keyup', handleInputEvent, true);
         document.addEventListener('change', handleInputEvent, true);
-        document.addEventListener('mc4wp-refresh', evaluate, true);
+        document.addEventListener('pl4wp-refresh', evaluate, true);
         window.addEventListener('load', evaluate);
         evaluate();
     }
@@ -259,13 +259,13 @@ Form.prototype.getSerializedData = function () {
 };
 
 Form.prototype.setResponse = function (msg) {
-	this.element.querySelector('.mc4wp-response').innerHTML = msg;
+	this.element.querySelector('.pl4wp-response').innerHTML = msg;
 };
 
 // revert back to original state
 Form.prototype.reset = function () {
 	this.setResponse('');
-	this.element.querySelector('.mc4wp-form-fields').style.display = '';
+	this.element.querySelector('.pl4wp-form-fields').style.display = '';
 	this.element.reset();
 };
 
@@ -295,7 +295,7 @@ function get(formId) {
 	}
 
 	// try to create from first occurence of this element
-	var formElement = document.querySelector('.mc4wp-form-' + formId);
+	var formElement = document.querySelector('.pl4wp-form-' + formId);
 	return createFromElement(formElement, formId);
 }
 

@@ -1,12 +1,12 @@
 <p>
-	<?php _e( 'To get a custom integration to work, include the following HTML in the form you are trying to integrate with.', 'mailchimp-for-wp' ); ?>
+	<?php _e( 'To get a custom integration to work, include the following HTML in the form you are trying to integrate with.', 'phplist-for-wp' ); ?>
 </p>
 
 <?php ob_start(); ?>
 <p>
 	<label>
-		<input type="checkbox" name="mc4wp-subscribe" value="1" />
-		<?php _e( 'Subscribe to our newsletter.', 'mailchimp-for-wp' ); ?>
+		<input type="checkbox" name="pl4wp-subscribe" value="1" />
+		<?php _e( 'Subscribe to our newsletter.', 'phplist-for-wp' ); ?>
 	</label>
 </p>
 

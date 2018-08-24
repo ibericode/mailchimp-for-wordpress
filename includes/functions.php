@@ -5,8 +5,8 @@
  *
  * _Example:_
  *
- * $forms = mc4wp('forms');
- * $api = mc4wp('api');
+ * $forms = pl4wp('forms');
+ * $api = pl4wp('api');
  *
  * When no service parameter is given, the entire container will be returned.
  *
@@ -18,23 +18,23 @@
  *
  * @throws Exception when service is not found
  */
-function mc4wp($service = null)
+function pl4wp($service = null)
 {
-    static $mc4wp;
+    static $pl4wp;
 
-    if (!$mc4wp) {
-        $mc4wp = new MC4WP_Container();
+    if (!$pl4wp) {
+        $pl4wp = new PL4WP_Container();
     }
 
     if ($service) {
-        return $mc4wp->get($service);
+        return $pl4wp->get($service);
     }
 
-    return $mc4wp;
+    return $pl4wp;
 }
 
 /**
- * Gets the MailChimp for WP options from the database
+ * Gets the PhpList for WP options from the database
  * Uses default values to prevent undefined index notices.
  *
  * @since 1.0
@@ -42,88 +42,88 @@ function mc4wp($service = null)
  * @static array $options
  * @return array
  */
-function mc4wp_get_options()
+function pl4wp_get_options()
 {
     static $options;
 
     if (!$options) {
-        $defaults = require MC4WP_PLUGIN_DIR . 'config/default-settings.php';
-        $options = (array)get_option('mc4wp', array());
+        $defaults = require PL4WP_PLUGIN_DIR . 'config/default-settings.php';
+        $options = (array)get_option('pl4wp', array());
         $options = array_merge($defaults, $options);
     }
 
     /**
-     * Filters the MailChimp for WordPress settings (general).
+     * Filters the PhpList for WordPress settings (general).
      *
      * @param array $options
      */
-    return apply_filters('mc4wp_settings', $options);
+    return apply_filters('pl4wp_settings', $options);
 }
 
 /**
- * Gets the MailChimp for WP API class (v3) and injects it with the API key
+ * Gets the PhpList for WP API class (v3) and injects it with the API key
  *
  * @since 4.0
  * @access public
  *
- * @return MC4WP_API_v3
+ * @return PL4WP_API_v3
  */
-function mc4wp_get_api_v3()
+function pl4wp_get_api_v3()
 {
-    $opts = mc4wp_get_options();
-    $instance = new MC4WP_API_v3($opts['api_key']);
+    $opts = pl4wp_get_options();
+    $instance = new PL4WP_API_v3($opts['api_key']);
     return $instance;
 }
 
 /**
- * Gets the MailChimp for WP API class and injects it with the API key
+ * Gets the PhpList for WP API class and injects it with the API key
  *
  * @deprecated 4.0
- * @use mc4wp_get_api_v3
+ * @use pl4wp_get_api_v3
  *
  * @since 1.0
  * @access public
  *
- * @return MC4WP_API
+ * @return PL4WP_API
  */
-function mc4wp_get_api()
+function pl4wp_get_api()
 {
-    _deprecated_function(__FUNCTION__, '4.0', 'mc4wp_get_api_v3');
-    $opts = mc4wp_get_options();
-    $instance = new MC4WP_API($opts['api_key']);
+    _deprecated_function(__FUNCTION__, '4.0', 'pl4wp_get_api_v3');
+    $opts = pl4wp_get_options();
+    $instance = new PL4WP_API($opts['api_key']);
     return $instance;
 }
 
 /**
  * Creates a new instance of the Debug Log
  *
- * @return MC4WP_Debug_Log
+ * @return PL4WP_Debug_Log
  */
-function mc4wp_get_debug_log()
+function pl4wp_get_debug_log()
 {
-    $opts = mc4wp_get_options();
+    $opts = pl4wp_get_options();
 
     // get default log file location
     $upload_dir = wp_upload_dir(null, false);
-    $file = trailingslashit($upload_dir['basedir']) . 'mc4wp-debug-log.php';
+    $file = trailingslashit($upload_dir['basedir']) . 'pl4wp-debug-log.php';
 
     /**
      * Filters the log file to write to.
      *
-     * @param string $file The log file location. Default: /wp-content/uploads/mc4wp-debug.log
+     * @param string $file The log file location. Default: /wp-content/uploads/pl4wp-debug.log
      */
-    $file = apply_filters('mc4wp_debug_log_file', $file);
+    $file = apply_filters('pl4wp_debug_log_file', $file);
 
     /**
      * Filters the minimum level to log messages.
      *
-     * @see MC4WP_Debug_Log
+     * @see PL4WP_Debug_Log
      *
      * @param string|int $level The minimum level of messages which should be logged.
      */
-    $level = apply_filters('mc4wp_debug_log_level', $opts['debug_log_level']);
+    $level = apply_filters('pl4wp_debug_log_level', $opts['debug_log_level']);
 
-    return new MC4WP_Debug_Log($file, $level);
+    return new PL4WP_Debug_Log($file, $level);
 }
 
 
@@ -132,7 +132,7 @@ function mc4wp_get_debug_log()
  *
  * @return string
  */
-function mc4wp_get_request_url() {
+function pl4wp_get_request_url() {
      global $wp;
 
     // get requested url from global $wp object
@@ -152,10 +152,10 @@ function mc4wp_get_request_url() {
 
 /**
  * Get current URL path.
- * 
+ *
  * @return string
  */
-function mc4wp_get_request_path() 
+function pl4wp_get_request_path()
 {
     return $_SERVER['REQUEST_URI'];
 }
@@ -165,7 +165,7 @@ function mc4wp_get_request_path()
 *
 * @return string
 */
-function mc4wp_get_request_ip_address() 
+function pl4wp_get_request_ip_address()
 {
     $headers = ( function_exists( 'apache_request_headers' ) ) ? apache_request_headers() : $_SERVER;
 
@@ -188,7 +188,7 @@ function mc4wp_get_request_ip_address()
  *
  * @return mixed
  */
-function mc4wp_sanitize_deep($value)
+function pl4wp_sanitize_deep($value)
 {
 
     if (is_scalar($value)) {
@@ -198,11 +198,11 @@ function mc4wp_sanitize_deep($value)
         // convert &amp; back to &
         $value = html_entity_decode($value, ENT_NOQUOTES);
     } elseif (is_array($value)) {
-        $value = array_map('mc4wp_sanitize_deep', $value);
+        $value = array_map('pl4wp_sanitize_deep', $value);
     } elseif (is_object($value)) {
         $vars = get_object_vars($value);
         foreach ($vars as $key => $data) {
-            $value->{$key} = mc4wp_sanitize_deep($data);
+            $value->{$key} = pl4wp_sanitize_deep($data);
         }
     }
 
@@ -217,7 +217,7 @@ function mc4wp_sanitize_deep($value)
  * @param array $data
  * @return array
  */
-function _mc4wp_update_groupings_data($data = array())
+function _pl4wp_update_groupings_data($data = array())
 {
 
     // data still has old "GROUPINGS" key?
@@ -230,7 +230,7 @@ function _mc4wp_update_groupings_data($data = array())
         $data['INTERESTS'] = array();
     }
 
-    $map = get_option('mc4wp_groupings_map', array());
+    $map = get_option('pl4wp_groupings_map', array());
 
     foreach ($data['GROUPINGS'] as $grouping_id => $groups) {
 
@@ -302,7 +302,7 @@ function _mc4wp_update_groupings_data($data = array())
  *
  * @return array
  */
-function mc4wp_add_name_data($data = array())
+function pl4wp_add_name_data($data = array())
 {
 
     // Guess first and last name
@@ -336,7 +336,7 @@ function mc4wp_add_name_data($data = array())
  *
  * @return string
  */
-function mc4wp_get_email_type()
+function pl4wp_get_email_type()
 {
 
     $email_type = 'html';
@@ -346,7 +346,7 @@ function mc4wp_get_email_type()
      *
      * @param string $email_type
      */
-    $email_type = (string)apply_filters('mc4wp_email_type', $email_type);
+    $email_type = (string)apply_filters('pl4wp_email_type', $email_type);
 
     return $email_type;
 }
@@ -356,7 +356,7 @@ function mc4wp_get_email_type()
  * @ignore
  * @return bool
  */
-function _mc4wp_use_sslverify()
+function _pl4wp_use_sslverify()
 {
 
     // Disable for all transports other than CURL
@@ -385,7 +385,7 @@ function _mc4wp_use_sslverify()
  * @param string $string
  * @return string
  */
-function mc4wp_obfuscate_string($string)
+function pl4wp_obfuscate_string($string)
 {
     $length = strlen($string);
     $obfuscated_length = ceil($length / 2);
@@ -397,7 +397,7 @@ function mc4wp_obfuscate_string($string)
  * @internal
  * @ignore
  */
-function _mc4wp_obfuscate_email_addresses_callback($m)
+function _pl4wp_obfuscate_email_addresses_callback($m)
 {
     $one = $m[1] . str_repeat('*', strlen($m[2]));
     $two = $m[3] . str_repeat('*', strlen($m[4]));
@@ -411,20 +411,20 @@ function _mc4wp_obfuscate_email_addresses_callback($m)
  * @param $string String possibly containing email address
  * @return string
  */
-function mc4wp_obfuscate_email_addresses($string)
+function pl4wp_obfuscate_email_addresses($string)
 {
-    return preg_replace_callback('/([\w\.]{1,4})([\w\.]*)\@(\w{1,2})(\w*)\.(\w+)/', '_mc4wp_obfuscate_email_addresses_callback', $string);
+    return preg_replace_callback('/([\w\.]{1,4})([\w\.]*)\@(\w{1,2})(\w*)\.(\w+)/', '_pl4wp_obfuscate_email_addresses_callback', $string);
 }
 
 /**
- * Refreshes MailChimp lists. This can take a while if the connected MailChimp account has many lists.
+ * Refreshes PhpList lists. This can take a while if the connected PhpList account has many lists.
  *
  * @return void
  */
-function mc4wp_refresh_mailchimp_lists()
+function pl4wp_refresh_phplist_lists()
 {
-    $mailchimp = new MC4WP_MailChimp();
-    $mailchimp->fetch_lists();
+    $phplist = new PL4WP_PhpList();
+    $phplist->fetch_lists();
 }
 
 /**
@@ -435,7 +435,7 @@ function mc4wp_refresh_mailchimp_lists()
 * @param mixed $default
 * @return mixed
 */
-function mc4wp_array_get( $array, $key, $default = null ) {
+function pl4wp_array_get( $array, $key, $default = null ) {
     if ( is_null( $key ) ) {
         return $array;
     }

@@ -1,10 +1,10 @@
 'use strict';
 
 // deps & vars
-var mc4wp = window.mc4wp || {};
+var pl4wp = window.pl4wp || {};
 var Gator = require('gator');
 var forms = require('./forms/forms.js');
-var config = window.mc4wp_forms_config || {};
+var config = window.pl4wp_forms_config || {};
 var scrollToElement = require('scroll-to-element');
 import ConditionalElements from './forms/conditional-elements.js';
 
@@ -61,13 +61,13 @@ function handleFormRequest(form, action, errors, data){
 }
 
 // Bind browser events to form events (using delegation)
-Gator(document.body).on('submit', '.mc4wp-form', function(event) {
+Gator(document.body).on('submit', '.pl4wp-form', function(event) {
 	var form = forms.getByElement(event.target || event.srcElement);
 	forms.trigger('submit', [form, event]);
 	forms.trigger(form.id + '.submit', [ form, event]);
 });
 
-Gator(document.body).on('focus', '.mc4wp-form', function(event) {
+Gator(document.body).on('focus', '.pl4wp-form', function(event) {
 	var form = forms.getByElement(event.target || event.srcElement);
 
 	if( ! form.started ) {
@@ -77,7 +77,7 @@ Gator(document.body).on('focus', '.mc4wp-form', function(event) {
 	}
 });
 
-Gator(document.body).on('change', '.mc4wp-form', function(event) {
+Gator(document.body).on('change', '.pl4wp-form', function(event) {
 	var form = forms.getByElement(event.target || event.srcElement);
 	forms.trigger('change', [form,event]);
 	forms.trigger(form.id + '.change', [form,event]);
@@ -87,18 +87,18 @@ Gator(document.body).on('change', '.mc4wp-form', function(event) {
 ConditionalElements.init();
 
 // register early listeners
-if( mc4wp.listeners ) {
-    var listeners = mc4wp.listeners;
+if( pl4wp.listeners ) {
+    var listeners = pl4wp.listeners;
     for(var i=0; i<listeners.length;i++) {
         forms.on(listeners[i].event, listeners[i].callback);
     }
 
     // delete temp listeners array, so we don't bind twice
-    delete mc4wp["listeners"];
+    delete pl4wp["listeners"];
 }
 
 // expose forms object
-mc4wp.forms = forms;
+pl4wp.forms = forms;
 
 // handle submitted form
 if( config.submitted_form ) {
@@ -109,6 +109,6 @@ if( config.submitted_form ) {
 	handleFormRequest(form, formConfig.action, formConfig.errors, formConfig.data);
 }
 
-// expose mc4wp object globally
-window.mc4wp = mc4wp;
+// expose pl4wp object globally
+window.pl4wp = pl4wp;
 

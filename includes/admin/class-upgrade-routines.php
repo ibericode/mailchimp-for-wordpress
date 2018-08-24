@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Class MC4WP_DB_Upgrader
+ * Class PL4WP_DB_Upgrader
  *
  * This class takes care of loading migration files from the specified migrations directory.
  * Migration files should only use default WP functions and NOT use code which might not be there in the future.
  *
  * @ignore
  */
-class MC4WP_Upgrade_Routines {
+class PL4WP_Upgrade_Routines {
 
 	/**
 	 * @var float

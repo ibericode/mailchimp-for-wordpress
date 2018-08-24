@@ -10,10 +10,10 @@ use PHPUnit\Framework\TestCase;
 class FieldFormatterTest extends TestCase {
 
 	/**
-	 * @covers MC4WP_Field_Formatter::address
+	 * @covers PL4WP_Field_Formatter::address
 	 */
 	public function test_address() {
-		$formatter = new MC4WP_Field_Formatter();
+		$formatter = new PL4WP_Field_Formatter();
 
 		$address = array(
 			'addr1' => "795 E DRAGRAM",
@@ -45,10 +45,10 @@ class FieldFormatterTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Field_Formatter::birthday
+	 * @covers PL4WP_Field_Formatter::birthday
 	 */
 	public function test_birthday() {
-		$formatter = new MC4WP_Field_Formatter();
+		$formatter = new PL4WP_Field_Formatter();
 
 		$birthday = '07/29';
 
@@ -78,10 +78,10 @@ class FieldFormatterTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Field_Formatter::date
+	 * @covers PL4WP_Field_Formatter::date
 	 */
 	public function test_date() {
-		$formatter = new MC4WP_Field_Formatter();
+		$formatter = new PL4WP_Field_Formatter();
 
 		$date = '2016-05-05';
 
@@ -98,10 +98,10 @@ class FieldFormatterTest extends TestCase {
 	}
 
     /**
-     * @covers MC4WP_Field_Formatter::boolean
+     * @covers PL4WP_Field_Formatter::boolean
      */
     public function test_boolean() {
-        $formatter = new MC4WP_Field_Formatter();
+        $formatter = new PL4WP_Field_Formatter();
 
         $falsey_tests = array( 'false', '0', 0, false );
         foreach( $falsey_tests as $test ) {
@@ -115,10 +115,10 @@ class FieldFormatterTest extends TestCase {
     }
 
     /**
-     * @covers MC4WP_Field_Formatter::language
+     * @covers PL4WP_Field_Formatter::language
      */
     public function test_language() {
-        $formatter = new MC4WP_Field_Formatter();
+        $formatter = new PL4WP_Field_Formatter();
 
         $tests = array(
             'pt_PT' => 'pt_PT',

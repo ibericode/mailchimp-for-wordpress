@@ -4,7 +4,7 @@ function maybePrefixUrlField() {
 	}
 }
 
-var urlFields = document.querySelectorAll('.mc4wp-form input[type="url"]');
+var urlFields = document.querySelectorAll('.pl4wp-form input[type="url"]');
 if( urlFields && urlFields.length > 0 ) {
 	for( var j=0; j < urlFields.length; j++ ) {
 		addEventListener(urlFields[j],'blur',maybePrefixUrlField);

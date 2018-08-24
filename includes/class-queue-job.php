@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Class MC4WP_Queue_Job
+ * Class PL4WP_Queue_Job
  *
  * @ignore
  */
-class MC4WP_Queue_Job {
+class PL4WP_Queue_Job {
 
 	/**
 	 * @var string
@@ -18,7 +18,7 @@ class MC4WP_Queue_Job {
 	public $data;
 
 	/**
-	 * MC4WP_Queue_Job constructor.
+	 * PL4WP_Queue_Job constructor.
 	 *
 	 * @param $data
 	 */

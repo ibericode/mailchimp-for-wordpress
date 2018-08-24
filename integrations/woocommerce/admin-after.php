@@ -1,26 +1,26 @@
 <?php
 
 $position_options = array(
-	'checkout_billing' => __( "After billing details", 'mailchimp-for-wp' ),
-	'checkout_shipping' => __( 'After shipping details', 'mailchimp-for-wp' ),
-	'checkout_after_customer_details' => __( 'After customer details', 'mailchimp-for-wp' ),
-	'review_order_before_submit' => __( 'Before submit button', 'mailchimp-for-wp' ),
+	'checkout_billing' => __( "After billing details", 'phplist-for-wp' ),
+	'checkout_shipping' => __( 'After shipping details', 'phplist-for-wp' ),
+	'checkout_after_customer_details' => __( 'After customer details', 'phplist-for-wp' ),
+	'review_order_before_submit' => __( 'Before submit button', 'phplist-for-wp' ),
 );
 
 
 
 
-/** @var MC4WP_Integration $integration */
+/** @var PL4WP_Integration $integration */
 
 ?>
 <table class="form-table">
-	<?php $config = array( 'element' => 'mc4wp_integrations['. $integration->slug .'][implicit]', 'value' => '0' ); ?>
+	<?php $config = array( 'element' => 'pl4wp_integrations['. $integration->slug .'][implicit]', 'value' => '0' ); ?>
 	<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
 		<th scope="row">
-			<?php _e( 'Position', 'mailchimp-for-wp' ); ?>
+			<?php _e( 'Position', 'phplist-for-wp' ); ?>
 		</th>
 		<td>
-			<select name="mc4wp_integrations[<?php echo $integration->slug; ?>][position]">
+			<select name="pl4wp_integrations[<?php echo $integration->slug; ?>][position]">
 				<?php
 
 				foreach( $position_options as $value => $label ) {

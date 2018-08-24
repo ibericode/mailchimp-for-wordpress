@@ -1,36 +1,36 @@
 <?php
 
 /**
- * Class MC4WP_Integration_Admin
+ * Class PL4WP_Integration_Admin
  *
  * @ignore
  * @access private
  */
-class MC4WP_Integration_Admin {
+class PL4WP_Integration_Admin {
 
 	/**
-	 * @var MC4WP_Integration_Manager
+	 * @var PL4WP_Integration_Manager
 	 */
 	protected $integrations;
 
 	/**
-	 * @var MC4WP_MailChimp
+	 * @var PL4WP_PhpList
 	 */
-	protected $mailchimp;
+	protected $phplist;
 
 	/**
-	 * @var MC4WP_Admin_Messages
+	 * @var PL4WP_Admin_Messages
 	 */
 	protected $messages;
 
 	/**
-	 * @param MC4WP_Integration_Manager $integrations
-	 * @param MC4WP_MailChimp           $mailchimp
-	 * @param MC4WP_Admin_Messages $messages
+	 * @param PL4WP_Integration_Manager $integrations
+	 * @param PL4WP_PhpList           $phplist
+	 * @param PL4WP_Admin_Messages $messages
 	 */
-	public function __construct( MC4WP_Integration_Manager $integrations, MC4WP_Admin_Messages $messages, MC4WP_MailChimp $mailchimp ) {
+	public function __construct( PL4WP_Integration_Manager $integrations, PL4WP_Admin_Messages $messages, PL4WP_PhpList $phplist ) {
 		$this->integrations = $integrations;
-		$this->mailchimp = $mailchimp;
+		$this->phplist = $phplist;
 		$this->messages = $messages;
 	}
 
@@ -39,15 +39,15 @@ class MC4WP_Integration_Admin {
 	 */
 	public function add_hooks() {
 		add_action( 'admin_init', array( $this, 'register_setting' ) );
-		add_action( 'mc4wp_admin_enqueue_assets', array( $this, 'enqueue_assets' ), 10, 2 );
-		add_filter( 'mc4wp_admin_menu_items', array( $this, 'add_menu_item' ) );
+		add_action( 'pl4wp_admin_enqueue_assets', array( $this, 'enqueue_assets' ), 10, 2 );
+		add_filter( 'pl4wp_admin_menu_items', array( $this, 'add_menu_item' ) );
 	}
 
 	/**
 	 * Register settings
 	 */
 	public function register_setting() {
-		register_setting( 'mc4wp_integrations_settings', 'mc4wp_integrations', array( $this, 'save_integration_settings' ) );
+		register_setting( 'pl4wp_integrations_settings', 'pl4wp_integrations', array( $this, 'save_integration_settings' ) );
 	}
 
 	/**
@@ -65,8 +65,8 @@ class MC4WP_Integration_Admin {
 			return;
 		}
 
-		wp_register_script( 'mc4wp-integrations-admin', MC4WP_PLUGIN_URL . 'assets/js/integrations-admin' . $suffix . '.js', array( 'mc4wp-admin' ), MC4WP_VERSION, true );
-		wp_enqueue_script( 'mc4wp-integrations-admin');
+		wp_register_script( 'pl4wp-integrations-admin', PL4WP_PLUGIN_URL . 'assets/js/integrations-admin' . $suffix . '.js', array( 'pl4wp-admin' ), PL4WP_VERSION, true );
+		wp_enqueue_script( 'pl4wp-integrations-admin');
 	}
 
 	/**
@@ -76,8 +76,8 @@ class MC4WP_Integration_Admin {
 	 */
 	public function add_menu_item( $items ) {
 		$items[] = array(
-			'title' => __( 'Integrations', 'mailchimp-for-wp' ),
-			'text' => __( 'Integrations', 'mailchimp-for-wp' ),
+			'title' => __( 'Integrations', 'phplist-for-wp' ),
+			'text' => __( 'Integrations', 'phplist-for-wp' ),
 			'slug' => 'integrations',
 			'callback' => array( $this, 'show_integrations_page' ),
 			'position' => 20
@@ -93,7 +93,7 @@ class MC4WP_Integration_Admin {
 	public function save_integration_settings( array $new_settings ) {
 
 		$integrations = $this->integrations->get_all();
-		$current_settings = (array) get_option( 'mc4wp_integrations', array() );
+		$current_settings = (array) get_option( 'pl4wp_integrations', array() );
 		$settings = array();
 
 		foreach( $integrations as $slug => $integration ) {
@@ -187,7 +187,7 @@ class MC4WP_Integration_Admin {
 		}
 
 		$opts = $integration->options;
-		$lists = $this->mailchimp->get_lists();
+		$lists = $this->phplist->get_lists();
 
 		require dirname( __FILE__ ) . '/views/integration-settings.php';
 	}

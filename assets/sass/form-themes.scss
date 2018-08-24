@@ -44,7 +44,7 @@
 
 
 /* Form base theme */
-.mc4wp-form-theme {
+.pl4wp-form-theme {
 	input[type="text"],
 	input[type="email"],
 	input[type="tel"],
@@ -120,22 +120,22 @@
 }
 
 
-.mc4wp-form-theme-dark {
+.pl4wp-form-theme-dark {
 	@include form-theme-variant(#444444 )
 }
 
-.mc4wp-form-theme-light {
+.pl4wp-form-theme-light {
 	@include form-theme-variant(#ffffff )
 }
 
-.mc4wp-form-theme-red {
+.pl4wp-form-theme-red {
 	@include form-theme-variant(#d9534f);
 }
 
-.mc4wp-form-theme-blue {
+.pl4wp-form-theme-blue {
 	@include form-theme-variant(#428bca);
 }
 
-.mc4wp-form-theme-green {
+.pl4wp-form-theme-green {
 	@include form-theme-variant(#5cb85c);
 }

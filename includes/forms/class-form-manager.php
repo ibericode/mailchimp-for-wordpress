@@ -3,31 +3,31 @@
 /**
  * This class takes care of all form related functionality
  *
- * Do not interact with this class directly, use `mc4wp_form` functions tagged with @access public instead.
+ * Do not interact with this class directly, use `pl4wp_form` functions tagged with @access public instead.
  *
- * @class MC4WP_Form_Manager
+ * @class PL4WP_Form_Manager
  * @ignore
  * @access private
 */
-class MC4WP_Form_Manager {
+class PL4WP_Form_Manager {
 
 	/**
-	 * @var MC4WP_Form_Output_Manager
+	 * @var PL4WP_Form_Output_Manager
 	 */
 	protected $output_manager;
 
 	/**
-	 * @var MC4WP_Form_Listener
+	 * @var PL4WP_Form_Listener
 	 */
 	protected $listener;
 
 	/**
-	 * @var MC4WP_Form_Tags
+	 * @var PL4WP_Form_Tags
 	 */
 	protected $tags;
 
 	/**
-	* @var MC4WP_Form_Previewer
+	* @var PL4WP_Form_Previewer
 	*/
 	protected $previewer;
 
@@ -35,10 +35,10 @@ class MC4WP_Form_Manager {
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->output_manager = new MC4WP_Form_Output_Manager();
-		$this->tags = new MC4WP_Form_Tags();
-		$this->listener = new MC4WP_Form_Listener();
-		$this->previewer = new MC4WP_Form_Previewer();
+		$this->output_manager = new PL4WP_Form_Output_Manager();
+		$this->tags = new PL4WP_Form_Tags();
+		$this->listener = new PL4WP_Form_Listener();
+		$this->previewer = new PL4WP_Form_Previewer();
 	}
 
 	/**
@@ -64,13 +64,13 @@ class MC4WP_Form_Manager {
 
 
 	/**
-	 * Register post type "mc4wp-form"
+	 * Register post type "pl4wp-form"
 	 */
 	public function register_post_type() {
 		// register post type
-		register_post_type( 'mc4wp-form', array(
+		register_post_type( 'pl4wp-form', array(
 				'labels' => array(
-					'name' => 'MailChimp Sign-up Forms',
+					'name' => 'PhpList Sign-up Forms',
 					'singular_name' => 'Sign-up Form',
 				),
 				'public' => false
@@ -84,7 +84,7 @@ class MC4WP_Form_Manager {
 	 * @hooked `template_redirect`
 	 */
 	public function init_asset_manager() {
-		$assets = new MC4WP_Form_Asset_Manager();
+		$assets = new PL4WP_Form_Asset_Manager();
 		$assets->hook();
 	}
 
@@ -92,7 +92,7 @@ class MC4WP_Form_Manager {
 	 * Register our Form widget
 	 */
 	public function register_widget() {
-		register_widget( 'MC4WP_Form_Widget' );
+		register_widget( 'PL4WP_Form_Widget' );
 	}
 
 	/**
@@ -109,10 +109,10 @@ class MC4WP_Form_Manager {
 	/**
 	 * Gets the currently submitted form
 	 *
-	 * @return MC4WP_Form|null
+	 * @return PL4WP_Form|null
 	 */
 	public function get_submitted_form() {
-		if( $this->listener->submitted_form instanceof MC4WP_Form ) {
+		if( $this->listener->submitted_form instanceof PL4WP_Form ) {
 			return $this->listener->submitted_form;
 		}
 

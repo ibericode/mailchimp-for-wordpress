@@ -1,31 +1,31 @@
 <?php
 
 /**
- * Class MC4WP_Request
+ * Class PL4WP_Request
  *
  * @since 3.0
  * @ignore
  * @access private
  */
-class MC4WP_Request {
+class PL4WP_Request {
 
 	/**
-	 * @var MC4WP_Array_Bag
+	 * @var PL4WP_Array_Bag
 	 */
 	public $params;
 
 	/**
-	 * @var MC4WP_Array_Bag
+	 * @var PL4WP_Array_Bag
 	 */
 	public $get;
 
 	/**
-	 * @var MC4WP_Array_Bag
+	 * @var PL4WP_Array_Bag
 	 */
 	public $post;
 
 	/**
-	 * @var MC4WP_Array_Bag
+	 * @var PL4WP_Array_Bag
 	 */
 	public $server;
 
@@ -33,19 +33,19 @@ class MC4WP_Request {
 	/**
 	 * Create a new instance from `$_GET`, `$_POST` and `$_SERVER` superglobals.
 	 *
-	 * @return MC4WP_Request
+	 * @return PL4WP_Request
 	 */
 	public static function create_from_globals() {
 		$get_data = is_array( $_GET ) ? $_GET : array();
-		$get_data = mc4wp_sanitize_deep( $get_data );
+		$get_data = pl4wp_sanitize_deep( $get_data );
 		$get_data = stripslashes_deep( $get_data );
 
 		$post_data = is_array( $_POST ) ? $_POST : array();
-		$post_data = mc4wp_sanitize_deep( $post_data );
+		$post_data = pl4wp_sanitize_deep( $post_data );
 		$post_data = stripslashes_deep( $post_data );
 
 		$server_data = is_array( $_SERVER ) ? $_SERVER : array();
-		$server_data = mc4wp_sanitize_deep( $server_data );
+		$server_data = pl4wp_sanitize_deep( $server_data );
 		return new self( $get_data, $post_data, $server_data );
 	}
 
@@ -57,10 +57,10 @@ class MC4WP_Request {
 	 * @param array $server
 	 */
 	public function __construct( $get = array(), $post = array(), $server = array() ) {
-		$this->get = new MC4WP_Array_Bag( $get );
-		$this->post = new MC4WP_Array_Bag( $post );
-		$this->params = new MC4WP_Array_Bag( array_merge( $post, $get ) );
-		$this->server = new MC4WP_Array_Bag( $server );
+		$this->get = new PL4WP_Array_Bag( $get );
+		$this->post = new PL4WP_Array_Bag( $post );
+		$this->params = new PL4WP_Array_Bag( array_merge( $post, $get ) );
+		$this->server = new PL4WP_Array_Bag( $server );
 	}
 
 	/**

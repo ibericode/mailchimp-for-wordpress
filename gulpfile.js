@@ -68,7 +68,7 @@ gulp.task('uglify', ['browserify'], function() {
 });
 
 gulp.task('pot', function () {
-	const domain = 'mailchimp-for-wp';
+	const domain = 'phplist-for-wp';
     return gulp.src('includes/**/**/*.php')
         .pipe(wpPot({ domain: domain}))
         .pipe(gulp.dest(`languages/${domain}.pot`));

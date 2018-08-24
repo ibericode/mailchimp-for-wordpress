@@ -1,7 +1,7 @@
 'use strict';
 
-var settings = mc4wp.settings;
-var events = mc4wp.events;
+var settings = pl4wp.settings;
+var events = pl4wp.events;
 var notice = document.getElementById('notice-additional-fields');
 
 function checkRequiredListFields( ) {

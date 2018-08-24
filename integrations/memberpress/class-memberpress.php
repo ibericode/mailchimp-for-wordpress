@@ -3,11 +3,11 @@
 defined( 'ABSPATH' ) or exit;
 
 /**
- * Class MC4WP_MemberPress_Integration
+ * Class PL4WP_MemberPress_Integration
  *
  * @ignore
  */
-class MC4WP_MemberPress_Integration extends MC4WP_Integration {
+class PL4WP_MemberPress_Integration extends PL4WP_Integration {
 
 	/**
 	 * @var string

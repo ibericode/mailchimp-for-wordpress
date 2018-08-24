@@ -3,11 +3,11 @@
 defined( 'ABSPATH' ) or exit;
 
 /**
- * Class MC4WP_Easy_Digital_Downloads_Integration
+ * Class PL4WP_Easy_Digital_Downloads_Integration
  *
  * @ignore
  */
-class MC4WP_Easy_Digital_Downloads_Integration extends MC4WP_Integration {
+class PL4WP_Easy_Digital_Downloads_Integration extends PL4WP_Integration {
 
 	/**
 	 * @var string
@@ -46,7 +46,7 @@ class MC4WP_Easy_Digital_Downloads_Integration extends MC4WP_Integration {
 			return $meta;
 		}
 
-		$meta['_mc4wp_optin'] = 1;
+		$meta['_pl4wp_optin'] = 1;
 		return $meta;
 	}
 
@@ -68,7 +68,7 @@ class MC4WP_Easy_Digital_Downloads_Integration extends MC4WP_Integration {
 		}
 
 		$meta = edd_get_payment_meta( $object_id );
-		if( is_array( $meta ) && isset( $meta['_mc4wp_optin'] ) && $meta['_mc4wp_optin'] ) {
+		if( is_array( $meta ) && isset( $meta['_pl4wp_optin'] ) && $meta['_pl4wp_optin'] ) {
 			return true;
 		}
 

@@ -20,7 +20,7 @@ function get(formId) {
 	}
 
 	// try to create from first occurence of this element
-	var formElement = document.querySelector('.mc4wp-form-' + formId);
+	var formElement = document.querySelector('.pl4wp-form-' + formId);
 	return createFromElement(formElement,formId);
 }
 

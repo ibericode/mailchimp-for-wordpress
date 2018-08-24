@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Class MC4WP_Tools
+ * Class PL4WP_Tools
  *
  * @access private
  * @ignore
  */
-class MC4WP_Tools {
+class PL4WP_Tools {
 
 	/**
      * @deprecated

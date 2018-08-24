@@ -3,11 +3,11 @@
 defined( 'ABSPATH' ) or exit;
 
 /**
- * Class MC4WP_WPForms_Integration
+ * Class PL4WP_WPForms_Integration
  *
  * @ignore
  */
-class MC4WP_WPForms_Integration extends MC4WP_Integration {
+class PL4WP_WPForms_Integration extends PL4WP_Integration {
 
     /**
      * @var string
@@ -45,7 +45,7 @@ class MC4WP_WPForms_Integration extends MC4WP_Integration {
     public function listen_to_wpforms( $fields, $entry, $form_data ) {
 
         foreach( $fields as $field_id => $field ) {
-            if( $field['type'] === 'mailchimp' && $field['value_raw'] == 1 ) {
+            if( $field['type'] === 'phplist' && $field['value_raw'] == 1 ) {
                 return $this->subscribe_from_wpforms( $field_id, $fields, $form_data );
             }
         }
@@ -58,8 +58,8 @@ class MC4WP_WPForms_Integration extends MC4WP_Integration {
             }
         }
 
-        $mailchimp_list_id = $form_data['fields'][$checkbox_field_id]['mailchimp_list'];
-        $this->options['lists'] = array( $mailchimp_list_id );
+        $phplist_list_id = $form_data['fields'][$checkbox_field_id]['phplist_list'];
+        $this->options['lists'] = array( $phplist_list_id );
 
         if( ! empty( $email_address ) ) {
             return $this->subscribe( array( 'EMAIL' => $email_address ), $form_data['id'] );

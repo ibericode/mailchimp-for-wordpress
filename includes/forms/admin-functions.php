@@ -8,8 +8,8 @@
  *
  * @return string
  */
-function mc4wp_get_edit_form_url( $form_id, $tab = '' ) {
-	$url = admin_url( sprintf( 'admin.php?page=mailchimp-for-wp-forms&view=edit-form&form_id=%d', $form_id ) );
+function pl4wp_get_edit_form_url( $form_id, $tab = '' ) {
+	$url = admin_url( sprintf( 'admin.php?page=phplist-for-wp-forms&view=edit-form&form_id=%d', $form_id ) );
 
 	if( ! empty( $tab ) ) {
 		$url .= sprintf( '&tab=%s', $tab );
@@ -23,8 +23,8 @@ function mc4wp_get_edit_form_url( $form_id, $tab = '' ) {
  *
  * @return string
  */
-function mc4wp_get_add_form_url() {
-	$url = admin_url( 'admin.php?page=mailchimp-for-wp-forms&view=add-form' );
+function pl4wp_get_add_form_url() {
+	$url = admin_url( 'admin.php?page=phplist-for-wp-forms&view=add-form' );
 	return $url;
 }
 
@@ -36,11 +36,11 @@ function mc4wp_get_add_form_url() {
  *
  * @return string
  */
-//function mc4wp_form_message_setting_row( $key, $label, $value = '', $help_text = '' ) {
+//function pl4wp_form_message_setting_row( $key, $label, $value = '', $help_text = '' ) {
 //
 //
-//	$id = 'mc4wp_form_message_' . $key;
-//	echo $name = sprintf( 'mc4wp_form[messages][%s]', $key );
+//	$id = 'pl4wp_form_message_' . $key;
+//	echo $name = sprintf( 'pl4wp_form[messages][%s]', $key );
 //
 //	echo '<tr valign="top">';
 //

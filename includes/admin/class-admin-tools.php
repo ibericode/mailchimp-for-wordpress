@@ -1,6 +1,6 @@
 <?php
 
-class MC4WP_Admin_Tools {
+class PL4WP_Admin_Tools {
 
      /**
      * @return string
@@ -10,7 +10,7 @@ class MC4WP_Admin_Tools {
             return '';
         }
 
-        $prefix = 'mailchimp-for-wp';
+        $prefix = 'phplist-for-wp';
         $page = ltrim( substr( $_GET['page'], strlen( $prefix ) ), '-' );
         return $page;
     }
@@ -23,7 +23,7 @@ class MC4WP_Admin_Tools {
     public function on_plugin_page( $page = null ) {
         // any settings page
         if( is_null( $page ) ) {
-            return isset( $_GET['page'] ) && strpos( $_GET['page'], 'mailchimp-for-wp' ) === 0;
+            return isset( $_GET['page'] ) && strpos( $_GET['page'], 'phplist-for-wp' ) === 0;
         }
 
         // specific page
@@ -54,10 +54,10 @@ class MC4WP_Admin_Tools {
          * @ignore
          * @deprecated 3.0
          */
-        $capability = apply_filters( 'mc4wp_settings_cap', $capability );
+        $capability = apply_filters( 'pl4wp_settings_cap', $capability );
 
         /**
-         * Filters the required user capability to access the MailChimp for WordPress' settings pages, view the dashboard widgets.
+         * Filters the required user capability to access the PhpList for WordPress' settings pages, view the dashboard widgets.
          *
          * Defaults to `manage_options`
          *
@@ -65,7 +65,7 @@ class MC4WP_Admin_Tools {
          * @param string $capability
          * @see https://codex.wordpress.org/Roles_and_Capabilities
          */
-        $capability = (string) apply_filters( 'mc4wp_admin_required_capability', $capability );
+        $capability = (string) apply_filters( 'pl4wp_admin_required_capability', $capability );
 
         return $capability;
     }

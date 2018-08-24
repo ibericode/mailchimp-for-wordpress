@@ -3,15 +3,15 @@
 defined( 'ABSPATH' ) or exit;
 
 /**
- * Class MC4WP_Custom_Integration
+ * Class PL4WP_Custom_Integration
  * @ignore
  */
-class MC4WP_Custom_Integration extends MC4WP_Integration {
+class PL4WP_Custom_Integration extends PL4WP_Integration {
 
 	/**
 	 * @var string
 	 */
-	protected $checkbox_name = 'mc4wp-subscribe';
+	protected $checkbox_name = 'pl4wp-subscribe';
 
 	/**
 	 * @var string
@@ -42,7 +42,7 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 		$data = $this->get_data();
 
 		// don't run for CF7 or Events Manager requests
-		// (since they use the same "mc4wp-subscribe" trigger)
+		// (since they use the same "pl4wp-subscribe" trigger)
 		$disable_triggers = array(
 			'_wpcf7' => '',
 			'action' => 'booking_add'
@@ -71,7 +71,7 @@ class MC4WP_Custom_Integration extends MC4WP_Integration {
 	 * @return bool|string
 	 */
 	public function process() {
-		$parser = new MC4WP_Field_Guesser( $this->get_data() );
+		$parser = new PL4WP_Field_Guesser( $this->get_data() );
 		$data = $parser->combine( array( 'guessed', 'namespaced' ) );
 
 		// do nothing if no email was found
