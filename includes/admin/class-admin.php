@@ -256,6 +256,11 @@ class PL4WP_Admin {
 			$this->phplist->empty_cache();
 		}
 
+		// Make sure not to use obfuscated password
+		if( strpos( $settings['api_password'], '*' ) !== false ) {
+			$settings['api_password'] = $current['api_password'];
+		}
+
 
 		/**
 		* Runs right before general settings are saved.
@@ -301,7 +306,7 @@ class PL4WP_Admin {
 		wp_localize_script( 'pl4wp-admin', 'pl4wp_vars',
 			array(
 				'phplist' => array(
-					'api_connected' => ! empty( $opts['api_key'] ),
+					'api_connected' => ! empty( $opts['api_key'] ) && !empty( $opts['installation_url'] ) && !empty( $opts['api_username'] ) && !empty( $opts['api_password'] ),
 					'lists' => $this->phplist->get_cached_lists()
 				),
 				'countries' => PL4WP_Tools::get_countries(),
@@ -437,6 +442,9 @@ class PL4WP_Admin {
 		}
 
 		$lists = $this->phplist->get_cached_lists();
+		$installation_url = $opts['installation_url'];
+		$api_username = $opts['api_username'];
+		$obfuscated_api_password = pl4wp_obfuscate_string( $opts['api_password'] );
 		$obfuscated_api_key = pl4wp_obfuscate_string( $opts['api_key'] );
 		require PL4WP_PLUGIN_DIR . 'includes/views/general-settings.php';
 	}

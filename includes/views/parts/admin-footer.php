@@ -12,7 +12,7 @@ function _pl4wp_admin_translation_notice() {
 
 	// TODO: Check translation progress from Transifex here. Only show when < 100.
 
-	echo '<p class="help">' . sprintf( __( 'PhpList for WordPress is in need of translations. Is the plugin not translated in your language or do you spot errors with the current translations? Helping out is easy! Head over to <a href="%s">the translation project and click "help translate"</a>.', 'phplist-for-wp' ), 'https://www.transifex.com/projects/p/phplist-for-wordpress/' ) . '</p>';
+	echo '<p class="help">' . sprintf( __( 'MailChimp for WordPress is in need of translations. Is the plugin not translated in your language or do you spot errors with the current translations? Helping out is easy! Head over to <a href="%s">the translation project and click "help translate"</a>.', 'phplist-for-wp' ), 'https://www.transifex.com/projects/p/mailchimp-for-wordpress/' ) . '</p>';
 }
 
 /**
@@ -24,7 +24,7 @@ function _pl4wp_admin_github_notice() {
 		return;
 	}
 
-	echo '<p class="help">Developer? Follow <a href="https://github.com/ibericode/phplist-for-wordpress">PhpList for WordPress on GitHub</a> or have a look at our repository of <a href="https://github.com/ibericode/pl4wp-snippets">sample code snippets</a>.</p>';
+	echo '<p class="help">Developer? Follow <a href="https://github.com/ibericode/mailchimp-for-wordpress">MailChimp for WordPress on GitHub</a> or have a look at our repository of <a href="https://github.com/ibericode/pl4wp-snippets">sample code snippets</a>.</p>';
 
 }
 

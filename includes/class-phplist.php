@@ -48,7 +48,7 @@ class PL4WP_PhpList {
 		try {
 			$existing_member_data = $this->get_api()->get_list_member( $list_id, $email_address );
 
-			if( $existing_member_data->status === 'subscribed' ) {
+			if( $existing_member_data && $existing_member_data->status === 'subscribed' ) {
 				$already_on_list = true;
 
 				// if we're not supposed to update, bail.
@@ -76,7 +76,7 @@ class PL4WP_PhpList {
 						$args['interests']["{$interest_id}"] = $interest_status;
 					}
 				}
-			} else if( $args['status']  === 'pending' && $existing_member_data->status === 'pending' ) {
+			} else if( $args['status']  === 'pending' && $existing_member_data && $existing_member_data->status === 'pending' ) {
 				// if status is "pending", delete & then re-subscribe
 				// this ensures that a new double opt-in email is send out
 				$this->get_api()->delete_list_member( $list_id, $email_address );
@@ -235,6 +235,8 @@ class PL4WP_PhpList {
 
 			// create local object
 			$list = new PL4WP_PhpList_List( $list_data->id, $list_data->name );
+
+			if (false) {
 			$list->subscriber_count = $list_data->stats->member_count;
 			$list->web_id = $list_data->web_id;
 			$list->campaign_defaults = $list_data->campaign_defaults;
@@ -262,6 +264,7 @@ class PL4WP_PhpList {
 				}
 
 				$list->interest_categories[] = $interest_category;
+			}
 			}
 		} catch( PL4WP_API_Exception $e ) {
 			return null;
@@ -372,7 +375,7 @@ class PL4WP_PhpList {
 
 		// we got a valid response
 		foreach ( $lists as $list ) {
-			$list_counts["{$list->id}"] = $list->stats->member_count;
+			$list_counts["{$list->id}"] = 9999; // TODO
 		}
 
 		$seconds = 3600;

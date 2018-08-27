@@ -13,7 +13,7 @@ class PL4WP_API {
 	/**
 	 * @var string The URL to the PhpList API
 	 */
-	protected $api_url = 'https://api.phplist.com/2.0/';
+	protected $api_url = 'https://api.mailchimp.com/2.0/';
 
 	/**
 	 * @var string The API key to use

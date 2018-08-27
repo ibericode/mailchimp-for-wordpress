@@ -12,6 +12,7 @@ return array(
     'PL4WP_API_Resource_Not_Found_Exception' => $baseDir . '/includes/api/class-resource-not-found-exception.php',
     'PL4WP_API_v3' => $baseDir . '/includes/api/class-api-v3.php',
     'PL4WP_API_v3_Client' => $baseDir . '/includes/api/class-api-v3-client.php',
+    'PL4WP_API_Client' => $baseDir . '/includes/api/class-api-client.php',
     'PL4WP_Admin' => $baseDir . '/includes/admin/class-admin.php',
     'PL4WP_Admin_Ads' => $baseDir . '/includes/admin/class-ads.php',
     'PL4WP_Admin_Ajax' => $baseDir . '/includes/admin/class-admin-ajax.php',

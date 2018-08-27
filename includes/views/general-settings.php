@@ -48,13 +48,33 @@ defined( 'ABSPATH' ) or exit;
 
 
 					<tr valign="top">
+						<th scope="row"><label for="phplist_installation_url"><?php _e( 'PhpList URL', 'phplist-for-wp' ); ?></label></th>
+						<td>
+							<input type="text" class="widefat" placeholder="<?php _e( 'Your PhpList URL', 'phplist-for-wp' ); ?>" id="phplist_installation_url" name="pl4wp[installation_url]" value="<?=$installation_url?>" />
+						</td>
+
+					</tr>
+
+					<tr valign="top">
 						<th scope="row"><label for="phplist_api_key"><?php _e( 'API Key', 'phplist-for-wp' ); ?></label></th>
 						<td>
 							<input type="text" class="widefat" placeholder="<?php _e( 'Your PhpList API key', 'phplist-for-wp' ); ?>" id="phplist_api_key" name="pl4wp[api_key]" value="<?php echo esc_attr( $obfuscated_api_key ); ?>" />
-							<p class="help">
-								<?php _e( 'The API key for connecting with your PhpList account.', 'phplist-for-wp' ); ?>
-								<a target="_blank" href="https://admin.phplist.com/account/api"><?php _e( 'Get your API key here.', 'phplist-for-wp' ); ?></a>
-							</p>
+						</td>
+
+					</tr>
+
+					<tr valign="top">
+						<th scope="row"><label for="phplist_api_username"><?php _e( 'API Username', 'phplist-for-wp' ); ?></label></th>
+						<td>
+							<input type="text" class="widefat" placeholder="<?php _e( 'Your PhpList API username', 'phplist-for-wp' ); ?>" id="phplist_api_username" name="pl4wp[api_username]" value="<?php echo esc_attr( $api_username ); ?>" />
+						</td>
+
+					</tr>
+
+					<tr valign="top">
+						<th scope="row"><label for="phplist_api_password"><?php _e( 'API Password', 'phplist-for-wp' ); ?></label></th>
+						<td>
+							<input type="text" class="widefat" placeholder="<?php _e( 'Your PhpList API password', 'phplist-for-wp' ); ?>" id="phplist_api_password" name="pl4wp[api_password]" value="<?php echo esc_attr( $obfuscated_api_password ); ?>" />
 						</td>
 
 					</tr>

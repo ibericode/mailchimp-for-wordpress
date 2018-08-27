@@ -10,7 +10,7 @@ class PL4WP_API_v3_Client {
   /**
   * @var string
   */
-  private $api_url = 'https://api.phplist.com/3.0/';
+  private $api_url;
 
   /**
   * @var array
@@ -27,13 +27,9 @@ class PL4WP_API_v3_Client {
   *
   * @param string $api_key
   */
-  public function __construct( $api_key ) {
+  public function __construct( $api_key, $installation_url='' ) {
     $this->api_key = $api_key;
-
-    $dash_position = strpos( $api_key, '-' );
-    if( $dash_position !== false ) {
-      $this->api_url = str_replace( '//api.', '//' . substr( $api_key, $dash_position + 1 ) . ".api.", $this->api_url );
-    }
+    $this->api_url = $installation_url . '/admin/?page=call&pi=restapi';
   }
 
 

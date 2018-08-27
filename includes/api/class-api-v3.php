@@ -6,7 +6,7 @@
 class PL4WP_API_v3 {
 
 	/**
-	 * @var PL4WP_API_v3_Client
+	 * @var PL4WP_API_Client
 	 */
 	protected $client;
 
@@ -20,8 +20,8 @@ class PL4WP_API_v3 {
 	 *
 	 * @param string $api_key
 	 */
-	public function __construct( $api_key ) {
-		$this->client = new PL4WP_API_v3_Client( $api_key );
+	public function __construct( $api_url, $api_username, $api_password, $api_key ) {
+		$this->client = new PL4WP_API_Client( $api_url, $api_username, $api_password, $api_key );
 	}
 
 	/**
@@ -44,8 +44,7 @@ class PL4WP_API_v3 {
 	public function is_connected() {
 
 		if( is_null( $this->connected ) ) {
-			$data = $this->client->get( '/' );
-			$this->connected = is_object( $data ) && isset( $data->account_id );
+			$this->connected = $this->client->login();
 		}
 
 		return $this->connected;
@@ -157,9 +156,12 @@ class PL4WP_API_v3 {
 	 * @throws PL4WP_API_Exception
 	 */
 	public function get_list( $list_id, array $args = array() ) {
-		$resource = sprintf( '/lists/%s', $list_id );
-		$data = $this->client->get( $resource, $args );
-		return $data;
+		$lists = array_filter($this->get_lists($args), function($list) use ($list_id) { return $list->id == $list_id; });
+		if (!$lists) {
+			throw new PL4WP_API_Exception('list not found', 'list_not_found');
+		}
+
+		return array_shift($lists);
 	}
 
 	/**
@@ -171,11 +173,10 @@ class PL4WP_API_v3 {
 	 * @throws PL4WP_API_Exception
 	 */
 	public function get_lists( $args = array() ) {
-		$resource = '/lists';
-		$data = $this->client->get( $resource, $args );
+		$data = $this->client->listsGet();
 
-		if( is_object( $data ) && isset( $data->lists ) ) {
-			return $data->lists;
+		if( is_array( $data ) ) {
+			return $data;
 		}
 
 		return array();
@@ -192,10 +193,27 @@ class PL4WP_API_v3 {
 	 * @throws PL4WP_API_Exception
 	 */
 	public function get_list_member( $list_id, $email_address, array $args = array() ) {
-		$subscriber_hash = $this->get_subscriber_hash( $email_address );
-		$resource = sprintf( '/lists/%s/members/%s', $list_id, $subscriber_hash );
-		$data = $this->client->get( $resource, $args );
-		return $data;
+		$existing_subscriber_id = $this->client->subscriberFindByEmail($email_address);
+		
+		if ($existing_subscriber_id) {
+			$lists = $this->client->listsSubscriber($existing_subscriber_id);
+			$lists = array_filter($lists, function($list) use ($list_id) { return $list->id == $list_id; });
+			if ($lists) {
+				$list = array_shift($lists);
+				
+				return (object)[
+					'id' => $existing_subscriber_id,
+					'status' => $list->active==='1'?'subscribed':'pending'
+				];
+			}
+		}
+		
+		return null;
+		
+//		$subscriber_hash = $this->get_subscriber_hash( $email_address );
+//		$resource = sprintf( '/lists/%s/members/%s', $list_id, $subscriber_hash );
+//		$data = $this->client->get( $resource, $args );
+//		return $data;
 	}
 
 	/**
@@ -225,21 +243,44 @@ class PL4WP_API_v3 {
 	 * @throws PL4WP_API_Exception
 	 */
 	public function add_list_member( $list_id, array $args ) {
-		$subscriber_hash = $this->get_subscriber_hash( $args['email_address'] );
-		$resource = sprintf( '/lists/%s/members/%s', $list_id, $subscriber_hash );
-
-		// make sure we're sending an object as the PhpList schema requires this
-		if( isset( $args['merge_fields'] ) ) {
-			$args['merge_fields'] = (object) $args['merge_fields'];
+		$existing_subscriber_id = $this->client->subscriberFindByEmail($args['email_address']);
+		
+		if ($existing_subscriber_id) {
+			$lists = $this->client->listsSubscriber($existing_subscriber_id);
+			if (!$lists) {
+				$this->client->subscriberDelete($existing_subscriber_id);
+				$existing_subscriber_id = null;
+			}
 		}
-
-		if( isset( $args['interests'] ) ) {
-			$args['interests'] = (object) $args['interests'];
+		
+		$data = null;
+		if ($existing_subscriber_id) {
+			$this->client->listSubscriberAdd($list_id, $existing_subscriber_id);
+			$data = $existing_subscriber_id;
+		} else {
+			$data = $this->client->subscribe( $args['email_address'], $list_id );
 		}
-
-		// "put" updates the member if it's already on the list... take notice
-		$data = $this->client->put( $resource, $args );
-		return $data;
+		
+		if (!$data) {
+			throw new PL4WP_API_Exception('Could not subscribe', 99);
+		}
+		return (object)['id' => $data];
+		
+//		$subscriber_hash = $this->get_subscriber_hash( $args['email_address'] );
+//		$resource = sprintf( '/lists/%s/members/%s', $list_id, $subscriber_hash );
+//
+//		// make sure we're sending an object as the PhpList schema requires this
+//		if( isset( $args['merge_fields'] ) ) {
+//			$args['merge_fields'] = (object) $args['merge_fields'];
+//		}
+//
+//		if( isset( $args['interests'] ) ) {
+//			$args['interests'] = (object) $args['interests'];
+//		}
+//
+//		// "put" updates the member if it's already on the list... take notice
+//		$data = $this->client->put( $resource, $args );
+//		return $data;
 	}
 
 	/**
@@ -279,10 +320,20 @@ class PL4WP_API_v3 {
 	 * @throws PL4WP_API_Exception
 	 */
 	public function delete_list_member( $list_id, $email_address ) {
-		$subscriber_hash = $this->get_subscriber_hash( $email_address );
-		$resource = sprintf( '/lists/%s/members/%s', $list_id, $subscriber_hash );
-		$data = $this->client->delete( $resource );
-		return !!$data;
+		
+		$existing_subscriber_id = $this->client->subscriberFindByEmail($email_address);
+		
+		if ($existing_subscriber_id) {
+			$this->client->listSubscriberDelete($list_id, $existing_subscriber_id);
+			return true;
+		}
+		
+		return false;
+		
+//		$subscriber_hash = $this->get_subscriber_hash( $email_address );
+//		$resource = sprintf( '/lists/%s/members/%s', $list_id, $subscriber_hash );
+//		$data = $this->client->delete( $resource );
+//		return !!$data;
 	}
 
 	/**

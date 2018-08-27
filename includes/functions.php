@@ -71,7 +71,7 @@ function pl4wp_get_options()
 function pl4wp_get_api_v3()
 {
     $opts = pl4wp_get_options();
-    $instance = new PL4WP_API_v3($opts['api_key']);
+    $instance = new PL4WP_API_v3($opts['installation_url'], $opts['api_username'], $opts['api_password'], $opts['api_key']);
     return $instance;
 }
 
