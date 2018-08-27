@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Class MC4WP_Admin_Messages
+ * Class PL4WP_Admin_Messages
  *
  * @ignore
  * @since 3.0
  */
-class MC4WP_Admin_Messages {
+class PL4WP_Admin_Messages {
 
 	/**
 	 * @var array
@@ -28,7 +28,7 @@ class MC4WP_Admin_Messages {
 
 	private function load() {
 		if( is_null( $this->bag ) ) {
-			$this->bag = get_option( 'mc4wp_flash_messages', array() );
+			$this->bag = get_option( 'pl4wp_flash_messages', array() );
 		}
 	}
 
@@ -75,7 +75,7 @@ class MC4WP_Admin_Messages {
 	 */
 	public function save() {
 		if( $this->dirty ) {
-			update_option( 'mc4wp_flash_messages', $this->bag, false );
+			update_option( 'pl4wp_flash_messages', $this->bag, false );
 		}
 	}
 }

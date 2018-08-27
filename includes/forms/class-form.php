@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Class MC4WP_Form
+ * Class PL4WP_Form
  *
  * Represents a Form object.
  *
- * To get a form instance, use `mc4wp_get_form( $id );` where `$id` is the post ID.
+ * To get a form instance, use `pl4wp_get_form( $id );` where `$id` is the post ID.
  *
  * @access public
  * @since 3.0
  */
-class MC4WP_Form {
+class PL4WP_Form {
 
     /**
      * @var array Array of instantiated form objects.
@@ -21,7 +21,7 @@ class MC4WP_Form {
      * Get a shared form instance.
      *
      * @param WP_Post|int $post Post instance or post ID.
-     * @return MC4WP_Form
+     * @return PL4WP_Form
      * @throws Exception
      */
     public static function get_instance( $post = 0 ) {
@@ -32,7 +32,7 @@ class MC4WP_Form {
             $post_id = (int) $post;
 
             if( empty( $post_id ) ) {
-                $post_id = (int) get_option( 'mc4wp_default_form_id', 0 );
+                $post_id = (int) get_option( 'pl4wp_default_form_id', 0 );
             }
         }
 
@@ -46,13 +46,13 @@ class MC4WP_Form {
         }
 
         // check post object
-        if( ! is_object( $post ) || ! isset( $post->post_type ) || $post->post_type !== 'mc4wp-form' ) {
-            $message = sprintf( __( 'There is no form with ID %d, perhaps it was deleted?', 'mailchimp-for-wp' ), $post_id );
+        if( ! is_object( $post ) || ! isset( $post->post_type ) || $post->post_type !== 'pl4wp-form' ) {
+            $message = sprintf( __( 'There is no form with ID %d, perhaps it was deleted?', 'phplist-for-wp' ), $post_id );
             throw new Exception( $message );
         }
 
         $post_meta = get_post_meta( $post_id );
-        $form = new MC4WP_Form( $post_id, $post, $post_meta );
+        $form = new PL4WP_Form( $post_id, $post, $post_meta );
 
         // store instance
         self::$instances[ $post_id ] = $form;
@@ -167,7 +167,7 @@ class MC4WP_Form {
      *
      * This does not take the submitted form element into account.
      *
-     * @see MC4WP_Form_Element::get_response_html()
+     * @see PL4WP_Form_Element::get_response_html()
      *
      * @return string
      */
@@ -178,23 +178,23 @@ class MC4WP_Form {
     /**
      * @param string $element_id
      * @param array $config
-     * @return MC4WP_Form_element
+     * @return PL4WP_Form_element
      */
-    public function get_element( $element_id = 'mc4wp-form', $config = array() ) {
-        return new MC4WP_Form_Element( $this, $element_id, $config );
+    public function get_element( $element_id = 'pl4wp-form', $config = array() ) {
+        return new PL4WP_Form_Element( $this, $element_id, $config );
     }
 
     /**
      * Get HTML string for this form.
      *
-     * If you want to output a form, use `mc4wp_show_form` instead as it.
+     * If you want to output a form, use `pl4wp_show_form` instead as it.
      *
      * @param string $element_id
      * @param array $config
      *
      * @return string
      */
-    public function get_html( $element_id = 'mc4wp-form', array $config = array() ) {
+    public function get_html( $element_id = 'pl4wp-form', array $config = array() ) {
         $element = $this->get_element( $element_id, $config );
         $html = $element->generate_html();
         return $html;
@@ -212,15 +212,15 @@ class MC4WP_Form {
 
         // get default settings
         if( ! $default_settings ) {
-            $default_settings = include MC4WP_PLUGIN_DIR . 'config/default-form-settings.php';
+            $default_settings = include PL4WP_PLUGIN_DIR . 'config/default-form-settings.php';
         }
 
         // start with defaults
         $settings = $default_settings;
 
         // get custom settings from meta
-        if( ! empty( $post_meta['_mc4wp_settings'] ) ) {
-            $meta = $post_meta['_mc4wp_settings'][0];
+        if( ! empty( $post_meta['_pl4wp_settings'] ) ) {
+            $meta = $post_meta['_pl4wp_settings'][0];
             $meta = (array) maybe_unserialize( $meta );
 
             // ensure lists is an array
@@ -238,9 +238,9 @@ class MC4WP_Form {
          * @since 3.0
          *
          * @param array $settings
-         * @param MC4WP_Form $form
+         * @param PL4WP_Form $form
          */
-        $settings = (array) apply_filters( 'mc4wp_form_settings', $settings, $form );
+        $settings = (array) apply_filters( 'pl4wp_form_settings', $settings, $form );
 
         return $settings;
     }
@@ -254,8 +254,8 @@ class MC4WP_Form {
         $form = $this;
 
         // get default messages
-        $default_messages = include MC4WP_PLUGIN_DIR . 'config/default-form-messages.php';
-    
+        $default_messages = include PL4WP_PLUGIN_DIR . 'config/default-form-messages.php';
+
         // start with default messages
         $messages = $default_messages;
 
@@ -265,9 +265,9 @@ class MC4WP_Form {
          * @since 3.0
          *
          * @param array $registered_messages
-         * @param MC4WP_Form $form
+         * @param PL4WP_Form $form
          */
-        $messages = (array) apply_filters( 'mc4wp_form_messages', $messages, $form );
+        $messages = (array) apply_filters( 'pl4wp_form_messages', $messages, $form );
 
         // for backwards compatiblity, grab text of each message (if is array)
         foreach( $messages as $key => $message ) {
@@ -317,7 +317,7 @@ class MC4WP_Form {
     * @param string $type
     */
     public function add_notice( $text, $type = 'notice' ) {
-        $this->notices[] = new MC4WP_Form_Notice( $text, $type );
+        $this->notices[] = new PL4WP_Form_Notice( $text, $type );
     }
 
     /**
@@ -326,7 +326,7 @@ class MC4WP_Form {
      * @return string
      */
     public function __toString() {
-        return mc4wp_show_form( $this->ID, array(), false );
+        return pl4wp_show_form( $this->ID, array(), false );
     }
 
     /**
@@ -344,9 +344,9 @@ class MC4WP_Form {
          * @since 3.0
          *
          * @param string $url
-         * @param MC4WP_Form $form
+         * @param PL4WP_Form $form
          */
-        $url = (string) apply_filters( 'mc4wp_form_redirect_url', $url, $form );
+        $url = (string) apply_filters( 'pl4wp_form_redirect_url', $url, $form );
         return $url;
     }
 
@@ -371,9 +371,9 @@ class MC4WP_Form {
             $errors[] = 'no_lists_selected';
         }
 
-        if( ! isset( $this->raw_data['_mc4wp_timestamp'] ) || $this->raw_data['_mc4wp_timestamp'] > ( time() - 2 ) ) {
+        if( ! isset( $this->raw_data['_pl4wp_timestamp'] ) || $this->raw_data['_pl4wp_timestamp'] > ( time() - 2 ) ) {
             $errors[] = 'spam';
-        } else if( ! isset( $this->raw_data['_mc4wp_honeypot'] ) || ! empty( $this->raw_data['_mc4wp_honeypot'] ) ) {
+        } else if( ! isset( $this->raw_data['_pl4wp_honeypot'] ) || ! empty( $this->raw_data['_pl4wp_honeypot'] ) ) {
             $errors[] = 'spam';
         }
 
@@ -385,7 +385,7 @@ class MC4WP_Form {
 
             // validate other required fields
             foreach( $this->get_required_fields() as $field ) {
-                $value = mc4wp_array_get( $this->data, $field );
+                $value = pl4wp_array_get( $this->data, $field );
 
                 // check for empty string or array here instead of empty() since we want to allow for "0" values.
                 if( $value === "" || $value === array() ) {
@@ -393,7 +393,7 @@ class MC4WP_Form {
                     break;
                 }
             }
-        }   
+        }
 
         /**
          * Filters whether this form has errors. Runs only when a form is submitted.
@@ -404,15 +404,15 @@ class MC4WP_Form {
          * @since 3.0
          *
          * @param array $errors
-         * @param MC4WP_Form $form
+         * @param PL4WP_Form $form
          */
-        $errors = (array) apply_filters( 'mc4wp_form_errors', $errors, $form );
+        $errors = (array) apply_filters( 'pl4wp_form_errors', $errors, $form );
 
         /**
          * @ignore
-         * @deprecated 3.0 Use `mc4wp_form_errors` instead
+         * @deprecated 3.0 Use `pl4wp_form_errors` instead
          */
-        $form_validity = apply_filters( 'mc4wp_valid_form_request', true, $this->data );
+        $form_validity = apply_filters( 'pl4wp_valid_form_request', true, $this->data );
         if( is_string( $form_validity ) ) {
             $errors[] = $form_validity;
         }
@@ -430,7 +430,7 @@ class MC4WP_Form {
     /**
      * Handle an incoming request. Should be called before calling validate() method.
      *
-     * @see MC4WP_Form::validate
+     * @see PL4WP_Form::validate
      * @param array $data
      * @return void
      */
@@ -443,10 +443,10 @@ class MC4WP_Form {
         // update form configuration from given data
         $config = array();
         $map = array(
-            '_mc4wp_lists' => 'lists',
-            '_mc4wp_action' => 'action',
-            '_mc4wp_form_element_id' => 'element_id',
-            '_mc4wp_email_type' => 'email_type'
+            '_pl4wp_lists' => 'lists',
+            '_pl4wp_action' => 'action',
+            '_pl4wp_form_element_id' => 'element_id',
+            '_pl4wp_email_type' => 'email_type'
         );
 
         // use isset here to allow empty lists (which should show a notice)
@@ -490,9 +490,9 @@ class MC4WP_Form {
          * @since 3.0
          *
          * @param array $ignored_field_names Array of ignored field names
-         * @param MC4WP_Form $form The form instance.
+         * @param PL4WP_Form $form The form instance.
          */
-        $ignored_field_names = apply_filters( 'mc4wp_form_ignored_field_names', $ignored_field_names, $form );
+        $ignored_field_names = apply_filters( 'pl4wp_form_ignored_field_names', $ignored_field_names, $form );
 
         foreach( $data as $key => $value ) {
             // skip fields in ignored field names
@@ -542,7 +542,7 @@ class MC4WP_Form {
     }
 
     /**
-     * Get MailChimp lists this form subscribes to
+     * Get PhpList lists this form subscribes to
      *
      * @return array
      */
@@ -552,19 +552,19 @@ class MC4WP_Form {
         $form = $this;
 
         /**
-         * Filters MailChimp lists new subscribers should be added to.
+         * Filters PhpList lists new subscribers should be added to.
          *
          * @param array $lists
          */
-        $lists = (array) apply_filters( 'mc4wp_lists', $lists );
+        $lists = (array) apply_filters( 'pl4wp_lists', $lists );
 
         /**
-         * Filters MailChimp lists new subscribers coming from this form should be added to.
+         * Filters PhpList lists new subscribers coming from this form should be added to.
          *
          * @param array $lists
-         * @param MC4WP_Form $form
+         * @param PL4WP_Form $form
          */
-        $lists = (array) apply_filters( 'mc4wp_form_lists', $lists, $form );
+        $lists = (array) apply_filters( 'pl4wp_form_lists', $lists, $form );
 
         // filter out empty array elements
         $lists = array_filter( $lists );
@@ -577,7 +577,7 @@ class MC4WP_Form {
      *
      * Should always evaluate to false when form has not been submitted.
      *
-     * @see `mc4wp_form_errors` filter.
+     * @see `pl4wp_form_errors` filter.
      * @return bool
      */
     public function has_errors() {
@@ -618,9 +618,9 @@ class MC4WP_Form {
          * Filters the form data.
          *
          * @param array $data
-         * @param MC4WP_Form $form
+         * @param PL4WP_Form $form
          */
-        $data = apply_filters( 'mc4wp_form_data', $data, $form );
+        $data = apply_filters( 'pl4wp_form_data', $data, $form );
 
         return $data;
     }
@@ -637,11 +637,11 @@ class MC4WP_Form {
         $required_fields_string = strtoupper( $this->settings['required_fields'] );
 
         // remove array-formatted fields
-        // workaround for #261 (https://github.com/ibericode/mailchimp-for-wordpress/issues/261)
+        // workaround for #261 (https://github.com/ibericode/phplist-for-wordpress/issues/261)
         $required_fields_string = preg_replace( '/\[\w+\]/', '', $required_fields_string );
 
         // turn into an array
-        $required_fields = explode( ',', $required_fields_string );    
+        $required_fields = explode( ',', $required_fields_string );
 
         // EMAIL is not a required field as it has its own validation rules
         $required_fields = array_diff( $required_fields, array( 'EMAIL' ) );
@@ -650,7 +650,7 @@ class MC4WP_Form {
         $required_fields = array_unique( $required_fields );
         $required_fields = array_filter( $required_fields );
 
-        // fix uppercased subkeys, see https://github.com/ibericode/mailchimp-for-wordpress/issues/516
+        // fix uppercased subkeys, see https://github.com/ibericode/phplist-for-wordpress/issues/516
         foreach( $required_fields as $key => $value ) {
             $pos = strpos( $value, '.');
             if($pos > 0) {
@@ -663,19 +663,19 @@ class MC4WP_Form {
          *
          * By default, this holds the following fields.
          *
-         * - All fields which are required for the selected MailChimp lists
+         * - All fields which are required for the selected PhpList lists
          * - All fields in the form with a `required` attribute.
          *
          * @param array $required_fields
-         * @param MC4WP_Form $form
+         * @param PL4WP_Form $form
          */
-        $required_fields = (array) apply_filters( 'mc4wp_form_required_fields', $required_fields, $form );
+        $required_fields = (array) apply_filters( 'pl4wp_form_required_fields', $required_fields, $form );
 
         return $required_fields;
     }
 
     /**
-     * Get "email_type" setting for new MailChimp subscribers added by this form.
+     * Get "email_type" setting for new PhpList subscribers added by this form.
      *
      * @return string
      */
@@ -683,7 +683,7 @@ class MC4WP_Form {
         $email_type = $this->config['email_type'];
 
         if( empty( $email_type ) ) {
-            $email_type = mc4wp_get_email_type();
+            $email_type = pl4wp_get_email_type();
         }
 
         return $email_type;
@@ -717,7 +717,7 @@ class MC4WP_Form {
         $message = isset( $this->messages[ $key] ) ? $this->messages[ $key ] : $this->messages['error'] ;
 
         if( $key === 'no_lists_selected' && current_user_can( 'manage_options' ) ) {
-            $message .= sprintf( ' (<a href="%s">%s</a>)', mc4wp_get_edit_form_url( $this->ID, 'settings' ), 'edit form settings' );
+            $message .= sprintf( ' (<a href="%s">%s</a>)', pl4wp_get_edit_form_url( $this->ID, 'settings' ), 'edit form settings' );
         }
 
         return $message;

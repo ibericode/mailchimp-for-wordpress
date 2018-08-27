@@ -1,10 +1,10 @@
 (function() {
-	if (!window.mc4wp) {
-		window.mc4wp = {
+	if (!window.pl4wp) {
+		window.pl4wp = {
 			listeners: [],
 			forms    : {
 				on: function (event, callback) {
-					window.mc4wp.listeners.push({
+					window.pl4wp.listeners.push({
 						event   : event,
 						callback: callback
 					});

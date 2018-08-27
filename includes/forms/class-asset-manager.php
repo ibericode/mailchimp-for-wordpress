@@ -6,7 +6,7 @@
  * @access private
  * @ignore
 */
-class MC4WP_Form_Asset_Manager {
+class PL4WP_Form_Asset_Manager {
 
 	/**
 	 * @var bool
@@ -19,7 +19,7 @@ class MC4WP_Form_Asset_Manager {
 	protected $filename_suffix = '';
 
 	/**
-	 * MC4WP_Form_Asset_Manager constructor.
+	 * PL4WP_Form_Asset_Manager constructor.
 	 */
 	public function __construct() {
 		$this->filename_suffix =( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
@@ -31,7 +31,7 @@ class MC4WP_Form_Asset_Manager {
 	public function hook() {
 		// load checkbox css if necessary
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheets' ) );
-		add_action( 'mc4wp_output_form', array( $this, 'before_output_form' ) );
+		add_action( 'pl4wp_output_form', array( $this, 'before_output_form' ) );
 		add_action( 'wp_footer', array( $this, 'load_scripts' ) );
 
 		$this->register_assets();
@@ -54,7 +54,7 @@ class MC4WP_Form_Asset_Manager {
 		 * @param string $suffix The suffix to add to the filename, before the file extension. Is usually set to ".min".
 		 * @ignore
 		 */
-		do_action( 'mc4wp_register_form_assets', $suffix );
+		do_action( 'pl4wp_register_form_assets', $suffix );
 	}
 
 	/**
@@ -88,7 +88,7 @@ class MC4WP_Form_Asset_Manager {
 		}
 
 		$suffix = $this->filename_suffix;
-		return MC4WP_PLUGIN_URL . 'assets/css/form-' . $stylesheet . $suffix . '.css';
+		return PL4WP_PLUGIN_URL . 'assets/css/form-' . $stylesheet . $suffix . '.css';
 	}
 
 	/**
@@ -97,20 +97,20 @@ class MC4WP_Form_Asset_Manager {
 	 * @return array
 	 */
 	public function get_active_stylesheets() {
-		$stylesheets = (array) get_option( 'mc4wp_form_stylesheets', array() );
+		$stylesheets = (array) get_option( 'pl4wp_form_stylesheets', array() );
 
 		/**
 		 * Filters the stylesheets to be loaded
 		 *
 		 * Should be an array of stylesheet handles previously registered using `wp_register_style`.
-		 * Each value is prefixed with `mc4wp-form-` to get the handle.
+		 * Each value is prefixed with `pl4wp-form-` to get the handle.
 		 *
 		 * Return an empty array if you want to disable the loading of all stylesheets.
 		 *
 		 * @since 3.0
 		 * @param array $stylesheets Array of valid stylesheet handles
 		 */
-		$stylesheets = (array) apply_filters( 'mc4wp_form_stylesheets', $stylesheets );
+		$stylesheets = (array) apply_filters( 'pl4wp_form_stylesheets', $stylesheets );
 		return $stylesheets;
 	}
 
@@ -125,15 +125,15 @@ class MC4WP_Form_Asset_Manager {
 				continue;
 			}
 
-			$handle = 'mc4wp-form-' . $stylesheet;
-			wp_enqueue_style( $handle, $this->get_stylesheet_url( $stylesheet ), array(), MC4WP_VERSION );
+			$handle = 'pl4wp-form-' . $stylesheet;
+			wp_enqueue_style( $handle, $this->get_stylesheet_url( $stylesheet ), array(), PL4WP_VERSION );
 			add_editor_style( $this->get_stylesheet_url( $stylesheet ) );
 		}
 
 		/**
 		 * @ignore
 		 */
-		do_action( 'mc4wp_load_form_stylesheets', $stylesheets );
+		do_action( 'pl4wp_load_form_stylesheets', $stylesheets );
 
 		return true;
 	}
@@ -145,7 +145,7 @@ class MC4WP_Form_Asset_Manager {
 	 */
 	public function get_javascript_config() {
 
-		$submitted_form = mc4wp_get_submitted_form();
+		$submitted_form = pl4wp_get_submitted_form();
 
 		if( ! $submitted_form ) {
 			return array();
@@ -178,7 +178,7 @@ class MC4WP_Form_Asset_Manager {
 		 * @param boolean|string $auto_scroll
 		 * @since 3.0
 		 */
-		$config['auto_scroll'] = apply_filters( 'mc4wp_form_auto_scroll', $auto_scroll );
+		$config['auto_scroll'] = apply_filters( 'pl4wp_form_auto_scroll', $auto_scroll );
 
 		return $config;
 	}
@@ -195,7 +195,7 @@ class MC4WP_Form_Asset_Manager {
 	}
 
 	/**
-	 * Prints dummy JavaScript which allows people to call `mc4wp.forms.on()` before the JS is loaded.
+	 * Prints dummy JavaScript which allows people to call `pl4wp.forms.on()` before the JS is loaded.
 	 */
 	public function print_dummy_javascript() {
 		$file = dirname( __FILE__ ) . '/views/js/dummy-api.js';
@@ -212,7 +212,7 @@ class MC4WP_Form_Asset_Manager {
 		$load_scripts = $this->load_scripts;
 
 		/** @ignore */
-		$load_scripts = apply_filters( 'mc4wp_load_form_scripts', $load_scripts );
+		$load_scripts = apply_filters( 'pl4wp_load_form_scripts', $load_scripts );
 		if( ! $load_scripts ) {
 			return;
 		}
@@ -220,12 +220,12 @@ class MC4WP_Form_Asset_Manager {
 		global $wp_scripts;
 
 		// make sure scripts are loaded
-		wp_enqueue_script( 'mc4wp-forms-api', MC4WP_PLUGIN_URL . 'assets/js/forms-api'.  $this->filename_suffix .'.js', array(), MC4WP_VERSION, true );
-		wp_localize_script( 'mc4wp-forms-api', 'mc4wp_forms_config', $this->get_javascript_config() );
+		wp_enqueue_script( 'pl4wp-forms-api', PL4WP_PLUGIN_URL . 'assets/js/forms-api'.  $this->filename_suffix .'.js', array(), PL4WP_VERSION, true );
+		wp_localize_script( 'pl4wp-forms-api', 'pl4wp_forms_config', $this->get_javascript_config() );
 
 		// load placeholder polyfill if browser is Internet Explorer
-		wp_enqueue_script( 'mc4wp-forms-placeholders', MC4WP_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), MC4WP_VERSION, true );
-		$wp_scripts->add_data( 'mc4wp-forms-placeholders', 'conditional', 'lte IE 9' );
+		wp_enqueue_script( 'pl4wp-forms-placeholders', PL4WP_PLUGIN_URL . 'assets/js/third-party/placeholders.min.js', array(), PL4WP_VERSION, true );
+		$wp_scripts->add_data( 'pl4wp-forms-placeholders', 'conditional', 'lte IE 9' );
 
 		// print inline scripts depending on printed fields
 		echo '<script>';
@@ -237,7 +237,7 @@ class MC4WP_Form_Asset_Manager {
 		echo '</script>';
 
 		/** @ignore */
-		do_action( 'mc4wp_load_form_scripts' );
+		do_action( 'pl4wp_load_form_scripts' );
 	}
 
 

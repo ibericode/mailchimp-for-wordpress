@@ -28,13 +28,13 @@ Form.prototype.getSerializedData = function() {
 };
 
 Form.prototype.setResponse = function( msg ) {
-	this.element.querySelector('.mc4wp-response').innerHTML = msg;
+	this.element.querySelector('.pl4wp-response').innerHTML = msg;
 };
 
 // revert back to original state
 Form.prototype.reset = function() {
 	this.setResponse('');
-	this.element.querySelector('.mc4wp-form-fields').style.display = '';
+	this.element.querySelector('.pl4wp-form-fields').style.display = '';
 	this.element.reset();
 };
 

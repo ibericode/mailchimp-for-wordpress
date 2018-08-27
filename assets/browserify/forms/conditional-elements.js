@@ -77,13 +77,13 @@ function toggleElement(el) {
 
 // evaluate conditional elements globally
 function evaluate() {
-    const elements = document.querySelectorAll('.mc4wp-form [data-show-if], .mc4wp-form [data-hide-if]');
+    const elements = document.querySelectorAll('.pl4wp-form [data-show-if], .pl4wp-form [data-hide-if]');
     [].forEach.call(elements, toggleElement);
 }
 
 // re-evaluate conditional elements for change events on forms
 function handleInputEvent(evt) {
-    if( ! evt.target || ! evt.target.form || evt.target.form.className.indexOf('mc4wp-form') < 0 ) {
+    if( ! evt.target || ! evt.target.form || evt.target.form.className.indexOf('pl4wp-form') < 0 ) {
         return;
     }
 
@@ -96,7 +96,7 @@ export default {
     'init': function() {
         document.addEventListener('keyup', handleInputEvent, true);
         document.addEventListener('change', handleInputEvent, true);
-        document.addEventListener('mc4wp-refresh', evaluate, true);
+        document.addEventListener('pl4wp-refresh', evaluate, true);
         window.addEventListener('load', evaluate);
         evaluate();
     }

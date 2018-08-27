@@ -4,6 +4,7 @@ node_modules/
 build/
 phpunit.xml
 composer.lock
+.idea/
 
 # Exclude everything in /vendor except our autoload stuff
 vendor/*

@@ -1,7 +1,7 @@
 {
-  "name": "ibericode/mailchimp-for-wordpress",
-  "description": "MailChimp plugin for WordPress",
-  "keywords": ["wordpress", "mailchimp"],
+  "name": "ibericode/phplist-for-wordpress",
+  "description": "PhpList plugin for WordPress",
+  "keywords": ["wordpress", "phplist"],
   "homepage": "https://mc4wp.com/",
   "license": "GPL-2.0+",
   "type": "wordpress-plugin",
@@ -13,9 +13,9 @@
     }
   ],
   "support": {
-    "issues": "https://github.com/ibericode/mailchimp-for-wordpress/issues",
-    "forum": "https://wordpress.org/support/plugin/mailchimp-for-wp",
-    "source": "https://github.com/ibericode/mailchimp-for-wordpress"
+    "issues": "https://github.com/wimverstuyf/phplist-for-wordpress/issues",
+    "forum": "https://wordpress.org/support/plugin/phplist-for-wp",
+    "source": "https://github.com/wimverstuyf/phplist-for-wordpress"
   },
   "require": {
     "php": ">=5.2.14",

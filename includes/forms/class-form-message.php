@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Class MC4WP_Form_Notice
+ * Class PL4WP_Form_Notice
  *
  * @ignore
  * @access private
  */
-class MC4WP_Form_Notice {
+class PL4WP_Form_Notice {
 
 	/**
 	 * @var string

@@ -9,12 +9,12 @@ use PHPUnit\Framework\Assert;
 class IntegrationTest extends TestCase {
 
 	/**
-	 * @covers MC4WP_Integration::__construct
+	 * @covers PL4WP_Integration::__construct
 	 */
 	public function test_constructor() {
 		$slug = 'my-integration';
 
-		$instance = $this->getMockForAbstractClass('MC4WP_Integration', array(
+		$instance = $this->getMockForAbstractClass('PL4WP_Integration', array(
 			$slug,
 			array()
 		));
@@ -23,11 +23,11 @@ class IntegrationTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Integration::checkbox_was_checked
+	 * @covers PL4WP_Integration::checkbox_was_checked
 	 */
 	public function test_checkbox_was_checked() {
 		$slug = 'my-integration';
-		$instance = $this->getMockForAbstractClass('MC4WP_Integration', array(
+		$instance = $this->getMockForAbstractClass('PL4WP_Integration', array(
 			$slug,
 			array()
 		));

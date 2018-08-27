@@ -6,10 +6,10 @@
  * @since 3.0
  * @access public
  *
- * @return MC4WP_Integration[]
+ * @return PL4WP_Integration[]
  */
-function mc4wp_get_integrations() {
-	return mc4wp('integrations')->get_all();
+function pl4wp_get_integrations() {
+	return pl4wp('integrations')->get_all();
 }
 
 /**
@@ -20,14 +20,14 @@ function mc4wp_get_integrations() {
  *
  * @param string $slug
  *
- * @return MC4WP_Integration
+ * @return PL4WP_Integration
  */
-function mc4wp_get_integration( $slug ) {
-	return mc4wp('integrations')->get( $slug );
+function pl4wp_get_integration( $slug ) {
+	return pl4wp('integrations')->get( $slug );
 }
 
 /**
- * Register a new integration with MailChimp for WordPress
+ * Register a new integration with PhpList for WordPress
  *
  * @since 3.0
  * @access public
@@ -37,17 +37,17 @@ function mc4wp_get_integration( $slug ) {
  *
  * @param bool $always_enabled
  */
-function mc4wp_register_integration( $slug, $class, $always_enabled = false ) {
-	return mc4wp('integrations')->register_integration( $slug, $class, $always_enabled );
+function pl4wp_register_integration( $slug, $class, $always_enabled = false ) {
+	return pl4wp('integrations')->register_integration( $slug, $class, $always_enabled );
 }
 
 /**
- * Deregister a previously registered integration with MailChimp for WordPress
+ * Deregister a previously registered integration with PhpList for WordPress
  *
  * @since 3.0
  * @access public
  * @param string $slug
  */
-function mc4wp_deregister_integration( $slug ) {
-	mc4wp('integrations')->deregister_integration( $slug );
+function pl4wp_deregister_integration( $slug ) {
+	pl4wp('integrations')->deregister_integration( $slug );
 }

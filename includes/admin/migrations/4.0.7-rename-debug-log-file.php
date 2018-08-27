@@ -4,8 +4,8 @@ defined( 'ABSPATH' ) or exit;
 
 // get old log filename
 $upload_dir = wp_upload_dir( null, false );
-$old_filename = trailingslashit( $upload_dir['basedir'] ) . 'mc4wp-debug.log';
-$new_filename = trailingslashit( $upload_dir['basedir'] ) . 'mc4wp-debug-log.php';
+$old_filename = trailingslashit( $upload_dir['basedir'] ) . 'pl4wp-debug.log';
+$new_filename = trailingslashit( $upload_dir['basedir'] ) . 'pl4wp-debug-log.php';
 
 // check if old default log file exists
 if( ! file_exists( $old_filename ) ) {

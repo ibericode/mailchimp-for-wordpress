@@ -3,8 +3,8 @@ const Settings = function(context, helpers, events ) {
 
 	// vars
     let form = context.querySelector('form');
-    let listInputs = context.querySelectorAll('.mc4wp-list-input');
-    let lists = mc4wp_vars.mailchimp.lists;
+    let listInputs = context.querySelectorAll('.pl4wp-list-input');
+    let lists = pl4wp_vars.phplist.lists;
     let selectedLists = [];
 
 	// functions

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Class MC4WP_Integration_Fixture
+ * Class PL4WP_Integration_Fixture
  *
  * @since 3.0
  * @ignore
  */
-class MC4WP_Integration_Fixture {
+class PL4WP_Integration_Fixture {
 
 	/**
 	 * @var string
@@ -29,7 +29,7 @@ class MC4WP_Integration_Fixture {
 	public $enabled_by_default = true;
 
 	/**
-	 * @var MC4WP_Integration
+	 * @var PL4WP_Integration
 	 */
 	public $instance;
 
@@ -58,10 +58,10 @@ class MC4WP_Integration_Fixture {
 	/**
 	 * Returns the actual instance
 	 *
-	 * @return MC4WP_Integration
+	 * @return PL4WP_Integration
 	 */
 	public function load() {
-		if( ! $this->instance instanceof MC4WP_Integration ) {
+		if( ! $this->instance instanceof PL4WP_Integration ) {
 			$this->instance = new $this->class( $this->slug, $this->options );
 		}
 
@@ -69,11 +69,11 @@ class MC4WP_Integration_Fixture {
 	}
 
 	/**
-	 * Tunnel everything to MC4WP_Integration class
+	 * Tunnel everything to PL4WP_Integration class
 	 *
 	 * @param $name
 	 *
-	 * @return MC4WP_Integration
+	 * @return PL4WP_Integration
 	 */
 	public function __call( $name, $arguments ) {
 		return call_user_func_array( array( $this->load(), $name ), $arguments );

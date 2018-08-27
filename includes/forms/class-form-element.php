@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Class MC4WP_Form_Element
+ * Class PL4WP_Form_Element
  *
  * @since 3.0
  * @ignore
  * @access private
  */
-class MC4WP_Form_Element {
+class PL4WP_Form_Element {
 
 	/**
 	 * @var string
@@ -15,7 +15,7 @@ class MC4WP_Form_Element {
 	public $ID;
 
 	/**
-	 * @var MC4WP_Form
+	 * @var PL4WP_Form
 	 */
 	public $form;
 
@@ -24,7 +24,7 @@ class MC4WP_Form_Element {
 	 *
 	 * Can be used to set element-specific config settings. Accepts the following keys.
 	 *
-	 * - lists: Customized number of MailChimp list ID's to subscribe to.
+	 * - lists: Customized number of PhpList list ID's to subscribe to.
 	 * - email_type: The email type
 	 */
 	public $config = array();
@@ -35,11 +35,11 @@ class MC4WP_Form_Element {
 	public $is_submitted = false;
 
 	/**
-	 * @param MC4WP_Form $form
+	 * @param PL4WP_Form $form
 	 * @param string $ID
 	 * @param $config array
 	 */
-	public function __construct( MC4WP_Form $form, $ID, $config = array() ) {
+	public function __construct( PL4WP_Form $form, $ID, $config = array() ) {
 		$this->form = $form;
 		$this->ID = $ID;
 		$this->config = $config;
@@ -64,11 +64,11 @@ class MC4WP_Form_Element {
 		 * Use this filter to add custom HTML to a form programmatically
 		 *
 		 * @param string $content
-		 * @param MC4WP_Form $form
-		 * @param MC4WP_Form_Element $element
+		 * @param PL4WP_Form $form
+		 * @param PL4WP_Form_Element $element
 		 * @since 2.0
 		 */
-		$visible_fields = (string) apply_filters( 'mc4wp_form_content', $content, $form, $element );
+		$visible_fields = (string) apply_filters( 'pl4wp_form_content', $content, $form, $element );
 
 		return $visible_fields;
 	}
@@ -79,20 +79,20 @@ class MC4WP_Form_Element {
 	protected function get_hidden_fields() {
 
 		// hidden fields
-		$hidden_fields =  '<label style="display: none !important;">' . __( 'Leave this field empty if you\'re human:', 'mailchimp-for-wp' ) . ' ' . '<input type="text" name="_mc4wp_honeypot" value="" tabindex="-1" autocomplete="off" /></label>';
-		$hidden_fields .= '<input type="hidden" name="_mc4wp_timestamp" value="'. time() . '" />';
-		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_id" value="'. esc_attr( $this->form->ID ) .'" />';
-		$hidden_fields .= '<input type="hidden" name="_mc4wp_form_element_id" value="'. esc_attr( $this->ID ) .'" />';
+		$hidden_fields =  '<label style="display: none !important;">' . __( 'Leave this field empty if you\'re human:', 'phplist-for-wp' ) . ' ' . '<input type="text" name="_pl4wp_honeypot" value="" tabindex="-1" autocomplete="off" /></label>';
+		$hidden_fields .= '<input type="hidden" name="_pl4wp_timestamp" value="'. time() . '" />';
+		$hidden_fields .= '<input type="hidden" name="_pl4wp_form_id" value="'. esc_attr( $this->form->ID ) .'" />';
+		$hidden_fields .= '<input type="hidden" name="_pl4wp_form_element_id" value="'. esc_attr( $this->ID ) .'" />';
 
 		// was "lists" parameter passed in shortcode arguments?
 		if( ! empty( $this->config['lists'] ) ) {
 			$lists_string = is_array( $this->config['lists'] ) ? join( ',', $this->config['lists'] ) : $this->config['lists'];
-			$hidden_fields .= '<input type="hidden" name="_mc4wp_lists" value="'. esc_attr( $lists_string ) . '" />';
+			$hidden_fields .= '<input type="hidden" name="_pl4wp_lists" value="'. esc_attr( $lists_string ) . '" />';
 		}
 
 		// was "lists" parameter passed in shortcode arguments?
 		if( ! empty( $this->config['email_type'] ) ) {
-			$hidden_fields .= '<input type="hidden" name="_mc4wp_email_type" value="'. esc_attr( $this->config['email_type'] ) . '" />';
+			$hidden_fields .= '<input type="hidden" name="_pl4wp_email_type" value="'. esc_attr( $this->config['email_type'] ) . '" />';
 		}
 
 		return (string) $hidden_fields;
@@ -101,12 +101,12 @@ class MC4WP_Form_Element {
 	/**
 	 * Get HTML string for a notice, including wrapper element.
 	 *
-	 * @param MC4WP_Form_Notice $notice
+	 * @param PL4WP_Form_Notice $notice
 	 *
 	 * @return string
 	 */
-	protected function get_notice_html( MC4WP_Form_Notice $notice ) {
-		$html = sprintf( '<div class="mc4wp-alert mc4wp-%s"><p>%s</p></div>', esc_attr( $notice->type ), $notice->text );
+	protected function get_notice_html( PL4WP_Form_Notice $notice ) {
+		$html = sprintf( '<div class="pl4wp-alert pl4wp-%s"><p>%s</p></div>', esc_attr( $notice->type ), $notice->text );
 		return $html;
 	}
 
@@ -135,12 +135,12 @@ class MC4WP_Form_Element {
 		 * @since 3.0
 		 *
 		 * @param string $html The complete HTML string of the response, excluding the wrapper element.
-		 * @param MC4WP_Form $form The form object
+		 * @param PL4WP_Form $form The form object
 		 */
-		$html = (string) apply_filters( 'mc4wp_form_response_html', $html, $form );
+		$html = (string) apply_filters( 'pl4wp_form_response_html', $html, $form );
 
 		// wrap entire response in div, regardless of a form was submitted
-		$html = '<div class="mc4wp-response">' . $html . '</div>';
+		$html = '<div class="pl4wp-response">' . $html . '</div>';
 		return $html;
 	}
 
@@ -163,10 +163,10 @@ class MC4WP_Form_Element {
 		 * Valid values are "before" and "after". Will have no effect if `{response}` is used in the form content.
 		 *
 		 * @param string $position
-		 * @param MC4WP_Form $form
+		 * @param PL4WP_Form $form
 		 * @since 2.0
 		 */
-		$response_position = (string) apply_filters( 'mc4wp_form_response_position', $position, $form );
+		$response_position = (string) apply_filters( 'pl4wp_form_response_position', $position, $form );
 
 		return $response_position;
 	}
@@ -185,10 +185,10 @@ class MC4WP_Form_Element {
 		 * Filters the HTML before the form fields.
 		 *
 		 * @param string $html
-		 * @param MC4WP_Form $form
+		 * @param PL4WP_Form $form
          * @ignore
 		 */
-		$html = (string) apply_filters( 'mc4wp_form_before_fields', $html, $form );
+		$html = (string) apply_filters( 'pl4wp_form_before_fields', $html, $form );
 
 		if( $this->get_response_position() === 'before' ) {
 			$html = $html . $this->get_response_html();
@@ -211,10 +211,10 @@ class MC4WP_Form_Element {
 		 * Filters the HTML after the form fields.
 		 *
 		 * @param string $html
-		 * @param MC4WP_Form $form
+		 * @param PL4WP_Form $form
          * @ignore
 		 */
-		$html = (string) apply_filters( 'mc4wp_form_after_fields', $html, $form );
+		$html = (string) apply_filters( 'pl4wp_form_after_fields', $html, $form );
 
 		if( $this->get_response_position() === 'after' ) {
 			$html = $this->get_response_html() . $html;
@@ -244,9 +244,9 @@ class MC4WP_Form_Element {
 		 * Defaults to `null`, which means no `action` attribute will be printed.
 		 *
 		 * @param string $form_action_attribute
-		 * @param MC4WP_Form $form
+		 * @param PL4WP_Form $form
 		 */
-		$form_action_attribute = apply_filters( 'mc4wp_form_action', $form_action_attribute, $form );
+		$form_action_attribute = apply_filters( 'pl4wp_form_action', $form_action_attribute, $form );
 		if( is_string( $form_action_attribute ) ) {
 			$attributes['action'] = $form_action_attribute;
 		}
@@ -255,9 +255,9 @@ class MC4WP_Form_Element {
 		 * Filters all attributes to be added to the `<form>` element
 		 *
 		 * @param array $attributes Key-value pairs of attributes.
-		 * @param MC4WP_Form $form
+		 * @param PL4WP_Form $form
 		 */
-		$attributes = (array) apply_filters( 'mc4wp_form_element_attributes', $attributes, $form );
+		$attributes = (array) apply_filters( 'pl4wp_form_element_attributes', $attributes, $form );
 
 		// hardcoded attributes, can not be changed.
 		$attributes['method'] = 'post';
@@ -289,21 +289,21 @@ class MC4WP_Form_Element {
 		}
 
 		// Start building content string
-		$opening_html = '<!-- MailChimp for WordPress v' . MC4WP_VERSION . ' - https://wordpress.org/plugins/mailchimp-for-wp/ -->';
+		$opening_html = '<!-- PhpList for WordPress v' . PL4WP_VERSION . ' - https://wordpress.org/plugins/phplist-for-wp/ -->';
 		$opening_html .= '<form '. $this->get_form_element_attributes() .'>';
 		$before_fields = $this->get_html_before_fields();
 		$fields = '';
 		$after_fields = $this->get_html_after_fields();
-		$closing_html = '</form><!-- / MailChimp for WordPress Plugin -->';
+		$closing_html = '</form><!-- / PhpList for WordPress Plugin -->';
 
 		if( ! $this->is_submitted
 		    || ! $this->form->settings['hide_after_success']
 			|| $this->form->has_errors()) {
 
 			// add HTML for fields + wrapper element.
-			$fields = '<div class="mc4wp-form-fields">' .
+			$fields = '<div class="pl4wp-form-fields">' .
 			    $this->get_visible_fields() .
-				'</div>' . 
+				'</div>' .
 				$this->get_hidden_fields();
 		}
 
@@ -327,17 +327,17 @@ class MC4WP_Form_Element {
 		$classes = array();
 		$form = $this->form;
 
-		$classes[] = 'mc4wp-form';
-		$classes[] = 'mc4wp-form-' . $form->ID;
+		$classes[] = 'pl4wp-form';
+		$classes[] = 'pl4wp-form-' . $form->ID;
 
 		// Add form classes if this specific form element was submitted
 		if( $this->is_submitted ) {
-			$classes[] = 'mc4wp-form-submitted';
+			$classes[] = 'pl4wp-form-submitted';
 
 			if( ! $form->has_errors() ) {
-				$classes[] = 'mc4wp-form-success';
+				$classes[] = 'pl4wp-form-success';
 			} else {
-				$classes[] = 'mc4wp-form-error';
+				$classes[] = 'pl4wp-form-error';
 			}
 		}
 
@@ -345,10 +345,10 @@ class MC4WP_Form_Element {
 		if( ! empty( $form->settings['css'] ) ) {
 
 			if( strpos( $form->settings['css'], 'theme-' ) === 0 ) {
-				$classes[] = 'mc4wp-form-theme';
+				$classes[] = 'pl4wp-form-theme';
 			}
 
-			$classes[] = 'mc4wp-form-' . $form->settings['css'];
+			$classes[] = 'pl4wp-form-' . $form->settings['css'];
 		}
 
 		// add classes from config array
@@ -360,9 +360,9 @@ class MC4WP_Form_Element {
 		 * Filters `class` attributes for the `<form>` element.
 		 *
 		 * @param array $classes
-		 * @param MC4WP_Form $form
+		 * @param PL4WP_Form $form
 		 */
-		$classes = apply_filters( 'mc4wp_form_css_classes', $classes, $form );
+		$classes = apply_filters( 'pl4wp_form_css_classes', $classes, $form );
 
 		return implode( ' ', $classes );
 	}

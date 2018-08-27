@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Class MC4WP_Dynamic_Content_Tags
+ * Class PL4WP_Dynamic_Content_Tags
  *
  * @access private
  * @ignore
  */
-class MC4WP_Dynamic_Content_Tags {
+class PL4WP_Dynamic_Content_Tags {
 
 	/**
 	 * @var string
@@ -50,7 +50,7 @@ class MC4WP_Dynamic_Content_Tags {
 		 * @param array $tags
          * @ignore
 		 */
-		$this->tags = (array) apply_filters( 'mc4wp_dynamic_content_tags', $tags );
+		$this->tags = (array) apply_filters( 'pl4wp_dynamic_content_tags', $tags );
 
 		/**
 		 * Filters the registered dynamic content tags for a specific context.
@@ -61,7 +61,7 @@ class MC4WP_Dynamic_Content_Tags {
 		 * @param array $tags
          * @ignore
 		 */
-		$this->tags = (array) apply_filters( 'mc4wp_dynamic_content_tags_' . $context, $tags );
+		$this->tags = (array) apply_filters( 'pl4wp_dynamic_content_tags_' . $context, $tags );
 		return $this->tags;
 	}
 

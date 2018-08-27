@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) or exit;
 // find all form posts
 $posts = get_posts(
 	array(
-		'post_type' => 'mc4wp-form',
+		'post_type' => 'pl4wp-form',
 		'post_status' => 'publish',
 		'numberposts' => -1
 	)
@@ -23,7 +23,7 @@ $message_keys = array(
 
 foreach( $posts as $post ) {
 
-	$settings = get_post_meta( $post->ID, '_mc4wp_settings', true );
+	$settings = get_post_meta( $post->ID, '_pl4wp_settings', true );
 
 	foreach( $message_keys as $key ) {
 		if( empty( $settings[ $key ] ) ) {
@@ -38,5 +38,5 @@ foreach( $posts as $post ) {
 	}
 
 	// update post meta with unset message keys
-	update_post_meta( $post->ID, '_mc4wp_settings', $settings );
+	update_post_meta( $post->ID, '_pl4wp_settings', $settings );
 }

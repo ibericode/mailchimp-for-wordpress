@@ -4,7 +4,7 @@ return array(
     'double_optin'  => 1,
 	'enabled'       => 0,
 	'implicit'      => 0,
-	'label'         => __( 'Sign me up for the newsletter!', 'mailchimp-for-wp' ),
+	'label'         => __( 'Sign me up for the newsletter!', 'phplist-for-wp' ),
     'lists'         => array(),
 	'precheck'      => 0,
     'replace_interests' => 0,

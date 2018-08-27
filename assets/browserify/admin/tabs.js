@@ -87,8 +87,8 @@ const Tabs = function(context) {
 
 		// refresh editor after switching tabs
 		// TODO: decouple this! law of demeter etc.
-		if( tab.id === 'fields' && window.mc4wp && window.mc4wp.forms && window.mc4wp.forms.editor ) {
-			mc4wp.forms.editor.refresh();
+		if( tab.id === 'fields' && window.pl4wp && window.pl4wp.forms && window.pl4wp.forms.editor ) {
+			pl4wp.forms.editor.refresh();
 		}
 
 		return true;

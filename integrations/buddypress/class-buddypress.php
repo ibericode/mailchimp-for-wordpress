@@ -3,11 +3,11 @@
 defined( 'ABSPATH' ) or exit;
 
 /**
- * Class MC4WP_BuddyPress_Integration
+ * Class PL4WP_BuddyPress_Integration
  *
  * @ignore
  */
-class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
+class PL4WP_BuddyPress_Integration extends PL4WP_User_Integration {
 
 	/**
 	 * @var string
@@ -36,7 +36,7 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 			 * the 'signups' table and then converted into an actual user during the
 			 * activation process.
 			 *
-			 * To avoid all signups being subscribed to the MailChimp list until they
+			 * To avoid all signups being subscribed to the PhpList list until they
 			 * have responded to the activation email, a value is stored in the signup
 			 * usermeta data which is retrieved on activation and acted upon.
 			 */
@@ -52,20 +52,20 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 		 * installs have a user moderation plugin (e.g. BP Registration Options)
 		 * installed. This is because email activation on itself is sometimes not enough to ensure
 		 * that user signups are not spammers. There should therefore be a way for
-		 * plugins to delay the MailChimp signup process.
+		 * plugins to delay the PhpList signup process.
 		 *
-		 * Plugins can hook into the 'mc4wp_integration_buddypress_should_subscribe' filter to prevent
+		 * Plugins can hook into the 'pl4wp_integration_buddypress_should_subscribe' filter to prevent
 		 * subscriptions from taking place:
 		 *
-		 * add_filter( 'mc4wp_integration_buddypress_should_subscribe', '__return_false' );
+		 * add_filter( 'pl4wp_integration_buddypress_should_subscribe', '__return_false' );
          *
 		 * The plugin would then then call:
 		 *
-		 * do_action( 'mc4wp_integration_buddypress_subscribe_user', $user_id );
+		 * do_action( 'pl4wp_integration_buddypress_subscribe_user', $user_id );
 		 *
 		 * to perform the subscription at a later point.
 		 */
-		add_action( 'mc4wp_integration_buddypress_subscribe_user', array( $this, 'subscribe_buddypress_user' ), 10, 1 );
+		add_action( 'pl4wp_integration_buddypress_subscribe_user', array( $this, 'subscribe_buddypress_user' ), 10, 1 );
 
 	}
 
@@ -87,12 +87,12 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 		$subscribe = true;
 
 		/**
-		 * Allow other plugins to prevent the MailChimp sign-up.
+		 * Allow other plugins to prevent the PhpList sign-up.
 		 *
 		 * @param bool $subscribe False does not subscribe the user.
 		 * @param int $user_id The user ID to subscribe
 		 */
-        $subscribe = apply_filters( 'mc4wp_integration_buddypress_should_subscribe', $subscribe, $user_id );
+        $subscribe = apply_filters( 'pl4wp_integration_buddypress_should_subscribe', $subscribe, $user_id );
 
 		if ( ! $subscribe ) {
 			return false;
@@ -111,7 +111,7 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 
 		// only add meta if triggered (checked)
 		if ( $this->triggered() ) {
-			$usermeta['mc4wp_subscribe'] = '1';
+			$usermeta['pl4wp_subscribe'] = '1';
 		}
 
 		return $usermeta;
@@ -134,16 +134,16 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 
         // bail if our usermeta key is not switched on
 		$meta = ( isset( $userdata['meta'] ) ) ? $userdata['meta'] : array();
-        if ( empty( $meta['mc4wp_subscribe'] ) ) {
+        if ( empty( $meta['pl4wp_subscribe'] ) ) {
 			return false;
 		}
 
 		$subscribe = true;
 
         /**
-         * @ignore Documented elsewhere, see MC4WP_BuddyPress_Integration::subscribe_from_form.
+         * @ignore Documented elsewhere, see PL4WP_BuddyPress_Integration::subscribe_from_form.
          */
-        $subscribe = apply_filters( 'mc4wp_integration_buddypress_should_subscribe', $subscribe, $user_id );
+        $subscribe = apply_filters( 'pl4wp_integration_buddypress_should_subscribe', $subscribe, $user_id );
         if( ! $subscribe ) {
             return false;
         }
@@ -152,7 +152,7 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration {
 	}
 
 	/**
-	 * Subscribes a user to MailChimp list(s).
+	 * Subscribes a user to PhpList list(s).
 	 *
 	 * @param int $user_id The user ID to subscribe
      * @return bool

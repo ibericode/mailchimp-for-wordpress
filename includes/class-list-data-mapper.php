@@ -1,13 +1,13 @@
 <?php
 
 /**
-* Class MC4WP_Field_Map
+* Class PL4WP_Field_Map
 *
 * @access private
 * @since 4.0
 * @ignore
 */
-class MC4WP_List_Data_Mapper {
+class PL4WP_List_Data_Mapper {
 
 	/**
 	* @var array
@@ -20,7 +20,7 @@ class MC4WP_List_Data_Mapper {
 	private $list_ids = array();
 
 	/**
-	* @var MC4WP_Field_Formatter
+	* @var PL4WP_Field_Formatter
 	*/
 	private $formatter;
 
@@ -31,7 +31,7 @@ class MC4WP_List_Data_Mapper {
 	public function __construct( array $data, array $list_ids ) {
 		$this->data = array_change_key_case( $data, CASE_UPPER );
 		$this->list_ids = $list_ids;
-		$this->formatter = new MC4WP_Field_Formatter();
+		$this->formatter = new PL4WP_Field_Formatter();
 
 		if( ! isset( $this->data['EMAIL'] ) ) {
 			throw new InvalidArgumentException( 'Data needs at least an EMAIL key.' );
@@ -39,16 +39,16 @@ class MC4WP_List_Data_Mapper {
 	}
 
 	/**
-	* @return MC4WP_MailChimp_Subscriber[]
+	* @return PL4WP_PhpList_Subscriber[]
 	*/
 	public function map() {
-		$mailchimp = new MC4WP_MailChimp();
+		$phplist = new PL4WP_PhpList();
 		$map = array();
 
 		foreach( $this->list_ids as $list_id ) {
-			$list = $mailchimp->get_list( $list_id, true );
+			$list = $phplist->get_list( $list_id, true );
 
-			if( $list instanceof MC4WP_MailChimp_List ) {
+			if( $list instanceof PL4WP_PhpList_List ) {
 				$map[ $list_id ] = $this->map_list( $list );
 			}
 		}
@@ -57,13 +57,13 @@ class MC4WP_List_Data_Mapper {
 	}
 
 	/**
-	* @param MC4WP_MailChimp_List $list
+	* @param PL4WP_PhpList_List $list
 	*
-	* @return MC4WP_MailChimp_Subscriber
+	* @return PL4WP_PhpList_Subscriber
 	*/
-	protected function map_list( MC4WP_MailChimp_List $list ) {
+	protected function map_list( PL4WP_PhpList_List $list ) {
 
-		$subscriber = new MC4WP_MailChimp_Subscriber();
+		$subscriber = new PL4WP_PhpList_Subscriber();
 		$subscriber->email_address = $this->data['EMAIL'];
 
 		// find merge fields
@@ -121,7 +121,7 @@ class MC4WP_List_Data_Mapper {
 		}
 
 		// find language
-		/* @see http://kb.mailchimp.com/lists/managing-subscribers/view-and-edit-subscriber-languages?utm_source=mc-api&utm_medium=docs&utm_campaign=apidocs&_ga=1.211519638.2083589671.1469697070 */
+		/* @see http://kb.phplist.com/lists/managing-subscribers/view-and-edit-subscriber-languages?utm_source=mc-api&utm_medium=docs&utm_campaign=apidocs&_ga=1.211519638.2083589671.1469697070 */
 		if( ! empty( $this->data['MC_LANGUAGE'] ) ) {
 			$subscriber->language = $this->formatter->language( $this->data['MC_LANGUAGE'] );
 		}
@@ -146,13 +146,13 @@ class MC4WP_List_Data_Mapper {
 		/**
 		* Filters the value of a field after it is formatted.
 		*
-		* Use this to format a field value according to the field type (in MailChimp).
+		* Use this to format a field value according to the field type (in PhpList).
 		*
 		* @since 3.0
 		* @param string $field_value The value
-		* @param string $field_type The type of the field (in MailChimp)
+		* @param string $field_type The type of the field (in PhpList)
 		*/
-		$field_value = apply_filters( 'mc4wp_format_field_value', $field_value, $field_type );
+		$field_value = apply_filters( 'pl4wp_format_field_value', $field_value, $field_type );
 
 		return $field_value;
 	}

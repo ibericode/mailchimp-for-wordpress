@@ -3,11 +3,11 @@
 defined( 'ABSPATH' ) or exit;
 
 /**
- * Class MC4WP_Ninja_Forms_v2_Integration
+ * Class PL4WP_Ninja_Forms_v2_Integration
  *
  * @ignore
  */
-class MC4WP_Ninja_Forms_v2_Integration extends MC4WP_Integration {
+class PL4WP_Ninja_Forms_v2_Integration extends PL4WP_Integration {
 
 	/**
 	 * @var string
@@ -29,7 +29,7 @@ class MC4WP_Ninja_Forms_v2_Integration extends MC4WP_Integration {
 
 	public function register_field() {
 		$args = array(
-			'name' => __( 'MailChimp', 'ninja-forms' ),
+			'name' => __( 'PhpList', 'ninja-forms' ),
 			'edit_function' => '',
 			'display_function' => 'ninja_forms_field_checkbox_display',
 			'group' => 'standard_fields',
@@ -70,7 +70,7 @@ class MC4WP_Ninja_Forms_v2_Integration extends MC4WP_Integration {
             ),
 		);
 
-		ninja_forms_register_field( 'mc4wp-subscribe', $args );
+		ninja_forms_register_field( 'pl4wp-subscribe', $args );
 	}
 
     /**
@@ -99,17 +99,17 @@ class MC4WP_Ninja_Forms_v2_Integration extends MC4WP_Integration {
 		$pretty = array();
 		foreach( $fields as $field_id => $field_value ) {
 
-			// try admin label for "mc4wp-" prefixed fields, otherwise use general label
+			// try admin label for "pl4wp-" prefixed fields, otherwise use general label
 			$label = $ninja_forms_processing->get_field_setting( $field_id, 'admin_label' );
-			if( empty( $label ) || stripos( $label, 'mc4wp-' ) !== 0 ) {
+			if( empty( $label ) || stripos( $label, 'pl4wp-' ) !== 0 ) {
 				$label = $ninja_forms_processing->get_field_setting( $field_id, 'label' );
 			}
 
 			$pretty[ $label ] = $field_value;
 		}
 
-		// guess mailchimp variables
-		$parser = new MC4WP_Field_Guesser( $pretty );
+		// guess phplist variables
+		$parser = new PL4WP_Field_Guesser( $pretty );
 		$data = $parser->combine( array( 'guessed', 'namespaced' ) );
 
 		// do nothing if no email was found

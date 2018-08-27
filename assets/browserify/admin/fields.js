@@ -19,7 +19,7 @@ module.exports = function(m, events) {
         this.name = prop(data.name);
         this.title = prop(data.title || data.name);
         this.type = prop(data.type);
-        this.mailchimpType = prop(data.mailchimpType || '');
+        this.phplistType = prop(data.phplistType || '');
         this.label = prop(data.label || data.title || '');
         this.showLabel = prop(data.showLabel !== undefined ? data.showLabel : true);
         this.value = prop(data.value || '');

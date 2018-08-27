@@ -3,11 +3,11 @@
 defined( 'ABSPATH' ) or exit;
 
 /**
- * Class MC4WP_Contact_Form_7_Integration
+ * Class PL4WP_Contact_Form_7_Integration
  *
  * @ignore
  */
-class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
+class PL4WP_Contact_Form_7_Integration extends PL4WP_Integration {
 
 	/**
 	 * @var string
@@ -37,9 +37,9 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 	public function init() {
 
 		if ( function_exists( 'wpcf7_add_form_tag' ) ) {
-			wpcf7_add_form_tag( 'mc4wp_checkbox', array( $this, 'shortcode' ) );
+			wpcf7_add_form_tag( 'pl4wp_checkbox', array( $this, 'shortcode' ) );
 		} else {
-			wpcf7_add_shortcode( 'mc4wp_checkbox', array( $this, 'shortcode' ) );
+			wpcf7_add_shortcode( 'pl4wp_checkbox', array( $this, 'shortcode' ) );
 		}
 
 		return true;
@@ -50,8 +50,8 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 	 *
 	 * Contact Form 7 listens to the following triggers.
 	 *
-	 * - _mc4wp_subscribe_contact-form-7
-	 * - mc4wp-subscribe
+	 * - _pl4wp_subscribe_contact-form-7
+	 * - pl4wp-subscribe
 	 *
 	 * @return bool
 	 */
@@ -60,26 +60,26 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 
 
 		return ( isset( $data[ $this->checkbox_name ] ) && $data[ $this->checkbox_name ] == 1 )
-			|| ( isset( $data[ 'mc4wp-subscribe' ] ) && $data[ 'mc4wp-subscribe' ] == 1 );
+			|| ( isset( $data[ 'pl4wp-subscribe' ] ) && $data[ 'pl4wp-subscribe' ] == 1 );
 	}
 
 	/**
 	* Alter Contact Form 7 data.
 	*
-	* Adds mc4wp_checkbox to post data so users can use `mc4wp_checkbox` in their email templates
+	* Adds pl4wp_checkbox to post data so users can use `pl4wp_checkbox` in their email templates
 	*
 	* @param array $data
 	* @return array
 	*/
 	public function alter_cf7_data( $data = array() ) {
-		$data['mc4wp_checkbox'] = $this->checkbox_was_checked() ? __( 'Yes' ) : __( 'No' );
+		$data['pl4wp_checkbox'] = $this->checkbox_was_checked() ? __( 'Yes' ) : __( 'No' );
 		return $data;
 	}
 
 	/**
 	 * Subscribe from Contact Form 7 Forms
 	 *
-	 * @todo improve smart guessing based on selected MailChimp lists
+	 * @todo improve smart guessing based on selected PhpList lists
 	 *
 	 * @param WPCF7_ContactForm $cf7_form
 	 * @return bool
@@ -91,7 +91,7 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 			return false;
 		}
 
-		$parser = new MC4WP_Field_Guesser( $this->get_data() );
+		$parser = new PL4WP_Field_Guesser( $this->get_data() );
 		$data = $parser->combine( array( 'guessed', 'namespaced' ) );
 
 		// do nothing if no email was found

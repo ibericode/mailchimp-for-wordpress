@@ -4,7 +4,7 @@ testInput.setAttribute('type', 'date');
 if( testInput.type !== 'date') {
 
 	/* add placeholder & pattern to all date fields */
-	var dateFields = document.querySelectorAll('.mc4wp-form input[type="date"]');
+	var dateFields = document.querySelectorAll('.pl4wp-form input[type="date"]');
 	for(var i=0; i<dateFields.length; i++) {
 		if(!dateFields[i].placeholder) {
 			dateFields[i].placeholder = 'YYYY-MM-DD';

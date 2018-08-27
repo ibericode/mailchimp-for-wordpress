@@ -2,8 +2,8 @@
 
 defined( 'ABSPATH' ) or exit;
 
-$old_options = get_option( 'mc4wp_lite_checkbox', array() );
-$pro_options = get_option( 'mc4wp_checkbox', array() );
+$old_options = get_option( 'pl4wp_lite_checkbox', array() );
+$pro_options = get_option( 'pl4wp_checkbox', array() );
 if( ! empty( $pro_options ) ) {
 	$old_options = array_merge( $old_options, $pro_options );
 }
@@ -58,9 +58,9 @@ foreach( $map as $old_integration_slug => $new_integration_slug ) {
 }
 
 // save new settings
-update_option( 'mc4wp_integrations', $new_options );
+update_option( 'pl4wp_integrations', $new_options );
 
 // delete old options
-delete_option( 'mc4wp_lite_checkbox' );
-delete_option( 'mc4wp_checkbox' );
+delete_option( 'pl4wp_lite_checkbox' );
+delete_option( 'pl4wp_checkbox' );
 

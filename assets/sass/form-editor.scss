@@ -12,7 +12,7 @@
 	color: #999;
 }
 
-#mc4wp-form-preview {
+#pl4wp-form-preview {
   border: 1px solid #ddd;
   height: 500px; /* codemirror + padding */
   width: 100%;
@@ -21,16 +21,16 @@
 }
 
 @media( min-width: 1186px) {
-	.mc4wp-form-editor-wrap {
+	.pl4wp-form-editor-wrap {
 		padding-right: 0 !important;
 	}
-	.mc4wp-form-preview-wrap {
+	.pl4wp-form-preview-wrap {
 		padding-left: 0 !important;
 	}
 }
 
 @media(max-width: 1186px) {
-  #mc4wp-form-preview{ 
+  #pl4wp-form-preview{
     border-left-width: 1px; 
   }
 }

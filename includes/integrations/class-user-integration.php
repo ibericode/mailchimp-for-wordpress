@@ -3,12 +3,12 @@
 defined( 'ABSPATH' ) or exit;
 
 /**
- * Class MC4WP_User_Integration
+ * Class PL4WP_User_Integration
  *
  * @access public
  * @since 2.0
  */
-abstract class MC4WP_User_Integration extends MC4WP_Integration {
+abstract class PL4WP_User_Integration extends PL4WP_Integration {
 
 	/**
 	 * @param WP_User $user
@@ -41,7 +41,7 @@ abstract class MC4WP_User_Integration extends MC4WP_Integration {
 		 * @deprecated 4.0
          * @ignore
 		 */
-		$data = (array) apply_filters( 'mc4wp_user_merge_vars', $data, $user );
+		$data = (array) apply_filters( 'pl4wp_user_merge_vars', $data, $user );
 
 		return $data;
 	}

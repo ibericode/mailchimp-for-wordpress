@@ -3,7 +3,7 @@
 defined( 'ABSPATH' ) or exit;
 
 // get options
-$form_options = get_option( 'mc4wp_lite_form', array() );
+$form_options = get_option( 'pl4wp_lite_form', array() );
 
 // bail if there are no previous options
 if( empty( $form_options ) ) {
@@ -13,7 +13,7 @@ if( empty( $form_options ) ) {
 // bail if there are Pro forms already
 $has_forms = get_posts(
 	array(
-		'post_type' => 'mc4wp-form',
+		'post_type' => 'pl4wp-form',
 		'post_status' => 'publish',
 		'numberposts' => 1
 	)
@@ -23,22 +23,22 @@ $has_forms = get_posts(
 if( ! empty( $has_forms ) ) {
 
 	// delete option as it apparently exists.
-	delete_option( 'mc4wp_lite_form' );
+	delete_option( 'pl4wp_lite_form' );
 	return;
 }
 
 // create post type for form
 $id = wp_insert_post(
 	array(
-		'post_type'     => 'mc4wp-form',
+		'post_type'     => 'pl4wp-form',
 		'post_status'   => 'publish',
-		'post_title'         => __( 'Default sign-up form', 'mailchimp-for-wp' ),
+		'post_title'         => __( 'Default sign-up form', 'phplist-for-wp' ),
 		'post_content'  => ( empty( $form_options['markup'] ) ) ? '' : $form_options['markup'],
 	)
 );
 
 // set default_form_id
-update_option( 'mc4wp_default_form_id', $id );
+update_option( 'pl4wp_default_form_id', $id );
 
 // set form settings
 $setting_keys = array(
@@ -66,7 +66,7 @@ if( isset( $form_options['lists'] ) ) {
 	$settings['lists'] = array_keys( $form_options['lists'] );
 }
 
-update_post_meta( $id, '_mc4wp_settings', $settings );
+update_post_meta( $id, '_pl4wp_settings', $settings );
 
 // set form message texts
 $message_keys = array(
@@ -88,4 +88,4 @@ foreach( $message_keys as $message_key ) {
 }
 
 // delete old option
-delete_option( 'mc4wp_lite_form' );
+delete_option( 'pl4wp_lite_form' );

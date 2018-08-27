@@ -1,28 +1,28 @@
 <?php
 
 /**
- * Class MC4WP_Admin_Review_Notice
+ * Class PL4WP_Admin_Review_Notice
  *
  * @ignore
  */
-class MC4WP_Admin_Review_Notice {
+class PL4WP_Admin_Review_Notice {
 
     /**
-     * @var MC4WP_Admin_Tools
+     * @var PL4WP_Admin_Tools
      */
     protected $tools;
 
     /**
      * @var string
      */
-    protected $meta_key_dismissed = '_mc4wp_review_notice_dismissed';
+    protected $meta_key_dismissed = '_pl4wp_review_notice_dismissed';
 
     /**
-     * MC4WP_Admin_Review_Notice constructor.
+     * PL4WP_Admin_Review_Notice constructor.
      *
-     * @param MC4WP_Admin_Tools $tools
+     * @param PL4WP_Admin_Tools $tools
      */
-    public function __construct( MC4WP_Admin_Tools $tools ) {
+    public function __construct( PL4WP_Admin_Tools $tools ) {
         $this->tools = $tools;
     }
 
@@ -31,7 +31,7 @@ class MC4WP_Admin_Review_Notice {
      */
     public function add_hooks() {
         add_action( 'admin_notices', array( $this, 'show' ) );
-        add_action( 'mc4wp_admin_dismiss_review_notice', array( $this, 'dismiss' ) );
+        add_action( 'pl4wp_admin_dismiss_review_notice', array( $this, 'dismiss' ) );
     }
 
     /**
@@ -46,7 +46,7 @@ class MC4WP_Admin_Review_Notice {
      * @return bool
      */
     public function show() {
-        // only show on MailChimp for WordPress' pages.
+        // only show on PhpList for WordPress' pages.
         if( ! $this->tools->on_plugin_page() ) {
             return false;
         }
@@ -63,12 +63,12 @@ class MC4WP_Admin_Review_Notice {
             return false;
         }
 
-        echo '<div class="notice notice-info mc4wp-is-dismissible" id="mc4wp-review-notice">';
+        echo '<div class="notice notice-info pl4wp-is-dismissible" id="pl4wp-review-notice">';
         echo '<p>';
-        echo __( 'You\'ve been using MailChimp for WordPress for some time now; we hope you love it!', 'mailchimp-for-wp' ) . ' <br />';
-        echo sprintf( __( 'If you do, please <a href="%s">leave us a 5★ rating on WordPress.org</a>. It would be of great help to us.', 'mailchimp-for-wp' ), 'https://wordpress.org/support/view/plugin-reviews/mailchimp-for-wp?rate=5#new-post' );
+        echo __( 'You\'ve been using PhpList for WordPress for some time now; we hope you love it!', 'phplist-for-wp' ) . ' <br />';
+        echo sprintf( __( 'If you do, please <a href="%s">leave us a 5★ rating on WordPress.org</a>. It would be of great help to us.', 'phplist-for-wp' ), 'https://wordpress.org/support/view/plugin-reviews/phplist-for-wp?rate=5#new-post' );
         echo '</p>';
-        echo '<form method="POST" id="mc4wp-dismiss-review-form"><button type="submit" class="notice-dismiss"><span class="screen-reader-text">'. __( 'Dismiss this notice.', 'mailchimp-for-wp' ) .'</span></button><input type="hidden" name="_mc4wp_action" value="dismiss_review_notice"/></form>';
+        echo '<form method="POST" id="pl4wp-dismiss-review-form"><button type="submit" class="notice-dismiss"><span class="screen-reader-text">'. __( 'Dismiss this notice.', 'phplist-for-wp' ) .'</span></button><input type="hidden" name="_pl4wp_action" value="dismiss_review_notice"/></form>';
         echo '</div>';
         return true;
     }
@@ -77,12 +77,12 @@ class MC4WP_Admin_Review_Notice {
      * @return int
      */
     private function time_since_first_use() {
-        $options = get_option( 'mc4wp' );
+        $options = get_option( 'pl4wp' );
 
         // option was never added before, do it now.
         if( empty( $options['first_activated_on'] ) ) {
             $options['first_activated_on'] = time();
-            update_option( 'mc4wp', $options );
+            update_option( 'pl4wp', $options );
         }
 
         return time() - $options['first_activated_on'];

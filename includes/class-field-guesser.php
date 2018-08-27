@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Class MC4WP_Field_Guesser
+ * Class PL4WP_Field_Guesser
  *
  * @access private
  * @ignore
  */
-class MC4WP_Field_Guesser {
+class PL4WP_Field_Guesser {
 
 	/**
-	 * @var MC4WP_Array_Bag
+	 * @var PL4WP_Array_Bag
 	 */
 	protected $fields;
 
@@ -18,7 +18,7 @@ class MC4WP_Field_Guesser {
 	 */
 	public function __construct( array $fields ) {
 		$fields = array_change_key_case( $fields, CASE_UPPER );
-		$this->fields = new MC4WP_Array_Bag( $fields );
+		$this->fields = new PL4WP_Array_Bag( $fields );
 	}
 
 	/**
@@ -28,7 +28,7 @@ class MC4WP_Field_Guesser {
 	 *
 	 * @return array
 	 */
-	public function namespaced( $namespace = 'mc4wp-' ) {
+	public function namespaced( $namespace = 'pl4wp-' ) {
 		$namespace = strtoupper( $namespace );
 		return $this->fields->all_with_prefix( $namespace );
 	}

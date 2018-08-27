@@ -1,11 +1,11 @@
 <?php
 defined( 'ABSPATH' ) or exit;
 ?>
-<div id="mc4wp-admin" class="wrap mc4wp-settings">
+<div id="pl4wp-admin" class="wrap pl4wp-settings">
 
 	<p class="breadcrumbs">
-		<span class="prefix"><?php echo __( 'You are here: ', 'mailchimp-for-wp' ); ?></span>
-		<span class="current-crumb"><strong>MailChimp for WordPress</strong></span>
+		<span class="prefix"><?php echo __( 'You are here: ', 'phplist-for-wp' ); ?></span>
+		<span class="current-crumb"><strong>PhpList for WordPress</strong></span>
 	</p>
 
 
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) or exit;
 		<div class="main-content col col-4">
 
 			<h1 class="page-title">
-				<?php _e( 'General Settings', 'mailchimp-for-wp' ); ?>
+				<?php _e( 'General Settings', 'phplist-for-wp' ); ?>
 			</h1>
 
 			<h2 style="display: none;"></h2>
@@ -25,36 +25,56 @@ defined( 'ABSPATH' ) or exit;
 			?>
 
 			<form action="<?php echo admin_url( 'options.php' ); ?>" method="post">
-				<?php settings_fields( 'mc4wp_settings' ); ?>
+				<?php settings_fields( 'pl4wp_settings' ); ?>
 
 				<h3>
-					<?php _e( 'MailChimp API Settings', 'mailchimp-for-wp' ); ?>
+					<?php _e( 'PhpList API Settings', 'phplist-for-wp' ); ?>
 				</h3>
 
 				<table class="form-table">
 
 					<tr valign="top">
 						<th scope="row">
-							<?php _e( 'Status', 'mailchimp-for-wp' ); ?>
+							<?php _e( 'Status', 'phplist-for-wp' ); ?>
 						</th>
 						<td>
 							<?php if( $connected ) { ?>
-								<span class="status positive"><?php _e( 'CONNECTED' ,'mailchimp-for-wp' ); ?></span>
+								<span class="status positive"><?php _e( 'CONNECTED' ,'phplist-for-wp' ); ?></span>
 							<?php } else { ?>
-								<span class="status neutral"><?php _e( 'NOT CONNECTED', 'mailchimp-for-wp' ); ?></span>
+								<span class="status neutral"><?php _e( 'NOT CONNECTED', 'phplist-for-wp' ); ?></span>
 							<?php } ?>
 						</td>
 					</tr>
 
 
 					<tr valign="top">
-						<th scope="row"><label for="mailchimp_api_key"><?php _e( 'API Key', 'mailchimp-for-wp' ); ?></label></th>
+						<th scope="row"><label for="phplist_installation_url"><?php _e( 'PhpList URL', 'phplist-for-wp' ); ?></label></th>
 						<td>
-							<input type="text" class="widefat" placeholder="<?php _e( 'Your MailChimp API key', 'mailchimp-for-wp' ); ?>" id="mailchimp_api_key" name="mc4wp[api_key]" value="<?php echo esc_attr( $obfuscated_api_key ); ?>" />
-							<p class="help">
-								<?php _e( 'The API key for connecting with your MailChimp account.', 'mailchimp-for-wp' ); ?>
-								<a target="_blank" href="https://admin.mailchimp.com/account/api"><?php _e( 'Get your API key here.', 'mailchimp-for-wp' ); ?></a>
-							</p>
+							<input type="text" class="widefat" placeholder="<?php _e( 'Your PhpList URL', 'phplist-for-wp' ); ?>" id="phplist_installation_url" name="pl4wp[installation_url]" value="<?=$installation_url?>" />
+						</td>
+
+					</tr>
+
+					<tr valign="top">
+						<th scope="row"><label for="phplist_api_key"><?php _e( 'API Key', 'phplist-for-wp' ); ?></label></th>
+						<td>
+							<input type="text" class="widefat" placeholder="<?php _e( 'Your PhpList API key', 'phplist-for-wp' ); ?>" id="phplist_api_key" name="pl4wp[api_key]" value="<?php echo esc_attr( $obfuscated_api_key ); ?>" />
+						</td>
+
+					</tr>
+
+					<tr valign="top">
+						<th scope="row"><label for="phplist_api_username"><?php _e( 'API Username', 'phplist-for-wp' ); ?></label></th>
+						<td>
+							<input type="text" class="widefat" placeholder="<?php _e( 'Your PhpList API username', 'phplist-for-wp' ); ?>" id="phplist_api_username" name="pl4wp[api_username]" value="<?php echo esc_attr( $api_username ); ?>" />
+						</td>
+
+					</tr>
+
+					<tr valign="top">
+						<th scope="row"><label for="phplist_api_password"><?php _e( 'API Password', 'phplist-for-wp' ); ?></label></th>
+						<td>
+							<input type="text" class="widefat" placeholder="<?php _e( 'Your PhpList API password', 'phplist-for-wp' ); ?>" id="phplist_api_password" name="pl4wp[api_password]" value="<?php echo esc_attr( $obfuscated_api_password ); ?>" />
 						</td>
 
 					</tr>
@@ -73,7 +93,7 @@ defined( 'ABSPATH' ) or exit;
 			 * @since 3.0
 			 * @ignore
 			 */
-			do_action( 'mc4wp_admin_after_general_settings' );
+			do_action( 'pl4wp_admin_after_general_settings' );
 
 			if( ! empty( $opts['api_key'] ) ) {
 				echo '<hr />';

@@ -1,6 +1,6 @@
 <wpml-config>
 	<custom-types>
-		<custom-type translate="1">mc4wp-form</custom-type>
+		<custom-type translate="1">pl4wp-form</custom-type>
 	</custom-types>
 	<custom-fields>
 		<custom-field action="translate">text_subscribed</custom-field>
@@ -13,7 +13,7 @@
 		<custom-field action="translate">text_subscribed</custom-field>
 	</custom-fields>
 	<admin-texts>
-		<key name="mc4wp_integrations">
+		<key name="pl4wp_integrations">
 			<key name="woocommerce">
 				<key name="label" />
 			</key>

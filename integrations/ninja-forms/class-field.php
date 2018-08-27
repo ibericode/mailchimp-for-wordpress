@@ -1,13 +1,13 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Class MC4WP_Ninja_Forms_Field
+ * Class PL4WP_Ninja_Forms_Field
  */
-class MC4WP_Ninja_Forms_Field extends NF_Abstracts_Input
+class PL4WP_Ninja_Forms_Field extends NF_Abstracts_Input
 {
-    protected $_name = 'mc4wp_optin';
+    protected $_name = 'pl4wp_optin';
 
-    protected $_nicename = 'MailChimp';
+    protected $_nicename = 'PhpList';
 
     protected $_section = 'misc';
 
@@ -31,7 +31,7 @@ class MC4WP_Ninja_Forms_Field extends NF_Abstracts_Input
     {
         parent::__construct();
 
-        $this->_nicename = __( 'MailChimp opt-in', 'mailchimp-for-wp' );
+        $this->_nicename = __( 'PhpList opt-in', 'phplist-for-wp' );
 
         $this->_settings[ 'label_pos' ][ 'value' ] = 'right';
 
@@ -75,7 +75,7 @@ class MC4WP_Ninja_Forms_Field extends NF_Abstracts_Input
     public function custom_columns( $value, $field )
     {
         // If the field type is equal to checkbox...
-        if( 'mc4wp_optin' == $field->get_setting( 'type' ) ) {
+        if( 'pl4wp_optin' == $field->get_setting( 'type' ) ) {
             // Backwards compatibility check for the new checked value setting.
             if( null == $field->get_setting( 'checked_value' ) && 1 == $value ) {
                 return __( 'Checked', 'ninja-forms' );

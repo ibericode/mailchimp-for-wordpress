@@ -1,31 +1,31 @@
 <?php
 
 /**
- * Class MC4WP_Usage_Tracking
+ * Class PL4WP_Usage_Tracking
  *
  * @access private
  * @since 2.3
  * @ignore
  */
-class MC4WP_Usage_Tracking {
+class PL4WP_Usage_Tracking {
 
 	/**
 	 * @var string
 	 */
-	protected $tracking_url = 'https://mc4wp.com/api/usage-tracking';
+	protected $tracking_url = 'https://pl4wp.com/api/usage-tracking';
 
 	/**
-	 * @var MC4WP_Usage_Tracking The One True Instance
+	 * @var PL4WP_Usage_Tracking The One True Instance
 	 */
 	protected static $instance;
 
 	/**
-	 * @return MC4WP_Usage_Tracking
+	 * @return PL4WP_Usage_Tracking
 	 */
 	public static function instance() {
 
-		if( ! self::$instance instanceof MC4WP_Usage_Tracking ) {
-			self::$instance = new MC4WP_Usage_Tracking();
+		if( ! self::$instance instanceof PL4WP_Usage_Tracking ) {
+			self::$instance = new PL4WP_Usage_Tracking();
 		}
 
 		return self::$instance;
@@ -40,7 +40,7 @@ class MC4WP_Usage_Tracking {
 	 * Add hooks
 	 */
 	public function add_hooks() {
-		add_action( 'mc4wp_usage_tracking', array( $this, 'track' ) );
+		add_action( 'pl4wp_usage_tracking', array( $this, 'track' ) );
 		add_filter( 'cron_schedules', array( $this, 'cron_schedules' ) );
 	}
 
@@ -66,8 +66,8 @@ class MC4WP_Usage_Tracking {
 	 */
 	public function enable() {
 		// only schedule if not yet scheduled
-		if( ! wp_next_scheduled( 'mc4wp_usage_tracking' ) ) {
-			return wp_schedule_event( time(), 'monthly', 'mc4wp_usage_tracking' );
+		if( ! wp_next_scheduled( 'pl4wp_usage_tracking' ) ) {
+			return wp_schedule_event( time(), 'monthly', 'pl4wp_usage_tracking' );
 		}
 
 		return true;
@@ -77,7 +77,7 @@ class MC4WP_Usage_Tracking {
 	 * Disable usage tracking
 	 */
 	public function disable() {
-		wp_clear_scheduled_hook( 'mc4wp_usage_tracking' );
+		wp_clear_scheduled_hook( 'pl4wp_usage_tracking' );
 	}
 
 	/**
@@ -119,9 +119,9 @@ class MC4WP_Usage_Tracking {
 		$data = array(
 			// use md5 hash of home_url, we don't need/want to know the actual site url
 			'site' => md5( home_url() ),
-			'number_of_mailchimp_lists' => $this->get_mailchimp_lists_count(),
-			'mc4wp_version' => $this->get_mc4wp_version(),
-			'mc4wp_premium_version' => $this->get_mc4wp_premium_version(),
+			'number_of_phplist_lists' => $this->get_phplist_lists_count(),
+			'pl4wp_version' => $this->get_pl4wp_version(),
+			'pl4wp_premium_version' => $this->get_pl4wp_premium_version(),
 			'plugins' => (array) get_option( 'active_plugins', array() ),
 			'php_version' => $this->get_php_version(),
 			'curl_version' => $this->get_curl_version(),
@@ -145,25 +145,25 @@ class MC4WP_Usage_Tracking {
 	/**
 	 * @return string
 	 */
-	public function get_mc4wp_premium_version() {
-		return defined( 'MC4WP_PREMIUM_VERSION' ) ? MC4WP_PREMIUM_VERSION : null;
+	public function get_pl4wp_premium_version() {
+		return defined( 'PL4WP_PREMIUM_VERSION' ) ? PL4WP_PREMIUM_VERSION : null;
 	}
 
 	/**
-	 * Returns the MailChimp for WordPress version
+	 * Returns the PhpList for WordPress version
 	 *
 	 * @return string
 	 */
-	protected function get_mc4wp_version() {
-		return MC4WP_VERSION;
+	protected function get_pl4wp_version() {
+		return PL4WP_VERSION;
 	}
 
 	/**
 	 * @return int
 	 */
-	protected function get_mailchimp_lists_count() {
-		$mailchimp = new MC4WP_MailChimp();
-		$list_ids = $mailchimp->get_list_ids( false );
+	protected function get_phplist_lists_count() {
+		$phplist = new PL4WP_PhpList();
+		$list_ids = $phplist->get_list_ids( false );
 		return count( $list_ids );
 	}
 

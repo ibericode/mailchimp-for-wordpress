@@ -18,10 +18,10 @@ class QueueTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Queue::all
+	 * @covers PL4WP_Queue::all
 	 */
 	public function test_all() {
-		$queue = new MC4WP_Queue( 'option' );
+		$queue = new PL4WP_Queue( 'option' );
 		self::assertEquals( $queue->all(), array() );
 
 		$queue->put( 'one' );
@@ -30,15 +30,15 @@ class QueueTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Queue::put
+	 * @covers PL4WP_Queue::put
 	 */
 	public function test_put() {
-		$queue = new MC4WP_Queue( 'option' );
+		$queue = new PL4WP_Queue( 'option' );
 		$data = array( 'sample' => 'data' );
 		$queue->put( $data );
 
 		$job = $queue->get();
-		self::assertInstanceOf( 'MC4WP_Queue_Job', $job );
+		self::assertInstanceOf( 'PL4WP_Queue_Job', $job );
 		self::assertEquals( $job->data, $data );
 
         // calling get again should return same job
@@ -55,10 +55,10 @@ class QueueTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Queue::delete
+	 * @covers PL4WP_Queue::delete
 	 */
 	public function test_delete() {
-		$queue = new MC4WP_Queue( 'option' );
+		$queue = new PL4WP_Queue( 'option' );
 		$queue->put( array( 'sample' => 'data' ) );
 
 		// get job then delete it from queue
@@ -71,10 +71,10 @@ class QueueTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Queue::reset
+	 * @covers PL4WP_Queue::reset
 	 */
 	public function test_reset() {
-		$queue = new MC4WP_Queue( 'option' );
+		$queue = new PL4WP_Queue( 'option' );
 		$queue->put( array( 'sample' => 'data' ) );
 		$queue->reset();
 
@@ -83,10 +83,10 @@ class QueueTest extends TestCase {
 	}
 
 	/**
-	 * @covers MC4WP_Queue::save
+	 * @covers PL4WP_Queue::save
 	 */
 	public function test_save() {
-		$queue = new MC4WP_Queue( 'option' );
+		$queue = new PL4WP_Queue( 'option' );
 
 		// nothing to save
 		self::assertFalse( $queue->save() );

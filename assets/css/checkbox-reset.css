@@ -1,10 +1,10 @@
-/* MailChimp for WP - Checkbox Styles */
-.mc4wp-checkbox-__INTEGRATION_SLUG__ {
+/* PhpList for WP - Checkbox Styles */
+.pl4wp-checkbox-__INTEGRATION_SLUG__ {
   clear: both;
   display: block;
   position: static;
   width: auto; }
-  .mc4wp-checkbox-__INTEGRATION_SLUG__ input {
+  .pl4wp-checkbox-__INTEGRATION_SLUG__ input {
     float: none;
     width: auto;
     position: static;
@@ -14,7 +14,7 @@
     display: inline-block !important;
     max-width: 21px;
     -webkit-appearance: checkbox; }
-  .mc4wp-checkbox-__INTEGRATION_SLUG__ label {
+  .pl4wp-checkbox-__INTEGRATION_SLUG__ label {
     float: none;
     display: block;
     cursor: pointer;

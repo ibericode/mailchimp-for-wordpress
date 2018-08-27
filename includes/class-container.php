@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Class MC4WP_Service_Container
+ * Class PL4WP_Service_Container
  *
  * @access private
  * @ignore
  */
-class MC4WP_Container implements ArrayAccess {
+class PL4WP_Container implements ArrayAccess {
 
 	/**
 	 * @var array

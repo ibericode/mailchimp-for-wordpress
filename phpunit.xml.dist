@@ -11,7 +11,7 @@
 		 verbose="true"
 		 bootstrap="./tests/bootstrap.php">
 	<testsuites>
-		<testsuite name="mailchimp-for-wordpress">
+		<testsuite name="phplist-for-wordpress">
 			<directory suffix="Test.php">./tests/</directory>
 		</testsuite>
 	</testsuites>

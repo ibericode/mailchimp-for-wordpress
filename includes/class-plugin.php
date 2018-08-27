@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Class MC4WP_Plugin
+ * Class PL4WP_Plugin
  *
  * Helper class for easy access to information like the plugin file or plugin directory.
  *
  * @access public
  * @ignore
  */
-class MC4WP_Plugin {
+class PL4WP_Plugin {
 
 	/**
 	 * @var string The plugin version.

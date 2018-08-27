@@ -13,31 +13,31 @@ var m = window.m = require('mithril');
 var EventEmitter = require('wolfy87-eventemitter');
 
 // vars
-var context = document.getElementById('mc4wp-admin');
+var context = document.getElementById('pl4wp-admin');
 var events = new EventEmitter();
 var tabs = require('./admin/tabs.js')(context);
 var helpers = require('./admin/helpers.js');
 var settings = require('./admin/settings.js')(context, helpers, events);
 
 (0, _tlite2.default)(function (el) {
-    return el.className.indexOf('mc4wp-tooltip') > -1;
+    return el.className.indexOf('pl4wp-tooltip') > -1;
 });
 
 // list fetcher
 var ListFetcher = require('./admin/list-fetcher.js');
-var mount = document.getElementById('mc4wp-list-fetcher');
+var mount = document.getElementById('pl4wp-list-fetcher');
 if (mount) {
     m.mount(mount, new ListFetcher());
 }
 
 // expose some things
-window.mc4wp = window.mc4wp || {};
-window.mc4wp.deps = window.mc4wp.deps || {};
-window.mc4wp.deps.mithril = m;
-window.mc4wp.helpers = helpers;
-window.mc4wp.events = events;
-window.mc4wp.settings = settings;
-window.mc4wp.tabs = tabs;
+window.pl4wp = window.pl4wp || {};
+window.pl4wp.deps = window.pl4wp.deps || {};
+window.pl4wp.deps.mithril = m;
+window.pl4wp.helpers = helpers;
+window.pl4wp.events = events;
+window.pl4wp.settings = settings;
+window.pl4wp.tabs = tabs;
 
 },{"./admin/helpers.js":2,"./admin/list-fetcher.js":3,"./admin/settings.js":4,"./admin/tabs.js":5,"mithril":9,"tlite":10,"wolfy87-eventemitter":11}],2:[function(require,module,exports){
 'use strict';
@@ -135,7 +135,7 @@ module.exports = helpers;
 'use strict';
 
 var $ = window.jQuery;
-var config = mc4wp_vars;
+var config = pl4wp_vars;
 var i18n = config.i18n;
 
 function ListFetcher() {
@@ -143,7 +143,7 @@ function ListFetcher() {
     this.done = false;
 
     // start fetching right away when no lists but api key given
-    if (config.mailchimp.api_connected && config.mailchimp.lists.length === 0) {
+    if (config.phplist.api_connected && config.phplist.lists.length === 0) {
         this.fetch();
     }
 }
@@ -155,7 +155,7 @@ ListFetcher.prototype.fetch = function (e) {
     this.done = false;
 
     $.post(ajaxurl, {
-        action: "mc4wp_renew_mailchimp_lists",
+        action: "pl4wp_renew_phplist_lists",
         timeout: 180000
     }).done(function (data) {
         this.success = true;
@@ -181,10 +181,10 @@ ListFetcher.prototype.view = function () {
         onsubmit: this.fetch.bind(this)
     }, [m('p', [m('input', {
         type: "submit",
-        value: this.working ? i18n.fetching_mailchimp_lists : i18n.renew_mailchimp_lists,
+        value: this.working ? i18n.fetching_phplist_lists : i18n.renew_phplist_lists,
         className: "button",
         disabled: !!this.working
-    }), m.trust(' &nbsp; '), this.working ? [m('span.mc4wp-loader', "Loading..."), m.trust(' &nbsp; '), m('em.help', i18n.fetching_mailchimp_lists_can_take_a_while)] : '', this.done ? [this.success ? m('em.help.green', i18n.fetching_mailchimp_lists_done) : m('em.help.red', i18n.fetching_mailchimp_lists_error)] : ''])]);
+    }), m.trust(' &nbsp; '), this.working ? [m('span.pl4wp-loader', "Loading..."), m.trust(' &nbsp; '), m('em.help', i18n.fetching_phplist_lists_can_take_a_while)] : '', this.done ? [this.success ? m('em.help.green', i18n.fetching_phplist_lists_done) : m('em.help.red', i18n.fetching_phplist_lists_error)] : ''])]);
 };
 
 module.exports = ListFetcher;
@@ -200,8 +200,8 @@ var Settings = function Settings(context, helpers, events) {
 	// vars
 
 	var form = context.querySelector('form');
-	var listInputs = context.querySelectorAll('.mc4wp-list-input');
-	var lists = mc4wp_vars.mailchimp.lists;
+	var listInputs = context.querySelectorAll('.pl4wp-list-input');
+	var lists = pl4wp_vars.phplist.lists;
 	var selectedLists = [];
 
 	// functions
@@ -354,8 +354,8 @@ var Tabs = function Tabs(context) {
 
 		// refresh editor after switching tabs
 		// TODO: decouple this! law of demeter etc.
-		if (tab.id === 'fields' && window.mc4wp && window.mc4wp.forms && window.mc4wp.forms.editor) {
-			mc4wp.forms.editor.refresh();
+		if (tab.id === 'fields' && window.pl4wp && window.pl4wp.forms && window.pl4wp.forms.editor) {
+			pl4wp.forms.editor.refresh();
 		}
 
 		return true;
@@ -1783,9 +1783,9 @@ var _16 = function(redrawService0) {
 			redrawService0.unsubscribe(root)
 			return
 		}
-		
+
 		if (component.view == null && typeof component !== "function") throw new Error("m.mount(element, component) expects a component, not a vnode")
-		
+
 		var run0 = function() {
 			redrawService0.render(root, Vnode(component))
 		}

@@ -3,11 +3,11 @@
 defined( 'ABSPATH' ) or exit;
 
 /**
- * Class MC4WP_WooCommerce_Integration
+ * Class PL4WP_WooCommerce_Integration
  *
  * @ignore
  */
-class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
+class PL4WP_WooCommerce_Integration extends PL4WP_Integration {
 
 	/**
 	 * @var string
@@ -50,7 +50,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 	* @param int $order_id
 	*/
 	public function save_woocommerce_checkout_checkbox_value( $order_id ) {
-		update_post_meta( $order_id, '_mc4wp_optin', $this->checkbox_was_checked() );
+		update_post_meta( $order_id, '_pl4wp_optin', $this->checkbox_was_checked() );
 	}
 
 	/**
@@ -70,7 +70,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 			return false;
 		}
 
-		$do_optin = get_post_meta( $order_id, '_mc4wp_optin', true );
+		$do_optin = get_post_meta( $order_id, '_pl4wp_optin', true );
 		return $do_optin;
 	}
 
@@ -103,7 +103,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
             );
         }
 
-		// TODO: add billing address fields, maybe by finding MailChimp field of type "address"?
+		// TODO: add billing address fields, maybe by finding PhpList field of type "address"?
 
 		return $this->subscribe( $data, $order_id );
 	}
@@ -121,7 +121,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 	 * @return string
 	 */
 	public function get_object_link( $object_id ) {
-		return sprintf( '<a href="%s">%s</a>', get_edit_post_link( $object_id ), sprintf( __( 'Order #%d', 'mailchimp-for-wp' ), $object_id ) );
+		return sprintf( '<a href="%s">%s</a>', get_edit_post_link( $object_id ), sprintf( __( 'Order #%d', 'phplist-for-wp' ), $object_id ) );
 	}
 
 }

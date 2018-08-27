@@ -1,25 +1,25 @@
 <?php
 
 /**
- * Class MC4WP_Form_Tags
+ * Class PL4WP_Form_Tags
  *
  * @access private
  * @ignore
  */
-class MC4WP_Form_Tags {
+class PL4WP_Form_Tags {
 
     /**
-     * @var MC4WP_Dynamic_Content_Tags
+     * @var PL4WP_Dynamic_Content_Tags
      */
     protected $tags;
 
     /**
-     * @var MC4WP_Form
+     * @var PL4WP_Form
      */
     protected $form;
 
     /**
-     * @var MC4WP_Form_Element
+     * @var PL4WP_Form_Element
      */
     protected $form_element;
 
@@ -27,15 +27,15 @@ class MC4WP_Form_Tags {
      * Constructor
      */
     public function __construct() {
-        $this->tags = new MC4WP_Dynamic_Content_Tags( 'form' );
+        $this->tags = new PL4WP_Dynamic_Content_Tags( 'form' );
     }
 
 
     public function add_hooks() {
-        add_filter( 'mc4wp_dynamic_content_tags_form', array( $this, 'register' ) );
-        add_filter( 'mc4wp_form_response_html', array( $this, 'replace' ), 10, 2 );
-        add_filter( 'mc4wp_form_content', array( $this, 'replace' ), 10, 3 );
-        add_filter( 'mc4wp_form_redirect_url', array( $this, 'replace_in_url' ), 10, 2 );
+        add_filter( 'pl4wp_dynamic_content_tags_form', array( $this, 'register' ) );
+        add_filter( 'pl4wp_form_response_html', array( $this, 'replace' ), 10, 2 );
+        add_filter( 'pl4wp_form_content', array( $this, 'replace' ), 10, 3 );
+        add_filter( 'pl4wp_form_redirect_url', array( $this, 'replace_in_url' ), 10, 2 );
     }
 
     /**
@@ -51,70 +51,70 @@ class MC4WP_Form_Tags {
      */
     public function register( array $tags ) {
         $tags['response'] = array(
-            'description'   => __( 'Replaced with the form response (error or success messages).', 'mailchimp-for-wp' ),
+            'description'   => __( 'Replaced with the form response (error or success messages).', 'phplist-for-wp' ),
             'callback'      => array( $this, 'get_form_response' )
         );
 
         $tags['data'] = array(
-            'description' => sprintf( __( "Data from the URL or a submitted form.", 'mailchimp-for-wp' ) ),
+            'description' => sprintf( __( "Data from the URL or a submitted form.", 'phplist-for-wp' ) ),
             'callback'    => array( $this, 'get_data' ),
             'example'     => "data key='UTM_SOURCE' default='Default Source'"
         );
 
         $tags['cookie'] = array(
-            'description' => sprintf( __( "Data from a cookie.", 'mailchimp-for-wp' ) ),
+            'description' => sprintf( __( "Data from a cookie.", 'phplist-for-wp' ) ),
             'callback'    => array( $this, 'get_cookie' ),
             'example'     => "cookie name='my_cookie' default='Default Value'"
         );
 
         $tags['subscriber_count'] = array(
-            'description' => __( 'Replaced with the number of subscribers on the selected list(s)', 'mailchimp-for-wp' ),
+            'description' => __( 'Replaced with the number of subscribers on the selected list(s)', 'phplist-for-wp' ),
             'callback'    => array( $this, 'get_subscriber_count' )
         );
 
         $tags['email']  = array(
-            'description' => __( 'The email address of the current visitor (if known).', 'mailchimp-for-wp' ),
+            'description' => __( 'The email address of the current visitor (if known).', 'phplist-for-wp' ),
             'callback'    => array( $this, 'get_email' ),
         );
 
         $tags['current_url']  = array(
-            'description' => __( 'The URL of the page.', 'mailchimp-for-wp' ),
-            'callback'    => 'mc4wp_get_request_url',
+            'description' => __( 'The URL of the page.', 'phplist-for-wp' ),
+            'callback'    => 'pl4wp_get_request_url',
         );
 
         $tags['current_path'] = array(
-            'description' => __( 'The path of the page.', 'mailchimp-for-wp' ),
-            'callback'    => 'mc4wp_get_request_path',
+            'description' => __( 'The path of the page.', 'phplist-for-wp' ),
+            'callback'    => 'pl4wp_get_request_path',
         );
 
         $tags['date']         = array(
-            'description' => sprintf( __( 'The current date. Example: %s.', 'mailchimp-for-wp' ), '<strong>' . date( 'Y/m/d' )  . '</strong>' ),
+            'description' => sprintf( __( 'The current date. Example: %s.', 'phplist-for-wp' ), '<strong>' . date( 'Y/m/d' )  . '</strong>' ),
             'replacement' => date( 'Y/m/d' )
         );
 
         $tags['time']         = array(
-            'description' => sprintf( __( 'The current time. Example: %s.', 'mailchimp-for-wp' ),  '<strong>' . date( 'H:i:s' ) . '</strong>'),
+            'description' => sprintf( __( 'The current time. Example: %s.', 'phplist-for-wp' ),  '<strong>' . date( 'H:i:s' ) . '</strong>'),
             'replacement' => date( 'H:i:s' )
         );
 
         $tags['language']     = array(
-            'description' => sprintf( __( 'The site\'s language. Example: %s.', 'mailchimp-for-wp' ),  '<strong>' . get_locale() . '</strong>' ),
+            'description' => sprintf( __( 'The site\'s language. Example: %s.', 'phplist-for-wp' ),  '<strong>' . get_locale() . '</strong>' ),
             'callback'    => 'get_locale',
         );
 
         $tags['ip']           = array(
-            'description' => sprintf( __( 'The visitor\'s IP address. Example: %s.', 'mailchimp-for-wp' ), '<strong>' . mc4wp('request')->get_client_ip() . '</strong>' ),
-            'callback'    => 'mc4wp_get_request_ip_address',
+            'description' => sprintf( __( 'The visitor\'s IP address. Example: %s.', 'phplist-for-wp' ), '<strong>' . pl4wp('request')->get_client_ip() . '</strong>' ),
+            'callback'    => 'pl4wp_get_request_ip_address',
         );
 
         $tags['user']      = array(
-            'description' => sprintf( __( "The property of the currently logged-in user.", 'mailchimp-for-wp' ) ),
+            'description' => sprintf( __( "The property of the currently logged-in user.", 'phplist-for-wp' ) ),
             'callback'    => array( $this, 'get_user_property' ),
             'example'     => "user property='user_email'"
         );
 
         $tags['post'] = array(
-            'description' => sprintf( __( "Property of the current page or post.", 'mailchimp-for-wp' ) ),
+            'description' => sprintf( __( "Property of the current page or post.", 'phplist-for-wp' ) ),
             'callback'    => array( $this, 'get_post_property' ),
             'example'     => "post property='ID'"
         );
@@ -125,16 +125,16 @@ class MC4WP_Form_Tags {
     /**
      * Replaces the registered tags in the given string
      *
-     * @hooked `mc4wp_form_message_html`
-     * @hooked `mc4wp_form_content`
+     * @hooked `pl4wp_form_message_html`
+     * @hooked `pl4wp_form_content`
      *
      * @param string $string
-     * @param MC4WP_Form $form
-     * @param MC4WP_Form_Element $element
+     * @param PL4WP_Form $form
+     * @param PL4WP_Form_Element $element
      *
      * @return string
      */
-    public function replace( $string, MC4WP_Form $form, MC4WP_Form_Element $element = null ) {
+    public function replace( $string, PL4WP_Form $form, PL4WP_Form_Element $element = null ) {
         $this->form = $form;
         $this->form_element = $element;
         $string = $this->tags->replace( $string );
@@ -142,14 +142,14 @@ class MC4WP_Form_Tags {
     }
 
     /**
-     * @hooked `mc4wp_form_redirect_url`
+     * @hooked `pl4wp_form_redirect_url`
      *
      * @param            $string
-     * @param MC4WP_Form $form
+     * @param PL4WP_Form $form
      *
      * @return string
      */
-    public function replace_in_url( $string, MC4WP_Form $form ) {
+    public function replace_in_url( $string, PL4WP_Form $form ) {
         $this->form = $form;
         $string = $this->tags->replace_in_url( $string );
         return $string;
@@ -161,8 +161,8 @@ class MC4WP_Form_Tags {
      * @return int
      */
     public function get_subscriber_count() {
-        $mailchimp = new MC4WP_MailChimp();
-        $count = $mailchimp->get_subscriber_count( $this->form->get_lists() );
+        $phplist = new PL4WP_PhpList();
+        $count = $phplist->get_subscriber_count( $this->form->get_lists() );
         return number_format( $count );
     }
 
@@ -173,7 +173,7 @@ class MC4WP_Form_Tags {
      */
     public function get_form_response() {
 
-        if( $this->form_element instanceof MC4WP_Form_Element ) {
+        if( $this->form_element instanceof PL4WP_Form_Element ) {
             return $this->form_element->get_response_html();
         }
 
@@ -274,7 +274,7 @@ class MC4WP_Form_Tags {
     public function get_email() {
 
         // first, try request
-        $request = mc4wp('request');
+        $request = pl4wp('request');
         $email = $request->params->get( 'EMAIL', '' );
         if( $email ) {
             return $email;

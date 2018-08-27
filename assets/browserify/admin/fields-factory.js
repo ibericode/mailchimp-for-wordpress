@@ -31,7 +31,7 @@ var FieldFactory = function(fields, i18n) {
     }
 
     /**
-     * Normalizes the field type which is passed by MailChimp
+     * Normalizes the field type which is passed by PhpList
      *
      * @param type
      * @returns {*}
@@ -73,18 +73,18 @@ var FieldFactory = function(fields, i18n) {
         if( data.type !== 'address' ) {
             register(category, data, false);
         } else {
-            register(category, { name: data.name + '[addr1]', type: 'text', mailchimpType: 'address', title: i18n.streetAddress });
-            register(category, { name: data.name + '[city]', type: 'text', mailchimpType: 'address', title: i18n.city });
-            register(category, { name: data.name + '[state]', type: 'text', mailchimpType: 'address', title: i18n.state  });
-            register(category, { name: data.name + '[zip]', type: 'text', mailchimpType: 'address', title: i18n.zip });
-            register(category, { name: data.name + '[country]', type: 'select', mailchimpType: 'address', title: i18n.country, choices: mc4wp_vars.countries });
+            register(category, { name: data.name + '[addr1]', type: 'text', phplistType: 'address', title: i18n.streetAddress });
+            register(category, { name: data.name + '[city]', type: 'text', phplistType: 'address', title: i18n.city });
+            register(category, { name: data.name + '[state]', type: 'text', phplistType: 'address', title: i18n.state  });
+            register(category, { name: data.name + '[zip]', type: 'text', phplistType: 'address', title: i18n.zip });
+            register(category, { name: data.name + '[country]', type: 'select', phplistType: 'address', title: i18n.country, choices: pl4wp_vars.countries });
         }
 
         return true;
     }
 
     /**
-     * Register a field for a MailChimp grouping
+     * Register a field for a PhpList grouping
      *
      * @param interestCategory
      */
@@ -159,7 +159,7 @@ var FieldFactory = function(fields, i18n) {
         }
 
         register(category, {
-            name: '_mc4wp_lists',
+            name: '_pl4wp_lists',
             type: 'checkbox',
             title: i18n.listChoice,
             choices: choices,
@@ -172,7 +172,7 @@ var FieldFactory = function(fields, i18n) {
             'unsubscribe': "Unsubscribe"
         };
         register(category, {
-            name: '_mc4wp_action',
+            name: '_pl4wp_action',
             type: 'radio',
             title: i18n.formAction,
             choices: choices,

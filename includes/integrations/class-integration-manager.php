@@ -1,20 +1,20 @@
 <?php
 
 /**
- * Class MC4WP_Integration_Manager
+ * Class PL4WP_Integration_Manager
  *
  * @ignore
  * @access private
  */
-class MC4WP_Integration_Manager {
+class PL4WP_Integration_Manager {
 
 	/**
-	 * @var MC4WP_Integration_Fixture[]
+	 * @var PL4WP_Integration_Fixture[]
 	 */
 	protected $integrations = array();
 
 	/**
-	 * @var MC4WP_Integration_Tags
+	 * @var PL4WP_Integration_Tags
 	 */
 	protected $tags;
 
@@ -22,7 +22,7 @@ class MC4WP_Integration_Manager {
 	* Constructor
 	*/
 	public function __construct() {
-		$this->tags = new MC4WP_Integration_Tags();
+		$this->tags = new PL4WP_Integration_Tags();
 	}
 
 	/**
@@ -39,7 +39,7 @@ class MC4WP_Integration_Manager {
 	 * Add hooks
 	 */
 	public function initialize() {
-		/*** @var MC4WP_Integration_Fixture $integration */
+		/*** @var PL4WP_Integration_Fixture $integration */
 		$enabled_integrations = $this->get_enabled_integrations();
 
 		foreach( $enabled_integrations as $integration ) {
@@ -50,7 +50,7 @@ class MC4WP_Integration_Manager {
 	/**
 	 * Get an integration instance
 	 *
-	 * @return MC4WP_Integration_Fixture[]
+	 * @return PL4WP_Integration_Fixture[]
 	 * @throws Exception
 	 */
 	public function get_all() {
@@ -62,7 +62,7 @@ class MC4WP_Integration_Manager {
 	 * Get an integration instance
 	 *
 	 * @param string $slug
-	 * @return MC4WP_Integration
+	 * @return PL4WP_Integration
 	 * @throws Exception
 	 */
 	public function get( $slug ) {
@@ -83,7 +83,7 @@ class MC4WP_Integration_Manager {
 	 */
 	public function register_integration( $slug, $class, $enabled = false ) {
 		$raw_options = $this->get_integration_options( $slug );
-		$this->integrations[ $slug ] = new MC4WP_Integration_Fixture( $slug, $class, $enabled, $raw_options );
+		$this->integrations[ $slug ] = new PL4WP_Integration_Fixture( $slug, $class, $enabled, $raw_options );
 	}
 
 	/**
@@ -102,16 +102,16 @@ class MC4WP_Integration_Manager {
 	 *
 	 * This is decoupled from the integration class itself as checking an array is way "cheaper" than instantiating an object
 	 *
-	 * @param MC4WP_Integration_Fixture $integration
+	 * @param PL4WP_Integration_Fixture $integration
 	 *
 	 * @return bool
 	 */
-	public function is_enabled( MC4WP_Integration_Fixture $integration ) {
+	public function is_enabled( PL4WP_Integration_Fixture $integration ) {
 		return $integration->enabled;
 	}
 
 	/**
-	 * @param MC4WP_Integration $integration
+	 * @param PL4WP_Integration $integration
 	 * @return bool
 	 */
 	public function is_installed( $integration ) {
@@ -147,7 +147,7 @@ class MC4WP_Integration_Manager {
 	 * @return array
 	 */
 	private function load_options() {
-		$options = (array) get_option( 'mc4wp_integrations', array() );
+		$options = (array) get_option( 'pl4wp_integrations', array() );
 
 		/**
 		 * Filters global integration options
@@ -158,7 +158,7 @@ class MC4WP_Integration_Manager {
 		 * @param array $options
          * @ignore
 		 */
-		return (array) apply_filters( 'mc4wp_integration_options', $options );
+		return (array) apply_filters( 'pl4wp_integration_options', $options );
 	}
 
 	/**

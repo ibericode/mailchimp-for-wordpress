@@ -15,11 +15,11 @@ foreach( $section_widgets as $section => $widgets ) {
 	// loop through widget ID's
 	foreach( $widgets as $key => $widget_id ) {
 
-		// does this widget ID start with "mc4wp_widget"?
-		if( strpos( $widget_id, 'mc4wp_widget' ) === 0 ) {
+		// does this widget ID start with "pl4wp_widget"?
+		if( strpos( $widget_id, 'pl4wp_widget' ) === 0 ) {
 
-			// replace "mc4wp_widget" with "mc4wp_form_widget"
-			$new_widget_id = str_replace( 'mc4wp_widget', 'mc4wp_form_widget', $widget_id );
+			// replace "pl4wp_widget" with "pl4wp_form_widget"
+			$new_widget_id = str_replace( 'pl4wp_widget', 'pl4wp_form_widget', $widget_id );
 			$section_widgets[ $section ][ $key ] = $new_widget_id;
 			$replaced = true;
 		}
@@ -33,11 +33,11 @@ if( $replaced ) {
 }
 
 // update widget options
-$options = get_option( 'widget_mc4wp_widget', false );
+$options = get_option( 'widget_pl4wp_widget', false );
 if( $options ) {
-	update_option( 'widget_mc4wp_form_widget', $options );
+	update_option( 'widget_pl4wp_form_widget', $options );
 
 	// delete old option
-	delete_option( 'widget_mc4wp_widget' );
+	delete_option( 'widget_pl4wp_widget' );
 }
 

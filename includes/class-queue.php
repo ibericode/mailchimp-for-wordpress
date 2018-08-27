@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Class MC4WP_Queue
+ * Class PL4WP_Queue
  *
  * @ignore
  */
-class MC4WP_Queue {
+class PL4WP_Queue {
 
     /**
-     * @var MC4WP_Queue_Job[]
+     * @var PL4WP_Queue_Job[]
      */
     protected $jobs;
 
@@ -23,7 +23,7 @@ class MC4WP_Queue {
     protected $dirty = false;
 
     /**
-     * MC4WP_Ecommerce_Queue constructor.
+     * PL4WP_Ecommerce_Queue constructor.
      *
      * @param string $option_name
      */
@@ -49,7 +49,7 @@ class MC4WP_Queue {
     /**
      * Get all jobs in the queue
      *
-     * @return MC4WP_Queue_Job[] Array of jobs
+     * @return PL4WP_Queue_Job[] Array of jobs
      */
     public function all() {
 
@@ -80,7 +80,7 @@ class MC4WP_Queue {
         }
 
         // add job to queue
-        $job = new MC4WP_Queue_Job( $data );
+        $job = new PL4WP_Queue_Job( $data );
         $this->jobs[] = $job;
         $this->dirty = true;
         return true;
@@ -89,7 +89,7 @@ class MC4WP_Queue {
     /**
      * Get all jobs in the queue
      *
-     * @return MC4WP_Queue_Job|false
+     * @return PL4WP_Queue_Job|false
      */
     public function get() {
 
@@ -107,9 +107,9 @@ class MC4WP_Queue {
     }
 
     /**
-     * @param MC4WP_Queue_Job $job
+     * @param PL4WP_Queue_Job $job
      */
-    public function delete( MC4WP_Queue_Job $job ) {
+    public function delete( PL4WP_Queue_Job $job ) {
 
         if( is_null( $this->jobs ) ) {
             $this->load();
@@ -126,9 +126,9 @@ class MC4WP_Queue {
     }
 
     /**
-     * @param MC4WP_Queue_Job $job
+     * @param PL4WP_Queue_Job $job
      */
-    public function reschedule( MC4WP_Queue_Job $job  ) {
+    public function reschedule( PL4WP_Queue_Job $job  ) {
         if( is_null( $this->jobs ) ) {
             $this->load();
         }

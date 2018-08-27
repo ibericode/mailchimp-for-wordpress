@@ -1,6 +1,6 @@
 <?php
 
-class MC4WP_Update_Optin {
+class PL4WP_Update_Optin {
 
     /**
      * @const string
@@ -47,8 +47,8 @@ class MC4WP_Update_Optin {
         $this->plugin_file = $plugin_file;
         $this->view_file = $view_file;
 
-        $this->option_enable = 'mc4wp_enable_' . sanitize_key( $this->to_version );
-        $this->option_notice = 'mc4wp_notice_' . sanitize_key( $this->to_version );
+        $this->option_enable = 'pl4wp_enable_' . sanitize_key( $this->to_version );
+        $this->option_notice = 'pl4wp_notice_' . sanitize_key( $this->to_version );
     }
 
     /**

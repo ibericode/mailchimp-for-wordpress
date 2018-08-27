@@ -1,7 +1,7 @@
 @import "variables";
 
-#mc4wp-admin,
-.mc4wp-admin {
+#pl4wp-admin,
+.pl4wp-admin {
 	@import "admin-grid";
 	@import "admin-utilities";
 	@import "admin-tabs";
@@ -57,12 +57,12 @@
 
 }
 
-.mc4wp-log { font-family: monaco, monospace, courier, 'courier new', 'Bitstream Vera Sans Mono'; font-size: 13px; resize: vertical; line-height: 140%; height: 200px; padding: 6px; border:1px solid #ccc; background: #262626; color: white; overflow-y: scroll; }
-.mc4wp-log .time { color: rgb(181, 137, 0); }
-.mc4wp-log .level { color: #35AECD; }
-.mc4wp-log .debug-log-empty { color: #ccc; font-style: italic; }
-.mc4wp-log .hidden { display: none; }
-.mc4wp-log a{ color: #ccc; text-decoration: underline; }
+.pl4wp-log { font-family: monaco, monospace, courier, 'courier new', 'Bitstream Vera Sans Mono'; font-size: 13px; resize: vertical; line-height: 140%; height: 200px; padding: 6px; border:1px solid #ccc; background: #262626; color: white; overflow-y: scroll; }
+.pl4wp-log .time { color: rgb(181, 137, 0); }
+.pl4wp-log .level { color: #35AECD; }
+.pl4wp-log .debug-log-empty { color: #ccc; font-style: italic; }
+.pl4wp-log .hidden { display: none; }
+.pl4wp-log a{ color: #ccc; text-decoration: underline; }
 
 @import "overlay";
 @import "rtl";

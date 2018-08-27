@@ -2,12 +2,12 @@
 
 
 /**
- * Class MC4WP_Form_Output_Manager
+ * Class PL4WP_Form_Output_Manager
  *
  * @ignore
  * @access private
  */
-class MC4WP_Form_Output_Manager {
+class PL4WP_Form_Output_Manager {
 
 	/**
 	 * @var int The # of forms outputted
@@ -17,7 +17,7 @@ class MC4WP_Form_Output_Manager {
 	/**
 	 * @const string
 	 */
-	const SHORTCODE = 'mc4wp_form';
+	const SHORTCODE = 'pl4wp_form';
 
 	/**
 	 * Constructor
@@ -33,13 +33,13 @@ class MC4WP_Form_Output_Manager {
 		add_filter( 'widget_text', 'do_shortcode', 11 );
 
 		// enable shortcodes in form content
-		add_filter( 'mc4wp_form_content', 'do_shortcode' );
+		add_filter( 'pl4wp_form_content', 'do_shortcode' );
 
 		add_action( 'init', array( $this, 'register_shortcode' ) );
 	}
 
 	/**
-	 * Registers the [mc4wp_form] shortcode
+	 * Registers the [pl4wp_form] shortcode
 	 */
 	public function register_shortcode() {
 		// register shortcodes
@@ -86,11 +86,11 @@ class MC4WP_Form_Output_Manager {
 	public function output_form( $id = 0, $config = array(), $echo = true ) {
 
 		try {
-			$form = mc4wp_get_form( $id );
+			$form = pl4wp_get_form( $id );
 		} catch( Exception $e ) {
 
 			if( current_user_can( 'manage_options' ) ) {
-				return sprintf( '<strong>MailChimp for WordPress error:</strong> %s', $e->getMessage() );
+				return sprintf( '<strong>PhpList for WordPress error:</strong> %s', $e->getMessage() );
 			}
 
 			return '';
@@ -100,7 +100,7 @@ class MC4WP_Form_Output_Manager {
 
         // set a default element_id if none is given
 		if( empty( $config['element_id'] ) ) {
-			$config['element_id'] = 'mc4wp-form-' . $this->count;
+			$config['element_id'] = 'pl4wp-form-' . $this->count;
 		}
 
 		$form_html = $form->get_html( $config['element_id'], $config );
@@ -114,9 +114,9 @@ class MC4WP_Form_Output_Manager {
 			 *
 			 * @since 3.0
 			 *
-			 * @param MC4WP_Form $form
+			 * @param PL4WP_Form $form
 			 */
-			do_action( 'mc4wp_output_form', $form );
+			do_action( 'pl4wp_output_form', $form );
 
 			// output the form (in output buffer)
 			echo $form_html;

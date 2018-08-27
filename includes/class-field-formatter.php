@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Class MC4WP_Field_Formatter
+ * Class PL4WP_Field_Formatter
  *
- * Formats values based on what the MailChimp API expects or accepts for the given field types.
+ * Formats values based on what the PhpList API expects or accepts for the given field types.
  */
-class MC4WP_Field_Formatter {
+class PL4WP_Field_Formatter {
 
 	/**
 	 * @param mixed $value

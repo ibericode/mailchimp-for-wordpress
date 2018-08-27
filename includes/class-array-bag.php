@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Class MC4WP_Array_Bag
+ * Class PL4WP_Array_Bag
  *
  * @access private
  * @ignore
  */
-class MC4WP_Array_Bag {
+class PL4WP_Array_Bag {
 
 	/**
 	 * @var array

@@ -9,13 +9,13 @@
  * @license    GPL-2.0+
  * @copyright  Copyright (c) 2016, WPForms LLC
  */
-class MC4WP_WPForms_Field extends WPForms_Field
+class PL4WP_WPForms_Field extends WPForms_Field
 {
 
     /**
-     * @var MC4WP_MailChimp
+     * @var PL4WP_PhpList
      */
-    private $mailchimp;
+    private $phplist;
 
     /**
      * Primary class constructor.
@@ -26,13 +26,13 @@ class MC4WP_WPForms_Field extends WPForms_Field
     {
 
         // Define field type information
-        $this->name = 'MailChimp';
-        $this->type = 'mailchimp';
+        $this->name = 'PhpList';
+        $this->type = 'phplist';
         $this->icon = 'fa-envelope-o';
         $this->order = 21;
         $this->defaults = array(
             0 => array(
-                'label' => __('Sign-up to our newsletter?', 'mailchimp-for-wp'),
+                'label' => __('Sign-up to our newsletter?', 'phplist-for-wp'),
                 'value' => '1',
                 'default' => '',
             )
@@ -55,8 +55,8 @@ class MC4WP_WPForms_Field extends WPForms_Field
         // Options open markup
         $this->field_option('basic-options', $field, array('markup' => 'open'));
 
-        // MailChimp list
-        $this->field_option_mailchimp_list($field);
+        // PhpList list
+        $this->field_option_phplist_list($field);
 
         // Choices
         $this->field_option_choices($field);
@@ -84,27 +84,27 @@ class MC4WP_WPForms_Field extends WPForms_Field
         $this->field_option('advanced-options', $field, array('markup' => 'close'));
     }
 
-    private function field_option_mailchimp_list($field)
+    private function field_option_phplist_list($field)
     {
-        $mailchimp = new MC4WP_MailChimp();
+        $phplist = new PL4WP_PhpList();
 
         // Field option label
-        $tooltip = __('Select the MailChimp list to subscribe to.', 'mailchimp-for-wp');
+        $tooltip = __('Select the PhpList list to subscribe to.', 'phplist-for-wp');
         $option_label = $this->field_element(
             'label',
             $field,
             array(
-                'slug' => 'mailchimp-list',
-                'value' => __('MailChimp list', 'mailchimp-for-wp'),
+                'slug' => 'phplist-list',
+                'value' => __('PhpList list', 'phplist-for-wp'),
                 'tooltip' => $tooltip,
             ),
             false
         );
 
-        $option_select = sprintf('<select name="fields[%s][mailchimp_list]" data-field-id="%d" data-field-type="%s">', $field['id'], $field['id'], $this->type);
-        $lists = $mailchimp->get_cached_lists();
+        $option_select = sprintf('<select name="fields[%s][phplist_list]" data-field-id="%d" data-field-type="%s">', $field['id'], $field['id'], $this->type);
+        $lists = $phplist->get_cached_lists();
         foreach ($lists as $list) {
-            $option_select .= sprintf('<option value="%s" %s>%s</option>', $list->id, selected($list->id, $field['mailchimp_list'], false), $list->name);
+            $option_select .= sprintf('<option value="%s" %s>%s</option>', $list->id, selected($list->id, $field['phplist_list'], false), $list->name);
         }
         $option_select .= '</select>';
 
@@ -114,7 +114,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
             'row',
             $field,
             array(
-                'slug' => 'mailchimp-list',
+                'slug' => 'phplist-list',
                 'content' => $option_label . $option_select,
             )
         );
@@ -123,7 +123,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
 
     private function field_option_choices($field)
     {
-        $tooltip = __('Set your sign-up label text and whether it should be pre-checked.', 'mailchimp-for-wp');
+        $tooltip = __('Set your sign-up label text and whether it should be pre-checked.', 'phplist-for-wp');
         $values = !empty($field['choices']) ? $field['choices'] : $this->defaults;
         $class = !empty($field['show_values']) && $field['show_values'] == '1' ? 'show-values' : '';
         $class .= !empty($dynamic) ? ' wpforms-hidden' : '';
@@ -133,8 +133,8 @@ class MC4WP_WPForms_Field extends WPForms_Field
             'label',
             $field,
             array(
-                'slug' => 'mailchimp-checkbox',
-                'value' => __('Sign-up checkbox', 'mailchimp-for-wp'),
+                'slug' => 'phplist-checkbox',
+                'value' => __('Sign-up checkbox', 'phplist-for-wp'),
                 'tooltip' => $tooltip,
             ),
             false

@@ -1,9 +1,9 @@
 {
-  "name": "mailchimp-for-wp",
-  "title": "MailChimp for WordPress",
+  "name": "phplist-for-wp",
+  "title": "PhpList for WordPress",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ibericode/mailchimp-for-wordpress"
+    "url": "https://github.com/wimverstuyf/phplist-for-wordpress"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

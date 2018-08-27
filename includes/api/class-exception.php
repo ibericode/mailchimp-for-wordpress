@@ -1,6 +1,6 @@
 <?php
 
-class MC4WP_API_Exception extends Exception {
+class PL4WP_API_Exception extends Exception {
 
   
     /**
@@ -19,7 +19,7 @@ class MC4WP_API_Exception extends Exception {
     public $response_data = array();
 
     /**
-     * MC4WP_API_Exception constructor.
+     * PL4WP_API_Exception constructor.
      *
      * @param string $message
      * @param int $code
@@ -55,7 +55,7 @@ class MC4WP_API_Exception extends Exception {
     public function __toString() {
         $string = $this->message . '.';
 
-        // add errors from response data returned by MailChimp
+        // add errors from response data returned by PhpList
         if( ! empty( $this->response_data ) ) {
             if( ! empty( $this->response_data->title ) && $this->response_data->title !== $this->getMessage() ) {
                 $string .= ' ' . $this->response_data->title . '.';
