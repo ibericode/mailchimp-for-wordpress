@@ -1,14 +1,15 @@
 # Copyright (C) 2017 mailchimp-for-wp
 # This file is distributed under the same license as the mailchimp-for-wp package.
 # Translators:
+# Janne Peippo <janne.peippo@poutapilvi.fi>, 2018
 # Juha Vihervaara <juha.vihervaara@nemoy.fi>, 2015
 # Simo Hakala, 2015
 # Ville Ristimäki <villeristimaki@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MailChimp for WordPress\n"
-"PO-Revision-Date: 2017-09-20 15:59+0000\n"
-"Last-Translator: Danny van Kooten <dannyvankooten@gmail.com>\n"
+"PO-Revision-Date: 2018-08-31 11:20+0000\n"
+"Last-Translator: Janne Peippo <janne.peippo@poutapilvi.fi>\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/fi_FI/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +34,7 @@ msgstr "Dokumentaatio"
 #: includes/admin/class-admin.php:204
 msgid ""
 "Success! The cached configuration for your MailChimp lists has been renewed."
-msgstr "Onnistui! MailChimp listojen rakenne välimuistissa on uusittu."
+msgstr "Onnistui! Välimuistiin tallennetut MailChimp-listojen asetukset on päivitetty."
 
 #: includes/admin/class-admin.php:304
 msgid ""
@@ -45,19 +46,19 @@ msgstr "Tämä on pro-version ominaisuus. Päivitä maksulliseen versioon jotta 
 #: includes/views/parts/lists-overview.php10,
 #: includes/forms/views/parts/add-fields-help.php:43
 msgid "Renew MailChimp lists"
-msgstr "Uusitaan MailChimp listat"
+msgstr "Päivitä MailChimp-listat"
 
 #: includes/admin/class-admin.php:306
 msgid "Fetching MailChimp lists"
-msgstr ""
+msgstr "Noudetaan MailChimp-listoja"
 
 #: includes/admin/class-admin.php:307
 msgid "Done! MailChimp lists renewed."
-msgstr ""
+msgstr "Valmis! MailChimp-listat päivitetty."
 
 #: includes/admin/class-admin.php:308
 msgid "This can take a while if you have many MailChimp lists."
-msgstr ""
+msgstr "Tämä voi kestää hetken mikäli MailChimp-listoja on suuri määrä."
 
 #: includes/admin/class-admin.php336, includes/views/general-settings.php:31
 msgid "MailChimp API Settings"
@@ -70,15 +71,15 @@ msgstr "MailChimp"
 #: includes/admin/class-admin.php343, includes/views/other-settings.php60,
 #: includes/views/other-settings.php:70
 msgid "Other Settings"
-msgstr ""
+msgstr "Muut asetukset"
 
 #: includes/admin/class-admin.php:344
 msgid "Other"
-msgstr ""
+msgstr "Muu"
 
 #: includes/admin/class-admin.php:458
 msgid "Log successfully emptied."
-msgstr ""
+msgstr "Lokitiedosto tyhjennetty onnistuneesti."
 
 #: includes/admin/class-admin.php:488
 msgid ""
@@ -108,7 +109,7 @@ msgstr ""
 
 #: includes/admin/class-ads.php:70
 msgid "Upgrade to Premium"
-msgstr ""
+msgstr "Päivitä Premium-versioon"
 
 #: includes/admin/class-ads.php:83
 msgid ""
@@ -166,7 +167,7 @@ msgstr ""
 msgid ""
 "You've been using MailChimp for WordPress for some time now; we hope you "
 "love it!"
-msgstr ""
+msgstr "Olet käyttänyt MailChimp for WordPressiä jo jonkin aikaa, toivomme että pidät siitä!"
 
 #: includes/admin/class-review-notice.php:69
 msgid ""
@@ -184,69 +185,69 @@ msgstr "Lisätietoja yleisistä yhdistämiseen liittyvistä asioista."
 
 #: includes/forms/class-admin.php:62
 msgid "Add to form"
-msgstr ""
+msgstr "Lisää lomakkeeseen"
 
 #: includes/forms/class-admin.php:63
 msgid "City"
-msgstr ""
+msgstr "Kaupunki"
 
 #: includes/forms/class-admin.php:64
 msgid "Checkboxes"
-msgstr ""
+msgstr "Valintaruudut"
 
 #: includes/forms/class-admin.php:65
 msgid "Choices"
-msgstr ""
+msgstr "Valinnat"
 
 #: includes/forms/class-admin.php:66
 msgid "Choice type"
-msgstr ""
+msgstr "Valintatyypit"
 
 #: includes/forms/class-admin.php:67
 msgid "Choose a field to add to the form"
-msgstr ""
+msgstr "Valitse lomakkeelle lisättävä kenttä"
 
 #: includes/forms/class-admin.php:68
 msgid "Close"
-msgstr ""
+msgstr "Sulje"
 
 #: includes/forms/class-admin.php:69
 msgid "Country"
-msgstr ""
+msgstr "Maa"
 
 #: includes/forms/class-admin.php:70
 msgid "Dropdown"
-msgstr ""
+msgstr "Alasvetovalikko"
 
 #: includes/forms/class-admin.php:71
 msgid "Field type"
-msgstr ""
+msgstr "Kentän tyyppi"
 
 #: includes/forms/class-admin.php:72
 msgid "Field label"
-msgstr ""
+msgstr "Kentän tunnus"
 
 #: includes/forms/class-admin.php:73
 msgid "Form action"
-msgstr ""
+msgstr "Lomaketoiminto"
 
 #: includes/forms/class-admin.php:74
 msgid ""
 "This field will allow your visitors to choose whether they would like to "
 "subscribe or unsubscribe"
-msgstr ""
+msgstr "Tämä kenttä antaa käyttäjän valita listan tilauksen tai tilauksen peruuttamisen väliltä"
 
 #: includes/forms/class-admin.php:75
 msgid "Form fields"
-msgstr ""
+msgstr "Lomakkeen kentät"
 
 #: includes/forms/class-admin.php:76
 msgid "This field is marked as required in MailChimp."
-msgstr ""
+msgstr "Tämä kenttä on merkitty pakolliseksi MailChimpissä."
 
 #: includes/forms/class-admin.php:77
 msgid "Initial value"
-msgstr ""
+msgstr "Oletusarvo"
 
 #: includes/forms/class-admin.php:78
 msgid "Interest categories"
@@ -254,36 +255,36 @@ msgstr ""
 
 #: includes/forms/class-admin.php:79
 msgid "Is this field required?"
-msgstr ""
+msgstr "Onko tämä kenttä pakollinen?"
 
 #: includes/forms/class-admin.php:80
 msgid "List choice"
-msgstr ""
+msgstr "Listavaihtoehto"
 
 #: includes/forms/class-admin.php:81
 msgid "This field will allow your visitors to choose a list to subscribe to."
-msgstr ""
+msgstr "Tämä kenttä antaa käyttäjän valita tilattavan listan."
 
 #: includes/forms/class-admin.php:82
 msgid "List fields"
-msgstr ""
+msgstr "Listakentät"
 
 #: includes/forms/class-admin.php:83
 msgid "Min"
-msgstr ""
+msgstr "Min."
 
 #: includes/forms/class-admin.php:84
 msgid "Max"
-msgstr ""
+msgstr "Maks."
 
 #: includes/forms/class-admin.php:85
 msgid ""
 "No available fields. Did you select a MailChimp list in the form settings?"
-msgstr ""
+msgstr "Ei kenttiä. Valitsitko MailChimp-listan lomakkeen asetuksista?"
 
 #: includes/forms/class-admin.php:86
 msgid "Optional"
-msgstr ""
+msgstr "Valinnainen"
 
 #: includes/forms/class-admin.php:87
 msgid "Placeholder"
@@ -291,31 +292,31 @@ msgstr ""
 
 #: includes/forms/class-admin.php:88
 msgid "Text to show when field has no value."
-msgstr ""
+msgstr "Teksti joka näytetään jos kentällä ei ole arvoa."
 
 #: includes/forms/class-admin.php:89
 msgid "Preselect"
-msgstr ""
+msgstr "Esitäytä"
 
 #: includes/forms/class-admin.php:90
 msgid "Remove"
-msgstr ""
+msgstr "Poista"
 
 #: includes/forms/class-admin.php:91
 msgid "Radio buttons"
-msgstr ""
+msgstr "Valintanappi"
 
 #: includes/forms/class-admin.php:92
 msgid "Street Address"
-msgstr ""
+msgstr "Katuosoite"
 
 #: includes/forms/class-admin.php:93
 msgid "State"
-msgstr ""
+msgstr "Osavaltio"
 
 #: includes/forms/class-admin.php:95
 msgid "Submit button"
-msgstr ""
+msgstr "Lähetä-nappi"
 
 #: includes/forms/class-admin.php:96
 msgid "Wrap in paragraph tags?"
@@ -323,15 +324,15 @@ msgstr ""
 
 #: includes/forms/class-admin.php:97
 msgid "Value"
-msgstr ""
+msgstr "Arvo"
 
 #: includes/forms/class-admin.php:98
 msgid "Text to prefill this field with."
-msgstr ""
+msgstr "Teksti jolla tämä kenttä esitäytetään."
 
 #: includes/forms/class-admin.php:99
 msgid "ZIP"
-msgstr ""
+msgstr "Postinumero"
 
 #: includes/forms/class-admin.php111, includes/forms/class-admin.php112,
 #: includes/forms/views/edit-form.php:24
@@ -352,7 +353,7 @@ msgstr "MailChimp-rekisteröintikaavake"
 
 #: includes/forms/class-admin.php:453
 msgid "Select the form to show"
-msgstr ""
+msgstr "Valitse näytettävä lomake"
 
 #: includes/forms/class-form-previewer.php:146
 msgid "Form preview"
@@ -368,7 +369,7 @@ msgstr "Tiedot URL-osoitteesta tai lähetetystä lomakkeesta."
 
 #: includes/forms/class-form-tags.php:71
 msgid "Data from a cookie."
-msgstr ""
+msgstr "Evästeen sisältämä tieto."
 
 #: includes/forms/class-form-tags.php77,
 #: includes/integrations/class-integration-tags.php:45
@@ -482,7 +483,7 @@ msgstr "Hae API avaimesi täältä."
 
 #: includes/views/other-settings.php:14
 msgid "Miscellaneous settings"
-msgstr ""
+msgstr "Sekalaiset asetukset"
 
 #: includes/views/other-settings.php:17
 msgid "Usage Tracking"
@@ -500,7 +501,7 @@ msgstr "Tämä on, mitä me seurataan."
 
 #: includes/views/other-settings.php:37
 msgid "Logging"
-msgstr ""
+msgstr "Lokikirjanpito"
 
 #: includes/views/other-settings.php:44
 msgid ""
@@ -514,11 +515,11 @@ msgstr ""
 
 #: includes/views/other-settings.php:99
 msgid "Filter.."
-msgstr ""
+msgstr "Suodata.."
 
 #: includes/views/other-settings.php:104
 msgid "Log file is not writable."
-msgstr ""
+msgstr "Lokitiedosto ei ole tallennettavissa."
 
 #: includes/views/other-settings.php:105
 msgid "Please ensure %s has the proper <a href=\"%s\">file permissions</a>."
@@ -530,7 +531,7 @@ msgstr ""
 
 #: includes/views/other-settings.php:133
 msgid "Empty Log"
-msgstr ""
+msgstr "Tyhjä loki"
 
 #: includes/views/other-settings.php:141
 msgid "Right now, the plugin is configured to only log errors and warnings."
@@ -574,7 +575,7 @@ msgstr "Ulkoasu"
 
 #: includes/forms/views/edit-form.php:25
 msgid "Form"
-msgstr ""
+msgstr "Lomake"
 
 #: includes/forms/views/edit-form.php:34
 msgid "Edit Form"
@@ -760,7 +761,7 @@ msgstr "Tämä liitännäinen ei ole MailChimpin kehittämä, eikä se ole siihe
 
 #: includes/views/parts/admin-sidebar.php:11
 msgid "Looking for help?"
-msgstr ""
+msgstr "Etsitkö apua?"
 
 #: includes/views/parts/admin-sidebar.php:12
 msgid "We have some resources available to help you in the right direction."
@@ -772,7 +773,7 @@ msgstr ""
 
 #: includes/views/parts/admin-sidebar.php:15
 msgid "Frequently Asked Questions"
-msgstr ""
+msgstr "Usein kysytyt kysymykset"
 
 #: includes/views/parts/admin-sidebar.php:16
 msgid "Code reference for developers"
@@ -1014,7 +1015,7 @@ msgstr "Kun tilauksen perumisen menetelmä on käytössä, tämä teksti näytet
 
 #: includes/forms/views/tabs/form-messages.php:65
 msgid "No list selected"
-msgstr ""
+msgstr "Ei listaa valittuna"
 
 #: includes/forms/views/tabs/form-messages.php:68
 msgid ""
@@ -1024,7 +1025,7 @@ msgstr ""
 
 #: includes/forms/views/tabs/form-messages.php:74
 msgid "Updated"
-msgstr ""
+msgstr "Päivitetty"
 
 #: includes/forms/views/tabs/form-messages.php:77
 msgid "The text that shows when an existing subscriber is updated."
