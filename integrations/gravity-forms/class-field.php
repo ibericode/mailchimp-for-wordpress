@@ -36,7 +36,7 @@ class MC4WP_Gravity_Forms_Field extends GF_Field {
     }
 
     public function get_form_editor_field_title() {
-        return esc_attr__( 'MailChimp', 'mailchimp-for-wp' );
+        return esc_attr__( 'MailChimp for WordPress', 'mailchimp-for-wp' );
     }
 
     public function get_form_editor_field_settings() {
