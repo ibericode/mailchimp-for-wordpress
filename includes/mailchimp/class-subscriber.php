@@ -18,6 +18,11 @@ class MC4WP_MailChimp_Subscriber {
     public $merge_fields = array();
 
     /**
+     * @var array The marketing permissions for the subscriber.
+     */
+    public $marketing_permissions = array();
+
+    /**
      * @var string Subscriber’s status.
      */
     public $status = 'pending';
