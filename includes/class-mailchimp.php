@@ -292,8 +292,17 @@ class MC4WP_MailChimp {
 	* @return array
 	*/
 	public function fetch_list_ids() {
+		/**
+		 * Filters the amount of MailChimp lists to fetch.
+		 *
+		 * If you increase this, it might be necessary to increase your PHP configuration to allow for a higher max_execution_time.
+		 *
+		 * @param int 
+		 */
+		$limit = apply_filters( 'mc4wp_mailchimp_list_limit', 200 );
+
 		try{
-			$lists_data = $this->get_api()->get_lists( array( 'count' => 200, 'fields' => 'lists.id' ) );
+			$lists_data = $this->get_api()->get_lists( array( 'count' => $limit, 'fields' => 'lists.id' ) );
 		} catch( MC4WP_API_Exception $e ) {
 			return array();
 		}
