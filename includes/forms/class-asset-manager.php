@@ -146,7 +146,6 @@ class MC4WP_Form_Asset_Manager {
 	public function get_javascript_config() {
 
 		$submitted_form = mc4wp_get_submitted_form();
-
 		if( ! $submitted_form ) {
 			return array();
 		}
@@ -154,8 +153,8 @@ class MC4WP_Form_Asset_Manager {
 		$config = array(
 			'submitted_form' => array(
 				'id' => $submitted_form->ID,
+				'event' => $submitted_form->last_event,
 				'data' => $submitted_form->get_data(),
-				'action' => $submitted_form->config['action'],
 				'element_id' => $submitted_form->config['element_id'],
 			)
 		);

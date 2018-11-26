@@ -18,7 +18,7 @@ function scrollToForm(form) {
 	});
 }
 
-function handleFormRequest(form, action, errors, data){
+function handleFormRequest(form, eventName, errors, data){
 	var timeStart = Date.now();
 	var pageHeight = document.body.clientHeight;
 
@@ -47,8 +47,15 @@ function handleFormRequest(form, action, errors, data){
 			forms.trigger(form.id + '.success', [form, data]);
 
 			// subscribed / unsubscribed
-			forms.trigger(action + "d", [form, data]);
-			forms.trigger(form.id + "." + action + "d", [form, data]);
+			forms.trigger(eventName, [form, data]);
+			forms.trigger(form.id + "." + eventName, [form, data]);
+
+			// for BC: always trigger "subscribed" event when firing "updated_subscriber" event
+			if( eventName === 'updated_subscriber' ) {
+				forms.trigger('subscribed', [form, data]);
+				forms.trigger(form.id + "." + "subscribed", [form, data]);
+			}
+
 		}
 
 		// scroll to form again if page height changed since last scroll, eg because of slow loading images
@@ -106,7 +113,7 @@ if( config.submitted_form ) {
 		element = document.getElementById(formConfig.element_id),
 		form = forms.getByElement(element);
 
-	handleFormRequest(form, formConfig.action, formConfig.errors, formConfig.data);
+	handleFormRequest(form, formConfig.event, formConfig.errors, formConfig.data);
 }
 
 // expose mc4wp object globally

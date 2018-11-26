@@ -26,7 +26,7 @@ function scrollToForm(form) {
 	});
 }
 
-function handleFormRequest(form, action, errors, data) {
+function handleFormRequest(form, eventName, errors, data) {
 	var timeStart = Date.now();
 	var pageHeight = document.body.clientHeight;
 
@@ -55,8 +55,14 @@ function handleFormRequest(form, action, errors, data) {
 			forms.trigger(form.id + '.success', [form, data]);
 
 			// subscribed / unsubscribed
-			forms.trigger(action + "d", [form, data]);
-			forms.trigger(form.id + "." + action + "d", [form, data]);
+			forms.trigger(eventName, [form, data]);
+			forms.trigger(form.id + "." + eventName, [form, data]);
+
+			// for BC: always trigger "subscribed" event when firing "updated_subscriber" event
+			if (eventName === 'updated_subscriber') {
+				forms.trigger('subscribed', [form, data]);
+				forms.trigger(form.id + "." + "subscribed", [form, data]);
+			}
 		}
 
 		// scroll to form again if page height changed since last scroll, eg because of slow loading images
@@ -114,13 +120,13 @@ if (config.submitted_form) {
 	    element = document.getElementById(formConfig.element_id),
 	    form = forms.getByElement(element);
 
-	handleFormRequest(form, formConfig.action, formConfig.errors, formConfig.data);
+	handleFormRequest(form, formConfig.event, formConfig.errors, formConfig.data);
 }
 
 // expose mc4wp object globally
 window.mc4wp = mc4wp;
 
-},{"./forms/conditional-elements.js":2,"./forms/forms.js":4,"gator":6,"scroll-to-element":8}],2:[function(require,module,exports){
+},{"./forms/conditional-elements.js":2,"./forms/forms.js":4,"gator":6,"scroll-to-element":13}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1073,516 +1079,312 @@ module.exports = serialize;
 }(this));
 
 },{}],8:[function(require,module,exports){
-var scroll = require('scroll-to');
+// shim for using process in browser
+var process = module.exports = {};
 
-function calculateScrollOffset(elem, additionalOffset, alignment) {
-  var body = document.body,
-      html = document.documentElement;
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
 
-  var elemRect = elem.getBoundingClientRect();
-  var clientHeight = html.clientHeight;
-  var documentHeight = Math.max( body.scrollHeight, body.offsetHeight, 
-                                 html.clientHeight, html.scrollHeight, html.offsetHeight );
+var cachedSetTimeout;
+var cachedClearTimeout;
 
-  additionalOffset = additionalOffset || 0;
-
-  var scrollPosition;
-  if (alignment === 'bottom') {
-    scrollPosition = elemRect.bottom - clientHeight;
-  } else if (alignment === 'middle') {
-    scrollPosition = elemRect.bottom - clientHeight / 2 - elemRect.height / 2;
-  } else { // top and default
-    scrollPosition = elemRect.top;
-  }
-
-  var maxScrollPosition = documentHeight - clientHeight;
-  return Math.min(scrollPosition + additionalOffset + window.pageYOffset,
-                  maxScrollPosition);
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
 }
-
-module.exports = function (elem, options) {
-  options = options || {};
-  if (typeof elem === 'string') elem = document.querySelector(elem);
-  if (elem) return scroll(0, calculateScrollOffset(elem, options.offset, options.align), options);
-};
-
-},{"scroll-to":15}],9:[function(require,module,exports){
-/**
- * Module dependencies.
- */
-
-var type;
-try {
-  type = require('component-type');
-} catch (_) {
-  type = require('type');
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
 }
-
-/**
- * Module exports.
- */
-
-module.exports = clone;
-
-/**
- * Clones objects.
- *
- * @param {Mixed} any object
- * @api public
- */
-
-function clone(obj){
-  switch (type(obj)) {
-    case 'object':
-      var copy = {};
-      for (var key in obj) {
-        if (obj.hasOwnProperty(key)) {
-          copy[key] = clone(obj[key]);
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
         }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+},{}],9:[function(require,module,exports){
+(function (global){
+var now = require('performance-now')
+  , root = typeof window === 'undefined' ? global : window
+  , vendors = ['moz', 'webkit']
+  , suffix = 'AnimationFrame'
+  , raf = root['request' + suffix]
+  , caf = root['cancel' + suffix] || root['cancelRequest' + suffix]
+
+for(var i = 0; !raf && i < vendors.length; i++) {
+  raf = root[vendors[i] + 'Request' + suffix]
+  caf = root[vendors[i] + 'Cancel' + suffix]
+      || root[vendors[i] + 'CancelRequest' + suffix]
+}
+
+// Some versions of FF have rAF but not cAF
+if(!raf || !caf) {
+  var last = 0
+    , id = 0
+    , queue = []
+    , frameDuration = 1000 / 60
+
+  raf = function(callback) {
+    if(queue.length === 0) {
+      var _now = now()
+        , next = Math.max(0, frameDuration - (_now - last))
+      last = next + _now
+      setTimeout(function() {
+        var cp = queue.slice(0)
+        // Clear queue here to prevent
+        // callbacks from appending listeners
+        // to the current frame's queue
+        queue.length = 0
+        for(var i = 0; i < cp.length; i++) {
+          if(!cp[i].cancelled) {
+            try{
+              cp[i].callback(last)
+            } catch(e) {
+              setTimeout(function() { throw e }, 0)
+            }
+          }
+        }
+      }, Math.round(next))
+    }
+    queue.push({
+      handle: ++id,
+      callback: callback,
+      cancelled: false
+    })
+    return id
+  }
+
+  caf = function(handle) {
+    for(var i = 0; i < queue.length; i++) {
+      if(queue[i].handle === handle) {
+        queue[i].cancelled = true
       }
-      return copy;
-
-    case 'array':
-      var copy = new Array(obj.length);
-      for (var i = 0, l = obj.length; i < l; i++) {
-        copy[i] = clone(obj[i]);
-      }
-      return copy;
-
-    case 'regexp':
-      // from millermedeiros/amd-utils - MIT
-      var flags = '';
-      flags += obj.multiline ? 'm' : '';
-      flags += obj.global ? 'g' : '';
-      flags += obj.ignoreCase ? 'i' : '';
-      return new RegExp(obj.source, flags);
-
-    case 'date':
-      return new Date(obj.getTime());
-
-    default: // string, number, boolean, …
-      return obj;
-  }
-}
-
-},{"component-type":13,"type":13}],10:[function(require,module,exports){
-
-/**
- * Expose `Emitter`.
- */
-
-module.exports = Emitter;
-
-/**
- * Initialize a new `Emitter`.
- *
- * @api public
- */
-
-function Emitter(obj) {
-  if (obj) return mixin(obj);
-};
-
-/**
- * Mixin the emitter properties.
- *
- * @param {Object} obj
- * @return {Object}
- * @api private
- */
-
-function mixin(obj) {
-  for (var key in Emitter.prototype) {
-    obj[key] = Emitter.prototype[key];
-  }
-  return obj;
-}
-
-/**
- * Listen on the given `event` with `fn`.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.on =
-Emitter.prototype.addEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
-    .push(fn);
-  return this;
-};
-
-/**
- * Adds an `event` listener that will be invoked a single
- * time then automatically removed.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.once = function(event, fn){
-  function on() {
-    this.off(event, on);
-    fn.apply(this, arguments);
-  }
-
-  on.fn = fn;
-  this.on(event, on);
-  return this;
-};
-
-/**
- * Remove the given callback for `event` or all
- * registered callbacks.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.off =
-Emitter.prototype.removeListener =
-Emitter.prototype.removeAllListeners =
-Emitter.prototype.removeEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-
-  // all
-  if (0 == arguments.length) {
-    this._callbacks = {};
-    return this;
-  }
-
-  // specific event
-  var callbacks = this._callbacks['$' + event];
-  if (!callbacks) return this;
-
-  // remove all handlers
-  if (1 == arguments.length) {
-    delete this._callbacks['$' + event];
-    return this;
-  }
-
-  // remove specific handler
-  var cb;
-  for (var i = 0; i < callbacks.length; i++) {
-    cb = callbacks[i];
-    if (cb === fn || cb.fn === fn) {
-      callbacks.splice(i, 1);
-      break;
     }
   }
-  return this;
-};
-
-/**
- * Emit `event` with the given args.
- *
- * @param {String} event
- * @param {Mixed} ...
- * @return {Emitter}
- */
-
-Emitter.prototype.emit = function(event){
-  this._callbacks = this._callbacks || {};
-  var args = [].slice.call(arguments, 1)
-    , callbacks = this._callbacks['$' + event];
-
-  if (callbacks) {
-    callbacks = callbacks.slice(0);
-    for (var i = 0, len = callbacks.length; i < len; ++i) {
-      callbacks[i].apply(this, args);
-    }
-  }
-
-  return this;
-};
-
-/**
- * Return array of callbacks for `event`.
- *
- * @param {String} event
- * @return {Array}
- * @api public
- */
-
-Emitter.prototype.listeners = function(event){
-  this._callbacks = this._callbacks || {};
-  return this._callbacks['$' + event] || [];
-};
-
-/**
- * Check if this emitter has `event` handlers.
- *
- * @param {String} event
- * @return {Boolean}
- * @api public
- */
-
-Emitter.prototype.hasListeners = function(event){
-  return !! this.listeners(event).length;
-};
-
-},{}],11:[function(require,module,exports){
-/**
- * Expose `requestAnimationFrame()`.
- */
-
-exports = module.exports = window.requestAnimationFrame
-  || window.webkitRequestAnimationFrame
-  || window.mozRequestAnimationFrame
-  || fallback;
-
-/**
- * Fallback implementation.
- */
-
-var prev = new Date().getTime();
-function fallback(fn) {
-  var curr = new Date().getTime();
-  var ms = Math.max(0, 16 - (curr - prev));
-  var req = setTimeout(fn, ms);
-  prev = curr;
-  return req;
 }
 
-/**
- * Cancel.
- */
-
-var cancel = window.cancelAnimationFrame
-  || window.webkitCancelAnimationFrame
-  || window.mozCancelAnimationFrame
-  || window.clearTimeout;
-
-exports.cancel = function(id){
-  cancel.call(window, id);
-};
-
-},{}],12:[function(require,module,exports){
-
-/**
- * Module dependencies.
- */
-
-var Emitter = require('emitter');
-var clone = require('clone');
-var type = require('type');
-var ease = require('ease');
-
-/**
- * Expose `Tween`.
- */
-
-module.exports = Tween;
-
-/**
- * Initialize a new `Tween` with `obj`.
- *
- * @param {Object|Array} obj
- * @api public
- */
-
-function Tween(obj) {
-  if (!(this instanceof Tween)) return new Tween(obj);
-  this._from = obj;
-  this.ease('linear');
-  this.duration(500);
+module.exports = function(fn) {
+  // Wrap in a new function to prevent
+  // `cancel` potentially being assigned
+  // to the native rAF function
+  return raf.call(root, fn)
+}
+module.exports.cancel = function() {
+  caf.apply(root, arguments)
+}
+module.exports.polyfill = function(object) {
+  if (!object) {
+    object = root;
+  }
+  object.requestAnimationFrame = raf
+  object.cancelAnimationFrame = caf
 }
 
-/**
- * Mixin emitter.
- */
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"performance-now":10}],10:[function(require,module,exports){
+(function (process){
+// Generated by CoffeeScript 1.12.2
+(function() {
+  var getNanoSeconds, hrtime, loadTime, moduleLoadTime, nodeLoadTime, upTime;
 
-Emitter(Tween.prototype);
-
-/**
- * Reset the tween.
- *
- * @api public
- */
-
-Tween.prototype.reset = function(){
-  this.isArray = 'array' === type(this._from);
-  this._curr = clone(this._from);
-  this._done = false;
-  this._start = Date.now();
-  return this;
-};
-
-/**
- * Tween to `obj` and reset internal state.
- *
- *    tween.to({ x: 50, y: 100 })
- *
- * @param {Object|Array} obj
- * @return {Tween} self
- * @api public
- */
-
-Tween.prototype.to = function(obj){
-  this.reset();
-  this._to = obj;
-  return this;
-};
-
-/**
- * Set duration to `ms` [500].
- *
- * @param {Number} ms
- * @return {Tween} self
- * @api public
- */
-
-Tween.prototype.duration = function(ms){
-  this._duration = ms;
-  return this;
-};
-
-/**
- * Set easing function to `fn`.
- *
- *    tween.ease('in-out-sine')
- *
- * @param {String|Function} fn
- * @return {Tween}
- * @api public
- */
-
-Tween.prototype.ease = function(fn){
-  fn = 'function' == typeof fn ? fn : ease[fn];
-  if (!fn) throw new TypeError('invalid easing function');
-  this._ease = fn;
-  return this;
-};
-
-/**
- * Stop the tween and immediately emit "stop" and "end".
- *
- * @return {Tween}
- * @api public
- */
-
-Tween.prototype.stop = function(){
-  this.stopped = true;
-  this._done = true;
-  this.emit('stop');
-  this.emit('end');
-  return this;
-};
-
-/**
- * Perform a step.
- *
- * @return {Tween} self
- * @api private
- */
-
-Tween.prototype.step = function(){
-  if (this._done) return;
-
-  // duration
-  var duration = this._duration;
-  var now = Date.now();
-  var delta = now - this._start;
-  var done = delta >= duration;
-
-  // complete
-  if (done) {
-    this._from = this._to;
-    this._update(this._to);
-    this._done = true;
-    this.emit('end');
-    return this;
+  if ((typeof performance !== "undefined" && performance !== null) && performance.now) {
+    module.exports = function() {
+      return performance.now();
+    };
+  } else if ((typeof process !== "undefined" && process !== null) && process.hrtime) {
+    module.exports = function() {
+      return (getNanoSeconds() - nodeLoadTime) / 1e6;
+    };
+    hrtime = process.hrtime;
+    getNanoSeconds = function() {
+      var hr;
+      hr = hrtime();
+      return hr[0] * 1e9 + hr[1];
+    };
+    moduleLoadTime = getNanoSeconds();
+    upTime = process.uptime() * 1e9;
+    nodeLoadTime = moduleLoadTime - upTime;
+  } else if (Date.now) {
+    module.exports = function() {
+      return Date.now() - loadTime;
+    };
+    loadTime = Date.now();
+  } else {
+    module.exports = function() {
+      return new Date().getTime() - loadTime;
+    };
+    loadTime = new Date().getTime();
   }
 
-  // tween
-  var from = this._from;
-  var to = this._to;
-  var curr = this._curr;
-  var fn = this._ease;
-  var p = (now - this._start) / duration;
-  var n = fn(p);
+}).call(this);
 
-  // array
-  if (this.isArray) {
-    for (var i = 0; i < from.length; ++i) {
-      curr[i] = from[i] + (to[i] - from[i]) * n;
-    }
 
-    this._update(curr);
-    return this;
-  }
 
-  // objech
-  for (var k in from) {
-    curr[k] = from[k] + (to[k] - from[k]) * n;
-  }
-
-  this._update(curr);
-  return this;
-};
-
-/**
- * Set update function to `fn` or
- * when no argument is given this performs
- * a "step".
- *
- * @param {Function} fn
- * @return {Tween} self
- * @api public
- */
-
-Tween.prototype.update = function(fn){
-  if (0 == arguments.length) return this.step();
-  this._update = fn;
-  return this;
-};
-},{"clone":9,"ease":14,"emitter":10,"type":13}],13:[function(require,module,exports){
-/**
- * toString ref.
- */
-
-var toString = Object.prototype.toString;
-
-/**
- * Return the type of `val`.
- *
- * @param {Mixed} val
- * @return {String}
- * @api public
- */
-
-module.exports = function(val){
-  switch (toString.call(val)) {
-    case '[object Date]': return 'date';
-    case '[object RegExp]': return 'regexp';
-    case '[object Arguments]': return 'arguments';
-    case '[object Array]': return 'array';
-    case '[object Error]': return 'error';
-  }
-
-  if (val === null) return 'null';
-  if (val === undefined) return 'undefined';
-  if (val !== val) return 'nan';
-  if (val && val.nodeType === 1) return 'element';
-
-  val = val.valueOf
-    ? val.valueOf()
-    : Object.prototype.valueOf.apply(val)
-
-  return typeof val;
-};
-
-},{}],14:[function(require,module,exports){
-
+}).call(this,require('_process'))
+},{"_process":8}],11:[function(require,module,exports){
 // easing functions from "Tween.js"
-
 exports.linear = function(n){
   return n;
 };
@@ -1721,8 +1523,35 @@ exports.inOutBounce = function(n){
   return exports.outBounce(n * 2 - 1) * .5 + .5;
 };
 
-// aliases
+exports.inElastic = function(n){
+  var s, a = 0.1, p = 0.4;
+  if ( n === 0 ) return 0;
+  if ( n === 1 ) return 1;
+  if ( !a || a < 1 ) { a = 1; s = p / 4; }
+  else s = p * Math.asin( 1 / a ) / ( 2 * Math.PI );
+  return - ( a * Math.pow( 2, 10 * ( n -= 1 ) ) * Math.sin( ( n - s ) * ( 2 * Math.PI ) / p ) );
+};
 
+exports.outElastic = function(n){
+  var s, a = 0.1, p = 0.4;
+  if ( n === 0 ) return 0;
+  if ( n === 1 ) return 1;
+  if ( !a || a < 1 ) { a = 1; s = p / 4; }
+  else s = p * Math.asin( 1 / a ) / ( 2 * Math.PI );
+  return ( a * Math.pow( 2, - 10 * n) * Math.sin( ( n - s ) * ( 2 * Math.PI ) / p ) + 1 );
+};
+
+exports.inOutElastic = function(n){
+  var s, a = 0.1, p = 0.4;
+  if ( n === 0 ) return 0;
+  if ( n === 1 ) return 1;
+  if ( !a || a < 1 ) { a = 1; s = p / 4; }
+  else s = p * Math.asin( 1 / a ) / ( 2 * Math.PI );
+  if ( ( n *= 2 ) < 1 ) return - 0.5 * ( a * Math.pow( 2, 10 * ( n -= 1 ) ) * Math.sin( ( n - s ) * ( 2 * Math.PI ) / p ) );
+  return a * Math.pow( 2, -10 * ( n -= 1 ) ) * Math.sin( ( n - s ) * ( 2 * Math.PI ) / p ) * 0.5 + 1;
+};
+
+// aliases
 exports['in-quad'] = exports.inQuad;
 exports['out-quad'] = exports.outQuad;
 exports['in-out-quad'] = exports.inOutQuad;
@@ -1750,28 +1579,153 @@ exports['in-out-back'] = exports.inOutBack;
 exports['in-bounce'] = exports.inBounce;
 exports['out-bounce'] = exports.outBounce;
 exports['in-out-bounce'] = exports.inOutBounce;
+exports['in-elastic'] = exports.inElastic;
+exports['out-elastic'] = exports.outElastic;
+exports['in-out-elastic'] = exports.inOutElastic;
 
-},{}],15:[function(require,module,exports){
-/**
- * Module dependencies.
- */
+},{}],12:[function(require,module,exports){
+function Emitter(obj) {
+  if (obj) return mixin(obj);
+};
 
-var Tween = require('tween');
+function mixin(obj) {
+  for (var key in Emitter.prototype) {
+    obj[key] = Emitter.prototype[key];
+  }
+  return obj;
+}
+
+Emitter.prototype.on =
+Emitter.prototype.addEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
+    .push(fn);
+  return this;
+};
+
+Emitter.prototype.once = function(event, fn){
+  function on() {
+    this.off(event, on);
+    fn.apply(this, arguments);
+  }
+
+  on.fn = fn;
+  this.on(event, on);
+  return this;
+};
+
+Emitter.prototype.off =
+Emitter.prototype.removeListener =
+Emitter.prototype.removeAllListeners =
+Emitter.prototype.removeEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+
+  // all
+  if (0 == arguments.length) {
+    this._callbacks = {};
+    return this;
+  }
+
+  // specific event
+  var callbacks = this._callbacks['$' + event];
+  if (!callbacks) return this;
+
+  // remove all handlers
+  if (1 == arguments.length) {
+    delete this._callbacks['$' + event];
+    return this;
+  }
+
+  // remove specific handler
+  var cb;
+  for (var i = 0; i < callbacks.length; i++) {
+    cb = callbacks[i];
+    if (cb === fn || cb.fn === fn) {
+      callbacks.splice(i, 1);
+      break;
+    }
+  }
+
+  // Remove event specific arrays for event types that no
+  // one is subscribed for to avoid memory leak.
+  if (callbacks.length === 0) {
+    delete this._callbacks['$' + event];
+  }
+
+  return this;
+};
+
+Emitter.prototype.emit = function(event){
+  this._callbacks = this._callbacks || {};
+  var args = [].slice.call(arguments, 1)
+    , callbacks = this._callbacks['$' + event];
+
+  if (callbacks) {
+    callbacks = callbacks.slice(0);
+    for (var i = 0, len = callbacks.length; i < len; ++i) {
+      callbacks[i].apply(this, args);
+    }
+  }
+
+  return this;
+};
+
+Emitter.prototype.listeners = function(event){
+  this._callbacks = this._callbacks || {};
+  return this._callbacks['$' + event] || [];
+};
+
+Emitter.prototype.hasListeners = function(event){
+  return !! this.listeners(event).length;
+};
+
+if (typeof module !== 'undefined') {
+  module.exports = Emitter;
+}
+
+},{}],13:[function(require,module,exports){
+var scroll = require('./scroll-to');
+
+function calculateScrollOffset(elem, additionalOffset, alignment) {
+  var body = document.body,
+      html = document.documentElement;
+
+  var elemRect = elem.getBoundingClientRect();
+  var clientHeight = html.clientHeight;
+  var documentHeight = Math.max( body.scrollHeight, body.offsetHeight,
+                                 html.clientHeight, html.scrollHeight, html.offsetHeight );
+
+  additionalOffset = additionalOffset || 0;
+
+  var scrollPosition;
+  if (alignment === 'bottom') {
+    scrollPosition = elemRect.bottom - clientHeight;
+  } else if (alignment === 'middle') {
+    scrollPosition = elemRect.bottom - clientHeight / 2 - elemRect.height / 2;
+  } else { // top and default
+    scrollPosition = elemRect.top;
+  }
+
+  var maxScrollPosition = documentHeight - clientHeight;
+  return Math.min(scrollPosition + additionalOffset + window.pageYOffset,
+                  maxScrollPosition);
+}
+
+module.exports = function (elem, options) {
+  options = options || {};
+  if (typeof elem === 'string') elem = document.querySelector(elem);
+  if (elem) return scroll(0, calculateScrollOffset(elem, options.offset, options.align), options);
+};
+
+},{"./scroll-to":14}],14:[function(require,module,exports){
+var Tween = require('./tween');
 var raf = require('raf');
 
-/**
- * Expose `scrollTo`.
- */
-
-module.exports = scrollTo;
-
-/**
- * Scroll to `(x, y)`.
- *
- * @param {Number} x
- * @param {Number} y
- * @api public
- */
+function scroll() {
+  var y = window.pageYOffset || document.documentElement.scrollTop;
+  var x = window.pageXOffset || document.documentElement.scrollLeft;
+  return { top: y, left: x };
+}
 
 function scrollTo(x, y, options) {
   options = options || {};
@@ -1802,24 +1756,107 @@ function scrollTo(x, y, options) {
   }
 
   animate();
-  
+
   return tween;
 }
 
-/**
- * Return scroll position.
- *
- * @return {Object}
- * @api private
- */
+module.exports = scrollTo;
 
-function scroll() {
-  var y = window.pageYOffset || document.documentElement.scrollTop;
-  var x = window.pageXOffset || document.documentElement.scrollLeft;
-  return { top: y, left: x };
+},{"./tween":15,"raf":9}],15:[function(require,module,exports){
+var ease = require('./ease');
+var Emitter = require('./emitter');
+
+function Tween(obj) {
+  if (!(this instanceof Tween)) return new Tween(obj);
+  this._from = obj;
+  this.ease('linear');
+  this.duration(500);
 }
 
-},{"raf":11,"tween":12}],16:[function(require,module,exports){
+Emitter(Tween.prototype);
+
+Tween.prototype.reset = function(){
+  this.isArray = Object.prototype.toString.call(this._from) === '[object Array]';
+  this._curr = Object.assign({}, this._from);
+  this._done = false;
+  this._start = Date.now();
+  return this;
+};
+
+Tween.prototype.to = function(obj){
+  this.reset();
+  this._to = obj;
+  return this;
+};
+
+Tween.prototype.duration = function(ms){
+  this._duration = ms;
+  return this;
+};
+
+Tween.prototype.ease = function(fn){
+  fn = 'function' == typeof fn ? fn : ease[fn];
+  if (!fn) throw new TypeError('invalid easing function');
+  this._ease = fn;
+  return this;
+};
+
+Tween.prototype.stop = function(){
+  this.stopped = true;
+  this._done = true;
+  this.emit('stop');
+  this.emit('end');
+  return this;
+};
+
+Tween.prototype.step = function(){
+  if (this._done) return;
+
+  var duration = this._duration;
+  var now = Date.now();
+  var delta = now - this._start;
+  var done = delta >= duration;
+
+  if (done) {
+    this._from = this._to;
+    this._update(this._to);
+    this._done = true;
+    this.emit('end');
+    return this;
+  }
+
+  var from = this._from;
+  var to = this._to;
+  var curr = this._curr;
+  var fn = this._ease;
+  var p = (now - this._start) / duration;
+  var n = fn(p);
+
+  if (this.isArray) {
+    for (var i = 0; i < from.length; ++i) {
+      curr[i] = from[i] + (to[i] - from[i]) * n;
+    }
+
+    this._update(curr);
+    return this;
+  }
+
+  for (var k in from) {
+    curr[k] = from[k] + (to[k] - from[k]) * n;
+  }
+
+  this._update(curr);
+  return this;
+};
+
+Tween.prototype.update = function(fn){
+  if (0 == arguments.length) return this.step();
+  this._update = fn;
+  return this;
+};
+
+module.exports = Tween;
+},{"./ease":11,"./emitter":12}],16:[function(require,module,exports){
 /*!
  * EventEmitter v5.2.5 - git.io/ee
  * Unlicense - http://unlicense.org/

@@ -429,6 +429,10 @@ msgstr ""
 msgid "Integrations"
 msgstr ""
 
+#: includes/integrations/class-integration.php:68
+msgid "Sign me up for the newsletter!"
+msgstr ""
+
 #: includes/views/general-settings.php:7, includes/views/other-settings.php:58, includes/forms/views/edit-form.php:22, includes/integrations/views/integration-settings.php:8, includes/integrations/views/integrations.php:57
 msgid "You are here: "
 msgstr ""
