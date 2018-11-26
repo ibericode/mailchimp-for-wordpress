@@ -52,8 +52,8 @@ function handleFormRequest(form, eventName, errors, data){
 
 			// for BC: always trigger "subscribed" event when firing "updated_subscriber" event
 			if( eventName === 'updated_subscriber' ) {
-				forms.trigger('subscribed', [form, data]);
-				forms.trigger(form.id + "." + "subscribed", [form, data]);
+				forms.trigger('subscribed', [form, data, true]);
+				forms.trigger(form.id + "." + "subscribed", [form, data, true]);
 			}
 
 		}
