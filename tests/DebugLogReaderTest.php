@@ -57,6 +57,6 @@ class DebugLogReaderTest extends TestCase {
 	 */
 	public function test_read_as_html() {
 		$reader = new MC4WP_Debug_Log_Reader( $this->file );
-        self::assertRegExp('/^<span .*>\[([0-9-: ]+)\]<\/span> <span .*>(INFO|WARNING|ERROR)\:<\/span> <span .*>(.*)<\/span>\n$/', $reader->read_as_html() );
+        self::assertRegExp('/^<span .*>\[([0-9-: ]+)\]<\/span> <span .*>(INFO|WARNING|ERROR)\:<\/span> <span .*>(.*)<\/span>$/', $reader->read_as_html() );
 	}
 }
