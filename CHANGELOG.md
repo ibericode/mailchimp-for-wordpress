@@ -1,6 +1,19 @@
 Changelog
 =========
 
+#### 4.3 - November 28, 2018
+
+**Additions**
+
+- Added `MC4WP_API_KEY` PHP constant which can be used to set your MailChimp API key.
+- Add `mc4wp_mailchimp_list_limit` filter hook to modify the maximum number of MailChimp lists to fetch. Defaults to 200.
+
+**Improvements**
+
+- Apply `mc4wp_integration_gravity-forms_options` filter hook on Gravity Forms integration options so the checkbox can be prechecked and the checkbox label text modified.
+- The `updated_subscriber` JS event is now fired forms not using AJAX as well (when applicable).
+
+
 #### 4.2.5 - Sep 11, 2018
 
 **Improvements**
