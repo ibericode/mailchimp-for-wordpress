@@ -1,6 +1,13 @@
 Changelog
 =========
 
+#### 4.3.1 - November 28, 2018
+
+**Fixes**
+
+- Fatal error on PHP versions older than 5.5
+
+
 #### 4.3 - November 28, 2018
 
 **Additions**
