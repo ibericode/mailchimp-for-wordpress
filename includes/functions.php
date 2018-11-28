@@ -66,7 +66,7 @@ function mc4wp_get_options()
  */
 function mc4wp_get_api_key() {
     // try to get from constant
-    if( defined( 'MC4WP_API_KEY' ) && ! empty( MC4WP_API_KEY ) ) {
+    if( defined( 'MC4WP_API_KEY' ) && constant( 'MC4WP_API_KEY' ) !== '' ) {
         return MC4WP_API_KEY;
     }
 
