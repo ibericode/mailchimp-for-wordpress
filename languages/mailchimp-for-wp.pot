@@ -65,27 +65,27 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: includes/admin/class-admin.php:423
+#: includes/admin/class-admin.php:424
 msgid "Error connecting to MailChimp:"
 msgstr ""
 
-#: includes/admin/class-admin.php:426
+#: includes/admin/class-admin.php:427
 msgid "Looks like your server is blocked by MailChimp's firewall. Please contact MailChimp support and include the following reference number: %s"
 msgstr ""
 
-#: includes/admin/class-admin.php:429
+#: includes/admin/class-admin.php:430
 msgid "Here's some info on solving common connectivity issues."
 msgstr ""
 
-#: includes/admin/class-admin.php:434
+#: includes/admin/class-admin.php:435
 msgid "MailChimp returned the following error:"
 msgstr ""
 
-#: includes/admin/class-admin.php:473
+#: includes/admin/class-admin.php:474
 msgid "Log successfully emptied."
 msgstr ""
 
-#: includes/admin/class-admin.php:503
+#: includes/admin/class-admin.php:504
 msgid "To get started with MailChimp for WordPress, please <a href=\"%s\">enter your MailChimp API key on the settings page of the plugin</a>."
 msgstr ""
 
@@ -467,6 +467,10 @@ msgstr ""
 
 #: includes/views/general-settings.php:56
 msgid "Get your API key here."
+msgstr ""
+
+#: includes/views/general-settings.php:60
+msgid "You defined your MailChimp API key using the <code>MC4WP_API_KEY</code> constant."
 msgstr ""
 
 #: includes/views/other-settings.php:14
