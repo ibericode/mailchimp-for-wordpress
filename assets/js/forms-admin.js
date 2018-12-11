@@ -2,219 +2,220 @@
 'use strict';
 
 var rows = function rows(m, i18n) {
+  var r = {};
 
-	var r = {};
+  r.showType = function (config) {
+    // ucfirst
+    var fieldType = config.type();
+    fieldType = fieldType.charAt(0).toUpperCase() + fieldType.slice(1);
+    return m('div', [m("label", i18n.fieldType), m('span', fieldType)]);
+  };
 
-	r.showType = function (config) {
-		// ucfirst
-		var fieldType = config.type();
-		fieldType = fieldType.charAt(0).toUpperCase() + fieldType.slice(1);
+  r.label = function (config) {
+    // label row
+    return m("div", [m("label", i18n.fieldLabel), m("input.widefat", {
+      type: "text",
+      value: config.label(),
+      onchange: m.withAttr('value', config.label),
+      placeholder: config.title()
+    })]);
+  };
 
-		return m('div', [m("label", i18n.fieldType), m('span', fieldType)]);
-	};
+  r.value = function (config) {
+    var isHidden = config.type() === 'hidden';
+    return m("div", [m("label", [isHidden ? i18n.value : i18n.initialValue, " ", isHidden ? '' : m('small', {
+      "style": "float: right; font-weight: normal;"
+    }, i18n.optional)]), m("input.widefat", {
+      type: "text",
+      value: config.value(),
+      onchange: m.withAttr('value', config.value)
+    }), isHidden ? '' : m('p.help', i18n.valueHelp)]);
+  };
 
-	r.label = function (config) {
-		// label row
-		return m("div", [m("label", i18n.fieldLabel), m("input.widefat", {
-			type: "text",
-			value: config.label(),
-			onchange: m.withAttr('value', config.label),
-			placeholder: config.title()
-		})]);
-	};
+  r.numberMinMax = function (config) {
+    return m('div', [m('div.row', [m('div.col.col-3', [m('label', i18n.min), m('input', {
+      type: 'number',
+      onchange: m.withAttr('value', config.min)
+    })]), m('div.col.col-3', [m('label', i18n.max), m('input', {
+      type: 'number',
+      onchange: m.withAttr('value', config.max)
+    })])])]);
+  };
 
-	r.value = function (config) {
-		var isHidden = config.type() === 'hidden';
-		return m("div", [m("label", [isHidden ? i18n.value : i18n.initialValue, " ", isHidden ? '' : m('small', { "style": "float: right; font-weight: normal;" }, i18n.optional)]), m("input.widefat", {
-			type: "text",
-			value: config.value(),
-			onchange: m.withAttr('value', config.value)
-		}), isHidden ? '' : m('p.help', i18n.valueHelp)]);
-	};
+  r.isRequired = function (config) {
+    var inputAtts = {
+      type: 'checkbox',
+      checked: config.required(),
+      onchange: m.withAttr('checked', config.required)
+    };
+    var desc;
 
-	r.numberMinMax = function (config) {
-		return m('div', [m('div.row', [m('div.col.col-3', [m('label', i18n.min), m('input', { type: 'number', onchange: m.withAttr('value', config.min) })]), m('div.col.col-3', [m('label', i18n.max), m('input', { type: 'number', onchange: m.withAttr('value', config.max) })])])]);
-	};
+    if (config.forceRequired()) {
+      inputAtts.required = true;
+      inputAtts.disabled = true;
+      desc = m('p.help', i18n.forceRequired);
+    }
 
-	r.isRequired = function (config) {
-		var inputAtts = {
-			type: 'checkbox',
-			checked: config.required(),
-			onchange: m.withAttr('checked', config.required)
-		};
-		var desc = void 0;
+    return m('div', [m('label.cb-wrap', [m('input', inputAtts), i18n.isFieldRequired]), desc]);
+  };
 
-		if (config.forceRequired()) {
-			inputAtts.required = true;
-			inputAtts.disabled = true;
-			desc = m('p.help', i18n.forceRequired);
-		}
+  r.placeholder = function (config) {
+    return m("div", [m("label", [i18n.placeholder, " ", m('small', {
+      "style": "float: right; font-weight: normal;"
+    }, i18n.optional)]), m("input.widefat", {
+      type: "text",
+      value: config.placeholder(),
+      onchange: m.withAttr('value', config.placeholder),
+      placeholder: ""
+    }), m("p.help", i18n.placeholderHelp)]);
+  };
 
-		return m('div', [m('label.cb-wrap', [m('input', inputAtts), i18n.isFieldRequired]), desc]);
-	};
+  r.useParagraphs = function (config) {
+    return m('div', [m('label.cb-wrap', [m('input', {
+      type: 'checkbox',
+      checked: config.wrap(),
+      onchange: m.withAttr('checked', config.wrap)
+    }), i18n.wrapInParagraphTags])]);
+  };
 
-	r.placeholder = function (config) {
+  r.choiceType = function (config) {
+    var options = [m('option', {
+      value: 'select',
+      selected: config.type() === 'select' ? 'selected' : false
+    }, i18n.dropdown), m('option', {
+      value: 'radio',
+      selected: config.type() === 'radio' ? 'selected' : false
+    }, i18n.radioButtons)]; // only add checkbox choice if field accepts multiple values
 
-		return m("div", [m("label", [i18n.placeholder, " ", m('small', { "style": "float: right; font-weight: normal;" }, i18n.optional)]), m("input.widefat", {
-			type: "text",
-			value: config.placeholder(),
-			onchange: m.withAttr('value', config.placeholder),
-			placeholder: ""
-		}), m("p.help", i18n.placeholderHelp)]);
-	};
+    if (config.acceptsMultipleValues) {
+      options.push(m('option', {
+        value: 'checkbox',
+        selected: config.type() === 'checkbox' ? 'selected' : false
+      }, i18n.checkboxes));
+    }
 
-	r.useParagraphs = function (config) {
-		return m('div', [m('label.cb-wrap', [m('input', {
-			type: 'checkbox',
-			checked: config.wrap(),
-			onchange: m.withAttr('checked', config.wrap)
-		}), i18n.wrapInParagraphTags])]);
-	};
+    return m('div', [m('label', i18n.choiceType), m('select', {
+      value: config.type(),
+      onchange: m.withAttr('value', config.type)
+    }, options)]);
+  };
 
-	r.choiceType = function (config) {
-		var options = [m('option', {
-			value: 'select',
-			selected: config.type() === 'select' ? 'selected' : false
-		}, i18n.dropdown), m('option', {
-			value: 'radio',
-			selected: config.type() === 'radio' ? 'selected' : false
-		}, i18n.radioButtons)];
+  r.choices = function (config) {
+    var html = [];
+    html.push(m('div', [m('label', i18n.choices), m('div.limit-height', [m("table", [// table body
+    config.choices().map(function (choice, index) {
+      return m('tr', {
+        'data-id': index
+      }, [m('td.cb', m('input', {
+        name: 'selected',
+        type: config.type() === 'checkbox' ? 'checkbox' : 'radio',
+        onchange: m.withAttr('value', config.selectChoice.bind(config)),
+        checked: choice.selected(),
+        value: choice.value(),
+        title: i18n.preselect
+      })), m('td.stretch', m('input.widefat', {
+        type: 'text',
+        value: choice.label(),
+        placeholder: choice.title(),
+        onchange: m.withAttr('value', choice.label)
+      })), m('td', m('span', {
+        "title": i18n.remove,
+        "class": 'dashicons dashicons-no-alt hover-activated',
+        "onclick": function (key) {
+          this.choices().splice(key, 1);
+        }.bind(config, index)
+      }, ''))]);
+    })]) // end of table
+    ]) // end of limit-height div
+    ]));
+    return html;
+  };
 
-		// only add checkbox choice if field accepts multiple values
-		if (config.acceptsMultipleValues) {
-			options.push(m('option', {
-				value: 'checkbox',
-				selected: config.type() === 'checkbox' ? 'selected' : false
-			}, i18n.checkboxes));
-		}
+  r.linkToTerms = function (config) {
+    // label row
+    return m("div", [m("label", i18n.agreeToTermsLink), m("input.widefat", {
+      type: "text",
+      value: config.link,
+      onchange: m.withAttr('value', config.link),
+      placeholder: 'https://...'
+    })]);
+  };
 
-		return m('div', [m('label', i18n.choiceType), m('select', {
-			value: config.type(),
-			onchange: m.withAttr('value', config.type)
-		}, options)]);
-	};
-
-	r.choices = function (config) {
-
-		var html = [];
-		html.push(m('div', [m('label', i18n.choices), m('div.limit-height', [m("table", [
-
-		// table body
-		config.choices().map(function (choice, index) {
-			return m('tr', {
-				'data-id': index
-			}, [m('td.cb', m('input', {
-				name: 'selected',
-				type: config.type() === 'checkbox' ? 'checkbox' : 'radio',
-				onchange: m.withAttr('value', config.selectChoice.bind(config)),
-				checked: choice.selected(),
-				value: choice.value(),
-				title: i18n.preselect
-			})), m('td.stretch', m('input.widefat', {
-				type: 'text',
-				value: choice.label(),
-				placeholder: choice.title(),
-				onchange: m.withAttr('value', choice.label)
-			})), m('td', m('span', {
-				"title": i18n.remove,
-				"class": 'dashicons dashicons-no-alt hover-activated',
-				"onclick": function (key) {
-					this.choices().splice(key, 1);
-				}.bind(config, index)
-			}, ''))]);
-		})]) // end of table
-		]) // end of limit-height div
-		]));
-
-		return html;
-	};
-
-	r.linkToTerms = function (config) {
-		// label row
-		return m("div", [m("label", i18n.agreeToTermsLink), m("input.widefat", {
-			type: "text",
-			value: config.link,
-			onchange: m.withAttr('value', config.link),
-			placeholder: 'https://...'
-		})]);
-	};
-	return r;
+  return r;
 };
 
 module.exports = rows;
 
 },{}],2:[function(require,module,exports){
-'use strict';
+"use strict";
 
 var forms = function forms(m, i18n) {
-	var forms = {};
-	var rows = require('./field-forms-rows.js')(m, i18n);
+  var forms = {};
 
-	// route to one of the other form configs, default to "text"
-	forms.render = function (config) {
+  var rows = require('./field-forms-rows.js')(m, i18n); // route to one of the other form configs, default to "text"
 
-		var type = config.type();
 
-		if (typeof forms[type] === "function") {
-			return forms[type](config);
-		}
+  forms.render = function (config) {
+    var type = config.type();
 
-		switch (type) {
-			case 'select':
-			case 'radio':
-			case 'checkbox':
-				return forms.choice(config);
-				break;
-		}
+    if (typeof forms[type] === "function") {
+      return forms[type](config);
+    }
 
-		// fallback to good old text field
-		return forms.text(config);
-	};
+    switch (type) {
+      case 'select':
+      case 'radio':
+      case 'checkbox':
+        return forms.choice(config);
+        break;
+    } // fallback to good old text field
 
-	forms.text = function (config) {
-		return [rows.label(config), rows.placeholder(config), rows.value(config), rows.isRequired(config), rows.useParagraphs(config)];
-	};
 
-	forms.choice = function (config) {
-		var visibleRows = [rows.label(config), rows.choiceType(config), rows.choices(config)];
+    return forms.text(config);
+  };
 
-		if (config.type() === 'select') {
-			visibleRows.push(rows.placeholder(config));
-		}
+  forms.text = function (config) {
+    return [rows.label(config), rows.placeholder(config), rows.value(config), rows.isRequired(config), rows.useParagraphs(config)];
+  };
 
-		visibleRows.push(rows.useParagraphs(config));
+  forms.choice = function (config) {
+    var visibleRows = [rows.label(config), rows.choiceType(config), rows.choices(config)];
 
-		if (config.type() === 'select' || config.type() === 'radio') {
-			visibleRows.push(rows.isRequired(config));
-		}
+    if (config.type() === 'select') {
+      visibleRows.push(rows.placeholder(config));
+    }
 
-		return visibleRows;
-	};
+    visibleRows.push(rows.useParagraphs(config));
 
-	forms.hidden = function (config) {
-		config.placeholder('');
-		config.label('');
-		config.wrap(false);
+    if (config.type() === 'select' || config.type() === 'radio') {
+      visibleRows.push(rows.isRequired(config));
+    }
 
-		return [rows.showType(config), rows.value(config)];
-	};
+    return visibleRows;
+  };
 
-	forms.submit = function (config) {
-		config.label('');
-		config.placeholder('');
+  forms.hidden = function (config) {
+    config.placeholder('');
+    config.label('');
+    config.wrap(false);
+    return [rows.showType(config), rows.value(config)];
+  };
 
-		return [rows.value(config), rows.useParagraphs(config)];
-	};
+  forms.submit = function (config) {
+    config.label('');
+    config.placeholder('');
+    return [rows.value(config), rows.useParagraphs(config)];
+  };
 
-	forms['terms-checkbox'] = function (config) {
-		return [rows.label(config), rows.linkToTerms(config), rows.isRequired(config), rows.useParagraphs(config)];
-	};
+  forms['terms-checkbox'] = function (config) {
+    return [rows.label(config), rows.linkToTerms(config), rows.isRequired(config), rows.useParagraphs(config)];
+  };
 
-	forms.number = function (config) {
-		return [forms.text(config), rows.numberMinMax(config)];
-	};
+  forms.number = function (config) {
+    return [forms.text(config), rows.numberMinMax(config)];
+  };
 
-	return forms;
+  return forms;
 };
 
 module.exports = forms;
@@ -225,517 +226,524 @@ module.exports = forms;
 var htmlutil = require('html');
 
 var setAttributes = function setAttributes(vnode) {
-	if (vnode.dom.checked) {
-		vnode.dom.setAttribute("checked", "true");
-	}
+  if (vnode.dom.checked) {
+    vnode.dom.setAttribute("checked", "true");
+  }
 
-	if (vnode.dom.value) {
-		vnode.dom.setAttribute('value', vnode.dom.value);
-	}
+  if (vnode.dom.value) {
+    vnode.dom.setAttribute('value', vnode.dom.value);
+  }
 
-	if (vnode.dom.selected) {
-		vnode.dom.setAttribute("selected", "true");
-	}
+  if (vnode.dom.selected) {
+    vnode.dom.setAttribute("selected", "true");
+  }
 };
 
 var g = function g(m) {
-	var generators = {};
+  var generators = {};
+  /**
+   * Generates a <select> field
+   * @param config
+   * @returns {*}
+   */
 
-	/**
-  * Generates a <select> field
-  * @param config
-  * @returns {*}
-  */
-	generators.select = function (config) {
-		var attributes = {
-			name: config.name(),
-			required: config.required()
-		};
-		var hasSelection = false;
+  generators.select = function (config) {
+    var attributes = {
+      name: config.name(),
+      required: config.required()
+    };
+    var hasSelection = false;
+    var options = config.choices().map(function (choice) {
+      if (choice.selected()) {
+        hasSelection = true;
+      }
 
-		var options = config.choices().map(function (choice) {
+      return m('option', {
+        value: choice.value() !== choice.label() ? choice.value() : undefined,
+        "selected": choice.selected(),
+        oncreate: setAttributes
+      }, choice.label());
+    });
+    var placeholder = config.placeholder();
 
-			if (choice.selected()) {
-				hasSelection = true;
-			}
+    if (placeholder.length > 0) {
+      options.unshift(m('option', {
+        'disabled': true,
+        'value': '',
+        'selected': !hasSelection,
+        oncreate: setAttributes
+      }, placeholder));
+    }
 
-			return m('option', {
-				value: choice.value() !== choice.label() ? choice.value() : undefined,
-				"selected": choice.selected(),
-				oncreate: setAttributes
-			}, choice.label());
-		});
+    return m('select', attributes, options);
+  };
 
-		var placeholder = config.placeholder();
-		if (placeholder.length > 0) {
-			options.unshift(m('option', {
-				'disabled': true,
-				'value': '',
-				'selected': !hasSelection,
-				oncreate: setAttributes
-			}, placeholder));
-		}
+  generators['terms-checkbox'] = function (config) {
+    var label;
 
-		return m('select', attributes, options);
-	};
+    if (config.link().length > 0) {
+      label = m('a', {
+        href: config.link(),
+        target: "_blank"
+      }, config.label());
+    } else {
+      label = config.label();
+    }
 
-	generators['terms-checkbox'] = function (config) {
-		var label = void 0;
+    return m('label', [m('input', {
+      name: config.name(),
+      type: 'checkbox',
+      value: config.value(),
+      required: config.required()
+    }), ' ', label]);
+  };
+  /**
+   * Generates a checkbox or radio type input field.
+   *
+   * @param config
+   * @returns {*}
+   */
 
-		if (config.link().length > 0) {
-			label = m('a', { href: config.link(), target: "_blank" }, config.label());
-		} else {
-			label = config.label();
-		}
 
-		return m('label', [m('input', {
-			name: config.name(),
-			type: 'checkbox',
-			value: config.value(),
-			required: config.required()
-		}), ' ', label]);
-	};
+  generators.checkbox = function (config) {
+    var fields = config.choices().map(function (choice) {
+      var name = config.name() + (config.type() === 'checkbox' ? '[]' : '');
+      var required = config.required() && config.type() === 'radio';
+      return m('label', [m('input', {
+        name: name,
+        type: config.type(),
+        value: choice.value(),
+        checked: choice.selected(),
+        required: required,
+        oncreate: setAttributes
+      }), ' ', m('span', choice.label())]);
+    });
+    return fields;
+  };
 
-	/**
-  * Generates a checkbox or radio type input field.
-  *
-  * @param config
-  * @returns {*}
-  */
-	generators.checkbox = function (config) {
-		var fields = config.choices().map(function (choice) {
-			var name = config.name() + (config.type() === 'checkbox' ? '[]' : '');
-			var required = config.required() && config.type() === 'radio';
+  generators.radio = generators.checkbox;
+  /**
+   * Generates a default field
+   *
+   * - text, url, number, email, date
+   *
+   * @param config
+   * @returns {*}
+   */
 
-			return m('label', [m('input', {
-				name: name,
-				type: config.type(),
-				value: choice.value(),
-				checked: choice.selected(),
-				required: required,
-				oncreate: setAttributes
-			}), ' ', m('span', choice.label())]);
-		});
+  generators['default'] = function (config) {
+    var attributes = {
+      type: config.type()
+    };
 
-		return fields;
-	};
-	generators.radio = generators.checkbox;
+    if (config.name()) {
+      attributes.name = config.name();
+    }
 
-	/**
-  * Generates a default field
-  *
-  * - text, url, number, email, date
-  *
-  * @param config
-  * @returns {*}
-  */
-	generators['default'] = function (config) {
-		var attributes = {
-			type: config.type()
-		};
+    if (config.min()) {
+      attributes.min = config.min();
+    }
 
-		if (config.name()) {
-			attributes.name = config.name();
-		}
+    if (config.max()) {
+      attributes.max = config.max();
+    }
 
-		if (config.min()) {
-			attributes.min = config.min();
-		}
+    if (config.value().length > 0) {
+      attributes.value = config.value();
+    }
 
-		if (config.max()) {
-			attributes.max = config.max();
-		}
+    if (config.placeholder().length > 0) {
+      attributes.placeholder = config.placeholder();
+    }
 
-		if (config.value().length > 0) {
-			attributes.value = config.value();
-		}
+    attributes.required = config.required();
+    attributes.oncreate = setAttributes;
+    return m('input', attributes);
+  };
+  /**
+   * Generates an HTML string based on a field (config) object
+   *
+   * @param config
+   * @returns {*}
+   */
 
-		if (config.placeholder().length > 0) {
-			attributes.placeholder = config.placeholder();
-		}
 
-		attributes.required = config.required();
-		attributes.oncreate = setAttributes;
+  function generate(config) {
+    var label,
+        field,
+        htmlTemplate,
+        html,
+        vdom = document.createElement('div');
+    label = config.label().length > 0 && config.showLabel() ? m("label", {}, config.label()) : '';
+    field = typeof generators[config.type()] === "function" ? generators[config.type()](config) : generators['default'](config);
+    htmlTemplate = config.wrap() ? m('p', [label, field]) : [label, field]; // render in vdom
 
-		return m('input', attributes);
-	};
+    m.render(vdom, htmlTemplate); // prettify html
 
-	/**
-  * Generates an HTML string based on a field (config) object
-  *
-  * @param config
-  * @returns {*}
-  */
-	function generate(config) {
-		var label = void 0,
-		    field = void 0,
-		    htmlTemplate = void 0,
-		    html = void 0,
-		    vdom = document.createElement('div');
+    html = htmlutil.prettyPrint(vdom.innerHTML);
+    return html + "\n";
+  }
 
-		label = config.label().length > 0 && config.showLabel() ? m("label", {}, config.label()) : '';
-		field = typeof generators[config.type()] === "function" ? generators[config.type()](config) : generators['default'](config);
-		htmlTemplate = config.wrap() ? m('p', [label, field]) : [label, field];
-
-		// render in vdom
-		m.render(vdom, htmlTemplate);
-
-		// prettify html
-		html = htmlutil.prettyPrint(vdom.innerHTML);
-
-		return html + "\n";
-	}
-
-	return generate;
+  return generate;
 };
 
 module.exports = g;
 
 },{"html":22}],4:[function(require,module,exports){
-'use strict';
+"use strict";
 
 var FieldHelper = function FieldHelper(m, tabs, editor, fields, events, i18n) {
-	'use strict';
+  'use strict';
 
-	var generate = require('./field-generator.js')(m);
-	var overlay = require('./overlay.js')(m, i18n);
-	var forms = require('./field-forms.js')(m, i18n);
-	var fieldConfig;
+  var generate = require('./field-generator.js')(m);
 
-	editor.on('blur', m.redraw);
+  var overlay = require('./overlay.js')(m, i18n);
 
-	/**
-  * Choose a field to open the helper form for
-  *
-  * @param index
-  * @returns {*}
-  */
-	function setActiveField(index) {
+  var forms = require('./field-forms.js')(m, i18n);
 
-		fieldConfig = fields.get(index);
+  var fieldConfig;
+  editor.on('blur', m.redraw);
+  /**
+   * Choose a field to open the helper form for
+   *
+   * @param index
+   * @returns {*}
+   */
 
-		// if this hidden field has choices (hidden groups), glue them together by their label.
-		if (fieldConfig && fieldConfig.choices().length > 0) {
-			fieldConfig.value(fieldConfig.choices().map(function (c) {
-				return c.label();
-			}).join('|'));
-		}
+  function setActiveField(index) {
+    fieldConfig = fields.get(index); // if this hidden field has choices (hidden groups), glue them together by their label.
 
-		m.redraw();
-	}
+    if (fieldConfig && fieldConfig.choices().length > 0) {
+      fieldConfig.value(fieldConfig.choices().map(function (c) {
+        return c.label();
+      }).join('|'));
+    }
 
-	/**
-  * Controller
-  */
-	function controller() {}
+    m.redraw();
+  }
+  /**
+   * Controller
+   */
 
-	/**
-  * Create HTML based on current config object
-  */
-	function createFieldHTMLAndAddToForm() {
 
-		// generate html
-		var html = generate(fieldConfig);
+  function controller() {}
+  /**
+   * Create HTML based on current config object
+   */
 
-		// add to editor
-		editor.insert(html);
 
-		// reset field form
-		setActiveField('');
+  function createFieldHTMLAndAddToForm() {
+    // generate html
+    var html = generate(fieldConfig); // add to editor
 
-		// redraw
-		m.redraw();
-	}
+    editor.insert(html); // reset field form
 
-	/**
-  * View
-  * @returns {*}
-  */
-	function view() {
+    setActiveField(''); // redraw
 
-		// build DOM for fields choice
-		var fieldCategories = fields.getCategories();
-		var availableFields = fields.getAll();
+    m.redraw();
+  }
+  /**
+   * View
+   * @returns {*}
+   */
 
-		var fieldsChoice = m("div.available-fields.small-margin", [m("h4", i18n.chooseField), fieldCategories.map(function (category) {
-			var categoryFields = availableFields.filter(function (f) {
-				return f.category === category;
-			});
 
-			if (!categoryFields.length) {
-				return;
-			}
+  function view() {
+    // build DOM for fields choice
+    var fieldCategories = fields.getCategories();
+    var availableFields = fields.getAll();
+    var fieldsChoice = m("div.available-fields.small-margin", [m("h4", i18n.chooseField), fieldCategories.map(function (category) {
+      var categoryFields = availableFields.filter(function (f) {
+        return f.category === category;
+      });
 
-			return m("div.tiny-margin", [m("strong", category),
+      if (!categoryFields.length) {
+        return;
+      }
 
-			// render fields
-			categoryFields.map(function (field) {
-				var className = "button";
-				if (field.forceRequired()) {
-					className += " is-required";
-				}
+      return m("div.tiny-margin", [m("strong", category), // render fields
+      categoryFields.map(function (field) {
+        var className = "button";
 
-				var inForm = field.inFormContent();
-				if (inForm !== null) {
-					className += " " + (inForm ? 'in-form' : 'not-in-form');
-				}
+        if (field.forceRequired()) {
+          className += " is-required";
+        }
 
-				return m("button", {
-					className: className,
-					type: 'button',
-					onclick: m.withAttr("value", setActiveField),
-					value: field.index
-				}, field.title());
-			})]);
-		})]);
+        var inForm = field.inFormContent();
 
-		// build DOM for overlay
-		var form = null;
-		if (fieldConfig) {
-			form = m(overlay(
-			// field wizard
-			m("div.field-wizard", [
+        if (inForm !== null) {
+          className += " " + (inForm ? 'in-form' : 'not-in-form');
+        }
 
-			//heading
-			m("h3", [fieldConfig.title(), fieldConfig.forceRequired() ? m('span.red', '*') : '', fieldConfig.name().length ? m("code", fieldConfig.name()) : '']),
+        return m("button", {
+          className: className,
+          type: 'button',
+          onclick: m.withAttr("value", setActiveField),
+          value: field.index
+        }, field.title());
+      })]);
+    })]); // build DOM for overlay
 
-			// help text
-			fieldConfig.help().length ? m('p', m.trust(fieldConfig.help())) : '',
+    var form = null;
 
-			// actual form
-			forms.render(fieldConfig),
+    if (fieldConfig) {
+      form = m(overlay( // field wizard
+      m("div.field-wizard", [//heading
+      m("h3", [fieldConfig.title(), fieldConfig.forceRequired() ? m('span.red', '*') : '', fieldConfig.name().length ? m("code", fieldConfig.name()) : '']), // help text
+      fieldConfig.help().length ? m('p', m.trust(fieldConfig.help())) : '', // actual form
+      forms.render(fieldConfig), // add to form button
+      m("p", [m("button", {
+        "class": "button-primary",
+        type: "button",
+        onkeydown: function onkeydown(e) {
+          e = e || window.event;
 
-			// add to form button
-			m("p", [m("button", {
-				"class": "button-primary",
-				type: "button",
-				onkeydown: function onkeydown(e) {
-					e = e || window.event;
-					if (e.keyCode == 13) {
-						createFieldHTMLAndAddToForm();
-					}
-				},
-				onclick: createFieldHTMLAndAddToForm
-			}, i18n.addToForm)])]), setActiveField));
-		}
+          if (e.keyCode == 13) {
+            createFieldHTMLAndAddToForm();
+          }
+        },
+        onclick: createFieldHTMLAndAddToForm
+      }, i18n.addToForm)])]), setActiveField));
+    }
 
-		return [fieldsChoice, form];
-	}
+    return [fieldsChoice, form];
+  } // expose some variables
 
-	// expose some variables
-	return {
-		view: view,
-		controller: controller
-	};
+
+  return {
+    view: view,
+    controller: controller
+  };
 };
 
 module.exports = FieldHelper;
 
 },{"./field-forms.js":2,"./field-generator.js":3,"./overlay.js":10}],5:[function(require,module,exports){
-'use strict';
+"use strict";
 
 var FieldFactory = function FieldFactory(fields, i18n) {
-    'use strict';
+  'use strict';
+  /**
+   * Array of registered fields
+   *
+   * @type {Array}
+   */
 
-    /**
-     * Array of registered fields
-     *
-     * @type {Array}
-     */
+  var registeredFields = [];
+  /**
+   * Reset all previously registered fields
+   */
 
-    var registeredFields = [];
+  function reset() {
+    // clear all of our fields
+    registeredFields.forEach(fields.deregister);
+  }
+  /**
+   * Helper function to quickly register a field and store it in local scope
+   *
+   * @param {object} data
+   * @param {boolean} sticky
+   */
 
-    /**
-     * Reset all previously registered fields
-     */
-    function reset() {
-        // clear all of our fields
-        registeredFields.forEach(fields.deregister);
+
+  function register(category, data, sticky) {
+    var field = fields.register(category, data);
+
+    if (!sticky) {
+      registeredFields.push(field);
     }
+  }
+  /**
+   * Normalizes the field type which is passed by MailChimp
+   *
+   * @param type
+   * @returns {*}
+   */
 
-    /**
-     * Helper function to quickly register a field and store it in local scope
-     *
-     * @param {object} data
-     * @param {boolean} sticky
-     */
-    function register(category, data, sticky) {
-        var field = fields.register(category, data);
 
-        if (!sticky) {
-            registeredFields.push(field);
-        }
-    }
-
-    /**
-     * Normalizes the field type which is passed by MailChimp
-     *
-     * @param type
-     * @returns {*}
-     */
-    function getFieldType(type) {
-
-        var map = {
-            'phone': 'tel',
-            'dropdown': 'select',
-            'checkboxes': 'checkbox',
-            'birthday': 'text'
-        };
-
-        return typeof map[type] !== "undefined" ? map[type] : type;
-    }
-
-    /**
-     * Register the various fields for a merge var
-     *
-     * @param mergeField
-     * @returns {boolean}
-     */
-    function registerMergeField(mergeField) {
-
-        var category = i18n.listFields;
-        var fieldType = getFieldType(mergeField.field_type);
-
-        // name, type, title, value, required, label, placeholder, choices, wrap
-        var data = {
-            name: mergeField.tag,
-            title: mergeField.name,
-            required: mergeField.required,
-            forceRequired: mergeField.required,
-            type: fieldType,
-            choices: mergeField.choices,
-            acceptsMultipleValues: false // merge fields never accept multiple values.
-        };
-
-        if (data.type !== 'address') {
-            register(category, data, false);
-        } else {
-            register(category, { name: data.name + '[addr1]', type: 'text', mailchimpType: 'address', title: i18n.streetAddress });
-            register(category, { name: data.name + '[city]', type: 'text', mailchimpType: 'address', title: i18n.city });
-            register(category, { name: data.name + '[state]', type: 'text', mailchimpType: 'address', title: i18n.state });
-            register(category, { name: data.name + '[zip]', type: 'text', mailchimpType: 'address', title: i18n.zip });
-            register(category, { name: data.name + '[country]', type: 'select', mailchimpType: 'address', title: i18n.country, choices: mc4wp_vars.countries });
-        }
-
-        return true;
-    }
-
-    /**
-     * Register a field for a MailChimp grouping
-     *
-     * @param interestCategory
-     */
-    function registerInterestCategory(interestCategory) {
-        var category = i18n.interestCategories;
-        var fieldType = getFieldType(interestCategory.field_type);
-
-        var data = {
-            title: interestCategory.name,
-            name: 'INTERESTS[' + interestCategory.id + ']',
-            type: fieldType,
-            choices: interestCategory.interests,
-            acceptsMultipleValues: fieldType === 'checkbox'
-        };
-        register(category, data, false);
-    }
-
-    /**
-     * Register all fields belonging to a list
-     *
-     * @param list
-     */
-    function registerListFields(list) {
-
-        // make sure EMAIL && public fields come first
-        list.merge_fields = list.merge_fields.sort(function (a, b) {
-            if (a.tag === 'EMAIL' || a.public && !b.public) {
-                return -1;
-            }
-
-            if (!a.public && b.public) {
-                return 1;
-            }
-
-            return 0;
-        });
-
-        // loop through merge vars
-        list.merge_fields.forEach(registerMergeField);
-
-        // loop through groupings
-        list.interest_categories.forEach(registerInterestCategory);
-    }
-
-    /**
-     * Register all lists fields
-     *
-     * @param lists
-     */
-    function registerListsFields(lists) {
-        reset();
-        lists.forEach(registerListFields);
-    }
-
-    function registerCustomFields(lists) {
-
-        var choices,
-            category = i18n.formFields;
-
-        // register submit button
-        register(category, {
-            name: '',
-            value: i18n.subscribe,
-            type: "submit",
-            title: i18n.submitButton
-        }, true);
-
-        // register lists choice field
-        choices = {};
-        for (var key in lists) {
-            choices[lists[key].id] = lists[key].name;
-        }
-
-        register(category, {
-            name: '_mc4wp_lists',
-            type: 'checkbox',
-            title: i18n.listChoice,
-            choices: choices,
-            help: i18n.listChoiceDescription,
-            acceptsMultipleValues: true
-        }, true);
-
-        choices = {
-            'subscribe': "Subscribe",
-            'unsubscribe': "Unsubscribe"
-        };
-        register(category, {
-            name: '_mc4wp_action',
-            type: 'radio',
-            title: i18n.formAction,
-            choices: choices,
-            value: 'subscribe',
-            help: i18n.formActionDescription
-        }, true);
-
-        register(category, {
-            name: 'AGREE_TO_TERMS',
-            value: 1,
-            type: "terms-checkbox",
-            label: i18n.agreeToTerms,
-            title: i18n.agreeToTermsShort,
-            showLabel: false,
-            required: true
-        }, true);
-    }
-
-    /**
-     * Expose some methods
-     */
-    return {
-        'registerCustomFields': registerCustomFields,
-        'registerListFields': registerListFields,
-        'registerListsFields': registerListsFields
+  function getFieldType(type) {
+    var map = {
+      'phone': 'tel',
+      'dropdown': 'select',
+      'checkboxes': 'checkbox',
+      'birthday': 'text'
     };
+    return typeof map[type] !== "undefined" ? map[type] : type;
+  }
+  /**
+   * Register the various fields for a merge var
+   *
+   * @param mergeField
+   * @returns {boolean}
+   */
+
+
+  function registerMergeField(mergeField) {
+    var category = i18n.listFields;
+    var fieldType = getFieldType(mergeField.field_type); // name, type, title, value, required, label, placeholder, choices, wrap
+
+    var data = {
+      name: mergeField.tag,
+      title: mergeField.name,
+      required: mergeField.required,
+      forceRequired: mergeField.required,
+      type: fieldType,
+      choices: mergeField.choices,
+      acceptsMultipleValues: false // merge fields never accept multiple values.
+
+    };
+
+    if (data.type !== 'address') {
+      register(category, data, false);
+    } else {
+      register(category, {
+        name: data.name + '[addr1]',
+        type: 'text',
+        mailchimpType: 'address',
+        title: i18n.streetAddress
+      });
+      register(category, {
+        name: data.name + '[city]',
+        type: 'text',
+        mailchimpType: 'address',
+        title: i18n.city
+      });
+      register(category, {
+        name: data.name + '[state]',
+        type: 'text',
+        mailchimpType: 'address',
+        title: i18n.state
+      });
+      register(category, {
+        name: data.name + '[zip]',
+        type: 'text',
+        mailchimpType: 'address',
+        title: i18n.zip
+      });
+      register(category, {
+        name: data.name + '[country]',
+        type: 'select',
+        mailchimpType: 'address',
+        title: i18n.country,
+        choices: mc4wp_vars.countries
+      });
+    }
+
+    return true;
+  }
+  /**
+   * Register a field for a MailChimp grouping
+   *
+   * @param interestCategory
+   */
+
+
+  function registerInterestCategory(interestCategory) {
+    var category = i18n.interestCategories;
+    var fieldType = getFieldType(interestCategory.field_type);
+    var data = {
+      title: interestCategory.name,
+      name: 'INTERESTS[' + interestCategory.id + ']',
+      type: fieldType,
+      choices: interestCategory.interests,
+      acceptsMultipleValues: fieldType === 'checkbox'
+    };
+    register(category, data, false);
+  }
+  /**
+   * Register all fields belonging to a list
+   *
+   * @param list
+   */
+
+
+  function registerListFields(list) {
+    // make sure EMAIL && public fields come first
+    list.merge_fields = list.merge_fields.sort(function (a, b) {
+      if (a.tag === 'EMAIL' || a.public && !b.public) {
+        return -1;
+      }
+
+      if (!a.public && b.public) {
+        return 1;
+      }
+
+      return 0;
+    }); // loop through merge vars
+
+    list.merge_fields.forEach(registerMergeField); // loop through groupings
+
+    list.interest_categories.forEach(registerInterestCategory);
+  }
+  /**
+   * Register all lists fields
+   *
+   * @param lists
+   */
+
+
+  function registerListsFields(lists) {
+    reset();
+    lists.forEach(registerListFields);
+  }
+
+  function registerCustomFields(lists) {
+    var choices,
+        category = i18n.formFields; // register submit button
+
+    register(category, {
+      name: '',
+      value: i18n.subscribe,
+      type: "submit",
+      title: i18n.submitButton
+    }, true); // register lists choice field
+
+    choices = {};
+
+    for (var key in lists) {
+      choices[lists[key].id] = lists[key].name;
+    }
+
+    register(category, {
+      name: '_mc4wp_lists',
+      type: 'checkbox',
+      title: i18n.listChoice,
+      choices: choices,
+      help: i18n.listChoiceDescription,
+      acceptsMultipleValues: true
+    }, true);
+    choices = {
+      'subscribe': "Subscribe",
+      'unsubscribe': "Unsubscribe"
+    };
+    register(category, {
+      name: '_mc4wp_action',
+      type: 'radio',
+      title: i18n.formAction,
+      choices: choices,
+      value: 'subscribe',
+      help: i18n.formActionDescription
+    }, true);
+    register(category, {
+      name: 'AGREE_TO_TERMS',
+      value: 1,
+      type: "terms-checkbox",
+      label: i18n.agreeToTerms,
+      title: i18n.agreeToTermsShort,
+      showLabel: false,
+      required: true
+    }, true);
+  }
+  /**
+   * Expose some methods
+   */
+
+
+  return {
+    'registerCustomFields': registerCustomFields,
+    'registerListFields': registerListFields,
+    'registerListsFields': registerListsFields
+  };
 };
 
 module.exports = FieldFactory;
@@ -746,435 +754,444 @@ module.exports = FieldFactory;
 var prop = require("mithril/stream");
 
 module.exports = function (m, events) {
-    var timeout;
-    var fields = [];
-    var categories = [];
+  var timeout;
+  var fields = [];
+  var categories = [];
+  /**
+   * @internal
+   *
+   *
+   * @param data
+   * @constructor
+   */
 
-    /**
-     * @internal
-     *
-     *
-     * @param data
-     * @constructor
-     */
-    var Field = function Field(data) {
-        this.name = prop(data.name);
-        this.title = prop(data.title || data.name);
-        this.type = prop(data.type);
-        this.mailchimpType = prop(data.mailchimpType || '');
-        this.label = prop(data.label || data.title || '');
-        this.showLabel = prop(data.showLabel !== undefined ? data.showLabel : true);
-        this.value = prop(data.value || '');
-        this.placeholder = prop(data.placeholder || '');
-        this.required = prop(data.required || false);
-        this.forceRequired = prop(data.forceRequired || false);
-        this.wrap = prop(data.wrap !== undefined ? data.wrap : true);
-        this.min = prop(data.min || null);
-        this.max = prop(data.max || null);
-        this.help = prop(data.help || '');
-        this.choices = prop(data.choices || []);
-        this.inFormContent = prop(null);
-        this.acceptsMultipleValues = data.acceptsMultipleValues;
-        this.link = prop(data.link || '');
+  var Field = function Field(data) {
+    this.name = prop(data.name);
+    this.title = prop(data.title || data.name);
+    this.type = prop(data.type);
+    this.mailchimpType = prop(data.mailchimpType || '');
+    this.label = prop(data.label || data.title || '');
+    this.showLabel = prop(data.showLabel !== undefined ? data.showLabel : true);
+    this.value = prop(data.value || '');
+    this.placeholder = prop(data.placeholder || '');
+    this.required = prop(data.required || false);
+    this.forceRequired = prop(data.forceRequired || false);
+    this.wrap = prop(data.wrap !== undefined ? data.wrap : true);
+    this.min = prop(data.min || null);
+    this.max = prop(data.max || null);
+    this.help = prop(data.help || '');
+    this.choices = prop(data.choices || []);
+    this.inFormContent = prop(null);
+    this.acceptsMultipleValues = data.acceptsMultipleValues;
+    this.link = prop(data.link || '');
 
-        this.selectChoice = function (value) {
-            var field = this;
-
-            this.choices(this.choices().map(function (choice) {
-
-                if (choice.value() === value) {
-                    choice.selected(true);
-                } else {
-                    // only checkboxes allow for multiple selections
-                    if (field.type() !== 'checkbox') {
-                        choice.selected(false);
-                    }
-                }
-
-                return choice;
-            }));
-        };
-    };
-
-    /**
-     * @internal
-     *
-     * @param data
-     * @constructor
-     */
-    var FieldChoice = function FieldChoice(data) {
-        this.label = prop(data.label);
-        this.title = prop(data.title || data.label);
-        this.selected = prop(data.selected || false);
-        this.value = prop(data.value || data.label);
-    };
-
-    /**
-     * Creates FieldChoice objects from an (associative) array of data objects
-     *
-     * @param data
-     * @returns {Array}
-     */
-    function createChoices(data) {
-        var choices = [];
-        if (typeof data.map === "function") {
-            choices = data.map(function (choiceLabel) {
-                return new FieldChoice({ label: choiceLabel });
-            });
+    this.selectChoice = function (value) {
+      var field = this;
+      this.choices(this.choices().map(function (choice) {
+        if (choice.value() === value) {
+          choice.selected(true);
         } else {
-            choices = Object.keys(data).map(function (key) {
-                var choiceLabel = data[key];
-                return new FieldChoice({ label: choiceLabel, value: key });
-            });
+          // only checkboxes allow for multiple selections
+          if (field.type() !== 'checkbox') {
+            choice.selected(false);
+          }
         }
 
-        return choices;
-    }
-
-    /**
-     * Factory method
-     *
-     * @api
-     *
-     * @param data
-     * @returns {Field}
-     */
-    function register(category, data) {
-
-        var field;
-        var existingField = getAllWhere('name', data.name).shift();
-
-        // a field with the same "name" already exists
-        if (existingField) {
-
-            // update "required" status
-            if (!existingField.forceRequired() && data.forceRequired) {
-                existingField.forceRequired(true);
-            }
-
-            // bail
-            return undefined;
-        }
-
-        // array of choices given? convert to FieldChoice objects
-        if (data.choices) {
-            data.choices = createChoices(data.choices);
-
-            if (data.value) {
-                data.choices = data.choices.map(function (choice) {
-                    if (choice.value() === data.value) {
-                        choice.selected(true);
-                    }
-                    return choice;
-                });
-            }
-        }
-
-        // register category
-        if (categories.indexOf(category) < 0) {
-            categories.push(category);
-        }
-
-        // create Field object
-        field = new Field(data);
-        field.category = category;
-
-        // add to array
-        fields.push(field);
-
-        // redraw view
-        timeout && window.clearTimeout(timeout);
-        timeout = window.setTimeout(m.redraw, 200);
-
-        // trigger event
-        events.trigger('fields.change');
-
-        return field;
-    }
-
-    /**
-     * @api
-     *
-     * @param field
-     */
-    function deregister(field) {
-        var index = fields.indexOf(field);
-        if (index > -1) {
-            delete fields[index];
-            m.redraw();
-        }
-    }
-
-    /**
-     * Get a field config object
-     *
-     * @param name
-     * @returns {*}
-     */
-    function get(name) {
-        return fields[name];
-    }
-
-    /**
-     * Get all field config objects
-     *
-     * @returns {Array|*}
-     */
-    function getAll() {
-        // rebuild index property on all fields
-        fields = fields.map(function (f, i) {
-            f.index = i;
-            return f;
-        });
-
-        return fields;
-    }
-
-    function getCategories() {
-        return categories;
-    }
-
-    /**
-     * Get all fields where a property matches the given value
-     *
-     * @param searchKey
-     * @param searchValue
-     * @returns {Array|*}
-     */
-    function getAllWhere(searchKey, searchValue) {
-        return fields.filter(function (field) {
-            return field[searchKey]() === searchValue;
-        });
-    }
-
-    /**
-     * Exposed methods
-     */
-    return {
-        'get': get,
-        'getAll': getAll,
-        'getCategories': getCategories,
-        'deregister': deregister,
-        'register': register,
-        'getAllWhere': getAllWhere
+        return choice;
+      }));
     };
+  };
+  /**
+   * @internal
+   *
+   * @param data
+   * @constructor
+   */
+
+
+  var FieldChoice = function FieldChoice(data) {
+    this.label = prop(data.label);
+    this.title = prop(data.title || data.label);
+    this.selected = prop(data.selected || false);
+    this.value = prop(data.value || data.label);
+  };
+  /**
+   * Creates FieldChoice objects from an (associative) array of data objects
+   *
+   * @param data
+   * @returns {Array}
+   */
+
+
+  function createChoices(data) {
+    var choices = [];
+
+    if (typeof data.map === "function") {
+      choices = data.map(function (choiceLabel) {
+        return new FieldChoice({
+          label: choiceLabel
+        });
+      });
+    } else {
+      choices = Object.keys(data).map(function (key) {
+        var choiceLabel = data[key];
+        return new FieldChoice({
+          label: choiceLabel,
+          value: key
+        });
+      });
+    }
+
+    return choices;
+  }
+  /**
+   * Factory method
+   *
+   * @api
+   *
+   * @param data
+   * @returns {Field}
+   */
+
+
+  function register(category, data) {
+    var field;
+    var existingField = getAllWhere('name', data.name).shift(); // a field with the same "name" already exists
+
+    if (existingField) {
+      // update "required" status
+      if (!existingField.forceRequired() && data.forceRequired) {
+        existingField.forceRequired(true);
+      } // bail
+
+
+      return undefined;
+    } // array of choices given? convert to FieldChoice objects
+
+
+    if (data.choices) {
+      data.choices = createChoices(data.choices);
+
+      if (data.value) {
+        data.choices = data.choices.map(function (choice) {
+          if (choice.value() === data.value) {
+            choice.selected(true);
+          }
+
+          return choice;
+        });
+      }
+    } // register category
+
+
+    if (categories.indexOf(category) < 0) {
+      categories.push(category);
+    } // create Field object
+
+
+    field = new Field(data);
+    field.category = category; // add to array
+
+    fields.push(field); // redraw view
+
+    timeout && window.clearTimeout(timeout);
+    timeout = window.setTimeout(m.redraw, 200); // trigger event
+
+    events.trigger('fields.change');
+    return field;
+  }
+  /**
+   * @api
+   *
+   * @param field
+   */
+
+
+  function deregister(field) {
+    var index = fields.indexOf(field);
+
+    if (index > -1) {
+      delete fields[index];
+      m.redraw();
+    }
+  }
+  /**
+   * Get a field config object
+   *
+   * @param name
+   * @returns {*}
+   */
+
+
+  function get(name) {
+    return fields[name];
+  }
+  /**
+   * Get all field config objects
+   *
+   * @returns {Array|*}
+   */
+
+
+  function getAll() {
+    // rebuild index property on all fields
+    fields = fields.map(function (f, i) {
+      f.index = i;
+      return f;
+    });
+    return fields;
+  }
+
+  function getCategories() {
+    return categories;
+  }
+  /**
+   * Get all fields where a property matches the given value
+   *
+   * @param searchKey
+   * @param searchValue
+   * @returns {Array|*}
+   */
+
+
+  function getAllWhere(searchKey, searchValue) {
+    return fields.filter(function (field) {
+      return field[searchKey]() === searchValue;
+    });
+  }
+  /**
+   * Exposed methods
+   */
+
+
+  return {
+    'get': get,
+    'getAll': getAll,
+    'getCategories': getCategories,
+    'deregister': deregister,
+    'register': register,
+    'getAllWhere': getAllWhere
+  };
 };
 
 },{"mithril/stream":23}],7:[function(require,module,exports){
-'use strict';
-
-// load CodeMirror & plugins
+'use strict'; // load CodeMirror & plugins
 
 var CodeMirror = require('codemirror');
-require('codemirror/mode/xml/xml');
-require('codemirror/mode/javascript/javascript');
-require('codemirror/mode/css/css');
-require('codemirror/mode/htmlmixed/htmlmixed');
-require('codemirror/addon/fold/xml-fold.js');
-require('codemirror/addon/edit/matchtags.js');
-require('codemirror/addon/edit/closetag.js');
-require('codemirror/addon/selection/active-line.js');
-require('codemirror/addon/edit/matchbrackets.js');
 
+require('codemirror/mode/xml/xml');
+
+require('codemirror/mode/javascript/javascript');
+
+require('codemirror/mode/css/css');
+
+require('codemirror/mode/htmlmixed/htmlmixed');
+
+require('codemirror/addon/fold/xml-fold.js');
+
+require('codemirror/addon/edit/matchtags.js');
+
+require('codemirror/addon/edit/closetag.js');
+
+require('codemirror/addon/selection/active-line.js');
+
+require('codemirror/addon/edit/matchbrackets.js');
 /* variables */
+
+
 var FormEditor = {};
+
 var _dom = document.createElement('form');
+
 var domDirty = false;
 var editor;
 var element = document.getElementById('mc4wp-form-content');
 var previewFrame = document.getElementById('mc4wp-form-preview');
 var previewDom;
 var templateRegex = /\{[^{}]+\}/g;
-
 /* functions */
-function setPreviewDom() {
-    var frameContent = previewFrame.contentDocument || previewFrame.contentWindow.document;
-    previewDom = frameContent.querySelector('.mc4wp-form-fields');
 
-    if (previewDom) {
-        updatePreview();
-    }
+function setPreviewDom() {
+  var frameContent = previewFrame.contentDocument || previewFrame.contentWindow.document;
+  previewDom = frameContent.querySelector('.mc4wp-form-fields');
+
+  if (previewDom) {
+    updatePreview();
+  }
 }
 
 function updatePreview() {
-    var markup = FormEditor.getValue();
+  var markup = FormEditor.getValue(); // replace template tags (twice, to allow for nested tags)
 
-    // replace template tags (twice, to allow for nested tags)
-    markup = markup.replace(templateRegex, '').replace(templateRegex, '');
+  markup = markup.replace(templateRegex, '').replace(templateRegex, ''); // update dom
 
-    // update dom
-    previewDom.innerHTML = markup;
-    previewDom.dispatchEvent(new Event('mc4wp-refresh'));
+  previewDom.innerHTML = markup;
+  previewDom.dispatchEvent(new Event('mc4wp-refresh'));
 }
 
 window.addEventListener('load', function () {
-    CodeMirror.signal(editor, "change");
-});
+  CodeMirror.signal(editor, "change");
+}); // set domDirty to true everytime the "change" event fires (a lot..)
 
-// set domDirty to true everytime the "change" event fires (a lot..)
 element.addEventListener('change', function () {
-    domDirty = true;
-    updatePreview();
+  domDirty = true;
+  updatePreview();
 });
 
 function dom() {
-    if (domDirty) {
-        _dom.innerHTML = FormEditor.getValue().toLowerCase();
-        domDirty = false;
-    }
+  if (domDirty) {
+    _dom.innerHTML = FormEditor.getValue().toLowerCase();
+    domDirty = false;
+  }
 
-    return _dom;
+  return _dom;
 }
 
 FormEditor.getValue = function () {
-    return editor ? editor.getValue() : element.value;
+  return editor ? editor.getValue() : element.value;
 };
 
 FormEditor.query = function (query) {
-    return dom().querySelectorAll(query.toLowerCase());
+  return dom().querySelectorAll(query.toLowerCase());
 };
 
 FormEditor.containsField = function (fieldName) {
-    return dom().elements.namedItem(fieldName.toLowerCase()) !== null;
+  return dom().elements.namedItem(fieldName.toLowerCase()) !== null;
 };
 
 FormEditor.insert = function (html) {
-    if (editor) {
-        editor.replaceSelection(html);
-        editor.focus();
-    } else {
-        element.value += html;
-    }
+  if (editor) {
+    editor.replaceSelection(html);
+    editor.focus();
+  } else {
+    element.value += html;
+  }
 };
 
 FormEditor.on = function (event, callback) {
-    if (editor) {
-        // translate "input" event for CodeMirror
-        event = event === 'input' ? 'changes' : event;
-        return editor.on(event, callback);
-    }
+  if (editor) {
+    // translate "input" event for CodeMirror
+    event = event === 'input' ? 'changes' : event;
+    return editor.on(event, callback);
+  }
 
-    return element.addEventListener(event, callback);
+  return element.addEventListener(event, callback);
 };
 
 FormEditor.refresh = function () {
-    editor && editor.refresh();
+  editor && editor.refresh();
 };
-
 /* bootstrap */
+
+
 _dom.innerHTML = element.value.toLowerCase();
 
 if (CodeMirror) {
-    editor = CodeMirror.fromTextArea(element, {
-        selectionPointer: true,
-        mode: "htmlmixed",
-        htmlMode: true,
-        autoCloseTags: true,
-        autoRefresh: true,
-        styleActiveLine: true,
-        matchBrackets: true,
-        matchTags: { bothTags: true }
-    });
+  editor = CodeMirror.fromTextArea(element, {
+    selectionPointer: true,
+    mode: "htmlmixed",
+    htmlMode: true,
+    autoCloseTags: true,
+    autoRefresh: true,
+    styleActiveLine: true,
+    matchBrackets: true,
+    matchTags: {
+      bothTags: true
+    }
+  }); // dispatch regular "change" on element event every time editor changes (IE9+ only)
 
-    // dispatch regular "change" on element event every time editor changes (IE9+ only)
-    window.dispatchEvent && editor.on('change', function () {
-        if (typeof Event === "function") {
-            // Create a new 'change' event
-            var event = new Event('change', { bubbles: true });
-            element.dispatchEvent(event);
-        }
-    });
+  window.dispatchEvent && editor.on('change', function () {
+    if (typeof Event === "function") {
+      // Create a new 'change' event
+      var event = new Event('change', {
+        bubbles: true
+      });
+      element.dispatchEvent(event);
+    }
+  });
 }
 
 previewFrame.addEventListener('load', setPreviewDom);
 setPreviewDom.call();
-
 /* exports */
+
 module.exports = FormEditor;
 
 },{"codemirror":17,"codemirror/addon/edit/closetag.js":12,"codemirror/addon/edit/matchbrackets.js":13,"codemirror/addon/edit/matchtags.js":14,"codemirror/addon/fold/xml-fold.js":15,"codemirror/addon/selection/active-line.js":16,"codemirror/mode/css/css":18,"codemirror/mode/htmlmixed/htmlmixed":19,"codemirror/mode/javascript/javascript":20,"codemirror/mode/xml/xml":21}],8:[function(require,module,exports){
-'use strict';
+"use strict";
 
 var FormWatcher = function FormWatcher(m, editor, settings, fields, events, helpers) {
-    'use strict';
+  'use strict';
 
-    var requiredFieldsInput = document.getElementById('required-fields');
+  var requiredFieldsInput = document.getElementById('required-fields');
 
-    function updateFields() {
-        fields.getAll().forEach(function (field) {
-            // don't run for empty field names
-            if (field.name().length <= 0) return;
+  function updateFields() {
+    fields.getAll().forEach(function (field) {
+      // don't run for empty field names
+      if (field.name().length <= 0) return;
+      var fieldName = field.name();
 
-            var fieldName = field.name();
-            if (field.type() === 'checkbox') {
-                fieldName += '[]';
-            }
+      if (field.type() === 'checkbox') {
+        fieldName += '[]';
+      }
 
-            var inForm = editor.containsField(fieldName);
-            field.inFormContent(inForm);
+      var inForm = editor.containsField(fieldName);
+      field.inFormContent(inForm); // if form contains 1 address field of group, mark all fields in this group as "required"
 
-            // if form contains 1 address field of group, mark all fields in this group as "required"
-            if (field.mailchimpType() === 'address') {
-                field.originalRequiredValue = field.originalRequiredValue === undefined ? field.forceRequired() : field.originalRequiredValue;
+      if (field.mailchimpType() === 'address') {
+        field.originalRequiredValue = field.originalRequiredValue === undefined ? field.forceRequired() : field.originalRequiredValue; // query other fields for this address group
 
-                // query other fields for this address group
-                var nameGroup = field.name().replace(/\[(\w+)\]/g, '');
-                if (editor.query('[name^="' + nameGroup + '"]').length > 0) {
-                    if (field.originalRequiredValue === undefined) {
-                        field.originalRequiredValue = field.forceRequired();
-                    }
-                    field.forceRequired(true);
-                } else {
-                    field.forceRequired(field.originalRequiredValue);
-                }
-            }
-        });
+        var nameGroup = field.name().replace(/\[(\w+)\]/g, '');
 
-        findRequiredFields();
-        m.redraw();
-    }
+        if (editor.query('[name^="' + nameGroup + '"]').length > 0) {
+          if (field.originalRequiredValue === undefined) {
+            field.originalRequiredValue = field.forceRequired();
+          }
 
-    function findRequiredFields() {
+          field.forceRequired(true);
+        } else {
+          field.forceRequired(field.originalRequiredValue);
+        }
+      }
+    });
+    findRequiredFields();
+    m.redraw();
+  }
 
-        // query fields required by MailChimp
-        var requiredFields = fields.getAllWhere('forceRequired', true).map(function (f) {
-            return f.name().toUpperCase().replace(/\[(\w+)\]/g, '.$1');
-        });
+  function findRequiredFields() {
+    // query fields required by MailChimp
+    var requiredFields = fields.getAllWhere('forceRequired', true).map(function (f) {
+      return f.name().toUpperCase().replace(/\[(\w+)\]/g, '.$1');
+    }); // query fields in form with [required] attribute
 
-        // query fields in form with [required] attribute
-        var requiredFieldElements = editor.query('[required]');
-        Array.prototype.forEach.call(requiredFieldElements, function (el) {
-            var name = el.name;
+    var requiredFieldElements = editor.query('[required]');
+    Array.prototype.forEach.call(requiredFieldElements, function (el) {
+      var name = el.name; // bail if name attr empty or starts with underscore
 
-            // bail if name attr empty or starts with underscore
-            if (!name || name.length < 0 || name[0] === '_') {
-                return;
-            }
+      if (!name || name.length < 0 || name[0] === '_') {
+        return;
+      } // replace array brackets with dot style notation
 
-            // replace array brackets with dot style notation
-            name = name.replace(/\[(\w+)\]/g, '.$1');
 
-            // replace array-style fields
-            name = name.replace(/\[\]$/, '');
+      name = name.replace(/\[(\w+)\]/g, '.$1'); // replace array-style fields
 
-            // uppercase everything before the .
-            var pos = name.indexOf('.');
-            pos = pos > 0 ? pos : name.length;
-            name = name.substr(0, pos).toUpperCase() + name.substr(pos);
+      name = name.replace(/\[\]$/, ''); // uppercase everything before the .
 
-            // only add field if it's not already in it
-            if (requiredFields.indexOf(name) === -1) {
-                requiredFields.push(name);
-            }
-        });
+      var pos = name.indexOf('.');
+      pos = pos > 0 ? pos : name.length;
+      name = name.substr(0, pos).toUpperCase() + name.substr(pos); // only add field if it's not already in it
 
-        // update meta
-        requiredFieldsInput.value = requiredFields.join(',');
-    }
+      if (requiredFields.indexOf(name) === -1) {
+        requiredFields.push(name);
+      }
+    }); // update meta
 
-    // events
-    editor.on('change', helpers.debounce(updateFields, 500));
-    events.on('fields.change', helpers.debounce(updateFields, 500));
+    requiredFieldsInput.value = requiredFields.join(',');
+  } // events
+
+
+  editor.on('change', helpers.debounce(updateFields, 500));
+  events.on('fields.change', helpers.debounce(updateFields, 500));
 };
 
 module.exports = FormWatcher;
@@ -1185,188 +1202,181 @@ module.exports = FormWatcher;
 var notices = {};
 
 function show(id, text) {
-    notices[id] = text;
-    render();
+  notices[id] = text;
+  render();
 }
 
 function hide(id) {
-    delete notices[id];
-    render();
+  delete notices[id];
+  render();
 }
 
 function render() {
-    var html = '';
-    for (var key in notices) {
-        html += '<div class="notice notice-warning inline"><p>' + notices[key] + '</p></div>';
-    }
+  var html = '';
 
-    var container = document.querySelector('.mc4wp-notices');
-    if (!container) {
-        container = document.createElement('div');
-        container.className = 'mc4wp-notices';
-        var heading = document.querySelector('h1, h2');
-        heading.parentNode.insertBefore(container, heading.nextSibling);
-    }
+  for (var key in notices) {
+    html += '<div class="notice notice-warning inline"><p>' + notices[key] + '</p></div>';
+  }
 
-    container.innerHTML = html;
+  var container = document.querySelector('.mc4wp-notices');
+
+  if (!container) {
+    container = document.createElement('div');
+    container.className = 'mc4wp-notices';
+    var heading = document.querySelector('h1, h2');
+    heading.parentNode.insertBefore(container, heading.nextSibling);
+  }
+
+  container.innerHTML = html;
 }
 
 function init(editor, fields) {
+  var groupingsNotice = function groupingsNotice() {
+    var text = "Your form contains old style <code>GROUPINGS</code> fields. <br /><br />Please remove these fields from your form and then re-add them through the available field buttons to make sure your data is getting through to MailChimp correctly.";
+    var formCode = editor.getValue().toLowerCase();
+    formCode.indexOf('name="groupings') > -1 ? show('deprecated_groupings', text) : hide('deprecated_groupings');
+  };
 
-    var groupingsNotice = function groupingsNotice() {
-        var text = "Your form contains old style <code>GROUPINGS</code> fields. <br /><br />Please remove these fields from your form and then re-add them through the available field buttons to make sure your data is getting through to MailChimp correctly.";
-        var formCode = editor.getValue().toLowerCase();
-        formCode.indexOf('name="groupings') > -1 ? show('deprecated_groupings', text) : hide('deprecated_groupings');
-    };
+  var requiredFieldsNotice = function requiredFieldsNotice() {
+    var requiredFields = fields.getAllWhere('forceRequired', true);
+    var missingFields = requiredFields.filter(function (f) {
+      return !editor.containsField(f.name().toUpperCase());
+    });
+    var text = '<strong>Heads up!</strong> Your form is missing list fields that are required in MailChimp. Either add these fields to your form or mark them as optional in MailChimp.';
+    text += "<br /><ul class=\"ul-square\" style=\"margin-bottom: 0;\"><li>" + missingFields.map(function (f) {
+      return f.title();
+    }).join('</li><li>') + '</li></ul>';
+    missingFields.length > 0 ? show('required_fields_missing', text) : hide('required_fields_missing');
+  }; // old groupings
 
-    var requiredFieldsNotice = function requiredFieldsNotice() {
-        var requiredFields = fields.getAllWhere('forceRequired', true);
-        var missingFields = requiredFields.filter(function (f) {
-            return !editor.containsField(f.name().toUpperCase());
-        });
 
-        var text = '<strong>Heads up!</strong> Your form is missing list fields that are required in MailChimp. Either add these fields to your form or mark them as optional in MailChimp.';
-        text += "<br /><ul class=\"ul-square\" style=\"margin-bottom: 0;\"><li>" + missingFields.map(function (f) {
-            return f.title();
-        }).join('</li><li>') + '</li></ul>';
+  groupingsNotice();
+  editor.on('focus', groupingsNotice);
+  editor.on('blur', groupingsNotice); // missing required fields
 
-        missingFields.length > 0 ? show('required_fields_missing', text) : hide('required_fields_missing');
-    };
-
-    // old groupings
-    groupingsNotice();
-    editor.on('focus', groupingsNotice);
-    editor.on('blur', groupingsNotice);
-
-    // missing required fields
-    requiredFieldsNotice();
-    editor.on('blur', requiredFieldsNotice);
-    editor.on('focus', requiredFieldsNotice);
+  requiredFieldsNotice();
+  editor.on('blur', requiredFieldsNotice);
+  editor.on('focus', requiredFieldsNotice);
 }
 
 module.exports = {
-    "init": init
+  "init": init
 };
 
 },{}],10:[function(require,module,exports){
-'use strict';
+"use strict";
 
 var overlay = function overlay(m, i18n) {
-	'use strict';
+  'use strict';
 
-	var _element = void 0,
-	    _onCloseCallback = void 0;
+  var _element, _onCloseCallback;
 
-	function close() {
-		document.removeEventListener('keydown', onKeyDown);
-		window.removeEventListener('resize', position);
-		_onCloseCallback();
-	}
+  function close() {
+    document.removeEventListener('keydown', onKeyDown);
+    window.removeEventListener('resize', position);
 
-	function onKeyDown(e) {
-		e = e || window.event;
+    _onCloseCallback();
+  }
 
-		// close overlay when pressing ESC
-		if (e.keyCode == 27) {
-			close();
-		}
+  function onKeyDown(e) {
+    e = e || window.event; // close overlay when pressing ESC
 
-		// prevent ENTER
-		if (e.keyCode == 13) {
-			e.preventDefault();
-		}
-	}
+    if (e.keyCode == 27) {
+      close();
+    } // prevent ENTER
 
-	function position() {
-		if (!_element) return;
 
-		// fix for window width in IE8
-		var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-		var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    if (e.keyCode == 13) {
+      e.preventDefault();
+    }
+  }
 
-		var marginLeft = (windowWidth - _element.clientWidth - 40) / 2;
-		var marginTop = (windowHeight - _element.clientHeight - 40) / 2;
+  function position() {
+    if (!_element) return; // fix for window width in IE8
 
-		_element.style.left = (marginLeft > 0 ? marginLeft : 0) + "px";
-		_element.style.top = (marginTop > 0 ? marginTop : 0) + "px";
-	}
+    var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    var marginLeft = (windowWidth - _element.clientWidth - 40) / 2;
+    var marginTop = (windowHeight - _element.clientHeight - 40) / 2;
+    _element.style.left = (marginLeft > 0 ? marginLeft : 0) + "px";
+    _element.style.top = (marginTop > 0 ? marginTop : 0) + "px";
+  }
 
-	function storeElementReference(vnode) {
-		_element = vnode.dom;
-		position();
-	}
+  function storeElementReference(vnode) {
+    _element = vnode.dom;
+    position();
+  }
 
-	return function (content, onCloseCallback) {
-		_onCloseCallback = onCloseCallback;
-
-		return {
-			oncreate: function oncreate() {
-				document.addEventListener('keydown', onKeyDown);
-				window.addEventListener('resize', position);
-			},
-			onremove: function onremove() {
-				document.removeEventListener('keydown', onKeyDown);
-				window.removeEventListener('resize', position);
-			},
-			view: function view() {
-				return [m('div.overlay-wrap', m("div.overlay", { oncreate: storeElementReference }, [
-				// close icon
-				m('span', {
-					"class": 'close dashicons dashicons-no',
-					title: i18n.close,
-					onclick: close
-				}), content])), m('div.overlay-background', {
-					title: i18n.close,
-					onclick: close
-				})];
-			}
-		};
-	};
+  return function (content, onCloseCallback) {
+    _onCloseCallback = onCloseCallback;
+    return {
+      oncreate: function oncreate() {
+        document.addEventListener('keydown', onKeyDown);
+        window.addEventListener('resize', position);
+      },
+      onremove: function onremove() {
+        document.removeEventListener('keydown', onKeyDown);
+        window.removeEventListener('resize', position);
+      },
+      view: function view() {
+        return [m('div.overlay-wrap', m("div.overlay", {
+          oncreate: storeElementReference
+        }, [// close icon
+        m('span', {
+          "class": 'close dashicons dashicons-no',
+          title: i18n.close,
+          onclick: close
+        }), content])), m('div.overlay-background', {
+          title: i18n.close,
+          onclick: close
+        })];
+      }
+    };
+  };
 };
 
 module.exports = overlay;
 
 },{}],11:[function(require,module,exports){
-'use strict';
-
-// deps
+'use strict'; // deps
 
 var i18n = window.mc4wp_forms_i18n;
 var m = window.mc4wp.deps.mithril;
 var events = mc4wp.events;
 var settings = mc4wp.settings;
 var helpers = mc4wp.helpers;
-
 var tabs = mc4wp.tabs;
-var FormWatcher = require('./admin/form-watcher.js');
-var FormEditor = require('./admin/form-editor.js');
-var FieldHelper = require('./admin/field-helper.js');
-var FieldsFactory = require('./admin/fields-factory.js');
-var fields = require('./admin/fields.js')(m, events);
 
-// vars
+var FormWatcher = require('./admin/form-watcher.js');
+
+var FormEditor = require('./admin/form-editor.js');
+
+var FieldHelper = require('./admin/field-helper.js');
+
+var FieldsFactory = require('./admin/fields-factory.js');
+
+var fields = require('./admin/fields.js')(m, events); // vars
+
+
 var editor = window.formEditor = FormEditor;
 var watcher = new FormWatcher(m, formEditor, settings, fields, events, helpers);
 var fieldHelper = new FieldHelper(m, tabs, formEditor, fields, events, i18n);
-var notices = require('./admin/notices');
 
-// mount field helper on element
-m.mount(document.getElementById('mc4wp-field-wizard'), fieldHelper);
+var notices = require('./admin/notices'); // mount field helper on element
 
-// register fields and redraw screen in 2 seconds (fixes IE8 bug)
+
+m.mount(document.getElementById('mc4wp-field-wizard'), fieldHelper); // register fields and redraw screen in 2 seconds (fixes IE8 bug)
+
 var fieldsFactory = new FieldsFactory(fields, i18n);
 events.on('selectedLists.change', fieldsFactory.registerListsFields);
 fieldsFactory.registerListsFields(settings.getSelectedLists());
 fieldsFactory.registerCustomFields(mc4wp_vars.mailchimp.lists);
-
 window.setTimeout(function () {
   m.redraw();
-}, 2000);
+}, 2000); // init notices
 
-// init notices
-notices.init(editor, fields);
+notices.init(editor, fields); // expose some methods
 
-// expose some methods
 window.mc4wp = window.mc4wp || {};
 window.mc4wp.forms = window.mc4wp.forms || {};
 window.mc4wp.forms.editor = editor;

@@ -1,36 +1,37 @@
 (function () { var require = undefined; var define = undefined; (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-'use strict';
+'use strict'; // dependencies
 
-// dependencies
-
-var _tlite = require('tlite');
-
-var _tlite2 = _interopRequireDefault(_tlite);
+var _tlite = _interopRequireDefault(require("tlite"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var m = window.m = require('mithril');
-var EventEmitter = require('wolfy87-eventemitter');
 
-// vars
+var EventEmitter = require('wolfy87-eventemitter'); // vars
+
+
 var context = document.getElementById('mc4wp-admin');
 var events = new EventEmitter();
+
 var tabs = require('./admin/tabs.js')(context);
+
 var helpers = require('./admin/helpers.js');
+
 var settings = require('./admin/settings.js')(context, helpers, events);
 
-(0, _tlite2.default)(function (el) {
-    return el.className.indexOf('mc4wp-tooltip') > -1;
-});
+(0, _tlite.default)(function (el) {
+  return el.className.indexOf('mc4wp-tooltip') > -1;
+}); // list fetcher
 
-// list fetcher
 var ListFetcher = require('./admin/list-fetcher.js');
-var mount = document.getElementById('mc4wp-list-fetcher');
-if (mount) {
-    m.mount(mount, new ListFetcher());
-}
 
-// expose some things
+var mount = document.getElementById('mc4wp-list-fetcher');
+
+if (mount) {
+  m.mount(mount, new ListFetcher());
+} // expose some things
+
+
 window.mc4wp = window.mc4wp || {};
 window.mc4wp.deps = window.mc4wp.deps || {};
 window.mc4wp.deps.mithril = m;
@@ -45,88 +46,89 @@ window.mc4wp.tabs = tabs;
 var helpers = {};
 
 helpers.toggleElement = function (selector) {
-	var elements = document.querySelectorAll(selector);
-	for (var i = 0; i < elements.length; i++) {
-		var show = elements[i].clientHeight <= 0;
-		elements[i].style.display = show ? '' : 'none';
-	}
+  var elements = document.querySelectorAll(selector);
+
+  for (var i = 0; i < elements.length; i++) {
+    var show = elements[i].clientHeight <= 0;
+    elements[i].style.display = show ? '' : 'none';
+  }
 };
 
 helpers.bindEventToElement = function (element, event, handler) {
-	if (element.addEventListener) {
-		element.addEventListener(event, handler);
-	} else if (element.attachEvent) {
-		element.attachEvent('on' + event, handler);
-	}
+  if (element.addEventListener) {
+    element.addEventListener(event, handler);
+  } else if (element.attachEvent) {
+    element.attachEvent('on' + event, handler);
+  }
 };
 
 helpers.bindEventToElements = function (elements, event, handler) {
-	Array.prototype.forEach.call(elements, function (element) {
-		helpers.bindEventToElement(element, event, handler);
-	});
-};
+  Array.prototype.forEach.call(elements, function (element) {
+    helpers.bindEventToElement(element, event, handler);
+  });
+}; // polling
 
-// polling
+
 helpers.debounce = function (func, wait, immediate) {
-	var timeout;
-	return function () {
-		var context = this,
-		    args = arguments;
-		var later = function later() {
-			timeout = null;
-			if (!immediate) func.apply(context, args);
-		};
-		var callNow = immediate && !timeout;
-		clearTimeout(timeout);
-		timeout = setTimeout(later, wait);
-		if (callNow) func.apply(context, args);
-	};
-};
+  var timeout;
+  return function () {
+    var context = this,
+        args = arguments;
 
+    var later = function later() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
 /**
  * Showif.js
  */
+
+
 (function () {
-	var showIfElements = document.querySelectorAll('[data-showif]');
+  var showIfElements = document.querySelectorAll('[data-showif]'); // dependent elements
 
-	// dependent elements
-	Array.prototype.forEach.call(showIfElements, function (element) {
-		var config = JSON.parse(element.getAttribute('data-showif'));
-		var parentElements = document.querySelectorAll('[name="' + config.element + '"]');
-		var inputs = element.querySelectorAll('input,select,textarea:not([readonly])');
-		var hide = config.hide === undefined || config.hide;
+  Array.prototype.forEach.call(showIfElements, function (element) {
+    var config = JSON.parse(element.getAttribute('data-showif'));
+    var parentElements = document.querySelectorAll('[name="' + config.element + '"]');
+    var inputs = element.querySelectorAll('input,select,textarea:not([readonly])');
+    var hide = config.hide === undefined || config.hide;
 
-		function toggleElement() {
+    function toggleElement() {
+      // do nothing with unchecked radio inputs
+      if (this.getAttribute('type') === "radio" && !this.checked) {
+        return;
+      }
 
-			// do nothing with unchecked radio inputs
-			if (this.getAttribute('type') === "radio" && !this.checked) {
-				return;
-			}
+      var value = this.getAttribute("type") === "checkbox" ? this.checked : this.value;
+      var conditionMet = value == config.value;
 
-			var value = this.getAttribute("type") === "checkbox" ? this.checked : this.value;
-			var conditionMet = value == config.value;
+      if (hide) {
+        element.style.display = conditionMet ? '' : 'none';
+        element.style.visibility = conditionMet ? '' : 'hidden';
+      } else {
+        element.style.opacity = conditionMet ? '' : '0.4';
+      } // disable input fields to stop sending their values to server
 
-			if (hide) {
-				element.style.display = conditionMet ? '' : 'none';
-				element.style.visibility = conditionMet ? '' : 'hidden';
-			} else {
-				element.style.opacity = conditionMet ? '' : '0.4';
-			}
 
-			// disable input fields to stop sending their values to server
-			Array.prototype.forEach.call(inputs, function (inputElement) {
-				conditionMet ? inputElement.removeAttribute('readonly') : inputElement.setAttribute('readonly', 'readonly');
-			});
-		}
+      Array.prototype.forEach.call(inputs, function (inputElement) {
+        conditionMet ? inputElement.removeAttribute('readonly') : inputElement.setAttribute('readonly', 'readonly');
+      });
+    } // find checked element and call toggleElement function
 
-		// find checked element and call toggleElement function
-		Array.prototype.forEach.call(parentElements, function (parentElement) {
-			toggleElement.call(parentElement);
-		});
 
-		// bind on all changes
-		helpers.bindEventToElements(parentElements, 'change', toggleElement);
-	});
+    Array.prototype.forEach.call(parentElements, function (parentElement) {
+      toggleElement.call(parentElement);
+    }); // bind on all changes
+
+    helpers.bindEventToElements(parentElements, 'change', toggleElement);
+  });
 })();
 
 module.exports = helpers;
@@ -139,123 +141,111 @@ var config = mc4wp_vars;
 var i18n = config.i18n;
 
 function ListFetcher() {
-    this.working = false;
-    this.done = false;
+  this.working = false;
+  this.done = false; // start fetching right away when no lists but api key given
 
-    // start fetching right away when no lists but api key given
-    if (config.mailchimp.api_connected && config.mailchimp.lists.length === 0) {
-        this.fetch();
-    }
+  if (config.mailchimp.api_connected && config.mailchimp.lists.length === 0) {
+    this.fetch();
+  }
 }
 
 ListFetcher.prototype.fetch = function (e) {
-    e && e.preventDefault();
+  e && e.preventDefault();
+  this.working = true;
+  this.done = false;
+  $.post(ajaxurl, {
+    action: "mc4wp_renew_mailchimp_lists",
+    timeout: 180000
+  }).done(function (data) {
+    this.success = true;
 
-    this.working = true;
-    this.done = false;
-
-    $.post(ajaxurl, {
-        action: "mc4wp_renew_mailchimp_lists",
-        timeout: 180000
-    }).done(function (data) {
-        this.success = true;
-
-        if (data) {
-            window.setTimeout(function () {
-                window.location.reload();
-            }, 3000);
-        }
-    }.bind(this)).fail(function (data) {
-        this.success = false;
-    }.bind(this)).always(function (data) {
-        this.working = false;
-        this.done = true;
-
-        m.redraw();
-    }.bind(this));
+    if (data) {
+      window.setTimeout(function () {
+        window.location.reload();
+      }, 3000);
+    }
+  }.bind(this)).fail(function (data) {
+    this.success = false;
+  }.bind(this)).always(function (data) {
+    this.working = false;
+    this.done = true;
+    m.redraw();
+  }.bind(this));
 };
 
 ListFetcher.prototype.view = function () {
-    return m('form', {
-        method: "POST",
-        onsubmit: this.fetch.bind(this)
-    }, [m('p', [m('input', {
-        type: "submit",
-        value: this.working ? i18n.fetching_mailchimp_lists : i18n.renew_mailchimp_lists,
-        className: "button",
-        disabled: !!this.working
-    }), m.trust(' &nbsp; '), this.working ? [m('span.mc4wp-loader', "Loading..."), m.trust(' &nbsp; '), m('em.help', i18n.fetching_mailchimp_lists_can_take_a_while)] : '', this.done ? [this.success ? m('em.help.green', i18n.fetching_mailchimp_lists_done) : m('em.help.red', i18n.fetching_mailchimp_lists_error)] : ''])]);
+  return m('form', {
+    method: "POST",
+    onsubmit: this.fetch.bind(this)
+  }, [m('p', [m('input', {
+    type: "submit",
+    value: this.working ? i18n.fetching_mailchimp_lists : i18n.renew_mailchimp_lists,
+    className: "button",
+    disabled: !!this.working
+  }), m.trust(' &nbsp; '), this.working ? [m('span.mc4wp-loader', "Loading..."), m.trust(' &nbsp; '), m('em.help', i18n.fetching_mailchimp_lists_can_take_a_while)] : '', this.done ? [this.success ? m('em.help.green', i18n.fetching_mailchimp_lists_done) : m('em.help.red', i18n.fetching_mailchimp_lists_error)] : ''])]);
 };
 
 module.exports = ListFetcher;
 
 },{}],4:[function(require,module,exports){
-'use strict';
+"use strict";
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var Settings = function Settings(context, helpers, events) {
-	'use strict';
+  'use strict'; // vars
 
-	// vars
+  var form = context.querySelector('form');
+  var listInputs = context.querySelectorAll('.mc4wp-list-input');
+  var lists = mc4wp_vars.mailchimp.lists;
+  var selectedLists = []; // functions
 
-	var form = context.querySelector('form');
-	var listInputs = context.querySelectorAll('.mc4wp-list-input');
-	var lists = mc4wp_vars.mailchimp.lists;
-	var selectedLists = [];
+  function getSelectedListsWhere(searchKey, searchValue) {
+    return selectedLists.filter(function (el) {
+      return el[searchKey] === searchValue;
+    });
+  }
 
-	// functions
-	function getSelectedListsWhere(searchKey, searchValue) {
-		return selectedLists.filter(function (el) {
-			return el[searchKey] === searchValue;
-		});
-	}
+  function getSelectedLists() {
+    return selectedLists;
+  }
 
-	function getSelectedLists() {
-		return selectedLists;
-	}
+  function updateSelectedLists() {
+    selectedLists = [];
+    Array.prototype.forEach.call(listInputs, function (input) {
+      // skip unchecked checkboxes
+      if (typeof input.checked === "boolean" && !input.checked) {
+        return;
+      }
 
-	function updateSelectedLists() {
-		selectedLists = [];
+      if (_typeof(lists[input.value]) === "object") {
+        selectedLists.push(lists[input.value]);
+      }
+    });
+    events.trigger('selectedLists.change', [selectedLists]);
+    return selectedLists;
+  }
 
-		Array.prototype.forEach.call(listInputs, function (input) {
-			// skip unchecked checkboxes
-			if (typeof input.checked === "boolean" && !input.checked) {
-				return;
-			}
+  function toggleVisibleLists() {
+    var rows = document.querySelectorAll('.lists--only-selected > *');
+    Array.prototype.forEach.call(rows, function (el) {
+      var listId = el.getAttribute('data-list-id');
+      var isSelected = getSelectedListsWhere('id', listId).length > 0;
 
-			if (_typeof(lists[input.value]) === "object") {
-				selectedLists.push(lists[input.value]);
-			}
-		});
+      if (isSelected) {
+        el.setAttribute('class', el.getAttribute('class').replace('hidden', ''));
+      } else {
+        el.setAttribute('class', el.getAttribute('class') + " hidden");
+      }
+    });
+  }
 
-		events.trigger('selectedLists.change', [selectedLists]);
-		return selectedLists;
-	}
-
-	function toggleVisibleLists() {
-		var rows = document.querySelectorAll('.lists--only-selected > *');
-		Array.prototype.forEach.call(rows, function (el) {
-
-			var listId = el.getAttribute('data-list-id');
-			var isSelected = getSelectedListsWhere('id', listId).length > 0;
-
-			if (isSelected) {
-				el.setAttribute('class', el.getAttribute('class').replace('hidden', ''));
-			} else {
-				el.setAttribute('class', el.getAttribute('class') + " hidden");
-			}
-		});
-	}
-
-	events.on('selectedLists.change', toggleVisibleLists);
-	helpers.bindEventToElements(listInputs, 'change', updateSelectedLists);
-
-	updateSelectedLists();
-
-	return {
-		getSelectedLists: getSelectedLists
-	};
+  events.on('selectedLists.change', toggleVisibleLists);
+  helpers.bindEventToElements(listInputs, 'change', updateSelectedLists);
+  updateSelectedLists();
+  return {
+    getSelectedLists: getSelectedLists
+  };
 };
 
 module.exports = Settings;
@@ -263,182 +253,171 @@ module.exports = Settings;
 },{}],5:[function(require,module,exports){
 'use strict';
 
-var URL = require('./url.js');
+var URL = require('./url.js'); // Tabs
 
-// Tabs
+
 var Tabs = function Tabs(context) {
+  // TODO: last piece of jQuery... can we get rid of it?
+  var $ = window.jQuery;
+  var $context = $(context);
+  var $tabs = $context.find('.tab');
+  var $tabNavs = $context.find('.nav-tab');
+  var refererField = context.querySelector('input[name="_wp_http_referer"]');
+  var tabs = [];
+  $.each($tabs, function (i, t) {
+    var id = t.id.substring(4);
+    var title = $(t).find('h2').first().text();
+    tabs.push({
+      id: id,
+      title: title,
+      element: t,
+      nav: context.querySelectorAll('.nav-tab-' + id),
+      open: function open() {
+        return _open(id);
+      }
+    });
+  });
 
-	// TODO: last piece of jQuery... can we get rid of it?
-	var $ = window.jQuery;
+  function get(id) {
+    for (var i = 0; i < tabs.length; i++) {
+      if (tabs[i].id === id) {
+        return tabs[i];
+      }
+    }
 
-	var $context = $(context);
-	var $tabs = $context.find('.tab');
-	var $tabNavs = $context.find('.nav-tab');
-	var refererField = context.querySelector('input[name="_wp_http_referer"]');
-	var tabs = [];
+    return undefined;
+  }
 
-	$.each($tabs, function (i, t) {
-		var id = t.id.substring(4);
-		var title = $(t).find('h2').first().text();
+  function _open(tab, updateState) {
+    // make sure we have a tab object
+    if (typeof tab === "string") {
+      tab = get(tab);
+    }
 
-		tabs.push({
-			id: id,
-			title: title,
-			element: t,
-			nav: context.querySelectorAll('.nav-tab-' + id),
-			open: function open() {
-				return _open(id);
-			}
-		});
-	});
+    if (!tab) {
+      return false;
+    } // should we update state?
 
-	function get(id) {
 
-		for (var i = 0; i < tabs.length; i++) {
-			if (tabs[i].id === id) {
-				return tabs[i];
-			}
-		}
+    if (updateState == undefined) {
+      updateState = true;
+    } // hide all tabs & remove active class
 
-		return undefined;
-	}
 
-	function _open(tab, updateState) {
+    $tabs.removeClass('tab-active').css('display', 'none');
+    $tabNavs.removeClass('nav-tab-active'); // add `nav-tab-active` to this tab
 
-		// make sure we have a tab object
-		if (typeof tab === "string") {
-			tab = get(tab);
-		}
+    Array.prototype.forEach.call(tab.nav, function (nav) {
+      nav.className += " nav-tab-active";
+      nav.blur();
+    }); // show target tab
 
-		if (!tab) {
-			return false;
-		}
+    tab.element.style.display = 'block';
+    tab.element.className += " tab-active"; // create new URL
 
-		// should we update state?
-		if (updateState == undefined) {
-			updateState = true;
-		}
+    var url = URL.setParameter(window.location.href, "tab", tab.id); // update hash
 
-		// hide all tabs & remove active class
-		$tabs.removeClass('tab-active').css('display', 'none');
-		$tabNavs.removeClass('nav-tab-active');
+    if (history.pushState && updateState) {
+      history.pushState(tab.id, '', url);
+    } // update document title
 
-		// add `nav-tab-active` to this tab
-		Array.prototype.forEach.call(tab.nav, function (nav) {
-			nav.className += " nav-tab-active";
-			nav.blur();
-		});
 
-		// show target tab
-		tab.element.style.display = 'block';
-		tab.element.className += " tab-active";
+    title(tab); // update referer field
 
-		// create new URL
-		var url = URL.setParameter(window.location.href, "tab", tab.id);
+    refererField.value = url; // if thickbox is open, close it.
 
-		// update hash
-		if (history.pushState && updateState) {
-			history.pushState(tab.id, '', url);
-		}
+    if (typeof tb_remove === "function") {
+      tb_remove();
+    } // refresh editor after switching tabs
+    // TODO: decouple this! law of demeter etc.
 
-		// update document title
-		title(tab);
 
-		// update referer field
-		refererField.value = url;
+    if (tab.id === 'fields' && window.mc4wp && window.mc4wp.forms && window.mc4wp.forms.editor) {
+      mc4wp.forms.editor.refresh();
+    }
 
-		// if thickbox is open, close it.
-		if (typeof tb_remove === "function") {
-			tb_remove();
-		}
+    return true;
+  }
 
-		// refresh editor after switching tabs
-		// TODO: decouple this! law of demeter etc.
-		if (tab.id === 'fields' && window.mc4wp && window.mc4wp.forms && window.mc4wp.forms.editor) {
-			mc4wp.forms.editor.refresh();
-		}
+  function title(tab) {
+    var title = document.title.split('-');
+    document.title = document.title.replace(title[0], tab.title + " ");
+  }
 
-		return true;
-	}
+  function switchTab(e) {
+    e = e || window.event; // get from data attribute
 
-	function title(tab) {
-		var title = document.title.split('-');
-		document.title = document.title.replace(title[0], tab.title + " ");
-	}
+    var tabId = this.getAttribute('data-tab'); // get from classname
 
-	function switchTab(e) {
-		e = e || window.event;
+    if (!tabId) {
+      var match = this.className.match(/nav-tab-(\w+)?/);
 
-		// get from data attribute
-		var tabId = this.getAttribute('data-tab');
+      if (match) {
+        tabId = match[1];
+      }
+    } // get from href
 
-		// get from classname
-		if (!tabId) {
-			var match = this.className.match(/nav-tab-(\w+)?/);
-			if (match) {
-				tabId = match[1];
-			}
-		}
 
-		// get from href
-		if (!tabId) {
-			var urlParams = URL.parse(this.href);
-			if (!urlParams.tab) {
-				return;
-			}
-			tabId = urlParams.tab;
-		}
+    if (!tabId) {
+      var urlParams = URL.parse(this.href);
 
-		var opened = _open(tabId);
+      if (!urlParams.tab) {
+        return;
+      }
 
-		if (opened) {
-			e.preventDefault();
-			e.returnValue = false;
-			return false;
-		}
+      tabId = urlParams.tab;
+    }
 
-		return true;
-	}
+    var opened = _open(tabId);
 
-	function init() {
+    if (opened) {
+      e.preventDefault();
+      e.returnValue = false;
+      return false;
+    }
 
-		// check for current tab
-		if (!history.pushState) {
-			return;
-		}
+    return true;
+  }
 
-		var activeTab = $tabs.filter(':visible').get(0);
-		if (!activeTab) {
-			return;
-		}
-		var tab = get(activeTab.id.substring(4));
-		if (!tab) return;
+  function init() {
+    // check for current tab
+    if (!history.pushState) {
+      return;
+    }
 
-		// check if tab is in html5 history
-		if (history.replaceState && history.state === null) {
-			history.replaceState(tab.id, '');
-		}
+    var activeTab = $tabs.filter(':visible').get(0);
 
-		// update document title
-		title(tab);
-	}
+    if (!activeTab) {
+      return;
+    }
 
-	$tabNavs.click(switchTab);
-	$(document.body).on('click', '.tab-link', switchTab);
-	init();
+    var tab = get(activeTab.id.substring(4));
+    if (!tab) return; // check if tab is in html5 history
 
-	if (window.addEventListener && history.pushState) {
-		window.addEventListener('popstate', function (e) {
-			if (!e.state) return true;
-			var tabId = e.state;
-			return _open(tabId, false);
-		});
-	}
+    if (history.replaceState && history.state === null) {
+      history.replaceState(tab.id, '');
+    } // update document title
 
-	return {
-		open: _open,
-		get: get
-	};
+
+    title(tab);
+  }
+
+  $tabNavs.click(switchTab);
+  $(document.body).on('click', '.tab-link', switchTab);
+  init();
+
+  if (window.addEventListener && history.pushState) {
+    window.addEventListener('popstate', function (e) {
+      if (!e.state) return true;
+      var tabId = e.state;
+      return _open(tabId, false);
+    });
+  }
+
+  return {
+    open: _open,
+    get: get
+  };
 };
 
 module.exports = Tabs;
@@ -447,32 +426,36 @@ module.exports = Tabs;
 'use strict';
 
 var URL = {
-	parse: function parse(url) {
-		var query = {};
-		var a = url.split('&');
-		for (var i in a) {
-			if (!a.hasOwnProperty(i)) {
-				continue;
-			}
-			var b = a[i].split('=');
-			query[decodeURIComponent(b[0])] = decodeURIComponent(b[1]);
-		}
+  parse: function parse(url) {
+    var query = {};
+    var a = url.split('&');
 
-		return query;
-	},
-	build: function build(data) {
-		var ret = [];
-		for (var d in data) {
-			ret.push(d + "=" + encodeURIComponent(data[d]));
-		}return ret.join("&");
-	},
-	setParameter: function setParameter(url, key, value) {
-		var data = URL.parse(url);
-		data[key] = value;
-		return URL.build(data);
-	}
+    for (var i in a) {
+      if (!a.hasOwnProperty(i)) {
+        continue;
+      }
+
+      var b = a[i].split('=');
+      query[decodeURIComponent(b[0])] = decodeURIComponent(b[1]);
+    }
+
+    return query;
+  },
+  build: function build(data) {
+    var ret = [];
+
+    for (var d in data) {
+      ret.push(d + "=" + encodeURIComponent(data[d]));
+    }
+
+    return ret.join("&");
+  },
+  setParameter: function setParameter(url, key, value) {
+    var data = URL.parse(url);
+    data[key] = value;
+    return URL.build(data);
+  }
 };
-
 module.exports = URL;
 
 },{}],7:[function(require,module,exports){

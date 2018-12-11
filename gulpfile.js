@@ -7,7 +7,6 @@ const rename = require("gulp-rename");
 const cssmin = require('gulp-cssmin');
 const source = require('vinyl-source-stream');
 const browserify = require('browserify');
-const replace = require('gulp-replace');
 const merge = require('merge-stream');
 const streamify = require('gulp-streamify');
 const globby = require('globby');
@@ -40,7 +39,10 @@ gulp.task('browserify', function () {
 		 merge(entries.map(function(entry) {
              let filename = entry.split('/').pop();
 			return browserify({entries: [entry]})
-                .transform("babelify", {presets: ["es2015"]})
+				.transform("babelify", {
+					presets: ["@babel/preset-env"],
+					plugins: []	
+				})
 				.bundle()
 				.pipe(source(filename))
 				.pipe(wrap('(function () { var require = undefined; var define = undefined; <%=contents%> })();'))

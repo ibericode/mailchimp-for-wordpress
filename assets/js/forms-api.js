@@ -1,355 +1,353 @@
 (function () { var require = undefined; var define = undefined; (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-'use strict';
+'use strict'; // deps & vars
 
-// deps & vars
-
-var _conditionalElements = require('./forms/conditional-elements.js');
-
-var _conditionalElements2 = _interopRequireDefault(_conditionalElements);
+var _conditionalElements = _interopRequireDefault(require("./forms/conditional-elements.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mc4wp = window.mc4wp || {};
-var Gator = require('gator');
-var forms = require('./forms/forms.js');
-var config = window.mc4wp_forms_config || {};
-var scrollToElement = require('scroll-to-element');
 
+var Gator = require('gator');
+
+var forms = require('./forms/forms.js');
+
+var config = window.mc4wp_forms_config || {};
+
+var scrollToElement = require('scroll-to-element');
 
 // funcs
 function scrollToForm(form) {
-	var animate = config.auto_scroll === 'animated';
-
-	scrollToElement(form.element, {
-		duration: animate ? 800 : 1,
-		alignment: 'middle'
-	});
+  var animate = config.auto_scroll === 'animated';
+  scrollToElement(form.element, {
+    duration: animate ? 800 : 1,
+    alignment: 'middle'
+  });
 }
 
 function handleFormRequest(form, eventName, errors, data) {
-	var timeStart = Date.now();
-	var pageHeight = document.body.clientHeight;
+  var timeStart = Date.now();
+  var pageHeight = document.body.clientHeight; // re-populate form
 
-	// re-populate form
-	if (errors) {
-		form.setData(data);
-	}
+  if (errors) {
+    form.setData(data);
+  } // scroll to form
 
-	// scroll to form
-	if (window.scrollY <= 10 && config.auto_scroll) {
-		scrollToForm(form);
-	}
 
-	// trigger events on window.load so all other scripts have loaded
-	window.addEventListener('load', function () {
-		// trigger events
-		forms.trigger('submitted', [form]);
-		forms.trigger(form.id + '.submitted', [form]);
+  if (window.scrollY <= 10 && config.auto_scroll) {
+    scrollToForm(form);
+  } // trigger events on window.load so all other scripts have loaded
 
-		if (errors) {
-			forms.trigger('error', [form, errors]);
-			forms.trigger(form.id + '.error', [form, errors]);
-		} else {
-			// form was successfully submitted
-			forms.trigger('success', [form, data]);
-			forms.trigger(form.id + '.success', [form, data]);
 
-			// subscribed / unsubscribed
-			forms.trigger(eventName, [form, data]);
-			forms.trigger(form.id + "." + eventName, [form, data]);
+  window.addEventListener('load', function () {
+    // trigger events
+    forms.trigger('submitted', [form]);
+    forms.trigger(form.id + '.submitted', [form]);
 
-			// for BC: always trigger "subscribed" event when firing "updated_subscriber" event
-			if (eventName === 'updated_subscriber') {
-				forms.trigger('subscribed', [form, data, true]);
-				forms.trigger(form.id + "." + "subscribed", [form, data, true]);
-			}
-		}
+    if (errors) {
+      forms.trigger('error', [form, errors]);
+      forms.trigger(form.id + '.error', [form, errors]);
+    } else {
+      // form was successfully submitted
+      forms.trigger('success', [form, data]);
+      forms.trigger(form.id + '.success', [form, data]); // subscribed / unsubscribed
 
-		// scroll to form again if page height changed since last scroll, eg because of slow loading images
-		// (only if load didn't take more than 0.8 seconds to prevent overtaking user scroll)
-		var timeElapsed = Date.now() - timeStart;
-		if (config.auto_scroll && timeElapsed > 1000 && timeElapsed < 2000 && document.body.clientHeight != pageHeight) {
-			scrollToForm(form);
-		}
-	});
-}
+      forms.trigger(eventName, [form, data]);
+      forms.trigger(form.id + "." + eventName, [form, data]); // for BC: always trigger "subscribed" event when firing "updated_subscriber" event
 
-// Bind browser events to form events (using delegation)
+      if (eventName === 'updated_subscriber') {
+        forms.trigger('subscribed', [form, data, true]);
+        forms.trigger(form.id + "." + "subscribed", [form, data, true]);
+      }
+    } // scroll to form again if page height changed since last scroll, eg because of slow loading images
+    // (only if load didn't take more than 0.8 seconds to prevent overtaking user scroll)
+
+
+    var timeElapsed = Date.now() - timeStart;
+
+    if (config.auto_scroll && timeElapsed > 1000 && timeElapsed < 2000 && document.body.clientHeight != pageHeight) {
+      scrollToForm(form);
+    }
+  });
+} // Bind browser events to form events (using delegation)
+
+
 Gator(document.body).on('submit', '.mc4wp-form', function (event) {
-	var form = forms.getByElement(event.target || event.srcElement);
-	forms.trigger('submit', [form, event]);
-	forms.trigger(form.id + '.submit', [form, event]);
+  var form = forms.getByElement(event.target || event.srcElement);
+  forms.trigger('submit', [form, event]);
+  forms.trigger(form.id + '.submit', [form, event]);
 });
-
 Gator(document.body).on('focus', '.mc4wp-form', function (event) {
-	var form = forms.getByElement(event.target || event.srcElement);
+  var form = forms.getByElement(event.target || event.srcElement);
 
-	if (!form.started) {
-		forms.trigger('started', [form, event]);
-		forms.trigger(form.id + '.started', [form, event]);
-		form.started = true;
-	}
+  if (!form.started) {
+    forms.trigger('started', [form, event]);
+    forms.trigger(form.id + '.started', [form, event]);
+    form.started = true;
+  }
 });
-
 Gator(document.body).on('change', '.mc4wp-form', function (event) {
-	var form = forms.getByElement(event.target || event.srcElement);
-	forms.trigger('change', [form, event]);
-	forms.trigger(form.id + '.change', [form, event]);
-});
+  var form = forms.getByElement(event.target || event.srcElement);
+  forms.trigger('change', [form, event]);
+  forms.trigger(form.id + '.change', [form, event]);
+}); // init conditional elements
 
-// init conditional elements
-_conditionalElements2.default.init();
+_conditionalElements.default.init(); // register early listeners
 
-// register early listeners
+
 if (mc4wp.listeners) {
-	var listeners = mc4wp.listeners;
-	for (var i = 0; i < listeners.length; i++) {
-		forms.on(listeners[i].event, listeners[i].callback);
-	}
+  var listeners = mc4wp.listeners;
 
-	// delete temp listeners array, so we don't bind twice
-	delete mc4wp["listeners"];
-}
+  for (var i = 0; i < listeners.length; i++) {
+    forms.on(listeners[i].event, listeners[i].callback);
+  } // delete temp listeners array, so we don't bind twice
 
-// expose forms object
-mc4wp.forms = forms;
 
-// handle submitted form
+  delete mc4wp["listeners"];
+} // expose forms object
+
+
+mc4wp.forms = forms; // handle submitted form
+
 if (config.submitted_form) {
-	var formConfig = config.submitted_form,
-	    element = document.getElementById(formConfig.element_id),
-	    form = forms.getByElement(element);
+  var formConfig = config.submitted_form,
+      element = document.getElementById(formConfig.element_id),
+      form = forms.getByElement(element);
+  handleFormRequest(form, formConfig.event, formConfig.errors, formConfig.data);
+} // expose mc4wp object globally
 
-	handleFormRequest(form, formConfig.event, formConfig.errors, formConfig.data);
-}
 
-// expose mc4wp object globally
 window.mc4wp = mc4wp;
 
 },{"./forms/conditional-elements.js":2,"./forms/forms.js":4,"gator":6,"scroll-to-element":13}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
+exports.default = void 0;
+
 function getFieldValues(form, fieldName) {
-    var values = [];
-    var inputs = form.querySelectorAll('input[name="' + fieldName + '"], select[name="' + fieldName + '"], textarea[name="' + fieldName + '"]');
+  var values = [];
+  var inputs = form.querySelectorAll('input[name="' + fieldName + '"], select[name="' + fieldName + '"], textarea[name="' + fieldName + '"]');
 
-    for (var i = 0; i < inputs.length; i++) {
-        var input = inputs[i];
-        var type = input.getAttribute("type");
+  for (var i = 0; i < inputs.length; i++) {
+    var input = inputs[i];
+    var type = input.getAttribute("type");
 
-        if ((type === "radio" || type === "checkbox") && !input.checked) {
-            continue;
-        }
-
-        values.push(input.value);
+    if ((type === "radio" || type === "checkbox") && !input.checked) {
+      continue;
     }
 
-    return values;
+    values.push(input.value);
+  }
+
+  return values;
 }
 
 function findForm(element) {
-    var bubbleElement = element;
+  var bubbleElement = element;
 
-    while (bubbleElement.parentElement) {
-        bubbleElement = bubbleElement.parentElement;
+  while (bubbleElement.parentElement) {
+    bubbleElement = bubbleElement.parentElement;
 
-        if (bubbleElement.tagName === 'FORM') {
-            return bubbleElement;
-        }
+    if (bubbleElement.tagName === 'FORM') {
+      return bubbleElement;
     }
+  }
 
-    return null;
+  return null;
 }
 
 function toggleElement(el) {
-    var show = !!el.getAttribute('data-show-if');
-    var conditions = show ? el.getAttribute('data-show-if').split(':') : el.getAttribute('data-hide-if').split(':');
-    var fieldName = conditions[0];
-    var expectedValues = (conditions.length > 1 ? conditions[1] : "*").split('|');
-    var form = findForm(el);
-    var values = getFieldValues(form, fieldName);
+  var show = !!el.getAttribute('data-show-if');
+  var conditions = show ? el.getAttribute('data-show-if').split(':') : el.getAttribute('data-hide-if').split(':');
+  var fieldName = conditions[0];
+  var expectedValues = (conditions.length > 1 ? conditions[1] : "*").split('|');
+  var form = findForm(el);
+  var values = getFieldValues(form, fieldName); // determine whether condition is met
 
-    // determine whether condition is met
-    var conditionMet = false;
-    for (var i = 0; i < values.length; i++) {
-        var value = values[i];
+  var conditionMet = false;
 
-        // condition is met when value is in array of expected values OR expected values contains a wildcard and value is not empty
-        conditionMet = expectedValues.indexOf(value) > -1 || expectedValues.indexOf('*') > -1 && value.length > 0;
+  for (var i = 0; i < values.length; i++) {
+    var value = values[i]; // condition is met when value is in array of expected values OR expected values contains a wildcard and value is not empty
 
-        if (conditionMet) {
-            break;
-        }
+    conditionMet = expectedValues.indexOf(value) > -1 || expectedValues.indexOf('*') > -1 && value.length > 0;
+
+    if (conditionMet) {
+      break;
+    }
+  } // toggle element display
+
+
+  if (show) {
+    el.style.display = conditionMet ? '' : 'none';
+  } else {
+    el.style.display = conditionMet ? 'none' : '';
+  } // find all inputs inside this element and toggle [required] attr (to prevent HTML5 validation on hidden elements)
+
+
+  var inputs = el.querySelectorAll('input, select, textarea');
+  [].forEach.call(inputs, function (el) {
+    if ((conditionMet || show) && el.getAttribute('data-was-required')) {
+      el.required = true;
+      el.removeAttribute('data-was-required');
     }
 
-    // toggle element display
-    if (show) {
-        el.style.display = conditionMet ? '' : 'none';
-    } else {
-        el.style.display = conditionMet ? 'none' : '';
+    if ((!conditionMet || !show) && el.required) {
+      el.setAttribute('data-was-required', "true");
+      el.required = false;
     }
+  });
+} // evaluate conditional elements globally
 
-    // find all inputs inside this element and toggle [required] attr (to prevent HTML5 validation on hidden elements)
-    var inputs = el.querySelectorAll('input, select, textarea');
-    [].forEach.call(inputs, function (el) {
-        if ((conditionMet || show) && el.getAttribute('data-was-required')) {
-            el.required = true;
-            el.removeAttribute('data-was-required');
-        }
 
-        if ((!conditionMet || !show) && el.required) {
-            el.setAttribute('data-was-required', "true");
-            el.required = false;
-        }
-    });
-}
-
-// evaluate conditional elements globally
 function evaluate() {
-    var elements = document.querySelectorAll('.mc4wp-form [data-show-if], .mc4wp-form [data-hide-if]');
-    [].forEach.call(elements, toggleElement);
-}
+  var elements = document.querySelectorAll('.mc4wp-form [data-show-if], .mc4wp-form [data-hide-if]');
+  [].forEach.call(elements, toggleElement);
+} // re-evaluate conditional elements for change events on forms
 
-// re-evaluate conditional elements for change events on forms
+
 function handleInputEvent(evt) {
-    if (!evt.target || !evt.target.form || evt.target.form.className.indexOf('mc4wp-form') < 0) {
-        return;
-    }
+  if (!evt.target || !evt.target.form || evt.target.form.className.indexOf('mc4wp-form') < 0) {
+    return;
+  }
 
-    var form = evt.target.form;
-    var elements = form.querySelectorAll('[data-show-if], [data-hide-if]');
-    [].forEach.call(elements, toggleElement);
+  var form = evt.target.form;
+  var elements = form.querySelectorAll('[data-show-if], [data-hide-if]');
+  [].forEach.call(elements, toggleElement);
 }
 
-exports.default = {
-    'init': function init() {
-        document.addEventListener('keyup', handleInputEvent, true);
-        document.addEventListener('change', handleInputEvent, true);
-        document.addEventListener('mc4wp-refresh', evaluate, true);
-        window.addEventListener('load', evaluate);
-        evaluate();
-    }
+var _default = {
+  'init': function init() {
+    document.addEventListener('keyup', handleInputEvent, true);
+    document.addEventListener('change', handleInputEvent, true);
+    document.addEventListener('mc4wp-refresh', evaluate, true);
+    window.addEventListener('load', evaluate);
+    evaluate();
+  }
 };
+exports.default = _default;
 
 },{}],3:[function(require,module,exports){
 'use strict';
 
 var serialize = require('form-serialize');
+
 var populate = require('populate.js');
 
 var Form = function Form(id, element) {
-	this.id = id;
-	this.element = element || document.createElement('form');
-	this.name = this.element.getAttribute('data-name') || "Form #" + this.id;
-	this.errors = [];
-	this.started = false;
+  this.id = id;
+  this.element = element || document.createElement('form');
+  this.name = this.element.getAttribute('data-name') || "Form #" + this.id;
+  this.errors = [];
+  this.started = false;
 };
 
 Form.prototype.setData = function (data) {
-	try {
-		populate(this.element, data);
-	} catch (e) {
-		console.error(e);
-	}
+  try {
+    populate(this.element, data);
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 Form.prototype.getData = function () {
-	return serialize(this.element, { hash: true, empty: true });
+  return serialize(this.element, {
+    hash: true,
+    empty: true
+  });
 };
 
 Form.prototype.getSerializedData = function () {
-	return serialize(this.element, { hash: false, empty: true });
+  return serialize(this.element, {
+    hash: false,
+    empty: true
+  });
 };
 
 Form.prototype.setResponse = function (msg) {
-	this.element.querySelector('.mc4wp-response').innerHTML = msg;
-};
+  this.element.querySelector('.mc4wp-response').innerHTML = msg;
+}; // revert back to original state
 
-// revert back to original state
+
 Form.prototype.reset = function () {
-	this.setResponse('');
-	this.element.querySelector('.mc4wp-form-fields').style.display = '';
-	this.element.reset();
+  this.setResponse('');
+  this.element.querySelector('.mc4wp-form-fields').style.display = '';
+  this.element.reset();
 };
 
 module.exports = Form;
 
 },{"form-serialize":5,"populate.js":7}],4:[function(require,module,exports){
-'use strict';
-
-// deps
+'use strict'; // deps
 
 var EventEmitter = require('wolfy87-eventemitter');
-var Form = require('./form.js');
 
-// variables
+var Form = require('./form.js'); // variables
+
+
 var events = new EventEmitter();
-var forms = [];
-
-// get form by its id
+var forms = []; // get form by its id
 // please note that this will get the FIRST occurence of the form with that ID on the page
+
 function get(formId) {
+  // do we have form for this one already?
+  for (var i = 0; i < forms.length; i++) {
+    if (forms[i].id == formId) {
+      return forms[i];
+    }
+  } // try to create from first occurence of this element
 
-	// do we have form for this one already?
-	for (var i = 0; i < forms.length; i++) {
-		if (forms[i].id == formId) {
-			return forms[i];
-		}
-	}
 
-	// try to create from first occurence of this element
-	var formElement = document.querySelector('.mc4wp-form-' + formId);
-	return createFromElement(formElement, formId);
-}
+  var formElement = document.querySelector('.mc4wp-form-' + formId);
+  return createFromElement(formElement, formId);
+} // get form by <form> element (or any input in form)
 
-// get form by <form> element (or any input in form)
+
 function getByElement(element) {
-	var formElement = element.form || element;
+  var formElement = element.form || element;
 
-	for (var i = 0; i < forms.length; i++) {
-		if (forms[i].element == formElement) {
-			return forms[i];
-		}
-	}
+  for (var i = 0; i < forms.length; i++) {
+    if (forms[i].element == formElement) {
+      return forms[i];
+    }
+  }
 
-	return createFromElement(formElement);
-}
+  return createFromElement(formElement);
+} // create form object from <form> element
 
-// create form object from <form> element
+
 function createFromElement(formElement, id) {
-	id = id || parseInt(formElement.getAttribute('data-id')) || 0;
-	var form = new Form(id, formElement);
-	forms.push(form);
-	return form;
+  id = id || parseInt(formElement.getAttribute('data-id')) || 0;
+  var form = new Form(id, formElement);
+  forms.push(form);
+  return form;
 }
 
 function all() {
-	return forms;
+  return forms;
 }
 
 function triggerEvent(eventName, eventArgs) {
-	if (eventName === 'submit') {
-		// don't spin up new thread for submit event as we want to preventDefault()... 
-		// TODO: Fix that in Premium.
-		events.trigger(eventName, eventArgs);
-	} else {
-		// process in separate thread to prevent errors from breaking core functionality
-		window.setTimeout(function () {
-			events.trigger(eventName, eventArgs);
-		}, 1);
-	}
+  if (eventName === 'submit') {
+    // don't spin up new thread for submit event as we want to preventDefault()... 
+    // TODO: Fix that in Premium.
+    events.trigger(eventName, eventArgs);
+  } else {
+    // process in separate thread to prevent errors from breaking core functionality
+    window.setTimeout(function () {
+      events.trigger(eventName, eventArgs);
+    }, 1);
+  }
 }
 
 module.exports = {
-	"all": all,
-	"get": get,
-	"getByElement": getByElement,
-	"on": events.on.bind(events),
-	"trigger": triggerEvent,
-	"off": events.off.bind(events)
+  "all": all,
+  "get": get,
+  "getByElement": getByElement,
+  "on": events.on.bind(events),
+  "trigger": triggerEvent,
+  "off": events.off.bind(events)
 };
 
 },{"./form.js":3,"wolfy87-eventemitter":16}],5:[function(require,module,exports){
