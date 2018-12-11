@@ -17,8 +17,6 @@ const sourcemaps = require('gulp-sourcemaps');
 const wrap = require('gulp-wrap');
 const wpPot = require('gulp-wp-pot');
 
-gulp.task('default', ['sass', 'browserify', 'uglify', 'pot']);
-
 gulp.task('sass', function () {
 	let files = './assets/sass/[^_]*.scss';
 
@@ -58,14 +56,14 @@ gulp.task('browserify', function () {
 	return bundledStream;
 });
 
-gulp.task('uglify', ['browserify'], function() {
+gulp.task('uglify', gulp.series('browserify', function() {
 	return gulp.src(['./assets/js/**/*.js','!./assets/js/**/*.min.js'])
 		.pipe(sourcemaps.init({loadMaps: true}))
 		.pipe(streamify(uglify()))
 		.pipe(rename({extname: '.min.js'}))
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest('./assets/js'));
-});
+}));
 
 gulp.task('pot', function () {
 	const domain = 'mailchimp-for-wp';
@@ -75,6 +73,8 @@ gulp.task('pot', function () {
 });
 
 gulp.task('watch', function () {
-	gulp.watch('./assets/sass/**/*.scss', ['sass']);
-	gulp.watch('./assets/browserify/**/*.js', ['browserify']);
+	gulp.watch('./assets/sass/**/*.scss', gulp.series('sass'));
+	gulp.watch('./assets/browserify/**/*.js', gulp.series('browserify'));
 });
+
+gulp.task('default', gulp.series('sass', 'uglify', 'pot'));
