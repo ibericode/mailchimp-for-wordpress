@@ -50,7 +50,7 @@ defined( 'ABSPATH' ) or exit;
 					<tr valign="top">
 						<th scope="row"><label for="mailchimp_api_key"><?php _e( 'API Key', 'mailchimp-for-wp' ); ?></label></th>
 						<td>
-							<input type="text" class="widefat" placeholder="<?php _e( 'Your MailChimp API key', 'mailchimp-for-wp' ); ?>" id="mailchimp_api_key" name="mc4wp[api_key]" value="<?php echo esc_attr( $obfuscated_api_key ); ?>" <?php readonly( defined( 'MC4WP_API_KEY'), true ); ?> />
+							<input type="text" class="widefat" placeholder="<?php _e( 'Your MailChimp API key', 'mailchimp-for-wp' ); ?>" id="mailchimp_api_key" name="mc4wp[api_key]" value="<?php echo esc_attr( $obfuscated_api_key ); ?>" <?php echo defined( 'MC4WP_API_KEY') ? 'readonly="readonly"' : ''; ?> />
 							<p class="help">
 								<?php _e( 'The API key for connecting with your MailChimp account.', 'mailchimp-for-wp' ); ?>
 								<a target="_blank" href="https://admin.mailchimp.com/account/api"><?php _e( 'Get your API key here.', 'mailchimp-for-wp' ); ?></a>
