@@ -1,6 +1,13 @@
 Changelog
 =========
 
+#### 4.3.2 - December 11, 2018
+
+**Fixes**
+
+- Use of `readonly` function, which is only available in WordPress 4.9 or later.
+
+
 #### 4.3.1 - November 28, 2018
 
 **Fixes**
