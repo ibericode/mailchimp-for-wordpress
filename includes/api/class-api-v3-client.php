@@ -172,7 +172,7 @@ class MC4WP_API_v3_Client {
   private function parse_response( $response ) {
 
     if( $response instanceof WP_Error ) {
-      throw new MC4WP_API_Connection_Exception( $response->get_error_message(), (int) $response->get_error_code() );
+      throw new MC4WP_API_Connection_Exception( $response->get_error_message(), (int) $response->get_error_code(), $this->last_request );
     }
 
     // decode response body
