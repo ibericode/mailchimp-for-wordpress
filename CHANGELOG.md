@@ -12,6 +12,7 @@ Changelog
 - Write API request parameters to the debug log in case of connection timeouts. 
 - Update JavaScript dependencies.
 
+
 #### 4.3.2 - December 11, 2018
 
 **Fixes**
