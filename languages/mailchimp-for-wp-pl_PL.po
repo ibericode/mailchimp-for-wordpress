@@ -479,7 +479,7 @@ msgstr "Twoj klucz API z MailChimp."
 
 #: includes/views/general-settings.php:55
 msgid "The API key for connecting with your MailChimp account."
-msgstr "Klucz API do połączenia z Twoim konem MailChimp."
+msgstr "Klucz API do połączenia z Twoim kontem MailChimp."
 
 #: includes/views/general-settings.php:56
 msgid "Get your API key here."
@@ -505,7 +505,7 @@ msgstr "Oto jak śledzimy."
 
 #: includes/views/other-settings.php:37
 msgid "Logging"
-msgstr ""
+msgstr "Logowanie"
 
 #: includes/views/other-settings.php:44
 msgid ""
