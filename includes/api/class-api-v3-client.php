@@ -167,7 +167,7 @@ class MC4WP_API_v3_Client {
   *
   * @return mixed
   *
-  * @throws MC4WP_API_Exception
+  * @throws MC4WP_API_Connection_Exception|MC4WP_API_Resource_Not_Found_Exception|MC4WP_API_Exception
   */
   private function parse_response( $response ) {
 

@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Class MC4WP_API_Exception
+ *
+ * @property string $title
+ * @property string $detail
+ * @property array $errors
+ */
 class MC4WP_API_Exception extends Exception {
 
   
@@ -38,6 +45,8 @@ class MC4WP_API_Exception extends Exception {
 
     /**
     * Backwards compatibility for direct property access.
+    * @param string $property
+    * @return mixed
     */
     public function __get( $property ) {
         if( in_array( $property, array( 'title', 'detail', 'errors' ) ) ) {
