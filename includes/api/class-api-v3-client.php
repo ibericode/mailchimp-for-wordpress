@@ -115,12 +115,12 @@ class MC4WP_API_v3_Client
 
         $url = $this->api_url . ltrim($resource, '/');
         $args = array(
-      'url' => $url,
-      'method' => $method,
-      'headers' => $this->get_headers(),
-      'timeout' => 10,
-      'sslverify' => apply_filters('mc4wp_use_sslverify', true),
-    );
+          'url' => $url,
+          'method' => $method,
+          'headers' => $this->get_headers(),
+          'timeout' => 10,
+          'sslverify' => apply_filters('mc4wp_use_sslverify', true),
+        );
 
         if (! empty($data)) {
             if (in_array($method, array( 'GET', 'DELETE' ))) {
@@ -210,12 +210,12 @@ class MC4WP_API_v3_Client
             throw new MC4WP_API_Exception($message, $code, $this->last_request, $this->last_response, $data);
         }
 
-        if (! is_null($data)) {
-            return $data;
+        // unable to decode response
+        if (is_null($data)) {
+            throw new MC4WP_API_Exception($message, $code, $this->last_request, $this->last_response);
         }
 
-        // unable to decode response
-        throw new MC4WP_API_Exception($message, $code, $this->last_request, $this->last_response);
+        return $data;
     }
 
     /**
