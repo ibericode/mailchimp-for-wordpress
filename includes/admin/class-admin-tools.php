@@ -1,17 +1,19 @@
 <?php
 
-class MC4WP_Admin_Tools {
+class MC4WP_Admin_Tools
+{
 
      /**
      * @return string
      */
-    public function get_plugin_page() {
-        if( empty( $_GET['page'] ) ) {
+    public function get_plugin_page()
+    {
+        if (empty($_GET['page'])) {
             return '';
         }
 
         $prefix = 'mailchimp-for-wp';
-        $page = ltrim( substr( $_GET['page'], strlen( $prefix ) ), '-' );
+        $page = ltrim(substr($_GET['page'], strlen($prefix)), '-');
         return $page;
     }
 
@@ -20,10 +22,11 @@ class MC4WP_Admin_Tools {
      *
      * @return bool
      */
-    public function on_plugin_page( $page = null ) {
+    public function on_plugin_page($page = null)
+    {
         // any settings page
-        if( is_null( $page ) ) {
-            return isset( $_GET['page'] ) && strpos( $_GET['page'], 'mailchimp-for-wp' ) === 0;
+        if (is_null($page)) {
+            return isset($_GET['page']) && strpos($_GET['page'], 'mailchimp-for-wp') === 0;
         }
 
         // specific page
@@ -35,8 +38,9 @@ class MC4WP_Admin_Tools {
      *
      * @return bool
      */
-    public function is_user_authorized() {
-        return current_user_can( $this->get_required_capability() );
+    public function is_user_authorized()
+    {
+        return current_user_can($this->get_required_capability());
     }
 
     /**
@@ -44,8 +48,8 @@ class MC4WP_Admin_Tools {
      *
      * @return string
      */
-    public function get_required_capability() {
-
+    public function get_required_capability()
+    {
         $capability = 'manage_options';
 
         /**
@@ -54,7 +58,7 @@ class MC4WP_Admin_Tools {
          * @ignore
          * @deprecated 3.0
          */
-        $capability = apply_filters( 'mc4wp_settings_cap', $capability );
+        $capability = apply_filters('mc4wp_settings_cap', $capability);
 
         /**
          * Filters the required user capability to access the MailChimp for WordPress' settings pages, view the dashboard widgets.
@@ -65,9 +69,8 @@ class MC4WP_Admin_Tools {
          * @param string $capability
          * @see https://codex.wordpress.org/Roles_and_Capabilities
          */
-        $capability = (string) apply_filters( 'mc4wp_admin_required_capability', $capability );
+        $capability = (string) apply_filters('mc4wp_admin_required_capability', $capability);
 
         return $capability;
     }
-
 }

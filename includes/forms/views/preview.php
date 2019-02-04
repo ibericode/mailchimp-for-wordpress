@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) or exit;
+defined('ABSPATH') or exit;
 
 // fake post to prevent notices in wp_enqueue_scripts call
 $GLOBALS['post'] = new \WP_Post((object) array( 'filter' => 'raw' ));
@@ -9,9 +9,9 @@ $GLOBALS['post'] = new \WP_Post((object) array( 'filter' => 'raw' ));
 <html>
 <head>
     <meta charset="utf-8" />
-    <link type="text/css" rel="stylesheet" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
-	<?php 
-    wp_enqueue_scripts(); 
+    <link type="text/css" rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" />
+	<?php
+    wp_enqueue_scripts();
     wp_print_styles();
     wp_print_head_scripts();
     wp_custom_css_cb();
@@ -43,7 +43,7 @@ $GLOBALS['post'] = new \WP_Post((object) array( 'filter' => 'raw' ));
 </head>
 <body class="page-template-default page ">
     <div id="form-preview" class="page type-page status-publish hentry post post-content">
-    	<?php mc4wp_show_form( $form_id ); ?>
+    	<?php mc4wp_show_form($form_id); ?>
     </div>
 	<?php wp_footer(); ?>
 </body>

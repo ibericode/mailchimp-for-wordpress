@@ -118,7 +118,6 @@ class MC4WP_WPForms_Field extends WPForms_Field
                 'content' => $option_label . $option_select,
             )
         );
-
     }
 
     private function field_option_choices($field)
@@ -183,7 +182,6 @@ class MC4WP_WPForms_Field extends WPForms_Field
 
         // Individual checkbox options
         foreach ($values as $key => $value) {
-
             $default = isset($value['default']) ? $value['default'] : '';
             $selected = checked('1', $default, false);
 
@@ -225,14 +223,14 @@ class MC4WP_WPForms_Field extends WPForms_Field
         printf('<ul id="%s" class="%s">', $field_id, $field_class);
 
         foreach ($choices as $key => $choice) {
-
             $selected = isset($choice['default']) ? '1' : '0';
             $depth = isset($choice['depth']) ? absint($choice['depth']) : 1;
 
             printf('<li class="choice-%d depth-%d">', $key, $depth);
 
             // Checkbox elements
-            printf('<input type="checkbox" id="wpforms-%d-field_%d_%d" name="wpforms[fields][%d]" value="%s" %s %s>',
+            printf(
+                '<input type="checkbox" id="wpforms-%d-field_%d_%d" name="wpforms[fields][%d]" value="%s" %s %s>',
                 $form_id,
                 $field['id'],
                 $key,

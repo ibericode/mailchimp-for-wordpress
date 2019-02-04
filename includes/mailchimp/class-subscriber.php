@@ -1,6 +1,7 @@
 <?php
 
-class MC4WP_MailChimp_Subscriber {
+class MC4WP_MailChimp_Subscriber
+{
 
     /**
      * @var string Email address for this subscriber.
@@ -47,14 +48,14 @@ class MC4WP_MailChimp_Subscriber {
      *
      * @return array
      */
-    public function to_array() {
-        $array = get_object_vars( $this );
+    public function to_array()
+    {
+        $array = get_object_vars($this);
 
         // filter out null values
-        $null_values = array_filter( $array, 'is_null' );
-        $values = array_diff_key( $array, $null_values );
+        $null_values = array_filter($array, 'is_null');
+        $values = array_diff_key($array, $null_values);
 
         return $values;
     }
-
 }

@@ -1,4 +1,5 @@
 .DS_Store
+.php_cs.cache
 .sass-cache/
 node_modules/
 build/
