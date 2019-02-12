@@ -30,6 +30,10 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
             $hook = sprintf('woocommerce_%s', $this->options['position']);
             add_action($hook, array( $this, 'output_checkbox' ), 20);
             add_action('woocommerce_checkout_update_order_meta', array( $this, 'save_woocommerce_checkout_checkbox_value' ));
+
+            // specific hooks for klarna
+            add_filter('kco_create_order', array($this, 'add_klarna_field'));
+            add_filter('klarna_after_kco_confirmation', array($this, 'subscribe_from_klarna_checkout'), 10, 2);
         }
 
         add_action('woocommerce_checkout_order_processed', array( $this, 'subscribe_from_woocommerce_checkout' ));
@@ -45,6 +49,13 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
         $defaults = parent::get_default_options();
         $defaults['position'] = 'billing';
         return $defaults;
+    }
+
+    public function add_klarna_field($create) {
+        $create['options']['additional_checkbox']['text'] = $this->get_label_text();
+        $create['options']['additional_checkbox']['checked'] = (bool) $this->options['precheck'];
+        $create['options']['additional_checkbox']['required'] = false;
+        return $create;
     }
 
 
@@ -75,6 +86,19 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
 
         $do_optin = get_post_meta($order_id, '_mc4wp_optin', true);
         return $do_optin;
+    }
+
+    public function subscribe_from_klarna_checkout($order_id, $klarna_order)
+    {
+        // $klarna_order is the returned object from Klarna
+        if (false == $klarna_order['merchant_requested']['additional_checkbox']) {
+            return;
+        }
+
+        // get back into regular subscribe flow
+        update_post_meta($order_id, '_mc4wp_optin', true);
+        $this->subscribe_from_woocommerce_checkout($order_id);
+        return;
     }
 
     /**

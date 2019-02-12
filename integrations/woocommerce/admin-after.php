@@ -5,9 +5,8 @@ $position_options = array(
     'checkout_shipping' => __('After shipping details', 'mailchimp-for-wp'),
     'checkout_after_customer_details' => __('After customer details', 'mailchimp-for-wp'),
     'review_order_before_submit' => __('Before submit button', 'mailchimp-for-wp'),
+    'after_order_notes' => __( "After order notes", 'mailchimp-for-wp' ),
 );
-
-
 
 
 /** @var MC4WP_Integration $integration */
