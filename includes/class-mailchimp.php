@@ -335,7 +335,7 @@ class MC4WP_MailChimp
     public function fetch_lists()
     {
         // try to increase time limit as this can take a while
-        @set_time_limit(300);
+        @set_time_limit(600);
         $list_ids = $this->fetch_list_ids();
 
         // randomize array order
