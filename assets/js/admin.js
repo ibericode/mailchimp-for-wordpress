@@ -155,7 +155,8 @@ ListFetcher.prototype.fetch = function (e) {
   this.done = false;
   $.post(ajaxurl, {
     action: "mc4wp_renew_mailchimp_lists",
-    timeout: 180000
+    timeout: 600000 // 10 minutes, matching max_execution_time
+
   }).done(function (data) {
     this.success = true;
 
