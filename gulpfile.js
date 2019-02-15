@@ -41,10 +41,13 @@ gulp.task('browserify', function () {
 			return browserify({entries: [entry]})
 				.transform("babelify", {
 					presets: ["@babel/preset-env"],
-					plugins: []	
+					plugins: [
+						"@babel/plugin-transform-react-jsx",
+					]
 				})
 				.bundle()
 				.pipe(source(filename))
+				.pipe(wrap('(function () { var require = undefined; var define = undefined; <%=contents%> })();'))
 				.pipe(wrap('(function () { var require = undefined; var define = undefined; <%=contents%> })();'))
 
 				// create .js file

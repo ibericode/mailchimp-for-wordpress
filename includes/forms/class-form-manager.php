@@ -64,13 +64,25 @@ class MC4WP_Form_Manager
     public function initialize()
     {
         $this->register_post_type();
+        $this->register_block_type();
     }
 
+    private function register_block_type()
+    {
+        // Bail if register_block_type does not exist (available since WP 5.0)
+        if (! function_exists('register_block_type')) {
+            return;
+        }
+
+        register_block_type( 'mailchimp-for-wp/form', array(
+            'render_callback' => array($this->output_manager, 'shortcode'),
+        ));
+    }
 
     /**
      * Register post type "mc4wp-form"
      */
-    public function register_post_type()
+    private function register_post_type()
     {
         // register post type
         register_post_type(

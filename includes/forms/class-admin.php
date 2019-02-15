@@ -42,6 +42,21 @@ class MC4WP_Forms_Admin
         add_action('mc4wp_admin_show_forms_page-edit-form', array( $this, 'show_edit_page' ));
         add_action('mc4wp_admin_show_forms_page-add-form', array( $this, 'show_add_page' ));
         add_action('mc4wp_admin_enqueue_assets', array( $this, 'enqueue_assets' ), 10, 2);
+
+        add_action('enqueue_block_editor_assets', array($this, 'enqueue_gutenberg_assets'));
+    }
+
+
+    public function enqueue_gutenberg_assets()
+    {
+        wp_enqueue_script('mc4wp-form-block', MC4WP_PLUGIN_URL . 'assets/js/forms-block.js',  array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-components'));
+
+        $forms = mc4wp_get_forms();
+        $data = array();
+        foreach ($forms as $form) {
+            $data[] = array( 'name' => $form->name, 'id' => $form->ID );
+        }
+        wp_localize_script('mc4wp-form-block', 'mc4wp_forms', $data );
     }
 
     /**

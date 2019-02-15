@@ -7,6 +7,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
     "@babel/preset-env": "^7.2.0",
     "babelify": "^10.0.0",
     "browserify": "^16.1.0",

@@ -42,12 +42,12 @@ class MC4WP_Form_Asset_Manager
 
     /**
      * Register the various JS files used by the plugin
-     *
-     * @deprecated 3.1.9
      */
     public function register_assets()
     {
         $suffix = $this->filename_suffix;
+
+        wp_register_script('mc4wp-forms-api', MC4WP_PLUGIN_URL . 'assets/js/forms-api'.  $this->filename_suffix .'.js', array(), MC4WP_VERSION, true);
 
         /**
          * Runs right after all assets (scripts & stylesheets) for forms have been registered
@@ -60,6 +60,7 @@ class MC4WP_Form_Asset_Manager
          */
         do_action('mc4wp_register_form_assets', $suffix);
     }
+
 
     /**
      * @param string $stylesheet
@@ -230,7 +231,7 @@ class MC4WP_Form_Asset_Manager
         global $wp_scripts;
 
         // make sure scripts are loaded
-        wp_enqueue_script('mc4wp-forms-api', MC4WP_PLUGIN_URL . 'assets/js/forms-api'.  $this->filename_suffix .'.js', array(), MC4WP_VERSION, true);
+        wp_enqueue_script('mc4wp-forms-api');
         wp_localize_script('mc4wp-forms-api', 'mc4wp_forms_config', $this->get_javascript_config());
 
         // load placeholder polyfill if browser is Internet Explorer
