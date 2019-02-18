@@ -48,15 +48,12 @@ gulp.task('browserify', function () {
 				.bundle()
 				.pipe(source(filename))
 				.pipe(wrap('(function () { var require = undefined; var define = undefined; <%=contents%> })();'))
-				.pipe(wrap('(function () { var require = undefined; var define = undefined; <%=contents%> })();'))
 
 				// create .js file
 				.pipe(rename({ extname: '.js' }))
 				.pipe(gulp.dest('./assets/js'));
 		})).pipe(bundledStream);
-	}).catch(function(err) {
-		console.log(err);
-	});
+	})
 
 	return bundledStream;
 });
