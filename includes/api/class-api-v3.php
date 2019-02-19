@@ -325,6 +325,21 @@ class MC4WP_API_v3
     }
 
     /**
+     * Get information about all available segments for a specific list.
+     *
+     * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/segments/#read-get_lists_list_id_segments
+     * @param string $list_id
+     * @param array $args
+     * @return object
+     * @throws MC4WP_API_Exception
+     */
+    public function get_list_segments($list_id, array $args = array())
+    {
+        $resource = sprintf('/lists/%s/segments', $list_id);
+        return $this->client->get($resource, $args);
+    }
+
+    /**
      * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#read-get_ecommerce_stores
      *
      * @param array $args
