@@ -292,6 +292,39 @@ class MC4WP_API_v3
     }
 
     /**
+     * Get the tags on a list member.
+     *
+     * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/tags/#create-post_lists_list_id_members_subscriber_hash_tags
+     * @param string $list_id
+     * @param string $email_address
+     * @return object
+     * @throws MC4WP_API_Exception
+     */
+    public function get_list_member_tags($list_id, $email_address)
+    {
+        $subscriber_hash = $this->get_subscriber_hash($email_address);
+        $resource = sprintf('/lists/%s/members/%s/tags', $list_id, $subscriber_hash);
+        return $this->client->get($resource);
+    }
+
+    /**
+     * Add or remove tags from a list member. If a tag that does not exist is passed in and set as ‘active’, a new tag will be created.
+     *
+     * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/tags/#read-get_lists_list_id_members_subscriber_hash_tags
+     * @param string $list_id
+     * @param string $email_address
+     * @param array $data
+     * @return object
+     * @throws MC4WP_API_Exception
+     */
+    public function update_list_member_tags($list_id, $email_address, array $data)
+    {
+        $subscriber_hash = $this->get_subscriber_hash($email_address);
+        $resource = sprintf('/lists/%s/members/%s/tags', $list_id, $subscriber_hash);
+        return $this->client->post($resource, $data);
+    }
+
+    /**
      * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#read-get_ecommerce_stores
      *
      * @param array $args
