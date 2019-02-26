@@ -378,8 +378,6 @@ class MC4WP_MailChimp
     */
     public function get_subscriber_counts()
     {
-
-        // get from transient
         $list_counts = get_transient('mc4wp_list_counts');
         if (is_array($list_counts)) {
             return $list_counts;
@@ -399,7 +397,6 @@ class MC4WP_MailChimp
             $list_counts["{$list->id}"] = $list->stats->member_count;
         }
 
-        $seconds = 3600;
 
         /**
         * Filters the cache time for MailChimp lists configuration, in seconds. Defaults to 3600 seconds (1 hour).
@@ -407,10 +404,12 @@ class MC4WP_MailChimp
         * @since 2.0
         * @param int $seconds
         */
-        $transient_lifetime = (int) apply_filters('mc4wp_lists_count_cache_time', $seconds);
+        $transient_lifetime = (int) apply_filters('mc4wp_lists_count_cache_time', 3600);
+
+        // make sure transient lifetime is not lower than 60 seconds
+        $transient_lifetime = max(60, $transient_lifetime);
         set_transient('mc4wp_list_counts', $list_counts, $transient_lifetime);
 
-        // bail
         return $list_counts;
     }
 
