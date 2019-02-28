@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp form
 Requires at least: 4.1
 Tested up to: 5.1
-Stable tag: 4.3.3
+Stable tag: 4.3.3-trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.3
@@ -382,7 +382,7 @@ The plugin provides various filter & action hooks that allow you to modify or ex
 
 **Fixes**
 
-- Filter out empty array values when overriding selected Mailchimp lists via `_mc4wp_lists`.
+- Filter out empty array values when overriding selected Mailchimp lists via `_mc4wp_lists`. 
 
 **Improvements**
 
@@ -398,7 +398,7 @@ The plugin provides various filter & action hooks that allow you to modify or ex
 **Improvements**
 
 - Remove unused options from Ninja Forms integration.
-- Now logging all sign-ups from Ninja Forms integrations when using [Mailchimp for WordPress Premium](https://mc4wp.com/premium-features/).
+- Now logging all sign-ups from Ninja Forms integrations when using [Mailchimp for WordPress Premium](https://mc4wp.com/premium-features/). 
 
 **Additions**
 
