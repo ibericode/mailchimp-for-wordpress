@@ -18,7 +18,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
     /**
      * @var string
      */
-    public $description = "Subscribes your WooCommerce customers.";
+    public $description = "Subscribes people from WooCommerce's checkout form.";
 
     /**
      * Add hooks
