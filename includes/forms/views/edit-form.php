@@ -20,7 +20,7 @@ $tabs = apply_filters('mc4wp_admin_edit_form_tabs', $tabs);
 
     <p class="breadcrumbs">
         <span class="prefix"><?php echo __('You are here: ', 'mailchimp-for-wp'); ?></span>
-        <a href="<?php echo admin_url('admin.php?page=mailchimp-for-wp'); ?>">MailChimp for WordPress</a> &rsaquo;
+        <a href="<?php echo admin_url('admin.php?page=mailchimp-for-wp'); ?>">Mailchimp for WordPress</a> &rsaquo;
         <a href="<?php echo admin_url('admin.php?page=mailchimp-for-wp-forms'); ?>"><?php _e('Forms', 'mailchimp-for-wp'); ?></a>
         &rsaquo;
         <span class="current-crumb"><strong><?php echo __('Form', 'mailchimp-for-wp'); ?> <?php echo $form_id; ?>

@@ -6,8 +6,8 @@ var registerBlockType = window.wp.blocks.registerBlockType;
 var SelectControl = window.wp.components.SelectControl;
 var forms = window.mc4wp_forms;
 registerBlockType('mailchimp-for-wp/form', {
-  title: __('MailChimp for WordPress Form'),
-  description: __('Block showing a MailChimp for WordPress sign-up form'),
+  title: __('Mailchimp for WordPress Form'),
+  description: __('Block showing a Mailchimp for WordPress sign-up form'),
   category: 'widgets',
   attributes: {
     id: {
@@ -30,7 +30,7 @@ registerBlockType('mailchimp-for-wp/form', {
         padding: '14px'
       }
     }, React.createElement(SelectControl, {
-      label: __('MailChimp for WordPress Sign-up Form'),
+      label: __('Mailchimp for WordPress Sign-up Form'),
       value: props.attributes.id,
       options: options,
       onChange: function onChange(value) {

@@ -51,7 +51,7 @@ class MC4WP_Admin_Review_Notice
      */
     public function show()
     {
-        // only show on MailChimp for WordPress' pages.
+        // only show on Mailchimp for WordPress' pages.
         if (! $this->tools->on_plugin_page()) {
             return false;
         }
@@ -70,7 +70,7 @@ class MC4WP_Admin_Review_Notice
 
         echo '<div class="notice notice-info mc4wp-is-dismissible" id="mc4wp-review-notice">';
         echo '<p>';
-        echo __('You\'ve been using MailChimp for WordPress for some time now; we hope you love it!', 'mailchimp-for-wp') . ' <br />';
+        echo __('You\'ve been using Mailchimp for WordPress for some time now; we hope you love it!', 'mailchimp-for-wp') . ' <br />';
         echo sprintf(__('If you do, please <a href="%s">leave us a 5★ rating on WordPress.org</a>. It would be of great help to us.', 'mailchimp-for-wp'), 'https://wordpress.org/support/view/plugin-reviews/mailchimp-for-wp?rate=5#new-post');
         echo '</p>';
         echo '<form method="POST" id="mc4wp-dismiss-review-form"><button type="submit" class="notice-dismiss"><span class="screen-reader-text">'. __('Dismiss this notice.', 'mailchimp-for-wp') .'</span></button><input type="hidden" name="_mc4wp_action" value="dismiss_review_notice"/></form>';

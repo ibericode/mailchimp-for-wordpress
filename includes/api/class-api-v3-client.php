@@ -189,7 +189,7 @@ class MC4WP_API_v3_Client
         $message = wp_remote_retrieve_response_message($response);
         $body = wp_remote_retrieve_body($response);
 
-        // set body to "true" in case MailChimp returned No Content
+        // set body to "true" in case Mailchimp returned No Content
         if ($code < 300 && empty($body)) {
             $body = "true";
         }

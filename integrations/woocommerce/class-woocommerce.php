@@ -130,7 +130,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
             );
         }
 
-        // TODO: add billing address fields, maybe by finding MailChimp field of type "address"?
+        // TODO: add billing address fields, maybe by finding Mailchimp field of type "address"?
 
         return $this->subscribe($data, $order_id);
     }

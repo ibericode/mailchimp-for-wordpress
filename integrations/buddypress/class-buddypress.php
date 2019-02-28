@@ -37,7 +37,7 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration
              * the 'signups' table and then converted into an actual user during the
              * activation process.
              *
-             * To avoid all signups being subscribed to the MailChimp list until they
+             * To avoid all signups being subscribed to the Mailchimp list until they
              * have responded to the activation email, a value is stored in the signup
              * usermeta data which is retrieved on activation and acted upon.
              */
@@ -52,7 +52,7 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration
          * installs have a user moderation plugin (e.g. BP Registration Options)
          * installed. This is because email activation on itself is sometimes not enough to ensure
          * that user signups are not spammers. There should therefore be a way for
-         * plugins to delay the MailChimp signup process.
+         * plugins to delay the Mailchimp signup process.
          *
          * Plugins can hook into the 'mc4wp_integration_buddypress_should_subscribe' filter to prevent
          * subscriptions from taking place:
@@ -86,7 +86,7 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration
         $subscribe = true;
 
         /**
-         * Allow other plugins to prevent the MailChimp sign-up.
+         * Allow other plugins to prevent the Mailchimp sign-up.
          *
          * @param bool $subscribe False does not subscribe the user.
          * @param int $user_id The user ID to subscribe
@@ -153,7 +153,7 @@ class MC4WP_BuddyPress_Integration extends MC4WP_User_Integration
     }
 
     /**
-     * Subscribes a user to MailChimp list(s).
+     * Subscribes a user to Mailchimp list(s).
      *
      * @param int $user_id The user ID to subscribe
      * @return bool

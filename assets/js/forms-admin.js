@@ -554,7 +554,7 @@ var FieldFactory = function FieldFactory(fields, i18n) {
     }
   }
   /**
-   * Normalizes the field type which is passed by MailChimp
+   * Normalizes the field type which is passed by Mailchimp
    *
    * @param type
    * @returns {*}
@@ -632,7 +632,7 @@ var FieldFactory = function FieldFactory(fields, i18n) {
     return true;
   }
   /**
-   * Register a field for a MailChimp grouping
+   * Register a field for a Mailchimp grouping
    *
    * @param interestCategory
    */
@@ -1159,7 +1159,7 @@ var FormWatcher = function FormWatcher(m, editor, settings, fields, events, help
   }
 
   function findRequiredFields() {
-    // query fields required by MailChimp
+    // query fields required by Mailchimp
     var requiredFields = fields.getAllWhere('forceRequired', true).map(function (f) {
       return f.name().toUpperCase().replace(/\[(\w+)\]/g, '.$1');
     }); // query fields in form with [required] attribute
@@ -1232,7 +1232,7 @@ function render() {
 
 function init(editor, fields) {
   var groupingsNotice = function groupingsNotice() {
-    var text = "Your form contains old style <code>GROUPINGS</code> fields. <br /><br />Please remove these fields from your form and then re-add them through the available field buttons to make sure your data is getting through to MailChimp correctly.";
+    var text = "Your form contains old style <code>GROUPINGS</code> fields. <br /><br />Please remove these fields from your form and then re-add them through the available field buttons to make sure your data is getting through to Mailchimp correctly.";
     var formCode = editor.getValue().toLowerCase();
     formCode.indexOf('name="groupings') > -1 ? show('deprecated_groupings', text) : hide('deprecated_groupings');
   };
@@ -1242,7 +1242,7 @@ function init(editor, fields) {
     var missingFields = requiredFields.filter(function (f) {
       return !editor.containsField(f.name().toUpperCase());
     });
-    var text = '<strong>Heads up!</strong> Your form is missing list fields that are required in MailChimp. Either add these fields to your form or mark them as optional in MailChimp.';
+    var text = '<strong>Heads up!</strong> Your form is missing list fields that are required in Mailchimp. Either add these fields to your form or mark them as optional in Mailchimp.';
     text += "<br /><ul class=\"ul-square\" style=\"margin-bottom: 0;\"><li>" + missingFields.map(function (f) {
       return f.title();
     }).join('</li><li>') + '</li></ul>';

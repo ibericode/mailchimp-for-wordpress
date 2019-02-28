@@ -6,7 +6,7 @@
 
 	<p class="breadcrumbs">
 		<span class="prefix"><?php echo __('You are here: ', 'mailchimp-for-wp'); ?></span>
-		<a href="<?php echo admin_url('admin.php?page=mailchimp-for-wp'); ?>">MailChimp for WordPress</a> &rsaquo;
+		<a href="<?php echo admin_url('admin.php?page=mailchimp-for-wp'); ?>">Mailchimp for WordPress</a> &rsaquo;
 		<a href="<?php echo admin_url('admin.php?page=mailchimp-for-wp-integrations'); ?>"><?php _e('Integrations', 'mailchimp-for-wp'); ?></a> &rsaquo;
 		<span class="current-crumb"><strong><?php echo esc_html($integration->name); ?></strong></span>
 	</p>
@@ -24,8 +24,8 @@
 			<?php settings_errors(); ?>
 
 			<div id="notice-additional-fields" class="notice notice-info" style="display: none;">
-				<p><?php _e('The selected MailChimp lists require non-default fields, which may prevent this integration from working.', 'mailchimp-for-wp'); ?></p>
-				<p><?php echo sprintf(__('Please ensure you <a href="%s">configure the plugin to send all required fields</a> or <a href="%s">log into your MailChimp account</a> and make sure only the email & name fields are marked as required fields for the selected list(s).', 'mailchimp-for-wp'), 'https://kb.mc4wp.com/send-additional-fields-from-integrations/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page', 'https://admin.mailchimp.com/lists/'); ?></p>
+				<p><?php _e('The selected Mailchimp lists require non-default fields, which may prevent this integration from working.', 'mailchimp-for-wp'); ?></p>
+				<p><?php echo sprintf(__('Please ensure you <a href="%s">configure the plugin to send all required fields</a> or <a href="%s">log into your Mailchimp account</a> and make sure only the email & name fields are marked as required fields for the selected list(s).', 'mailchimp-for-wp'), 'https://kb.mc4wp.com/send-additional-fields-from-integrations/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page', 'https://admin.mailchimp.com/lists/'); ?></p>
 			</div>
 
 			<p>
@@ -97,7 +97,7 @@
 						<?php // hidden input to make sure a value is sent to the server when no checkboxes were selected?>
 						<input type="hidden" name="mc4wp_integrations[<?php echo $integration->slug; ?>][lists][]" value="" />
 						<tr valign="top">
-							<th scope="row"><?php _e('MailChimp Lists', 'mailchimp-for-wp'); ?></th>
+							<th scope="row"><?php _e('Mailchimp Lists', 'mailchimp-for-wp'); ?></th>
 							<?php if (! empty($lists)) {
                         echo '<td>';
                         echo '<ul style="margin-bottom: 20px; max-height: 300px; overflow-y: auto;">';
@@ -114,7 +114,7 @@
                         echo '</p>';
                         echo '</td>';
                     } else {
-                        echo '<td>' . sprintf(__('No lists found, <a href="%s">are you connected to MailChimp</a>?', 'mailchimp-for-wp'), admin_url('admin.php?page=mailchimp-for-wp')) . '</td>';
+                        echo '<td>' . sprintf(__('No lists found, <a href="%s">are you connected to Mailchimp</a>?', 'mailchimp-for-wp'), admin_url('admin.php?page=mailchimp-for-wp')) . '</td>';
                     } ?>
 						</tr>
 					<?php

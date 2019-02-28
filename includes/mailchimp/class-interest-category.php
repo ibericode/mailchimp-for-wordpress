@@ -1,9 +1,7 @@
 <?php
 
 /**
- * Class MC4WP_MailChimp_Interests_Category
- *
- * Represents an Interest Category in MailChimp.
+ * Represents an Interest Category in Mailchimp.
  *
  * @access public
  * @since 4.0

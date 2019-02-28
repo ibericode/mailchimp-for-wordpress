@@ -1,4 +1,4 @@
-MailChimp for WordPress
+Mailchimp for WordPress
 ======================
 [![Build Status](https://api.travis-ci.org/ibericode/mailchimp-for-wordpress.png?branch=master)](https://travis-ci.org/ibericode/mailchimp-for-wordpress)
 [![Stable Version](https://poser.pugx.org/dannyvankooten/mailchimp-for-wordpress/v/stable.svg)](https://packagist.org/packages/dannyvankooten/mailchimp-for-wordpress)
@@ -6,7 +6,7 @@ MailChimp for WordPress
 ![Version](https://img.shields.io/wordpress/plugin/dt/mailchimp-for-wp.svg)
 ![Rating](https://img.shields.io/wordpress/plugin/r/mailchimp-for-wp.svg)
 
-Here, you can browse the source of the [MailChimp for WordPress Plugin](https://wordpress.org/plugins/mailchimp-for-wp/) project, find and discuss open issues or contribute code to the plugin yourself.
+Here, you can browse the source of the [Mailchimp for WordPress Plugin](https://wordpress.org/plugins/mailchimp-for-wp/) project, find and discuss open issues or contribute code to the plugin yourself.
 
 Installation
 ------------
@@ -17,7 +17,7 @@ If you want to run the latest development version, you have two options:
 * You can download the repository .zip file: [mailchimp-for-wordpress.zip](https://github.com/ibericode/mailchimp-for-wordpress/archive/master.zip)
 * You can clone the GitHub repository using Git
 
-This will download the latest development version of the MailChimp for WordPress plugin. While this version is usually stable,
+This will download the latest development version of the Mailchimp for WordPress plugin. While this version is usually stable,
 it is not recommended for use in a production environment.
 
 Bugs
@@ -26,16 +26,16 @@ If you think you've found a bug, [please raise an issue here](https://github.com
 
 Translations
 -------------
-It's easy to translate the plugin into your own language. Head over to the [translation project on Transifex](https://www.transifex.com/projects/p/mailchimp-for-wordpress/) and click on "[Help translate MailChimp for WordPress](https://www.transifex.com/signup/?join_project=mailchimp-for-wordpress)".
+It's easy to translate the plugin into your own language. Head over to the [translation project on Transifex](https://www.transifex.com/projects/p/mailchimp-for-wordpress/) and click on "[Help translate Mailchimp for WordPress](https://www.transifex.com/signup/?join_project=mailchimp-for-wordpress)".
 
 Support
 -------
-This is a developer's portal for the MailChimp for WordPress plugin and should not be used for support. Please visit the
-[MailChimp for WordPress support forum on WordPress.org](https://wordpress.org/support/plugin/mailchimp-for-wp).
+This is a developer's portal for the Mailchimp for WordPress plugin and should not be used for support. Please visit the
+[Mailchimp for WordPress support forum on WordPress.org](https://wordpress.org/support/plugin/mailchimp-for-wp).
 
-If you need priority support, please upgrade to [MailChimp for WordPress Pro](https://mc4wp.com/).
+If you need priority support, please upgrade to [Mailchimp for WordPress Pro](https://mc4wp.com/).
 
-Looking for code snippets? Have a look at the [MailChimp for WordPress Code Snippets repository](https://github.com/ibericode/mc4wp-snippets)!
+Looking for code snippets? Have a look at the [Mailchimp for WordPress Code Snippets repository](https://github.com/ibericode/mc4wp-snippets)!
 
 Contributions
 -------------

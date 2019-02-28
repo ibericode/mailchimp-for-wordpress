@@ -150,11 +150,11 @@ class MC4WP_List_Data_Mapper
         /**
         * Filters the value of a field after it is formatted.
         *
-        * Use this to format a field value according to the field type (in MailChimp).
+        * Use this to format a field value according to the field type (in Mailchimp).
         *
         * @since 3.0
         * @param string $field_value The value
-        * @param string $field_type The type of the field (in MailChimp)
+        * @param string $field_type The type of the field (in Mailchimp)
         */
         $field_value = apply_filters('mc4wp_format_field_value', $field_value, $field_type);
 

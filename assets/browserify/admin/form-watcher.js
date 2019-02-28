@@ -40,7 +40,7 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
 
     function findRequiredFields() {
 
-        // query fields required by MailChimp
+        // query fields required by Mailchimp
         var requiredFields = fields.getAllWhere('forceRequired', true).map(function(f) { return f.name().toUpperCase().replace(/\[(\w+)\]/g, '.$1' ); });
 
         // query fields in form with [required] attribute

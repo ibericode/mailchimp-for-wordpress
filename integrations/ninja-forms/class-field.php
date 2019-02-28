@@ -9,7 +9,7 @@ class MC4WP_Ninja_Forms_Field extends NF_Abstracts_Input
 {
     protected $_name = 'mc4wp_optin';
 
-    protected $_nicename = 'MailChimp';
+    protected $_nicename = 'Mailchimp';
 
     protected $_section = 'misc';
 
@@ -33,7 +33,7 @@ class MC4WP_Ninja_Forms_Field extends NF_Abstracts_Input
     {
         parent::__construct();
 
-        $this->_nicename = __('MailChimp opt-in', 'mailchimp-for-wp');
+        $this->_nicename = __('Mailchimp opt-in', 'mailchimp-for-wp');
 
         $this->_settings[ 'label_pos' ][ 'value' ] = 'right';
 

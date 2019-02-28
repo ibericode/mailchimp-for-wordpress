@@ -29,9 +29,9 @@ class MC4WP_Form_Widget extends WP_Widget
 
         parent::__construct(
             'mc4wp_form_widget', // Base ID
-            __('MailChimp Sign-Up Form', 'mailchimp-for-wp'), // Name
+            __('Mailchimp Sign-Up Form', 'mailchimp-for-wp'), // Name
             array(
-                'description' => __('Displays your MailChimp for WordPress sign-up form', 'mailchimp-for-wp'),
+                'description' => __('Displays your Mailchimp for WordPress sign-up form', 'mailchimp-for-wp'),
             )
         );
     }
@@ -95,7 +95,7 @@ class MC4WP_Form_Widget extends WP_Widget
         do_action('mc4wp_form_widget_form', $settings, $this); ?>
 
         <p class="help">
-			<?php printf(__('You can edit your sign-up form in the <a href="%s">MailChimp for WordPress form settings</a>.', 'mailchimp-for-wp'), admin_url('admin.php?page=mailchimp-for-wp-forms')); ?>
+			<?php printf(__('You can edit your sign-up form in the <a href="%s">Mailchimp for WordPress form settings</a>.', 'mailchimp-for-wp'), admin_url('admin.php?page=mailchimp-for-wp-forms')); ?>
         </p>
 		<?php
     }

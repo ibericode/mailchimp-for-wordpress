@@ -33,7 +33,7 @@ class MC4WP_API_v3
     }
 
     /**
-     * Pings the MailChimp API to see if we're connected
+     * Pings the Mailchimp API to see if we're connected
      *
      * @return boolean
      * @throws MC4WP_API_Exception
@@ -217,7 +217,7 @@ class MC4WP_API_v3
     }
 
     /**
-     * Add or update (!) a member to a MailChimp list.
+     * Add or update (!) a member to a Mailchimp list.
      *
      * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#create-post_lists_list_id_members
      *
@@ -232,7 +232,7 @@ class MC4WP_API_v3
         $subscriber_hash = $this->get_subscriber_hash($args['email_address']);
         $resource = sprintf('/lists/%s/members/%s', $list_id, $subscriber_hash);
 
-        // make sure we're sending an object as the MailChimp schema requires this
+        // make sure we're sending an object as the Mailchimp schema requires this
         if (isset($args['merge_fields'])) {
             $args['merge_fields'] = (object) $args['merge_fields'];
         }
@@ -261,7 +261,7 @@ class MC4WP_API_v3
         $subscriber_hash = $this->get_subscriber_hash($email_address);
         $resource = sprintf('/lists/%s/members/%s', $list_id, $subscriber_hash);
 
-        // make sure we're sending an object as the MailChimp schema requires this
+        // make sure we're sending an object as the Mailchimp schema requires this
         if (isset($args['merge_fields'])) {
             $args['merge_fields'] = (object) $args['merge_fields'];
         }
@@ -1223,7 +1223,7 @@ class MC4WP_API_v3
     }
 
     /**
-     * Remove a campaign from the MailChimp account
+     * Remove a campaign from the Mailchimp account
      *
      * @link https://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/#delete-delete_campaigns_campaign_id
      * @param string $campaign_id
@@ -1237,7 +1237,7 @@ class MC4WP_API_v3
     }
 
     /**
-     * Perform an action on a MailChimp campaign
+     * Perform an action on a Mailchimp campaign
      *
      * @link https://developer.mailchimp.com/documentation/mailchimp/reference/campaigns/#action-post_campaigns
      *

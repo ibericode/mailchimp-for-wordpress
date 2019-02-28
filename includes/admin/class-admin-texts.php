@@ -43,7 +43,7 @@ class MC4WP_Admin_Texts
     public function footer_text($text)
     {
         if (! empty($_GET['page']) && strpos($_GET['page'], 'mailchimp-for-wp') === 0) {
-            $text = sprintf('If you enjoy using <strong>MailChimp for WordPress</strong>, please <a href="%s" target="_blank">leave us a ★★★★★ rating</a>. A <strong style="text-decoration: underline;">huge</strong> thank you in advance!', 'https://wordpress.org/support/view/plugin-reviews/mailchimp-for-wp?rate=5#postform');
+            $text = sprintf('If you enjoy using <strong>Mailchimp for WordPress</strong>, please <a href="%s" target="_blank">leave us a ★★★★★ rating</a>. A <strong style="text-decoration: underline;">huge</strong> thank you in advance!', 'https://wordpress.org/support/view/plugin-reviews/mailchimp-for-wp?rate=5#postform');
         }
 
         return $text;

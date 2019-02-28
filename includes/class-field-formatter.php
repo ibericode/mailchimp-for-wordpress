@@ -3,7 +3,7 @@
 /**
  * Class MC4WP_Field_Formatter
  *
- * Formats values based on what the MailChimp API expects or accepts for the given field types.
+ * Formats values based on what the Mailchimp API expects or accepts for the given field types.
  */
 class MC4WP_Field_Formatter
 {

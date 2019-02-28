@@ -6,8 +6,8 @@ const { SelectControl } = window.wp.components;
 const forms = window.mc4wp_forms;
 
 registerBlockType( 'mailchimp-for-wp/form', {
-    title: __( 'MailChimp for WordPress Form' ),
-    description: __( 'Block showing a MailChimp for WordPress sign-up form'),
+    title: __( 'Mailchimp for WordPress Form' ),
+    description: __( 'Block showing a Mailchimp for WordPress sign-up form'),
     category: 'widgets',
     attributes: {
         id : {
@@ -29,7 +29,7 @@ registerBlockType( 'mailchimp-for-wp/form', {
         return (
             <div style={{ backgroundColor: '#f8f9f9', padding: '14px'  }}>
                 <SelectControl
-                    label={__('MailChimp for WordPress Sign-up Form')}
+                    label={__('Mailchimp for WordPress Sign-up Form')}
                     value={props.attributes.id}
                     options={options}
                     onChange={value => {

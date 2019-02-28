@@ -19,7 +19,7 @@ final class MC4WP_Ninja_Forms_Action extends NF_Abstracts_ActionNewsletter
     {
         parent::__construct();
 
-        $this->_nicename = __('MailChimp', 'mailchimp-for-wp');
+        $this->_nicename = __('Mailchimp', 'mailchimp-for-wp');
         $prefix = $this->get_name();
 
         unset($this->_settings[ $prefix . 'newsletter_list_groups' ]);

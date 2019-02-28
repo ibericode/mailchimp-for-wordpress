@@ -113,20 +113,20 @@ class MC4WP_Form_Listener
             $subscriber->ip_signup = $ip_address;
 
             /**
-             * Filters subscriber data before it is sent to MailChimp. Fires for both form & integration requests.
+             * Filters subscriber data before it is sent to Mailchimp. Fires for both form & integration requests.
              *
              * @param MC4WP_MailChimp_Subscriber $subscriber
              */
             $subscriber = apply_filters('mc4wp_subscriber_data', $subscriber);
 
             /**
-             * Filters subscriber data before it is sent to MailChimp. Only fires for form requests.
+             * Filters subscriber data before it is sent to Mailchimp. Only fires for form requests.
              *
              * @param MC4WP_MailChimp_Subscriber $subscriber
              */
             $subscriber = apply_filters('mc4wp_form_subscriber_data', $subscriber);
 
-            // send a subscribe request to MailChimp for each list
+            // send a subscribe request to Mailchimp for each list
             $result = $mailchimp->list_subscribe($list_id, $subscriber->email_address, $subscriber->to_array(), $form->settings['update_existing'], $form->settings['replace_interests']);
         }
 
@@ -144,7 +144,7 @@ class MC4WP_Form_Listener
             } else {
                 $form->add_error($error_code);
                 $form->add_notice($form->messages['error'], 'error');
-                $log->error(sprintf('Form %d > MailChimp API error: %s %s', $form->ID, $error_code, $error_message));
+                $log->error(sprintf('Form %d > Mailchimp API error: %s %s', $form->ID, $error_code, $error_message));
 
                 /**
                  * Fire action hook so API errors can be hooked into.
@@ -211,7 +211,7 @@ class MC4WP_Form_Listener
 
         if (! $result) {
             $form->add_notice($form->messages['error'], 'error');
-            $log->error(sprintf('Form %d > MailChimp API error: %s', $form->ID, $mailchimp->get_error_message()));
+            $log->error(sprintf('Form %d > Mailchimp API error: %s', $form->ID, $mailchimp->get_error_message()));
 
             // bail
             return;
@@ -277,7 +277,7 @@ class MC4WP_Form_Listener
                  * - mc4wp_form_error_invalid_email             Invalid email address
                  * - mc4wp_form_error_already_subscribed        Email is already on selected list(s)
                  * - mc4wp_form_error_required_field_missing    One or more required fields are missing
-                 * - mc4wp_form_error_no_lists_selected         No MailChimp lists were selected
+                 * - mc4wp_form_error_no_lists_selected         No Mailchimp lists were selected
                  *
                  * @since 3.0
                  *

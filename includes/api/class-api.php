@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Takes care of requests to the MailChimp API (version 2.0, deprecated)
+ * Takes care of requests to the Mailchimp API (version 2.0, deprecated)
  *
  * @access public
  * @uses WP_HTTP
@@ -12,7 +12,7 @@ class MC4WP_API
 {
 
     /**
-     * @var string The URL to the MailChimp API
+     * @var string The URL to the Mailchimp API
      */
     protected $api_url = 'https://api.mailchimp.com/2.0/';
 
@@ -32,7 +32,7 @@ class MC4WP_API
     protected $error_code = 0;
 
     /**
-     * @var boolean Boolean indicating whether the user is connected with MailChimp
+     * @var boolean Boolean indicating whether the user is connected with Mailchimp
      */
     protected $connected;
 
@@ -89,7 +89,7 @@ class MC4WP_API
     }
 
     /**
-     * Pings the MailChimp API to see if we're connected
+     * Pings the Mailchimp API to see if we're connected
      *
      * The result is cached to ensure a maximum of 1 API call per page load
      *
@@ -114,7 +114,7 @@ class MC4WP_API
 
             // Uh oh. We got an error back.
             if (isset($result->error)) {
-                $this->show_error('MailChimp Error: ' . $result->error);
+                $this->show_error('Mailchimp Error: ' . $result->error);
             }
         }
 
@@ -122,7 +122,7 @@ class MC4WP_API
     }
 
     /**
-     * Sends a subscription request to the MailChimp API
+     * Sends a subscription request to the Mailchimp API
      *
      * @param string $list_id The list id to subscribe to
      * @param string $email The email address to subscribe
@@ -328,7 +328,7 @@ class MC4WP_API
     }
 
     /**
-     * Unsubscribes the given email or luid from the given MailChimp list
+     * Unsubscribes the given email or luid from the given Mailchimp list
      *
      * @param string       $list_id
      * @param array|string $struct
@@ -428,7 +428,7 @@ class MC4WP_API
 
 
     /**
-     * Calls the MailChimp API
+     * Calls the Mailchimp API
      *
      * @uses WP_HTTP
      *
@@ -443,7 +443,7 @@ class MC4WP_API
 
         // do not make request when no api key was provided.
         if (empty($this->api_key)) {
-            $this->error_message = "Missing MailChimp API key.";
+            $this->error_message = "Missing Mailchimp API key.";
             $this->error_code = 001;
             return false;
         }
@@ -541,7 +541,7 @@ class MC4WP_API
     }
 
     /**
-     * Get the request headers to send to the MailChimp API
+     * Get the request headers to send to the Mailchimp API
      *
      * @return array
      */
@@ -570,7 +570,7 @@ class MC4WP_API
     private function parse_response($response)
     {
         if (is_wp_error($response)) {
-            throw new Exception('Error connecting to MailChimp. ' . $response->get_error_message(), (int) $response->get_error_code());
+            throw new Exception('Error connecting to Mailchimp. ' . $response->get_error_message(), (int) $response->get_error_code());
         }
 
         // decode response body
@@ -584,14 +584,14 @@ class MC4WP_API
         $message = wp_remote_retrieve_response_message($response);
 
         if ($code !== 200) {
-            $message = sprintf('The MailChimp API server returned the following response: <em>%s %s</em>.', $code, $message);
+            $message = sprintf('The Mailchimp API server returned the following response: <em>%s %s</em>.', $code, $message);
 
             // check for Akamai firewall response
             if ($code === 403) {
                 preg_match('/Reference (.*)/i', $body, $matches);
 
                 if (! empty($matches[1])) {
-                    $message .= '</strong><br /><br />' . sprintf('This usually means that your server is blacklisted by MailChimp\'s firewall. Please contact MailChimp support with the following reference number: %s </strong>', $matches[1]);
+                    $message .= '</strong><br /><br />' . sprintf('This usually means that your server is blacklisted by Mailchimp\'s firewall. Please contact Mailchimp support with the following reference number: %s </strong>', $matches[1]);
                 }
             }
         }

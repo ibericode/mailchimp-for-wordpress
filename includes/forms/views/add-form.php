@@ -34,7 +34,7 @@
 
 						<h3>
 							<label>
-								<?php _e('To which MailChimp lists should this form subscribe?', 'mailchimp-for-wp'); ?>
+								<?php _e('To which Mailchimp lists should this form subscribe?', 'mailchimp-for-wp'); ?>
 							</label>
 						</h3>
 
@@ -56,7 +56,7 @@
 } else {
         ?>
 						<p class="mc4wp-notice">
-							<?php printf(__('No lists found. Did you <a href="%s">connect with MailChimp</a>?', 'mailchimp-for-wp'), admin_url('admin.php?page=mailchimp-for-wp')); ?>
+							<?php printf(__('No lists found. Did you <a href="%s">connect with Mailchimp</a>?', 'mailchimp-for-wp'), admin_url('admin.php?page=mailchimp-for-wp')); ?>
 						</p>
 						<?php
     } ?>

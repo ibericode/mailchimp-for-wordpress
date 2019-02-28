@@ -205,7 +205,7 @@ class MC4WP_Admin
     }
 
     /**
-    * Renew MailChimp lists cache
+    * Renew Mailchimp lists cache
     */
     public function renew_lists_cache()
     {
@@ -213,7 +213,7 @@ class MC4WP_Admin
         $lists = $this->mailchimp->fetch_lists();
 
         if (! empty($lists)) {
-            $this->messages->flash(__('Success! The cached configuration for your MailChimp lists has been renewed.', 'mailchimp-for-wp'));
+            $this->messages->flash(__('Success! The cached configuration for your Mailchimp lists has been renewed.', 'mailchimp-for-wp'));
         }
     }
 
@@ -260,7 +260,7 @@ class MC4WP_Admin
         // Sanitize API key
         $settings['api_key'] = sanitize_text_field($settings['api_key']);
 
-        // if API key changed, empty MailChimp cache
+        // if API key changed, empty Mailchimp cache
         if ($settings['api_key'] !== $current['api_key']) {
             $this->mailchimp->empty_cache();
         }
@@ -278,7 +278,7 @@ class MC4WP_Admin
     }
 
     /**
-    * Load scripts and stylesheet on MailChimp for WP Admin pages
+    * Load scripts and stylesheet on Mailchimp for WP Admin pages
     *
     * @return bool
     */
@@ -318,17 +318,17 @@ class MC4WP_Admin
                 'countries' => MC4WP_Tools::get_countries(),
                 'i18n' => array(
                     'pro_only' => __('This is a pro-only feature. Please upgrade to the premium version to be able to use it.', 'mailchimp-for-wp'),
-                    'renew_mailchimp_lists' => __('Renew MailChimp lists', 'mailchimp-for-wp'),
-                    'fetching_mailchimp_lists' => __('Fetching MailChimp lists', 'mailchimp-for-wp'),
-                    'fetching_mailchimp_lists_done' => __('Done! MailChimp lists renewed.', 'mailchimp-for-wp'),
-                    'fetching_mailchimp_lists_can_take_a_while' => __('This can take a while if you have many MailChimp lists.', 'mailchimp-for-wp'),
+                    'renew_mailchimp_lists' => __('Renew Mailchimp lists', 'mailchimp-for-wp'),
+                    'fetching_mailchimp_lists' => __('Fetching Mailchimp lists', 'mailchimp-for-wp'),
+                    'fetching_mailchimp_lists_done' => __('Done! Mailchimp lists renewed.', 'mailchimp-for-wp'),
+                    'fetching_mailchimp_lists_can_take_a_while' => __('This can take a while if you have many Mailchimp lists.', 'mailchimp-for-wp'),
                     'fetching_mailchimp_lists_error' => __('Failed to renew your lists. An error occured.', 'mailchimp-for-wp'),
                 )
             )
         );
 
         /**
-        * Hook to enqueue your own custom assets on the MailChimp for WordPress setting pages.
+        * Hook to enqueue your own custom assets on the Mailchimp for WordPress setting pages.
         *
         * @since 3.0
         *
@@ -351,8 +351,8 @@ class MC4WP_Admin
 
         $menu_items = array(
             array(
-                'title' => __('MailChimp API Settings', 'mailchimp-for-wp'),
-                'text' => __('MailChimp', 'mailchimp-for-wp'),
+                'title' => __('Mailchimp API Settings', 'mailchimp-for-wp'),
+                'text' => __('Mailchimp', 'mailchimp-for-wp'),
                 'slug' => '',
                 'callback' => array( $this, 'show_generals_setting_page' ),
                 'position' => 0
@@ -386,7 +386,7 @@ class MC4WP_Admin
         $menu_items = (array) apply_filters('mc4wp_admin_menu_items', $menu_items);
 
         // add top menu item
-        add_menu_page('MailChimp for WP', 'MailChimp for WP', $required_cap, 'mailchimp-for-wp', array( $this, 'show_generals_setting_page' ), MC4WP_PLUGIN_URL . 'assets/img/icon.png', '99.68491');
+        add_menu_page('Mailchimp for WP', 'Mailchimp for WP', $required_cap, 'mailchimp-for-wp', array( $this, 'show_generals_setting_page' ), MC4WP_PLUGIN_URL . 'assets/img/icon.png', '99.68491');
 
         // sort submenu items by 'position'
         usort($menu_items, array( $this, 'sort_menu_items_by_position' ));
@@ -414,7 +414,7 @@ class MC4WP_Admin
         $capability = ! empty($item['capability']) ? $item['capability'] : $this->tools->get_required_capability();
 
         // register page
-        $hook = add_submenu_page($parent_slug, $item['title'] . ' - MailChimp for WordPress', $item['text'], $capability, $slug, $item['callback']);
+        $hook = add_submenu_page($parent_slug, $item['title'] . ' - Mailchimp for WordPress', $item['text'], $capability, $slug, $item['callback']);
 
         // register callback for loading this page, if given
         if (array_key_exists('load_callback', $item)) {
@@ -435,10 +435,10 @@ class MC4WP_Admin
             try {
                 $connected = $this->get_api()->is_connected();
             } catch (MC4WP_API_Connection_Exception $e) {
-                $message = sprintf("<strong>%s</strong> %s %s ", __("Error connecting to MailChimp:", 'mailchimp-for-wp'), $e->getCode(), $e->getMessage());
+                $message = sprintf("<strong>%s</strong> %s %s ", __("Error connecting to Mailchimp:", 'mailchimp-for-wp'), $e->getCode(), $e->getMessage());
 
                 if (is_object($e->data) && ! empty($e->data->ref_no)) {
-                    $message .= '<br />' . sprintf(__('Looks like your server is blocked by MailChimp\'s firewall. Please contact MailChimp support and include the following reference number: %s', 'mailchimp-for-wp'), $e->data->ref_no);
+                    $message .= '<br />' . sprintf(__('Looks like your server is blocked by Mailchimp\'s firewall. Please contact Mailchimp support and include the following reference number: %s', 'mailchimp-for-wp'), $e->data->ref_no);
                 }
 
                 $message .= '<br /><br />' . sprintf('<a href="%s">' . __('Here\'s some info on solving common connectivity issues.', 'mailchimp-for-wp') . '</a>', 'https://kb.mc4wp.com/solving-connectivity-issues/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-notice');
@@ -446,7 +446,7 @@ class MC4WP_Admin
                 $this->messages->flash($message, 'error');
                 $connected = false;
             } catch (MC4WP_API_Exception $e) {
-                $this->messages->flash(sprintf("<strong>%s</strong><br /> %s", __("MailChimp returned the following error:", 'mailchimp-for-wp'), $e), 'error');
+                $this->messages->flash(sprintf("<strong>%s</strong><br /> %s", __("Mailchimp returned the following error:", 'mailchimp-for-wp'), $e), 'error');
                 $connected = false;
             }
         }
@@ -519,7 +519,7 @@ class MC4WP_Admin
         }
 
         echo '<div class="notice notice-warning mc4wp-is-dismissible">';
-        echo '<p>' . sprintf(__('To get started with MailChimp for WordPress, please <a href="%s">enter your MailChimp API key on the settings page of the plugin</a>.', 'mailchimp-for-wp'), admin_url('admin.php?page=mailchimp-for-wp')) . '</p>';
+        echo '<p>' . sprintf(__('To get started with Mailchimp for WordPress, please <a href="%s">enter your Mailchimp API key on the settings page of the plugin</a>.', 'mailchimp-for-wp'), admin_url('admin.php?page=mailchimp-for-wp')) . '</p>';
         echo '<form method="post"><input type="hidden" name="_mc4wp_action" value="dismiss_api_key_notice" /><button type="submit" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></form>';
         echo '</div>';
     }

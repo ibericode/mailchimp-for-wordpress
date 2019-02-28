@@ -1,11 +1,10 @@
 <?php
 
 /**
- * Class MC4WP_MailChimp_List
- *
- * Represents a list in MailChimp
+ * Represents a list in Mailchimp
  *
  * @access public
+ * @since 4.0
  */
 class MC4WP_MailChimp_List
 {
@@ -16,7 +15,7 @@ class MC4WP_MailChimp_List
     public $id;
 
     /**
-     * @var string Web ID of this list in MailChimp.com
+     * @var string Web ID of this list in Mailchimp.com
      */
     public $web_id = '';
 
@@ -146,7 +145,7 @@ class MC4WP_MailChimp_List
     }
 
     /**
-     * Get link to this list in MailChimp
+     * Get link to this list in Mailchimp
      *
      * @return string
      */

@@ -6,7 +6,7 @@
 # Tadas Puleikis <drabuzietis@gmail.com>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: MailChimp for WordPress\n"
+"Project-Id-Version: Mailchimp for WordPress\n"
 "PO-Revision-Date: 2018-08-27 17:05+0000\n"
 "Last-Translator: Tadas Puleikis <drabuzietis@gmail.com>\n"
 "Language-Team: Lithuanian (Lithuania) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/lt_LT/)\n"
@@ -32,8 +32,8 @@ msgstr "Dokumentacija"
 
 #: includes/admin/class-admin.php:204
 msgid ""
-"Success! The cached configuration for your MailChimp lists has been renewed."
-msgstr "Sukešuota konfiguracija jūsų MailChimp sąrašui sekmingai atnaujinta."
+"Success! The cached configuration for your Mailchimp lists has been renewed."
+msgstr "Sukešuota konfiguracija jūsų Mailchimp sąrašui sekmingai atnaujinta."
 
 #: includes/admin/class-admin.php:304
 msgid ""
@@ -44,28 +44,28 @@ msgstr "Tai yra tik mokamos versijos funkcija. Prašome atnaujinti savo licenzij
 #: includes/admin/class-admin.php305,
 #: includes/views/parts/lists-overview.php10,
 #: includes/forms/views/parts/add-fields-help.php:43
-msgid "Renew MailChimp lists"
-msgstr "Atnaujinti MailChimp sąrašus"
+msgid "Renew Mailchimp lists"
+msgstr "Atnaujinti Mailchimp sąrašus"
 
 #: includes/admin/class-admin.php:306
-msgid "Fetching MailChimp lists"
-msgstr "Gaunami MailChimp sąrašai"
+msgid "Fetching Mailchimp lists"
+msgstr "Gaunami Mailchimp sąrašai"
 
 #: includes/admin/class-admin.php:307
-msgid "Done! MailChimp lists renewed."
-msgstr "Baigta! MailChimp sąrašai atnaujinti."
+msgid "Done! Mailchimp lists renewed."
+msgstr "Baigta! Mailchimp sąrašai atnaujinti."
 
 #: includes/admin/class-admin.php:308
-msgid "This can take a while if you have many MailChimp lists."
-msgstr "Tai gali užtrukti jei turite daug MailChimp sąrašų."
+msgid "This can take a while if you have many Mailchimp lists."
+msgstr "Tai gali užtrukti jei turite daug Mailchimp sąrašų."
 
 #: includes/admin/class-admin.php336, includes/views/general-settings.php:31
-msgid "MailChimp API Settings"
-msgstr "MailChimp API nustatymai"
+msgid "Mailchimp API Settings"
+msgstr "Mailchimp API nustatymai"
 
 #: includes/admin/class-admin.php:337
-msgid "MailChimp"
-msgstr "MailChimp"
+msgid "Mailchimp"
+msgstr "Mailchimp"
 
 #: includes/admin/class-admin.php343, includes/views/other-settings.php60,
 #: includes/views/other-settings.php:70
@@ -82,9 +82,9 @@ msgstr "Atmintinė sekmingai išvalyta"
 
 #: includes/admin/class-admin.php:488
 msgid ""
-"To get started with MailChimp for WordPress, please <a href=\"%s\">enter "
-"your MailChimp API key on the settings page of the plugin</a>."
-msgstr "Norint pradėti naudotis MailChip Wordpress sistemai, prašome <a href=\"%s\"> įvesti savo MailChimp API raktą šio įskiepio nustatymų puslapyje</a>."
+"To get started with Mailchimp for WordPress, please <a href=\"%s\">enter "
+"your Mailchimp API key on the settings page of the plugin</a>."
+msgstr "Norint pradėti naudotis MailChip Wordpress sistemai, prašome <a href=\"%s\"> įvesti savo Mailchimp API raktą šio įskiepio nustatymų puslapyje</a>."
 
 #: includes/admin/class-ads.php:39
 msgid ""
@@ -94,17 +94,17 @@ msgstr "Norite konfiguruoti savo formos stilių? <a href=\"%s\"> Pabandykite mū
 
 #: includes/admin/class-ads.php:54
 msgid ""
-"Be notified whenever someone subscribes? <a href=\"%s\">MailChimp for "
+"Be notified whenever someone subscribes? <a href=\"%s\">Mailchimp for "
 "WordPress Premium</a> allows you to set up email notifications for your "
 "forms."
-msgstr "Informuoti apie naujas prenumeratas? <a href=\"%s\"> MailChimp WordPress mokama versija </a> leidžia nustatyti priminimus el. paštu jūsų formoms."
+msgstr "Informuoti apie naujas prenumeratas? <a href=\"%s\"> Mailchimp WordPress mokama versija </a> leidžia nustatyti priminimus el. paštu jūsų formoms."
 
 #: includes/admin/class-ads.php:56
 msgid ""
-"Increased conversions? <a href=\"%s\">MailChimp for WordPress Premium</a> "
+"Increased conversions? <a href=\"%s\">Mailchimp for WordPress Premium</a> "
 "submits forms without reloading the entire page, resulting in a much better "
 "experience for your visitors."
-msgstr "Padidejusios konversijos? <a href=\"%s\"> MailChimp WordPress mokama versija </a> pateikia formų užklausas neperkraunat viso puslapio, kas įtakoja geresnę naršymo patirtį tavo klientams."
+msgstr "Padidejusios konversijos? <a href=\"%s\"> Mailchimp WordPress mokama versija </a> pateikia formų užklausas neperkraunat viso puslapio, kas įtakoja geresnę naršymo patirtį tavo klientams."
 
 #: includes/admin/class-ads.php:70
 msgid "Upgrade to Premium"
@@ -113,8 +113,8 @@ msgstr "Pereikite į mokamą versiją."
 #: includes/admin/class-ads.php:83
 msgid ""
 "Do you want translated forms for all of your languages? <a href=\"%s\">Try "
-"MailChimp for WordPress Premium</a>, which does just that plus more."
-msgstr "Norite vertimo visomis kalbomis savo formoms? <a href=\"%s\"> Pabandykite MailChimp WordPress mokamą versija </a>, kuri atlieka būtent tai ir dar daugiau."
+"Mailchimp for WordPress Premium</a>, which does just that plus more."
+msgstr "Norite vertimo visomis kalbomis savo formoms? <a href=\"%s\"> Pabandykite Mailchimp WordPress mokamą versija </a>, kuri atlieka būtent tai ir dar daugiau."
 
 #: includes/admin/class-ads.php:88
 msgid ""
@@ -152,21 +152,21 @@ msgstr "Prenumeruoti"
 
 #: includes/admin/class-ads.php:150
 msgid ""
-"Do you want to track all WooCommerce orders in MailChimp so you can send "
+"Do you want to track all WooCommerce orders in Mailchimp so you can send "
 "emails based on the purchase activity of your subscribers?"
-msgstr "Ar norite sekti visus WooCommerce užsakymus savo MailChimp paskyroje, kad galėtumete siųsti el. laiškus remiantis jūsų prenumeratoriaus pirkimo istorija?"
+msgstr "Ar norite sekti visus WooCommerce užsakymus savo Mailchimp paskyroje, kad galėtumete siųsti el. laiškus remiantis jūsų prenumeratoriaus pirkimo istorija?"
 
 #: includes/admin/class-ads.php:153
 msgid ""
-"<a href=\"%s\">Upgrade to MailChimp for WordPress Premium</a> or <a "
-"href=\"%s\">read more about MailChimp's E-Commerce features</a>."
-msgstr "<a href=\"%s\"> Atsinaujinkite į MailChimp WordPress mokamą versiją </a> arba <a href=\"%s\"> sužinokite daugiau apie MailChimp E-Prekybos privalumus </a>."
+"<a href=\"%s\">Upgrade to Mailchimp for WordPress Premium</a> or <a "
+"href=\"%s\">read more about Mailchimp's E-Commerce features</a>."
+msgstr "<a href=\"%s\"> Atsinaujinkite į Mailchimp WordPress mokamą versiją </a> arba <a href=\"%s\"> sužinokite daugiau apie Mailchimp E-Prekybos privalumus </a>."
 
 #: includes/admin/class-review-notice.php:68
 msgid ""
-"You've been using MailChimp for WordPress for some time now; we hope you "
+"You've been using Mailchimp for WordPress for some time now; we hope you "
 "love it!"
-msgstr "Jūs jau ilgokai naudojotės MailChimp Wordpress; mes tikimės, kad jums tai patinka!"
+msgstr "Jūs jau ilgokai naudojotės Mailchimp Wordpress; mes tikimės, kad jums tai patinka!"
 
 #: includes/admin/class-review-notice.php:69
 msgid ""
@@ -241,8 +241,8 @@ msgid "Form fields"
 msgstr "Formos laukeliai"
 
 #: includes/forms/class-admin.php:76
-msgid "This field is marked as required in MailChimp."
-msgstr "Šis laukelis yra pažymėtas kaip privalomas MailChimp."
+msgid "This field is marked as required in Mailchimp."
+msgstr "Šis laukelis yra pažymėtas kaip privalomas Mailchimp."
 
 #: includes/forms/class-admin.php:77
 msgid "Initial value"
@@ -278,8 +278,8 @@ msgstr "Max"
 
 #: includes/forms/class-admin.php:85
 msgid ""
-"No available fields. Did you select a MailChimp list in the form settings?"
-msgstr "Nėra galimų laukelių. Ar pasirinkote MailChimp sąrašą formos nustatymuose?"
+"No available fields. Did you select a Mailchimp list in the form settings?"
+msgstr "Nėra galimų laukelių. Ar pasirinkote Mailchimp sąrašą formos nustatymuose?"
 
 #: includes/forms/class-admin.php:86
 msgid "Optional"
@@ -347,8 +347,8 @@ msgid "Preview form"
 msgstr "Peržiūrėti formą"
 
 #: includes/forms/class-admin.php449, includes/forms/class-widget.php:30
-msgid "MailChimp Sign-Up Form"
-msgstr "MailChimp registracijos forma"
+msgid "Mailchimp Sign-Up Form"
+msgstr "Mailchimp registracijos forma"
 
 #: includes/forms/class-admin.php:453
 msgid "Select the form to show"
@@ -420,8 +420,8 @@ msgid "Newsletter"
 msgstr "Naujienlaiškis"
 
 #: includes/forms/class-widget.php:32
-msgid "Displays your MailChimp for WordPress sign-up form"
-msgstr "Rodo jūsų MailChimp jūsų Wordpress registracijos formai"
+msgid "Displays your Mailchimp for WordPress sign-up form"
+msgstr "Rodo jūsų Mailchimp jūsų Wordpress registracijos formai"
 
 #: includes/forms/class-widget.php:75
 msgid "Title:"
@@ -429,9 +429,9 @@ msgstr "Pavadinimas:"
 
 #: includes/forms/class-widget.php:92
 msgid ""
-"You can edit your sign-up form in the <a href=\"%s\">MailChimp for WordPress"
+"You can edit your sign-up form in the <a href=\"%s\">Mailchimp for WordPress"
 " form settings</a>."
-msgstr "Jūs galite redaguoti MailChimp Wordpress registracijos formą <a href=\"%s\"> nuėję į formos nustatymus</a>."
+msgstr "Jūs galite redaguoti Mailchimp Wordpress registracijos formą <a href=\"%s\"> nuėję į formos nustatymus</a>."
 
 #: includes/integrations/class-admin.php79,
 #: includes/integrations/class-admin.php80,
@@ -469,12 +469,12 @@ msgid "API Key"
 msgstr "API raktas"
 
 #: includes/views/general-settings.php:53
-msgid "Your MailChimp API key"
-msgstr "Jūsų MailChimp API raktas"
+msgid "Your Mailchimp API key"
+msgstr "Jūsų Mailchimp API raktas"
 
 #: includes/views/general-settings.php:55
-msgid "The API key for connecting with your MailChimp account."
-msgstr "API raktas, naudojamas kartu su jūsų MailChimp paskyra."
+msgid "The API key for connecting with your Mailchimp account."
+msgstr "API raktas, naudojamas kartu su jūsų Mailchimp paskyra."
 
 #: includes/views/general-settings.php:56
 msgid "Get your API key here."
@@ -553,12 +553,12 @@ msgid "Enter your form title.."
 msgstr "Įveskite savo formos pavadinimą.."
 
 #: includes/forms/views/add-form.php:37
-msgid "To which MailChimp lists should this form subscribe?"
-msgstr "Kuriam MailChimp sąrašui ši formą turi prenumeruoti?"
+msgid "To which Mailchimp lists should this form subscribe?"
+msgstr "Kuriam Mailchimp sąrašui ši formą turi prenumeruoti?"
 
 #: includes/forms/views/add-form.php:54
-msgid "No lists found. Did you <a href=\"%s\">connect with MailChimp</a>?"
-msgstr "Nerasta jokių sąrašų. Ar jūs <a href=\"%s\"> prisijungti su MailChimp </a>?"
+msgid "No lists found. Did you <a href=\"%s\">connect with Mailchimp</a>?"
+msgstr "Nerasta jokių sąrašų. Ar jūs <a href=\"%s\"> prisijungti su Mailchimp </a>?"
 
 #: includes/forms/views/edit-form.php:4
 msgid "Fields"
@@ -606,17 +606,17 @@ msgstr "%sintegracija"
 
 #: includes/integrations/views/integration-settings.php:27
 msgid ""
-"The selected MailChimp lists require non-default fields, which may prevent "
+"The selected Mailchimp lists require non-default fields, which may prevent "
 "this integration from working."
-msgstr "Pasirinktas MailChimp sąrašas reikalauja ne numatytų laukelių, kurie gali užkirsti šios integracijos veikimą."
+msgstr "Pasirinktas Mailchimp sąrašas reikalauja ne numatytų laukelių, kurie gali užkirsti šios integracijos veikimą."
 
 #: includes/integrations/views/integration-settings.php:28
 msgid ""
 "Please ensure you <a href=\"%s\">configure the plugin to send all required "
-"fields</a> or <a href=\"%s\">log into your MailChimp account</a> and make "
+"fields</a> or <a href=\"%s\">log into your Mailchimp account</a> and make "
 "sure only the email & name fields are marked as required fields for the "
 "selected list(s)."
-msgstr "Įsitikinkite, kad <a href=\"%s\"> sukonfigūruotumėte įskiepį, kad išsiųstumėte visus reikiamus laukelius </a> arba <a href=\"%s\">prisijungtumėte į savo MailChimp paskyrą </a>, ir įsitikinkite, kad tik laukai El. Paštas ir vardas yra pažymėti kaip privalomi laukai pasirinktiems (-am) sąrašams (-ui)."
+msgstr "Įsitikinkite, kad <a href=\"%s\"> sukonfigūruotumėte įskiepį, kad išsiųstumėte visus reikiamus laukelius </a> arba <a href=\"%s\">prisijungtumėte į savo Mailchimp paskyrą </a>, ir įsitikinkite, kad tik laukai El. Paštas ir vardas yra pažymėti kaip privalomi laukai pasirinktiems (-am) sąrašams (-ui)."
 
 #: includes/integrations/views/integration-settings.php:62
 msgid "Enabled?"
@@ -638,8 +638,8 @@ msgid ""
 msgstr "Pasirinkite \"ne\" jei norite prašyti lankytojų prieš jiems prenumeruojant (rekomenduojama)."
 
 #: includes/integrations/views/integration-settings.php:90
-msgid "MailChimp Lists"
-msgstr "MailChimp sąrašai"
+msgid "Mailchimp Lists"
+msgstr "Mailchimp sąrašai"
 
 #: includes/integrations/views/integration-settings.php:103
 msgid ""
@@ -649,8 +649,8 @@ msgstr "Pasirinkite sąrašą (-us) žmonėms, kurie pažymėjė varnele būtų 
 
 #: includes/integrations/views/integration-settings.php107,
 #: includes/forms/views/tabs/form-settings.php:18
-msgid "No lists found, <a href=\"%s\">are you connected to MailChimp</a>?"
-msgstr "Nerasta jokių sąrašų, <a href=\"%s\">ar jūs prisijungęs prie MailChimp </a>?"
+msgid "No lists found, <a href=\"%s\">are you connected to Mailchimp</a>?"
+msgstr "Nerasta jokių sąrašų, <a href=\"%s\">ar jūs prisijungęs prie Mailchimp </a>?"
 
 #: includes/integrations/views/integration-settings.php:116
 msgid "Checkbox label text"
@@ -747,16 +747,16 @@ msgstr "Galimos integracijos"
 
 #: includes/views/parts/admin-footer.php:15
 msgid ""
-"MailChimp for WordPress is in need of translations. Is the plugin not "
+"Mailchimp for WordPress is in need of translations. Is the plugin not "
 "translated in your language or do you spot errors with the current "
 "translations? Helping out is easy! Head over to <a href=\"%s\">the "
 "translation project and click \"help translate\"</a>."
-msgstr "MailChimp WordPress laukia vertimų. Ar šis įskiepis dar neišverstas į jūsų kalbą arba turi klaidų dabartiniame vertime? Padėti lengva! Pereikite prie <a href=\"%s\"> vertimo projekto ir spauskite \"padėti išversti\"</a>."
+msgstr "Mailchimp WordPress laukia vertimų. Ar šis įskiepis dar neišverstas į jūsų kalbą arba turi klaidų dabartiniame vertime? Padėti lengva! Pereikite prie <a href=\"%s\"> vertimo projekto ir spauskite \"padėti išversti\"</a>."
 
 #: includes/views/parts/admin-footer.php:35
 msgid ""
-"This plugin is not developed by or affiliated with MailChimp in any way."
-msgstr "Šis įskiepis nėra suprogramuotas ar susijęs su MailChimp jokiu būdu."
+"This plugin is not developed by or affiliated with Mailchimp in any way."
+msgstr "Šis įskiepis nėra suprogramuotas ar susijęs su Mailchimp jokiu būdu."
 
 #: includes/views/parts/admin-sidebar.php:11
 msgid "Looking for help?"
@@ -789,23 +789,23 @@ msgid ""
 msgstr "Mūsų <a href=\"%s\"> Boxzilla įskiepis </a> leidžia jums kurti iššokančius langus arba skaidres kartu su prenumeravimo forma. Užtikrintas būdas padidinti sąrašo kiekį."
 
 #: includes/views/parts/lists-overview.php:1
-msgid "Your MailChimp Account"
-msgstr "Jūsų MailChimp paskyra"
+msgid "Your Mailchimp Account"
+msgstr "Jūsų Mailchimp paskyra"
 
 #: includes/views/parts/lists-overview.php:2
 msgid ""
-"The table below shows your MailChimp lists and their details. If you just "
-"applied changes to your MailChimp lists, please use the following button to "
+"The table below shows your Mailchimp lists and their details. If you just "
+"applied changes to your Mailchimp lists, please use the following button to "
 "renew the cached lists configuration."
-msgstr "Žemiau pateiktoje lentelėje rodomi jūsų MailChimp sąrašai ir jų duomenys. Jei ką tik pritaikėte savo MailChimp sąrašų pakeitimus, naudokite šį mygtuką, kad atnaujintumėte konfigūraciją iš talpyklų sąrašų."
+msgstr "Žemiau pateiktoje lentelėje rodomi jūsų Mailchimp sąrašai ir jų duomenys. Jei ką tik pritaikėte savo Mailchimp sąrašų pakeitimus, naudokite šį mygtuką, kad atnaujintumėte konfigūraciją iš talpyklų sąrašų."
 
 #: includes/views/parts/lists-overview.php:17
-msgid "No lists were found in your MailChimp account"
-msgstr "Nerasta jokių sąrašų jūsų MailChimp paskyroje"
+msgid "No lists were found in your Mailchimp account"
+msgstr "Nerasta jokių sąrašų jūsų Mailchimp paskyroje"
 
 #: includes/views/parts/lists-overview.php:19
-msgid "A total of %d lists were found in your MailChimp account."
-msgstr "Iš viso %d sarašų buvo rasta jūsų MailChimp paskyroje."
+msgid "A total of %d lists were found in your Mailchimp account."
+msgstr "Iš viso %d sarašų buvo rasta jūsų Mailchimp paskyroje."
 
 #: includes/views/parts/lists-overview.php:24
 msgid "List Name"
@@ -820,8 +820,8 @@ msgid "Subscribers"
 msgstr "Prenumeruotojai"
 
 #: includes/views/parts/lists-overview.php:48
-msgid "Edit this list in MailChimp"
-msgstr "Redaguoti šį MailChimp sąrašą"
+msgid "Edit this list in Mailchimp"
+msgstr "Redaguoti šį Mailchimp sąrašą"
 
 #: includes/views/parts/lists-overview.php:62
 msgid "%s (%s) with field type %s."
@@ -835,16 +835,16 @@ msgstr "Pridėti daugiau laukelių"
 #: includes/forms/views/parts/add-fields-help.php:9
 msgid ""
 "To add more fields to your form, you will need to create those fields in "
-"MailChimp first."
-msgstr "Norint pridėti daugiau laukelių į formą, pirmiausia jums reikės susikurti tuos laukelius MailChimp."
+"Mailchimp first."
+msgstr "Norint pridėti daugiau laukelių į formą, pirmiausia jums reikės susikurti tuos laukelius Mailchimp."
 
 #: includes/forms/views/parts/add-fields-help.php:12
 msgid "Here's how:"
 msgstr "Žiūrėti kaip tai daroma:"
 
 #: includes/forms/views/parts/add-fields-help.php:17
-msgid "Log in to your MailChimp account."
-msgstr "Prisijungti prie MailChimp paskyros."
+msgid "Log in to your Mailchimp account."
+msgstr "Prisijungti prie Mailchimp paskyros."
 
 #: includes/forms/views/parts/add-fields-help.php:22
 msgid "Add list fields to any of your selected lists."
@@ -860,9 +860,9 @@ msgstr "Redaguoti sąrašo laukelius"
 
 #: includes/forms/views/parts/add-fields-help.php:38
 msgid ""
-"Click the following button to have MailChimp for WordPress pick up on your "
+"Click the following button to have Mailchimp for WordPress pick up on your "
 "changes."
-msgstr "Paspauskite šį mygtuką norint tūrėti MailChimp WordPress pakeitimų sekimą."
+msgstr "Paspauskite šį mygtuką norint tūrėti Mailchimp WordPress pakeitimų sekimą."
 
 #: includes/forms/views/parts/dynamic-content-tags.php:6
 msgid "Add dynamic form variable"
@@ -1039,8 +1039,8 @@ msgid "Form Settings"
 msgstr "Formos nustatymai"
 
 #: includes/forms/views/tabs/form-settings.php:5
-msgid "MailChimp specific settings"
-msgstr "MailChimp specifiniai nustatymai"
+msgid "Mailchimp specific settings"
+msgstr "Mailchimp specifiniai nustatymai"
 
 #: includes/forms/views/tabs/form-settings.php:15
 msgid "Lists this form subscribes to"

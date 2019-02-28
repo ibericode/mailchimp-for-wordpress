@@ -40,7 +40,7 @@ function _mc4wp_admin_sidebar_other_plugins()
     // HTML Forms
     echo '<li>';
     echo sprintf('<strong><a href="%s">HTML Forms</a></strong><br />', 'https://www.htmlforms.io/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=sidebar');
-    echo  __('Super flexible forms using native HTML. Just like with MailChimp for WordPress forms but for other purposes, like a contact form.', 'mailchimp-for-wp');
+    echo  __('Super flexible forms using native HTML. Just like with Mailchimp for WordPress forms but for other purposes, like a contact form.', 'mailchimp-for-wp');
     echo '</li>';
 
     echo '</ul>';
@@ -51,7 +51,7 @@ add_action('mc4wp_admin_sidebar', '_mc4wp_admin_sidebar_other_plugins', 40);
 add_action('mc4wp_admin_sidebar', '_mc4wp_admin_sidebar_support_notice', 50);
 
 /**
- * Runs when the sidebar is outputted on MailChimp for WordPress settings pages.
+ * Runs when the sidebar is outputted on Mailchimp for WordPress settings pages.
  *
  * Please note that not all pages have a sidebar.
  *

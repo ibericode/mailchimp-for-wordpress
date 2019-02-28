@@ -61,7 +61,7 @@ class MC4WP_Admin_Tools
         $capability = apply_filters('mc4wp_settings_cap', $capability);
 
         /**
-         * Filters the required user capability to access the MailChimp for WordPress' settings pages, view the dashboard widgets.
+         * Filters the required user capability to access the Mailchimp for WordPress' settings pages, view the dashboard widgets.
          *
          * Defaults to `manage_options`
          *

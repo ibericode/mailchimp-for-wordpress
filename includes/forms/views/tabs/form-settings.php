@@ -2,7 +2,7 @@
 
 <div class="medium-margin"></div>
 
-<h3><?php echo __('MailChimp specific settings', 'mailchimp-for-wp'); ?></h3>
+<h3><?php echo __('Mailchimp specific settings', 'mailchimp-for-wp'); ?></h3>
 
 <table class="form-table" style="table-layout: fixed;">
 
@@ -15,7 +15,7 @@
 		<th scope="row" style="width: 250px;"><?php _e('Lists this form subscribes to', 'mailchimp-for-wp'); ?></th>
 		<?php // loop through lists
         if (empty($lists)) {
-            ?><td colspan="2"><?php printf(__('No lists found, <a href="%s">are you connected to MailChimp</a>?', 'mailchimp-for-wp'), admin_url('admin.php?page=mailchimp-for-wp')); ?></td><?php
+            ?><td colspan="2"><?php printf(__('No lists found, <a href="%s">are you connected to Mailchimp</a>?', 'mailchimp-for-wp'), admin_url('admin.php?page=mailchimp-for-wp')); ?></td><?php
         } else {
             ?>
 			<td >

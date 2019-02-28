@@ -1,8 +1,6 @@
 <?php
 
 /**
-* Class MC4WP_MailChimp
-*
 * @access private
 * @ignore
 */
@@ -21,7 +19,7 @@ class MC4WP_MailChimp
 
     /**
     *
-    * Sends a subscription request to the MailChimp API
+    * Sends a subscription request to the Mailchimp API
     *
     * @param string  $list_id           The list id to subscribe to
     * @param string  $email_address             The email address to subscribe
@@ -190,7 +188,7 @@ class MC4WP_MailChimp
     }
 
     /**
-    * Get MailChimp lists from cache.
+    * Get Mailchimp lists from cache.
     *
     * @param boolean deprecated parameter.
     * @return array
@@ -201,7 +199,7 @@ class MC4WP_MailChimp
     }
 
     /**
-    * Get a specific MailChimp list from local DB.
+    * Get a specific Mailchimp list from local DB.
     *
     * @param string $list_id
     * @return MC4WP_MailChimp_List
@@ -212,9 +210,9 @@ class MC4WP_MailChimp
     }
 
     /**
-    * Get MailChimp lists, from cache or remote API.
+    * Get Mailchimp lists, from cache or remote API.
     *
-    * @param boolean $force Whether to force a result by hitting MailChimp API
+    * @param boolean $force Whether to force a result by hitting Mailchimp API
     * @return array
     */
     public function get_lists($force = true)
@@ -283,9 +281,9 @@ class MC4WP_MailChimp
     }
 
     /**
-    * Get MailChimp list ID's
+    * Get Mailchimp list ID's
     *
-    * @param bool $force Force result by hitting MailChimp API
+    * @param bool $force Force result by hitting Mailchimp API
     * @return array
     */
     public function get_list_ids($force = false)
@@ -305,7 +303,7 @@ class MC4WP_MailChimp
     public function fetch_list_ids()
     {
         /**
-         * Filters the amount of MailChimp lists to fetch.
+         * Filters the amount of Mailchimp lists to fetch.
          *
          * If you increase this, it might be necessary to increase your PHP configuration to allow for a higher max_execution_time.
          *
@@ -328,7 +326,7 @@ class MC4WP_MailChimp
     }
 
     /**
-    * Fetch list ID's + lists from MailChimp.
+    * Fetch list ID's + lists from Mailchimp.
     *
     * @return bool
     */
@@ -350,7 +348,7 @@ class MC4WP_MailChimp
     }
 
     /**
-    * Get a given MailChimp list
+    * Get a given Mailchimp list
     *
     * @param string $list_id
     * @param bool $force Whether to force a result by hitting remote API
@@ -399,7 +397,7 @@ class MC4WP_MailChimp
 
 
         /**
-        * Filters the cache time for MailChimp lists configuration, in seconds. Defaults to 3600 seconds (1 hour).
+        * Filters the cache time for Mailchimp lists configuration, in seconds. Defaults to 3600 seconds (1 hour).
         *
         * @since 2.0
         * @param int $seconds

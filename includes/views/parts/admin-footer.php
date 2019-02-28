@@ -13,7 +13,7 @@ function _mc4wp_admin_translation_notice()
 
     // TODO: Check translation progress from Transifex here. Only show when < 100.
 
-    echo '<p class="help">' . sprintf(__('MailChimp for WordPress is in need of translations. Is the plugin not translated in your language or do you spot errors with the current translations? Helping out is easy! Head over to <a href="%s">the translation project and click "help translate"</a>.', 'mailchimp-for-wp'), 'https://www.transifex.com/projects/p/mailchimp-for-wordpress/') . '</p>';
+    echo '<p class="help">' . sprintf(__('Mailchimp for WordPress is in need of translations. Is the plugin not translated in your language or do you spot errors with the current translations? Helping out is easy! Head over to <a href="%s">the translation project and click "help translate"</a>.', 'mailchimp-for-wp'), 'https://www.transifex.com/projects/p/mailchimp-for-wordpress/') . '</p>';
 }
 
 /**
@@ -25,7 +25,7 @@ function _mc4wp_admin_github_notice()
         return;
     }
 
-    echo '<p class="help">Developer? Follow <a href="https://github.com/ibericode/mailchimp-for-wordpress">MailChimp for WordPress on GitHub</a> or have a look at our repository of <a href="https://github.com/ibericode/mc4wp-snippets">sample code snippets</a>.</p>';
+    echo '<p class="help">Developer? Follow <a href="https://github.com/ibericode/mailchimp-for-wordpress">Mailchimp for WordPress on GitHub</a> or have a look at our repository of <a href="https://github.com/ibericode/mc4wp-snippets">sample code snippets</a>.</p>';
 }
 
 /**
@@ -33,7 +33,7 @@ function _mc4wp_admin_github_notice()
  */
 function _mc4wp_admin_disclaimer_notice()
 {
-    echo '<p class="help">' . __('This plugin is not developed by or affiliated with MailChimp in any way.', 'mailchimp-for-wp') . '</p>';
+    echo '<p class="help">' . __('This plugin is not developed by or affiliated with Mailchimp in any way.', 'mailchimp-for-wp') . '</p>';
 }
 
 add_action('mc4wp_admin_footer', '_mc4wp_admin_translation_notice', 20);
@@ -46,7 +46,7 @@ add_action('mc4wp_admin_footer', '_mc4wp_admin_disclaimer_notice', 80);
 	<?php
 
     /**
-     * Runs while printing the footer of every MailChimp for WordPress settings page.
+     * Runs while printing the footer of every Mailchimp for WordPress settings page.
      *
      * @since 3.0
      */

@@ -1,5 +1,5 @@
-<h3><?php _e('Your MailChimp Account', 'mailchimp-for-wp'); ?></h3>
-<p><?php _e('The table below shows your MailChimp lists and their details. If you just applied changes to your MailChimp lists, please use the following button to renew the cached lists configuration.', 'mailchimp-for-wp'); ?></p>
+<h3><?php _e('Your Mailchimp Account', 'mailchimp-for-wp'); ?></h3>
+<p><?php _e('The table below shows your Mailchimp lists and their details. If you just applied changes to your Mailchimp lists, please use the following button to renew the cached lists configuration.', 'mailchimp-for-wp'); ?></p>
 
 
 <div id="mc4wp-list-fetcher">
@@ -7,7 +7,7 @@
 		<input type="hidden" name="_mc4wp_action" value="empty_lists_cache" />
 
 		<p>
-			<input type="submit" value="<?php _e('Renew MailChimp lists', 'mailchimp-for-wp'); ?>" class="button" />
+			<input type="submit" value="<?php _e('Renew Mailchimp lists', 'mailchimp-for-wp'); ?>" class="button" />
 		</p>
 	</form>
 </div>
@@ -15,10 +15,10 @@
 <div class="mc4wp-lists-overview">
 	<?php if (empty($lists)) {
     ?>
-		<p><?php _e('No lists were found in your MailChimp account', 'mailchimp-for-wp'); ?>.</p>
+		<p><?php _e('No lists were found in your Mailchimp account', 'mailchimp-for-wp'); ?>.</p>
 	<?php
 } else {
-        printf('<p>' . __('A total of %d lists were found in your MailChimp account.', 'mailchimp-for-wp') . '</p>', count($lists));
+        printf('<p>' . __('A total of %d lists were found in your Mailchimp account.', 'mailchimp-for-wp') . '</p>', count($lists));
 
         echo '<table class="widefat striped">';
 
@@ -47,7 +47,7 @@
             echo sprintf('<tr class="list-details list-%s-details" style="display: none;">', $list->id);
             echo '<td colspan="3" style="padding: 0 20px 40px;">';
 
-            echo sprintf('<p class="alignright" style="margin: 20px 0;"><a href="%s" target="_blank"><span class="dashicons dashicons-edit"></span> ' . __('Edit this list in MailChimp', 'mailchimp-for-wp') . '</a></p>', $list->get_web_url());
+            echo sprintf('<p class="alignright" style="margin: 20px 0;"><a href="%s" target="_blank"><span class="dashicons dashicons-edit"></span> ' . __('Edit this list in Mailchimp', 'mailchimp-for-wp') . '</a></p>', $list->get_web_url());
 
             // Fields
             if (! empty($list->merge_fields)) {

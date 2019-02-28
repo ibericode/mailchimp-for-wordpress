@@ -267,7 +267,7 @@ abstract class MC4WP_Integration
 
         ob_start();
 
-        echo sprintf('<!-- MailChimp for WordPress v%s - https://mc4wp.com/ -->', MC4WP_VERSION);
+        echo sprintf('<!-- Mailchimp for WordPress v%s - https://mc4wp.com/ -->', MC4WP_VERSION);
 
         /** @ignore */
         do_action('mc4wp_integration_before_checkbox_wrapper', $this);
@@ -292,14 +292,14 @@ abstract class MC4WP_Integration
 
         /** @ignore */
         do_action('mc4wp_integration_'. $this->slug .'_after_checkbox_wrapper', $this);
-        echo '<!-- / MailChimp for WordPress -->';
+        echo '<!-- / Mailchimp for WordPress -->';
 
         $html = ob_get_clean();
         return $html;
     }
 
     /**
-     * Get the selected MailChimp lists
+     * Get the selected Mailchimp lists
      *
      * @return array Array of List ID's
      */
@@ -335,7 +335,7 @@ abstract class MC4WP_Integration
         $lists = (array) apply_filters('mc4wp_lists', $lists);
 
         /**
-         * Filters the MailChimp lists this integration should subscribe to
+         * Filters the Mailchimp lists this integration should subscribe to
          *
          * @since 3.0
          *
@@ -345,7 +345,7 @@ abstract class MC4WP_Integration
         $lists = (array) apply_filters('mc4wp_integration_lists', $lists, $integration);
 
         /**
-         * Filters the MailChimp lists a specific integration should subscribe to
+         * Filters the Mailchimp lists a specific integration should subscribe to
          *
          * The dynamic portion of the hook, `$slug`, refers to the slug of the integration.
          *
@@ -381,7 +381,7 @@ abstract class MC4WP_Integration
 
         // validate lists
         if (empty($list_ids)) {
-            $log->warning(sprintf('%s > No MailChimp lists were selected', $this->name));
+            $log->warning(sprintf('%s > No Mailchimp lists were selected', $this->name));
             return false;
         }
 
@@ -436,14 +436,14 @@ abstract class MC4WP_Integration
             $subscriber = apply_filters('mc4wp_subscriber_data', $subscriber);
 
             /**
-             * Filters subscriber data before it is sent to MailChimp. Only fires for integration requests.
+             * Filters subscriber data before it is sent to Mailchimp. Only fires for integration requests.
              *
              * @param MC4WP_MailChimp_Subscriber $subscriber
              */
             $subscriber = apply_filters('mc4wp_integration_subscriber_data', $subscriber);
 
             /**
-             * Filters subscriber data before it is sent to MailChimp. Only fires for integration requests.
+             * Filters subscriber data before it is sent to Mailchimp. Only fires for integration requests.
              *
              * The dynamic portion of the hook, `$slug`, refers to the integration slug.
              *
@@ -462,7 +462,7 @@ abstract class MC4WP_Integration
             if ($mailchimp->get_error_code() == 214) {
                 $log->warning(sprintf("%s > %s is already subscribed to the selected list(s)", $this->name, $subscriber->email_address));
             } else {
-                $log->error(sprintf('%s > MailChimp API Error: %s', $this->name, $mailchimp->get_error_message()));
+                $log->error(sprintf('%s > Mailchimp API Error: %s', $this->name, $mailchimp->get_error_message()));
             }
 
             // bail

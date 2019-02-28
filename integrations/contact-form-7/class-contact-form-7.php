@@ -83,7 +83,7 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration
     /**
      * Subscribe from Contact Form 7 Forms
      *
-     * @todo improve smart guessing based on selected MailChimp lists
+     * @todo improve smart guessing based on selected Mailchimp lists
      *
      * @param WPCF7_ContactForm $cf7_form
      * @return bool

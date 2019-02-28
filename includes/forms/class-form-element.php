@@ -25,7 +25,7 @@ class MC4WP_Form_Element
      *
      * Can be used to set element-specific config settings. Accepts the following keys.
      *
-     * - lists: Customized number of MailChimp list ID's to subscribe to.
+     * - lists: Customized number of Mailchimp list ID's to subscribe to.
      * - email_type: The email type
      */
     public $config = array();
@@ -293,12 +293,12 @@ class MC4WP_Form_Element
         }
 
         // Start building content string
-        $opening_html = '<!-- MailChimp for WordPress v' . MC4WP_VERSION . ' - https://wordpress.org/plugins/mailchimp-for-wp/ -->';
+        $opening_html = '<!-- Mailchimp for WordPress v' . MC4WP_VERSION . ' - https://wordpress.org/plugins/mailchimp-for-wp/ -->';
         $opening_html .= '<form '. $this->get_form_element_attributes() .'>';
         $before_fields = $this->get_html_before_fields();
         $fields = '';
         $after_fields = $this->get_html_after_fields();
-        $closing_html = '</form><!-- / MailChimp for WordPress Plugin -->';
+        $closing_html = '</form><!-- / Mailchimp for WordPress Plugin -->';
 
         if (! $this->is_submitted
             || ! $this->form->settings['hide_after_success']

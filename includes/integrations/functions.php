@@ -29,7 +29,7 @@ function mc4wp_get_integration($slug)
 }
 
 /**
- * Register a new integration with MailChimp for WordPress
+ * Register a new integration with Mailchimp for WordPress
  *
  * @since 3.0
  * @access public
@@ -45,7 +45,7 @@ function mc4wp_register_integration($slug, $class, $always_enabled = false)
 }
 
 /**
- * Deregister a previously registered integration with MailChimp for WordPress
+ * Deregister a previously registered integration with Mailchimp for WordPress
  *
  * @since 3.0
  * @access public

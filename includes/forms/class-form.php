@@ -556,7 +556,7 @@ class MC4WP_Form
     }
 
     /**
-     * Get MailChimp lists this form subscribes to
+     * Get Mailchimp lists this form subscribes to
      *
      * @return array
      */
@@ -566,14 +566,14 @@ class MC4WP_Form
         $form = $this;
 
         /**
-         * Filters MailChimp lists new subscribers should be added to.
+         * Filters Mailchimp lists new subscribers should be added to.
          *
          * @param array $lists
          */
         $lists = (array) apply_filters('mc4wp_lists', $lists);
 
         /**
-         * Filters MailChimp lists new subscribers coming from this form should be added to.
+         * Filters Mailchimp lists new subscribers coming from this form should be added to.
          *
          * @param array $lists
          * @param MC4WP_Form $form
@@ -682,7 +682,7 @@ class MC4WP_Form
          *
          * By default, this holds the following fields.
          *
-         * - All fields which are required for the selected MailChimp lists
+         * - All fields which are required for the selected Mailchimp lists
          * - All fields in the form with a `required` attribute.
          *
          * @param array $required_fields
@@ -694,7 +694,7 @@ class MC4WP_Form
     }
 
     /**
-     * Get "email_type" setting for new MailChimp subscribers added by this form.
+     * Get "email_type" setting for new Mailchimp subscribers added by this form.
      *
      * @return string
      */

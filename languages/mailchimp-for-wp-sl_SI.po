@@ -9,7 +9,7 @@
 # Tine, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: MailChimp for WordPress\n"
+"Project-Id-Version: Mailchimp for WordPress\n"
 "PO-Revision-Date: 2017-11-01 09:23+0000\n"
 "Last-Translator: Davor Deucman <davor.deucman@gmail.com>\n"
 "Language-Team: Slovenian (Slovenia) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/sl_SI/)\n"
@@ -35,7 +35,7 @@ msgstr "Dokumentacija"
 
 #: includes/admin/class-admin.php:204
 msgid ""
-"Success! The cached configuration for your MailChimp lists has been renewed."
+"Success! The cached configuration for your Mailchimp lists has been renewed."
 msgstr "Uspeh! Predpomnjena konfiguracija Mailchimp list je prenovljena."
 
 #: includes/admin/class-admin.php:304
@@ -47,28 +47,28 @@ msgstr "To je ekskluzivna funkcija. Prosimo nadgradite v plačljivo verzijo, da 
 #: includes/admin/class-admin.php305,
 #: includes/views/parts/lists-overview.php10,
 #: includes/forms/views/parts/add-fields-help.php:43
-msgid "Renew MailChimp lists"
-msgstr "Obnovi MailChimp liste"
+msgid "Renew Mailchimp lists"
+msgstr "Obnovi Mailchimp liste"
 
 #: includes/admin/class-admin.php:306
-msgid "Fetching MailChimp lists"
-msgstr "Prenesi MailChimp sezname"
+msgid "Fetching Mailchimp lists"
+msgstr "Prenesi Mailchimp sezname"
 
 #: includes/admin/class-admin.php:307
-msgid "Done! MailChimp lists renewed."
-msgstr "Zaključeno! MailChimp seznami so obnovljeni."
+msgid "Done! Mailchimp lists renewed."
+msgstr "Zaključeno! Mailchimp seznami so obnovljeni."
 
 #: includes/admin/class-admin.php:308
-msgid "This can take a while if you have many MailChimp lists."
-msgstr "To zna trajati nekaj časa v primeru, da imate več MailChimp seznamov."
+msgid "This can take a while if you have many Mailchimp lists."
+msgstr "To zna trajati nekaj časa v primeru, da imate več Mailchimp seznamov."
 
 #: includes/admin/class-admin.php336, includes/views/general-settings.php:31
-msgid "MailChimp API Settings"
-msgstr "Nastavitve MailChimp API-ja"
+msgid "Mailchimp API Settings"
+msgstr "Nastavitve Mailchimp API-ja"
 
 #: includes/admin/class-admin.php:337
-msgid "MailChimp"
-msgstr "MailChimp"
+msgid "Mailchimp"
+msgstr "Mailchimp"
 
 #: includes/admin/class-admin.php343, includes/views/other-settings.php60,
 #: includes/views/other-settings.php:70
@@ -85,9 +85,9 @@ msgstr "Log je uspešno izpraznjen."
 
 #: includes/admin/class-admin.php:488
 msgid ""
-"To get started with MailChimp for WordPress, please <a href=\"%s\">enter "
-"your MailChimp API key on the settings page of the plugin</a>."
-msgstr "Pred pričetkom uporabe MailChimp za Wordpress prosimo <a href=\"%s\"> vnesite Vaš MailChimp API ključ v nastavitvah dodatka</a>"
+"To get started with Mailchimp for WordPress, please <a href=\"%s\">enter "
+"your Mailchimp API key on the settings page of the plugin</a>."
+msgstr "Pred pričetkom uporabe Mailchimp za Wordpress prosimo <a href=\"%s\"> vnesite Vaš Mailchimp API ključ v nastavitvah dodatka</a>"
 
 #: includes/admin/class-ads.php:39
 msgid ""
@@ -97,17 +97,17 @@ msgstr "Želite personalizirati obliko obrazca?  <a href=\"%s\">Preizkusite naš
 
 #: includes/admin/class-ads.php:54
 msgid ""
-"Be notified whenever someone subscribes? <a href=\"%s\">MailChimp for "
+"Be notified whenever someone subscribes? <a href=\"%s\">Mailchimp for "
 "WordPress Premium</a> allows you to set up email notifications for your "
 "forms."
-msgstr "Bodite obveščeni, ko se kdo naroči? <a href=\"%s\">MailChimp for WordPress Premium</a> omogoča nastavitev e-poštnih obvestil za vaš obrazec."
+msgstr "Bodite obveščeni, ko se kdo naroči? <a href=\"%s\">Mailchimp for WordPress Premium</a> omogoča nastavitev e-poštnih obvestil za vaš obrazec."
 
 #: includes/admin/class-ads.php:56
 msgid ""
-"Increased conversions? <a href=\"%s\">MailChimp for WordPress Premium</a> "
+"Increased conversions? <a href=\"%s\">Mailchimp for WordPress Premium</a> "
 "submits forms without reloading the entire page, resulting in a much better "
 "experience for your visitors."
-msgstr "Povečanje? <a href=\"%s\">MailChimp for WordPress Premium</a> potrjuje obrazce brez ponovnega nalaganja celotne strani. Rezultat je boljša uporabniška izkušnja za vaše obiskovalce."
+msgstr "Povečanje? <a href=\"%s\">Mailchimp for WordPress Premium</a> potrjuje obrazce brez ponovnega nalaganja celotne strani. Rezultat je boljša uporabniška izkušnja za vaše obiskovalce."
 
 #: includes/admin/class-ads.php:70
 msgid "Upgrade to Premium"
@@ -116,8 +116,8 @@ msgstr "Nadgradi na Premium"
 #: includes/admin/class-ads.php:83
 msgid ""
 "Do you want translated forms for all of your languages? <a href=\"%s\">Try "
-"MailChimp for WordPress Premium</a>, which does just that plus more."
-msgstr "Želite prevedene obrazce za vse jezike? <a href=\"%s\">Preizkusite MailChimp for Wordpress Premium</a>, k to omogoča in m,nogo več."
+"Mailchimp for WordPress Premium</a>, which does just that plus more."
+msgstr "Želite prevedene obrazce za vse jezike? <a href=\"%s\">Preizkusite Mailchimp for Wordpress Premium</a>, k to omogoča in m,nogo več."
 
 #: includes/admin/class-ads.php:88
 msgid ""
@@ -155,21 +155,21 @@ msgstr "Naroči se"
 
 #: includes/admin/class-ads.php:150
 msgid ""
-"Do you want to track all WooCommerce orders in MailChimp so you can send "
+"Do you want to track all WooCommerce orders in Mailchimp so you can send "
 "emails based on the purchase activity of your subscribers?"
-msgstr "Želite slediti vsem WooCommerce naročilom v MailChimp? Elektronska sporočila lahko tako pošiljate svojim naročnikom na podlagi aktivnosti naročanja v spletni trgovini."
+msgstr "Želite slediti vsem WooCommerce naročilom v Mailchimp? Elektronska sporočila lahko tako pošiljate svojim naročnikom na podlagi aktivnosti naročanja v spletni trgovini."
 
 #: includes/admin/class-ads.php:153
 msgid ""
-"<a href=\"%s\">Upgrade to MailChimp for WordPress Premium</a> or <a "
-"href=\"%s\">read more about MailChimp's E-Commerce features</a>."
-msgstr "<a href=\"%s\">Nadgradite na MailChimp for WordPress Premium</a> ali <a href=\"%s\">preberite več o MailChimp's E-Commerce lastnosti</a>."
+"<a href=\"%s\">Upgrade to Mailchimp for WordPress Premium</a> or <a "
+"href=\"%s\">read more about Mailchimp's E-Commerce features</a>."
+msgstr "<a href=\"%s\">Nadgradite na Mailchimp for WordPress Premium</a> ali <a href=\"%s\">preberite več o Mailchimp's E-Commerce lastnosti</a>."
 
 #: includes/admin/class-review-notice.php:68
 msgid ""
-"You've been using MailChimp for WordPress for some time now; we hope you "
+"You've been using Mailchimp for WordPress for some time now; we hope you "
 "love it!"
-msgstr "MailChimp for Wordpress uporabljate že nekaj časa; upamo, da vam ustreza!"
+msgstr "Mailchimp for Wordpress uporabljate že nekaj časa; upamo, da vam ustreza!"
 
 #: includes/admin/class-review-notice.php:69
 msgid ""
@@ -244,8 +244,8 @@ msgid "Form fields"
 msgstr "Polja obrazca"
 
 #: includes/forms/class-admin.php:76
-msgid "This field is marked as required in MailChimp."
-msgstr "To polje je označeno kot obvezno v MailChimp."
+msgid "This field is marked as required in Mailchimp."
+msgstr "To polje je označeno kot obvezno v Mailchimp."
 
 #: includes/forms/class-admin.php:77
 msgid "Initial value"
@@ -281,8 +281,8 @@ msgstr "Max"
 
 #: includes/forms/class-admin.php:85
 msgid ""
-"No available fields. Did you select a MailChimp list in the form settings?"
-msgstr "Ni razpoložljivih polj. Ali ste v nastavitvah obrazca izbrali seznam MailChimp?"
+"No available fields. Did you select a Mailchimp list in the form settings?"
+msgstr "Ni razpoložljivih polj. Ali ste v nastavitvah obrazca izbrali seznam Mailchimp?"
 
 #: includes/forms/class-admin.php:86
 msgid "Optional"
@@ -350,7 +350,7 @@ msgid "Preview form"
 msgstr "Predogled obrazca"
 
 #: includes/forms/class-admin.php449, includes/forms/class-widget.php:30
-msgid "MailChimp Sign-Up Form"
+msgid "Mailchimp Sign-Up Form"
 msgstr "Mailchimp prijavni obrzec"
 
 #: includes/forms/class-admin.php:453
@@ -423,7 +423,7 @@ msgid "Newsletter"
 msgstr "E-novice"
 
 #: includes/forms/class-widget.php:32
-msgid "Displays your MailChimp for WordPress sign-up form"
+msgid "Displays your Mailchimp for WordPress sign-up form"
 msgstr "Prikaži Mailchimp-ov prijavni obrazec za Wordpress"
 
 #: includes/forms/class-widget.php:75
@@ -432,9 +432,9 @@ msgstr "Naslov:"
 
 #: includes/forms/class-widget.php:92
 msgid ""
-"You can edit your sign-up form in the <a href=\"%s\">MailChimp for WordPress"
+"You can edit your sign-up form in the <a href=\"%s\">Mailchimp for WordPress"
 " form settings</a>."
-msgstr "Lahko prilagodiš prijavni obrazec v <a href=\"%s\">MailChimp nastavitvah obrazca za Wordpress</a>."
+msgstr "Lahko prilagodiš prijavni obrazec v <a href=\"%s\">Mailchimp nastavitvah obrazca za Wordpress</a>."
 
 #: includes/integrations/class-admin.php79,
 #: includes/integrations/class-admin.php80,
@@ -472,12 +472,12 @@ msgid "API Key"
 msgstr "API ključ"
 
 #: includes/views/general-settings.php:53
-msgid "Your MailChimp API key"
-msgstr "Vaš MailChimp API ključ"
+msgid "Your Mailchimp API key"
+msgstr "Vaš Mailchimp API ključ"
 
 #: includes/views/general-settings.php:55
-msgid "The API key for connecting with your MailChimp account."
-msgstr "API ključ za povezavo z vašim MailChimp računom."
+msgid "The API key for connecting with your Mailchimp account."
+msgstr "API ključ za povezavo z vašim Mailchimp računom."
 
 #: includes/views/general-settings.php:56
 msgid "Get your API key here."
@@ -556,12 +556,12 @@ msgid "Enter your form title.."
 msgstr "Vnesi naslov obrazca.."
 
 #: includes/forms/views/add-form.php:37
-msgid "To which MailChimp lists should this form subscribe?"
+msgid "To which Mailchimp lists should this form subscribe?"
 msgstr "H kateri Mailchimp listi naj se naroči ta obrazec?"
 
 #: includes/forms/views/add-form.php:54
-msgid "No lists found. Did you <a href=\"%s\">connect with MailChimp</a>?"
-msgstr "Nič najdenih list. Ste <a href=\"%s\">povezani z MailChimp</a>?"
+msgid "No lists found. Did you <a href=\"%s\">connect with Mailchimp</a>?"
+msgstr "Nič najdenih list. Ste <a href=\"%s\">povezani z Mailchimp</a>?"
 
 #: includes/forms/views/edit-form.php:4
 msgid "Fields"
@@ -609,17 +609,17 @@ msgstr "%s integracija"
 
 #: includes/integrations/views/integration-settings.php:27
 msgid ""
-"The selected MailChimp lists require non-default fields, which may prevent "
+"The selected Mailchimp lists require non-default fields, which may prevent "
 "this integration from working."
-msgstr "Izbrani seznami MailChimp zahtevajo polja, ki niso privzeta, kar lahko prepreči, da bi ta integracija delovala."
+msgstr "Izbrani seznami Mailchimp zahtevajo polja, ki niso privzeta, kar lahko prepreči, da bi ta integracija delovala."
 
 #: includes/integrations/views/integration-settings.php:28
 msgid ""
 "Please ensure you <a href=\"%s\">configure the plugin to send all required "
-"fields</a> or <a href=\"%s\">log into your MailChimp account</a> and make "
+"fields</a> or <a href=\"%s\">log into your Mailchimp account</a> and make "
 "sure only the email & name fields are marked as required fields for the "
 "selected list(s)."
-msgstr "Prosimo prepričajte se  <a href=\"%s\">da nastavite vtičnik za pošiljanje vseh zahtevanih polj </a> ali  <a href=\"%s\">se prijavite v vaš MailChimp račun </a> in se prepričajte, da sta le polji elektronska pošta in ime nastavljeni kot obvezen podatek za izbran-e seznam(e)."
+msgstr "Prosimo prepričajte se  <a href=\"%s\">da nastavite vtičnik za pošiljanje vseh zahtevanih polj </a> ali  <a href=\"%s\">se prijavite v vaš Mailchimp račun </a> in se prepričajte, da sta le polji elektronska pošta in ime nastavljeni kot obvezen podatek za izbran-e seznam(e)."
 
 #: includes/integrations/views/integration-settings.php:62
 msgid "Enabled?"
@@ -641,7 +641,7 @@ msgid ""
 msgstr "Izberite \"ne\", če želite vprašati obiskovalce, če se res želijo naročiti (priporočeno)."
 
 #: includes/integrations/views/integration-settings.php:90
-msgid "MailChimp Lists"
+msgid "Mailchimp Lists"
 msgstr "Mailchimp lista"
 
 #: includes/integrations/views/integration-settings.php:103
@@ -652,8 +652,8 @@ msgstr "Izberite seznam(e) za naročnike za katere je potrebno preveriti potrdit
 
 #: includes/integrations/views/integration-settings.php107,
 #: includes/forms/views/tabs/form-settings.php:18
-msgid "No lists found, <a href=\"%s\">are you connected to MailChimp</a>?"
-msgstr "Nobena lista najdena, <a href=\"%s\">ste povezani z MailChimp-om</a>?"
+msgid "No lists found, <a href=\"%s\">are you connected to Mailchimp</a>?"
+msgstr "Nobena lista najdena, <a href=\"%s\">ste povezani z Mailchimp-om</a>?"
 
 #: includes/integrations/views/integration-settings.php:116
 msgid "Checkbox label text"
@@ -750,16 +750,16 @@ msgstr "Razpoložljive integracije"
 
 #: includes/views/parts/admin-footer.php:15
 msgid ""
-"MailChimp for WordPress is in need of translations. Is the plugin not "
+"Mailchimp for WordPress is in need of translations. Is the plugin not "
 "translated in your language or do you spot errors with the current "
 "translations? Helping out is easy! Head over to <a href=\"%s\">the "
 "translation project and click \"help translate\"</a>."
-msgstr "MailChimp za WordPress potrebuje prevode. Ali vtičnik ni preveden v vašem jeziku ali pa pri trenutnih prevodih ugotovite napake? Pomoč je enostavna! Pojdite na <a href=\"%s\"> prevajalski projekt in kliknite »Pomoč pri prevajanju« </a>."
+msgstr "Mailchimp za WordPress potrebuje prevode. Ali vtičnik ni preveden v vašem jeziku ali pa pri trenutnih prevodih ugotovite napake? Pomoč je enostavna! Pojdite na <a href=\"%s\"> prevajalski projekt in kliknite »Pomoč pri prevajanju« </a>."
 
 #: includes/views/parts/admin-footer.php:35
 msgid ""
-"This plugin is not developed by or affiliated with MailChimp in any way."
-msgstr "Ta vtičnik ni razvit ali povezan z MailChimpom."
+"This plugin is not developed by or affiliated with Mailchimp in any way."
+msgstr "Ta vtičnik ni razvit ali povezan z Mailchimpom."
 
 #: includes/views/parts/admin-sidebar.php:11
 msgid "Looking for help?"
@@ -792,23 +792,23 @@ msgid ""
 msgstr "Naš  <a href=\"%s\">vtičnik Boxzilla</a> omogoča izdelavo pojavnih oken alči diapozitivov z naročniškim obrazcem. Zanesljiv način večanje vaše lsite naročnikov!"
 
 #: includes/views/parts/lists-overview.php:1
-msgid "Your MailChimp Account"
-msgstr "Vaš MailChimp račun"
+msgid "Your Mailchimp Account"
+msgstr "Vaš Mailchimp račun"
 
 #: includes/views/parts/lists-overview.php:2
 msgid ""
-"The table below shows your MailChimp lists and their details. If you just "
-"applied changes to your MailChimp lists, please use the following button to "
+"The table below shows your Mailchimp lists and their details. If you just "
+"applied changes to your Mailchimp lists, please use the following button to "
 "renew the cached lists configuration."
-msgstr "Spodnja tabela prikazuje vaše sezname MailChimp in njihove podatke. Če ste pravkar uporabili spremembe na seznamih MailChimp, uporabite naslednji gumb, da obnovite konfiguracijo predpomnjenih seznamov."
+msgstr "Spodnja tabela prikazuje vaše sezname Mailchimp in njihove podatke. Če ste pravkar uporabili spremembe na seznamih Mailchimp, uporabite naslednji gumb, da obnovite konfiguracijo predpomnjenih seznamov."
 
 #: includes/views/parts/lists-overview.php:17
-msgid "No lists were found in your MailChimp account"
-msgstr "V vašem računu MailChimp ni bilo mogoče najti nobenih seznamov"
+msgid "No lists were found in your Mailchimp account"
+msgstr "V vašem računu Mailchimp ni bilo mogoče najti nobenih seznamov"
 
 #: includes/views/parts/lists-overview.php:19
-msgid "A total of %d lists were found in your MailChimp account."
-msgstr "Skupno %d list je najdenih v vašem MailChimp računu."
+msgid "A total of %d lists were found in your Mailchimp account."
+msgstr "Skupno %d list je najdenih v vašem Mailchimp računu."
 
 #: includes/views/parts/lists-overview.php:24
 msgid "List Name"
@@ -823,8 +823,8 @@ msgid "Subscribers"
 msgstr "Naročniki"
 
 #: includes/views/parts/lists-overview.php:48
-msgid "Edit this list in MailChimp"
-msgstr "Uredi to listo v MailChimpu"
+msgid "Edit this list in Mailchimp"
+msgstr "Uredi to listo v Mailchimpu"
 
 #: includes/views/parts/lists-overview.php:62
 msgid "%s (%s) with field type %s."
@@ -838,15 +838,15 @@ msgstr "Dodaj več polj"
 #: includes/forms/views/parts/add-fields-help.php:9
 msgid ""
 "To add more fields to your form, you will need to create those fields in "
-"MailChimp first."
-msgstr "Če želite v obrazec dodati več polj, jih morate najprej ustvariti v MailChimpu."
+"Mailchimp first."
+msgstr "Če želite v obrazec dodati več polj, jih morate najprej ustvariti v Mailchimpu."
 
 #: includes/forms/views/parts/add-fields-help.php:12
 msgid "Here's how:"
 msgstr "Tako:"
 
 #: includes/forms/views/parts/add-fields-help.php:17
-msgid "Log in to your MailChimp account."
+msgid "Log in to your Mailchimp account."
 msgstr "Prijavi se v Mailchimp račun."
 
 #: includes/forms/views/parts/add-fields-help.php:22
@@ -863,9 +863,9 @@ msgstr "Uredi polja list za"
 
 #: includes/forms/views/parts/add-fields-help.php:38
 msgid ""
-"Click the following button to have MailChimp for WordPress pick up on your "
+"Click the following button to have Mailchimp for WordPress pick up on your "
 "changes."
-msgstr "Kliknite naslednji gumb, da bo MailChimp for WordPress prevzel vaše spremembe."
+msgstr "Kliknite naslednji gumb, da bo Mailchimp for WordPress prevzel vaše spremembe."
 
 #: includes/forms/views/parts/dynamic-content-tags.php:6
 msgid "Add dynamic form variable"
@@ -1042,8 +1042,8 @@ msgid "Form Settings"
 msgstr "Nastavitve obrazca"
 
 #: includes/forms/views/tabs/form-settings.php:5
-msgid "MailChimp specific settings"
-msgstr "MailChimp specifične nastavitve"
+msgid "Mailchimp specific settings"
+msgstr "Mailchimp specifične nastavitve"
 
 #: includes/forms/views/tabs/form-settings.php:15
 msgid "Lists this form subscribes to"

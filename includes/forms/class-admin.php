@@ -89,7 +89,7 @@ class MC4WP_Forms_Admin
             'formAction'    => __('Form action', 'mailchimp-for-wp'),
             'formActionDescription' => __('This field will allow your visitors to choose whether they would like to subscribe or unsubscribe', 'mailchimp-for-wp'),
             'formFields'    => __('Form fields', 'mailchimp-for-wp'),
-            'forceRequired' => __('This field is marked as required in MailChimp.', 'mailchimp-for-wp'),
+            'forceRequired' => __('This field is marked as required in Mailchimp.', 'mailchimp-for-wp'),
             'initialValue'  		=> __("Initial value", 'mailchimp-for-wp'),
             'interestCategories'    => __('Interest categories', 'mailchimp-for-wp'),
             'isFieldRequired' => __("Is this field required?", 'mailchimp-for-wp'),
@@ -98,7 +98,7 @@ class MC4WP_Forms_Admin
             'listFields'    => __('List fields', 'mailchimp-for-wp'),
             'min'           => __('Min', 'mailchimp-for-wp'),
             'max'           => __('Max', 'mailchimp-for-wp'),
-            'noAvailableFields' => __('No available fields. Did you select a MailChimp list in the form settings?', 'mailchimp-for-wp'),
+            'noAvailableFields' => __('No available fields. Did you select a Mailchimp list in the form settings?', 'mailchimp-for-wp'),
             'optional' 		=> __('Optional', 'mailchimp-for-wp'),
             'placeholder'   => __('Placeholder', 'mailchimp-for-wp'),
             'placeholderHelp' => __("Text to show when field has no value.", 'mailchimp-for-wp'),
@@ -462,7 +462,7 @@ class MC4WP_Forms_Admin
         shortcode_ui_register_for_shortcode(
             'mc4wp_form',
             array(
-                'label' => esc_html__('MailChimp Sign-Up Form', 'mailchimp-for-wp'),
+                'label' => esc_html__('Mailchimp Sign-Up Form', 'mailchimp-for-wp'),
                 'listItemImage' => 'dashicons-feedback',
                 'attrs' => array(
                     array(

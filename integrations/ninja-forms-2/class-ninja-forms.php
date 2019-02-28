@@ -32,7 +32,7 @@ class MC4WP_Ninja_Forms_v2_Integration extends MC4WP_Integration
     public function register_field()
     {
         $args = array(
-            'name' => __('MailChimp', 'ninja-forms'),
+            'name' => __('Mailchimp', 'ninja-forms'),
             'edit_function' => '',
             'display_function' => 'ninja_forms_field_checkbox_display',
             'group' => 'standard_fields',

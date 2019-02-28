@@ -96,10 +96,10 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration
         $lists = $mailchimp->get_cached_lists(); ?>
         <li class="mailchimp_list_setting field_setting">
             <label for="field_mailchimp_list" class="section_label">
-                <?php esc_html_e('MailChimp list', 'mailchimp-for-wp'); ?>
+                <?php esc_html_e('Mailchimp list', 'mailchimp-for-wp'); ?>
             </label>
             <select id="field_mailchimp_list" onchange="SetFieldProperty('mailchimp_list', this.value)">
-                <option value="" disabled><?php _e('Select a MailChimp list', 'mailchimp-for-wp'); ?></option>
+                <option value="" disabled><?php _e('Select a Mailchimp list', 'mailchimp-for-wp'); ?></option>
                 <?php foreach ($lists as $list) {
             echo sprintf('<option value="%s">%s</option>', $list->id, $list->name);
         } ?>

@@ -34,7 +34,7 @@ function mc4wp($service = null)
 }
 
 /**
- * Gets the MailChimp for WP options from the database
+ * Gets the Mailchimp for WP options from the database
  * Uses default values to prevent undefined index notices.
  *
  * @since 1.0
@@ -53,7 +53,7 @@ function mc4wp_get_options()
     }
 
     /**
-     * Filters the MailChimp for WordPress settings (general).
+     * Filters the Mailchimp for WordPress settings (general).
      *
      * @param array $options
      */
@@ -77,7 +77,7 @@ function mc4wp_get_api_key()
 }
 
 /**
- * Gets the MailChimp for WP API class (v3) and injects it with the API key
+ * Gets the Mailchimp for WP API class (v3) and injects it with the API key
  *
  * @since 4.0
  * @access public
@@ -92,7 +92,7 @@ function mc4wp_get_api_v3()
 }
 
 /**
- * Gets the MailChimp for WP API class and injects it with the API key
+ * Gets the Mailchimp for WP API class and injects it with the API key
  *
  * @deprecated 4.0
  * @use mc4wp_get_api_v3
@@ -432,7 +432,7 @@ function mc4wp_obfuscate_email_addresses($string)
 }
 
 /**
- * Refreshes MailChimp lists. This can take a while if the connected MailChimp account has many lists.
+ * Refreshes Mailchimp lists. This can take a while if the connected Mailchimp account has many lists.
  *
  * @return void
  */

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="MailChimp for WordPress">
-	<description>MailChimp for WordPress rules for PHP_CodeSniffer</description>
+<ruleset name="Mailchimp for WordPress">
+	<description>Mailchimp for WordPress rules for PHP_CodeSniffer</description>
 
 	<rule ref="WordPress-VIP">
 		<exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines" />

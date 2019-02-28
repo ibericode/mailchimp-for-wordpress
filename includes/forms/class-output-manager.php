@@ -95,7 +95,7 @@ class MC4WP_Form_Output_Manager
             $form = mc4wp_get_form($id);
         } catch (Exception $e) {
             if (current_user_can('manage_options')) {
-                return sprintf('<strong>MailChimp for WordPress error:</strong> %s', $e->getMessage());
+                return sprintf('<strong>Mailchimp for WordPress error:</strong> %s', $e->getMessage());
             }
 
             return '';

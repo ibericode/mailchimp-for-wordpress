@@ -26,7 +26,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
     {
 
         // Define field type information
-        $this->name = 'MailChimp';
+        $this->name = 'Mailchimp';
         $this->type = 'mailchimp';
         $this->icon = 'fa-envelope-o';
         $this->order = 21;
@@ -55,7 +55,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
         // Options open markup
         $this->field_option('basic-options', $field, array('markup' => 'open'));
 
-        // MailChimp list
+        // Mailchimp list
         $this->field_option_mailchimp_list($field);
 
         // Choices
@@ -89,13 +89,13 @@ class MC4WP_WPForms_Field extends WPForms_Field
         $mailchimp = new MC4WP_MailChimp();
 
         // Field option label
-        $tooltip = __('Select the MailChimp list to subscribe to.', 'mailchimp-for-wp');
+        $tooltip = __('Select the Mailchimp list to subscribe to.', 'mailchimp-for-wp');
         $option_label = $this->field_element(
             'label',
             $field,
             array(
                 'slug' => 'mailchimp-list',
-                'value' => __('MailChimp list', 'mailchimp-for-wp'),
+                'value' => __('Mailchimp list', 'mailchimp-for-wp'),
                 'tooltip' => $tooltip,
             ),
             false

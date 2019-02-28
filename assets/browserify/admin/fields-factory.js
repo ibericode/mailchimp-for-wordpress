@@ -31,7 +31,7 @@ var FieldFactory = function(fields, i18n) {
     }
 
     /**
-     * Normalizes the field type which is passed by MailChimp
+     * Normalizes the field type which is passed by Mailchimp
      *
      * @param type
      * @returns {*}
@@ -84,7 +84,7 @@ var FieldFactory = function(fields, i18n) {
     }
 
     /**
-     * Register a field for a MailChimp grouping
+     * Register a field for a Mailchimp grouping
      *
      * @param interestCategory
      */

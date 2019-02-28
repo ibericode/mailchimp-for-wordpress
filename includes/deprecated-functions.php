@@ -10,7 +10,7 @@
  */
 function mc4wp_guess_merge_vars($merge_vars = array())
 {
-    _deprecated_function(__FUNCTION__, 'MailChimp for WordPress v4.0');
+    _deprecated_function(__FUNCTION__, 'Mailchimp for WordPress v4.0');
     $merge_vars = mc4wp_add_name_data($merge_vars);
     $merge_vars = _mc4wp_update_groupings_data($merge_vars);
     return $merge_vars;
@@ -26,12 +26,12 @@ function mc4wp_guess_merge_vars($merge_vars = array())
  */
 function mc4wp_checkbox()
 {
-    _deprecated_function(__FUNCTION__, 'MailChimp for WordPress v3.0');
+    _deprecated_function(__FUNCTION__, 'Mailchimp for WordPress v3.0');
     mc4wp_get_integration('wp-comment-form')->output_checkbox();
 }
 
 /**
- * Echoes a MailChimp for WordPress form
+ * Echoes a Mailchimp for WordPress form
  *
  * @ignore
  * @deprecated 3.0
@@ -45,7 +45,7 @@ function mc4wp_checkbox()
  */
 function mc4wp_form($id = 0, $attributes = array())
 {
-    _deprecated_function(__FUNCTION__, 'MailChimp for WordPress v3.0', 'mc4wp_show_form');
+    _deprecated_function(__FUNCTION__, 'Mailchimp for WordPress v3.0', 'mc4wp_show_form');
     return mc4wp_show_form($id, $attributes);
 }
 

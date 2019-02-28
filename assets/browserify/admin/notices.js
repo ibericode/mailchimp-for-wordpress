@@ -32,7 +32,7 @@ function render() {
 function init( editor, fields ) {
 
     var groupingsNotice = function() {
-        var text = "Your form contains old style <code>GROUPINGS</code> fields. <br /><br />Please remove these fields from your form and then re-add them through the available field buttons to make sure your data is getting through to MailChimp correctly.";
+        var text = "Your form contains old style <code>GROUPINGS</code> fields. <br /><br />Please remove these fields from your form and then re-add them through the available field buttons to make sure your data is getting through to Mailchimp correctly.";
         var formCode = editor.getValue().toLowerCase();
         ( formCode.indexOf('name="groupings') > -1 ) ? show('deprecated_groupings', text) : hide('deprecated_groupings');
     };
@@ -43,7 +43,7 @@ function init( editor, fields ) {
             return ! editor.containsField(f.name().toUpperCase());
         });
 
-        var text = '<strong>Heads up!</strong> Your form is missing list fields that are required in MailChimp. Either add these fields to your form or mark them as optional in MailChimp.';
+        var text = '<strong>Heads up!</strong> Your form is missing list fields that are required in Mailchimp. Either add these fields to your form or mark them as optional in Mailchimp.';
         text += "<br /><ul class=\"ul-square\" style=\"margin-bottom: 0;\"><li>" + missingFields.map(function(f) { return f.title(); }).join('</li><li>') + '</li></ul>';
 
         ( missingFields.length > 0 ) ? show('required_fields_missing', text) : hide('required_fields_missing');

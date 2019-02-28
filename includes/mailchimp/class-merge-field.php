@@ -1,10 +1,9 @@
 <?php
 
 /**
- * Class MC4WP_MailChimp_Merge_Field
+ * Represents a Merge Field in Mailchimp
  *
- * Represents a Merge Field in MailChimp
- *
+ * @since 4.0
  * @access public
  */
 class MC4WP_MailChimp_Merge_Field
@@ -76,7 +75,7 @@ class MC4WP_MailChimp_Merge_Field
     }
 
     /**
-     * Creates our local object from MailChimp API data.
+     * Creates our local object from Mailchimp API data.
      *
      * @param object $data
      *

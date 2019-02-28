@@ -11,7 +11,7 @@
 # Sebastian Żurawski <s.zurawski5@gmail.com>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: MailChimp for WordPress\n"
+"Project-Id-Version: Mailchimp for WordPress\n"
 "PO-Revision-Date: 2018-03-06 21:58+0000\n"
 "Last-Translator: Sebastian Żurawski <s.zurawski5@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/pl_PL/)\n"
@@ -37,8 +37,8 @@ msgstr "Dokumentacja"
 
 #: includes/admin/class-admin.php:204
 msgid ""
-"Success! The cached configuration for your MailChimp lists has been renewed."
-msgstr "Operacja przywrócenia listy subskrypcji twojego konta MailChimp została zakończona pomyślnie."
+"Success! The cached configuration for your Mailchimp lists has been renewed."
+msgstr "Operacja przywrócenia listy subskrypcji twojego konta Mailchimp została zakończona pomyślnie."
 
 #: includes/admin/class-admin.php:304
 msgid ""
@@ -49,28 +49,28 @@ msgstr "Opcja premium. Kup wersję premium, aby móc korzystać z tej opcji."
 #: includes/admin/class-admin.php305,
 #: includes/views/parts/lists-overview.php10,
 #: includes/forms/views/parts/add-fields-help.php:43
-msgid "Renew MailChimp lists"
-msgstr "Odnów listy MailChimp"
+msgid "Renew Mailchimp lists"
+msgstr "Odnów listy Mailchimp"
 
 #: includes/admin/class-admin.php:306
-msgid "Fetching MailChimp lists"
+msgid "Fetching Mailchimp lists"
 msgstr ""
 
 #: includes/admin/class-admin.php:307
-msgid "Done! MailChimp lists renewed."
-msgstr "Gotowe! Listy MailChimp odnowione."
+msgid "Done! Mailchimp lists renewed."
+msgstr "Gotowe! Listy Mailchimp odnowione."
 
 #: includes/admin/class-admin.php:308
-msgid "This can take a while if you have many MailChimp lists."
+msgid "This can take a while if you have many Mailchimp lists."
 msgstr ""
 
 #: includes/admin/class-admin.php336, includes/views/general-settings.php:31
-msgid "MailChimp API Settings"
-msgstr "Ustawienia API MailChimp"
+msgid "Mailchimp API Settings"
+msgstr "Ustawienia API Mailchimp"
 
 #: includes/admin/class-admin.php:337
-msgid "MailChimp"
-msgstr "MailChimp"
+msgid "Mailchimp"
+msgstr "Mailchimp"
 
 #: includes/admin/class-admin.php343, includes/views/other-settings.php60,
 #: includes/views/other-settings.php:70
@@ -87,8 +87,8 @@ msgstr "Logi Usunięte."
 
 #: includes/admin/class-admin.php:488
 msgid ""
-"To get started with MailChimp for WordPress, please <a href=\"%s\">enter "
-"your MailChimp API key on the settings page of the plugin</a>."
+"To get started with Mailchimp for WordPress, please <a href=\"%s\">enter "
+"your Mailchimp API key on the settings page of the plugin</a>."
 msgstr ""
 
 #: includes/admin/class-ads.php:39
@@ -99,14 +99,14 @@ msgstr ""
 
 #: includes/admin/class-ads.php:54
 msgid ""
-"Be notified whenever someone subscribes? <a href=\"%s\">MailChimp for "
+"Be notified whenever someone subscribes? <a href=\"%s\">Mailchimp for "
 "WordPress Premium</a> allows you to set up email notifications for your "
 "forms."
 msgstr ""
 
 #: includes/admin/class-ads.php:56
 msgid ""
-"Increased conversions? <a href=\"%s\">MailChimp for WordPress Premium</a> "
+"Increased conversions? <a href=\"%s\">Mailchimp for WordPress Premium</a> "
 "submits forms without reloading the entire page, resulting in a much better "
 "experience for your visitors."
 msgstr ""
@@ -118,7 +118,7 @@ msgstr "Zaktualizuj do Wersji Premium"
 #: includes/admin/class-ads.php:83
 msgid ""
 "Do you want translated forms for all of your languages? <a href=\"%s\">Try "
-"MailChimp for WordPress Premium</a>, which does just that plus more."
+"Mailchimp for WordPress Premium</a>, which does just that plus more."
 msgstr ""
 
 #: includes/admin/class-ads.php:88
@@ -157,19 +157,19 @@ msgstr "Subskrybuj"
 
 #: includes/admin/class-ads.php:150
 msgid ""
-"Do you want to track all WooCommerce orders in MailChimp so you can send "
+"Do you want to track all WooCommerce orders in Mailchimp so you can send "
 "emails based on the purchase activity of your subscribers?"
 msgstr ""
 
 #: includes/admin/class-ads.php:153
 msgid ""
-"<a href=\"%s\">Upgrade to MailChimp for WordPress Premium</a> or <a "
-"href=\"%s\">read more about MailChimp's E-Commerce features</a>."
+"<a href=\"%s\">Upgrade to Mailchimp for WordPress Premium</a> or <a "
+"href=\"%s\">read more about Mailchimp's E-Commerce features</a>."
 msgstr ""
 
 #: includes/admin/class-review-notice.php:68
 msgid ""
-"You've been using MailChimp for WordPress for some time now; we hope you "
+"You've been using Mailchimp for WordPress for some time now; we hope you "
 "love it!"
 msgstr ""
 
@@ -246,7 +246,7 @@ msgid "Form fields"
 msgstr "Formularz pól"
 
 #: includes/forms/class-admin.php:76
-msgid "This field is marked as required in MailChimp."
+msgid "This field is marked as required in Mailchimp."
 msgstr ""
 
 #: includes/forms/class-admin.php:77
@@ -283,7 +283,7 @@ msgstr "Max"
 
 #: includes/forms/class-admin.php:85
 msgid ""
-"No available fields. Did you select a MailChimp list in the form settings?"
+"No available fields. Did you select a Mailchimp list in the form settings?"
 msgstr ""
 
 #: includes/forms/class-admin.php:86
@@ -352,8 +352,8 @@ msgid "Preview form"
 msgstr "Podejrzyj formularz."
 
 #: includes/forms/class-admin.php449, includes/forms/class-widget.php:30
-msgid "MailChimp Sign-Up Form"
-msgstr "Formularz rejestracyjny MailChimp"
+msgid "Mailchimp Sign-Up Form"
+msgstr "Formularz rejestracyjny Mailchimp"
 
 #: includes/forms/class-admin.php:453
 msgid "Select the form to show"
@@ -425,8 +425,8 @@ msgid "Newsletter"
 msgstr "Newsletter"
 
 #: includes/forms/class-widget.php:32
-msgid "Displays your MailChimp for WordPress sign-up form"
-msgstr "Wyświetla Twój formularz MailChimp for WordPress."
+msgid "Displays your Mailchimp for WordPress sign-up form"
+msgstr "Wyświetla Twój formularz Mailchimp for WordPress."
 
 #: includes/forms/class-widget.php:75
 msgid "Title:"
@@ -434,9 +434,9 @@ msgstr "Tytuł:"
 
 #: includes/forms/class-widget.php:92
 msgid ""
-"You can edit your sign-up form in the <a href=\"%s\">MailChimp for WordPress"
+"You can edit your sign-up form in the <a href=\"%s\">Mailchimp for WordPress"
 " form settings</a>."
-msgstr "Możesz edytować swój formularz zapisu do newslettera w <a href=\"%s\">Ustawieniach \"MailChimp dla Wordpress\"</a>"
+msgstr "Możesz edytować swój formularz zapisu do newslettera w <a href=\"%s\">Ustawieniach \"Mailchimp dla Wordpress\"</a>"
 
 #: includes/integrations/class-admin.php79,
 #: includes/integrations/class-admin.php80,
@@ -474,12 +474,12 @@ msgid "API Key"
 msgstr "Klucz API"
 
 #: includes/views/general-settings.php:53
-msgid "Your MailChimp API key"
-msgstr "Twoj klucz API z MailChimp."
+msgid "Your Mailchimp API key"
+msgstr "Twoj klucz API z Mailchimp."
 
 #: includes/views/general-settings.php:55
-msgid "The API key for connecting with your MailChimp account."
-msgstr "Klucz API do połączenia z Twoim kontem MailChimp."
+msgid "The API key for connecting with your Mailchimp account."
+msgstr "Klucz API do połączenia z Twoim kontem Mailchimp."
 
 #: includes/views/general-settings.php:56
 msgid "Get your API key here."
@@ -558,12 +558,12 @@ msgid "Enter your form title.."
 msgstr "Wprowadź tytuł formularza.."
 
 #: includes/forms/views/add-form.php:37
-msgid "To which MailChimp lists should this form subscribe?"
+msgid "To which Mailchimp lists should this form subscribe?"
 msgstr "Do której z list subskrybentów powinien zapisywać ten formularz?"
 
 #: includes/forms/views/add-form.php:54
-msgid "No lists found. Did you <a href=\"%s\">connect with MailChimp</a>?"
-msgstr "Nie znaleziono żadnej listy subskrybentów. Czy <a href=\"%s\">Połączyłeś/aś się z MailChimpem?</a>"
+msgid "No lists found. Did you <a href=\"%s\">connect with Mailchimp</a>?"
+msgstr "Nie znaleziono żadnej listy subskrybentów. Czy <a href=\"%s\">Połączyłeś/aś się z Mailchimpem?</a>"
 
 #: includes/forms/views/edit-form.php:4
 msgid "Fields"
@@ -611,14 +611,14 @@ msgstr "Integracja: \"%s\""
 
 #: includes/integrations/views/integration-settings.php:27
 msgid ""
-"The selected MailChimp lists require non-default fields, which may prevent "
+"The selected Mailchimp lists require non-default fields, which may prevent "
 "this integration from working."
 msgstr ""
 
 #: includes/integrations/views/integration-settings.php:28
 msgid ""
 "Please ensure you <a href=\"%s\">configure the plugin to send all required "
-"fields</a> or <a href=\"%s\">log into your MailChimp account</a> and make "
+"fields</a> or <a href=\"%s\">log into your Mailchimp account</a> and make "
 "sure only the email & name fields are marked as required fields for the "
 "selected list(s)."
 msgstr ""
@@ -643,8 +643,8 @@ msgid ""
 msgstr "Wybierz \"nie\" jeśli chcesz pytać swoich gości zanim zostaną zapisani (polecane)."
 
 #: includes/integrations/views/integration-settings.php:90
-msgid "MailChimp Lists"
-msgstr "Listy MailChimp"
+msgid "Mailchimp Lists"
+msgstr "Listy Mailchimp"
 
 #: includes/integrations/views/integration-settings.php:103
 msgid ""
@@ -654,8 +654,8 @@ msgstr "Wybierz listę (listy) do których ludzie, którzy zaznaczą checkboxa p
 
 #: includes/integrations/views/integration-settings.php107,
 #: includes/forms/views/tabs/form-settings.php:18
-msgid "No lists found, <a href=\"%s\">are you connected to MailChimp</a>?"
-msgstr "Nie znaleziono listy, <a href=\\\"%s\\\"> czy jesteś połączony z MailChimp</a>?"
+msgid "No lists found, <a href=\"%s\">are you connected to Mailchimp</a>?"
+msgstr "Nie znaleziono listy, <a href=\\\"%s\\\"> czy jesteś połączony z Mailchimp</a>?"
 
 #: includes/integrations/views/integration-settings.php:116
 msgid "Checkbox label text"
@@ -752,7 +752,7 @@ msgstr "Integracje nie możliwe"
 
 #: includes/views/parts/admin-footer.php:15
 msgid ""
-"MailChimp for WordPress is in need of translations. Is the plugin not "
+"Mailchimp for WordPress is in need of translations. Is the plugin not "
 "translated in your language or do you spot errors with the current "
 "translations? Helping out is easy! Head over to <a href=\"%s\">the "
 "translation project and click \"help translate\"</a>."
@@ -760,7 +760,7 @@ msgstr ""
 
 #: includes/views/parts/admin-footer.php:35
 msgid ""
-"This plugin is not developed by or affiliated with MailChimp in any way."
+"This plugin is not developed by or affiliated with Mailchimp in any way."
 msgstr ""
 
 #: includes/views/parts/admin-sidebar.php:11
@@ -794,22 +794,22 @@ msgid ""
 msgstr ""
 
 #: includes/views/parts/lists-overview.php:1
-msgid "Your MailChimp Account"
-msgstr "Twoje konto MailChimp"
+msgid "Your Mailchimp Account"
+msgstr "Twoje konto Mailchimp"
 
 #: includes/views/parts/lists-overview.php:2
 msgid ""
-"The table below shows your MailChimp lists and their details. If you just "
-"applied changes to your MailChimp lists, please use the following button to "
+"The table below shows your Mailchimp lists and their details. If you just "
+"applied changes to your Mailchimp lists, please use the following button to "
 "renew the cached lists configuration."
-msgstr "Poniższa tabela przedstawia twoje dane z MailChimp. Jeśli wprowadziłeś zmiany do list MailChimp, należy użyć poniższy przycisk, aby odnowić buforowane dane."
+msgstr "Poniższa tabela przedstawia twoje dane z Mailchimp. Jeśli wprowadziłeś zmiany do list Mailchimp, należy użyć poniższy przycisk, aby odnowić buforowane dane."
 
 #: includes/views/parts/lists-overview.php:17
-msgid "No lists were found in your MailChimp account"
-msgstr "Nie znaleziono list na Twoim koncie MailChimp."
+msgid "No lists were found in your Mailchimp account"
+msgstr "Nie znaleziono list na Twoim koncie Mailchimp."
 
 #: includes/views/parts/lists-overview.php:19
-msgid "A total of %d lists were found in your MailChimp account."
+msgid "A total of %d lists were found in your Mailchimp account."
 msgstr ""
 
 #: includes/views/parts/lists-overview.php:24
@@ -825,8 +825,8 @@ msgid "Subscribers"
 msgstr "Subskrybenci"
 
 #: includes/views/parts/lists-overview.php:48
-msgid "Edit this list in MailChimp"
-msgstr "Edytuj tą liste w MailChimp"
+msgid "Edit this list in Mailchimp"
+msgstr "Edytuj tą liste w Mailchimp"
 
 #: includes/views/parts/lists-overview.php:62
 msgid "%s (%s) with field type %s."
@@ -840,16 +840,16 @@ msgstr "Dodaj więcej pól do formularza"
 #: includes/forms/views/parts/add-fields-help.php:9
 msgid ""
 "To add more fields to your form, you will need to create those fields in "
-"MailChimp first."
-msgstr "By dodać więcej pól do swojego formularza, musisz najpierw stworzyć te pola w MailChimpie."
+"Mailchimp first."
+msgstr "By dodać więcej pól do swojego formularza, musisz najpierw stworzyć te pola w Mailchimpie."
 
 #: includes/forms/views/parts/add-fields-help.php:12
 msgid "Here's how:"
 msgstr "Zobacz jak:"
 
 #: includes/forms/views/parts/add-fields-help.php:17
-msgid "Log in to your MailChimp account."
-msgstr "Zaloguj się do konta w MailChimpie."
+msgid "Log in to your Mailchimp account."
+msgstr "Zaloguj się do konta w Mailchimpie."
 
 #: includes/forms/views/parts/add-fields-help.php:22
 msgid "Add list fields to any of your selected lists."
@@ -865,7 +865,7 @@ msgstr "Edytuj pola list subskrybentów dla"
 
 #: includes/forms/views/parts/add-fields-help.php:38
 msgid ""
-"Click the following button to have MailChimp for WordPress pick up on your "
+"Click the following button to have Mailchimp for WordPress pick up on your "
 "changes."
 msgstr "Kliknij poniższy button, by \"Mailchimp dla WordPress\" zaktualizował wprowadzone przez Ciebie zmiany."
 
@@ -1044,8 +1044,8 @@ msgid "Form Settings"
 msgstr "Ustawienia formularza"
 
 #: includes/forms/views/tabs/form-settings.php:5
-msgid "MailChimp specific settings"
-msgstr "Dodatkowe ustawienia MailChimp"
+msgid "Mailchimp specific settings"
+msgstr "Dodatkowe ustawienia Mailchimp"
 
 #: includes/forms/views/tabs/form-settings.php:15
 msgid "Lists this form subscribes to"

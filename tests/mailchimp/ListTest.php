@@ -10,7 +10,7 @@ class ListTest extends TestCase
     public function test_constructor()
     {
         $id = 'abcdefg';
-        $name = 'My MailChimp List';
+        $name = 'My Mailchimp List';
         $web_id = '500';
         $list = new MC4WP_MailChimp_List($id, $name, $web_id);
 
@@ -25,7 +25,7 @@ class ListTest extends TestCase
     public function test_get_field_name_by_tag()
     {
         $id = 'abcdefg';
-        $name = 'My MailChimp List';
+        $name = 'My Mailchimp List';
         $web_id = '500';
         $list = new MC4WP_MailChimp_List($id, $name, $web_id);
         $list->merge_fields[] = new MC4WP_MailChimp_Merge_Field('Email', 'email', 'EMAIL');

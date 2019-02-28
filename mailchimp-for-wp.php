@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: MailChimp for WordPress
+Plugin Name: Mailchimp for WordPress
 Plugin URI: https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=plugins-page
-Description: MailChimp for WordPress by ibericode. Adds various highly effective sign-up methods to your site.
+Description: Mailchimp for WordPress by ibericode. Adds various highly effective sign-up methods to your site.
 Version: 4.3.3
 Author: ibericode
 Author URI: https://ibericode.com/
@@ -10,7 +10,7 @@ Text Domain: mailchimp-for-wp
 Domain Path: /languages
 License: GPL v3
 
-MailChimp for WordPress
+Mailchimp for WordPress
 Copyright (C) 2012-2019, Danny van Kooten, hi@dannyvankooten.com
 
 This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 defined('ABSPATH') or exit;
 
 /**
- * Bootstrap the MailChimp for WordPress plugin
+ * Bootstrap the Mailchimp for WordPress plugin
  *
  * @ignore
  * @access private
@@ -41,7 +41,7 @@ function _mc4wp_load_plugin()
 {
     global $mc4wp;
 
-    // Don't run if MailChimp for WP Pro 2.x is activated
+    // Don't run if Mailchimp for WP Pro 2.x is activated
     if (defined('MC4WP_VERSION')) {
         return false;
     }
@@ -128,7 +128,7 @@ function _mc4wp_on_plugin_activation()
 }
 
 /**
- * Clears scheduled hook for refreshing MailChimp lists.
+ * Clears scheduled hook for refreshing Mailchimp lists.
  *
  * @ignore
  * @since 4.0.3

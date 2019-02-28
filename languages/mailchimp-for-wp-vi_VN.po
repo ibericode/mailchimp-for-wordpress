@@ -5,7 +5,7 @@
 # Thanh Tran <trantienthanh255@gmail.com>, 2016
 msgid ""
 msgstr ""
-"Project-Id-Version: MailChimp for WordPress\n"
+"Project-Id-Version: Mailchimp for WordPress\n"
 "PO-Revision-Date: 2017-09-20 15:59+0000\n"
 "Last-Translator: Danny van Kooten <dannyvankooten@gmail.com>\n"
 "Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/vi_VN/)\n"
@@ -31,7 +31,7 @@ msgstr "Tài liệu"
 
 #: includes/admin/class-admin.php:204
 msgid ""
-"Success! The cached configuration for your MailChimp lists has been renewed."
+"Success! The cached configuration for your Mailchimp lists has been renewed."
 msgstr "Thành công!"
 
 #: includes/admin/class-admin.php:304
@@ -43,28 +43,28 @@ msgstr "Chỉ dành cho phiên bản Pro."
 #: includes/admin/class-admin.php305,
 #: includes/views/parts/lists-overview.php10,
 #: includes/forms/views/parts/add-fields-help.php:43
-msgid "Renew MailChimp lists"
-msgstr "Làm mới các danh sách MailChimp"
+msgid "Renew Mailchimp lists"
+msgstr "Làm mới các danh sách Mailchimp"
 
 #: includes/admin/class-admin.php:306
-msgid "Fetching MailChimp lists"
+msgid "Fetching Mailchimp lists"
 msgstr ""
 
 #: includes/admin/class-admin.php:307
-msgid "Done! MailChimp lists renewed."
+msgid "Done! Mailchimp lists renewed."
 msgstr ""
 
 #: includes/admin/class-admin.php:308
-msgid "This can take a while if you have many MailChimp lists."
+msgid "This can take a while if you have many Mailchimp lists."
 msgstr ""
 
 #: includes/admin/class-admin.php336, includes/views/general-settings.php:31
-msgid "MailChimp API Settings"
-msgstr "Cài đặt MailChimp API"
+msgid "Mailchimp API Settings"
+msgstr "Cài đặt Mailchimp API"
 
 #: includes/admin/class-admin.php:337
-msgid "MailChimp"
-msgstr "MailChimp"
+msgid "Mailchimp"
+msgstr "Mailchimp"
 
 #: includes/admin/class-admin.php343, includes/views/other-settings.php60,
 #: includes/views/other-settings.php:70
@@ -81,8 +81,8 @@ msgstr ""
 
 #: includes/admin/class-admin.php:488
 msgid ""
-"To get started with MailChimp for WordPress, please <a href=\"%s\">enter "
-"your MailChimp API key on the settings page of the plugin</a>."
+"To get started with Mailchimp for WordPress, please <a href=\"%s\">enter "
+"your Mailchimp API key on the settings page of the plugin</a>."
 msgstr ""
 
 #: includes/admin/class-ads.php:39
@@ -93,14 +93,14 @@ msgstr ""
 
 #: includes/admin/class-ads.php:54
 msgid ""
-"Be notified whenever someone subscribes? <a href=\"%s\">MailChimp for "
+"Be notified whenever someone subscribes? <a href=\"%s\">Mailchimp for "
 "WordPress Premium</a> allows you to set up email notifications for your "
 "forms."
 msgstr ""
 
 #: includes/admin/class-ads.php:56
 msgid ""
-"Increased conversions? <a href=\"%s\">MailChimp for WordPress Premium</a> "
+"Increased conversions? <a href=\"%s\">Mailchimp for WordPress Premium</a> "
 "submits forms without reloading the entire page, resulting in a much better "
 "experience for your visitors."
 msgstr ""
@@ -112,7 +112,7 @@ msgstr ""
 #: includes/admin/class-ads.php:83
 msgid ""
 "Do you want translated forms for all of your languages? <a href=\"%s\">Try "
-"MailChimp for WordPress Premium</a>, which does just that plus more."
+"Mailchimp for WordPress Premium</a>, which does just that plus more."
 msgstr ""
 
 #: includes/admin/class-ads.php:88
@@ -151,19 +151,19 @@ msgstr "Đăng ký"
 
 #: includes/admin/class-ads.php:150
 msgid ""
-"Do you want to track all WooCommerce orders in MailChimp so you can send "
+"Do you want to track all WooCommerce orders in Mailchimp so you can send "
 "emails based on the purchase activity of your subscribers?"
 msgstr ""
 
 #: includes/admin/class-ads.php:153
 msgid ""
-"<a href=\"%s\">Upgrade to MailChimp for WordPress Premium</a> or <a "
-"href=\"%s\">read more about MailChimp's E-Commerce features</a>."
+"<a href=\"%s\">Upgrade to Mailchimp for WordPress Premium</a> or <a "
+"href=\"%s\">read more about Mailchimp's E-Commerce features</a>."
 msgstr ""
 
 #: includes/admin/class-review-notice.php:68
 msgid ""
-"You've been using MailChimp for WordPress for some time now; we hope you "
+"You've been using Mailchimp for WordPress for some time now; we hope you "
 "love it!"
 msgstr ""
 
@@ -240,7 +240,7 @@ msgid "Form fields"
 msgstr ""
 
 #: includes/forms/class-admin.php:76
-msgid "This field is marked as required in MailChimp."
+msgid "This field is marked as required in Mailchimp."
 msgstr ""
 
 #: includes/forms/class-admin.php:77
@@ -277,7 +277,7 @@ msgstr ""
 
 #: includes/forms/class-admin.php:85
 msgid ""
-"No available fields. Did you select a MailChimp list in the form settings?"
+"No available fields. Did you select a Mailchimp list in the form settings?"
 msgstr ""
 
 #: includes/forms/class-admin.php:86
@@ -346,8 +346,8 @@ msgid "Preview form"
 msgstr "Xem trước biểu mẫu"
 
 #: includes/forms/class-admin.php449, includes/forms/class-widget.php:30
-msgid "MailChimp Sign-Up Form"
-msgstr "Mẫu đăng ký MailChimp"
+msgid "Mailchimp Sign-Up Form"
+msgstr "Mẫu đăng ký Mailchimp"
 
 #: includes/forms/class-admin.php:453
 msgid "Select the form to show"
@@ -419,8 +419,8 @@ msgid "Newsletter"
 msgstr "Newsletter"
 
 #: includes/forms/class-widget.php:32
-msgid "Displays your MailChimp for WordPress sign-up form"
-msgstr "Hiển thị mẫu đăng ký MailChimp for WordPress của bạn"
+msgid "Displays your Mailchimp for WordPress sign-up form"
+msgstr "Hiển thị mẫu đăng ký Mailchimp for WordPress của bạn"
 
 #: includes/forms/class-widget.php:75
 msgid "Title:"
@@ -428,9 +428,9 @@ msgstr "Tiêu đề:"
 
 #: includes/forms/class-widget.php:92
 msgid ""
-"You can edit your sign-up form in the <a href=\"%s\">MailChimp for WordPress"
+"You can edit your sign-up form in the <a href=\"%s\">Mailchimp for WordPress"
 " form settings</a>."
-msgstr "Bạn có thể chỉnh sửa đơn đăng ký trong <a href=\"%s\">Phần cài đặt MailChimp for WordPress</a>."
+msgstr "Bạn có thể chỉnh sửa đơn đăng ký trong <a href=\"%s\">Phần cài đặt Mailchimp for WordPress</a>."
 
 #: includes/integrations/class-admin.php79,
 #: includes/integrations/class-admin.php80,
@@ -468,11 +468,11 @@ msgid "API Key"
 msgstr "API Key"
 
 #: includes/views/general-settings.php:53
-msgid "Your MailChimp API key"
-msgstr "MailChimp API key của bạn"
+msgid "Your Mailchimp API key"
+msgstr "Mailchimp API key của bạn"
 
 #: includes/views/general-settings.php:55
-msgid "The API key for connecting with your MailChimp account."
+msgid "The API key for connecting with your Mailchimp account."
 msgstr "Mã API để kết nối với tài khoản Mailchimp của bạn."
 
 #: includes/views/general-settings.php:56
@@ -552,11 +552,11 @@ msgid "Enter your form title.."
 msgstr "Điền tiêu đề biểu mẫu của bạn.."
 
 #: includes/forms/views/add-form.php:37
-msgid "To which MailChimp lists should this form subscribe?"
+msgid "To which Mailchimp lists should this form subscribe?"
 msgstr "Biểu mẫu này sẽ đăng ký vào danh sách Mailchimp nào?"
 
 #: includes/forms/views/add-form.php:54
-msgid "No lists found. Did you <a href=\"%s\">connect with MailChimp</a>?"
+msgid "No lists found. Did you <a href=\"%s\">connect with Mailchimp</a>?"
 msgstr "Không có danh sách nào được tìm thấy. Bạn đã <a href=\"%s\">kết nội với Mailchimp</a> chưa?"
 
 #: includes/forms/views/edit-form.php:4
@@ -605,14 +605,14 @@ msgstr "%s tích hợp"
 
 #: includes/integrations/views/integration-settings.php:27
 msgid ""
-"The selected MailChimp lists require non-default fields, which may prevent "
+"The selected Mailchimp lists require non-default fields, which may prevent "
 "this integration from working."
 msgstr "Những danh sách Mailchimp đã chọn yêu cầu những trường không mặc định, điều này có thể chặn sự đồng nhất trong hoạt động."
 
 #: includes/integrations/views/integration-settings.php:28
 msgid ""
 "Please ensure you <a href=\"%s\">configure the plugin to send all required "
-"fields</a> or <a href=\"%s\">log into your MailChimp account</a> and make "
+"fields</a> or <a href=\"%s\">log into your Mailchimp account</a> and make "
 "sure only the email & name fields are marked as required fields for the "
 "selected list(s)."
 msgstr "Hãy đảm bảo bạn <a href=\"%s\"> cấu hình bộ mở rộng để gửi tất cả các trường yêu cầu</a> hoặc <a href=\"%s\">đăng nhập vào tài khoản Mailchimp của bạn</a> và đảm bảo chỉ có duy nhất trường email và tên được đánh dấu trường yêu cầu cho (các) danh sách đã chọn."
@@ -637,8 +637,8 @@ msgid ""
 msgstr "Chọn \"không\" nếu bạn muốn hỏi các khách hàng trước khi họ đã đăng ký (khuyến nghị)."
 
 #: includes/integrations/views/integration-settings.php:90
-msgid "MailChimp Lists"
-msgstr "Danh sách MailChimp"
+msgid "Mailchimp Lists"
+msgstr "Danh sách Mailchimp"
 
 #: includes/integrations/views/integration-settings.php:103
 msgid ""
@@ -648,8 +648,8 @@ msgstr "Chọn (một hoặc nhiều) danh sách mà để khi người dùng ch
 
 #: includes/integrations/views/integration-settings.php107,
 #: includes/forms/views/tabs/form-settings.php:18
-msgid "No lists found, <a href=\"%s\">are you connected to MailChimp</a>?"
-msgstr "Không tìm thấy danh sách, <a href=\"%s\">bạn đã kết nối đến MailChimp</a>?"
+msgid "No lists found, <a href=\"%s\">are you connected to Mailchimp</a>?"
+msgstr "Không tìm thấy danh sách, <a href=\"%s\">bạn đã kết nối đến Mailchimp</a>?"
 
 #: includes/integrations/views/integration-settings.php:116
 msgid "Checkbox label text"
@@ -746,16 +746,16 @@ msgstr ""
 
 #: includes/views/parts/admin-footer.php:15
 msgid ""
-"MailChimp for WordPress is in need of translations. Is the plugin not "
+"Mailchimp for WordPress is in need of translations. Is the plugin not "
 "translated in your language or do you spot errors with the current "
 "translations? Helping out is easy! Head over to <a href=\"%s\">the "
 "translation project and click \"help translate\"</a>."
-msgstr "MailChimp for WordPress cần được dịch tốt hơn. Bạn thấy rằng plugin này chưa được dịch hoặc được dịch chưa chuẩn trong ngôn ngữ của bạn? Xin hãy giúp đỡ, rất dễ! Truy cập vào <a href=\"%s\">dự án dịch và bấm \"help translate\"</a>."
+msgstr "Mailchimp for WordPress cần được dịch tốt hơn. Bạn thấy rằng plugin này chưa được dịch hoặc được dịch chưa chuẩn trong ngôn ngữ của bạn? Xin hãy giúp đỡ, rất dễ! Truy cập vào <a href=\"%s\">dự án dịch và bấm \"help translate\"</a>."
 
 #: includes/views/parts/admin-footer.php:35
 msgid ""
-"This plugin is not developed by or affiliated with MailChimp in any way."
-msgstr "Plugin này không được phát triển hay liên kết với MailChimp dưới bất kỳ hình thức nào."
+"This plugin is not developed by or affiliated with Mailchimp in any way."
+msgstr "Plugin này không được phát triển hay liên kết với Mailchimp dưới bất kỳ hình thức nào."
 
 #: includes/views/parts/admin-sidebar.php:11
 msgid "Looking for help?"
@@ -788,22 +788,22 @@ msgid ""
 msgstr ""
 
 #: includes/views/parts/lists-overview.php:1
-msgid "Your MailChimp Account"
+msgid "Your Mailchimp Account"
 msgstr "Tài khoản Mailchimp của bạn"
 
 #: includes/views/parts/lists-overview.php:2
 msgid ""
-"The table below shows your MailChimp lists and their details. If you just "
-"applied changes to your MailChimp lists, please use the following button to "
+"The table below shows your Mailchimp lists and their details. If you just "
+"applied changes to your Mailchimp lists, please use the following button to "
 "renew the cached lists configuration."
 msgstr "Bảng dưới hiển thị những danh sách Mailchimp của bạn và chi tiết. Nếu bạn mới thay đổi danh sách Mailchimp của bạn, hãy sử dụng nút dưới để làm mới cấu hình danh sách đã lưu."
 
 #: includes/views/parts/lists-overview.php:17
-msgid "No lists were found in your MailChimp account"
-msgstr "Không có danh sách nào được tìm thấy ở tài khoản MailChimp của bạn."
+msgid "No lists were found in your Mailchimp account"
+msgstr "Không có danh sách nào được tìm thấy ở tài khoản Mailchimp của bạn."
 
 #: includes/views/parts/lists-overview.php:19
-msgid "A total of %d lists were found in your MailChimp account."
+msgid "A total of %d lists were found in your Mailchimp account."
 msgstr "%d danh sách đã được tìm thấy trong tài khoản Mailchimp của bạn."
 
 #: includes/views/parts/lists-overview.php:24
@@ -819,7 +819,7 @@ msgid "Subscribers"
 msgstr "Những người đăng ký"
 
 #: includes/views/parts/lists-overview.php:48
-msgid "Edit this list in MailChimp"
+msgid "Edit this list in Mailchimp"
 msgstr "Sửa danh sách trong Mailchimp"
 
 #: includes/views/parts/lists-overview.php:62
@@ -834,7 +834,7 @@ msgstr "Thêm các trường khác"
 #: includes/forms/views/parts/add-fields-help.php:9
 msgid ""
 "To add more fields to your form, you will need to create those fields in "
-"MailChimp first."
+"Mailchimp first."
 msgstr "Để thêm nhiều trường vào biểu mẫu của bạn, bạn sẽ cần tạo những trường đó trong Mailchimp trước."
 
 #: includes/forms/views/parts/add-fields-help.php:12
@@ -842,7 +842,7 @@ msgid "Here's how:"
 msgstr "Bằng cách này:"
 
 #: includes/forms/views/parts/add-fields-help.php:17
-msgid "Log in to your MailChimp account."
+msgid "Log in to your Mailchimp account."
 msgstr "Đăng nhập vào tài khoản Mailchimp của bạn"
 
 #: includes/forms/views/parts/add-fields-help.php:22
@@ -859,7 +859,7 @@ msgstr "Sửa các trường danh sách cho"
 
 #: includes/forms/views/parts/add-fields-help.php:38
 msgid ""
-"Click the following button to have MailChimp for WordPress pick up on your "
+"Click the following button to have Mailchimp for WordPress pick up on your "
 "changes."
 msgstr "Click vào nút dưới để Mailchimp for Wordpress nhận các thay đổi của bạn."
 
@@ -1038,7 +1038,7 @@ msgid "Form Settings"
 msgstr "Cài đặt mẫu đăng ký"
 
 #: includes/forms/views/tabs/form-settings.php:5
-msgid "MailChimp specific settings"
+msgid "Mailchimp specific settings"
 msgstr "Những cài đặt cụ thể Mailchimp"
 
 #: includes/forms/views/tabs/form-settings.php:15

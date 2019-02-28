@@ -89,7 +89,7 @@ class MC4WP_Form_Manager
             'mc4wp-form',
             array(
                 'labels' => array(
-                    'name' => 'MailChimp Sign-up Forms',
+                    'name' => 'Mailchimp Sign-up Forms',
                     'singular_name' => 'Sign-up Form',
                 ),
                 'public' => false

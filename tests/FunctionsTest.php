@@ -51,7 +51,7 @@ class Functions_Test extends TestCase
     {
 
         // by no means should the two strings be similar
-        $string = 'MailChimp API error: Recipient "johnnydoe@gmail.com" has too many recent signup requests';
+        $string = 'Mailchimp API error: Recipient "johnnydoe@gmail.com" has too many recent signup requests';
         $obfuscated = mc4wp_obfuscate_email_addresses($string);
         self::assertNotEquals($string, $obfuscated);
 

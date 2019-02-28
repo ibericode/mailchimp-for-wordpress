@@ -10,5 +10,5 @@ My website URL:
 
 ### Technical info
 * WordPress version:
-* MailChimp for WordPress version:
+* Mailchimp for WordPress version:
 * Relevant plugins in case of a bug:
