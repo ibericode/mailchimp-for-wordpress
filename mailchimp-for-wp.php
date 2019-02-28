@@ -123,7 +123,7 @@ add_action('plugins_loaded', '_mc4wp_bootstrap_integrations', 90);
  */
 function _mc4wp_on_plugin_activation()
 {
-    $time_string = sprintf("tomorrow %d:%d%d am", rand(1, 6), rand(0, 5), rand(0, 9));
+    $time_string = sprintf("tomorrow 0%d:%d%d", rand(0, 8), rand(0, 5), rand(0, 9));
     wp_schedule_event(strtotime($time_string), 'daily', 'mc4wp_refresh_mailchimp_lists');
 }
 
