@@ -21,6 +21,8 @@ if( mount ) {
     m.mount(mount, new ListFetcher);
 }
 
+require('./admin/fields/mailchimp-api-key.js');
+
 // expose some things
 window.mc4wp = window.mc4wp || {};
 window.mc4wp.deps = window.mc4wp.deps || {};

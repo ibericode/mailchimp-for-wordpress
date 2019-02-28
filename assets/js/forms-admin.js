@@ -397,7 +397,7 @@ var FieldHelper = function FieldHelper(m, tabs, editor, fields, events, i18n) {
 
   var generate = require('./field-generator.js')(m);
 
-  var overlay = require('./overlay.js')(m, i18n);
+  var overlay = require('../overlay.js')(m, i18n);
 
   var forms = require('./field-forms.js')(m, i18n);
 
@@ -518,7 +518,7 @@ var FieldHelper = function FieldHelper(m, tabs, editor, fields, events, i18n) {
 
 module.exports = FieldHelper;
 
-},{"./field-forms.js":2,"./field-generator.js":3,"./overlay.js":10}],5:[function(require,module,exports){
+},{"../overlay.js":10,"./field-forms.js":2,"./field-generator.js":3}],5:[function(require,module,exports){
 "use strict";
 
 var FieldFactory = function FieldFactory(fields, i18n) {
@@ -1347,15 +1347,15 @@ var settings = mc4wp.settings;
 var helpers = mc4wp.helpers;
 var tabs = mc4wp.tabs;
 
-var FormWatcher = require('./admin/form-watcher.js');
+var FormWatcher = require('./admin/form-editor/form-watcher.js');
 
-var FormEditor = require('./admin/form-editor.js');
+var FormEditor = require('./admin/form-editor/form-editor.js');
 
-var FieldHelper = require('./admin/field-helper.js');
+var FieldHelper = require('./admin/form-editor/field-helper.js');
 
-var FieldsFactory = require('./admin/fields-factory.js');
+var FieldsFactory = require('./admin/form-editor/fields-factory.js');
 
-var fields = require('./admin/fields.js')(m, events); // vars
+var fields = require('./admin/form-editor/fields.js')(m, events); // vars
 
 
 var editor = window.formEditor = FormEditor;
@@ -1382,7 +1382,7 @@ window.mc4wp.forms = window.mc4wp.forms || {};
 window.mc4wp.forms.editor = editor;
 window.mc4wp.forms.fields = fields;
 
-},{"./admin/field-helper.js":4,"./admin/fields-factory.js":5,"./admin/fields.js":6,"./admin/form-editor.js":7,"./admin/form-watcher.js":8,"./admin/notices":9}],12:[function(require,module,exports){
+},{"./admin/form-editor/field-helper.js":4,"./admin/form-editor/fields-factory.js":5,"./admin/form-editor/fields.js":6,"./admin/form-editor/form-editor.js":7,"./admin/form-editor/form-watcher.js":8,"./admin/notices":9}],12:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 

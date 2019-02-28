@@ -29,7 +29,9 @@ var mount = document.getElementById('mc4wp-list-fetcher');
 
 if (mount) {
   m.mount(mount, new ListFetcher());
-} // expose some things
+}
+
+require('./admin/fields/mailchimp-api-key.js'); // expose some things
 
 
 window.mc4wp = window.mc4wp || {};
@@ -40,7 +42,36 @@ window.mc4wp.events = events;
 window.mc4wp.settings = settings;
 window.mc4wp.tabs = tabs;
 
-},{"./admin/helpers.js":2,"./admin/list-fetcher.js":3,"./admin/settings.js":4,"./admin/tabs.js":5,"mithril":7,"tlite":10,"wolfy87-eventemitter":11}],2:[function(require,module,exports){
+},{"./admin/fields/mailchimp-api-key.js":2,"./admin/helpers.js":3,"./admin/list-fetcher.js":4,"./admin/settings.js":5,"./admin/tabs.js":6,"mithril":8,"tlite":11,"wolfy87-eventemitter":12}],2:[function(require,module,exports){
+'use strict';
+
+var field;
+
+function validate(evt) {
+  var node = document.createElement('p');
+  node.className = 'help red';
+  node.innerText = window.mc4wp_vars.i18n.invalid_api_key;
+
+  if (field.nextElementSibling.innerText === node.innerText) {
+    field.nextElementSibling.parentElement.removeChild(field.nextElementSibling);
+  }
+
+  if (!field.value.match(/^[0-9a-zA-Z*]{32}-[a-z]{2}[0-9]{1,2}$/)) {
+    field.parentElement.insertBefore(node, field.nextElementSibling);
+  }
+}
+
+(function () {
+  field = document.getElementById('mailchimp_api_key');
+
+  if (!field) {
+    return;
+  }
+
+  field.addEventListener('change', validate);
+})();
+
+},{}],3:[function(require,module,exports){
 'use strict';
 
 var helpers = {};
@@ -133,7 +164,7 @@ helpers.debounce = function (func, wait, immediate) {
 
 module.exports = helpers;
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 'use strict';
 
 var $ = window.jQuery;
@@ -188,7 +219,7 @@ ListFetcher.prototype.view = function () {
 
 module.exports = ListFetcher;
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -251,7 +282,7 @@ var Settings = function Settings(context, helpers, events) {
 
 module.exports = Settings;
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 var URL = require('./url.js'); // Tabs
@@ -423,7 +454,7 @@ var Tabs = function Tabs(context) {
 
 module.exports = Tabs;
 
-},{"./url.js":6}],6:[function(require,module,exports){
+},{"./url.js":7}],7:[function(require,module,exports){
 'use strict';
 
 var URL = {
@@ -459,7 +490,7 @@ var URL = {
 };
 module.exports = URL;
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 (function (global,setImmediate){
 ;(function() {
 "use strict"
@@ -1719,7 +1750,7 @@ if (typeof module !== "undefined") module["exports"] = m
 else window.m = m
 }());
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("timers").setImmediate)
-},{"timers":9}],8:[function(require,module,exports){
+},{"timers":10}],9:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -1905,7 +1936,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 (function (setImmediate,clearImmediate){
 var nextTick = require('process/browser.js').nextTick;
 var apply = Function.prototype.apply;
@@ -1984,7 +2015,7 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
   delete immediateIds[id];
 };
 }).call(this,require("timers").setImmediate,require("timers").clearImmediate)
-},{"process/browser.js":8,"timers":9}],10:[function(require,module,exports){
+},{"process/browser.js":9,"timers":10}],11:[function(require,module,exports){
 function tlite(getTooltipOpts) {
   document.addEventListener('mouseover', function (e) {
     var el = e.target;
@@ -2120,7 +2151,7 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = tlite;
 }
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 /*!
  * EventEmitter v5.2.5 - git.io/ee
  * Unlicense - http://unlicense.org/

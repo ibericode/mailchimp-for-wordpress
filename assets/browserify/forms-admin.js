@@ -8,11 +8,11 @@ var settings = mc4wp.settings;
 var helpers = mc4wp.helpers;
 
 var tabs = mc4wp.tabs;
-var FormWatcher = require('./admin/form-watcher.js');
-var FormEditor = require('./admin/form-editor.js');
-var FieldHelper = require('./admin/field-helper.js');
-var FieldsFactory = require('./admin/fields-factory.js');
-var fields = require('./admin/fields.js')(m, events);
+var FormWatcher = require('./admin/form-editor/form-watcher.js');
+var FormEditor = require('./admin/form-editor/form-editor.js');
+var FieldHelper = require('./admin/form-editor/field-helper.js');
+var FieldsFactory = require('./admin/form-editor/fields-factory.js');
+var fields = require('./admin/form-editor/fields.js')(m, events);
 
 // vars
 var editor = window.formEditor = FormEditor;

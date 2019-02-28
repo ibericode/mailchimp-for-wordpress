@@ -61,8 +61,8 @@ defined('ABSPATH') or exit;
 							</p>
 
 							<?php if (defined('MC4WP_API_KEY')) {
-                echo '<p class="help">'. __('You defined your Mailchimp API key using the <code>MC4WP_API_KEY</code> constant.', 'mailchimp-for-wp') . '</p>';
-            } ?>
+                                echo '<p class="help">'. __('You defined your Mailchimp API key using the <code>MC4WP_API_KEY</code> constant.', 'mailchimp-for-wp') . '</p>';
+                            } ?>
 						</td>
 
 					</tr>
