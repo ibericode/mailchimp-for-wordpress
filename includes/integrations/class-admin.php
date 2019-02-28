@@ -174,8 +174,7 @@ class MC4WP_Integration_Admin
         $enabled_integrations = $this->integrations->get_enabled_integrations();
 
         // get all integrations but remove enabled integrations from the resulting array
-        $available_integrations = $this->integrations->get_all();
-        $available_integrations = array_diff($available_integrations, $enabled_integrations);
+        $integrations = $this->integrations->get_all();
 
         require dirname(__FILE__) . '/views/integrations.php';
     }

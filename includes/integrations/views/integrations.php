@@ -2,6 +2,43 @@
 /** @var MC4WP_Integration_Fixture[] $enabled_integrations */
 /** @var MC4WP_Integration_Fixture[] $available_integrations */
 
+function _mc4wp_integrations_table_row($integration) {
+    ?>
+    <tr style="<?php if (! $integration->is_installed()) {
+        echo 'opacity: 0.4;';
+    } ?>">
+
+        <!-- Integration Name -->
+        <td>
+
+            <?php
+            if ($integration->is_installed()) {
+                printf('<strong><a href="%s" title="%s">%s</a></strong>', esc_attr(add_query_arg(array( 'integration' => $integration->slug ))), __('Configure this integration', 'mailchimp-for-wp'), $integration->name);
+            } else {
+                echo $integration->name;
+            } ?>
+
+
+        </td>
+        <td class="desc">
+            <?php
+            _e($integration->description, 'mailchimp-for-wp'); ?>
+        </td>
+        <td>
+            <?php
+            if ($integration->enabled && $integration->is_installed()) {
+                echo '<span class="green">' . __('Active', 'mailchimp-for-wp') . '</span>';
+            } elseif( $integration->is_installed()) {
+                echo '<span class="neutral">' . __('Inactive', 'mailchimp-for-wp') . '</span>';
+            } else {
+                echo '<span class="red">' . __('Not installed', 'mailchimp-for-wp') . '</span>';
+            }
+            ?>
+        </td>
+    </tr>
+    <?php
+}
+
 /**
  * Render a table with integrations
  *
@@ -17,36 +54,34 @@ function _mc4wp_integrations_table($integrations)
 		<tr>
 			<th><?php _e('Name', 'mailchimp-for-wp'); ?></th>
 			<th><?php _e('Description', 'mailchimp-for-wp'); ?></th>
+            <th><?php _e('Status', 'mailchimp-for-wp'); ?></th>
 		</tr>
 		</thead>
 
 		<tbody>
 
-		<?php foreach ($integrations as $integration) {
-        $installed = $integration->is_installed(); ?>
-			<tr style="<?php if (! $installed) {
-            echo 'opacity: 0.4;';
-        } ?>">
-
-				<!-- Integration Name -->
-				<td>
-
-					<?php
-                    if ($installed) {
-                        printf('<strong><a href="%s" title="%s">%s</a></strong>', esc_attr(add_query_arg(array( 'integration' => $integration->slug ))), __('Configure this integration', 'mailchimp-for-wp'), $integration->name);
-                    } else {
-                        echo $integration->name;
-                    } ?>
-
-
-				</td>
-				<td class="desc">
-					<?php
-                   _e($integration->description, 'mailchimp-for-wp'); ?>
-				</td>
-			</tr>
 		<?php
-    } ?>
+        // active & enabled integrations first
+        foreach ($integrations as $integration) {
+            if( $integration->is_installed() && $integration->enabled) {
+                _mc4wp_integrations_table_row($integration);
+            }
+        }
+
+        // active & disabled integrations next
+        foreach ($integrations as $integration) {
+            if( $integration->is_installed() && ! $integration->enabled) {
+                _mc4wp_integrations_table_row($integration);
+            }
+        }
+
+        // rest
+        foreach ($integrations as $integration) {
+            if( ! $integration->is_installed() && ! $integration->enabled) {
+                _mc4wp_integrations_table_row($integration);
+            }
+        }
+        ?>
 
 		</tbody>
 	</table><?php
@@ -79,13 +114,9 @@ function _mc4wp_integrations_table($integrations)
 
 				<?php settings_fields('mc4wp_integrations_settings'); ?>
 
-				<h3><?php _e('Enabled integrations', 'mailchimp-for-wp'); ?></h3>
-				<?php _mc4wp_integrations_table($enabled_integrations); ?>
+				<h3><?php _e('Integrations', 'mailchimp-for-wp'); ?></h3>
+				<?php _mc4wp_integrations_table($integrations); ?>
 
-				<div class="medium-margin"></div>
-
-				<h3><?php _e('Available integrations', 'mailchimp-for-wp'); ?></h3>
-				<?php _mc4wp_integrations_table($available_integrations); ?>
                 <p><?php echo __("Greyed out integrations will become available after installing & activating the corresponding plugin.", 'mailchimp-for-wp'); ?></p>
 
 
