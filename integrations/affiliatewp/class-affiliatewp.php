@@ -51,11 +51,11 @@ class MC4WP_AffiliateWP_Integration extends MC4WP_User_Integration
     /**
      * Subscribes from WP Registration Form
      *
-     * @param int $user_id
+     * @param int $affiliate_id
      *
      * @return bool|string
      */
-    public function subscribe_from_registration($user_id)
+    public function subscribe_from_registration($affiliate_id)
     {
 
         // was sign-up checkbox checked?
@@ -64,6 +64,7 @@ class MC4WP_AffiliateWP_Integration extends MC4WP_User_Integration
         }
 
         // gather emailadress from user who WordPress registered
+        $user_id = affwp_get_affiliate_user_id($affiliate_id);
         $user = get_userdata($user_id);
 
         // was a user found with the given ID?
