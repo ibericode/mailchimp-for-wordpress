@@ -44,6 +44,11 @@ class MC4WP_MailChimp_Subscriber
     public $vip;
 
     /**
+     * @var array The tags applied to this member.
+     */
+    public $tags = array();
+
+    /**
      * Retrieves member data as an array, without null values.
      *
      * @return array

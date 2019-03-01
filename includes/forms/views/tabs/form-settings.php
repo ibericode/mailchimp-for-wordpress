@@ -86,6 +86,18 @@
 		</td>
 	</tr>
 
+    <tr valign="top">
+        <th scope="row"><label for="mc4wp_form_subscriber_tags"><?php _e('Subscriber tags', 'mailchimp-for-wp'); ?></label></th>
+        <td>
+            <input type="text" class="widefat" name="mc4wp_form[settings][subscriber_tags]" id="mc4wp_form_subscriber_tags" placeholder="<?php echo __('Example: My tag, another tag', 'mailchimp-for-wp'); ?>" value="<?php echo esc_attr($opts['subscriber_tags']); ?>" />
+            <p class="help">
+                <?php _e('The listed tags will be applied to all new subscribers added by this form.', 'mailchimp-for-wp'); ?>
+                <?php _e('Separate multiple values with a comma.', 'mailchimp-for-wp'); ?>
+            </p>
+
+        </td>
+    </tr>
+
 	<?php
     /** @ignore */
     do_action('mc4wp_admin_form_after_mailchimp_settings_rows', $opts, $form);

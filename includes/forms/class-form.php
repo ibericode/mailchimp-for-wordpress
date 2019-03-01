@@ -768,4 +768,19 @@ class MC4WP_Form
         _deprecated_function(__METHOD__, '3.3');
         $this->add_notice($this->get_message($key));
     }
+
+    /**
+     * @since 4.4
+     * @return array
+     */
+    public function get_subscriber_tags()
+    {
+        if (empty($this->settings['subscriber_tags'])) {
+            return array();
+        }
+
+        $tags = explode(',', $this->settings['subscriber_tags']);
+        $tags = array_map('trim', $tags);
+        return $tags;
+    }
 }

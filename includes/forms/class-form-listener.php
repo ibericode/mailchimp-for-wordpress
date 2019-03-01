@@ -53,11 +53,11 @@ class MC4WP_Form_Listener
         if (! $form->has_errors()) {
             switch ($form->get_action()) {
                 case "subscribe":
-                    $result = $this->process_subscribe_form($form);
+                    $this->process_subscribe_form($form);
                 break;
 
                 case "unsubscribe":
-                    $result = $this->process_unsubscribe_form($form);
+                   $this->process_unsubscribe_form($form);
                 break;
             }
         } else {
@@ -111,6 +111,7 @@ class MC4WP_Form_Listener
             $subscriber->status = $form->settings['double_optin'] ? 'pending' : 'subscribed';
             $subscriber->email_type = $email_type;
             $subscriber->ip_signup = $ip_address;
+            $subscriber->tags = $form->get_subscriber_tags();
 
             /**
              * Filters subscriber data before it is sent to Mailchimp. Fires for both form & integration requests.
