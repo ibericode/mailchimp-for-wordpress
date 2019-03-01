@@ -36,7 +36,7 @@ This plugin helps you grow your Mailchimp lists and write better newsletters thr
 	- Ninja Forms 3
 	- WPForms
 	- BuddyPress
-   - MemberPress
+    - MemberPress
 	- Events Manager
 	- Easy Digital Downloads
 
