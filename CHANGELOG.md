@@ -1,6 +1,27 @@
 Changelog
 =========
 
+#### 4.4 - March 1, 2018
+
+**Fixes**
+
+- AffiliateWP integration subscribing the wrong user if affiliate ID differs from user ID.
+
+**Improvements**
+
+- Renamed "MailChimp" to "Mailchimp" to match Mailchimp's new branding.
+- More accurate handling of timeouts for accounts with many MailChimp lists.
+- UX improvements for integrations overview page.
+- Validate MailChimp API key format when it's entered.
+- Improved compatibility with Klarna Checkout in the WooCommerce checkout integration.
+- Bumped required PHP version to 5.3 (soft requirement for now).
+
+**Additions**
+
+- Added Gutenberg block for easily adding a form to a post or page.
+- Added subscriber tags setting to forms.
+
+
 #### 4.3.3 - December 31, 2018
 
 **Fixes**
