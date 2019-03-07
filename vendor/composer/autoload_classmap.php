@@ -44,6 +44,7 @@ return array(
     'MC4WP_Form_Tags' => $baseDir . '/includes/forms/class-form-tags.php',
     'MC4WP_Form_Widget' => $baseDir . '/includes/forms/class-widget.php',
     'MC4WP_Forms_Admin' => $baseDir . '/includes/forms/class-admin.php',
+    'MC4WP_Google_Recaptcha' => $baseDir . '/includes/forms/class-google-recaptcha.php',
     'MC4WP_Gravity_Forms_Field' => $baseDir . '/integrations/gravity-forms/class-field.php',
     'MC4WP_Gravity_Forms_Integration' => $baseDir . '/integrations/gravity-forms/class-gravity-forms.php',
     'MC4WP_Integration' => $baseDir . '/includes/integrations/class-integration.php',
@@ -75,6 +76,4 @@ return array(
     'MC4WP_WPForms_Field' => $baseDir . '/integrations/wpforms/class-field.php',
     'MC4WP_WPForms_Integration' => $baseDir . '/integrations/wpforms/class-wpforms.php',
     'MC4WP_WooCommerce_Integration' => $baseDir . '/integrations/woocommerce/class-woocommerce.php',
-    'xrstf\\Composer52\\AutoloadGenerator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
-    'xrstf\\Composer52\\Generator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',
 );

@@ -35,25 +35,25 @@ function handleFormRequest(form, eventName, errors, data){
 	// trigger events on window.load so all other scripts have loaded
 	window.addEventListener('load', function() {
 		// trigger events
-		forms.trigger('submitted', [form]);
 		forms.trigger(form.id + '.submitted', [form]);
+		forms.trigger('submitted', [form]);
 
 		if( errors ) {
-			forms.trigger('error', [form, errors]);
 			forms.trigger(form.id + '.error', [form, errors]);
+			forms.trigger('error', [form, errors]);
 		} else {
 			// form was successfully submitted
-			forms.trigger('success', [form, data]);
 			forms.trigger(form.id + '.success', [form, data]);
+			forms.trigger('success', [form, data]);
 
 			// subscribed / unsubscribed
-			forms.trigger(eventName, [form, data]);
 			forms.trigger(form.id + "." + eventName, [form, data]);
+			forms.trigger(eventName, [form, data]);
 
 			// for BC: always trigger "subscribed" event when firing "updated_subscriber" event
 			if( eventName === 'updated_subscriber' ) {
-				forms.trigger('subscribed', [form, data, true]);
 				forms.trigger(form.id + "." + "subscribed", [form, data, true]);
+				forms.trigger('subscribed', [form, data, true]);
 			}
 
 		}
@@ -61,7 +61,7 @@ function handleFormRequest(form, eventName, errors, data){
 		// scroll to form again if page height changed since last scroll, eg because of slow loading images
 		// (only if load didn't take more than 0.8 seconds to prevent overtaking user scroll)
 		var timeElapsed = Date.now() - timeStart;
- 		if( config.auto_scroll && timeElapsed > 1000 && timeElapsed < 2000 && document.body.clientHeight != pageHeight ) {
+ 		if( config.auto_scroll && timeElapsed > 1000 && timeElapsed < 2000 && document.body.clientHeight !== pageHeight ) {
  			scrollToForm(form);
  		}
 	});
@@ -70,16 +70,22 @@ function handleFormRequest(form, eventName, errors, data){
 // Bind browser events to form events (using delegation)
 Gator(document.body).on('submit', '.mc4wp-form', function(event) {
 	var form = forms.getByElement(event.target || event.srcElement);
-	forms.trigger('submit', [form, event]);
-	forms.trigger(form.id + '.submit', [ form, event]);
+
+	if (!event.defaultPrevented) {
+		forms.trigger(form.id + '.submit', [ form, event]);
+	}
+
+	if (!event.defaultPrevented) {
+		forms.trigger('submit', [form, event]);
+	}
 });
 
 Gator(document.body).on('focus', '.mc4wp-form', function(event) {
 	var form = forms.getByElement(event.target || event.srcElement);
 
 	if( ! form.started ) {
-		forms.trigger('started', [form, event]);
 		forms.trigger(form.id + '.started', [form, event]);
+		forms.trigger('started', [form, event]);
 		form.started = true;
 	}
 });

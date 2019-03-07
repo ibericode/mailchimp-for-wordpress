@@ -11,10 +11,11 @@ var forms = [];
 // get form by its id
 // please note that this will get the FIRST occurence of the form with that ID on the page
 function get(formId) {
+	formId = parseInt(formId);
 
 	// do we have form for this one already?
 	for(var i=0; i<forms.length;i++) {
-		if(forms[i].id == formId) {
+		if(forms[i].id === formId) {
 			return forms[i];
 		}
 	}
@@ -29,7 +30,7 @@ function getByElement(element) {
 	var formElement = element.form || element;
 
 	for(var i=0; i < forms.length; i++) {
-		if(forms[i].element == formElement) {
+		if(forms[i].element === formElement) {
 			return forms[i];
 		}
 	}
@@ -50,9 +51,8 @@ function all() {
 }
 
 function triggerEvent(eventName, eventArgs) {
-	if(eventName === 'submit') {
+	if(eventName === 'submit' || eventName.indexOf('.submit') > 0) {
 		// don't spin up new thread for submit event as we want to preventDefault()... 
-		// TODO: Fix that in Premium.
 		events.trigger(eventName, eventArgs);
 	} else {
 		// process in separate thread to prevent errors from breaking core functionality
