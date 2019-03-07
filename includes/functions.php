@@ -44,13 +44,9 @@ function mc4wp($service = null)
  */
 function mc4wp_get_options()
 {
-    static $options;
-
-    if (!$options) {
-        $defaults = require MC4WP_PLUGIN_DIR . 'config/default-settings.php';
-        $options = (array)get_option('mc4wp', array());
-        $options = array_merge($defaults, $options);
-    }
+    $defaults = require MC4WP_PLUGIN_DIR . 'config/default-settings.php';
+    $options = (array) get_option('mc4wp', array());
+    $options = array_merge($defaults, $options);
 
     /**
      * Filters the Mailchimp for WordPress settings (general).
@@ -58,6 +54,13 @@ function mc4wp_get_options()
      * @param array $options
      */
     return apply_filters('mc4wp_settings', $options);
+}
+
+/**
+ * @return array
+ */
+function mc4wp_get_settings() {
+    return mc4wp_get_options();
 }
 
 /**

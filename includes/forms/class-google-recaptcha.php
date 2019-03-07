@@ -5,21 +5,29 @@ class MC4WP_Google_Recaptcha {
     private $script_loaded = false;
 
     public function add_hooks() {
-        add_filter('mc4wp_form_settings', array($this, 'add_default_setting'));
+        add_filter('mc4wp_form_settings', array($this, 'add_default_form_settings'));
+        add_filter('mc4wp_settings', array($this, 'add_default_settings'));
         add_action('mc4wp_output_form', array($this, 'load_script'), 20);
         add_filter('mc4wp_form_errors', array($this, 'verify_token'), 10, 2);
         add_action('mc4wp_admin_form_after_behaviour_settings_rows', array($this, 'show_settings'), 30, 2);
         add_filter('mc4wp_form_sanitized_data', array($this, 'sanitize_settings'), 20, 2);
     }
 
-    public function add_default_setting($settings) {
+
+    public function add_default_settings($settings) {
         $defaults = array(
-            'grecaptcha_enabled' => 0,
             'grecaptcha_site_key' => '',
             'grecaptcha_secret_key' => '',
         );
         $settings = array_merge($defaults, $settings);
+        return $settings;
+    }
 
+    public function add_default_form_settings($settings) {
+        $defaults = array(
+            'grecaptcha_enabled' => 0,
+        );
+        $settings = array_merge($defaults, $settings);
         return $settings;
     }
 
@@ -29,7 +37,8 @@ class MC4WP_Google_Recaptcha {
         }
 
         // only enable grecaptcha if both site & secret key are set
-        $data['settings']['grecaptcha_enabled'] = !empty($data['settings']['grecaptcha_site_key']) && !empty($data['settings']['grecaptcha_secret_key']) ? '1' : '0';
+        $global_settings = mc4wp_get_settings();
+        $data['settings']['grecaptcha_enabled'] = !empty($global_settings['grecaptcha_site_key']) && !empty($global_settings['grecaptcha_secret_key']) ? '1' : '0';
         return $data;
     }
 
@@ -39,8 +48,10 @@ class MC4WP_Google_Recaptcha {
             return;
         }
 
+        $global_settings = mc4wp_get_settings();
+
         if (!$this->script_loaded) {
-            echo sprintf('<script src="https://www.google.com/recaptcha/api.js?render=%s"></script>', esc_attr($form->settings['grecaptcha_site_key']));
+            echo sprintf('<script src="https://www.google.com/recaptcha/api.js?render=%s"></script>', esc_attr($global_settings['grecaptcha_site_key']));
             $this->script_loaded = true;
         }
 
@@ -56,7 +67,7 @@ class MC4WP_Google_Recaptcha {
                 }
 
                 window.grecaptcha.ready(function() {
-                    window.grecaptcha.execute('<?php echo esc_attr($form->settings['grecaptcha_site_key']); ?>', { action: 'mc4wp_form_submit' }).then(function(token) {
+                    window.grecaptcha.execute('<?php echo esc_attr($global_settings['grecaptcha_site_key']); ?>', { action: 'mc4wp_form_submit' }).then(function(token) {
                         var tokenEl = document.createElement('input');
                         tokenEl.type = 'hidden';
                         tokenEl.value = token;
@@ -84,10 +95,11 @@ class MC4WP_Google_Recaptcha {
             return $errors;
         }
 
+        $global_settings = mc4wp_get_settings();
         $token = $_POST['_mc4wp_grecaptcha_token'];
         $response = wp_remote_post('https://www.google.com/recaptcha/api/siteverify', array(
             'body' => array(
-                'secret' => $form->settings['grecaptcha_secret_key'],
+                'secret' => $global_settings['grecaptcha_secret_key'],
                 'response' => $token,
             ),
         ));
@@ -109,6 +121,7 @@ class MC4WP_Google_Recaptcha {
     }
 
     public function show_settings(array $settings, MC4WP_Form $form) {
+        $global_settings = mc4wp_get_settings();
         ?>
         <tr valign="top">
             <th scope="row"><?php _e('Enable Google reCaptcha', 'mailchimp-for-wp' ); ?></th>
@@ -125,7 +138,7 @@ class MC4WP_Google_Recaptcha {
         <tr valign="top" data-showif="<?php echo esc_attr(json_encode($config)); ?>">
             <th scope="row"><label for="mc4wp_grecaptcha_site_key"><?php _e('Google reCAPTCHA Site Key', 'mailchimp-for-wp'); ?></label></th>
             <td>
-                <input type="text" class="widefat" name="mc4wp_form[settings][grecaptcha_site_key]" id="mc4wp_grecaptcha_site_key" placeholder="<?php echo str_repeat('●', 40); ?>" value="<?php echo esc_attr($settings['grecaptcha_site_key']); ?>" />
+                <input type="text" class="widefat" name="mc4wp[grecaptcha_site_key]" id="mc4wp_grecaptcha_site_key" placeholder="<?php echo str_repeat('●', 40); ?>" value="<?php echo esc_attr($global_settings['grecaptcha_site_key']); ?>" />
                 <p class="help">
                     <?php printf(__('Enter your Google reCAPTCHA keys here. You can <a href="%s">retrieve your keys in the Google reCAPTCHA admin console</a> or read our help article on <a href="%s">how to configure Google reCAPTCHA</a>.', 'mailchimp-for-wp'), 'https://g.co/recaptcha/v3', 'https://kb.mc4wp.com/google-recaptcha-forms/'); ?>
                 </p>
@@ -135,7 +148,7 @@ class MC4WP_Google_Recaptcha {
         <tr valign="top" data-showif="<?php echo esc_attr(json_encode($config)); ?>">
             <th scope="row"><label for="mc4wp_grecaptcha_secret_key"><?php _e('Google reCAPTCHA Secret Key', 'mailchimp-for-wp'); ?></label></th>
             <td>
-                <input type="text" class="widefat" name="mc4wp_form[settings][grecaptcha_secret_key]" id="mc4wp_grecaptcha_secret_key" placeholder="<?php echo str_repeat('●', 40); ?>" value="<?php echo esc_attr($settings['grecaptcha_secret_key']); ?>" />
+                <input type="text" class="widefat" name="mc4wp[grecaptcha_secret_key]" id="mc4wp_grecaptcha_secret_key" placeholder="<?php echo str_repeat('●', 40); ?>" value="<?php echo esc_attr($global_settings['grecaptcha_secret_key']); ?>" />
                 <p class="help">
                     <?php _e('', 'mailchimp-for-wp'); ?>
                 </p>
