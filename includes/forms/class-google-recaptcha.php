@@ -66,17 +66,21 @@ class MC4WP_Google_Recaptcha {
                     previousToken.parentElement.removeChild(previousToken);
                 }
 
-                window.grecaptcha.ready(function() {
-                    window.grecaptcha.execute('<?php echo esc_attr($global_settings['grecaptcha_site_key']); ?>', { action: 'mc4wp_form_submit' }).then(function(token) {
-                        var tokenEl = document.createElement('input');
-                        tokenEl.type = 'hidden';
-                        tokenEl.value = token;
-                        tokenEl.name = '_mc4wp_grecaptcha_token';
-                        form.element.appendChild(tokenEl);
-
-                        mc4wp.forms.trigger('submit', [form, event]);
-                    });
-                });
+                try {
+                    window.grecaptcha
+                        .execute('<?php echo esc_attr($global_settings['grecaptcha_site_key']); ?>', {action: 'mc4wp_form_submit'})
+                        .then(function (token) {
+                            var tokenEl = document.createElement('input');
+                            tokenEl.type = 'hidden';
+                            tokenEl.value = token;
+                            tokenEl.name = '_mc4wp_grecaptcha_token';
+                            form.element.appendChild(tokenEl);
+                            mc4wp.forms.trigger('submit', [form, event]);
+                        });
+                } catch(err) {
+                    mc4wp.forms.trigger('submit', [form, event]);
+                    throw err;
+                }
             })
         })();
         </script>
@@ -112,7 +116,9 @@ class MC4WP_Google_Recaptcha {
 
         $response_body = wp_remote_retrieve_body($response);
         $data = json_decode($response_body);
-        if ($data->success === false || !isset($data->score) || $data->score < 0.5 || $data->action !== 'mc4wp_form_submit') {
+        $score_treshold = apply_filters('mc4wp_grecaptcha_score_treshold', 0.5);
+
+        if ($data->success === false || !isset($data->score) || $data->score <= $score_treshold || $data->action !== 'mc4wp_form_submit') {
             $errors[] = 'spam';
             return $errors;
         }
