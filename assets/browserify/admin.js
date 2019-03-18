@@ -1,17 +1,23 @@
 'use strict';
 
 // dependencies
+import tlite from 'tlite';
 var m = window.m = require('mithril');
 var EventEmitter = require('wolfy87-eventemitter');
+var Tabs = require ('./admin/tabs.js')
+var Settings = require('./admin/settings.js')
+var helpers = require('./admin/helpers.js');
 
 // vars
 var context = document.getElementById('mc4wp-admin');
+var tabs, settings;
 var events = new EventEmitter();
-var tabs = require ('./admin/tabs.js')(context);
-var helpers = require('./admin/helpers.js');
-var settings = require('./admin/settings.js')(context, helpers, events);
 
-import tlite from 'tlite';
+if (context !== null) {
+    tabs = Tabs(context);
+    settings = Settings(context, helpers, events);
+}
+
 tlite(el => el.className.indexOf('mc4wp-tooltip') > -1 );
 
 // list fetcher

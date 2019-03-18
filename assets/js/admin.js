@@ -7,17 +7,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var m = window.m = require('mithril');
 
-var EventEmitter = require('wolfy87-eventemitter'); // vars
+var EventEmitter = require('wolfy87-eventemitter');
+
+var Tabs = require('./admin/tabs.js');
+
+var Settings = require('./admin/settings.js'); // vars
 
 
 var context = document.getElementById('mc4wp-admin');
+var tabs, settings;
 var events = new EventEmitter();
-
-var tabs = require('./admin/tabs.js')(context);
 
 var helpers = require('./admin/helpers.js');
 
-var settings = require('./admin/settings.js')(context, helpers, events);
+if (context !== null) {
+  tabs = Tabs(context);
+  settings = Settings(context, helpers, events);
+}
 
 (0, _tlite.default)(function (el) {
   return el.className.indexOf('mc4wp-tooltip') > -1;
@@ -289,7 +295,11 @@ var URL = require('./url.js'); // Tabs
 
 
 var Tabs = function Tabs(context) {
-  // TODO: last piece of jQuery... can we get rid of it?
+  if (context === null) {
+    return;
+  } // TODO: last piece of jQuery... can we get rid of it?
+
+
   var $ = window.jQuery;
   var $context = $(context);
   var $tabs = $context.find('.tab');

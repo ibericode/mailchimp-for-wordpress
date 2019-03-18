@@ -337,19 +337,19 @@ msgstr ""
 msgid "Form"
 msgstr ""
 
-#: includes/forms/class-admin.php:168, includes/forms/class-admin.php:293
+#: includes/forms/class-admin.php:168, includes/forms/class-admin.php:301
 msgid "<strong>Success!</strong> Form successfully saved."
 msgstr ""
 
-#: includes/forms/class-admin.php:400
+#: includes/forms/class-admin.php:408
 msgid "Form not found."
 msgstr ""
 
-#: includes/forms/class-admin.php:465, includes/forms/class-widget.php:32
+#: includes/forms/class-admin.php:473, includes/forms/class-widget.php:32
 msgid "Mailchimp Sign-Up Form"
 msgstr ""
 
-#: includes/forms/class-admin.php:469
+#: includes/forms/class-admin.php:477
 msgid "Select the form to show"
 msgstr ""
 
@@ -411,6 +411,29 @@ msgstr ""
 
 #: includes/forms/class-form.php:51
 msgid "There is no form with ID %d, perhaps it was deleted?"
+msgstr ""
+
+#: includes/forms/class-google-recaptcha.php:133
+msgid "Enable Google reCaptcha"
+msgstr ""
+
+#: includes/forms/class-google-recaptcha.php:139
+msgid "Select \"yes\" to enable Google reCAPTCHA spam protection for this form."
+msgstr ""
+
+#: includes/forms/class-google-recaptcha.php:145
+msgid "Google reCAPTCHA Site Key"
+msgstr ""
+
+#: includes/forms/class-google-recaptcha.php:149
+msgid "Enter your Google reCAPTCHA keys here. You can <a href=\"%s\">retrieve your keys in the Google reCAPTCHA admin console</a> or read our help article on <a href=\"%s\">how to configure Google reCAPTCHA</a>."
+msgstr ""
+
+#: includes/forms/class-google-recaptcha.php:155
+msgid "Google reCAPTCHA Secret Key"
+msgstr ""
+
+#: includes/forms/class-google-recaptcha.php:159
 msgstr ""
 
 #: includes/forms/class-widget.php:28

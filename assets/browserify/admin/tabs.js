@@ -4,6 +4,9 @@ const URL = require('./url.js');
 
 // Tabs
 const Tabs = function(context) {
+	if (context === null) {
+		return;
+	}
 
 	// TODO: last piece of jQuery... can we get rid of it?
 	const $ = window.jQuery;
