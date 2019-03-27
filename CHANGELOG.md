@@ -1,7 +1,18 @@
 Changelog
 =========
 
-#### 4.4 - March 1, 2018
+#### 4.5.0 - March 27, 2019
+
+**Additions**
+
+- Built-in integration with Google reCAPTCHA to prevent bots from subscribing to your Mailchimp lists.
+
+**Improvements**
+
+- Minor improvements to the JavaScript that is loaded on admin pages.
+
+
+#### 4.4.0 - March 1, 2019
 
 **Fixes**
 

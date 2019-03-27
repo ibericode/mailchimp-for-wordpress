@@ -11,14 +11,14 @@ var EventEmitter = require('wolfy87-eventemitter');
 
 var Tabs = require('./admin/tabs.js');
 
-var Settings = require('./admin/settings.js'); // vars
+var Settings = require('./admin/settings.js');
+
+var helpers = require('./admin/helpers.js'); // vars
 
 
 var context = document.getElementById('mc4wp-admin');
 var tabs, settings;
 var events = new EventEmitter();
-
-var helpers = require('./admin/helpers.js');
 
 if (context !== null) {
   tabs = Tabs(context);
