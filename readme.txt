@@ -39,6 +39,8 @@ This plugin helps you grow your Mailchimp lists and write better newsletters thr
     - MemberPress
 	- Events Manager
 	- Easy Digital Downloads
+	- Give
+	- UltimateMember
 
 - A multitude of available add-on plugins and integrations:
 	- [Mailchimp for WordPress Premium](https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=add-on-list)
