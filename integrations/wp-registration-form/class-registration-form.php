@@ -32,10 +32,12 @@ class MC4WP_Registration_Form_Integration extends MC4WP_User_Integration
     {
         if (! $this->options['implicit']) {
             add_action('login_head', array( $this, 'print_css_reset' ));
+            add_action('um_after_register_fields', array( $this, 'maybe_output_checkbox' ), 20);
             add_action('register_form', array( $this, 'maybe_output_checkbox' ), 20);
             add_action('woocommerce_register_form', array( $this, 'maybe_output_checkbox' ), 20);
         }
 
+        add_action('um_user_register', array( $this, 'subscribe_from_registration' ), 90, 1);
         add_action('user_register', array( $this, 'subscribe_from_registration' ), 90, 1);
     }
 
