@@ -65,6 +65,7 @@ class ComposerStaticInit2c420f229f0b44a84053c7de0a411c61
         'MC4WP_Form_Tags' => __DIR__ . '/../..' . '/includes/forms/class-form-tags.php',
         'MC4WP_Form_Widget' => __DIR__ . '/../..' . '/includes/forms/class-widget.php',
         'MC4WP_Forms_Admin' => __DIR__ . '/../..' . '/includes/forms/class-admin.php',
+        'MC4WP_Give_Integration' => __DIR__ . '/../..' . '/integrations/give/class-give.php',
         'MC4WP_Google_Recaptcha' => __DIR__ . '/../..' . '/includes/forms/class-google-recaptcha.php',
         'MC4WP_Gravity_Forms_Field' => __DIR__ . '/../..' . '/integrations/gravity-forms/class-field.php',
         'MC4WP_Gravity_Forms_Integration' => __DIR__ . '/../..' . '/integrations/gravity-forms/class-gravity-forms.php',

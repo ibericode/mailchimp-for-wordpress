@@ -44,6 +44,7 @@ return array(
     'MC4WP_Form_Tags' => $baseDir . '/includes/forms/class-form-tags.php',
     'MC4WP_Form_Widget' => $baseDir . '/includes/forms/class-widget.php',
     'MC4WP_Forms_Admin' => $baseDir . '/includes/forms/class-admin.php',
+    'MC4WP_Give_Integration' => $baseDir . '/integrations/give/class-give.php',
     'MC4WP_Google_Recaptcha' => $baseDir . '/includes/forms/class-google-recaptcha.php',
     'MC4WP_Gravity_Forms_Field' => $baseDir . '/integrations/gravity-forms/class-field.php',
     'MC4WP_Gravity_Forms_Integration' => $baseDir . '/integrations/gravity-forms/class-gravity-forms.php',
