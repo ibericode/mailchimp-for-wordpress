@@ -46,7 +46,7 @@ mc4wp_register_integration('contact-form-7', 'MC4WP_Contact_Form_7_Integration',
 mc4wp_register_integration('events-manager', 'MC4WP_Events_Manager_Integration');
 mc4wp_register_integration('memberpress', 'MC4WP_MemberPress_Integration');
 mc4wp_register_integration('affiliatewp', 'MC4WP_AffiliateWP_Integration');
-mc4wp_register_integration('give', MC4WP_Give_Integration::class);
+mc4wp_register_integration('give', 'MC4WP_Give_Integration');
 
 
 mc4wp_register_integration('custom', 'MC4WP_Custom_Integration', true);
