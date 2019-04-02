@@ -110,6 +110,10 @@ class MC4WP_Form_Element
      */
     protected function get_notice_html(MC4WP_Form_Notice $notice)
     {
+        if ($notice->text === '') {
+            return '';
+        }
+
         $html = sprintf('<div class="mc4wp-alert mc4wp-%s"><p>%s</p></div>', esc_attr($notice->type), $notice->text);
         return $html;
     }

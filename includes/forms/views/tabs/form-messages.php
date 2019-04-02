@@ -15,7 +15,7 @@
 	<tr valign="top">
 		<th scope="row"><label for="mc4wp_form_subscribed"><?php _e('Successfully subscribed', 'mailchimp-for-wp'); ?></label></th>
 		<td>
-			<input type="text" class="widefat" id="mc4wp_form_subscribed" name="mc4wp_form[messages][subscribed]" value="<?php echo esc_attr($form->messages['subscribed']); ?>" required />
+			<input type="text" class="widefat" id="mc4wp_form_subscribed" name="mc4wp_form[messages][subscribed]" value="<?php echo esc_attr($form->messages['subscribed']); ?>" />
 			<p class="help"><?php _e('The text that shows when an email address is successfully subscribed to the selected list(s).', 'mailchimp-for-wp'); ?></p>
 		</td>
 	</tr>
