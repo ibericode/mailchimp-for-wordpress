@@ -24,7 +24,6 @@ registerBlockType('mailchimp-for-wp/form', {
         value: f.id
       };
     });
-    console.log(props.attributes);
 
     if (props.attributes.id === undefined && forms.length > 0) {
       props.setAttributes({
