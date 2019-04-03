@@ -660,11 +660,11 @@ var FieldFactory = function FieldFactory(fields, i18n) {
   function registerListFields(list) {
     // make sure EMAIL && public fields come first
     list.merge_fields = list.merge_fields.sort(function (a, b) {
-      if (a.tag === 'EMAIL' || a.public && !b.public) {
+      if (a.tag === 'EMAIL' || a["public"] && !b["public"]) {
         return -1;
       }
 
-      if (!a.public && b.public) {
+      if (!a["public"] && b["public"]) {
         return 1;
       }
 
@@ -1576,20 +1576,25 @@ window.mc4wp.forms.fields = fields;
 
   var Pos = CodeMirror.Pos;
 
-  var matching = {"(": ")>", ")": "(<", "[": "]>", "]": "[<", "{": "}>", "}": "{<"};
+  var matching = {"(": ")>", ")": "(<", "[": "]>", "]": "[<", "{": "}>", "}": "{<", "<": ">>", ">": "<<"};
+
+  function bracketRegex(config) {
+    return config && config.bracketRegex || /[(){}[\]]/
+  }
 
   function findMatchingBracket(cm, where, config) {
     var line = cm.getLineHandle(where.line), pos = where.ch - 1;
     var afterCursor = config && config.afterCursor
     if (afterCursor == null)
       afterCursor = /(^| )cm-fat-cursor($| )/.test(cm.getWrapperElement().className)
+    var re = bracketRegex(config)
 
     // A cursor is defined as between two characters, but in in vim command mode
     // (i.e. not insert mode), the cursor is visually represented as a
     // highlighted box on top of the 2nd character. Otherwise, we allow matches
     // from before or after the cursor.
-    var match = (!afterCursor && pos >= 0 && matching[line.text.charAt(pos)]) ||
-        matching[line.text.charAt(++pos)];
+    var match = (!afterCursor && pos >= 0 && re.test(line.text.charAt(pos)) && matching[line.text.charAt(pos)]) ||
+        re.test(line.text.charAt(pos + 1)) && matching[line.text.charAt(++pos)];
     if (!match) return null;
     var dir = match.charAt(1) == ">" ? 1 : -1;
     if (config && config.strict && (dir > 0) != (pos == where.ch)) return null;
@@ -1613,7 +1618,7 @@ window.mc4wp.forms.fields = fields;
     var maxScanLines = (config && config.maxScanLines) || 1000;
 
     var stack = [];
-    var re = config && config.bracketRegex ? config.bracketRegex : /[(){}[\]]/;
+    var re = bracketRegex(config)
     var lineEnd = dir > 0 ? Math.min(where.line + maxScanLines, cm.lastLine() + 1)
                           : Math.max(cm.firstLine() - 1, where.line - maxScanLines);
     for (var lineNo = where.line; lineNo != lineEnd; lineNo += dir) {
@@ -1626,7 +1631,7 @@ window.mc4wp.forms.fields = fields;
         var ch = line.charAt(pos);
         if (re.test(ch) && (style === undefined || cm.getTokenTypeAt(Pos(lineNo, pos + 1)) == style)) {
           var match = matching[ch];
-          if ((match.charAt(1) == ">") == (dir > 0)) stack.push(ch);
+          if (match && (match.charAt(1) == ">") == (dir > 0)) stack.push(ch);
           else if (!stack.length) return {pos: Pos(lineNo, pos), ch: ch};
           else stack.pop();
         }
@@ -5323,7 +5328,6 @@ window.mc4wp.forms.fields = fields;
           { width = cur.text.firstChild.getBoundingClientRect().right - box.left - 1; }
       }
       var diff = cur.line.height - height;
-      if (height < 2) { height = textHeight(display); }
       if (diff > .005 || diff < -.005) {
         updateLineHeight(cur.line, height);
         updateWidgetHeight(cur.line);
@@ -5786,7 +5790,7 @@ window.mc4wp.forms.fields = fields;
       viewChanged: false,      // Flag that indicates that lines might need to be redrawn
       startHeight: cm.doc.height, // Used to detect need to update scrollbar
       forceUpdate: false,      // Used to force a redraw
-      updateInput: null,       // Whether to reset the input textarea
+      updateInput: 0,       // Whether to reset the input textarea
       typing: false,           // Whether this reset should be careful to leave existing text (for compositing)
       changeObjs: null,        // Accumulated changes, for firing change events
       cursorActivityHandlers: null, // Set of handlers to fire cursorActivity on
@@ -7135,7 +7139,8 @@ window.mc4wp.forms.fields = fields;
     doc.sel = sel;
 
     if (doc.cm) {
-      doc.cm.curOp.updateInput = doc.cm.curOp.selectionChanged = true;
+      doc.cm.curOp.updateInput = 1;
+      doc.cm.curOp.selectionChanged = true;
       signalCursorActivity(doc.cm);
     }
     signalLater(doc, "cursorActivity", doc);
@@ -7247,7 +7252,10 @@ window.mc4wp.forms.fields = fields;
     signal(doc, "beforeChange", doc, obj);
     if (doc.cm) { signal(doc.cm, "beforeChange", doc.cm, obj); }
 
-    if (obj.canceled) { return null }
+    if (obj.canceled) {
+      if (doc.cm) { doc.cm.curOp.updateInput = 2; }
+      return null
+    }
     return {from: obj.from, to: obj.to, text: obj.text, origin: obj.origin}
   }
 
@@ -9723,6 +9731,8 @@ window.mc4wp.forms.fields = fields;
       throw new Error("inputStyle can not (yet) be changed in a running editor") // FIXME
     }, true);
     option("spellcheck", false, function (cm, val) { return cm.getInputField().spellcheck = val; }, true);
+    option("autocorrect", false, function (cm, val) { return cm.getInputField().autocorrect = val; }, true);
+    option("autocapitalize", false, function (cm, val) { return cm.getInputField().autocapitalize = val; }, true);
     option("rtlMoveVisually", !windows);
     option("wholeLineUpdateBefore", true);
 
@@ -9871,7 +9881,7 @@ window.mc4wp.forms.fields = fields;
       delayingBlurEvent: false,
       focused: false,
       suppressEdits: false, // used to disable editing during key handlers when in readOnly mode
-      pasteIncoming: false, cutIncoming: false, // help recognize paste/cut edits in input.poll
+      pasteIncoming: -1, cutIncoming: -1, // help recognize paste/cut edits in input.poll
       selectingText: false,
       draggingText: false,
       highlight: new Delayed(), // stores highlight worker timeout
@@ -10104,7 +10114,8 @@ window.mc4wp.forms.fields = fields;
     cm.display.shift = false;
     if (!sel) { sel = doc.sel; }
 
-    var paste = cm.state.pasteIncoming || origin == "paste";
+    var recent = +new Date - 200;
+    var paste = origin == "paste" || cm.state.pasteIncoming > recent;
     var textLines = splitLinesAuto(inserted), multiPaste = null;
     // When pasting N lines into N selections, insert one line per selection
     if (paste && sel.ranges.length > 1) {
@@ -10119,7 +10130,7 @@ window.mc4wp.forms.fields = fields;
       }
     }
 
-    var updateInput;
+    var updateInput = cm.curOp.updateInput;
     // Normal behavior is to insert the new text into every selection
     for (var i$1 = sel.ranges.length - 1; i$1 >= 0; i$1--) {
       var range$$1 = sel.ranges[i$1];
@@ -10132,9 +10143,8 @@ window.mc4wp.forms.fields = fields;
         else if (paste && lastCopied && lastCopied.lineWise && lastCopied.text.join("\n") == inserted)
           { from = to = Pos(from.line, 0); }
       }
-      updateInput = cm.curOp.updateInput;
       var changeEvent = {from: from, to: to, text: multiPaste ? multiPaste[i$1 % multiPaste.length] : textLines,
-                         origin: origin || (paste ? "paste" : cm.state.cutIncoming ? "cut" : "+input")};
+                         origin: origin || (paste ? "paste" : cm.state.cutIncoming > recent ? "cut" : "+input")};
       makeChange(cm.doc, changeEvent);
       signalLater(cm, "inputRead", cm, changeEvent);
     }
@@ -10142,9 +10152,9 @@ window.mc4wp.forms.fields = fields;
       { triggerElectric(cm, inserted); }
 
     ensureCursorVisible(cm);
-    cm.curOp.updateInput = updateInput;
+    if (cm.curOp.updateInput < 2) { cm.curOp.updateInput = updateInput; }
     cm.curOp.typing = true;
-    cm.state.pasteIncoming = cm.state.cutIncoming = false;
+    cm.state.pasteIncoming = cm.state.cutIncoming = -1;
   }
 
   function handlePaste(e, cm) {
@@ -10192,9 +10202,9 @@ window.mc4wp.forms.fields = fields;
     return {text: text, ranges: ranges}
   }
 
-  function disableBrowserMagic(field, spellcheck) {
-    field.setAttribute("autocorrect", "off");
-    field.setAttribute("autocapitalize", "off");
+  function disableBrowserMagic(field, spellcheck, autocorrect, autocapitalize) {
+    field.setAttribute("autocorrect", !!autocorrect);
+    field.setAttribute("autocapitalize", !!autocapitalize);
     field.setAttribute("spellcheck", !!spellcheck);
   }
 
@@ -10765,7 +10775,7 @@ window.mc4wp.forms.fields = fields;
 
     var input = this, cm = input.cm;
     var div = input.div = display.lineDiv;
-    disableBrowserMagic(div, cm.options.spellcheck);
+    disableBrowserMagic(div, cm.options.spellcheck, cm.options.autocorrect, cm.options.autocapitalize);
 
     on(div, "paste", function (e) {
       if (signalDOMEvent(cm, e) || handlePaste(e, cm)) { return }
@@ -11305,7 +11315,7 @@ window.mc4wp.forms.fields = fields;
     on(te, "paste", function (e) {
       if (signalDOMEvent(cm, e) || handlePaste(e, cm)) { return }
 
-      cm.state.pasteIncoming = true;
+      cm.state.pasteIncoming = +new Date;
       input.fastPoll();
     });
 
@@ -11326,15 +11336,23 @@ window.mc4wp.forms.fields = fields;
           selectInput(te);
         }
       }
-      if (e.type == "cut") { cm.state.cutIncoming = true; }
+      if (e.type == "cut") { cm.state.cutIncoming = +new Date; }
     }
     on(te, "cut", prepareCopyCut);
     on(te, "copy", prepareCopyCut);
 
     on(display.scroller, "paste", function (e) {
       if (eventInWidget(display, e) || signalDOMEvent(cm, e)) { return }
-      cm.state.pasteIncoming = true;
-      input.focus();
+      if (!te.dispatchEvent) {
+        cm.state.pasteIncoming = +new Date;
+        input.focus();
+        return
+      }
+
+      // Pass the `paste` event to the textarea so it's handled by its event listener.
+      var event = new Event("paste");
+      event.clipboardData = e.clipboardData;
+      te.dispatchEvent(event);
     });
 
     // Prevent normal selection in the editor (we handle our own)
@@ -11525,6 +11543,7 @@ window.mc4wp.forms.fields = fields;
 
   TextareaInput.prototype.onContextMenu = function (e) {
     var input = this, cm = input.cm, display = cm.display, te = input.textarea;
+    if (input.contextMenuPending) { input.contextMenuPending(); }
     var pos = posFromMouse(cm, e), scrollPos = display.scroller.scrollTop;
     if (!pos || presto) { return } // Opera is difficult.
 
@@ -11535,8 +11554,8 @@ window.mc4wp.forms.fields = fields;
       { operation(cm, setSelection)(cm.doc, simpleSelection(pos), sel_dontScroll); }
 
     var oldCSS = te.style.cssText, oldWrapperCSS = input.wrapper.style.cssText;
-    input.wrapper.style.cssText = "position: absolute";
-    var wrapperBox = input.wrapper.getBoundingClientRect();
+    var wrapperBox = input.wrapper.offsetParent.getBoundingClientRect();
+    input.wrapper.style.cssText = "position: static";
     te.style.cssText = "position: absolute; width: 30px; height: 30px;\n      top: " + (e.clientY - wrapperBox.top - 5) + "px; left: " + (e.clientX - wrapperBox.left - 5) + "px;\n      z-index: 1000; background: " + (ie ? "rgba(255, 255, 255, .05)" : "transparent") + ";\n      outline: none; border-width: 0; outline: none; overflow: hidden; opacity: .05; filter: alpha(opacity=5);";
     var oldScrollY;
     if (webkit) { oldScrollY = window.scrollY; } // Work around Chrome issue (#2712)
@@ -11545,7 +11564,7 @@ window.mc4wp.forms.fields = fields;
     display.input.reset();
     // Adds "Select all" to context menu in FF
     if (!cm.somethingSelected()) { te.value = input.prevInput = " "; }
-    input.contextMenuPending = true;
+    input.contextMenuPending = rehide;
     display.selForContextMenu = cm.doc.sel;
     clearTimeout(display.detectingSelectAll);
 
@@ -11566,6 +11585,7 @@ window.mc4wp.forms.fields = fields;
       }
     }
     function rehide() {
+      if (input.contextMenuPending != rehide) { return }
       input.contextMenuPending = false;
       input.wrapper.style.cssText = oldWrapperCSS;
       te.style.cssText = oldCSS;
@@ -11755,7 +11775,7 @@ window.mc4wp.forms.fields = fields;
 
   addLegacyProps(CodeMirror);
 
-  CodeMirror.version = "5.42.0";
+  CodeMirror.version = "5.45.0";
 
   return CodeMirror;
 
@@ -11827,7 +11847,7 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
       if (/[\d.]/.test(stream.peek())) {
         stream.eatWhile(/[\w.%]/);
         return ret("number", "unit");
-      } else if (stream.match(/^-[\w\\\-]+/)) {
+      } else if (stream.match(/^-[\w\\\-]*/)) {
         stream.eatWhile(/[\w\\\-]/);
         if (stream.match(/^\s*:/, false))
           return ret("variable-2", "variable-definition");
@@ -11841,12 +11861,11 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
       return ret("qualifier", "qualifier");
     } else if (/[:;{}\[\]\(\)]/.test(ch)) {
       return ret(null, ch);
-    } else if (((ch == "u" || ch == "U") && stream.match(/rl(-prefix)?\(/i)) ||
-               ((ch == "d" || ch == "D") && stream.match("omain(", true, true)) ||
-               ((ch == "r" || ch == "R") && stream.match("egexp(", true, true))) {
-      stream.backUp(1);
-      state.tokenize = tokenParenthesized;
-      return ret("property", "word");
+    } else if (stream.match(/[\w-.]+(?=\()/)) {
+      if (/^(url(-prefix)?|domain|regexp)$/.test(stream.current().toLowerCase())) {
+        state.tokenize = tokenParenthesized;
+      }
+      return ret("variable callee", "variable");
     } else if (/[\w\\\-]/.test(ch)) {
       stream.eatWhile(/[\w\\\-]/);
       return ret("property", "word");
@@ -12703,7 +12722,7 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
           return maybeBackup(stream, endTag, state.localMode.token(stream, state.localState));
         };
         state.localMode = mode;
-        state.localState = CodeMirror.startState(mode, htmlMode.indent(state.htmlState, ""));
+        state.localState = CodeMirror.startState(mode, htmlMode.indent(state.htmlState, "", ""));
       } else if (state.inTag) {
         state.inTag += stream.current()
         if (stream.eol()) state.inTag += " "
@@ -12733,7 +12752,7 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
 
       indent: function (state, textAfter, line) {
         if (!state.localMode || /^\s*<\//.test(textAfter))
-          return htmlMode.indent(state.htmlState, textAfter);
+          return htmlMode.indent(state.htmlState, textAfter, line);
         else if (state.localMode.indent)
           return state.localMode.indent(state.localState, textAfter, line);
         else
@@ -13117,7 +13136,10 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     }
     if (type == "function") return cont(functiondef);
     if (type == "for") return cont(pushlex("form"), forspec, statement, poplex);
-    if (type == "class" || (isTS && value == "interface")) { cx.marked = "keyword"; return cont(pushlex("form"), className, poplex); }
+    if (type == "class" || (isTS && value == "interface")) {
+      cx.marked = "keyword"
+      return cont(pushlex("form", type == "class" ? type : value), className, poplex)
+    }
     if (type == "variable") {
       if (isTS && value == "declare") {
         cx.marked = "keyword"
@@ -13125,11 +13147,11 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
       } else if (isTS && (value == "module" || value == "enum" || value == "type") && cx.stream.match(/^\s*\w/, false)) {
         cx.marked = "keyword"
         if (value == "enum") return cont(enumdef);
-        else if (value == "type") return cont(typeexpr, expect("operator"), typeexpr, expect(";"));
+        else if (value == "type") return cont(typename, expect("operator"), typeexpr, expect(";"));
         else return cont(pushlex("form"), pattern, expect("{"), pushlex("}"), block, poplex, poplex)
       } else if (isTS && value == "namespace") {
         cx.marked = "keyword"
-        return cont(pushlex("form"), expression, block, poplex)
+        return cont(pushlex("form"), expression, statement, poplex)
       } else if (isTS && value == "abstract") {
         cx.marked = "keyword"
         return cont(statement)
@@ -13304,6 +13326,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
         }, proceed);
       }
       if (type == end || value == end) return cont();
+      if (sep && sep.indexOf(";") > -1) return pass(what)
       return cont(expect(end));
     }
     return function(type, value) {
@@ -13322,7 +13345,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
   }
   function maybetype(type, value) {
     if (isTS) {
-      if (type == ":") return cont(typeexpr);
+      if (type == ":" || value == "in") return cont(typeexpr);
       if (value == "?") return cont(maybetype);
     }
   }
@@ -13339,18 +13362,19 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     }
   }
   function typeexpr(type, value) {
-    if (value == "keyof" || value == "typeof") {
+    if (value == "keyof" || value == "typeof" || value == "infer") {
       cx.marked = "keyword"
-      return cont(value == "keyof" ? typeexpr : expressionNoComma)
+      return cont(value == "typeof" ? expressionNoComma : typeexpr)
     }
     if (type == "variable" || value == "void") {
       cx.marked = "type"
       return cont(afterType)
     }
+    if (value == "|" || value == "&") return cont(typeexpr)
     if (type == "string" || type == "number" || type == "atom") return cont(afterType);
     if (type == "[") return cont(pushlex("]"), commasep(typeexpr, "]", ","), poplex, afterType)
     if (type == "{") return cont(pushlex("}"), commasep(typeprop, "}", ",;"), poplex, afterType)
-    if (type == "(") return cont(commasep(typearg, ")"), maybeReturnType)
+    if (type == "(") return cont(commasep(typearg, ")"), maybeReturnType, afterType)
     if (type == "<") return cont(commasep(typeexpr, ">"), typeexpr)
   }
   function maybeReturnType(type) {
@@ -13360,24 +13384,28 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     if (type == "variable" || cx.style == "keyword") {
       cx.marked = "property"
       return cont(typeprop)
-    } else if (value == "?") {
+    } else if (value == "?" || type == "number" || type == "string") {
       return cont(typeprop)
     } else if (type == ":") {
       return cont(typeexpr)
     } else if (type == "[") {
-      return cont(expression, maybetype, expect("]"), typeprop)
+      return cont(expect("variable"), maybetype, expect("]"), typeprop)
+    } else if (type == "(") {
+      return pass(functiondecl, typeprop)
     }
   }
   function typearg(type, value) {
     if (type == "variable" && cx.stream.match(/^\s*[?:]/, false) || value == "?") return cont(typearg)
     if (type == ":") return cont(typeexpr)
+    if (type == "spread") return cont(typearg)
     return pass(typeexpr)
   }
   function afterType(type, value) {
     if (value == "<") return cont(pushlex(">"), commasep(typeexpr, ">"), poplex, afterType)
     if (value == "|" || type == "." || value == "&") return cont(typeexpr)
-    if (type == "[") return cont(expect("]"), afterType)
+    if (type == "[") return cont(typeexpr, expect("]"), afterType)
     if (value == "extends" || value == "implements") { cx.marked = "keyword"; return cont(typeexpr) }
+    if (value == "?") return cont(typeexpr, expect(":"), typeexpr)
   }
   function maybeTypeArgs(_, value) {
     if (value == "<") return cont(pushlex(">"), commasep(typeexpr, ">"), poplex, afterType)
@@ -13424,25 +13452,18 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
   }
   function forspec(type, value) {
     if (value == "await") return cont(forspec);
-    if (type == "(") return cont(pushlex(")"), forspec1, expect(")"), poplex);
+    if (type == "(") return cont(pushlex(")"), forspec1, poplex);
   }
   function forspec1(type) {
-    if (type == "var") return cont(vardef, expect(";"), forspec2);
-    if (type == ";") return cont(forspec2);
-    if (type == "variable") return cont(formaybeinof);
-    return pass(expression, expect(";"), forspec2);
-  }
-  function formaybeinof(_type, value) {
-    if (value == "in" || value == "of") { cx.marked = "keyword"; return cont(expression); }
-    return cont(maybeoperatorComma, forspec2);
+    if (type == "var") return cont(vardef, forspec2);
+    if (type == "variable") return cont(forspec2);
+    return pass(forspec2)
   }
   function forspec2(type, value) {
-    if (type == ";") return cont(forspec3);
-    if (value == "in" || value == "of") { cx.marked = "keyword"; return cont(expression); }
-    return pass(expression, expect(";"), forspec3);
-  }
-  function forspec3(type) {
-    if (type != ")") cont(expression);
+    if (type == ")") return cont()
+    if (type == ";") return cont(forspec2)
+    if (value == "in" || value == "of") { cx.marked = "keyword"; return cont(expression, forspec2) }
+    return pass(expression, forspec2)
   }
   function functiondef(type, value) {
     if (value == "*") {cx.marked = "keyword"; return cont(functiondef);}
@@ -13450,10 +13471,25 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     if (type == "(") return cont(pushcontext, pushlex(")"), commasep(funarg, ")"), poplex, mayberettype, statement, popcontext);
     if (isTS && value == "<") return cont(pushlex(">"), commasep(typeparam, ">"), poplex, functiondef)
   }
+  function functiondecl(type, value) {
+    if (value == "*") {cx.marked = "keyword"; return cont(functiondecl);}
+    if (type == "variable") {register(value); return cont(functiondecl);}
+    if (type == "(") return cont(pushcontext, pushlex(")"), commasep(funarg, ")"), poplex, mayberettype, popcontext);
+    if (isTS && value == "<") return cont(pushlex(">"), commasep(typeparam, ">"), poplex, functiondecl)
+  }
+  function typename(type, value) {
+    if (type == "keyword" || type == "variable") {
+      cx.marked = "type"
+      return cont(typename)
+    } else if (value == "<") {
+      return cont(pushlex(">"), commasep(typeparam, ">"), poplex)
+    }
+  }
   function funarg(type, value) {
     if (value == "@") cont(expression, funarg)
     if (type == "spread") return cont(funarg);
     if (isTS && isModifier(value)) { cx.marked = "keyword"; return cont(funarg); }
+    if (isTS && type == "this") return cont(maybetype, maybeAssign)
     return pass(pattern, maybetype, maybeAssign);
   }
   function classExpression(type, value) {
@@ -13484,13 +13520,15 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
       cx.marked = "property";
       return cont(isTS ? classfield : functiondef, classBody);
     }
+    if (type == "number" || type == "string") return cont(isTS ? classfield : functiondef, classBody);
     if (type == "[")
       return cont(expression, maybetype, expect("]"), isTS ? classfield : functiondef, classBody)
     if (value == "*") {
       cx.marked = "keyword";
       return cont(classBody);
     }
-    if (type == ";") return cont(classBody);
+    if (isTS && type == "(") return pass(functiondecl, classBody)
+    if (type == ";" || type == ",") return cont(classBody);
     if (type == "}") return cont();
     if (value == "@") return cont(expression, classBody)
   }
@@ -13498,7 +13536,8 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     if (value == "?") return cont(classfield)
     if (type == ":") return cont(typeexpr, maybeAssign)
     if (value == "=") return cont(expressionNoComma)
-    return pass(functiondef)
+    var context = cx.state.lexical.prev, isInterface = context && context.info == "interface"
+    return pass(isInterface ? functiondecl : functiondef)
   }
   function afterExport(type, value) {
     if (value == "*") { cx.marked = "keyword"; return cont(maybeFrom, expect(";")); }

@@ -19,12 +19,16 @@ registerBlockType( 'mailchimp-for-wp/form', {
     },
 
     edit: function(props) {
-        let options = forms.map(f => {
+        const options = forms.map(f => {
             return {
                 label: f.name,
                 value: f.id,
             }
         });
+
+        if (props.attributes.id === undefined && forms.length > 0) {
+            props.setAttributes( { id: forms[0].id } )
+        }
 
         return (
             <div style={{ backgroundColor: '#f8f9f9', padding: '14px'  }}>
