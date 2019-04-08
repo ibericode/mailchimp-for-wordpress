@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp form
 Requires at least: 4.1
 Tested up to: 5.1
-Stable tag: 4.5.0
+Stable tag: 4.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.3
@@ -196,6 +196,20 @@ The plugin provides various filter & action hooks that allow you to modify or ex
 6. Dive into detailed sign-up statistics (premium feature).
 
 == Changelog == 
+
+
+#### 4.5.1 - April 8, 2019
+
+**Additions**
+
+- Add sign-up integration for [Give](https://wordpress.org/plugins/give/)
+- Add sign-up integration for [UltimateMember](https://wordpress.org/plugins/ultimate-member/)
+
+**Improvements**
+
+- Write to debug log if Google reCAPTCHA secret key is incorrect.
+- Validate reCAPTCHA keys when savings form settings.
+- Allow setting an empty "successfully subscribed" message.
 
 
 #### 4.5.0 - March 27, 2019
