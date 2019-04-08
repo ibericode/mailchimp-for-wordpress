@@ -78,10 +78,20 @@ class MC4WP_Google_Recaptcha {
                             tokenEl.value = token;
                             tokenEl.name = '_mc4wp_grecaptcha_token';
                             form.element.appendChild(tokenEl);
-                            mc4wp.forms.trigger('submit', [form, event]);
+
+                            if(form.element.className.indexOf('mc4wp-ajax') > -1) {
+                                mc4wp.forms.trigger('submit', [form, event]);
+                            } else {
+                                form.element.submit();
+                            }
                         });
                 } catch(err) {
-                    mc4wp.forms.trigger('submit', [form, event]);
+                    if(form.element.className.indexOf('mc4wp-ajax') > -1) {
+                        mc4wp.forms.trigger('submit', [form, event]);
+                    } else {
+                        form.element.submit();
+                    }
+
                     throw err;
                 }
             })
@@ -118,10 +128,15 @@ class MC4WP_Google_Recaptcha {
         }
 
         $response_body = wp_remote_retrieve_body($response);
-        $data = json_decode($response_body);
+        $data = json_decode($response_body, true);
         $score_treshold = apply_filters('mc4wp_grecaptcha_score_treshold', 0.5);
 
-        if ($data->success === false || !isset($data->score) || $data->score <= $score_treshold || $data->action !== 'mc4wp_form_submit') {
+        if (isset($data['error-codes']) && in_array('invalid-input-secret', $data['error-codes'])) {
+            $this->get_log()->warning(sprintf('Form %d > Invalid Google reCAPTCHA secret key', $form->ID));
+            return $errors;
+        }
+
+        if ($data['success'] === false || !isset($data['score']) || $data['score'] <= $score_treshold || $data['action'] !== 'mc4wp_form_submit') {
             $errors[] = 'spam';
             return $errors;
         }
@@ -164,6 +179,12 @@ class MC4WP_Google_Recaptcha {
             </td>
         </tr>
         <?php
+    }
 
+    /**
+     * @return MC4WP_Debug_Log
+     */
+    private function get_log() {
+        return mc4wp('log');
     }
 }
