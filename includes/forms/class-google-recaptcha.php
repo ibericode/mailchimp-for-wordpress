@@ -38,7 +38,10 @@ class MC4WP_Google_Recaptcha {
 
         // only enable grecaptcha if both site & secret key are set
         $global_settings = mc4wp_get_settings();
-        $data['settings']['grecaptcha_enabled'] = !empty($global_settings['grecaptcha_site_key']) && !empty($global_settings['grecaptcha_secret_key']) ? '1' : '0';
+        $data['settings']['grecaptcha_enabled'] = isset($global_settings['grecaptcha_site_key'])
+            && isset($global_settings['grecaptcha_secret_key'])
+            && strlen($global_settings['grecaptcha_site_key']) === 40
+            && strlen($global_settings['grecaptcha_secret_key']) === 40 ? '1' : '0';
         return $data;
     }
 
