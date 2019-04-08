@@ -64,6 +64,13 @@ class MC4WP_Google_Recaptcha {
             mc4wp.forms.on('<?php echo $form->ID; ?>.submit', function(form, event) {
                 event.preventDefault();
 
+                var submitForm = function() {
+                    if(form.element.className.indexOf('mc4wp-ajax') > -1) {
+                        mc4wp.forms.trigger('submit', [form, event]);
+                    } else {
+                        form.element.submit();
+                    }
+                };
                 var previousToken = form.element.querySelector('input[name=_mc4wp_grecaptcha_token]');
                 if (previousToken) {
                     previousToken.parentElement.removeChild(previousToken);
@@ -78,20 +85,10 @@ class MC4WP_Google_Recaptcha {
                             tokenEl.value = token;
                             tokenEl.name = '_mc4wp_grecaptcha_token';
                             form.element.appendChild(tokenEl);
-
-                            if(form.element.className.indexOf('mc4wp-ajax') > -1) {
-                                mc4wp.forms.trigger('submit', [form, event]);
-                            } else {
-                                form.element.submit();
-                            }
+                            submitForm();
                         });
                 } catch(err) {
-                    if(form.element.className.indexOf('mc4wp-ajax') > -1) {
-                        mc4wp.forms.trigger('submit', [form, event]);
-                    } else {
-                        form.element.submit();
-                    }
-
+                    submitForm();
                     throw err;
                 }
             })
