@@ -45,6 +45,16 @@ class MC4WP_Google_Recaptcha {
         return $data;
     }
 
+    public  function load_script_in_footer() {
+        if ($this->script_loaded) {
+           return;
+        }
+
+        $global_settings = mc4wp_get_settings();
+        echo sprintf('<script src="https://www.google.com/recaptcha/api.js?render=%s"></script>', esc_attr($global_settings['grecaptcha_site_key']));
+        $this->script_loaded = true;
+    }
+
     public function load_script(MC4WP_Form $form) {
         // Check if form has Google ReCaptcha enabled
         if (!$form->settings['grecaptcha_enabled']) {
@@ -52,10 +62,10 @@ class MC4WP_Google_Recaptcha {
         }
 
         $global_settings = mc4wp_get_settings();
-
-        if (!$this->script_loaded) {
-            echo sprintf('<script src="https://www.google.com/recaptcha/api.js?render=%s"></script>', esc_attr($global_settings['grecaptcha_site_key']));
-            $this->script_loaded = true;
+        if (current_action() === 'wp_footer') {
+            $this->load_script_in_footer();
+        } else {
+            add_action('wp_footer', array($this, 'load_script_in_footer'));
         }
 
         ?>
