@@ -33,6 +33,19 @@ class MC4WP_Custom_Integration extends MC4WP_Integration
     }
 
     /**
+     * Was the integration checkbox checked?
+     *
+     * @return bool
+     */
+    public function checkbox_was_checked()
+    {
+        $data = $this->get_data();
+        $value = isset($data[$this->checkbox_name]) ? $data[$this->checkbox_name] : '';
+        $truthy_values = array(1, "1", "yes", true);
+        return in_array($value, $truthy_values, true);
+    }
+
+    /**
      * Maybe fire a general subscription request
      */
     public function listen()
