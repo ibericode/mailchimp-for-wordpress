@@ -41,7 +41,7 @@ class MC4WP_Custom_Integration extends MC4WP_Integration
     {
         $data = $this->get_data();
         $value = isset($data[$this->checkbox_name]) ? $data[$this->checkbox_name] : '';
-        $truthy_values = array(1, "1", "yes", true);
+        $truthy_values = array(1, "1", "yes", true, "true", "y");
         return in_array($value, $truthy_values, true);
     }
 
