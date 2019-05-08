@@ -1,6 +1,15 @@
 Changelog
 =========
 
+#### 4.5.2 - May 8, 2019
+
+**Improvements**
+
+- Accept more truthy values in custom integration for improved compatability with third-party forms.
+- Update JavaScript dependencies.
+- Load Google reCaptcha script in footer (if needed). 
+
+
 #### 4.5.1 - April 8, 2019
 
 **Additions**
