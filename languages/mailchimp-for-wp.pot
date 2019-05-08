@@ -413,27 +413,27 @@ msgstr ""
 msgid "There is no form with ID %d, perhaps it was deleted?"
 msgstr ""
 
-#: includes/forms/class-google-recaptcha.php:133
+#: includes/forms/class-google-recaptcha.php:158
 msgid "Enable Google reCaptcha"
 msgstr ""
 
-#: includes/forms/class-google-recaptcha.php:139
+#: includes/forms/class-google-recaptcha.php:164
 msgid "Select \"yes\" to enable Google reCAPTCHA spam protection for this form."
 msgstr ""
 
-#: includes/forms/class-google-recaptcha.php:145
+#: includes/forms/class-google-recaptcha.php:170
 msgid "Google reCAPTCHA Site Key"
 msgstr ""
 
-#: includes/forms/class-google-recaptcha.php:149
+#: includes/forms/class-google-recaptcha.php:174
 msgid "Enter your Google reCAPTCHA keys here. You can <a href=\"%s\">retrieve your keys in the Google reCAPTCHA admin console</a> or read our help article on <a href=\"%s\">how to configure Google reCAPTCHA</a>."
 msgstr ""
 
-#: includes/forms/class-google-recaptcha.php:155
+#: includes/forms/class-google-recaptcha.php:180
 msgid "Google reCAPTCHA Secret Key"
 msgstr ""
 
-#: includes/forms/class-google-recaptcha.php:159
+#: includes/forms/class-google-recaptcha.php:184
 msgstr ""
 
 #: includes/forms/class-widget.php:28
@@ -622,10 +622,6 @@ msgstr ""
 
 #: includes/integrations/views/integration-settings.php:28
 msgid "Please ensure you <a href=\"%s\">configure the plugin to send all required fields</a> or <a href=\"%s\">log into your Mailchimp account</a> and make sure only the email & name fields are marked as required fields for the selected list(s)."
-msgstr ""
-
-#: includes/integrations/views/integration-settings.php:32, includes/integrations/views/integrations.php:25
-msgid "$integration->description"
 msgstr ""
 
 #: includes/integrations/views/integration-settings.php:63
