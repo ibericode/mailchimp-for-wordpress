@@ -14,7 +14,10 @@ $GLOBALS['post'] = new \WP_Post((object) array( 'filter' => 'raw' ));
     wp_enqueue_scripts();
     wp_print_styles();
     wp_print_head_scripts();
-    wp_custom_css_cb();
+
+    if (function_exists('wp_custom_css_cb')) {
+        wp_custom_css_cb();
+    }
     ?>
     <style type="text/css">
         body{ 
