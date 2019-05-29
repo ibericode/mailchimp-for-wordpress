@@ -29,10 +29,10 @@ function render() {
     container.innerHTML = html;
 }
 
-function init( editor, fields ) {
+function init(editor, fields, settings) {
 
     var groupingsNotice = function() {
-        var text = "Your form contains old style <code>GROUPINGS</code> fields. <br /><br />Please remove these fields from your form and then re-add them through the available field buttons to make sure your data is getting through to Mailchimp correctly.";
+        var text = "Your form contains deprecated <code>GROUPINGS</code> fields. <br /><br />Please remove these fields from your form and then re-add them through the available field buttons to make sure your data is getting through to Mailchimp correctly.";
         var formCode = editor.getValue().toLowerCase();
         ( formCode.indexOf('name="groupings') > -1 ) ? show('deprecated_groupings', text) : hide('deprecated_groupings');
     };
@@ -49,6 +49,16 @@ function init( editor, fields ) {
         ( missingFields.length > 0 ) ? show('required_fields_missing', text) : hide('required_fields_missing');
     };
 
+    var mailchimpListsNotice = function() {
+        var text = '<strong>Heads up!</strong> You have not yet selected a Mailchimp list to subscribe people to. Please select at least one list from the <a href="javascript:void(0)" data-tab="settings" class="tab-link">settings tab</a>.';
+
+        if (settings.getSelectedLists().length > 0) {
+            hide('no_lists_selected');
+        } else {
+            show('no_lists_selected', text);
+        }
+    };
+
     // old groupings
     groupingsNotice();
     editor.on('focus', groupingsNotice);
@@ -58,6 +68,8 @@ function init( editor, fields ) {
     requiredFieldsNotice();
     editor.on('blur', requiredFieldsNotice);
     editor.on('focus', requiredFieldsNotice);
+
+    document.body.addEventListener('change', mailchimpListsNotice);
 }
 
 
