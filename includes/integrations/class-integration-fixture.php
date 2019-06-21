@@ -45,7 +45,7 @@ class MC4WP_Integration_Fixture
      * @param bool $enabled_by_default
      * @param array $options
      */
-    public function __construct($slug, $class, $enabled_by_default = false, $options = array())
+    public function __construct($slug, $class, $enabled_by_default = false, array $options = array())
     {
         $this->slug = $slug;
         $this->class = $class;
