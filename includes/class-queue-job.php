@@ -21,7 +21,7 @@ class MC4WP_Queue_Job
     /**
      * MC4WP_Queue_Job constructor.
      *
-     * @param $data
+     * @param mixed $data
      */
     public function __construct($data)
     {
