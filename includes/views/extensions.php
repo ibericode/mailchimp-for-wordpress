@@ -39,24 +39,19 @@ defined('ABSPATH') or exit;
 		</div>
 
 		<div>
-			<h4><a href="https://wordpress.org/plugins/mailchimp-sync/">Mailchimp User Sync</a></h4>
-			<p>Synchronises your WordPress users with a Mailchimp list.</p>
-		</div>
-
-		<div>
 			<h4><a href="https://wordpress.org/plugins/mc4wp-activity/">Mailchimp Activity</a></h4>
 			<p>Adds an overview of Mailchimp list metrics to your WordPress dashboard.</p>
-		</div>
-
-		<div>
-			<h4><a href="https://wordpress.org/plugins/mc4wp-captcha/">Captcha</a></h4>
-			<p>Integrates Mailchimp for WordPress forms with Google Captcha</p>
 		</div>
 
 		<div>
 			<h4><a href="https://wordpress.org/plugins/mc4wp-wpml/">WPML Integration</a></h4>
 			<p>Improved Mailchimp integration for multilingual sites using WPML.</p>
 		</div>
+
+        <div>
+            <h4><a href="https://wordpress.org/plugins/mailchimp-top-bar/">Boxzilla Pop-ups</a></h4>
+            <p>Pop-ups for your sign-up forms.</p>
+        </div>
 	</div>
 	
 

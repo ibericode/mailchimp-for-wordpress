@@ -46,7 +46,6 @@ This plugin helps you grow your Mailchimp lists and write better newsletters thr
 	- [Mailchimp for WordPress Premium](https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=add-on-list)
 	- [Mailchimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/)
 	- [Mailchimp Activity](https://wordpress.org/plugins/mc4wp-activity/)
-	- [Mailchimp User Sync](https://wordpress.org/plugins/mailchimp-sync/)
 	- [Boxzilla Pop-ups](https://wordpress.org/plugins/boxzilla/)
 	- [Google reCAPTCHA](https://www.google.com/recaptcha/)
 	- [WPBruiser anti-spam](https://wordpress.org/plugins/goodbye-captcha/)
