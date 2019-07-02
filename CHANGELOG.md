@@ -5,7 +5,7 @@ Changelog
 
 **Improvements**
 
-- Accept more truthy values in custom integration for improved compatability with third-party forms.
+- Accept more truthy values in custom integration for improved compatibility with third-party forms.
 - Update JavaScript dependencies.
 - Load Google reCaptcha script in footer (if needed). 
 
