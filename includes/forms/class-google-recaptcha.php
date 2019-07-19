@@ -86,21 +86,16 @@ class MC4WP_Google_Recaptcha {
                     previousToken.parentElement.removeChild(previousToken);
                 }
 
-                try {
-                    window.grecaptcha
-                        .execute('<?php echo esc_attr($global_settings['grecaptcha_site_key']); ?>', {action: 'mc4wp_form_submit'})
-                        .then(function (token) {
-                            var tokenEl = document.createElement('input');
-                            tokenEl.type = 'hidden';
-                            tokenEl.value = token;
-                            tokenEl.name = '_mc4wp_grecaptcha_token';
-                            form.element.appendChild(tokenEl);
-                            submitForm();
-                        });
-                } catch(err) {
-                    submitForm();
-                    throw err;
-                }
+                window.grecaptcha
+                    .execute('<?php echo esc_attr($global_settings['grecaptcha_site_key']); ?>', {action: 'mc4wp_form_submit'})
+                    .then(function (token) {
+                        var tokenEl = document.createElement('input');
+                        tokenEl.type = 'hidden';
+                        tokenEl.value = token;
+                        tokenEl.name = '_mc4wp_grecaptcha_token';
+                        form.element.appendChild(tokenEl);
+                        submitForm();
+                    })
             })
         })();
         </script>
