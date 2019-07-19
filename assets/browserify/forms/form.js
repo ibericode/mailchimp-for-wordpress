@@ -1,9 +1,9 @@
 'use strict';
 
-var serialize = require('form-serialize');
-var populate = require('populate.js');
+const serialize = require('form-serialize');
+const populate = require('populate.js');
 
-var Form = function(id, element) {
+const Form = function(id, element) {
 	this.id = id;
 	this.element = element || document.createElement('form');
 	this.name = this.element.getAttribute('data-name') || "Form #" + this.id;

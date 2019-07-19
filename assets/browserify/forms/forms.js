@@ -1,12 +1,12 @@
 'use strict';
 
 // deps
-var EventEmitter = require('wolfy87-eventemitter');
-var Form = require('./form.js');
+const EventEmitter = require('wolfy87-eventemitter');
+const Form = require('./form.js');
 
 // variables
-var events = new EventEmitter();
-var forms = [];
+const events = new EventEmitter();
+let forms = [];
 
 // get form by its id
 // please note that this will get the FIRST occurence of the form with that ID on the page
@@ -14,22 +14,22 @@ function get(formId) {
 	formId = parseInt(formId);
 
 	// do we have form for this one already?
-	for(var i=0; i<forms.length;i++) {
+	for(let i=0; i<forms.length;i++) {
 		if(forms[i].id === formId) {
 			return forms[i];
 		}
 	}
 
 	// try to create from first occurence of this element
-	var formElement = document.querySelector('.mc4wp-form-' + formId);
+	const formElement = document.querySelector('.mc4wp-form-' + formId);
 	return createFromElement(formElement,formId);
 }
 
 // get form by <form> element (or any input in form)
 function getByElement(element) {
-	var formElement = element.form || element;
+	const formElement = element.form || element;
 
-	for(var i=0; i < forms.length; i++) {
+	for(let i=0; i < forms.length; i++) {
 		if(forms[i].element === formElement) {
 			return forms[i];
 		}
@@ -41,7 +41,7 @@ function getByElement(element) {
 // create form object from <form> element
 function createFromElement(formElement, id) {
 	id = id || parseInt( formElement.getAttribute('data-id') ) || 0;
-	var form = new Form(id, formElement);
+	const form = new Form(id, formElement);
 	forms.push(form);
 	return form;
 }

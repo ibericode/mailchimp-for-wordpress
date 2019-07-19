@@ -86,6 +86,7 @@ class MC4WP_Google_Recaptcha {
                     previousToken.parentElement.removeChild(previousToken);
                 }
 
+
                 window.grecaptcha
                     .execute('<?php echo esc_attr($global_settings['grecaptcha_site_key']); ?>', {action: 'mc4wp_form_submit'})
                     .then(function (token) {
