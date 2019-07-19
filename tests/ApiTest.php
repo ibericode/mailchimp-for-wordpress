@@ -57,20 +57,9 @@ class ApiTest extends TestCase
     /**
      * Before each test
      */
-    public function setUp()
+    public function setUp() : void
     {
         $this->api = new ApiDebug('api_key');
-    }
-
-    /**
-     * Tests if API url is correctly set from given API key
-     */
-    public function test_api_url()
-    {
-        $instance = new MC4WP_API('aaaaaaaaaaaaaaaaaaaa-us1');
-        $property = Assert::readAttribute($instance, 'api_url');
-
-        self::assertEquals('https://us1.api.mailchimp.com/2.0/', $property);
     }
 
     /**

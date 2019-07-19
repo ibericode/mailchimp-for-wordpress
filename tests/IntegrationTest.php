@@ -21,7 +21,7 @@ class IntegrationTest extends TestCase
             array()
         ));
 
-        self::assertAttributeEquals($slug, 'slug', $instance);
+        self::assertEquals($slug, $instance->slug);
     }
 
     /**
@@ -37,7 +37,7 @@ class IntegrationTest extends TestCase
         self::assertFalse($instance->checkbox_was_checked());
 
         // copy of request data is stored in constructor so we should create a new instance to replicate
-        $_POST[ Assert::readAttribute($instance, 'checkbox_name') ] = 1;
+        $_POST[ '_mc4wp_subscribe_'. $slug ] = 1;
         self::assertTrue($instance->checkbox_was_checked());
     }
 }

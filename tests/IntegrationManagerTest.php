@@ -12,8 +12,7 @@ class IntegrationManagerTest extends TestCase
     public function test_constructor()
     {
         $instance = new MC4WP_Integration_Manager();
-        $property = Assert::readAttribute($instance, 'tags');
-        self::assertInstanceOf('MC4WP_Integration_Tags', $property);
+        self::assertInstanceOf(MC4WP_Integration_Manager::class, $instance);
     }
 
     /**

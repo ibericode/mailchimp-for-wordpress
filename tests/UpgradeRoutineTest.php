@@ -13,7 +13,7 @@ class UpgradeRoutineTest extends TestCase
     /**
      * Create the sample migrations directory
      */
-    public function setUp()
+    public function setUp() : void
     {
         if (! file_exists($this->dir)) {
             mkdir($this->dir, 0700, true);
@@ -42,7 +42,7 @@ class UpgradeRoutineTest extends TestCase
     /**
      * Remove files after each test.
      */
-    public function tearDown()
+    public function tearDown() : void
     {
         array_map('unlink', glob($this->dir . '/*.php'));
         if (file_exists($this->dir)) {

@@ -27,7 +27,6 @@ class FieldFormatterTest extends TestCase
 
         // should accept string
         $value = $formatter->address(join(',', $address));
-        self::assertArraySubset($value, $address);
         self::assertEquals($value['addr1'], $address['addr1']);
         self::assertEquals($value['city'], $address['city']);
         self::assertEquals($value['state'], $address['state']);

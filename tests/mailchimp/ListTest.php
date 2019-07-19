@@ -14,9 +14,9 @@ class ListTest extends TestCase
         $web_id = '500';
         $list = new MC4WP_MailChimp_List($id, $name, $web_id);
 
-        self::assertAttributeEquals($id, 'id', $list);
-        self::assertAttributeEquals($web_id, 'web_id', $list);
-        self::assertAttributeEquals($name, 'name', $list);
+        self::assertEquals($list->id, $id);
+        self::assertEquals($list->web_id, $web_id);
+        self::assertEquals($list->name, $name);
     }
 
     /**
@@ -31,6 +31,6 @@ class ListTest extends TestCase
         $list->merge_fields[] = new MC4WP_MailChimp_Merge_Field('Email', 'email', 'EMAIL');
 
         // we should always know email field name
-        self::assertStringStartsWith('Email', $list->get_field_name_by_tag('email'));
+        self::assertInstanceOf(MC4WP_MailChimp_Merge_Field::class, $list->get_field_by_tag('email'));
     }
 }

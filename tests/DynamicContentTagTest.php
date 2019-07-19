@@ -20,7 +20,7 @@ class DynamicContentTagTest extends TestCase
     /**
      * Runs before all tests
      */
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
         Monkey\setUp();
@@ -30,7 +30,7 @@ class DynamicContentTagTest extends TestCase
     /**
      * Runs after all tests
      */
-    protected function tearDown()
+    protected function tearDown() : void
     {
         Monkey\tearDown();
         parent::tearDown();
@@ -42,7 +42,9 @@ class DynamicContentTagTest extends TestCase
     public function test_constructor()
     {
         $context = 'something';
-        self::assertAttributeEquals($context, 'context', new MC4WP_Dynamic_Content_Tags($context));
+        $instance = new MC4WP_Dynamic_Content_Tags($context);
+
+        self::assertEquals($context, $instance->context);
     }
 
     /**

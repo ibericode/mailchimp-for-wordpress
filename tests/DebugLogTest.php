@@ -121,7 +121,7 @@ class DebugLogTest extends TestCase
     /**
      * Remove log files after each test.
      */
-    public function tearDown()
+    public function tearDown() : void
     {
         if (file_exists($this->file)) {
             unlink($this->file);

@@ -11,7 +11,7 @@ class FormTest extends TestCase
     /**
      * Unmock posts after every test
      */
-    public function tearDown()
+    public function tearDown() : void
     {
         unmock_post();
     }

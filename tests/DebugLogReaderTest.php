@@ -48,7 +48,7 @@ class DebugLogReaderTest extends TestCase
         $reader = new MC4WP_Debug_Log_Reader($this->file);
 
         // first read should return first line
-        self::assertContains($this->sample_log_lines[0], $reader->read());
+        self::assertStringContainsString($this->sample_log_lines[0], $reader->read());
 
         // read should match format
         self::assertRegExp('/^\[([0-9-: ]+)\] (INFO|WARNING|ERROR)\: (.*)$/', $reader->read());
