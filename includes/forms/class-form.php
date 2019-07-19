@@ -781,6 +781,14 @@ class MC4WP_Form
 
         $tags = explode(',', $this->settings['subscriber_tags']);
         $tags = array_map('trim', $tags);
-        return $tags;
+
+        // remove empty tag values
+        foreach($tags as $i => $tag) {
+            if ($tag === '') {
+                unset($tags[$i]);
+            }
+        }
+
+        return array_values($tags);
     }
 }

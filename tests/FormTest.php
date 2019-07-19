@@ -269,4 +269,16 @@ class FormTest extends TestCase
         $form->add_notice('Text', 'notice');
         self::assertCount(1, $form->notices);
     }
+
+    public function test_get_subscriber_tags()
+    {
+        mock_get_post(array( 'ID' => 1 ));
+        $post = get_post(1);
+        $form = new MC4WP_Form(1, $post);
+        $form->settings = array(
+            'subscriber_tags' => 'foo,,bar'
+        );
+
+        $this->assertEquals($form->get_subscriber_tags(), array('foo', 'bar'));
+    }
 }
