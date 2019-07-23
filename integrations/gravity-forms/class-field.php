@@ -109,13 +109,11 @@ class MC4WP_Gravity_Forms_Field extends GF_Field
             $checked = '';
         }
 
-        $logic_event = $this->get_conditional_logic_event('click');
-
         $tabindex     = $this->get_tabindex();
         $choice_value = $choice['value'];
         $choice_value  = esc_attr($choice_value);
         $choice_markup = "<li class='gchoice_{$id}'>
-                        <input name='input_{$input_id}' type='checkbox' $logic_event value='{$choice_value}' {$checked} id='choice_{$id}' {$tabindex} {$disabled_text} />
+                        <input name='input_{$input_id}' type='checkbox' value='{$choice_value}' {$checked} id='choice_{$id}' {$tabindex} {$disabled_text} />
                         <label for='choice_{$id}' id='label_{$id}'>{$choice['text']}</label>
                     </li>";
 
