@@ -1,6 +1,23 @@
 Changelog
 =========
 
+#### 4.5.3 - July 23, 2019
+
+**Fixes**
+
+- Temporarily switch status of pending subscribers to "unsubscribe" versus deleting susbcriber before re-subscribing.
+- Deprecation notice for Gravity Forms version 2.4 and higher.
+
+**Improvements**
+
+- Filter out empty tags when applying tags to new subscribers.
+- Show all not installed integrations.
+- Show notice when form doesn't have a Mailchimp list selected to subscribe people to.
+- Check function existence for compatibility with WordPress 4.7
+- Don't submit form when Google reCAPTCHA is enabled but errors.
+- Update third-party JavaScript dependencies.
+
+
 #### 4.5.2 - May 8, 2019
 
 **Improvements**

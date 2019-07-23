@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp form
 Requires at least: 4.1
 Tested up to: 5.2
-Stable tag: 4.5.2
+Stable tag: 4.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.3
@@ -195,6 +195,23 @@ The plugin provides various filter & action hooks that allow you to modify or ex
 6. Dive into detailed sign-up statistics (premium feature).
 
 == Changelog == 
+
+
+#### 4.5.3 - July 23, 2019
+
+**Fixes**
+
+- Temporarily switch status of pending subscribers to "unsubscribe" versus deleting susbcriber before re-subscribing.
+- Deprecation notice for Gravity Forms version 2.4 and higher.
+
+**Improvements**
+
+- Filter out empty tags when applying tags to new subscribers.
+- Show all not installed integrations.
+- Show notice when form doesn't have a Mailchimp list selected to subscribe people to.
+- Check function existence for compatibility with WordPress 4.7
+- Don't submit form when Google reCAPTCHA is enabled but errors.
+- Update third-party JavaScript dependencies.
 
 
 #### 4.5.2 - May 8, 2019
