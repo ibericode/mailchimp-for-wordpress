@@ -1,4 +1,4 @@
-var FieldFactory = function(fields, i18n) {
+const FieldFactory = function(fields, i18n) {
     'use strict';
 
     /**
@@ -6,7 +6,7 @@ var FieldFactory = function(fields, i18n) {
      *
      * @type {Array}
      */
-    var registeredFields = [];
+    let registeredFields = [];
 
     /**
      * Reset all previously registered fields
@@ -19,11 +19,12 @@ var FieldFactory = function(fields, i18n) {
     /**
      * Helper function to quickly register a field and store it in local scope
      *
+     * @param {string} category
      * @param {object} data
      * @param {boolean} sticky
      */
     function register(category, data, sticky) {
-        var field = fields.register(category, data);
+        let field = fields.register(category, data);
 
         if( ! sticky ) {
             registeredFields.push(field);
@@ -37,8 +38,7 @@ var FieldFactory = function(fields, i18n) {
      * @returns {*}
      */
     function getFieldType(type) {
-
-        var map = {
+        const map = {
             'phone' : 'tel',
             'dropdown': 'select',
             'checkboxes': 'checkbox',
@@ -56,11 +56,11 @@ var FieldFactory = function(fields, i18n) {
      */
     function registerMergeField(mergeField) {
 
-        var category = i18n.listFields;
-        var fieldType = getFieldType(mergeField.field_type);
+        let category = i18n.listFields;
+        let fieldType = getFieldType(mergeField.field_type);
 
         // name, type, title, value, required, label, placeholder, choices, wrap
-        var data = {
+        let data = {
             name: mergeField.tag,
             title: mergeField.name,
             required: mergeField.required,
@@ -73,11 +73,11 @@ var FieldFactory = function(fields, i18n) {
         if( data.type !== 'address' ) {
             register(category, data, false);
         } else {
-            register(category, { name: data.name + '[addr1]', type: 'text', mailchimpType: 'address', title: i18n.streetAddress });
-            register(category, { name: data.name + '[city]', type: 'text', mailchimpType: 'address', title: i18n.city });
-            register(category, { name: data.name + '[state]', type: 'text', mailchimpType: 'address', title: i18n.state  });
-            register(category, { name: data.name + '[zip]', type: 'text', mailchimpType: 'address', title: i18n.zip });
-            register(category, { name: data.name + '[country]', type: 'select', mailchimpType: 'address', title: i18n.country, choices: mc4wp_vars.countries });
+            register(category, { name: data.name + '[addr1]', type: 'text', mailchimpType: 'address', title: i18n.streetAddress }, false);
+            register(category, { name: data.name + '[city]', type: 'text', mailchimpType: 'address', title: i18n.city }, false);
+            register(category, { name: data.name + '[state]', type: 'text', mailchimpType: 'address', title: i18n.state  }, false);
+            register(category, { name: data.name + '[zip]', type: 'text', mailchimpType: 'address', title: i18n.zip }, false);
+            register(category, { name: data.name + '[country]', type: 'select', mailchimpType: 'address', title: i18n.country, choices: mc4wp_vars.countries }, false);
         }
 
         return true;
@@ -89,10 +89,10 @@ var FieldFactory = function(fields, i18n) {
      * @param interestCategory
      */
     function registerInterestCategory(interestCategory){
-        var category = i18n.interestCategories;
-        var fieldType = getFieldType(interestCategory.field_type);
+        let category = i18n.interestCategories;
+        let fieldType = getFieldType(interestCategory.field_type);
 
-        var data = {
+        const data = {
             title: interestCategory.name,
             name: 'INTERESTS[' + interestCategory.id + ']',
             type: fieldType,
@@ -140,9 +140,8 @@ var FieldFactory = function(fields, i18n) {
     }
 
     function registerCustomFields(lists) {
-
-        var choices,
-            category = i18n.formFields;
+        let choices;
+        let category = i18n.formFields;
 
         // register submit button
         register(category, {
@@ -154,7 +153,7 @@ var FieldFactory = function(fields, i18n) {
 
         // register lists choice field
         choices = {};
-        for(var key in lists) {
+        for(let key in lists) {
             choices[lists[key].id] = lists[key].name;
         }
 

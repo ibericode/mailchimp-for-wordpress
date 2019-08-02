@@ -167,7 +167,6 @@ var forms = function forms(m, i18n) {
       case 'radio':
       case 'checkbox':
         return forms.choice(config);
-        break;
     } // fallback to good old text field
 
 
@@ -247,7 +246,7 @@ var g = function g(m) {
    * @returns {*}
    */
 
-  generators.select = function (config) {
+  generators['select'] = function (config) {
     var attributes = {
       name: config.name(),
       required: config.required()
@@ -305,7 +304,7 @@ var g = function g(m) {
    */
 
 
-  generators.checkbox = function (config) {
+  generators['checkbox'] = function (config) {
     var fields = config.choices().map(function (choice) {
       var name = config.name() + (config.type() === 'checkbox' ? '[]' : '');
       var required = config.required() && config.type() === 'radio';
@@ -321,7 +320,7 @@ var g = function g(m) {
     return fields;
   };
 
-  generators.radio = generators.checkbox;
+  generators['radio'] = generators['checkbox'];
   /**
    * Generates a default field
    *
@@ -374,7 +373,9 @@ var g = function g(m) {
         htmlTemplate,
         html,
         vdom = document.createElement('div');
-    label = config.label().length > 0 && config.showLabel() ? m("label", {}, config.label()) : '';
+    label = config.label().length > 0 && config.showLabel() ? m("label", {
+      'for': config.name()
+    }, config.label()) : '';
     field = typeof generators[config.type()] === "function" ? generators[config.type()](config) : generators['default'](config);
     htmlTemplate = config.wrap() ? m('p', [label, field]) : [label, field]; // render in vdom
 
@@ -498,7 +499,7 @@ var FieldHelper = function FieldHelper(m, tabs, editor, fields, events, i18n) {
         onkeydown: function onkeydown(e) {
           e = e || window.event;
 
-          if (e.keyCode == 13) {
+          if (e.keyCode === 13) {
             createFieldHTMLAndAddToForm();
           }
         },
@@ -541,6 +542,7 @@ var FieldFactory = function FieldFactory(fields, i18n) {
   /**
    * Helper function to quickly register a field and store it in local scope
    *
+   * @param {string} category
    * @param {object} data
    * @param {boolean} sticky
    */
@@ -601,32 +603,32 @@ var FieldFactory = function FieldFactory(fields, i18n) {
         type: 'text',
         mailchimpType: 'address',
         title: i18n.streetAddress
-      });
+      }, false);
       register(category, {
         name: data.name + '[city]',
         type: 'text',
         mailchimpType: 'address',
         title: i18n.city
-      });
+      }, false);
       register(category, {
         name: data.name + '[state]',
         type: 'text',
         mailchimpType: 'address',
         title: i18n.state
-      });
+      }, false);
       register(category, {
         name: data.name + '[zip]',
         type: 'text',
         mailchimpType: 'address',
         title: i18n.zip
-      });
+      }, false);
       register(category, {
         name: data.name + '[country]',
         type: 'select',
         mailchimpType: 'address',
         title: i18n.country,
         choices: mc4wp_vars.countries
-      });
+      }, false);
     }
 
     return true;
@@ -688,8 +690,8 @@ var FieldFactory = function FieldFactory(fields, i18n) {
   }
 
   function registerCustomFields(lists) {
-    var choices,
-        category = i18n.formFields; // register submit button
+    var choices;
+    var category = i18n.formFields; // register submit button
 
     register(category, {
       name: '',

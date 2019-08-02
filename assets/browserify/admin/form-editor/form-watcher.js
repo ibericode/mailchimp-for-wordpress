@@ -1,19 +1,19 @@
-var FormWatcher = function(m, editor, settings, fields, events, helpers) {
+const FormWatcher = function(m, editor, settings, fields, events, helpers) {
     'use strict';
 
-    var requiredFieldsInput = document.getElementById('required-fields');
+    let requiredFieldsInput = document.getElementById('required-fields');
 
     function updateFields() {
         fields.getAll().forEach(function(field) {
             // don't run for empty field names
             if(field.name().length <= 0) return;
 
-            var fieldName = field.name();
+            let fieldName = field.name();
             if( field.type() === 'checkbox' ) {
                 fieldName += '[]';
             }
 
-            var inForm = editor.containsField( fieldName );
+            let inForm = editor.containsField( fieldName );
             field.inFormContent( inForm );
 
             // if form contains 1 address field of group, mark all fields in this group as "required"
@@ -21,7 +21,7 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
                 field.originalRequiredValue = field.originalRequiredValue === undefined ? field.forceRequired() : field.originalRequiredValue;
 
                 // query other fields for this address group
-                var nameGroup = field.name().replace(/\[(\w+)\]/g, '' );
+                let nameGroup = field.name().replace(/\[(\w+)\]/g, '' );
                 if( editor.query('[name^="' + nameGroup + '"]').length > 0 ) {
                     if( field.originalRequiredValue === undefined ) {
                         field.originalRequiredValue = field.forceRequired();
@@ -41,10 +41,10 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
     function findRequiredFields() {
 
         // query fields required by Mailchimp
-        var requiredFields = fields.getAllWhere('forceRequired', true).map(function(f) { return f.name().toUpperCase().replace(/\[(\w+)\]/g, '.$1' ); });
+        let requiredFields = fields.getAllWhere('forceRequired', true).map(function(f) { return f.name().toUpperCase().replace(/\[(\w+)\]/g, '.$1' ); });
 
         // query fields in form with [required] attribute
-        var requiredFieldElements = editor.query('[required]');
+        let requiredFieldElements = editor.query('[required]');
         Array.prototype.forEach.call(requiredFieldElements, function(el) {
             var name = el.name;
 
@@ -60,7 +60,7 @@ var FormWatcher = function(m, editor, settings, fields, events, helpers) {
             name = name.replace(/\[\]$/, '');
 
             // uppercase everything before the .
-            var pos = name.indexOf('.');
+            let pos = name.indexOf('.');
             pos = pos > 0 ? pos : name.length;
             name = name.substr(0, pos).toUpperCase() + name.substr(pos);
 

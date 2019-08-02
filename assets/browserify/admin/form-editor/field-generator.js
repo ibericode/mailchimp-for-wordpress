@@ -24,7 +24,7 @@ const g = function(m) {
 	 * @param config
 	 * @returns {*}
 	 */
-	generators.select = function (config) {
+	generators['select'] = function (config) {
         let attributes = {
 			name: config.name(),
 			required: config.required()
@@ -86,7 +86,7 @@ const g = function(m) {
 	 * @param config
 	 * @returns {*}
 	 */
-	generators.checkbox = function (config) {
+	generators['checkbox'] = function (config) {
 		let fields = config.choices().map(function (choice) {
          const name = config.name() + ( config.type() === 'checkbox' ? '[]' : '' );
 			const required = config.required() && config.type() === 'radio';
@@ -108,7 +108,7 @@ const g = function(m) {
 		
 		return fields;
 	};
-	generators.radio = generators.checkbox;
+	generators['radio'] = generators['checkbox'];
 
 	/**
 	 * Generates a default field
@@ -160,7 +160,7 @@ const g = function(m) {
 		let label, field, htmlTemplate, html,
 			vdom = document.createElement('div');
 
-		label = config.label().length  > 0 && config.showLabel() ? m("label", {}, config.label()) : '';
+		label = config.label().length  > 0 && config.showLabel() ? m("label", { 'for': config.name() }, config.label()) : '';
 		field = typeof(generators[config.type()]) === "function" ? generators[config.type()](config) : generators['default'](config);
 		htmlTemplate = config.wrap() ? m('p', [label, field]) : [label, field];
 

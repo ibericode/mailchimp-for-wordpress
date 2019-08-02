@@ -1,10 +1,10 @@
-var FieldHelper = function(m, tabs, editor, fields, events, i18n) {
+const FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 	'use strict';
 
-	var generate = require('./field-generator.js')(m);
-	var overlay = require('../overlay.js')(m,i18n);
-	var forms = require('./field-forms.js')(m, i18n);
-	var fieldConfig;
+	const generate = require('./field-generator.js')(m);
+	const overlay = require('../overlay.js')(m,i18n);
+	const forms = require('./field-forms.js')(m, i18n);
+	let fieldConfig;
 
 	editor.on('blur', m.redraw);
 
@@ -42,7 +42,7 @@ var FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 	function createFieldHTMLAndAddToForm() {
 
 		// generate html
-		var html = generate(fieldConfig);
+		const html = generate(fieldConfig);
 
 		// add to editor
 		editor.insert( html );
@@ -61,14 +61,14 @@ var FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 	function view() {
 
 		// build DOM for fields choice
-		var fieldCategories = fields.getCategories();
-		var availableFields = fields.getAll();
+		let fieldCategories = fields.getCategories();
+		let availableFields = fields.getAll();
 
-		var fieldsChoice = m( "div.available-fields.small-margin", [
+		let fieldsChoice = m( "div.available-fields.small-margin", [
 			m("h4", i18n.chooseField),
 
 			fieldCategories.map(function(category) {
-				var categoryFields = availableFields.filter(function(f) {
+				let categoryFields = availableFields.filter(function(f) {
 					return f.category === category;
 				});
 
@@ -81,12 +81,12 @@ var FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 
 					// render fields
 					categoryFields.map(function(field) {
-						var className = "button";
+						let className = "button";
 						if( field.forceRequired() ) {
 							className += " is-required";
 						}
 
-						var inForm = field.inFormContent();
+						let inForm = field.inFormContent();
 						if( inForm !== null ) {
 							className += " " + ( inForm ? 'in-form' : 'not-in-form' );
 						}
@@ -103,7 +103,7 @@ var FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 		]);
 
 		// build DOM for overlay
-		var form = null;
+		let form = null;
 		if( fieldConfig ) {
 			form = m(overlay(
 				// field wizard
@@ -129,7 +129,7 @@ var FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 							type: "button",
 							onkeydown: function(e) {
 								e = e || window.event;
-								if(e.keyCode == 13) {
+								if(e.keyCode === 13) {
 									createFieldHTMLAndAddToForm();
 								}
 							},

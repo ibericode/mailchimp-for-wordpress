@@ -1,7 +1,7 @@
 'use strict';
 
 // load CodeMirror & plugins
-var CodeMirror = require('codemirror');
+const CodeMirror = require('codemirror');
 require('codemirror/mode/xml/xml');
 require('codemirror/mode/javascript/javascript');
 require('codemirror/mode/css/css');
@@ -13,18 +13,18 @@ require('codemirror/addon/selection/active-line.js');
 require('codemirror/addon/edit/matchbrackets.js');
 
 /* variables */
-var FormEditor = {};
-var _dom = document.createElement('form');
-var domDirty = false;
-var editor;
-var element = document.getElementById('mc4wp-form-content');
-var previewFrame = document.getElementById('mc4wp-form-preview');
-var previewDom;
-var templateRegex = /\{[^{}]+\}/g
+let FormEditor = {};
+let _dom = document.createElement('form');
+let domDirty = false;
+let editor;
+let element = document.getElementById('mc4wp-form-content');
+let previewFrame = document.getElementById('mc4wp-form-preview');
+let previewDom;
+const templateRegex = /\{[^{}]+\}/g
 
 /* functions */
 function setPreviewDom() {
-    var frameContent = previewFrame.contentDocument || previewFrame.contentWindow.document;
+    let frameContent = previewFrame.contentDocument || previewFrame.contentWindow.document;
     previewDom = frameContent.querySelector('.mc4wp-form-fields');
     
     if(previewDom) { 
@@ -33,7 +33,7 @@ function setPreviewDom() {
 }
 
 function updatePreview() {
-    var markup = FormEditor.getValue();
+    let markup = FormEditor.getValue();
 
     // replace template tags (twice, to allow for nested tags)
     markup = markup.replace(templateRegex, '').replace(templateRegex, '');
@@ -116,7 +116,7 @@ if( CodeMirror ) {
     window.dispatchEvent && editor.on('change',function() {
         if(typeof(Event) === "function") {
             // Create a new 'change' event
-            var event = new Event('change', { bubbles: true });
+            let event = new Event('change', { bubbles: true });
             element.dispatchEvent(event);
         }
     });

@@ -16,7 +16,6 @@ const forms = function(m, i18n) {
 			case 'radio':
 			case 'checkbox':
 				return forms.choice(config);
-				break;
 		}
 
 		// fallback to good old text field

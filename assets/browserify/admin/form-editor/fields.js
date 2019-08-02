@@ -3,9 +3,9 @@
 const prop = require("mithril/stream");
 
 module.exports = function(m, events) {
-    var timeout;
-    var fields = [];
-    var categories = [];
+    let timeout;
+    let fields = [];
+    let categories = [];
 
 
     /**
@@ -15,7 +15,7 @@ module.exports = function(m, events) {
      * @param data
      * @constructor
      */
-    var Field = function (data) {
+    const Field = function (data) {
         this.name = prop(data.name);
         this.title = prop(data.title || data.name);
         this.type = prop(data.type);
@@ -36,7 +36,7 @@ module.exports = function(m, events) {
         this.link = prop(data.link || '');
 
         this.selectChoice = function(value) {
-            var field = this;
+            let field = this;
 
             this.choices(this.choices().map(function(choice) {
 
@@ -61,7 +61,7 @@ module.exports = function(m, events) {
      * @param data
      * @constructor
      */
-    var FieldChoice = function (data) {
+    const FieldChoice = function (data) {
         this.label = prop(data.label);
         this.title = prop(data.title || data.label);
         this.selected = prop(data.selected || false);
@@ -75,7 +75,7 @@ module.exports = function(m, events) {
      * @returns {Array}
      */
     function createChoices(data) {
-        var choices = [];
+        let choices = [];
         if (typeof( data.map ) === "function") {
             choices = data.map(function (choiceLabel) {
                 return new FieldChoice({label: choiceLabel});
@@ -99,9 +99,8 @@ module.exports = function(m, events) {
      * @returns {Field}
      */
     function register(category, data) {
-
-        var field;
-        var existingField = getAllWhere('name', data.name).shift();
+        let field;
+        let existingField = getAllWhere('name', data.name).shift();
 
         // a field with the same "name" already exists
         if(existingField) {
@@ -157,7 +156,7 @@ module.exports = function(m, events) {
      * @param field
      */
     function deregister(field) {
-        var index = fields.indexOf(field);
+        let index = fields.indexOf(field);
         if (index > -1) {
             delete fields[index];
             m.redraw();
