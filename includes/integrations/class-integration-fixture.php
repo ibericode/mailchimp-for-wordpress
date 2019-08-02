@@ -75,6 +75,7 @@ class MC4WP_Integration_Fixture
      * Tunnel everything to MC4WP_Integration class
      *
      * @param $name
+     * @param $arguments
      *
      * @return MC4WP_Integration
      */

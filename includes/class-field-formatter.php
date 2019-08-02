@@ -122,7 +122,7 @@ class MC4WP_Field_Formatter
             'fr_CA',
         );
 
-        if (! in_array($value, $exceptions)) {
+        if (! in_array($value, $exceptions, true)) {
             $value = substr($value, 0, 2);
         }
 

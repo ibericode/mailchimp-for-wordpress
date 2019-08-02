@@ -323,10 +323,8 @@ abstract class MC4WP_Integration
             }
         }
 
-        // allow plugins to filter final lists value
-
         /**
-         * This filter is documented elsewhere.
+         * Allow plugins to filter final lists value. This filter is documented elsewhere.
          *
          * @since 2.0
          * @see MC4WP_Form::get_lists
