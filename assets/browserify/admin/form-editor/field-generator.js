@@ -157,18 +157,19 @@ const g = function(m) {
 	 * @returns {*}
 	 */
 	function generate(config) {
-		let label, field, htmlTemplate, html,
-			vdom = document.createElement('div');
 
-		label = config.label().length  > 0 && config.showLabel() ? m("label", { 'for': config.name() }, config.label()) : '';
-		field = typeof(generators[config.type()]) === "function" ? generators[config.type()](config) : generators['default'](config);
-		htmlTemplate = config.wrap() ? m('p', [label, field]) : [label, field];
+		let labelAtts = {};
+		// let labelAtts = { 'for': config.name() };
+		let label = config.label().length  > 0 && config.showLabel() ? m("label", labelAtts, config.label()) : '';
+		let field = typeof(generators[config.type()]) === "function" ? generators[config.type()](config) : generators['default'](config);
+		let htmlTemplate = config.wrap() ? m('p', [label, field]) : [label, field];
 
 		// render in vdom
+		let vdom = document.createElement('div');
 		m.render(vdom, htmlTemplate);
 
 		// prettify html
-		html = htmlutil.prettyPrint(vdom.innerHTML);
+		let html = htmlutil.prettyPrint(vdom.innerHTML);
 
 		return html + "\n";
 	}
