@@ -84,7 +84,7 @@ class MC4WP_List_Data_Mapper
 
             // format field value
             $value = $this->data[ $merge_field->tag ];
-            $value = $this->format_merge_field_value($value, $merge_field->field_type);
+            $value = $this->format_merge_field_value($value, $merge_field->field_type, $merge_field->format);
 
             // add to map
             $subscriber->merge_fields[ $merge_field->tag ] = $value;
@@ -136,15 +136,16 @@ class MC4WP_List_Data_Mapper
     /**
     * @param mixed $field_value
     * @param string $field_type
-    *
+    * @param string $field_format
+     *
     * @return mixed
     */
-    private function format_merge_field_value($field_value, $field_type)
+    private function format_merge_field_value($field_value, $field_type, $field_format = '')
     {
         $field_type = strtolower($field_type);
 
         if (method_exists($this->formatter, $field_type)) {
-            $field_value = call_user_func(array( $this->formatter, $field_type ), $field_value);
+            $field_value = call_user_func(array($this->formatter, $field_type), $field_value, $field_format);
         }
 
         /**

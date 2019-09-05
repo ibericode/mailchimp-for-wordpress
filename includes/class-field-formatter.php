@@ -10,10 +10,10 @@ class MC4WP_Field_Formatter
 
     /**
      * @param mixed $value
-     *
+     * @param string $format
      * @return array
      */
-    public function address($value)
+    public function address($value, $format = null)
     {
         // auto-format if this is a string
         if (is_string($value)) {
@@ -45,10 +45,10 @@ class MC4WP_Field_Formatter
 
     /**
      * @param mixed $value
-     *
+     * @param string $format
      * @return string
      */
-    public function birthday($value)
+    public function birthday($value, $format = 'MM/DD')
     {
         if (is_array($value)) {
             // allow for "day" and "month" fields
@@ -68,25 +68,25 @@ class MC4WP_Field_Formatter
         // always use slashes as delimiter, so next part works
         $value = str_replace(array( '.', '-' ), '/', $value);
 
-        // if first part looks like a day, flip order so month (or even year) comes first
+        // if format = DD/MM  OR if first part is definitely a day value (>12), then flip order
         // this allows `strtotime` to understand `dd/mm` values
         $values = explode('/', $value);
-        if ($values[0] > 12 && $values[0] <= 31 && isset($values[1]) && $values[1] <= 12) {
+        if ($format === 'DD/MM' || ($values[0] > 12 && $values[0] <= 31 && isset($values[1]) && $values[1] <= 12)) {
             $values = array_reverse($values);
             $value = join('/', $values);
         }
 
+        // Mailchimp expects a MM/DD format, regardless of their display preference
         $value = (string) date('m/d', strtotime($value));
-
         return $value;
     }
 
     /**
      * @param mixed $value
-     *
+     * @param string $format
      * @return string
      */
-    public function date($value)
+    public function date($value, $format = 'Y-m-d')
     {
         if (is_array($value)) {
 
@@ -109,10 +109,10 @@ class MC4WP_Field_Formatter
 
     /**
      * @param string $value
-     *
+     * @param string $format
      * @return string
      */
-    public function language($value)
+    public function language($value, $format = null)
     {
         $value = trim($value);
 
@@ -131,10 +131,10 @@ class MC4WP_Field_Formatter
 
     /**
      * @param mixed $value
-     *
+     * @param string $format
      * @return bool
      */
-    public function boolean($value)
+    public function boolean($value, $format = null)
     {
         $falsey = array( 'false', '0' );
 

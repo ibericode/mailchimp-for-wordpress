@@ -64,19 +64,23 @@
 					<?php foreach ($list->merge_fields as $merge_field) {
                     ?>
 						<tr title="<?php printf(__('%s (%s) with field type %s.', 'mailchimp-for-wp'), esc_html($merge_field->name), esc_html($merge_field->tag), esc_html($merge_field->field_type)); ?>">
-							<td><?php echo esc_html($merge_field->name);
-                    if ($merge_field->required) {
-                        echo '<span style="color:red;">*</span>';
-                    } ?></td>
+							<td><?php
+                                echo esc_html($merge_field->name);
+
+                                if ($merge_field->required) {
+                                    echo '<span style="color:red;">*</span>';
+                                } ?>
+                            </td>
 							<td><code><?php echo esc_html($merge_field->tag); ?></code></td>
 							<td>
 								<?php
                                     echo esc_html($merge_field->field_type);
 
-                    if (! empty($merge_field->choices)) {
-                        echo ' (' . join(', ', $merge_field->choices) . ')';
-                    } ?>
-
+                                    if (! empty($merge_field->format)) {
+                                        echo sprintf(" (%s)", $merge_field->format);
+                                    } elseif (! empty($merge_field->choices)) {
+                                        echo ' (' . join(', ', $merge_field->choices) . ')';
+                                    } ?>
 							</td>
 						</tr>
 					<?php

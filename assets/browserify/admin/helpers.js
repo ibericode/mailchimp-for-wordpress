@@ -74,7 +74,7 @@ helpers.debounce = function(func, wait, immediate) {
 
 			// disable input fields to stop sending their values to server
 			Array.prototype.forEach.call( inputs, function(inputElement) {
-				conditionMet ? inputElement.removeAttribute('readonly') : inputElement.setAttribute('readonly','readonly');
+				conditionMet ? inputElement.removeAttribute('readonly') : inputElement.setAttribute('readonly', 'readonly');
 			});
 		}
 

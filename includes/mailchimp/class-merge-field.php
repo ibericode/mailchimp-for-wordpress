@@ -45,6 +45,11 @@ class MC4WP_MailChimp_Merge_Field
     public $default_value = '';
 
     /**
+     * @var string The field format (eg phone format or date format)
+     */
+    public $format = '';
+
+    /**
      * @param string $name
      * @param string $field_type
      * @param string $tag
@@ -87,6 +92,12 @@ class MC4WP_MailChimp_Merge_Field
 
         if (! empty($data->options->choices)) {
             $instance->choices = $data->options->choices;
+        }
+
+        if (! empty($data->options->date_format)) {
+            $instance->format = $data->options->date_format;
+        } elseif( !empty($data->options->phone_format)) {
+            $instance->format = $data->options->phone_format;
         }
 
         $optional = array(
