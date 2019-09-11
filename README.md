@@ -1,4 +1,4 @@
-Mailchimp for WordPress
+MC4WP: Mailchimp for WordPress
 ======================
 [![Build Status](https://api.travis-ci.org/ibericode/mailchimp-for-wordpress.png?branch=master)](https://travis-ci.org/ibericode/mailchimp-for-wordpress)
 [![Active installs](https://img.shields.io/wordpress/plugin/installs/mailchimp-for-wp.svg)](https://wordpress.org/plugins/mailchimp-for-wp/)
