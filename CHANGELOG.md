@@ -1,6 +1,19 @@
 Changelog
 =========
 
+#### 4.5.4 - Sep 11, 2019
+
+**Improvements**
+
+- Removed custom color from menu item for improved accessibility.
+- Take birthday field format into account when sending data to Mailchimp.
+- Print Google reCAPTCHA script in footer.
+
+**Changes**
+
+- Changed plugin name to MC4WP instead of Mailchimp for WordPress.
+
+
 #### 4.5.3 - July 23, 2019
 
 **Fixes**

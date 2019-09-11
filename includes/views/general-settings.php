@@ -15,7 +15,7 @@ defined('ABSPATH') or exit;
 		<div class="main-content col col-4">
 
 			<h1 class="page-title">
-				<?php _e('General Settings', 'mailchimp-for-wp'); ?>
+                Mailchimp for WordPress: <?php _e('API Settings', 'mailchimp-for-wp'); ?>
 			</h1>
 
 			<h2 style="display: none;"></h2>
@@ -26,10 +26,6 @@ defined('ABSPATH') or exit;
 
 			<form action="<?php echo admin_url('options.php'); ?>" method="post">
 				<?php settings_fields('mc4wp_settings'); ?>
-
-				<h3>
-					<?php _e('Mailchimp API Settings', 'mailchimp-for-wp'); ?>
-				</h3>
 
 				<table class="form-table">
 

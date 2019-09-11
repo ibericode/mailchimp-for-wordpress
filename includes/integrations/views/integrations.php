@@ -100,7 +100,7 @@ function _mc4wp_integrations_table($integrations)
 		<!-- Main Content -->
 		<div class="col col-4">
 
-			<h1 class="page-title"><?php _e('Integrations', 'mailchimp-for-wp'); ?></h1>
+			<h1 class="page-title">Mailchimp for WordPress: <?php _e('Integrations', 'mailchimp-for-wp'); ?></h1>
 
 			<h2 style="display: none;"></h2>
 			<?php settings_errors(); ?>
