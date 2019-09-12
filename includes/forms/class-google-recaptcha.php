@@ -11,7 +11,7 @@ class MC4WP_Google_Recaptcha {
         add_filter('mc4wp_form_errors', array($this, 'verify_token'), 10, 2);
         add_action('mc4wp_admin_form_after_behaviour_settings_rows', array($this, 'show_settings'), 30, 2);
         add_filter('mc4wp_form_sanitized_data', array($this, 'sanitize_settings'), 20, 2);
-        add_action('wp_footer', array($this, 'load_script'), 800);
+        add_action('wp_footer', array($this, 'load_script'), 8000);
     }
 
 
@@ -48,6 +48,11 @@ class MC4WP_Google_Recaptcha {
 
     public function load_script() {
         $global_settings = mc4wp_get_settings();
+
+        // do not load if no forms with Google reCAPTCHA enabled were outputted
+        if (empty($this->form_ids) || empty($global_settings['grecaptcha_site_key']) || empty($global_settings['grecaptcha_secret_key'])) {
+            return;
+        }
 
         // load Google reCAPTCHA script
         echo sprintf('<script src="https://www.google.com/recaptcha/api.js?render=%s"></script>', esc_attr($global_settings['grecaptcha_site_key']));
