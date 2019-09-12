@@ -1,6 +1,13 @@
 Changelog
 =========
 
+#### 4.5.5 - Sep 12, 2019
+
+**Fixes**
+
+- Google reCAPTCHA script was still loading even if no forms have it enabled.
+
+
 #### 4.5.4 - Sep 11, 2019
 
 **Improvements**
