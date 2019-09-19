@@ -32,27 +32,24 @@ class MC4WP_MailChimp
     public function list_subscribe($list_id, $email_address, array $args = array(), $update_existing = false, $replace_interests = true)
     {
         $this->reset_error();
-
         $default_args = array(
             'status' => 'pending',
             'email_address' => $email_address,
-            'interests' => array(),
-            'merge_fields' => array(),
         );
-        $already_on_list = false;
+        $existing_member_data = null;
 
         // setup default args
-        $args = $args + $default_args;
+        $args = array_merge($default_args, $args);
+        $api = $this->get_api();
 
         // first, check if subscriber is already on the given list
         try {
-            $existing_member_data = $this->get_api()->get_list_member($list_id, $email_address);
+            $existing_member_data = $api->get_list_member($list_id, $email_address);
 
             if ($existing_member_data->status === 'subscribed') {
-                $already_on_list = true;
 
                 // if we're not supposed to update, bail.
-                if (! $update_existing) {
+                if (false === $update_existing) {
                     $this->error_code = 214;
                     $this->error_message = 'That subscriber already exists.';
                     return null;
@@ -78,8 +75,7 @@ class MC4WP_MailChimp
                 }
             } elseif ($args['status']  === 'pending' && $existing_member_data->status === 'pending') {
                 // this ensures that a new double opt-in email is send out
-                $this->get_api()->update_list_member($list_id, $email_address, array(
-                    'email_address' => $email_address,
+                $api->update_list_member($list_id, $email_address, array(
                     'status' => 'unsubscribed',
                 ));
             }
@@ -93,14 +89,17 @@ class MC4WP_MailChimp
         }
 
         try {
-            $data = $this->get_api()->add_list_member($list_id, $args);
+            if ($existing_member_data) {
+                $data = $api->update_list_member($list_id, $email_address, $args);
+                $data->was_already_on_list = $existing_member_data->status === 'subscribed';
+            } else {
+                $data = $api->add_new_list_member($list_id, $args);
+            }
         } catch (MC4WP_API_Exception $e) {
             $this->error_code = $e->getCode();
             $this->error_message = $e;
             return null;
         }
-
-        $data->was_already_on_list = $already_on_list;
 
         return $data;
     }
@@ -396,7 +395,6 @@ class MC4WP_MailChimp
         foreach ($lists as $list) {
             $list_counts["{$list->id}"] = $list->stats->member_count;
         }
-
 
         /**
         * Filters the cache time for Mailchimp lists configuration, in seconds. Defaults to 3600 seconds (1 hour).

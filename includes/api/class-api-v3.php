@@ -217,6 +217,35 @@ class MC4WP_API_v3
     }
 
     /**
+     * Add a new member to a Mailchimp list.
+     *
+     * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#create-post_lists_list_id_members
+     *
+     * @param string $list_id
+     * @param array $args
+     *
+     * @return object
+     * @throws MC4WP_API_Exception
+     */
+    public function add_new_list_member($list_id, array $args)
+    {
+        $resource = sprintf('/lists/%s/members', $list_id);
+
+        // make sure we're sending an object as the Mailchimp schema requires this
+        if (isset($args['merge_fields'])) {
+            $args['merge_fields'] = (object) $args['merge_fields'];
+        }
+
+        if (isset($args['interests'])) {
+            $args['interests'] = (object) $args['interests'];
+        }
+
+        // "put" updates the member if it's already on the list... take notice
+        $data = $this->client->post($resource, $args);
+        return $data;
+    }
+
+    /**
      * Add or update (!) a member to a Mailchimp list.
      *
      * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/#create-post_lists_list_id_members
