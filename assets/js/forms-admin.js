@@ -7206,8 +7206,15 @@ window.mc4wp.forms.fields = fields;
     var line = getLine(doc, pos.line);
     if (line.markedSpans) { for (var i = 0; i < line.markedSpans.length; ++i) {
       var sp = line.markedSpans[i], m = sp.marker;
-      if ((sp.from == null || (m.inclusiveLeft ? sp.from <= pos.ch : sp.from < pos.ch)) &&
-          (sp.to == null || (m.inclusiveRight ? sp.to >= pos.ch : sp.to > pos.ch))) {
+
+      // Determine if we should prevent the cursor being placed to the left/right of an atomic marker
+      // Historically this was determined using the inclusiveLeft/Right option, but the new way to control it
+      // is with selectLeft/Right
+      var preventCursorLeft = ("selectLeft" in m) ? !m.selectLeft : m.inclusiveLeft;
+      var preventCursorRight = ("selectRight" in m) ? !m.selectRight : m.inclusiveRight;
+
+      if ((sp.from == null || (preventCursorLeft ? sp.from <= pos.ch : sp.from < pos.ch)) &&
+          (sp.to == null || (preventCursorRight ? sp.to >= pos.ch : sp.to > pos.ch))) {
         if (mayClear) {
           signal(m, "beforeCursorEnter");
           if (m.explicitlyCleared) {
@@ -7219,14 +7226,14 @@ window.mc4wp.forms.fields = fields;
 
         if (oldPos) {
           var near = m.find(dir < 0 ? 1 : -1), diff = (void 0);
-          if (dir < 0 ? m.inclusiveRight : m.inclusiveLeft)
+          if (dir < 0 ? preventCursorRight : preventCursorLeft)
             { near = movePos(doc, near, -dir, near && near.line == pos.line ? line : null); }
           if (near && near.line == pos.line && (diff = cmp(near, oldPos)) && (dir < 0 ? diff < 0 : diff > 0))
             { return skipAtomicInner(doc, near, pos, dir, mayClear) }
         }
 
         var far = m.find(dir < 0 ? -1 : 1);
-        if (dir < 0 ? m.inclusiveLeft : m.inclusiveRight)
+        if (dir < 0 ? preventCursorLeft : preventCursorRight)
           { far = movePos(doc, far, dir, far.line == pos.line ? line : null); }
         return far ? skipAtomicInner(doc, far, pos, dir, mayClear) : null
       }
@@ -9759,7 +9766,7 @@ window.mc4wp.forms.fields = fields;
       for (var i = newBreaks.length - 1; i >= 0; i--)
         { replaceRange(cm.doc, val, newBreaks[i], Pos(newBreaks[i].line, newBreaks[i].ch + val.length)); }
     });
-    option("specialChars", /[\u0000-\u001f\u007f-\u009f\u00ad\u061c\u200b-\u200f\u2028\u2029\ufeff]/g, function (cm, val, old) {
+    option("specialChars", /[\u0000-\u001f\u007f-\u009f\u00ad\u061c\u200b-\u200f\u2028\u2029\ufeff\ufff9-\ufffc]/g, function (cm, val, old) {
       cm.state.specialChars = new RegExp(val.source + (val.test("\t") ? "" : "|\t"), "g");
       if (old != Init) { cm.refresh(); }
     });
@@ -11807,7 +11814,7 @@ window.mc4wp.forms.fields = fields;
 
   addLegacyProps(CodeMirror);
 
-  CodeMirror.version = "5.47.0";
+  CodeMirror.version = "5.48.2";
 
   return CodeMirror;
 
@@ -12870,7 +12877,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     if (ch == '"' || ch == "'") {
       state.tokenize = tokenString(ch);
       return state.tokenize(stream, state);
-    } else if (ch == "." && stream.match(/^\d+(?:[eE][+\-]?\d+)?/)) {
+    } else if (ch == "." && stream.match(/^\d[\d_]*(?:[eE][+\-]?[\d_]+)?/)) {
       return ret("number", "number");
     } else if (ch == "." && stream.match("..")) {
       return ret("spread", "meta");
@@ -12878,10 +12885,10 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
       return ret(ch);
     } else if (ch == "=" && stream.eat(">")) {
       return ret("=>", "operator");
-    } else if (ch == "0" && stream.match(/^(?:x[\da-f]+|o[0-7]+|b[01]+)n?/i)) {
+    } else if (ch == "0" && stream.match(/^(?:x[\dA-Fa-f_]+|o[0-7_]+|b[01_]+)n?/)) {
       return ret("number", "number");
     } else if (/\d/.test(ch)) {
-      stream.match(/^\d*(?:n|(?:\.\d*)?(?:[eE][+\-]?\d+)?)?/);
+      stream.match(/^[\d_]*(?:n|(?:\.[\d_]*)?(?:[eE][+\-]?[\d_]+)?)?/);
       return ret("number", "number");
     } else if (ch == "/") {
       if (stream.eat("*")) {
@@ -12998,8 +13005,12 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
         ++depth;
       } else if (wordRE.test(ch)) {
         sawSomething = true;
-      } else if (/["'\/]/.test(ch)) {
-        return;
+      } else if (/["'\/`]/.test(ch)) {
+        for (;; --pos) {
+          if (pos == 0) return
+          var next = stream.string.charAt(pos - 1)
+          if (next == ch && stream.string.charAt(pos - 2) != "\\") { pos--; break }
+        }
       } else if (sawSomething && !depth) {
         ++pos;
         break;
@@ -13377,9 +13388,12 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
   }
   function maybetype(type, value) {
     if (isTS) {
-      if (type == ":" || value == "in") return cont(typeexpr);
+      if (type == ":") return cont(typeexpr);
       if (value == "?") return cont(maybetype);
     }
+  }
+  function maybetypeOrIn(type, value) {
+    if (isTS && (type == ":" || value == "in")) return cont(typeexpr)
   }
   function mayberettype(type) {
     if (isTS && type == ":") {
@@ -13421,7 +13435,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     } else if (type == ":") {
       return cont(typeexpr)
     } else if (type == "[") {
-      return cont(expect("variable"), maybetype, expect("]"), typeprop)
+      return cont(expect("variable"), maybetypeOrIn, expect("]"), typeprop)
     } else if (type == "(") {
       return pass(functiondecl, typeprop)
     }
@@ -14673,161 +14687,179 @@ module.exports = require("./stream/stream")
 ;(function() {
 "use strict"
 /* eslint-enable */
+Stream.SKIP = {}
+Stream.lift = lift
+Stream.scan = scan
+Stream.merge = merge
+Stream.combine = combine
+Stream.scanMerge = scanMerge
+Stream["fantasy-land/of"] = Stream
 
-var guid = 0, HALT = {}
-function createStream() {
-	function stream() {
-		if (arguments.length > 0 && arguments[0] !== HALT) updateStream(stream, arguments[0])
-		return stream._state.value
+var warnedHalt = false
+Object.defineProperty(Stream, "HALT", {
+	get: function() {
+		warnedHalt || console.log("HALT is deprecated and has been renamed to SKIP");
+		warnedHalt = true
+		return Stream.SKIP
 	}
-	initStream(stream)
+})
 
-	if (arguments.length > 0 && arguments[0] !== HALT) updateStream(stream, arguments[0])
+function Stream(value) {
+	var dependentStreams = []
+	var dependentFns = []
+
+	function stream(v) {
+		if (arguments.length && v !== Stream.SKIP) {
+			value = v
+			if (open(stream)) {
+				stream._changing()
+				stream._state = "active"
+				dependentStreams.forEach(function(s, i) { s(dependentFns[i](value)) })
+			}
+		}
+
+		return value
+	}
+
+	stream.constructor = Stream
+	stream._state = arguments.length && value !== Stream.SKIP ? "active" : "pending"
+	stream._parents = []
+
+	stream._changing = function() {
+		if (open(stream)) stream._state = "changing"
+		dependentStreams.forEach(function(s) {
+			s._changing()
+		})
+	}
+
+	stream._map = function(fn, ignoreInitial) {
+		var target = ignoreInitial ? Stream() : Stream(fn(value))
+		target._parents.push(stream)
+		dependentStreams.push(target)
+		dependentFns.push(fn)
+		return target
+	}
+
+	stream.map = function(fn) {
+		return stream._map(fn, stream._state !== "active")
+	}
+
+	var end
+	function createEnd() {
+		end = Stream()
+		end.map(function(value) {
+			if (value === true) {
+				stream._parents.forEach(function (p) {p._unregisterChild(stream)})
+				stream._state = "ended"
+				stream._parents.length = dependentStreams.length = dependentFns.length = 0
+			}
+			return value
+		})
+		return end
+	}
+
+	stream.toJSON = function() { return value != null && typeof value.toJSON === "function" ? value.toJSON() : value }
+
+	stream["fantasy-land/map"] = stream.map
+	stream["fantasy-land/ap"] = function(x) { return combine(function(s1, s2) { return s1()(s2()) }, [x, stream]) }
+
+	stream._unregisterChild = function(child) {
+		var childIndex = dependentStreams.indexOf(child)
+		if (childIndex !== -1) {
+			dependentStreams.splice(childIndex, 1)
+			dependentFns.splice(childIndex, 1)
+		}
+	}
+
+	Object.defineProperty(stream, "end", {
+		get: function() { return end || createEnd() }
+	})
 
 	return stream
 }
-function initStream(stream) {
-	stream.constructor = createStream
-	stream._state = {id: guid++, value: undefined, state: 0, derive: undefined, recover: undefined, deps: {}, parents: [], endStream: undefined, unregister: undefined}
-	stream.map = stream["fantasy-land/map"] = map, stream["fantasy-land/ap"] = ap, stream["fantasy-land/of"] = createStream
-	stream.valueOf = valueOf, stream.toJSON = toJSON, stream.toString = valueOf
-
-	Object.defineProperties(stream, {
-		end: {get: function() {
-			if (!stream._state.endStream) {
-				var endStream = createStream()
-				endStream.map(function(value) {
-					if (value === true) {
-						unregisterStream(stream)
-						endStream._state.unregister = function(){unregisterStream(endStream)}
-					}
-					return value
-				})
-				stream._state.endStream = endStream
-			}
-			return stream._state.endStream
-		}}
-	})
-}
-function updateStream(stream, value) {
-	updateState(stream, value)
-	for (var id in stream._state.deps) updateDependency(stream._state.deps[id], false)
-	if (stream._state.unregister != null) stream._state.unregister()
-	finalize(stream)
-}
-function updateState(stream, value) {
-	stream._state.value = value
-	stream._state.changed = true
-	if (stream._state.state !== 2) stream._state.state = 1
-}
-function updateDependency(stream, mustSync) {
-	var state = stream._state, parents = state.parents
-	if (parents.length > 0 && parents.every(active) && (mustSync || parents.some(changed))) {
-		var value = stream._state.derive()
-		if (value === HALT) return false
-		updateState(stream, value)
-	}
-}
-function finalize(stream) {
-	stream._state.changed = false
-	for (var id in stream._state.deps) stream._state.deps[id]._state.changed = false
-}
 
 function combine(fn, streams) {
-	if (!streams.every(valid)) throw new Error("Ensure that each item passed to stream.combine/stream.merge is a stream")
-	return initDependency(createStream(), streams, function() {
-		return fn.apply(this, streams.concat([streams.filter(changed)]))
+	var ready = streams.every(function(s) {
+		if (s.constructor !== Stream)
+			throw new Error("Ensure that each item passed to stream.combine/stream.merge/lift is a stream")
+		return s._state === "active"
 	})
+	var stream = ready
+		? Stream(fn.apply(null, streams.concat([streams])))
+		: Stream()
+
+	var changed = []
+
+	var mappers = streams.map(function(s) {
+		return s._map(function(value) {
+			changed.push(s)
+			if (ready || streams.every(function(s) { return s._state !== "pending" })) {
+				ready = true
+				stream(fn.apply(null, streams.concat([changed])))
+				changed = []
+			}
+			return value
+		}, true)
+	})
+
+	var endStream = stream.end.map(function(value) {
+		if (value === true) {
+			mappers.forEach(function(mapper) { mapper.end(true) })
+			endStream.end(true)
+		}
+		return undefined
+	})
+
+	return stream
 }
-
-function initDependency(dep, streams, derive) {
-	var state = dep._state
-	state.derive = derive
-	state.parents = streams.filter(notEnded)
-
-	registerDependency(dep, state.parents)
-	updateDependency(dep, true)
-
-	return dep
-}
-function registerDependency(stream, parents) {
-	for (var i = 0; i < parents.length; i++) {
-		parents[i]._state.deps[stream._state.id] = stream
-		registerDependency(stream, parents[i]._state.parents)
-	}
-}
-function unregisterStream(stream) {
-	for (var i = 0; i < stream._state.parents.length; i++) {
-		var parent = stream._state.parents[i]
-		delete parent._state.deps[stream._state.id]
-	}
-	for (var id in stream._state.deps) {
-		var dependent = stream._state.deps[id]
-		var index = dependent._state.parents.indexOf(stream)
-		if (index > -1) dependent._state.parents.splice(index, 1)
-	}
-	stream._state.state = 2 //ended
-	stream._state.deps = {}
-}
-
-function map(fn) {return combine(function(stream) {return fn(stream())}, [this])}
-function ap(stream) {return combine(function(s1, s2) {return s1()(s2())}, [stream, this])}
-function valueOf() {return this._state.value}
-function toJSON() {return this._state.value != null && typeof this._state.value.toJSON === "function" ? this._state.value.toJSON() : this._state.value}
-
-function valid(stream) {return stream._state }
-function active(stream) {return stream._state.state === 1}
-function changed(stream) {return stream._state.changed}
-function notEnded(stream) {return stream._state.state !== 2}
 
 function merge(streams) {
-	return combine(function() {
-		return streams.map(function(s) {return s()})
-	}, streams)
+	return combine(function() { return streams.map(function(s) { return s() }) }, streams)
 }
 
-function scan(reducer, seed, stream) {
-	var newStream = combine(function (s) {
-		return seed = reducer(seed, s._state.value)
-	}, [stream])
-
-	if (newStream._state.state === 0) newStream(seed)
-
-	return newStream
+function scan(fn, acc, origin) {
+	var stream = origin.map(function(v) {
+		var next = fn(acc, v)
+		if (next !== Stream.SKIP) acc = next
+		return next
+	})
+	stream(acc)
+	return stream
 }
 
 function scanMerge(tuples, seed) {
-	var streams = tuples.map(function(tuple) {
-		var stream = tuple[0]
-		if (stream._state.state === 0) stream(undefined)
-		return stream
-	})
+	var streams = tuples.map(function(tuple) { return tuple[0] })
 
-	var newStream = combine(function() {
+	var stream = combine(function() {
 		var changed = arguments[arguments.length - 1]
-
-		streams.forEach(function(stream, idx) {
-			if (changed.indexOf(stream) > -1) {
-				seed = tuples[idx][1](seed, stream._state.value)
-			}
+		streams.forEach(function(stream, i) {
+			if (changed.indexOf(stream) > -1)
+				seed = tuples[i][1](seed, stream())
 		})
 
 		return seed
 	}, streams)
 
-	return newStream
+	stream(seed)
+
+	return stream
 }
 
-createStream["fantasy-land/of"] = createStream
-createStream.merge = merge
-createStream.combine = combine
-createStream.scan = scan
-createStream.scanMerge = scanMerge
-createStream.HALT = HALT
+function lift() {
+	var fn = arguments[0]
+	var streams = Array.prototype.slice.call(arguments, 1)
+	return merge(streams).map(function(streams) {
+		return fn.apply(undefined, streams)
+	})
+}
 
-if (typeof module !== "undefined") module["exports"] = createStream
-else if (typeof window.m === "function" && !("stream" in window.m)) window.m.stream = createStream
-else window.m = {stream : createStream}
+function open(s) {
+	return s._state === "pending" || s._state === "active" || s._state === "changing"
+}
+
+if (typeof module !== "undefined") module["exports"] = Stream
+else if (typeof window.m === "function" && !("stream" in window.m)) window.m.stream = Stream
+else window.m = {stream : Stream}
 
 }());
 

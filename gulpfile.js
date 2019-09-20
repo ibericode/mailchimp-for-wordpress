@@ -3,8 +3,8 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const uglify = require('gulp-uglify');
-const rename = require("gulp-rename");
-const cssmin = require('gulp-cssmin');
+const rename = require('gulp-rename');
+const cleancss = require('gulp-clean-css');
 const source = require('vinyl-source-stream');
 const browserify = require('browserify');
 const merge = require('merge-stream');
@@ -26,7 +26,7 @@ gulp.task('sass', function () {
 		.pipe(gulp.dest('./assets/css'))
 
 		// create .min.css
-		.pipe(cssmin())
+		.pipe(cleancss())
 		.pipe(rename({extname: '.min.css'}))
 		.pipe(gulp.dest("./assets/css"));
 });
