@@ -15,7 +15,6 @@ const FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 	 * @returns {*}
 	 */
 	function setActiveField(index) {
-
 		fieldConfig = fields.get(index);
 
 		// if this hidden field has choices (hidden groups), glue them together by their label.
@@ -94,7 +93,7 @@ const FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 						return m("button", {
 							className: className,
 							type   : 'button',
-							onclick: m.withAttr("value", setActiveField),
+							onclick: (evt) => setActiveField(evt.target.value),
 							value  : field.index
 						}, field.title() );
 					})

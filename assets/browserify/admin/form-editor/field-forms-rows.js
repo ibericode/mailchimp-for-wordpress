@@ -22,7 +22,7 @@ const rows = function(m, i18n) {
 			m("input.widefat", {
 				type       : "text",
 				value      : config.label(),
-				onchange   : m.withAttr('value', config.label),
+				onchange   : (evt) => config.label(evt.target.value),
 				placeholder: config.title()
 			})
 		]);
@@ -39,7 +39,7 @@ const rows = function(m, i18n) {
 			m("input.widefat", {
 				type   : "text",
 				value  : config.value(),
-				onchange: m.withAttr('value', config.value)
+				onchange: (evt) => config.value(evt.target.value),
 			}),
 			isHidden ? '' : m('p.help', i18n.valueHelp)
 		]);
@@ -50,11 +50,17 @@ const rows = function(m, i18n) {
 			m('div.row', [
 				m('div.col.col-3', [
 					m('label', i18n.min),
-					m('input', {type: 'number', onchange: m.withAttr('value', config.min)})
+					m('input', {
+						type: 'number',
+						onchange: (evt) => config.min(evt.target.value),
+					})
 				]),
 				m('div.col.col-3', [
 					m('label', i18n.max),
-					m('input', {type: 'number', onchange: m.withAttr('value', config.max)})
+					m('input', {
+						type: 'number',
+						onchange: (evt) => config.max(evt.target.value),
+					})
 				])
 			])
 		])
@@ -65,7 +71,7 @@ const rows = function(m, i18n) {
 		let inputAtts = {
 			type : 'checkbox',
 			checked : config.required(),
-			onchange: m.withAttr('checked', config.required)
+			onchange: (evt) => config.required(evt.target.checked),
 		};
         let desc;
 
@@ -95,7 +101,7 @@ const rows = function(m, i18n) {
 			m("input.widefat", {
 				type   : "text",
 				value  : config.placeholder(),
-				onchange: m.withAttr('value', config.placeholder),
+				onchange: (evt) => config.placeholder(evt.target.value),
 				placeholder: ""
 			}),
 			m("p.help", i18n.placeholderHelp)
@@ -108,7 +114,7 @@ const rows = function(m, i18n) {
 				m('input', {
 					type    : 'checkbox',
 					checked : config.wrap(),
-					onchange: m.withAttr('checked', config.wrap)
+					onchange: (evt) => config.wrap(evt.target.checked),
 				}),
 				i18n.wrapInParagraphTags
 			])
@@ -141,7 +147,7 @@ const rows = function(m, i18n) {
 			m('label', i18n.choiceType ),
 			m('select', {
 				value   : config.type(),
-				onchange: m.withAttr('value', config.type)
+				onchange: (evt) => config.type(evt.target.value),
 			}, options)
 		]);
 	};
@@ -162,7 +168,7 @@ const rows = function(m, i18n) {
 							m('td.cb', m('input', {
 									name: 'selected',
 									type: (config.type() === 'checkbox' ) ? 'checkbox' : 'radio',
-									onchange: m.withAttr('value', config.selectChoice.bind(config)),
+									onchange: (evt) => config.selectChoice(evt.target.value), // m.withAttr('value', config.selectChoice.bind(config)),
 									checked: choice.selected(),
 									value: choice.value(),
 									title: i18n.preselect
@@ -172,7 +178,7 @@ const rows = function(m, i18n) {
 								type: 'text',
 								value: choice.label(),
 								placeholder: choice.title(),
-								onchange: m.withAttr('value', choice.label)
+								onchange: (evt) => choice.label(evt.target.value), //m.withAttr('value', choice.label)
 							})),
 							m('td', m('span', {
 								"title": i18n.remove,
@@ -199,7 +205,7 @@ const rows = function(m, i18n) {
 			m("input.widefat", {
 				type       : "text",
 				value      : config.link,
-				onchange   : m.withAttr('value', config.link),
+				onchange   : (evt) => config.link(evt.target.value),
 				placeholder: 'https://...',
 			})
 		]);

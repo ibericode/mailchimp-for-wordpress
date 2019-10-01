@@ -16,7 +16,9 @@ var rows = function rows(m, i18n) {
     return m("div", [m("label", i18n.fieldLabel), m("input.widefat", {
       type: "text",
       value: config.label(),
-      onchange: m.withAttr('value', config.label),
+      onchange: function onchange(evt) {
+        return config.label(evt.target.value);
+      },
       placeholder: config.title()
     })]);
   };
@@ -28,17 +30,23 @@ var rows = function rows(m, i18n) {
     }, i18n.optional)]), m("input.widefat", {
       type: "text",
       value: config.value(),
-      onchange: m.withAttr('value', config.value)
+      onchange: function onchange(evt) {
+        return config.value(evt.target.value);
+      }
     }), isHidden ? '' : m('p.help', i18n.valueHelp)]);
   };
 
   r.numberMinMax = function (config) {
     return m('div', [m('div.row', [m('div.col.col-3', [m('label', i18n.min), m('input', {
       type: 'number',
-      onchange: m.withAttr('value', config.min)
+      onchange: function onchange(evt) {
+        return config.min(evt.target.value);
+      }
     })]), m('div.col.col-3', [m('label', i18n.max), m('input', {
       type: 'number',
-      onchange: m.withAttr('value', config.max)
+      onchange: function onchange(evt) {
+        return config.max(evt.target.value);
+      }
     })])])]);
   };
 
@@ -46,7 +54,9 @@ var rows = function rows(m, i18n) {
     var inputAtts = {
       type: 'checkbox',
       checked: config.required(),
-      onchange: m.withAttr('checked', config.required)
+      onchange: function onchange(evt) {
+        return config.required(evt.target.checked);
+      }
     };
     var desc;
 
@@ -65,7 +75,9 @@ var rows = function rows(m, i18n) {
     }, i18n.optional)]), m("input.widefat", {
       type: "text",
       value: config.placeholder(),
-      onchange: m.withAttr('value', config.placeholder),
+      onchange: function onchange(evt) {
+        return config.placeholder(evt.target.value);
+      },
       placeholder: ""
     }), m("p.help", i18n.placeholderHelp)]);
   };
@@ -74,7 +86,9 @@ var rows = function rows(m, i18n) {
     return m('div', [m('label.cb-wrap', [m('input', {
       type: 'checkbox',
       checked: config.wrap(),
-      onchange: m.withAttr('checked', config.wrap)
+      onchange: function onchange(evt) {
+        return config.wrap(evt.target.checked);
+      }
     }), i18n.wrapInParagraphTags])]);
   };
 
@@ -96,7 +110,9 @@ var rows = function rows(m, i18n) {
 
     return m('div', [m('label', i18n.choiceType), m('select', {
       value: config.type(),
-      onchange: m.withAttr('value', config.type)
+      onchange: function onchange(evt) {
+        return config.type(evt.target.value);
+      }
     }, options)]);
   };
 
@@ -109,7 +125,10 @@ var rows = function rows(m, i18n) {
       }, [m('td.cb', m('input', {
         name: 'selected',
         type: config.type() === 'checkbox' ? 'checkbox' : 'radio',
-        onchange: m.withAttr('value', config.selectChoice.bind(config)),
+        onchange: function onchange(evt) {
+          return config.selectChoice(evt.target.value);
+        },
+        // m.withAttr('value', config.selectChoice.bind(config)),
         checked: choice.selected(),
         value: choice.value(),
         title: i18n.preselect
@@ -117,7 +136,10 @@ var rows = function rows(m, i18n) {
         type: 'text',
         value: choice.label(),
         placeholder: choice.title(),
-        onchange: m.withAttr('value', choice.label)
+        onchange: function onchange(evt) {
+          return choice.label(evt.target.value);
+        } //m.withAttr('value', choice.label)
+
       })), m('td', m('span', {
         "title": i18n.remove,
         "class": 'dashicons dashicons-no-alt hover-activated',
@@ -136,7 +158,9 @@ var rows = function rows(m, i18n) {
     return m("div", [m("label", i18n.agreeToTermsLink), m("input.widefat", {
       type: "text",
       value: config.link,
-      onchange: m.withAttr('value', config.link),
+      onchange: function onchange(evt) {
+        return config.link(evt.target.value);
+      },
       placeholder: 'https://...'
     })]);
   };
@@ -475,7 +499,9 @@ var FieldHelper = function FieldHelper(m, tabs, editor, fields, events, i18n) {
         return m("button", {
           className: className,
           type: 'button',
-          onclick: m.withAttr("value", setActiveField),
+          onclick: function onclick(evt) {
+            return setActiveField(evt.target.value);
+          },
           value: field.index
         }, field.title());
       })]);
@@ -787,7 +813,7 @@ module.exports = function (m, events) {
       var field = this;
       this.choices(this.choices().map(function (choice) {
         if (choice.value() === value) {
-          choice.selected(true);
+          choice.selected(!choice.selected());
         } else {
           // only checkboxes allow for multiple selections
           if (field.type() !== 'checkbox') {
@@ -798,6 +824,8 @@ module.exports = function (m, events) {
         return choice;
       }));
     };
+
+    this.selectChoice = this.selectChoice.bind(this);
   };
   /**
    * @internal

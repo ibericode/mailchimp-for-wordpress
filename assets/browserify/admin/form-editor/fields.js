@@ -39,9 +39,8 @@ module.exports = function(m, events) {
             let field = this;
 
             this.choices(this.choices().map(function(choice) {
-
                 if( choice.value() === value ) {
-                    choice.selected(true);
+                    choice.selected(!choice.selected());
                 } else {
                     // only checkboxes allow for multiple selections
                     if( field.type() !== 'checkbox' ) {
@@ -53,6 +52,8 @@ module.exports = function(m, events) {
 
             }));
         };
+
+        this.selectChoice = this.selectChoice.bind(this);
     };
 
     /**
