@@ -160,7 +160,7 @@ class MC4WP_API_v3_Client
 
         $headers = array();
         $headers['Authorization'] = 'Basic ' . base64_encode('mc4wp:' . $this->api_key);
-        $headers['User-Agent'] = 'mc4wp/' . MC4WP_VERSION . '; WordPress/' . $wp_version . '; ' . get_bloginfo('url');
+        $headers['User-Agent'] = 'mc4wp/' . MC4WP_VERSION . '; WordPress/' . $wp_version . '; ' . home_url();
 
         // Copy Accept-Language from browser headers
         if (! empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
