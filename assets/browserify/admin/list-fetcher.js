@@ -55,10 +55,8 @@ ListFetcher.prototype.view = function () {
 
             this.working ? [
                 m('span.mc4wp-loader', "Loading..."),
-                m.trust(' &nbsp; '),
-                m('em.help', i18n.fetching_mailchimp_lists_can_take_a_while)
+                m.trust(' &nbsp; ')
             ]: '',
-
             this.done ? [
                 this.success ? m( 'em.help.green', i18n.fetching_mailchimp_lists_done ) : m('em.help.red', i18n.fetching_mailchimp_lists_error )
             ] : ''

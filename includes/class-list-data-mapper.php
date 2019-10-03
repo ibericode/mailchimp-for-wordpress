@@ -25,6 +25,8 @@ class MC4WP_List_Data_Mapper
     */
     private $formatter;
 
+    private $mailchimp;
+
     /**
     * @param array $data
     * @param array $list_ids
@@ -32,12 +34,13 @@ class MC4WP_List_Data_Mapper
     public function __construct(array $data, array $list_ids)
     {
         $this->data = array_change_key_case($data, CASE_UPPER);
-        $this->list_ids = $list_ids;
-        $this->formatter = new MC4WP_Field_Formatter();
-
         if (! isset($this->data['EMAIL'])) {
             throw new InvalidArgumentException('Data needs at least an EMAIL key.');
         }
+
+        $this->list_ids = $list_ids;
+        $this->formatter = new MC4WP_Field_Formatter();
+        $this->mailchimp = new MC4WP_MailChimp();;
     }
 
     /**
@@ -45,32 +48,28 @@ class MC4WP_List_Data_Mapper
     */
     public function map()
     {
-        $mailchimp = new MC4WP_MailChimp();
         $map = array();
 
         foreach ($this->list_ids as $list_id) {
-            $list = $mailchimp->get_list($list_id, true);
-
-            if ($list instanceof MC4WP_MailChimp_List) {
-                $map[ $list_id ] = $this->map_list($list);
-            }
+            $map["$list_id"] = $this->map_list($list_id);
         }
 
         return $map;
     }
 
     /**
-    * @param MC4WP_MailChimp_List $list
+    * @param string $list_id
     *
     * @return MC4WP_MailChimp_Subscriber
     */
-    protected function map_list(MC4WP_MailChimp_List $list)
+    protected function map_list($list_id)
     {
         $subscriber = new MC4WP_MailChimp_Subscriber();
         $subscriber->email_address = $this->data['EMAIL'];
 
         // find merge fields
-        foreach ($list->merge_fields as $merge_field) {
+        $merge_fields = $this->mailchimp->fetch_list_merge_fields($list_id);
+        foreach ($merge_fields as $merge_field) {
 
             // skip EMAIL field as that is handled separately (see above)
             if ($merge_field->tag === 'EMAIL') {
@@ -84,7 +83,7 @@ class MC4WP_List_Data_Mapper
 
             // format field value
             $value = $this->data[ $merge_field->tag ];
-            $value = $this->format_merge_field_value($value, $merge_field->field_type, $merge_field->format);
+            $value = $this->format_merge_field_value($merge_field, $value);
 
             // add to map
             $subscriber->merge_fields[ $merge_field->tag ] = $value;
@@ -92,7 +91,8 @@ class MC4WP_List_Data_Mapper
 
         // find interest categories
         if (! empty($this->data['INTERESTS'])) {
-            foreach ($list->interest_categories as $interest_category) {
+            $interest_categories = $this->mailchimp->fetch_list_interest_categories($list_id);
+            foreach ($interest_categories as $interest_category) {
                 foreach ($interest_category->interests as $interest_id => $interest_name) {
                     // straight lookup by ID as key with value copy.
                     if (isset($this->data['INTERESTS'][ $interest_id ])) {
@@ -134,18 +134,17 @@ class MC4WP_List_Data_Mapper
 
 
     /**
-    * @param mixed $field_value
-    * @param string $field_type
-    * @param string $field_format
+     * @param object $merge_field
+     * @param string $value
      *
-    * @return mixed
+     * @return mixed
     */
-    private function format_merge_field_value($field_value, $field_type, $field_format = '')
+    private function format_merge_field_value($merge_field, $value)
     {
-        $field_type = strtolower($field_type);
+        $field_type = strtolower($merge_field->type);
 
         if (method_exists($this->formatter, $field_type)) {
-            $field_value = call_user_func(array($this->formatter, $field_type), $field_value, $field_format);
+            $value = call_user_func(array($this->formatter, $field_type), $value, $merge_field->options);
         }
 
         /**
@@ -154,11 +153,11 @@ class MC4WP_List_Data_Mapper
         * Use this to format a field value according to the field type (in Mailchimp).
         *
         * @since 3.0
-        * @param string $field_value The value
+        * @param string $value The value
         * @param string $field_type The type of the field (in Mailchimp)
         */
-        $field_value = apply_filters('mc4wp_format_field_value', $field_value, $field_type);
+        $value = apply_filters('mc4wp_format_field_value', $value, $field_type);
 
-        return $field_value;
+        return $value;
     }
 }

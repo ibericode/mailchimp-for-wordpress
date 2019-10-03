@@ -10,10 +10,10 @@ class MC4WP_Field_Formatter
 
     /**
      * @param mixed $value
-     * @param string $format
+     * @param object $options
      * @return array
      */
-    public function address($value, $format = null)
+    public function address($value, $options = null)
     {
         // auto-format if this is a string
         if (is_string($value)) {
@@ -45,11 +45,13 @@ class MC4WP_Field_Formatter
 
     /**
      * @param mixed $value
-     * @param string $format
+     * @param object $options
      * @return string
      */
-    public function birthday($value, $format = 'MM/DD')
+    public function birthday($value, $options = null)
     {
+        $format = is_object($options) && isset($options->date_format) ? $options->date_format : 'MM/DD';
+
         if (is_array($value)) {
             // allow for "day" and "month" fields
             if (isset($value['month']) && isset($value['day'])) {
@@ -83,11 +85,13 @@ class MC4WP_Field_Formatter
 
     /**
      * @param mixed $value
-     * @param string $format
+     * @param object $options
      * @return string
      */
-    public function date($value, $format = 'Y-m-d')
+    public function date($value, $options = null)
     {
+        $format = is_object($options) && isset($options->date_format) ? $options->date_format : 'Y-m-d';
+
         if (is_array($value)) {
 
             // allow for "year", "month" and "day" keys
@@ -109,10 +113,10 @@ class MC4WP_Field_Formatter
 
     /**
      * @param string $value
-     * @param string $format
+     * @param object $options
      * @return string
      */
-    public function language($value, $format = null)
+    public function language($value, $options = null)
     {
         $value = trim($value);
 
@@ -131,10 +135,10 @@ class MC4WP_Field_Formatter
 
     /**
      * @param mixed $value
-     * @param string $format
+     * @param object $options
      * @return bool
      */
-    public function boolean($value, $format = null)
+    public function boolean($value, $options = null)
     {
         $falsey = array( 'false', '0' );
 

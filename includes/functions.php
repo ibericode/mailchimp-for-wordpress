@@ -442,7 +442,7 @@ function mc4wp_obfuscate_email_addresses($string)
 function mc4wp_refresh_mailchimp_lists()
 {
     $mailchimp = new MC4WP_MailChimp();
-    $mailchimp->fetch_lists();
+    $mailchimp->refresh_lists();
 }
 
 /**

@@ -212,7 +212,7 @@ class MC4WP_Admin
     public function renew_lists_cache()
     {
         // try getting new lists to fill cache again
-        $lists = $this->mailchimp->fetch_lists();
+        $lists = $this->mailchimp->refresh_lists();
 
         if (! empty($lists)) {
             $this->messages->flash(__('Success! The cached configuration for your Mailchimp lists has been renewed.', 'mailchimp-for-wp'));
@@ -264,7 +264,7 @@ class MC4WP_Admin
 
         // if API key changed, empty Mailchimp cache
         if ($settings['api_key'] !== $current['api_key']) {
-            $this->mailchimp->empty_cache();
+            $this->mailchimp->refresh_lists();
         }
 
 
@@ -315,7 +315,7 @@ class MC4WP_Admin
             array(
                 'mailchimp' => array(
                     'api_connected' => ! empty($opts['api_key']),
-                    'lists' => $this->mailchimp->get_cached_lists()
+                    'lists' => $this->mailchimp->get_lists()
                 ),
                 'countries' => MC4WP_Tools::get_countries(),
                 'i18n' => array(
@@ -324,7 +324,6 @@ class MC4WP_Admin
                     'renew_mailchimp_lists' => __('Renew Mailchimp lists', 'mailchimp-for-wp'),
                     'fetching_mailchimp_lists' => __('Fetching Mailchimp lists', 'mailchimp-for-wp'),
                     'fetching_mailchimp_lists_done' => __('Done! Mailchimp lists renewed.', 'mailchimp-for-wp'),
-                    'fetching_mailchimp_lists_can_take_a_while' => __('This can take a while if you have many Mailchimp lists.', 'mailchimp-for-wp'),
                     'fetching_mailchimp_lists_error' => __('Failed to renew your lists. An error occured.', 'mailchimp-for-wp'),
                 )
             )
@@ -454,7 +453,7 @@ class MC4WP_Admin
             }
         }
 
-        $lists = $this->mailchimp->get_cached_lists();
+        $lists = $this->mailchimp->get_lists();
         $obfuscated_api_key = mc4wp_obfuscate_string($api_key);
         require MC4WP_PLUGIN_DIR . 'includes/views/general-settings.php';
     }

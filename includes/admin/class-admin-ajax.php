@@ -23,7 +23,8 @@ class MC4WP_Admin_Ajax
      */
     public function add_hooks()
     {
-        add_action('wp_ajax_mc4wp_renew_mailchimp_lists', array( $this, 'refresh_mailchimp_lists' ));
+        add_action('wp_ajax_mc4wp_renew_mailchimp_lists', array($this, 'refresh_mailchimp_lists'));
+        add_action('wp_ajax_mc4wp_get_list_details', array($this, 'get_list_details'));
     }
 
     /**
@@ -36,7 +37,11 @@ class MC4WP_Admin_Ajax
         }
 
         $mailchimp = new MC4WP_MailChimp();
-        $success = $mailchimp->fetch_lists();
+        $success = $mailchimp->refresh_lists();
         wp_send_json($success);
+    }
+
+    public function get_list_details() {
+        wp_send_json(true);
     }
 }

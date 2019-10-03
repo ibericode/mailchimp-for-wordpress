@@ -41,13 +41,13 @@
             echo '<tr>';
             echo sprintf('<td><a href="javascript:mc4wp.helpers.toggleElement(\'.list-%s-details\')">%s</a><span class="row-actions alignright"></span></td>', $list->id, esc_html($list->name));
             echo sprintf('<td><code>%s</code></td>', esc_html($list->id));
-            echo sprintf('<td>%s</td>', esc_html($list->subscriber_count));
+            echo sprintf('<td>%s</td>', esc_html($list->stats->member_count));
             echo '</tr>';
 
             echo sprintf('<tr class="list-details list-%s-details" style="display: none;">', $list->id);
             echo '<td colspan="3" style="padding: 0 20px 40px;">';
 
-            echo sprintf('<p class="alignright" style="margin: 20px 0;"><a href="%s" target="_blank"><span class="dashicons dashicons-edit"></span> ' . __('Edit this list in Mailchimp', 'mailchimp-for-wp') . '</a></p>', $list->get_web_url());
+            echo sprintf('<p class="alignright" style="margin: 20px 0;"><a href="https://admin.mailchimp.com/lists/members/?id=%s" target="_blank"><span class="dashicons dashicons-edit"></span> ' . __('Edit this list in Mailchimp', 'mailchimp-for-wp') . '</a></p>', $list->web_id);
 
             // Fields
             if (! empty($list->merge_fields)) {
