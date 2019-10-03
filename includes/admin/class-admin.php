@@ -126,9 +126,11 @@ class MC4WP_Admin
         do_action('mc4wp_admin_' . $action);
 
         // redirect back to where we came from
-        $redirect_url = ! empty($_POST['_redirect_to']) ? $_POST['_redirect_to'] : remove_query_arg('_mc4wp_action');
-        wp_redirect($redirect_url);
-        exit;
+        $redirect_url = isset($_REQUEST['_redirect_to']) ? $_REQUEST['_redirect_to'] : remove_query_arg('_mc4wp_action');
+        if ($redirect_url) {
+            wp_redirect($redirect_url);
+            exit;
+        }
     }
 
     /**

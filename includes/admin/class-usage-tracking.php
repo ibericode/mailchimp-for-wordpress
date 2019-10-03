@@ -177,11 +177,9 @@ class MC4WP_Usage_Tracking
      */
     protected function get_mailchimp_lists_count()
     {
-        $mailchimp = new MC4WP_MailChimp();
-        $list_ids = $mailchimp->get_list_ids(false);
-        return count($list_ids);
+        global $wpdb;
+        return (int) $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->options} WHERE option_name LIKE 'mc4wp_mailchimp_list_%'");
     }
-
 
     /**
      * @return string
