@@ -1,4 +1,4 @@
-const FieldFactory = function(fields, i18n) {
+const FieldFactory = function(fields, i18n, settings, events, mailchimpLists) {
     'use strict';
 
     /**
@@ -57,7 +57,7 @@ const FieldFactory = function(fields, i18n) {
     function registerMergeField(mergeField) {
 
         let category = i18n.listFields;
-        let fieldType = getFieldType(mergeField.field_type);
+        let fieldType = getFieldType(mergeField.type);
 
         // name, type, title, value, required, label, placeholder, choices, wrap
         let data = {
@@ -66,7 +66,7 @@ const FieldFactory = function(fields, i18n) {
             required: mergeField.required,
             forceRequired: mergeField.required,
             type: fieldType,
-            choices: mergeField.choices,
+            choices: mergeField.options.choices,
             acceptsMultipleValues: false // merge fields never accept multiple values.
         };
 
@@ -90,10 +90,10 @@ const FieldFactory = function(fields, i18n) {
      */
     function registerInterestCategory(interestCategory){
         let category = i18n.interestCategories;
-        let fieldType = getFieldType(interestCategory.field_type);
+        let fieldType = getFieldType(interestCategory.type);
 
         const data = {
-            title: interestCategory.name,
+            title: interestCategory.title,
             name: 'INTERESTS[' + interestCategory.id + ']',
             type: fieldType,
             choices: interestCategory.interests,
@@ -108,7 +108,6 @@ const FieldFactory = function(fields, i18n) {
      * @param list
      */
     function registerListFields(list) {
-
         // make sure EMAIL && public fields come first
         list.merge_fields = list.merge_fields.sort(function(a, b) {
             if( a.tag === 'EMAIL' || ( a.public && ! b.public ) ) {
@@ -135,13 +134,26 @@ const FieldFactory = function(fields, i18n) {
      * @param lists
      */
     function registerListsFields(lists) {
-        reset();
-        lists.forEach(registerListFields);
+        const url = ajaxurl + "?action=mc4wp_get_list_details&ids="+lists.map(l => l.id).join(',');
+        window.fetch(url)
+            .then(r => r.json()).then(lists => {
+                reset();
+
+                lists.forEach(registerListFields);
+            });
     }
 
     function registerCustomFields(lists) {
         let choices;
         let category = i18n.formFields;
+
+        register(i18n.listFields, {
+            name: 'EMAIL',
+            title: i18n.emailAddress,
+            required: true,
+            forceRequired: true,
+            type: 'email',
+        }, true);
 
         // register submit button
         register(category, {
@@ -190,15 +202,13 @@ const FieldFactory = function(fields, i18n) {
         }, true);
     }
 
-    /**
-     * Expose some methods
-     */
-    return {
-        'registerCustomFields': registerCustomFields,
-        'registerListFields': registerListFields,
-        'registerListsFields': registerListsFields
-    }
 
+    /**
+     * Init
+     */
+    events.on('selectedLists.change', registerListsFields);
+    registerListsFields(settings.getSelectedLists());
+    registerCustomFields(mailchimpLists);
 };
 
 module.exports = FieldFactory;

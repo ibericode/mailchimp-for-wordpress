@@ -84,6 +84,7 @@ class MC4WP_Forms_Admin
             'close'         => __('Close', 'mailchimp-for-wp'),
             'country'       => __('Country', 'mailchimp-for-wp'),
             'dropdown'      => __('Dropdown', 'mailchimp-for-wp'),
+            'emailAddress' => __('Email address', 'mailchimp-for-wp'),
             'fieldType'     => __('Field type', 'mailchimp-for-wp'),
             'fieldLabel'    => __("Field label", 'mailchimp-for-wp'),
             'formAction'    => __('Form action', 'mailchimp-for-wp'),

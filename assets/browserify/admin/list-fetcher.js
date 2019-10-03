@@ -1,67 +1,70 @@
 'use strict';
 
-var $ = window.jQuery;
-var config = mc4wp_vars;
-var i18n = config.i18n;
+const config = mc4wp_vars;
+const i18n = config.i18n;
+const m = require('mithril');
 
-function ListFetcher() {
-    this.working = false;
-    this.done = false;
+let state = {
+    working: false,
+    done: false,
+    success: false,
+};
 
-    // start fetching right away when no lists but api key given
-    if( config.mailchimp.api_connected && config.mailchimp.lists.length === 0 ) {
-        this.fetch();
-    }
-}
+function fetch(evt) {
+    evt && evt.preventDefault();
 
-ListFetcher.prototype.fetch = function (e) {
-    e && e.preventDefault();
+    state.working = true;
+    state.done = false;
 
-    this.working = true;
-    this.done = false;
-
-    $.post(ajaxurl, {
-        action: "mc4wp_renew_mailchimp_lists",
+    m.request({
+        method: "POST",
+        url: ajaxurl + "?action=mc4wp_renew_mailchimp_lists",
 		timeout: 600000, // 10 minutes, matching max_execution_time
-    }).done(function(data) {
-		this.success = true;
+    }).then(function(data) {
+        state.success = true;
 
         if(data) {
             window.setTimeout(function() { window.location.reload(); }, 3000 );
         }
-    }.bind(this)).fail(function(data) { 
-		this.success = false; 
-	}.bind(this)).always(function (data) {
-        this.working = false;
-        this.done = true;
+    }).catch(function(data) {
+        state.success = false;
+	}).finally(function (data) {
+        state.working = false;
+        state.done = true;
 
         m.redraw();
-    }.bind(this));
-};
+    });
+}
 
-ListFetcher.prototype.view = function () {
+function view() {
     return m('form', {
         method: "POST",
-        onsubmit: this.fetch.bind(this)
+        onsubmit: fetch.bind(this)
     }, [
         m('p', [
             m('input', {
                 type: "submit",
-                value: this.working ? i18n.fetching_mailchimp_lists : i18n.renew_mailchimp_lists,
+                value: state.working ? i18n.fetching_mailchimp_lists : i18n.renew_mailchimp_lists,
                 className: "button",
-                disabled: !!this.working
+                disabled: !!state.working
             }),
             m.trust(' &nbsp; '),
 
-            this.working ? [
+            state.working ? [
                 m('span.mc4wp-loader', "Loading..."),
                 m.trust(' &nbsp; ')
             ]: '',
-            this.done ? [
-                this.success ? m( 'em.help.green', i18n.fetching_mailchimp_lists_done ) : m('em.help.red', i18n.fetching_mailchimp_lists_error )
+            state.done ? [
+                state.success ? m( 'em.help.green', i18n.fetching_mailchimp_lists_done ) : m('em.help.red', i18n.fetching_mailchimp_lists_error )
             ] : ''
         ])
     ]);
-};
+}
 
-module.exports = ListFetcher;
+// start fetching right away when no lists but api key given
+if( config.mailchimp.api_connected && config.mailchimp.lists.length === 0 ) {
+    fetch();
+}
+
+
+module.exports = {view};

@@ -7,14 +7,6 @@ module.exports = function(m, events) {
     let fields = [];
     let categories = [];
 
-
-    /**
-     * @internal
-     *
-     *
-     * @param data
-     * @constructor
-     */
     const Field = function (data) {
         this.name = prop(data.name);
         this.title = prop(data.title || data.name);
@@ -94,9 +86,6 @@ module.exports = function(m, events) {
     /**
      * Factory method
      *
-     * @api
-     *
-     * @param data
      * @returns {Field}
      */
     function register(category, data) {
@@ -190,7 +179,9 @@ module.exports = function(m, events) {
     }
 
     function getCategories() {
-        return categories;
+        return categories.sort((a, b) => {
+            return a !== "Form fields" ? -1 : 1;
+        });
     }
 
     /**

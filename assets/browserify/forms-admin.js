@@ -1,35 +1,31 @@
 'use strict';
 
 // deps
-var i18n = window.mc4wp_forms_i18n;
-var m = window.mc4wp.deps.mithril;
-var events = mc4wp.events;
-var settings = mc4wp.settings;
-var helpers = mc4wp.helpers;
+let i18n = window.mc4wp_forms_i18n;
+let global = window.mc4wp_vars;
 
-var tabs = mc4wp.tabs;
-var FormWatcher = require('./admin/form-editor/form-watcher.js');
-var FormEditor = require('./admin/form-editor/form-editor.js');
-var FieldHelper = require('./admin/form-editor/field-helper.js');
-var FieldsFactory = require('./admin/form-editor/fields-factory.js');
-var fields = require('./admin/form-editor/fields.js')(m, events);
+const m = require('mithril');
+let events = mc4wp.events;
+let settings = mc4wp.settings;
+let helpers = mc4wp.helpers;
+
+let tabs = mc4wp.tabs;
+const FormWatcher = require('./admin/form-editor/form-watcher.js');
+const FormEditor = require('./admin/form-editor/form-editor.js');
+const FieldHelper = require('./admin/form-editor/field-helper.js');
+const FieldManager = require('./admin/form-editor/field-manager.js');
+let fields = require('./admin/form-editor/fields.js')(m, events);
 
 // vars
-var editor = window.formEditor = FormEditor;
-var watcher = new FormWatcher( m, formEditor, settings, fields, events, helpers );
-var fieldHelper = new FieldHelper( m, tabs, formEditor, fields, events, i18n );
-var notices = require('./admin/notices');
+let editor = window.formEditor = FormEditor;
+let watcher = new FormWatcher( m, formEditor, settings, fields, events, helpers );
+let fieldHelper = new FieldHelper( m, tabs, formEditor, fields, events, i18n );
+let fieldManager = new FieldManager(fields, i18n, settings, events, global.mailchimp.lists);
+let notices = require('./admin/notices');
 
 // mount field helper on element
-m.mount( document.getElementById( 'mc4wp-field-wizard'), fieldHelper );
-
-// register fields and redraw screen in 2 seconds (fixes IE8 bug)
-var fieldsFactory = new FieldsFactory(fields, i18n);
-events.on('selectedLists.change', fieldsFactory.registerListsFields);
-fieldsFactory.registerListsFields(settings.getSelectedLists());
-fieldsFactory.registerCustomFields(mc4wp_vars.mailchimp.lists);
-
-window.setTimeout( function() { m.redraw();}, 2000 );
+let fieldHelperRootElement = document.getElementById( 'mc4wp-field-wizard');
+m.mount(fieldHelperRootElement, fieldHelper);
 
 // init notices
 notices.init(editor, fields, settings);

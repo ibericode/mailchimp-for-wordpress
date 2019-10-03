@@ -42,6 +42,18 @@ class MC4WP_Admin_Ajax
     }
 
     public function get_list_details() {
-        wp_send_json(true);
+        $list_ids = (array) explode(',', $_GET['ids']);
+        $data = array();
+        $mailchimp = new MC4WP_MailChimp();
+        foreach($list_ids as $list_id) {
+            $merge_fields = $mailchimp->fetch_list_merge_fields($list_id);
+            $interest_categories = $mailchimp->fetch_list_interest_categories($list_id);
+            $data[] = (object) array(
+                'id' => $list_id,
+                'merge_fields' => $merge_fields,
+                'interest_categories' => $interest_categories,
+            );
+        }
+        wp_send_json($data);
     }
 }

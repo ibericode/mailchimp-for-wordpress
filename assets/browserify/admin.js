@@ -2,16 +2,16 @@
 
 // dependencies
 import tlite from 'tlite';
-var m = window.m = require('mithril');
-var EventEmitter = require('wolfy87-eventemitter');
-var Tabs = require ('./admin/tabs.js')
-var Settings = require('./admin/settings.js')
-var helpers = require('./admin/helpers.js');
+const m = require('mithril');
+const EventEmitter = require('wolfy87-eventemitter');
+const Tabs = require ('./admin/tabs.js');
+const Settings = require('./admin/settings.js');
+const helpers = require('./admin/helpers.js');
 
 // vars
-var context = document.getElementById('mc4wp-admin');
-var tabs, settings;
-var events = new EventEmitter();
+const context = document.getElementById('mc4wp-admin');
+let tabs, settings;
+const events = new EventEmitter();
 
 if (context !== null) {
     tabs = Tabs(context);
@@ -21,13 +21,14 @@ if (context !== null) {
 tlite(el => el.className.indexOf('mc4wp-tooltip') > -1 );
 
 // list fetcher
-var ListFetcher = require('./admin/list-fetcher.js');
-var mount = document.getElementById('mc4wp-list-fetcher');
+const ListFetcher = require('./admin/list-fetcher.js');
+const mount = document.getElementById('mc4wp-list-fetcher');
 if( mount ) {
-    m.mount(mount, new ListFetcher);
+    m.mount(mount, ListFetcher);
 }
 
 require('./admin/fields/mailchimp-api-key.js');
+require('./admin/list-overview.js');
 
 // expose some things
 window.mc4wp = window.mc4wp || {};

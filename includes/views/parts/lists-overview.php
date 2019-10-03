@@ -20,7 +20,7 @@
 } else {
         printf('<p>' . __('A total of %d lists were found in your Mailchimp account.', 'mailchimp-for-wp') . '</p>', count($lists));
 
-        echo '<table class="widefat striped">';
+        echo '<table class="widefat striped" id="mc4wp-mailchimp-lists-overview">';
 
         $headings = array(
             __('List Name', 'mailchimp-for-wp'),
@@ -37,9 +37,8 @@
         echo '</thead>';
 
         foreach ($lists as $list) {
-            /** @var MC4WP_MailChimp_List $list */
             echo '<tr>';
-            echo sprintf('<td><a href="javascript:mc4wp.helpers.toggleElement(\'.list-%s-details\')">%s</a><span class="row-actions alignright"></span></td>', $list->id, esc_html($list->name));
+            echo sprintf('<td><a href="#" class="mc4wp-mailchimp-list" data-list-id="%s">%s</a><span class="row-actions alignright"></span></td>', esc_attr($list->id), esc_html($list->name));
             echo sprintf('<td><code>%s</code></td>', esc_html($list->id));
             echo sprintf('<td>%s</td>', esc_html($list->stats->member_count));
             echo '</tr>';
@@ -48,6 +47,7 @@
             echo '<td colspan="3" style="padding: 0 20px 40px;">';
 
             echo sprintf('<p class="alignright" style="margin: 20px 0;"><a href="https://admin.mailchimp.com/lists/members/?id=%s" target="_blank"><span class="dashicons dashicons-edit"></span> ' . __('Edit this list in Mailchimp', 'mailchimp-for-wp') . '</a></p>', $list->web_id);
+            echo '<div>Loading...</div>';
 
             // Fields
             if (! empty($list->merge_fields)) {

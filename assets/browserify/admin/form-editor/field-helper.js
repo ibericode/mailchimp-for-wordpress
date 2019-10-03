@@ -8,6 +8,7 @@ const FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 
 	editor.on('blur', m.redraw);
 
+
 	/**
 	 * Choose a field to open the helper form for
 	 *
@@ -25,14 +26,6 @@ const FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 		}
 
 		m.redraw();
-	}
-
-
-	/**
-	 * Controller
-	 */
-	function controller() {
-
 	}
 
 	/**
@@ -58,7 +51,6 @@ const FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 	 * @returns {*}
 	 */
 	function view() {
-
 		// build DOM for fields choice
 		let fieldCategories = fields.getCategories();
 		let availableFields = fields.getAll();
@@ -126,9 +118,8 @@ const FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 						m("button", {
 							"class": "button-primary",
 							type: "button",
-							onkeydown: function(e) {
-								e = e || window.event;
-								if(e.keyCode === 13) {
+							onkeydown: function(evt) {
+								if(evt.keyCode === 13) {
 									createFieldHTMLAndAddToForm();
 								}
 							},
@@ -147,7 +138,6 @@ const FieldHelper = function(m, tabs, editor, fields, events, i18n) {
 	// expose some variables
 	return {
 		view: view,
-		controller: controller
 	}
 };
 

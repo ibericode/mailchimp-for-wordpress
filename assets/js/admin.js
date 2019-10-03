@@ -5,7 +5,7 @@ var _tlite = _interopRequireDefault(require("tlite"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var m = window.m = require('mithril');
+var m = require('mithril');
 
 var EventEmitter = require('wolfy87-eventemitter');
 
@@ -34,10 +34,12 @@ var ListFetcher = require('./admin/list-fetcher.js');
 var mount = document.getElementById('mc4wp-list-fetcher');
 
 if (mount) {
-  m.mount(mount, new ListFetcher());
+  m.mount(mount, ListFetcher);
 }
 
-require('./admin/fields/mailchimp-api-key.js'); // expose some things
+require('./admin/fields/mailchimp-api-key.js');
+
+require('./admin/list-overview.js'); // expose some things
 
 
 window.mc4wp = window.mc4wp || {};
@@ -48,7 +50,7 @@ window.mc4wp.events = events;
 window.mc4wp.settings = settings;
 window.mc4wp.tabs = tabs;
 
-},{"./admin/fields/mailchimp-api-key.js":2,"./admin/helpers.js":3,"./admin/list-fetcher.js":4,"./admin/settings.js":5,"./admin/tabs.js":6,"mithril":11,"tlite":33,"wolfy87-eventemitter":34}],2:[function(require,module,exports){
+},{"./admin/fields/mailchimp-api-key.js":2,"./admin/helpers.js":3,"./admin/list-fetcher.js":4,"./admin/list-overview.js":5,"./admin/settings.js":6,"./admin/tabs.js":7,"mithril":12,"tlite":34,"wolfy87-eventemitter":35}],2:[function(require,module,exports){
 'use strict';
 
 var field;
@@ -173,59 +175,105 @@ module.exports = helpers;
 },{}],4:[function(require,module,exports){
 'use strict';
 
-var $ = window.jQuery;
 var config = mc4wp_vars;
 var i18n = config.i18n;
 
-function ListFetcher() {
-  this.working = false;
-  this.done = false; // start fetching right away when no lists but api key given
+var m = require('mithril');
 
-  if (config.mailchimp.api_connected && config.mailchimp.lists.length === 0) {
-    this.fetch();
-  }
-}
+var state = {
+  working: false,
+  done: false,
+  success: false
+};
 
-ListFetcher.prototype.fetch = function (e) {
-  e && e.preventDefault();
-  this.working = true;
-  this.done = false;
-  $.post(ajaxurl, {
-    action: "mc4wp_renew_mailchimp_lists",
+function fetch(evt) {
+  evt && evt.preventDefault();
+  state.working = true;
+  state.done = false;
+  m.request({
+    method: "POST",
+    url: ajaxurl + "?action=mc4wp_renew_mailchimp_lists",
     timeout: 600000 // 10 minutes, matching max_execution_time
 
-  }).done(function (data) {
-    this.success = true;
+  }).then(function (data) {
+    state.success = true;
 
     if (data) {
       window.setTimeout(function () {
         window.location.reload();
       }, 3000);
     }
-  }.bind(this)).fail(function (data) {
-    this.success = false;
-  }.bind(this)).always(function (data) {
-    this.working = false;
-    this.done = true;
+  })["catch"](function (data) {
+    state.success = false;
+  })["finally"](function (data) {
+    state.working = false;
+    state.done = true;
     m.redraw();
-  }.bind(this));
-};
+  });
+}
 
-ListFetcher.prototype.view = function () {
+function view() {
   return m('form', {
     method: "POST",
-    onsubmit: this.fetch.bind(this)
+    onsubmit: fetch.bind(this)
   }, [m('p', [m('input', {
     type: "submit",
-    value: this.working ? i18n.fetching_mailchimp_lists : i18n.renew_mailchimp_lists,
+    value: state.working ? i18n.fetching_mailchimp_lists : i18n.renew_mailchimp_lists,
     className: "button",
-    disabled: !!this.working
-  }), m.trust(' &nbsp; '), this.working ? [m('span.mc4wp-loader', "Loading..."), m.trust(' &nbsp; ')] : '', this.done ? [this.success ? m('em.help.green', i18n.fetching_mailchimp_lists_done) : m('em.help.red', i18n.fetching_mailchimp_lists_error)] : ''])]);
+    disabled: !!state.working
+  }), m.trust(' &nbsp; '), state.working ? [m('span.mc4wp-loader', "Loading..."), m.trust(' &nbsp; ')] : '', state.done ? [state.success ? m('em.help.green', i18n.fetching_mailchimp_lists_done) : m('em.help.red', i18n.fetching_mailchimp_lists_error)] : ''])]);
+} // start fetching right away when no lists but api key given
+
+
+if (config.mailchimp.api_connected && config.mailchimp.lists.length === 0) {
+  fetch();
+}
+
+module.exports = {
+  view: view
 };
 
-module.exports = ListFetcher;
+},{"mithril":12}],5:[function(require,module,exports){
+'use strict';
 
-},{}],5:[function(require,module,exports){
+var m = require('mithril');
+
+var $ = window.jQuery;
+
+function showDetails(evt) {
+  evt.preventDefault();
+  $(this).parents('tr').next().toggle();
+  var listID = this.getAttribute('data-list-id');
+  var mount = $(this).parents('tr').next().find('div').get(0);
+  m.request({
+    method: "GET",
+    url: ajaxurl + "?action=mc4wp_get_list_details&ids=" + listID
+  }).then(function (details) {
+    m.render(mount, view(details[0]));
+  });
+}
+
+function view(data) {
+  return [m('h3', 'Merge fields'), m('table.widefat.striped', [m('thead', [m('tr', [m('th', 'Name'), m('th', 'Tag'), m('th', 'Type')])]), m('tbody', data.merge_fields.map(function (f) {
+    return m('tr', [m('td', [f.name, f.required && m('span.red', '*')]), m('td', [m('code', f.tag)]), m('td', [f.type, ' ', f.options && f.options.date_format ? '(' + f.options.date_format + ')' : '', f.options && f.options.choices ? '(' + f.options.choices.join(', ') + ')' : ''])]);
+  }))]), data.interest_categories.length > 0 && [m('h3', 'Interest Categories'), m('table.striped.widefat', [m('thead', [m('tr', [m('th', 'Name'), m('th', 'Type'), m('th', 'Interests')])]), m('tbody', data.interest_categories.map(function (f) {
+    return m('tr', [m('td', [m('strong', f.title), m('br'), m('br'), 'ID: ', m('code', f.id)]), m('td', f.type), m('td', [m('div.row', {
+      style: 'margin-bottom: 4px;'
+    }, [m('div.col.col-3', [m('strong', {
+      style: 'display: block; border-bottom: 1px solid #eee;'
+    }, 'Name')]), m('div.col.col-3', [m('strong', {
+      style: 'display: block; border-bottom: 1px solid #eee;'
+    }, 'ID')])]), Object.keys(f.interests).map(function (id) {
+      return m('div.row.tiny-margin', [m('div.col.col-3', f.interests[id]), m('div.col.col-3', [m('code', {
+        title: 'Interest ID'
+      }, id)]), m('br.clearfix.clear.cf')]);
+    })])]);
+  }))])]];
+}
+
+$('#mc4wp-mailchimp-lists-overview .mc4wp-mailchimp-list').click(showDetails);
+
+},{"mithril":12}],6:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -288,7 +336,7 @@ var Settings = function Settings(context, helpers, events) {
 
 module.exports = Settings;
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 var URL = require('./url.js'); // Tabs
@@ -464,7 +512,7 @@ var Tabs = function Tabs(context) {
 
 module.exports = Tabs;
 
-},{"./url.js":7}],7:[function(require,module,exports){
+},{"./url.js":8}],8:[function(require,module,exports){
 'use strict';
 
 var URL = {
@@ -500,7 +548,7 @@ var URL = {
 };
 module.exports = URL;
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -552,7 +600,7 @@ module.exports = function(render, schedule, console) {
 	return {mount: mount, redraw: redraw}
 }
 
-},{"../render/vnode":27}],9:[function(require,module,exports){
+},{"../render/vnode":28}],10:[function(require,module,exports){
 (function (setImmediate){
 "use strict"
 
@@ -818,7 +866,7 @@ module.exports = function($window, mountRedraw) {
 }
 
 }).call(this,require("timers").setImmediate)
-},{"../pathname/assign":13,"../pathname/build":14,"../pathname/compileTemplate":15,"../pathname/parse":16,"../promise/promise":18,"../render/hyperscript":23,"../render/vnode":27,"timers":32}],10:[function(require,module,exports){
+},{"../pathname/assign":14,"../pathname/build":15,"../pathname/compileTemplate":16,"../pathname/parse":17,"../promise/promise":19,"../render/hyperscript":24,"../render/vnode":28,"timers":33}],11:[function(require,module,exports){
 "use strict"
 
 var hyperscript = require("./render/hyperscript")
@@ -828,7 +876,7 @@ hyperscript.fragment = require("./render/fragment")
 
 module.exports = hyperscript
 
-},{"./render/fragment":22,"./render/hyperscript":23,"./render/trust":26}],11:[function(require,module,exports){
+},{"./render/fragment":23,"./render/hyperscript":24,"./render/trust":27}],12:[function(require,module,exports){
 "use strict"
 
 var hyperscript = require("./hyperscript")
@@ -854,21 +902,21 @@ m.PromisePolyfill = require("./promise/polyfill")
 
 module.exports = m
 
-},{"./hyperscript":10,"./mount-redraw":12,"./pathname/build":14,"./pathname/parse":16,"./promise/polyfill":17,"./querystring/build":19,"./querystring/parse":20,"./render":21,"./render/vnode":27,"./request":28,"./route":30}],12:[function(require,module,exports){
+},{"./hyperscript":11,"./mount-redraw":13,"./pathname/build":15,"./pathname/parse":17,"./promise/polyfill":18,"./querystring/build":20,"./querystring/parse":21,"./render":22,"./render/vnode":28,"./request":29,"./route":31}],13:[function(require,module,exports){
 "use strict"
 
 var render = require("./render")
 
 module.exports = require("./api/mount-redraw")(render, requestAnimationFrame, console)
 
-},{"./api/mount-redraw":8,"./render":21}],13:[function(require,module,exports){
+},{"./api/mount-redraw":9,"./render":22}],14:[function(require,module,exports){
 "use strict"
 
 module.exports = Object.assign || function(target, source) {
 	if(source) Object.keys(source).forEach(function(key) { target[key] = source[key] })
 }
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 "use strict"
 
 var buildQueryString = require("../querystring/build")
@@ -913,7 +961,7 @@ module.exports = function(template, params) {
 	return result
 }
 
-},{"../querystring/build":19,"./assign":13}],15:[function(require,module,exports){
+},{"../querystring/build":20,"./assign":14}],16:[function(require,module,exports){
 "use strict"
 
 var parsePathname = require("./parse")
@@ -958,7 +1006,7 @@ module.exports = function(template) {
 	}
 }
 
-},{"./parse":16}],16:[function(require,module,exports){
+},{"./parse":17}],17:[function(require,module,exports){
 "use strict"
 
 var parseQueryString = require("../querystring/parse")
@@ -984,7 +1032,7 @@ module.exports = function(url) {
 	}
 }
 
-},{"../querystring/parse":20}],17:[function(require,module,exports){
+},{"../querystring/parse":21}],18:[function(require,module,exports){
 (function (setImmediate){
 "use strict"
 /** @constructor */
@@ -1100,7 +1148,7 @@ PromisePolyfill.race = function(list) {
 module.exports = PromisePolyfill
 
 }).call(this,require("timers").setImmediate)
-},{"timers":32}],18:[function(require,module,exports){
+},{"timers":33}],19:[function(require,module,exports){
 (function (global){
 "use strict"
 
@@ -1125,7 +1173,7 @@ if (typeof window !== "undefined") {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./polyfill":17}],19:[function(require,module,exports){
+},{"./polyfill":18}],20:[function(require,module,exports){
 "use strict"
 
 module.exports = function(object) {
@@ -1153,7 +1201,7 @@ module.exports = function(object) {
 	}
 }
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 "use strict"
 
 module.exports = function(string) {
@@ -1198,12 +1246,12 @@ module.exports = function(string) {
 	return data
 }
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 "use strict"
 
 module.exports = require("./render/render")(window)
 
-},{"./render/render":25}],22:[function(require,module,exports){
+},{"./render/render":26}],23:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -1217,7 +1265,7 @@ module.exports = function() {
 	return vnode
 }
 
-},{"../render/vnode":27,"./hyperscriptVnode":24}],23:[function(require,module,exports){
+},{"../render/vnode":28,"./hyperscriptVnode":25}],24:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -1320,7 +1368,7 @@ function hyperscript(selector) {
 
 module.exports = hyperscript
 
-},{"../render/vnode":27,"./hyperscriptVnode":24}],24:[function(require,module,exports){
+},{"../render/vnode":28,"./hyperscriptVnode":25}],25:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -1375,7 +1423,7 @@ module.exports = function() {
 	return Vnode("", attrs.key, attrs, children)
 }
 
-},{"../render/vnode":27}],25:[function(require,module,exports){
+},{"../render/vnode":28}],26:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -2350,7 +2398,7 @@ module.exports = function($window) {
 	}
 }
 
-},{"../render/vnode":27}],26:[function(require,module,exports){
+},{"../render/vnode":28}],27:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -2360,7 +2408,7 @@ module.exports = function(html) {
 	return Vnode("<", undefined, undefined, html, undefined, undefined)
 }
 
-},{"../render/vnode":27}],27:[function(require,module,exports){
+},{"../render/vnode":28}],28:[function(require,module,exports){
 "use strict"
 
 function Vnode(tag, key, attrs, children, text, dom) {
@@ -2393,7 +2441,7 @@ Vnode.normalizeChildren = function(input) {
 
 module.exports = Vnode
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 "use strict"
 
 var PromisePolyfill = require("./promise/promise")
@@ -2401,7 +2449,7 @@ var mountRedraw = require("./mount-redraw")
 
 module.exports = require("./request/request")(window, PromisePolyfill, mountRedraw.redraw)
 
-},{"./mount-redraw":12,"./promise/promise":18,"./request/request":29}],29:[function(require,module,exports){
+},{"./mount-redraw":13,"./promise/promise":19,"./request/request":30}],30:[function(require,module,exports){
 "use strict"
 
 var buildPathname = require("../pathname/build")
@@ -2597,14 +2645,14 @@ module.exports = function($window, Promise, oncompletion) {
 	}
 }
 
-},{"../pathname/build":14}],30:[function(require,module,exports){
+},{"../pathname/build":15}],31:[function(require,module,exports){
 "use strict"
 
 var mountRedraw = require("./mount-redraw")
 
 module.exports = require("./api/router")(window, mountRedraw)
 
-},{"./api/router":9,"./mount-redraw":12}],31:[function(require,module,exports){
+},{"./api/router":10,"./mount-redraw":13}],32:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -2790,7 +2838,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 (function (setImmediate,clearImmediate){
 var nextTick = require('process/browser.js').nextTick;
 var apply = Function.prototype.apply;
@@ -2869,7 +2917,7 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
   delete immediateIds[id];
 };
 }).call(this,require("timers").setImmediate,require("timers").clearImmediate)
-},{"process/browser.js":31,"timers":32}],33:[function(require,module,exports){
+},{"process/browser.js":32,"timers":33}],34:[function(require,module,exports){
 function tlite(getTooltipOpts) {
   document.addEventListener('mouseover', function (e) {
     var el = e.target;
@@ -3005,7 +3053,7 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = tlite;
 }
 
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 /*!
  * EventEmitter v5.2.6 - git.io/ee
  * Unlicense - http://unlicense.org/

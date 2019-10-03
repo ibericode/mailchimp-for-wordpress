@@ -185,6 +185,17 @@ class MC4WP_MailChimp
         // fetch list merge fields
         $api = $this->get_api();
         $merge_fields = $api->get_list_merge_fields($list_id, array( 'count' => 100, 'fields' => 'merge_fields.name,merge_fields.tag,merge_fields.type,merge_fields.required,merge_fields.default_value,merge_fields.options,merge_fields.public' ));
+
+        // add EMAIL field
+        array_unshift($merge_fields, (object) array(
+            'tag' => 'EMAIL',
+            'name' => 'Email address',
+            'required' => true,
+            'type' => 'email',
+            'options' => array(),
+            'public' => true,
+        ));
+
         set_transient($transient_key, $merge_fields, HOUR_IN_SECONDS);
         return $merge_fields;
     }
