@@ -1,5 +1,7 @@
-const FieldFactory = function(fields, i18n, settings, events, mailchimpLists) {
+const FieldFactory = function(deps) {
     'use strict';
+
+    const {fields, m, i18n, settings, events, mailchimpLists} = deps;
 
     /**
      * Array of registered fields
@@ -135,12 +137,15 @@ const FieldFactory = function(fields, i18n, settings, events, mailchimpLists) {
      */
     function registerListsFields(lists) {
         const url = ajaxurl + "?action=mc4wp_get_list_details&ids="+lists.map(l => l.id).join(',');
-        window.fetch(url)
-            .then(r => r.json()).then(lists => {
-                reset();
 
-                lists.forEach(registerListFields);
-            });
+        m.request({
+            url: url,
+            method: "GET",
+        }).then(lists => {
+            reset();
+
+            lists.forEach(registerListFields);
+        });
     }
 
     function registerCustomFields(lists) {

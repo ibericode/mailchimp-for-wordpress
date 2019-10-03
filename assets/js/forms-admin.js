@@ -535,8 +535,15 @@ module.exports = FieldHelper;
 },{"../overlay.js":10,"./field-forms.js":2,"./field-generator.js":3}],5:[function(require,module,exports){
 "use strict";
 
-var FieldFactory = function FieldFactory(fields, i18n, settings, events, mailchimpLists) {
+var FieldFactory = function FieldFactory(deps) {
   'use strict';
+
+  var fields = deps.fields,
+      m = deps.m,
+      i18n = deps.i18n,
+      settings = deps.settings,
+      events = deps.events,
+      mailchimpLists = deps.mailchimpLists;
   /**
    * Array of registered fields
    *
@@ -701,8 +708,9 @@ var FieldFactory = function FieldFactory(fields, i18n, settings, events, mailchi
     var url = ajaxurl + "?action=mc4wp_get_list_details&ids=" + lists.map(function (l) {
       return l.id;
     }).join(',');
-    window.fetch(url).then(function (r) {
-      return r.json();
+    m.request({
+      url: url,
+      method: "GET"
     }).then(function (lists) {
       reset();
       lists.forEach(registerListFields);
@@ -1374,6 +1382,7 @@ module.exports = overlay;
 
 var i18n = window.mc4wp_forms_i18n;
 var global = window.mc4wp_vars;
+var mailchimpLists = global.mailchimp.lists;
 
 var m = require('mithril');
 
@@ -1396,7 +1405,14 @@ var fields = require('./admin/form-editor/fields.js')(m, events); // vars
 var editor = window.formEditor = FormEditor;
 var watcher = new FormWatcher(m, formEditor, settings, fields, events, helpers);
 var fieldHelper = new FieldHelper(m, tabs, formEditor, fields, events, i18n);
-var fieldManager = new FieldManager(fields, i18n, settings, events, global.mailchimp.lists);
+var fieldManager = new FieldManager({
+  fields: fields,
+  i18n: i18n,
+  settings: settings,
+  events: events,
+  m: m,
+  mailchimpLists: mailchimpLists
+});
 
 var notices = require('./admin/notices'); // mount field helper on element
 
@@ -1406,7 +1422,6 @@ m.mount(fieldHelperRootElement, fieldHelper); // init notices
 
 notices.init(editor, fields, settings); // expose some methods
 
-window.mc4wp = window.mc4wp || {};
 window.mc4wp.forms = window.mc4wp.forms || {};
 window.mc4wp.forms.editor = editor;
 window.mc4wp.forms.fields = fields;
