@@ -157,7 +157,7 @@ var rows = function rows(m, i18n) {
     // label row
     return m("div", [m("label", i18n.agreeToTermsLink), m("input.widefat", {
       type: "text",
-      value: config.link,
+      value: config.link(),
       onchange: function onchange(evt) {
         return config.link(evt.target.value);
       },

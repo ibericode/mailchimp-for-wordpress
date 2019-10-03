@@ -204,7 +204,7 @@ const rows = function(m, i18n) {
 			m("label", i18n.agreeToTermsLink),
 			m("input.widefat", {
 				type       : "text",
-				value      : config.link,
+				value      : config.link(),
 				onchange   : (evt) => config.link(evt.target.value),
 				placeholder: 'https://...',
 			})
