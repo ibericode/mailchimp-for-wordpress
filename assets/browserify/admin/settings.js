@@ -2,7 +2,6 @@ const Settings = function(context, helpers, events ) {
 	'use strict';
 
 	// vars
-    let form = context.querySelector('form');
     let listInputs = context.querySelectorAll('.mc4wp-list-input');
     let lists = mc4wp_vars.mailchimp.lists;
     let selectedLists = [];

@@ -32,8 +32,6 @@ require('./admin/list-overview.js');
 
 // expose some things
 window.mc4wp = window.mc4wp || {};
-window.mc4wp.deps = window.mc4wp.deps || {};
-window.mc4wp.deps.mithril = m;
 window.mc4wp.helpers = helpers;
 window.mc4wp.events = events;
 window.mc4wp.settings = settings;

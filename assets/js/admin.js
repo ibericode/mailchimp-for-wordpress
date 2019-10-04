@@ -43,8 +43,6 @@ require('./admin/list-overview.js'); // expose some things
 
 
 window.mc4wp = window.mc4wp || {};
-window.mc4wp.deps = window.mc4wp.deps || {};
-window.mc4wp.deps.mithril = m;
 window.mc4wp.helpers = helpers;
 window.mc4wp.events = events;
 window.mc4wp.settings = settings;
@@ -113,15 +111,12 @@ helpers.debounce = function (func, wait, immediate) {
   return function () {
     var context = this,
         args = arguments;
-
-    var later = function later() {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-
     var callNow = immediate && !timeout;
     clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
+    timeout = setTimeout(function () {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    }, wait);
     if (callNow) func.apply(context, args);
   };
 };
@@ -281,7 +276,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 var Settings = function Settings(context, helpers, events) {
   'use strict'; // vars
 
-  var form = context.querySelector('form');
   var listInputs = context.querySelectorAll('.mc4wp-list-input');
   var lists = mc4wp_vars.mailchimp.lists;
   var selectedLists = []; // functions
@@ -389,7 +383,7 @@ var Tabs = function Tabs(context) {
     } // should we update state?
 
 
-    if (updateState == undefined) {
+    if (updateState === undefined) {
       updateState = true;
     } // hide all tabs & remove active class
 
@@ -418,12 +412,6 @@ var Tabs = function Tabs(context) {
 
     if (typeof tb_remove === "function") {
       tb_remove();
-    } // refresh editor after switching tabs
-    // TODO: decouple this! law of demeter etc.
-
-
-    if (tab.id === 'fields' && window.mc4wp && window.mc4wp.forms && window.mc4wp.forms.editor) {
-      mc4wp.forms.editor.refresh();
     }
 
     return true;
@@ -434,9 +422,8 @@ var Tabs = function Tabs(context) {
     document.title = document.title.replace(title[0], tab.title + " ");
   }
 
-  function switchTab(e) {
-    e = e || window.event; // get from data attribute
-
+  function switchTab(evt) {
+    // get from data attribute
     var tabId = this.getAttribute('data-tab'); // get from classname
 
     if (!tabId) {
@@ -461,8 +448,8 @@ var Tabs = function Tabs(context) {
     var opened = _open(tabId);
 
     if (opened) {
-      e.preventDefault();
-      e.returnValue = false;
+      evt.preventDefault();
+      evt.returnValue = false;
       return false;
     }
 

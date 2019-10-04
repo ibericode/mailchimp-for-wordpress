@@ -1,7 +1,9 @@
 (function () { var require = undefined; var define = undefined; (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'use strict';
 
-var rows = function rows(m, i18n) {
+var m = require('mithril');
+
+var rows = function rows(i18n) {
   var r = {};
 
   r.showType = function (config) {
@@ -170,13 +172,13 @@ var rows = function rows(m, i18n) {
 
 module.exports = rows;
 
-},{}],2:[function(require,module,exports){
+},{"mithril":27}],2:[function(require,module,exports){
 "use strict";
 
-var forms = function forms(m, i18n) {
+var forms = function forms(i18n) {
   var forms = {};
 
-  var rows = require('./field-forms-rows.js')(m, i18n); // route to one of the other form configs, default to "text"
+  var rows = require('./field-forms-rows.js')(i18n); // route to one of the other form configs, default to "text"
 
 
   forms.render = function (config) {
@@ -248,6 +250,8 @@ module.exports = forms;
 
 var htmlutil = require('html');
 
+var m = require('mithril');
+
 var setAttributes = function setAttributes(vnode) {
   if (vnode.dom.checked) {
     vnode.dom.setAttribute("checked", "true");
@@ -262,7 +266,7 @@ var setAttributes = function setAttributes(vnode) {
   }
 };
 
-var g = function g(m) {
+var g = function g() {
   var generators = {};
   /**
    * Generates a <select> field
@@ -410,17 +414,21 @@ var g = function g(m) {
 
 module.exports = g;
 
-},{"html":22}],4:[function(require,module,exports){
+},{"html":23,"mithril":27}],4:[function(require,module,exports){
 "use strict";
 
-var FieldHelper = function FieldHelper(m, tabs, editor, fields, events, i18n) {
+var m = require('mithril');
+
+var editor = require('./form-editor.js');
+
+var FieldHelper = function FieldHelper(tabs, fields, events, i18n) {
   'use strict';
 
-  var generate = require('./field-generator.js')(m);
+  var generate = require('./field-generator.js');
 
-  var overlay = require('../overlay.js')(m, i18n);
+  var overlay = require('../overlay.js')(i18n);
 
-  var forms = require('./field-forms.js')(m, i18n);
+  var forms = require('./field-forms.js')(i18n);
 
   var fieldConfig;
   editor.on('blur', m.redraw);
@@ -532,14 +540,15 @@ var FieldHelper = function FieldHelper(m, tabs, editor, fields, events, i18n) {
 
 module.exports = FieldHelper;
 
-},{"../overlay.js":10,"./field-forms.js":2,"./field-generator.js":3}],5:[function(require,module,exports){
+},{"../overlay.js":11,"./field-forms.js":2,"./field-generator.js":3,"./form-editor.js":7,"mithril":27}],5:[function(require,module,exports){
 "use strict";
+
+var m = require('mithril');
 
 var FieldFactory = function FieldFactory(deps) {
   'use strict';
 
   var fields = deps.fields,
-      m = deps.m,
       i18n = deps.i18n,
       settings = deps.settings,
       events = deps.events,
@@ -783,12 +792,14 @@ var FieldFactory = function FieldFactory(deps) {
 
 module.exports = FieldFactory;
 
-},{}],6:[function(require,module,exports){
+},{"mithril":27}],6:[function(require,module,exports){
 'use strict';
 
 var prop = require("mithril/stream");
 
-module.exports = function (m, events) {
+var m = require('mithril');
+
+module.exports = function (events) {
   var timeout;
   var fields = [];
   var categories = [];
@@ -1003,7 +1014,7 @@ module.exports = function (m, events) {
   };
 };
 
-},{"mithril/stream":46}],7:[function(require,module,exports){
+},{"mithril":27,"mithril/stream":47}],7:[function(require,module,exports){
 'use strict'; // load CodeMirror & plugins
 
 var CodeMirror = require('codemirror');
@@ -1146,10 +1157,16 @@ setPreviewDom.call();
 
 module.exports = FormEditor;
 
-},{"codemirror":17,"codemirror/addon/edit/closetag.js":12,"codemirror/addon/edit/matchbrackets.js":13,"codemirror/addon/edit/matchtags.js":14,"codemirror/addon/fold/xml-fold.js":15,"codemirror/addon/selection/active-line.js":16,"codemirror/mode/css/css":18,"codemirror/mode/htmlmixed/htmlmixed":19,"codemirror/mode/javascript/javascript":20,"codemirror/mode/xml/xml":21}],8:[function(require,module,exports){
+},{"codemirror":18,"codemirror/addon/edit/closetag.js":13,"codemirror/addon/edit/matchbrackets.js":14,"codemirror/addon/edit/matchtags.js":15,"codemirror/addon/fold/xml-fold.js":16,"codemirror/addon/selection/active-line.js":17,"codemirror/mode/css/css":19,"codemirror/mode/htmlmixed/htmlmixed":20,"codemirror/mode/javascript/javascript":21,"codemirror/mode/xml/xml":22}],8:[function(require,module,exports){
 "use strict";
 
-var FormWatcher = function FormWatcher(m, editor, settings, fields, events, helpers) {
+var m = require('mithril');
+
+var helpers = require('../helpers.js');
+
+var editor = require('./form-editor.js');
+
+var FormWatcher = function FormWatcher(settings, fields, events) {
   'use strict';
 
   var requiredFieldsInput = document.getElementById('required-fields');
@@ -1225,8 +1242,100 @@ var FormWatcher = function FormWatcher(m, editor, settings, fields, events, help
 
 module.exports = FormWatcher;
 
-},{}],9:[function(require,module,exports){
+},{"../helpers.js":9,"./form-editor.js":7,"mithril":27}],9:[function(require,module,exports){
 'use strict';
+
+var helpers = {};
+
+helpers.toggleElement = function (selector) {
+  var elements = document.querySelectorAll(selector);
+
+  for (var i = 0; i < elements.length; i++) {
+    var show = elements[i].clientHeight <= 0;
+    elements[i].style.display = show ? '' : 'none';
+  }
+};
+
+helpers.bindEventToElement = function (element, event, handler) {
+  if (element.addEventListener) {
+    element.addEventListener(event, handler);
+  } else if (element.attachEvent) {
+    element.attachEvent('on' + event, handler);
+  }
+};
+
+helpers.bindEventToElements = function (elements, event, handler) {
+  Array.prototype.forEach.call(elements, function (element) {
+    helpers.bindEventToElement(element, event, handler);
+  });
+}; // polling
+
+
+helpers.debounce = function (func, wait, immediate) {
+  var timeout;
+  return function () {
+    var context = this,
+        args = arguments;
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    }, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
+/**
+ * Showif.js
+ */
+
+
+(function () {
+  var showIfElements = document.querySelectorAll('[data-showif]'); // dependent elements
+
+  Array.prototype.forEach.call(showIfElements, function (element) {
+    var config = JSON.parse(element.getAttribute('data-showif'));
+    var parentElements = document.querySelectorAll('[name="' + config.element + '"]');
+    var inputs = element.querySelectorAll('input,select,textarea:not([readonly])');
+    var hide = config.hide === undefined || config.hide;
+
+    function toggleElement() {
+      // do nothing with unchecked radio inputs
+      if (this.getAttribute('type') === "radio" && !this.checked) {
+        return;
+      }
+
+      var value = this.getAttribute("type") === "checkbox" ? this.checked : this.value;
+      var conditionMet = value == config.value;
+
+      if (hide) {
+        element.style.display = conditionMet ? '' : 'none';
+        element.style.visibility = conditionMet ? '' : 'hidden';
+      } else {
+        element.style.opacity = conditionMet ? '' : '0.4';
+      } // disable input fields to stop sending their values to server
+
+
+      Array.prototype.forEach.call(inputs, function (inputElement) {
+        conditionMet ? inputElement.removeAttribute('readonly') : inputElement.setAttribute('readonly', 'readonly');
+      });
+    } // find checked element and call toggleElement function
+
+
+    Array.prototype.forEach.call(parentElements, function (parentElement) {
+      toggleElement.call(parentElement);
+    }); // bind on all changes
+
+    helpers.bindEventToElements(parentElements, 'change', toggleElement);
+  });
+})();
+
+module.exports = helpers;
+
+},{}],10:[function(require,module,exports){
+'use strict';
+
+var editor = require('./form-editor/form-editor.js');
 
 var notices = {};
 
@@ -1259,7 +1368,7 @@ function render() {
   container.innerHTML = html;
 }
 
-function init(editor, fields, settings) {
+function init(fields, settings) {
   var groupingsNotice = function groupingsNotice() {
     var text = "Your form contains deprecated <code>GROUPINGS</code> fields. <br /><br />Please remove these fields from your form and then re-add them through the available field buttons to make sure your data is getting through to Mailchimp correctly.";
     var formCode = editor.getValue().toLowerCase();
@@ -1303,10 +1412,12 @@ module.exports = {
   "init": init
 };
 
-},{}],10:[function(require,module,exports){
+},{"./form-editor/form-editor.js":7}],11:[function(require,module,exports){
 "use strict";
 
-var overlay = function overlay(m, i18n) {
+var m = require('mithril');
+
+var overlay = function overlay(i18n) {
   'use strict';
 
   var _element, _onCloseCallback;
@@ -1318,16 +1429,15 @@ var overlay = function overlay(m, i18n) {
     _onCloseCallback();
   }
 
-  function onKeyDown(e) {
-    e = e || window.event; // close overlay when pressing ESC
-
-    if (e.keyCode == 27) {
+  function onKeyDown(evt) {
+    // close overlay when pressing ESC
+    if (evt.keyCode === 27) {
       close();
     } // prevent ENTER
 
 
-    if (e.keyCode == 13) {
-      e.preventDefault();
+    if (evt.keyCode === 13) {
+      evt.preventDefault();
     }
   }
 
@@ -1377,7 +1487,7 @@ var overlay = function overlay(m, i18n) {
 
 module.exports = overlay;
 
-},{}],11:[function(require,module,exports){
+},{"mithril":27}],12:[function(require,module,exports){
 'use strict'; // deps
 
 var i18n = window.mc4wp_forms_i18n;
@@ -1388,45 +1498,42 @@ var m = require('mithril');
 
 var events = mc4wp.events;
 var settings = mc4wp.settings;
-var helpers = mc4wp.helpers;
 var tabs = mc4wp.tabs;
 
 var FormWatcher = require('./admin/form-editor/form-watcher.js');
 
-var FormEditor = require('./admin/form-editor/form-editor.js');
+var editor = require('./admin/form-editor/form-editor.js');
 
 var FieldHelper = require('./admin/form-editor/field-helper.js');
 
 var FieldManager = require('./admin/form-editor/field-manager.js');
 
-var fields = require('./admin/form-editor/fields.js')(m, events); // vars
+var fields = require('./admin/form-editor/fields.js')(events); // vars
 
 
-var editor = window.formEditor = FormEditor;
-var watcher = new FormWatcher(m, formEditor, settings, fields, events, helpers);
-var fieldHelper = new FieldHelper(m, tabs, formEditor, fields, events, i18n);
+var watcher = new FormWatcher(settings, fields, events);
 var fieldManager = new FieldManager({
   fields: fields,
   i18n: i18n,
   settings: settings,
   events: events,
-  m: m,
   mailchimpLists: mailchimpLists
 });
 
 var notices = require('./admin/notices'); // mount field helper on element
 
 
+var fieldHelper = new FieldHelper(tabs, fields, events, i18n);
 var fieldHelperRootElement = document.getElementById('mc4wp-field-wizard');
 m.mount(fieldHelperRootElement, fieldHelper); // init notices
 
-notices.init(editor, fields, settings); // expose some methods
+notices.init(fields, settings); // expose some methods
 
 window.mc4wp.forms = window.mc4wp.forms || {};
 window.mc4wp.forms.editor = editor;
 window.mc4wp.forms.fields = fields;
 
-},{"./admin/form-editor/field-helper.js":4,"./admin/form-editor/field-manager.js":5,"./admin/form-editor/fields.js":6,"./admin/form-editor/form-editor.js":7,"./admin/form-editor/form-watcher.js":8,"./admin/notices":9,"mithril":26}],12:[function(require,module,exports){
+},{"./admin/form-editor/field-helper.js":4,"./admin/form-editor/field-manager.js":5,"./admin/form-editor/fields.js":6,"./admin/form-editor/form-editor.js":7,"./admin/form-editor/form-watcher.js":8,"./admin/notices":10,"mithril":27}],13:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -1611,7 +1718,7 @@ window.mc4wp.forms.fields = fields;
   }
 });
 
-},{"../../lib/codemirror":17,"../fold/xml-fold":15}],13:[function(require,module,exports){
+},{"../../lib/codemirror":18,"../fold/xml-fold":16}],14:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -1763,7 +1870,7 @@ window.mc4wp.forms.fields = fields;
   });
 });
 
-},{"../../lib/codemirror":17}],14:[function(require,module,exports){
+},{"../../lib/codemirror":18}],15:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -1831,7 +1938,7 @@ window.mc4wp.forms.fields = fields;
   };
 });
 
-},{"../../lib/codemirror":17,"../fold/xml-fold":15}],15:[function(require,module,exports){
+},{"../../lib/codemirror":18,"../fold/xml-fold":16}],16:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -2017,7 +2124,7 @@ window.mc4wp.forms.fields = fields;
   };
 });
 
-},{"../../lib/codemirror":17}],16:[function(require,module,exports){
+},{"../../lib/codemirror":18}],17:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -2091,7 +2198,7 @@ window.mc4wp.forms.fields = fields;
   }
 });
 
-},{"../../lib/codemirror":17}],17:[function(require,module,exports){
+},{"../../lib/codemirror":18}],18:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -11855,7 +11962,7 @@ window.mc4wp.forms.fields = fields;
 
 })));
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -12688,7 +12795,7 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
 
 });
 
-},{"../../lib/codemirror":17}],19:[function(require,module,exports){
+},{"../../lib/codemirror":18}],20:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -12842,7 +12949,7 @@ CodeMirror.defineMode("css", function(config, parserConfig) {
   CodeMirror.defineMIME("text/html", "htmlmixed");
 });
 
-},{"../../lib/codemirror":17,"../css/css":18,"../javascript/javascript":20,"../xml/xml":21}],20:[function(require,module,exports){
+},{"../../lib/codemirror":18,"../css/css":19,"../javascript/javascript":21,"../xml/xml":22}],21:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -13771,7 +13878,7 @@ CodeMirror.defineMIME("application/typescript", { name: "javascript", typescript
 
 });
 
-},{"../../lib/codemirror":17}],21:[function(require,module,exports){
+},{"../../lib/codemirror":18}],22:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: https://codemirror.net/LICENSE
 
@@ -14175,7 +14282,7 @@ if (!CodeMirror.mimeModes.hasOwnProperty("text/html"))
 
 });
 
-},{"../../lib/codemirror":17}],22:[function(require,module,exports){
+},{"../../lib/codemirror":18}],23:[function(require,module,exports){
 /*
 
  Style HTML
@@ -14712,7 +14819,7 @@ function style_html(html_source, options) {
 module.exports = {
   prettyPrint: style_html
 };
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -14764,7 +14871,7 @@ module.exports = function(render, schedule, console) {
 	return {mount: mount, redraw: redraw}
 }
 
-},{"../render/vnode":42}],24:[function(require,module,exports){
+},{"../render/vnode":43}],25:[function(require,module,exports){
 (function (setImmediate){
 "use strict"
 
@@ -15030,7 +15137,7 @@ module.exports = function($window, mountRedraw) {
 }
 
 }).call(this,require("timers").setImmediate)
-},{"../pathname/assign":28,"../pathname/build":29,"../pathname/compileTemplate":30,"../pathname/parse":31,"../promise/promise":33,"../render/hyperscript":38,"../render/vnode":42,"timers":49}],25:[function(require,module,exports){
+},{"../pathname/assign":29,"../pathname/build":30,"../pathname/compileTemplate":31,"../pathname/parse":32,"../promise/promise":34,"../render/hyperscript":39,"../render/vnode":43,"timers":50}],26:[function(require,module,exports){
 "use strict"
 
 var hyperscript = require("./render/hyperscript")
@@ -15040,7 +15147,7 @@ hyperscript.fragment = require("./render/fragment")
 
 module.exports = hyperscript
 
-},{"./render/fragment":37,"./render/hyperscript":38,"./render/trust":41}],26:[function(require,module,exports){
+},{"./render/fragment":38,"./render/hyperscript":39,"./render/trust":42}],27:[function(require,module,exports){
 "use strict"
 
 var hyperscript = require("./hyperscript")
@@ -15066,21 +15173,21 @@ m.PromisePolyfill = require("./promise/polyfill")
 
 module.exports = m
 
-},{"./hyperscript":25,"./mount-redraw":27,"./pathname/build":29,"./pathname/parse":31,"./promise/polyfill":32,"./querystring/build":34,"./querystring/parse":35,"./render":36,"./render/vnode":42,"./request":43,"./route":45}],27:[function(require,module,exports){
+},{"./hyperscript":26,"./mount-redraw":28,"./pathname/build":30,"./pathname/parse":32,"./promise/polyfill":33,"./querystring/build":35,"./querystring/parse":36,"./render":37,"./render/vnode":43,"./request":44,"./route":46}],28:[function(require,module,exports){
 "use strict"
 
 var render = require("./render")
 
 module.exports = require("./api/mount-redraw")(render, requestAnimationFrame, console)
 
-},{"./api/mount-redraw":23,"./render":36}],28:[function(require,module,exports){
+},{"./api/mount-redraw":24,"./render":37}],29:[function(require,module,exports){
 "use strict"
 
 module.exports = Object.assign || function(target, source) {
 	if(source) Object.keys(source).forEach(function(key) { target[key] = source[key] })
 }
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 "use strict"
 
 var buildQueryString = require("../querystring/build")
@@ -15125,7 +15232,7 @@ module.exports = function(template, params) {
 	return result
 }
 
-},{"../querystring/build":34,"./assign":28}],30:[function(require,module,exports){
+},{"../querystring/build":35,"./assign":29}],31:[function(require,module,exports){
 "use strict"
 
 var parsePathname = require("./parse")
@@ -15170,7 +15277,7 @@ module.exports = function(template) {
 	}
 }
 
-},{"./parse":31}],31:[function(require,module,exports){
+},{"./parse":32}],32:[function(require,module,exports){
 "use strict"
 
 var parseQueryString = require("../querystring/parse")
@@ -15196,7 +15303,7 @@ module.exports = function(url) {
 	}
 }
 
-},{"../querystring/parse":35}],32:[function(require,module,exports){
+},{"../querystring/parse":36}],33:[function(require,module,exports){
 (function (setImmediate){
 "use strict"
 /** @constructor */
@@ -15312,7 +15419,7 @@ PromisePolyfill.race = function(list) {
 module.exports = PromisePolyfill
 
 }).call(this,require("timers").setImmediate)
-},{"timers":49}],33:[function(require,module,exports){
+},{"timers":50}],34:[function(require,module,exports){
 (function (global){
 "use strict"
 
@@ -15337,7 +15444,7 @@ if (typeof window !== "undefined") {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./polyfill":32}],34:[function(require,module,exports){
+},{"./polyfill":33}],35:[function(require,module,exports){
 "use strict"
 
 module.exports = function(object) {
@@ -15365,7 +15472,7 @@ module.exports = function(object) {
 	}
 }
 
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 "use strict"
 
 module.exports = function(string) {
@@ -15410,12 +15517,12 @@ module.exports = function(string) {
 	return data
 }
 
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 "use strict"
 
 module.exports = require("./render/render")(window)
 
-},{"./render/render":40}],37:[function(require,module,exports){
+},{"./render/render":41}],38:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -15429,7 +15536,7 @@ module.exports = function() {
 	return vnode
 }
 
-},{"../render/vnode":42,"./hyperscriptVnode":39}],38:[function(require,module,exports){
+},{"../render/vnode":43,"./hyperscriptVnode":40}],39:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -15532,7 +15639,7 @@ function hyperscript(selector) {
 
 module.exports = hyperscript
 
-},{"../render/vnode":42,"./hyperscriptVnode":39}],39:[function(require,module,exports){
+},{"../render/vnode":43,"./hyperscriptVnode":40}],40:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -15587,7 +15694,7 @@ module.exports = function() {
 	return Vnode("", attrs.key, attrs, children)
 }
 
-},{"../render/vnode":42}],40:[function(require,module,exports){
+},{"../render/vnode":43}],41:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -16562,7 +16669,7 @@ module.exports = function($window) {
 	}
 }
 
-},{"../render/vnode":42}],41:[function(require,module,exports){
+},{"../render/vnode":43}],42:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -16572,7 +16679,7 @@ module.exports = function(html) {
 	return Vnode("<", undefined, undefined, html, undefined, undefined)
 }
 
-},{"../render/vnode":42}],42:[function(require,module,exports){
+},{"../render/vnode":43}],43:[function(require,module,exports){
 "use strict"
 
 function Vnode(tag, key, attrs, children, text, dom) {
@@ -16605,7 +16712,7 @@ Vnode.normalizeChildren = function(input) {
 
 module.exports = Vnode
 
-},{}],43:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 "use strict"
 
 var PromisePolyfill = require("./promise/promise")
@@ -16613,7 +16720,7 @@ var mountRedraw = require("./mount-redraw")
 
 module.exports = require("./request/request")(window, PromisePolyfill, mountRedraw.redraw)
 
-},{"./mount-redraw":27,"./promise/promise":33,"./request/request":44}],44:[function(require,module,exports){
+},{"./mount-redraw":28,"./promise/promise":34,"./request/request":45}],45:[function(require,module,exports){
 "use strict"
 
 var buildPathname = require("../pathname/build")
@@ -16809,19 +16916,19 @@ module.exports = function($window, Promise, oncompletion) {
 	}
 }
 
-},{"../pathname/build":29}],45:[function(require,module,exports){
+},{"../pathname/build":30}],46:[function(require,module,exports){
 "use strict"
 
 var mountRedraw = require("./mount-redraw")
 
 module.exports = require("./api/router")(window, mountRedraw)
 
-},{"./api/router":24,"./mount-redraw":27}],46:[function(require,module,exports){
+},{"./api/router":25,"./mount-redraw":28}],47:[function(require,module,exports){
 "use strict"
 
 module.exports = require("./stream/stream")
 
-},{"./stream/stream":47}],47:[function(require,module,exports){
+},{"./stream/stream":48}],48:[function(require,module,exports){
 /* eslint-disable */
 ;(function() {
 "use strict"
@@ -17002,7 +17109,7 @@ else window.m = {stream : Stream}
 
 }());
 
-},{}],48:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -17188,7 +17295,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],49:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 (function (setImmediate,clearImmediate){
 var nextTick = require('process/browser.js').nextTick;
 var apply = Function.prototype.apply;
@@ -17267,5 +17374,5 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
   delete immediateIds[id];
 };
 }).call(this,require("timers").setImmediate,require("timers").clearImmediate)
-},{"process/browser.js":48,"timers":49}]},{},[11]);
+},{"process/browser.js":49,"timers":50}]},{},[12]);
  })();

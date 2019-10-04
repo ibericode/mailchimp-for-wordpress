@@ -51,7 +51,7 @@ const Tabs = function(context) {
 		if(!tab) { return false; }
 
 		// should we update state?
-		if( updateState == undefined ) {
+		if( updateState === undefined ) {
 			updateState = true;
 		}
 
@@ -70,7 +70,7 @@ const Tabs = function(context) {
 		tab.element.className += " tab-active";
 
 		// create new URL
-		var url = URL.setParameter(window.location.href, "tab", tab.id );
+		let url = URL.setParameter(window.location.href, "tab", tab.id );
 
 		// update hash
 		if( history.pushState && updateState ) {
@@ -88,29 +88,21 @@ const Tabs = function(context) {
 			tb_remove();
 		}
 
-		// refresh editor after switching tabs
-		// TODO: decouple this! law of demeter etc.
-		if( tab.id === 'fields' && window.mc4wp && window.mc4wp.forms && window.mc4wp.forms.editor ) {
-			mc4wp.forms.editor.refresh();
-		}
-
 		return true;
 	}
 
 	function title(tab) {
-		var title = document.title.split('-');
+		let title = document.title.split('-');
 		document.title = document.title.replace(title[0], tab.title + " ");
 	}
 
-	function switchTab(e) {
-		e = e || window.event;
-
+	function switchTab(evt) {
 		// get from data attribute
-		var tabId = this.getAttribute('data-tab');
+		let tabId = this.getAttribute('data-tab');
 
 		// get from classname
 		if( ! tabId ) {
-			var match = this.className.match(/nav-tab-(\w+)?/);
+			let match = this.className.match(/nav-tab-(\w+)?/);
 			if( match ) {
 				tabId = match[1];
 			}
@@ -118,16 +110,16 @@ const Tabs = function(context) {
 
 		// get from href
 		if( ! tabId ) {
-			var urlParams = URL.parse( this.href );
+			let urlParams = URL.parse( this.href );
 			if( ! urlParams.tab ) { return; }
 			tabId = urlParams.tab;
 		}
 
-		var opened = open( tabId );
+		let opened = open( tabId );
 
 		if( opened ) {
-			e.preventDefault();
-			e.returnValue = false;
+			evt.preventDefault();
+			evt.returnValue = false;
 			return false;
 		}
 
@@ -141,9 +133,9 @@ const Tabs = function(context) {
 			return;
 		}
 
-		var activeTab = $tabs.filter(':visible').get(0);
+		let activeTab = $tabs.filter(':visible').get(0);
 		if( ! activeTab ) { return; }
-		var tab = get(activeTab.id.substring(4));
+		let tab = get(activeTab.id.substring(4));
 		if(!tab) return;
 
 		// check if tab is in html5 history
@@ -162,7 +154,7 @@ const Tabs = function(context) {
 	if(window.addEventListener && history.pushState ) {
 		window.addEventListener('popstate', function(e) {
 			if(!e.state) return true;
-			var tabId = e.state;
+			let tabId = e.state;
 			return open(tabId,false);
 		});
 	}

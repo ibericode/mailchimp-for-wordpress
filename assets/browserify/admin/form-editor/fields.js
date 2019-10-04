@@ -1,8 +1,9 @@
 'use strict';
 
 const prop = require("mithril/stream");
+const m = require('mithril');
 
-module.exports = function(m, events) {
+module.exports = function(events) {
     let timeout;
     let fields = [];
     let categories = [];

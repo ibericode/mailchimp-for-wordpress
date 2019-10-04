@@ -1,4 +1,6 @@
-const overlay = function(m, i18n) {
+const m = require('mithril');
+
+const overlay = function(i18n) {
 	'use strict';
 
 	let _element,
@@ -10,17 +12,15 @@ const overlay = function(m, i18n) {
 		_onCloseCallback();
 	}
 
-	function onKeyDown(e) {
-		e = e || window.event;
-
+	function onKeyDown(evt) {
 		// close overlay when pressing ESC
-		if(e.keyCode == 27) {
+		if(evt.keyCode === 27) {
 			close();
 		}
 
 		// prevent ENTER
-		if(e.keyCode == 13 ) {
-			e.preventDefault();
+		if(evt.keyCode === 13 ) {
+			evt.preventDefault();
 		}
 	}
 

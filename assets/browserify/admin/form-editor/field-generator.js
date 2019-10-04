@@ -1,6 +1,7 @@
 'use strict';
 
 const htmlutil = require('html');
+const m = require('mithril');
 
 const setAttributes = function(vnode) {
     if(vnode.dom.checked) {
@@ -16,7 +17,7 @@ const setAttributes = function(vnode) {
     }
 };
 
-const g = function(m) {
+const g = function() {
 	let generators = {};
 
 	/**

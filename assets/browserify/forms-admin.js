@@ -8,28 +8,26 @@ let mailchimpLists = global.mailchimp.lists;
 const m = require('mithril');
 let events = mc4wp.events;
 let settings = mc4wp.settings;
-let helpers = mc4wp.helpers;
 
 const tabs = mc4wp.tabs;
 const FormWatcher = require('./admin/form-editor/form-watcher.js');
-const FormEditor = require('./admin/form-editor/form-editor.js');
+const editor = require('./admin/form-editor/form-editor.js');
 const FieldHelper = require('./admin/form-editor/field-helper.js');
 const FieldManager = require('./admin/form-editor/field-manager.js');
-let fields = require('./admin/form-editor/fields.js')(m, events);
+let fields = require('./admin/form-editor/fields.js')(events);
 
 // vars
-let editor = window.formEditor = FormEditor;
-let watcher = new FormWatcher( m, formEditor, settings, fields, events, helpers );
-let fieldHelper = new FieldHelper( m, tabs, formEditor, fields, events, i18n );
-let fieldManager = new FieldManager({fields, i18n, settings, events, m, mailchimpLists});
+let watcher = new FormWatcher(settings, fields, events);
+let fieldManager = new FieldManager({fields, i18n, settings, events, mailchimpLists});
 let notices = require('./admin/notices');
 
 // mount field helper on element
+let fieldHelper = new FieldHelper(tabs, fields, events, i18n);
 let fieldHelperRootElement = document.getElementById( 'mc4wp-field-wizard');
 m.mount(fieldHelperRootElement, fieldHelper);
 
 // init notices
-notices.init(editor, fields, settings);
+notices.init(fields, settings);
 
 // expose some methods
 window.mc4wp.forms = window.mc4wp.forms || {};

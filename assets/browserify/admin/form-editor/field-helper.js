@@ -1,13 +1,15 @@
-const FieldHelper = function(m, tabs, editor, fields, events, i18n) {
+const m = require('mithril');
+const editor = require('./form-editor.js');
+
+const FieldHelper = function(tabs, fields, events, i18n) {
 	'use strict';
 
-	const generate = require('./field-generator.js')(m);
-	const overlay = require('../overlay.js')(m,i18n);
-	const forms = require('./field-forms.js')(m, i18n);
+	const generate = require('./field-generator.js');
+	const overlay = require('../overlay.js')(i18n);
+	const forms = require('./field-forms.js')(i18n);
 	let fieldConfig;
 
 	editor.on('blur', m.redraw);
-
 
 	/**
 	 * Choose a field to open the helper form for

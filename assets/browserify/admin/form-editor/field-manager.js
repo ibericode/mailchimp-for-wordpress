@@ -1,7 +1,9 @@
+const m = require('mithril');
+
 const FieldFactory = function(deps) {
     'use strict';
 
-    const {fields, m, i18n, settings, events, mailchimpLists} = deps;
+    const {fields, i18n, settings, events, mailchimpLists} = deps;
 
     /**
      * Array of registered fields

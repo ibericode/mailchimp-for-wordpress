@@ -1,11 +1,11 @@
 'use strict';
 
-var helpers = {};
+const helpers = {};
 
 helpers.toggleElement = function(selector) {
-	var elements = document.querySelectorAll(selector);
-	for( var i=0; i<elements.length;i++){
-		var show = elements[i].clientHeight <= 0;
+	let elements = document.querySelectorAll(selector);
+	for( let i=0; i<elements.length;i++){
+		let show = elements[i].clientHeight <= 0;
 		elements[i].style.display = show ? '' : 'none';
 	}
 };
@@ -27,16 +27,15 @@ helpers.bindEventToElements = function( elements, event, handler ) {
 
 // polling
 helpers.debounce = function(func, wait, immediate) {
-	var timeout;
+	let timeout;
 	return function() {
-		var context = this, args = arguments;
-		var later = function() {
+		let context = this, args = arguments;
+		let callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(() => {
 			timeout = null;
 			if (!immediate) func.apply(context, args);
-		};
-		var callNow = immediate && !timeout;
-		clearTimeout(timeout);
-		timeout = setTimeout(later, wait);
+		}, wait);
 		if (callNow) func.apply(context, args);
 	};
 };
@@ -46,14 +45,14 @@ helpers.debounce = function(func, wait, immediate) {
  * Showif.js
  */
 (function() {
-	var showIfElements = document.querySelectorAll('[data-showif]');
+	const showIfElements = document.querySelectorAll('[data-showif]');
 
 	// dependent elements
 	Array.prototype.forEach.call( showIfElements, function(element) {
-		var config = JSON.parse( element.getAttribute('data-showif') );
-		var parentElements = document.querySelectorAll('[name="'+ config.element +'"]');
-		var inputs = element.querySelectorAll('input,select,textarea:not([readonly])');
-		var hide = config.hide === undefined || config.hide;
+		let config = JSON.parse( element.getAttribute('data-showif') );
+		let parentElements = document.querySelectorAll('[name="'+ config.element +'"]');
+		let inputs = element.querySelectorAll('input,select,textarea:not([readonly])');
+		let hide = config.hide === undefined || config.hide;
 
 		function toggleElement() {
 
@@ -62,8 +61,8 @@ helpers.debounce = function(func, wait, immediate) {
 				return;
 			}
 
-			var value = ( this.getAttribute("type")  === "checkbox" ) ? this.checked : this.value;
-			var conditionMet = ( value == config.value );
+			let value = ( this.getAttribute("type")  === "checkbox" ) ? this.checked : this.value;
+			let conditionMet = ( value == config.value );
 
 			if( hide ) {
 				element.style.display = conditionMet ? '' : 'none';

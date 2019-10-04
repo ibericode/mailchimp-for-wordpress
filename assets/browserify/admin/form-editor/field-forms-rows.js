@@ -1,6 +1,7 @@
 'use strict';
 
-const rows = function(m, i18n) {
+const m = require('mithril');
+const rows = function(i18n) {
 
 	let r = {};
 

@@ -1,4 +1,8 @@
-const FormWatcher = function(m, editor, settings, fields, events, helpers) {
+const m = require('mithril');
+const helpers = require('../helpers.js');
+const editor = require('./form-editor.js');
+
+const FormWatcher = function(settings, fields, events) {
     'use strict';
 
     let requiredFieldsInput = document.getElementById('required-fields');
