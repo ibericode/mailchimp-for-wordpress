@@ -268,13 +268,17 @@ function view(data) {
   }))])]];
 }
 
-document.getElementById('mc4wp-mailchimp-lists-overview').addEventListener('click', function (evt) {
-  if (!evt.target.matches('.mc4wp-mailchimp-list')) {
-    return;
-  }
+var table = document.getElementById('mc4wp-mailchimp-lists-overview');
 
-  showDetails(evt);
-});
+if (table) {
+  table.addEventListener('click', function (evt) {
+    if (!evt.target.matches('.mc4wp-mailchimp-list')) {
+      return;
+    }
+
+    showDetails(evt);
+  });
+}
 
 },{"mithril":13}],7:[function(require,module,exports){
 'use strict';

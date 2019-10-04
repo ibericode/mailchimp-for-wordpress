@@ -266,7 +266,7 @@ class MC4WP_MailChimp
      */
     public function get_list($list_id) {
         $lists = $this->get_lists();
-        return $lists["$list_id"];
+        return isset($lists["$list_id"]) ? $lists["$list_id"] : null;
     }
 
     /**

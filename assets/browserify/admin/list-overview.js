@@ -101,11 +101,14 @@ function view(data) {
     ]
 }
 
-document.getElementById('mc4wp-mailchimp-lists-overview').addEventListener('click', (evt) => {
-    if (!evt.target.matches('.mc4wp-mailchimp-list')) {
-        return;
-    }
+const table = document.getElementById('mc4wp-mailchimp-lists-overview');
+if (table) {
+    table.addEventListener('click', (evt) => {
+        if (!evt.target.matches('.mc4wp-mailchimp-list')) {
+            return;
+        }
 
-    showDetails(evt);
-});
+        showDetails(evt);
+    });
+}
 
