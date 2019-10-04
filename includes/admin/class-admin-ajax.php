@@ -41,13 +41,17 @@ class MC4WP_Admin_Ajax
         wp_send_json($success);
     }
 
+    /**
+     * Retrieve details (merge fields and interest categories) for one or multiple lists in Mailchimp
+     * @throws MC4WP_API_Exception
+     */
     public function get_list_details() {
         $list_ids = (array) explode(',', $_GET['ids']);
         $data = array();
         $mailchimp = new MC4WP_MailChimp();
         foreach($list_ids as $list_id) {
-            $merge_fields = $mailchimp->fetch_list_merge_fields($list_id);
-            $interest_categories = $mailchimp->fetch_list_interest_categories($list_id);
+            $merge_fields = $mailchimp->get_list_merge_fields($list_id);
+            $interest_categories = $mailchimp->get_list_interest_categories($list_id);
             $data[] = (object) array(
                 'id' => $list_id,
                 'merge_fields' => $merge_fields,

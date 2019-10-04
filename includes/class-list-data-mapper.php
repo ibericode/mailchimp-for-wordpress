@@ -59,8 +59,8 @@ class MC4WP_List_Data_Mapper
 
     /**
     * @param string $list_id
-    *
     * @return MC4WP_MailChimp_Subscriber
+    * @throws Exception
     */
     protected function map_list($list_id)
     {
@@ -68,7 +68,7 @@ class MC4WP_List_Data_Mapper
         $subscriber->email_address = $this->data['EMAIL'];
 
         // find merge fields
-        $merge_fields = $this->mailchimp->fetch_list_merge_fields($list_id);
+        $merge_fields = $this->mailchimp->get_list_merge_fields($list_id);
         foreach ($merge_fields as $merge_field) {
 
             // skip EMAIL field as that is handled separately (see above)
@@ -91,7 +91,7 @@ class MC4WP_List_Data_Mapper
 
         // find interest categories
         if (! empty($this->data['INTERESTS'])) {
-            $interest_categories = $this->mailchimp->fetch_list_interest_categories($list_id);
+            $interest_categories = $this->mailchimp->get_list_interest_categories($list_id);
             foreach ($interest_categories as $interest_category) {
                 foreach ($interest_category->interests as $interest_id => $interest_name) {
                     // straight lookup by ID as key with value copy.
