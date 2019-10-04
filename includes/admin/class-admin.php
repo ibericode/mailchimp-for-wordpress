@@ -305,10 +305,8 @@ class MC4WP_Admin
         wp_register_script('es5-shim', MC4WP_PLUGIN_URL . 'assets/js/third-party/es5-shim.min.js', array(), MC4WP_VERSION);
         $wp_scripts->add_data('es5-shim', 'conditional', 'lt IE 9');
 
-        // TODO: eventually get rid of jQuery here
-        wp_register_script('mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array( 'jquery', 'es5-shim' ), MC4WP_VERSION, true);
-        wp_enqueue_script(array( 'jquery', 'es5-shim', 'mc4wp-admin' ));
-
+        wp_register_script('mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array('es5-shim'), MC4WP_VERSION, true);
+        wp_enqueue_script('mc4wp-admin');
         wp_localize_script(
             'mc4wp-admin',
             'mc4wp_vars',
@@ -366,7 +364,7 @@ class MC4WP_Admin
                 'callback' => array( $this, 'show_other_setting_page' ),
                 'position' => 90
             ),
-            
+
         );
 
         /**

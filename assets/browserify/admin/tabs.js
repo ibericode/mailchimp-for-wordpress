@@ -2,38 +2,37 @@
 
 const URL = require('./url.js');
 const context = document.getElementById('mc4wp-admin');
-
-// TODO: last piece of jQuery... can we get rid of it?
-const $ = window.jQuery;
-
-const $context = $(context);
-let $tabs = $context.find('.tab');
-let $tabNavs = $context.find('.nav-tab');
+let tabElements = context.querySelectorAll('.tab');
+let tabNavElements = context.querySelectorAll('.nav-tab');
 let refererField = context.querySelector('input[name="_wp_http_referer"]');
 let tabs = [];
 
-$.each($tabs, function(i,t) {
+if (!Element.prototype.matches) {
+	Element.prototype.matches = Element.prototype.msMatchesSelector ||
+		Element.prototype.webkitMatchesSelector;
+}
+
+[].forEach.call(tabElements, (t, i) => {
 	const id = t.id.substring(4);
-	const title = $(t).find('h2').first().text();
+	const title = t.querySelector('h2:first-of-type').textContent;
 
 	tabs.push({
 		id: id,
 		title: title,
 		element: t,
 		nav: context.querySelectorAll('.nav-tab-' + id),
-		open: function() { return open(id); }
+		open: () => open(id)
 	});
 });
 
 function get(id) {
-
-	for( let i=0; i<tabs.length; i++){
+	for (let i=0; i<tabs.length; i++){
 		if(tabs[i].id === id ) {
 			return tabs[i];
 		}
 	}
 
-	return undefined;
+	return null;
 }
 
 function open( tab, updateState ) {
@@ -43,7 +42,9 @@ function open( tab, updateState ) {
 		tab = get(tab);
 	}
 
-	if(!tab) { return false; }
+	if (!tab) {
+		return false;
+	}
 
 	// should we update state?
 	if( updateState === undefined ) {
@@ -51,11 +52,16 @@ function open( tab, updateState ) {
 	}
 
 	// hide all tabs & remove active class
-	$tabs.removeClass('tab-active').css('display', 'none');
-	$tabNavs.removeClass('nav-tab-active');
+	[].forEach.call(tabElements, t => {
+		t.className = t.className.replace('tab-active', '');
+		t.style.display = ' none';
+	});
+	[].forEach.call(tabNavElements, t => {
+		t.className = t.className.replace('nav-tab-active', '');
+	});
 
 	// add `nav-tab-active` to this tab
-	Array.prototype.forEach.call(tab.nav, function(nav) {
+	[].forEach.call(tab.nav, function(nav) {
 		nav.className += " nav-tab-active";
 		nav.blur();
 	});
@@ -68,7 +74,7 @@ function open( tab, updateState ) {
 	let url = URL.setParameter(window.location.href, "tab", tab.id );
 
 	// update hash
-	if( history.pushState && updateState ) {
+	if (history.pushState && updateState) {
 		history.pushState( tab.id, '', url );
 	}
 
@@ -92,12 +98,14 @@ function title(tab) {
 }
 
 function switchTab(evt) {
+	let link = evt.target;
+
 	// get from data attribute
-	let tabId = this.getAttribute('data-tab');
+	let tabId = link.getAttribute('data-tab');
 
 	// get from classname
 	if( ! tabId ) {
-		let match = this.className.match(/nav-tab-(\w+)?/);
+		let match = link.className.match(/nav-tab-(\w+)?/);
 		if( match ) {
 			tabId = match[1];
 		}
@@ -105,7 +113,7 @@ function switchTab(evt) {
 
 	// get from href
 	if( ! tabId ) {
-		let urlParams = URL.parse( this.href );
+		let urlParams = URL.parse( link.href );
 		if( ! urlParams.tab ) { return; }
 		tabId = urlParams.tab;
 	}
@@ -122,19 +130,18 @@ function switchTab(evt) {
 }
 
 function init() {
-
-	// check for current tab
-	if(! history.pushState) {
+	let activeTab = tabs.filter(t => t.element.offsetParent !== null).shift();
+	if (! activeTab) {
 		return;
 	}
 
-	let activeTab = $tabs.filter(':visible').get(0);
-	if( ! activeTab ) { return; }
 	let tab = get(activeTab.id.substring(4));
-	if(!tab) return;
+	if (! tab) {
+		return;
+	}
 
 	// check if tab is in html5 history
-	if( history.replaceState && history.state === null) {
+	if (history.replaceState && history.state === null) {
 		history.replaceState( tab.id, '' );
 	}
 
@@ -142,8 +149,15 @@ function init() {
 	title(tab);
 }
 
-$tabNavs.click(switchTab);
-$(document.body).on('click', '.tab-link', switchTab);
+[].forEach.call(tabNavElements, el => el.addEventListener('click', switchTab));
+document.body.addEventListener('click', evt => {
+	if (! evt.target.matches('.tab-link')) {
+		return;
+	}
+
+	switchTab(evt);
+});
+
 init();
 
 if(window.addEventListener && history.pushState ) {

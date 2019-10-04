@@ -2,6 +2,11 @@
 
 const m = require('mithril');
 
+if (!Element.prototype.matches) {
+	Element.prototype.matches = Element.prototype.msMatchesSelector ||
+		Element.prototype.webkitMatchesSelector;
+}
+
 function showDetails(evt) {
     evt.preventDefault();
 

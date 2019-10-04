@@ -222,6 +222,10 @@ if (mount) {
 
 var m = require('mithril');
 
+if (!Element.prototype.matches) {
+  Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
+}
+
 function showDetails(evt) {
   evt.preventDefault();
   var link = evt.target;
@@ -339,17 +343,19 @@ module.exports = {
 
 var URL = require('./url.js');
 
-var context = document.getElementById('mc4wp-admin'); // TODO: last piece of jQuery... can we get rid of it?
-
-var $ = window.jQuery;
-var $context = $(context);
-var $tabs = $context.find('.tab');
-var $tabNavs = $context.find('.nav-tab');
+var context = document.getElementById('mc4wp-admin');
+var tabElements = context.querySelectorAll('.tab');
+var tabNavElements = context.querySelectorAll('.nav-tab');
 var refererField = context.querySelector('input[name="_wp_http_referer"]');
 var tabs = [];
-$.each($tabs, function (i, t) {
+
+if (!Element.prototype.matches) {
+  Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
+}
+
+[].forEach.call(tabElements, function (t, i) {
   var id = t.id.substring(4);
-  var title = $(t).find('h2').first().text();
+  var title = t.querySelector('h2:first-of-type').textContent;
   tabs.push({
     id: id,
     title: title,
@@ -368,7 +374,7 @@ function get(id) {
     }
   }
 
-  return undefined;
+  return null;
 }
 
 function _open(tab, updateState) {
@@ -387,10 +393,15 @@ function _open(tab, updateState) {
   } // hide all tabs & remove active class
 
 
-  $tabs.removeClass('tab-active').css('display', 'none');
-  $tabNavs.removeClass('nav-tab-active'); // add `nav-tab-active` to this tab
+  [].forEach.call(tabElements, function (t) {
+    t.className = t.className.replace('tab-active', '');
+    t.style.display = ' none';
+  });
+  [].forEach.call(tabNavElements, function (t) {
+    t.className = t.className.replace('nav-tab-active', '');
+  }); // add `nav-tab-active` to this tab
 
-  Array.prototype.forEach.call(tab.nav, function (nav) {
+  [].forEach.call(tab.nav, function (nav) {
     nav.className += " nav-tab-active";
     nav.blur();
   }); // show target tab
@@ -422,11 +433,12 @@ function title(tab) {
 }
 
 function switchTab(evt) {
-  // get from data attribute
-  var tabId = this.getAttribute('data-tab'); // get from classname
+  var link = evt.target; // get from data attribute
+
+  var tabId = link.getAttribute('data-tab'); // get from classname
 
   if (!tabId) {
-    var match = this.className.match(/nav-tab-(\w+)?/);
+    var match = link.className.match(/nav-tab-(\w+)?/);
 
     if (match) {
       tabId = match[1];
@@ -435,7 +447,7 @@ function switchTab(evt) {
 
 
   if (!tabId) {
-    var urlParams = URL.parse(this.href);
+    var urlParams = URL.parse(link.href);
 
     if (!urlParams.tab) {
       return;
@@ -456,19 +468,20 @@ function switchTab(evt) {
 }
 
 function init() {
-  // check for current tab
-  if (!history.pushState) {
-    return;
-  }
-
-  var activeTab = $tabs.filter(':visible').get(0);
+  var activeTab = tabs.filter(function (t) {
+    return t.element.offsetParent !== null;
+  }).shift();
 
   if (!activeTab) {
     return;
   }
 
   var tab = get(activeTab.id.substring(4));
-  if (!tab) return; // check if tab is in html5 history
+
+  if (!tab) {
+    return;
+  } // check if tab is in html5 history
+
 
   if (history.replaceState && history.state === null) {
     history.replaceState(tab.id, '');
@@ -478,8 +491,16 @@ function init() {
   title(tab);
 }
 
-$tabNavs.click(switchTab);
-$(document.body).on('click', '.tab-link', switchTab);
+[].forEach.call(tabNavElements, function (el) {
+  return el.addEventListener('click', switchTab);
+});
+document.body.addEventListener('click', function (evt) {
+  if (!evt.target.matches('.tab-link')) {
+    return;
+  }
+
+  switchTab(evt);
+});
 init();
 
 if (window.addEventListener && history.pushState) {
