@@ -1061,15 +1061,6 @@ function updatePreview() {
   previewDom.dispatchEvent(new Event('mc4wp-refresh'));
 }
 
-window.addEventListener('load', function () {
-  CodeMirror.signal(editor, "change");
-}); // set domDirty to true everytime the "change" event fires (a lot..)
-
-element.addEventListener('change', function () {
-  domDirty = true;
-  updatePreview();
-});
-
 function dom() {
   if (domDirty) {
     _dom.innerHTML = FormEditor.getValue().toLowerCase();
@@ -1116,36 +1107,47 @@ FormEditor.refresh = function () {
 /* bootstrap */
 
 
-_dom.innerHTML = element.value.toLowerCase();
+if (element) {
+  window.addEventListener('load', function () {
+    CodeMirror.signal(editor, "change");
+  }); // set domDirty to true everytime the "change" event fires (a lot..)
 
-if (CodeMirror) {
-  editor = CodeMirror.fromTextArea(element, {
-    selectionPointer: true,
-    mode: "htmlmixed",
-    htmlMode: true,
-    autoCloseTags: true,
-    autoRefresh: true,
-    styleActiveLine: true,
-    matchBrackets: true,
-    matchTags: {
-      bothTags: true
-    }
-  }); // dispatch regular "change" on element event every time editor changes (IE9+ only)
-
-  window.dispatchEvent && editor.on('change', function () {
-    if (typeof Event === "function") {
-      // Create a new 'change' event
-      var event = new Event('change', {
-        bubbles: true
-      });
-      element.dispatchEvent(event);
-    }
+  element.addEventListener('change', function () {
+    domDirty = true;
+    updatePreview();
   });
+  _dom.innerHTML = element.value.toLowerCase();
+
+  if (CodeMirror) {
+    editor = CodeMirror.fromTextArea(element, {
+      selectionPointer: true,
+      mode: "htmlmixed",
+      htmlMode: true,
+      autoCloseTags: true,
+      autoRefresh: true,
+      styleActiveLine: true,
+      matchBrackets: true,
+      matchTags: {
+        bothTags: true
+      }
+    }); // dispatch regular "change" on element event every time editor changes (IE9+ only)
+
+    window.dispatchEvent && editor.on('change', function () {
+      if (typeof Event === "function") {
+        // Create a new 'change' event
+        var event = new Event('change', {
+          bubbles: true
+        });
+        element.dispatchEvent(event);
+      }
+    });
+  }
 }
 
-previewFrame.addEventListener('load', setPreviewDom);
-setPreviewDom.call();
-/* exports */
+if (previewFrame) {
+  previewFrame.addEventListener('load', setPreviewDom);
+  setPreviewDom.call();
+}
 
 module.exports = FormEditor;
 

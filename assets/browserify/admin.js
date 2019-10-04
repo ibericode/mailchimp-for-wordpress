@@ -10,13 +10,7 @@ const helpers = require('./admin/helpers.js');
 
 tlite(el => el.className.indexOf('mc4wp-tooltip') > -1 );
 
-// list fetcher
-const ListFetcher = require('./admin/list-fetcher.js');
-const mount = document.getElementById('mc4wp-list-fetcher');
-if( mount ) {
-    m.mount(mount, ListFetcher);
-}
-
+require('./admin/list-fetcher.js');
 require('./admin/fields/mailchimp-api-key.js');
 require('./admin/list-overview.js');
 

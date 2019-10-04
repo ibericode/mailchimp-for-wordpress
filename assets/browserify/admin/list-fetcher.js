@@ -1,6 +1,6 @@
 'use strict';
 
-const config = mc4wp_vars;
+const config = window.mc4wp_vars;
 const i18n = config.i18n;
 const m = require('mithril');
 
@@ -61,10 +61,12 @@ function view() {
     ]);
 }
 
-// start fetching right away when no lists but api key given
-if( config.mailchimp.api_connected && config.mailchimp.lists.length === 0 ) {
-    fetch();
+const mount = document.getElementById('mc4wp-list-fetcher');
+if( mount ) {
+    // start fetching right away when no lists but api key given
+    if( config.mailchimp.api_connected && config.mailchimp.lists.length === 0 ) {
+        fetch();
+    }
+
+    m.mount(mount, {view});
 }
-
-
-module.exports = {view};

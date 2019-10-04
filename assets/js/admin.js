@@ -17,15 +17,9 @@ var helpers = require('./admin/helpers.js');
 
 (0, _tlite["default"])(function (el) {
   return el.className.indexOf('mc4wp-tooltip') > -1;
-}); // list fetcher
+});
 
-var ListFetcher = require('./admin/list-fetcher.js');
-
-var mount = document.getElementById('mc4wp-list-fetcher');
-
-if (mount) {
-  m.mount(mount, ListFetcher);
-}
+require('./admin/list-fetcher.js');
 
 require('./admin/fields/mailchimp-api-key.js');
 
@@ -48,8 +42,6 @@ module.exports = new EventEmitter();
 },{"wolfy87-eventemitter":36}],3:[function(require,module,exports){
 'use strict';
 
-var field;
-
 function validate(evt) {
   var node = document.createElement('p');
   node.className = 'help red';
@@ -64,15 +56,11 @@ function validate(evt) {
   }
 }
 
-(function () {
-  field = document.getElementById('mailchimp_api_key');
+var field = document.getElementById('mailchimp_api_key');
 
-  if (!field) {
-    return;
-  }
-
+if (field) {
   field.addEventListener('change', validate);
-})();
+}
 
 },{}],4:[function(require,module,exports){
 'use strict';
@@ -167,7 +155,7 @@ module.exports = helpers;
 },{}],5:[function(require,module,exports){
 'use strict';
 
-var config = mc4wp_vars;
+var config = window.mc4wp_vars;
 var i18n = config.i18n;
 
 var m = require('mithril');
@@ -214,16 +202,20 @@ function view() {
     className: "button",
     disabled: !!state.working
   }), m.trust(' &nbsp; '), state.working ? [m('span.mc4wp-loader', "Loading..."), m.trust(' &nbsp; ')] : '', state.done ? [state.success ? m('em.help.green', i18n.fetching_mailchimp_lists_done) : m('em.help.red', i18n.fetching_mailchimp_lists_error)] : ''])]);
-} // start fetching right away when no lists but api key given
-
-
-if (config.mailchimp.api_connected && config.mailchimp.lists.length === 0) {
-  fetch();
 }
 
-module.exports = {
-  view: view
-};
+var mount = document.getElementById('mc4wp-list-fetcher');
+
+if (mount) {
+  // start fetching right away when no lists but api key given
+  if (config.mailchimp.api_connected && config.mailchimp.lists.length === 0) {
+    fetch();
+  }
+
+  m.mount(mount, {
+    view: view
+  });
+}
 
 },{"mithril":13}],6:[function(require,module,exports){
 'use strict';

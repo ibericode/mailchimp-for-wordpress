@@ -1,7 +1,5 @@
 'use strict';
 
-let field;
-
 function validate(evt) {
     let node = document.createElement('p');
     node.className = 'help red';
@@ -16,11 +14,7 @@ function validate(evt) {
     }
 }
 
-(function() {
-    field = document.getElementById('mailchimp_api_key');
-    if (!field) {
-        return;
-    }
-
+const field = document.getElementById('mailchimp_api_key');
+if (field) {
     field.addEventListener('change', validate);
-})();
+}
