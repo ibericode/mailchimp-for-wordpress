@@ -1,31 +1,30 @@
 'use strict';
 
-var settings = mc4wp.settings;
-var events = mc4wp.events;
-var notice = document.getElementById('notice-additional-fields');
+const events = require('./admin/events.js');
+const settings = require('./admin/settings.js');
+const notice = document.getElementById('notice-additional-fields');
 
 function checkRequiredListFields( ) {
+	const lists = settings.getSelectedLists();
+	const allowedFields = [ 'EMAIL' ];
+	const ids = lists.map(l => l.id).join(',');
 
-	var lists = settings.getSelectedLists();
+	//const allowedFields = [ 'EMAIL', 'FNAME', 'NAME', 'LNAME' ];
+	let showNotice = false;
 
-	var showNotice = false;
-	var allowedFields = [ 'EMAIL', 'FNAME', 'NAME', 'LNAME' ];
-
-	loop:
-	for( var i=0; i<lists.length; i++) {
-		var list = lists[i];
-
-		for( var j=0; j<list.merge_fields.length; j++) {
-			var f = list.merge_fields[j];
-
-			if(f.required && allowedFields.indexOf(f.tag) < 0) {
-				showNotice = true;
-				break loop;
-			}
-		}
-	}
-
-	notice.style.display = showNotice ? '' : 'none';
+	window.fetch(`${ajaxurl}?action=mc4wp_get_list_details&ids=${ids}`)
+		.then(r => r.json())
+		.then(lists => {
+			lists.forEach(list => {
+				list.merge_fields.forEach(f => {
+					if(f.required && allowedFields.indexOf(f.tag) < 0) {
+						showNotice = true;
+					}
+				})
+			});
+		}).finally(() => {
+			notice.style.display = showNotice ? '' : 'none';
+		});
 }
 
 if( notice ) {

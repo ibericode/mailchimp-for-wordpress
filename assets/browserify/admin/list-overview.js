@@ -1,21 +1,27 @@
 'use strict';
 
 const m = require('mithril');
-const $ = window.jQuery;
 
 function showDetails(evt) {
     evt.preventDefault();
 
-    $(this).parents('tr').next().toggle();
-    let listID = this.getAttribute('data-list-id');
-    let mount = $(this).parents('tr').next().find('div').get(0);
+    const link = evt.target;
+    const next = link.parentElement.parentElement.nextElementSibling;
+    let listID = link.getAttribute('data-list-id');
+    let mount = next.querySelector('div');
 
-    m.request({
-        method: "GET",
-        url: ajaxurl + "?action=mc4wp_get_list_details&ids=" + listID,
-    }).then(details => {
-        m.render(mount, view(details[0]));
-    })
+    if (next.style.display === 'none') {
+        m.request({
+            method: "GET",
+            url: ajaxurl + "?action=mc4wp_get_list_details&ids=" + listID,
+        }).then(details => {
+            m.render(mount, view(details.shift()));
+        });
+
+        next.style.display = '';
+    } else {
+        next.style.display = 'none';
+    }
 }
 
 function view(data) {
@@ -95,5 +101,11 @@ function view(data) {
     ]
 }
 
-$('#mc4wp-mailchimp-lists-overview .mc4wp-mailchimp-list').click(showDetails);
+document.getElementById('mc4wp-mailchimp-lists-overview').addEventListener('click', (evt) => {
+    if (!evt.target.matches('.mc4wp-mailchimp-list')) {
+        return;
+    }
+
+    showDetails(evt);
+});
 

@@ -3,20 +3,10 @@
 // dependencies
 import tlite from 'tlite';
 const m = require('mithril');
-const EventEmitter = require('wolfy87-eventemitter');
-const Tabs = require ('./admin/tabs.js');
-const Settings = require('./admin/settings.js');
+const tabs = require ('./admin/tabs.js');
+const events = require('./admin/events.js');
+const settings = require('./admin/settings.js');
 const helpers = require('./admin/helpers.js');
-
-// vars
-const context = document.getElementById('mc4wp-admin');
-let tabs, settings;
-const events = new EventEmitter();
-
-if (context !== null) {
-    tabs = Tabs(context);
-    settings = Settings(context, helpers, events);
-}
 
 tlite(el => el.className.indexOf('mc4wp-tooltip') > -1 );
 

@@ -42,7 +42,7 @@ function toggleElement(el) {
 
     // determine whether condition is met
     let conditionMet = false;
-    for(let i=0; i<values.length; i++) {
+    for (let i=0; i<values.length; i++) {
         const value = values[i];
 
         // condition is met when value is in array of expected values OR expected values contains a wildcard and value is not empty
@@ -54,7 +54,7 @@ function toggleElement(el) {
     }
 
     // toggle element display
-    if(show){
+    if (show){
         el.style.display = ( conditionMet ) ? '' : 'none';
     } else {
         el.style.display = ( conditionMet ) ? 'none' : '';

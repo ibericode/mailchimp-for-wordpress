@@ -1,96 +1,92 @@
-const forms = function(i18n) {
-	let forms = {};
-	const rows = require('./field-forms-rows.js')(i18n);
+let forms = {};
+const rows = require('./field-forms-rows.js');
 
-	// route to one of the other form configs, default to "text"
-	forms.render = function(config) {
+// route to one of the other form configs, default to "text"
+forms.render = function(config) {
 
-		const type = config.type();
+	const type = config.type();
 
-		if( typeof( forms[type] ) === "function" ) {
-			return forms[ type ](config);
-		}
+	if( typeof( forms[type] ) === "function" ) {
+		return forms[ type ](config);
+	}
 
-		switch( type ) {
-			case 'select':
-			case 'radio':
-			case 'checkbox':
-				return forms.choice(config);
-		}
+	switch( type ) {
+		case 'select':
+		case 'radio':
+		case 'checkbox':
+			return forms.choice(config);
+	}
 
-		// fallback to good old text field
-		return forms.text(config);
-	};
+	// fallback to good old text field
+	return forms.text(config);
+};
 
 
-	forms.text = function(config) {
-		return [
-			rows.label(config),
-			rows.placeholder(config),
-			rows.value(config),
-			rows.isRequired(config),
-			rows.useParagraphs(config)
-		]
-	};
+forms.text = function(config) {
+	return [
+		rows.label(config),
+		rows.placeholder(config),
+		rows.value(config),
+		rows.isRequired(config),
+		rows.useParagraphs(config)
+	]
+};
 
-	forms.choice = function(config) {
-		let visibleRows = [
-			rows.label(config),
-			rows.choiceType(config),
-			rows.choices(config),
-		];
+forms.choice = function(config) {
+	let visibleRows = [
+		rows.label(config),
+		rows.choiceType(config),
+		rows.choices(config),
+	];
 
-		if( config.type() === 'select' ) {
-			visibleRows.push(rows.placeholder(config));
-		}
+	if( config.type() === 'select' ) {
+		visibleRows.push(rows.placeholder(config));
+	}
 
-		visibleRows.push(rows.useParagraphs(config));
+	visibleRows.push(rows.useParagraphs(config));
 
-		if( config.type() === 'select' || config.type() === 'radio' ) {
-			visibleRows.push(rows.isRequired(config));
-		}
+	if( config.type() === 'select' || config.type() === 'radio' ) {
+		visibleRows.push(rows.isRequired(config));
+	}
 
-		return visibleRows;
-	};
+	return visibleRows;
+};
 
-	forms.hidden = function( config ) {
-		config.placeholder('');
-		config.label('');
-		config.wrap(false);
+forms.hidden = function( config ) {
+	config.placeholder('');
+	config.label('');
+	config.wrap(false);
 
-		return [
-			rows.showType(config),
-			rows.value(config)
-		]
-	};
+	return [
+		rows.showType(config),
+		rows.value(config)
+	]
+};
 
-	forms.submit = function(config) {
-		config.label('');
-		config.placeholder('');
+forms.submit = function(config) {
+	config.label('');
+	config.placeholder('');
 
-		return [
-			rows.value(config),
-			rows.useParagraphs(config)
-		]
-	};
+	return [
+		rows.value(config),
+		rows.useParagraphs(config)
+	]
+};
 
-	forms['terms-checkbox'] = function(config) {
-		return [
-			rows.label(config),
-			rows.linkToTerms(config),
-			rows.isRequired(config),
-			rows.useParagraphs(config),
-		];
-	};
+forms['terms-checkbox'] = function(config) {
+	return [
+		rows.label(config),
+		rows.linkToTerms(config),
+		rows.isRequired(config),
+		rows.useParagraphs(config),
+	];
+};
 
-	forms.number = function(config) {
-		return [
-			forms.text(config),
-			rows.numberMinMax(config)
-		];
-	};
-
-	return forms;
+forms.number = function(config) {
+	return [
+		forms.text(config),
+		rows.numberMinMax(config)
+	];
 };
 
 

@@ -1,16 +1,16 @@
 'use strict';
 
 // deps & vars
-var mc4wp = window.mc4wp || {};
-var Gator = require('gator');
-var forms = require('./forms/forms.js');
-var config = window.mc4wp_forms_config || {};
-var scrollToElement = require('scroll-to-element');
+const mc4wp = window.mc4wp || {};
+const Gator = require('gator');
+const forms = require('./forms/forms.js');
+const config = window.mc4wp_forms_config || {};
+const scrollToElement = require('scroll-to-element');
 import ConditionalElements from './forms/conditional-elements.js';
 
 // funcs
 function scrollToForm(form) {
-	var animate = config.auto_scroll === 'animated';
+	const animate = config.auto_scroll === 'animated';
 
 	scrollToElement(form.element, { 
 		duration: animate ? 800 : 1, 
@@ -19,8 +19,8 @@ function scrollToForm(form) {
 }
 
 function handleFormRequest(form, eventName, errors, data){
-	var timeStart = Date.now();
-	var pageHeight = document.body.clientHeight;
+	const timeStart = Date.now();
+	const pageHeight = document.body.clientHeight;
 
 	// re-populate form
 	if( errors ) {
@@ -101,8 +101,8 @@ ConditionalElements.init();
 
 // register early listeners
 if( mc4wp.listeners ) {
-    var listeners = mc4wp.listeners;
-    for(var i=0; i<listeners.length;i++) {
+	const listeners = mc4wp.listeners;
+    for(let i=0; i<listeners.length;i++) {
         forms.on(listeners[i].event, listeners[i].callback);
     }
 
@@ -115,7 +115,7 @@ mc4wp.forms = forms;
 
 // handle submitted form
 if( config.submitted_form ) {
-	var formConfig = config.submitted_form,
+	const formConfig = config.submitted_form,
 		element = document.getElementById(formConfig.element_id),
 		form = forms.getByElement(element);
 

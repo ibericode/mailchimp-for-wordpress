@@ -7,23 +7,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var m = require('mithril');
 
-var EventEmitter = require('wolfy87-eventemitter');
+var tabs = require('./admin/tabs.js');
 
-var Tabs = require('./admin/tabs.js');
+var events = require('./admin/events.js');
 
-var Settings = require('./admin/settings.js');
+var settings = require('./admin/settings.js');
 
-var helpers = require('./admin/helpers.js'); // vars
-
-
-var context = document.getElementById('mc4wp-admin');
-var tabs, settings;
-var events = new EventEmitter();
-
-if (context !== null) {
-  tabs = Tabs(context);
-  settings = Settings(context, helpers, events);
-}
+var helpers = require('./admin/helpers.js');
 
 (0, _tlite["default"])(function (el) {
   return el.className.indexOf('mc4wp-tooltip') > -1;
@@ -48,7 +38,14 @@ window.mc4wp.events = events;
 window.mc4wp.settings = settings;
 window.mc4wp.tabs = tabs;
 
-},{"./admin/fields/mailchimp-api-key.js":2,"./admin/helpers.js":3,"./admin/list-fetcher.js":4,"./admin/list-overview.js":5,"./admin/settings.js":6,"./admin/tabs.js":7,"mithril":12,"tlite":34,"wolfy87-eventemitter":35}],2:[function(require,module,exports){
+},{"./admin/events.js":2,"./admin/fields/mailchimp-api-key.js":3,"./admin/helpers.js":4,"./admin/list-fetcher.js":5,"./admin/list-overview.js":6,"./admin/settings.js":7,"./admin/tabs.js":8,"mithril":13,"tlite":35}],2:[function(require,module,exports){
+'use strict';
+
+var EventEmitter = require('wolfy87-eventemitter');
+
+module.exports = new EventEmitter();
+
+},{"wolfy87-eventemitter":36}],3:[function(require,module,exports){
 'use strict';
 
 var field;
@@ -77,7 +74,7 @@ function validate(evt) {
   field.addEventListener('change', validate);
 })();
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 'use strict';
 
 var helpers = {};
@@ -167,7 +164,7 @@ helpers.debounce = function (func, wait, immediate) {
 
 module.exports = helpers;
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
 
 var config = mc4wp_vars;
@@ -228,24 +225,29 @@ module.exports = {
   view: view
 };
 
-},{"mithril":12}],5:[function(require,module,exports){
+},{"mithril":13}],6:[function(require,module,exports){
 'use strict';
 
 var m = require('mithril');
 
-var $ = window.jQuery;
-
 function showDetails(evt) {
   evt.preventDefault();
-  $(this).parents('tr').next().toggle();
-  var listID = this.getAttribute('data-list-id');
-  var mount = $(this).parents('tr').next().find('div').get(0);
-  m.request({
-    method: "GET",
-    url: ajaxurl + "?action=mc4wp_get_list_details&ids=" + listID
-  }).then(function (details) {
-    m.render(mount, view(details[0]));
-  });
+  var link = evt.target;
+  var next = link.parentElement.parentElement.nextElementSibling;
+  var listID = link.getAttribute('data-list-id');
+  var mount = next.querySelector('div');
+
+  if (next.style.display === 'none') {
+    m.request({
+      method: "GET",
+      url: ajaxurl + "?action=mc4wp_get_list_details&ids=" + listID
+    }).then(function (details) {
+      m.render(mount, view(details.shift()));
+    });
+    next.style.display = '';
+  } else {
+    next.style.display = 'none';
+  }
 }
 
 function view(data) {
@@ -266,240 +268,238 @@ function view(data) {
   }))])]];
 }
 
-$('#mc4wp-mailchimp-lists-overview .mc4wp-mailchimp-list').click(showDetails);
+document.getElementById('mc4wp-mailchimp-lists-overview').addEventListener('click', function (evt) {
+  if (!evt.target.matches('.mc4wp-mailchimp-list')) {
+    return;
+  }
 
-},{"mithril":12}],6:[function(require,module,exports){
-"use strict";
+  showDetails(evt);
+});
+
+},{"mithril":13}],7:[function(require,module,exports){
+'use strict';
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-var Settings = function Settings(context, helpers, events) {
-  'use strict'; // vars
+var helpers = require('./helpers.js');
 
-  var listInputs = context.querySelectorAll('.mc4wp-list-input');
-  var lists = mc4wp_vars.mailchimp.lists;
-  var selectedLists = []; // functions
+var events = require('./events.js');
 
-  function getSelectedListsWhere(searchKey, searchValue) {
-    return selectedLists.filter(function (el) {
-      return el[searchKey] === searchValue;
-    });
-  }
+var context = document.getElementById('mc4wp-admin'); // vars
 
-  function getSelectedLists() {
-    return selectedLists;
-  }
+var listInputs = context.querySelectorAll('.mc4wp-list-input');
+var lists = mc4wp_vars.mailchimp.lists;
+var selectedLists = []; // functions
 
-  function updateSelectedLists() {
-    selectedLists = [];
-    Array.prototype.forEach.call(listInputs, function (input) {
-      // skip unchecked checkboxes
-      if (typeof input.checked === "boolean" && !input.checked) {
-        return;
-      }
+function getSelectedListsWhere(searchKey, searchValue) {
+  return selectedLists.filter(function (el) {
+    return el[searchKey] === searchValue;
+  });
+}
 
-      if (_typeof(lists[input.value]) === "object") {
-        selectedLists.push(lists[input.value]);
-      }
-    });
-    events.trigger('selectedLists.change', [selectedLists]);
-    return selectedLists;
-  }
+function getSelectedLists() {
+  return selectedLists;
+}
 
-  function toggleVisibleLists() {
-    var rows = document.querySelectorAll('.lists--only-selected > *');
-    Array.prototype.forEach.call(rows, function (el) {
-      var listId = el.getAttribute('data-list-id');
-      var isSelected = getSelectedListsWhere('id', listId).length > 0;
+function updateSelectedLists() {
+  selectedLists = [];
+  Array.prototype.forEach.call(listInputs, function (input) {
+    // skip unchecked checkboxes
+    if (typeof input.checked === "boolean" && !input.checked) {
+      return;
+    }
 
-      if (isSelected) {
-        el.setAttribute('class', el.getAttribute('class').replace('hidden', ''));
-      } else {
-        el.setAttribute('class', el.getAttribute('class') + " hidden");
-      }
-    });
-  }
+    if (_typeof(lists[input.value]) === "object") {
+      selectedLists.push(lists[input.value]);
+    }
+  });
+  events.trigger('selectedLists.change', [selectedLists]);
+  return selectedLists;
+}
 
-  events.on('selectedLists.change', toggleVisibleLists);
-  helpers.bindEventToElements(listInputs, 'change', updateSelectedLists);
-  updateSelectedLists();
-  return {
-    getSelectedLists: getSelectedLists
-  };
+function toggleVisibleLists() {
+  var rows = document.querySelectorAll('.lists--only-selected > *');
+  Array.prototype.forEach.call(rows, function (el) {
+    var listId = el.getAttribute('data-list-id');
+    var isSelected = getSelectedListsWhere('id', listId).length > 0;
+
+    if (isSelected) {
+      el.setAttribute('class', el.getAttribute('class').replace('hidden', ''));
+    } else {
+      el.setAttribute('class', el.getAttribute('class') + " hidden");
+    }
+  });
+}
+
+events.on('selectedLists.change', toggleVisibleLists);
+helpers.bindEventToElements(listInputs, 'change', updateSelectedLists);
+updateSelectedLists();
+module.exports = {
+  getSelectedLists: getSelectedLists
 };
 
-module.exports = Settings;
-
-},{}],7:[function(require,module,exports){
+},{"./events.js":2,"./helpers.js":4}],8:[function(require,module,exports){
 'use strict';
 
-var URL = require('./url.js'); // Tabs
+var URL = require('./url.js');
 
+var context = document.getElementById('mc4wp-admin'); // TODO: last piece of jQuery... can we get rid of it?
 
-var Tabs = function Tabs(context) {
-  if (context === null) {
-    return;
-  } // TODO: last piece of jQuery... can we get rid of it?
-
-
-  var $ = window.jQuery;
-  var $context = $(context);
-  var $tabs = $context.find('.tab');
-  var $tabNavs = $context.find('.nav-tab');
-  var refererField = context.querySelector('input[name="_wp_http_referer"]');
-  var tabs = [];
-  $.each($tabs, function (i, t) {
-    var id = t.id.substring(4);
-    var title = $(t).find('h2').first().text();
-    tabs.push({
-      id: id,
-      title: title,
-      element: t,
-      nav: context.querySelectorAll('.nav-tab-' + id),
-      open: function open() {
-        return _open(id);
-      }
-    });
+var $ = window.jQuery;
+var $context = $(context);
+var $tabs = $context.find('.tab');
+var $tabNavs = $context.find('.nav-tab');
+var refererField = context.querySelector('input[name="_wp_http_referer"]');
+var tabs = [];
+$.each($tabs, function (i, t) {
+  var id = t.id.substring(4);
+  var title = $(t).find('h2').first().text();
+  tabs.push({
+    id: id,
+    title: title,
+    element: t,
+    nav: context.querySelectorAll('.nav-tab-' + id),
+    open: function open() {
+      return _open(id);
+    }
   });
+});
 
-  function get(id) {
-    for (var i = 0; i < tabs.length; i++) {
-      if (tabs[i].id === id) {
-        return tabs[i];
-      }
+function get(id) {
+  for (var i = 0; i < tabs.length; i++) {
+    if (tabs[i].id === id) {
+      return tabs[i];
     }
-
-    return undefined;
   }
 
-  function _open(tab, updateState) {
-    // make sure we have a tab object
-    if (typeof tab === "string") {
-      tab = get(tab);
-    }
+  return undefined;
+}
 
-    if (!tab) {
-      return false;
-    } // should we update state?
-
-
-    if (updateState === undefined) {
-      updateState = true;
-    } // hide all tabs & remove active class
-
-
-    $tabs.removeClass('tab-active').css('display', 'none');
-    $tabNavs.removeClass('nav-tab-active'); // add `nav-tab-active` to this tab
-
-    Array.prototype.forEach.call(tab.nav, function (nav) {
-      nav.className += " nav-tab-active";
-      nav.blur();
-    }); // show target tab
-
-    tab.element.style.display = 'block';
-    tab.element.className += " tab-active"; // create new URL
-
-    var url = URL.setParameter(window.location.href, "tab", tab.id); // update hash
-
-    if (history.pushState && updateState) {
-      history.pushState(tab.id, '', url);
-    } // update document title
-
-
-    title(tab); // update referer field
-
-    refererField.value = url; // if thickbox is open, close it.
-
-    if (typeof tb_remove === "function") {
-      tb_remove();
-    }
-
-    return true;
+function _open(tab, updateState) {
+  // make sure we have a tab object
+  if (typeof tab === "string") {
+    tab = get(tab);
   }
 
-  function title(tab) {
-    var title = document.title.split('-');
-    document.title = document.title.replace(title[0], tab.title + " ");
+  if (!tab) {
+    return false;
+  } // should we update state?
+
+
+  if (updateState === undefined) {
+    updateState = true;
+  } // hide all tabs & remove active class
+
+
+  $tabs.removeClass('tab-active').css('display', 'none');
+  $tabNavs.removeClass('nav-tab-active'); // add `nav-tab-active` to this tab
+
+  Array.prototype.forEach.call(tab.nav, function (nav) {
+    nav.className += " nav-tab-active";
+    nav.blur();
+  }); // show target tab
+
+  tab.element.style.display = 'block';
+  tab.element.className += " tab-active"; // create new URL
+
+  var url = URL.setParameter(window.location.href, "tab", tab.id); // update hash
+
+  if (history.pushState && updateState) {
+    history.pushState(tab.id, '', url);
+  } // update document title
+
+
+  title(tab); // update referer field
+
+  refererField.value = url; // if thickbox is open, close it.
+
+  if (typeof tb_remove === "function") {
+    tb_remove();
   }
 
-  function switchTab(evt) {
-    // get from data attribute
-    var tabId = this.getAttribute('data-tab'); // get from classname
+  return true;
+}
 
-    if (!tabId) {
-      var match = this.className.match(/nav-tab-(\w+)?/);
+function title(tab) {
+  var title = document.title.split('-');
+  document.title = document.title.replace(title[0], tab.title + " ");
+}
 
-      if (match) {
-        tabId = match[1];
-      }
-    } // get from href
+function switchTab(evt) {
+  // get from data attribute
+  var tabId = this.getAttribute('data-tab'); // get from classname
 
+  if (!tabId) {
+    var match = this.className.match(/nav-tab-(\w+)?/);
 
-    if (!tabId) {
-      var urlParams = URL.parse(this.href);
-
-      if (!urlParams.tab) {
-        return;
-      }
-
-      tabId = urlParams.tab;
+    if (match) {
+      tabId = match[1];
     }
+  } // get from href
 
-    var opened = _open(tabId);
 
-    if (opened) {
-      evt.preventDefault();
-      evt.returnValue = false;
-      return false;
-    }
+  if (!tabId) {
+    var urlParams = URL.parse(this.href);
 
-    return true;
-  }
-
-  function init() {
-    // check for current tab
-    if (!history.pushState) {
+    if (!urlParams.tab) {
       return;
     }
 
-    var activeTab = $tabs.filter(':visible').get(0);
-
-    if (!activeTab) {
-      return;
-    }
-
-    var tab = get(activeTab.id.substring(4));
-    if (!tab) return; // check if tab is in html5 history
-
-    if (history.replaceState && history.state === null) {
-      history.replaceState(tab.id, '');
-    } // update document title
-
-
-    title(tab);
+    tabId = urlParams.tab;
   }
 
-  $tabNavs.click(switchTab);
-  $(document.body).on('click', '.tab-link', switchTab);
-  init();
+  var opened = _open(tabId);
 
-  if (window.addEventListener && history.pushState) {
-    window.addEventListener('popstate', function (e) {
-      if (!e.state) return true;
-      var tabId = e.state;
-      return _open(tabId, false);
-    });
+  if (opened) {
+    evt.preventDefault();
+    evt.returnValue = false;
+    return false;
   }
 
-  return {
-    open: _open,
-    get: get
-  };
+  return true;
+}
+
+function init() {
+  // check for current tab
+  if (!history.pushState) {
+    return;
+  }
+
+  var activeTab = $tabs.filter(':visible').get(0);
+
+  if (!activeTab) {
+    return;
+  }
+
+  var tab = get(activeTab.id.substring(4));
+  if (!tab) return; // check if tab is in html5 history
+
+  if (history.replaceState && history.state === null) {
+    history.replaceState(tab.id, '');
+  } // update document title
+
+
+  title(tab);
+}
+
+$tabNavs.click(switchTab);
+$(document.body).on('click', '.tab-link', switchTab);
+init();
+
+if (window.addEventListener && history.pushState) {
+  window.addEventListener('popstate', function (e) {
+    if (!e.state) return true;
+    var tabId = e.state;
+    return _open(tabId, false);
+  });
+}
+
+module.exports = {
+  open: _open,
+  get: get
 };
 
-module.exports = Tabs;
-
-},{"./url.js":8}],8:[function(require,module,exports){
+},{"./url.js":9}],9:[function(require,module,exports){
 'use strict';
 
 var URL = {
@@ -535,7 +535,7 @@ var URL = {
 };
 module.exports = URL;
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -587,7 +587,7 @@ module.exports = function(render, schedule, console) {
 	return {mount: mount, redraw: redraw}
 }
 
-},{"../render/vnode":28}],10:[function(require,module,exports){
+},{"../render/vnode":29}],11:[function(require,module,exports){
 (function (setImmediate){
 "use strict"
 
@@ -853,7 +853,7 @@ module.exports = function($window, mountRedraw) {
 }
 
 }).call(this,require("timers").setImmediate)
-},{"../pathname/assign":14,"../pathname/build":15,"../pathname/compileTemplate":16,"../pathname/parse":17,"../promise/promise":19,"../render/hyperscript":24,"../render/vnode":28,"timers":33}],11:[function(require,module,exports){
+},{"../pathname/assign":15,"../pathname/build":16,"../pathname/compileTemplate":17,"../pathname/parse":18,"../promise/promise":20,"../render/hyperscript":25,"../render/vnode":29,"timers":34}],12:[function(require,module,exports){
 "use strict"
 
 var hyperscript = require("./render/hyperscript")
@@ -863,7 +863,7 @@ hyperscript.fragment = require("./render/fragment")
 
 module.exports = hyperscript
 
-},{"./render/fragment":23,"./render/hyperscript":24,"./render/trust":27}],12:[function(require,module,exports){
+},{"./render/fragment":24,"./render/hyperscript":25,"./render/trust":28}],13:[function(require,module,exports){
 "use strict"
 
 var hyperscript = require("./hyperscript")
@@ -889,21 +889,21 @@ m.PromisePolyfill = require("./promise/polyfill")
 
 module.exports = m
 
-},{"./hyperscript":11,"./mount-redraw":13,"./pathname/build":15,"./pathname/parse":17,"./promise/polyfill":18,"./querystring/build":20,"./querystring/parse":21,"./render":22,"./render/vnode":28,"./request":29,"./route":31}],13:[function(require,module,exports){
+},{"./hyperscript":12,"./mount-redraw":14,"./pathname/build":16,"./pathname/parse":18,"./promise/polyfill":19,"./querystring/build":21,"./querystring/parse":22,"./render":23,"./render/vnode":29,"./request":30,"./route":32}],14:[function(require,module,exports){
 "use strict"
 
 var render = require("./render")
 
 module.exports = require("./api/mount-redraw")(render, requestAnimationFrame, console)
 
-},{"./api/mount-redraw":9,"./render":22}],14:[function(require,module,exports){
+},{"./api/mount-redraw":10,"./render":23}],15:[function(require,module,exports){
 "use strict"
 
 module.exports = Object.assign || function(target, source) {
 	if(source) Object.keys(source).forEach(function(key) { target[key] = source[key] })
 }
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 "use strict"
 
 var buildQueryString = require("../querystring/build")
@@ -948,7 +948,7 @@ module.exports = function(template, params) {
 	return result
 }
 
-},{"../querystring/build":20,"./assign":14}],16:[function(require,module,exports){
+},{"../querystring/build":21,"./assign":15}],17:[function(require,module,exports){
 "use strict"
 
 var parsePathname = require("./parse")
@@ -993,7 +993,7 @@ module.exports = function(template) {
 	}
 }
 
-},{"./parse":17}],17:[function(require,module,exports){
+},{"./parse":18}],18:[function(require,module,exports){
 "use strict"
 
 var parseQueryString = require("../querystring/parse")
@@ -1019,7 +1019,7 @@ module.exports = function(url) {
 	}
 }
 
-},{"../querystring/parse":21}],18:[function(require,module,exports){
+},{"../querystring/parse":22}],19:[function(require,module,exports){
 (function (setImmediate){
 "use strict"
 /** @constructor */
@@ -1135,7 +1135,7 @@ PromisePolyfill.race = function(list) {
 module.exports = PromisePolyfill
 
 }).call(this,require("timers").setImmediate)
-},{"timers":33}],19:[function(require,module,exports){
+},{"timers":34}],20:[function(require,module,exports){
 (function (global){
 "use strict"
 
@@ -1160,7 +1160,7 @@ if (typeof window !== "undefined") {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./polyfill":18}],20:[function(require,module,exports){
+},{"./polyfill":19}],21:[function(require,module,exports){
 "use strict"
 
 module.exports = function(object) {
@@ -1188,7 +1188,7 @@ module.exports = function(object) {
 	}
 }
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 "use strict"
 
 module.exports = function(string) {
@@ -1233,12 +1233,12 @@ module.exports = function(string) {
 	return data
 }
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 "use strict"
 
 module.exports = require("./render/render")(window)
 
-},{"./render/render":26}],23:[function(require,module,exports){
+},{"./render/render":27}],24:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -1252,7 +1252,7 @@ module.exports = function() {
 	return vnode
 }
 
-},{"../render/vnode":28,"./hyperscriptVnode":25}],24:[function(require,module,exports){
+},{"../render/vnode":29,"./hyperscriptVnode":26}],25:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -1355,7 +1355,7 @@ function hyperscript(selector) {
 
 module.exports = hyperscript
 
-},{"../render/vnode":28,"./hyperscriptVnode":25}],25:[function(require,module,exports){
+},{"../render/vnode":29,"./hyperscriptVnode":26}],26:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -1410,7 +1410,7 @@ module.exports = function() {
 	return Vnode("", attrs.key, attrs, children)
 }
 
-},{"../render/vnode":28}],26:[function(require,module,exports){
+},{"../render/vnode":29}],27:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -2385,7 +2385,7 @@ module.exports = function($window) {
 	}
 }
 
-},{"../render/vnode":28}],27:[function(require,module,exports){
+},{"../render/vnode":29}],28:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -2395,7 +2395,7 @@ module.exports = function(html) {
 	return Vnode("<", undefined, undefined, html, undefined, undefined)
 }
 
-},{"../render/vnode":28}],28:[function(require,module,exports){
+},{"../render/vnode":29}],29:[function(require,module,exports){
 "use strict"
 
 function Vnode(tag, key, attrs, children, text, dom) {
@@ -2428,7 +2428,7 @@ Vnode.normalizeChildren = function(input) {
 
 module.exports = Vnode
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 "use strict"
 
 var PromisePolyfill = require("./promise/promise")
@@ -2436,7 +2436,7 @@ var mountRedraw = require("./mount-redraw")
 
 module.exports = require("./request/request")(window, PromisePolyfill, mountRedraw.redraw)
 
-},{"./mount-redraw":13,"./promise/promise":19,"./request/request":30}],30:[function(require,module,exports){
+},{"./mount-redraw":14,"./promise/promise":20,"./request/request":31}],31:[function(require,module,exports){
 "use strict"
 
 var buildPathname = require("../pathname/build")
@@ -2632,14 +2632,14 @@ module.exports = function($window, Promise, oncompletion) {
 	}
 }
 
-},{"../pathname/build":15}],31:[function(require,module,exports){
+},{"../pathname/build":16}],32:[function(require,module,exports){
 "use strict"
 
 var mountRedraw = require("./mount-redraw")
 
 module.exports = require("./api/router")(window, mountRedraw)
 
-},{"./api/router":10,"./mount-redraw":13}],32:[function(require,module,exports){
+},{"./api/router":11,"./mount-redraw":14}],33:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -2825,7 +2825,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 (function (setImmediate,clearImmediate){
 var nextTick = require('process/browser.js').nextTick;
 var apply = Function.prototype.apply;
@@ -2904,7 +2904,7 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
   delete immediateIds[id];
 };
 }).call(this,require("timers").setImmediate,require("timers").clearImmediate)
-},{"process/browser.js":32,"timers":33}],34:[function(require,module,exports){
+},{"process/browser.js":33,"timers":34}],35:[function(require,module,exports){
 function tlite(getTooltipOpts) {
   document.addEventListener('mouseover', function (e) {
     var el = e.target;
@@ -3040,7 +3040,7 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = tlite;
 }
 
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 /*!
  * EventEmitter v5.2.6 - git.io/ee
  * Unlicense - http://unlicense.org/

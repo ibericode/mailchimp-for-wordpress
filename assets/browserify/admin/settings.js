@@ -1,64 +1,64 @@
-const Settings = function(context, helpers, events ) {
-	'use strict';
+'use strict';
 
-	// vars
-    let listInputs = context.querySelectorAll('.mc4wp-list-input');
-    let lists = mc4wp_vars.mailchimp.lists;
-    let selectedLists = [];
+const helpers = require('./helpers.js');
+const events = require('./events.js');
 
-	// functions
-	function getSelectedListsWhere(searchKey,searchValue) {
-		return selectedLists.filter(function(el) {
-			return el[searchKey] === searchValue;
-		});
-	}
+const context = document.getElementById('mc4wp-admin');
 
-	function getSelectedLists() {
-		return selectedLists;
-	}
+// vars
+let listInputs = context.querySelectorAll('.mc4wp-list-input');
+let lists = mc4wp_vars.mailchimp.lists;
+let selectedLists = [];
 
-	function updateSelectedLists() {
-		selectedLists = [];
+// functions
+function getSelectedListsWhere(searchKey,searchValue) {
+	return selectedLists.filter(function(el) {
+		return el[searchKey] === searchValue;
+	});
+}
 
-		Array.prototype.forEach.call(listInputs, function(input) {
-			// skip unchecked checkboxes
-			if( typeof( input.checked ) === "boolean" && ! input.checked ) {
-				return;
-			}
+function getSelectedLists() {
+	return selectedLists;
+}
 
-			if( typeof( lists[ input.value ] ) === "object" ){
-				selectedLists.push( lists[ input.value ] );
-			}
-		});
+function updateSelectedLists() {
+	selectedLists = [];
 
-		events.trigger('selectedLists.change', [ selectedLists ]);
-		return selectedLists;
-	}
+	Array.prototype.forEach.call(listInputs, function(input) {
+		// skip unchecked checkboxes
+		if( typeof( input.checked ) === "boolean" && ! input.checked ) {
+			return;
+		}
 
-	function toggleVisibleLists() {
-		let rows = document.querySelectorAll('.lists--only-selected > *');
-		Array.prototype.forEach.call(rows, function(el) {
+		if( typeof( lists[ input.value ] ) === "object" ){
+			selectedLists.push( lists[ input.value ] );
+		}
+	});
 
-            let listId = el.getAttribute('data-list-id');
-            let isSelected = getSelectedListsWhere('id', listId).length > 0;
+	events.trigger('selectedLists.change', [ selectedLists ]);
+	return selectedLists;
+}
 
-			if( isSelected ) {
-				el.setAttribute('class', el.getAttribute('class').replace('hidden',''));
-			} else {
-				el.setAttribute('class', el.getAttribute('class') + " hidden" );
-			}
-		});
-	}
+function toggleVisibleLists() {
+	let rows = document.querySelectorAll('.lists--only-selected > *');
+	Array.prototype.forEach.call(rows, function(el) {
 
-	events.on('selectedLists.change', toggleVisibleLists);
-	helpers.bindEventToElements(listInputs,'change',updateSelectedLists);
+		let listId = el.getAttribute('data-list-id');
+		let isSelected = getSelectedListsWhere('id', listId).length > 0;
 
-	updateSelectedLists();
+		if( isSelected ) {
+			el.setAttribute('class', el.getAttribute('class').replace('hidden',''));
+		} else {
+			el.setAttribute('class', el.getAttribute('class') + " hidden" );
+		}
+	});
+}
 
-	return {
-		getSelectedLists: getSelectedLists
-	}
+events.on('selectedLists.change', toggleVisibleLists);
+helpers.bindEventToElements(listInputs,'change',updateSelectedLists);
 
+updateSelectedLists();
+
+module.exports = {
+	getSelectedLists: getSelectedLists
 };
-
-module.exports = Settings;
