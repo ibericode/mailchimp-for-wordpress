@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: includes/class-mailchimp.php:172, includes/forms/class-admin.php:87
+#: includes/class-mailchimp.php:177, includes/forms/class-admin.php:87
 msgid "Email address"
 msgstr ""
 

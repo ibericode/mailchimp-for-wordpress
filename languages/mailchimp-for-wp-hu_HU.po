@@ -1,16 +1,19 @@
 # Copyright (C) 2017 mailchimp-for-wp
 # This file is distributed under the same license as the mailchimp-for-wp package.
 # Translators:
+# Benedek Fodor <fodor.benedek2001@gmail.com>, 2018
 # Erik Wolf <increst@gmail.com>, 2015
+# Erzsébet Földvári <erzsebet5691@gmail.com>, 2019
 # László Sallér <saller.laszlo@gmail.com>, 2017
 # Németh Balázs <nb0000@gmail.com>, 2014-2015
+# Peter Gyarmati <peter.gyarmati@bitrose.co.uk>, 2018
 # Reka Szendrei <szendreka@gmail.com>, 2017
 # Zsolt Dömötörfy <domotorfy.zsolt@gmail.com>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: Mailchimp for WordPress\n"
-"PO-Revision-Date: 2017-11-08 13:52+0000\n"
-"Last-Translator: Zsolt Dömötörfy <domotorfy.zsolt@gmail.com>\n"
+"Project-Id-Version: MailChimp for WordPress\n"
+"PO-Revision-Date: 2019-09-07 12:53+0000\n"
+"Last-Translator: Erzsébet Földvári <erzsebet5691@gmail.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/ibericode/mailchimp-for-wordpress/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,8 +37,8 @@ msgstr "Dokumentáció"
 
 #: includes/admin/class-admin.php:204
 msgid ""
-"Success! The cached configuration for your Mailchimp lists has been renewed."
-msgstr "Sikerült! A Mailchimp eltárolt beállítási listája frissítésre került."
+"Success! The cached configuration for your MailChimp lists has been renewed."
+msgstr "Sikerült! A MailChimp eltárolt beállítási listája frissítésre került."
 
 #: includes/admin/class-admin.php:304
 msgid ""
@@ -46,28 +49,28 @@ msgstr "Ez egy kizárólag-prémium lehetőség. Váltson prémium verzióra hog
 #: includes/admin/class-admin.php305,
 #: includes/views/parts/lists-overview.php10,
 #: includes/forms/views/parts/add-fields-help.php:43
-msgid "Renew Mailchimp lists"
-msgstr "Mailchimp listák frissítése"
+msgid "Renew MailChimp lists"
+msgstr "MailChimp listák frissítése"
 
 #: includes/admin/class-admin.php:306
-msgid "Fetching Mailchimp lists"
-msgstr "Mailchimp listák feldolgozása"
+msgid "Fetching MailChimp lists"
+msgstr "MailChimp listák feldolgozása"
 
 #: includes/admin/class-admin.php:307
-msgid "Done! Mailchimp lists renewed."
-msgstr "Kész! Mailchimp listák frissítve."
+msgid "Done! MailChimp lists renewed."
+msgstr "Kész! MailChimp listák frissítve."
 
 #: includes/admin/class-admin.php:308
-msgid "This can take a while if you have many Mailchimp lists."
+msgid "This can take a while if you have many MailChimp lists."
 msgstr "Ez altarthat egy darabig, ha több Mailchimp listát használsz."
 
 #: includes/admin/class-admin.php336, includes/views/general-settings.php:31
-msgid "Mailchimp API Settings"
-msgstr "Mailchimp API beállítások"
+msgid "MailChimp API Settings"
+msgstr "MailChimp API beállítások"
 
 #: includes/admin/class-admin.php:337
-msgid "Mailchimp"
-msgstr "Mailchimp"
+msgid "MailChimp"
+msgstr "MailChimp"
 
 #: includes/admin/class-admin.php343, includes/views/other-settings.php60,
 #: includes/views/other-settings.php:70
@@ -84,29 +87,29 @@ msgstr "Napló sikeresen törölve."
 
 #: includes/admin/class-admin.php:488
 msgid ""
-"To get started with Mailchimp for WordPress, please <a href=\"%s\">enter "
-"your Mailchimp API key on the settings page of the plugin</a>."
-msgstr "Hogy használni tudd a Mailchimpet WordPressben <a href=\"%s\">írd be a Mailchimpes API kulcsodat a beépülő modul beállítás oldalán</a>."
+"To get started with MailChimp for WordPress, please <a href=\"%s\">enter "
+"your MailChimp API key on the settings page of the plugin</a>."
+msgstr "Hogy használni tudd a MailChimpet WordPressben <a href=\"%s\">írd be a MailChimpes API kulcsodat a beépülő modul beállítás oldalán</a>."
 
 #: includes/admin/class-ads.php:39
 msgid ""
 "Want to customize the style of your form? <a href=\"%s\">Try our Styles "
 "Builder</a> & edit the look of your forms with just a few clicks."
-msgstr ""
+msgstr "Szeretnénk személyre szabni az űrlap kinézetét? <a href=\"%s\">Próbáljuk ki a Stítusszerkesztőt</a> hogy pár kattintással alakítsunk a megjelenésen."
 
 #: includes/admin/class-ads.php:54
 msgid ""
-"Be notified whenever someone subscribes? <a href=\"%s\">Mailchimp for "
+"Be notified whenever someone subscribes? <a href=\"%s\">MailChimp for "
 "WordPress Premium</a> allows you to set up email notifications for your "
 "forms."
-msgstr ""
+msgstr "Értesülni szeretnénk, amikor valaki feliratkozik? <a href=\"%s\">A MailChimp a Wordpresshez Prémium</a> lehetőséget nyújt email értesítésekre az űrlapjainkhoz."
 
 #: includes/admin/class-ads.php:56
 msgid ""
-"Increased conversions? <a href=\"%s\">Mailchimp for WordPress Premium</a> "
+"Increased conversions? <a href=\"%s\">MailChimp for WordPress Premium</a> "
 "submits forms without reloading the entire page, resulting in a much better "
 "experience for your visitors."
-msgstr ""
+msgstr "Egyre több beszélgetés? <a href=\"%s\">A MailChimp a Wordpresshez Prémium</a> úgy küldi el az űrlapokat, hogy közben nem tölti újra a teljes weblapot, sokkal jobb felhasználói élményt teremtve ezzel."
 
 #: includes/admin/class-ads.php:70
 msgid "Upgrade to Premium"
@@ -115,20 +118,20 @@ msgstr "Frissíts Prémiumra"
 #: includes/admin/class-ads.php:83
 msgid ""
 "Do you want translated forms for all of your languages? <a href=\"%s\">Try "
-"Mailchimp for WordPress Premium</a>, which does just that plus more."
-msgstr ""
+"MailChimp for WordPress Premium</a>, which does just that plus more."
+msgstr "Szeretnénk minden nyelvre lefordítani az űrlapjainkat? <a href=\"%s\">Próbáljuk ki a MailChimp a Wordpresshez Prémiumot</a>, ami tudja ezt, és még sok mást is."
 
 #: includes/admin/class-ads.php:88
 msgid ""
 "Do you want to create more than one form? Our Premium add-on does just that!"
 " <a href=\"%s\">Have a look at all Premium benefits</a>."
-msgstr ""
+msgstr "Több űrlapot hoznánk létre, mint egy? A Prémium kiegészítőnk pont ezt tudja! <a href=\"%s\">Nézzünk rá az összes Prémium lehetőségre.</a>"
 
 #: includes/admin/class-ads.php:93
 msgid ""
 "Are you enjoying this plugin? The Premium add-on unlocks several powerful "
 "features. <a href=\"%s\">Find out about all benefits now</a>."
-msgstr ""
+msgstr "Tetszik a pluginunk? A Prémium kiegészítő számos hasznos funkciót ad még hozzá! <a href=\"%s\">Tudjunk meg többet a Prémium lehetőségeről.</a>"
 
 #: includes/admin/class-ads.php:112
 msgid "More subscribers, better newsletters."
@@ -138,15 +141,15 @@ msgstr "Több feliratkozó, jobb hírlevelek."
 msgid ""
 "Learn how to best grow your lists & write better emails by subscribing to "
 "our monthly tips."
-msgstr ""
+msgstr "Tudjuk meg, hogyan növelhetjük a listánkat és írhatunk jobb emaileket, iratkozzunk fel a havi tippek listára."
 
 #: includes/admin/class-ads.php:116
 msgid "Email Address"
-msgstr "Email cím"
+msgstr "erzsebet5691@gmail.comEmail cím"
 
 #: includes/admin/class-ads.php:120
 msgid "First Name"
-msgstr "Keresztnév"
+msgstr "Erzsébet"
 
 #: includes/admin/class-ads.php127, includes/forms/class-admin.php:94
 msgid "Subscribe"
@@ -154,27 +157,27 @@ msgstr "Feliratkozás"
 
 #: includes/admin/class-ads.php:150
 msgid ""
-"Do you want to track all WooCommerce orders in Mailchimp so you can send "
+"Do you want to track all WooCommerce orders in MailChimp so you can send "
 "emails based on the purchase activity of your subscribers?"
-msgstr ""
+msgstr "Szeretnénk figyelni az összes WooCommerce-es vásárlást MailCimp-pel, hogy tudjunk a vásárlási tevékenység alapján emailezni a feliratkozóknak?"
 
 #: includes/admin/class-ads.php:153
 msgid ""
-"<a href=\"%s\">Upgrade to Mailchimp for WordPress Premium</a> or <a "
-"href=\"%s\">read more about Mailchimp's E-Commerce features</a>."
-msgstr ""
+"<a href=\"%s\">Upgrade to MailChimp for WordPress Premium</a> or <a "
+"href=\"%s\">read more about MailChimp's E-Commerce features</a>."
+msgstr "<a href=\"%s\">Fizessünk elő a MailCimp a Wordpresshez Prémiumra</a> vagy <a href=\"%s\">tudjunk meg többet a MailChimp e-vásárlási funkcióiról.</a>"
 
 #: includes/admin/class-review-notice.php:68
 msgid ""
-"You've been using Mailchimp for WordPress for some time now; we hope you "
+"You've been using MailChimp for WordPress for some time now; we hope you "
 "love it!"
-msgstr ""
+msgstr "Már egy ideje használja a MailChimp a Wordpresshez pluginunkat; reméljük, tetszik!"
 
 #: includes/admin/class-review-notice.php:69
 msgid ""
 "If you do, please <a href=\"%s\">leave us a 5★ rating on WordPress.org</a>. "
 "It would be of great help to us."
-msgstr ""
+msgstr "Ha így van, <a href=\"%s\">Kérjük, adjon 5*-os értékelést a Wordpress.org-on.</a> Hatalmas segítség lenne."
 
 #: includes/admin/class-review-notice.php:71
 msgid "Dismiss this notice."
@@ -243,8 +246,8 @@ msgid "Form fields"
 msgstr "Űrlapmezők"
 
 #: includes/forms/class-admin.php:76
-msgid "This field is marked as required in Mailchimp."
-msgstr "Ez a mező kötelezőként van jelőlve a Mailchimpben."
+msgid "This field is marked as required in MailChimp."
+msgstr "Ez a mező kötelezőként van jelőlve a MailChimpben."
 
 #: includes/forms/class-admin.php:77
 msgid "Initial value"
@@ -280,8 +283,8 @@ msgstr "Maximum"
 
 #: includes/forms/class-admin.php:85
 msgid ""
-"No available fields. Did you select a Mailchimp list in the form settings?"
-msgstr "Nincs elérhető mező. Mailchimpes listát választottál az űrlap beállításoknál?"
+"No available fields. Did you select a MailChimp list in the form settings?"
+msgstr "Nincs elérhető mező. MailChimpes listát választottál az űrlap beállításoknál?"
 
 #: includes/forms/class-admin.php:86
 msgid "Optional"
@@ -349,8 +352,8 @@ msgid "Preview form"
 msgstr "Űrlap előnézete"
 
 #: includes/forms/class-admin.php449, includes/forms/class-widget.php:30
-msgid "Mailchimp Sign-Up Form"
-msgstr "Mailchimp feliratkozás űrlap"
+msgid "MailChimp Sign-Up Form"
+msgstr "MailChimp feliratkozás űrlap"
 
 #: includes/forms/class-admin.php:453
 msgid "Select the form to show"
@@ -407,23 +410,23 @@ msgstr "A látogató IP címe. Például: %s."
 
 #: includes/forms/class-form-tags.php:117
 msgid "The property of the currently logged-in user."
-msgstr ""
+msgstr "A jelenleg bejelentkezett felhasználó tulajdonsága."
 
 #: includes/forms/class-form-tags.php:123
 msgid "Property of the current page or post."
-msgstr ""
+msgstr "A jelenlegi lap vagy poszt tulajdonsága."
 
 #: includes/forms/class-form.php:133
 msgid "There is no form with ID %d, perhaps it was deleted?"
-msgstr ""
+msgstr "A(z) %d űrlapazonosító ismeretlen. Talán töröltük?"
 
 #: includes/forms/class-widget.php:26
 msgid "Newsletter"
 msgstr "Hírlevél"
 
 #: includes/forms/class-widget.php:32
-msgid "Displays your Mailchimp for WordPress sign-up form"
-msgstr "Megjeleníti a Mailchimp for WordPress feliratkozás űrlapját"
+msgid "Displays your MailChimp for WordPress sign-up form"
+msgstr "Megjeleníti a MailChimp for WordPress feliratkozás űrlapját"
 
 #: includes/forms/class-widget.php:75
 msgid "Title:"
@@ -431,9 +434,9 @@ msgstr "Cím:"
 
 #: includes/forms/class-widget.php:92
 msgid ""
-"You can edit your sign-up form in the <a href=\"%s\">Mailchimp for WordPress"
+"You can edit your sign-up form in the <a href=\"%s\">MailChimp for WordPress"
 " form settings</a>."
-msgstr "A feliratkozás űrlapot a <a href=\"%s\">Mailchimp for WordPress űrlap beállítások</a>nál lehet szerkeszteni."
+msgstr "A feliratkozás űrlapot a <a href=\"%s\">MailChimp for WordPress űrlap beállítások</a>nál lehet szerkeszteni."
 
 #: includes/integrations/class-admin.php79,
 #: includes/integrations/class-admin.php80,
@@ -471,12 +474,12 @@ msgid "API Key"
 msgstr "API kulcs"
 
 #: includes/views/general-settings.php:53
-msgid "Your Mailchimp API key"
-msgstr "A Mailchimp API kulcs"
+msgid "Your MailChimp API key"
+msgstr "A MailChimp API kulcs"
 
 #: includes/views/general-settings.php:55
-msgid "The API key for connecting with your Mailchimp account."
-msgstr "API kulcs a Mailchimp fiókoddal való összekapcsoláshoz."
+msgid "The API key for connecting with your MailChimp account."
+msgstr "API kulcs a MailChimp fiókoddal való összekapcsoláshoz."
 
 #: includes/views/general-settings.php:56
 msgid "Get your API key here."
@@ -484,7 +487,7 @@ msgstr "API kulcsot itt szerezhet."
 
 #: includes/views/other-settings.php:14
 msgid "Miscellaneous settings"
-msgstr ""
+msgstr "Minden más beállítás"
 
 #: includes/views/other-settings.php:17
 msgid "Usage Tracking"
@@ -502,45 +505,45 @@ msgstr "Ez az, amit követünk."
 
 #: includes/views/other-settings.php:37
 msgid "Logging"
-msgstr ""
+msgstr "Figyelés"
 
 #: includes/views/other-settings.php:44
 msgid ""
 "Determines what events should be written to <a href=\"%s\">the debug log</a>"
 " (see below)."
-msgstr ""
+msgstr "Itt adhatjuk meg, milyen eseményeket írjunk a <a href=\"%s\">hibajavító feljegyzések közé</a> (lásd lent)"
 
 #: includes/views/other-settings.php:99
 msgid "Debug Log"
-msgstr ""
+msgstr "Hibajavító feljegyzések"
 
 #: includes/views/other-settings.php:99
 msgid "Filter.."
-msgstr ""
+msgstr "Szűrés.."
 
 #: includes/views/other-settings.php:104
 msgid "Log file is not writable."
-msgstr ""
+msgstr "A fejlegyzési fájlba nem lehet írni."
 
 #: includes/views/other-settings.php:105
 msgid "Please ensure %s has the proper <a href=\"%s\">file permissions</a>."
-msgstr ""
+msgstr "Ellenőrizni kellene, hogy a(z) %s fájlnak megfelelő <a href=\"%s\">hozzáférési jogok</a> vannak beállítva."
 
 #: includes/views/other-settings.php:123
 msgid "Nothing here. Which means there are no errors!"
-msgstr ""
+msgstr "Nincs it semmi. Ami azt jelenti, nem észleltünk hibát! Hurrá!"
 
 #: includes/views/other-settings.php:133
 msgid "Empty Log"
-msgstr ""
+msgstr "Üres fejlegyzéslista."
 
 #: includes/views/other-settings.php:141
 msgid "Right now, the plugin is configured to only log errors and warnings."
-msgstr ""
+msgstr "A plugin úgy van beállítva, hogy csak a hibákat és figyelmeztetéseket jegyezze fel."
 
 #: includes/admin/migrations/3.0.0-form-1-post-type.php:35
 msgid "Default sign-up form"
-msgstr ""
+msgstr "Alapértelmezett regisztrációs űrlap"
 
 #: includes/forms/views/add-form.php10, includes/forms/views/add-form.php:60
 msgid "Add new form"
@@ -555,12 +558,12 @@ msgid "Enter your form title.."
 msgstr "Írd ide az űrlap címét..."
 
 #: includes/forms/views/add-form.php:37
-msgid "To which Mailchimp lists should this form subscribe?"
-msgstr "Melyik Mailchimp listára írjon fel ez az űrlap?"
+msgid "To which MailChimp lists should this form subscribe?"
+msgstr "Melyik MailChimp listára írjon fel ez az űrlap?"
 
 #: includes/forms/views/add-form.php:54
-msgid "No lists found. Did you <a href=\"%s\">connect with Mailchimp</a>?"
-msgstr ""
+msgid "No lists found. Did you <a href=\"%s\">connect with MailChimp</a>?"
+msgstr "Nem találtunk listát. Biztos csatlakoztunk <a href=\"%s\">a MailChimphez?</a>"
 
 #: includes/forms/views/edit-form.php:4
 msgid "Fields"
@@ -608,17 +611,17 @@ msgstr "Integráció"
 
 #: includes/integrations/views/integration-settings.php:27
 msgid ""
-"The selected Mailchimp lists require non-default fields, which may prevent "
+"The selected MailChimp lists require non-default fields, which may prevent "
 "this integration from working."
-msgstr ""
+msgstr "A kiválasztott MailChimp listáknak szüksége van az alapértelmezetten kívül más mezőkre is, ami miatt a jelenlegi integráció működésképtelen lehet."
 
 #: includes/integrations/views/integration-settings.php:28
 msgid ""
 "Please ensure you <a href=\"%s\">configure the plugin to send all required "
-"fields</a> or <a href=\"%s\">log into your Mailchimp account</a> and make "
+"fields</a> or <a href=\"%s\">log into your MailChimp account</a> and make "
 "sure only the email & name fields are marked as required fields for the "
 "selected list(s)."
-msgstr ""
+msgstr "Bizonyosodjunk meg, hogy <a href=\"%s\">úgy állítsuk be a plugint, hogy minden szükséges mezőt elküldjön,</a> vagy <a href=\"%s\">jelentkezzünk be a MailChimp fiókunkba</a> és biztosítsuk, hogy csak az email és név mezők legyenek kötelezőként beállítva a kiválasztott listá(k)hoz."
 
 #: includes/integrations/views/integration-settings.php:62
 msgid "Enabled?"
@@ -627,11 +630,11 @@ msgstr "Engedélyezett?"
 #: includes/integrations/views/integration-settings.php:66
 msgid ""
 "Enable the %s integration? This will add a sign-up checkbox to the form."
-msgstr ""
+msgstr "Engedélyezzük a(z) %s integrációt? Ezzel egy regisztrációs pipálandó mezőt adunk az űrlaphoz."
 
 #: includes/integrations/views/integration-settings.php:76
 msgid "Implicit?"
-msgstr ""
+msgstr "Alapértelmezett?"
 
 #: includes/integrations/views/integration-settings.php:80
 msgid ""
@@ -640,8 +643,8 @@ msgid ""
 msgstr ""
 
 #: includes/integrations/views/integration-settings.php:90
-msgid "Mailchimp Lists"
-msgstr "Mailchimp listák"
+msgid "MailChimp Lists"
+msgstr "MailChimp listák"
 
 #: includes/integrations/views/integration-settings.php:103
 msgid ""
@@ -651,8 +654,8 @@ msgstr "Válassza ki a listá(ka)t, amelyre az űrlapot kitöltők fel lesznek i
 
 #: includes/integrations/views/integration-settings.php107,
 #: includes/forms/views/tabs/form-settings.php:18
-msgid "No lists found, <a href=\"%s\">are you connected to Mailchimp</a>?"
-msgstr "Nem találtam listákat, <a href=\"%s\">össze van kötve a Mailchimppel</a>?"
+msgid "No lists found, <a href=\"%s\">are you connected to MailChimp</a>?"
+msgstr "Nem találtam listákat, <a href=\"%s\">össze van kötve a MailChimppel</a>?"
 
 #: includes/integrations/views/integration-settings.php:116
 msgid "Checkbox label text"
@@ -715,7 +718,7 @@ msgstr ""
 #: includes/integrations/views/integration-settings.php202,
 #: includes/forms/views/tabs/form-settings.php:80
 msgid "What does this do?"
-msgstr ""
+msgstr "Mit csinál ez?"
 
 #: includes/integrations/views/integrations.php:17
 msgid "Name"
@@ -741,28 +744,28 @@ msgstr ""
 
 #: includes/integrations/views/integrations.php:79
 msgid "Enabled integrations"
-msgstr ""
+msgstr "Integrációk engedélyezése"
 
 #: includes/integrations/views/integrations.php:84
 msgid "Available integrations"
-msgstr ""
+msgstr "Elérhető integrációk"
 
 #: includes/views/parts/admin-footer.php:15
 msgid ""
-"Mailchimp for WordPress is in need of translations. Is the plugin not "
+"MailChimp for WordPress is in need of translations. Is the plugin not "
 "translated in your language or do you spot errors with the current "
 "translations? Helping out is easy! Head over to <a href=\"%s\">the "
 "translation project and click \"help translate\"</a>."
-msgstr "A Mailchimp for WordPress fordításokra vár. Nincs lefordítva a bővítmény az Ön nyelvére, vagy hibákat talált az aktuális fordításban? Könnyen segíthet nekünk. Menjen át a <a href=\"%s\">fordításokhoz és kattintson „help translate” linkre</a>!"
+msgstr "A MailChimp for WordPress fordításokra vár. Nincs lefordítva a bővítmény az Ön nyelvére, vagy hibákat talált az aktuális fordításban? Könnyen segíthet nekünk. Menjen át a <a href=\"%s\">fordításokhoz és kattintson „help translate” linkre</a>!"
 
 #: includes/views/parts/admin-footer.php:35
 msgid ""
-"This plugin is not developed by or affiliated with Mailchimp in any way."
-msgstr "Ezt a bővítményt nem a Mailchimp fejleszti, és nem áll vele közvetlen kapcsolatban."
+"This plugin is not developed by or affiliated with MailChimp in any way."
+msgstr "Ezt a bővítményt nem a MailChimp fejleszti, és nem áll vele közvetlen kapcsolatban."
 
 #: includes/views/parts/admin-sidebar.php:11
 msgid "Looking for help?"
-msgstr ""
+msgstr "Segítség kellene?"
 
 #: includes/views/parts/admin-sidebar.php:12
 msgid "We have some resources available to help you in the right direction."
@@ -770,11 +773,11 @@ msgstr ""
 
 #: includes/views/parts/admin-sidebar.php:14
 msgid "Knowledge Base"
-msgstr ""
+msgstr "Tudástár"
 
 #: includes/views/parts/admin-sidebar.php:15
 msgid "Frequently Asked Questions"
-msgstr ""
+msgstr "Gyakran Ismételt Kérdések"
 
 #: includes/views/parts/admin-sidebar.php:16
 msgid "Code reference for developers"
@@ -791,23 +794,23 @@ msgid ""
 msgstr ""
 
 #: includes/views/parts/lists-overview.php:1
-msgid "Your Mailchimp Account"
-msgstr "Mailchimp fiókod"
+msgid "Your MailChimp Account"
+msgstr "MailChimp fiókod"
 
 #: includes/views/parts/lists-overview.php:2
 msgid ""
-"The table below shows your Mailchimp lists and their details. If you just "
-"applied changes to your Mailchimp lists, please use the following button to "
+"The table below shows your MailChimp lists and their details. If you just "
+"applied changes to your MailChimp lists, please use the following button to "
 "renew the cached lists configuration."
-msgstr "A táblázat a Mailchimp listáidat és azok részleteit mutatja. Amennyiben változtatsz a Mailchimp listáidon, az alábbi gomb segítségével frissítsd a tárolt konfigurációkat."
+msgstr "A táblázat a MailChimp listáidat és azok részleteit mutatja. Amennyiben változtatsz a MailChimp listáidon, az alábbi gomb segítségével frissítsd a tárolt konfigurációkat."
 
 #: includes/views/parts/lists-overview.php:17
-msgid "No lists were found in your Mailchimp account"
-msgstr "Nem találhatók listák a Mailchimp fiókjában."
+msgid "No lists were found in your MailChimp account"
+msgstr "Nem találhatók listák a MailChimp fiókjában."
 
 #: includes/views/parts/lists-overview.php:19
-msgid "A total of %d lists were found in your Mailchimp account."
-msgstr "%d lista található a Mailchimp fiókodban."
+msgid "A total of %d lists were found in your MailChimp account."
+msgstr "%d lista található a MailChimp fiókodban."
 
 #: includes/views/parts/lists-overview.php:24
 msgid "List Name"
@@ -822,8 +825,8 @@ msgid "Subscribers"
 msgstr "Feliratkozók"
 
 #: includes/views/parts/lists-overview.php:48
-msgid "Edit this list in Mailchimp"
-msgstr "Lista szerkesztése Mailchimp-ben"
+msgid "Edit this list in MailChimp"
+msgstr "Lista szerkesztése MailChimp-ben"
 
 #: includes/views/parts/lists-overview.php:62
 msgid "%s (%s) with field type %s."
@@ -837,7 +840,7 @@ msgstr "Mezők hozzáadása"
 #: includes/forms/views/parts/add-fields-help.php:9
 msgid ""
 "To add more fields to your form, you will need to create those fields in "
-"Mailchimp first."
+"MailChimp first."
 msgstr ""
 
 #: includes/forms/views/parts/add-fields-help.php:12
@@ -845,8 +848,8 @@ msgid "Here's how:"
 msgstr ""
 
 #: includes/forms/views/parts/add-fields-help.php:17
-msgid "Log in to your Mailchimp account."
-msgstr ""
+msgid "Log in to your MailChimp account."
+msgstr "Jelentkezz be a MailChimp fiókodba!"
 
 #: includes/forms/views/parts/add-fields-help.php:22
 msgid "Add list fields to any of your selected lists."
@@ -862,7 +865,7 @@ msgstr ""
 
 #: includes/forms/views/parts/add-fields-help.php:38
 msgid ""
-"Click the following button to have Mailchimp for WordPress pick up on your "
+"Click the following button to have MailChimp for WordPress pick up on your "
 "changes."
 msgstr ""
 
@@ -1041,7 +1044,7 @@ msgid "Form Settings"
 msgstr "Űrlap beállítások"
 
 #: includes/forms/views/tabs/form-settings.php:5
-msgid "Mailchimp specific settings"
+msgid "MailChimp specific settings"
 msgstr ""
 
 #: includes/forms/views/tabs/form-settings.php:15
