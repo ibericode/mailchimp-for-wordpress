@@ -1,13 +1,12 @@
 'use strict';
 
+require('./admin/settings.js')
 const events = require('./admin/events.js');
-const settings = require('./admin/settings.js');
 const notice = document.getElementById('notice-additional-fields');
 
 function checkRequiredListFields( ) {
-	const lists = settings.getSelectedLists();
 	const allowedFields = [ 'EMAIL' ];
-	const ids = lists.map(l => l.id).join(',');
+	const ids = [].filter.call(document.querySelectorAll('.mc4wp-list-input'), i => i.checked).map(i => i.value).join(',');
 
 	//const allowedFields = [ 'EMAIL', 'FNAME', 'NAME', 'LNAME' ];
 	let showNotice = false;

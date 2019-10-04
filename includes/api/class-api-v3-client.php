@@ -142,6 +142,7 @@ class MC4WP_API_v3_Client
         $response = wp_remote_request($url, $args);
 
         // store request & response
+        $args['url'] = $url;
         $this->last_request = $args;
         $this->last_response = $response;
 

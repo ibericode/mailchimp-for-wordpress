@@ -284,7 +284,7 @@ var events = require('./events.js');
 var context = document.getElementById('mc4wp-admin'); // vars
 
 var listInputs = context.querySelectorAll('.mc4wp-list-input');
-var lists = mc4wp_vars.mailchimp.lists;
+var lists = window.mc4wp_vars.mailchimp.lists;
 var selectedLists = []; // functions
 
 function getSelectedListsWhere(searchKey, searchValue) {

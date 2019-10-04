@@ -9,8 +9,6 @@
  */
 class MC4WP_API_Exception extends Exception
 {
-
-  
     /**
     * @var object
     */

@@ -153,7 +153,7 @@ class MC4WP_MailChimp
     /**
      * @param string $list_id
      * @return array
-     * @throws MC4WP_API_Exception
+     * @throws Exception
      */
     public function get_list_merge_fields($list_id) {
         $transient_key = sprintf('mc4wp_list_%s_mf', $list_id);
@@ -162,9 +162,14 @@ class MC4WP_MailChimp
             return $cached;
         }
 
-        // fetch list merge fields
         $api = $this->get_api();
-        $merge_fields = $api->get_list_merge_fields($list_id, array( 'count' => 100, 'fields' => 'merge_fields.name,merge_fields.tag,merge_fields.type,merge_fields.required,merge_fields.default_value,merge_fields.options,merge_fields.public' ));
+
+        try {
+            // fetch list merge fields
+            $merge_fields = $api->get_list_merge_fields($list_id, array('count' => 100, 'fields' => 'merge_fields.name,merge_fields.tag,merge_fields.type,merge_fields.required,merge_fields.default_value,merge_fields.options,merge_fields.public'));
+        } catch(MC4WP_API_Exception $e) {
+            return array();
+        }
 
         // add EMAIL field
         array_unshift($merge_fields, (object) array(
@@ -183,7 +188,7 @@ class MC4WP_MailChimp
     /**
      * @param string $list_id
      * @return array
-     * @throws MC4WP_API_Exception
+     * @throws Exception
      */
     public function get_list_interest_categories($list_id) {
         $transient_key = sprintf('mc4wp_list_%s_ic', $list_id);
@@ -192,14 +197,26 @@ class MC4WP_MailChimp
             return $cached;
         }
 
-        // fetch list interest categories
         $api = $this->get_api();
-        $interest_categories = $api->get_list_interest_categories($list_id, array( 'count' => 100, 'fields' => 'categories.id,categories.title,categories.type' ));
+
+        try {
+            // fetch list interest categories
+            $interest_categories = $api->get_list_interest_categories($list_id, array('count' => 100, 'fields' => 'categories.id,categories.title,categories.type'));
+        } catch(MC4WP_API_Exception $e) {
+            return array();
+        }
+
         foreach ($interest_categories as $interest_category) {
-            // fetch groups for this interest
-            $interests_data = $api->get_list_interest_category_interests($list_id, $interest_category->id, array( 'count' => 100, 'fields' => 'interests.id,interests.name'));
-            foreach ($interests_data as $interest_data) {
-                $interest_category->interests[ (string) $interest_data->id ] = $interest_data->name;
+            $interest_category->interests = array();
+
+            try {
+                // fetch groups for this interest
+                $interests_data = $api->get_list_interest_category_interests($list_id, $interest_category->id, array( 'count' => 100, 'fields' => 'interests.id,interests.name'));
+                foreach ($interests_data as $interest_data) {
+                    $interest_category->interests[ (string) $interest_data->id ] = $interest_data->name;
+                }
+            } catch(MC4WP_API_Exception $e) {
+                // ignore
             }
         }
 
@@ -227,7 +244,7 @@ class MC4WP_MailChimp
         /**
          * Filters the cache time for Mailchimp lists configuration, in seconds. Defaults to 3600 seconds (1 hour).
          */
-        $cache_ttl = (int) apply_filters('mc4wp_lists_count_cache_time', HOUR_IN_SECONDS);
+        $cache_ttl = (int) apply_filters('mc4wp_lists_count_cache_time', HOUR_IN_SECONDS * 24);
 
         // make sure cache ttl is not lower than 60 seconds
         $cache_ttl = max(60, $cache_ttl);

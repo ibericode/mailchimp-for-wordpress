@@ -107,7 +107,7 @@ var events = require('./events.js');
 var context = document.getElementById('mc4wp-admin'); // vars
 
 var listInputs = context.querySelectorAll('.mc4wp-list-input');
-var lists = mc4wp_vars.mailchimp.lists;
+var lists = window.mc4wp_vars.mailchimp.lists;
 var selectedLists = []; // functions
 
 function getSelectedListsWhere(searchKey, searchValue) {
@@ -160,17 +160,18 @@ module.exports = {
 },{"./events.js":1,"./helpers.js":2}],4:[function(require,module,exports){
 'use strict';
 
-var events = require('./admin/events.js');
+require('./admin/settings.js');
 
-var settings = require('./admin/settings.js');
+var events = require('./admin/events.js');
 
 var notice = document.getElementById('notice-additional-fields');
 
 function checkRequiredListFields() {
-  var lists = settings.getSelectedLists();
   var allowedFields = ['EMAIL'];
-  var ids = lists.map(function (l) {
-    return l.id;
+  var ids = [].filter.call(document.querySelectorAll('.mc4wp-list-input'), function (i) {
+    return i.checked;
+  }).map(function (i) {
+    return i.value;
   }).join(','); //const allowedFields = [ 'EMAIL', 'FNAME', 'NAME', 'LNAME' ];
 
   var showNotice = false;

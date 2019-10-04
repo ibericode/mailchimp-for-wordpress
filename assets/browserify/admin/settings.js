@@ -7,7 +7,7 @@ const context = document.getElementById('mc4wp-admin');
 
 // vars
 let listInputs = context.querySelectorAll('.mc4wp-list-input');
-let lists = mc4wp_vars.mailchimp.lists;
+let lists = window.mc4wp_vars.mailchimp.lists;
 let selectedLists = [];
 
 // functions
