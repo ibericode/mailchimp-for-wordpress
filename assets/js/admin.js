@@ -421,6 +421,11 @@ function _open(tab, updateState) {
 
   if (typeof tb_remove === "function") {
     tb_remove();
+  } // refresh editor if open
+
+
+  if (window.mc4wp && window.mc4wp.forms && window.mc4wp.forms.editor) {
+    window.mc4wp.forms.editor.refresh();
   }
 
   return true;
