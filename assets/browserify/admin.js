@@ -3,7 +3,6 @@
 // dependencies
 import tlite from 'tlite';
 const tabs = require ('./admin/tabs.js');
-const events = require('./admin/events.js');
 const settings = require('./admin/settings.js');
 const helpers = require('./admin/helpers.js');
 
@@ -16,6 +15,5 @@ require('./admin/list-overview.js');
 // expose some things
 window.mc4wp = window.mc4wp || {};
 window.mc4wp.helpers = helpers;
-window.mc4wp.events = events;
 window.mc4wp.settings = settings;
 window.mc4wp.tabs = tabs;

@@ -1,12 +1,11 @@
 'use strict';
 
 const helpers = require('./helpers.js');
-const events = require('./events.js');
-
 const context = document.getElementById('mc4wp-admin');
 const listInputs = context.querySelectorAll('.mc4wp-list-input');
 const lists = window.mc4wp_vars.mailchimp.lists;
 let selectedLists = [];
+let listeners = {};
 
 // functions
 function getSelectedListsWhere(searchKey,searchValue) {
@@ -33,7 +32,7 @@ function updateSelectedLists() {
 		}
 	});
 
-	events.trigger('selectedLists.change', [ selectedLists ]);
+	emit('selectedLists.change', [selectedLists]);
 	return selectedLists;
 }
 
@@ -52,11 +51,22 @@ function toggleVisibleLists() {
 	});
 }
 
-events.on('selectedLists.change', toggleVisibleLists);
-helpers.bindEventToElements(listInputs,'change',updateSelectedLists);
+function emit(event, args) {
+	listeners[event] = listeners[event] || [];
+	listeners[event].forEach(f => f.apply(null, args));
+}
+
+function on(event, func) {
+	listeners[event] = listeners[event] || [];
+	listeners[event].push(func);
+}
+
+on('selectedLists.change', toggleVisibleLists);
+helpers.bindEventToElements(listInputs,'change', updateSelectedLists);
 
 updateSelectedLists();
 
 module.exports = {
-	getSelectedLists: getSelectedLists
+	getSelectedLists: getSelectedLists,
+	on
 };

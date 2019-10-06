@@ -3,10 +3,7 @@
 const m = require('mithril');
 const helpers = require('../helpers.js');
 const editor = require('./form-editor.js');
-const settings = require('./../settings.js');
-const events = require('./../events.js');
 const fields = require('./fields.js');
-
 let requiredFieldsInput = document.getElementById('required-fields');
 
 function updateFields() {
@@ -81,5 +78,5 @@ function findRequiredFields() {
 
 // events
 editor.on('change', helpers.debounce(updateFields, 500));
-events.on('fields.change', helpers.debounce(updateFields, 500));
+fields.on('change', helpers.debounce(updateFields, 500));
 

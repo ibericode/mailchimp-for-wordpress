@@ -1,12 +1,26 @@
 'use strict';
 
 // deps
-const EventEmitter = require('wolfy87-eventemitter');
 const Form = require('./form.js');
 
 // variables
-const events = new EventEmitter();
 let forms = [];
+let listeners = {};
+
+function emit(event, args) {
+	listeners[event] = listeners[event] || [];
+	listeners[event].forEach(f => f.apply(null, args));
+}
+
+function on(event, func) {
+	listeners[event] = listeners[event] || [];
+	listeners[event].push(func);
+}
+
+function off(event, func) {
+	listeners[event] = listeners[event] || [];
+	listeners[event] = listeners[event].filter(f => f !== func)
+}
 
 // get form by its id
 // please note that this will get the FIRST occurence of the form with that ID on the page
@@ -52,12 +66,12 @@ function all() {
 
 function triggerEvent(eventName, eventArgs) {
 	if(eventName === 'submit' || eventName.indexOf('.submit') > 0) {
-		// don't spin up new thread for submit event as we want to preventDefault()... 
-		events.trigger(eventName, eventArgs);
+		// don't spin up new thread for submit event as we want to preventDefault()...
+		emit(eventName, eventArgs);
 	} else {
 		// process in separate thread to prevent errors from breaking core functionality
 		window.setTimeout(function() {
-			events.trigger(eventName, eventArgs);
+			emit(eventName, eventArgs);
 		}, 1);
 	}
 }
@@ -66,8 +80,8 @@ module.exports = {
 	"all": all,
 	"get": get,
 	"getByElement": getByElement,
-	"on": events.on.bind(events),
+	"on": on,
+	"off": off,
 	"trigger": triggerEvent,
-	"off": events.off.bind(events)
 };
 

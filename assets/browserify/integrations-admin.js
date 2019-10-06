@@ -1,7 +1,6 @@
 'use strict';
 
-require('./admin/settings.js')
-const events = require('./admin/events.js');
+const settings = require('./admin/settings.js');
 const notice = document.getElementById('notice-additional-fields');
 
 function checkRequiredListFields( ) {
@@ -28,6 +27,7 @@ function checkRequiredListFields( ) {
 
 if( notice ) {
 	checkRequiredListFields();
-	events.on('selectedLists.change', checkRequiredListFields );
+
+	settings.on('selectedLists.change', checkRequiredListFields );
 }
 

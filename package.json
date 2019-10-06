@@ -37,7 +37,6 @@
     "mithril": "^2.0.4",
     "populate.js": "^1.0.3",
     "scroll-to-element": "^2.0.3",
-    "tlite": "^0.1.9",
-    "wolfy87-eventemitter": "^5.2.6"
+    "tlite": "^0.1.9"
   }
 }

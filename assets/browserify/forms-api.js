@@ -12,8 +12,8 @@ import ConditionalElements from './forms/conditional-elements.js';
 function scrollToForm(form) {
 	const animate = config.auto_scroll === 'animated';
 
-	scrollToElement(form.element, { 
-		duration: animate ? 800 : 1, 
+	scrollToElement(form.element, {
+		duration: animate ? 800 : 1,
 		alignment: 'middle'
 	});
 }
@@ -22,8 +22,8 @@ function handleFormRequest(form, eventName, errors, data){
 	const timeStart = Date.now();
 	const pageHeight = document.body.clientHeight;
 
-	// re-populate form
-	if( errors ) {
+	// re-populate form if an error occurred
+	if (errors) {
 		form.setData(data);
 	}
 
@@ -60,7 +60,7 @@ function handleFormRequest(form, eventName, errors, data){
 
 		// scroll to form again if page height changed since last scroll, eg because of slow loading images
 		// (only if load didn't take more than 0.8 seconds to prevent overtaking user scroll)
-		var timeElapsed = Date.now() - timeStart;
+		const timeElapsed = Date.now() - timeStart;
  		if( config.auto_scroll && timeElapsed > 1000 && timeElapsed < 2000 && document.body.clientHeight !== pageHeight ) {
  			scrollToForm(form);
  		}
@@ -68,8 +68,9 @@ function handleFormRequest(form, eventName, errors, data){
 }
 
 // Bind browser events to form events (using delegation)
-Gator(document.body).on('submit', '.mc4wp-form', function(event) {
-	var form = forms.getByElement(event.target || event.srcElement);
+let gator = Gator(document.body);
+gator.on('submit', '.mc4wp-form', function(event) {
+	const form = forms.getByElement(event.target || event.srcElement);
 
 	if (!event.defaultPrevented) {
 		forms.trigger(form.id + '.submit', [ form, event]);
@@ -80,8 +81,8 @@ Gator(document.body).on('submit', '.mc4wp-form', function(event) {
 	}
 });
 
-Gator(document.body).on('focus', '.mc4wp-form', function(event) {
-	var form = forms.getByElement(event.target || event.srcElement);
+gator.on('focus', '.mc4wp-form', function(event) {
+	const form = forms.getByElement(event.target || event.srcElement);
 
 	if( ! form.started ) {
 		forms.trigger(form.id + '.started', [form, event]);
@@ -90,8 +91,8 @@ Gator(document.body).on('focus', '.mc4wp-form', function(event) {
 	}
 });
 
-Gator(document.body).on('change', '.mc4wp-form', function(event) {
-	var form = forms.getByElement(event.target || event.srcElement);
+gator.on('change', '.mc4wp-form', function(event) {
+	const form = forms.getByElement(event.target || event.srcElement);
 	forms.trigger('change', [form,event]);
 	forms.trigger(form.id + '.change', [form,event]);
 });

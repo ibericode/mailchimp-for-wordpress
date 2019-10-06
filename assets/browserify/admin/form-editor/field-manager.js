@@ -3,7 +3,6 @@
 const m = require('mithril');
 const fields = require('./fields.js');
 const settings = require('../settings');
-const events = require('../events.js');
 const i18n = window.mc4wp_forms_i18n;
 const mailchimp = window.mc4wp_vars.mailchimp;
 
@@ -215,6 +214,6 @@ function registerCustomFields(lists) {
 /**
  * Init
  */
-events.on('selectedLists.change', registerListsFields);
+settings.on('selectedLists.change', registerListsFields);
 registerListsFields(settings.getSelectedLists());
 registerCustomFields(mailchimp.lists);

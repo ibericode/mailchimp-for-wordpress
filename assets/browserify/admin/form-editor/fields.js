@@ -1,11 +1,10 @@
 'use strict';
 
 const m = require('mithril');
-const events = require('../events.js');
-
 let timeout;
 let fields = [];
 let categories = [];
+let listeners = {};
 
 const Field = function (data) {
 	return {
@@ -120,9 +119,19 @@ function register(category, data) {
     timeout = window.setTimeout(m.redraw, 200);
 
     // trigger event
-    events.trigger('fields.change');
+	emit('change');
 
     return field;
+}
+
+function emit(event, args) {
+	listeners[event] = listeners[event] || [];
+	listeners[event].forEach(f => f.apply(null, args));
+}
+
+function on(event, func) {
+	listeners[event] = listeners[event] || [];
+	listeners[event].push(func);
 }
 
 /**
@@ -192,5 +201,6 @@ module.exports =  {
     'getCategories': getCategories,
     'deregister' : deregister,
     'register'   : register,
-    'getAllWhere': getAllWhere
+    'getAllWhere': getAllWhere,
+	on
 };
