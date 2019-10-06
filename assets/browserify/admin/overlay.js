@@ -44,37 +44,33 @@ function storeElementReference(vnode) {
 }
 
 
-module.exports = function (content, onCloseCallback) {
-	_onCloseCallback = onCloseCallback;
-
-	return {
-		oncreate: function() {
-			document.addEventListener('keydown', onKeyDown);
-			window.addEventListener('resize', position);
-		},
-		onremove: function() {
-			document.removeEventListener('keydown', onKeyDown);
-			window.removeEventListener('resize', position);
-		},
-		view: function() {
-			return [
-				m('div.overlay-wrap',
-					m("div.overlay", { oncreate: storeElementReference },[
-						// close icon
-						m('span', {
-							"class": 'close dashicons dashicons-no',
-							title  : i18n.close,
-							onclick: close
-						}),
-
-						content
-					])
-				),
-				m('div.overlay-background', {
-					title: i18n.close,
-					onclick: close
-				})
-			];
-		}
-	};
+module.exports = {
+	oncreate: function(vnode) {
+		_onCloseCallback = vnode.attrs.onClose;
+		document.addEventListener('keydown', onKeyDown);
+		window.addEventListener('resize', position);
+	},
+	onremove: function(vnode) {
+		document.removeEventListener('keydown', onKeyDown);
+		window.removeEventListener('resize', position);
+	},
+	view: function(vnode) {
+		return [
+			m('div.overlay-wrap',
+				m("div.overlay", { oncreate: storeElementReference },[
+					// close icon
+					m('span', {
+						"class": 'close dashicons dashicons-no',
+						title  : i18n.close,
+						onclick: close
+					}),
+					vnode.children,
+				])
+			),
+			m('div.overlay-background', {
+				title: i18n.close,
+				onclick: close
+			})
+		];
+	}
 };

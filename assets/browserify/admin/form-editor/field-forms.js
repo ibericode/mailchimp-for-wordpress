@@ -1,3 +1,5 @@
+'use strict';
+
 let forms = {};
 const rows = require('./field-forms-rows.js');
 
@@ -88,7 +90,5 @@ forms.number = function(config) {
 		rows.numberMinMax(config)
 	];
 };
-
-
 
 module.exports = forms;

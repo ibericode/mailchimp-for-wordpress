@@ -158,10 +158,7 @@ r.choices = function (config) {
 	html.push(m('div', [
 		m('label', i18n.choices),
 		m('div.limit-height', [
-			m("table", [
-
-				// table body
-				config.choices().map(function (choice, index) {
+			m("table", config.choices().map(function (choice, index) {
 					return m('tr', {
 						'data-id': index
 					}, [
@@ -189,7 +186,7 @@ r.choices = function (config) {
 						}, ''))
 					])
 				})
-			]) // end of table
+			) // end of table
 		]) // end of limit-height div
 	]));
 

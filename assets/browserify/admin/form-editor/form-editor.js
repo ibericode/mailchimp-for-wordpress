@@ -17,8 +17,8 @@ let FormEditor = {};
 let _dom = document.createElement('form');
 let domDirty = false;
 let editor;
-let element = document.getElementById('mc4wp-form-content');
-let previewFrame = document.getElementById('mc4wp-form-preview');
+const element = document.getElementById('mc4wp-form-content');
+const previewFrame = document.getElementById('mc4wp-form-preview');
 let previewDom;
 const templateRegex = /\{[^{}]+\}/g
 
@@ -26,8 +26,8 @@ const templateRegex = /\{[^{}]+\}/g
 function setPreviewDom() {
     let frameContent = previewFrame.contentDocument || previewFrame.contentWindow.document;
     previewDom = frameContent.querySelector('.mc4wp-form-fields');
-    
-    if(previewDom) { 
+
+    if(previewDom) {
         updatePreview();
     }
 }

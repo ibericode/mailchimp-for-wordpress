@@ -4,10 +4,8 @@ const helpers = require('./helpers.js');
 const events = require('./events.js');
 
 const context = document.getElementById('mc4wp-admin');
-
-// vars
-let listInputs = context.querySelectorAll('.mc4wp-list-input');
-let lists = window.mc4wp_vars.mailchimp.lists;
+const listInputs = context.querySelectorAll('.mc4wp-list-input');
+const lists = window.mc4wp_vars.mailchimp.lists;
 let selectedLists = [];
 
 // functions

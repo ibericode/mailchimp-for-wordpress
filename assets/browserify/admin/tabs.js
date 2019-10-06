@@ -2,9 +2,9 @@
 
 const URL = require('./url.js');
 const context = document.getElementById('mc4wp-admin');
-let tabElements = context.querySelectorAll('.tab');
-let tabNavElements = context.querySelectorAll('.nav-tab');
-let refererField = context.querySelector('input[name="_wp_http_referer"]');
+const tabElements = context.querySelectorAll('.tab');
+const tabNavElements = context.querySelectorAll('.nav-tab');
+const refererField = context.querySelector('input[name="_wp_http_referer"]');
 let tabs = [];
 
 if (!Element.prototype.matches) {

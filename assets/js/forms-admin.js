@@ -128,8 +128,7 @@ r.choiceType = function (config) {
 
 r.choices = function (config) {
   var html = [];
-  html.push(m('div', [m('label', i18n.choices), m('div.limit-height', [m("table", [// table body
-  config.choices().map(function (choice, index) {
+  html.push(m('div', [m('label', i18n.choices), m('div.limit-height', [m("table", config.choices().map(function (choice, index) {
     return m('tr', {
       'data-id': index
     }, [m('td.cb', m('input', {
@@ -157,7 +156,7 @@ r.choices = function (config) {
         this.choices().splice(key, 1);
       }.bind(config, index)
     }, ''))]);
-  })]) // end of table
+  })) // end of table
   ]) // end of limit-height div
   ]));
   return html;
@@ -178,7 +177,7 @@ r.linkToTerms = function (config) {
 module.exports = r;
 
 },{"mithril":29}],3:[function(require,module,exports){
-"use strict";
+'use strict';
 
 var forms = {};
 
@@ -424,7 +423,7 @@ var i18n = window.mc4wp_forms_i18n;
 
 var generate = require('./field-generator.js');
 
-var overlay = require('../overlay.js');
+var Overlay = require('../overlay.js');
 
 var forms = require('./field-forms.js');
 
@@ -510,7 +509,9 @@ function view() {
   var form = null;
 
   if (fieldConfig) {
-    form = m(overlay( // field wizard
+    form = m(Overlay, {
+      onClose: setActiveField
+    }, // field wizard
     m("div.field-wizard", [//heading
     m("h3", [fieldConfig.title(), fieldConfig.forceRequired() ? m('span.red', '*') : '', fieldConfig.name().length ? m("code", fieldConfig.name()) : '']), // help text
     fieldConfig.help().length ? m('p', m.trust(fieldConfig.help())) : '', // actual form
@@ -524,16 +525,19 @@ function view() {
         }
       },
       onclick: createFieldHTMLAndAddToForm
-    }, i18n.addToForm)])]), setActiveField));
+    }, i18n.addToForm)])]));
   }
 
   return [fieldsChoice, form];
 }
 
 var fieldHelperRootElement = document.getElementById('mc4wp-field-wizard');
-m.mount(fieldHelperRootElement, {
-  view: view
-});
+
+if (fieldHelperRootElement) {
+  m.mount(fieldHelperRootElement, {
+    view: view
+  });
+}
 
 },{"../overlay.js":12,"./field-forms.js":3,"./field-generator.js":4,"./fields.js":7,"./form-editor.js":8,"mithril":29}],6:[function(require,module,exports){
 'use strict';
@@ -1448,31 +1452,29 @@ function storeElementReference(vnode) {
   position();
 }
 
-module.exports = function (content, onCloseCallback) {
-  _onCloseCallback = onCloseCallback;
-  return {
-    oncreate: function oncreate() {
-      document.addEventListener('keydown', onKeyDown);
-      window.addEventListener('resize', position);
-    },
-    onremove: function onremove() {
-      document.removeEventListener('keydown', onKeyDown);
-      window.removeEventListener('resize', position);
-    },
-    view: function view() {
-      return [m('div.overlay-wrap', m("div.overlay", {
-        oncreate: storeElementReference
-      }, [// close icon
-      m('span', {
-        "class": 'close dashicons dashicons-no',
-        title: i18n.close,
-        onclick: close
-      }), content])), m('div.overlay-background', {
-        title: i18n.close,
-        onclick: close
-      })];
-    }
-  };
+module.exports = {
+  oncreate: function oncreate(vnode) {
+    _onCloseCallback = vnode.attrs.onClose;
+    document.addEventListener('keydown', onKeyDown);
+    window.addEventListener('resize', position);
+  },
+  onremove: function onremove(vnode) {
+    document.removeEventListener('keydown', onKeyDown);
+    window.removeEventListener('resize', position);
+  },
+  view: function view(vnode) {
+    return [m('div.overlay-wrap', m("div.overlay", {
+      oncreate: storeElementReference
+    }, [// close icon
+    m('span', {
+      "class": 'close dashicons dashicons-no',
+      title: i18n.close,
+      onclick: close
+    }), vnode.children])), m('div.overlay-background', {
+      title: i18n.close,
+      onclick: close
+    })];
+  }
 };
 
 },{"mithril":29}],13:[function(require,module,exports){
@@ -1484,8 +1486,7 @@ var helpers = require('./helpers.js');
 
 var events = require('./events.js');
 
-var context = document.getElementById('mc4wp-admin'); // vars
-
+var context = document.getElementById('mc4wp-admin');
 var listInputs = context.querySelectorAll('.mc4wp-list-input');
 var lists = window.mc4wp_vars.mailchimp.lists;
 var selectedLists = []; // functions

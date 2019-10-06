@@ -5,7 +5,7 @@ const editor = require('./form-editor.js');
 const fields = require('./fields.js');
 const i18n = window.mc4wp_forms_i18n;
 const generate = require('./field-generator.js');
-const overlay = require('../overlay.js');
+const Overlay = require('../overlay.js');
 const forms = require('./field-forms.js');
 let fieldConfig;
 
@@ -61,7 +61,7 @@ function view() {
 		m("h4", i18n.chooseField),
 
 		fieldCategories.map(function(category) {
-			let categoryFields = availableFields.filter(function(f) {
+			const categoryFields = availableFields.filter(function(f) {
 				return f.category === category;
 			});
 
@@ -98,10 +98,8 @@ function view() {
 	// build DOM for overlay
 	let form = null;
 	if( fieldConfig ) {
-		form = m(overlay(
-			// field wizard
+		form = m(Overlay, { onClose: setActiveField }, // field wizard
 			m("div.field-wizard", [
-
 				//heading
 				m("h3", [
 					fieldConfig.title(),
@@ -128,7 +126,7 @@ function view() {
 						onclick: createFieldHTMLAndAddToForm
 					}, i18n.addToForm )
 				])
-			]), setActiveField));
+			]));
 	}
 
 	return [
@@ -138,4 +136,6 @@ function view() {
 }
 
 let fieldHelperRootElement = document.getElementById( 'mc4wp-field-wizard');
-m.mount(fieldHelperRootElement, {view});
+if (fieldHelperRootElement) {
+	m.mount(fieldHelperRootElement, {view});
+}

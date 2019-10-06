@@ -29,67 +29,67 @@ msgstr ""
 msgid "Success! The cached configuration for your Mailchimp lists has been renewed."
 msgstr ""
 
-#: includes/admin/class-admin.php:322
+#: includes/admin/class-admin.php:320
 msgid "The given value does not look like a valid Mailchimp API key."
 msgstr ""
 
-#: includes/admin/class-admin.php:323
+#: includes/admin/class-admin.php:321
 msgid "This is a premium feature. Please upgrade to Mailchimp for WordPress Premium to be able to use it."
 msgstr ""
 
-#: includes/admin/class-admin.php:324, includes/views/parts/lists-overview.php:10, includes/forms/views/parts/add-fields-help.php:45
+#: includes/admin/class-admin.php:322, includes/views/parts/lists-overview.php:10, includes/forms/views/parts/add-fields-help.php:45
 msgid "Renew Mailchimp lists"
 msgstr ""
 
-#: includes/admin/class-admin.php:325
+#: includes/admin/class-admin.php:323
 msgid "Fetching Mailchimp lists"
 msgstr ""
 
-#: includes/admin/class-admin.php:326
+#: includes/admin/class-admin.php:324
 msgid "Done! Mailchimp lists renewed."
 msgstr ""
 
-#: includes/admin/class-admin.php:327
+#: includes/admin/class-admin.php:325
 msgid "Failed to renew your lists. An error occured."
 msgstr ""
 
-#: includes/admin/class-admin.php:356
+#: includes/admin/class-admin.php:354
 msgid "Mailchimp API Settings"
 msgstr ""
 
-#: includes/admin/class-admin.php:357
+#: includes/admin/class-admin.php:355
 msgid "Mailchimp"
 msgstr ""
 
-#: includes/admin/class-admin.php:363, includes/views/other-settings.php:61, includes/views/other-settings.php:71
+#: includes/admin/class-admin.php:361, includes/views/other-settings.php:61, includes/views/other-settings.php:71
 msgid "Other Settings"
 msgstr ""
 
-#: includes/admin/class-admin.php:364
+#: includes/admin/class-admin.php:362
 msgid "Other"
 msgstr ""
 
-#: includes/admin/class-admin.php:440
+#: includes/admin/class-admin.php:438
 msgid "Error connecting to Mailchimp:"
 msgstr ""
 
-#: includes/admin/class-admin.php:443
+#: includes/admin/class-admin.php:441
 msgid "Looks like your server is blocked by Mailchimp's firewall. Please contact Mailchimp support and include the following reference number: %s"
 msgstr ""
 
-#: includes/admin/class-admin.php:446
+#: includes/admin/class-admin.php:444
 msgid "Here's some info on solving common connectivity issues."
 msgstr ""
 
-#: includes/admin/class-admin.php:451
+#: includes/admin/class-admin.php:449
 msgid "Mailchimp returned the following error:"
 msgstr ""
 
-#: includes/admin/class-admin.php:493
+#: includes/admin/class-admin.php:491
 msgid "Log successfully emptied."
 msgstr ""
 
-#: includes/admin/class-admin.php:524
+#: includes/admin/class-admin.php:522
 msgid "To get started with Mailchimp for WordPress, please <a href=\"%s\">enter your Mailchimp API key on the settings page of the plugin</a>."
 msgstr ""
 
