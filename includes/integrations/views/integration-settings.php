@@ -23,7 +23,7 @@
 			<h2 style="display: none;"></h2>
 			<?php settings_errors(); ?>
 
-			<div id="notice-additional-fields" class="notice notice-info" style="display: none;">
+			<div id="notice-additional-fields" class="notice notice-warning" style="display: none;">
 				<p><?php _e('The selected Mailchimp lists require non-default fields, which may prevent this integration from working.', 'mailchimp-for-wp'); ?></p>
 				<p><?php echo sprintf(__('Please ensure you <a href="%s">configure the plugin to send all required fields</a> or <a href="%s">log into your Mailchimp account</a> and make sure only the email & name fields are marked as required fields for the selected list(s).', 'mailchimp-for-wp'), 'https://kb.mc4wp.com/send-additional-fields-from-integrations/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page', 'https://admin.mailchimp.com/lists/'); ?></p>
 			</div>
@@ -182,7 +182,7 @@
 						</tr>
 					<?php
                 } // end if UI double_optin?>
-					
+
 					<?php if ($integration->has_ui_element('update_existing')) {
                     ?>
 					<tr valign="top">
