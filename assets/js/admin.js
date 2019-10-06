@@ -5,8 +5,6 @@ var _tlite = _interopRequireDefault(require("tlite"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var m = require('mithril');
-
 var tabs = require('./admin/tabs.js');
 
 var events = require('./admin/events.js');
@@ -32,7 +30,7 @@ window.mc4wp.events = events;
 window.mc4wp.settings = settings;
 window.mc4wp.tabs = tabs;
 
-},{"./admin/events.js":2,"./admin/fields/mailchimp-api-key.js":3,"./admin/helpers.js":4,"./admin/list-fetcher.js":5,"./admin/list-overview.js":6,"./admin/settings.js":7,"./admin/tabs.js":8,"mithril":13,"tlite":35}],2:[function(require,module,exports){
+},{"./admin/events.js":2,"./admin/fields/mailchimp-api-key.js":3,"./admin/helpers.js":4,"./admin/list-fetcher.js":5,"./admin/list-overview.js":6,"./admin/settings.js":7,"./admin/tabs.js":8,"tlite":35}],2:[function(require,module,exports){
 'use strict';
 
 var EventEmitter = require('wolfy87-eventemitter');

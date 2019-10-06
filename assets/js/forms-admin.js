@@ -1411,71 +1411,96 @@ document.body.addEventListener('change', mailchimpListsNotice);
 },{"./form-editor/fields.js":7,"./form-editor/form-editor.js":8,"./settings":13}],12:[function(require,module,exports){
 'use strict';
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 var m = require('mithril');
 
 var i18n = window.mc4wp_forms_i18n;
 
-var _element, _onCloseCallback;
+var Overlay =
+/*#__PURE__*/
+function () {
+  function Overlay(vnode) {
+    _classCallCheck(this, Overlay);
 
-function close() {
-  document.removeEventListener('keydown', onKeyDown);
-  window.removeEventListener('resize', position);
-
-  _onCloseCallback();
-}
-
-function onKeyDown(evt) {
-  // close overlay when pressing ESC
-  if (evt.keyCode === 27) {
-    close();
-  } // prevent ENTER
-
-
-  if (evt.keyCode === 13) {
-    evt.preventDefault();
+    this.onclose = vnode.attrs.onClose;
+    this.close = this.close.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.onWindowResize = this.onWindowResize.bind(this);
   }
-}
 
-function position() {
-  if (!_element) return; // fix for window width in IE8
+  _createClass(Overlay, [{
+    key: "oncreate",
+    value: function oncreate() {
+      document.addEventListener('keydown', this.onKeyDown);
+      window.addEventListener('resize', this.onWindowResize);
+    }
+  }, {
+    key: "onremove",
+    value: function onremove() {
+      document.removeEventListener('keydown', this.onKeyDown);
+      window.removeEventListener('resize', this.onWindowResize);
+    }
+  }, {
+    key: "close",
+    value: function close() {
+      this.onclose();
+    }
+  }, {
+    key: "onKeyDown",
+    value: function onKeyDown(evt) {
+      // close overlay when pressing ESC
+      if (evt.keyCode === 27) {
+        this.close();
+      } // prevent ENTER
 
-  var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-  var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-  var marginLeft = (windowWidth - _element.clientWidth - 40) / 2;
-  var marginTop = (windowHeight - _element.clientHeight - 40) / 2;
-  _element.style.left = (marginLeft > 0 ? marginLeft : 0) + "px";
-  _element.style.top = (marginTop > 0 ? marginTop : 0) + "px";
-}
 
-function storeElementReference(vnode) {
-  _element = vnode.dom;
-  position();
-}
+      if (evt.keyCode === 13) {
+        evt.preventDefault();
+      }
+    }
+  }, {
+    key: "onWindowResize",
+    value: function onWindowResize() {
+      // fix for window width in IE8
+      var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+      var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+      var marginLeft = (windowWidth - this.element.clientWidth - 40) / 2;
+      var marginTop = (windowHeight - this.element.clientHeight - 40) / 2;
+      this.element.style.left = (marginLeft > 0 ? marginLeft : 0) + "px";
+      this.element.style.top = (marginTop > 0 ? marginTop : 0) + "px";
+    }
+  }, {
+    key: "view",
+    value: function view(vnode) {
+      var _this = this;
 
-module.exports = {
-  oncreate: function oncreate(vnode) {
-    _onCloseCallback = vnode.attrs.onClose;
-    document.addEventListener('keydown', onKeyDown);
-    window.addEventListener('resize', position);
-  },
-  onremove: function onremove(vnode) {
-    document.removeEventListener('keydown', onKeyDown);
-    window.removeEventListener('resize', position);
-  },
-  view: function view(vnode) {
-    return [m('div.overlay-wrap', m("div.overlay", {
-      oncreate: storeElementReference
-    }, [// close icon
-    m('span', {
-      "class": 'close dashicons dashicons-no',
-      title: i18n.close,
-      onclick: close
-    }), vnode.children])), m('div.overlay-background', {
-      title: i18n.close,
-      onclick: close
-    })];
-  }
-};
+      return [m('div.overlay-wrap', m("div.overlay", {
+        oncreate: function oncreate(vnode) {
+          _this.element = vnode.dom;
+
+          _this.onWindowResize();
+        }
+      }, [// close icon
+      m('span', {
+        "class": 'close dashicons dashicons-no',
+        title: i18n.close,
+        onclick: this.close
+      }), vnode.children])), m('div.overlay-background', {
+        title: i18n.close,
+        onclick: this.close
+      })];
+    }
+  }]);
+
+  return Overlay;
+}();
+
+module.exports = Overlay;
 
 },{"mithril":29}],13:[function(require,module,exports){
 'use strict';

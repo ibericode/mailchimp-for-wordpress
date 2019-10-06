@@ -2,7 +2,6 @@
 
 // dependencies
 import tlite from 'tlite';
-const m = require('mithril');
 const tabs = require ('./admin/tabs.js');
 const events = require('./admin/events.js');
 const settings = require('./admin/settings.js');
