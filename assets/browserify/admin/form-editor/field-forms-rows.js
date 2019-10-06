@@ -6,7 +6,7 @@ let r = {};
 
 r.showType = function(config) {
 	// ucfirst
-	let fieldType = config.type();
+	let fieldType = config.type;
 	fieldType = fieldType.charAt(0).toUpperCase() + fieldType.slice(1);
 
 	return m('div', [
@@ -21,15 +21,15 @@ r.label = function (config) {
 		m("label", i18n.fieldLabel),
 		m("input.widefat", {
 			type       : "text",
-			value      : config.label(),
-			onchange   : (evt) => config.label(evt.target.value),
-			placeholder: config.title()
+			value      : config.label,
+			onchange   : (evt) => config.label = evt.target.value,
+			placeholder: config.title
 		})
 	]);
 };
 
 r.value = function (config) {
-	const isHidden = config.type() === 'hidden';
+	const isHidden = config.type === 'hidden';
 	return m("div", [
 		m("label", [
 			isHidden ? i18n.value : i18n.initialValue,
@@ -38,8 +38,8 @@ r.value = function (config) {
 		]),
 		m("input.widefat", {
 			type   : "text",
-			value  : config.value(),
-			onchange: (evt) => config.value(evt.target.value),
+			value  : config.value,
+			onchange: (evt) => config.value = evt.target.value,
 		}),
 		isHidden ? '' : m('p.help', i18n.valueHelp)
 	]);
@@ -52,14 +52,14 @@ r.numberMinMax = function (config) {
 				m('label', i18n.min),
 				m('input', {
 					type: 'number',
-					onchange: (evt) => config.min(evt.target.value),
+					onchange: (evt) => config.min = evt.target.value,
 				})
 			]),
 			m('div.col.col-3', [
 				m('label', i18n.max),
 				m('input', {
 					type: 'number',
-					onchange: (evt) => config.max(evt.target.value),
+					onchange: (evt) => config.max = evt.target.value,
 				})
 			])
 		])
@@ -70,12 +70,12 @@ r.numberMinMax = function (config) {
 r.isRequired = function (config) {
 	let inputAtts = {
 		type : 'checkbox',
-		checked : config.required(),
-		onchange: (evt) => config.required(evt.target.checked),
+		checked : config.required,
+		onchange: (evt) => config.required = evt.target.checked,
 	};
 	let desc;
 
-	if( config.forceRequired() ) {
+	if (config.forceRequired) {
 		inputAtts.required = true;
 		inputAtts.disabled = true;
 		desc = m('p.help', i18n.forceRequired );
@@ -100,8 +100,8 @@ r.placeholder = function (config) {
 		]),
 		m("input.widefat", {
 			type   : "text",
-			value  : config.placeholder(),
-			onchange: (evt) => config.placeholder(evt.target.value),
+			value  : config.placeholder,
+			onchange: (evt) => config.placeholder = evt.target.value,
 			placeholder: ""
 		}),
 		m("p.help", i18n.placeholderHelp)
@@ -113,8 +113,8 @@ r.useParagraphs = function (config) {
 		m('label.cb-wrap', [
 			m('input', {
 				type    : 'checkbox',
-				checked : config.wrap(),
-				onchange: (evt) => config.wrap(evt.target.checked),
+				checked : config.wrap,
+				onchange: (evt) => config.wrap = evt.target.checked,
 			}),
 			i18n.wrapInParagraphTags
 		])
@@ -125,20 +125,20 @@ r.choiceType = function (config) {
 	let options = [
 		m('option', {
 			value   : 'select',
-			selected: config.type() === 'select' ? 'selected' : false
+			selected: config.type === 'select' ? 'selected' : false
 		}, i18n.dropdown ),
 		m('option', {
 			value   : 'radio',
-			selected: config.type() === 'radio' ? 'selected' : false
+			selected: config.type === 'radio' ? 'selected' : false
 		}, i18n.radioButtons )
 	];
 
 	// only add checkbox choice if field accepts multiple values
-	if( config.acceptsMultipleValues ) {
+	if (config.acceptsMultipleValues) {
 		options.push(
 			m('option', {
 				value   : 'checkbox',
-				selected: config.type() === 'checkbox' ? 'selected' : false
+				selected: config.type === 'checkbox' ? 'selected' : false
 			}, i18n.checkboxes )
 		);
 	}
@@ -146,8 +146,8 @@ r.choiceType = function (config) {
 	return m('div', [
 		m('label', i18n.choiceType ),
 		m('select', {
-			value   : config.type(),
-			onchange: (evt) => config.type(evt.target.value),
+			value   : config.type,
+			onchange: (evt) => config.type = evt.target.value,
 		}, options)
 	]);
 };
@@ -158,24 +158,38 @@ r.choices = function (config) {
 	html.push(m('div', [
 		m('label', i18n.choices),
 		m('div.limit-height', [
-			m("table", config.choices().map(function (choice, index) {
+			m("table", config.choices.map(function (choice, index) {
 					return m('tr', {
 						'data-id': index
 					}, [
 						m('td.cb', m('input', {
 								name: 'selected',
-								type: (config.type() === 'checkbox' ) ? 'checkbox' : 'radio',
-								onchange: (evt) => config.selectChoice(evt.target.value), // m.withAttr('value', config.selectChoice.bind(config)),
-								checked: choice.selected(),
-								value: choice.value(),
+								type: (config.type === 'checkbox' ) ? 'checkbox' : 'radio',
+								onchange: (evt) => {
+									config.choices = config.choices.map((choice) => {
+										if( choice.value === evt.target.value ) {
+											choice.selected = !choice.selected;
+										} else {
+											// only checkboxes allow for multiple selections
+											if( config.type !== 'checkbox' ) {
+												choice.selected = false;
+											}
+										}
+
+										return choice;
+
+									});
+								},
+								checked: choice.selected,
+								value: choice.value,
 								title: i18n.preselect
 							})
 						),
 						m('td.stretch', m('input.widefat', {
 							type: 'text',
-							value: choice.label(),
-							placeholder: choice.title(),
-							onchange: (evt) => choice.label(evt.target.value), //m.withAttr('value', choice.label)
+							value: choice.label,
+							placeholder: choice.title,
+							onchange: (evt) => choice.label = evt.target.value,
 						})),
 						m('td', m('span', {
 							"title": i18n.remove,
@@ -201,8 +215,8 @@ r.linkToTerms = function (config) {
 		m("label", i18n.agreeToTermsLink),
 		m("input.widefat", {
 			type       : "text",
-			value      : config.link(),
-			onchange   : (evt) => config.link(evt.target.value),
+			value      : config.link,
+			onchange   : (evt) => config.link = evt.target.value,
 			placeholder: 'https://...',
 		})
 	]);

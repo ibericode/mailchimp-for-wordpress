@@ -1,6 +1,5 @@
 'use strict';
 
-const prop = require("mithril/stream");
 const m = require('mithril');
 const events = require('../events.js');
 
@@ -9,44 +8,26 @@ let fields = [];
 let categories = [];
 
 const Field = function (data) {
-    this.name = prop(data.name);
-    this.title = prop(data.title || data.name);
-    this.type = prop(data.type);
-    this.mailchimpType = prop(data.mailchimpType || '');
-    this.label = prop(data.label || data.title || '');
-    this.showLabel = prop(data.showLabel !== undefined ? data.showLabel : true);
-    this.value = prop(data.value || '');
-    this.placeholder = prop(data.placeholder || '');
-    this.required = prop(data.required || false);
-    this.forceRequired = prop( data.forceRequired || false );
-    this.wrap = prop(data.wrap !== undefined ? data.wrap : true);
-    this.min = prop(data.min || null);
-    this.max = prop(data.max || null);
-    this.help = prop(data.help || '');
-    this.choices = prop(data.choices || []);
-    this.inFormContent = prop(null);
-    this.acceptsMultipleValues = data.acceptsMultipleValues;
-    this.link = prop(data.link || '');
-
-    this.selectChoice = function(value) {
-        let field = this;
-
-        this.choices(this.choices().map(function(choice) {
-            if( choice.value() === value ) {
-                choice.selected(!choice.selected());
-            } else {
-                // only checkboxes allow for multiple selections
-                if( field.type() !== 'checkbox' ) {
-                    choice.selected(false);
-                }
-            }
-
-            return choice;
-
-        }));
-    };
-
-    this.selectChoice = this.selectChoice.bind(this);
+	return {
+		name: data.name,
+		title: data.title || data.name,
+		type: data.type,
+		mailchimpType: data.mailchimpType || null,
+		label: data.label || data.title || '',
+		showLabel: typeof(data.showLabel) === "boolean" ? data.showLabel : true,
+		value: data.value || '',
+		placeholder: data.placeholder || '',
+		required: data.required || false,
+		forceRequired: data.forceRequired || false,
+		wrap: typeof(data.wrap) === "boolean" ? data.wrap : true,
+		min: data.min,
+		max: data.max,
+		help: data.help || '',
+		choices: data.choices || [],
+		inFormContent: null,
+		acceptsMultipleValues: data.acceptsMultipleValues,
+		link: data.link || ''
+	};
 };
 
 /**
@@ -56,10 +37,12 @@ const Field = function (data) {
  * @constructor
  */
 const FieldChoice = function (data) {
-    this.label = prop(data.label);
-    this.title = prop(data.title || data.label);
-    this.selected = prop(data.selected || false);
-    this.value = prop(data.value || data.label);
+	return {
+		title: data.title || data.label,
+		selected: data.selected || false,
+		value: data.value || data.label,
+		label: data.label,
+	};
 };
 
 /**
@@ -76,7 +59,7 @@ function createChoices(data) {
         });
     } else {
         choices = Object.keys(data).map(function (key) {
-            var choiceLabel = data[key];
+            let choiceLabel = data[key];
             return new FieldChoice({label: choiceLabel, value: key});
         });
     }
@@ -97,8 +80,8 @@ function register(category, data) {
     if(existingField) {
 
         // update "required" status
-        if( ! existingField.forceRequired() && data.forceRequired ) {
-            existingField.forceRequired(true);
+        if( ! existingField.forceRequired && data.forceRequired ) {
+            existingField.forceRequired = true;
         }
 
         // bail
@@ -111,8 +94,8 @@ function register(category, data) {
 
         if( data.value) {
             data.choices = data.choices.map(function(choice) {
-                if(choice.value() === data.value) {
-                    choice.selected(true);
+                if(choice.value === data.value) {
+                    choice.selected = true;
                 }
                 return choice;
             });
@@ -132,6 +115,7 @@ function register(category, data) {
     fields.push(field);
 
     // redraw view
+	// TODO: Move this out
     timeout && window.clearTimeout(timeout);
     timeout = window.setTimeout(m.redraw, 200);
 
@@ -194,7 +178,7 @@ function getCategories() {
  */
 function getAllWhere(searchKey, searchValue) {
     return fields.filter(function (field) {
-        return field[searchKey]() === searchValue;
+        return field[searchKey] === searchValue;
     });
 }
 

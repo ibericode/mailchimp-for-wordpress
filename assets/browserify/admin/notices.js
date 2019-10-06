@@ -29,7 +29,7 @@ function render() {
         let heading = document.querySelector('h1, h2');
         heading.parentNode.insertBefore(container, heading.nextSibling);
     }
-    
+
     container.innerHTML = html;
 }
 
@@ -44,11 +44,11 @@ const groupingsNotice = function() {
 const requiredFieldsNotice = function() {
     let requiredFields = fields.getAllWhere('forceRequired', true);
     let missingFields = requiredFields.filter(function(f) {
-        return ! editor.containsField(f.name().toUpperCase());
+        return ! editor.containsField(f.name.toUpperCase());
     });
 
     let text = '<strong>Heads up!</strong> Your form is missing list fields that are required in Mailchimp. Either add these fields to your form or mark them as optional in Mailchimp.';
-    text += "<br /><ul class=\"ul-square\" style=\"margin-bottom: 0;\"><li>" + missingFields.map(function(f) { return f.title(); }).join('</li><li>') + '</li></ul>';
+    text += "<br /><ul class=\"ul-square\" style=\"margin-bottom: 0;\"><li>" + missingFields.map(function(f) { return f.title; }).join('</li><li>') + '</li></ul>';
 
     ( missingFields.length > 0 ) ? show('required_fields_missing', text) : hide('required_fields_missing');
 };

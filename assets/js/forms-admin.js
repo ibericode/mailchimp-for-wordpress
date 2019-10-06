@@ -5,7 +5,7 @@ var EventEmitter = require('wolfy87-eventemitter');
 
 module.exports = new EventEmitter();
 
-},{"wolfy87-eventemitter":53}],2:[function(require,module,exports){
+},{"wolfy87-eventemitter":51}],2:[function(require,module,exports){
 'use strict';
 
 var i18n = window.mc4wp_forms_i18n;
@@ -16,7 +16,7 @@ var r = {};
 
 r.showType = function (config) {
   // ucfirst
-  var fieldType = config.type();
+  var fieldType = config.type;
   fieldType = fieldType.charAt(0).toUpperCase() + fieldType.slice(1);
   return m('div', [m("label", i18n.fieldType), m('span', fieldType)]);
 };
@@ -25,23 +25,23 @@ r.label = function (config) {
   // label row
   return m("div", [m("label", i18n.fieldLabel), m("input.widefat", {
     type: "text",
-    value: config.label(),
+    value: config.label,
     onchange: function onchange(evt) {
-      return config.label(evt.target.value);
+      return config.label = evt.target.value;
     },
-    placeholder: config.title()
+    placeholder: config.title
   })]);
 };
 
 r.value = function (config) {
-  var isHidden = config.type() === 'hidden';
+  var isHidden = config.type === 'hidden';
   return m("div", [m("label", [isHidden ? i18n.value : i18n.initialValue, " ", isHidden ? '' : m('small', {
     "style": "float: right; font-weight: normal;"
   }, i18n.optional)]), m("input.widefat", {
     type: "text",
-    value: config.value(),
+    value: config.value,
     onchange: function onchange(evt) {
-      return config.value(evt.target.value);
+      return config.value = evt.target.value;
     }
   }), isHidden ? '' : m('p.help', i18n.valueHelp)]);
 };
@@ -50,12 +50,12 @@ r.numberMinMax = function (config) {
   return m('div', [m('div.row', [m('div.col.col-3', [m('label', i18n.min), m('input', {
     type: 'number',
     onchange: function onchange(evt) {
-      return config.min(evt.target.value);
+      return config.min = evt.target.value;
     }
   })]), m('div.col.col-3', [m('label', i18n.max), m('input', {
     type: 'number',
     onchange: function onchange(evt) {
-      return config.max(evt.target.value);
+      return config.max = evt.target.value;
     }
   })])])]);
 };
@@ -63,14 +63,14 @@ r.numberMinMax = function (config) {
 r.isRequired = function (config) {
   var inputAtts = {
     type: 'checkbox',
-    checked: config.required(),
+    checked: config.required,
     onchange: function onchange(evt) {
-      return config.required(evt.target.checked);
+      return config.required = evt.target.checked;
     }
   };
   var desc;
 
-  if (config.forceRequired()) {
+  if (config.forceRequired) {
     inputAtts.required = true;
     inputAtts.disabled = true;
     desc = m('p.help', i18n.forceRequired);
@@ -84,9 +84,9 @@ r.placeholder = function (config) {
     "style": "float: right; font-weight: normal;"
   }, i18n.optional)]), m("input.widefat", {
     type: "text",
-    value: config.placeholder(),
+    value: config.placeholder,
     onchange: function onchange(evt) {
-      return config.placeholder(evt.target.value);
+      return config.placeholder = evt.target.value;
     },
     placeholder: ""
   }), m("p.help", i18n.placeholderHelp)]);
@@ -95,9 +95,9 @@ r.placeholder = function (config) {
 r.useParagraphs = function (config) {
   return m('div', [m('label.cb-wrap', [m('input', {
     type: 'checkbox',
-    checked: config.wrap(),
+    checked: config.wrap,
     onchange: function onchange(evt) {
-      return config.wrap(evt.target.checked);
+      return config.wrap = evt.target.checked;
     }
   }), i18n.wrapInParagraphTags])]);
 };
@@ -105,50 +105,59 @@ r.useParagraphs = function (config) {
 r.choiceType = function (config) {
   var options = [m('option', {
     value: 'select',
-    selected: config.type() === 'select' ? 'selected' : false
+    selected: config.type === 'select' ? 'selected' : false
   }, i18n.dropdown), m('option', {
     value: 'radio',
-    selected: config.type() === 'radio' ? 'selected' : false
+    selected: config.type === 'radio' ? 'selected' : false
   }, i18n.radioButtons)]; // only add checkbox choice if field accepts multiple values
 
   if (config.acceptsMultipleValues) {
     options.push(m('option', {
       value: 'checkbox',
-      selected: config.type() === 'checkbox' ? 'selected' : false
+      selected: config.type === 'checkbox' ? 'selected' : false
     }, i18n.checkboxes));
   }
 
   return m('div', [m('label', i18n.choiceType), m('select', {
-    value: config.type(),
+    value: config.type,
     onchange: function onchange(evt) {
-      return config.type(evt.target.value);
+      return config.type = evt.target.value;
     }
   }, options)]);
 };
 
 r.choices = function (config) {
   var html = [];
-  html.push(m('div', [m('label', i18n.choices), m('div.limit-height', [m("table", config.choices().map(function (choice, index) {
+  html.push(m('div', [m('label', i18n.choices), m('div.limit-height', [m("table", config.choices.map(function (choice, index) {
     return m('tr', {
       'data-id': index
     }, [m('td.cb', m('input', {
       name: 'selected',
-      type: config.type() === 'checkbox' ? 'checkbox' : 'radio',
+      type: config.type === 'checkbox' ? 'checkbox' : 'radio',
       onchange: function onchange(evt) {
-        return config.selectChoice(evt.target.value);
+        config.choices = config.choices.map(function (choice) {
+          if (choice.value === evt.target.value) {
+            choice.selected = !choice.selected;
+          } else {
+            // only checkboxes allow for multiple selections
+            if (config.type !== 'checkbox') {
+              choice.selected = false;
+            }
+          }
+
+          return choice;
+        });
       },
-      // m.withAttr('value', config.selectChoice.bind(config)),
-      checked: choice.selected(),
-      value: choice.value(),
+      checked: choice.selected,
+      value: choice.value,
       title: i18n.preselect
     })), m('td.stretch', m('input.widefat', {
       type: 'text',
-      value: choice.label(),
-      placeholder: choice.title(),
+      value: choice.label,
+      placeholder: choice.title,
       onchange: function onchange(evt) {
-        return choice.label(evt.target.value);
-      } //m.withAttr('value', choice.label)
-
+        return choice.label = evt.target.value;
+      }
     })), m('td', m('span', {
       "title": i18n.remove,
       "class": 'dashicons dashicons-no-alt hover-activated',
@@ -166,9 +175,9 @@ r.linkToTerms = function (config) {
   // label row
   return m("div", [m("label", i18n.agreeToTermsLink), m("input.widefat", {
     type: "text",
-    value: config.link(),
+    value: config.link,
     onchange: function onchange(evt) {
-      return config.link(evt.target.value);
+      return config.link = evt.target.value;
     },
     placeholder: 'https://...'
   })]);
@@ -185,7 +194,7 @@ var rows = require('./field-forms-rows.js'); // route to one of the other form c
 
 
 forms.render = function (config) {
-  var type = config.type();
+  var type = config.type;
 
   if (typeof forms[type] === "function") {
     return forms[type](config);
@@ -209,13 +218,13 @@ forms.text = function (config) {
 forms.choice = function (config) {
   var visibleRows = [rows.label(config), rows.choiceType(config), rows.choices(config)];
 
-  if (config.type() === 'select') {
+  if (config.type === 'select') {
     visibleRows.push(rows.placeholder(config));
   }
 
   visibleRows.push(rows.useParagraphs(config));
 
-  if (config.type() === 'select' || config.type() === 'radio') {
+  if (config.type === 'select' || config.type === 'radio') {
     visibleRows.push(rows.isRequired(config));
   }
 
@@ -223,15 +232,15 @@ forms.choice = function (config) {
 };
 
 forms.hidden = function (config) {
-  config.placeholder('');
-  config.label('');
-  config.wrap(false);
+  config.placeholder = '';
+  config.label = '';
+  config.wrap = false;
   return [rows.showType(config), rows.value(config)];
 };
 
 forms.submit = function (config) {
-  config.label('');
-  config.placeholder('');
+  config.label = '';
+  config.placeholder = '';
   return [rows.value(config), rows.useParagraphs(config)];
 };
 
@@ -275,22 +284,22 @@ var generators = {};
 
 generators['select'] = function (config) {
   var attributes = {
-    name: config.name(),
-    required: config.required()
+    name: config.name,
+    required: config.required
   };
   var hasSelection = false;
-  var options = config.choices().map(function (choice) {
-    if (choice.selected()) {
+  var options = config.choices.map(function (choice) {
+    if (choice.selected) {
       hasSelection = true;
     }
 
     return m('option', {
-      value: choice.value() !== choice.label() ? choice.value() : undefined,
-      "selected": choice.selected(),
+      value: choice.value !== choice.label ? choice.value : undefined,
+      "selected": choice.selected,
       oncreate: setAttributes
-    }, choice.label());
+    }, choice.label);
   });
-  var placeholder = config.placeholder();
+  var placeholder = config.placeholder;
 
   if (placeholder.length > 0) {
     options.unshift(m('option', {
@@ -307,20 +316,20 @@ generators['select'] = function (config) {
 generators['terms-checkbox'] = function (config) {
   var label;
 
-  if (config.link().length > 0) {
+  if (config.link.length > 0) {
     label = m('a', {
-      href: config.link(),
+      href: config.link,
       target: "_blank"
-    }, config.label());
+    }, config.label);
   } else {
-    label = config.label();
+    label = config.label;
   }
 
   return m('label', [m('input', {
-    name: config.name(),
+    name: config.name,
     type: 'checkbox',
-    value: config.value(),
-    required: config.required()
+    value: config.value,
+    required: config.required
   }), ' ', label]);
 };
 /**
@@ -332,19 +341,18 @@ generators['terms-checkbox'] = function (config) {
 
 
 generators['checkbox'] = function (config) {
-  var fields = config.choices().map(function (choice) {
-    var name = config.name() + (config.type() === 'checkbox' ? '[]' : '');
-    var required = config.required() && config.type() === 'radio';
+  return config.choices.map(function (choice) {
+    var name = config.name + (config.type === 'checkbox' ? '[]' : '');
+    var required = config.required && config.type === 'radio';
     return m('label', [m('input', {
       name: name,
-      type: config.type(),
-      value: choice.value(),
-      checked: choice.selected(),
+      type: config.type,
+      value: choice.value,
+      checked: choice.selected,
       required: required,
       oncreate: setAttributes
-    }), ' ', m('span', choice.label())]);
+    }), ' ', m('span', choice.label)]);
   });
-  return fields;
 };
 
 generators['radio'] = generators['checkbox'];
@@ -359,30 +367,30 @@ generators['radio'] = generators['checkbox'];
 
 generators['default'] = function (config) {
   var attributes = {
-    type: config.type()
+    type: config.type
   };
 
-  if (config.name()) {
-    attributes.name = config.name();
+  if (config.name) {
+    attributes.name = config.name;
   }
 
-  if (config.min()) {
-    attributes.min = config.min();
+  if (config.min) {
+    attributes.min = config.min;
   }
 
-  if (config.max()) {
-    attributes.max = config.max();
+  if (config.max) {
+    attributes.max = config.max;
   }
 
-  if (config.value().length > 0) {
-    attributes.value = config.value();
+  if (config.value.length > 0) {
+    attributes.value = config.value;
   }
 
-  if (config.placeholder().length > 0) {
-    attributes.placeholder = config.placeholder();
+  if (config.placeholder.length > 0) {
+    attributes.placeholder = config.placeholder;
   }
 
-  attributes.required = config.required();
+  attributes.required = config.required;
   attributes.oncreate = setAttributes;
   return m('input', attributes);
 };
@@ -395,11 +403,10 @@ generators['default'] = function (config) {
 
 
 function generate(config) {
-  var labelAtts = {}; // let labelAtts = { 'for': config.name() };
-
-  var label = config.label().length > 0 && config.showLabel() ? m("label", labelAtts, config.label()) : '';
-  var field = typeof generators[config.type()] === "function" ? generators[config.type()](config) : generators['default'](config);
-  var htmlTemplate = config.wrap() ? m('p', [label, field]) : [label, field]; // render in vdom
+  var labelAtts = {};
+  var label = config.label.length > 0 && config.showLabel ? m("label", labelAtts, config.label) : '';
+  var field = typeof generators[config.type] === "function" ? generators[config.type](config) : generators['default'](config);
+  var htmlTemplate = config.wrap ? m('p', [label, field]) : [label, field]; // render in vdom
 
   var vdom = document.createElement('div');
   m.render(vdom, htmlTemplate); // prettify html
@@ -439,10 +446,10 @@ editor.on('blur', m.redraw);
 function setActiveField(index) {
   fieldConfig = fields.get(index); // if this hidden field has choices (hidden groups), glue them together by their label.
 
-  if (fieldConfig && fieldConfig.choices().length > 0) {
-    fieldConfig.value(fieldConfig.choices().map(function (c) {
-      return c.label();
-    }).join('|'));
+  if (fieldConfig && fieldConfig.type === 'hidden' && fieldConfig.choices.length > 0) {
+    fieldConfig.value = fieldConfig.choices.map(function (c) {
+      return c.label;
+    }).join('|');
   }
 
   m.redraw();
@@ -485,11 +492,11 @@ function view() {
     categoryFields.map(function (field) {
       var className = "button";
 
-      if (field.forceRequired()) {
+      if (field.forceRequired) {
         className += " is-required";
       }
 
-      var inForm = field.inFormContent();
+      var inForm = field.inFormContent;
 
       if (inForm !== null) {
         className += " " + (inForm ? 'in-form' : 'not-in-form');
@@ -502,7 +509,7 @@ function view() {
           return setActiveField(evt.target.value);
         },
         value: field.index
-      }, field.title());
+      }, field.title);
     })]);
   })]); // build DOM for overlay
 
@@ -513,8 +520,8 @@ function view() {
       onClose: setActiveField
     }, // field wizard
     m("div.field-wizard", [//heading
-    m("h3", [fieldConfig.title(), fieldConfig.forceRequired() ? m('span.red', '*') : '', fieldConfig.name().length ? m("code", fieldConfig.name()) : '']), // help text
-    fieldConfig.help().length ? m('p', m.trust(fieldConfig.help())) : '', // actual form
+    m("h3", [fieldConfig.title, fieldConfig.forceRequired ? m('span.red', '*') : '', fieldConfig.name.length ? m("code", fieldConfig.name) : '']), // help text
+    fieldConfig.help.length ? m('p', m.trust(fieldConfig.help)) : '', // actual form
     forms.render(fieldConfig), // add to form button
     m("p", [m("button", {
       "class": "button-primary",
@@ -791,8 +798,6 @@ registerCustomFields(mailchimp.lists);
 },{"../events.js":1,"../settings":13,"./fields.js":7,"mithril":29}],7:[function(require,module,exports){
 'use strict';
 
-var prop = require("mithril/stream");
-
 var m = require('mithril');
 
 var events = require('../events.js');
@@ -802,42 +807,26 @@ var fields = [];
 var categories = [];
 
 var Field = function Field(data) {
-  this.name = prop(data.name);
-  this.title = prop(data.title || data.name);
-  this.type = prop(data.type);
-  this.mailchimpType = prop(data.mailchimpType || '');
-  this.label = prop(data.label || data.title || '');
-  this.showLabel = prop(data.showLabel !== undefined ? data.showLabel : true);
-  this.value = prop(data.value || '');
-  this.placeholder = prop(data.placeholder || '');
-  this.required = prop(data.required || false);
-  this.forceRequired = prop(data.forceRequired || false);
-  this.wrap = prop(data.wrap !== undefined ? data.wrap : true);
-  this.min = prop(data.min || null);
-  this.max = prop(data.max || null);
-  this.help = prop(data.help || '');
-  this.choices = prop(data.choices || []);
-  this.inFormContent = prop(null);
-  this.acceptsMultipleValues = data.acceptsMultipleValues;
-  this.link = prop(data.link || '');
-
-  this.selectChoice = function (value) {
-    var field = this;
-    this.choices(this.choices().map(function (choice) {
-      if (choice.value() === value) {
-        choice.selected(!choice.selected());
-      } else {
-        // only checkboxes allow for multiple selections
-        if (field.type() !== 'checkbox') {
-          choice.selected(false);
-        }
-      }
-
-      return choice;
-    }));
+  return {
+    name: data.name,
+    title: data.title || data.name,
+    type: data.type,
+    mailchimpType: data.mailchimpType || null,
+    label: data.label || data.title || '',
+    showLabel: typeof data.showLabel === "boolean" ? data.showLabel : true,
+    value: data.value || '',
+    placeholder: data.placeholder || '',
+    required: data.required || false,
+    forceRequired: data.forceRequired || false,
+    wrap: typeof data.wrap === "boolean" ? data.wrap : true,
+    min: data.min,
+    max: data.max,
+    help: data.help || '',
+    choices: data.choices || [],
+    inFormContent: null,
+    acceptsMultipleValues: data.acceptsMultipleValues,
+    link: data.link || ''
   };
-
-  this.selectChoice = this.selectChoice.bind(this);
 };
 /**
  * @internal
@@ -848,10 +837,12 @@ var Field = function Field(data) {
 
 
 var FieldChoice = function FieldChoice(data) {
-  this.label = prop(data.label);
-  this.title = prop(data.title || data.label);
-  this.selected = prop(data.selected || false);
-  this.value = prop(data.value || data.label);
+  return {
+    title: data.title || data.label,
+    selected: data.selected || false,
+    value: data.value || data.label,
+    label: data.label
+  };
 };
 /**
  * Creates FieldChoice objects from an (associative) array of data objects
@@ -895,8 +886,8 @@ function register(category, data) {
 
   if (existingField) {
     // update "required" status
-    if (!existingField.forceRequired() && data.forceRequired) {
-      existingField.forceRequired(true);
+    if (!existingField.forceRequired && data.forceRequired) {
+      existingField.forceRequired = true;
     } // bail
 
 
@@ -909,8 +900,8 @@ function register(category, data) {
 
     if (data.value) {
       data.choices = data.choices.map(function (choice) {
-        if (choice.value() === data.value) {
-          choice.selected(true);
+        if (choice.value === data.value) {
+          choice.selected = true;
         }
 
         return choice;
@@ -928,6 +919,7 @@ function register(category, data) {
   field.category = category; // add to array
 
   fields.push(field); // redraw view
+  // TODO: Move this out
 
   timeout && window.clearTimeout(timeout);
   timeout = window.setTimeout(m.redraw, 200); // trigger event
@@ -993,7 +985,7 @@ function getCategories() {
 
 function getAllWhere(searchKey, searchValue) {
   return fields.filter(function (field) {
-    return field[searchKey]() === searchValue;
+    return field[searchKey] === searchValue;
   });
 }
 /**
@@ -1010,7 +1002,7 @@ module.exports = {
   'getAllWhere': getAllWhere
 };
 
-},{"../events.js":1,"mithril":29,"mithril/stream":49}],8:[function(require,module,exports){
+},{"../events.js":1,"mithril":29}],8:[function(require,module,exports){
 'use strict'; // load CodeMirror & plugins
 
 var CodeMirror = require('codemirror');
@@ -1175,29 +1167,28 @@ var requiredFieldsInput = document.getElementById('required-fields');
 function updateFields() {
   fields.getAll().forEach(function (field) {
     // don't run for empty field names
-    if (field.name().length <= 0) return;
-    var fieldName = field.name();
+    if (field.name.length <= 0) return;
+    var fieldName = field.name;
 
-    if (field.type() === 'checkbox') {
+    if (field.type === 'checkbox') {
       fieldName += '[]';
     }
 
-    var inForm = editor.containsField(fieldName);
-    field.inFormContent(inForm); // if form contains 1 address field of group, mark all fields in this group as "required"
+    field.inFormContent = editor.containsField(fieldName); // if form contains 1 address field of group, mark all fields in this group as "required"
 
-    if (field.mailchimpType() === 'address') {
-      field.originalRequiredValue = field.originalRequiredValue === undefined ? field.forceRequired() : field.originalRequiredValue; // query other fields for this address group
+    if (field.mailchimpType === 'address') {
+      field.originalRequiredValue = field.originalRequiredValue === undefined ? field.forceRequired = true : field.originalRequiredValue; // query other fields for this address group
 
-      var nameGroup = field.name().replace(/\[(\w+)\]/g, '');
+      var nameGroup = field.name.replace(/\[(\w+)\]/g, '');
 
       if (editor.query('[name^="' + nameGroup + '"]').length > 0) {
         if (field.originalRequiredValue === undefined) {
           field.originalRequiredValue = field.forceRequired();
         }
 
-        field.forceRequired(true);
+        field.forceRequired = true;
       } else {
-        field.forceRequired(field.originalRequiredValue);
+        field.forceRequired = field.originalRequiredValue;
       }
     }
   });
@@ -1208,7 +1199,7 @@ function updateFields() {
 function findRequiredFields() {
   // query fields required by Mailchimp
   var requiredFields = fields.getAllWhere('forceRequired', true).map(function (f) {
-    return f.name().toUpperCase().replace(/\[(\w+)\]/g, '.$1');
+    return f.name.toUpperCase().replace(/\[(\w+)\]/g, '.$1');
   }); // query fields in form with [required] attribute
 
   var requiredFieldElements = editor.query('[required]');
@@ -1379,11 +1370,11 @@ var groupingsNotice = function groupingsNotice() {
 var requiredFieldsNotice = function requiredFieldsNotice() {
   var requiredFields = fields.getAllWhere('forceRequired', true);
   var missingFields = requiredFields.filter(function (f) {
-    return !editor.containsField(f.name().toUpperCase());
+    return !editor.containsField(f.name.toUpperCase());
   });
   var text = '<strong>Heads up!</strong> Your form is missing list fields that are required in Mailchimp. Either add these fields to your form or mark them as optional in Mailchimp.';
   text += "<br /><ul class=\"ul-square\" style=\"margin-bottom: 0;\"><li>" + missingFields.map(function (f) {
-    return f.title();
+    return f.title;
   }).join('</li><li>') + '</li></ul>';
   missingFields.length > 0 ? show('required_fields_missing', text) : hide('required_fields_missing');
 };
@@ -15184,7 +15175,7 @@ module.exports = function($window, mountRedraw) {
 }
 
 }).call(this,require("timers").setImmediate)
-},{"../pathname/assign":31,"../pathname/build":32,"../pathname/compileTemplate":33,"../pathname/parse":34,"../promise/promise":36,"../render/hyperscript":41,"../render/vnode":45,"timers":52}],28:[function(require,module,exports){
+},{"../pathname/assign":31,"../pathname/build":32,"../pathname/compileTemplate":33,"../pathname/parse":34,"../promise/promise":36,"../render/hyperscript":41,"../render/vnode":45,"timers":50}],28:[function(require,module,exports){
 "use strict"
 
 var hyperscript = require("./render/hyperscript")
@@ -15466,7 +15457,7 @@ PromisePolyfill.race = function(list) {
 module.exports = PromisePolyfill
 
 }).call(this,require("timers").setImmediate)
-},{"timers":52}],36:[function(require,module,exports){
+},{"timers":50}],36:[function(require,module,exports){
 (function (global){
 "use strict"
 
@@ -16971,192 +16962,6 @@ var mountRedraw = require("./mount-redraw")
 module.exports = require("./api/router")(window, mountRedraw)
 
 },{"./api/router":27,"./mount-redraw":30}],49:[function(require,module,exports){
-"use strict"
-
-module.exports = require("./stream/stream")
-
-},{"./stream/stream":50}],50:[function(require,module,exports){
-/* eslint-disable */
-;(function() {
-"use strict"
-/* eslint-enable */
-Stream.SKIP = {}
-Stream.lift = lift
-Stream.scan = scan
-Stream.merge = merge
-Stream.combine = combine
-Stream.scanMerge = scanMerge
-Stream["fantasy-land/of"] = Stream
-
-var warnedHalt = false
-Object.defineProperty(Stream, "HALT", {
-	get: function() {
-		warnedHalt || console.log("HALT is deprecated and has been renamed to SKIP");
-		warnedHalt = true
-		return Stream.SKIP
-	}
-})
-
-function Stream(value) {
-	var dependentStreams = []
-	var dependentFns = []
-
-	function stream(v) {
-		if (arguments.length && v !== Stream.SKIP) {
-			value = v
-			if (open(stream)) {
-				stream._changing()
-				stream._state = "active"
-				dependentStreams.forEach(function(s, i) { s(dependentFns[i](value)) })
-			}
-		}
-
-		return value
-	}
-
-	stream.constructor = Stream
-	stream._state = arguments.length && value !== Stream.SKIP ? "active" : "pending"
-	stream._parents = []
-
-	stream._changing = function() {
-		if (open(stream)) stream._state = "changing"
-		dependentStreams.forEach(function(s) {
-			s._changing()
-		})
-	}
-
-	stream._map = function(fn, ignoreInitial) {
-		var target = ignoreInitial ? Stream() : Stream(fn(value))
-		target._parents.push(stream)
-		dependentStreams.push(target)
-		dependentFns.push(fn)
-		return target
-	}
-
-	stream.map = function(fn) {
-		return stream._map(fn, stream._state !== "active")
-	}
-
-	var end
-	function createEnd() {
-		end = Stream()
-		end.map(function(value) {
-			if (value === true) {
-				stream._parents.forEach(function (p) {p._unregisterChild(stream)})
-				stream._state = "ended"
-				stream._parents.length = dependentStreams.length = dependentFns.length = 0
-			}
-			return value
-		})
-		return end
-	}
-
-	stream.toJSON = function() { return value != null && typeof value.toJSON === "function" ? value.toJSON() : value }
-
-	stream["fantasy-land/map"] = stream.map
-	stream["fantasy-land/ap"] = function(x) { return combine(function(s1, s2) { return s1()(s2()) }, [x, stream]) }
-
-	stream._unregisterChild = function(child) {
-		var childIndex = dependentStreams.indexOf(child)
-		if (childIndex !== -1) {
-			dependentStreams.splice(childIndex, 1)
-			dependentFns.splice(childIndex, 1)
-		}
-	}
-
-	Object.defineProperty(stream, "end", {
-		get: function() { return end || createEnd() }
-	})
-
-	return stream
-}
-
-function combine(fn, streams) {
-	var ready = streams.every(function(s) {
-		if (s.constructor !== Stream)
-			throw new Error("Ensure that each item passed to stream.combine/stream.merge/lift is a stream")
-		return s._state === "active"
-	})
-	var stream = ready
-		? Stream(fn.apply(null, streams.concat([streams])))
-		: Stream()
-
-	var changed = []
-
-	var mappers = streams.map(function(s) {
-		return s._map(function(value) {
-			changed.push(s)
-			if (ready || streams.every(function(s) { return s._state !== "pending" })) {
-				ready = true
-				stream(fn.apply(null, streams.concat([changed])))
-				changed = []
-			}
-			return value
-		}, true)
-	})
-
-	var endStream = stream.end.map(function(value) {
-		if (value === true) {
-			mappers.forEach(function(mapper) { mapper.end(true) })
-			endStream.end(true)
-		}
-		return undefined
-	})
-
-	return stream
-}
-
-function merge(streams) {
-	return combine(function() { return streams.map(function(s) { return s() }) }, streams)
-}
-
-function scan(fn, acc, origin) {
-	var stream = origin.map(function(v) {
-		var next = fn(acc, v)
-		if (next !== Stream.SKIP) acc = next
-		return next
-	})
-	stream(acc)
-	return stream
-}
-
-function scanMerge(tuples, seed) {
-	var streams = tuples.map(function(tuple) { return tuple[0] })
-
-	var stream = combine(function() {
-		var changed = arguments[arguments.length - 1]
-		streams.forEach(function(stream, i) {
-			if (changed.indexOf(stream) > -1)
-				seed = tuples[i][1](seed, stream())
-		})
-
-		return seed
-	}, streams)
-
-	stream(seed)
-
-	return stream
-}
-
-function lift() {
-	var fn = arguments[0]
-	var streams = Array.prototype.slice.call(arguments, 1)
-	return merge(streams).map(function(streams) {
-		return fn.apply(undefined, streams)
-	})
-}
-
-function open(s) {
-	return s._state === "pending" || s._state === "active" || s._state === "changing"
-}
-
-if (typeof module !== "undefined") module["exports"] = Stream
-else if (typeof window.m === "function" && !("stream" in window.m)) window.m.stream = Stream
-else window.m = {stream : Stream}
-
-}());
-
-},{}],51:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -17342,7 +17147,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],52:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 (function (setImmediate,clearImmediate){
 var nextTick = require('process/browser.js').nextTick;
 var apply = Function.prototype.apply;
@@ -17421,7 +17226,7 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
   delete immediateIds[id];
 };
 }).call(this,require("timers").setImmediate,require("timers").clearImmediate)
-},{"process/browser.js":51,"timers":52}],53:[function(require,module,exports){
+},{"process/browser.js":49,"timers":50}],51:[function(require,module,exports){
 /*!
  * EventEmitter v5.2.6 - git.io/ee
  * Unlicense - http://unlicense.org/

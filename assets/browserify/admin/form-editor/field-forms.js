@@ -5,8 +5,7 @@ const rows = require('./field-forms-rows.js');
 
 // route to one of the other form configs, default to "text"
 forms.render = function(config) {
-
-	const type = config.type();
+	const type = config.type;
 
 	if( typeof( forms[type] ) === "function" ) {
 		return forms[ type ](config);
@@ -41,13 +40,13 @@ forms.choice = function(config) {
 		rows.choices(config),
 	];
 
-	if( config.type() === 'select' ) {
+	if( config.type === 'select' ) {
 		visibleRows.push(rows.placeholder(config));
 	}
 
 	visibleRows.push(rows.useParagraphs(config));
 
-	if( config.type() === 'select' || config.type() === 'radio' ) {
+	if( config.type === 'select' || config.type === 'radio' ) {
 		visibleRows.push(rows.isRequired(config));
 	}
 
@@ -55,9 +54,9 @@ forms.choice = function(config) {
 };
 
 forms.hidden = function( config ) {
-	config.placeholder('');
-	config.label('');
-	config.wrap(false);
+	config.placeholder = '';
+	config.label = '';
+	config.wrap = false;
 
 	return [
 		rows.showType(config),
@@ -66,8 +65,8 @@ forms.hidden = function( config ) {
 };
 
 forms.submit = function(config) {
-	config.label('');
-	config.placeholder('');
+	config.label = '';
+	config.placeholder = '';
 
 	return [
 		rows.value(config),

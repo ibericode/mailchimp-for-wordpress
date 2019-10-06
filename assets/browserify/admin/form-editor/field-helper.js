@@ -21,10 +21,10 @@ function setActiveField(index) {
 	fieldConfig = fields.get(index);
 
 	// if this hidden field has choices (hidden groups), glue them together by their label.
-	if( fieldConfig && fieldConfig.choices().length > 0 ) {
-		fieldConfig.value( fieldConfig.choices().map(function(c) {
-			return c.label();
-		}).join('|'));
+	if( fieldConfig && fieldConfig.type === 'hidden' && fieldConfig.choices.length > 0 ) {
+		fieldConfig.value = fieldConfig.choices.map(function(c) {
+			return c.label;
+		}).join('|');
 	}
 
 	m.redraw();
@@ -75,11 +75,11 @@ function view() {
 				// render fields
 				categoryFields.map(function(field) {
 					let className = "button";
-					if( field.forceRequired() ) {
+					if (field.forceRequired) {
 						className += " is-required";
 					}
 
-					let inForm = field.inFormContent();
+					let inForm = field.inFormContent;
 					if( inForm !== null ) {
 						className += " " + ( inForm ? 'in-form' : 'not-in-form' );
 					}
@@ -89,7 +89,7 @@ function view() {
 						type   : 'button',
 						onclick: (evt) => setActiveField(evt.target.value),
 						value  : field.index
-					}, field.title() );
+					}, field.title);
 				})
 			]);
 		})
@@ -102,13 +102,13 @@ function view() {
 			m("div.field-wizard", [
 				//heading
 				m("h3", [
-					fieldConfig.title(),
-					fieldConfig.forceRequired() ? m('span.red', '*' ) : '',
-					fieldConfig.name().length ? m("code", fieldConfig.name()) : ''
+					fieldConfig.title,
+					fieldConfig.forceRequired ? m('span.red', '*' ) : '',
+					fieldConfig.name.length ? m("code", fieldConfig.name) : ''
 				]),
 
 				// help text
-				( fieldConfig.help().length ) ? m('p', m.trust( fieldConfig.help() ) ) : '',
+				( fieldConfig.help.length ) ? m('p', m.trust( fieldConfig.help ) ) : '',
 
 				// actual form
 				forms.render(fieldConfig),

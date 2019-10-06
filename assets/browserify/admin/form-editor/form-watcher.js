@@ -12,29 +12,28 @@ let requiredFieldsInput = document.getElementById('required-fields');
 function updateFields() {
     fields.getAll().forEach(function(field) {
         // don't run for empty field names
-        if(field.name().length <= 0) return;
+        if(field.name.length <= 0) return;
 
-        let fieldName = field.name();
-        if( field.type() === 'checkbox' ) {
+        let fieldName = field.name;
+        if( field.type === 'checkbox' ) {
             fieldName += '[]';
         }
 
-        let inForm = editor.containsField( fieldName );
-        field.inFormContent( inForm );
+        field.inFormContent = editor.containsField( fieldName );
 
         // if form contains 1 address field of group, mark all fields in this group as "required"
-        if( field.mailchimpType() === 'address' ) {
-            field.originalRequiredValue = field.originalRequiredValue === undefined ? field.forceRequired() : field.originalRequiredValue;
+        if( field.mailchimpType === 'address' ) {
+            field.originalRequiredValue = field.originalRequiredValue === undefined ? field.forceRequired = true : field.originalRequiredValue;
 
             // query other fields for this address group
-            let nameGroup = field.name().replace(/\[(\w+)\]/g, '' );
+            let nameGroup = field.name.replace(/\[(\w+)\]/g, '' );
             if( editor.query('[name^="' + nameGroup + '"]').length > 0 ) {
                 if( field.originalRequiredValue === undefined ) {
                     field.originalRequiredValue = field.forceRequired();
                 }
-                field.forceRequired(true);
+                field.forceRequired = true;
             } else {
-                field.forceRequired(field.originalRequiredValue);
+                field.forceRequired = field.originalRequiredValue;
             }
         }
 
@@ -47,7 +46,7 @@ function updateFields() {
 function findRequiredFields() {
 
     // query fields required by Mailchimp
-    let requiredFields = fields.getAllWhere('forceRequired', true).map(function(f) { return f.name().toUpperCase().replace(/\[(\w+)\]/g, '.$1' ); });
+    let requiredFields = fields.getAllWhere('forceRequired', true).map(function(f) { return f.name.toUpperCase().replace(/\[(\w+)\]/g, '.$1' ); });
 
     // query fields in form with [required] attribute
     let requiredFieldElements = editor.query('[required]');
