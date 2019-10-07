@@ -1426,7 +1426,7 @@ function getSelectedLists() {
 
 function updateSelectedLists() {
   selectedLists = [];
-  Array.prototype.forEach.call(listInputs, function (input) {
+  [].forEach.call(listInputs, function (input) {
     // skip unchecked checkboxes
     if (typeof input.checked === "boolean" && !input.checked) {
       return;
@@ -1443,15 +1443,10 @@ function updateSelectedLists() {
 
 function toggleVisibleLists() {
   var rows = document.querySelectorAll('.lists--only-selected > *');
-  Array.prototype.forEach.call(rows, function (el) {
+  [].forEach.call(rows, function (el) {
     var listId = el.getAttribute('data-list-id');
     var isSelected = getSelectedListsWhere('id', listId).length > 0;
-
-    if (isSelected) {
-      el.setAttribute('class', el.getAttribute('class').replace('hidden', ''));
-    } else {
-      el.setAttribute('class', el.getAttribute('class') + " hidden");
-    }
+    el.style.display = isSelected ? '' : 'none';
   });
 }
 

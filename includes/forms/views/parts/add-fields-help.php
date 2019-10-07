@@ -25,7 +25,7 @@
 				<ul class="children lists--only-selected">
 					<?php foreach ($lists as $list) {
     ?>
-					<li data-list-id="<?php echo $list->id; ?>" class="<?php echo in_array($list->id, $opts['lists']) ? '' : 'hidden'; ?>">
+					<li data-list-id="<?php echo $list->id; ?>" style="display: <?php echo in_array($list->id, $opts['lists']) ? '' : 'none'; ?>">
 						<a href="https://admin.mailchimp.com/lists/settings/merge-tags?id=<?php echo $list->web_id; ?>">
 							<span class="screen-reader-text"><?php _e('Edit list fields for', 'mailchimp-for-wp'); ?> </span>
 							<?php echo $list->name; ?>
