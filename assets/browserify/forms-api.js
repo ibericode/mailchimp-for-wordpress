@@ -5,18 +5,8 @@ const mc4wp = window.mc4wp || {};
 const Gator = require('gator');
 const forms = require('./forms/forms.js');
 const config = window.mc4wp_forms_config || {};
-const scrollToElement = require('scroll-to-element');
+const scrollToElement = require('./misc/scroll-to-element.js');
 import ConditionalElements from './forms/conditional-elements.js';
-
-// funcs
-function scrollToForm(form) {
-	const animate = config.auto_scroll === 'animated';
-
-	scrollToElement(form.element, {
-		duration: animate ? 800 : 1,
-		alignment: 'middle'
-	});
-}
 
 function handleFormRequest(form, eventName, errors, data){
 	const timeStart = Date.now();
@@ -29,7 +19,7 @@ function handleFormRequest(form, eventName, errors, data){
 
 	// scroll to form
 	if( window.scrollY <= 10 && config.auto_scroll ) {
-		scrollToForm(form);
+		scrollToElement(form.element);
 	}
 
 	// trigger events on window.load so all other scripts have loaded
@@ -62,7 +52,7 @@ function handleFormRequest(form, eventName, errors, data){
 		// (only if load didn't take more than 0.8 seconds to prevent overtaking user scroll)
 		const timeElapsed = Date.now() - timeStart;
  		if( config.auto_scroll && timeElapsed > 1000 && timeElapsed < 2000 && document.body.clientHeight !== pageHeight ) {
- 			scrollToForm(form);
+			scrollToElement(form.element);
  		}
 	});
 }

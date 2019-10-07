@@ -36,7 +36,6 @@
     "html": "^1.0.0",
     "mithril": "^2.0.4",
     "populate.js": "^1.0.3",
-    "scroll-to-element": "^2.0.3",
     "tlite": "^0.1.9"
   }
 }
