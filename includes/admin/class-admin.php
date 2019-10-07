@@ -311,6 +311,7 @@ class MC4WP_Admin
             'mc4wp-admin',
             'mc4wp_vars',
             array(
+                'ajaxurl' => admin_url('admin-ajax.php'),
                 'mailchimp' => array(
                     'api_connected' => ! empty($opts['api_key']),
                     'lists' => $this->mailchimp->get_lists()

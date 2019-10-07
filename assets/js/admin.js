@@ -78,7 +78,8 @@ module.exports = helpers;
 'use strict';
 
 var config = window.mc4wp_vars;
-var i18n = config.i18n;
+var i18n = window.mc4wp_vars.i18n;
+var ajaxurl = window.mc4wp_vars.ajaxurl;
 
 var m = require('mithril');
 
@@ -141,6 +142,8 @@ if (mount) {
 
 },{"mithril":13}],5:[function(require,module,exports){
 'use strict';
+
+var ajaxurl = window.mc4wp_vars.ajaxurl;
 
 var m = require('mithril');
 

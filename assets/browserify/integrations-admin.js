@@ -1,13 +1,12 @@
 'use strict';
 
+const ajaxurl = window.mc4wp_vars.ajaxurl;
 const settings = window.mc4wp.settings;
 const notice = document.getElementById('notice-additional-fields');
 
 function checkRequiredListFields( ) {
-	const allowedFields = [ 'EMAIL' ];
 	const ids = [].filter.call(document.querySelectorAll('.mc4wp-list-input'), i => i.checked).map(i => i.value).join(',');
-
-	//const allowedFields = [ 'EMAIL', 'FNAME', 'NAME', 'LNAME' ];
+	const allowedFields = [ 'EMAIL', 'FNAME', 'NAME', 'LNAME' ];
 	let showNotice = false;
 
 	window.fetch(`${ajaxurl}?action=mc4wp_get_list_details&ids=${ids}`)

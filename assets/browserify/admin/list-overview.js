@@ -1,5 +1,6 @@
 'use strict';
 
+const ajaxurl = window.mc4wp_vars.ajaxurl;
 const m = require('mithril');
 
 if (!Element.prototype.matches) {

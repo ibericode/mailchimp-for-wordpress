@@ -1,7 +1,9 @@
 'use strict';
 
 const config = window.mc4wp_vars;
-const i18n = config.i18n;
+const i18n = window.mc4wp_vars.i18n;
+const ajaxurl = window.mc4wp_vars.ajaxurl;
+
 const m = require('mithril');
 
 let state = {
