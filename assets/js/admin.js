@@ -19,7 +19,9 @@ require('./admin/list-fetcher.js');
 
 require('./admin/fields/mailchimp-api-key.js');
 
-require('./admin/list-overview.js'); // expose some things
+require('./admin/list-overview.js');
+
+require('./admin/show-if.js'); // expose some things
 
 
 window.mc4wp = window.mc4wp || {};
@@ -27,7 +29,7 @@ window.mc4wp.helpers = helpers;
 window.mc4wp.settings = settings;
 window.mc4wp.tabs = tabs;
 
-},{"./admin/fields/mailchimp-api-key.js":2,"./admin/helpers.js":3,"./admin/list-fetcher.js":4,"./admin/list-overview.js":5,"./admin/settings.js":6,"./admin/tabs.js":7,"tlite":34}],2:[function(require,module,exports){
+},{"./admin/fields/mailchimp-api-key.js":2,"./admin/helpers.js":3,"./admin/list-fetcher.js":4,"./admin/list-overview.js":5,"./admin/settings.js":6,"./admin/show-if.js":7,"./admin/tabs.js":8,"tlite":35}],2:[function(require,module,exports){
 'use strict';
 
 function validate(evt) {
@@ -53,31 +55,7 @@ if (field) {
 },{}],3:[function(require,module,exports){
 'use strict';
 
-var helpers = {};
-
-helpers.toggleElement = function (selector) {
-  var elements = document.querySelectorAll(selector);
-
-  for (var i = 0; i < elements.length; i++) {
-    var show = elements[i].clientHeight <= 0;
-    elements[i].style.display = show ? '' : 'none';
-  }
-};
-
-helpers.bindEventToElement = function (element, event, handler) {
-  if (element.addEventListener) {
-    element.addEventListener(event, handler);
-  } else if (element.attachEvent) {
-    element.attachEvent('on' + event, handler);
-  }
-};
-
-helpers.bindEventToElements = function (elements, event, handler) {
-  Array.prototype.forEach.call(elements, function (element) {
-    helpers.bindEventToElement(element, event, handler);
-  });
-}; // polling
-
+var helpers = {}; // polling
 
 helpers.debounce = function (func, wait, immediate) {
   var timeout;
@@ -93,50 +71,6 @@ helpers.debounce = function (func, wait, immediate) {
     if (callNow) func.apply(context, args);
   };
 };
-/**
- * Showif.js
- */
-
-
-(function () {
-  var showIfElements = document.querySelectorAll('[data-showif]'); // dependent elements
-
-  Array.prototype.forEach.call(showIfElements, function (element) {
-    var config = JSON.parse(element.getAttribute('data-showif'));
-    var parentElements = document.querySelectorAll('[name="' + config.element + '"]');
-    var inputs = element.querySelectorAll('input,select,textarea:not([readonly])');
-    var hide = config.hide === undefined || config.hide;
-
-    function toggleElement() {
-      // do nothing with unchecked radio inputs
-      if (this.getAttribute('type') === "radio" && !this.checked) {
-        return;
-      }
-
-      var value = this.getAttribute("type") === "checkbox" ? this.checked : this.value;
-      var conditionMet = value == config.value;
-
-      if (hide) {
-        element.style.display = conditionMet ? '' : 'none';
-        element.style.visibility = conditionMet ? '' : 'hidden';
-      } else {
-        element.style.opacity = conditionMet ? '' : '0.4';
-      } // disable input fields to stop sending their values to server
-
-
-      Array.prototype.forEach.call(inputs, function (inputElement) {
-        conditionMet ? inputElement.removeAttribute('readonly') : inputElement.setAttribute('readonly', 'readonly');
-      });
-    } // find checked element and call toggleElement function
-
-
-    Array.prototype.forEach.call(parentElements, function (parentElement) {
-      toggleElement.call(parentElement);
-    }); // bind on all changes
-
-    helpers.bindEventToElements(parentElements, 'change', toggleElement);
-  });
-})();
 
 module.exports = helpers;
 
@@ -205,7 +139,7 @@ if (mount) {
   });
 }
 
-},{"mithril":12}],5:[function(require,module,exports){
+},{"mithril":13}],5:[function(require,module,exports){
 'use strict';
 
 var m = require('mithril');
@@ -264,12 +198,10 @@ if (table) {
   });
 }
 
-},{"mithril":12}],6:[function(require,module,exports){
+},{"mithril":13}],6:[function(require,module,exports){
 'use strict';
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-var helpers = require('./helpers.js');
 
 var context = document.getElementById('mc4wp-admin');
 var listInputs = context.querySelectorAll('.mc4wp-list-input');
@@ -299,6 +231,7 @@ function updateSelectedLists() {
       selectedLists.push(lists[input.value]);
     }
   });
+  toggleVisibleLists();
   emit('selectedLists.change', [selectedLists]);
   return selectedLists;
 }
@@ -329,15 +262,55 @@ function on(event, func) {
   listeners[event].push(func);
 }
 
-on('selectedLists.change', toggleVisibleLists);
-helpers.bindEventToElements(listInputs, 'change', updateSelectedLists);
+[].forEach.call(listInputs, function (el) {
+  el.addEventListener('change', updateSelectedLists);
+});
 updateSelectedLists();
 module.exports = {
   getSelectedLists: getSelectedLists,
   on: on
 };
 
-},{"./helpers.js":3}],7:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
+'use strict';
+
+var showIfElements = document.querySelectorAll('[data-showif]');
+[].forEach.call(showIfElements, function (element) {
+  var config = JSON.parse(element.getAttribute('data-showif'));
+  var parentElements = document.querySelectorAll('[name="' + config.element + '"]');
+  var inputs = element.querySelectorAll('input,select,textarea:not([readonly])');
+  var hide = config.hide === undefined || config.hide;
+
+  function toggleElement() {
+    // do nothing with unchecked radio inputs
+    if (this.getAttribute('type') === "radio" && !this.checked) {
+      return;
+    }
+
+    var value = this.getAttribute("type") === "checkbox" ? this.checked : this.value;
+    var conditionMet = value == config.value;
+
+    if (hide) {
+      element.style.display = conditionMet ? '' : 'none';
+      element.style.visibility = conditionMet ? '' : 'hidden';
+    } else {
+      element.style.opacity = conditionMet ? '' : '0.4';
+    } // disable input fields to stop sending their values to server
+
+
+    [].forEach.call(inputs, function (inputElement) {
+      conditionMet ? inputElement.removeAttribute('readonly') : inputElement.setAttribute('readonly', 'readonly');
+    });
+  } // find checked element and call toggleElement function
+
+
+  [].forEach.call(parentElements, function (el) {
+    el.addEventListener('change', toggleElement);
+    toggleElement.call(el);
+  });
+});
+
+},{}],8:[function(require,module,exports){
 'use strict';
 
 var URL = require('./url.js');
@@ -520,7 +493,7 @@ module.exports = {
   get: get
 };
 
-},{"./url.js":8}],8:[function(require,module,exports){
+},{"./url.js":9}],9:[function(require,module,exports){
 'use strict';
 
 var URL = {
@@ -556,7 +529,7 @@ var URL = {
 };
 module.exports = URL;
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -608,7 +581,7 @@ module.exports = function(render, schedule, console) {
 	return {mount: mount, redraw: redraw}
 }
 
-},{"../render/vnode":28}],10:[function(require,module,exports){
+},{"../render/vnode":29}],11:[function(require,module,exports){
 (function (setImmediate){
 "use strict"
 
@@ -874,7 +847,7 @@ module.exports = function($window, mountRedraw) {
 }
 
 }).call(this,require("timers").setImmediate)
-},{"../pathname/assign":14,"../pathname/build":15,"../pathname/compileTemplate":16,"../pathname/parse":17,"../promise/promise":19,"../render/hyperscript":24,"../render/vnode":28,"timers":33}],11:[function(require,module,exports){
+},{"../pathname/assign":15,"../pathname/build":16,"../pathname/compileTemplate":17,"../pathname/parse":18,"../promise/promise":20,"../render/hyperscript":25,"../render/vnode":29,"timers":34}],12:[function(require,module,exports){
 "use strict"
 
 var hyperscript = require("./render/hyperscript")
@@ -884,7 +857,7 @@ hyperscript.fragment = require("./render/fragment")
 
 module.exports = hyperscript
 
-},{"./render/fragment":23,"./render/hyperscript":24,"./render/trust":27}],12:[function(require,module,exports){
+},{"./render/fragment":24,"./render/hyperscript":25,"./render/trust":28}],13:[function(require,module,exports){
 "use strict"
 
 var hyperscript = require("./hyperscript")
@@ -910,21 +883,21 @@ m.PromisePolyfill = require("./promise/polyfill")
 
 module.exports = m
 
-},{"./hyperscript":11,"./mount-redraw":13,"./pathname/build":15,"./pathname/parse":17,"./promise/polyfill":18,"./querystring/build":20,"./querystring/parse":21,"./render":22,"./render/vnode":28,"./request":29,"./route":31}],13:[function(require,module,exports){
+},{"./hyperscript":12,"./mount-redraw":14,"./pathname/build":16,"./pathname/parse":18,"./promise/polyfill":19,"./querystring/build":21,"./querystring/parse":22,"./render":23,"./render/vnode":29,"./request":30,"./route":32}],14:[function(require,module,exports){
 "use strict"
 
 var render = require("./render")
 
 module.exports = require("./api/mount-redraw")(render, requestAnimationFrame, console)
 
-},{"./api/mount-redraw":9,"./render":22}],14:[function(require,module,exports){
+},{"./api/mount-redraw":10,"./render":23}],15:[function(require,module,exports){
 "use strict"
 
 module.exports = Object.assign || function(target, source) {
 	if(source) Object.keys(source).forEach(function(key) { target[key] = source[key] })
 }
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 "use strict"
 
 var buildQueryString = require("../querystring/build")
@@ -969,7 +942,7 @@ module.exports = function(template, params) {
 	return result
 }
 
-},{"../querystring/build":20,"./assign":14}],16:[function(require,module,exports){
+},{"../querystring/build":21,"./assign":15}],17:[function(require,module,exports){
 "use strict"
 
 var parsePathname = require("./parse")
@@ -1014,7 +987,7 @@ module.exports = function(template) {
 	}
 }
 
-},{"./parse":17}],17:[function(require,module,exports){
+},{"./parse":18}],18:[function(require,module,exports){
 "use strict"
 
 var parseQueryString = require("../querystring/parse")
@@ -1040,7 +1013,7 @@ module.exports = function(url) {
 	}
 }
 
-},{"../querystring/parse":21}],18:[function(require,module,exports){
+},{"../querystring/parse":22}],19:[function(require,module,exports){
 (function (setImmediate){
 "use strict"
 /** @constructor */
@@ -1156,7 +1129,7 @@ PromisePolyfill.race = function(list) {
 module.exports = PromisePolyfill
 
 }).call(this,require("timers").setImmediate)
-},{"timers":33}],19:[function(require,module,exports){
+},{"timers":34}],20:[function(require,module,exports){
 (function (global){
 "use strict"
 
@@ -1181,7 +1154,7 @@ if (typeof window !== "undefined") {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./polyfill":18}],20:[function(require,module,exports){
+},{"./polyfill":19}],21:[function(require,module,exports){
 "use strict"
 
 module.exports = function(object) {
@@ -1209,7 +1182,7 @@ module.exports = function(object) {
 	}
 }
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 "use strict"
 
 module.exports = function(string) {
@@ -1254,12 +1227,12 @@ module.exports = function(string) {
 	return data
 }
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 "use strict"
 
 module.exports = require("./render/render")(window)
 
-},{"./render/render":26}],23:[function(require,module,exports){
+},{"./render/render":27}],24:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -1273,7 +1246,7 @@ module.exports = function() {
 	return vnode
 }
 
-},{"../render/vnode":28,"./hyperscriptVnode":25}],24:[function(require,module,exports){
+},{"../render/vnode":29,"./hyperscriptVnode":26}],25:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -1376,7 +1349,7 @@ function hyperscript(selector) {
 
 module.exports = hyperscript
 
-},{"../render/vnode":28,"./hyperscriptVnode":25}],25:[function(require,module,exports){
+},{"../render/vnode":29,"./hyperscriptVnode":26}],26:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -1431,7 +1404,7 @@ module.exports = function() {
 	return Vnode("", attrs.key, attrs, children)
 }
 
-},{"../render/vnode":28}],26:[function(require,module,exports){
+},{"../render/vnode":29}],27:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -2406,7 +2379,7 @@ module.exports = function($window) {
 	}
 }
 
-},{"../render/vnode":28}],27:[function(require,module,exports){
+},{"../render/vnode":29}],28:[function(require,module,exports){
 "use strict"
 
 var Vnode = require("../render/vnode")
@@ -2416,7 +2389,7 @@ module.exports = function(html) {
 	return Vnode("<", undefined, undefined, html, undefined, undefined)
 }
 
-},{"../render/vnode":28}],28:[function(require,module,exports){
+},{"../render/vnode":29}],29:[function(require,module,exports){
 "use strict"
 
 function Vnode(tag, key, attrs, children, text, dom) {
@@ -2449,7 +2422,7 @@ Vnode.normalizeChildren = function(input) {
 
 module.exports = Vnode
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 "use strict"
 
 var PromisePolyfill = require("./promise/promise")
@@ -2457,7 +2430,7 @@ var mountRedraw = require("./mount-redraw")
 
 module.exports = require("./request/request")(window, PromisePolyfill, mountRedraw.redraw)
 
-},{"./mount-redraw":13,"./promise/promise":19,"./request/request":30}],30:[function(require,module,exports){
+},{"./mount-redraw":14,"./promise/promise":20,"./request/request":31}],31:[function(require,module,exports){
 "use strict"
 
 var buildPathname = require("../pathname/build")
@@ -2653,14 +2626,14 @@ module.exports = function($window, Promise, oncompletion) {
 	}
 }
 
-},{"../pathname/build":15}],31:[function(require,module,exports){
+},{"../pathname/build":16}],32:[function(require,module,exports){
 "use strict"
 
 var mountRedraw = require("./mount-redraw")
 
 module.exports = require("./api/router")(window, mountRedraw)
 
-},{"./api/router":10,"./mount-redraw":13}],32:[function(require,module,exports){
+},{"./api/router":11,"./mount-redraw":14}],33:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -2846,7 +2819,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 (function (setImmediate,clearImmediate){
 var nextTick = require('process/browser.js').nextTick;
 var apply = Function.prototype.apply;
@@ -2925,7 +2898,7 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
   delete immediateIds[id];
 };
 }).call(this,require("timers").setImmediate,require("timers").clearImmediate)
-},{"process/browser.js":32,"timers":33}],34:[function(require,module,exports){
+},{"process/browser.js":33,"timers":34}],35:[function(require,module,exports){
 function tlite(getTooltipOpts) {
   document.addEventListener('mouseover', function (e) {
     var el = e.target;

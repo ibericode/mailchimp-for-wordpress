@@ -2,6 +2,7 @@
 
 const settings = require('./admin/settings.js');
 const notice = document.getElementById('notice-additional-fields');
+require('./admin/show-if.js');
 
 function checkRequiredListFields( ) {
 	const allowedFields = [ 'EMAIL' ];

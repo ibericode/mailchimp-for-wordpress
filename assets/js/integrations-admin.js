@@ -1,99 +1,7 @@
 (function () { var require = undefined; var define = undefined; (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'use strict';
 
-var helpers = {};
-
-helpers.toggleElement = function (selector) {
-  var elements = document.querySelectorAll(selector);
-
-  for (var i = 0; i < elements.length; i++) {
-    var show = elements[i].clientHeight <= 0;
-    elements[i].style.display = show ? '' : 'none';
-  }
-};
-
-helpers.bindEventToElement = function (element, event, handler) {
-  if (element.addEventListener) {
-    element.addEventListener(event, handler);
-  } else if (element.attachEvent) {
-    element.attachEvent('on' + event, handler);
-  }
-};
-
-helpers.bindEventToElements = function (elements, event, handler) {
-  Array.prototype.forEach.call(elements, function (element) {
-    helpers.bindEventToElement(element, event, handler);
-  });
-}; // polling
-
-
-helpers.debounce = function (func, wait, immediate) {
-  var timeout;
-  return function () {
-    var context = this,
-        args = arguments;
-    var callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(function () {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    }, wait);
-    if (callNow) func.apply(context, args);
-  };
-};
-/**
- * Showif.js
- */
-
-
-(function () {
-  var showIfElements = document.querySelectorAll('[data-showif]'); // dependent elements
-
-  Array.prototype.forEach.call(showIfElements, function (element) {
-    var config = JSON.parse(element.getAttribute('data-showif'));
-    var parentElements = document.querySelectorAll('[name="' + config.element + '"]');
-    var inputs = element.querySelectorAll('input,select,textarea:not([readonly])');
-    var hide = config.hide === undefined || config.hide;
-
-    function toggleElement() {
-      // do nothing with unchecked radio inputs
-      if (this.getAttribute('type') === "radio" && !this.checked) {
-        return;
-      }
-
-      var value = this.getAttribute("type") === "checkbox" ? this.checked : this.value;
-      var conditionMet = value == config.value;
-
-      if (hide) {
-        element.style.display = conditionMet ? '' : 'none';
-        element.style.visibility = conditionMet ? '' : 'hidden';
-      } else {
-        element.style.opacity = conditionMet ? '' : '0.4';
-      } // disable input fields to stop sending their values to server
-
-
-      Array.prototype.forEach.call(inputs, function (inputElement) {
-        conditionMet ? inputElement.removeAttribute('readonly') : inputElement.setAttribute('readonly', 'readonly');
-      });
-    } // find checked element and call toggleElement function
-
-
-    Array.prototype.forEach.call(parentElements, function (parentElement) {
-      toggleElement.call(parentElement);
-    }); // bind on all changes
-
-    helpers.bindEventToElements(parentElements, 'change', toggleElement);
-  });
-})();
-
-module.exports = helpers;
-
-},{}],2:[function(require,module,exports){
-'use strict';
-
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-var helpers = require('./helpers.js');
 
 var context = document.getElementById('mc4wp-admin');
 var listInputs = context.querySelectorAll('.mc4wp-list-input');
@@ -123,6 +31,7 @@ function updateSelectedLists() {
       selectedLists.push(lists[input.value]);
     }
   });
+  toggleVisibleLists();
   emit('selectedLists.change', [selectedLists]);
   return selectedLists;
 }
@@ -153,20 +62,62 @@ function on(event, func) {
   listeners[event].push(func);
 }
 
-on('selectedLists.change', toggleVisibleLists);
-helpers.bindEventToElements(listInputs, 'change', updateSelectedLists);
+[].forEach.call(listInputs, function (el) {
+  el.addEventListener('change', updateSelectedLists);
+});
 updateSelectedLists();
 module.exports = {
   getSelectedLists: getSelectedLists,
   on: on
 };
 
-},{"./helpers.js":1}],3:[function(require,module,exports){
+},{}],2:[function(require,module,exports){
+'use strict';
+
+var showIfElements = document.querySelectorAll('[data-showif]');
+[].forEach.call(showIfElements, function (element) {
+  var config = JSON.parse(element.getAttribute('data-showif'));
+  var parentElements = document.querySelectorAll('[name="' + config.element + '"]');
+  var inputs = element.querySelectorAll('input,select,textarea:not([readonly])');
+  var hide = config.hide === undefined || config.hide;
+
+  function toggleElement() {
+    // do nothing with unchecked radio inputs
+    if (this.getAttribute('type') === "radio" && !this.checked) {
+      return;
+    }
+
+    var value = this.getAttribute("type") === "checkbox" ? this.checked : this.value;
+    var conditionMet = value == config.value;
+
+    if (hide) {
+      element.style.display = conditionMet ? '' : 'none';
+      element.style.visibility = conditionMet ? '' : 'hidden';
+    } else {
+      element.style.opacity = conditionMet ? '' : '0.4';
+    } // disable input fields to stop sending their values to server
+
+
+    [].forEach.call(inputs, function (inputElement) {
+      conditionMet ? inputElement.removeAttribute('readonly') : inputElement.setAttribute('readonly', 'readonly');
+    });
+  } // find checked element and call toggleElement function
+
+
+  [].forEach.call(parentElements, function (el) {
+    el.addEventListener('change', toggleElement);
+    toggleElement.call(el);
+  });
+});
+
+},{}],3:[function(require,module,exports){
 'use strict';
 
 var settings = require('./admin/settings.js');
 
 var notice = document.getElementById('notice-additional-fields');
+
+require('./admin/show-if.js');
 
 function checkRequiredListFields() {
   var allowedFields = ['EMAIL'];
@@ -197,5 +148,5 @@ if (notice) {
   settings.on('selectedLists.change', checkRequiredListFields);
 }
 
-},{"./admin/settings.js":2}]},{},[3]);
+},{"./admin/settings.js":1,"./admin/show-if.js":2}]},{},[3]);
  })();

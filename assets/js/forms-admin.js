@@ -1233,31 +1233,7 @@ fields.on('change', helpers.debounce(updateFields, 500));
 },{"../helpers.js":9,"./fields.js":6,"./form-editor.js":7,"mithril":28}],9:[function(require,module,exports){
 'use strict';
 
-var helpers = {};
-
-helpers.toggleElement = function (selector) {
-  var elements = document.querySelectorAll(selector);
-
-  for (var i = 0; i < elements.length; i++) {
-    var show = elements[i].clientHeight <= 0;
-    elements[i].style.display = show ? '' : 'none';
-  }
-};
-
-helpers.bindEventToElement = function (element, event, handler) {
-  if (element.addEventListener) {
-    element.addEventListener(event, handler);
-  } else if (element.attachEvent) {
-    element.attachEvent('on' + event, handler);
-  }
-};
-
-helpers.bindEventToElements = function (elements, event, handler) {
-  Array.prototype.forEach.call(elements, function (element) {
-    helpers.bindEventToElement(element, event, handler);
-  });
-}; // polling
-
+var helpers = {}; // polling
 
 helpers.debounce = function (func, wait, immediate) {
   var timeout;
@@ -1273,50 +1249,6 @@ helpers.debounce = function (func, wait, immediate) {
     if (callNow) func.apply(context, args);
   };
 };
-/**
- * Showif.js
- */
-
-
-(function () {
-  var showIfElements = document.querySelectorAll('[data-showif]'); // dependent elements
-
-  Array.prototype.forEach.call(showIfElements, function (element) {
-    var config = JSON.parse(element.getAttribute('data-showif'));
-    var parentElements = document.querySelectorAll('[name="' + config.element + '"]');
-    var inputs = element.querySelectorAll('input,select,textarea:not([readonly])');
-    var hide = config.hide === undefined || config.hide;
-
-    function toggleElement() {
-      // do nothing with unchecked radio inputs
-      if (this.getAttribute('type') === "radio" && !this.checked) {
-        return;
-      }
-
-      var value = this.getAttribute("type") === "checkbox" ? this.checked : this.value;
-      var conditionMet = value == config.value;
-
-      if (hide) {
-        element.style.display = conditionMet ? '' : 'none';
-        element.style.visibility = conditionMet ? '' : 'hidden';
-      } else {
-        element.style.opacity = conditionMet ? '' : '0.4';
-      } // disable input fields to stop sending their values to server
-
-
-      Array.prototype.forEach.call(inputs, function (inputElement) {
-        conditionMet ? inputElement.removeAttribute('readonly') : inputElement.setAttribute('readonly', 'readonly');
-      });
-    } // find checked element and call toggleElement function
-
-
-    Array.prototype.forEach.call(parentElements, function (parentElement) {
-      toggleElement.call(parentElement);
-    }); // bind on all changes
-
-    helpers.bindEventToElements(parentElements, 'change', toggleElement);
-  });
-})();
 
 module.exports = helpers;
 
@@ -1401,94 +1333,73 @@ document.body.addEventListener('change', mailchimpListsNotice);
 },{"./form-editor/fields.js":6,"./form-editor/form-editor.js":7,"./settings":12}],11:[function(require,module,exports){
 'use strict';
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 var m = require('mithril');
 
 var i18n = window.mc4wp_forms_i18n;
 
-var Overlay =
-/*#__PURE__*/
-function () {
-  function Overlay(vnode) {
-    _classCallCheck(this, Overlay);
+function Overlay(vnode) {
+  var element;
+  var onclose = vnode.attrs.onClose;
 
-    this.onclose = vnode.attrs.onClose;
-    this.close = this.close.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
-    this.onWindowResize = this.onWindowResize.bind(this);
+  function oncreate() {
+    document.addEventListener('keydown', onKeyDown);
+    window.addEventListener('resize', onWindowResize);
   }
 
-  _createClass(Overlay, [{
-    key: "oncreate",
-    value: function oncreate() {
-      document.addEventListener('keydown', this.onKeyDown);
-      window.addEventListener('resize', this.onWindowResize);
-    }
-  }, {
-    key: "onremove",
-    value: function onremove() {
-      document.removeEventListener('keydown', this.onKeyDown);
-      window.removeEventListener('resize', this.onWindowResize);
-    }
-  }, {
-    key: "close",
-    value: function close() {
-      this.onclose();
-    }
-  }, {
-    key: "onKeyDown",
-    value: function onKeyDown(evt) {
-      // close overlay when pressing ESC
-      if (evt.keyCode === 27) {
-        this.close();
-      } // prevent ENTER
+  function onremove() {
+    document.removeEventListener('keydown', onKeyDown);
+    window.removeEventListener('resize', onWindowResize);
+  }
+
+  function close() {
+    onclose.apply(null);
+  }
+
+  function onKeyDown(evt) {
+    // close overlay when pressing ESC
+    if (evt.keyCode === 27) {
+      close();
+    } // prevent ENTER
 
 
-      if (evt.keyCode === 13) {
-        evt.preventDefault();
+    if (evt.keyCode === 13) {
+      evt.preventDefault();
+    }
+  }
+
+  function onWindowResize() {
+    // fix for window width in IE8
+    var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    var marginLeft = (windowWidth - element.clientWidth - 40) / 2;
+    var marginTop = (windowHeight - element.clientHeight - 40) / 2;
+    element.style.left = (marginLeft > 0 ? marginLeft : 0) + "px";
+    element.style.top = (marginTop > 0 ? marginTop : 0) + "px";
+  }
+
+  function view(vnode) {
+    return [m('div.overlay-wrap', m("div.overlay", {
+      oncreate: function oncreate(vnode) {
+        element = vnode.dom;
+        onWindowResize();
       }
-    }
-  }, {
-    key: "onWindowResize",
-    value: function onWindowResize() {
-      // fix for window width in IE8
-      var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-      var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-      var marginLeft = (windowWidth - this.element.clientWidth - 40) / 2;
-      var marginTop = (windowHeight - this.element.clientHeight - 40) / 2;
-      this.element.style.left = (marginLeft > 0 ? marginLeft : 0) + "px";
-      this.element.style.top = (marginTop > 0 ? marginTop : 0) + "px";
-    }
-  }, {
-    key: "view",
-    value: function view(vnode) {
-      var _this = this;
+    }, [// close icon
+    m('span', {
+      "class": 'close dashicons dashicons-no',
+      title: i18n.close,
+      onclick: close
+    }), vnode.children])), m('div.overlay-background', {
+      title: i18n.close,
+      onclick: close
+    })];
+  }
 
-      return [m('div.overlay-wrap', m("div.overlay", {
-        oncreate: function oncreate(vnode) {
-          _this.element = vnode.dom;
-
-          _this.onWindowResize();
-        }
-      }, [// close icon
-      m('span', {
-        "class": 'close dashicons dashicons-no',
-        title: i18n.close,
-        onclick: this.close
-      }), vnode.children])), m('div.overlay-background', {
-        title: i18n.close,
-        onclick: this.close
-      })];
-    }
-  }]);
-
-  return Overlay;
-}();
+  return {
+    oncreate: oncreate,
+    onremove: onremove,
+    view: view
+  };
+}
 
 module.exports = Overlay;
 
@@ -1496,8 +1407,6 @@ module.exports = Overlay;
 'use strict';
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-var helpers = require('./helpers.js');
 
 var context = document.getElementById('mc4wp-admin');
 var listInputs = context.querySelectorAll('.mc4wp-list-input');
@@ -1527,6 +1436,7 @@ function updateSelectedLists() {
       selectedLists.push(lists[input.value]);
     }
   });
+  toggleVisibleLists();
   emit('selectedLists.change', [selectedLists]);
   return selectedLists;
 }
@@ -1557,15 +1467,16 @@ function on(event, func) {
   listeners[event].push(func);
 }
 
-on('selectedLists.change', toggleVisibleLists);
-helpers.bindEventToElements(listInputs, 'change', updateSelectedLists);
+[].forEach.call(listInputs, function (el) {
+  el.addEventListener('change', updateSelectedLists);
+});
 updateSelectedLists();
 module.exports = {
   getSelectedLists: getSelectedLists,
   on: on
 };
 
-},{"./helpers.js":9}],13:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 var editor = require('./admin/form-editor/form-editor.js');

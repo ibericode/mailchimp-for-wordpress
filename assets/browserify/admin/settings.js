@@ -1,6 +1,5 @@
 'use strict';
 
-const helpers = require('./helpers.js');
 const context = document.getElementById('mc4wp-admin');
 const listInputs = context.querySelectorAll('.mc4wp-list-input');
 const lists = window.mc4wp_vars.mailchimp.lists;
@@ -32,6 +31,7 @@ function updateSelectedLists() {
 		}
 	});
 
+	toggleVisibleLists();
 	emit('selectedLists.change', [selectedLists]);
 	return selectedLists;
 }
@@ -61,9 +61,9 @@ function on(event, func) {
 	listeners[event].push(func);
 }
 
-on('selectedLists.change', toggleVisibleLists);
-helpers.bindEventToElements(listInputs,'change', updateSelectedLists);
-
+[].forEach.call(listInputs, el => {
+	el.addEventListener('change', updateSelectedLists);
+});
 updateSelectedLists();
 
 module.exports = {

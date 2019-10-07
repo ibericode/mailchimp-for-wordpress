@@ -3,33 +3,28 @@
 const m = require('mithril');
 const i18n = window.mc4wp_forms_i18n;
 
-class Overlay {
-	constructor(vnode) {
-		this.onclose = vnode.attrs.onClose;
+function Overlay(vnode) {
+	let element;
+	let onclose = vnode.attrs.onClose;
 
-		this.close = this.close.bind(this);
-		this.onKeyDown = this.onKeyDown.bind(this);
-		this.onWindowResize = this.onWindowResize.bind(this);
+	function oncreate() {
+		document.addEventListener('keydown', onKeyDown);
+		window.addEventListener('resize', onWindowResize);
 	}
 
-	oncreate() {
-		document.addEventListener('keydown', this.onKeyDown);
-		window.addEventListener('resize', this.onWindowResize);
+	function onremove() {
+		document.removeEventListener('keydown', onKeyDown);
+		window.removeEventListener('resize', onWindowResize);
 	}
 
-	onremove() {
-		document.removeEventListener('keydown', this.onKeyDown);
-		window.removeEventListener('resize', this.onWindowResize);
+	function close() {
+		onclose.apply(null);
 	}
 
-	close() {
-		this.onclose();
-	}
-
-	onKeyDown(evt) {
+	function onKeyDown(evt) {
 		// close overlay when pressing ESC
 		if(evt.keyCode === 27) {
-			this.close();
+			close();
 		}
 
 		// prevent ENTER
@@ -38,43 +33,46 @@ class Overlay {
 		}
 	}
 
-	onWindowResize() {
+	function onWindowResize() {
 		// fix for window width in IE8
 		const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 		const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 
-		const marginLeft = ( windowWidth - this.element.clientWidth - 40 ) / 2;
-		const marginTop  = ( windowHeight - this.element.clientHeight - 40 ) / 2;
+		const marginLeft = ( windowWidth - element.clientWidth - 40 ) / 2;
+		const marginTop  = ( windowHeight - element.clientHeight - 40 ) / 2;
 
-		this.element.style.left = ( marginLeft > 0 ? marginLeft : 0 ) + "px";
-		this.element.style.top = ( marginTop > 0 ? marginTop : 0 ) + "px";
+		element.style.left = ( marginLeft > 0 ? marginLeft : 0 ) + "px";
+		element.style.top = ( marginTop > 0 ? marginTop : 0 ) + "px";
 	}
 
-	view(vnode) {
+	function view(vnode) {
 		return [
 			m('div.overlay-wrap',
 				m("div.overlay",
 					{
 						oncreate: (vnode) => {
-							this.element = vnode.dom;
-							this.onWindowResize();
+							element = vnode.dom;
+							onWindowResize();
 						}
 					}, [
-					// close icon
-					m('span', {
-						"class": 'close dashicons dashicons-no',
-						title  : i18n.close,
-						onclick: this.close
-					}),
-					vnode.children,
-				])
+						// close icon
+						m('span', {
+							"class": 'close dashicons dashicons-no',
+							title  : i18n.close,
+							onclick: close
+						}),
+						vnode.children,
+					])
 			),
 			m('div.overlay-background', {
 				title: i18n.close,
-				onclick: this.close
+				onclick: close
 			})
 		];
 	}
+
+
+	return {oncreate, onremove, view}
 }
 
 module.exports = Overlay;
