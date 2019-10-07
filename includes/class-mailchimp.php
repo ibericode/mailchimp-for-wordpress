@@ -242,7 +242,7 @@ class MC4WP_MailChimp
         $lists = $this->fetch_lists();
 
         /**
-         * Filters the cache time for Mailchimp lists configuration, in seconds. Defaults to 3600 seconds (1 hour).
+         * Filters the cache time for Mailchimp lists configuration, in seconds. Defaults to 24 hours.
          */
         $cache_ttl = (int) apply_filters('mc4wp_lists_count_cache_time', HOUR_IN_SECONDS * 24);
 
@@ -279,7 +279,7 @@ class MC4WP_MailChimp
 
     /**
      * @param string $list_id
-     * @return object
+     * @return object|null
      */
     public function get_list($list_id) {
         $lists = $this->get_lists();
