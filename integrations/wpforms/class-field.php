@@ -102,7 +102,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
         );
 
         $option_select = sprintf('<select name="fields[%s][mailchimp_list]" data-field-id="%d" data-field-type="%s">', $field['id'], $field['id'], $this->type);
-        $lists = $mailchimp->get_cached_lists();
+        $lists = $mailchimp->get_lists();
         foreach ($lists as $list) {
             $option_select .= sprintf('<option value="%s" %s>%s</option>', $list->id, selected($list->id, $field['mailchimp_list'], false), $list->name);
         }

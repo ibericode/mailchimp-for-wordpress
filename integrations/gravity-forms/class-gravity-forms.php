@@ -91,9 +91,9 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration
         if ($pos !== 0) {
             return;
         }
-        
+
         $mailchimp = new MC4WP_MailChimp();
-        $lists = $mailchimp->get_cached_lists(); ?>
+        $lists = $mailchimp->get_lists(); ?>
         <li class="mailchimp_list_setting field_setting">
             <label for="field_mailchimp_list" class="section_label">
                 <?php esc_html_e('Mailchimp list', 'mailchimp-for-wp'); ?>

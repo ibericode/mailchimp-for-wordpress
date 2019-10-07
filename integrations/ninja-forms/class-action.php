@@ -106,10 +106,9 @@ final class MC4WP_Ninja_Forms_Action extends NF_Abstracts_ActionNewsletter
         $list_id = $action_settings['newsletter_list'];
         $email_address = $action_settings['EMAIL'];
         $mailchimp = new MC4WP_MailChimp();
-        $list = $mailchimp->get_list($list_id, true);
 
-        $merge_fields = array();
-        foreach ($list->merge_fields as $merge_field) {
+        $merge_fields = $mailchimp->get_list_merge_fields($list_id);
+        foreach ($merge_fields as $merge_field) {
             if (! empty($action_settings[ $merge_field->tag ])) {
                 $merge_fields[ $merge_field->tag ] = $action_settings[ $merge_field->tag ];
             }
@@ -126,24 +125,21 @@ final class MC4WP_Ninja_Forms_Action extends NF_Abstracts_ActionNewsletter
     {
         $mailchimp = new MC4WP_MailChimp();
 
-        /** @var MC4WP_MailChimp_List[] $lists */
+        /** @var array $lists */
         $lists = $mailchimp->get_lists();
         $return = array();
 
         foreach ($lists as $list) {
             $list_fields = array();
-            foreach ($list->merge_fields as $merge_field) {
+
+            foreach ($mailchimp->get_list_merge_fields($list->id) as $merge_field) {
                 $list_fields[] = array(
                     'value' => $merge_field->tag,
                     'label' => $merge_field->name,
                 );
             }
 
-//            TODO: Add support for groups once base class supports this.
-//            $list_groups = array();
-//            foreach( $list->interest_categories as $category ) {
-//
-//            }
+            // TODO: Add support for groups once base class supports this.
 
             $return[] = array(
                 'value' => $list->id,
