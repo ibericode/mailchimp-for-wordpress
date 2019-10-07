@@ -2,7 +2,7 @@
 
 const m = require('mithril');
 const fields = require('./fields.js');
-const settings = require('../settings');
+const settings = window.mc4wp.settings;
 const i18n = window.mc4wp_forms_i18n;
 const mailchimp = window.mc4wp_vars.mailchimp;
 

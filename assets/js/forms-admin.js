@@ -546,8 +546,7 @@ var m = require('mithril');
 
 var fields = require('./fields.js');
 
-var settings = require('../settings');
-
+var settings = window.mc4wp.settings;
 var i18n = window.mc4wp_forms_i18n;
 var mailchimp = window.mc4wp_vars.mailchimp;
 /**
@@ -786,7 +785,7 @@ settings.on('selectedLists.change', registerListsFields);
 registerListsFields(settings.getSelectedLists());
 registerCustomFields(mailchimp.lists);
 
-},{"../settings":12,"./fields.js":6,"mithril":28}],6:[function(require,module,exports){
+},{"./fields.js":6,"mithril":28}],6:[function(require,module,exports){
 'use strict';
 
 var m = require('mithril');
@@ -1202,7 +1201,7 @@ function findRequiredFields() {
   }); // query fields in form with [required] attribute
 
   var requiredFieldElements = editor.query('[required]');
-  Array.prototype.forEach.call(requiredFieldElements, function (el) {
+  [].forEach.call(requiredFieldElements, function (el) {
     var name = el.name; // bail if name attr empty or starts with underscore
 
     if (!name || name.length < 0 || name[0] === '_') {

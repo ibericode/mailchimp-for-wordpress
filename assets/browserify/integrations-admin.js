@@ -1,8 +1,7 @@
 'use strict';
 
-const settings = require('./admin/settings.js');
+const settings = window.mc4wp.settings;
 const notice = document.getElementById('notice-additional-fields');
-require('./admin/show-if.js');
 
 function checkRequiredListFields( ) {
 	const allowedFields = [ 'EMAIL' ];

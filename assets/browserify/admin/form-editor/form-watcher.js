@@ -47,7 +47,7 @@ function findRequiredFields() {
 
     // query fields in form with [required] attribute
     let requiredFieldElements = editor.query('[required]');
-    Array.prototype.forEach.call(requiredFieldElements, function(el) {
+    [].forEach.call(requiredFieldElements, function(el) {
         let name = el.name;
 
         // bail if name attr empty or starts with underscore
