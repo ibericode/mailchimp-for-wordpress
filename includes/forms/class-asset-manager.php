@@ -156,7 +156,7 @@ class MC4WP_Form_Asset_Manager
     public function get_javascript_config()
     {
         $submitted_form = mc4wp_get_submitted_form();
-        if (! $submitted_form) {
+        if (! $submitted_form instanceof MC4WP_Form) {
             return array();
         }
 
@@ -173,18 +173,13 @@ class MC4WP_Form_Asset_Manager
             $config['submitted_form']['errors'] = $submitted_form->errors;
         }
 
-        $auto_scroll = 'default';
+        $auto_scroll = true;
 
         /**
          * Filters the `auto_scroll` setting for when a form is submitted.
+         * Set to false to disable scrolling to form.
          *
-         * Accepts the following  values:
-         *
-         * - false
-         * - "default"
-         * - "animated"
-         *
-         * @param boolean|string $auto_scroll
+         * @param boolean $auto_scroll
          * @since 3.0
          */
         $config['auto_scroll'] = apply_filters('mc4wp_form_auto_scroll', $auto_scroll);
