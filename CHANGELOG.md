@@ -1,6 +1,13 @@
 Changelog
 =========
 
+#### 4.6.1 - Oct 7, 2019
+
+**Fixes**
+
+- Fixed list cache usage for WPForms, Gravity Forms and Ninja Forms integrations.
+
+
 #### 4.6.0 - Oct 7, 2019
 
 **Improvements**
