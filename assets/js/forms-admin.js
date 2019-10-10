@@ -806,8 +806,8 @@ var Field = function Field(data) {
     showLabel: typeof data.showLabel === "boolean" ? data.showLabel : true,
     value: data.value || '',
     placeholder: data.placeholder || '',
-    required: data.required || false,
-    forceRequired: data.forceRequired || false,
+    required: typeof data.required === "boolean" ? data.required : false,
+    forceRequired: typeof data.forceRequired === "boolean" ? data.forceRequired : false,
     wrap: typeof data.wrap === "boolean" ? data.wrap : true,
     min: data.min,
     max: data.max,
@@ -1176,15 +1176,14 @@ function updateFields() {
     field.inFormContent = editor.containsField(fieldName); // if form contains 1 address field of group, mark all fields in this group as "required"
 
     if (field.mailchimpType === 'address') {
-      field.originalRequiredValue = field.originalRequiredValue === undefined ? field.forceRequired = true : field.originalRequiredValue; // query other fields for this address group
+      if (field.originalRequiredValue === undefined) {
+        field.originalRequiredValue = field.forceRequired;
+      } // query other fields for this address group
+
 
       var nameGroup = field.name.replace(/\[(\w+)\]/g, '');
 
       if (editor.query('[name^="' + nameGroup + '"]').length > 0) {
-        if (field.originalRequiredValue === undefined) {
-          field.originalRequiredValue = field.forceRequired();
-        }
-
         field.forceRequired = true;
       } else {
         field.forceRequired = field.originalRequiredValue;

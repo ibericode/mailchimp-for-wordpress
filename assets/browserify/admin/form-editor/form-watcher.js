@@ -20,14 +20,13 @@ function updateFields() {
 
         // if form contains 1 address field of group, mark all fields in this group as "required"
         if( field.mailchimpType === 'address' ) {
-            field.originalRequiredValue = field.originalRequiredValue === undefined ? field.forceRequired = true : field.originalRequiredValue;
+            if( field.originalRequiredValue === undefined ) {
+                field.originalRequiredValue = field.forceRequired;
+            }
 
             // query other fields for this address group
             let nameGroup = field.name.replace(/\[(\w+)\]/g, '' );
             if( editor.query('[name^="' + nameGroup + '"]').length > 0 ) {
-                if( field.originalRequiredValue === undefined ) {
-                    field.originalRequiredValue = field.forceRequired();
-                }
                 field.forceRequired = true;
             } else {
                 field.forceRequired = field.originalRequiredValue;
