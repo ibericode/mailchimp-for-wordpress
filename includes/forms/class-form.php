@@ -30,9 +30,9 @@ class MC4WP_Form
         if ($post instanceof WP_Post) {
             $post_id = $post->ID;
         } else {
-            $post_id = (int) $post;
+            $post_id = absint($post);
 
-            if (empty($post_id)) {
+            if ($post_id === 0) {
                 $post_id = (int) get_option('mc4wp_default_form_id', 0);
             }
         }
@@ -47,12 +47,13 @@ class MC4WP_Form
         }
 
         // check post object
-        if (! is_object($post) || ! isset($post->post_type) || $post->post_type !== 'mc4wp-form') {
+        if (! $post instanceof WP_Post || $post->post_type !== 'mc4wp-form') {
             $message = sprintf(__('There is no form with ID %d, perhaps it was deleted?', 'mailchimp-for-wp'), $post_id);
             throw new Exception($message);
         }
 
-        $post_meta = get_post_meta($post_id);
+        // get all post meta in single call for performance
+        $post_meta = (array) get_post_meta($post_id);
         $form = new MC4WP_Form($post_id, $post, $post_meta);
 
         // store instance
@@ -138,7 +139,7 @@ class MC4WP_Form
      * @param WP_Post $post
      * @param array $post_meta
      */
-    public function __construct($id, $post, $post_meta = array())
+    public function __construct($id, WP_Post $post, array $post_meta = array())
     {
         $this->ID = $id = (int) $id;
         $this->name = $post->post_title;
@@ -184,7 +185,7 @@ class MC4WP_Form
      * @param array $config
      * @return MC4WP_Form_element
      */
-    public function get_element($element_id = 'mc4wp-form', $config = array())
+    public function get_element($element_id = 'mc4wp-form', array $config = array())
     {
         return new MC4WP_Form_Element($this, $element_id, $config);
     }
@@ -208,18 +209,13 @@ class MC4WP_Form
 
 
     /**
-     * @staticvar $defaults
+     * @param array $post_meta
      * @return array
      */
-    protected function load_settings($post_meta = array())
+    protected function load_settings(array $post_meta = array())
     {
         $form = $this;
-        static $default_settings;
-
-        // get default settings
-        if (! $default_settings) {
-            $default_settings = include MC4WP_PLUGIN_DIR . 'config/default-form-settings.php';
-        }
+        $default_settings = include MC4WP_PLUGIN_DIR . 'config/default-form-settings.php';
 
         // start with defaults
         $settings = $default_settings;
@@ -252,10 +248,10 @@ class MC4WP_Form
     }
 
     /**
-     * @staticvar $default_messages
+     * @param array $post_meta
      * @return array
      */
-    protected function load_messages($post_meta = array())
+    protected function load_messages(array $post_meta = array())
     {
         $form = $this;
 
@@ -298,7 +294,7 @@ class MC4WP_Form
     /**
      * Does this form has a field of the given type?
      *
-     * @param $type
+     * @param string $type
      *
      * @return bool
      */

@@ -18,7 +18,6 @@ function mc4wp_get_form($form_id = 0)
  * Get an array of Form instances
  *
  * @access public
- * @uses get_posts
  *
  * @param array $args Array of parameters
  *
@@ -28,13 +27,16 @@ function mc4wp_get_forms(array $args = array())
 {
     $default_args = array(
         'post_status' => 'publish',
-        'numberposts' => -1,
+        'posts_per_page' => -1,
+        'ignore_sticky_posts' => true,
+        'no_found_rows' => true,
     );
     $args = array_merge($default_args, $args);
     $args['post_type'] = 'mc4wp-form';
-    $posts = get_posts($args);
-    $forms = array();
+    $q = new WP_Query();
+    $posts = $q->query($args);
 
+    $forms = array();
     foreach ($posts as $post) {
         try {
             $form = mc4wp_get_form($post);
