@@ -170,7 +170,7 @@ class MC4WP_API_v3
      * @return array
      * @throws MC4WP_API_Exception
      */
-    public function get_lists($args = array())
+    public function get_lists(array $args = array())
     {
         $resource = '/lists';
         $data = $this->client->get($resource, $args);
@@ -1079,6 +1079,7 @@ class MC4WP_API_v3
      * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/promo-rules/promo-codes/#create-post_ecommerce_stores_store_id_promo_rules_promo_rule_id_promo_codes
      *
      * @param string $store_id
+     * @param string $promo_rule_id
      * @param array $args
      *
      * @return object
@@ -1094,6 +1095,7 @@ class MC4WP_API_v3
      * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/promo-rules/promo-codes/#read-get_ecommerce_stores_store_id_promo_rules_promo_rule_id_promo_codes
      *
      * @param string $store_id
+     * @param string $promo_rule_id
      * @param array $args
      *
      * @return object
@@ -1110,6 +1112,7 @@ class MC4WP_API_v3
      *
      * @param string $store_id
      * @param string $promo_rule_id
+     * @param string $promo_code_id
      * @param array $args
      *
      * @return object
@@ -1126,6 +1129,7 @@ class MC4WP_API_v3
      *
      * @param string $store_id
      * @param string $promo_rule_id
+     * @param string $promo_code_id
      * @param array $args
      *
      * @return object
@@ -1142,6 +1146,7 @@ class MC4WP_API_v3
      *
      * @param string $store_id
      * @param string $promo_rule_id
+     * @param string $promo_code_id
      *
      * @return boolean
      * @throws MC4WP_API_Exception
@@ -1172,6 +1177,7 @@ class MC4WP_API_v3
      *
      * @link https://developer.mailchimp.com/documentation/mailchimp/reference/templates/#read-get_templates_template_id
      * @param string $template_id
+     * @param array $args
      * @return object
      * @throws MC4WP_API_Exception
      */
@@ -1184,6 +1190,7 @@ class MC4WP_API_v3
     /**
      * @link https://developer.mailchimp.com/documentation/mailchimp/reference/templates/default-content/
      * @param string $template_id
+     * @param array $args
      * @return object
      * @throws MC4WP_API_Exception
      */
