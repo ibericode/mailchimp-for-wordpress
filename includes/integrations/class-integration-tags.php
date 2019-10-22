@@ -22,7 +22,7 @@ class MC4WP_Integration_Tags extends MC4WP_Dynamic_Content_Tags
     }
 
     /**
-     * Register dynamic content tags for integrations
+     * Register template tags for integrations
      */
     public function register()
     {
@@ -55,7 +55,8 @@ class MC4WP_Integration_Tags extends MC4WP_Dynamic_Content_Tags
     public function get_subscriber_count()
     {
         $mailchimp = new MC4WP_MailChimp();
-        $count = $mailchimp->get_subscriber_count($this->integration->get_lists());
+        $list_ids = $this->integration->get_lists();
+        $count = $mailchimp->get_subscriber_count($list_ids);
         return number_format($count);
     }
 }
