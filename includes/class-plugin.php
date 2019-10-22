@@ -4,6 +4,7 @@
  * Class MC4WP_Plugin
  *
  * Helper class for easy access to information like the plugin file or plugin directory.
+ * Used in MC4WP Premium.
  *
  * @access public
  * @ignore

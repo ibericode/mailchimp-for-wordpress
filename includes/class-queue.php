@@ -40,6 +40,10 @@ class MC4WP_Queue
      */
     protected function load()
     {
+        if (! is_null($this->jobs)) {
+            return;
+        }
+
         $jobs = get_option($this->option_name, array());
 
         if (! is_array($jobs)) {
@@ -77,10 +81,7 @@ class MC4WP_Queue
      */
     public function all()
     {
-        if (is_null($this->jobs)) {
-            $this->load();
-        }
-
+        $this->load();
         return $this->jobs;
     }
 
@@ -92,9 +93,7 @@ class MC4WP_Queue
      */
     public function put($data)
     {
-        if (is_null($this->jobs)) {
-            $this->load();
-        }
+        $this->load();
 
         // check if we already have a job with same data
         foreach ($this->jobs as $job) {
@@ -117,9 +116,7 @@ class MC4WP_Queue
      */
     public function get()
     {
-        if (is_null($this->jobs)) {
-            $this->load();
-        }
+        $this->load();
 
         // do we have jobs?
         if (count($this->jobs) === 0) {
@@ -135,9 +132,7 @@ class MC4WP_Queue
      */
     public function delete(MC4WP_Queue_Job $job)
     {
-        if (is_null($this->jobs)) {
-            $this->load();
-        }
+        $this->load();
 
         $index = array_search($job, $this->jobs, true);
 
@@ -154,9 +149,7 @@ class MC4WP_Queue
      */
     public function reschedule(MC4WP_Queue_Job $job)
     {
-        if (is_null($this->jobs)) {
-            $this->load();
-        }
+        $this->load();
 
         // delete job from start of queue
         $this->delete($job);

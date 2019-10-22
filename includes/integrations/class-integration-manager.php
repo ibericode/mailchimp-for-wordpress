@@ -138,7 +138,6 @@ class MC4WP_Integration_Manager
      */
     public function get_enabled_integrations()
     {
-
         // get all enabled integrations
         $enabled_integrations = array_filter($this->integrations, array( $this, 'is_enabled' ));
 

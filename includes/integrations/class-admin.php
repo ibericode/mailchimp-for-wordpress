@@ -68,7 +68,7 @@ class MC4WP_Integration_Admin
     }
 
     /**
-     * @param $items
+     * @param array $items
      *
      * @return array
      */
@@ -104,9 +104,9 @@ class MC4WP_Integration_Admin
 
     /**
      * @since 3.0
-     * @param $slug
-     * @param $current
-     * @param $new
+     * @param string $slug
+     * @param array $current
+     * @param array $new
      *
      * @return array
      */
@@ -135,7 +135,6 @@ class MC4WP_Integration_Admin
 
     /**
      * @param array $settings
-     *
      * @return array
      */
     protected function sanitize_integration_settings($settings)
