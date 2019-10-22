@@ -57,7 +57,6 @@ function _mc4wp_load_plugin()
      */
     $mc4wp = mc4wp();
     $mc4wp['api'] = 'mc4wp_get_api_v3';
-    $mc4wp['request'] = array( 'MC4WP_Request', 'create_from_globals' );
     $mc4wp['log'] = 'mc4wp_get_debug_log';
 
     // forms
@@ -84,15 +83,13 @@ function _mc4wp_load_plugin()
             $messages = new MC4WP_Admin_Messages();
             $mc4wp['admin.messages'] = $messages;
 
-            $mailchimp = new MC4WP_MailChimp();
-
-            $admin = new MC4WP_Admin($admin_tools, $messages, $mailchimp);
+            $admin = new MC4WP_Admin($admin_tools, $messages);
             $admin->add_hooks();
 
-            $forms_admin = new MC4WP_Forms_Admin($messages, $mailchimp);
+            $forms_admin = new MC4WP_Forms_Admin($messages);
             $forms_admin->add_hooks();
 
-            $integrations_admin = new MC4WP_Integration_Admin($mc4wp['integrations'], $messages, $mailchimp);
+            $integrations_admin = new MC4WP_Integration_Admin($mc4wp['integrations'], $messages);
             $integrations_admin->add_hooks();
         }
     }

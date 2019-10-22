@@ -10,7 +10,7 @@ class MC4WP_Field_Guesser
 {
 
     /**
-     * @var MC4WP_Array_Bag
+     * @var array
      */
     protected $fields;
 
@@ -20,7 +20,7 @@ class MC4WP_Field_Guesser
     public function __construct(array $fields)
     {
         $fields = array_change_key_case($fields, CASE_UPPER);
-        $this->fields = new MC4WP_Array_Bag($fields);
+        $this->fields = $fields;
     }
 
     /**
@@ -32,8 +32,18 @@ class MC4WP_Field_Guesser
      */
     public function namespaced($namespace = 'mc4wp-')
     {
-        $namespace = strtoupper($namespace);
-        return $this->fields->all_with_prefix($namespace);
+        $prefix = strtoupper($namespace);
+        $return = array();
+        $length = strlen($prefix);
+
+        foreach ($this->fields as $key => $value) {
+            if (strpos($key, $prefix) === 0) {
+                $new_key = substr($key, $length);
+                $return[ $new_key ] = $value;
+            }
+        }
+
+        return $return;
     }
 
     /**
@@ -49,9 +59,7 @@ class MC4WP_Field_Guesser
     {
         $guessed = array();
 
-        $fields = $this->fields->all();
-
-        foreach ($fields as $field => $value) {
+        foreach ($this->fields as $field => $value) {
 
             // transform value into array to support 1-level arrays
             $sub_fields = is_array($value) ? $value : array( $value );
@@ -91,7 +99,7 @@ class MC4WP_Field_Guesser
      *
      * @return array
      */
-    public function combine($methods)
+    public function combine(array $methods)
     {
         $combined = array();
 
@@ -105,8 +113,8 @@ class MC4WP_Field_Guesser
     }
 
     /**
-     * @param $haystack
-     * @param $needles
+     * @param string $haystack
+     * @param string|array $needles
      *
      * @return bool
      */

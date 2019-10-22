@@ -108,7 +108,7 @@ class MC4WP_Form_Tags
         );
 
         $tags['ip']           = array(
-            'description' => sprintf(__('The visitor\'s IP address. Example: %s.', 'mailchimp-for-wp'), '<strong>' . mc4wp('request')->get_client_ip() . '</strong>'),
+            'description' => sprintf(__('The visitor\'s IP address. Example: %s.', 'mailchimp-for-wp'), '<strong>' . mc4wp_get_request_ip_address() . '</strong>'),
             'callback'    => 'mc4wp_get_request_ip_address',
         );
 
@@ -285,12 +285,8 @@ class MC4WP_Form_Tags
      */
     public function get_email()
     {
-
-        // first, try request
-        $request = mc4wp('request');
-        $email = $request->params->get('EMAIL', '');
-        if ($email) {
-            return $email;
+        if (!empty($_REQUEST['EMAIL'])) {
+            return $_REQUEST['EMAIL'];
         }
 
         // then , try logged-in user

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit982a28eab8420855eb099ba24fa8d700
+class ComposerStaticInit2c420f229f0b44a84053c7de0a411c61
 {
     public static $files = array (
         'fca581ae5268210490253d58378748c5' => __DIR__ . '/../..' . '/includes/functions.php',
@@ -41,7 +41,6 @@ class ComposerStaticInit982a28eab8420855eb099ba24fa8d700
         'MC4WP_Admin_Texts' => __DIR__ . '/../..' . '/includes/admin/class-admin-texts.php',
         'MC4WP_Admin_Tools' => __DIR__ . '/../..' . '/includes/admin/class-admin-tools.php',
         'MC4WP_AffiliateWP_Integration' => __DIR__ . '/../..' . '/integrations/affiliatewp/class-affiliatewp.php',
-        'MC4WP_Array_Bag' => __DIR__ . '/../..' . '/includes/class-array-bag.php',
         'MC4WP_BuddyPress_Integration' => __DIR__ . '/../..' . '/integrations/buddypress/class-buddypress.php',
         'MC4WP_Comment_Form_Integration' => __DIR__ . '/../..' . '/integrations/wp-comment-form/class-comment-form.php',
         'MC4WP_Contact_Form_7_Integration' => __DIR__ . '/../..' . '/integrations/contact-form-7/class-contact-form-7.php',
@@ -86,7 +85,6 @@ class ComposerStaticInit982a28eab8420855eb099ba24fa8d700
         'MC4WP_Queue' => __DIR__ . '/../..' . '/includes/class-queue.php',
         'MC4WP_Queue_Job' => __DIR__ . '/../..' . '/includes/class-queue-job.php',
         'MC4WP_Registration_Form_Integration' => __DIR__ . '/../..' . '/integrations/wp-registration-form/class-registration-form.php',
-        'MC4WP_Request' => __DIR__ . '/../..' . '/includes/class-request.php',
         'MC4WP_Tools' => __DIR__ . '/../..' . '/includes/class-tools.php',
         'MC4WP_Update_Optin' => __DIR__ . '/../..' . '/includes/admin/class-update-optin.php',
         'MC4WP_Upgrade_Routines' => __DIR__ . '/../..' . '/includes/admin/class-upgrade-routines.php',
@@ -102,8 +100,8 @@ class ComposerStaticInit982a28eab8420855eb099ba24fa8d700
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixesPsr0 = ComposerStaticInit982a28eab8420855eb099ba24fa8d700::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit982a28eab8420855eb099ba24fa8d700::$classMap;
+            $loader->prefixesPsr0 = ComposerStaticInit2c420f229f0b44a84053c7de0a411c61::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit2c420f229f0b44a84053c7de0a411c61::$classMap;
 
         }, null, ClassLoader::class);
     }

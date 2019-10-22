@@ -15,24 +15,17 @@ class MC4WP_Integration_Admin
     protected $integrations;
 
     /**
-     * @var MC4WP_MailChimp
-     */
-    protected $mailchimp;
-
-    /**
      * @var MC4WP_Admin_Messages
      */
     protected $messages;
 
     /**
      * @param MC4WP_Integration_Manager $integrations
-     * @param MC4WP_MailChimp           $mailchimp
      * @param MC4WP_Admin_Messages $messages
      */
-    public function __construct(MC4WP_Integration_Manager $integrations, MC4WP_Admin_Messages $messages, MC4WP_MailChimp $mailchimp)
+    public function __construct(MC4WP_Integration_Manager $integrations, MC4WP_Admin_Messages $messages)
     {
         $this->integrations = $integrations;
-        $this->mailchimp = $mailchimp;
         $this->messages = $messages;
     }
 
@@ -194,7 +187,8 @@ class MC4WP_Integration_Admin
         }
 
         $opts = $integration->options;
-        $lists = $this->mailchimp->get_lists();
+        $mailchimp = new MC4WP_MailChimp();
+        $lists = $mailchimp->get_lists();
 
         require dirname(__FILE__) . '/views/integration-settings.php';
     }

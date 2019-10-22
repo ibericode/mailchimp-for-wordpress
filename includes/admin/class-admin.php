@@ -15,11 +15,6 @@ class MC4WP_Admin
     protected $plugin_file;
 
     /**
-    * @var MC4WP_MailChimp
-    */
-    protected $mailchimp;
-
-    /**
     * @var MC4WP_Admin_Messages
     */
     protected $messages;
@@ -44,12 +39,10 @@ class MC4WP_Admin
     *
     * @param MC4WP_Admin_Tools $tools
     * @param MC4WP_Admin_Messages $messages
-    * @param MC4WP_MailChimp      $mailchimp
     */
-    public function __construct(MC4WP_Admin_Tools $tools, MC4WP_Admin_Messages $messages, MC4WP_MailChimp $mailchimp)
+    public function __construct(MC4WP_Admin_Tools $tools, MC4WP_Admin_Messages $messages)
     {
         $this->tools = $tools;
-        $this->mailchimp = $mailchimp;
         $this->messages = $messages;
         $this->plugin_file = plugin_basename(MC4WP_PLUGIN_FILE);
         $this->ads = new MC4WP_Admin_Ads();
@@ -212,7 +205,8 @@ class MC4WP_Admin
     public function renew_lists_cache()
     {
         // try getting new lists to fill cache again
-        $lists = $this->mailchimp->refresh_lists();
+        $mailchimp = new MC4WP_MailChimp();
+        $lists = $mailchimp->refresh_lists();
 
         if (! empty($lists)) {
             $this->messages->flash(__('Success! The cached configuration for your Mailchimp lists has been renewed.', 'mailchimp-for-wp'));
@@ -264,7 +258,8 @@ class MC4WP_Admin
 
         // if API key changed, empty Mailchimp cache
         if ($settings['api_key'] !== $current['api_key']) {
-            $this->mailchimp->refresh_lists();
+            $mailchimp = new MC4WP_MailChimp();
+            $mailchimp->refresh_lists();
         }
 
 
@@ -296,6 +291,7 @@ class MC4WP_Admin
         $opts = mc4wp_get_options();
         $page = $this->tools->get_plugin_page();
         $suffix = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
+        $mailchimp = new MC4WP_MailChimp();
 
         // css
         wp_register_style('mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/css/admin-styles' . $suffix . '.css', array(), MC4WP_VERSION);
@@ -314,7 +310,7 @@ class MC4WP_Admin
                 'ajaxurl' => admin_url('admin-ajax.php'),
                 'mailchimp' => array(
                     'api_connected' => ! empty($opts['api_key']),
-                    'lists' => $this->mailchimp->get_lists()
+                    'lists' => $mailchimp->get_lists()
                 ),
                 'countries' => MC4WP_Tools::get_countries(),
                 'i18n' => array(
@@ -430,11 +426,14 @@ class MC4WP_Admin
     {
         $opts = mc4wp_get_options();
         $api_key = mc4wp_get_api_key();
-
+        $lists = array();
         $connected = ! empty($api_key);
+
         if ($connected) {
             try {
                 $connected = $this->get_api()->is_connected();
+                $mailchimp = new MC4WP_MailChimp();
+                $lists = $mailchimp->get_lists();
             } catch (MC4WP_API_Connection_Exception $e) {
                 $message = sprintf("<strong>%s</strong> %s %s ", __("Error connecting to Mailchimp:", 'mailchimp-for-wp'), $e->getCode(), $e->getMessage());
 
@@ -452,7 +451,6 @@ class MC4WP_Admin
             }
         }
 
-        $lists = $this->mailchimp->get_lists();
         $obfuscated_api_key = mc4wp_obfuscate_string($api_key);
         require MC4WP_PLUGIN_DIR . 'includes/views/general-settings.php';
     }
