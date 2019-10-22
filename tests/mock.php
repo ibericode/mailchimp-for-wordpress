@@ -6,6 +6,9 @@ if (! defined('ABSPATH')) {
 
 define('MC4WP_PLUGIN_DIR', __DIR__ . '/../');
 
+class WP_Post {}
+
+
 /** @ignore */
 function _deprecated_function($a, $b, $c = null)
 {
@@ -95,9 +98,10 @@ function get_post($id)
 }
 
 /** @ignore */
-function mock_post($data)
+function mock_post(array $props) : WP_Post
 {
-    $post = (object) array_merge(
+    $post = new WP_Post;
+    $props = array_merge(
         array(
             'ID' => 1,
             'post_type' => 'mc4wp-form',
@@ -105,8 +109,11 @@ function mock_post($data)
             'post_content' => '',
             'post_status' => 'publish',
         ),
-        $data
+        $props
     );
+    foreach($props as $key => $value) {
+        $post->$key = $value;
+    }
 
     return $post;
 }
@@ -119,10 +126,10 @@ function unmock_post()
 }
 
 /** @ignore */
-function mock_get_post($data)
+function mock_get_post(array $props)
 {
     global $expected_post;
-    $expected_post = mock_post($data);
+    $expected_post = mock_post($props);
 }
 
 /** @ignore */
