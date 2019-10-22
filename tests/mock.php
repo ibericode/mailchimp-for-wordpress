@@ -31,6 +31,9 @@ function get_option($option, $default = null)
 }
 
 /** @ignore */
+function absint($v) { return $v; }
+
+/** @ignore */
 function update_option($a, $b, $c)
 {
 }

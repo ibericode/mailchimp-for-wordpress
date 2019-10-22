@@ -153,6 +153,6 @@ class MC4WP_Form_Manager
      */
     public function get_tags()
     {
-        return $this->tags->get();
+        return $this->tags->all();
     }
 }

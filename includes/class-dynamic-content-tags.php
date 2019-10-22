@@ -6,73 +6,41 @@
  * @access private
  * @ignore
  */
-class MC4WP_Dynamic_Content_Tags
+abstract class MC4WP_Dynamic_Content_Tags
 {
-
     /**
-     * @var string
+     * @var string The escape function for replacement values.
      */
-    public $context;
-
-    /**
-     * @var string The escape mode for replacement values.
-     */
-    protected $escape_mode = 'html';
+    protected $escape_function = null;
 
     /**
      * @var array Array of registered dynamic content tags
      */
     protected $tags = array();
 
-
-    /**
-     * @param string $context
-     * @param array $tags;
-     */
-    public function __construct($context, $tags = array())
+    protected function register()
     {
-        $this->context = $context;
-        $this->tags = $tags;
+        // Global tags can go here
     }
 
     /**
-     * Return all registered tags
-     *
      * @return array
      */
     public function all()
     {
-        $context = $this->context;
-        $tags = $this->tags;
+        if ($this->tags === array()) {
+            $this->register();
+        }
 
-        /**
-         * Filters the registered dynamic content tags for all contexts.
-         *
-         * @since 3.0
-         * @param array $tags
-         * @ignore
-         */
-        $this->tags = (array) apply_filters('mc4wp_dynamic_content_tags', $tags);
-
-        /**
-         * Filters the registered dynamic content tags for a specific context.
-         *
-         * The dynamic part of the hook, `$context`, refers to the context (forms / integrations)
-         *
-         * @since 3.0
-         * @param array $tags
-         * @ignore
-         */
-        $this->tags = (array) apply_filters('mc4wp_dynamic_content_tags_' . $context, $tags);
         return $this->tags;
     }
 
     /**
-     * @param $matches
+     * @param array $matches
      *
      * @return string
      */
-    protected function replace_tag($matches)
+    protected function replace_tag(array $matches)
     {
         $tags = $this->all();
         $tag = $matches[1];
@@ -96,7 +64,11 @@ class MC4WP_Dynamic_Content_Tags
                 $replacement = call_user_func($config['callback'], $attributes);
             }
 
-            return $this->escape_value($replacement);
+            if (is_callable($this->escape_function)) {
+                $replacement = call_user_func($this->escape_function, $replacement);
+            }
+
+            return $replacement;
         }
 
 
@@ -106,12 +78,12 @@ class MC4WP_Dynamic_Content_Tags
 
     /**
      * @param string $string The string containing dynamic content tags.
-     * @param string $escape_mode Escape mode for the replacement value. Leave empty for no escaping.
+     * @param string $escape_function Escape mode for the replacement value. Leave empty for no escaping.
      * @return string
      */
-    public function replace($string, $escape_mode = '')
+    protected function replace($string, $escape_function = '')
     {
-        $this->escape_mode = $escape_mode;
+        $this->escape_function = $escape_function;
 
         // replace strings like this: {tagname attr="value"}
         $string = preg_replace_callback('/\{(\w+)(\ +(?:(?!\{)[^}\n])+)*\}/', array( $this, 'replace_tag' ), $string);
@@ -126,9 +98,9 @@ class MC4WP_Dynamic_Content_Tags
      *
      * @return string
      */
-    public function replace_in_html($string)
+    protected function replace_in_html($string)
     {
-        return $this->replace($string, 'html');
+        return $this->replace($string, 'esc_html');
     }
 
     /**
@@ -136,9 +108,9 @@ class MC4WP_Dynamic_Content_Tags
      *
      * @return string
      */
-    public function replace_in_attributes($string)
+    protected function replace_in_attributes($string)
     {
-        return $this->replace($string, 'attributes');
+        return $this->replace($string, 'esc_attr');
     }
 
     /**
@@ -146,54 +118,9 @@ class MC4WP_Dynamic_Content_Tags
      *
      * @return string
      */
-    public function replace_in_url($string)
+    protected function replace_in_url($string)
     {
-        return $this->replace($string, 'url');
+        return $this->replace($string, 'urlencode');
     }
 
-
-
-    /**
-     * @param $value
-     *
-     * @return string
-     */
-    protected function escape_value_url($value)
-    {
-        return urlencode($value);
-    }
-
-    /**
-     * @param $value
-     *
-     * @return string
-     */
-    protected function escape_value_attributes($value)
-    {
-        return esc_attr($value);
-    }
-
-    /**
-     * @param $value
-     *
-     * @return string
-     */
-    protected function escape_value_html($value)
-    {
-        return esc_html($value);
-    }
-
-    /**
-     * @param $value
-     *
-     * @return mixed
-     */
-    protected function escape_value($value)
-    {
-        if (empty($this->escape_mode)) {
-            return $value;
-        }
-
-        return call_user_func(array( $this, 'escape_value_' . $this->escape_mode ), $value);
-    }
 }
