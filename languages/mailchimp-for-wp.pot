@@ -13,6 +13,46 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: includes/class-dynamic-content-tags.php:28
+msgid "Data from a cookie."
+msgstr ""
+
+#: includes/class-dynamic-content-tags.php:34
+msgid "The email address of the current visitor (if known)."
+msgstr ""
+
+#: includes/class-dynamic-content-tags.php:39
+msgid "The URL of the page."
+msgstr ""
+
+#: includes/class-dynamic-content-tags.php:44
+msgid "The path of the page."
+msgstr ""
+
+#: includes/class-dynamic-content-tags.php:49
+msgid "The current date. Example: %s."
+msgstr ""
+
+#: includes/class-dynamic-content-tags.php:54
+msgid "The current time. Example: %s."
+msgstr ""
+
+#: includes/class-dynamic-content-tags.php:59
+msgid "The site's language. Example: %s."
+msgstr ""
+
+#: includes/class-dynamic-content-tags.php:64
+msgid "The visitor's IP address. Example: %s."
+msgstr ""
+
+#: includes/class-dynamic-content-tags.php:69
+msgid "The property of the currently logged-in user."
+msgstr ""
+
+#: includes/class-dynamic-content-tags.php:75
+msgid "Property of the current page or post."
+msgstr ""
+
 #: includes/class-mailchimp.php:177, includes/forms/class-admin.php:80
 msgid "Email address"
 msgstr ""
@@ -357,56 +397,16 @@ msgstr ""
 msgid "Leave this field empty if you're human:"
 msgstr ""
 
-#: includes/forms/class-form-tags.php:59
+#: includes/forms/class-form-tags.php:36
 msgid "Replaced with the form response (error or success messages)."
 msgstr ""
 
-#: includes/forms/class-form-tags.php:64
+#: includes/forms/class-form-tags.php:41
 msgid "Data from the URL or a submitted form."
 msgstr ""
 
-#: includes/forms/class-form-tags.php:70
-msgid "Data from a cookie."
-msgstr ""
-
-#: includes/forms/class-form-tags.php:76, includes/integrations/class-integration-tags.php:49
+#: includes/forms/class-form-tags.php:47, includes/integrations/class-integration-tags.php:32
 msgid "Replaced with the number of subscribers on the selected list(s)"
-msgstr ""
-
-#: includes/forms/class-form-tags.php:81
-msgid "The email address of the current visitor (if known)."
-msgstr ""
-
-#: includes/forms/class-form-tags.php:86
-msgid "The URL of the page."
-msgstr ""
-
-#: includes/forms/class-form-tags.php:91
-msgid "The path of the page."
-msgstr ""
-
-#: includes/forms/class-form-tags.php:96
-msgid "The current date. Example: %s."
-msgstr ""
-
-#: includes/forms/class-form-tags.php:101
-msgid "The current time. Example: %s."
-msgstr ""
-
-#: includes/forms/class-form-tags.php:106
-msgid "The site's language. Example: %s."
-msgstr ""
-
-#: includes/forms/class-form-tags.php:111
-msgid "The visitor's IP address. Example: %s."
-msgstr ""
-
-#: includes/forms/class-form-tags.php:116
-msgid "The property of the currently logged-in user."
-msgstr ""
-
-#: includes/forms/class-form-tags.php:122
-msgid "Property of the current page or post."
 msgstr ""
 
 #: includes/forms/class-form.php:51

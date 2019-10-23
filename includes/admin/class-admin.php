@@ -383,7 +383,8 @@ class MC4WP_Admin
         $menu_items = (array) apply_filters('mc4wp_admin_menu_items', $menu_items);
 
         // add top menu item
-        add_menu_page('Mailchimp for WP', 'MC4WP', $required_cap, 'mailchimp-for-wp', array( $this, 'show_generals_setting_page' ), MC4WP_PLUGIN_URL . 'assets/img/icon.png', '99.68491');
+        $icon = file_get_contents(MC4WP_PLUGIN_DIR . 'assets/img/icon.svg');
+        add_menu_page('Mailchimp for WP', 'MC4WP', $required_cap, 'mailchimp-for-wp', array( $this, 'show_generals_setting_page' ), 'data:image/svg+xml;base64,'.base64_encode($icon), '99.68491');
 
         // sort submenu items by 'position'
         usort($menu_items, array( $this, 'sort_menu_items_by_position' ));
