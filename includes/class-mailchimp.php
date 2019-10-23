@@ -24,10 +24,10 @@ class MC4WP_MailChimp
     * @param string  $list_id           The list id to subscribe to
     * @param string  $email_address             The email address to subscribe
     * @param array    $args
-    * @param boolean $update_existing   Update information if this email is already on list?
-    * @param boolean $replace_interests Replace interest groupings, only if update_existing is true.
-    *
+    * @param bool $update_existing   Update information if this email is already on list?
+    * @param bool $replace_interests Replace interest groupings, only if update_existing is true.
     * @return object
+    * @throws Exception
     */
     public function list_subscribe($list_id, $email_address, array $args = array(), $update_existing = false, $replace_interests = true)
     {
@@ -49,7 +49,7 @@ class MC4WP_MailChimp
             if ($existing_member_data->status === 'subscribed') {
 
                 // if we're not supposed to update, bail.
-                if (false === $update_existing) {
+                if (! $update_existing) {
                     $this->error_code = 214;
                     $this->error_message = 'That subscriber already exists.';
                     return null;
