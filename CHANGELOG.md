@@ -1,6 +1,18 @@
 Changelog
 =========
 
+#### 4.6.2 - Oct 24, 2019
+
+**Fixes**
+
+- Address fields in forms would always be required (even if really optional).
+
+**Improvements**
+
+- Add proper SVG admin menu icon.
+- Minor overall performance and memory usage improvements.
+
+
 #### 4.6.1 - Oct 7, 2019
 
 **Fixes**

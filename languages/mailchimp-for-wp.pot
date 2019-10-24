@@ -109,27 +109,27 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: includes/admin/class-admin.php:438
+#: includes/admin/class-admin.php:439
 msgid "Error connecting to Mailchimp:"
 msgstr ""
 
-#: includes/admin/class-admin.php:441
+#: includes/admin/class-admin.php:442
 msgid "Looks like your server is blocked by Mailchimp's firewall. Please contact Mailchimp support and include the following reference number: %s"
 msgstr ""
 
-#: includes/admin/class-admin.php:444
+#: includes/admin/class-admin.php:445
 msgid "Here's some info on solving common connectivity issues."
 msgstr ""
 
-#: includes/admin/class-admin.php:449
+#: includes/admin/class-admin.php:450
 msgid "Mailchimp returned the following error:"
 msgstr ""
 
-#: includes/admin/class-admin.php:490
+#: includes/admin/class-admin.php:491
 msgid "Log successfully emptied."
 msgstr ""
 
-#: includes/admin/class-admin.php:521
+#: includes/admin/class-admin.php:522
 msgid "To get started with Mailchimp for WordPress, please <a href=\"%s\">enter your Mailchimp API key on the settings page of the plugin</a>."
 msgstr ""
 
@@ -413,27 +413,27 @@ msgstr ""
 msgid "There is no form with ID %d, perhaps it was deleted?"
 msgstr ""
 
-#: includes/forms/class-google-recaptcha.php:158
+#: includes/forms/class-google-recaptcha.php:162
 msgid "Enable Google reCaptcha"
 msgstr ""
 
-#: includes/forms/class-google-recaptcha.php:164
+#: includes/forms/class-google-recaptcha.php:168
 msgid "Select \"yes\" to enable Google reCAPTCHA spam protection for this form."
 msgstr ""
 
-#: includes/forms/class-google-recaptcha.php:170
+#: includes/forms/class-google-recaptcha.php:174
 msgid "Google reCAPTCHA Site Key"
 msgstr ""
 
-#: includes/forms/class-google-recaptcha.php:174
+#: includes/forms/class-google-recaptcha.php:178
 msgid "Enter your Google reCAPTCHA keys here. You can <a href=\"%s\">retrieve your keys in the Google reCAPTCHA admin console</a> or read our help article on <a href=\"%s\">how to configure Google reCAPTCHA</a>."
 msgstr ""
 
-#: includes/forms/class-google-recaptcha.php:180
+#: includes/forms/class-google-recaptcha.php:184
 msgid "Google reCAPTCHA Secret Key"
 msgstr ""
 
-#: includes/forms/class-google-recaptcha.php:184
+#: includes/forms/class-google-recaptcha.php:188
 msgstr ""
 
 #: includes/forms/class-widget.php:28
