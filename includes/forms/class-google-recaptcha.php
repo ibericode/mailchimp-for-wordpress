@@ -152,6 +152,10 @@ class MC4WP_Google_Recaptcha {
     }
 
     public function show_settings(array $settings, MC4WP_Form $form) {
+        if (!$settings['grecaptcha_enabled']) {
+            return;
+        }
+
         $global_settings = mc4wp_get_settings();
         ?>
         <tr valign="top">
