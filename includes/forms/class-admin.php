@@ -278,12 +278,14 @@ class MC4WP_Forms_Admin
         check_admin_referer('edit_form', '_mc4wp_nonce');
 
         // save global settings (if submitted)
-        $options = get_option('mc4wp', array());
-        $posted = $_POST['mc4wp'];
-        foreach($posted as $key => $value) {
-            $options[$key] = trim($value);
-        }
-        update_option('mc4wp', $options);
+		if (isset($_POST['mc4wp']) && is_array($_POST['mc4wp'])) {
+			$options = get_option('mc4wp', array());
+			$posted = $_POST['mc4wp'];
+			foreach ($posted as $key => $value) {
+				$options[$key] = trim($value);
+			}
+			update_option('mc4wp', $options);
+		}
 
         // save form + settings
         $form_id = (int) $_POST['mc4wp_form_id'];
