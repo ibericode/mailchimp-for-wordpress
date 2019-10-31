@@ -904,7 +904,7 @@ class MC4WP_API_v3
     }
 
     /**
-     * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/carts/#delete-delete_ecommerce_stores_store_id_carts_cart_id
+     * @link https://mailchimp.com/developer/reference/ecommerce-stores/ecommerce-carts/#delete-delete_ecommerce_stores_store_id_carts_cart_id
      *
      * @param string $store_id
      * @param string $cart_id
