@@ -26,14 +26,20 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
     public function add_hooks()
     {
         if (! $this->options['implicit']) {
-            // create hook name based on position setting
-            $hook = sprintf('woocommerce_%s', $this->options['position']);
-            add_action($hook, array( $this, 'output_checkbox' ), 20);
+			// create hook name based on position setting
+			if ($this->options['position'] !== 'after_email_field') {
+				$hook = sprintf('woocommerce_%s', $this->options['position']);
+				add_action($hook, array($this, 'output_checkbox'), 20);
+			} else {
+				add_filter('woocommerce_form_field_email', array($this, 'add_checkbox_after_email_field'), 10, 4);
+			}
+
             add_action('woocommerce_checkout_update_order_meta', array( $this, 'save_woocommerce_checkout_checkbox_value' ));
 
             // specific hooks for klarna
             add_filter('kco_create_order', array($this, 'add_klarna_field'));
             add_filter('klarna_after_kco_confirmation', array($this, 'subscribe_from_klarna_checkout'), 10, 2);
+
         }
 
         add_action('woocommerce_checkout_order_processed', array( $this, 'subscribe_from_woocommerce_checkout' ));
@@ -58,6 +64,17 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
         return $create;
     }
 
+	function add_checkbox_after_email_field($field, $key, $args, $value) {
+		if ($key !== 'billing_email') {
+			return $field;
+		}
+
+		$field .= PHP_EOL;
+		$field .= $this->get_checkbox_html(array(
+			'class' => 'form-row form-row-wide'
+		));
+		return $field;
+	}
 
     /**
     * @param int $order_id
