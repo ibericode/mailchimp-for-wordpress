@@ -53,7 +53,7 @@ msgstr ""
 msgid "Property of the current page or post."
 msgstr ""
 
-#: includes/class-mailchimp.php:177, includes/forms/class-admin.php:80
+#: includes/class-mailchimp.php:178, includes/forms/class-admin.php:80
 msgid "Email address"
 msgstr ""
 
@@ -377,19 +377,19 @@ msgstr ""
 msgid "Form"
 msgstr ""
 
-#: includes/forms/class-admin.php:162, includes/forms/class-admin.php:295
+#: includes/forms/class-admin.php:162, includes/forms/class-admin.php:297
 msgid "<strong>Success!</strong> Form successfully saved."
 msgstr ""
 
-#: includes/forms/class-admin.php:403
+#: includes/forms/class-admin.php:405
 msgid "Form not found."
 msgstr ""
 
-#: includes/forms/class-admin.php:469, includes/forms/class-widget.php:32
+#: includes/forms/class-admin.php:471, includes/forms/class-widget.php:32
 msgid "Mailchimp Sign-Up Form"
 msgstr ""
 
-#: includes/forms/class-admin.php:473
+#: includes/forms/class-admin.php:475
 msgid "Select the form to show"
 msgstr ""
 
@@ -777,11 +777,15 @@ msgid "Other plugins by ibericode"
 msgstr ""
 
 #: includes/views/parts/admin-sidebar.php:37
-msgid "Pop-ups or boxes that slide-in with a newsletter sign-up form. A sure-fire way to grow your email lists."
+msgid "Privacy-friendly analytics plugin that does not use any external services."
 msgstr ""
 
 #: includes/views/parts/admin-sidebar.php:43
-msgid "Super flexible forms using native HTML. Just like with Mailchimp for WordPress forms but for other purposes, like a contact form."
+msgid "Pop-ups or boxes that slide-in with a newsletter sign-up form. A sure-fire way to grow your email lists."
+msgstr ""
+
+#: includes/views/parts/admin-sidebar.php:49
+msgid "Super flexible forms using native HTML. Just like Mailchimp for WordPress forms but for other purposes, like a contact form."
 msgstr ""
 
 #: includes/views/parts/lists-overview.php:1

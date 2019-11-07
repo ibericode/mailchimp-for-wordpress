@@ -1,6 +1,7 @@
 <?php
 
 $position_options = array(
+	'after_email_field' => __('After email field', 'mailchimp-for-wp'),
     'checkout_billing' => __("After billing details", 'mailchimp-for-wp'),
     'checkout_shipping' => __('After shipping details', 'mailchimp-for-wp'),
     'checkout_after_customer_details' => __('After customer details', 'mailchimp-for-wp'),

@@ -119,7 +119,7 @@ add_action('mc4wp_admin_other_settings', '_mc4wp_usage_tracking_setting', 70);
                             if (! empty($line)) {
                                 echo '<div class="debug-log-line">' . $line . '</div>';
                             }
-                                
+
                             $line = $log_reader->read_as_html();
                         }
                     } else {
@@ -159,9 +159,9 @@ add_action('mc4wp_admin_other_settings', '_mc4wp_usage_tracking_setting', 70);
 
 						// add filter
 						var logFilter = document.getElementById('debug-log-filter');
-						logFilter.addEventListener('keydown', function(e) {
-							if(e.keyCode == 13 ) {
-								searchLog(e.target.value.trim());
+						logFilter.addEventListener('keydown', function(evt) {
+							if(evt.keyCode === 13 ) {
+								searchLog(evt.target.value.trim());
 							}
 						});
 
