@@ -48,6 +48,7 @@ class MC4WP_Gravity_Forms_Field extends GF_Field
             'css_class_setting',
             'mailchimp_list_setting',
             'mailchimp_double_optin',
+            'mailchimp_precheck',
             'rules_setting',
         );
     }
@@ -81,7 +82,7 @@ class MC4WP_Gravity_Forms_Field extends GF_Field
 
         $options = array(
             'label' => $this->get_field_label(false, $value),
-            'precheck' => false,
+            'precheck' => isset($this->mailchimp_precheck) ? $this->mailchimp_precheck : false,
         );
         $options = $this->apply_mc4wp_options_filters($options);
 
