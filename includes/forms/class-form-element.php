@@ -114,7 +114,7 @@ class MC4WP_Form_Element
             return '';
         }
 
-        $html = sprintf('<div class="mc4wp-alert mc4wp-%s"><p>%s</p></div>', esc_attr($notice->type), $notice->text);
+        $html = sprintf('<div class="mc4wp-alert mc4wp-%s" role="alert"><p>%s</p></div>', esc_attr($notice->type), $notice->text);
         return $html;
     }
 
