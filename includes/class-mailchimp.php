@@ -94,11 +94,11 @@ class MC4WP_MailChimp {
 		try {
 			if ( $existing_member_data ) {
 				$data = $api->update_list_member( $list_id, $email_address, $args );
+				$data->was_already_on_list = $existing_member_data->status === 'subscribed';
 			} else {
 				$data = $api->add_new_list_member( $list_id, $args );
+				$data->was_already_on_list = false;
 			}
-
-			$data->was_already_on_list = $existing_member_data->status === 'subscribed';
 		} catch ( MC4WP_API_Exception $e ) {
 			$this->error_code    = $e->getCode();
 			$this->error_message = $e;

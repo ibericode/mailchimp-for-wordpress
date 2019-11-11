@@ -201,8 +201,8 @@ class MC4WP_API_V3_Client {
 			throw new MC4WP_API_Exception( $message, $code, $this->last_request, $this->last_response, $data );
 		}
 
-		// unable to decode response
-		if ( is_null( $data ) ) {
+		// throw exception if unable to decode response
+		if ( $data === null ) {
 			throw new MC4WP_API_Exception( $message, $code, $this->last_request, $this->last_response );
 		}
 
