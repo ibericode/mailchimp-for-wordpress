@@ -5,7 +5,6 @@
     <file>integrations/</file>
     <file>config/</file>
     <rule ref="WordPress-Core">
-        <exclude name="WordPress.Files.FileName" />
         <exclude name="WordPress.PHP.YodaConditions" />
         <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase" />
     </rule>
@@ -17,6 +16,30 @@
                 <element value="ninja-forms" />
                 <element value="wpforms" />
             </property>
+        </properties>
+    </rule>
+
+    <rule ref="WordPress.WP.DeprecatedFunctions">
+        <properties>
+            <property name="minimum_supported_version" value="4.1"/>
+        </properties>
+    </rule>
+
+    <rule ref="WordPress.Files.FileName">
+        <properties>
+            <property name="strict_class_file_names" value="false"/>
+        </properties>
+    </rule>
+
+    <rule ref="WordPress.NamingConventions.ValidHookName">
+        <properties>
+            <property name="additionalWordDelimiters" value="-"/>
+        </properties>
+    </rule>
+
+    <rule ref="WordPress.WP.CronInterval">
+        <properties>
+            <property name="min_interval" value="60"/>
         </properties>
     </rule>
 
