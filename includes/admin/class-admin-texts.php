@@ -8,6 +8,7 @@
  */
 class MC4WP_Admin_Texts
 {
+	protected $plugin_file;
 
     /**
      * @param string $plugin_file
