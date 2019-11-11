@@ -397,7 +397,7 @@ class MC4WP_Forms_Admin {
 		} catch ( Exception $e ) {
 			echo '<h2>' . __( 'Form not found.', 'mailchimp-for-wp' ) . '</h2>';
 			echo '<p>' . $e->getMessage() . '</p>';
-			echo '<p><a href="javascript:history.go(-1);"> &lsaquo; ' . __( 'Go back' ) . '</a></p>';
+			echo '<p><a href="javascript:history.go(-1);"> &lsaquo; ' . __( 'Go back', 'mailchimp-for-wp' ) . '</a></p>';
 			return;
 		}
 

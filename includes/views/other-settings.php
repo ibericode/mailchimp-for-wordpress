@@ -18,11 +18,11 @@ function _mc4wp_usage_tracking_setting( $opts ) {
 				<td>
 					<label>
 						<input type="radio" name="mc4wp[allow_usage_tracking]" value="1" <?php checked( $opts['allow_usage_tracking'], 1 ); ?> />
-						<?php _e( 'Yes' ); ?>
+						<?php _e( 'Yes', 'mailchimp-for-wp' ); ?>
 					</label> &nbsp;
 					<label>
 						<input type="radio" name="mc4wp[allow_usage_tracking]" value="0" <?php checked( $opts['allow_usage_tracking'], 0 ); ?>  />
-						<?php _e( 'No' ); ?>
+						<?php _e( 'No', 'mailchimp-for-wp' ); ?>
 					</label>
 
 					<p class="help">

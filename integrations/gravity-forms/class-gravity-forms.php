@@ -113,8 +113,8 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration {
 				<?php esc_html_e( 'Double opt-in?', 'mailchimp-for-wp' ); ?>
 			</label>
 			<select id="field_mailchimp_double_optin" onchange="SetFieldProperty('mailchimp_double_optin', this.value)">
-				<option value="1"><?php echo __( 'Yes' ); ?></option>
-				<option value="0"><?php echo __( 'No' ); ?></option>
+				<option value="1"><?php echo __( 'Yes', 'mailchimp-for-wp' ); ?></option>
+				<option value="0"><?php echo __( 'No', 'mailchimp-for-wp' ); ?></option>
 			</select>
 			<p class="help">
 				<?php _e( 'Select "yes" if you want people to confirm their email address before being subscribed (recommended)', 'mailchimp-for-wp' ); ?>
@@ -125,8 +125,8 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration {
 				<?php esc_html_e( 'Pre-check the checkbox?', 'mailchimp-for-wp' ); ?>
 			</label>
 			<select id="field_mailchimp_precheck" onchange="SetFieldProperty('mailchimp_precheck', this.value)">
-				<option value="1"><?php echo __( 'Yes' ); ?></option>
-				<option value="0"><?php echo __( 'No' ); ?></option>
+				<option value="1"><?php echo __( 'Yes', 'mailchimp-for-wp' ); ?></option>
+				<option value="0"><?php echo __( 'No', 'mailchimp-for-wp' ); ?></option>
 			</select>
 			<p class="help">
 				<?php

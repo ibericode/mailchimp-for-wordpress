@@ -250,7 +250,7 @@ class MC4WP_WPForms_Field extends WPForms_Field {
 
 		$data = array(
 			'name'      => $name,
-			'value'     => empty( $field_submit ) ? __( 'No' ) : __( 'Yes' ),
+			'value'     => empty( $field_submit ) ? __( 'No', 'mailchimp-for-wp' ) : __( 'Yes', 'mailchimp-for-wp' ),
 			'value_raw' => $field_submit,
 			'id'        => absint( $field_id ),
 			'type'      => $this->type,

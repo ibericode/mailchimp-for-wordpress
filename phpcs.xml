@@ -9,5 +9,16 @@
         <exclude name="WordPress.PHP.YodaConditions" />
         <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase" />
     </rule>
+
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <property name="text_domain" type="array">
+                <element value="mailchimp-for-wp" />
+                <element value="ninja-forms" />
+                <element value="wpforms" />
+            </property>
+        </properties>
+    </rule>
+
     <arg name="colors" />
 </ruleset>

@@ -165,9 +165,9 @@ class MC4WP_Google_Recaptcha {
 		<tr valign="top">
 			<th scope="row"><?php _e( 'Enable Google reCaptcha', 'mailchimp-for-wp' ); ?></th>
 			<td>
-				<label><input type="radio" name="mc4wp_form[settings][grecaptcha_enabled]" value="1" <?php checked( $settings['grecaptcha_enabled'], 1 ); ?> /> <?php _e( 'Yes' ); ?> &rlm;</label>
+				<label><input type="radio" name="mc4wp_form[settings][grecaptcha_enabled]" value="1" <?php checked( $settings['grecaptcha_enabled'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?> &rlm;</label>
 				 &nbsp;
-				<label><input type="radio" name="mc4wp_form[settings][grecaptcha_enabled]" value="0" <?php checked( $settings['grecaptcha_enabled'], 0 ); ?> /> <?php _e( 'No' ); ?> &rlm;</label>
+				<label><input type="radio" name="mc4wp_form[settings][grecaptcha_enabled]" value="0" <?php checked( $settings['grecaptcha_enabled'], 0 ); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?> &rlm;</label>
 				<p class="help">
 					<?php _e( 'Select "yes" to enable Google reCAPTCHA spam protection for this form.', 'mailchimp-for-wp' ); ?>
 				</p>

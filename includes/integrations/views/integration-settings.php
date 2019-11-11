@@ -63,8 +63,8 @@
 					<tr valign="top">
 						<th scope="row"><?php _e( 'Enabled?', 'mailchimp-for-wp' ); ?></th>
 						<td class="nowrap integration-toggles-wrap">
-							<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][enabled]" value="1" <?php checked( $opts['enabled'], 1 ); ?> /> <?php _e( 'Yes' ); ?></label> &nbsp;
-							<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][enabled]" value="0" <?php checked( $opts['enabled'], 0 ); ?> /> <?php _e( 'No' ); ?></label>
+							<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][enabled]" value="1" <?php checked( $opts['enabled'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp;
+							<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][enabled]" value="0" <?php checked( $opts['enabled'], 0 ); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?></label>
 							<p class="help"><?php printf( __( 'Enable the %s integration? This will add a sign-up checkbox to the form.', 'mailchimp-for-wp' ), $integration->name ); ?></p>
 						</td>
 					</tr>
@@ -87,8 +87,8 @@
 						<tr valign="top">
 							<th scope="row"><?php _e( 'Implicit?', 'mailchimp-for-wp' ); ?></th>
 							<td class="nowrap">
-								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][implicit]" value="1" <?php checked( $opts['implicit'], 1 ); ?> /> <?php _e( 'Yes' ); ?></label> &nbsp;
-								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][implicit]" value="0" <?php checked( $opts['implicit'], 0 ); ?> /> <?php _e( 'No' ); ?> <?php echo '<em>' . __( '(recommended)', 'mailchimp-for-wp' ) . '</em>'; ?>
+								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][implicit]" value="1" <?php checked( $opts['implicit'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp;
+								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][implicit]" value="0" <?php checked( $opts['implicit'], 0 ); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?> <?php echo '<em>' . __( '(recommended)', 'mailchimp-for-wp' ) . '</em>'; ?>
 							</label>
 								<p class="help">
 									<?php
@@ -165,8 +165,8 @@
 						<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
 							<th scope="row"><?php _e( 'Pre-check the checkbox?', 'mailchimp-for-wp' ); ?></th>
 							<td class="nowrap">
-								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][precheck]" value="1" <?php checked( $opts['precheck'], 1 ); ?> /> <?php _e( 'Yes' ); ?></label> &nbsp;
-								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][precheck]" value="0" <?php checked( $opts['precheck'], 0 ); ?> /> <?php _e( 'No' ); ?> <?php echo '<em>' . __( '(recommended)', 'mailchimp-for-wp' ) . '</em>'; ?></label>
+								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][precheck]" value="1" <?php checked( $opts['precheck'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp;
+								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][precheck]" value="0" <?php checked( $opts['precheck'], 0 ); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?> <?php echo '<em>' . __( '(recommended)', 'mailchimp-for-wp' ) . '</em>'; ?></label>
 								<p class="help">
 									<?php
 									_e( 'Select "yes" if the checkbox should be pre-checked.', 'mailchimp-for-wp' );
@@ -189,8 +189,8 @@
 						<tr valign="top" data-showif="<?php echo esc_attr( json_encode( $config ) ); ?>">
 							<th scope="row"><?php _e( 'Load some default CSS?', 'mailchimp-for-wp' ); ?></th>
 							<td class="nowrap">
-								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][css]" value="1" <?php checked( $opts['css'], 1 ); ?> />&rlm; <?php _e( 'Yes' ); ?></label> &nbsp;
-								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][css]" value="0" <?php checked( $opts['css'], 0 ); ?> />&rlm; <?php _e( 'No' ); ?></label>
+								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][css]" value="1" <?php checked( $opts['css'], 1 ); ?> />&rlm; <?php _e( 'Yes', 'mailchimp-for-wp' ); ?></label> &nbsp;
+								<label><input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][css]" value="0" <?php checked( $opts['css'], 0 ); ?> />&rlm; <?php _e( 'No', 'mailchimp-for-wp' ); ?></label>
 								<p class="help"><?php _e( 'Select "yes" if the checkbox appears in a weird place.', 'mailchimp-for-wp' ); ?></p>
 							</td>
 						</tr>
@@ -206,11 +206,11 @@
 							<td class="nowrap">
 								<label>
 									<input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][double_optin]" value="1" <?php checked( $opts['double_optin'], 1 ); ?> />&rlm;
-									<?php _e( 'Yes' ); ?>
+									<?php _e( 'Yes', 'mailchimp-for-wp' ); ?>
 								</label> &nbsp;
 								<label>
 									<input type="radio" id="mc4wp_checkbox_double_optin_0" name="mc4wp_integrations[<?php echo $integration->slug; ?>][double_optin]" value="0" <?php checked( $opts['double_optin'], 0 ); ?> />&rlm;
-									<?php _e( 'No' ); ?>
+									<?php _e( 'No', 'mailchimp-for-wp' ); ?>
 								</label>
 								<p class="help">
 									<?php _e( 'Select "yes" if you want people to confirm their email address before being subscribed (recommended)', 'mailchimp-for-wp' ); ?>
@@ -229,11 +229,11 @@
 						<td class="nowrap">
 							<label>
 								<input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][update_existing]" value="1" <?php checked( $opts['update_existing'], 1 ); ?> />&rlm;
-								<?php _e( 'Yes' ); ?>
+								<?php _e( 'Yes', 'mailchimp-for-wp' ); ?>
 							</label> &nbsp;
 							<label>
 								<input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][update_existing]" value="0" <?php checked( $opts['update_existing'], 0 ); ?> />&rlm;
-								<?php _e( 'No' ); ?>
+								<?php _e( 'No', 'mailchimp-for-wp' ); ?>
 							</label>
 							<p class="help"><?php _e( 'Select "yes" if you want to update existing subscribers with the data that is sent.', 'mailchimp-for-wp' ); ?></p>
 						</td>
@@ -254,11 +254,11 @@
 							<td class="nowrap">
 								<label>
 									<input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][replace_interests]" value="1" <?php checked( $opts['replace_interests'], 1 ); ?> />&rlm;
-									<?php _e( 'Yes' ); ?>
+									<?php _e( 'Yes', 'mailchimp-for-wp' ); ?>
 								</label> &nbsp;
 								<label>
 									<input type="radio" name="mc4wp_integrations[<?php echo $integration->slug; ?>][replace_interests]" value="0" <?php checked( $opts['replace_interests'], 0 ); ?> />&rlm;
-									<?php _e( 'No' ); ?>
+									<?php _e( 'No', 'mailchimp-for-wp' ); ?>
 								</label>
 								<p class="help">
 									<?php _e( 'Select "no" if you want to add the selected interests to any previously selected interests when updating a subscriber.', 'mailchimp-for-wp' ); ?>
