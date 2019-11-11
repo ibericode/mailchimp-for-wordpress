@@ -1,40 +1,37 @@
 <?php
 
-class MC4WP_Form_Previewer
-{
-    public function add_hooks()
-    {
-        add_action('parse_request', array( $this, 'listen' ));
-    }
+class MC4WP_Form_Previewer {
 
-    public function listen()
-    {
-        if (empty($_GET['mc4wp_preview_form'])) {
-            return;
-        }
+	public function add_hooks() {
+		add_action( 'parse_request', array( $this, 'listen' ) );
+	}
 
-        try {
-            $form = mc4wp_get_form($_GET['mc4wp_preview_form']);
-        } catch (Exception $e) {
-            return;
-        }
+	public function listen() {
+		if ( empty( $_GET['mc4wp_preview_form'] ) ) {
+			return;
+		}
 
-        show_admin_bar(false);
-        add_filter('pre_handle_404', '__return_true');
-        remove_all_actions('template_redirect');
-        add_action('template_redirect', array( $this, 'load_preview' ));
-    }
+		try {
+			$form = mc4wp_get_form( $_GET['mc4wp_preview_form'] );
+		} catch ( Exception $e ) {
+			return;
+		}
 
-    public function load_preview()
-    {
-        // clear output, some plugin or hooked code might have thrown errors by now.
-        if (ob_get_level() > 0) {
-            ob_end_clean();
-        }
+		show_admin_bar( false );
+		add_filter( 'pre_handle_404', '__return_true' );
+		remove_all_actions( 'template_redirect' );
+		add_action( 'template_redirect', array( $this, 'load_preview' ) );
+	}
 
-        $form_id = (int) $_GET['mc4wp_preview_form'];
-        status_header(200);
-        require dirname(__FILE__) . '/views/preview.php';
-        exit;
-    }
+	public function load_preview() {
+		// clear output, some plugin or hooked code might have thrown errors by now.
+		if ( ob_get_level() > 0 ) {
+			ob_end_clean();
+		}
+
+		$form_id = (int) $_GET['mc4wp_preview_form'];
+		status_header( 200 );
+		require dirname( __FILE__ ) . '/views/preview.php';
+		exit;
+	}
 }

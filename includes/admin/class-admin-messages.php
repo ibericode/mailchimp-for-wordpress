@@ -6,83 +6,77 @@
  * @ignore
  * @since 3.0
  */
-class MC4WP_Admin_Messages
-{
+class MC4WP_Admin_Messages {
 
-    /**
-     * @var array
-     */
-    protected $bag;
 
-    /**
-     * @var bool
-     */
-    protected $dirty = false;
+	/**
+	 * @var array
+	 */
+	protected $bag;
 
-    /**
-     * Add hooks
-     */
-    public function add_hooks()
-    {
-        add_action('admin_notices', array( $this, 'show' ));
-        register_shutdown_function(array( $this, 'save' ));
-    }
+	/**
+	 * @var bool
+	 */
+	protected $dirty = false;
 
-    private function load()
-    {
-        if (is_null($this->bag)) {
-            $this->bag = get_option('mc4wp_flash_messages', array());
-        }
-    }
+	/**
+	 * Add hooks
+	 */
+	public function add_hooks() {
+		add_action( 'admin_notices', array( $this, 'show' ) );
+		register_shutdown_function( array( $this, 'save' ) );
+	}
 
-    // empty flash bag
-    private function reset()
-    {
-        $this->bag = array();
-        $this->dirty = true;
-    }
+	private function load() {
+		if ( is_null( $this->bag ) ) {
+			$this->bag = get_option( 'mc4wp_flash_messages', array() );
+		}
+	}
 
-    /**
-     * Flash a message (shows on next pageload)
-     *
-     * @param        $message
-     * @param string $type
-     */
-    public function flash($message, $type = 'success')
-    {
-        $this->load();
-        $this->bag[] = array(
-            'text' => $message,
-            'type' => $type
-        );
-        $this->dirty = true;
-    }
+	// empty flash bag
+	private function reset() {
+		$this->bag   = array();
+		$this->dirty = true;
+	}
+
+	/**
+	 * Flash a message (shows on next pageload)
+	 *
+	 * @param        $message
+	 * @param string $type
+	 */
+	public function flash( $message, $type = 'success' ) {
+		$this->load();
+		$this->bag[] = array(
+			'text' => $message,
+			'type' => $type,
+		);
+		$this->dirty = true;
+	}
 
 
 
-    /**
-     * Show queued flash messages
-     */
-    public function show()
-    {
-        $this->load();
+	/**
+	 * Show queued flash messages
+	 */
+	public function show() {
+		$this->load();
 
-        foreach ($this->bag as $message) {
-            echo sprintf('<div class="notice notice-%s is-dismissible"><p>%s</p></div>', $message['type'], $message['text']);
-        }
+		foreach ( $this->bag as $message ) {
+			echo sprintf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', $message['type'], $message['text'] );
+		}
 
-        $this->reset();
-    }
+		$this->reset();
+	}
 
-    /**
-     * Save queued messages
-     *
-     * @hooked `shutdown`
-     */
-    public function save()
-    {
-        if ($this->dirty) {
-            update_option('mc4wp_flash_messages', $this->bag, false);
-        }
-    }
+	/**
+	 * Save queued messages
+	 *
+	 * @hooked `shutdown`
+	 */
+	public function save() {
+		if ( $this->dirty ) {
+			update_option( 'mc4wp_flash_messages', $this->bag, false );
+		}
+	}
 }

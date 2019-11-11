@@ -1,122 +1,116 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined( 'ABSPATH' ) or exit;
 
 /**
  * Class MC4WP_Comment_Form_Integration
  *
  * @ignore
  */
-class MC4WP_Comment_Form_Integration extends MC4WP_Integration
-{
+class MC4WP_Comment_Form_Integration extends MC4WP_Integration {
 
-    /**
-     * @var bool
-     */
-    protected $added_through_filter = false;
 
-    /**
-     * @var string
-     */
-    public $name = "Comment Form";
+	/**
+	 * @var bool
+	 */
+	protected $added_through_filter = false;
 
-    /**
-     * @var string
-     */
-    public $description = "Subscribes people from your WordPress comment form.";
+	/**
+	 * @var string
+	 */
+	public $name = 'Comment Form';
 
-    /**
-     * Add hooks
-     */
-    public function add_hooks()
-    {
-        if (! $this->options['implicit']) {
-            // hooks for outputting the checkbox
-            add_filter('comment_form_submit_field', array( $this, 'add_checkbox_before_submit_button' ), 90);
+	/**
+	 * @var string
+	 */
+	public $description = 'Subscribes people from your WordPress comment form.';
 
-            add_action('thesis_hook_after_comment_box', array( $this, 'maybe_output_checkbox' ), 90);
-            add_action('comment_form', array( $this, 'maybe_output_checkbox' ), 90);
-        }
+	/**
+	 * Add hooks
+	 */
+	public function add_hooks() {
+		if ( ! $this->options['implicit'] ) {
+			// hooks for outputting the checkbox
+			add_filter( 'comment_form_submit_field', array( $this, 'add_checkbox_before_submit_button' ), 90 );
 
-        // hooks for checking if we should subscribe the commenter
-        add_action('comment_post', array( $this, 'subscribe_from_comment' ), 40, 2);
-    }
+			add_action( 'thesis_hook_after_comment_box', array( $this, 'maybe_output_checkbox' ), 90 );
+			add_action( 'comment_form', array( $this, 'maybe_output_checkbox' ), 90 );
+		}
 
-    /**
-     * This adds the checkbox just before the submit button and sets a flag to prevent it from outputting twice
-     *
-     * @param $submit_button_html
-     *
-     * @return string
-     */
-    public function add_checkbox_before_submit_button($submit_button_html)
-    {
-        $this->added_through_filter = true;
-        return $this->get_checkbox_html() . $submit_button_html;
-    }
+		// hooks for checking if we should subscribe the commenter
+		add_action( 'comment_post', array( $this, 'subscribe_from_comment' ), 40, 2 );
+	}
 
-    /**
-     * Output fallback
-     * Will output the checkbox if comment_form() function does not use `comment_form_submit_field` filter yet.
-     */
-    public function maybe_output_checkbox()
-    {
-        if (! $this->added_through_filter) {
-            $this->output_checkbox();
-        }
-    }
+	/**
+	 * This adds the checkbox just before the submit button and sets a flag to prevent it from outputting twice
+	 *
+	 * @param $submit_button_html
+	 *
+	 * @return string
+	 */
+	public function add_checkbox_before_submit_button( $submit_button_html ) {
+		$this->added_through_filter = true;
+		return $this->get_checkbox_html() . $submit_button_html;
+	}
 
-    /**
-     * Grabs data from WP Comment Form
-     *
-     * @param int    $comment_id
-     * @param string $comment_approved
-     *
-     * @return bool|string
-     */
-    public function subscribe_from_comment($comment_id, $comment_approved = '')
-    {
+	/**
+	 * Output fallback
+	 * Will output the checkbox if comment_form() function does not use `comment_form_submit_field` filter yet.
+	 */
+	public function maybe_output_checkbox() {
+		if ( ! $this->added_through_filter ) {
+			$this->output_checkbox();
+		}
+	}
 
-        // was sign-up checkbox checked?
-        if (! $this->triggered()) {
-            return false;
-        }
+	/**
+	 * Grabs data from WP Comment Form
+	 *
+	 * @param int    $comment_id
+	 * @param string $comment_approved
+	 *
+	 * @return bool|string
+	 */
+	public function subscribe_from_comment( $comment_id, $comment_approved = '' ) {
 
-        // is this a spam comment?
-        if ($comment_approved === 'spam') {
-            return false;
-        }
+		// was sign-up checkbox checked?
+		if ( ! $this->triggered() ) {
+			return false;
+		}
 
-        $comment = get_comment($comment_id);
+		// is this a spam comment?
+		if ( $comment_approved === 'spam' ) {
+			return false;
+		}
 
-        $data = array(
-            'EMAIL' => $comment->comment_author_email,
-            'NAME' => $comment->comment_author,
-            'OPTIN_IP' => $comment->comment_author_IP,
-        );
+		$comment = get_comment( $comment_id );
 
-        return $this->subscribe($data, $comment_id);
-    }
+		$data = array(
+			'EMAIL'    => $comment->comment_author_email,
+			'NAME'     => $comment->comment_author,
+			'OPTIN_IP' => $comment->comment_author_IP,
+		);
 
-    /**
-     * @return bool
-     */
-    public function is_installed()
-    {
-        return true;
-    }
+		return $this->subscribe( $data, $comment_id );
+	}
 
-    /**
-     * {@inheritdoc }
-     */
-    public function get_object_link($object_id)
-    {
-        $comment = get_comment($object_id);
-        
-        if (! $comment) {
-            return '';
-        }
+	/**
+	 * @return bool
+	 */
+	public function is_installed() {
+		return true;
+	}
 
-        return sprintf('<a href="%s">Comment #%d</a>', get_edit_comment_link($object_id), $object_id);
-    }
+	/**
+	 * {@inheritdoc }
+	 */
+	public function get_object_link( $object_id ) {
+		$comment = get_comment( $object_id );
+
+		if ( ! $comment ) {
+			return '';
+		}
+
+		return sprintf( '<a href="%s">Comment #%d</a>', get_edit_comment_link( $object_id ), $object_id );
+	}
 }

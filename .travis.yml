@@ -6,7 +6,8 @@ install:
 - composer self-update --no-interaction
 - composer update --no-interaction --prefer-dist
 script:
-- phpunit
+- vendor/bin/phpunit
+- vendor/bin/phpcs -s -n
 env:
   global:
     secure: iYWazyvp/sBhqW4GMiOrPHXrUQTGVVNIPVTUU3mSvRmFSEvZRbL0NbfFEUJhfqNITrEoPxQxoDaf6MJ9UNPqfcARuChrUybHKFv9Ouvd05kmH4vwPJroJdl3iawQzeZBXpxg/Wn8ciW79bVuCH2/LMZWk1bcKS87VbjG6CwUF8s=

@@ -1,5 +1,5 @@
 <?php
-defined('ABSPATH') or exit;
+defined( 'ABSPATH' ) or exit;
 ?>
 
 
@@ -48,10 +48,10 @@ defined('ABSPATH') or exit;
 			<p>Improved Mailchimp integration for multilingual sites using WPML.</p>
 		</div>
 
-        <div>
-            <h4><a href="https://wordpress.org/plugins/mailchimp-top-bar/">Boxzilla Pop-ups</a></h4>
-            <p>Pop-ups for your sign-up forms.</p>
-        </div>
+		<div>
+			<h4><a href="https://wordpress.org/plugins/mailchimp-top-bar/">Boxzilla Pop-ups</a></h4>
+			<p>Pop-ups for your sign-up forms.</p>
+		</div>
 	</div>
 	
 
