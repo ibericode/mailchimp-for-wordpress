@@ -9,9 +9,8 @@
  *
  * @return MC4WP_Form
  */
-function mc4wp_get_form($form_id = 0)
-{
-    return MC4WP_Form::get_instance($form_id);
+function mc4wp_get_form( $form_id = 0 ) {
+	return MC4WP_Form::get_instance( $form_id );
 }
 
 /**
@@ -23,30 +22,29 @@ function mc4wp_get_form($form_id = 0)
  *
  * @return MC4WP_Form[]
  */
-function mc4wp_get_forms(array $args = array())
-{
-    $default_args = array(
-        'post_status' => 'publish',
-        'posts_per_page' => -1,
-        'ignore_sticky_posts' => true,
-        'no_found_rows' => true,
-    );
-    $args = array_merge($default_args, $args);
-    $args['post_type'] = 'mc4wp-form';
-    $q = new WP_Query();
-    $posts = $q->query($args);
+function mc4wp_get_forms( array $args = array() ) {
+	$default_args      = array(
+		'post_status'         => 'publish',
+		'posts_per_page'      => -1,
+		'ignore_sticky_posts' => true,
+		'no_found_rows'       => true,
+	);
+	$args              = array_merge( $default_args, $args );
+	$args['post_type'] = 'mc4wp-form';
+	$q                 = new WP_Query();
+	$posts             = $q->query( $args );
 
-    $forms = array();
-    foreach ($posts as $post) {
-        try {
-            $form = mc4wp_get_form($post);
-        } catch (Exception $e) {
-            continue;
-        }
+	$forms = array();
+	foreach ( $posts as $post ) {
+		try {
+			$form = mc4wp_get_form( $post );
+		} catch ( Exception $e ) {
+			continue;
+		}
 
-        $forms[] = $form;
-    }
-    return $forms;
+		$forms[] = $form;
+	}
+	return $forms;
 }
 
 /**
@@ -60,11 +58,10 @@ function mc4wp_get_forms(array $args = array())
  *
  * @return string
  */
-function mc4wp_show_form($form_id = 0, $config = array(), $echo = true)
-{
-    /** @var MC4WP_Form_Manager $forms */
-    $forms = mc4wp('forms');
-    return $forms->output_form($form_id, $config, $echo);
+function mc4wp_show_form( $form_id = 0, $config = array(), $echo = true ) {
+	/** @var MC4WP_Form_Manager $forms */
+	$forms = mc4wp( 'forms' );
+	return $forms->output_form( $form_id, $config, $echo );
 }
 
 /**
@@ -80,20 +77,19 @@ function mc4wp_show_form($form_id = 0, $config = array(), $echo = true)
  *
  * @return boolean
  */
-function mc4wp_form_is_submitted($form_id = 0, $element_id = null)
-{
-    try {
-        $form = mc4wp_get_form($form_id);
-    } catch (Exception $e) {
-        return false;
-    }
+function mc4wp_form_is_submitted( $form_id = 0, $element_id = null ) {
+	try {
+		$form = mc4wp_get_form( $form_id );
+	} catch ( Exception $e ) {
+		return false;
+	}
 
-    if ($element_id) {
-        $form_element = new MC4WP_Form_Element($form, array( 'element_id' => $element_id ));
-        return $form_element->is_submitted;
-    }
+	if ( $element_id ) {
+		$form_element = new MC4WP_Form_Element( $form, array( 'element_id' => $element_id ) );
+		return $form_element->is_submitted;
+	}
 
-    return $form->is_submitted;
+	return $form->is_submitted;
 }
 
 /**
@@ -106,15 +102,14 @@ function mc4wp_form_is_submitted($form_id = 0, $element_id = null)
  *
  * @return string
  */
-function mc4wp_form_get_response_html($form_id = 0)
-{
-    try {
-        $form = mc4wp_get_form($form_id);
-    } catch (Exception $e) {
-        return '';
-    }
+function mc4wp_form_get_response_html( $form_id = 0 ) {
+	try {
+		$form = mc4wp_get_form( $form_id );
+	} catch ( Exception $e ) {
+		return '';
+	}
 
-    return $form->get_response_html();
+	return $form->get_response_html();
 }
 
 /**
@@ -124,7 +119,6 @@ function mc4wp_form_get_response_html($form_id = 0)
  *
  * @return MC4WP_Form|null
  */
-function mc4wp_get_submitted_form()
-{
-    return mc4wp('forms')->get_submitted_form();
+function mc4wp_get_submitted_form() {
+	return mc4wp( 'forms' )->get_submitted_form();
 }

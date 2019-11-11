@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ruleset name="rules">
+    <description>rules</description>
+    <file>includes/</file>
+    <file>integrations/</file>
+    <file>config/</file>
+    <rule ref="WordPress-Core">
+        <exclude name="WordPress.Files.FileName" />
+        <exclude name="WordPress.PHP.YodaConditions" />
+        <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase" />
+    </rule>
+    <arg name="colors" />
+</ruleset>

@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined( 'ABSPATH' ) or exit;
 
 /**
  * Class MC4WP_MemberPress_Integration
