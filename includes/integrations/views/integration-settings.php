@@ -117,7 +117,7 @@
 								echo '<ul style="margin-bottom: 20px; max-height: 300px; overflow-y: auto;">';
 								foreach ( $lists as $list ) {
 									echo '<li><label>';
-									echo sprintf( '<input type="checkbox" name="mc4wp_integrations[%s][lists][]" value="%s" class="mc4wp-list-input" %s> ', $integration->slug, $list->id, checked( in_array( $list->id, $opts['lists'] ), true, false ) );
+									echo sprintf( '<input type="checkbox" name="mc4wp_integrations[%s][lists][]" value="%s" class="mc4wp-list-input" %s> ', $integration->slug, $list->id, checked( in_array( $list->id, $opts['lists'], true ), true, false ) );
 									echo esc_html( $list->name );
 									echo '</label></li>';
 								}

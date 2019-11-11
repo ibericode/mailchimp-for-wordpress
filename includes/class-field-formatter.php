@@ -77,7 +77,7 @@ class MC4WP_Field_Formatter {
 		}
 
 		// Mailchimp expects a MM/DD format, regardless of their display preference
-		$value = (string) date( 'm/d', strtotime( $value ) );
+		$value = (string) gmdate( 'm/d', strtotime( $value ) );
 		return $value;
 	}
 
@@ -105,7 +105,7 @@ class MC4WP_Field_Formatter {
 			return $value;
 		}
 
-		return (string) date( 'Y-m-d', strtotime( $value ) );
+		return (string) gmdate( $format, strtotime( $value ) );
 	}
 
 	/**

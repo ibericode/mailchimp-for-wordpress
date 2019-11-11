@@ -24,7 +24,7 @@ class MC4WP_Tools {
 		// add or subtract GMT offset to given mysql time
 		$local_datetime = strtotime( $datetime ) + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS );
 
-		return date( $format, $local_datetime );
+		return gmdate( $format, $local_datetime );
 	}
 
 	/**

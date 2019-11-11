@@ -6,8 +6,8 @@
  * @ignore
  * @since 3.0
  */
-class MC4WP_Admin_Texts
-{
+class MC4WP_Admin_Texts {
+
 	/**
 	 * @var string
 	 */

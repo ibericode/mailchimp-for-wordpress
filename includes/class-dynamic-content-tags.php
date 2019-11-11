@@ -45,13 +45,13 @@ abstract class MC4WP_Dynamic_Content_Tags {
 		);
 
 		$this->tags['date'] = array(
-			'description' => sprintf( __( 'The current date. Example: %s.', 'mailchimp-for-wp' ), '<strong>' . date( 'Y/m/d' ) . '</strong>' ),
-			'replacement' => date( 'Y/m/d' ),
+			'description' => sprintf( __( 'The current date. Example: %s.', 'mailchimp-for-wp' ), '<strong>' . gmdate( 'Y/m/d', time() + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) ) . '</strong>' ),
+			'replacement' => gmdate( 'Y/m/d', time() + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) ),
 		);
 
 		$this->tags['time'] = array(
-			'description' => sprintf( __( 'The current time. Example: %s.', 'mailchimp-for-wp' ), '<strong>' . date( 'H:i:s' ) . '</strong>' ),
-			'replacement' => date( 'H:i:s' ),
+			'description' => sprintf( __( 'The current time. Example: %s.', 'mailchimp-for-wp' ), '<strong>' . gmdate( 'H:i:s', time() + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) ) . '</strong>' ),
+			'replacement' => gmdate( 'H:i:s', time() + ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS ) ),
 		);
 
 		$this->tags['language'] = array(

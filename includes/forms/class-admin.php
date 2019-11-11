@@ -318,7 +318,7 @@ class MC4WP_Forms_Admin {
 		foreach ( $forms as $form ) {
 			$stylesheet = $form->get_stylesheet();
 
-			if ( ! empty( $stylesheet ) && ! in_array( $stylesheet, $stylesheets ) ) {
+			if ( ! empty( $stylesheet ) && ! in_array( $stylesheet, $stylesheets, true ) ) {
 				$stylesheets[] = $stylesheet;
 			}
 		}

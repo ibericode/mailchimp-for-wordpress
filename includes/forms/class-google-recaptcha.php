@@ -142,7 +142,7 @@ class MC4WP_Google_Recaptcha {
 		$data           = json_decode( $response_body, true );
 		$score_treshold = apply_filters( 'mc4wp_grecaptcha_score_treshold', 0.5 );
 
-		if ( isset( $data['error-codes'] ) && in_array( 'invalid-input-secret', $data['error-codes'] ) ) {
+		if ( isset( $data['error-codes'] ) && in_array( 'invalid-input-secret', $data['error-codes'], true ) ) {
 			$this->get_log()->warning( sprintf( 'Form %d > Invalid Google reCAPTCHA secret key', $form->ID ) );
 			return $errors;
 		}

@@ -291,7 +291,7 @@ class MC4WP_Form {
 	 * @return bool
 	 */
 	public function has_field_type( $type ) {
-		return in_array( strtolower( $type ), $this->get_field_types() );
+		return in_array( strtolower( $type ), $this->get_field_types(), true );
 	}
 
 	/**
@@ -489,7 +489,7 @@ class MC4WP_Form {
 
 		foreach ( $data as $key => $value ) {
 			// skip fields in ignored field names
-			if ( $key[0] === '_' || in_array( $key, $ignored_field_names ) ) {
+			if ( $key[0] === '_' || in_array( $key, $ignored_field_names, true ) ) {
 				continue;
 			}
 
@@ -522,12 +522,12 @@ class MC4WP_Form {
 		}
 
 		// make sure action is valid
-		if ( ! in_array( $this->config['action'], array( 'subscribe', 'unsubscribe' ) ) ) {
+		if ( ! in_array( $this->config['action'], array( 'subscribe', 'unsubscribe' ), true ) ) {
 			$this->config['action'] = 'subscribe';
 		}
 
 		// email_type should be a valid value
-		if ( ! in_array( $this->config['email_type'], array( 'html', 'text' ) ) ) {
+		if ( ! in_array( $this->config['email_type'], array( 'html', 'text' ), true ) ) {
 			$this->config['email_type'] = '';
 		}
 
@@ -583,7 +583,7 @@ class MC4WP_Form {
 	 */
 	public function add_error( $error_code ) {
 		// only add each error once
-		if ( ! in_array( $error_code, $this->errors ) ) {
+		if ( ! in_array( $error_code, $this->errors, true ) ) {
 			$this->errors[] = $error_code;
 		}
 	}

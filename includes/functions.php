@@ -275,7 +275,7 @@ function _mc4wp_update_groupings_data( $data = array() ) {
 			$interest_id = $map[ $grouping_id ]['groups'][ $group_name_or_id ];
 
 			// add to interests data
-			if ( ! in_array( $interest_id, $data['INTERESTS'] ) ) {
+			if ( ! in_array( $interest_id, $data['INTERESTS'], false ) ) {
 				$migrated++;
 				$data['INTERESTS'][] = $interest_id;
 			}

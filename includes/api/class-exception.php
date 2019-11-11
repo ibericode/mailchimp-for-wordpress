@@ -48,7 +48,7 @@ class MC4WP_API_Exception extends Exception {
 	* @return mixed
 	*/
 	public function __get( $property ) {
-		if ( in_array( $property, array( 'title', 'detail', 'errors' ) ) ) {
+		if ( in_array( $property, array( 'title', 'detail', 'errors' ), true ) ) {
 			if ( ! empty( $this->response_data ) && isset( $this->response_data->{$property} ) ) {
 				return $this->response_data->{$property};
 			}

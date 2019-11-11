@@ -66,7 +66,7 @@ class MC4WP_Form_Asset_Manager {
 	 */
 	public function is_registered_stylesheet( $stylesheet ) {
 		$stylesheets = $this->get_registered_stylesheets();
-		return in_array( $stylesheet, $stylesheets );
+		return in_array( $stylesheet, $stylesheets, true );
 	}
 
 	/**

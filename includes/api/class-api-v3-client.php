@@ -116,7 +116,7 @@ class MC4WP_API_V3_Client {
 		);
 
 		if ( ! empty( $data ) ) {
-			if ( in_array( $method, array( 'GET', 'DELETE' ) ) ) {
+			if ( in_array( $method, array( 'GET', 'DELETE' ), true ) ) {
 				$url = add_query_arg( $data, $url );
 			} else {
 				$args['headers']['Content-Type'] = 'application/json';

@@ -25,6 +25,9 @@ class MC4WP_List_Data_Mapper {
 	*/
 	private $formatter;
 
+	/**
+	 * @var MC4WP_MailChimp
+	 */
 	private $mailchimp;
 
 	/**
@@ -112,7 +115,7 @@ class MC4WP_List_Data_Mapper {
 						}
 
 						// find by category ID + interest name
-						if ( in_array( $interest_name, $values ) ) {
+						if ( in_array( $interest_name, $values, true ) ) {
 							$subscriber->interests[ $interest_id ] = true;
 						}
 					}

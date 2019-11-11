@@ -135,7 +135,7 @@ class MC4WP_Form_Listener {
 			$error_code    = $mailchimp->get_error_code();
 			$error_message = $mailchimp->get_error_message();
 
-			if ( $mailchimp->get_error_code() == 214 ) {
+			if ( (int) $mailchimp->get_error_code() === 214 ) {
 				$form->add_error( 'already_subscribed' );
 				$form->add_notice( $form->messages['already_subscribed'], 'notice' );
 				$log->warning( sprintf( 'Form %d > %s is already subscribed to the selected list(s)', $form->ID, $data['EMAIL'] ) );

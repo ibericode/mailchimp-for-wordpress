@@ -509,7 +509,7 @@ abstract class MC4WP_Integration {
 	 */
 	public function has_ui_element( $element ) {
 		$elements = $this->get_ui_elements();
-		return in_array( $element, $elements );
+		return in_array( $element, $elements, true );
 	}
 
 	/**
