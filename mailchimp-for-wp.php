@@ -51,6 +51,9 @@ function _mc4wp_load_plugin()
         require_once MC4WP_PLUGIN_DIR . 'vendor/autoload_52.php';
     }
 
+    require MC4WP_PLUGIN_DIR . '/includes/default-actions.php';
+    require MC4WP_PLUGIN_DIR . '/includes/default-filters.php';
+
     /**
      * @global MC4WP_Container $GLOBALS['mc4wp']
      * @name $mc4wp

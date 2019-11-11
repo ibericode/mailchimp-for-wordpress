@@ -4,12 +4,10 @@
     <file>includes/</file>
     <file>integrations/</file>
     <file>config/</file>
-
-    <rule ref="vendor/wp-coding-standards/wpcs/WordPress-Core">
+    <rule ref="WordPress-Core">
         <exclude name="WordPress.Files.FileName" />
         <exclude name="WordPress.PHP.YodaConditions" />
         <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase" />
     </rule>
-
     <arg name="colors" />
 </ruleset>
