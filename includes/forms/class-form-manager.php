@@ -9,150 +9,143 @@
  * @ignore
  * @access private
 */
-class MC4WP_Form_Manager
-{
+class MC4WP_Form_Manager {
 
-    /**
-     * @var MC4WP_Form_Output_Manager
-     */
-    protected $output_manager;
 
-    /**
-     * @var MC4WP_Form_Listener
-     */
-    protected $listener;
+	/**
+	 * @var MC4WP_Form_Output_Manager
+	 */
+	protected $output_manager;
 
-    /**
-     * @var MC4WP_Form_Tags
-     */
-    protected $tags;
+	/**
+	 * @var MC4WP_Form_Listener
+	 */
+	protected $listener;
 
-    /**
-    * @var MC4WP_Form_Previewer
-    */
-    protected $previewer;
+	/**
+	 * @var MC4WP_Form_Tags
+	 */
+	protected $tags;
 
-    protected $recaptcha;
+	/**
+	* @var MC4WP_Form_Previewer
+	*/
+	protected $previewer;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->output_manager = new MC4WP_Form_Output_Manager();
-        $this->tags = new MC4WP_Form_Tags();
-        $this->listener = new MC4WP_Form_Listener();
-        $this->previewer = new MC4WP_Form_Previewer();
-        $this->recaptcha = new MC4WP_Google_Recaptcha();
-    }
+	protected $recaptcha;
 
-    /**
-     * Hook!
-     */
-    public function add_hooks()
-    {
-        add_action('init', array( $this, 'initialize' ));
-        add_action('wp', array( $this, 'init_asset_manager' ), 90);
-        add_action('widgets_init', array( $this, 'register_widget' ));
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+		$this->output_manager = new MC4WP_Form_Output_Manager();
+		$this->tags           = new MC4WP_Form_Tags();
+		$this->listener       = new MC4WP_Form_Listener();
+		$this->previewer      = new MC4WP_Form_Previewer();
+		$this->recaptcha      = new MC4WP_Google_Recaptcha();
+	}
 
-        $this->listener->add_hooks();
-        $this->output_manager->add_hooks();
-        $this->tags->add_hooks();
-        $this->previewer->add_hooks();
-        $this->recaptcha->add_hooks();
-    }
+	/**
+	 * Hook!
+	 */
+	public function add_hooks() {
+		add_action( 'init', array( $this, 'initialize' ) );
+		add_action( 'wp', array( $this, 'init_asset_manager' ), 90 );
+		add_action( 'widgets_init', array( $this, 'register_widget' ) );
 
-    /**
-     * Initialize
-     */
-    public function initialize()
-    {
-        $this->register_post_type();
-        $this->register_block_type();
-    }
+		$this->listener->add_hooks();
+		$this->output_manager->add_hooks();
+		$this->tags->add_hooks();
+		$this->previewer->add_hooks();
+		$this->recaptcha->add_hooks();
+	}
 
-    private function register_block_type()
-    {
-        // Bail if register_block_type does not exist (available since WP 5.0)
-        if (! function_exists('register_block_type')) {
-            return;
-        }
+	/**
+	 * Initialize
+	 */
+	public function initialize() {
+		$this->register_post_type();
+		$this->register_block_type();
+	}
 
-        register_block_type( 'mailchimp-for-wp/form', array(
-            'render_callback' => array($this->output_manager, 'shortcode'),
-        ));
-    }
+	private function register_block_type() {
+		// Bail if register_block_type does not exist (available since WP 5.0)
+		if ( ! function_exists( 'register_block_type' ) ) {
+			return;
+		}
 
-    /**
-     * Register post type "mc4wp-form"
-     */
-    private function register_post_type()
-    {
-        // register post type
-        register_post_type(
-            'mc4wp-form',
-            array(
-                'labels' => array(
-                    'name' => 'Mailchimp Sign-up Forms',
-                    'singular_name' => 'Sign-up Form',
-                ),
-                'public' => false
-            )
-        );
-    }
+		register_block_type(
+			'mailchimp-for-wp/form',
+			array(
+				'render_callback' => array( $this->output_manager, 'shortcode' ),
+			)
+		);
+	}
 
-    /**
-     * Initialise asset manager
-     *
-     * @hooked `template_redirect`
-     */
-    public function init_asset_manager()
-    {
-        $assets = new MC4WP_Form_Asset_Manager();
-        $assets->hook();
-    }
+	/**
+	 * Register post type "mc4wp-form"
+	 */
+	private function register_post_type() {
+		// register post type
+		register_post_type(
+			'mc4wp-form',
+			array(
+				'labels' => array(
+					'name'          => 'Mailchimp Sign-up Forms',
+					'singular_name' => 'Sign-up Form',
+				),
+				'public' => false,
+			)
+		);
+	}
 
-    /**
-     * Register our Form widget
-     */
-    public function register_widget()
-    {
-        register_widget('MC4WP_Form_Widget');
-    }
+	/**
+	 * Initialise asset manager
+	 *
+	 * @hooked `template_redirect`
+	 */
+	public function init_asset_manager() {
+		$assets = new MC4WP_Form_Asset_Manager();
+		$assets->hook();
+	}
 
-    /**
-     * @param       $form_id
-     * @param array $config
-     * @param bool  $echo
-     *
-     * @return string
-     */
-    public function output_form($form_id, $config = array(), $echo = true)
-    {
-        return $this->output_manager->output_form($form_id, $config, $echo);
-    }
+	/**
+	 * Register our Form widget
+	 */
+	public function register_widget() {
+		register_widget( 'MC4WP_Form_Widget' );
+	}
 
-    /**
-     * Gets the currently submitted form
-     *
-     * @return MC4WP_Form|null
-     */
-    public function get_submitted_form()
-    {
-        if ($this->listener->submitted_form instanceof MC4WP_Form) {
-            return $this->listener->submitted_form;
-        }
+	/**
+	 * @param       $form_id
+	 * @param array $config
+	 * @param bool  $echo
+	 *
+	 * @return string
+	 */
+	public function output_form( $form_id, $config = array(), $echo = true ) {
+		return $this->output_manager->output_form( $form_id, $config, $echo );
+	}
 
-        return null;
-    }
+	/**
+	 * Gets the currently submitted form
+	 *
+	 * @return MC4WP_Form|null
+	 */
+	public function get_submitted_form() {
+		if ( $this->listener->submitted_form instanceof MC4WP_Form ) {
+			return $this->listener->submitted_form;
+		}
 
-    /**
-     * Return all tags
-     *
-     * @return array
-     */
-    public function get_tags()
-    {
-        return $this->tags->all();
-    }
+		return null;
+	}
+
+	/**
+	 * Return all tags
+	 *
+	 * @return array
+	 */
+	public function get_tags() {
+		return $this->tags->all();
+	}
 }

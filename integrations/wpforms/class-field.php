@@ -9,267 +9,253 @@
  * @license    GPL-2.0+
  * @copyright  Copyright (c) 2016, WPForms LLC
  */
-class MC4WP_WPForms_Field extends WPForms_Field
-{
-
-    /**
-     * @var MC4WP_MailChimp
-     */
-    private $mailchimp;
-
-    /**
-     * Primary class constructor.
-     *
-     * @since 1.0.0
-     */
-    public function init()
-    {
-
-        // Define field type information
-        $this->name = 'Mailchimp';
-        $this->type = 'mailchimp';
-        $this->icon = 'fa-envelope-o';
-        $this->order = 21;
-        $this->defaults = array(
-            0 => array(
-                'label' => __('Sign-up to our newsletter?', 'mailchimp-for-wp'),
-                'value' => '1',
-                'default' => '',
-            )
-        );
-    }
-
-    /**
-     * Field options panel inside the builder.
-     *
-     * @since 1.0.0
-     * @param array $field
-     */
-    public function field_options($field)
-    {
-
-        //--------------------------------------------------------------------//
-        // Basic field options
-        //--------------------------------------------------------------------//
-
-        // Options open markup
-        $this->field_option('basic-options', $field, array('markup' => 'open'));
-
-        // Mailchimp list
-        $this->field_option_mailchimp_list($field);
-
-        // Choices
-        $this->field_option_choices($field);
-
-        // Description
-        $this->field_option('description', $field);
-
-        // Required toggle
-        $this->field_option('required', $field);
-
-        // Options close markup
-        $this->field_option('basic-options', $field, array('markup' => 'close'));
-
-        //--------------------------------------------------------------------//
-        // Advanced field options
-        //--------------------------------------------------------------------//
-
-        // Options open markup
-        $this->field_option('advanced-options', $field, array('markup' => 'open'));
-
-        // Custom CSS classes
-        $this->field_option('css', $field);
-
-        // Options close markup
-        $this->field_option('advanced-options', $field, array('markup' => 'close'));
-    }
-
-    private function field_option_mailchimp_list($field)
-    {
-        $mailchimp = new MC4WP_MailChimp();
-
-        // Field option label
-        $tooltip = __('Select the Mailchimp list to subscribe to.', 'mailchimp-for-wp');
-        $option_label = $this->field_element(
-            'label',
-            $field,
-            array(
-                'slug' => 'mailchimp-list',
-                'value' => __('Mailchimp list', 'mailchimp-for-wp'),
-                'tooltip' => $tooltip,
-            ),
-            false
-        );
-
-        $option_select = sprintf('<select name="fields[%s][mailchimp_list]" data-field-id="%d" data-field-type="%s">', $field['id'], $field['id'], $this->type);
-        $lists = $mailchimp->get_lists();
-        foreach ($lists as $list) {
-            $option_select .= sprintf('<option value="%s" %s>%s</option>', $list->id, selected($list->id, $field['mailchimp_list'], false), $list->name);
-        }
-        $option_select .= '</select>';
+class MC4WP_WPForms_Field extends WPForms_Field {
 
 
-        // Field option row (markup) including label and input.
-        $output = $this->field_element(
-            'row',
-            $field,
-            array(
-                'slug' => 'mailchimp-list',
-                'content' => $option_label . $option_select,
-            )
-        );
-    }
+	/**
+	 * Primary class constructor.
+	 *
+	 * @since 1.0.0
+	 */
+	public function init() {
 
-    private function field_option_choices($field)
-    {
-        $tooltip = __('Set your sign-up label text and whether it should be pre-checked.', 'mailchimp-for-wp');
-        $values = !empty($field['choices']) ? $field['choices'] : $this->defaults;
-        $class = !empty($field['show_values']) && $field['show_values'] == '1' ? 'show-values' : '';
-        $class .= !empty($dynamic) ? ' wpforms-hidden' : '';
+		// Define field type information
+		$this->name     = 'Mailchimp';
+		$this->type     = 'mailchimp';
+		$this->icon     = 'fa-envelope-o';
+		$this->order    = 21;
+		$this->defaults = array(
+			0 => array(
+				'label'   => __( 'Sign-up to our newsletter?', 'mailchimp-for-wp' ),
+				'value'   => '1',
+				'default' => '',
+			),
+		);
+	}
 
-        // Field option label
-        $option_label = $this->field_element(
-            'label',
-            $field,
-            array(
-                'slug' => 'mailchimp-checkbox',
-                'value' => __('Sign-up checkbox', 'mailchimp-for-wp'),
-                'tooltip' => $tooltip,
-            ),
-            false
-        );
+	/**
+	 * Field options panel inside the builder.
+	 *
+	 * @since 1.0.0
+	 * @param array $field
+	 */
+	public function field_options( $field ) {
 
-        // Field option choices inputs
-        $option_choices = sprintf('<ul class="choices-list %s" data-field-id="%d" data-field-type="%s">', $class, $field['id'], $this->type);
-        foreach ($values as $key => $value) {
-            $default = !empty($value['default']) ? $value['default'] : '';
-            $option_choices .= sprintf('<li data-key="%d">', $key);
-            $option_choices .= sprintf('<input type="checkbox" name="fields[%s][choices][%s][default]" class="default" value="1" %s>', $field['id'], $key, checked('1', $default, false));
-            $option_choices .= sprintf('<input type="text" name="fields[%s][choices][%s][label]" value="%s" class="label">', $field['id'], $key, esc_attr($value['label']));
-            $option_choices .= sprintf('<input type="text" name="fields[%s][choices][%s][value]" value="%s" class="value">', $field['id'], $key, esc_attr($value['value']));
-            $option_choices .= '</li>';
-        }
-        $option_choices .= '</ul>';
+		//--------------------------------------------------------------------//
+		// Basic field options
+		//--------------------------------------------------------------------//
 
-        // Field option row (markup) including label and input.
-        $output = $this->field_element(
-            'row',
-            $field,
-            array(
-                'slug' => 'choices',
-                'content' => $option_label . $option_choices,
-            )
-        );
-    }
+		// Options open markup
+		$this->field_option( 'basic-options', $field, array( 'markup' => 'open' ) );
 
-    /**
-     * Field preview inside the builder.
-     *
-     * @since 1.0.0
-     * @param array $field
-     */
-    public function field_preview($field)
-    {
-        $values = !empty($field['choices']) ? $field['choices'] : $this->defaults;
+		// Mailchimp list
+		$this->field_option_mailchimp_list( $field );
 
-        // Field checkbox elements
-        echo '<ul class="primary-input">';
+		// Choices
+		$this->field_option_choices( $field );
 
-        // Notify if currently empty
-        if (empty($values)) {
-            $values = array('label' => __('(empty)', 'wpforms'));
-        }
+		// Description
+		$this->field_option( 'description', $field );
 
-        // Individual checkbox options
-        foreach ($values as $key => $value) {
-            $default = isset($value['default']) ? $value['default'] : '';
-            $selected = checked('1', $default, false);
+		// Required toggle
+		$this->field_option( 'required', $field );
 
-            printf('<li><input type="checkbox" %s disabled>%s</li>', $selected, $value['label']);
-        }
+		// Options close markup
+		$this->field_option( 'basic-options', $field, array( 'markup' => 'close' ) );
 
-        echo '</ul>';
+		//--------------------------------------------------------------------//
+		// Advanced field options
+		//--------------------------------------------------------------------//
 
-        // Dynamic population is enabled and contains more than 20 items
-        if (isset($total) && $total > 20) {
-            echo '<div class="wpforms-alert-dynamic wpforms-alert wpforms-alert-warning">';
-            printf(__('Showing the first 20 choices.<br> All %d choices will be displayed when viewing the form.', 'wpforms'), absint($total));
-            echo '</div>';
-        }
+		// Options open markup
+		$this->field_option( 'advanced-options', $field, array( 'markup' => 'open' ) );
 
-        // Description
-        $this->field_preview_option('description', $field);
-    }
+		// Custom CSS classes
+		$this->field_option( 'css', $field );
 
-    /**
-     * Field display on the form front-end.
-     *
-     * @since 1.0.0
-     * @param array $field
-     * @param array $form_data
-     */
-    public function field_display($field, $field_atts, $form_data)
-    {
+		// Options close markup
+		$this->field_option( 'advanced-options', $field, array( 'markup' => 'close' ) );
+	}
 
-        // Setup and sanitize the necessary data
-        $field_required = !empty($field['required']) ? ' required' : '';
-        $field_class = implode(' ', array_map('sanitize_html_class', $field_atts['input_class']));
-        $field_id = implode(' ', array_map('sanitize_html_class', $field_atts['input_id']));
-        $form_id = $form_data['id'];
-        $choices = $field['choices'];
+	private function field_option_mailchimp_list( $field ) {
+		$mailchimp = new MC4WP_MailChimp();
 
+		// Field option label
+		$tooltip      = __( 'Select the Mailchimp list to subscribe to.', 'mailchimp-for-wp' );
+		$option_label = $this->field_element(
+			'label',
+			$field,
+			array(
+				'slug'    => 'mailchimp-list',
+				'value'   => __( 'Mailchimp list', 'mailchimp-for-wp' ),
+				'tooltip' => $tooltip,
+			),
+			false
+		);
 
-        // List
-        printf('<ul id="%s" class="%s">', $field_id, $field_class);
+		$option_select = sprintf( '<select name="fields[%s][mailchimp_list]" data-field-id="%d" data-field-type="%s">', $field['id'], $field['id'], $this->type );
+		$lists         = $mailchimp->get_lists();
+		foreach ( $lists as $list ) {
+			$option_select .= sprintf( '<option value="%s" %s>%s</option>', $list->id, selected( $list->id, $field['mailchimp_list'], false ), $list->name );
+		}
+		$option_select .= '</select>';
 
-        foreach ($choices as $key => $choice) {
-            $selected = isset($choice['default']) ? '1' : '0';
-            $depth = isset($choice['depth']) ? absint($choice['depth']) : 1;
+		// Field option row (markup) including label and input.
+		$output = $this->field_element(
+			'row',
+			$field,
+			array(
+				'slug'    => 'mailchimp-list',
+				'content' => $option_label . $option_select,
+			)
+		);
+	}
 
-            printf('<li class="choice-%d depth-%d">', $key, $depth);
+	private function field_option_choices( $field ) {
+		$tooltip = __( 'Set your sign-up label text and whether it should be pre-checked.', 'mailchimp-for-wp' );
+		$values  = ! empty( $field['choices'] ) ? $field['choices'] : $this->defaults;
+		$class   = ! empty( $field['show_values'] ) && (int) $field['show_values'] === 1 ? 'show-values' : '';
+		$class  .= ! empty( $dynamic ) ? ' wpforms-hidden' : '';
 
-            // Checkbox elements
-            printf(
-                '<input type="checkbox" id="wpforms-%d-field_%d_%d" name="wpforms[fields][%d]" value="%s" %s %s>',
-                $form_id,
-                $field['id'],
-                $key,
-                $field['id'],
-                esc_attr($choice['value']),
-                checked('1', $selected, false),
-                $field_required
-            );
+		// Field option label
+		$option_label = $this->field_element(
+			'label',
+			$field,
+			array(
+				'slug'    => 'mailchimp-checkbox',
+				'value'   => __( 'Sign-up checkbox', 'mailchimp-for-wp' ),
+				'tooltip' => $tooltip,
+			),
+			false
+		);
 
-            printf('<label class="wpforms-field-label-inline" for="wpforms-%d-field_%d_%d">%s</label>', $form_id, $field['id'], $key, wp_kses_post($choice['label']));
+		// Field option choices inputs
+		$option_choices = sprintf( '<ul class="choices-list %s" data-field-id="%d" data-field-type="%s">', $class, $field['id'], $this->type );
+		foreach ( $values as $key => $value ) {
+			$default         = ! empty( $value['default'] ) ? $value['default'] : '';
+			$option_choices .= sprintf( '<li data-key="%d">', $key );
+			$option_choices .= sprintf( '<input type="checkbox" name="fields[%s][choices][%s][default]" class="default" value="1" %s>', $field['id'], $key, checked( '1', $default, false ) );
+			$option_choices .= sprintf( '<input type="text" name="fields[%s][choices][%s][label]" value="%s" class="label">', $field['id'], $key, esc_attr( $value['label'] ) );
+			$option_choices .= sprintf( '<input type="text" name="fields[%s][choices][%s][value]" value="%s" class="value">', $field['id'], $key, esc_attr( $value['value'] ) );
+			$option_choices .= '</li>';
+		}
+		$option_choices .= '</ul>';
 
-            echo '</li>';
-        }
+		// Field option row (markup) including label and input.
+		$output = $this->field_element(
+			'row',
+			$field,
+			array(
+				'slug'    => 'choices',
+				'content' => $option_label . $option_choices,
+			)
+		);
+	}
 
-        echo '</ul>';
-    }
+	/**
+	 * Field preview inside the builder.
+	 *
+	 * @since 1.0.0
+	 * @param array $field
+	 */
+	public function field_preview( $field ) {
+		$values = ! empty( $field['choices'] ) ? $field['choices'] : $this->defaults;
 
-    /**
-     * Formats and sanitizes field.
-     *
-     * @since 1.0.2
-     * @param int $field_id
-     * @param array $field_submit
-     * @param array $form_data
-     */
-    public function format($field_id, $field_submit, $form_data)
-    {
-        $field = $form_data['fields'][$field_id];
-        $choice = array_pop($field['choices']);
-        $name = sanitize_text_field($choice['label']);
+		// Field checkbox elements
+		echo '<ul class="primary-input">';
 
-        $data = array(
-            'name' => $name,
-            'value' => empty($field_submit) ? __('No') : __('Yes'),
-            'value_raw' => $field_submit,
-            'id' => absint($field_id),
-            'type' => $this->type,
-        );
+		// Notify if currently empty
+		if ( empty( $values ) ) {
+			$values = array( 'label' => __( '(empty)', 'wpforms' ) );
+		}
 
-        wpforms()->process->fields[$field_id] = $data;
-    }
+		// Individual checkbox options
+		foreach ( $values as $key => $value ) {
+			$default  = isset( $value['default'] ) ? $value['default'] : '';
+			$selected = checked( '1', $default, false );
+
+			printf( '<li><input type="checkbox" %s disabled>%s</li>', $selected, $value['label'] );
+		}
+
+		echo '</ul>';
+
+		// Dynamic population is enabled and contains more than 20 items
+		if ( isset( $total ) && $total > 20 ) {
+			echo '<div class="wpforms-alert-dynamic wpforms-alert wpforms-alert-warning">';
+			printf( __( 'Showing the first 20 choices.<br> All %d choices will be displayed when viewing the form.', 'wpforms' ), absint( $total ) );
+			echo '</div>';
+		}
+
+		// Description
+		$this->field_preview_option( 'description', $field );
+	}
+
+	/**
+	 * Field display on the form front-end.
+	 *
+	 * @since 1.0.0
+	 * @param array $field
+	 * @param array $form_data
+	 */
+	public function field_display( $field, $field_atts, $form_data ) {
+
+		// Setup and sanitize the necessary data
+		$field_required = ! empty( $field['required'] ) ? ' required' : '';
+		$field_class    = implode( ' ', array_map( 'sanitize_html_class', $field_atts['input_class'] ) );
+		$field_id       = implode( ' ', array_map( 'sanitize_html_class', $field_atts['input_id'] ) );
+		$form_id        = $form_data['id'];
+		$choices        = $field['choices'];
+
+		// List
+		printf( '<ul id="%s" class="%s">', $field_id, $field_class );
+
+		foreach ( $choices as $key => $choice ) {
+			$selected = isset( $choice['default'] ) ? '1' : '0';
+			$depth    = isset( $choice['depth'] ) ? absint( $choice['depth'] ) : 1;
+
+			printf( '<li class="choice-%d depth-%d">', $key, $depth );
+
+			// Checkbox elements
+			printf(
+				'<input type="checkbox" id="wpforms-%d-field_%d_%d" name="wpforms[fields][%d]" value="%s" %s %s>',
+				$form_id,
+				$field['id'],
+				$key,
+				$field['id'],
+				esc_attr( $choice['value'] ),
+				checked( '1', $selected, false ),
+				$field_required
+			);
+
+			printf( '<label class="wpforms-field-label-inline" for="wpforms-%d-field_%d_%d">%s</label>', $form_id, $field['id'], $key, wp_kses_post( $choice['label'] ) );
+
+			echo '</li>';
+		}
+
+		echo '</ul>';
+	}
+
+	/**
+	 * Formats and sanitizes field.
+	 *
+	 * @since 1.0.2
+	 * @param int $field_id
+	 * @param array $field_submit
+	 * @param array $form_data
+	 */
+	public function format( $field_id, $field_submit, $form_data ) {
+		$field  = $form_data['fields'][ $field_id ];
+		$choice = array_pop( $field['choices'] );
+		$name   = sanitize_text_field( $choice['label'] );
+
+		$data = array(
+			'name'      => $name,
+			'value'     => empty( $field_submit ) ? __( 'No', 'mailchimp-for-wp' ) : __( 'Yes', 'mailchimp-for-wp' ),
+			'value_raw' => $field_submit,
+			'id'        => absint( $field_id ),
+			'type'      => $this->type,
+		);
+
+		wpforms()->process->fields[ $field_id ] = $data;
+	}
 }

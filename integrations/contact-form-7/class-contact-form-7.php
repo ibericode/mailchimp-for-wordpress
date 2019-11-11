@@ -1,179 +1,169 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined( 'ABSPATH' ) or exit;
 
 /**
  * Class MC4WP_Contact_Form_7_Integration
  *
  * @ignore
  */
-class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration
-{
-
-    /**
-     * @var string
-     */
-    public $name = "Contact Form 7";
-
-    /**
-     * @var string
-     */
-    public $description = "Subscribes people from Contact Form 7 forms.";
+class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration {
 
 
-    /**
-     * Add hooks
-     */
-    public function add_hooks()
-    {
-        add_action('wpcf7_init', array( $this, 'init'));
-        add_action('wpcf7_mail_sent', array( $this, 'process' ), 1);
-        add_action('wpcf7_posted_data', array( $this, 'alter_cf7_data'));
-    }
+	/**
+	 * @var string
+	 */
+	public $name = 'Contact Form 7';
 
-    /**
-    * Registers the CF7 shortcode
-     *
-    * @return boolean
-    */
-    public function init()
-    {
-        if (function_exists('wpcf7_add_form_tag')) {
-            wpcf7_add_form_tag('mc4wp_checkbox', array( $this, 'shortcode' ));
-        } else {
-            wpcf7_add_shortcode('mc4wp_checkbox', array( $this, 'shortcode' ));
-        }
-
-        return true;
-    }
-
-    /**
-     * @{inheritdoc}
-     *
-     * Contact Form 7 listens to the following triggers.
-     *
-     * - _mc4wp_subscribe_contact-form-7
-     * - mc4wp-subscribe
-     *
-     * @return bool
-     */
-    public function checkbox_was_checked()
-    {
-        $data = $this->get_data();
+	/**
+	 * @var string
+	 */
+	public $description = 'Subscribes people from Contact Form 7 forms.';
 
 
-        return (isset($data[ $this->checkbox_name ]) && $data[ $this->checkbox_name ] == 1)
-            || (isset($data[ 'mc4wp-subscribe' ]) && $data[ 'mc4wp-subscribe' ] == 1);
-    }
+	/**
+	 * Add hooks
+	 */
+	public function add_hooks() {
+		add_action( 'wpcf7_init', array( $this, 'init' ) );
+		add_action( 'wpcf7_mail_sent', array( $this, 'process' ), 1 );
+		add_action( 'wpcf7_posted_data', array( $this, 'alter_cf7_data' ) );
+	}
 
-    /**
-    * Alter Contact Form 7 data.
-    *
-    * Adds mc4wp_checkbox to post data so users can use `mc4wp_checkbox` in their email templates
-    *
-    * @param array $data
-    * @return array
-    */
-    public function alter_cf7_data($data = array())
-    {
-        $data['mc4wp_checkbox'] = $this->checkbox_was_checked() ? __('Yes') : __('No');
-        return $data;
-    }
+	/**
+	* Registers the CF7 shortcode
+	 *
+	* @return boolean
+	*/
+	public function init() {
+		if ( function_exists( 'wpcf7_add_form_tag' ) ) {
+			wpcf7_add_form_tag( 'mc4wp_checkbox', array( $this, 'shortcode' ) );
+		} else {
+			wpcf7_add_shortcode( 'mc4wp_checkbox', array( $this, 'shortcode' ) );
+		}
 
-    /**
-     * Subscribe from Contact Form 7 Forms
-     *
-     * @todo improve smart guessing based on selected Mailchimp lists
-     *
-     * @param WPCF7_ContactForm $cf7_form
-     * @return bool
-     */
-    public function process($cf7_form)
-    {
+		return true;
+	}
 
-        // was sign-up checkbox checked?
-        if (! $this->checkbox_was_checked()) {
-            return false;
-        }
+	/**
+	 * @{inheritdoc}
+	 *
+	 * Contact Form 7 listens to the following triggers.
+	 *
+	 * - _mc4wp_subscribe_contact-form-7
+	 * - mc4wp-subscribe
+	 *
+	 * @return bool
+	 */
+	public function checkbox_was_checked() {
+		$data = $this->get_data();
 
-        $parser = new MC4WP_Field_Guesser($this->get_data());
-        $data = $parser->combine(array( 'guessed', 'namespaced' ));
+		return ( isset( $data[ $this->checkbox_name ] ) && (int) $data[ $this->checkbox_name ] === 1 )
+			|| ( isset( $data['mc4wp-subscribe'] ) && (int) $data['mc4wp-subscribe'] === 1 );
+	}
 
-        // do nothing if no email was found
-        if (empty($data['EMAIL'])) {
-            $this->get_log()->warning(sprintf('%s > Unable to find EMAIL field.', $this->name));
-            return false;
-        }
+	/**
+	* Alter Contact Form 7 data.
+	*
+	* Adds mc4wp_checkbox to post data so users can use `mc4wp_checkbox` in their email templates
+	*
+	* @param array $data
+	* @return array
+	*/
+	public function alter_cf7_data( $data = array() ) {
+		$data['mc4wp_checkbox'] = $this->checkbox_was_checked() ? __( 'Yes', 'mailchimp-for-wp' ) : __( 'No', 'mailchimp-for-wp' );
+		return $data;
+	}
 
-        return $this->subscribe($data, $cf7_form->id());
-    }
+	/**
+	 * Subscribe from Contact Form 7 Forms
+	 *
+	 * @todo improve smart guessing based on selected Mailchimp lists
+	 *
+	 * @param WPCF7_ContactForm $cf7_form
+	 * @return bool
+	 */
+	public function process( $cf7_form ) {
 
-    /**
-     * Return the shortcode output
-     *
-     * @return string
-     */
-    public function shortcode($args = array())
-    {
-        if (! empty($args['labels'][0])) {
-            $this->options['label'] = $args['labels'][0];
-        }
+		// was sign-up checkbox checked?
+		if ( ! $this->checkbox_was_checked() ) {
+			return false;
+		}
 
-        if (isset($args['options'])) {
+		$parser = new MC4WP_Field_Guesser( $this->get_data() );
+		$data   = $parser->combine( array( 'guessed', 'namespaced' ) );
 
-            // check for default:0 or default:1 to set the checked attribute
-            if (in_array('default:1', $args['options'])) {
-                $this->options['precheck'] = true;
-            } elseif (in_array('default:0', $args['options'])) {
-                $this->options['precheck'] = false;
-            }
-        }
+		// do nothing if no email was found
+		if ( empty( $data['EMAIL'] ) ) {
+			$this->get_log()->warning( sprintf( '%s > Unable to find EMAIL field.', $this->name ) );
+			return false;
+		}
 
-        // disable paragraph wrap because CF7 defaults to `wpautop`
-        $this->options['wrap_p'] = 0;
+		return $this->subscribe( $data, $cf7_form->id() );
+	}
 
-        return $this->get_checkbox_html();
-    }
+	/**
+	 * Return the shortcode output
+	 *
+	 * @return string
+	 */
+	public function shortcode( $args = array() ) {
+		if ( ! empty( $args['labels'][0] ) ) {
+			$this->options['label'] = $args['labels'][0];
+		}
 
-    /**
-     * @return bool
-     */
-    public function is_installed()
-    {
-        return function_exists('wpcf7_contact_form');
-    }
+		if ( isset( $args['options'] ) ) {
 
-    /**
-     * @since 3.0
-     * @return array
-     */
-    public function get_ui_elements()
-    {
-        return array_diff(parent::get_ui_elements(), array( 'enabled', 'implicit' ));
-    }
+			// check for default:0 or default:1 to set the checked attribute
+			if ( in_array( 'default:1', $args['options'], true ) ) {
+				$this->options['precheck'] = true;
+			} elseif ( in_array( 'default:0', $args['options'], true ) ) {
+				$this->options['precheck'] = false;
+			}
+		}
 
-    /**
-     * @param int $object_id
-     * @since 3.0
-     * @return string
-     */
-    public function get_object_link($object_id)
-    {
+		// disable paragraph wrap because CF7 defaults to `wpautop`
+		$this->options['wrap_p'] = 0;
 
-        // for backwards compatibility, not all CF7 sign-ups have an object id
-        if (empty($object_id)) {
-            return '';
-        }
+		return $this->get_checkbox_html();
+	}
 
-        // Return empty string if CF7 is no longer activated.
-        if (! function_exists('wpcf7_contact_form')) {
-            return '';
-        }
+	/**
+	 * @return bool
+	 */
+	public function is_installed() {
+		return function_exists( 'wpcf7_contact_form' );
+	}
 
-        $form = wpcf7_contact_form($object_id);
-        if (! is_object($form)) {
-            return '';
-        }
-        return sprintf('<a href="%s">%s</a>', admin_url('admin.php?page=wpcf7&post=' . $object_id), $form->title());
-    }
+	/**
+	 * @since 3.0
+	 * @return array
+	 */
+	public function get_ui_elements() {
+		return array_diff( parent::get_ui_elements(), array( 'enabled', 'implicit' ) );
+	}
+
+	/**
+	 * @param int $object_id
+	 * @since 3.0
+	 * @return string
+	 */
+	public function get_object_link( $object_id ) {
+
+		// for backwards compatibility, not all CF7 sign-ups have an object id
+		if ( empty( $object_id ) ) {
+			return '';
+		}
+
+		// Return empty string if CF7 is no longer activated.
+		if ( ! function_exists( 'wpcf7_contact_form' ) ) {
+			return '';
+		}
+
+		$form = wpcf7_contact_form( $object_id );
+		if ( ! is_object( $form ) ) {
+			return '';
+		}
+		return sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=wpcf7&post=' . $object_id ), $form->title() );
+	}
 }
