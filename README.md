@@ -26,7 +26,7 @@ If you think you've found a bug, [please open an issue here](https://github.com/
 
 Translations
 -------------
-Head over to the [translation project on Transifex](https://www.transifex.com/projects/p/mailchimp-for-wordpress/) and click on "[Help translate Mailchimp for WordPress](https://www.transifex.com/signup/?join_project=mailchimp-for-wordpress)".
+You can help [help translate Mailchimp for WordPress](https://translate.wordpress.org/projects/wp-plugins/mailchimp-for-wp/stable/) on WordPress.org.
 
 Support
 -------

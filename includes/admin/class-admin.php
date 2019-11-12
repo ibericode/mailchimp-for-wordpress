@@ -46,7 +46,6 @@ class MC4WP_Admin {
 		$this->plugin_file   = plugin_basename( MC4WP_PLUGIN_FILE );
 		$this->ads           = new MC4WP_Admin_Ads();
 		$this->review_notice = new MC4WP_Admin_Review_Notice( $tools );
-		$this->load_translations();
 	}
 
 	/**
@@ -209,14 +208,6 @@ class MC4WP_Admin {
 		if ( ! empty( $lists ) ) {
 			$this->messages->flash( __( 'Success! The cached configuration for your Mailchimp lists has been renewed.', 'mailchimp-for-wp' ) );
 		}
-	}
-
-	/**
-	* Load the plugin translations
-	*/
-	private function load_translations() {
-		// load the plugin text domain
-		load_plugin_textdomain( 'mailchimp-for-wp', false, dirname( $this->plugin_file ) . '/languages' );
 	}
 
 	/**

@@ -2,7 +2,7 @@
 Contributors: Ibericode, DvanKooten, hchouhan, lapzor
 Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=donate-link
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp form
-Requires at least: 4.1
+Requires at least: 4.6
 Tested up to: 5.3
 Stable tag: 4.7
 License: GPLv2 or later
@@ -175,7 +175,7 @@ There are several [add-on plugins](https://mc4wp.com/add-ons/#utm_source=wp-plug
 
 #### Translations
 
-The plugin is translated using Transifex. If you want to help out, please head over to the [translation project on Transifex](https://www.transifex.com/projects/p/mailchimp-for-wordpress/).
+You can [help translate Mailchimp for WordPress into your language](https://translate.wordpress.org/projects/wp-plugins/mailchimp-for-wp/stable/) using your WordPress.org account.
 
 #### Development
 
