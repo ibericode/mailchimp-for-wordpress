@@ -25,17 +25,17 @@ class MC4WP_MemberPress_Integration extends MC4WP_Integration {
 	 * Add hooks
 	 */
 	public function add_hooks() {
-		if (!$this->options['implicit']) {
-		    if (has_action('mepr_checkout_before_submit')) {
-			add_action('mepr_checkout_before_submit', array( $this, 'output_checkbox' ));
-		    } else {
-			add_action('mepr-checkout-before-submit', array( $this, 'output_checkbox' ));
-		    }
+		if ( ! $this->options['implicit'] ) {
+			if ( has_action( 'mepr_checkout_before_submit' ) ) {
+				add_action( 'mepr_checkout_before_submit', array( $this, 'output_checkbox' ) );
+			} else {
+				add_action( 'mepr-checkout-before-submit', array( $this, 'output_checkbox' ) );
+			}
 		}
-		if (has_action('mepr_signup')) {
-		    add_action('mepr_signup', array( $this, 'subscribe_from_memberpress' ), 5);
+		if ( has_action( 'mepr_signup' ) ) {
+			add_action( 'mepr_signup', array( $this, 'subscribe_from_memberpress' ), 5 );
 		} else {
-		    add_action('mepr-signup', array( $this, 'subscribe_from_memberpress' ), 5);
+			add_action( 'mepr-signup', array( $this, 'subscribe_from_memberpress' ), 5 );
 		}
 	}
 
