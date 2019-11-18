@@ -6,7 +6,11 @@
     <file>config/</file>
     <rule ref="WordPress-Core">
         <exclude name="WordPress.PHP.YodaConditions" />
+        <exclude name="WordPress.WP.DeprecatedFunctions.get_settingsFound" />
+        <exclude name="WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned" />
+        <exclude name="WordPress.Arrays.ArrayIndentation.ItemNotAligned" />
         <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase" />
+        <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning" />
     </rule>
 
     <rule ref="WordPress.WP.I18n">
