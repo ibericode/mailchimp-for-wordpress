@@ -130,6 +130,8 @@ class MC4WP_Debug_Log {
 		// unlock file again, but don't close it for remainder of this request
 		flock( $this->stream, LOCK_UN );
 
+		$this->protect_log_file();
+
 		return true;
 	}
 
@@ -213,5 +215,36 @@ class MC4WP_Debug_Log {
 		}
 
 		return $writable;
+	}
+
+	/**
+	 * This writes a .htaccess file to the directory that the log file is in on servers supporting it.
+	 */
+	private function protect_log_file() {
+		if ( substr( $_SERVER['SERVER_SOFTWARE'], 0, 6 ) !== 'Apache' ) {
+			return;
+		}
+
+		$filename = basename( $this->file );
+		$dirname = dirname( $this->file );
+		$htaccess_file = $dirname . '/.htaccess';
+		$lines = array(
+			'# MC4WP Start',
+			sprintf( '<Files %s>', $filename ),
+			'deny from all',
+			'</Files>',
+			'# MC4WP End',
+		);
+
+		if (! file_exists($htaccess_file)) {
+			file_put_contents($htaccess_file, join( PHP_EOL, $lines ) );
+			return;
+		}
+
+		$htaccess_content = file_get_contents($htaccess_file);
+		if (strpos( $htaccess_content, $lines[0] ) === false ) {
+			file_put_contents($htaccess_file, join( PHP_EOL, $lines ), FILE_APPEND );
+			return;
+		}
 	}
 }
