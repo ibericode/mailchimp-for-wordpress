@@ -221,7 +221,7 @@ class MC4WP_Debug_Log {
 	 * This writes a .htaccess file to the directory that the log file is in on servers supporting it.
 	 */
 	private function protect_log_file() {
-		if ( substr( $_SERVER['SERVER_SOFTWARE'], 0, 6 ) !== 'Apache' ) {
+		if ( ! isset( $_SERVER['SERVER_SOFTWARE'] ) || substr( $_SERVER['SERVER_SOFTWARE'], 0, 6 ) !== 'Apache' ) {
 			return;
 		}
 
