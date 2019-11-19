@@ -236,14 +236,14 @@ class MC4WP_Debug_Log {
 			'# MC4WP End',
 		);
 
-		if (! file_exists($htaccess_file)) {
-			file_put_contents($htaccess_file, join( PHP_EOL, $lines ) );
+		if ( ! file_exists( $htaccess_file ) ) {
+			file_put_contents( $htaccess_file, join( PHP_EOL, $lines ) );
 			return;
 		}
 
-		$htaccess_content = file_get_contents($htaccess_file);
-		if (strpos( $htaccess_content, $lines[0] ) === false ) {
-			file_put_contents($htaccess_file, join( PHP_EOL, $lines ), FILE_APPEND );
+		$htaccess_content = file_get_contents( $htaccess_file );
+		if ( strpos( $htaccess_content, $lines[0] ) === false ) {
+			file_put_contents( $htaccess_file, join( PHP_EOL, $lines ), FILE_APPEND );
 			return;
 		}
 	}
