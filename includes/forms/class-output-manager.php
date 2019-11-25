@@ -9,7 +9,6 @@
  */
 class MC4WP_Form_Output_Manager {
 
-
 	/**
 	 * @var int The # of forms outputted
 	 */
@@ -21,22 +20,11 @@ class MC4WP_Form_Output_Manager {
 	const SHORTCODE = 'mc4wp_form';
 
 	/**
-	 * Constructor
-	 */
-	public function __construct() {
-	}
-
-	/**
 	 * Add hooks
 	 */
 	public function add_hooks() {
-		// enable shortcodes in text widgets
-		add_filter( 'widget_text', 'shortcode_unautop' );
-		add_filter( 'widget_text', 'do_shortcode', 11 );
-
 		// enable shortcodes in form content
 		add_filter( 'mc4wp_form_content', 'do_shortcode' );
-
 		add_action( 'init', array( $this, 'register_shortcode' ) );
 	}
 
@@ -44,12 +32,11 @@ class MC4WP_Form_Output_Manager {
 	 * Registers the [mc4wp_form] shortcode
 	 */
 	public function register_shortcode() {
-		// register shortcodes
 		add_shortcode( self::SHORTCODE, array( $this, 'shortcode' ) );
 	}
 
 	/**
-	 * @param array  $attributes
+	 * @param array $attributes
 	 * @param string $content
 	 * @return string
 	 */
