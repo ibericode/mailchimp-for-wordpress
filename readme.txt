@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp form
 Requires at least: 4.6
 Tested up to: 5.3
-Stable tag: 4.7
+Stable tag: 4.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.3
@@ -196,6 +196,16 @@ The plugin provides various filter & action hooks that allow you to modify or ex
 
 == Changelog == 
 
+
+#### 4.7.1 - Nov 26, 2019
+
+**Improvements**
+
+- Update MemberPress hook names. Thanks [Ian Heggaton](https://github.com/pixelated-au)!
+- Use WordPress.org translations instead of bundling translation files in plugin itself.
+- Write .htaccess to directory of debug log file, to prevent file access.
+- Add some convenient hooks for Checkout for WooCommerce.
+- Stop parsing shortcodes in text widgets as WordPress core does this since version 4.9.
 
 
 #### 4.7 - Nov 7, 2019
@@ -1448,7 +1458,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 
 **Improvements**
 
-- Updated Italian, Russian & Turkish translations. [Want to help translate the plugin? Full translations get a free Pro license](https://www.transifex.com/projects/p/mailchimp-for-wordpress/).
+- Updated Italian, Russian & Turkish translations. 
 
 #### 2.2.8 - March 24, 2015
 
@@ -1538,7 +1548,7 @@ A huge thank you to [Stefan Oderbolz](http://metaodi.ch/) for various fixed and 
 
 - Moved third-party scripts to their own directory for easier exclusion
 - All code is now adhering to the WP Code Standards
-- Updated [Dutch, German, Spanish, Hungarian, French, Italian and Turkish translations](https://www.transifex.com/projects/p/mailchimp-for-wordpress/).
+- Updated Dutch, German, Spanish, Hungarian, French, Italian and Turkish translations.
 
 **Additions**
 

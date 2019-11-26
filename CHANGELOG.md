@@ -1,6 +1,16 @@
 Changelog
 =========
 
+#### 4.7.1 - Nov 26, 2019
+
+**Improvements**
+
+- Update MemberPress hook names. Thanks [Ian Heggaton](https://github.com/pixelated-au)!
+- Use WordPress.org translations instead of bundling translation files in plugin itself.
+- Write .htaccess to directory of debug log file, to prevent file access.
+- Add some convenient hooks for Checkout for WooCommerce.
+- Stop parsing shortcodes in text widgets as WordPress core does this since version 4.9.
+
 
 #### 4.7 - Nov 7, 2019
 
