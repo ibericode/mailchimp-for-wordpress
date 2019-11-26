@@ -7,5 +7,4 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'xrstf\\Composer52' => array($vendorDir . '/xrstf/composer-php52/lib'),
-    'Mockery' => array($vendorDir . '/mockery/mockery/library'),
 );
