@@ -1362,7 +1362,7 @@ A huge thank you to [Stefan Oderbolz](http://metaodi.ch/) for various fixed and 
 
 #### 2.2.3 - January 24, 2015
 
-Minor improvements and additions for compatibility with the [Mailchimp Sync plugin](https://wordpress.org/plugins/mailchimp-sync/).
+Minor improvements and additions for compatibility with the [Mailchimp User Sync plugin](https://mc4wp.com/premium-features/).
 
 #### 2.2.2 - January 13, 2015
 
