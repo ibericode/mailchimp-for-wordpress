@@ -230,7 +230,7 @@ class MC4WP_Debug_Log {
 		$htaccess_file = $dirname . '/.htaccess';
 		$lines = array(
 			'# MC4WP Start',
-			sprintf( '<Files %s>', $filename ),
+			sprintf( '<Files "%s">', $filename ),
 			'deny from all',
 			'</Files>',
 			'# MC4WP End',
