@@ -4,7 +4,7 @@ Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-f
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp form
 Requires at least: 4.6
 Tested up to: 5.3
-Stable tag: 4.7.1
+Stable tag: 4.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.3
@@ -195,6 +195,13 @@ The plugin provides various filter & action hooks that allow you to modify or ex
 6. Dive into detailed sign-up statistics (premium feature).
 
 == Changelog == 
+
+
+#### 4.7.2 - Nov 27, 2019
+
+**Fixes**
+
+- Invalid .htaccess file in case there already is one in the uploads directory.
 
 
 #### 4.7.1 - Nov 26, 2019

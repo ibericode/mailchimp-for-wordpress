@@ -1,6 +1,13 @@
 Changelog
 =========
 
+#### 4.7.2 - Nov 27, 2019
+
+**Fixes**
+
+- Invalid .htaccess file in case there already is one in the uploads directory.
+
+
 #### 4.7.1 - Nov 26, 2019
 
 **Improvements**
