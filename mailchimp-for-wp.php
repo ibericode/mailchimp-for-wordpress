@@ -54,6 +54,10 @@ function _mc4wp_load_plugin()
     require MC4WP_PLUGIN_DIR . '/includes/default-actions.php';
     require MC4WP_PLUGIN_DIR . '/includes/default-filters.php';
 
+    if ( function_exists( 'class_alias' ) ) {
+    	class_alias( 'MC4WP_API_V3', 'MC4WP_API_v3' );
+    }
+
     /**
      * @global MC4WP_Container $GLOBALS['mc4wp']
      * @name $mc4wp
