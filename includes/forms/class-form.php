@@ -618,6 +618,13 @@ class MC4WP_Form {
 	}
 
 	/**
+	 * @return array
+	 */
+	public function get_raw_data() {
+		return $this->raw_data;
+	}
+
+	/**
 	 * Get array of name attributes for the required fields in this form.
 	 *
 	 * @return array
