@@ -87,10 +87,7 @@ class MC4WP_Field_Formatter {
 	 * @return string
 	 */
 	public function date( $value, $options = null ) {
-		$format = is_object( $options ) && isset( $options->date_format ) ? $options->date_format : 'Y-m-d';
-
 		if ( is_array( $value ) ) {
-
 			// allow for "year", "month" and "day" keys
 			if ( isset( $value['year'] ) && isset( $value['month'] ) && isset( $value['day'] ) ) {
 				$value = $value['year'] . '/' . $value['month'] . '/' . $value['day'];
@@ -105,7 +102,8 @@ class MC4WP_Field_Formatter {
 			return $value;
 		}
 
-		return (string) gmdate( $format, strtotime( $value ) );
+		// Mailchimp expects a Y-m-d format no matter the display preference
+		return (string) gmdate( 'Y-m-d', strtotime( $value ) );
 	}
 
 	/**
