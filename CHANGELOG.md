@@ -1,6 +1,18 @@
 Changelog
 =========
 
+#### 4.7.3 - Dec 4, 2019
+
+**Fixes**
+
+- Top Bar & User Sync add-on using API v2 since version 4.7.1.
+- Revert change in formatter for date fields, breaking all forms with date fields in them.
+
+**Improvements**
+
+- Add getter method for raw (unmodified) data on form class.
+
+
 #### 4.7.2 - Nov 27, 2019
 
 **Fixes**
