@@ -36,29 +36,29 @@ function _mc4wp_load_plugin()
     global $mc4wp;
 
     // Don't run if Mailchimp for WP Pro 2.x is activated
-    if (defined('MC4WP_VERSION')) {
+    if ( defined( 'MC4WP_VERSION' ) ) {
         return false;
     }
 
     // bootstrap the core plugin
-    define('MC4WP_VERSION', '4.7.3-rc1');
-    define('MC4WP_PLUGIN_DIR', dirname(__FILE__) . '/');
-    define('MC4WP_PLUGIN_URL', plugins_url('/', __FILE__));
-    define('MC4WP_PLUGIN_FILE', __FILE__);
+    define( 'MC4WP_VERSION', '4.7.3-rc1' );
+    define( 'MC4WP_PLUGIN_DIR', dirname(__FILE__) . '/' );
+    define( 'MC4WP_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
+    define( 'MC4WP_PLUGIN_FILE', __FILE__ );
 
     // load autoloader if function not yet exists (for compat with sitewide autoloader)
-    if (! function_exists('mc4wp')) {
+    if (! function_exists('mc4wp') ) {
         require_once MC4WP_PLUGIN_DIR . 'vendor/autoload_52.php';
     }
 
     require MC4WP_PLUGIN_DIR . '/includes/default-actions.php';
     require MC4WP_PLUGIN_DIR . '/includes/default-filters.php';
 
-    if ( function_exists( 'class_alias' ) ) {
-    	class_alias( 'MC4WP_API_V3', 'MC4WP_API_v3' );
-    }
+    // require API class manually because Composer's classloader is case-sensitive
+	// but we need it to pass class_exists condition
+	require MC4WP_PLUGIN_DIR . '/includes/api/class-api-v3.php';
 
-    /**
+	/**
      * @global MC4WP_Container $GLOBALS['mc4wp']
      * @name $mc4wp
      */
