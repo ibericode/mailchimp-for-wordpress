@@ -230,9 +230,18 @@ class MC4WP_Debug_Log {
 		$htaccess_file = $dirname . '/.htaccess';
 		$lines = array(
 			'# MC4WP Start',
+			'# Apache 2.2',
+			'<IfModule !authz_core_module>',
 			"<Files $filename>",
 			'deny from all',
 			'</Files>',
+	        '</IfModule>',
+			'# Apache 2.4+',
+			'<IfModule authz_core_module>',
+			"<Files $filename>",
+			'Require all denied',
+			'</Files>',
+			'</IfModule>',
 			'# MC4WP End',
 		);
 
