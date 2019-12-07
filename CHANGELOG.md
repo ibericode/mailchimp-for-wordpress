@@ -1,6 +1,13 @@
 Changelog
 =========
 
+#### 4.7.4 - Dec 7, 2019
+
+**Fixes**
+
+- htaccess config for servers running Apache 2.4 or later.
+
+
 #### 4.7.3 - Dec 4, 2019
 
 **Fixes**
