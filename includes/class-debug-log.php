@@ -235,7 +235,7 @@ class MC4WP_Debug_Log {
 			"<Files $filename>",
 			'deny from all',
 			'</Files>',
-	        '</IfModule>',
+			'</IfModule>',
 			'# Apache 2.4+',
 			'<IfModule authz_core_module>',
 			"<Files $filename>",
