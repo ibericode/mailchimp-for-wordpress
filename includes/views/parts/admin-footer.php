@@ -10,7 +10,7 @@ function _mc4wp_admin_translation_notice() {
 	}
 
 	/* translators: %s links to the WordPress.org translation project */
-	echo '<p class="help">' . sprintf( wp_kses( __( 'Mailchimp for WordPress is in need of translations. Is the plugin not translated in your language or do you spot errors with the current translations? Helping out is easy! Please <a href="%s">help translate the plugin using your WordPress.org account</a>.', 'mailchimp-for-wp' ), array( 'a' => array( 'href' => array( ) ) ) ), 'https://translate.wordpress.org/projects/wp-plugins/mailchimp-for-wp/stable/' ) . '</p>';
+	echo '<p class="help">' . sprintf( wp_kses( __( 'Mailchimp for WordPress is in need of translations. Is the plugin not translated in your language or do you spot errors with the current translations? Helping out is easy! Please <a href="%s">help translate the plugin using your WordPress.org account</a>.', 'mailchimp-for-wp' ), array( 'a' => array( 'href' => array() ) ) ), 'https://translate.wordpress.org/projects/wp-plugins/mailchimp-for-wp/stable/' ) . '</p>';
 }
 
 /**

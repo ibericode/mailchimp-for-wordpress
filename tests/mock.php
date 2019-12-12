@@ -88,6 +88,10 @@ function __($string, $text_domain = '')
     return $string;
 }
 
+function esc_html__($string, $text_domain) {
+	return $string;
+}
+
 /** @ignore */
 function get_post($id)
 {
