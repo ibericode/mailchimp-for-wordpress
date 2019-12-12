@@ -49,7 +49,7 @@ class MC4WP_Usage_Tracking {
 	public function cron_schedules( $schedules ) {
 		$schedules['monthly'] = array(
 			'interval' => 30 * DAY_IN_SECONDS,
-			'display'  => __( 'Once a month', 'mailchimp-for-wp' ),
+			'display'  => esc_html__( 'Once a month', 'mailchimp-for-wp' ),
 		);
 		return $schedules;
 	}

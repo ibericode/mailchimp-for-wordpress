@@ -120,8 +120,8 @@ class MC4WP_Forms_Admin {
 	 */
 	public function add_menu_item( $items ) {
 		$items['forms'] = array(
-			'title'         => __( 'Forms', 'mailchimp-for-wp' ),
-			'text'          => __( 'Form', 'mailchimp-for-wp' ),
+			'title'         => esc_html__( 'Forms', 'mailchimp-for-wp' ),
+			'text'          => esc_html__( 'Form', 'mailchimp-for-wp' ),
 			'slug'          => 'forms',
 			'callback'      => array( $this, 'show_forms_page' ),
 			'load_callback' => array( $this, 'redirect_to_form_action' ),
@@ -160,8 +160,9 @@ class MC4WP_Forms_Admin {
 		// set default form ID
 		$this->set_default_form_id( $form_id );
 
-		$this->messages->flash( __( '<strong>Success!</strong> Form successfully saved.', 'mailchimp-for-wp' ) );
-		wp_redirect( mc4wp_get_edit_form_url( $form_id ) );
+		$this->messages->flash( esc_html__( 'Form saved.', 'mailchimp-for-wp' ) );
+		$edit_form_url = mc4wp_get_edit_form_url( $form_id );
+		wp_redirect( $edit_form_url );
 		exit;
 	}
 
@@ -292,7 +293,7 @@ class MC4WP_Forms_Admin {
 		$this->save_form( $form_data );
 		$this->set_default_form_id( $form_id );
 
-		$this->messages->flash( __( '<strong>Success!</strong> Form successfully saved.', 'mailchimp-for-wp' ) );
+		$this->messages->flash( esc_html__( 'Form saved.', 'mailchimp-for-wp' ) );
 	}
 
 	/**
@@ -395,9 +396,9 @@ class MC4WP_Forms_Admin {
 		try {
 			$form = mc4wp_get_form( $form_id );
 		} catch ( Exception $e ) {
-			echo '<h2>' . __( 'Form not found.', 'mailchimp-for-wp' ) . '</h2>';
-			echo '<p>' . $e->getMessage() . '</p>';
-			echo '<p><a href="javascript:history.go(-1);"> &lsaquo; ' . __( 'Go back', 'mailchimp-for-wp' ) . '</a></p>';
+			echo '<h2>', esc_html__( 'Form not found.', 'mailchimp-for-wp' ), '</h2>';
+			echo '<p>', $e->getMessage(), '</p>';
+			echo '<p><a href="javascript:history.go(-1);"> &lsaquo; ', esc_html__( 'Go back', 'mailchimp-for-wp' ), '</a></p>';
 			return;
 		}
 

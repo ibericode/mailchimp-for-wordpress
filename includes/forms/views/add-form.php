@@ -7,7 +7,7 @@
 		<div class="main-content col col-4">
 
 			<h1 class="page-title">
-				<?php _e( 'Add new form', 'mailchimp-for-wp' ); ?>
+				<?php echo esc_html__( 'Add new form', 'mailchimp-for-wp' ); ?>
 			</h1>
 
 			<h2 style="display: none;"></h2><?php // fake h2 for admin notices ?>
@@ -24,17 +24,17 @@
 					<div class="small-margin">
 						<h3>
 							<label>
-								<?php _e( 'What is the name of this form?', 'mailchimp-for-wp' ); ?>
+								<?php echo esc_html__( 'What is the name of this form?', 'mailchimp-for-wp' ); ?>
 							</label>
 						</h3>
-						<input type="text" name="mc4wp_form[name]" class="widefat" value="" spellcheck="true" autocomplete="off" placeholder="<?php _e( 'Enter your form title..', 'mailchimp-for-wp' ); ?>">
+						<input type="text" name="mc4wp_form[name]" class="widefat" value="" spellcheck="true" autocomplete="off" placeholder="<?php echo esc_attr__( 'Enter your form title..', 'mailchimp-for-wp' ); ?>">
 					</div>
 
 					<div class="small-margin">
 
 						<h3>
 							<label>
-								<?php _e( 'To which Mailchimp lists should this form subscribe?', 'mailchimp-for-wp' ); ?>
+								<?php echo esc_html__( 'To which Mailchimp lists should this form subscribe?', 'mailchimp-for-wp' ); ?>
 							</label>
 						</h3>
 
@@ -59,7 +59,7 @@
 						} else {
 							?>
 						<p class="mc4wp-notice">
-							<?php printf( __( 'No lists found. Did you <a href="%s">connect with Mailchimp</a>?', 'mailchimp-for-wp' ), admin_url( 'admin.php?page=mailchimp-for-wp' ) ); ?>
+							<?php echo sprintf( wp_kses( __( 'No lists found. Did you <a href="%s">connect with Mailchimp</a>?', 'mailchimp-for-wp' ), array( 'a' => array( 'href' => array() ) ) ), admin_url( 'admin.php?page=mailchimp-for-wp' ) ); ?>
 						</p>
 							<?php
 						}
@@ -67,7 +67,7 @@
 
 					</div>
 
-					<?php submit_button( __( 'Add new form', 'mailchimp-for-wp' ) ); ?>
+					<?php submit_button( esc_html__( 'Add new form', 'mailchimp-for-wp' ) ); ?>
 
 
 				</form><!-- Entire page form wrap -->

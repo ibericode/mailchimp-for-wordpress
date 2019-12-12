@@ -2,7 +2,6 @@
 
 class MC4WP_API_V3_Client {
 
-
 	/**
 	* @var string
 	*/

@@ -63,7 +63,7 @@ class MC4WP_Admin_Texts {
 			return $links;
 		}
 
-		$settings_link = '<a href="' . admin_url( 'admin.php?page=mailchimp-for-wp' ) . '">' . __( 'Settings', 'mailchimp-for-wp' ) . '</a>';
+		$settings_link = sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=mailchimp-for-wp' ), esc_html__( 'Settings', 'mailchimp-for-wp' ) );
 		array_unshift( $links, $settings_link );
 		return $links;
 	}
@@ -81,7 +81,7 @@ class MC4WP_Admin_Texts {
 			return $links;
 		}
 
-		$links[] = '<a href="https://kb.mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=plugins-page">' . __( 'Documentation', 'mailchimp-for-wp' ) . '</a>';
+		$links[] = '<a href="https://kb.mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=plugins-page">' . esc_html__( 'Documentation', 'mailchimp-for-wp' ) . '</a>';
 
 		/**
 		 * Filters meta links shown on the Plugins overview page

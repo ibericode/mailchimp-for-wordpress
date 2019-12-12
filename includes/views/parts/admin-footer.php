@@ -4,21 +4,20 @@
  * @ignore
  */
 function _mc4wp_admin_translation_notice() {
-
 	// show for every language other than the default
 	if ( stripos( get_locale(), 'en_us' ) === 0 ) {
 		return;
 	}
 
 	/* translators: %s links to the WordPress.org translation project */
-	echo '<p class="help">' . sprintf( __( 'Mailchimp for WordPress is in need of translations. Is the plugin not translated in your language or do you spot errors with the current translations? Helping out is easy! Please <a href="%s">help translate the plugin using your WordPress.org account</a>.', 'mailchimp-for-wp' ), 'https://translate.wordpress.org/projects/wp-plugins/mailchimp-for-wp/stable/' ) . '</p>';
+	echo '<p class="help">' . sprintf( wp_kses( __( 'Mailchimp for WordPress is in need of translations. Is the plugin not translated in your language or do you spot errors with the current translations? Helping out is easy! Please <a href="%s">help translate the plugin using your WordPress.org account</a>.', 'mailchimp-for-wp' ), array( 'a' => array( 'href' => array( ) ) ) ), 'https://translate.wordpress.org/projects/wp-plugins/mailchimp-for-wp/stable/' ) . '</p>';
 }
 
 /**
  * @ignore
  */
 function _mc4wp_admin_github_notice() {
-	if ( strpos( $_SERVER['HTTP_HOST'], 'local' ) !== 0 && ! WP_DEBUG ) {
+	if ( strpos( $_SERVER['HTTP_HOST'], 'localhost' ) === false && ! WP_DEBUG ) {
 		return;
 	}
 
@@ -29,7 +28,7 @@ function _mc4wp_admin_github_notice() {
  * @ignore
  */
 function _mc4wp_admin_disclaimer_notice() {
-	echo '<p class="help">' . __( 'This plugin is not developed by or affiliated with Mailchimp in any way.', 'mailchimp-for-wp' ) . '</p>';
+	echo '<p class="help">', esc_html__( 'This plugin is not developed by or affiliated with Mailchimp in any way.', 'mailchimp-for-wp' ), '</p>';
 }
 
 add_action( 'mc4wp_admin_footer', '_mc4wp_admin_translation_notice', 20 );

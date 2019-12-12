@@ -1,10 +1,10 @@
 <?php defined( 'ABSPATH' ) or exit;
 
 $tabs = array(
-	'fields'     => __( 'Fields', 'mailchimp-for-wp' ),
-	'messages'   => __( 'Messages', 'mailchimp-for-wp' ),
-	'settings'   => __( 'Settings', 'mailchimp-for-wp' ),
-	'appearance' => __( 'Appearance', 'mailchimp-for-wp' ),
+	'fields'     => esc_html__( 'Fields', 'mailchimp-for-wp' ),
+	'messages'   => esc_html__( 'Messages', 'mailchimp-for-wp' ),
+	'settings'   => esc_html__( 'Settings', 'mailchimp-for-wp' ),
+	'appearance' => esc_html__( 'Appearance', 'mailchimp-for-wp' ),
 );
 
 /**
@@ -19,11 +19,11 @@ $tabs = apply_filters( 'mc4wp_admin_edit_form_tabs', $tabs );
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
 	<p class="breadcrumbs">
-		<span class="prefix"><?php echo __( 'You are here: ', 'mailchimp-for-wp' ); ?></span>
-		<a href="<?php echo admin_url( 'admin.php?page=mailchimp-for-wp' ); ?>">Mailchimp for WordPress</a> &rsaquo;
-		<a href="<?php echo admin_url( 'admin.php?page=mailchimp-for-wp-forms' ); ?>"><?php _e( 'Forms', 'mailchimp-for-wp' ); ?></a>
+		<span class="prefix"><?php echo esc_html__( 'You are here: ', 'mailchimp-for-wp' ); ?></span>
+		<a href="<?php echo esc_url( admin_url( 'admin.php?page=mailchimp-for-wp' ) ); ?>">Mailchimp for WordPress</a> &rsaquo;
+		<a href="<?php echo esc_url( admin_url( 'admin.php?page=mailchimp-for-wp-forms' ) ); ?>"><?php echo esc_html__( 'Forms', 'mailchimp-for-wp' ); ?></a>
 		&rsaquo;
-		<span class="current-crumb"><strong><?php echo __( 'Form', 'mailchimp-for-wp' ); ?> <?php echo $form_id; ?>
+		<span class="current-crumb"><strong><?php echo esc_html__( 'Form', 'mailchimp-for-wp' ); ?> <?php echo $form_id; ?>
 				| <?php echo esc_html( $form->name ); ?></strong></span>
 	</p>
 
@@ -33,7 +33,7 @@ $tabs = apply_filters( 'mc4wp_admin_edit_form_tabs', $tabs );
 		<div class="main-content col col-5">
 
 			<h1 class="page-title">
-				<?php _e( 'Edit Form', 'mailchimp-for-wp' ); ?>
+				<?php echo esc_html__( 'Edit Form', 'mailchimp-for-wp' ); ?>
 
 				<!-- Form actions -->
 				<?php
@@ -58,15 +58,15 @@ $tabs = apply_filters( 'mc4wp_admin_edit_form_tabs', $tabs );
 				<div id="titlediv" class="small-margin">
 					<div id="titlewrap">
 						<label class="screen-reader-text"
-							   for="title"><?php _e( 'Enter form title here', 'mailchimp-for-wp' ); ?></label>
+							   for="title"><?php echo esc_html__( 'Enter form title here', 'mailchimp-for-wp' ); ?></label>
 						<input type="text" name="mc4wp_form[name]" size="30"
 							   value="<?php echo esc_attr( $form->name ); ?>" id="title" spellcheck="true"
 							   autocomplete="off"
-							   placeholder="<?php echo __( 'Enter the title of your sign-up form', 'mailchimp-for-wp' ); ?>"
+							   placeholder="<?php echo esc_html__( 'Enter the title of your sign-up form', 'mailchimp-for-wp' ); ?>"
 							   style="line-height: initial;">
 					</div>
 					<div>
-						<?php printf( __( 'Use the shortcode %s to display this form inside a post, page or text widget.', 'mailchimp-for-wp' ), '<input type="text" onfocus="this.select();" readonly="readonly" value="' . esc_attr( sprintf( '[mc4wp_form id="%d"]', $form->ID ) ) . '" size="' . ( strlen( $form->ID ) + 18 ) . '">' ); ?>
+						<?php echo sprintf( esc_html__( 'Use the shortcode %s to display this form inside a post, page or text widget.', 'mailchimp-for-wp' ), '<input type="text" onfocus="this.select();" readonly="readonly" value="' . esc_attr( sprintf( '[mc4wp_form id="%d"]', $form->ID ) ) . '" size="' . ( strlen( $form->ID ) + 18 ) . '">' ); ?>
 					</div>
 				</div>
 

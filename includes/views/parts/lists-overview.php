@@ -1,5 +1,5 @@
-<h3><?php _e( 'Your Mailchimp Account', 'mailchimp-for-wp' ); ?></h3>
-<p><?php _e( 'The table below shows your Mailchimp lists and their details. If you just applied changes to your Mailchimp lists, please use the following button to renew the cached lists configuration.', 'mailchimp-for-wp' ); ?></p>
+<h3><?php echo esc_html__( 'Your Mailchimp Account', 'mailchimp-for-wp' ); ?></h3>
+<p><?php echo esc_html__( 'The table below shows your Mailchimp lists and their details. If you just applied changes to your Mailchimp lists, please use the following button to renew the cached lists configuration.', 'mailchimp-for-wp' ); ?></p>
 
 
 <div id="mc4wp-list-fetcher">
@@ -7,7 +7,7 @@
 		<input type="hidden" name="_mc4wp_action" value="empty_lists_cache" />
 
 		<p>
-			<input type="submit" value="<?php _e( 'Renew Mailchimp lists', 'mailchimp-for-wp' ); ?>" class="button" />
+			<input type="submit" value="<?php echo esc_html__( 'Renew Mailchimp lists', 'mailchimp-for-wp' ); ?>" class="button" />
 		</p>
 	</form>
 </div>
@@ -16,17 +16,17 @@
 	<?php
 	if ( empty( $lists ) ) {
 		?>
-		<p><?php _e( 'No lists were found in your Mailchimp account', 'mailchimp-for-wp' ); ?>.</p>
+		<p><?php echo esc_html__( 'No lists were found in your Mailchimp account', 'mailchimp-for-wp' ); ?>.</p>
 		<?php
 	} else {
-		printf( '<p>' . __( 'A total of %d lists were found in your Mailchimp account.', 'mailchimp-for-wp' ) . '</p>', count( $lists ) );
+		echo sprintf( '<p>' . esc_html__( 'A total of %d lists were found in your Mailchimp account.', 'mailchimp-for-wp' ) . '</p>', count( $lists ) );
 
 		echo '<table class="widefat striped" id="mc4wp-mailchimp-lists-overview">';
 
 		$headings = array(
-			__( 'List Name', 'mailchimp-for-wp' ),
-			__( 'ID', 'mailchimp-for-wp' ),
-			__( 'Subscribers', 'mailchimp-for-wp' ),
+			esc_html__( 'List Name', 'mailchimp-for-wp' ),
+			esc_html__( 'ID', 'mailchimp-for-wp' ),
+			esc_html__( 'Subscribers', 'mailchimp-for-wp' ),
 		);
 
 		echo '<thead>';
@@ -47,8 +47,8 @@
 			echo sprintf( '<tr class="list-details list-%s-details" style="display: none;">', $list->id );
 			echo '<td colspan="3" style="padding: 0 20px 40px;">';
 
-			echo sprintf( '<p class="alignright" style="margin: 20px 0;"><a href="https://admin.mailchimp.com/lists/members/?id=%s" target="_blank"><span class="dashicons dashicons-edit"></span> ' . __( 'Edit this list in Mailchimp', 'mailchimp-for-wp' ) . '</a></p>', $list->web_id );
-			echo '<div><div>' . __( 'Loading... Please wait.', 'mailchimp-for-wp' ) . '</div></div>';
+			echo sprintf( '<p class="alignright" style="margin: 20px 0;"><a href="https://admin.mailchimp.com/lists/members/?id=%s" target="_blank"><span class="dashicons dashicons-edit"></span> ' . esc_html__( 'Edit this list in Mailchimp', 'mailchimp-for-wp' ) . '</a></p>', $list->web_id );
+			echo '<div><div>', esc_html__( 'Loading... Please wait.', 'mailchimp-for-wp' ) , '</div></div>';
 			echo '</td>';
 			echo '</tr>';
 			?>

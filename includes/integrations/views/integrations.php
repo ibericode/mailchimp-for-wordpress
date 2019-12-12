@@ -17,7 +17,7 @@ function _mc4wp_integrations_table_row( $integration ) {
 
 			<?php
 			if ( $integration->is_installed() ) {
-				printf( '<strong><a href="%s" title="%s">%s</a></strong>', esc_attr( add_query_arg( array( 'integration' => $integration->slug ) ) ), __( 'Configure this integration', 'mailchimp-for-wp' ), $integration->name );
+				echo sprintf( '<strong><a href="%s" title="%s">%s</a></strong>', esc_attr( add_query_arg( array( 'integration' => $integration->slug ) ) ), esc_html__( 'Configure this integration', 'mailchimp-for-wp' ), $integration->name );
 			} else {
 				echo $integration->name;
 			}
@@ -33,11 +33,11 @@ function _mc4wp_integrations_table_row( $integration ) {
 		<td>
 			<?php
 			if ( $integration->enabled && $integration->is_installed() ) {
-				echo '<span class="green">' . __( 'Active', 'mailchimp-for-wp' ) . '</span>';
+				echo '<span class="green">', esc_html__( 'Active', 'mailchimp-for-wp' ), '</span>';
 			} elseif ( $integration->is_installed() ) {
-				echo '<span class="neutral">' . __( 'Inactive', 'mailchimp-for-wp' ) . '</span>';
+				echo '<span class="neutral">', esc_html__( 'Inactive', 'mailchimp-for-wp' ), '</span>';
 			} else {
-				echo '<span class="red">' . __( 'Not installed', 'mailchimp-for-wp' ) . '</span>';
+				echo '<span class="red">', esc_html__( 'Not installed', 'mailchimp-for-wp' ), '</span>';
 			}
 			?>
 		</td>
@@ -57,9 +57,9 @@ function _mc4wp_integrations_table( $integrations ) {
 
 		<thead>
 		<tr>
-			<th><?php _e( 'Name', 'mailchimp-for-wp' ); ?></th>
-			<th><?php _e( 'Description', 'mailchimp-for-wp' ); ?></th>
-			<th><?php _e( 'Status', 'mailchimp-for-wp' ); ?></th>
+			<th><?php echo esc_html__( 'Name', 'mailchimp-for-wp' ); ?></th>
+			<th><?php echo esc_html__( 'Description', 'mailchimp-for-wp' ); ?></th>
+			<th><?php echo esc_html__( 'Status', 'mailchimp-for-wp' ); ?></th>
 		</tr>
 		</thead>
 
@@ -96,9 +96,9 @@ function _mc4wp_integrations_table( $integrations ) {
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
 	<p class="breadcrumbs">
-		<span class="prefix"><?php echo __( 'You are here: ', 'mailchimp-for-wp' ); ?></span>
+		<span class="prefix"><?php echo esc_html__( 'You are here: ', 'mailchimp-for-wp' ); ?></span>
 		<a href="<?php echo admin_url( 'admin.php?page=mailchimp-for-wp' ); ?>">Mailchimp for WordPress</a> &rsaquo;
-		<span class="current-crumb"><strong><?php _e( 'Integrations', 'mailchimp-for-wp' ); ?></strong></span>
+		<span class="current-crumb"><strong><?php echo esc_html__( 'Integrations', 'mailchimp-for-wp' ); ?></strong></span>
 	</p>
 
 	<div class="main-content row">
@@ -106,24 +106,24 @@ function _mc4wp_integrations_table( $integrations ) {
 		<!-- Main Content -->
 		<div class="col col-4">
 
-			<h1 class="page-title">Mailchimp for WordPress: <?php _e( 'Integrations', 'mailchimp-for-wp' ); ?></h1>
+			<h1 class="page-title">Mailchimp for WordPress: <?php echo esc_html__( 'Integrations', 'mailchimp-for-wp' ); ?></h1>
 
 			<h2 style="display: none;"></h2>
 			<?php settings_errors(); ?>
 
 			<p>
-				<?php _e( 'The table below shows all available integrations.', 'mailchimp-for-wp' ); ?>
-				<?php _e( 'Click on the name of an integration to edit all settings specific to that integration.', 'mailchimp-for-wp' ); ?>
+				<?php echo esc_html__( 'The table below shows all available integrations.', 'mailchimp-for-wp' ); ?>
+				<?php echo esc_html__( 'Click on the name of an integration to edit all settings specific to that integration.', 'mailchimp-for-wp' ); ?>
 			</p>
 
 			<form action="<?php echo admin_url( 'options.php' ); ?>" method="post">
 
 				<?php settings_fields( 'mc4wp_integrations_settings' ); ?>
 
-				<h3><?php _e( 'Integrations', 'mailchimp-for-wp' ); ?></h3>
+				<h3><?php echo esc_html__( 'Integrations', 'mailchimp-for-wp' ); ?></h3>
 				<?php _mc4wp_integrations_table( $integrations ); ?>
 
-				<p><?php echo __( 'Greyed out integrations will become available after installing & activating the corresponding plugin.', 'mailchimp-for-wp' ); ?></p>
+				<p><?php echo esc_html__( 'Greyed out integrations will become available after installing & activating the corresponding plugin.', 'mailchimp-for-wp' ); ?></p>
 
 
 			</form>

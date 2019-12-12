@@ -175,20 +175,22 @@ function mc4wp_get_request_path() {
 /**
 * Get IP address for client making current request
 *
-* @return string
+* @return string|null
 */
 function mc4wp_get_request_ip_address() {
-	$headers = ( function_exists( 'apache_request_headers' ) ) ? apache_request_headers() : $_SERVER;
-
-	if ( array_key_exists( 'X-Forwarded-For', $headers ) && filter_var( $headers['X-Forwarded-For'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ) {
-		return $headers['X-Forwarded-For'];
+	if ( isset( $_SERVER['X-Forwarded-For'] ) ) {
+		return $_SERVER['X-Forwarded-For'];
 	}
 
-	if ( array_key_exists( 'HTTP_X_FORWARDED_FOR', $headers ) && filter_var( $headers['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ) {
-		return $headers['HTTP_X_FORWARDED_FOR'];
+	if ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+		return $_SERVER['HTTP_X_FORWARDED_FOR'];
 	}
 
-	return $_SERVER['REMOTE_ADDR'];
+	if ( isset( $_SERVER['REMOTE_ADDR'] ) ) {
+		return $_SERVER['REMOTE_ADDR'];
+	}
+
+	return null;
 }
 
 /**
