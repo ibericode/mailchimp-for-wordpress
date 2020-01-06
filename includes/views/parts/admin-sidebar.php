@@ -11,7 +11,7 @@ function _mc4wp_admin_sidebar_support_notice() {
 		<h4 class="mc4wp-title"><?php echo esc_html__( 'Looking for help?', 'mailchimp-for-wp' ); ?></h4>
 		<p><?php echo esc_html__( 'We have some resources available to help you in the right direction.', 'mailchimp-for-wp' ); ?></p>
 		<ul class="ul-square">
-			<li><a href="https://kb.mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=sidebar"><?php echo esc_html__( 'Knowledge Base', 'mailchimp-for-wp' ); ?></a></li>
+			<li><a href="https://www.mc4wp.com/kb/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=sidebar"><?php echo esc_html__( 'Knowledge Base', 'mailchimp-for-wp' ); ?></a></li>
 			<li><a href="https://wordpress.org/plugins/mailchimp-for-wp/faq/"><?php echo esc_html__( 'Frequently Asked Questions', 'mailchimp-for-wp' ); ?></a></li>
 		</ul>
 		<p><?php echo sprintf( wp_kses( __( 'If your answer can not be found in the resources listed above, please use the <a href="%s">support forums on WordPress.org</a>.', 'mailchimp-for-wp' ), array( 'a' => array( 'href' => array() ) ) ), 'https://wordpress.org/support/plugin/mailchimp-for-wp' ); ?></p>

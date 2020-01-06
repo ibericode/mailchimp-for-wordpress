@@ -19,7 +19,7 @@ msgid "MC4WP: Mailchimp for WordPress"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=plugins-page"
+msgid "https://www.mc4wp.com/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=plugins-page"
 msgstr ""
 
 #. Description of the plugin

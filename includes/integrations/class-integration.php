@@ -255,7 +255,7 @@ abstract class MC4WP_Integration {
 
 		ob_start();
 
-		echo sprintf( '<!-- Mailchimp for WordPress v%s - https://mc4wp.com/ -->', MC4WP_VERSION );
+		echo sprintf( '<!-- Mailchimp for WordPress v%s - https://www.mc4wp.com/ -->', MC4WP_VERSION );
 
 		/** @ignore */
 		do_action( 'mc4wp_integration_before_checkbox_wrapper', $this );

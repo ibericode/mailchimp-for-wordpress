@@ -1,6 +1,6 @@
 === MC4WP: Mailchimp for WordPress ===
 Contributors: Ibericode, DvanKooten, hchouhan, lapzor
-Donate link: https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=donate-link
+Donate link: https://www.mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=donate-link
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp form
 Requires at least: 4.6
 Tested up to: 5.3
@@ -43,14 +43,14 @@ This plugin helps you grow your Mailchimp lists and write better newsletters thr
 	- UltimateMember
 
 - A multitude of available add-on plugins and integrations:
-	- [Mailchimp for WordPress Premium](https://mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=add-on-list)
+	- [Mailchimp for WordPress Premium](https://www.mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=add-on-list)
 	- [Mailchimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/)
 	- [Mailchimp Activity](https://wordpress.org/plugins/mc4wp-activity/)
 	- [Boxzilla Pop-ups](https://wordpress.org/plugins/boxzilla/)
 	- [Google reCAPTCHA](https://www.google.com/recaptcha/)
 	- [WPBruiser anti-spam](https://wordpress.org/plugins/goodbye-captcha/)
 
-- Well documented. Our [knowledge base](https://mc4wp.com/kb/) is updated daily.
+- Well documented. Our [knowledge base](https://www.mc4wp.com/kb/) is updated daily.
 
 - Developer friendly. For inspiration, check out our [repository of example code snippets](https://github.com/ibericode/mc4wp-snippets).
 
@@ -64,7 +64,7 @@ This plugin helps you grow your Mailchimp lists and write better newsletters thr
 <li>An easy way to style your forms</li>
 <li>Detailed reports & statistics</li>
 </ul>
-<p><a href="https://mc4wp.com/features/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=after-features-link">View more Premium features</a></p>
+<p><a href="https://www.mc4wp.com/features/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=after-features-link">View more Premium features</a></p>
 </blockquote>
 
 #### What is Mailchimp?
@@ -100,14 +100,14 @@ if( function_exists( 'mc4wp_show_form' ) ) {
 `
 
 #### Need help?
-Please take a look at the [Mailchimp for WordPress knowledge base](https://mc4wp.com/kb/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=installation-instructions-link) first.
+Please take a look at the [Mailchimp for WordPress knowledge base](https://www.mc4wp.com/kb/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=installation-instructions-link) first.
 
 If you can't find an answer there, please look through the [plugin support forums](https://wordpress.org/support/plugin/mailchimp-for-wp) or start your own topic.
 
 == Frequently Asked Questions ==
 
 #### More documentation
-More detailed documentation can be found in the [Mailchimp for WordPress knowledge base](https://mc4wp.com/kb/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=faq).
+More detailed documentation can be found in the [Mailchimp for WordPress knowledge base](https://www.mc4wp.com/kb/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=faq).
 
 #### How to display a form in posts or pages?
 Use the `[mc4wp_form]` shortcode.
@@ -157,7 +157,7 @@ We recommend the [Boxzilla pop-up plugin](https://wordpress.org/plugins/boxzilla
 
 #### My question is not listed
 
-Please head over to the [Mailchimp for WordPress knowledge base](https://mc4wp.com/kb/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=faq) for more detailed documentation.
+Please head over to the [Mailchimp for WordPress knowledge base](https://www.mc4wp.com/kb/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=faq) for more detailed documentation.
 
 == Other Notes ==
 
@@ -167,11 +167,11 @@ Use the [WordPress.org plugin forums](https://wordpress.org/support/plugin/mailc
 
 If you're a premium user, please use the email address inside the plugin for support as that will guarantee a faster response time.
 
-Please take a look at the [Mailchimp for WordPress knowledge base](https://mc4wp.com/kb/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=description) as well.
+Please take a look at the [Mailchimp for WordPress knowledge base](https://www.mc4wp.com/kb/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=description) as well.
 
 #### Add-on plugins
 
-There are several [add-on plugins](https://mc4wp.com/add-ons/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=description) available, which help you get even more out of your site.
+There are several [add-on plugins](https://www.mc4wp.com/add-ons/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=description) available, which help you get even more out of your site.
 
 #### Translations
 
@@ -194,7 +194,7 @@ The plugin provides various filter & action hooks that allow you to modify or ex
 5. Integrate your WooCommerce store with Mailchimp (premium feature).
 6. Dive into detailed sign-up statistics (premium feature).
 
-== Changelog == 
+== Changelog ==
 
 
 #### 4.7.4 - Dec 7, 2019
@@ -274,7 +274,7 @@ The plugin provides various filter & action hooks that allow you to modify or ex
 - No longer requiring jQuery anywhere.
 - Increase API HTTP request timeout to 15 seconds.
 
-Please note that installing this update requires you to also update any add-ons like [Mailchimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/) and [Mailchimp for WordPress Premium](https://mc4wp.com/premium-features/) (if installed).
+Please note that installing this update requires you to also update any add-ons like [Mailchimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/) and [Mailchimp for WordPress Premium](https://www.mc4wp.com/premium-features/) (if installed).
 
 
 #### 4.5.5 - Sep 12, 2019
@@ -320,7 +320,7 @@ Please note that installing this update requires you to also update any add-ons 
 
 - Accept more truthy values in custom integration for improved compatibility with third-party forms.
 - Update JavaScript dependencies.
-- Load Google reCaptcha script in footer (if needed). 
+- Load Google reCaptcha script in footer (if needed).
 
 
 #### 4.5.1 - April 8, 2019
@@ -377,7 +377,7 @@ Please note that installing this update requires you to also update any add-ons 
 
 **Improvements**
 
-- Write API request parameters to the debug log in case of connection timeouts. 
+- Write API request parameters to the debug log in case of connection timeouts.
 - Update JavaScript dependencies.
 
 
@@ -471,7 +471,7 @@ Please note that installing this update requires you to also update any add-ons 
 
 - Remove obsolete `type` attribute from all `<script>` tags printed by the plugin.
 - Improved tooltips on settings pages.
-- Do not pre-check integration checkboxes by default. 
+- Do not pre-check integration checkboxes by default.
 - Add textual warnings to settings that may affect [GDPR compliance](https://kb.mc4wp.com/gdpr-compliance/).
 - Update translation files.
 
@@ -479,7 +479,7 @@ Please note that installing this update requires you to also update any add-ons 
 
 **Additions**
 
-- Live form preview while editing form. 
+- Live form preview while editing form.
 
 **Improvements**
 
@@ -554,7 +554,7 @@ Please note that installing this update requires you to also update any add-ons 
 
 **Fixes**
 
-- Filter out empty array values when overriding selected Mailchimp lists via `_mc4wp_lists`. 
+- Filter out empty array values when overriding selected Mailchimp lists via `_mc4wp_lists`.
 
 **Improvements**
 
@@ -570,7 +570,7 @@ Please note that installing this update requires you to also update any add-ons 
 **Improvements**
 
 - Remove unused options from Ninja Forms integration.
-- Now logging all sign-ups from Ninja Forms integrations when using [Mailchimp for WordPress Premium](https://mc4wp.com/premium-features/). 
+- Now logging all sign-ups from Ninja Forms integrations when using [Mailchimp for WordPress Premium](https://www.mc4wp.com/premium-features/).
 
 **Additions**
 
@@ -630,7 +630,7 @@ Please note that installing this update requires you to also update any add-ons 
 **Additions**
 
 - Added campaign & template methods to API client class.
- 
+
 
 
 #### 4.1.4 - June 15, 2017
@@ -809,7 +809,7 @@ Please note that installing this update requires you to also update any add-ons 
 **Additions**
 
 - Add [MemberPress](https://www.memberpress.com/) integration.
-- Add missing e-commerce related API methods for next week's [WooCommerce Mailchimp e-commerce integration](https://mc4wp.com/kb/what-is-ecommerce360/) release.
+- Add missing e-commerce related API methods for next week's [WooCommerce Mailchimp e-commerce integration](https://www.mc4wp.com/kb/what-is-ecommerce360/) release.
 
 
 #### 4.0.4 - September 7, 2016
@@ -837,7 +837,7 @@ Please note that installing this update requires you to also update any add-ons 
 **Additions**
 
 - Add pre-checked option to Ninja Forms integration.
-- You can now [conditionally hide fields or elements](https://mc4wp.com/kb/conditional-fields-elements/) using the `data-show-if` attribute.
+- You can now [conditionally hide fields or elements](https://www.mc4wp.com/kb/conditional-fields-elements/) using the `data-show-if` attribute.
 
 
 #### 4.0.2 - August 10, 2016
@@ -854,7 +854,7 @@ Please note that installing this update requires you to also update any add-ons 
 
 #### 4.0 & 4.0.1 - August 9, 2016
 
-This release updates the plugin to version 3 of the Mailchimp API. Please [read through the upgrade guide](https://mc4wp.com/kb/upgrading-to-4-0/) before updating to make sure things keep working as expected for you.
+This release updates the plugin to version 3 of the Mailchimp API. Please [read through the upgrade guide](https://www.mc4wp.com/kb/upgrading-to-4-0/) before updating to make sure things keep working as expected for you.
 
 **Changes**
 
@@ -945,7 +945,7 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 **Fixes**
 
 - Form Preview mode replaced all titles on that page with "Form Preview".
-- API class fix for [eCommerce360 functionality](https://mc4wp.com/kb/what-is-ecommerce360/).
+- API class fix for [eCommerce360 functionality](https://www.mc4wp.com/kb/what-is-ecommerce360/).
 
 **Improvements**
 
@@ -1085,7 +1085,7 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 
 **Additions**
 
-- Added [debug logging](https://mc4wp.com/kb/how-to-enable-log-debugging/), which shows all warnings & errors the plugin encountered in communicating with Mailchimp.
+- Added [debug logging](https://www.mc4wp.com/kb/how-to-enable-log-debugging/), which shows all warnings & errors the plugin encountered in communicating with Mailchimp.
 - Add `get_lists_for_email( $email )` method to API class.
 - Add `MC4WP_Queue` class for better background processing of expensive operations.
 
@@ -1195,15 +1195,15 @@ Added `mc4wp_use_sslverify` filter to disable or explicitly enable SSL certifica
 
 **Improvements**
 
-- Add form-specific classes to preview form element. This allows the [Styles Builder](https://mc4wp.com/premium-features/) to work with the Form Preview.
+- Add form-specific classes to preview form element. This allows the [Styles Builder](https://www.mc4wp.com/premium-features/) to work with the Form Preview.
 - Form events are now triggered _after_ the page has finished loading, so all scripts are loaded & ready to use.
 - Reset background-color in Form Themes stylesheets.
 
 #### 3.0.0 & 3.0.1 - November 23, 2015
 
-Version 3.0 is a total revamp of the plugin. For a quick overview of the changes, please [read this post on our blog](https://mc4wp.com/blog/whats-new-in-mailchimp-for-wordpress-the-big-three-o/).
+Version 3.0 is a total revamp of the plugin. For a quick overview of the changes, please [read this post on our blog](https://www.mc4wp.com/blog/whats-new-in-mailchimp-for-wordpress-the-big-three-o/).
 
-Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upgrading-to-3-0/) as some things have changed.
+Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb/upgrading-to-3-0/) as some things have changed.
 
 **Breaking Changes**
 
@@ -1222,7 +1222,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - Events Manager: checkbox is now automatically added to booking forms.
 - Tons of usability & accessibility improvements.
 - Tons of code improvements: improved memory usage, 100+ new unit tests & better usage of various best practices.
-- The [premium plugin](https://mc4wp.com/) is now an add-on of this plugin.
+- The [premium plugin](https://www.mc4wp.com/) is now an add-on of this plugin.
 
 **Additions**
 
@@ -1241,7 +1241,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 **Improvements**
 
 - Usage tracking is now scheduled once a week (instead of daily).
-- Preparations for [the upcoming Mailchimp for WordPress version 3.0 release](https://mc4wp.com/blog/breaking-backwards-compatibility-in-version-3-0/).
+- Preparations for [the upcoming Mailchimp for WordPress version 3.0 release](https://www.mc4wp.com/blog/breaking-backwards-compatibility-in-version-3-0/).
 - Tested compatibility with WordPress 4.4
 
 #### 2.3.17 - October 22, 2015
@@ -1469,7 +1469,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - Add `role` attribute to form elements
 - Major code refactoring for easier unit testing and improved code readability.
 - Use Composer for autoloading all plugin classes (PHP 5.2 compatible)
-- You can now use [form variables in both forms, messages as checkbox label texts](https://mc4wp.com/kb/using-variables-in-your-form-or-messages/).
+- You can now use [form variables in both forms, messages as checkbox label texts](https://www.mc4wp.com/kb/using-variables-in-your-form-or-messages/).
 
 **Additions**
 
@@ -1484,7 +1484,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 
 **Improvements**
 
-- Updated Italian, Russian & Turkish translations. 
+- Updated Italian, Russian & Turkish translations.
 
 #### 2.2.8 - March 24, 2015
 
@@ -1584,7 +1584,7 @@ A huge thank you to [Stefan Oderbolz](http://metaodi.ch/) for various fixed and 
 
 #### 2.2.3 - January 24, 2015
 
-Minor improvements and additions for compatibility with the [Mailchimp User Sync plugin](https://mc4wp.com/premium-features/).
+Minor improvements and additions for compatibility with the [Mailchimp User Sync plugin](https://www.mc4wp.com/premium-features/).
 
 #### 2.2.2 - January 13, 2015
 

@@ -33,7 +33,7 @@ Support
 This is a developer's portal for the Mailchimp for WordPress plugin and should not be used for support. 
 Please visit the [Mailchimp for WordPress support forum on WordPress.org](https://wordpress.org/support/plugin/mailchimp-for-wp).
 
-If you need priority support, [upgrade to Mailchimp for WordPress Premium](https://mc4wp.com/).
+If you need priority support, [upgrade to Mailchimp for WordPress Premium](https://www.mc4wp.com/).
 
 Developers
 ----------

@@ -27,7 +27,7 @@ function _mc4wp_usage_tracking_setting( $opts ) {
 
 					<p class="help">
 						<?php echo esc_html__( 'Allow us to anonymously track how this plugin is used to help us make it better fit your needs.', 'mailchimp-for-wp' ); ?>
-						<a href="https://kb.mc4wp.com/what-is-usage-tracking/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page" target="_blank">
+						<a href="https://www.mc4wp.com/kb/what-is-usage-tracking/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page" target="_blank">
 							<?php echo esc_html__( 'This is what we track.', 'mailchimp-for-wp' ); ?>
 						</a>
 					</p>
@@ -41,7 +41,7 @@ function _mc4wp_usage_tracking_setting( $opts ) {
 						<option value="debug" <?php selected( 'debug', $opts['debug_log_level'] ); ?>><?php echo esc_html__( 'Everything', 'mailchimp-for-wp' ); ?></option>
 					</select>
 					<p class="help">
-						<?php echo sprintf( wp_kses( __( 'Determines what events should be written to <a href="%s">the debug log</a> (see below).', 'mailchimp-for-wp' ), array( 'a' => array( 'href' => array() ) ) ), 'https://kb.mc4wp.com/how-to-enable-log-debugging/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page' ); ?>
+						<?php echo sprintf( wp_kses( __( 'Determines what events should be written to <a href="%s">the debug log</a> (see below).', 'mailchimp-for-wp' ), array( 'a' => array( 'href' => array() ) ) ), 'https://www.mc4wp.com/kb/how-to-enable-log-debugging/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page' ); ?>
 					</p>
 				</td>
 			</tr>

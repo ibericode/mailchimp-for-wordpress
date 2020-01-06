@@ -78,7 +78,7 @@ Changelog
 - No longer requiring jQuery anywhere.
 - Increase API HTTP request timeout to 15 seconds.
 
-Please note that installing this update requires you to also update any add-ons like [Mailchimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/) and [Mailchimp for WordPress Premium](https://mc4wp.com/premium-features/) (if installed).
+Please note that installing this update requires you to also update any add-ons like [Mailchimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/) and [Mailchimp for WordPress Premium](https://www.mc4wp.com/premium-features/) (if installed).
 
 
 #### 4.5.5 - Sep 12, 2019
@@ -276,7 +276,7 @@ Please note that installing this update requires you to also update any add-ons 
 - Remove obsolete `type` attribute from all `<script>` tags printed by the plugin.
 - Improved tooltips on settings pages.
 - Do not pre-check integration checkboxes by default. 
-- Add textual warnings to settings that may affect [GDPR compliance](https://kb.mc4wp.com/gdpr-compliance/).
+- Add textual warnings to settings that may affect [GDPR compliance](https://www.mc4wp.com/kb/gdpr-compliance/).
 - Update translation files.
 
 #### 4.2 - March 5, 2018
@@ -287,9 +287,9 @@ Please note that installing this update requires you to also update any add-ons 
 
 **Improvements**
 
-- Improved [conditional fields logic](https://kb.mc4wp.com/conditional-fields-elements/).
+- Improved [conditional fields logic](https://www.mc4wp.com/kb/conditional-fields-elements/).
 - Debug log now includes request & response data.
-- [Form JavaScript events](https://kb.mc4wp.com/javascript-form-events/) are fired in an isolated thread now, to prevent errors in event callbacks from breaking form functionality.
+- [Form JavaScript events](https://www.mc4wp.com/kb/javascript-form-events/) are fired in an isolated thread now, to prevent errors in event callbacks from breaking form functionality.
 - Don't send empty field values to Mailchimp when updating subscribers.
 - Show interest grouping ID in list overview on settings page.
 
@@ -374,7 +374,7 @@ Please note that installing this update requires you to also update any add-ons 
 **Improvements**
 
 - Remove unused options from Ninja Forms integration.
-- Now logging all sign-ups from Ninja Forms integrations when using [Mailchimp for WordPress Premium](https://mc4wp.com/premium-features/). 
+- Now logging all sign-ups from Ninja Forms integrations when using [Mailchimp for WordPress Premium](https://www.mc4wp.com/premium-features/). 
 
 **Additions**
 
@@ -561,7 +561,7 @@ Please note that installing this update requires you to also update any add-ons 
 
 **Additions**
 
-- Add `data-hide-if` attribute logic to forms. See [conditionally hide form fields](https://kb.mc4wp.com/conditional-fields-elements/). Thanks to [Kurt Zenisek](http://kurtzenisek.com/).
+- Add `data-hide-if` attribute logic to forms. See [conditionally hide form fields](https://www.mc4wp.com/kb/conditional-fields-elements/). Thanks to [Kurt Zenisek](http://kurtzenisek.com/).
 - Add hooks for delayed BuddyPress sign-up. Thanks to [Christian Wach](https://profiles.wordpress.org/needle).
 
 
@@ -613,7 +613,7 @@ Please note that installing this update requires you to also update any add-ons 
 **Additions**
 
 - Add [MemberPress](https://www.memberpress.com/) integration.
-- Add missing e-commerce related API methods for next week's [WooCommerce Mailchimp e-commerce integration](https://mc4wp.com/kb/what-is-ecommerce360/) release.
+- Add missing e-commerce related API methods for next week's [WooCommerce Mailchimp e-commerce integration](https://www.mc4wp.com/kb/what-is-ecommerce/) release.
 
 
 #### 4.0.4 - September 7, 2016
@@ -641,7 +641,7 @@ Please note that installing this update requires you to also update any add-ons 
 **Additions**
 
 - Add pre-checked option to Ninja Forms integration.
-- You can now [conditionally hide fields or elements](https://mc4wp.com/kb/conditional-fields-elements/) using the `data-show-if` attribute.
+- You can now [conditionally hide fields or elements](https://www.mc4wp.com/kb/conditional-fields-elements/) using the `data-show-if` attribute.
 
 
 #### 4.0.2 - August 10, 2016
@@ -658,7 +658,7 @@ Please note that installing this update requires you to also update any add-ons 
 
 #### 4.0 & 4.0.1 - August 9, 2016
 
-This release updates the plugin to version 3 of the Mailchimp API. Please [read through the upgrade guide](https://mc4wp.com/kb/upgrading-to-4-0/) before updating to make sure things keep working as expected for you.
+This release updates the plugin to version 3 of the Mailchimp API. Please [read through the upgrade guide](https://www.mc4wp.com/kb/upgrading-to-4-0/) before updating to make sure things keep working as expected for you.
 
 **Changes**
 
@@ -749,7 +749,7 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 **Fixes**
 
 - Form Preview mode replaced all titles on that page with "Form Preview".
-- API class fix for [eCommerce360 functionality](https://mc4wp.com/kb/what-is-ecommerce360/).
+- API class fix for [eCommerce360 functionality](https://www.mc4wp.com/kb/what-is-ecommerce/).
 
 **Improvements**
 
@@ -889,7 +889,7 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 
 **Additions**
 
-- Added [debug logging](https://mc4wp.com/kb/how-to-enable-log-debugging/), which shows all warnings & errors the plugin encountered in communicating with Mailchimp.
+- Added [debug logging](https://www.mc4wp.com/kb/how-to-enable-log-debugging/), which shows all warnings & errors the plugin encountered in communicating with Mailchimp.
 - Add `get_lists_for_email( $email )` method to API class.
 - Add `MC4WP_Queue` class for better background processing of expensive operations.
 
@@ -999,15 +999,15 @@ Added `mc4wp_use_sslverify` filter to disable or explicitly enable SSL certifica
 
 **Improvements**
 
-- Add form-specific classes to preview form element. This allows the [Styles Builder](https://mc4wp.com/premium-features/) to work with the Form Preview.
+- Add form-specific classes to preview form element. This allows the [Styles Builder](https://www.mc4wp.com/premium-features/) to work with the Form Preview.
 - Form events are now triggered _after_ the page has finished loading, so all scripts are loaded & ready to use.
 - Reset background-color in Form Themes stylesheets.
 
 #### 3.0.0 & 3.0.1 - November 23, 2015
 
-Version 3.0 is a total revamp of the plugin. For a quick overview of the changes, please [read this post on our blog](https://mc4wp.com/blog/whats-new-in-mailchimp-for-wordpress-the-big-three-o/).
+Version 3.0 is a total revamp of the plugin. For a quick overview of the changes, please [read this post on our blog](https://www.mc4wp.com/blog/whats-new-in-mailchimp-for-wordpress-the-big-three-o/).
 
-Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upgrading-to-3-0/) as some things have changed.
+Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb/upgrading-to-3-0/) as some things have changed.
 
 **Breaking Changes**
 
@@ -1026,7 +1026,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - Events Manager: checkbox is now automatically added to booking forms.
 - Tons of usability & accessibility improvements.
 - Tons of code improvements: improved memory usage, 100+ new unit tests & better usage of various best practices.
-- The [premium plugin](https://mc4wp.com/) is now an add-on of this plugin.
+- The [premium plugin](https://www.mc4wp.com/) is now an add-on of this plugin.
 
 **Additions**
 
@@ -1045,7 +1045,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 **Improvements**
 
 - Usage tracking is now scheduled once a week (instead of daily).
-- Preparations for [the upcoming Mailchimp for WordPress version 3.0 release](https://mc4wp.com/blog/breaking-backwards-compatibility-in-version-3-0/).
+- Preparations for [the upcoming Mailchimp for WordPress version 3.0 release](https://www.mc4wp.com/blog/breaking-backwards-compatibility-in-version-3-0/).
 - Tested compatibility with WordPress 4.4
 
 #### 2.3.17 - October 22, 2015
@@ -1273,7 +1273,7 @@ Before upgrading, please go through the [upgrade guide](https://mc4wp.com/kb/upg
 - Add `role` attribute to form elements
 - Major code refactoring for easier unit testing and improved code readability.
 - Use Composer for autoloading all plugin classes (PHP 5.2 compatible)
-- You can now use [form variables in both forms, messages as checkbox label texts](https://mc4wp.com/kb/using-variables-in-your-form-or-messages/).
+- You can now use [form variables in both forms, messages as checkbox label texts](https://www.mc4wp.com/kb/using-variables-in-your-form-or-messages/).
 
 **Additions**
 
@@ -1388,7 +1388,7 @@ A huge thank you to [Stefan Oderbolz](http://metaodi.ch/) for various fixed and 
 
 #### 2.2.3 - January 24, 2015
 
-Minor improvements and additions for compatibility with the [Mailchimp User Sync plugin](https://mc4wp.com/premium-features/).
+Minor improvements and additions for compatibility with the [Mailchimp User Sync plugin](https://www.mc4wp.com/premium-features/).
 
 #### 2.2.2 - January 13, 2015
 

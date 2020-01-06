@@ -110,7 +110,7 @@ class MC4WP_API_V3_Client {
 		$args   = array(
 			'method'    => $method,
 			'headers'   => $this->get_headers(),
-			'timeout'   => 15,
+			'timeout'   => 20,
 			'sslverify' => apply_filters( 'mc4wp_use_sslverify', true ),
 		);
 

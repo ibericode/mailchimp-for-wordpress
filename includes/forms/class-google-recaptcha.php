@@ -184,7 +184,7 @@ class MC4WP_Google_Recaptcha {
 			<td>
 				<input type="text" class="widefat" name="mc4wp[grecaptcha_site_key]" id="mc4wp_grecaptcha_site_key" placeholder="<?php echo str_repeat( '●', 40 ); ?>" value="<?php echo esc_attr( $global_settings['grecaptcha_site_key'] ); ?>" />
 				<p class="help">
-					<?php printf( __( 'Enter your Google reCAPTCHA keys here. You can <a href="%1$s">retrieve your keys in the Google reCAPTCHA admin console</a> or read our help article on <a href="%2$s">how to configure Google reCAPTCHA</a>.', 'mailchimp-for-wp' ), 'https://g.co/recaptcha/v3', 'https://kb.mc4wp.com/google-recaptcha-forms/' ); ?>
+					<?php printf( __( 'Enter your Google reCAPTCHA keys here. You can <a href="%1$s">retrieve your keys in the Google reCAPTCHA admin console</a> or read our help article on <a href="%2$s">how to configure Google reCAPTCHA</a>.', 'mailchimp-for-wp' ), 'https://g.co/recaptcha/v3', 'https://www.mc4wp.com/kb/google-recaptcha-forms/' ); ?>
 				</p>
 			</td>
 		</tr>

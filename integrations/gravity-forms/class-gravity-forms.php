@@ -132,7 +132,7 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration {
 				<?php
 				_e( 'Select "yes" if the checkbox should be pre-checked.', 'mailchimp-for-wp' );
 				echo '<br />';
-				printf( __( '<strong>Warning: </strong> enabling this may affect your <a href="%s">GDPR compliance</a>.', 'mailchimp-for-wp' ), 'https://kb.mc4wp.com/gdpr-compliance/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page' );
+				printf( __( '<strong>Warning: </strong> enabling this may affect your <a href="%s">GDPR compliance</a>.', 'mailchimp-for-wp' ), 'https://www.mc4wp.com/kb/gdpr-compliance/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page' );
 				?>
 			</p>
 		</li>

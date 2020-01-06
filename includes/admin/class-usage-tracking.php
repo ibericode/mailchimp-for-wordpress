@@ -13,7 +13,7 @@ class MC4WP_Usage_Tracking {
 	/**
 	 * @var string
 	 */
-	protected $tracking_url = 'https://mc4wp.com/api/usage-tracking';
+	protected $tracking_url = 'https://www.mc4wp.com/api/usage-tracking';
 
 	/**
 	 * @var MC4WP_Usage_Tracking The One True Instance

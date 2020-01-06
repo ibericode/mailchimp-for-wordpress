@@ -25,7 +25,7 @@
 
 			<div id="notice-additional-fields" class="notice notice-warning" style="display: none;">
 				<p><?php echo esc_html__( 'The selected Mailchimp lists require non-default fields, which may prevent this integration from working.', 'mailchimp-for-wp' ); ?></p>
-				<p><?php echo sprintf( wp_kses( __( 'Please ensure you <a href="%1$s">configure the plugin to send all required fields</a> or <a href="%2$s">log into your Mailchimp account</a> and make sure only the email & name fields are marked as required fields for the selected list(s).', 'mailchimp-for-wp' ), array( 'a' => array( 'href' => array() ) ) ), 'https://kb.mc4wp.com/send-additional-fields-from-integrations/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page', 'https://admin.mailchimp.com/lists/' ); ?></p>
+				<p><?php echo sprintf( wp_kses( __( 'Please ensure you <a href="%1$s">configure the plugin to send all required fields</a> or <a href="%2$s">log into your Mailchimp account</a> and make sure only the email & name fields are marked as required fields for the selected list(s).', 'mailchimp-for-wp' ), array( 'a' => array( 'href' => array() ) ) ), 'https://www.mc4wp.com/kb/send-additional-fields-from-integrations/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page', 'https://admin.mailchimp.com/lists/' ); ?></p>
 			</div>
 
 			<p>
@@ -103,7 +103,7 @@
 											'strong' => array(),
 											)
 										),
-										'https://kb.mc4wp.com/gdpr-compliance/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page'
+										'https://www.mc4wp.com/kb/gdpr-compliance/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page'
 									);
 									?>
 									</p>
@@ -180,7 +180,7 @@
 									<?php
 									echo esc_html__( 'Select "yes" if the checkbox should be pre-checked.', 'mailchimp-for-wp' );
 									echo '<br />';
-									echo sprintf( wp_kses( __( '<strong>Warning: </strong> enabling this may affect your <a href="%s">GDPR compliance</a>.', 'mailchimp-for-wp' ), array( 'a' => array( 'href' => array() ) ) ), 'https://kb.mc4wp.com/gdpr-compliance/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page' );
+									echo sprintf( wp_kses( __( '<strong>Warning: </strong> enabling this may affect your <a href="%s">GDPR compliance</a>.', 'mailchimp-for-wp' ), array( 'a' => array( 'href' => array() ) ) ), 'https://www.mc4wp.com/kb/gdpr-compliance/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page' );
 									?>
 								</p>
 							</td>
@@ -271,7 +271,7 @@
 								</label>
 								<p class="help">
 									<?php echo esc_html__( 'Select "no" if you want to add the selected interests to any previously selected interests when updating a subscriber.', 'mailchimp-for-wp' ); ?>
-									<?php echo sprintf( '<a href="%s" target="_blank">' . esc_html__( 'What does this do?', 'mailchimp-for-wp' ) . '</a>', 'https://kb.mc4wp.com/what-does-replace-groupings-mean/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page' ); ?>
+									<?php echo sprintf( '<a href="%s" target="_blank">' . esc_html__( 'What does this do?', 'mailchimp-for-wp' ) . '</a>', 'https://www.mc4wp.com/kb/what-does-replace-groupings-mean/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page' ); ?>
 								</p>
 							</td>
 						</tr>

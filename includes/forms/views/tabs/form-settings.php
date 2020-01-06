@@ -92,7 +92,7 @@
 			</label>
 			<p class="help">
 				<?php echo esc_html__( 'Select "no" if you want to add the selected interests to any previously selected interests when updating a subscriber.', 'mailchimp-for-wp' ); ?>
-				<?php echo sprintf( ' <a href="%s" target="_blank">' . esc_html__( 'What does this do?', 'mailchimp-for-wp' ) . '</a>', 'https://kb.mc4wp.com/what-does-replace-groupings-mean/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page' ); ?>
+				<?php echo sprintf( ' <a href="%s" target="_blank">' . esc_html__( 'What does this do?', 'mailchimp-for-wp' ) . '</a>', 'https://www.mc4wp.com/kb/what-does-replace-groupings-mean/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page' ); ?>
 			</p>
 		</td>
 	</tr>
