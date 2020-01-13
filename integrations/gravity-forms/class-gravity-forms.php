@@ -71,11 +71,7 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration {
 	public function editor_js() {
 		?>
 		<script type="text/javascript">
-			/*
-			* When the field settings are initialized, populate
-			* the custom field setting.
-			*/
-			jQuery(document).on('gform_load_field_settings', function(ev, field) {
+			jQuery(document).on('gform_load_field_settings', function(evt, field) {
 				jQuery('#field_mailchimp_list').val(field.mailchimp_list || '');
 				jQuery('#field_mailchimp_double_optin').val(field.mailchimp_double_optin || "1");
 				jQuery('#field_mailchimp_precheck').val(field.mailchimp_precheck || "0");

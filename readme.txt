@@ -809,7 +809,7 @@ Please note that installing this update requires you to also update any add-ons 
 **Additions**
 
 - Add [MemberPress](https://www.memberpress.com/) integration.
-- Add missing e-commerce related API methods for next week's [WooCommerce Mailchimp e-commerce integration](https://www.mc4wp.com/kb/what-is-ecommerce360/) release.
+- Add missing e-commerce related API methods for next week's [WooCommerce Mailchimp e-commerce integration](https://www.mc4wp.com/kb/what-is-ecommerce/) release.
 
 
 #### 4.0.4 - September 7, 2016
@@ -945,7 +945,7 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 **Fixes**
 
 - Form Preview mode replaced all titles on that page with "Form Preview".
-- API class fix for [eCommerce360 functionality](https://www.mc4wp.com/kb/what-is-ecommerce360/).
+- API class fix for [e-commerce functionality](https://www.mc4wp.com/kb/what-is-ecommerce/).
 
 **Improvements**
 

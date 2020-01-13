@@ -2,7 +2,6 @@
 
 // deps & vars
 const mc4wp = window.mc4wp || {};
-const Gator = require('gator');
 const forms = require('./forms/forms.js');
 const config = window.mc4wp_forms_config || {};
 const scrollToElement = require('./misc/scroll-to-element.js');
@@ -57,10 +56,23 @@ function handleFormRequest(form, eventName, errors, data){
 	});
 }
 
-// Bind browser events to form events (using delegation)
-let gator = Gator(document.body);
-gator.on('submit', '.mc4wp-form', function(event) {
-	const form = forms.getByElement(event.target || event.srcElement);
+function bind(evtName, cb) {
+	document.addEventListener(evtName, evt => {
+		if (!evt.target) {
+			return;
+		}
+
+		let el = evt.target;
+		if ( (!el.className || el.className.indexOf('mc4wp-form') === -1) && (!el.matches || !el.matches('.mc4wp-form *')) ) {
+			return;
+		}
+
+		cb.call(evt, evt);
+	}, true)
+}
+
+bind('submit', (event) => {
+	const form = forms.getByElement(event.target);
 
 	if (!event.defaultPrevented) {
 		forms.trigger(form.id + '.submit', [ form, event]);
@@ -69,10 +81,9 @@ gator.on('submit', '.mc4wp-form', function(event) {
 	if (!event.defaultPrevented) {
 		forms.trigger('submit', [form, event]);
 	}
-});
-
-gator.on('focus', '.mc4wp-form', function(event) {
-	const form = forms.getByElement(event.target || event.srcElement);
+} );
+bind('focus', (event) => {
+	const form = forms.getByElement(event.target);
 
 	if( ! form.started ) {
 		forms.trigger(form.id + '.started', [form, event]);
@@ -80,9 +91,8 @@ gator.on('focus', '.mc4wp-form', function(event) {
 		form.started = true;
 	}
 });
-
-gator.on('change', '.mc4wp-form', function(event) {
-	const form = forms.getByElement(event.target || event.srcElement);
+bind('change', (event) => {
+	const form = forms.getByElement(event.target);
 	forms.trigger('change', [form,event]);
 	forms.trigger(form.id + '.change', [form,event]);
 });
