@@ -212,7 +212,7 @@ class MC4WP_Form_Asset_Manager {
 
 		// maybe load JS file for when a form was submitted over HTTP POST
 		$submitted_form_data = $this->get_submitted_form_data();
-		if ($submitted_form_data !== null) {
+		if ( $submitted_form_data !== null ) {
 			wp_enqueue_script( 'mc4wp-forms-submitted', MC4WP_PLUGIN_URL . 'assets/js/forms-submitted' . $this->filename_suffix . '.js', array( 'mc4wp-forms-api' ), MC4WP_VERSION, true );
 			wp_localize_script( 'mc4wp-forms-submitted', 'mc4wp_submitted_form', $submitted_form_data );
 		}
