@@ -3,8 +3,9 @@
 const mc4wp = window.mc4wp || {};
 const forms = require('./forms/forms.js');
 const config = window.mc4wp_forms_config || {};
-const scrollToElement = require('./misc/scroll-to-element.js');
-import ConditionalElements from './forms/conditional-elements.js';
+
+import scrollToElement from './misc/scroll-to-element.js';
+import './forms/conditional-elements.js';
 
 function handleFormRequest(form, eventName, errors, data){
 	const timeStart = Date.now();
@@ -49,8 +50,8 @@ function handleFormRequest(form, eventName, errors, data){
 }
 
 function trigger(event, args) {
-	window.mc4wp.forms.trigger(event, args);
-	window.mc4wp.forms.trigger(args[0].id + "." + event, args);
+	forms.trigger(args[0].id + "." + event, args);
+	forms.trigger(event, args);
 }
 
 function bind(evtName, cb) {
@@ -72,7 +73,7 @@ bind('submit', (event) => {
 	const form = forms.getByElement(event.target);
 
 	if (!event.defaultPrevented) {
-		forms.trigger(form.id + '.submit', [ form, event]);
+		forms.trigger(form.id + '.submit', [form, event]);
 	}
 
 	if (!event.defaultPrevented) {
@@ -81,21 +82,15 @@ bind('submit', (event) => {
 } );
 bind('focus', (event) => {
 	const form = forms.getByElement(event.target);
-
-	if( ! form.started ) {
-		forms.trigger(form.id + '.started', [form, event]);
-		forms.trigger('started', [form, event]);
+	if (! form.started) {
+		trigger('started', [form, event]);
 		form.started = true;
 	}
 });
 bind('change', (event) => {
 	const form = forms.getByElement(event.target);
-	forms.trigger('change', [form,event]);
-	forms.trigger(form.id + '.change', [form,event]);
+	trigger('change', [form,event]);
 });
-
-// init conditional elements
-ConditionalElements.init();
 
 // register early listeners
 if( mc4wp.listeners ) {

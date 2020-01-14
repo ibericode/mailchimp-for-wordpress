@@ -6,9 +6,7 @@ function getFieldValues(form, fieldName) {
 
     for(let i=0; i<inputs.length; i++) {
         const input = inputs[i];
-        const type = input.getAttribute("type");
-
-        if( ( type === "radio" || type === "checkbox" ) && ! input.checked) {
+        if( ( input.type === "radio" || input.type === "checkbox" ) && ! input.checked) {
             continue;
         }
 
@@ -48,7 +46,7 @@ function toggleElement(el) {
         // condition is met when value is in array of expected values OR expected values contains a wildcard and value is not empty
         conditionMet = expectedValues.indexOf(value) > -1 || ( expectedValues.indexOf('*') > -1 && value.length > 0 );
 
-        if(conditionMet) { 
+        if(conditionMet) {
             break;
         }
     }
@@ -58,7 +56,7 @@ function toggleElement(el) {
         el.style.display = ( conditionMet ) ? '' : 'none';
     } else {
         el.style.display = ( conditionMet ) ? 'none' : '';
-    }  
+    }
 
     // find all inputs inside this element and toggle [required] attr (to prevent HTML5 validation on hidden elements)
     let inputs = el.querySelectorAll('input, select, textarea');
@@ -92,12 +90,8 @@ function handleInputEvent(evt) {
     [].forEach.call(elements, toggleElement);
 }
 
-export default {
-    'init': function() {
-        document.addEventListener('keyup', handleInputEvent, true);
-        document.addEventListener('change', handleInputEvent, true);
-        document.addEventListener('mc4wp-refresh', evaluate, true);
-        window.addEventListener('load', evaluate);
-        evaluate();
-    }
-}
+document.addEventListener('keyup', handleInputEvent, true);
+document.addEventListener('change', handleInputEvent, true);
+document.addEventListener('mc4wp-refresh', evaluate, true);
+window.addEventListener('load', evaluate);
+evaluate();

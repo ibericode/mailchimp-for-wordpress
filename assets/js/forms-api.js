@@ -1,7 +1,9 @@
 (function () { var require = undefined; var define = undefined; (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'use strict';
 
-var _conditionalElements = _interopRequireDefault(require("./forms/conditional-elements.js"));
+var _scrollToElement = _interopRequireDefault(require("./misc/scroll-to-element.js"));
+
+require("./forms/conditional-elements.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -10,8 +12,6 @@ var mc4wp = window.mc4wp || {};
 var forms = require('./forms/forms.js');
 
 var config = window.mc4wp_forms_config || {};
-
-var scrollToElement = require('./misc/scroll-to-element.js');
 
 function handleFormRequest(form, eventName, errors, data) {
   var timeStart = Date.now();
@@ -23,7 +23,7 @@ function handleFormRequest(form, eventName, errors, data) {
 
 
   if (window.scrollY <= 10 && config.auto_scroll) {
-    scrollToElement(form.element);
+    (0, _scrollToElement["default"])(form.element);
   } // trigger events on window.load so all other scripts have loaded
 
 
@@ -48,14 +48,14 @@ function handleFormRequest(form, eventName, errors, data) {
     var timeElapsed = Date.now() - timeStart;
 
     if (config.auto_scroll && timeElapsed > 1000 && timeElapsed < 2000 && document.body.clientHeight !== pageHeight) {
-      scrollToElement(form.element);
+      (0, _scrollToElement["default"])(form.element);
     }
   });
 }
 
 function trigger(event, args) {
-  window.mc4wp.forms.trigger(event, args);
-  window.mc4wp.forms.trigger(args[0].id + "." + event, args);
+  forms.trigger(args[0].id + "." + event, args);
+  forms.trigger(event, args);
 }
 
 function bind(evtName, cb) {
@@ -89,19 +89,14 @@ bind('focus', function (event) {
   var form = forms.getByElement(event.target);
 
   if (!form.started) {
-    forms.trigger(form.id + '.started', [form, event]);
-    forms.trigger('started', [form, event]);
+    trigger('started', [form, event]);
     form.started = true;
   }
 });
 bind('change', function (event) {
   var form = forms.getByElement(event.target);
-  forms.trigger('change', [form, event]);
-  forms.trigger(form.id + '.change', [form, event]);
-}); // init conditional elements
-
-_conditionalElements["default"].init(); // register early listeners
-
+  trigger('change', [form, event]);
+}); // register early listeners
 
 if (mc4wp.listeners) {
   var listeners = mc4wp.listeners;
@@ -130,20 +125,14 @@ window.mc4wp = mc4wp;
 },{"./forms/conditional-elements.js":2,"./forms/forms.js":4,"./misc/scroll-to-element.js":5}],2:[function(require,module,exports){
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-
 function getFieldValues(form, fieldName) {
   var values = [];
   var inputs = form.querySelectorAll('input[name="' + fieldName + '"], select[name="' + fieldName + '"], textarea[name="' + fieldName + '"]');
 
   for (var i = 0; i < inputs.length; i++) {
     var input = inputs[i];
-    var type = input.getAttribute("type");
 
-    if ((type === "radio" || type === "checkbox") && !input.checked) {
+    if ((input.type === "radio" || input.type === "checkbox") && !input.checked) {
       continue;
     }
 
@@ -226,16 +215,11 @@ function handleInputEvent(evt) {
   [].forEach.call(elements, toggleElement);
 }
 
-var _default = {
-  'init': function init() {
-    document.addEventListener('keyup', handleInputEvent, true);
-    document.addEventListener('change', handleInputEvent, true);
-    document.addEventListener('mc4wp-refresh', evaluate, true);
-    window.addEventListener('load', evaluate);
-    evaluate();
-  }
-};
-exports["default"] = _default;
+document.addEventListener('keyup', handleInputEvent, true);
+document.addEventListener('change', handleInputEvent, true);
+document.addEventListener('mc4wp-refresh', evaluate, true);
+window.addEventListener('load', evaluate);
+evaluate();
 
 },{}],3:[function(require,module,exports){
 'use strict';
@@ -288,10 +272,9 @@ Form.prototype.reset = function () {
 module.exports = Form;
 
 },{"form-serialize":6,"populate.js":7}],4:[function(require,module,exports){
-'use strict'; // deps
+'use strict';
 
-var Form = require('./form.js'); // variables
-
+var Form = require('./form.js');
 
 var forms = [];
 var listeners = {};
@@ -352,10 +335,6 @@ function createFromElement(formElement, id) {
   return form;
 }
 
-function all() {
-  return forms;
-}
-
 function trigger(eventName, eventArgs) {
   if (eventName === 'submit' || eventName.indexOf('.submit') > 0) {
     // don't spin up new thread for submit event as we want to preventDefault()...
@@ -369,7 +348,6 @@ function trigger(eventName, eventArgs) {
 }
 
 module.exports = {
-  all: all,
   get: get,
   getByElement: getByElement,
   on: on,

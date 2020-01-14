@@ -1,9 +1,6 @@
 'use strict';
 
-// deps
 const Form = require('./form.js');
-
-// variables
 let forms = [];
 let listeners = {};
 
@@ -60,10 +57,6 @@ function createFromElement(formElement, id) {
 	return form;
 }
 
-function all() {
-	return forms;
-}
-
 function trigger(eventName, eventArgs) {
 	if(eventName === 'submit' || eventName.indexOf('.submit') > 0) {
 		// don't spin up new thread for submit event as we want to preventDefault()...
@@ -76,4 +69,4 @@ function trigger(eventName, eventArgs) {
 	}
 }
 
-module.exports = {all, get, getByElement, on, off, trigger};
+module.exports = {get, getByElement, on, off, trigger};
