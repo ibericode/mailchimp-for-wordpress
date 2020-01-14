@@ -64,7 +64,7 @@ function all() {
 	return forms;
 }
 
-function triggerEvent(eventName, eventArgs) {
+function trigger(eventName, eventArgs) {
 	if(eventName === 'submit' || eventName.indexOf('.submit') > 0) {
 		// don't spin up new thread for submit event as we want to preventDefault()...
 		emit(eventName, eventArgs);
@@ -76,12 +76,4 @@ function triggerEvent(eventName, eventArgs) {
 	}
 }
 
-module.exports = {
-	"all": all,
-	"get": get,
-	"getByElement": getByElement,
-	"on": on,
-	"off": off,
-	"trigger": triggerEvent,
-};
-
+module.exports = {all, get, getByElement, on, off, trigger};

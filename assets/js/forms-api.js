@@ -1,5 +1,5 @@
 (function () { var require = undefined; var define = undefined; (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-'use strict'; // deps & vars
+'use strict';
 
 var _conditionalElements = _interopRequireDefault(require("./forms/conditional-elements.js"));
 
@@ -28,27 +28,21 @@ function handleFormRequest(form, eventName, errors, data) {
 
 
   window.addEventListener('load', function () {
-    // trigger events
-    forms.trigger(form.id + '.submitted', [form]);
-    forms.trigger('submitted', [form]);
+    trigger('submitted', [form]);
 
     if (errors) {
-      forms.trigger(form.id + '.error', [form, errors]);
-      forms.trigger('error', [form, errors]);
+      trigger('error', [form, errors]);
     } else {
       // form was successfully submitted
-      forms.trigger(form.id + '.success', [form, data]);
-      forms.trigger('success', [form, data]); // subscribed / unsubscribed
+      trigger('success', [form, data]); // subscribed / unsubscribed
 
-      forms.trigger(form.id + "." + eventName, [form, data]);
-      forms.trigger(eventName, [form, data]); // for BC: always trigger "subscribed" event when firing "updated_subscriber" event
+      trigger(eventName, [form, data]); // for BC: always trigger "subscribed" event when firing "updated_subscriber" event
 
       if (eventName === 'updated_subscriber') {
-        forms.trigger(form.id + "." + "subscribed", [form, data, true]);
-        forms.trigger('subscribed', [form, data, true]);
+        trigger('subscribed', [form, data, true]);
       }
     } // scroll to form again if page height changed since last scroll, eg because of slow loading images
-    // (only if load didn't take more than 0.8 seconds to prevent overtaking user scroll)
+    // (only if load didn't take too long to prevent overtaking user scroll)
 
 
     var timeElapsed = Date.now() - timeStart;
@@ -57,6 +51,11 @@ function handleFormRequest(form, eventName, errors, data) {
       scrollToElement(form.element);
     }
   });
+}
+
+function trigger(event, args) {
+  window.mc4wp.forms.trigger(event, args);
+  window.mc4wp.forms.trigger(args[0].id + "." + event, args);
 }
 
 function bind(evtName, cb) {
@@ -357,7 +356,7 @@ function all() {
   return forms;
 }
 
-function triggerEvent(eventName, eventArgs) {
+function trigger(eventName, eventArgs) {
   if (eventName === 'submit' || eventName.indexOf('.submit') > 0) {
     // don't spin up new thread for submit event as we want to preventDefault()...
     emit(eventName, eventArgs);
@@ -370,12 +369,12 @@ function triggerEvent(eventName, eventArgs) {
 }
 
 module.exports = {
-  "all": all,
-  "get": get,
-  "getByElement": getByElement,
-  "on": on,
-  "off": off,
-  "trigger": triggerEvent
+  all: all,
+  get: get,
+  getByElement: getByElement,
+  on: on,
+  off: off,
+  trigger: trigger
 };
 
 },{"./form.js":3}],5:[function(require,module,exports){

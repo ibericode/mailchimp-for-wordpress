@@ -1,6 +1,5 @@
 'use strict';
 
-// deps & vars
 const mc4wp = window.mc4wp || {};
 const forms = require('./forms/forms.js');
 const config = window.mc4wp_forms_config || {};
@@ -23,37 +22,35 @@ function handleFormRequest(form, eventName, errors, data){
 
 	// trigger events on window.load so all other scripts have loaded
 	window.addEventListener('load', function() {
-		// trigger events
-		forms.trigger(form.id + '.submitted', [form]);
-		forms.trigger('submitted', [form]);
+		trigger('submitted', [form]);
 
-		if( errors ) {
-			forms.trigger(form.id + '.error', [form, errors]);
-			forms.trigger('error', [form, errors]);
+		if (errors) {
+			trigger('error', [form, errors]);
 		} else {
 			// form was successfully submitted
-			forms.trigger(form.id + '.success', [form, data]);
-			forms.trigger('success', [form, data]);
+			trigger('success', [form, data]);
 
 			// subscribed / unsubscribed
-			forms.trigger(form.id + "." + eventName, [form, data]);
-			forms.trigger(eventName, [form, data]);
+			trigger(eventName, [form, data]);
 
 			// for BC: always trigger "subscribed" event when firing "updated_subscriber" event
 			if( eventName === 'updated_subscriber' ) {
-				forms.trigger(form.id + "." + "subscribed", [form, data, true]);
-				forms.trigger('subscribed', [form, data, true]);
+				trigger('subscribed', [form, data, true]);
 			}
-
 		}
 
 		// scroll to form again if page height changed since last scroll, eg because of slow loading images
-		// (only if load didn't take more than 0.8 seconds to prevent overtaking user scroll)
+		// (only if load didn't take too long to prevent overtaking user scroll)
 		const timeElapsed = Date.now() - timeStart;
  		if( config.auto_scroll && timeElapsed > 1000 && timeElapsed < 2000 && document.body.clientHeight !== pageHeight ) {
 			scrollToElement(form.element);
  		}
 	});
+}
+
+function trigger(event, args) {
+	window.mc4wp.forms.trigger(event, args);
+	window.mc4wp.forms.trigger(args[0].id + "." + event, args);
 }
 
 function bind(evtName, cb) {
