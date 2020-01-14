@@ -13,7 +13,6 @@ const globby = require('globby');
 const buffer = require('vinyl-buffer');
 const through = require('through2');
 const sourcemaps = require('gulp-sourcemaps');
-const wrap = require('gulp-wrap');
 const wpPot = require('gulp-wp-pot');
 
 gulp.task('sass', function () {
@@ -35,9 +34,9 @@ gulp.task('browserify', function () {
 	let bundledStream = through()
 		.pipe(buffer());
 
-	globby("./assets/browserify/[^_]*.js").then(function(entries) {
-		 merge(entries.map(function(entry) {
-             let filename = entry.split('/').pop();
+	globby("./assets/browserify/[^_]*.js").then((entries) => {
+		 merge(entries.map((entry) => {
+		 	let filename = entry.split('/').pop();
 			return browserify({entries: [entry]})
 				.transform("babelify", {
 					presets: ["@babel/preset-env"],
@@ -47,13 +46,10 @@ gulp.task('browserify', function () {
 				})
 				.bundle()
 				.pipe(source(filename))
-				.pipe(wrap('(function () { var require = undefined; var define = undefined; <%=contents%> })();'))
-
-				// create .js file
 				.pipe(rename({ extname: '.js' }))
 				.pipe(gulp.dest('./assets/js'));
 		})).pipe(bundledStream);
-	})
+	});
 
 	return bundledStream;
 });

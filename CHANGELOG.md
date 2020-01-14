@@ -74,7 +74,7 @@ Changelog
 
 - Improved fetch and cache mechanism for retrieving Mailchimp account details, fetching data only when it is required.
 - Updated [Mithril](https://mithril.js.org/) and [CodeMirror](https://codemirror.net/) dependencies.
-- Decreased size of `forms-api.js` from 22KB to 9KB.
+- Decreased size of `forms.js` from 22KB to 9KB.
 - No longer requiring jQuery anywhere.
 - Increase API HTTP request timeout to 15 seconds.
 
