@@ -2,7 +2,7 @@
 
 function getFieldValues(form, fieldName) {
     let values = [];
-    let inputs = form.querySelectorAll('input[name="'+fieldName+'"], select[name="'+fieldName+'"], textarea[name="'+fieldName+'"]');
+    let inputs = form.querySelectorAll('input[name="'+fieldName+'"],select[name="'+fieldName+'"],textarea[name="'+fieldName+'"]');
 
     for(let i=0; i<inputs.length; i++) {
         const input = inputs[i];
@@ -59,7 +59,7 @@ function toggleElement(el) {
     }
 
     // find all inputs inside this element and toggle [required] attr (to prevent HTML5 validation on hidden elements)
-    let inputs = el.querySelectorAll('input, select, textarea');
+    let inputs = el.querySelectorAll('input,select,textarea');
     [].forEach.call(inputs, (el) => {
         if(( conditionMet || show  ) && el.getAttribute('data-was-required')) {
             el.required = true;
@@ -75,7 +75,7 @@ function toggleElement(el) {
 
 // evaluate conditional elements globally
 function evaluate() {
-    const elements = document.querySelectorAll('.mc4wp-form [data-show-if], .mc4wp-form [data-hide-if]');
+    const elements = document.querySelectorAll('.mc4wp-form [data-show-if],.mc4wp-form [data-hide-if]');
     [].forEach.call(elements, toggleElement);
 }
 
@@ -86,7 +86,7 @@ function handleInputEvent(evt) {
     }
 
     const form = evt.target.form;
-    const elements = form.querySelectorAll('[data-show-if], [data-hide-if]');
+    const elements = form.querySelectorAll('[data-show-if],[data-hide-if]');
     [].forEach.call(elements, toggleElement);
 }
 

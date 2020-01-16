@@ -6,9 +6,9 @@
     "url": "https://github.com/ibericode/mailchimp-for-wordpress"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/plugin-transform-react-jsx": "^7.3.0",
-    "@babel/preset-env": "^7.6.2",
+    "@babel/core": "^7.8.3",
+    "@babel/plugin-transform-react-jsx": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
     "babelify": "^10.0.0",
     "browserify": "^16.5.0",
     "event-stream": "^4.0.1",
@@ -22,18 +22,18 @@
     "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^3.0.2",
     "gulp-util": "^3.0.8",
-    "gulp-wp-pot": "^2.3.5",
+    "gulp-wp-pot": "^2.3.6",
     "merge-stream": "^2.0.0",
     "through2": "^3.0.1",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
-    "codemirror": "^5.49.0",
+    "codemirror": "^5.50.2",
     "form-serialize": "^0.7.2",
     "html": "^1.0.0",
     "mithril": "^2.0.4",
-    "populate.js": "^1.0.3",
+    "populate.js": "^1.1.0",
     "tlite": "^0.1.9"
   }
 }

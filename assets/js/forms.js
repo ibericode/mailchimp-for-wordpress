@@ -73,7 +73,7 @@ window.mc4wp = mc4wp;
 
 function getFieldValues(form, fieldName) {
   var values = [];
-  var inputs = form.querySelectorAll('input[name="' + fieldName + '"], select[name="' + fieldName + '"], textarea[name="' + fieldName + '"]');
+  var inputs = form.querySelectorAll('input[name="' + fieldName + '"],select[name="' + fieldName + '"],textarea[name="' + fieldName + '"]');
 
   for (var i = 0; i < inputs.length; i++) {
     var input = inputs[i];
@@ -130,7 +130,7 @@ function toggleElement(el) {
   } // find all inputs inside this element and toggle [required] attr (to prevent HTML5 validation on hidden elements)
 
 
-  var inputs = el.querySelectorAll('input, select, textarea');
+  var inputs = el.querySelectorAll('input,select,textarea');
   [].forEach.call(inputs, function (el) {
     if ((conditionMet || show) && el.getAttribute('data-was-required')) {
       el.required = true;
@@ -146,7 +146,7 @@ function toggleElement(el) {
 
 
 function evaluate() {
-  var elements = document.querySelectorAll('.mc4wp-form [data-show-if], .mc4wp-form [data-hide-if]');
+  var elements = document.querySelectorAll('.mc4wp-form [data-show-if],.mc4wp-form [data-hide-if]');
   [].forEach.call(elements, toggleElement);
 } // re-evaluate conditional elements for change events on forms
 
@@ -157,7 +157,7 @@ function handleInputEvent(evt) {
   }
 
   var form = evt.target.form;
-  var elements = form.querySelectorAll('[data-show-if], [data-hide-if]');
+  var elements = form.querySelectorAll('[data-show-if],[data-hide-if]');
   [].forEach.call(elements, toggleElement);
 }
 
@@ -564,99 +564,85 @@ function str_serialize(result, key, value) {
 module.exports = serialize;
 
 },{}],6:[function(require,module,exports){
-/*! populate.js v1.0.2 by @dannyvankooten | MIT license */
-;(function(root) {
 
-	/**
-	 * Populate form fields from a JSON object.
-	 *
-	 * @param form object The form element containing your input fields.
-	 * @param data array JSON data to populate the fields with.
-	 * @param basename string Optional basename which is added to `name` attributes
-	 */
-	var populate = function( form, data, basename) {
-
-		for(var key in data) {
-
-			if( ! data.hasOwnProperty( key ) ) {
-				continue;
-			}
-
-			var name = key;
-			var value = data[key];
-
-                        if ('undefined' === typeof value) {
-                            value = '';
-                        }
-
-                        if (null === value) {
-                            value = '';
-                        }
-
-			// handle array name attributes
-			if(typeof(basename) !== "undefined") {
-				name = basename + "[" + key + "]";
-			}
-
-			if(value.constructor === Array) {
-				name += '[]';
-			} else if(typeof value == "object") {
-				populate( form, value, name);
-				continue;
-			}
-
-			// only proceed if element is set
-			var element = form.elements.namedItem( name );
-			if( ! element ) {
-				continue;
-			}
-
-			var type = element.type || element[0].type;
-
-			switch(type ) {
-				default:
-					element.value = value;
-					break;
-
-				case 'radio':
-				case 'checkbox':
-					for( var j=0; j < element.length; j++ ) {
-						element[j].checked = ( value.indexOf(element[j].value) > -1 );
-					}
-					break;
-
-				case 'select-multiple':
-					var values = value.constructor == Array ? value : [value];
-
-					for(var k = 0; k < element.options.length; k++) {
-						element.options[k].selected |= (values.indexOf(element.options[k].value) > -1 );
-					}
-					break;
-
-				case 'select':
-				case 'select-one':
-					element.value = value.toString() || value;
-					break;
-				case 'date':
-          				element.value = new Date(value).toISOString().split('T')[0];	
-					break;
-			}
-
+/**
+ * Populate form fields from a JSON object.
+ *
+ * @param form object The form element containing your input fields.
+ * @param data array JSON data to populate the fields with.
+ * @param basename string Optional basename which is added to `name` attributes
+ */
+function populate(form, data, basename) {
+	for (var key in data) {
+		if (! data.hasOwnProperty(key)) {
+			continue;
 		}
 
-	};
+		var name = key;
+		var value = data[key];
 
-	// Play nice with AMD, CommonJS or a plain global object.
-	if ( typeof define == 'function' && typeof define.amd == 'object' && define.amd ) {
-		define(function() {
-			return populate;
-		});
-	}	else if ( typeof module !== 'undefined' && module.exports ) {
-		module.exports = populate;
-	} else {
-		root.populate = populate;
+        if ('undefined' === typeof value) {
+            value = '';
+        }
+
+        if (null === value) {
+            value = '';
+        }
+
+		// handle array name attributes
+		if (typeof(basename) !== "undefined") {
+			name = basename + "[" + key + "]";
+		}
+
+		if (value.constructor === Array) {
+			name += '[]';
+		} else if(typeof value == "object") {
+			populate(form, value, name);
+			continue;
+		}
+
+		// only proceed if element is set
+		var element = form.elements.namedItem(name);
+		if (! element) {
+			continue;
+		}
+
+		var type = element.type || element[0].type;
+
+		switch(type ) {
+			default:
+				element.value = value;
+				break;
+
+			case 'radio':
+			case 'checkbox':
+				for (var j=0; j < element.length; j++) {
+					element[j].checked = (value.indexOf(element[j].value) > -1);
+				}
+				break;
+
+			case 'select-multiple':
+				var values = value.constructor == Array ? value : [value];
+
+				for(var k = 0; k < element.options.length; k++) {
+					element.options[k].selected |= (values.indexOf(element.options[k].value) > -1 );
+				}
+				break;
+
+			case 'select':
+			case 'select-one':
+				element.value = value.toString() || value;
+				break;
+
+			case 'date':
+      			element.value = new Date(value).toISOString().split('T')[0];	
+				break;
+		}
+
 	}
+};
 
-}(this));
-
+if (typeof module !== 'undefined' && module.exports) {
+	module.exports = populate;
+} 
 },{}]},{},[1]);
