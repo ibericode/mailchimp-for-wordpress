@@ -156,6 +156,7 @@ class MC4WP_Google_Recaptcha {
 	}
 
 	public function show_settings( array $settings, MC4WP_Form $form ) {
+		// only show settings if Google reCAPTCHA is enabled, as we plan on removing this feature in a future version of the plugin
 		if ( ! $settings['grecaptcha_enabled'] ) {
 			return;
 		}

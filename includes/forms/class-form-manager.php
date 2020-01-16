@@ -32,7 +32,15 @@ class MC4WP_Form_Manager {
 	*/
 	protected $previewer;
 
+	/**
+	 * @var MC4WP_Google_Recaptcha
+	 */
 	protected $recaptcha;
+
+	/**
+	 * @var MC4WP_Form_Asset_Manager
+	 */
+	protected $assets;
 
 	/**
 	 * Constructor
@@ -43,6 +51,7 @@ class MC4WP_Form_Manager {
 		$this->listener       = new MC4WP_Form_Listener();
 		$this->previewer      = new MC4WP_Form_Previewer();
 		$this->recaptcha      = new MC4WP_Google_Recaptcha();
+		$this->assets         = new MC4WP_Form_Asset_Manager();
 	}
 
 	/**
@@ -50,11 +59,11 @@ class MC4WP_Form_Manager {
 	 */
 	public function add_hooks() {
 		add_action( 'init', array( $this, 'initialize' ) );
-		add_action( 'wp', array( $this, 'init_asset_manager' ), 90 );
 		add_action( 'widgets_init', array( $this, 'register_widget' ) );
 
 		$this->listener->add_hooks();
 		$this->output_manager->add_hooks();
+		$this->assets->add_hooks();
 		$this->tags->add_hooks();
 		$this->previewer->add_hooks();
 		$this->recaptcha->add_hooks();
@@ -97,16 +106,6 @@ class MC4WP_Form_Manager {
 				'public' => false,
 			)
 		);
-	}
-
-	/**
-	 * Initialise asset manager
-	 *
-	 * @hooked `template_redirect`
-	 */
-	public function init_asset_manager() {
-		$assets = new MC4WP_Form_Asset_Manager();
-		$assets->hook();
 	}
 
 	/**
