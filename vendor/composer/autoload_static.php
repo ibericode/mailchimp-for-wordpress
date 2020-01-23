@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit982a28eab8420855eb099ba24fa8d700
+class ComposerStaticInit68fa8ce89d46216bb2823312566df4e7
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
@@ -50,8 +50,8 @@ class ComposerStaticInit982a28eab8420855eb099ba24fa8d700
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -196,6 +196,7 @@ class ComposerStaticInit982a28eab8420855eb099ba24fa8d700
         'MC4WP_Field_Formatter' => __DIR__ . '/../..' . '/includes/class-field-formatter.php',
         'MC4WP_Field_Guesser' => __DIR__ . '/../..' . '/includes/class-field-guesser.php',
         'MC4WP_Form' => __DIR__ . '/../..' . '/includes/forms/class-form.php',
+        'MC4WP_Form_AMP' => __DIR__ . '/../..' . '/includes/forms/class-form-amp.php',
         'MC4WP_Form_Asset_Manager' => __DIR__ . '/../..' . '/includes/forms/class-asset-manager.php',
         'MC4WP_Form_Element' => __DIR__ . '/../..' . '/includes/forms/class-form-element.php',
         'MC4WP_Form_Listener' => __DIR__ . '/../..' . '/includes/forms/class-form-listener.php',
@@ -788,10 +789,10 @@ class ComposerStaticInit982a28eab8420855eb099ba24fa8d700
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit982a28eab8420855eb099ba24fa8d700::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit982a28eab8420855eb099ba24fa8d700::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit982a28eab8420855eb099ba24fa8d700::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit982a28eab8420855eb099ba24fa8d700::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit68fa8ce89d46216bb2823312566df4e7::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit68fa8ce89d46216bb2823312566df4e7::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit68fa8ce89d46216bb2823312566df4e7::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit68fa8ce89d46216bb2823312566df4e7::$classMap;
 
         }, null, ClassLoader::class);
     }

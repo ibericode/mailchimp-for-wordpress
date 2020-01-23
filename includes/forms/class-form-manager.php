@@ -43,15 +43,21 @@ class MC4WP_Form_Manager {
 	protected $assets;
 
 	/**
+	 * @var MC4WP_Form_AMP
+	 */
+	protected $amp_compatibility;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->output_manager = new MC4WP_Form_Output_Manager();
-		$this->tags           = new MC4WP_Form_Tags();
-		$this->listener       = new MC4WP_Form_Listener();
-		$this->previewer      = new MC4WP_Form_Previewer();
-		$this->recaptcha      = new MC4WP_Google_Recaptcha();
-		$this->assets         = new MC4WP_Form_Asset_Manager();
+		$this->output_manager    = new MC4WP_Form_Output_Manager();
+		$this->tags              = new MC4WP_Form_Tags();
+		$this->listener          = new MC4WP_Form_Listener();
+		$this->previewer         = new MC4WP_Form_Previewer();
+		$this->recaptcha         = new MC4WP_Google_Recaptcha();
+		$this->assets            = new MC4WP_Form_Asset_Manager();
+		$this->amp_compatibility = new MC4WP_Form_AMP();
 	}
 
 	/**
@@ -60,6 +66,7 @@ class MC4WP_Form_Manager {
 	public function add_hooks() {
 		add_action( 'init', array( $this, 'initialize' ) );
 		add_action( 'widgets_init', array( $this, 'register_widget' ) );
+		add_action( 'rest_api_init', array( $this, 'register_endpoint' ) );
 
 		$this->listener->add_hooks();
 		$this->output_manager->add_hooks();
@@ -67,6 +74,7 @@ class MC4WP_Form_Manager {
 		$this->tags->add_hooks();
 		$this->previewer->add_hooks();
 		$this->recaptcha->add_hooks();
+		$this->amp_compatibility->add_hooks();
 	}
 
 	/**
@@ -113,6 +121,45 @@ class MC4WP_Form_Manager {
 	 */
 	public function register_widget() {
 		register_widget( 'MC4WP_Form_Widget' );
+	}
+
+	/**
+	 * Register an API endpoint for handling a form.
+	 */
+	public function register_endpoint() {
+		register_rest_route( 
+			'mc4wp/v1', 
+			'/form', 
+			array(
+				'methods'  => 'POST',
+				'callback' => array( $this, 'handle_endpoint' ),
+			)
+		);
+	}
+
+	/**
+	 * Process requests to the form endpoint.
+	 * A listener checks every request for a form submit, so we just need to fetch the listener and get its status.
+	 */
+	public function handle_endpoint() {
+		$form = mc4wp_get_submitted_form();
+		if ( ! $form ) {
+			return new WP_Error(
+				'not_found',
+				esc_html__( 'Resource does not exist.' ),
+				array(
+					'status' => 404,
+				)
+			);
+		}
+
+		if ( $form->has_errors() ) {
+			$message_key = $form->errors[0];
+			$message     = $form->get_message( $message_key );
+			return new WP_Error( $message_key, $message );
+		}
+
+		return new WP_REST_Response( true, 200 );	
 	}
 
 	/**

@@ -101,6 +101,7 @@ return array(
     'MC4WP_Field_Formatter' => $baseDir . '/includes/class-field-formatter.php',
     'MC4WP_Field_Guesser' => $baseDir . '/includes/class-field-guesser.php',
     'MC4WP_Form' => $baseDir . '/includes/forms/class-form.php',
+    'MC4WP_Form_AMP' => $baseDir . '/includes/forms/class-form-amp.php',
     'MC4WP_Form_Asset_Manager' => $baseDir . '/includes/forms/class-asset-manager.php',
     'MC4WP_Form_Element' => $baseDir . '/includes/forms/class-form-element.php',
     'MC4WP_Form_Listener' => $baseDir . '/includes/forms/class-form-listener.php',
