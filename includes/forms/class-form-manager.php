@@ -127,9 +127,9 @@ class MC4WP_Form_Manager {
 	 * Register an API endpoint for handling a form.
 	 */
 	public function register_endpoint() {
-		register_rest_route( 
-			'mc4wp/v1', 
-			'/form', 
+		register_rest_route(
+			'mc4wp/v1',
+			'/form',
 			array(
 				'methods'  => 'POST',
 				'callback' => array( $this, 'handle_endpoint' ),
@@ -146,7 +146,7 @@ class MC4WP_Form_Manager {
 		if ( ! $form ) {
 			return new WP_Error(
 				'not_found',
-				esc_html__( 'Resource does not exist.' ),
+				esc_html__( 'Resource does not exist.', 'mailchimp-for-wp' ),
 				array(
 					'status' => 404,
 				)
@@ -159,7 +159,7 @@ class MC4WP_Form_Manager {
 			return new WP_Error( $message_key, $message );
 		}
 
-		return new WP_REST_Response( true, 200 );	
+		return new WP_REST_Response( true, 200 );
 	}
 
 	/**
