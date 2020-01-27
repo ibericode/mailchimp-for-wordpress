@@ -157,9 +157,13 @@ class MC4WP_Form_Manager {
 		if ( $form->has_errors() ) {
 			$message_key = $form->errors[0];
 			$message     = $form->get_message( $message_key );
-			return new WP_Error( $message_key, $message, array(
+			return new WP_Error(
+				$message_key,
+				$message,
+				array(
 				'status' => 400,
-			) );
+				)
+			);
 		}
 
 		return new WP_REST_Response( true, 200 );

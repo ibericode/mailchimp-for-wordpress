@@ -34,7 +34,16 @@ class MC4WP_Form_AMP {
 		</div>
 		<div submit-success>
 			<template type="amp-mustache">
-				<?php echo wp_kses( $form->get_message( 'subscribed' ), array( 'a' => array(), 'strong' => array(), 'em' => array() ) ); ?>
+				<?php
+				echo wp_kses(
+					$form->get_message( 'subscribed' ),
+					array(
+					'a' => array(),
+					'strong' => array(),
+					'em' => array(),
+					)
+				);
+				?>
 			</template>
 		</div>
 		<div submit-error>
