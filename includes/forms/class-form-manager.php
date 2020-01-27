@@ -143,7 +143,7 @@ class MC4WP_Form_Manager {
 	 */
 	public function handle_endpoint() {
 		$form = mc4wp_get_submitted_form();
-		if ( ! $form ) {
+		if ( ! $form instanceof MC4WP_Form ) {
 			return new WP_Error(
 				'not_found',
 				esc_html__( 'Resource does not exist.', 'mailchimp-for-wp' ),
