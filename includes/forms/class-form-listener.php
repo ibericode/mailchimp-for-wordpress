@@ -291,10 +291,8 @@ class MC4WP_Form_Listener {
 		 */
 		do_action( 'mc4wp_form_respond', $form );
 
-		// do stuff on success (non-AJAX only)
-		if ( $success && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-
-			// do we want to redirect?
+		// do stuff on success (if form was submitted over plain HTTP, not for AJAX or REST requests)
+		if ( $success && ! wp_is_json_request() ) {
 			$redirect_url = $form->get_redirect_url();
 			if ( ! empty( $redirect_url ) ) {
 				wp_redirect( $redirect_url );
