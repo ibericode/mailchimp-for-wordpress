@@ -139,6 +139,7 @@ class MC4WP_Form_Manager {
 
 	/**
 	 * Process requests to the form endpoint.
+	 *
 	 * A listener checks every request for a form submit, so we just need to fetch the listener and get its status.
 	 */
 	public function handle_endpoint() {
