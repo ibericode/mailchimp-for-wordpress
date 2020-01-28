@@ -281,11 +281,11 @@ var showIfElements = document.querySelectorAll('[data-showif]');
 
   function toggleElement() {
     // do nothing with unchecked radio inputs
-    if (this.getAttribute('type') === "radio" && !this.checked) {
+    if (this.type === "radio" && !this.checked) {
       return;
     }
 
-    var value = this.getAttribute("type") === "checkbox" ? this.checked : this.value;
+    var value = this.type === "checkbox" ? this.checked : this.value;
     var conditionMet = value == config.value;
 
     if (hide) {
@@ -297,7 +297,7 @@ var showIfElements = document.querySelectorAll('[data-showif]');
 
 
     [].forEach.call(inputs, function (inputElement) {
-      conditionMet ? inputElement.removeAttribute('readonly') : inputElement.setAttribute('readonly', 'readonly');
+      inputElement.readOnly = !conditionMet;
     });
   } // find checked element and call toggleElement function
 

@@ -1161,6 +1161,8 @@ var editor = require('./form-editor.js');
 
 var fields = require('./fields.js');
 
+var REGEX_ARRAY_BRACKETS_WITH_KEY = /\[(\w+)\]/g;
+var REGEX_ARRAY_BRACKETS_EMPTY = /\[\]$/;
 var requiredFieldsInput = document.getElementById('required-fields');
 
 function updateFields() {
@@ -1181,7 +1183,7 @@ function updateFields() {
       } // query other fields for this address group
 
 
-      var nameGroup = field.name.replace(/\[(\w+)\]/g, '');
+      var nameGroup = field.name.replace(REGEX_ARRAY_BRACKETS_WITH_KEY, '');
 
       if (editor.query('[name^="' + nameGroup + '"]').length > 0) {
         field.forceRequired = true;
@@ -1197,7 +1199,7 @@ function updateFields() {
 function findRequiredFields() {
   // query fields required by Mailchimp
   var requiredFields = fields.getAllWhere('forceRequired', true).map(function (f) {
-    return f.name.toUpperCase().replace(/\[(\w+)\]/g, '.$1');
+    return f.name.toUpperCase().replace(REGEX_ARRAY_BRACKETS_WITH_KEY, '.$1');
   }); // query fields in form with [required] attribute
 
   var requiredFieldElements = editor.query('[required]');
@@ -1209,9 +1211,9 @@ function findRequiredFields() {
     } // replace array brackets with dot style notation
 
 
-    name = name.replace(/\[(\w+)\]/g, '.$1'); // replace array-style fields
+    name = name.replace(REGEX_ARRAY_BRACKETS_WITH_KEY, '.$1'); // replace array-style fields
 
-    name = name.replace(/\[\]$/, ''); // uppercase everything before the .
+    name = name.replace(REGEX_ARRAY_BRACKETS_EMPTY, ''); // uppercase everything before the .
 
     var pos = name.indexOf('.');
     pos = pos > 0 ? pos : name.length;
@@ -1226,8 +1228,8 @@ function findRequiredFields() {
 } // events
 
 
-editor.on('change', helpers.debounce(updateFields, 500));
-fields.on('change', helpers.debounce(updateFields, 500));
+editor.on('change', helpers.debounce(updateFields, 600));
+fields.on('change', helpers.debounce(updateFields, 600));
 
 },{"../helpers.js":9,"./fields.js":6,"./form-editor.js":7,"mithril":28}],9:[function(require,module,exports){
 'use strict';
