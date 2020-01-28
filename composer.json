@@ -37,7 +37,8 @@
     "post-autoload-dump": [
       "xrstf\\Composer52\\Generator::onPostInstallCmd"
     ],
-    "test": "vendor/bin/phpunit"
+	"test": "./vendor/bin/phpunit tests/",
+	"codestyle": "./vendor/bin/phpcs -n -s"
   },
   "autoload": {
     "classmap": [

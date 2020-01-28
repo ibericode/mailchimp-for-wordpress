@@ -1,13 +1,22 @@
 language: php
-php:
-  - 7.2
-  - 7.3
 install:
-- composer self-update --no-interaction
-- composer update --no-interaction --prefer-dist
+  - phpenv config-rm xdebug.ini # Disable XDebug to speed up PHP builds
+  - composer install --no-interaction --prefer-dist
 script:
-- vendor/bin/phpunit
-- vendor/bin/phpcs -s -n
+  - composer run test
+  - composer run codestyle
+jobs:
+  include:
+    - php: 7.3
+    - php: 7.4
+    - language: node_js
+      node_js: 12
+      install: npm install
+      script: npm run lint
+cache:
+  npm: true
+  directories:
+    - $HOME/.composer/cache
 env:
   global:
     secure: iYWazyvp/sBhqW4GMiOrPHXrUQTGVVNIPVTUU3mSvRmFSEvZRbL0NbfFEUJhfqNITrEoPxQxoDaf6MJ9UNPqfcARuChrUybHKFv9Ouvd05kmH4vwPJroJdl3iawQzeZBXpxg/Wn8ciW79bVuCH2/LMZWk1bcKS87VbjG6CwUF8s=
