@@ -5,11 +5,11 @@ var _scrollToElement = _interopRequireDefault(require("./misc/scroll-to-element.
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var submitted_form = window.mc4wp_submitted_form;
+var submittedForm = window.mc4wp_submitted_form;
 var forms = window.mc4wp.forms;
 
 function trigger(event, args) {
-  forms.trigger(args[0].id + "." + event, args);
+  forms.trigger(args[0].id + '.' + event, args);
   forms.trigger(event, args);
 }
 
@@ -22,7 +22,7 @@ function handleFormRequest(form, eventName, errors, data) {
   } // scroll to form
 
 
-  if (window.scrollY <= 10 && submitted_form.auto_scroll) {
+  if (window.scrollY <= 10 && submittedForm.auto_scroll) {
     (0, _scrollToElement["default"])(form.element);
   } // trigger events on window.load so all other scripts have loaded
 
@@ -47,16 +47,16 @@ function handleFormRequest(form, eventName, errors, data) {
 
     var timeElapsed = Date.now() - timeStart;
 
-    if (submitted_form.auto_scroll && timeElapsed > 1000 && timeElapsed < 2000 && document.body.clientHeight !== pageHeight) {
+    if (submittedForm.auto_scroll && timeElapsed > 1000 && timeElapsed < 2000 && document.body.clientHeight !== pageHeight) {
       (0, _scrollToElement["default"])(form.element);
     }
   });
 }
 
-if (submitted_form) {
-  var element = document.getElementById(submitted_form.element_id);
+if (submittedForm) {
+  var element = document.getElementById(submittedForm.element_id);
   var form = forms.getByElement(element);
-  handleFormRequest(form, submitted_form.event, submitted_form.errors, submitted_form.data);
+  handleFormRequest(form, submittedForm.event, submittedForm.errors, submittedForm.data);
 }
 
 },{"./misc/scroll-to-element.js":2}],2:[function(require,module,exports){
@@ -69,8 +69,8 @@ function scrollTo(element) {
 }
 
 function calculateScrollOffset(elem) {
-  var body = document.body,
-      html = document.documentElement;
+  var body = document.body;
+  var html = document.documentElement;
   var elemRect = elem.getBoundingClientRect();
   var clientHeight = html.clientHeight;
   var documentHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);

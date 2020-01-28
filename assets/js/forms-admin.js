@@ -11,16 +11,16 @@ r.showType = function (config) {
   // ucfirst
   var fieldType = config.type;
   fieldType = fieldType.charAt(0).toUpperCase() + fieldType.slice(1);
-  return m('div', [m("label", i18n.fieldType), m('span', fieldType)]);
+  return m('div', [m('label', i18n.fieldType), m('span', fieldType)]);
 };
 
 r.label = function (config) {
   // label row
-  return m("div", [m("label", i18n.fieldLabel), m("input.widefat", {
-    type: "text",
+  return m('div', [m('label', i18n.fieldLabel), m('input.widefat', {
+    type: 'text',
     value: config.label,
     onchange: function onchange(evt) {
-      return config.label = evt.target.value;
+      config.label = evt.target.value;
     },
     placeholder: config.title
   })]);
@@ -28,13 +28,13 @@ r.label = function (config) {
 
 r.value = function (config) {
   var isHidden = config.type === 'hidden';
-  return m("div", [m("label", [isHidden ? i18n.value : i18n.initialValue, " ", isHidden ? '' : m('small', {
-    "style": "float: right; font-weight: normal;"
-  }, i18n.optional)]), m("input.widefat", {
-    type: "text",
+  return m('div', [m('label', [isHidden ? i18n.value : i18n.initialValue, ' ', isHidden ? '' : m('small', {
+    style: 'float: right; font-weight: normal;'
+  }, i18n.optional)]), m('input.widefat', {
+    type: 'text',
     value: config.value,
     onchange: function onchange(evt) {
-      return config.value = evt.target.value;
+      config.value = evt.target.value;
     }
   }), isHidden ? '' : m('p.help', i18n.valueHelp)]);
 };
@@ -43,12 +43,12 @@ r.numberMinMax = function (config) {
   return m('div', [m('div.row', [m('div.col.col-3', [m('label', i18n.min), m('input', {
     type: 'number',
     onchange: function onchange(evt) {
-      return config.min = evt.target.value;
+      config.min = evt.target.value;
     }
   })]), m('div.col.col-3', [m('label', i18n.max), m('input', {
     type: 'number',
     onchange: function onchange(evt) {
-      return config.max = evt.target.value;
+      config.max = evt.target.value;
     }
   })])])]);
 };
@@ -58,7 +58,7 @@ r.isRequired = function (config) {
     type: 'checkbox',
     checked: config.required,
     onchange: function onchange(evt) {
-      return config.required = evt.target.checked;
+      config.required = evt.target.checked;
     }
   };
   var desc;
@@ -73,16 +73,16 @@ r.isRequired = function (config) {
 };
 
 r.placeholder = function (config) {
-  return m("div", [m("label", [i18n.placeholder, " ", m('small', {
-    "style": "float: right; font-weight: normal;"
-  }, i18n.optional)]), m("input.widefat", {
-    type: "text",
+  return m('div', [m('label', [i18n.placeholder, ' ', m('small', {
+    style: 'float: right; font-weight: normal;'
+  }, i18n.optional)]), m('input.widefat', {
+    type: 'text',
     value: config.placeholder,
     onchange: function onchange(evt) {
-      return config.placeholder = evt.target.value;
+      config.placeholder = evt.target.value;
     },
-    placeholder: ""
-  }), m("p.help", i18n.placeholderHelp)]);
+    placeholder: ''
+  }), m('p.help', i18n.placeholderHelp)]);
 };
 
 r.useParagraphs = function (config) {
@@ -90,7 +90,7 @@ r.useParagraphs = function (config) {
     type: 'checkbox',
     checked: config.wrap,
     onchange: function onchange(evt) {
-      return config.wrap = evt.target.checked;
+      config.wrap = evt.target.checked;
     }
   }), i18n.wrapInParagraphTags])]);
 };
@@ -114,14 +114,14 @@ r.choiceType = function (config) {
   return m('div', [m('label', i18n.choiceType), m('select', {
     value: config.type,
     onchange: function onchange(evt) {
-      return config.type = evt.target.value;
+      config.type = evt.target.value;
     }
   }, options)]);
 };
 
 r.choices = function (config) {
   var html = [];
-  html.push(m('div', [m('label', i18n.choices), m('div.limit-height', [m("table", config.choices.map(function (choice, index) {
+  html.push(m('div', [m('label', i18n.choices), m('div.limit-height', [m('table', config.choices.map(function (choice, index) {
     return m('tr', {
       'data-id': index
     }, [m('td.cb', m('input', {
@@ -149,12 +149,12 @@ r.choices = function (config) {
       value: choice.label,
       placeholder: choice.title,
       onchange: function onchange(evt) {
-        return choice.label = evt.target.value;
+        choice.label = evt.target.value;
       }
     })), m('td', m('span', {
-      "title": i18n.remove,
+      title: i18n.remove,
       "class": 'dashicons dashicons-no-alt hover-activated',
-      "onclick": function (key) {
+      onclick: function (key) {
         this.choices().splice(key, 1);
       }.bind(config, index)
     }, ''))]);
@@ -166,11 +166,11 @@ r.choices = function (config) {
 
 r.linkToTerms = function (config) {
   // label row
-  return m("div", [m("label", i18n.agreeToTermsLink), m("input.widefat", {
-    type: "text",
+  return m('div', [m('label', i18n.agreeToTermsLink), m('input.widefat', {
+    type: 'text',
     value: config.link,
     onchange: function onchange(evt) {
-      return config.link = evt.target.value;
+      config.link = evt.target.value;
     },
     placeholder: 'https://...'
   })]);
@@ -189,7 +189,7 @@ var rows = require('./field-forms-rows.js'); // route to one of the other form c
 forms.render = function (config) {
   var type = config.type;
 
-  if (typeof forms[type] === "function") {
+  if (typeof forms[type] === 'function') {
     return forms[type](config);
   }
 
@@ -256,7 +256,7 @@ var m = require('mithril');
 
 var setAttributes = function setAttributes(vnode) {
   if (vnode.dom.checked) {
-    vnode.dom.setAttribute("checked", "true");
+    vnode.dom.setAttribute('checked', 'true');
   }
 
   if (vnode.dom.value) {
@@ -264,7 +264,7 @@ var setAttributes = function setAttributes(vnode) {
   }
 
   if (vnode.dom.selected) {
-    vnode.dom.setAttribute("selected", "true");
+    vnode.dom.setAttribute('selected', 'true');
   }
 };
 
@@ -275,7 +275,7 @@ var generators = {};
  * @returns {*}
  */
 
-generators['select'] = function (config) {
+generators.select = function (config) {
   var attributes = {
     name: config.name,
     required: config.required
@@ -288,7 +288,7 @@ generators['select'] = function (config) {
 
     return m('option', {
       value: choice.value !== choice.label ? choice.value : undefined,
-      "selected": choice.selected,
+      selected: choice.selected,
       oncreate: setAttributes
     }, choice.label);
   });
@@ -296,9 +296,9 @@ generators['select'] = function (config) {
 
   if (placeholder.length > 0) {
     options.unshift(m('option', {
-      'disabled': true,
-      'value': '',
-      'selected': !hasSelection,
+      disabled: true,
+      value: '',
+      selected: !hasSelection,
       oncreate: setAttributes
     }, placeholder));
   }
@@ -312,7 +312,7 @@ generators['terms-checkbox'] = function (config) {
   if (config.link.length > 0) {
     label = m('a', {
       href: config.link,
-      target: "_blank"
+      target: '_blank'
     }, config.label);
   } else {
     label = config.label;
@@ -333,7 +333,7 @@ generators['terms-checkbox'] = function (config) {
  */
 
 
-generators['checkbox'] = function (config) {
+generators.checkbox = function (config) {
   return config.choices.map(function (choice) {
     var name = config.name + (config.type === 'checkbox' ? '[]' : '');
     var required = config.required && config.type === 'radio';
@@ -348,7 +348,7 @@ generators['checkbox'] = function (config) {
   });
 };
 
-generators['radio'] = generators['checkbox'];
+generators.radio = generators.checkbox;
 /**
  * Generates a default field
  *
@@ -358,7 +358,7 @@ generators['radio'] = generators['checkbox'];
  * @returns {*}
  */
 
-generators['default'] = function (config) {
+generators["default"] = function (config) {
   var attributes = {
     type: config.type
   };
@@ -397,15 +397,15 @@ generators['default'] = function (config) {
 
 function generate(config) {
   var labelAtts = {};
-  var label = config.label.length > 0 && config.showLabel ? m("label", labelAtts, config.label) : '';
-  var field = typeof generators[config.type] === "function" ? generators[config.type](config) : generators['default'](config);
+  var label = config.label.length > 0 && config.showLabel ? m('label', labelAtts, config.label) : '';
+  var field = typeof generators[config.type] === 'function' ? generators[config.type](config) : generators["default"](config);
   var htmlTemplate = config.wrap ? m('p', [label, field]) : [label, field]; // render in vdom
 
   var vdom = document.createElement('div');
   m.render(vdom, htmlTemplate); // prettify html
 
   var html = htmlutil.prettyPrint(vdom.innerHTML);
-  return html + "\n";
+  return html + '\n';
 }
 
 module.exports = generate;
@@ -472,7 +472,7 @@ function view() {
   // build DOM for fields choice
   var fieldCategories = fields.getCategories();
   var availableFields = fields.getAll();
-  var fieldsChoice = m("div.available-fields.small-margin", [m("h4", i18n.chooseField), fieldCategories.map(function (category) {
+  var fieldsChoice = m('div.available-fields.small-margin', [m('h4', i18n.chooseField), fieldCategories.map(function (category) {
     var categoryFields = availableFields.filter(function (f) {
       return f.category === category;
     });
@@ -481,21 +481,21 @@ function view() {
       return;
     }
 
-    return m("div.tiny-margin", [m("strong", category), // render fields
+    return m('div.tiny-margin', [m('strong', category), // render fields
     categoryFields.map(function (field) {
-      var className = "button";
+      var className = 'button';
 
       if (field.forceRequired) {
-        className += " is-required";
+        className += ' is-required';
       }
 
       var inForm = field.inFormContent;
 
       if (inForm !== null) {
-        className += " " + (inForm ? 'in-form' : 'not-in-form');
+        className += ' ' + (inForm ? 'in-form' : 'not-in-form');
       }
 
-      return m("button", {
+      return m('button', {
         className: className,
         type: 'button',
         onclick: function onclick(evt) {
@@ -512,13 +512,13 @@ function view() {
     form = m(Overlay, {
       onClose: setActiveField
     }, // field wizard
-    m("div.field-wizard", [//heading
-    m("h3", [fieldConfig.title, fieldConfig.forceRequired ? m('span.red', '*') : '', fieldConfig.name.length ? m("code", fieldConfig.name) : '']), // help text
+    m('div.field-wizard', [// heading
+    m('h3', [fieldConfig.title, fieldConfig.forceRequired ? m('span.red', '*') : '', fieldConfig.name.length ? m('code', fieldConfig.name) : '']), // help text
     fieldConfig.help.length ? m('p', m.trust(fieldConfig.help)) : '', // actual form
     forms.render(fieldConfig), // add to form button
-    m("p", [m("button", {
-      "class": "button-primary",
-      type: "button",
+    m('p', [m('button', {
+      "class": 'button-primary',
+      type: 'button',
       onkeydown: function onkeydown(evt) {
         if (evt.keyCode === 13) {
           createFieldHTMLAndAddToForm();
@@ -550,6 +550,7 @@ var settings = window.mc4wp.settings;
 var ajaxurl = window.mc4wp_vars.ajaxurl;
 var i18n = window.mc4wp_forms_i18n;
 var mailchimp = window.mc4wp_vars.mailchimp;
+var countries = window.mc4wp_vars.countries;
 /**
  * Array of registered fields
  *
@@ -591,12 +592,12 @@ function register(category, data, sticky) {
 
 function getFieldType(type) {
   var map = {
-    'phone': 'tel',
-    'dropdown': 'select',
-    'checkboxes': 'checkbox',
-    'birthday': 'text'
+    phone: 'tel',
+    dropdown: 'select',
+    checkboxes: 'checkbox',
+    birthday: 'text'
   };
-  return typeof map[type] !== "undefined" ? map[type] : type;
+  return typeof map[type] !== 'undefined' ? map[type] : type;
 }
 /**
  * Register the various fields for a merge var
@@ -653,7 +654,7 @@ function registerMergeField(mergeField) {
       type: 'select',
       mailchimpType: 'address',
       title: i18n.country,
-      choices: mc4wp_vars.countries
+      choices: countries
     }, false);
   }
 
@@ -711,12 +712,12 @@ function registerListFields(list) {
 
 
 function registerListsFields(lists) {
-  var url = ajaxurl + "?action=mc4wp_get_list_details&ids=" + lists.map(function (l) {
+  var url = ajaxurl + '?action=mc4wp_get_list_details&ids=' + lists.map(function (l) {
     return l.id;
   }).join(',');
   m.request({
     url: url,
-    method: "GET"
+    method: 'GET'
   }).then(function (lists) {
     reset();
     lists.forEach(registerListFields);
@@ -737,7 +738,7 @@ function registerCustomFields(lists) {
   register(category, {
     name: '',
     value: i18n.subscribe,
-    type: "submit",
+    type: 'submit',
     title: i18n.submitButton
   }, true); // register lists choice field
 
@@ -756,8 +757,8 @@ function registerCustomFields(lists) {
     acceptsMultipleValues: true
   }, true);
   choices = {
-    'subscribe': "Subscribe",
-    'unsubscribe': "Unsubscribe"
+    subscribe: 'Subscribe',
+    unsubscribe: 'Unsubscribe'
   };
   register(category, {
     name: '_mc4wp_action',
@@ -770,7 +771,7 @@ function registerCustomFields(lists) {
   register(category, {
     name: 'AGREE_TO_TERMS',
     value: 1,
-    type: "terms-checkbox",
+    type: 'terms-checkbox',
     label: i18n.agreeToTerms,
     title: i18n.agreeToTermsShort,
     showLabel: false,
@@ -803,12 +804,12 @@ var Field = function Field(data) {
     type: data.type,
     mailchimpType: data.mailchimpType || null,
     label: data.label || data.title || '',
-    showLabel: typeof data.showLabel === "boolean" ? data.showLabel : true,
+    showLabel: typeof data.showLabel === 'boolean' ? data.showLabel : true,
     value: data.value || '',
     placeholder: data.placeholder || '',
-    required: typeof data.required === "boolean" ? data.required : false,
-    forceRequired: typeof data.forceRequired === "boolean" ? data.forceRequired : false,
-    wrap: typeof data.wrap === "boolean" ? data.wrap : true,
+    required: typeof data.required === 'boolean' ? data.required : false,
+    forceRequired: typeof data.forceRequired === 'boolean' ? data.forceRequired : false,
+    wrap: typeof data.wrap === 'boolean' ? data.wrap : true,
     min: data.min,
     max: data.max,
     help: data.help || '',
@@ -845,7 +846,7 @@ var FieldChoice = function FieldChoice(data) {
 function createChoices(data) {
   var choices = [];
 
-  if (typeof data.map === "function") {
+  if (typeof data.map === 'function') {
     choices = data.map(function (choiceLabel) {
       return new FieldChoice({
         label: choiceLabel
@@ -871,7 +872,6 @@ function createChoices(data) {
 
 
 function register(category, data) {
-  var field;
   var existingField = getAllWhere('name', data.name).shift(); // a field with the same "name" already exists
 
   if (existingField) {
@@ -905,14 +905,13 @@ function register(category, data) {
   } // create Field object
 
 
-  field = new Field(data);
+  var field = new Field(data);
   field.category = category; // add to array
 
   fields.push(field); // redraw view
-  // TODO: Move this out
 
   timeout && window.clearTimeout(timeout);
-  timeout = window.setTimeout(m.redraw, 200); // trigger event
+  timeout = window.setTimeout(m.redraw, 600); // trigger event
 
   emit('change');
   return field;
@@ -973,7 +972,7 @@ function getAll() {
 
 function getCategories() {
   return categories.sort(function (a, b) {
-    return a !== "Form fields" ? -1 : 1;
+    return a !== 'Form fields' ? -1 : 1;
   });
 }
 /**
@@ -996,12 +995,12 @@ function getAllWhere(searchKey, searchValue) {
 
 
 module.exports = {
-  'get': get,
-  'getAll': getAll,
-  'getCategories': getCategories,
-  'deregister': deregister,
-  'register': register,
-  'getAllWhere': getAllWhere,
+  get: get,
+  getAll: getAll,
+  getCategories: getCategories,
+  deregister: deregister,
+  register: register,
+  getAllWhere: getAllWhere,
   on: on
 };
 
@@ -1108,7 +1107,7 @@ FormEditor.refresh = function () {
 
 if (element) {
   window.addEventListener('load', function () {
-    CodeMirror.signal(editor, "change");
+    CodeMirror.signal(editor, 'change');
   }); // set domDirty to true everytime the "change" event fires (a lot..)
 
   element.addEventListener('change', function () {
@@ -1120,7 +1119,7 @@ if (element) {
   if (CodeMirror) {
     editor = CodeMirror.fromTextArea(element, {
       selectionPointer: true,
-      mode: "htmlmixed",
+      mode: 'htmlmixed',
       htmlMode: true,
       autoCloseTags: true,
       autoRefresh: true,
@@ -1132,7 +1131,7 @@ if (element) {
     }); // dispatch regular "change" on element event every time editor changes (IE9+ only)
 
     window.dispatchEvent && editor.on('change', function () {
-      if (typeof Event === "function") {
+      if (typeof Event === 'function') {
         // Create a new 'change' event
         var event = new Event('change', {
           bubbles: true
@@ -1239,8 +1238,8 @@ var helpers = {}; // polling
 helpers.debounce = function (func, wait, immediate) {
   var timeout;
   return function () {
-    var context = this,
-        args = arguments;
+    var context = this;
+    var args = arguments;
     var callNow = immediate && !timeout;
     clearTimeout(timeout);
     timeout = setTimeout(function () {
@@ -1294,7 +1293,7 @@ function render() {
 }
 
 var groupingsNotice = function groupingsNotice() {
-  var text = "Your form contains deprecated <code>GROUPINGS</code> fields. <br /><br />Please remove these fields from your form and then re-add them through the available field buttons to make sure your data is getting through to Mailchimp correctly.";
+  var text = 'Your form contains deprecated <code>GROUPINGS</code> fields. <br /><br />Please remove these fields from your form and then re-add them through the available field buttons to make sure your data is getting through to Mailchimp correctly.';
   var formCode = editor.getValue().toLowerCase();
   formCode.indexOf('name="groupings') > -1 ? show('deprecated_groupings', text) : hide('deprecated_groupings');
 };
@@ -1305,7 +1304,7 @@ var requiredFieldsNotice = function requiredFieldsNotice() {
     return !editor.containsField(f.name.toUpperCase());
   });
   var text = '<strong>Heads up!</strong> Your form is missing list fields that are required in Mailchimp. Either add these fields to your form or mark them as optional in Mailchimp.';
-  text += "<br /><ul class=\"ul-square\" style=\"margin-bottom: 0;\"><li>" + missingFields.map(function (f) {
+  text += '<br /><ul class="ul-square" style="margin-bottom: 0;"><li>' + missingFields.map(function (f) {
     return f.title;
   }).join('</li><li>') + '</li></ul>';
   missingFields.length > 0 ? show('required_fields_missing', text) : hide('required_fields_missing');
@@ -1374,12 +1373,12 @@ function Overlay(vnode) {
     var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
     var marginLeft = (windowWidth - element.clientWidth - 40) / 2;
     var marginTop = (windowHeight - element.clientHeight - 40) / 2;
-    element.style.left = (marginLeft > 0 ? marginLeft : 0) + "px";
-    element.style.top = (marginTop > 0 ? marginTop : 0) + "px";
+    element.style.left = (marginLeft > 0 ? marginLeft : 0) + 'px';
+    element.style.top = (marginTop > 0 ? marginTop : 0) + 'px';
   }
 
   function view(vnode) {
-    return [m('div.overlay-wrap', m("div.overlay", {
+    return [m('div.overlay-wrap', m('div.overlay', {
       oncreate: function oncreate(vnode) {
         element = vnode.dom;
         onWindowResize();
@@ -1429,11 +1428,11 @@ function updateSelectedLists() {
   selectedLists = [];
   [].forEach.call(listInputs, function (input) {
     // skip unchecked checkboxes
-    if (typeof input.checked === "boolean" && !input.checked) {
+    if (typeof input.checked === 'boolean' && !input.checked) {
       return;
     }
 
-    if (_typeof(lists[input.value]) === "object") {
+    if (_typeof(lists[input.value]) === 'object') {
       selectedLists.push(lists[input.value]);
     }
   });

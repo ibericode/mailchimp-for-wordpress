@@ -3,7 +3,8 @@
 
 var __ = window.wp.i18n.__;
 var registerBlockType = window.wp.blocks.registerBlockType;
-var SelectControl = window.wp.components.SelectControl;
+var SelectControl = window.wp.components.SelectControl; // eslint-disable-line no-unused-vars
+
 var forms = window.mc4wp_forms;
 registerBlockType('mailchimp-for-wp/form', {
   title: __('Mailchimp for WordPress Form'),
@@ -49,7 +50,7 @@ registerBlockType('mailchimp-for-wp/form', {
   },
   // Render nothing in the saved content, because we render in PHP
   save: function save(props) {
-    return null; //return `[mc4wp_form id="${props.attributes.id}"]`;
+    return null; // return `[mc4wp_form id="${props.attributes.id}"]`;
   }
 });
 

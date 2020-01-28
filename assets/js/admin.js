@@ -60,8 +60,8 @@ var helpers = {}; // polling
 helpers.debounce = function (func, wait, immediate) {
   var timeout;
   return function () {
-    var context = this,
-        args = arguments;
+    var context = this;
+    var args = arguments;
     var callNow = immediate && !timeout;
     clearTimeout(timeout);
     timeout = setTimeout(function () {
@@ -94,8 +94,8 @@ function fetch(evt) {
   state.working = true;
   state.done = false;
   m.request({
-    method: "POST",
-    url: ajaxurl + "?action=mc4wp_renew_mailchimp_lists",
+    method: 'POST',
+    url: ajaxurl + '?action=mc4wp_renew_mailchimp_lists',
     timeout: 600000 // 10 minutes, matching max_execution_time
 
   }).then(function (data) {
@@ -117,14 +117,14 @@ function fetch(evt) {
 
 function view() {
   return m('form', {
-    method: "POST",
+    method: 'POST',
     onsubmit: fetch.bind(this)
   }, [m('p', [m('input', {
-    type: "submit",
+    type: 'submit',
     value: state.working ? i18n.fetching_mailchimp_lists : i18n.renew_mailchimp_lists,
-    className: "button",
+    className: 'button',
     disabled: !!state.working
-  }), m.trust(' &nbsp; '), state.working ? [m('span.mc4wp-loader', "Loading..."), m.trust(' &nbsp; ')] : '', state.done ? [state.success ? m('em.help.green', i18n.fetching_mailchimp_lists_done) : m('em.help.red', i18n.fetching_mailchimp_lists_error)] : ''])]);
+  }), m.trust(' &nbsp; '), state.working ? [m('span.mc4wp-loader', 'Loading...'), m.trust(' &nbsp; ')] : '', state.done ? [state.success ? m('em.help.green', i18n.fetching_mailchimp_lists_done) : m('em.help.red', i18n.fetching_mailchimp_lists_error)] : ''])]);
 }
 
 var mount = document.getElementById('mc4wp-list-fetcher');
@@ -160,8 +160,8 @@ function showDetails(evt) {
 
   if (next.style.display === 'none') {
     m.request({
-      method: "GET",
-      url: ajaxurl + "?action=mc4wp_get_list_details&ids=" + listID
+      method: 'GET',
+      url: ajaxurl + '?action=mc4wp_get_list_details&ids=' + listID
     }).then(function (details) {
       m.render(mount, view(details.shift()));
     });
@@ -226,11 +226,11 @@ function updateSelectedLists() {
   selectedLists = [];
   [].forEach.call(listInputs, function (input) {
     // skip unchecked checkboxes
-    if (typeof input.checked === "boolean" && !input.checked) {
+    if (typeof input.checked === 'boolean' && !input.checked) {
       return;
     }
 
-    if (_typeof(lists[input.value]) === "object") {
+    if (_typeof(lists[input.value]) === 'object') {
       selectedLists.push(lists[input.value]);
     }
   });
@@ -281,12 +281,12 @@ var showIfElements = document.querySelectorAll('[data-showif]');
 
   function toggleElement() {
     // do nothing with unchecked radio inputs
-    if (this.type === "radio" && !this.checked) {
+    if (this.type === 'radio' && !this.checked) {
       return;
     }
 
-    var value = this.type === "checkbox" ? this.checked : this.value;
-    var conditionMet = value == config.value;
+    var value = this.type === 'checkbox' ? this.checked : this.value;
+    var conditionMet = String(value) === String(config.value);
 
     if (hide) {
       element.style.display = conditionMet ? '' : 'none';
@@ -349,7 +349,7 @@ function get(id) {
 
 function _open(tab, updateState) {
   // make sure we have a tab object
-  if (typeof tab === "string") {
+  if (typeof tab === 'string') {
     tab = get(tab);
   }
 
@@ -372,14 +372,14 @@ function _open(tab, updateState) {
   }); // add `nav-tab-active` to this tab
 
   [].forEach.call(tab.nav, function (nav) {
-    nav.className += " nav-tab-active";
+    nav.className += ' nav-tab-active';
     nav.blur();
   }); // show target tab
 
   tab.element.style.display = 'block';
-  tab.element.className += " tab-active"; // create new URL
+  tab.element.className += ' tab-active'; // create new URL
 
-  var url = URL.setParameter(window.location.href, "tab", tab.id); // update hash
+  var url = URL.setParameter(window.location.href, 'tab', tab.id); // update hash
 
   if (history.pushState && updateState) {
     history.pushState(tab.id, '', url);
@@ -390,8 +390,8 @@ function _open(tab, updateState) {
 
   refererField.value = url; // if thickbox is open, close it.
 
-  if (typeof tb_remove === "function") {
-    tb_remove();
+  if (typeof window.tb_remove === 'function') {
+    window.tb_remove();
   } // refresh editor if open
 
 
@@ -404,7 +404,7 @@ function _open(tab, updateState) {
 
 function title(tab) {
   var title = document.title.split('-');
-  document.title = document.title.replace(title[0], tab.title + " ");
+  document.title = document.title.replace(title[0], tab.title + ' ');
 }
 
 function switchTab(evt) {
@@ -514,10 +514,10 @@ var URL = {
     var ret = [];
 
     for (var d in data) {
-      ret.push(d + "=" + encodeURIComponent(data[d]));
+      ret.push(d + '=' + encodeURIComponent(data[d]));
     }
 
-    return ret.join("&");
+    return ret.join('&');
   },
   setParameter: function setParameter(url, key, value) {
     var data = URL.parse(url);

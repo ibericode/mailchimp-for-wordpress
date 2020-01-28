@@ -1,5 +1,5 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-'use strict';
+"use strict";
 
 require("./forms/conditional-elements.js");
 
@@ -8,7 +8,7 @@ var mc4wp = window.mc4wp || {};
 var forms = require('./forms/forms.js');
 
 function trigger(event, args) {
-  forms.trigger(args[0].id + "." + event, args);
+  forms.trigger(args[0].id + '.' + event, args);
   forms.trigger(event, args);
 }
 
@@ -60,7 +60,7 @@ if (mc4wp.listeners) {
   } // delete temp listeners array, so we don't bind twice
 
 
-  delete mc4wp["listeners"];
+  delete mc4wp.listeners;
 } // expose forms object
 
 
@@ -78,7 +78,7 @@ function getFieldValues(form, fieldName) {
   for (var i = 0; i < inputs.length; i++) {
     var input = inputs[i];
 
-    if ((input.type === "radio" || input.type === "checkbox") && !input.checked) {
+    if ((input.type === 'radio' || input.type === 'checkbox') && !input.checked) {
       continue;
     }
 
@@ -106,7 +106,7 @@ function toggleElement(el) {
   var show = !!el.getAttribute('data-show-if');
   var conditions = show ? el.getAttribute('data-show-if').split(':') : el.getAttribute('data-hide-if').split(':');
   var fieldName = conditions[0];
-  var expectedValues = (conditions.length > 1 ? conditions[1] : "*").split('|');
+  var expectedValues = (conditions.length > 1 ? conditions[1] : '*').split('|');
   var form = findForm(el);
   var values = getFieldValues(form, fieldName); // determine whether condition is met
 
@@ -138,7 +138,7 @@ function toggleElement(el) {
     }
 
     if ((!conditionMet || !show) && el.required) {
-      el.setAttribute('data-was-required', "true");
+      el.setAttribute('data-was-required', 'true');
       el.required = false;
     }
   });
@@ -177,7 +177,7 @@ var populate = require('populate.js');
 var Form = function Form(id, element) {
   this.id = id;
   this.element = element || document.createElement('form');
-  this.name = this.element.getAttribute('data-name') || "Form #" + this.id;
+  this.name = this.element.getAttribute('data-name') || 'Form #' + this.id;
   this.errors = [];
   this.started = false;
 };
