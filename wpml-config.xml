@@ -3,6 +3,7 @@
 		<custom-type translate="1">mc4wp-form</custom-type>
 	</custom-types>
 	<custom-fields>
+		<custom-field action="copy">_mc4wp_settings</custom-field>
 		<custom-field action="translate">text_subscribed</custom-field>
 		<custom-field action="translate">text_error</custom-field>
 		<custom-field action="translate">text_invalid_email</custom-field>
