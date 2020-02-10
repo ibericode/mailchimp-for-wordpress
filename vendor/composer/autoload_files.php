@@ -6,9 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    '320cde22f66dd4f5d3fd621d3e88b98f' => $vendorDir . '/symfony/polyfill-ctype/bootstrap.php',
-    '6124b4c8570aa390c21fafd04a26c69f' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
-    '051bafe20e2674435a162870efa2d2a7' => $vendorDir . '/brain/monkey/inc/api.php',
     'fca581ae5268210490253d58378748c5' => $baseDir . '/includes/functions.php',
     '59b5ebb4886cd7eeaf4afcc7f7bdfcdd' => $baseDir . '/includes/deprecated-functions.php',
     'd26f3384f491dc697dcc189393343bc3' => $baseDir . '/includes/forms/functions.php',
