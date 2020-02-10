@@ -3,7 +3,7 @@ Changelog
 
 #### 4.7.5 - Feb 10, 2020
 
-- Add AMP compatibility to sign-up forms.
+- Add AMP compatibility to sign-up forms, thanks to Claudiu Lodromanean. This uses the [official AMP plugin for WordPress](https://amp-wp.org).
 - Add settings key to WPML config so settings can easily by copied over to translated versions of a form.
 - Optimize size & performance of JavaScript code, resulting in a file that is 40% smaller.
 - Update CodeMirror to its latest version.
