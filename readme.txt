@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchi
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp form
 Requires at least: 4.6
 Tested up to: 5.3
-Stable tag: 4.7.4
+Stable tag: 4.7.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.3
@@ -195,6 +195,15 @@ The plugin provides various filter & action hooks that allow you to modify or ex
 6. Dive into detailed sign-up statistics (premium feature).
 
 == Changelog ==
+
+
+#### 4.7.5 - Feb 10, 2020
+
+- Add AMP compatibility to sign-up forms.
+- Add settings key to WPML config so settings can easily by copied over to translated versions of a form.
+- Optimize size & performance of JavaScript code, resulting in a file that is 40% smaller.
+- Update CodeMirror to its latest version.
+- Escape all string translations.
 
 
 #### 4.7.4 - Dec 7, 2019
@@ -472,7 +481,7 @@ Please note that installing this update requires you to also update any add-ons 
 - Remove obsolete `type` attribute from all `<script>` tags printed by the plugin.
 - Improved tooltips on settings pages.
 - Do not pre-check integration checkboxes by default.
-- Add textual warnings to settings that may affect [GDPR compliance](https://kb.mc4wp.com/gdpr-compliance/).
+- Add textual warnings to settings that may affect [GDPR compliance](https://www.mc4wp.com/kb/gdpr-compliance/).
 - Update translation files.
 
 #### 4.2 - March 5, 2018
@@ -483,9 +492,9 @@ Please note that installing this update requires you to also update any add-ons 
 
 **Improvements**
 
-- Improved [conditional fields logic](https://kb.mc4wp.com/conditional-fields-elements/).
+- Improved [conditional fields logic](https://www.mc4wp.com/kb/conditional-fields-elements/).
 - Debug log now includes request & response data.
-- [Form JavaScript events](https://kb.mc4wp.com/javascript-form-events/) are fired in an isolated thread now, to prevent errors in event callbacks from breaking form functionality.
+- [Form JavaScript events](https://www.mc4wp.com/kb/javascript-form-events/) are fired in an isolated thread now, to prevent errors in event callbacks from breaking form functionality.
 - Don't send empty field values to Mailchimp when updating subscribers.
 - Show interest grouping ID in list overview on settings page.
 
@@ -757,7 +766,7 @@ Please note that installing this update requires you to also update any add-ons 
 
 **Additions**
 
-- Add `data-hide-if` attribute logic to forms. See [conditionally hide form fields](https://kb.mc4wp.com/conditional-fields-elements/). Thanks to [Kurt Zenisek](http://kurtzenisek.com/).
+- Add `data-hide-if` attribute logic to forms. See [conditionally hide form fields](https://www.mc4wp.com/kb/conditional-fields-elements/). Thanks to [Kurt Zenisek](http://kurtzenisek.com/).
 - Add hooks for delayed BuddyPress sign-up. Thanks to [Christian Wach](https://profiles.wordpress.org/needle).
 
 
@@ -945,7 +954,7 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 **Fixes**
 
 - Form Preview mode replaced all titles on that page with "Form Preview".
-- API class fix for [e-commerce functionality](https://www.mc4wp.com/kb/what-is-ecommerce/).
+- API class fix for [eCommerce360 functionality](https://www.mc4wp.com/kb/what-is-ecommerce/).
 
 **Improvements**
 

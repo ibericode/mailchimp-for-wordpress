@@ -1,6 +1,15 @@
 Changelog
 =========
 
+#### 4.7.5 - Feb 10, 2020
+
+- Add AMP compatibility to sign-up forms.
+- Add settings key to WPML config so settings can easily by copied over to translated versions of a form.
+- Optimize size & performance of JavaScript code, resulting in a file that is 40% smaller.
+- Update CodeMirror to its latest version.
+- Escape all string translations.
+
+
 #### 4.7.4 - Dec 7, 2019
 
 **Fixes**
@@ -124,7 +133,7 @@ Please note that installing this update requires you to also update any add-ons 
 
 - Accept more truthy values in custom integration for improved compatibility with third-party forms.
 - Update JavaScript dependencies.
-- Load Google reCaptcha script in footer (if needed). 
+- Load Google reCaptcha script in footer (if needed).
 
 
 #### 4.5.1 - April 8, 2019
@@ -181,7 +190,7 @@ Please note that installing this update requires you to also update any add-ons 
 
 **Improvements**
 
-- Write API request parameters to the debug log in case of connection timeouts. 
+- Write API request parameters to the debug log in case of connection timeouts.
 - Update JavaScript dependencies.
 
 
@@ -275,7 +284,7 @@ Please note that installing this update requires you to also update any add-ons 
 
 - Remove obsolete `type` attribute from all `<script>` tags printed by the plugin.
 - Improved tooltips on settings pages.
-- Do not pre-check integration checkboxes by default. 
+- Do not pre-check integration checkboxes by default.
 - Add textual warnings to settings that may affect [GDPR compliance](https://www.mc4wp.com/kb/gdpr-compliance/).
 - Update translation files.
 
@@ -283,7 +292,7 @@ Please note that installing this update requires you to also update any add-ons 
 
 **Additions**
 
-- Live form preview while editing form. 
+- Live form preview while editing form.
 
 **Improvements**
 
@@ -358,7 +367,7 @@ Please note that installing this update requires you to also update any add-ons 
 
 **Fixes**
 
-- Filter out empty array values when overriding selected Mailchimp lists via `_mc4wp_lists`. 
+- Filter out empty array values when overriding selected Mailchimp lists via `_mc4wp_lists`.
 
 **Improvements**
 
@@ -374,7 +383,7 @@ Please note that installing this update requires you to also update any add-ons 
 **Improvements**
 
 - Remove unused options from Ninja Forms integration.
-- Now logging all sign-ups from Ninja Forms integrations when using [Mailchimp for WordPress Premium](https://www.mc4wp.com/premium-features/). 
+- Now logging all sign-ups from Ninja Forms integrations when using [Mailchimp for WordPress Premium](https://www.mc4wp.com/premium-features/).
 
 **Additions**
 
@@ -434,7 +443,7 @@ Please note that installing this update requires you to also update any add-ons 
 **Additions**
 
 - Added campaign & template methods to API client class.
- 
+
 
 
 #### 4.1.4 - June 15, 2017
@@ -1288,7 +1297,7 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 
 **Improvements**
 
-- Updated Italian, Russian & Turkish translations. 
+- Updated Italian, Russian & Turkish translations.
 
 #### 2.2.8 - March 24, 2015
 
