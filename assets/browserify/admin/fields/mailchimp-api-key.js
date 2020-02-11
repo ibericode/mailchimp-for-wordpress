@@ -1,5 +1,3 @@
-'use strict'
-
 function validate (evt) {
   const node = document.createElement('p')
   node.className = 'help red'

@@ -1,9 +1,4 @@
-'use strict'
-
-const helpers = {}
-
-// polling
-helpers.debounce = function (func, wait, immediate) {
+function debounce (func, wait, immediate) {
   let timeout
   return function () {
     const context = this; const args = arguments
@@ -17,4 +12,4 @@ helpers.debounce = function (func, wait, immediate) {
   }
 }
 
-module.exports = helpers
+module.exports = {debounce}

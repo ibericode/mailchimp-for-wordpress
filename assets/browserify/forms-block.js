@@ -1,5 +1,3 @@
-'use strict'
-
 const __ = window.wp.i18n.__
 const { registerBlockType } = window.wp.blocks
 const { SelectControl } = window.wp.components // eslint-disable-line no-unused-vars

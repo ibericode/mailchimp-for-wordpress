@@ -1,5 +1,3 @@
-'use strict'
-
 function getFieldValues (form, fieldName) {
   const values = []
   const inputs = form.querySelectorAll('input[name="' + fieldName + '"],select[name="' + fieldName + '"],textarea[name="' + fieldName + '"]')

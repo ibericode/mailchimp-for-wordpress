@@ -1,7 +1,6 @@
-import './forms/conditional-elements.js'
-
 const mc4wp = window.mc4wp || {}
 const forms = require('./forms/forms.js')
+require('./forms/conditional-elements.js');
 
 function trigger (event, args) {
   forms.trigger(args[0].id + '.' + event, args)

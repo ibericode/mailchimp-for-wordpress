@@ -1,5 +1,3 @@
-'use strict'
-
 const ajaxurl = window.mc4wp_vars.ajaxurl
 const settings = window.mc4wp.settings
 const notice = document.getElementById('notice-additional-fields')

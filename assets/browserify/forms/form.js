@@ -1,5 +1,3 @@
-'use strict'
-
 const serialize = require('form-serialize')
 const populate = require('populate.js')
 

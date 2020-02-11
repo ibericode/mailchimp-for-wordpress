@@ -1,5 +1,3 @@
-'use strict'
-
 import scrollToElement from './misc/scroll-to-element.js'
 const submittedForm = window.mc4wp_submitted_form
 const forms = window.mc4wp.forms

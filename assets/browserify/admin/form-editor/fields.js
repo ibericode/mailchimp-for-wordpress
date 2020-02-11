@@ -1,12 +1,7 @@
-'use strict'
-
-const m = require('mithril')
-let timeout
-let fields = []
-const categories = []
+const fields = {}
 const listeners = {}
 
-const Field = function (data) {
+function Field (data) {
   return {
     name: data.name,
     title: data.title || data.name,
@@ -29,13 +24,7 @@ const Field = function (data) {
   }
 }
 
-/**
- * @internal
- *
- * @param data
- * @constructor
- */
-const FieldChoice = function (data) {
+function FieldChoice (data) {
   return {
     title: data.title || data.label,
     selected: data.selected || false,
@@ -44,14 +33,8 @@ const FieldChoice = function (data) {
   }
 }
 
-/**
- * Creates FieldChoice objects from an (associative) array of data objects
- *
- * @param data
- * @returns {Array}
- */
 function createChoices (data) {
-  let choices = []
+  let choices
   if (typeof (data.map) === 'function') {
     choices = data.map(function (choiceLabel) {
       return new FieldChoice({ label: choiceLabel })
@@ -66,23 +49,16 @@ function createChoices (data) {
   return choices
 }
 
-/**
- * Factory method
- *
- * @returns {Field}
- */
 function register (category, data) {
-  const existingField = getAllWhere('name', data.name).shift()
-
-  // a field with the same "name" already exists
+  // if a field with the exact same name already exists,
+  // update its forceRequired property
+  const existingField = fields[data.name]
   if (existingField) {
-    // update "required" status
     if (!existingField.forceRequired && data.forceRequired) {
       existingField.forceRequired = true
     }
 
-    // bail
-    return undefined
+    return existingField
   }
 
   // array of choices given? convert to FieldChoice objects
@@ -99,21 +75,12 @@ function register (category, data) {
     }
   }
 
-  // register category
-  if (categories.indexOf(category) < 0) {
-    categories.push(category)
-  }
-
   // create Field object
   const field = new Field(data)
   field.category = category
 
   // add to array
-  fields.push(field)
-
-  // redraw view
-  timeout && window.clearTimeout(timeout)
-  timeout = window.setTimeout(m.redraw, 600)
+  fields[data.name] = field
 
   // trigger event
   emit('change')
@@ -130,72 +97,27 @@ function on (event, func) {
   listeners[event].push(func)
 }
 
-/**
- * @api
- *
- * @param field
- */
 function deregister (field) {
-  const index = fields.indexOf(field)
-  if (index > -1) {
-    delete fields[index]
-    m.redraw()
-  }
+  delete fields[field.name]
 }
 
-/**
- * Get a field config object
- *
- * @param name
- * @returns {*}
- */
 function get (name) {
   return fields[name]
 }
 
-/**
- * Get all field config objects
- *
- * @returns {Array|*}
- */
 function getAll () {
-  // rebuild index property on all fields
-  fields = fields.map(function (f, i) {
-    f.index = i
-    return f
-  })
-
-  return fields
+  return Object.values(fields)
 }
 
-function getCategories () {
-  return categories.sort((a, b) => {
-    return a !== 'Form fields' ? -1 : 1
-  })
-}
-
-/**
- * Get all fields where a property matches the given value
- *
- * @param searchKey
- * @param searchValue
- * @returns {Array|*}
- */
 function getAllWhere (searchKey, searchValue) {
-  return fields.filter(function (field) {
-    return field[searchKey] === searchValue
-  })
+  return getAll().filter(field => field[searchKey] === searchValue)
 }
 
-/**
- * Exposed methods
- */
 module.exports = {
   get: get,
   getAll: getAll,
-  getCategories: getCategories,
+  getAllWhere: getAllWhere,
   deregister: deregister,
   register: register,
-  getAllWhere: getAllWhere,
   on
 }

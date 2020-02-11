@@ -1,5 +1,3 @@
-'use strict'
-
 const forms = {}
 const rows = require('./field-forms-rows.js')
 
@@ -11,11 +9,8 @@ forms.render = function (config) {
     return forms[type](config)
   }
 
-  switch (type) {
-    case 'select':
-    case 'radio':
-    case 'checkbox':
-      return forms.choice(config)
+  if (['select', 'radio', 'checkbox'].indexOf(type) > -1) {
+    return forms.choice(config)
   }
 
   // fallback to good old text field

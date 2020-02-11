@@ -1,5 +1,3 @@
-'use strict'
-
 const m = require('mithril')
 const fields = require('./fields.js')
 const settings = window.mc4wp.settings
@@ -7,12 +5,6 @@ const ajaxurl = window.mc4wp_vars.ajaxurl
 const i18n = window.mc4wp_forms_i18n
 const mailchimp = window.mc4wp_vars.mailchimp
 const countries = window.mc4wp_vars.countries
-
-/**
- * Array of registered fields
- *
- * @type {Array}
- */
 const registeredFields = []
 
 /**
@@ -21,6 +13,7 @@ const registeredFields = []
 function reset () {
   // clear all of our fields
   registeredFields.forEach(fields.deregister)
+  m.redraw()
 }
 
 /**
@@ -95,7 +88,6 @@ function registerMergeField (mergeField) {
  * @param interestCategory
  */
 function registerInterestCategory (interestCategory) {
-  const category = i18n.interestCategories
   const fieldType = getFieldType(interestCategory.type)
 
   const data = {
@@ -105,7 +97,7 @@ function registerInterestCategory (interestCategory) {
     choices: interestCategory.interests,
     acceptsMultipleValues: fieldType === 'checkbox'
   }
-  register(category, data, false)
+  register(i18n.interestCategories, data, false)
 }
 
 /**
@@ -132,6 +124,8 @@ function registerListFields (list) {
 
   // loop through groupings
   list.interest_categories.forEach(registerInterestCategory)
+
+  m.redraw()
 }
 
 /**
@@ -154,7 +148,6 @@ function registerListsFields (lists) {
 
 function registerCustomFields (lists) {
   let choices
-  const category = i18n.formFields
 
   register(i18n.listFields, {
     name: 'EMAIL',
@@ -165,7 +158,7 @@ function registerCustomFields (lists) {
   }, true)
 
   // register submit button
-  register(category, {
+  register(i18n.formFields, {
     name: '',
     value: i18n.subscribe,
     type: 'submit',
@@ -178,7 +171,7 @@ function registerCustomFields (lists) {
     choices[lists[key].id] = lists[key].name
   }
 
-  register(category, {
+  register(i18n.formFields, {
     name: '_mc4wp_lists',
     type: 'checkbox',
     title: i18n.listChoice,
@@ -191,7 +184,7 @@ function registerCustomFields (lists) {
     subscribe: 'Subscribe',
     unsubscribe: 'Unsubscribe'
   }
-  register(category, {
+  register(i18n.formFields, {
     name: '_mc4wp_action',
     type: 'radio',
     title: i18n.formAction,
@@ -200,7 +193,7 @@ function registerCustomFields (lists) {
     help: i18n.formActionDescription
   }, true)
 
-  register(category, {
+  register(i18n.formFields, {
     name: 'AGREE_TO_TERMS',
     value: 1,
     type: 'terms-checkbox',

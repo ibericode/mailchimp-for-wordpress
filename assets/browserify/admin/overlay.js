@@ -1,5 +1,3 @@
-'use strict'
-
 const m = require('mithril')
 const i18n = window.mc4wp_forms_i18n
 

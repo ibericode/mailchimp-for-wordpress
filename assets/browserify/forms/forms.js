@@ -1,5 +1,3 @@
-'use strict'
-
 const Form = require('./form.js')
 const forms = []
 const listeners = {}

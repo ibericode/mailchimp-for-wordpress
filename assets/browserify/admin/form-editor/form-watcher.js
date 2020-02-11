@@ -1,5 +1,3 @@
-'use strict'
-
 const m = require('mithril')
 const helpers = require('../helpers.js')
 const editor = require('./form-editor.js')
@@ -43,7 +41,8 @@ function updateFields () {
 
 function findRequiredFields () {
   // query fields required by Mailchimp
-  const requiredFields = fields.getAllWhere('forceRequired', true).map(function (f) { return f.name.toUpperCase().replace(REGEX_ARRAY_BRACKETS_WITH_KEY, '.$1') })
+  const requiredFields = fields.getAllWhere('forceRequired', true)
+    .map(f => f.name.toUpperCase().replace(REGEX_ARRAY_BRACKETS_WITH_KEY, '.$1'))
 
   // query fields in form with [required] attribute
   const requiredFieldElements = editor.query('[required]');

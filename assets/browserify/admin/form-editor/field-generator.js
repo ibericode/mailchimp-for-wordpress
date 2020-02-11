@@ -1,5 +1,3 @@
-'use strict'
-
 const htmlutil = require('html')
 const m = require('mithril')
 

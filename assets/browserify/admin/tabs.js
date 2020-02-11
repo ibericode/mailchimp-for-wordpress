@@ -1,5 +1,3 @@
-'use strict'
-
 const URL = require('./url.js')
 const context = document.getElementById('mc4wp-admin')
 const tabElements = context.querySelectorAll('.tab')

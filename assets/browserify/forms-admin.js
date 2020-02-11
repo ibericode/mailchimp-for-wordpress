@@ -1,5 +1,3 @@
-'use strict'
-
 const editor = require('./admin/form-editor/form-editor.js')
 
 require('./admin/form-editor/form-watcher.js')

@@ -1,5 +1,3 @@
-'use strict'
-
 const context = document.getElementById('mc4wp-admin')
 const listInputs = context.querySelectorAll('.mc4wp-list-input')
 const lists = window.mc4wp_vars.mailchimp.lists
@@ -61,6 +59,6 @@ function on (event, func) {
 updateSelectedLists()
 
 module.exports = {
-  getSelectedLists: getSelectedLists,
+  getSelectedLists,
   on
 }

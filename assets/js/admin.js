@@ -1,10 +1,11 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-'use strict'; // dependencies
+"use strict";
 
 var _tlite = _interopRequireDefault(require("tlite"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+// dependencies
 var tabs = require('./admin/tabs.js');
 
 var settings = require('./admin/settings.js');
@@ -30,7 +31,7 @@ window.mc4wp.settings = settings;
 window.mc4wp.tabs = tabs;
 
 },{"./admin/fields/mailchimp-api-key.js":2,"./admin/helpers.js":3,"./admin/list-fetcher.js":4,"./admin/list-overview.js":5,"./admin/settings.js":6,"./admin/show-if.js":7,"./admin/tabs.js":8,"tlite":35}],2:[function(require,module,exports){
-'use strict';
+"use strict";
 
 function validate(evt) {
   var node = document.createElement('p');
@@ -53,11 +54,9 @@ if (field) {
 }
 
 },{}],3:[function(require,module,exports){
-'use strict';
+"use strict";
 
-var helpers = {}; // polling
-
-helpers.debounce = function (func, wait, immediate) {
+function debounce(func, wait, immediate) {
   var timeout;
   return function () {
     var context = this;
@@ -70,12 +69,14 @@ helpers.debounce = function (func, wait, immediate) {
     }, wait);
     if (callNow) func.apply(context, args);
   };
+}
+
+module.exports = {
+  debounce: debounce
 };
 
-module.exports = helpers;
-
 },{}],4:[function(require,module,exports){
-'use strict';
+"use strict";
 
 var config = window.mc4wp_vars;
 var i18n = window.mc4wp_vars.i18n;
@@ -141,7 +142,7 @@ if (mount) {
 }
 
 },{"mithril":13}],5:[function(require,module,exports){
-'use strict';
+"use strict";
 
 var ajaxurl = window.mc4wp_vars.ajaxurl;
 
@@ -202,7 +203,7 @@ if (table) {
 }
 
 },{"mithril":13}],6:[function(require,module,exports){
-'use strict';
+"use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -270,7 +271,7 @@ module.exports = {
 };
 
 },{}],7:[function(require,module,exports){
-'use strict';
+"use strict";
 
 var showIfElements = document.querySelectorAll('[data-showif]');
 [].forEach.call(showIfElements, function (element) {
@@ -309,7 +310,7 @@ var showIfElements = document.querySelectorAll('[data-showif]');
 });
 
 },{}],8:[function(require,module,exports){
-'use strict';
+"use strict";
 
 var URL = require('./url.js');
 
@@ -492,40 +493,45 @@ module.exports = {
 };
 
 },{"./url.js":9}],9:[function(require,module,exports){
-'use strict';
+"use strict";
 
-var URL = {
-  parse: function parse(url) {
-    var query = {};
-    var a = url.split('&');
+function parse(url) {
+  var query = {};
+  var a = url.split('&');
 
-    for (var i in a) {
-      if (!a.hasOwnProperty(i)) {
-        continue;
-      }
-
-      var b = a[i].split('=');
-      query[decodeURIComponent(b[0])] = decodeURIComponent(b[1]);
+  for (var i in a) {
+    if (!a.hasOwnProperty(i)) {
+      continue;
     }
 
-    return query;
-  },
-  build: function build(data) {
-    var ret = [];
-
-    for (var d in data) {
-      ret.push(d + '=' + encodeURIComponent(data[d]));
-    }
-
-    return ret.join('&');
-  },
-  setParameter: function setParameter(url, key, value) {
-    var data = URL.parse(url);
-    data[key] = value;
-    return URL.build(data);
+    var b = a[i].split('=');
+    query[decodeURIComponent(b[0])] = decodeURIComponent(b[1]);
   }
+
+  return query;
+}
+
+function build(data) {
+  var ret = [];
+
+  for (var d in data) {
+    ret.push(d + '=' + encodeURIComponent(data[d]));
+  }
+
+  return ret.join('&');
+}
+
+function setParameter(url, key, value) {
+  var data = parse(url);
+  data[key] = value;
+  return build(data);
+}
+
+module.exports = {
+  parse: parse,
+  build: build,
+  setParameter: setParameter
 };
-module.exports = URL;
 
 },{}],10:[function(require,module,exports){
 "use strict"

@@ -1,5 +1,3 @@
-'use strict'
-
 const m = require('mithril')
 const editor = require('./form-editor.js')
 const fields = require('./fields.js')
@@ -13,12 +11,9 @@ editor.on('blur', m.redraw)
 
 /**
  * Choose a field to open the helper form for
- *
- * @param index
- * @returns {*}
- */
-function setActiveField (index) {
-  fieldConfig = fields.get(index)
+*/
+function setActiveField (name) {
+  fieldConfig = name !== null ? fields.get(name) : null
 
   // if this hidden field has choices (hidden groups), glue them together by their label.
   if (fieldConfig && fieldConfig.type === 'hidden' && fieldConfig.choices.length > 0) {
@@ -41,10 +36,7 @@ function createFieldHTMLAndAddToForm () {
   editor.insert(html)
 
   // reset field form
-  setActiveField('')
-
-  // redraw
-  m.redraw()
+  setActiveField(null)
 }
 
 /**
@@ -53,13 +45,12 @@ function createFieldHTMLAndAddToForm () {
  */
 function view () {
   // build DOM for fields choice
-  const fieldCategories = fields.getCategories()
   const availableFields = fields.getAll()
 
   const fieldsChoice = m('div.available-fields.small-margin', [
     m('h4', i18n.chooseField),
 
-    fieldCategories.map(function (category) {
+    [i18n.listFields, i18n.interestCategories, i18n.formFields].map(function (category) {
       const categoryFields = availableFields.filter(function (f) {
         return f.category === category
       })
@@ -87,7 +78,7 @@ function view () {
             className: className,
             type: 'button',
             onclick: (evt) => setActiveField(evt.target.value),
-            value: field.index
+            value: field.name
           }, field.title)
         })
       ])
@@ -97,7 +88,7 @@ function view () {
   // build DOM for overlay
   let form = null
   if (fieldConfig) {
-    form = m(Overlay, { onClose: setActiveField }, // field wizard
+    form = m(Overlay, { onClose: () => setActiveField(null) }, // field wizard
       m('div.field-wizard', [
         // heading
         m('h3', [

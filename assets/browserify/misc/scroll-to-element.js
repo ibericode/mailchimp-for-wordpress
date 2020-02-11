@@ -1,5 +1,3 @@
-'use strict'
-
 function scrollTo (element) {
   const x = window.pageXOffset || document.documentElement.scrollLeft
   const y = calculateScrollOffset(element)

@@ -1,5 +1,3 @@
-'use strict'
-
 // dependencies
 import tlite from 'tlite'
 const tabs = require('./admin/tabs.js')

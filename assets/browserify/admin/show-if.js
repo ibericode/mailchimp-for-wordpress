@@ -1,5 +1,3 @@
-'use strict'
-
 const showIfElements = document.querySelectorAll('[data-showif]');
 
 [].forEach.call(showIfElements, function (element) {

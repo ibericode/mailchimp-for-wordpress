@@ -1,9 +1,6 @@
-'use strict'
-
 const editor = require('./form-editor/form-editor.js')
 const fields = require('./form-editor/fields.js')
 const settings = require('./settings')
-
 const notices = {}
 
 function show (id, text) {

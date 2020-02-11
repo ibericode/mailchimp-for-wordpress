@@ -1,11 +1,8 @@
-'use strict'
-
 const i18n = window.mc4wp_forms_i18n
 const m = require('mithril')
 const r = {}
 
 r.showType = function (config) {
-  // ucfirst
   let fieldType = config.type
   fieldType = fieldType.charAt(0).toUpperCase() + fieldType.slice(1)
 
@@ -209,7 +206,7 @@ r.choices = function (config) {
             title: i18n.remove,
             class: 'dashicons dashicons-no-alt hover-activated',
             onclick: function (key) {
-              this.choices().splice(key, 1)
+              this.choices.splice(key, 1)
             }.bind(config, index)
           }, ''))
         ])

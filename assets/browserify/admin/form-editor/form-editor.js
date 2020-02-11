@@ -1,5 +1,3 @@
-'use strict'
-
 // load CodeMirror & plugins
 const CodeMirror = require('codemirror')
 require('codemirror/mode/xml/xml')
