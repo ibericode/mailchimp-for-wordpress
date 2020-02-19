@@ -51,7 +51,7 @@ class MC4WP_Form_Widget extends WP_Widget {
 		}
 
 		$instance_settings = array_merge( $this->default_instance_settings, $instance_settings );
-		$title             = apply_filters( 'widget_title', $instance_settings['title'] );
+		$title             = apply_filters( 'widget_title', $instance_settings['title'], $instance_settings, $this->id_base );
 
 		echo $args['before_widget'];
 
