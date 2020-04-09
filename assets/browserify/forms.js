@@ -14,11 +14,19 @@ function bind (evtName, cb) {
     }
 
     const el = evt.target
-    if ((!el.className || el.className.indexOf('mc4wp-form') === -1) && (!el.matches || !el.matches('.mc4wp-form *'))) {
-      return
+    let fireEvent = false
+
+    if (typeof el.className === 'string') {
+      fireEvent = el.className.indexOf('mc4wp-form') > -1
     }
 
-    cb.call(evt, evt)
+    if (!fireEvent && typeof el.matches === 'function') {
+      fireEvent = el.matches('.mc4wp-form *')
+    }
+
+    if (fireEvent) {
+      cb.call(evt, evt)
+    }
   }, true)
 }
 
