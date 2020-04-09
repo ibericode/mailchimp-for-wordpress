@@ -141,6 +141,11 @@ class MC4WP_Form_Asset_Manager {
 	 * Load JavaScript files
 	 */
 	public function before_output_form() {
+		$load_scripts = apply_filters( 'mc4wp_load_form_scripts', true );
+		if ( ! $load_scripts ) {
+			return;
+		}
+
 		// print dummy JS
 		$this->print_dummy_javascript();
 
