@@ -617,7 +617,7 @@ function populate(form, data, basename) {
 			case 'radio':
 			case 'checkbox':
 				for (var j=0; j < element.length; j++) {
-					element[j].checked = (value.indexOf(element[j].value) > -1);
+					element[j].checked = (String(value) === String(element[j].value));
 				}
 				break;
 
@@ -625,7 +625,7 @@ function populate(form, data, basename) {
 				var values = value.constructor == Array ? value : [value];
 
 				for(var k = 0; k < element.options.length; k++) {
-					element.options[k].selected |= (values.indexOf(element.options[k].value) > -1 );
+					element.options[k].selected = (values.indexOf(element.options[k].value) > -1 );
 				}
 				break;
 

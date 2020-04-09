@@ -32,12 +32,12 @@ registerBlockType('mailchimp-for-wp/form', {
       });
     }
 
-    return React.createElement("div", {
+    return /*#__PURE__*/React.createElement("div", {
       style: {
         backgroundColor: '#f8f9f9',
         padding: '14px'
       }
-    }, React.createElement(SelectControl, {
+    }, /*#__PURE__*/React.createElement(SelectControl, {
       label: __('Mailchimp for WordPress Sign-up Form'),
       value: props.attributes.id,
       options: options,
