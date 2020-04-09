@@ -393,7 +393,7 @@ msgstr ""
 msgid "Select the form to show"
 msgstr ""
 
-#: includes/forms/class-form-amp.php:32
+#: includes/forms/class-form-amp.php:33
 msgid "Submitting..."
 msgstr ""
 

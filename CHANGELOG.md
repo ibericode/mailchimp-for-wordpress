@@ -1,6 +1,13 @@
 Changelog
 =========
 
+#### 4.7.6 - Apr 9, 2020
+
+- Update JS dependencies to their latest versions.
+- Check if className is of type string, fixes a console warning when clicking inside a SVG element.
+- Minor improvements to the AMP implementation to address harmless validation warnings.
+
+
 #### 4.7.5 - Feb 10, 2020
 
 - Add AMP compatibility to sign-up forms, thanks to Claudiu Lodromanean. This uses the [official AMP plugin for WordPress](https://amp-wp.org).
