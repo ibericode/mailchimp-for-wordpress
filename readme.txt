@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchi
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp form
 Requires at least: 4.6
 Tested up to: 5.4
-Stable tag: 4.7.5
+Stable tag: 4.7.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.3
@@ -197,9 +197,16 @@ The plugin provides various filter & action hooks that allow you to modify or ex
 == Changelog ==
 
 
+#### 4.7.6 - Apr 9, 2020
+
+- Update JS dependencies to their latest versions.
+- Check if className is of type string, fixes a console warning when clicking inside a SVG element.
+- Minor improvements to the AMP implementation to address harmless validation warnings.
+
+
 #### 4.7.5 - Feb 10, 2020
 
-- Add AMP compatibility to sign-up forms.
+- Add AMP compatibility to sign-up forms, thanks to Claudiu Lodromanean. This uses the [official AMP plugin for WordPress](https://amp-wp.org).
 - Add settings key to WPML config so settings can easily by copied over to translated versions of a form.
 - Optimize size & performance of JavaScript code, resulting in a file that is 40% smaller.
 - Update CodeMirror to its latest version.
