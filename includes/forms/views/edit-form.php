@@ -50,7 +50,7 @@ $tabs = apply_filters( 'mc4wp_admin_edit_form_tabs', $tabs );
 			<!-- Wrap entire page in <form> -->
 			<form method="post">
 				<?php // default submit button to prevent opening preview ?>
-				<input type="submit" style="display: none; "/>
+				<input type="submit" style="display: none;" />
 				<input type="hidden" name="_mc4wp_action" value="edit_form"/>
 				<input type="hidden" name="mc4wp_form_id" value="<?php echo esc_attr( $form->ID ); ?>"/>
 				<?php wp_nonce_field( 'edit_form', '_mc4wp_nonce' ); ?>
