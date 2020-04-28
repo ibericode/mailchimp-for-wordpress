@@ -9822,6 +9822,12 @@ window.mc4wp.forms.editor = editor;
       }
       cm.display.input.readOnlyChanged(val);
     });
+
+    option("screenReaderLabel", null, function (cm, val) {
+      val = (val === '') ? null : val;
+      cm.display.input.screenReaderLabelChanged(val);
+    });
+
     option("disableInput", false, function (cm, val) {if (!val) { cm.display.input.reset(); }}, true);
     option("dragDrop", true, dragDropChanged);
     option("allowDropFileTypes", null);
@@ -10653,7 +10659,7 @@ window.mc4wp.forms.editor = editor;
         clearCaches(this);
         scrollToCoords(this, this.doc.scrollLeft, this.doc.scrollTop);
         updateGutterSpace(this.display);
-        if (oldHeight == null || Math.abs(oldHeight - textHeight(this.display)) > .5)
+        if (oldHeight == null || Math.abs(oldHeight - textHeight(this.display)) > .5 || this.options.lineWrapping)
           { estimateLineHeights(this); }
         signal(this, "refresh", this);
       }),
@@ -10868,6 +10874,15 @@ window.mc4wp.forms.editor = editor;
     }
     on(div, "copy", onCopyCut);
     on(div, "cut", onCopyCut);
+  };
+
+  ContentEditableInput.prototype.screenReaderLabelChanged = function (label) {
+    // Label for screenreaders, accessibility
+    if(label) {
+      this.div.setAttribute('aria-label', label);
+    } else {
+      this.div.removeAttribute('aria-label');
+    }
   };
 
   ContentEditableInput.prototype.prepareSelection = function () {
@@ -11410,6 +11425,15 @@ window.mc4wp.forms.editor = editor;
     this.textarea = this.wrapper.firstChild;
   };
 
+  TextareaInput.prototype.screenReaderLabelChanged = function (label) {
+    // Label for screenreaders, accessibility
+    if(label) {
+      this.textarea.setAttribute('aria-label', label);
+    } else {
+      this.textarea.removeAttribute('aria-label');
+    }
+  };
+
   TextareaInput.prototype.prepareSelection = function () {
     // Redraw the selection and/or cursor
     var cm = this.cm, display = cm.display, doc = cm.doc;
@@ -11800,7 +11824,7 @@ window.mc4wp.forms.editor = editor;
 
   addLegacyProps(CodeMirror);
 
-  CodeMirror.version = "5.52.2";
+  CodeMirror.version = "5.53.2";
 
   return CodeMirror;
 
