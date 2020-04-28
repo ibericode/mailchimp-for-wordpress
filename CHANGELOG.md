@@ -1,6 +1,13 @@
 Changelog
 =========
 
+#### 4.7.7 - Apr 28, 2020
+
+- Update JS dependencies to their latest versions.
+- API client `add_list_member` method now has an additional parameter to skip merge field validation.
+- Simplify code for updating an existing form.
+
+
 #### 4.7.6 - Apr 9, 2020
 
 - Update JS dependencies to their latest versions.

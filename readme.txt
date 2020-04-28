@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchi
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp form
 Requires at least: 4.6
 Tested up to: 5.4
-Stable tag: 4.7.6
+Stable tag: 4.7.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.3
@@ -195,6 +195,13 @@ The plugin provides various filter & action hooks that allow you to modify or ex
 6. Dive into detailed sign-up statistics (premium feature).
 
 == Changelog ==
+
+
+#### 4.7.7 - Apr 28, 2020
+
+- Update JS dependencies to their latest versions.
+- API client `add_list_member` method now has an additional parameter to skip merge field validation.
+- Simplify code for updating an existing form.
 
 
 #### 4.7.6 - Apr 9, 2020
