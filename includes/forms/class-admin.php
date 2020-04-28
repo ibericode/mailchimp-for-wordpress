@@ -197,7 +197,7 @@ class MC4WP_Forms_Admin {
 		// merge new settings  with current settings to allow passing partial data
 		$current_settings = get_post_meta( $form_id, '_mc4wp_settings', true );
 		if ( is_array( $current_settings ) ) {
-			$data[ 'settings' ] = array_merge( $current_settings, $data[ 'settings' ] );
+			$data['settings'] = array_merge( $current_settings, $data['settings'] );
 		}
 		update_post_meta( $form_id, '_mc4wp_settings', $data['settings'] );
 

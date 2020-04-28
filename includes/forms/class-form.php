@@ -29,7 +29,7 @@ class MC4WP_Form {
 		if ( $post instanceof WP_Post ) {
 			$post_id = $post->ID;
 		} else {
-			$post_id = absint( $post );
+			$post_id = (int) $post;
 
 			if ( $post_id === 0 ) {
 				$post_id = (int) get_option( 'mc4wp_default_form_id', 0 );

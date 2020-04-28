@@ -245,7 +245,7 @@ class MC4WP_API_V3 {
 	public function add_list_member( $list_id, array $args, $skip_merge_validation = false ) {
 		$subscriber_hash = $this->get_subscriber_hash( $args['email_address'] );
 		$resource        = sprintf( '/lists/%s/members/%s', $list_id, $subscriber_hash );
-    
+
 		if ( $skip_merge_validation ) {
 			$resource = add_query_arg( array( 'skip_merge_validation' => 'true' ), $resource );
 		}
