@@ -172,7 +172,7 @@ class MC4WP_Forms_Admin {
 	 * @param array $data
 	 * @return int
 	 */
-	private function save_form( $form_id, $data ) {
+	private function save_form( $form_id, array $data ) {
 		$keys = array(
 			'settings' => array(),
 			'messages' => array(),
@@ -281,7 +281,6 @@ class MC4WP_Forms_Admin {
 		$form_data       = $_POST['mc4wp_form'];
 		$this->save_form( $form_id, $form_data );
 		$this->set_default_form_id( $form_id );
-
 		$this->messages->flash( esc_html__( 'Form saved.', 'mailchimp-for-wp' ) );
 	}
 
@@ -291,7 +290,7 @@ class MC4WP_Forms_Admin {
 	private function set_default_form_id( $form_id ) {
 		$default_form_id = (int) get_option( 'mc4wp_default_form_id', 0 );
 
-		if ( empty( $default_form_id ) ) {
+		if ( $default_form_id === 0 ) {
 			update_option( 'mc4wp_default_form_id', $form_id );
 		}
 	}
@@ -332,7 +331,7 @@ class MC4WP_Forms_Admin {
 			$redirect_url = mc4wp_get_edit_form_url( $default_form->ID );
 		} catch ( Exception $e ) {
 			// no default form, query first available form and go there
-			$forms = mc4wp_get_forms( array( 'numberposts' => 1 ) );
+			$forms = mc4wp_get_forms( array( 'posts_per_page' => 1 ) );
 
 			if ( $forms ) {
 				// if we have a post, go to the "edit form" screen

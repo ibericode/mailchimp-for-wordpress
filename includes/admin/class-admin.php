@@ -166,11 +166,10 @@ class MC4WP_Admin {
 			update_option( 'mc4wp_version', MC4WP_VERSION );
 
 			// if we have at least one form, we're going to run upgrade routine for v3 => v4 anyway.
-			// TODO: Remove this once we hit 4.2.x
 			$posts = get_posts(
 				array(
 					'post_type'   => 'mc4wp-form',
-					'numberposts' => 1,
+					'posts_per_page' => 1,
 				)
 			);
 			if ( empty( $posts ) ) {
