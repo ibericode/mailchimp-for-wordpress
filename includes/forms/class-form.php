@@ -36,7 +36,7 @@ class MC4WP_Form {
 			}
 		}
 
-		if ( isset( self::$instances[ $post_id ] ) ) {
+		if ( $post_id !== 0 && isset( self::$instances[ $post_id ] ) ) {
 			return self::$instances[ $post_id ];
 		}
 
