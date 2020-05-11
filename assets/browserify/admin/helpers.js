@@ -12,4 +12,4 @@ function debounce (func, wait, immediate) {
   }
 }
 
-module.exports = {debounce}
+module.exports = { debounce }

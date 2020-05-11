@@ -331,11 +331,13 @@ class MC4WP_Forms_Admin {
 			$redirect_url = mc4wp_get_edit_form_url( $default_form->ID );
 		} catch ( Exception $e ) {
 			// no default form, query first available form and go there
-			$forms = mc4wp_get_forms( array(
+			$forms = mc4wp_get_forms(
+				array(
 				'posts_per_page' => 1,
 				'orderby' => 'ID',
 				'order' => 'ASC',
-			) );
+				)
+			);
 
 			if ( count( $forms ) > 0 ) {
 				// take first form and use it to go to the "edit form" screen
