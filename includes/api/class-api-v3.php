@@ -1123,13 +1123,12 @@ class MC4WP_API_V3 {
 	 *
 	 * @link https://mailchimp.com/developer/reference/templates/#post_/templates
 	 * @param array $args
-	 *
 	 * @return object
 	 * @throws MC4WP_API_Exception
 	 */
-	public function add_template(array $args) {
+	public function add_template( array $args ) {
 		$resource = '/template';
-		return $this->client->post( $resource, $args);
+		return $this->client->post( $resource, $args );
 	}
 
 	/**
