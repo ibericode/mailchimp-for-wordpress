@@ -1127,7 +1127,7 @@ class MC4WP_API_V3 {
 	 * @throws MC4WP_API_Exception
 	 */
 	public function add_template( array $args ) {
-		$resource = '/template';
+		$resource = '/templates';
 		return $this->client->post( $resource, $args );
 	}
 
