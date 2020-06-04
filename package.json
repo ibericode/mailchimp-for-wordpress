@@ -9,9 +9,9 @@
     "lint": "eslint assets/browserify gulpfile.js"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/plugin-transform-react-jsx": "^7.9.4",
-    "@babel/preset-env": "^7.9.5",
+    "@babel/core": "^7.10.2",
+    "@babel/plugin-transform-react-jsx": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
     "babelify": "^10.0.0",
     "browserify": "^16.5.1",
     "eslint": "^6.8.0",
@@ -31,14 +31,14 @@
     "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^3.0.2",
     "gulp-util": "^3.0.8",
-    "gulp-wp-pot": "^2.4.2",
+    "gulp-wp-pot": "^2.4.3",
     "merge-stream": "^2.0.0",
     "through2": "^3.0.1",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
-    "codemirror": "^5.53.2",
+    "codemirror": "^5.54.0",
     "form-serialize": "^0.7.2",
     "html": "^1.0.0",
     "mithril": "^2.0.4",
