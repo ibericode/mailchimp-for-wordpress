@@ -1,6 +1,13 @@
 Changelog
 =========
 
+#### 4.7.8 - Jun 04, 2020
+
+- Add `MC4WP_API_V3::add_template` method.
+- Minor code hardening to ensure a default form is always set.
+- Update JS dependencies to their latest versions.
+
+
 #### 4.7.7 - Apr 28, 2020
 
 - Update JS dependencies to their latest versions.
