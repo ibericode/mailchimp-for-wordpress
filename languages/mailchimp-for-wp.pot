@@ -381,19 +381,19 @@ msgstr ""
 msgid "Form saved."
 msgstr ""
 
-#: includes/forms/class-admin.php:387
+#: includes/forms/class-admin.php:393
 msgid "Form not found."
 msgstr ""
 
-#: includes/forms/class-admin.php:389
+#: includes/forms/class-admin.php:395
 msgid "Go back"
 msgstr ""
 
-#: includes/forms/class-admin.php:452, includes/forms/class-widget.php:31
+#: includes/forms/class-admin.php:458, includes/forms/class-widget.php:31
 msgid "Mailchimp Sign-Up Form"
 msgstr ""
 
-#: includes/forms/class-admin.php:456
+#: includes/forms/class-admin.php:462
 msgid "Select the form to show"
 msgstr ""
 
@@ -421,7 +421,7 @@ msgstr ""
 msgid "Replaced with the number of subscribers on the selected list(s)"
 msgstr ""
 
-#: includes/forms/class-form.php:50
+#: includes/forms/class-form.php:26
 msgid "There is no form with ID %d, perhaps it was deleted?"
 msgstr ""
 
