@@ -1,4 +1,4 @@
-.overlay{
+.mc4wp-overlay{
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -23,19 +23,16 @@
 		top: 0;
 		font-size: 24px;
 		cursor: pointer;
-
 		opacity: 0.5;
-	}
-	.close:hover{
-		opacity: 1;
+
+	  	&:hover,
+	  	&:focus {
+		  opacity: 1;
+		}
 	}
 }
 
-.overlay-wrap{
-
-}
-
-.overlay-background {
+.mc4wp-overlay-background {
 	z-index: 99998;
 	background: rgba( 0, 0, 0, .67 );
 	position: fixed;
@@ -45,11 +42,3 @@
 	top: 0;
 }
 
-.rtl {
-	.overlay {
-		.close {
-			right: auto;
-			left: 0;
-		}
-	}
-}

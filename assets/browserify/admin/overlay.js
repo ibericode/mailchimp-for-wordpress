@@ -45,8 +45,8 @@ function Overlay (vnode) {
 
   function view (vnode) {
     return [
-      m('div.overlay-wrap',
-        m('div.overlay',
+      m('div.mc4wp-overlay-wrap',
+        m('div.mc4wp-overlay',
           {
             oncreate: (vnode) => {
               element = vnode.dom
@@ -62,7 +62,7 @@ function Overlay (vnode) {
             vnode.children
           ])
       ),
-      m('div.overlay-background', {
+      m('div.mc4wp-overlay-background', {
         title: i18n.close,
         onclick: close
       })

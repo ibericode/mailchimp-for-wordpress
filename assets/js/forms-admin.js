@@ -1285,7 +1285,7 @@ function Overlay(vnode) {
   }
 
   function view(vnode) {
-    return [m('div.overlay-wrap', m('div.overlay', {
+    return [m('div.mc4wp-overlay-wrap', m('div.mc4wp-overlay', {
       oncreate: function oncreate(vnode) {
         element = vnode.dom;
         onWindowResize();
@@ -1295,7 +1295,7 @@ function Overlay(vnode) {
       "class": 'close dashicons dashicons-no',
       title: i18n.close,
       onclick: close
-    }), vnode.children])), m('div.overlay-background', {
+    }), vnode.children])), m('div.mc4wp-overlay-background', {
       title: i18n.close,
       onclick: close
     })];

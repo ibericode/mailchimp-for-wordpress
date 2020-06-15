@@ -846,7 +846,7 @@
   color: #ccc;
   text-decoration: underline; }
 
-.overlay {
+.mc4wp-overlay {
   position: fixed;
   left: 0;
   top: 0;
@@ -861,7 +861,7 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
-  .overlay .close {
+  .mc4wp-overlay .close {
     position: absolute;
     padding: 10px;
     right: 0;
@@ -869,10 +869,10 @@
     font-size: 24px;
     cursor: pointer;
     opacity: 0.5; }
-  .overlay .close:hover {
-    opacity: 1; }
+    .mc4wp-overlay .close:hover, .mc4wp-overlay .close:focus {
+      opacity: 1; }
 
-.overlay-background {
+.mc4wp-overlay-background {
   z-index: 99998;
   background: rgba(0, 0, 0, 0.67);
   position: fixed;
@@ -880,10 +880,6 @@
   right: 0;
   bottom: 0;
   top: 0; }
-
-.rtl .overlay .close {
-  right: auto;
-  left: 0; }
 
 .rtl #mc4wp-admin .page-title {
   background-position: right center;
@@ -901,6 +897,10 @@
   padding-left: 38px;
   padding-right: initial;
   position: relative; }
+
+.rtl .overlay .close {
+  right: auto;
+  left: 0; }
 
 .tlite {
   background: #111;
