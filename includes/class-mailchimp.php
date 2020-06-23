@@ -69,12 +69,7 @@ class MC4WP_MailChimp {
 						$existing_interests = array_fill_keys( array_keys( $existing_interests ), false );
 					}
 
-					// TODO: Use array_replace here (PHP 5.3+)
-					$new_interests     = $args['interests'];
-					$args['interests'] = $existing_interests;
-					foreach ( $new_interests as $interest_id => $interest_status ) {
-						$args['interests'][ "{$interest_id}" ] = $interest_status;
-					}
+					$args['interests'] = array_replace( $existing_interests, $args['interests'] );
 				}
 			} elseif ( $args['status'] === 'pending' && $existing_member_data->status === 'pending' ) {
 				// this ensures that a new double opt-in email is send out
