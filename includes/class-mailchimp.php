@@ -99,6 +99,7 @@ class MC4WP_MailChimp {
 			if ( $existing_member_data ) {
 				$data                      = $api->update_list_member( $list_id, $email_address, $args );
 				$data->was_already_on_list = $existing_member_data->status === 'subscribed';
+				$this->list_add_tags_to_subscriber($list_id, $data, $args['tags'] );
 			} else {
 				$data                      = $api->add_new_list_member( $list_id, $args );
 				$data->was_already_on_list = false;
@@ -110,6 +111,62 @@ class MC4WP_MailChimp {
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Format tags to send to Mailchimp.
+	 *
+	 * @since 4.7.9
+	 * @param $mailchimp_tags array existent user tags
+	 * @param $new_tags array new tags to add
+	 * @return array
+	 */
+	private function merge_and_format_member_tags( $mailchimp_tags, $new_tags ) {
+		$mailchimp_tags = array_map( function ( $tag ) {
+			return $tag->name;
+		}, $mailchimp_tags );
+
+		$tags = array_unique( array_merge( $mailchimp_tags, $new_tags ), SORT_REGULAR);
+
+		return array_map( function ( $tag ) {
+			return array(
+				'name' => $tag,
+				'status' => 'active'
+			);
+		}, $tags );
+	}
+
+	/**
+	 *  Post the tags on a list member.
+	 *
+	 * @param $mailchimp_list_id string The list id to subscribe to
+	 * @param $mailchimp_member stdClass mailchimp user informations
+	 * @param $new_tags array tags to add to the user
+	 *
+	 * @return bool
+	 * @throws Exception
+	 * @since 4.7.9
+	 */
+	private function list_add_tags_to_subscriber( $mailchimp_list_id, $mailchimp_member, array $new_tags )
+	{
+		// do nothing if no tags given
+		if ( count( $new_tags ) === 0 ) {
+			return true;
+		}
+
+		$api = $this->get_api();
+		$data = array(
+			'tags' => $this->merge_and_format_member_tags( $mailchimp_member->tags, $new_tags )
+		);
+
+		try {
+			$api->update_list_member_tags( $mailchimp_list_id, $mailchimp_member->email_address, $data );
+		} catch ( MC4WP_API_Exception $ex ) {
+			// fail silently
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
