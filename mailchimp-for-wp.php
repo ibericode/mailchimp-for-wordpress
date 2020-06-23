@@ -34,9 +34,14 @@ defined( 'ABSPATH' ) or exit;
 function _mc4wp_load_plugin() {
 	 global $mc4wp;
 
-	// Don't run if Mailchimp for WP Pro 2.x is activated
+	// don't run if Mailchimp for WP Pro 2.x is activated
 	if ( defined( 'MC4WP_VERSION' ) ) {
-		return false;
+		return;
+	}
+
+	// don't run if PHP version is lower than 5.3
+	if ( ! function_exists( 'array_replace' ) ) {
+		return;
 	}
 
 	// bootstrap the core plugin
@@ -47,7 +52,7 @@ function _mc4wp_load_plugin() {
 
 	// load autoloader if function not yet exists (for compat with sitewide autoloader)
 	if ( ! function_exists( 'mc4wp' ) ) {
-		require_once MC4WP_PLUGIN_DIR . 'vendor/autoload_52.php';
+		require_once MC4WP_PLUGIN_DIR . 'vendor/autoload.php';
 	}
 
 	require MC4WP_PLUGIN_DIR . '/includes/default-actions.php';
@@ -100,7 +105,7 @@ function _mc4wp_load_plugin() {
 		}
 	}
 
-	return true;
+	return;
 }
 
 // bootstrap custom integrations
