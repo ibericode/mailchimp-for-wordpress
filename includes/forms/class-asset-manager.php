@@ -9,17 +9,20 @@
 class MC4WP_Form_Asset_Manager {
 
 	/**
-	 * @var bool
-	 */
-	protected $load_scripts = false;
-
-	/**
 	 * Add hooks
 	 */
 	public function add_hooks() {
 		add_action( 'mc4wp_output_form', array( $this, 'before_output_form' ) );
+		add_action( 'init', array( $this, 'register_scripts') );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheets' ) );
-		add_action( 'wp_footer', array( $this, 'load_scripts' ) );
+	}
+
+	/**
+	 * Register scripts to be enqueued later.
+	 */
+	public function register_scripts() {
+		$filename_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+		wp_register_script( 'mc4wp-forms-api', MC4WP_PLUGIN_URL . 'assets/js/forms' . $filename_suffix . '.js', array(), MC4WP_VERSION, true );
 	}
 
 	/**
@@ -141,25 +144,16 @@ class MC4WP_Form_Asset_Manager {
 	 * Load JavaScript files
 	 */
 	public function before_output_form() {
-		$load_scripts = apply_filters( 'mc4wp_load_form_scripts', true );
-		if ( ! $load_scripts ) {
-			return;
-		}
-
-		// print dummy JS
 		$this->print_dummy_javascript();
-
-		// set flag to load JS files in wp_footer
-		$this->load_scripts = true;
+		$this->load_scripts();
 	}
 
 	/**
 	 * Prints dummy JavaScript which allows people to call `mc4wp.forms.on()` before the JS is loaded.
 	 */
 	public function print_dummy_javascript() {
-		$file = dirname( __FILE__ ) . '/views/js/dummy-api.js';
 		echo '<script>';
-		include $file;
+		include dirname( __FILE__ ) . '/views/js/dummy-api.js';;
 		echo '</script>';
 	}
 
@@ -167,10 +161,8 @@ class MC4WP_Form_Asset_Manager {
 	* Outputs the inline JavaScript that is used to enhance forms
 	*/
 	public function load_scripts() {
-		$load_scripts = $this->load_scripts;
-
 		/** @ignore */
-		$load_scripts = apply_filters( 'mc4wp_load_form_scripts', $load_scripts );
+		$load_scripts = apply_filters( 'mc4wp_load_form_scripts', true );
 		if ( ! $load_scripts ) {
 			return;
 		}
@@ -178,7 +170,7 @@ class MC4WP_Form_Asset_Manager {
 		$filename_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		// load general client-side form API
-		wp_enqueue_script( 'mc4wp-forms-api', MC4WP_PLUGIN_URL . 'assets/js/forms' . $filename_suffix . '.js', array(), MC4WP_VERSION, true );
+		wp_enqueue_script( 'mc4wp-forms-api' );
 
 		// maybe load JS file for when a form was submitted over HTTP POST
 		$submitted_form_data = $this->get_submitted_form_data();
