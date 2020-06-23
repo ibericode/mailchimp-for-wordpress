@@ -1,7 +1,7 @@
 <?php
 
 /**
-* This class takes care of all form related functionality
+* This class takes care of all form assets related functionality
  *
  * @access private
  * @ignore
@@ -9,12 +9,18 @@
 class MC4WP_Form_Asset_Manager {
 
 	/**
+	 * @var bool Flag to determine whether scripts should be enqueued.
+	 */
+	private $load_scripts = false;
+
+	/**
 	 * Add hooks
 	 */
 	public function add_hooks() {
-		add_action( 'mc4wp_output_form', array( $this, 'before_output_form' ) );
 		add_action( 'init', array( $this, 'register_scripts') );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheets' ) );
+		add_action( 'wp_footer', array( $this, 'load_scripts' ), 90 );
+		add_action( 'mc4wp_output_form', array( $this, 'before_output_form' ) );
 	}
 
 	/**
@@ -144,8 +150,13 @@ class MC4WP_Form_Asset_Manager {
 	 * Load JavaScript files
 	 */
 	public function before_output_form() {
+		$load_scripts = apply_filters( 'mc4wp_load_form_scripts', true );
+		if ( ! $load_scripts ) {
+			return;
+		}
+
 		$this->print_dummy_javascript();
-		$this->load_scripts();
+		$this->load_scripts = true;
 	}
 
 	/**
@@ -161,13 +172,10 @@ class MC4WP_Form_Asset_Manager {
 	* Outputs the inline JavaScript that is used to enhance forms
 	*/
 	public function load_scripts() {
-		/** @ignore */
-		$load_scripts = apply_filters( 'mc4wp_load_form_scripts', true );
+		$load_scripts = apply_filters( 'mc4wp_load_form_scripts', $this->load_scripts );
 		if ( ! $load_scripts ) {
 			return;
 		}
-
-		$filename_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		// load general client-side form API
 		wp_enqueue_script( 'mc4wp-forms-api' );
@@ -175,6 +183,7 @@ class MC4WP_Form_Asset_Manager {
 		// maybe load JS file for when a form was submitted over HTTP POST
 		$submitted_form_data = $this->get_submitted_form_data();
 		if ( $submitted_form_data !== null ) {
+			$filename_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 			wp_enqueue_script( 'mc4wp-forms-submitted', MC4WP_PLUGIN_URL . 'assets/js/forms-submitted' . $filename_suffix . '.js', array( 'mc4wp-forms-api' ), MC4WP_VERSION, true );
 			wp_localize_script( 'mc4wp-forms-submitted', 'mc4wp_submitted_form', $submitted_form_data );
 		}
