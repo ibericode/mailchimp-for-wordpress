@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <ruleset name="rules">
     <description>rules</description>
+	<file>mailchimp-for-wp.php</file>
     <file>includes/</file>
     <file>integrations/</file>
     <file>config/</file>

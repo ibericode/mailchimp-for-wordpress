@@ -28,87 +28,85 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 // Prevent direct file access
-defined('ABSPATH') or exit;
+defined( 'ABSPATH' ) or exit;
 
 /** @ignore */
-function _mc4wp_load_plugin()
-{
-    global $mc4wp;
+function _mc4wp_load_plugin() {
+	 global $mc4wp;
 
-    // Don't run if Mailchimp for WP Pro 2.x is activated
-    if ( defined( 'MC4WP_VERSION' ) ) {
-        return false;
-    }
+	// Don't run if Mailchimp for WP Pro 2.x is activated
+	if ( defined( 'MC4WP_VERSION' ) ) {
+		return false;
+	}
 
-    // bootstrap the core plugin
-    define( 'MC4WP_VERSION', '4.7.8' );
-    define( 'MC4WP_PLUGIN_DIR', dirname(__FILE__) . '/' );
-    define( 'MC4WP_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
-    define( 'MC4WP_PLUGIN_FILE', __FILE__ );
+	// bootstrap the core plugin
+	define( 'MC4WP_VERSION', '4.7.8' );
+	define( 'MC4WP_PLUGIN_DIR', dirname( __FILE__ ) . '/' );
+	define( 'MC4WP_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
+	define( 'MC4WP_PLUGIN_FILE', __FILE__ );
 
-    // load autoloader if function not yet exists (for compat with sitewide autoloader)
-    if (! function_exists('mc4wp') ) {
-        require_once MC4WP_PLUGIN_DIR . 'vendor/autoload_52.php';
-    }
+	// load autoloader if function not yet exists (for compat with sitewide autoloader)
+	if ( ! function_exists( 'mc4wp' ) ) {
+		require_once MC4WP_PLUGIN_DIR . 'vendor/autoload_52.php';
+	}
 
-    require MC4WP_PLUGIN_DIR . '/includes/default-actions.php';
-    require MC4WP_PLUGIN_DIR . '/includes/default-filters.php';
+	require MC4WP_PLUGIN_DIR . '/includes/default-actions.php';
+	require MC4WP_PLUGIN_DIR . '/includes/default-filters.php';
 
-    // require API class manually because Composer's classloader is case-sensitive
+	// require API class manually because Composer's classloader is case-sensitive
 	// but we need it to pass class_exists condition
 	require MC4WP_PLUGIN_DIR . '/includes/api/class-api-v3.php';
 
 	/**
-     * @global MC4WP_Container $GLOBALS['mc4wp']
-     * @name $mc4wp
-     */
-    $mc4wp = mc4wp();
-    $mc4wp['api'] = 'mc4wp_get_api_v3';
-    $mc4wp['log'] = 'mc4wp_get_debug_log';
+	 * @global MC4WP_Container $GLOBALS['mc4wp']
+	 * @name $mc4wp
+	 */
+	$mc4wp = mc4wp();
+	$mc4wp['api'] = 'mc4wp_get_api_v3';
+	$mc4wp['log'] = 'mc4wp_get_debug_log';
 
-    // forms
-    $mc4wp['forms'] = new MC4WP_Form_Manager();
-    $mc4wp['forms']->add_hooks();
+	// forms
+	$mc4wp['forms'] = new MC4WP_Form_Manager();
+	$mc4wp['forms']->add_hooks();
 
-    // integration core
-    $mc4wp['integrations'] = new MC4WP_Integration_Manager();
-    $mc4wp['integrations']->add_hooks();
+	// integration core
+	$mc4wp['integrations'] = new MC4WP_Integration_Manager();
+	$mc4wp['integrations']->add_hooks();
 
-    // Doing cron? Load Usage Tracking class.
-    if (isset($_GET['doing_wp_cron']) || (defined('DOING_CRON') && DOING_CRON) || (defined('WP_CLI') && WP_CLI)) {
-        MC4WP_Usage_Tracking::instance()->add_hooks();
-    }
+	// Doing cron? Load Usage Tracking class.
+	if ( isset( $_GET['doing_wp_cron'] ) || ( defined( 'DOING_CRON' ) && DOING_CRON ) || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
+		MC4WP_Usage_Tracking::instance()->add_hooks();
+	}
 
-    // Initialize admin section of plugin
-    if (is_admin()) {
-        $admin_tools = new MC4WP_Admin_Tools();
+	// Initialize admin section of plugin
+	if ( is_admin() ) {
+		$admin_tools = new MC4WP_Admin_Tools();
 
-        if (defined('DOING_AJAX') && DOING_AJAX) {
-            $ajax = new MC4WP_Admin_Ajax($admin_tools);
-            $ajax->add_hooks();
-        } else {
-            $messages = new MC4WP_Admin_Messages();
-            $mc4wp['admin.messages'] = $messages;
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			$ajax = new MC4WP_Admin_Ajax( $admin_tools );
+			$ajax->add_hooks();
+		} else {
+			$messages = new MC4WP_Admin_Messages();
+			$mc4wp['admin.messages'] = $messages;
 
-            $admin = new MC4WP_Admin($admin_tools, $messages);
-            $admin->add_hooks();
+			$admin = new MC4WP_Admin( $admin_tools, $messages );
+			$admin->add_hooks();
 
-            $forms_admin = new MC4WP_Forms_Admin($messages);
-            $forms_admin->add_hooks();
+			$forms_admin = new MC4WP_Forms_Admin( $messages );
+			$forms_admin->add_hooks();
 
-            $integrations_admin = new MC4WP_Integration_Admin($mc4wp['integrations'], $messages);
-            $integrations_admin->add_hooks();
-        }
-    }
+			$integrations_admin = new MC4WP_Integration_Admin( $mc4wp['integrations'], $messages );
+			$integrations_admin->add_hooks();
+		}
+	}
 
-    return true;
+	return true;
 }
 
 // bootstrap custom integrations
-function _mc4wp_bootstrap_integrations()
-{
-    require_once MC4WP_PLUGIN_DIR . 'integrations/bootstrap.php';
+function _mc4wp_bootstrap_integrations() {
+	require_once MC4WP_PLUGIN_DIR . 'integrations/bootstrap.php';
 }
 
-add_action('plugins_loaded', '_mc4wp_load_plugin', 8);
-add_action('plugins_loaded', '_mc4wp_bootstrap_integrations', 90);
+add_action( 'plugins_loaded', '_mc4wp_load_plugin', 8 );
+add_action( 'plugins_loaded', '_mc4wp_bootstrap_integrations', 90 );
