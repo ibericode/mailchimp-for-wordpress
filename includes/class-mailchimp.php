@@ -99,7 +99,7 @@ class MC4WP_MailChimp {
 			if ( $existing_member_data ) {
 				$data                      = $api->update_list_member( $list_id, $email_address, $args );
 				$data->was_already_on_list = $existing_member_data->status === 'subscribed';
-				$this->list_add_tags_to_subscriber($list_id, $data, $args['tags'] );
+				$this->list_add_tags_to_subscriber( $list_id, $data, $args['tags'] );
 			} else {
 				$data                      = $api->add_new_list_member( $list_id, $args );
 				$data->was_already_on_list = false;
@@ -122,18 +122,24 @@ class MC4WP_MailChimp {
 	 * @return array
 	 */
 	private function merge_and_format_member_tags( $mailchimp_tags, $new_tags ) {
-		$mailchimp_tags = array_map( function ( $tag ) {
-			return $tag->name;
-		}, $mailchimp_tags );
+		$mailchimp_tags = array_map(
+			function ( $tag ) {
+				return $tag->name;
+			},
+			$mailchimp_tags
+		);
 
-		$tags = array_unique( array_merge( $mailchimp_tags, $new_tags ), SORT_REGULAR);
+		$tags = array_unique( array_merge( $mailchimp_tags, $new_tags ), SORT_REGULAR );
 
-		return array_map( function ( $tag ) {
-			return array(
+		return array_map(
+			function ( $tag ) {
+				return array(
 				'name' => $tag,
-				'status' => 'active'
-			);
-		}, $tags );
+				'status' => 'active',
+				);
+			},
+			$tags
+		);
 	}
 
 	/**
@@ -147,8 +153,7 @@ class MC4WP_MailChimp {
 	 * @throws Exception
 	 * @since 4.7.9
 	 */
-	private function list_add_tags_to_subscriber( $mailchimp_list_id, $mailchimp_member, array $new_tags )
-	{
+	private function list_add_tags_to_subscriber( $mailchimp_list_id, $mailchimp_member, array $new_tags ) {
 		// do nothing if no tags given
 		if ( count( $new_tags ) === 0 ) {
 			return true;
@@ -156,7 +161,7 @@ class MC4WP_MailChimp {
 
 		$api = $this->get_api();
 		$data = array(
-			'tags' => $this->merge_and_format_member_tags( $mailchimp_member->tags, $new_tags )
+			'tags' => $this->merge_and_format_member_tags( $mailchimp_member->tags, $new_tags ),
 		);
 
 		try {
