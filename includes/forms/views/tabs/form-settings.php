@@ -102,7 +102,7 @@
 		<td>
 			<input type="text" class="widefat" name="mc4wp_form[settings][subscriber_tags]" id="mc4wp_form_subscriber_tags" placeholder="<?php echo esc_attr__( 'Example: My tag, another tag', 'mailchimp-for-wp' ); ?>" value="<?php echo esc_attr( $opts['subscriber_tags'] ); ?>" />
 			<p class="help">
-				<?php echo esc_html__( 'The listed tags will be applied to all new subscribers added by this form.', 'mailchimp-for-wp' ); ?>
+				<?php echo esc_html__( 'The listed tags will be applied to all subscribers added or updated by this form.', 'mailchimp-for-wp' ); ?>
 				<?php echo esc_html__( 'Separate multiple values with a comma.', 'mailchimp-for-wp' ); ?>
 			</p>
 
