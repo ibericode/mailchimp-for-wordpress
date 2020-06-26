@@ -426,7 +426,7 @@ class MC4WP_Admin {
 				$this->messages->flash( $message, 'error' );
 				$connected = false;
 			} catch ( MC4WP_API_Exception $e ) {
-				$this->messages->flash( sprintf( '<strong>%s</strong><br /> %s', esc_html__( 'Mailchimp returned the following error:', 'mailchimp-for-wp' ), $e ), 'error' );
+				$this->messages->flash( sprintf( '<strong>%s</strong><br /> %s', esc_html__( 'Mailchimp returned the following error:', 'mailchimp-for-wp' ), nl2br( (string) $e ) ), 'error' );
 				$connected = false;
 			}
 		}

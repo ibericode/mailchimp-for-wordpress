@@ -96,10 +96,14 @@ class MC4WP_API_Exception extends Exception {
 
 		// Add request data
 		if ( ! empty( $this->request ) && is_array( $this->request ) ) {
-			$string .= "\n" . sprintf( 'Request: %s %s', $this->request['method'], $this->request['url'] );
+			$string .= "\n\n" . sprintf( "Request: \n%s %s\n", $this->request['method'], $this->request['url'] );
+
+			foreach ( $this->request['headers'] as $key => $value ) {
+				$string .= sprintf( "%s: %s\n", $key, $value );
+			}
 
 			if ( ! empty( $this->request['body'] ) ) {
-				$string .= sprintf( ' - %s', $this->request['body'] );
+				$string .= "\n" . $this->request['body'];
 			}
 		}
 
@@ -108,7 +112,7 @@ class MC4WP_API_Exception extends Exception {
 			$response_code    = wp_remote_retrieve_response_code( $this->response );
 			$response_message = wp_remote_retrieve_response_message( $this->response );
 			$response_body    = wp_remote_retrieve_body( $this->response );
-			$string          .= "\n" . sprintf( 'Response: %d %s - %s', $response_code, $response_message, $response_body );
+			$string          .= "\n\n" . sprintf( "Response: \n%d %s\n%s", $response_code, $response_message, $response_body );
 		}
 
 		return $string;
