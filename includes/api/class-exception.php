@@ -98,9 +98,9 @@ class MC4WP_API_Exception extends Exception {
 		if ( ! empty( $this->request ) && is_array( $this->request ) ) {
 			$string .= "\n\n" . sprintf( "Request: \n%s %s\n", $this->request['method'], $this->request['url'] );
 
-//			foreach ( $this->request['headers'] as $key => $value ) {
-//				$string .= sprintf( "%s: %s\n", $key, $value );
-//			}
+			//          foreach ( $this->request['headers'] as $key => $value ) {
+			//              $string .= sprintf( "%s: %s\n", $key, $value );
+			//          }
 
 			if ( ! empty( $this->request['body'] ) ) {
 				$string .= "\n" . $this->request['body'];
