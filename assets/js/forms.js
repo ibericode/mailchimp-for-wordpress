@@ -623,14 +623,14 @@ function populate(form, data, basename) {
 
 			case 'radio':
 			case 'checkbox':
+				var values = value.constructor === Array ? value : [value];
 				for (var j=0; j < element.length; j++) {
-					element[j].checked = (String(value) === String(element[j].value));
+					element[j].checked = values.indexOf(element[j].value) > -1;
 				}
 				break;
 
 			case 'select-multiple':
-				var values = value.constructor == Array ? value : [value];
-
+				var values = value.constructor === Array ? value : [value];
 				for(var k = 0; k < element.options.length; k++) {
 					element.options[k].selected = (values.indexOf(element.options[k].value) > -1 );
 				}

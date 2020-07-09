@@ -53,7 +53,7 @@ msgstr ""
 msgid "Property of the current page or post."
 msgstr ""
 
-#: includes/class-mailchimp.php:191, includes/forms/class-admin.php:82
+#: includes/class-mailchimp.php:248, includes/forms/class-admin.php:82
 msgid "Email address"
 msgstr ""
 
@@ -1075,7 +1075,7 @@ msgid "Example: My tag, another tag"
 msgstr ""
 
 #: includes/forms/views/tabs/form-settings.php:105
-msgid "The listed tags will be applied to all new subscribers added by this form."
+msgid "The listed tags will be applied to all subscribers added or updated by this form."
 msgstr ""
 
 #: includes/forms/views/tabs/form-settings.php:106
