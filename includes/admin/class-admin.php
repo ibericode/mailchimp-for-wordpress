@@ -191,7 +191,7 @@ class MC4WP_Admin {
 		}
 
 		define( 'MC4WP_DOING_UPGRADE', true );
-		$upgrade_routines = new MC4WP_Upgrade_Routines( $previous_version, MC4WP_VERSION, dirname( __FILE__ ) . '/migrations' );
+		$upgrade_routines = new MC4WP_Upgrade_Routines( $previous_version, MC4WP_VERSION, __DIR__ . '/migrations' );
 		$upgrade_routines->run();
 		update_option( 'mc4wp_version', MC4WP_VERSION );
 	}

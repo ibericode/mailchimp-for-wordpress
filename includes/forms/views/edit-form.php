@@ -99,7 +99,7 @@ $tabs = apply_filters( 'mc4wp_admin_edit_form_tabs', $tabs );
 							 */
 							do_action( 'mc4wp_admin_edit_form_output_' . $tab . '_tab', $opts, $form );
 
-							$tab_file = dirname( __FILE__ ) . '/tabs/form-' . $tab . '.php';
+							$tab_file = __DIR__ . '/tabs/form-' . $tab . '.php';
 							if ( file_exists( $tab_file ) ) {
 								include $tab_file;
 							}

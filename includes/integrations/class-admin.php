@@ -159,7 +159,7 @@ class MC4WP_Integration_Admin {
 		// get all integrations but remove enabled integrations from the resulting array
 		$integrations = $this->integrations->get_all();
 
-		require dirname( __FILE__ ) . '/views/integrations.php';
+		require __DIR__ . '/views/integrations.php';
 	}
 
 	/**
@@ -179,6 +179,6 @@ class MC4WP_Integration_Admin {
 		$mailchimp = new MC4WP_MailChimp();
 		$lists     = $mailchimp->get_lists();
 
-		require dirname( __FILE__ ) . '/views/integration-settings.php';
+		require __DIR__ . '/views/integration-settings.php';
 	}
 }

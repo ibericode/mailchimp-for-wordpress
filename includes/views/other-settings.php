@@ -192,12 +192,12 @@ add_action( 'mc4wp_admin_other_settings', '_mc4wp_usage_tracking_setting', 70 );
 
 
 
-			<?php include dirname( __FILE__ ) . '/parts/admin-footer.php'; ?>
+			<?php include __DIR__ . '/parts/admin-footer.php'; ?>
 		</div>
 
 		<!-- Sidebar -->
 		<div class="sidebar col col-2">
-			<?php include dirname( __FILE__ ) . '/parts/admin-sidebar.php'; ?>
+			<?php include __DIR__ . '/parts/admin-sidebar.php'; ?>
 		</div>
 
 

@@ -8,7 +8,7 @@
  * @ignore
  */
 function mc4wp_admin_before_integration_settings( MC4WP_Integration $integration, $opts ) {
-	$file = dirname( __FILE__ ) . sprintf( '/%s/admin-before.php', $integration->slug );
+	$file = __DIR__ . sprintf( '/%s/admin-before.php', $integration->slug );
 
 	if ( file_exists( $file ) ) {
 		include $file;
@@ -23,7 +23,7 @@ function mc4wp_admin_before_integration_settings( MC4WP_Integration $integration
  * @ignore
  */
 function mc4wp_admin_after_integration_settings( MC4WP_Integration $integration, $opts ) {
-	$file = dirname( __FILE__ ) . sprintf( '/%s/admin-after.php', $integration->slug );
+	$file = __DIR__ . sprintf( '/%s/admin-after.php', $integration->slug );
 
 	if ( file_exists( $file ) ) {
 		include $file;
@@ -48,7 +48,7 @@ mc4wp_register_integration( 'give', 'MC4WP_Give_Integration' );
 
 
 mc4wp_register_integration( 'custom', 'MC4WP_Custom_Integration', true );
-$dir = dirname( __FILE__ );
+$dir = __DIR__;
 require $dir . '/ninja-forms/bootstrap.php';
 require $dir . '/wpforms/bootstrap.php';
 require $dir . '/gravity-forms/bootstrap.php';

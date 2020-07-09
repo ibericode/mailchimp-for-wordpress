@@ -85,17 +85,17 @@ defined( 'ABSPATH' ) or exit;
 
 			if ( ! empty( $opts['api_key'] ) ) {
 				echo '<hr />';
-				include dirname( __FILE__ ) . '/parts/lists-overview.php';
+				include __DIR__ . '/parts/lists-overview.php';
 			}
 
-			include dirname( __FILE__ ) . '/parts/admin-footer.php';
+			include __DIR__ . '/parts/admin-footer.php';
 
 			?>
 		</div>
 
 		<!-- Sidebar -->
 		<div class="sidebar col col-2">
-			<?php include dirname( __FILE__ ) . '/parts/admin-sidebar.php'; ?>
+			<?php include __DIR__ . '/parts/admin-sidebar.php'; ?>
 		</div>
 
 

@@ -406,7 +406,7 @@ class MC4WP_Forms_Admin {
 			site_url( '/', 'admin' )
 		);
 
-		require dirname( __FILE__ ) . '/views/edit-form.php';
+		require __DIR__ . '/views/edit-form.php';
 	}
 
 	/**
@@ -418,7 +418,7 @@ class MC4WP_Forms_Admin {
 		$mailchimp       = new MC4WP_MailChimp();
 		$lists           = $mailchimp->get_lists();
 		$number_of_lists = count( $lists );
-		require dirname( __FILE__ ) . '/views/add-form.php';
+		require __DIR__ . '/views/add-form.php';
 	}
 
 	/**

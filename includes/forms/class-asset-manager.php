@@ -164,7 +164,7 @@ class MC4WP_Form_Asset_Manager {
 	 */
 	public function print_dummy_javascript() {
 		echo '<script>';
-		include dirname( __FILE__ ) . '/views/js/dummy-api.js';
+		include __DIR__ . '/views/js/dummy-api.js';
 		echo '</script>';
 	}
 
@@ -191,7 +191,7 @@ class MC4WP_Form_Asset_Manager {
 		// print inline scripts
 		echo '<script>';
 		echo '(function() {';
-		include dirname( __FILE__ ) . '/views/js/url-fields.js';
+		include __DIR__ . '/views/js/url-fields.js';
 		echo '})();';
 		echo '</script>';
 
