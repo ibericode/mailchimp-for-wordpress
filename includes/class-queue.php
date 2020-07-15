@@ -7,7 +7,6 @@
  */
 class MC4WP_Queue {
 
-
 	/**
 	 * @var MC4WP_Queue_Job[]
 	 */
@@ -22,6 +21,11 @@ class MC4WP_Queue {
 	 * @var bool
 	 */
 	protected $dirty = false;
+
+	/**
+	 * @var int
+	 */
+	const MAX_JOB_COUNT = 1000;
 
 	/**
 	 * MC4WP_Ecommerce_Queue constructor.
@@ -98,7 +102,13 @@ class MC4WP_Queue {
 			}
 		}
 
-		// add job to queue
+		// if we have more than MAX_JOB_COUNT jobs, remove first job item.
+		// this protects against an ever-growing job list, but also potentially loses jobs if the queue is not processed soon enough.
+		if ( count( $this->jobs ) > self::MAX_JOB_COUNT ) {
+			array_shift( $this->jobs );
+		}
+
+		// add job to end of jobs array
 		$job          = new MC4WP_Queue_Job( $data );
 		$this->jobs[] = $job;
 		$this->dirty  = true;
