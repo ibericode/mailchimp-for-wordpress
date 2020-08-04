@@ -31,6 +31,10 @@ function setPreviewDom () {
 }
 
 function updatePreview () {
+  if (!previewDom) {
+    return setPreviewDom();
+  }
+
   let markup = FormEditor.getValue()
 
   // replace template tags (twice, to allow for nested tags)

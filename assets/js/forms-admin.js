@@ -958,6 +958,10 @@ function setPreviewDom() {
 }
 
 function updatePreview() {
+  if (!previewDom) {
+    return setPreviewDom();
+  }
+
   var markup = FormEditor.getValue(); // replace template tags (twice, to allow for nested tags)
 
   markup = markup.replace(templateRegex, '').replace(templateRegex, ''); // update dom
