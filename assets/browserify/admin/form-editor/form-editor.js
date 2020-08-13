@@ -32,7 +32,7 @@ function setPreviewDom () {
 
 function updatePreview () {
   if (!previewDom) {
-    return setPreviewDom();
+    return setPreviewDom()
   }
 
   let markup = FormEditor.getValue()
