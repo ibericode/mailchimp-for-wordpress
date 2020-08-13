@@ -132,6 +132,7 @@ class MC4WP_Form_Manager {
 			'/form',
 			array(
 				'methods'  => 'POST',
+				'permission_callback' => '__return_true',
 				'callback' => array( $this, 'handle_endpoint' ),
 			)
 		);
