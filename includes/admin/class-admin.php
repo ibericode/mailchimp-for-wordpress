@@ -113,12 +113,16 @@ class MC4WP_Admin {
 		*/
 		do_action( 'mc4wp_admin_' . $action );
 
-		// redirect back to where we came from
-		$redirect_url = isset( $_REQUEST['_redirect_to'] ) ? $_REQUEST['_redirect_to'] : remove_query_arg( '_mc4wp_action' );
-		if ( $redirect_url ) {
-			wp_redirect( $redirect_url );
-			exit;
+		// redirect back to where we came from (to prevent double submit)
+		if ( isset( $_POST['_redirect_to'] ) ) {
+			$redirect_url = $_POST['_redirect_to'];
+		} else if ( isset( $_GET['_redirect_to'] ) ) {
+			$redirect_url = $_GET['_redirect_to'];
+		} else {
+			$redirect_url = remove_query_arg( '_mc4wp_action' );
 		}
+		wp_redirect( $redirect_url );
+		exit;
 	}
 
 	/**
@@ -426,7 +430,8 @@ class MC4WP_Admin {
 				$this->messages->flash( $message, 'error' );
 				$connected = false;
 			} catch ( MC4WP_API_Exception $e ) {
-				$this->messages->flash( sprintf( '<strong>%s</strong><br /> %s', esc_html__( 'Mailchimp returned the following error:', 'mailchimp-for-wp' ), nl2br( (string) $e ) ), 'error' );
+				$message = sprintf( '<strong>%s</strong><br /> %s', esc_html__( 'Mailchimp returned the following error:', 'mailchimp-for-wp' ), nl2br( (string) $e ) );
+				$this->messages->flash( $message, 'error' );
 				$connected = false;
 			}
 		}
