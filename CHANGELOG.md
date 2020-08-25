@@ -1,6 +1,11 @@
 Changelog
 =========
 
+#### 4.8.1 - Aug 25, 2020
+
+- Fix notice by explicitly setting `permission_callback` on registered REST route.
+- Minor internal code improvements.
+
 #### 4.8 - Jul 9, 2020
 
 - Plugin now requires PHP 5.3 or higher.
