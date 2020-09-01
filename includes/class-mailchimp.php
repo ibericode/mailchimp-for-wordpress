@@ -337,25 +337,22 @@ class MC4WP_MailChimp {
 	}
 
 	private function fetch_lists() {
-		/**
-		 * Filters the amount of Mailchimp lists to fetch.
-		 *
-		 * If you increase this, it might be necessary to increase your PHP configuration to allow for a higher max_execution_time.
-		 *
-		 * @param int
-		 */
-		$limit = apply_filters( 'mc4wp_mailchimp_list_limit', 200 );
 
-		try {
-			$lists_data = $this->get_api()->get_lists(
-				array(
-					'count'  => $limit,
-					'fields' => 'lists.id,lists.name,lists.stats,lists.web_id',
-				)
-			);
-		} catch ( MC4WP_API_Exception $e ) {
-			return array();
-		}
+		$client = $this->get_api()->get_client();
+		$lists_data = array();
+		$offset = 0;
+		$count = 50;
+
+		// TODO: Exceptions
+		do {
+			$data = $client->get( '/lists', array(
+				'count'  => $count,
+				'offset' => $offset,
+				'fields' => 'total_items,lists.id,lists.name,lists.web_id,lists.stats.member_count',
+			) );
+			$lists_data = array_merge($lists_data, $data->lists);
+			$offset += $count;
+		} while ($data->total_items > $offset);
 
 		// key by list ID
 		$lists = array();
