@@ -337,21 +337,40 @@ class MC4WP_MailChimp {
 	}
 
 	private function fetch_lists() {
-
 		$client = $this->get_api()->get_client();
 		$lists_data = array();
 		$offset = 0;
-		$count = 50;
+		$count = 5;
 
-		// TODO: Exceptions
+		// increase time limits
+		@set_time_limit(180);
+		add_filter('mc4wp_http_request_args', function($args) {
+			$args['timeout'] = 30;
+			return $args;
+		});
+
+		// collect all lists in separate HTTP requests (batches of 5)
 		do {
-			$data = $client->get( '/lists', array(
-				'count'  => $count,
-				'offset' => $offset,
-				'fields' => 'total_items,lists.id,lists.name,lists.web_id,lists.stats.member_count',
-			) );
-			$lists_data = array_merge($lists_data, $data->lists);
-			$offset += $count;
+			try {
+				$data       = $client->get( '/lists', array(
+					'count'  => $count,
+					'offset' => $offset,
+					'fields' => 'total_items,lists.id,lists.name,lists.web_id,lists.stats.member_count',
+				) );
+				$lists_data = array_merge( $lists_data, $data->lists );
+				$offset += $count;
+			} catch (MC4WP_API_Connection_Exception $e) {
+				// ignore timeout errors as this is likely due to mailchimp being slow to calculate the lists.stats.member_count property
+				// keep going so we can at least pull-in all other lists
+				$offset += $count;
+
+				// failsafe against infinite loop
+				if ($offset > 300) {
+					break;
+				}
+
+				continue;
+			}
 		} while ($data->total_items > $offset);
 
 		// key by list ID
