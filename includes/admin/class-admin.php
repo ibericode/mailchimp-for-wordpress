@@ -116,7 +116,7 @@ class MC4WP_Admin {
 		// redirect back to where we came from (to prevent double submit)
 		if ( isset( $_POST['_redirect_to'] ) ) {
 			$redirect_url = $_POST['_redirect_to'];
-		} else if ( isset( $_GET['_redirect_to'] ) ) {
+		} elseif ( isset( $_GET['_redirect_to'] ) ) {
 			$redirect_url = $_GET['_redirect_to'];
 		} else {
 			$redirect_url = remove_query_arg( '_mc4wp_action' );

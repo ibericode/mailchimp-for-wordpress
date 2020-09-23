@@ -344,19 +344,25 @@ class MC4WP_MailChimp {
 
 		// increase time limits
 		@set_time_limit( 180 );
-		add_filter( 'mc4wp_http_request_args', function( $args ) {
-			$args['timeout'] = 30;
-			return $args;
-		} );
+		add_filter(
+			'mc4wp_http_request_args',
+			function( $args ) {
+				$args['timeout'] = 30;
+				return $args;
+			}
+		);
 
 		// collect all lists in separate HTTP requests (batches of 5)
 		do {
 			try {
-				$data       = $client->get( '/lists', array(
+				$data       = $client->get(
+					'/lists',
+					array(
 					'count'  => $count,
 					'offset' => $offset,
 					'fields' => 'total_items,lists.id,lists.name,lists.web_id,lists.stats.member_count,lists.marketing_permissions',
-				) );
+					)
+				);
 				$lists_data = array_merge( $lists_data, $data->lists );
 				$offset += $count;
 			} catch ( MC4WP_API_Connection_Exception $e ) {
