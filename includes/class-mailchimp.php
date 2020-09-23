@@ -355,7 +355,7 @@ class MC4WP_MailChimp {
 				$data       = $client->get( '/lists', array(
 					'count'  => $count,
 					'offset' => $offset,
-					'fields' => 'total_items,lists.id,lists.name,lists.web_id,lists.stats.member_count',
+					'fields' => 'total_items,lists.id,lists.name,lists.web_id,lists.stats.member_count,lists.marketing_permissions',
 				) );
 				$lists_data = array_merge( $lists_data, $data->lists );
 				$offset += $count;
