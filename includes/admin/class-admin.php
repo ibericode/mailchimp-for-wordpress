@@ -247,7 +247,7 @@ class MC4WP_Admin {
 
 		// if API key changed, empty Mailchimp cache
 		if ( $settings['api_key'] !== $current['api_key'] ) {
-			delete_transient('mc4wp_mailchimp_lists');
+			delete_transient( 'mc4wp_mailchimp_lists' );
 		}
 
 		/**

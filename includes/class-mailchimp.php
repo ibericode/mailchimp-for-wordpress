@@ -343,11 +343,11 @@ class MC4WP_MailChimp {
 		$count = 5;
 
 		// increase time limits
-		@set_time_limit(180);
-		add_filter('mc4wp_http_request_args', function($args) {
+		@set_time_limit( 180 );
+		add_filter( 'mc4wp_http_request_args', function( $args ) {
 			$args['timeout'] = 30;
 			return $args;
-		});
+		} );
 
 		// collect all lists in separate HTTP requests (batches of 5)
 		do {
@@ -359,19 +359,19 @@ class MC4WP_MailChimp {
 				) );
 				$lists_data = array_merge( $lists_data, $data->lists );
 				$offset += $count;
-			} catch (MC4WP_API_Connection_Exception $e) {
+			} catch ( MC4WP_API_Connection_Exception $e ) {
 				// ignore timeout errors as this is likely due to mailchimp being slow to calculate the lists.stats.member_count property
 				// keep going so we can at least pull-in all other lists
 				$offset += $count;
 
 				// failsafe against infinite loop
-				if ($offset > 300) {
+				if ( $offset > 300 ) {
 					break;
 				}
 
 				continue;
 			}
-		} while ($data->total_items > $offset);
+		} while ( $data->total_items > $offset );
 
 		// key by list ID
 		$lists = array();
