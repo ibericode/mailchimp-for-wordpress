@@ -118,14 +118,39 @@ function mc4wp_get_debug_log() {
 
 	// get default log file location
 	$upload_dir = wp_upload_dir( null, false );
-	$file       = trailingslashit( $upload_dir['basedir'] ) . 'mc4wp-debug-log.php';
+	$file       = $upload_dir['basedir'] . '/mailchimp-for-wp/debug-log.php';
+	$default_file = $file;
 
 	/**
 	 * Filters the log file to write to.
 	 *
-	 * @param string $file The log file location. Default: /wp-content/uploads/mc4wp-debug.log
+	 * @param string $file The log file location. Default: /wp-content/uploads/mailchimp-for-wp/mc4wp-debug.log
 	 */
 	$file = apply_filters( 'mc4wp_debug_log_file', $file );
+
+	if ( $file === $default_file ) {
+		$dir = dirname( $file );
+		if ( ! is_dir( $dir ) ) {
+			mkdir( $dir, 0755, true );
+		}
+
+		if ( ! is_file( $dir . '/.htaccess' ) ) {
+			$lines = array(
+				'<IfModule !authz_core_module>',
+				'Order deny,allow',
+				'Deny from all',
+				'</IfModule>',
+				'<IfModule authz_core_module>',
+				'Require all denied',
+				'</IfModule>',
+			);
+			file_put_contents( $dir . '/.htaccess', join( PHP_EOL, $lines ) );
+		}
+
+		if ( ! is_file( $dir . '/index.html' ) ) {
+			file_put_contents( $dir . '/index.html', '' );
+		}
+	}
 
 	/**
 	 * Filters the minimum level to log messages.
