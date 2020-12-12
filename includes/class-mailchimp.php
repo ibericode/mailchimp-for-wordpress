@@ -376,6 +376,9 @@ class MC4WP_MailChimp {
 				}
 
 				continue;
+			} catch ( MC4WP_API_Exception $e ) {
+				// break on other errors, like "API key missing"etc.
+				break;
 			}
 		} while ( $data->total_items > $offset );
 
