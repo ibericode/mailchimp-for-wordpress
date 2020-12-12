@@ -288,14 +288,22 @@ class MC4WP_Admin {
 
 		wp_register_script( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array( 'es5-shim' ), MC4WP_VERSION, true );
 		wp_enqueue_script( 'mc4wp-admin' );
+		$connected = ! empty( $opts['api_key'] );
+		if ( $connected ) {
+			try { 
+				$mailchimp_lists = $mailchimp->get_lists();	
+			} catch ( Exception $e ) {
+				$mailchimp_lists = array();
+			}
+		}
 		wp_localize_script(
 			'mc4wp-admin',
 			'mc4wp_vars',
 			array(
 				'ajaxurl'   => admin_url( 'admin-ajax.php' ),
 				'mailchimp' => array(
-					'api_connected' => ! empty( $opts['api_key'] ),
-					'lists'         => $mailchimp->get_lists(),
+					'api_connected' => $connected,
+					'lists'         => $mailchimp_lists,
 				),
 				'countries' => MC4WP_Tools::get_countries(),
 				'i18n'      => array(
