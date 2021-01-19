@@ -430,6 +430,9 @@ abstract class MC4WP_Integration {
 
 			/** @ignore (documented elsewhere) */
 			$subscriber = apply_filters( 'mc4wp_subscriber_data', $subscriber );
+			if ( $subscriber === false ) {
+				continue;
+			}
 
 			/**
 			 * Filters subscriber data before it is sent to Mailchimp. Only fires for integration requests.
@@ -437,6 +440,9 @@ abstract class MC4WP_Integration {
 			 * @param MC4WP_MailChimp_Subscriber $subscriber
 			 */
 			$subscriber = apply_filters( 'mc4wp_integration_subscriber_data', $subscriber );
+			if ( $subscriber === false ) {
+				continue;
+			}
 
 			/**
 			 * Filters subscriber data before it is sent to Mailchimp. Only fires for integration requests.
@@ -447,6 +453,9 @@ abstract class MC4WP_Integration {
 			 * @param int $related_object_id
 			 */
 			$subscriber = apply_filters( "mc4wp_integration_{$slug}_subscriber_data", $subscriber, $related_object_id );
+			if ( $subscriber === false ) {
+				continue;
+			}
 
 			$result = $mailchimp->list_subscribe( $list_id, $subscriber->email_address, $subscriber->to_array(), $this->options['update_existing'], $this->options['replace_interests'] );
 		}

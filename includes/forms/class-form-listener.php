@@ -116,6 +116,9 @@ class MC4WP_Form_Listener {
 			 * @param MC4WP_MailChimp_Subscriber $subscriber
 			 */
 			$subscriber = apply_filters( 'mc4wp_subscriber_data', $subscriber );
+			if ( $subscriber === false ) {
+				continue;
+			}
 
 			/**
 			 * Filters subscriber data before it is sent to Mailchimp. Only fires for form requests.
@@ -123,6 +126,9 @@ class MC4WP_Form_Listener {
 			 * @param MC4WP_MailChimp_Subscriber $subscriber
 			 */
 			$subscriber = apply_filters( 'mc4wp_form_subscriber_data', $subscriber );
+			if ( $subscriber === false ) {
+				continue;
+			}
 
 			// send a subscribe request to Mailchimp for each list
 			$result = $mailchimp->list_subscribe( $list_id, $subscriber->email_address, $subscriber->to_array(), $form->settings['update_existing'], $form->settings['replace_interests'] );
