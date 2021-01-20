@@ -6,14 +6,10 @@ build/
 phpunit.xml
 composer.lock
 .idea
-
-# Exclude everything in /vendor except our autoload stuff
-vendor/*
-!vendor/composer
-!vendor/autoload.php
-vendor/composer/installers
-vendor/composer/installed.json
-
+vendor/
 npm-debug.log
 yarn.lock
 *.swp
+
+assets/*
+!assets/src

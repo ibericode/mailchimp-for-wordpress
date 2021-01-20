@@ -6,7 +6,7 @@
     "url": "https://github.com/ibericode/mailchimp-for-wordpress"
   },
   "scripts": {
-    "lint": "eslint assets/browserify gulpfile.js"
+    "lint": "eslint assets/src/browserify gulpfile.js"
   },
   "devDependencies": {
     "@babel/core": "^7.11.4",
@@ -21,7 +21,6 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "event-stream": "^4.0.1",
-    "globby": "^9.0.0",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-derequire": "^2.1.1",
@@ -33,8 +32,6 @@
     "gulp-util": "^3.0.8",
     "gulp-wp-pot": "^2.4.3",
     "merge-stream": "^2.0.0",
-    "through2": "^3.0.2",
-    "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {

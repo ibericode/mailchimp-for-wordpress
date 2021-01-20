@@ -6,19 +6,40 @@ MC4WP: Mailchimp for WordPress
 [![Rating](https://img.shields.io/wordpress/plugin/r/mailchimp-for-wp.svg)](https://wordpress.org/support/plugin/mailchimp-for-wp/reviews/)
 [![License: GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-Here, you can browse the source of the [Mailchimp for WordPress Plugin](https://wordpress.org/plugins/mailchimp-for-wp/) project, find and discuss open issues or contribute code to the plugin yourself.
+Here, you can browse the source code of the [Mailchimp for WordPress Plugin](https://wordpress.org/plugins/mailchimp-for-wp/), find and discuss open issues or contribute code to the plugin.
 
 Installation
 ------------
 
-Here's a [guide on how to install the plugin in your WordPress site](https://wordpress.org/plugins/mailchimp-for-wp/installation/).
-If you want to run the latest development version, you have two options:
+If you just want to install this plugin on your WordPress site, please download and install the latest version from WordPress.org: [Mailchimp for WordPress plugin on WordPress.org](https://wordpress.org/plugins/mailchimp-for-wp/).
 
-* Download the repository .zip file: [mailchimp-for-wordpress.zip](https://github.com/ibericode/mailchimp-for-wordpress/archive/master.zip)
-* Clone the GitHub repository using Git: `git clone https://github.com/ibericode/mailchimp-for-wordpress.git mailchimp-for-wp`
+To install the development version, take the following steps:
 
-This will download the latest development version of the Mailchimp for WordPress plugin. 
-While this version is usually stable, it is not recommended for use in a production environment.
+1. Clone the GitHub repository:
+
+```
+git clone https://github.com/ibericode/mailchimp-for-wordpress.git mailchimp-for-wp
+```
+
+2. Install NPM dependencies:
+
+```
+npm install
+```
+
+3. Install Composer dependencies:
+
+```
+composer install
+```
+
+4. Generate plugin asset files:
+
+```
+npx gulp
+```
+
+5. Activate the plugin in your WordPress admin.
 
 Bugs
 ----
@@ -30,7 +51,7 @@ You can help [help translate Mailchimp for WordPress](https://translate.wordpres
 
 Support
 -------
-This is a developer's portal for the Mailchimp for WordPress plugin and should not be used for support. 
+This is a developer's portal for the Mailchimp for WordPress plugin and should not be used for support.
 Please visit the [Mailchimp for WordPress support forum on WordPress.org](https://wordpress.org/support/plugin/mailchimp-for-wp).
 
 If you need priority support, [upgrade to Mailchimp for WordPress Premium](https://www.mc4wp.com/).
