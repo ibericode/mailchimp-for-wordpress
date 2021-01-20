@@ -340,7 +340,7 @@ class MC4WP_MailChimp {
 		$client = $this->get_api()->get_client();
 		$lists_data = array();
 		$offset = 0;
-		$count = 5;
+		$count = 10;
 
 		// increase time limits
 		@set_time_limit( 180 );
