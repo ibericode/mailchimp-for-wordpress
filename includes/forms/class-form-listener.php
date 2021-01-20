@@ -116,7 +116,7 @@ class MC4WP_Form_Listener {
 			 * @param MC4WP_MailChimp_Subscriber $subscriber
 			 */
 			$subscriber = apply_filters( 'mc4wp_subscriber_data', $subscriber );
-			if ( $subscriber === false ) {
+			if ( ! $subscriber instanceof MC4WP_MailChimp_Subscriber ) {
 				continue;
 			}
 
@@ -126,7 +126,7 @@ class MC4WP_Form_Listener {
 			 * @param MC4WP_MailChimp_Subscriber $subscriber
 			 */
 			$subscriber = apply_filters( 'mc4wp_form_subscriber_data', $subscriber );
-			if ( $subscriber === false ) {
+			if ( ! $subscriber instanceof MC4WP_MailChimp_Subscriber ) {
 				continue;
 			}
 

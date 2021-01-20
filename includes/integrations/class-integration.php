@@ -430,7 +430,7 @@ abstract class MC4WP_Integration {
 
 			/** @ignore (documented elsewhere) */
 			$subscriber = apply_filters( 'mc4wp_subscriber_data', $subscriber );
-			if ( $subscriber === false ) {
+			if ( ! $subscriber instanceof MC4WP_MailChimp_Subscriber ) {
 				continue;
 			}
 
@@ -440,7 +440,7 @@ abstract class MC4WP_Integration {
 			 * @param MC4WP_MailChimp_Subscriber $subscriber
 			 */
 			$subscriber = apply_filters( 'mc4wp_integration_subscriber_data', $subscriber );
-			if ( $subscriber === false ) {
+			if ( ! $subscriber instanceof MC4WP_MailChimp_Subscriber ) {
 				continue;
 			}
 
@@ -453,7 +453,7 @@ abstract class MC4WP_Integration {
 			 * @param int $related_object_id
 			 */
 			$subscriber = apply_filters( "mc4wp_integration_{$slug}_subscriber_data", $subscriber, $related_object_id );
-			if ( $subscriber === false ) {
+			if ( ! $subscriber instanceof MC4WP_MailChimp_Subscriber ) {
 				continue;
 			}
 
