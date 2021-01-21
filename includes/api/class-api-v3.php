@@ -225,9 +225,7 @@ class MC4WP_API_V3 {
 			$args['interests'] = (object) $args['interests'];
 		}
 
-		// "put" updates the member if it's already on the list... take notice
-		$data = $this->client->post( $resource, $args );
-		return $data;
+		return $this->client->post( $resource, $args );
 	}
 
 	/**
@@ -260,8 +258,7 @@ class MC4WP_API_V3 {
 		}
 
 		// "put" updates the member if it's already on the list... take notice
-		$data = $this->client->put( $resource, $args );
-		return $data;
+		return $this->client->put( $resource, $args );
 	}
 
 	/**
@@ -287,8 +284,7 @@ class MC4WP_API_V3 {
 			$args['interests'] = (object) $args['interests'];
 		}
 
-		$data = $this->client->patch( $resource, $args );
-		return $data;
+		return $this->client->patch( $resource, $args );
 	}
 
 	/**

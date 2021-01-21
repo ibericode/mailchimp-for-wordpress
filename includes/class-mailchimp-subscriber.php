@@ -63,8 +63,13 @@ class MC4WP_MailChimp_Subscriber {
 		$array = array();
 
 		foreach ( $all as $key => $value ) {
-			// skip null values and empty arrays
-			if ( $value === null || $value === array() ) {
+			// skip null values
+			if ( $value === null ) {
+				continue;
+			}
+
+			// skip empty marketing_permissions property
+			if ( $key === 'marketing_permissions' && empty( $value ) ) {
 				continue;
 			}
 
