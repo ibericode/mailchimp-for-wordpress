@@ -53,7 +53,7 @@ msgstr ""
 msgid "Property of the current page or post."
 msgstr ""
 
-#: includes/class-mailchimp.php:248, includes/forms/class-admin.php:82
+#: includes/class-mailchimp.php:251, includes/forms/class-admin.php:82
 msgid "Email address"
 msgstr ""
 
