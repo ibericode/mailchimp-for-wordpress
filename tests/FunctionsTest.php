@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
  * Class Functions_Test
  * @ignore
  */
-class Functions_Test extends TestCase
+class FunctionsTest extends TestCase
 {
     public $tests = array(
         array(

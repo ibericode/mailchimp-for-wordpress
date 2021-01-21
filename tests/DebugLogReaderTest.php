@@ -51,7 +51,7 @@ class DebugLogReaderTest extends TestCase
         self::assertStringContainsString($this->sample_log_lines[0], $reader->read());
 
         // read should match format
-        self::assertRegExp('/^\[([0-9-: ]+)\] (INFO|WARNING|ERROR)\: (.*)$/', $reader->read());
+        self::assertMatchesRegularExpression('/^\[([0-9-: ]+)\] (INFO|WARNING|ERROR)\: (.*)$/', $reader->read());
     }
 
     /**
@@ -60,6 +60,6 @@ class DebugLogReaderTest extends TestCase
     public function test_read_as_html()
     {
         $reader = new MC4WP_Debug_Log_Reader($this->file);
-        self::assertRegExp('/^<span .*>\[([0-9-: ]+)\]<\/span> <span .*>(INFO|WARNING|ERROR)\:<\/span> <span .*>(.*)<\/span>$/', $reader->read_as_html());
+        self::assertMatchesRegularExpression('/^<span .*>\[([0-9-: ]+)\]<\/span> <span .*>(INFO|WARNING|ERROR)\:<\/span> <span .*>(.*)<\/span>$/', $reader->read_as_html());
     }
 }

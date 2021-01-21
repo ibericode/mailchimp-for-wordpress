@@ -21,14 +21,14 @@
     "php": ">=5.3"
   },
   "require-dev": {
-    "phpunit/phpunit": "^7.5",
+    "phpunit/phpunit": "^9.0",
     "brain/monkey": "^2.2",
     "wp-coding-standards/wpcs": "^2.1",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1"
   },
   "scripts": {
-	"test": "./vendor/bin/phpunit tests/",
-	"codestyle": "./vendor/bin/phpcs -n -s"
+	"test": "php vendor/bin/phpunit tests/",
+	"codestyle": "php vendor/bin/phpcs -n -s"
   },
   "autoload": {
     "classmap": [
