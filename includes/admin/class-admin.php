@@ -279,11 +279,11 @@ class MC4WP_Admin {
 		$mailchimp = new MC4WP_MailChimp();
 
 		// css
-		wp_register_style( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/css/admin-styles' . $suffix . '.css', array(), MC4WP_VERSION );
+		wp_register_style( 'mc4wp-admin', mc4wp_plugin_url( 'assets/css/admin-styles' . $suffix . '.css' ), array(), MC4WP_VERSION );
 		wp_enqueue_style( 'mc4wp-admin' );
 
 		// js
-		wp_register_script( 'mc4wp-admin', MC4WP_PLUGIN_URL . 'assets/js/admin' . $suffix . '.js', array(), MC4WP_VERSION, true );
+		wp_register_script( 'mc4wp-admin', mc4wp_plugin_url( 'assets/js/admin' . $suffix . '.js' ), array(), MC4WP_VERSION, true );
 		wp_enqueue_script( 'mc4wp-admin' );
 		$connected = ! empty( $opts['api_key'] );
 		$mailchimp_lists = $connected ? $mailchimp->get_lists() : array();

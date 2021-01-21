@@ -59,7 +59,7 @@ class MC4WP_Integration_Admin {
 			return;
 		}
 
-		wp_register_script( 'mc4wp-integrations-admin', MC4WP_PLUGIN_URL . 'assets/js/integrations-admin' . $suffix . '.js', array( 'mc4wp-admin' ), MC4WP_VERSION, true );
+		wp_register_script( 'mc4wp-integrations-admin', mc4wp_plugin_url( 'assets/js/integrations-admin' . $suffix . '.js' ), array( 'mc4wp-admin' ), MC4WP_VERSION, true );
 		wp_enqueue_script( 'mc4wp-integrations-admin' );
 	}
 

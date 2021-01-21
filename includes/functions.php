@@ -164,6 +164,22 @@ function mc4wp_get_debug_log() {
 	return new MC4WP_Debug_Log( $file, $level );
 }
 
+/**
+ * Get URL to a file inside the plugin directory
+ *
+ * @since 4.8.3
+ * @param string $path
+ * @return string
+ */
+function mc4wp_plugin_url( $path ) {
+	static $base = null;
+	if ( $base === null ) {
+		$base = plugins_url( '/', MC4WP_PLUGIN_FILE );
+	}
+
+	return $base . $path;
+}
+
 
 /**
  * Get current URL (full)

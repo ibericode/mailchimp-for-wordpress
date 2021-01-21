@@ -47,7 +47,6 @@ function _mc4wp_load_plugin() {
 	// bootstrap the core plugin
 	define( 'MC4WP_VERSION', '4.8.2' );
 	define( 'MC4WP_PLUGIN_DIR', __DIR__ . '/' );
-	define( 'MC4WP_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 	define( 'MC4WP_PLUGIN_FILE', __FILE__ );
 
 	// load autoloader if function not yet exists (for compat with sitewide autoloader)
