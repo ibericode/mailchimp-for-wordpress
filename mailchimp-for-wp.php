@@ -104,8 +104,6 @@ function _mc4wp_load_plugin() {
 			$integrations_admin->add_hooks();
 		}
 	}
-
-	return;
 }
 
 // bootstrap custom integrations
