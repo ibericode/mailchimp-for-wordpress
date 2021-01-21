@@ -116,13 +116,13 @@ $tabs = apply_filters( 'mc4wp_admin_edit_form_tabs', $tabs );
 			</form><!-- Entire page form wrap -->
 
 
-			<?php include MC4WP_PLUGIN_DIR . 'includes/views/parts/admin-footer.php'; ?>
+			<?php include MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-footer.php'; ?>
 
 		</div>
 
 		<!-- Sidebar -->
 		<div class="sidebar col col-1">
-			<?php include MC4WP_PLUGIN_DIR . 'includes/views/parts/admin-sidebar.php'; ?>
+			<?php include MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-sidebar.php'; ?>
 		</div>
 
 

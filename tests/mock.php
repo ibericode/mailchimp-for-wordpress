@@ -5,7 +5,7 @@ if (! defined('ABSPATH')) {
 }
 
 define('HOUR_IN_SECONDS', 3600);
-define('MC4WP_PLUGIN_DIR', __DIR__ . '/../');
+define('MC4WP_PLUGIN_DIR', __DIR__ . '/..');
 
 class WP_Post {}
 

@@ -366,7 +366,7 @@ class MC4WP_Admin {
 		$menu_items = (array) apply_filters( 'mc4wp_admin_menu_items', $menu_items );
 
 		// add top menu item
-		$icon = file_get_contents( MC4WP_PLUGIN_DIR . 'assets/img/icon.svg' );
+		$icon = file_get_contents( MC4WP_PLUGIN_DIR . '/assets/img/icon.svg' );
 		add_menu_page( 'Mailchimp for WP', 'MC4WP', $required_cap, 'mailchimp-for-wp', array( $this, 'show_generals_setting_page' ), 'data:image/svg+xml;base64,' . base64_encode( $icon ), '99.68491' );
 
 		// sort submenu items by 'position'
@@ -435,7 +435,7 @@ class MC4WP_Admin {
 		}
 
 		$obfuscated_api_key = mc4wp_obfuscate_string( $api_key );
-		require MC4WP_PLUGIN_DIR . 'includes/views/general-settings.php';
+		require MC4WP_PLUGIN_DIR . '/includes/views/general-settings.php';
 	}
 
 	/**
@@ -445,7 +445,7 @@ class MC4WP_Admin {
 		$opts       = mc4wp_get_options();
 		$log        = $this->get_log();
 		$log_reader = new MC4WP_Debug_Log_Reader( $log->file );
-		require MC4WP_PLUGIN_DIR . 'includes/views/other-settings.php';
+		require MC4WP_PLUGIN_DIR . '/includes/views/other-settings.php';
 	}
 
 	/**

@@ -220,7 +220,7 @@ class MC4WP_Form {
 	 */
 	protected function load_settings( array $post_meta = array() ) {
 		$form             = $this;
-		$default_settings = include MC4WP_PLUGIN_DIR . 'config/default-form-settings.php';
+		$default_settings = include MC4WP_PLUGIN_DIR . '/config/default-form-settings.php';
 
 		// start with defaults
 		$settings = $default_settings;
@@ -260,7 +260,7 @@ class MC4WP_Form {
 		$form = $this;
 
 		// get default messages
-		$default_messages = include MC4WP_PLUGIN_DIR . 'config/default-form-messages.php';
+		$default_messages = include MC4WP_PLUGIN_DIR . '/config/default-form-messages.php';
 
 		// start with default messages
 		$messages = $default_messages;

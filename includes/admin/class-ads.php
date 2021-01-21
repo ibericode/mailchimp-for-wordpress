@@ -169,6 +169,6 @@ class MC4WP_Admin_Ads {
 	}
 
 	public function show_extensions_page() {
-		require MC4WP_PLUGIN_DIR . 'includes/views/extensions.php';
+		require MC4WP_PLUGIN_DIR . '/includes/views/extensions.php';
 	}
 }

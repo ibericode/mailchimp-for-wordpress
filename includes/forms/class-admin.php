@@ -138,7 +138,7 @@ class MC4WP_Forms_Admin {
 		check_admin_referer( 'add_form', '_mc4wp_nonce' );
 
 		$form_data    = $_POST['mc4wp_form'];
-		$form_content = include MC4WP_PLUGIN_DIR . 'config/default-form-content.php';
+		$form_content = include MC4WP_PLUGIN_DIR . '/config/default-form-content.php';
 
 		// Fix for MultiSite stripping KSES for roles other than administrator
 		remove_all_filters( 'content_save_pre' );

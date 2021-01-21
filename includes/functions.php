@@ -42,7 +42,7 @@ function mc4wp( $service = null ) {
  * @return array
  */
 function mc4wp_get_options() {
-	$defaults = require MC4WP_PLUGIN_DIR . 'config/default-settings.php';
+	$defaults = require MC4WP_PLUGIN_DIR . '/config/default-settings.php';
 	$options  = (array) get_option( 'mc4wp', array() );
 	$options  = array_merge( $defaults, $options );
 
