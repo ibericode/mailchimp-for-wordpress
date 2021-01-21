@@ -5,10 +5,9 @@ const rename = require('gulp-rename')
 const cleancss = require('gulp-clean-css')
 const source = require('vinyl-source-stream')
 const browserify = require('browserify')
-const merge = require('merge-stream')
-const streamify = require('gulp-streamify')
 const sourcemaps = require('gulp-sourcemaps')
 const wpPot = require('gulp-wp-pot')
+const buffer = require('vinyl-buffer')
 
 gulp.task('sass', function () {
   const files = './assets/src/sass/[^_]*.scss'
@@ -25,9 +24,9 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('./assets/css'))
 })
 
-gulp.task('browserify', function () {
-  const bundles = ['admin.js', 'integrations-admin.js', 'forms.js', 'forms-submitted.js', 'forms-admin.js', 'forms-block.js', 'third-party/placeholders.js']
-  return merge(bundles.map(f => browserify({ entries: [`assets/src/js/${f}`] })
+const bundles = ['admin.js', 'integrations-admin.js', 'forms.js', 'forms-submitted.js', 'forms-admin.js', 'forms-block.js', 'third-party/placeholders.js']
+gulp.task('js', gulp.parallel(bundles.map(f =>
+  () => browserify({ entries: [`assets/src/js/${f}`] })
     .transform('babelify', {
       presets: ['@babel/preset-env'],
       plugins: [
@@ -38,17 +37,14 @@ gulp.task('browserify', function () {
     .pipe(source(f))
     .pipe(rename({ extname: '.js' }))
     .pipe(gulp.dest('./assets/js'))
-  ))
-})
 
-gulp.task('uglify', gulp.series('browserify', function () {
-  return gulp.src(['./assets/js/**/*.js', '!./assets/js/**/*.min.js'])
+    .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(streamify(uglify()))
+    .pipe(uglify())
     .pipe(rename({ extname: '.min.js' }))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./assets/js'))
-}))
+)))
 
 gulp.task('images', function () {
   return gulp.src('assets/src/img/*')
@@ -64,7 +60,7 @@ gulp.task('pot', function () {
 
 gulp.task('watch', function () {
   gulp.watch('./assets/src/sass/**/*.scss', gulp.series('sass'))
-  gulp.watch('./assets/src/js/**/*.js', gulp.series('browserify'))
+  gulp.watch('./assets/src/js/**/*.js', gulp.series('js'))
 })
 
-gulp.task('default', gulp.series('sass', 'uglify', 'images', 'pot'))
+gulp.task('default', gulp.series('sass', 'js', 'images', 'pot'))
