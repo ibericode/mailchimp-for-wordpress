@@ -21,6 +21,7 @@ class MC4WP_Form_Asset_Manager {
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_stylesheets' ) );
 		add_action( 'wp_footer', array( $this, 'load_scripts' ) );
 		add_action( 'mc4wp_output_form', array( $this, 'before_output_form' ) );
+		add_action( 'script_loader_tag', array( $this, 'add_defer_attribute'), 10, 2 );
 	}
 
 	/**
@@ -197,5 +198,20 @@ class MC4WP_Form_Asset_Manager {
 
 		/** @ignore */
 		do_action( 'mc4wp_load_form_scripts' );
+	}
+
+	/**
+	 * Adds `defer` attribute to all form-related `<script>` elements so they do not block page rendering.
+	 *
+	 * @param string $tag
+	 * @param string $handle
+	 * @return string
+	 */
+	public function add_defer_attribute( $tag, $handle ) {
+		if ( ! in_array( $handle, array( 'mc4wp-forms-api', 'mc4wp-forms-submitted' ), true ) || stripos( $tag, ' defer') !== false ) {
+			return $tag;
+		}
+
+		return str_replace( ' src=', ' defer src=', $tag );
 	}
 }
