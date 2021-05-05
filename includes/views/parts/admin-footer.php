@@ -10,7 +10,7 @@ function _mc4wp_admin_translation_notice() {
 	}
 
 	/* translators: %s links to the WordPress.org translation project */
-	echo '<p class="help">' . sprintf( wp_kses( __( 'Mailchimp for WordPress is in need of translations. Is the plugin not translated in your language or do you spot errors with the current translations? Helping out is easy! Please <a href="%s">help translate the plugin using your WordPress.org account</a>.', 'mailchimp-for-wp' ), array( 'a' => array( 'href' => array() ) ) ), 'https://translate.wordpress.org/projects/wp-plugins/mailchimp-for-wp/stable/' ) . '</p>';
+	echo '<p class="description">' . sprintf( wp_kses( __( 'Mailchimp for WordPress is in need of translations. Is the plugin not translated in your language or do you spot errors with the current translations? Helping out is easy! Please <a href="%s">help translate the plugin using your WordPress.org account</a>.', 'mailchimp-for-wp' ), array( 'a' => array( 'href' => array() ) ) ), 'https://translate.wordpress.org/projects/wp-plugins/mailchimp-for-wp/stable/' ) . '</p>';
 }
 
 /**
@@ -21,14 +21,14 @@ function _mc4wp_admin_github_notice() {
 		return;
 	}
 
-	echo '<p class="help">Developer? Follow <a href="https://github.com/ibericode/mailchimp-for-wordpress">Mailchimp for WordPress on GitHub</a> or have a look at our repository of <a href="https://github.com/ibericode/mc4wp-snippets">sample code snippets</a>.</p>';
+	echo '<p class="description">Developer? Follow <a href="https://github.com/ibericode/mailchimp-for-wordpress">Mailchimp for WordPress on GitHub</a> or have a look at our repository of <a href="https://github.com/ibericode/mc4wp-snippets">sample code snippets</a>.</p>';
 }
 
 /**
  * @ignore
  */
 function _mc4wp_admin_disclaimer_notice() {
-	echo '<p class="help">', esc_html__( 'This plugin is not developed by or affiliated with Mailchimp in any way.', 'mailchimp-for-wp' ), '</p>';
+	echo '<p class="description">', esc_html__( 'This plugin is not developed by or affiliated with Mailchimp in any way.', 'mailchimp-for-wp' ), '</p>';
 }
 
 add_action( 'mc4wp_admin_footer', '_mc4wp_admin_translation_notice', 20 );
@@ -36,7 +36,7 @@ add_action( 'mc4wp_admin_footer', '_mc4wp_admin_github_notice', 50 );
 add_action( 'mc4wp_admin_footer', '_mc4wp_admin_disclaimer_notice', 80 );
 ?>
 
-<div class="big-margin">
+<div class="mc4wp-margin-l">
 
 	<?php
 

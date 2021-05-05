@@ -1,0 +1,285 @@
+.mc4wp-form input[name^="_mc4wp_honey"] { display: none !important; }
+
+/* Mailchimp for WP - Default Form Styles */
+.mc4wp-form-theme {
+	margin: 1em 0;
+}
+.mc4wp-form-theme label,
+.mc4wp-form-theme input {
+	width: auto;
+	display: block;
+	box-sizing: border-box;
+	cursor: auto;
+	height: auto;
+	vertical-align: baseline;
+	line-height: normal;
+}
+.mc4wp-form-theme label:after,
+.mc4wp-form-theme input:after {
+	content:"";
+	display:table;
+	clear:both;
+}
+.mc4wp-form-theme label {
+	font-weight: bold;
+	margin-bottom: 6px;
+	display: block;
+}
+
+/* Form Elements */
+.mc4wp-form-theme input.placeholdersjs {
+	color: #aaa !important;
+}
+.mc4wp-form-theme input[type="text"],
+.mc4wp-form-theme input[type="email"],
+.mc4wp-form-theme input[type="tel"],
+.mc4wp-form-theme input[type="url"],
+.mc4wp-form-theme input[type="date"],
+.mc4wp-form-theme textarea,
+.mc4wp-form-theme select {
+	min-height: 32px;
+	height: auto;
+	width: 100%;
+	max-width: 480px;
+	padding: 8px 16px;
+	line-height: 1.428571429;
+	color: #555555 !important;
+	vertical-align: middle;
+	background: none;
+	background-color: #ffffff;
+	border: 1px solid #cccccc;
+	border-radius: 2px;
+	text-shadow: none;
+	outline: 0;
+}
+.mc4wp-form-theme textarea {
+	height: auto;
+}
+.mc4wp-form-theme input[readonly],
+.mc4wp-form-theme input[disabled] {
+	background-color: #eeeeee;
+}
+.mc4wp-form-theme input[type="number"] {
+	min-width: 40px;
+}
+.mc4wp-form-theme input[type="checkbox"],
+.mc4wp-form-theme input[type="radio"] {
+	position: relative;
+	margin: 0 6px 0 0;
+	padding: 0;
+	height: 13px;
+	width: 13px;
+	display: inline-block;
+	border: 0;
+}
+.mc4wp-form-theme input[type="checkbox"] {
+	-webkit-appearance: checkbox;
+	-moz-appearance: checkbox;
+	appearance: checkbox;
+}
+.mc4wp-form-theme input[type="radio"] {
+	-webkit-appearance: radio;
+	-moz-appearance: radio;
+	appearance: radio;
+}
+
+.mc4wp-form-theme button,
+.mc4wp-form-theme input[type="submit"],
+.mc4wp-form-theme input[type="button"] {
+	cursor: pointer;
+	display: inline-block;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	padding: 8px 16px;
+	font-weight: normal;
+	line-height: 1.428571429;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	border: 1px solid transparent;
+	border-radius: 2px;
+	user-select: none;
+	background: none;
+	text-shadow: none;
+	filter: none;
+	height: auto;
+	width: auto;
+}
+
+.mc4wp-form-theme button:hover,
+.mc4wp-form-theme input[type="submit"]:hover,
+.mc4wp-form-theme input[type="button"]:hover,
+.mc4wp-form-theme button:focus,
+.mc4wp-form-theme input[type="submit"]:focus,
+.mc4wp-form-theme input[type="button"]:focus {
+	outline: 0;
+	color: #333333;
+	text-decoration: none;
+	background: none;
+}
+
+/* Remove font-weight bold from nested elements */
+.mc4wp-form-theme label > span,
+.mc4wp-form-theme li > label {
+	font-weight: normal;
+}
+
+/* Alert */
+.mc4wp-alert{
+	color: #c09853;
+	clear: both;
+}
+.mc4wp-success {
+	color: #468847;
+}
+.mc4wp-notice {
+	color: #3a87ad;
+}
+.mc4wp-error {
+	color: #CD5C5C;
+}
+
+/* Right-To-Left specific styles */
+.rtl .mc4wp-form-theme input[type="checkbox"],
+.rtl .mc4wp-form-theme input[type="radio"] {
+	margin: 0 0 0 6px;
+}
+
+.mc4wp-form-theme-dark button,
+.mc4wp-form-theme-dark input[type="submit"],
+.mc4wp-form-theme-dark input[type="button"] {
+	color: #ffffff !important;
+	background-color: #444444 !important;
+	border-color: #1e1e1e;
+}
+.mc4wp-form-theme-dark button:hover,
+.mc4wp-form-theme-dark input[type="submit"]:hover,
+.mc4wp-form-theme-dark input[type="button"]:hover,
+.mc4wp-form-theme-dark button:focus,
+.mc4wp-form-theme-dark input[type="submit"]:focus,
+.mc4wp-form-theme-dark input[type="button"]:focus {
+	color: #ffffff !important;
+	background-color: #1e1e1e !important;
+	border-color: black;
+}
+.mc4wp-form-theme-dark input[type="text"]:focus,
+.mc4wp-form-theme-dark input[type="email"]:focus,
+.mc4wp-form-theme-dark input[type="tel"]:focus,
+.mc4wp-form-theme-dark input[type="url"]:focus,
+.mc4wp-form-theme-dark input[type="date"]:focus,
+.mc4wp-form-theme-dark textarea:focus,
+.mc4wp-form-theme-dark select:focus {
+	border-color: #6a6a6a;
+}
+
+.mc4wp-form-theme-light button,
+.mc4wp-form-theme-light input[type="submit"],
+.mc4wp-form-theme-light input[type="button"] {
+	color: #000000 !important;
+	background-color: #ffffff !important;
+	border-color: #d9d9d9;
+}
+.mc4wp-form-theme-light button:hover,
+.mc4wp-form-theme-light input[type="submit"]:hover,
+.mc4wp-form-theme-light input[type="button"]:hover,
+.mc4wp-form-theme-light button:focus,
+.mc4wp-form-theme-light input[type="submit"]:focus,
+.mc4wp-form-theme-light input[type="button"]:focus {
+	color: #000000 !important;
+	background-color: #d9d9d9 !important;
+	border-color: #b3b3b3;
+}
+.mc4wp-form-theme-light input[type="text"]:focus,
+.mc4wp-form-theme-light input[type="email"]:focus,
+.mc4wp-form-theme-light input[type="tel"]:focus,
+.mc4wp-form-theme-light input[type="url"]:focus,
+.mc4wp-form-theme-light input[type="date"]:focus,
+.mc4wp-form-theme-light textarea:focus,
+.mc4wp-form-theme-light select:focus {
+	border-color: #d9d9d9;
+}
+
+.mc4wp-form-theme-red button,
+.mc4wp-form-theme-red input[type="submit"],
+.mc4wp-form-theme-red input[type="button"] {
+	color: #ffffff !important;
+	background-color: #d9534f !important;
+	border-color: #b52b27;
+}
+.mc4wp-form-theme-red button:hover,
+.mc4wp-form-theme-red input[type="submit"]:hover,
+.mc4wp-form-theme-red input[type="button"]:hover,
+.mc4wp-form-theme-red button:focus,
+.mc4wp-form-theme-red input[type="submit"]:focus,
+.mc4wp-form-theme-red input[type="button"]:focus {
+	color: #ffffff !important;
+	background-color: #b52b27 !important;
+	border-color: #761c19;
+}
+.mc4wp-form-theme-red input[type="text"]:focus,
+.mc4wp-form-theme-red input[type="email"]:focus,
+.mc4wp-form-theme-red input[type="tel"]:focus,
+.mc4wp-form-theme-red input[type="url"]:focus,
+.mc4wp-form-theme-red input[type="date"]:focus,
+.mc4wp-form-theme-red textarea:focus,
+.mc4wp-form-theme-red select:focus {
+	border-color: #e7908e;
+}
+
+.mc4wp-form-theme-blue button,
+.mc4wp-form-theme-blue input[type="submit"],
+.mc4wp-form-theme-blue input[type="button"] {
+	color: #ffffff !important;
+	background-color: #428bca !important;
+	border-color: #2a6496;
+}
+.mc4wp-form-theme-blue button:hover,
+.mc4wp-form-theme-blue input[type="submit"]:hover,
+.mc4wp-form-theme-blue input[type="button"]:hover,
+.mc4wp-form-theme-blue button:focus,
+.mc4wp-form-theme-blue input[type="submit"]:focus,
+.mc4wp-form-theme-blue input[type="button"]:focus {
+	color: #ffffff !important;
+	background-color: #2a6496 !important;
+	border-color: #193c5a;
+}
+.mc4wp-form-theme-blue input[type="text"]:focus,
+.mc4wp-form-theme-blue input[type="email"]:focus,
+.mc4wp-form-theme-blue input[type="tel"]:focus,
+.mc4wp-form-theme-blue input[type="url"]:focus,
+.mc4wp-form-theme-blue input[type="date"]:focus,
+.mc4wp-form-theme-blue textarea:focus,
+.mc4wp-form-theme-blue select:focus {
+	border-color: #7eb0db;
+}
+
+.mc4wp-form-theme-green button,
+.mc4wp-form-theme-green input[type="submit"],
+.mc4wp-form-theme-green input[type="button"] {
+	color: #ffffff !important;
+	background-color: #5cb85c !important;
+	border-color: #3d8b3d;
+}
+
+.mc4wp-form-theme-green button:hover,
+.mc4wp-form-theme-green input[type="submit"]:hover,
+.mc4wp-form-theme-green input[type="button"]:hover,
+.mc4wp-form-theme-green button:focus,
+.mc4wp-form-theme-green input[type="submit"]:focus,
+.mc4wp-form-theme-green input[type="button"]:focus {
+	color: #ffffff !important;
+	background-color: #3d8b3d !important;
+	border-color: #255625;
+}
+.mc4wp-form-theme-green input[type="text"]:focus,
+.mc4wp-form-theme-green input[type="email"]:focus,
+.mc4wp-form-theme-green input[type="tel"]:focus,
+.mc4wp-form-theme-green input[type="url"]:focus,
+.mc4wp-form-theme-green input[type="date"]:focus,
+.mc4wp-form-theme-green textarea:focus,
+.mc4wp-form-theme-green select:focus {
+	border-color: #91cf91;
+}
+
+

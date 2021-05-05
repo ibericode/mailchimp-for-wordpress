@@ -69,63 +69,63 @@ msgstr ""
 msgid "Success! The cached configuration for your Mailchimp lists has been renewed."
 msgstr ""
 
-#: includes/admin/class-admin.php:301
+#: includes/admin/class-admin.php:300
 msgid "The given value does not look like a valid Mailchimp API key."
 msgstr ""
 
-#: includes/admin/class-admin.php:302
+#: includes/admin/class-admin.php:301
 msgid "This is a premium feature. Please upgrade to Mailchimp for WordPress Premium to be able to use it."
 msgstr ""
 
-#: includes/admin/class-admin.php:303, includes/views/parts/lists-overview.php:10, includes/forms/views/parts/add-fields-help.php:47
+#: includes/admin/class-admin.php:302, includes/views/parts/lists-overview.php:10, includes/forms/views/parts/add-fields-help.php:47
 msgid "Renew Mailchimp lists"
 msgstr ""
 
-#: includes/admin/class-admin.php:304
+#: includes/admin/class-admin.php:303
 msgid "Fetching Mailchimp lists"
 msgstr ""
 
-#: includes/admin/class-admin.php:305
+#: includes/admin/class-admin.php:304
 msgid "Done! Mailchimp lists renewed."
 msgstr ""
 
-#: includes/admin/class-admin.php:306
+#: includes/admin/class-admin.php:305
 msgid "Failed to renew your lists. An error occured."
 msgstr ""
 
-#: includes/admin/class-admin.php:334
+#: includes/admin/class-admin.php:333
 msgid "Mailchimp API Settings"
 msgstr ""
 
-#: includes/admin/class-admin.php:341, includes/views/other-settings.php:60, includes/views/other-settings.php:70
+#: includes/admin/class-admin.php:340, includes/views/other-settings.php:60, includes/views/other-settings.php:70
 msgid "Other Settings"
 msgstr ""
 
-#: includes/admin/class-admin.php:342
+#: includes/admin/class-admin.php:341
 msgid "Other"
 msgstr ""
 
-#: includes/admin/class-admin.php:420
+#: includes/admin/class-admin.php:419
 msgid "Error connecting to Mailchimp:"
 msgstr ""
 
-#: includes/admin/class-admin.php:423
+#: includes/admin/class-admin.php:422
 msgid "Looks like your server is blocked by Mailchimp's firewall. Please contact Mailchimp support and include the following reference number: %s"
 msgstr ""
 
-#: includes/admin/class-admin.php:426
+#: includes/admin/class-admin.php:425
 msgid "Here's some info on solving common connectivity issues."
 msgstr ""
 
-#: includes/admin/class-admin.php:431
+#: includes/admin/class-admin.php:430
 msgid "Mailchimp returned the following error:"
 msgstr ""
 
-#: includes/admin/class-admin.php:470
+#: includes/admin/class-admin.php:469
 msgid "Log successfully emptied."
 msgstr ""
 
-#: includes/admin/class-admin.php:500
+#: includes/admin/class-admin.php:499
 msgid "To get started with Mailchimp for WordPress, please <a href=\"%s\">enter your Mailchimp API key on the settings page of the plugin</a>."
 msgstr ""
 
@@ -161,31 +161,11 @@ msgstr ""
 msgid "Are you enjoying this plugin? The Premium add-on unlocks several powerful features. <a href=\"%s\">Find out about all benefits now</a>."
 msgstr ""
 
-#: includes/admin/class-ads.php:125
-msgid "More subscribers, better newsletters."
-msgstr ""
-
-#: includes/admin/class-ads.php:126
-msgid "Learn how to best grow your lists & write better emails by subscribing to our monthly tips."
-msgstr ""
-
-#: includes/admin/class-ads.php:129
-msgid "Email Address"
-msgstr ""
-
-#: includes/admin/class-ads.php:133
-msgid "First Name"
-msgstr ""
-
-#: includes/admin/class-ads.php:140, includes/forms/class-admin.php:106
-msgid "Subscribe"
-msgstr ""
-
-#: includes/admin/class-ads.php:163
+#: includes/admin/class-ads.php:134
 msgid "Do you want to track all WooCommerce orders in Mailchimp so you can send emails based on the purchase activity of your subscribers?"
 msgstr ""
 
-#: includes/admin/class-ads.php:166
+#: includes/admin/class-ads.php:137
 msgid "<a href=\"%1$s\">Upgrade to Mailchimp for WordPress Premium</a> or <a href=\"%2$s\">read more about Mailchimp's E-Commerce features</a>."
 msgstr ""
 
@@ -349,6 +329,10 @@ msgstr ""
 msgid "State"
 msgstr ""
 
+#: includes/forms/class-admin.php:106
+msgid "Subscribe"
+msgstr ""
+
 #: includes/forms/class-admin.php:107
 msgid "Submit button"
 msgstr ""
@@ -469,7 +453,7 @@ msgstr ""
 msgid "You can edit your sign-up form in the <a href=\"%s\">Mailchimp for WordPress form settings</a>."
 msgstr ""
 
-#: includes/integrations/class-admin.php:73, includes/integrations/class-admin.php:74, includes/integrations/views/integration-settings.php:10, includes/integrations/views/integrations.php:101, includes/integrations/views/integrations.php:109, includes/integrations/views/integrations.php:123
+#: includes/integrations/class-admin.php:72, includes/integrations/class-admin.php:73, includes/integrations/views/integration-settings.php:10, includes/integrations/views/integrations.php:101, includes/integrations/views/integrations.php:109, includes/integrations/views/integrations.php:123
 msgid "Integrations"
 msgstr ""
 
@@ -900,6 +884,10 @@ msgstr ""
 
 #: includes/forms/views/tabs/form-appearance.php:6
 msgid "Basic"
+msgstr ""
+
+#: includes/forms/views/tabs/form-appearance.php:7
+msgid "Form Themes"
 msgstr ""
 
 #: includes/forms/views/tabs/form-appearance.php:8

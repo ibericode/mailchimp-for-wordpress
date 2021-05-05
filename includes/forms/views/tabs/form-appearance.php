@@ -46,7 +46,7 @@ $css_options = apply_filters( 'mc4wp_admin_form_css_options', $css_options );
 				}
 				?>
 			</select>
-			<p class="help">
+			<p class="description">
 				<?php echo esc_html__( 'If you want to load some default CSS styles, select "basic formatting styles" or choose one of the color themes', 'mailchimp-for-wp' ); ?>
 			</p>
 		</td>

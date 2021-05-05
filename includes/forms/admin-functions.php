@@ -55,7 +55,7 @@ function mc4wp_get_add_form_url() {
 //
 //	# Help text
 //	if( ! empty( $help_text ) ) {
-//		echo sprintf( '<p class="help">%s</p>', $help_text );
+//		echo sprintf( '<p class="description">%s</p>', $help_text );
 //	}
 //
 //	echo '</td>';

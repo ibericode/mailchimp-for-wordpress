@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) or exit;
  */
 function _mc4wp_admin_sidebar_support_notice() {
 	?>
-	<div class="mc4wp-box">
+	<div class="mc4wp-box mc4wp-margin-m">
 		<h4 class="mc4wp-title"><?php echo esc_html__( 'Looking for help?', 'mailchimp-for-wp' ); ?></h4>
 		<p><?php echo esc_html__( 'We have some resources available to help you in the right direction.', 'mailchimp-for-wp' ); ?></p>
 		<ul class="ul-square">
@@ -24,7 +24,7 @@ function _mc4wp_admin_sidebar_support_notice() {
  * @ignore
  */
 function _mc4wp_admin_sidebar_other_plugins() {
-	echo '<div class="mc4wp-box">';
+	echo '<div class="mc4wp-box mc4wp-margin-m">';
 	echo '<h4 class="mc4wp-title">', esc_html__( 'Other plugins by ibericode', 'mailchimp-for-wp' ), '</h4>';
 	echo '<ul style="margin-bottom: 0;">';
 

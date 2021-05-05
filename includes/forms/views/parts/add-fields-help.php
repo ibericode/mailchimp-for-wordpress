@@ -3,7 +3,7 @@
 <div class="mc4wp-admin">
 	<h2><?php echo esc_html__( 'Add more fields', 'mailchimp-for-wp' ); ?></h2>
 
-	<div class="help-text">
+	<div>
 
 		<p>
 			<?php echo esc_html__( 'To add more fields to your form, you will need to create those fields in Mailchimp first.', 'mailchimp-for-wp' ); ?>

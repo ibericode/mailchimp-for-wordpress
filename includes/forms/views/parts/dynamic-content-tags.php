@@ -15,7 +15,7 @@ $tags = mc4wp( 'forms' )->get_tags();
 		<tr>
 			<td>
 				<input type="text" class="widefat" value="<?php echo esc_attr( sprintf( '{%s}', $tag ) ); ?>" readonly="readonly" onfocus="this.select();" />
-				<p class="help" style="margin-bottom:0;"><?php echo strip_tags( $config['description'], '<strong><b><em><i><a><code>' ); ?></p>
+				<p class="description" style="margin-bottom:0;"><?php echo strip_tags( $config['description'], '<strong><b><em><i><a><code>' ); ?></p>
 			</td>
 		</tr>
 		<?php

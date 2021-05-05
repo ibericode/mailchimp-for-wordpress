@@ -48,13 +48,17 @@ function view () {
       }),
       m.trust(' &nbsp; '),
 
-      state.working ? [
-        m('span.mc4wp-loader', 'Loading...'),
-        m.trust(' &nbsp; ')
-      ] : '',
-      state.done ? [
-        state.success ? m('em.help.green', i18n.fetching_mailchimp_lists_done) : m('em.help.red', i18n.fetching_mailchimp_lists_error)
-      ] : ''
+      state.working
+        ? [
+            m('span.mc4wp-loader', 'Loading...'),
+            m.trust(' &nbsp; ')
+          ]
+        : '',
+      state.done
+        ? [
+            state.success ? m('em.mc4wp-green', i18n.fetching_mailchimp_lists_done) : m('em.mc4wp-red', i18n.fetching_mailchimp_lists_error)
+          ]
+        : ''
     ])
   ])
 }

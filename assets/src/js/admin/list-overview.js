@@ -43,7 +43,7 @@ function view (data) {
         m('tr', [
           m('td', [
             f.name,
-            f.required && m('span.red', '*')
+            f.required && m('span.mc4wp-red', '*')
           ]),
           m('td', [
             m('code', f.tag)
@@ -79,18 +79,18 @@ function view (data) {
             ]),
             m('td', f.type),
             m('td', [
-              m('div.row', { style: 'margin-bottom: 4px;' }, [
-                m('div.col.col-3', [
+              m('div.mc4wp-row', { style: 'margin-bottom: 4px;' }, [
+                m('div.mc4wp-col.mc4wp-col-3', [
                   m('strong', { style: 'display: block; border-bottom: 1px solid #eee;' }, 'Name')
                 ]),
-                m('div.col.col-3', [
+                m('div.mc4wp-col.mc4wp-col-3', [
                   m('strong', { style: 'display: block; border-bottom: 1px solid #eee;' }, 'ID')
                 ])
               ]),
               Object.keys(f.interests).map((id) => (
-                m('div.row.tiny-margin', [
-                  m('div.col.col-3', f.interests[id]),
-                  m('div.col.col-3', [
+                m('div.mc4wp-row.mc4wp-margin-s', [
+                  m('div.mc4wp-col.mc4wp-col-3', f.interests[id]),
+                  m('div.mc4wp-col.mc4wp-col-3', [
                     m('code', { title: 'Interest ID' }, id)
                   ]),
                   m('br.clearfix.clear.cf')

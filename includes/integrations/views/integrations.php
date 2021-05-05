@@ -33,11 +33,11 @@ function _mc4wp_integrations_table_row( $integration ) {
 		<td>
 			<?php
 			if ( $integration->enabled && $integration->is_installed() ) {
-				echo '<span class="green">', esc_html__( 'Active', 'mailchimp-for-wp' ), '</span>';
+				echo '<span class="mc4wp-status positive">', esc_html__( 'Active', 'mailchimp-for-wp' ), '</span>';
 			} elseif ( $integration->is_installed() ) {
-				echo '<span class="neutral">', esc_html__( 'Inactive', 'mailchimp-for-wp' ), '</span>';
+				echo '<span class="mc4wp-status neutral">', esc_html__( 'Inactive', 'mailchimp-for-wp' ), '</span>';
 			} else {
-				echo '<span class="red">', esc_html__( 'Not installed', 'mailchimp-for-wp' ), '</span>';
+				echo '<span class="mc4wp-status negative">', esc_html__( 'Not installed', 'mailchimp-for-wp' ), '</span>';
 			}
 			?>
 		</td>
@@ -95,18 +95,18 @@ function _mc4wp_integrations_table( $integrations ) {
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
-	<p class="breadcrumbs">
+	<p class="mc4wp-breadcrumbs">
 		<span class="prefix"><?php echo esc_html__( 'You are here: ', 'mailchimp-for-wp' ); ?></span>
 		<a href="<?php echo admin_url( 'admin.php?page=mailchimp-for-wp' ); ?>">Mailchimp for WordPress</a> &rsaquo;
 		<span class="current-crumb"><strong><?php echo esc_html__( 'Integrations', 'mailchimp-for-wp' ); ?></strong></span>
 	</p>
 
-	<div class="main-content row">
+	<div class="main-content mc4wp-row">
 
 		<!-- Main Content -->
-		<div class="col col-4">
+		<div class="mc4wp-col mc4wp-col-4">
 
-			<h1 class="page-title">Mailchimp for WordPress: <?php echo esc_html__( 'Integrations', 'mailchimp-for-wp' ); ?></h1>
+			<h1 class="mc4wp-page-title">Mailchimp for WordPress: <?php echo esc_html__( 'Integrations', 'mailchimp-for-wp' ); ?></h1>
 
 			<h2 style="display: none;"></h2>
 			<?php settings_errors(); ?>
@@ -131,7 +131,7 @@ function _mc4wp_integrations_table( $integrations ) {
 		</div>
 
 		<!-- Sidebar -->
-		<div class="sidebar col col-2">
+		<div class="mc4wp-sidebar mc4wp-col mc4wp-col-2">
 			<?php include MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-sidebar.php'; ?>
 		</div>
 

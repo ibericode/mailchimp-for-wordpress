@@ -47,7 +47,7 @@ function view () {
   // build DOM for fields choice
   const availableFields = fields.getAll()
 
-  const fieldsChoice = m('div.available-fields.small-margin', [
+  const fieldsChoice = m('div#mc4wp-available-fields.mc4wp-margin-s', [
     m('h4', i18n.chooseField),
 
     [i18n.listFields, i18n.interestCategories, i18n.formFields].map(function (category) {
@@ -56,11 +56,11 @@ function view () {
       })
 
       if (!categoryFields.length) {
-        return
+        return ''
       }
 
-      return m('div.tiny-margin', [
-        m('strong', category),
+      return m('div.mc4wp-margin-s', [
+        m('h4', category),
 
         // render fields
         categoryFields.map(function (field) {
@@ -89,11 +89,11 @@ function view () {
   let form = null
   if (fieldConfig) {
     form = m(Overlay, { onClose: () => setActiveField(null) }, // field wizard
-      m('div.field-wizard', [
+      m('div#mc4wp-add-form-field', [
         // heading
         m('h3', [
           fieldConfig.title,
-          fieldConfig.forceRequired ? m('span.red', '*') : '',
+          fieldConfig.forceRequired ? m('span.mc4wp-red', '*') : '',
           fieldConfig.name.length ? m('code', fieldConfig.name) : ''
         ]),
 

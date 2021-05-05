@@ -1,20 +1,26 @@
 const forms = {}
 const rows = require('./field-forms-rows.js')
+const m = require('mithril')
+
+// wrap row in div element with margin class
+function wrap (rows) {
+  return rows.map(r => m('div.mc4wp-margin-s', r))
+}
 
 // route to one of the other form configs, default to "text"
 forms.render = function (config) {
   const type = config.type
 
   if (typeof (forms[type]) === 'function') {
-    return forms[type](config)
+    return wrap(forms[type](config))
   }
 
   if (['select', 'radio', 'checkbox'].indexOf(type) > -1) {
-    return forms.choice(config)
+    return wrap(forms.choice(config))
   }
 
   // fallback to good old text field
-  return forms.text(config)
+  return wrap(forms.text(config))
 }
 
 forms.text = function (config) {

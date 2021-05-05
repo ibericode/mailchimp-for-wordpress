@@ -1,10 +1,7 @@
 // dependencies
-import tlite from 'tlite'
 const tabs = require('./admin/tabs.js')
 const settings = require('./admin/settings.js')
 const helpers = require('./admin/helpers.js')
-
-tlite(el => el.className.indexOf('mc4wp-tooltip') > -1)
 
 require('./admin/list-fetcher.js')
 require('./admin/fields/mailchimp-api-key.js')

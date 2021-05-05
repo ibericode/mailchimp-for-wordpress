@@ -42,31 +42,29 @@ r.value = function (config) {
         config.value = evt.target.value
       }
     }),
-    isHidden ? '' : m('p.help', i18n.valueHelp)
+    isHidden ? '' : m('p.description', i18n.valueHelp)
   ])
 }
 
 r.numberMinMax = function (config) {
-  return m('div', [
-    m('div.row', [
-      m('div.col.col-3', [
-        m('label', i18n.min),
-        m('input', {
-          type: 'number',
-          onchange: (evt) => {
-            config.min = evt.target.value
-          }
-        })
-      ]),
-      m('div.col.col-3', [
-        m('label', i18n.max),
-        m('input', {
-          type: 'number',
-          onchange: (evt) => {
-            config.max = evt.target.value
-          }
-        })
-      ])
+  return m('div.mc4wp-row', [
+    m('div.mc4wp-col.mc4wp-col-3', [
+      m('label', i18n.min),
+      m('input', {
+        type: 'number',
+        onchange: (evt) => {
+          config.min = evt.target.value
+        }
+      })
+    ]),
+    m('div.mc4wp-col.mc4wp-col-3', [
+      m('label', i18n.max),
+      m('input', {
+        type: 'number',
+        onchange: (evt) => {
+          config.max = evt.target.value
+        }
+      })
     ])
   ])
 }
@@ -84,7 +82,7 @@ r.isRequired = function (config) {
   if (config.forceRequired) {
     inputAtts.required = true
     inputAtts.disabled = true
-    desc = m('p.help', i18n.forceRequired)
+    desc = m('p.description', i18n.forceRequired)
   }
 
   return m('div', [
@@ -111,7 +109,7 @@ r.placeholder = function (config) {
       },
       placeholder: ''
     }),
-    m('p.help', i18n.placeholderHelp)
+    m('p.description', i18n.placeholderHelp)
   ])
 }
 

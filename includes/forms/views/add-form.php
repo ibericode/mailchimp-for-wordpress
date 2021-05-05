@@ -1,12 +1,12 @@
 <?php defined( 'ABSPATH' ) or exit; ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
-	<div class="row">
+	<div class="mc4wp-row">
 
 		<!-- Main Content -->
-		<div class="main-content col col-4">
+		<div class="main-content mc4wp-col mc4wp-col-4">
 
-			<h1 class="page-title">
+			<h1 class="mc4wp-page-title">
 				<?php echo esc_html__( 'Add new form', 'mailchimp-for-wp' ); ?>
 			</h1>
 
@@ -21,7 +21,7 @@
 					<?php wp_nonce_field( 'add_form', '_mc4wp_nonce' ); ?>
 
 
-					<div class="small-margin">
+					<div class="mc4wp-margin-s">
 						<h3>
 							<label>
 								<?php echo esc_html__( 'What is the name of this form?', 'mailchimp-for-wp' ); ?>
@@ -30,7 +30,7 @@
 						<input type="text" name="mc4wp_form[name]" class="widefat" value="" spellcheck="true" autocomplete="off" placeholder="<?php echo esc_attr__( 'Enter your form title..', 'mailchimp-for-wp' ); ?>">
 					</div>
 
-					<div class="small-margin">
+					<div class="mc4wp-margin-s">
 
 						<h3>
 							<label>
@@ -80,7 +80,7 @@
 		</div><!-- / Main content -->
 
 		<!-- Sidebar -->
-		<div class="sidebar col col-2">
+		<div class="mc4wp-sidebar mc4wp-col mc4wp-col-2">
 			<?php include MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-sidebar.php'; ?>
 		</div>
 

@@ -61,7 +61,7 @@ class MC4WP_Forms_Admin {
 			return;
 		}
 
-		wp_register_script( 'mc4wp-forms-admin', mc4wp_plugin_url( 'assets/js/forms-admin' . $suffix . '.js' ), array( 'mc4wp-admin' ), MC4WP_VERSION, true );
+		wp_register_script( 'mc4wp-forms-admin', mc4wp_plugin_url( 'assets/js/forms-admin.js' ), array( 'mc4wp-admin' ), MC4WP_VERSION, true );
 		wp_enqueue_script( 'mc4wp-forms-admin' );
 		wp_localize_script(
 			'mc4wp-forms-admin',

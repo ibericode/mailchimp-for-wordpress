@@ -53,13 +53,12 @@ class MC4WP_Integration_Admin {
 	 * @return void
 	 */
 	public function enqueue_assets( $suffix, $page = '' ) {
-
 		// only load on integrations pages
 		if ( $page !== 'integrations' ) {
 			return;
 		}
 
-		wp_register_script( 'mc4wp-integrations-admin', mc4wp_plugin_url( 'assets/js/integrations-admin' . $suffix . '.js' ), array( 'mc4wp-admin' ), MC4WP_VERSION, true );
+		wp_register_script( 'mc4wp-integrations-admin', mc4wp_plugin_url( 'assets/js/integrations-admin.js' ), array( 'mc4wp-admin' ), MC4WP_VERSION, true );
 		wp_enqueue_script( 'mc4wp-integrations-admin' );
 	}
 

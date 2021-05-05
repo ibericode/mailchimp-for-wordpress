@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) or exit;
  */
 function _mc4wp_usage_tracking_setting( $opts ) {
 	?>
-	<div class="medium-margin" >
+	<div class="mc4wp-margin-m" >
 		<h3><?php echo esc_html__( 'Miscellaneous settings', 'mailchimp-for-wp' ); ?></h3>
 		<table class="form-table">
 			<tr>
@@ -25,7 +25,7 @@ function _mc4wp_usage_tracking_setting( $opts ) {
 						<?php echo esc_html__( 'No', 'mailchimp-for-wp' ); ?>
 					</label>
 
-					<p class="help">
+					<p class="description">
 						<?php echo esc_html__( 'Allow us to anonymously track how this plugin is used to help us make it better fit your needs.', 'mailchimp-for-wp' ); ?>
 						<a href="https://www.mc4wp.com/kb/what-is-usage-tracking/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page" target="_blank">
 							<?php echo esc_html__( 'This is what we track.', 'mailchimp-for-wp' ); ?>
@@ -40,7 +40,7 @@ function _mc4wp_usage_tracking_setting( $opts ) {
 						<option value="warning" <?php selected( 'warning', $opts['debug_log_level'] ); ?>><?php echo esc_html__( 'Errors & warnings only', 'mailchimp-for-wp' ); ?></option>
 						<option value="debug" <?php selected( 'debug', $opts['debug_log_level'] ); ?>><?php echo esc_html__( 'Everything', 'mailchimp-for-wp' ); ?></option>
 					</select>
-					<p class="help">
+					<p class="description">
 						<?php echo sprintf( wp_kses( __( 'Determines what events should be written to <a href="%s">the debug log</a> (see below).', 'mailchimp-for-wp' ), array( 'a' => array( 'href' => array() ) ) ), 'https://www.mc4wp.com/kb/how-to-enable-log-debugging/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page' ); ?>
 					</p>
 				</td>
@@ -54,19 +54,19 @@ add_action( 'mc4wp_admin_other_settings', '_mc4wp_usage_tracking_setting', 70 );
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
-	<p class="breadcrumbs">
+	<p class="mc4wp-breadcrumbs">
 		<span class="prefix"><?php echo esc_html__( 'You are here: ', 'mailchimp-for-wp' ); ?></span>
 		<a href="<?php echo admin_url( 'admin.php?page=mailchimp-for-wp' ); ?>">Mailchimp for WordPress</a> &rsaquo;
 		<span class="current-crumb"><strong><?php echo esc_html__( 'Other Settings', 'mailchimp-for-wp' ); ?></strong></span>
 	</p>
 
 
-	<div class="row">
+	<div class="mc4wp-row">
 
 		<!-- Main Content -->
-		<div class="main-content col col-4">
+		<div class="main-content mc4wp-col mc4wp-col-4">
 
-			<h1 class="page-title">
+			<h1 class="mc4wp-page-title">
 				<?php echo esc_html__( 'Other Settings', 'mailchimp-for-wp' ); ?>
 			</h1>
 
@@ -95,7 +95,7 @@ add_action( 'mc4wp_admin_other_settings', '_mc4wp_usage_tracking_setting', 70 );
 			</form>
 
 			<!-- Debug Log -->
-			<div class="medium-margin">
+			<div class="mc4wp-margin-m">
 				<h3><?php echo esc_html__( 'Debug Log', 'mailchimp-for-wp' ); ?> <input type="text" id="debug-log-filter" class="alignright regular-text" placeholder="<?php echo esc_attr__( 'Filter..', 'mailchimp-for-wp' ); ?>" /></h3>
 
 				<?php
@@ -189,14 +189,11 @@ add_action( 'mc4wp_admin_other_settings', '_mc4wp_usage_tracking_setting', 70 );
 				</script>
 			</div>
 			<!-- / Debug Log -->
-
-
-
 			<?php include __DIR__ . '/parts/admin-footer.php'; ?>
 		</div>
 
 		<!-- Sidebar -->
-		<div class="sidebar col col-2">
+		<div class="mc4wp-sidebar mc4wp-col mc4wp-col-2">
 			<?php include __DIR__ . '/parts/admin-sidebar.php'; ?>
 		</div>
 

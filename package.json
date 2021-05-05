@@ -6,38 +6,29 @@
     "url": "https://github.com/ibericode/mailchimp-for-wordpress"
   },
   "scripts": {
-    "lint": "eslint assets/src/js gulpfile.js"
+    "lint": "eslint assets/src/js gulpfile.js",
+    "watch": "webpack --mode=development --watch",
+    "build": "webpack --mode=production"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.4",
-    "@babel/plugin-transform-react-jsx": "^7.10.4",
-    "@babel/preset-env": "^7.11.0",
-    "babelify": "^10.0.0",
-    "browserify": "^16.5.2",
-    "eslint": "^6.8.0",
-    "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
-    "event-stream": "^4.0.1",
+    "@babel/core": "^7.14.0",
+    "@babel/plugin-transform-react-jsx": "^7.13.12",
+    "@babel/preset-env": "^7.14.1",
+    "babel-loader": "^8.2.2",
+    "eslint": "^7.25.0",
+    "eslint-config-standard": "^16.0.2",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
-    "gulp-rename": "^1.4.0",
-    "gulp-sass": "^4.1.0",
-    "gulp-sourcemaps": "^2.6.5",
-    "gulp-uglify": "^3.0.2",
-    "gulp-util": "^3.0.8",
-    "gulp-wp-pot": "^2.4.3",
-    "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^2.0.0"
+    "gulp-rename": "^2.0.0",
+    "gulp-wp-pot": "^2.5.0",
+    "webpack": "^5.36.2",
+    "webpack-cli": "^4.6.0"
   },
   "dependencies": {
-    "codemirror": "^5.57.0",
+    "codemirror": "^5.61.0",
     "form-serialize": "^0.7.2",
     "html": "^1.0.0",
     "mithril": "^2.0.4",
-    "populate.js": "^1.2.2",
-    "tlite": "^0.1.9"
+    "populate.js": "^1.2.2"
   }
 }

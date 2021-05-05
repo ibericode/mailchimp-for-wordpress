@@ -275,15 +275,14 @@ class MC4WP_Admin {
 
 		$opts      = mc4wp_get_options();
 		$page      = $this->tools->get_plugin_page();
-		$suffix    = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 		$mailchimp = new MC4WP_MailChimp();
 
 		// css
-		wp_register_style( 'mc4wp-admin', mc4wp_plugin_url( 'assets/css/admin-styles' . $suffix . '.css' ), array(), MC4WP_VERSION );
+		wp_register_style( 'mc4wp-admin', mc4wp_plugin_url( 'assets/css/admin.css' ), array(), MC4WP_VERSION );
 		wp_enqueue_style( 'mc4wp-admin' );
 
 		// js
-		wp_register_script( 'mc4wp-admin', mc4wp_plugin_url( 'assets/js/admin' . $suffix . '.js' ), array(), MC4WP_VERSION, true );
+		wp_register_script( 'mc4wp-admin', mc4wp_plugin_url( 'assets/js/admin.js' ), array(), MC4WP_VERSION, true );
 		wp_enqueue_script( 'mc4wp-admin' );
 		$connected = ! empty( $opts['api_key'] );
 		$mailchimp_lists = $connected ? $mailchimp->get_lists() : array();
@@ -316,7 +315,7 @@ class MC4WP_Admin {
 		* @param string $suffix
 		* @param string $page
 		*/
-		do_action( 'mc4wp_admin_enqueue_assets', $suffix, $page );
+		do_action( 'mc4wp_admin_enqueue_assets', '', $page );
 
 		return true;
 	}

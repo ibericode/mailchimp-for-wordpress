@@ -18,7 +18,7 @@ $tabs = apply_filters( 'mc4wp_admin_edit_form_tabs', $tabs );
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
-	<p class="breadcrumbs">
+	<p class="mc4wp-breadcrumbs">
 		<span class="prefix"><?php echo esc_html__( 'You are here: ', 'mailchimp-for-wp' ); ?></span>
 		<a href="<?php echo esc_url( admin_url( 'admin.php?page=mailchimp-for-wp' ) ); ?>">Mailchimp for WordPress</a> &rsaquo;
 		<a href="<?php echo esc_url( admin_url( 'admin.php?page=mailchimp-for-wp-forms' ) ); ?>"><?php echo esc_html__( 'Forms', 'mailchimp-for-wp' ); ?></a>
@@ -27,12 +27,12 @@ $tabs = apply_filters( 'mc4wp_admin_edit_form_tabs', $tabs );
 				| <?php echo esc_html( $form->name ); ?></strong></span>
 	</p>
 
-	<div class="row">
+	<div class="mc4wp-row">
 
 		<!-- Main Content -->
-		<div class="main-content col col-5">
+		<div class="main-content mc4wp-col mc4wp-col-5">
 
-			<h1 class="page-title">
+			<h1 class="mc4wp-page-title">
 				<?php echo esc_html__( 'Edit Form', 'mailchimp-for-wp' ); ?>
 
 				<!-- Form actions -->
@@ -55,7 +55,7 @@ $tabs = apply_filters( 'mc4wp_admin_edit_form_tabs', $tabs );
 				<input type="hidden" name="mc4wp_form_id" value="<?php echo esc_attr( $form->ID ); ?>"/>
 				<?php wp_nonce_field( 'edit_form', '_mc4wp_nonce' ); ?>
 
-				<div id="titlediv" class="small-margin">
+				<div id="titlediv" class="mc4wp-margin-s">
 					<div id="titlewrap">
 						<label class="screen-reader-text"
 							   for="title"><?php echo esc_html__( 'Enter form title here', 'mailchimp-for-wp' ); ?></label>
@@ -84,12 +84,12 @@ $tabs = apply_filters( 'mc4wp_admin_edit_form_tabs', $tabs );
 					<div id="mc4wp-tabs">
 
 						<?php
-						foreach ( $tabs as $tab => $name ) :
 
-							$class = ( $active_tab === $tab ) ? 'tab-active' : '';
+						foreach ( $tabs as $tab => $name ) :
+							$class = ( $active_tab === $tab ) ? 'mc4wp-tab-active' : '';
 
 							// start of .tab
-							echo sprintf( '<div class="tab %s" id="tab-%s">', $class, $tab );
+							echo sprintf( '<div class="mc4wp-tab %s" id="mc4wp-tab-%s">', $class, $tab );
 
 							/**
 							 * Runs when outputting a tab section on the "edit form" screen
@@ -121,7 +121,7 @@ $tabs = apply_filters( 'mc4wp_admin_edit_form_tabs', $tabs );
 		</div>
 
 		<!-- Sidebar -->
-		<div class="sidebar col col-1">
+		<div class="mc4wp-sidebar mc4wp-col mc4wp-col-1">
 			<?php include MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-sidebar.php'; ?>
 		</div>
 

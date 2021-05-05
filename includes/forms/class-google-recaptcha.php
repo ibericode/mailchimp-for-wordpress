@@ -169,7 +169,7 @@ class MC4WP_Google_Recaptcha {
 				<label><input type="radio" name="mc4wp_form[settings][grecaptcha_enabled]" value="1" <?php checked( $settings['grecaptcha_enabled'], 1 ); ?> /> <?php _e( 'Yes', 'mailchimp-for-wp' ); ?> &rlm;</label>
 				 &nbsp;
 				<label><input type="radio" name="mc4wp_form[settings][grecaptcha_enabled]" value="0" <?php checked( $settings['grecaptcha_enabled'], 0 ); ?> /> <?php _e( 'No', 'mailchimp-for-wp' ); ?> &rlm;</label>
-				<p class="help">
+				<p class="description">
 					<?php _e( 'Select "yes" to enable Google reCAPTCHA spam protection for this form.', 'mailchimp-for-wp' ); ?>
 				</p>
 			</td>
@@ -184,7 +184,7 @@ class MC4WP_Google_Recaptcha {
 			<th scope="row"><label for="mc4wp_grecaptcha_site_key"><?php _e( 'Google reCAPTCHA Site Key', 'mailchimp-for-wp' ); ?></label></th>
 			<td>
 				<input type="text" class="widefat" name="mc4wp[grecaptcha_site_key]" id="mc4wp_grecaptcha_site_key" placeholder="<?php echo str_repeat( '●', 40 ); ?>" value="<?php echo esc_attr( $global_settings['grecaptcha_site_key'] ); ?>" />
-				<p class="help">
+				<p class="description">
 					<?php printf( __( 'Enter your Google reCAPTCHA keys here. You can <a href="%1$s">retrieve your keys in the Google reCAPTCHA admin console</a> or read our help article on <a href="%2$s">how to configure Google reCAPTCHA</a>.', 'mailchimp-for-wp' ), 'https://g.co/recaptcha/v3', 'https://www.mc4wp.com/kb/google-recaptcha-forms/' ); ?>
 				</p>
 			</td>

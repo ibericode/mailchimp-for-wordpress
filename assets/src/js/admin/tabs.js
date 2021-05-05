@@ -1,6 +1,6 @@
 const URL = require('./url.js')
 const context = document.getElementById('mc4wp-admin')
-const tabElements = context.querySelectorAll('.tab')
+const tabElements = context.querySelectorAll('.mc4wp-tab')
 const tabNavElements = context.querySelectorAll('.nav-tab')
 const refererField = context.querySelector('input[name="_wp_http_referer"]')
 const tabs = []
@@ -11,7 +11,7 @@ if (!Element.prototype.matches) {
 }
 
 [].forEach.call(tabElements, (t, i) => {
-  const id = t.id.substring(4)
+  const id = t.id.split('-').pop()
   const title = t.querySelector('h2:first-of-type').textContent
 
   tabs.push({
@@ -50,7 +50,7 @@ function open (tab, updateState) {
 
   // hide all tabs & remove active class
   [].forEach.call(tabElements, t => {
-    t.className = t.className.replace('tab-active', '')
+    t.className = t.className.replace('mc4wp-tab-active', '')
     t.style.display = ' none'
   });
   [].forEach.call(tabNavElements, t => {
@@ -65,7 +65,7 @@ function open (tab, updateState) {
 
   // show target tab
   tab.element.style.display = 'block'
-  tab.element.className += ' tab-active'
+  tab.element.className += ' mc4wp-tab-active'
 
   // create new URL
   const url = URL.setParameter(window.location.href, 'tab', tab.id)
