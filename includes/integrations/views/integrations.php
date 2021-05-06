@@ -7,7 +7,7 @@ function _mc4wp_integrations_table_row( $integration ) {
 	<tr style="
 	<?php
 	if ( ! $integration->is_installed() ) {
-		echo 'opacity: 0.4;';
+		echo 'opacity: 0.6;';
 	}
 	?>
 	">
@@ -37,7 +37,7 @@ function _mc4wp_integrations_table_row( $integration ) {
 			} elseif ( $integration->is_installed() ) {
 				echo '<span class="mc4wp-status neutral">', esc_html__( 'Inactive', 'mailchimp-for-wp' ), '</span>';
 			} else {
-				echo '<span class="mc4wp-status negative">', esc_html__( 'Not installed', 'mailchimp-for-wp' ), '</span>';
+				echo '<span>', esc_html__( 'Not installed', 'mailchimp-for-wp' ), '</span>';
 			}
 			?>
 		</td>
