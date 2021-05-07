@@ -1,6 +1,14 @@
 Changelog
 =========
 
+#### 4.8.4 - May 7, 2021
+
+- Add `defer` attribute to JS file, so page parsing isn't blocked at all.
+- Rewrite plugin CSS to optimize for selector performance and get rid of some duplication.
+
+After installing this update, make sure to also update any add-on plugins like [Mailchimp for WordPress Premium](https://www.mc4wp.com/premium-features/) and [Mailchimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/).
+
+
 #### 4.8.3 - Jan 21, 2021
 
 - Fix fatal error on older PHP versions when submitting form without any subscriber tags set in the form settings.
