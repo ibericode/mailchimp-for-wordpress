@@ -48,14 +48,14 @@ function view () {
   const availableFields = fields.getAll()
 
   const fieldsChoice = m('div#mc4wp-available-fields.mc4wp-margin-s', [
-    m('h4', i18n.chooseField),
+    m('h4', { style: { marginTop: 0 } }, i18n.chooseField),
 
     [i18n.listFields, i18n.interestCategories, i18n.formFields].map(function (category) {
       const categoryFields = availableFields.filter(function (f) {
         return f.category === category
       })
 
-      if (!categoryFields.length) {
+      if (categoryFields.length === 0) {
         return ''
       }
 

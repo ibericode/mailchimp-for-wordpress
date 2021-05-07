@@ -609,7 +609,7 @@ msgstr ""
 msgid "Enter the title of your sign-up form"
 msgstr ""
 
-#: includes/forms/views/edit-form.php:69, includes/forms/views/tabs/form-fields.php:40
+#: includes/forms/views/edit-form.php:69, includes/forms/views/tabs/form-fields.php:39
 msgid "Use the shortcode %s to display this form inside a post, page or text widget."
 msgstr ""
 
