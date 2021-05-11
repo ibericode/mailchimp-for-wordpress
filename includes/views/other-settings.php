@@ -131,6 +131,7 @@ add_action( 'mc4wp_admin_other_settings', '_mc4wp_usage_tracking_setting', 70 );
 
 					<form method="post">
 						<input type="hidden" name="_mc4wp_action" value="empty_debug_log">
+						<?php wp_nonce_field( '_mc4wp_action', '_wpnonce' ); ?>
 						<p>
 							<input type="submit" class="button" value="<?php echo esc_attr__( 'Empty Log', 'mailchimp-for-wp' ); ?>"/>
 						</p>

@@ -93,12 +93,20 @@ class MC4WP_Admin {
 	* Listen for `_mc4wp_action` requests
 	*/
 	public function listen_for_actions() {
+		// do nothing if _mc4wp_action was not in the request parameters
 		if ( ! isset( $_REQUEST['_mc4wp_action'] ) ) {
 			return;
 		}
 
+		// check if user is authorized
 		if ( ! $this->tools->is_user_authorized() ) {
 			return;
+		}
+
+		// verify nonce
+		if( ! isset( $_REQUEST['_wpnonce'] ) || false === wp_verify_nonce( $_REQUEST['_wpnonce'], '_mc4wp_action' ) ) {
+			wp_nonce_ays( '_mc4wp_action' );
+			exit;
 		}
 
 		$action = (string) $_REQUEST['_mc4wp_action'];

@@ -18,8 +18,7 @@
 				<form method="post">
 
 					<input type="hidden" name="_mc4wp_action" value="add_form" />
-					<?php wp_nonce_field( 'add_form', '_mc4wp_nonce' ); ?>
-
+					<?php wp_nonce_field('_mc4wp_action', '_wpnonce' ); ?>
 
 					<div class="mc4wp-margin-s">
 						<h3>

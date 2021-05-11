@@ -43,7 +43,7 @@
 				</p>
 
 				<p>
-					<a class="button button-primary" href="<?php echo esc_attr( add_query_arg( array( '_mc4wp_action' => 'empty_lists_cache' ) ) ); ?>">
+					<a class="button button-primary" href="<?php echo esc_attr( add_query_arg( array( '_mc4wp_action' => 'empty_lists_cache', '_wpnonce' => wp_create_nonce( '_mc4wp_action' ) ) ) ); ?>">
 						<?php echo esc_html__( 'Renew Mailchimp lists', 'mailchimp-for-wp' ); ?>
 					</a>
 				</p>
