@@ -93,10 +93,12 @@ class MC4WP_Admin {
 	* Listen for `_mc4wp_action` requests
 	*/
 	public function listen_for_actions() {
+		if ( ! isset( $_REQUEST['_mc4wp_action'] ) ) {
+			return;
+		}
 
-		// listen for any action (if user is authorised)
-		if ( ! $this->tools->is_user_authorized() || ! isset( $_REQUEST['_mc4wp_action'] ) ) {
-			return false;
+		if ( ! $this->tools->is_user_authorized() ) {
+			return;
 		}
 
 		$action = (string) $_REQUEST['_mc4wp_action'];
@@ -121,7 +123,8 @@ class MC4WP_Admin {
 		} else {
 			$redirect_url = remove_query_arg( '_mc4wp_action' );
 		}
-		wp_redirect( $redirect_url );
+
+		wp_safe_redirect( $redirect_url );
 		exit;
 	}
 
