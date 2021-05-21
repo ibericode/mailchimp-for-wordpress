@@ -57,10 +57,6 @@ class MC4WP_Form_Asset_Manager {
 	 * @return string
 	 */
 	public function get_stylesheet_url( $stylesheet ) {
-		if ( ! $this->is_registered_stylesheet( $stylesheet ) ) {
-			return '';
-		}
-
 		return mc4wp_plugin_url( 'assets/css/form-' . $stylesheet . '.css' );
 	}
 
@@ -99,16 +95,15 @@ class MC4WP_Form_Asset_Manager {
 			}
 
 			$handle = 'mc4wp-form-' . $stylesheet;
-			wp_enqueue_style( $handle, $this->get_stylesheet_url( $stylesheet ), array(), MC4WP_VERSION );
-			add_editor_style( $this->get_stylesheet_url( $stylesheet ) );
+			$url = $this->get_stylesheet_url( $stylesheet );
+			wp_enqueue_style( $handle, $url, array(), MC4WP_VERSION );
+			add_editor_style( $url );
 		}
 
 		/**
 		 * @ignore
 		 */
 		do_action( 'mc4wp_load_form_stylesheets', $stylesheets );
-
-		return true;
 	}
 
 	/**
