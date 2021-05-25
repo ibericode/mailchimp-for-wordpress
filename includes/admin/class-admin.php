@@ -104,7 +104,7 @@ class MC4WP_Admin {
 		}
 
 		// verify nonce
-		if( ! isset( $_REQUEST['_wpnonce'] ) || false === wp_verify_nonce( $_REQUEST['_wpnonce'], '_mc4wp_action' ) ) {
+		if ( ! isset( $_REQUEST['_wpnonce'] ) || false === wp_verify_nonce( $_REQUEST['_wpnonce'], '_mc4wp_action' ) ) {
 			wp_nonce_ays( '_mc4wp_action' );
 			exit;
 		}
