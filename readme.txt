@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchi
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp form
 Requires at least: 4.6
 Tested up to: 5.7
-Stable tag: 4.8.4
+Stable tag: 4.8.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.3
@@ -195,6 +195,14 @@ The plugin provides various filter & action hooks that allow you to modify or ex
 6. Dive into detailed sign-up statistics (premium feature).
 
 == Changelog ==
+
+
+#### 4.8.5 - Jun 1, 2021
+
+Add nonce verification to all URL's using _mc4wp_action query parameter.
+This fixes a CSRF vulnerability where a malicious website could trick a logged-in admin user in performing unwanted actions.
+
+Thanks to Erwin from [WPScan](https://wpscan.com/) for bringing this issue to our attention.
 
 
 #### 4.8.4 - May 7, 2021
