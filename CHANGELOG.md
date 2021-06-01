@@ -6,7 +6,7 @@ Changelog
 Add nonce verification to all URL's using _mc4wp_action query parameter.
 This fixes a CSRF vulnerability where a malicious website could trick a logged-in admin user in performing unwanted actions.
 
-Thanks to Erwin from [WPScan](https://wpscan.com/) for bringing this issue to our attention.
+Thanks to Erwan from [WPScan](https://wpscan.com/) for bringing this issue to our attention.
 
 
 #### 4.8.4 - May 7, 2021
