@@ -1,6 +1,14 @@
 Changelog
 =========
 
+#### 4.8.5 - Jun 1, 2021
+
+Add nonce verification to all URL's using _mc4wp_action query parameter.
+This fixes a CSRF vulnerability where a malicious website could trick a logged-in admin user in performing unwanted actions.
+
+Thanks to Erwin from [WPScan](https://wpscan.com/) for bringing this issue to our attention.
+
+
 #### 4.8.4 - May 7, 2021
 
 - Add `defer` attribute to JS file, so page parsing isn't blocked at all.

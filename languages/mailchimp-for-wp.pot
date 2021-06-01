@@ -65,67 +65,67 @@ msgstr ""
 msgid "Documentation"
 msgstr ""
 
-#: includes/admin/class-admin.php:212
+#: includes/admin/class-admin.php:223
 msgid "Success! The cached configuration for your Mailchimp lists has been renewed."
 msgstr ""
 
-#: includes/admin/class-admin.php:300
+#: includes/admin/class-admin.php:311
 msgid "The given value does not look like a valid Mailchimp API key."
 msgstr ""
 
-#: includes/admin/class-admin.php:301
+#: includes/admin/class-admin.php:312
 msgid "This is a premium feature. Please upgrade to Mailchimp for WordPress Premium to be able to use it."
 msgstr ""
 
-#: includes/admin/class-admin.php:302, includes/views/parts/lists-overview.php:10, includes/forms/views/parts/add-fields-help.php:47
+#: includes/admin/class-admin.php:313, includes/views/parts/lists-overview.php:10, includes/forms/views/parts/add-fields-help.php:58
 msgid "Renew Mailchimp lists"
 msgstr ""
 
-#: includes/admin/class-admin.php:303
+#: includes/admin/class-admin.php:314
 msgid "Fetching Mailchimp lists"
 msgstr ""
 
-#: includes/admin/class-admin.php:304
+#: includes/admin/class-admin.php:315
 msgid "Done! Mailchimp lists renewed."
 msgstr ""
 
-#: includes/admin/class-admin.php:305
+#: includes/admin/class-admin.php:316
 msgid "Failed to renew your lists. An error occured."
 msgstr ""
 
-#: includes/admin/class-admin.php:333
+#: includes/admin/class-admin.php:344
 msgid "Mailchimp API Settings"
 msgstr ""
 
-#: includes/admin/class-admin.php:340, includes/views/other-settings.php:60, includes/views/other-settings.php:70
+#: includes/admin/class-admin.php:351, includes/views/other-settings.php:60, includes/views/other-settings.php:70
 msgid "Other Settings"
 msgstr ""
 
-#: includes/admin/class-admin.php:341
+#: includes/admin/class-admin.php:352
 msgid "Other"
 msgstr ""
 
-#: includes/admin/class-admin.php:419
+#: includes/admin/class-admin.php:430
 msgid "Error connecting to Mailchimp:"
 msgstr ""
 
-#: includes/admin/class-admin.php:422
+#: includes/admin/class-admin.php:433
 msgid "Looks like your server is blocked by Mailchimp's firewall. Please contact Mailchimp support and include the following reference number: %s"
 msgstr ""
 
-#: includes/admin/class-admin.php:425
+#: includes/admin/class-admin.php:436
 msgid "Here's some info on solving common connectivity issues."
 msgstr ""
 
-#: includes/admin/class-admin.php:430
+#: includes/admin/class-admin.php:441
 msgid "Mailchimp returned the following error:"
 msgstr ""
 
-#: includes/admin/class-admin.php:469
+#: includes/admin/class-admin.php:480
 msgid "Log successfully emptied."
 msgstr ""
 
-#: includes/admin/class-admin.php:499
+#: includes/admin/class-admin.php:510
 msgid "To get started with Mailchimp for WordPress, please <a href=\"%s\">enter your Mailchimp API key on the settings page of the plugin</a>."
 msgstr ""
 
@@ -361,23 +361,23 @@ msgstr ""
 msgid "Form"
 msgstr ""
 
-#: includes/forms/class-admin.php:163, includes/forms/class-admin.php:284
+#: includes/forms/class-admin.php:161, includes/forms/class-admin.php:280
 msgid "Form saved."
 msgstr ""
 
-#: includes/forms/class-admin.php:393
+#: includes/forms/class-admin.php:389
 msgid "Form not found."
 msgstr ""
 
-#: includes/forms/class-admin.php:395
+#: includes/forms/class-admin.php:391
 msgid "Go back"
 msgstr ""
 
-#: includes/forms/class-admin.php:458, includes/forms/class-widget.php:31
+#: includes/forms/class-admin.php:454, includes/forms/class-widget.php:31
 msgid "Mailchimp Sign-Up Form"
 msgstr ""
 
-#: includes/forms/class-admin.php:462
+#: includes/forms/class-admin.php:458
 msgid "Select the form to show"
 msgstr ""
 
@@ -545,7 +545,7 @@ msgstr ""
 msgid "Nothing here. Which means there are no errors!"
 msgstr ""
 
-#: includes/views/other-settings.php:135
+#: includes/views/other-settings.php:136
 msgid "Empty Log"
 msgstr ""
 
@@ -557,7 +557,7 @@ msgstr ""
 msgid "Please ensure %1$s has the proper <a href=\"%2$s\">file permissions</a>."
 msgstr ""
 
-#: includes/views/other-settings.php:143
+#: includes/views/other-settings.php:144
 msgid "Right now, the plugin is configured to only log errors and warnings."
 msgstr ""
 
@@ -565,23 +565,23 @@ msgstr ""
 msgid "Default sign-up form"
 msgstr ""
 
-#: includes/forms/views/add-form.php:10, includes/forms/views/add-form.php:70
+#: includes/forms/views/add-form.php:10, includes/forms/views/add-form.php:69
 msgid "Add new form"
 msgstr ""
 
-#: includes/forms/views/add-form.php:27
+#: includes/forms/views/add-form.php:26
 msgid "What is the name of this form?"
 msgstr ""
 
-#: includes/forms/views/add-form.php:30
+#: includes/forms/views/add-form.php:29
 msgid "Enter your form title.."
 msgstr ""
 
-#: includes/forms/views/add-form.php:37
+#: includes/forms/views/add-form.php:36
 msgid "To which Mailchimp lists should this form subscribe?"
 msgstr ""
 
-#: includes/forms/views/add-form.php:62
+#: includes/forms/views/add-form.php:61
 msgid "No lists found. Did you <a href=\"%s\">connect with Mailchimp</a>?"
 msgstr ""
 
