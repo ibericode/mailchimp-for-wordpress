@@ -105,6 +105,12 @@ function _mc4wp_load_plugin() {
 	}
 }
 
+function _mc4wp_on_plugin_activation() {
+	// schedule the action hook to refresh the stored Mailchimp lists on a daily basis
+	$time_string = sprintf( 'tomorrow %d:%d%d am', rand( 0, 7 ), rand( 0, 5 ), rand( 0, 9 ) );
+	wp_schedule_event( strtotime( $time_string ), 'daily', 'mc4wp_refresh_mailchimp_lists' );
+}
+
 // bootstrap custom integrations
 function _mc4wp_bootstrap_integrations() {
 	require_once MC4WP_PLUGIN_DIR . '/integrations/bootstrap.php';
@@ -112,3 +118,4 @@ function _mc4wp_bootstrap_integrations() {
 
 add_action( 'plugins_loaded', '_mc4wp_load_plugin', 8 );
 add_action( 'plugins_loaded', '_mc4wp_bootstrap_integrations', 90 );
+register_activation_hook( __FILE__, '_mc4wp_on_plugin_activation' );
