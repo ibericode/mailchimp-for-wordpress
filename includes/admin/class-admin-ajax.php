@@ -33,6 +33,8 @@ class MC4WP_Admin_Ajax {
 			return;
 		}
 
+		check_ajax_referer( 'mc4wp-ajax' );
+
 		$mailchimp = new MC4WP_MailChimp();
 		$success   = $mailchimp->refresh_lists();
 		wp_send_json( $success );

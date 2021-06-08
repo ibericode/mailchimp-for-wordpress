@@ -1,6 +1,5 @@
-const config = window.mc4wp_vars
-const i18n = window.mc4wp_vars.i18n
-const ajaxurl = window.mc4wp_vars.ajaxurl
+const { mailchimp, i18n, ajaxurl, nonce } = window.mc4wp_vars
+
 const m = require('mithril')
 const state = {
   working: false,
@@ -16,7 +15,7 @@ function fetch (evt) {
 
   m.request({
     method: 'POST',
-    url: ajaxurl + '?action=mc4wp_renew_mailchimp_lists',
+    url: `${ajaxurl}?action=mc4wp_renew_mailchimp_lists&_wpnonce=${nonce}`,
     timeout: 600000 // 10 minutes, matching max_execution_time
   }).then(function (data) {
     state.success = true
@@ -66,7 +65,7 @@ function view () {
 const mount = document.getElementById('mc4wp-list-fetcher')
 if (mount) {
   // start fetching right away when no lists but api key given
-  if (config.mailchimp.api_connected && config.mailchimp.lists.length === 0) {
+  if (mailchimp.api_connected && mailchimp.lists.length === 0) {
     fetch()
   }
 
