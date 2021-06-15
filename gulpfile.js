@@ -28,7 +28,7 @@ gulp.task('images', function () {
 })
 
 gulp.task('pot', function () {
-  return gulp.src('includes/**/**/*.php')
+  return gulp.src('**/*.php')
     .pipe(wpPot({ domain: 'mailchimp-for-wp' }))
     .pipe(gulp.dest('languages/mailchimp-for-wp.pot'))
 })
