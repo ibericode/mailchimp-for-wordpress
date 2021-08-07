@@ -276,6 +276,9 @@ class MC4WP_Forms_Admin {
 				'select' => $input_allowed_attr,
 				'textarea' => $input_allowed_attr,
 				'div' => $always_allowed_attr,
+				'strong' => $always_allowed_attr,
+				'em' => $always_allowed_attr,
+				'a' => array_merge($always_allowed_attr, array( 'href' => true ) ),
 				'img' => array_merge(
 					$always_allowed_attr,
 					array(
