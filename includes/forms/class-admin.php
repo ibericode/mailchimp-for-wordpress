@@ -220,7 +220,7 @@ class MC4WP_Forms_Admin {
 	 * @param array $data
 	 * @return array
 	 */
-	public function sanitize_form_data( $data ) {
+	public function sanitize_form_data( array $data ) {
 		$raw_data = $data;
 
 		// strip <form> tags from content
@@ -243,6 +243,52 @@ class MC4WP_Forms_Admin {
 		}
 
 		$data['settings']['lists'] = array_filter( (array) $data['settings']['lists'] );
+
+		if ( ! current_user_can( 'unfiltered_html' ) ) {
+			$always_allowed_attr = array(
+				'class' => true,
+				'id' => true,
+				'style' => true,
+			);
+			$input_allowed_attr = array_merge(
+				$always_allowed_attr,
+				array(
+				'type' => true,
+				'required' => true,
+				'placeholder' => true,
+				'value' => true,
+				'name' => true,
+				'step' => true,
+				'min' => true,
+				'max' => true,
+				'checked' => true,
+				'selected' => true,
+				'minlength' => true,
+				'maxlength' => true,
+				'size' => true,
+				'pattern' => true,
+				)
+			);
+			$allowed = array(
+				'p' => $always_allowed_attr,
+				'label' => array_merge( $always_allowed_attr, array( 'for' => true ) ),
+				'input' => $input_allowed_attr,
+				'select' => $input_allowed_attr,
+				'textarea' => $input_allowed_attr,
+				'div' => $always_allowed_attr,
+				'img' => array_merge(
+					$always_allowed_attr,
+					array(
+					'src' => true,
+					'alt' => '',
+					)
+				),
+			);
+			$data['content'] = wp_kses( $data['content'], $allowed );
+			foreach ( $data['messages'] as $key => $message ) {
+				$data['messages'][ $key ] = wp_kses( $data['messages'][ $key ], $allowed );
+			}
+		}
 
 		/**
 		 * Filters the form data just before it is saved.
