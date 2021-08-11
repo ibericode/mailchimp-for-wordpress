@@ -279,14 +279,12 @@ class MC4WP_Forms_Admin {
 					'width',
 					'autocomplete',
 					'autofocus',
-					'selected',
 					'minlength',
 					'maxlength',
 					'size',
 					'pattern',
 					'disabled',
 					'readonly',
-					'multiple',
 					),
 					true
 				)
@@ -302,8 +300,19 @@ class MC4WP_Forms_Admin {
 				'ul'       => $always_allowed_attr,
 				'ol'       => $always_allowed_attr,
 				'li'       => $always_allowed_attr,
-				'select'   => $input_allowed_attr,
-				'textarea' => $input_allowed_attr,
+				'select'   => array_merge( $input_allowed_attr, array( 'multiple' => true ) ),
+				'option'   => array_merge( $input_allowed_attr, array( 'selected' => true ) ),
+				'optgroup' => array(
+				'disabled' => true,
+				'label' => true,
+				),
+				'textarea' => array_merge(
+					$input_allowed_attr,
+					array(
+					'rows' => true,
+					'cols' => true,
+					)
+				),
 				'div'      => $always_allowed_attr,
 				'strong'   => $always_allowed_attr,
 				'em'       => $always_allowed_attr,
