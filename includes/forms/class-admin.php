@@ -244,46 +244,76 @@ class MC4WP_Forms_Admin {
 
 		$data['settings']['lists'] = array_filter( (array) $data['settings']['lists'] );
 
+		// if current user can not post unfiltered HTML, run HTML through whitelist using wp_kses
 		if ( ! current_user_can( 'unfiltered_html' ) ) {
-			$always_allowed_attr = array(
-				'class' => true,
-				'id' => true,
-				'style' => true,
-			);
-			$input_allowed_attr = array_merge(
-				$always_allowed_attr,
+			$always_allowed_attr = array_fill_keys(
 				array(
-				'type' => true,
-				'required' => true,
-				'placeholder' => true,
-				'value' => true,
-				'name' => true,
-				'step' => true,
-				'min' => true,
-				'max' => true,
-				'checked' => true,
-				'selected' => true,
-				'minlength' => true,
-				'maxlength' => true,
-				'size' => true,
-				'pattern' => true,
+				'aria-describedby',
+				'aria-details',
+				'aria-label',
+				'aria-labelledby',
+				'aria-hidden',
+				'class',
+				'id',
+				'style',
+				'title',
+				'role',
+				'data-*',
+				'tabindex',
+				),
+				true
+			);
+			$input_allowed_attr  = array_merge(
+				$always_allowed_attr,
+				array_fill_keys(
+					array(
+					'type',
+					'required',
+					'placeholder',
+					'value',
+					'name',
+					'step',
+					'min',
+					'max',
+					'checked',
+					'width',
+					'autocomplete',
+					'autofocus',
+					'selected',
+					'minlength',
+					'maxlength',
+					'size',
+					'pattern',
+					'disabled',
+					'readonly',
+					'multiple',
+					),
+					true
 				)
 			);
-			$allowed = array(
-				'p' => $always_allowed_attr,
-				'label' => array_merge( $always_allowed_attr, array( 'for' => true ) ),
-				'input' => $input_allowed_attr,
-				'select' => $input_allowed_attr,
+
+			$allowed         = array(
+				'p'        => $always_allowed_attr,
+				'label'    => array_merge( $always_allowed_attr, array( 'for' => true ) ),
+				'input'    => $input_allowed_attr,
+				'button'   => $input_allowed_attr,
+				'fieldset' => $always_allowed_attr,
+				'legend'   => $always_allowed_attr,
+				'ul'       => $always_allowed_attr,
+				'ol'       => $always_allowed_attr,
+				'li'       => $always_allowed_attr,
+				'select'   => $input_allowed_attr,
 				'textarea' => $input_allowed_attr,
-				'div' => $always_allowed_attr,
-				'strong' => $always_allowed_attr,
-				'em' => $always_allowed_attr,
-				'a' => array_merge($always_allowed_attr, array( 'href' => true ) ),
-				'img' => array_merge(
+				'div'      => $always_allowed_attr,
+				'strong'   => $always_allowed_attr,
+				'em'       => $always_allowed_attr,
+				'span'     => $always_allowed_attr,
+				'a'        => array_merge( $always_allowed_attr, array( 'href' => true ) ),
+				'img'      => array_merge(
 					$always_allowed_attr,
 					array(
-					'src' => true,
-					'alt' => '',
+						'src' => true,
+						'alt' => '',
 					)
 				),
 			);
