@@ -8,7 +8,7 @@
 
 	<?php
 	/** @ignore */
-	do_action( 'mc4wp_admin_form_after_mailchimp_settings_rows', $opts, $form );
+	do_action( 'mc4wp_admin_form_before_mailchimp_settings_rows', $opts, $form );
 	?>
 
 	<tr valign="top">
