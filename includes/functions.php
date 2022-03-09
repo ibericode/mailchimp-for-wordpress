@@ -497,3 +497,104 @@ function mc4wp_array_get( $array, $key, $default = null ) {
 
 	return $array;
 }
+
+/**
+ * Filters string and strips out all HTML tags and attributes, except what's in our whitelist.
+ *
+ * @param string $string The string to apply KSES whitelist on
+ * @return string
+ * @since 4.8.8
+ */
+function mc4wp_kses( $string ) {
+	$always_allowed_attr = array_fill_keys(
+		array(
+			'aria-describedby',
+			'aria-details',
+			'aria-label',
+			'aria-labelledby',
+			'aria-hidden',
+			'class',
+			'id',
+			'style',
+			'title',
+			'role',
+			'data-*',
+			'tabindex',
+		),
+		true
+	);
+	$input_allowed_attr  = array_merge(
+		$always_allowed_attr,
+		array_fill_keys(
+			array(
+				'type',
+				'required',
+				'placeholder',
+				'value',
+				'name',
+				'step',
+				'min',
+				'max',
+				'checked',
+				'width',
+				'autocomplete',
+				'autofocus',
+				'minlength',
+				'maxlength',
+				'size',
+				'pattern',
+				'disabled',
+				'readonly',
+			),
+			true
+		)
+	);
+
+	$allowed         = array(
+		'p'        => $always_allowed_attr,
+		'label'    => array_merge( $always_allowed_attr, array( 'for' => true ) ),
+		'input'    => $input_allowed_attr,
+		'button'   => $input_allowed_attr,
+		'fieldset' => $always_allowed_attr,
+		'legend'   => $always_allowed_attr,
+		'ul'       => $always_allowed_attr,
+		'ol'       => $always_allowed_attr,
+		'li'       => $always_allowed_attr,
+		'select'   => array_merge( $input_allowed_attr, array( 'multiple' => true ) ),
+		'option'   => array_merge( $input_allowed_attr, array( 'selected' => true ) ),
+		'optgroup' => array(
+			'disabled' => true,
+			'label' => true,
+		),
+		'textarea' => array_merge(
+			$input_allowed_attr,
+			array(
+				'rows' => true,
+				'cols' => true,
+			)
+		),
+		'div'      => $always_allowed_attr,
+		'strong'   => $always_allowed_attr,
+		'b'         => $always_allowed_attr,
+		'i'         => $always_allowed_attr,
+		'br'        => array(),
+		'em'       => $always_allowed_attr,
+		'span'     => $always_allowed_attr,
+		'a'        => array_merge( $always_allowed_attr, array( 'href' => true ) ),
+		'img'      => array_merge(
+			$always_allowed_attr,
+			array(
+				'src' => true,
+				'alt' => true,
+				'width' => true,
+				'height' => true,
+				'srcset' => true,
+				'sizes' => true,
+				'referrerpolicy' => true,
+			)
+		),
+		'u' => $always_allowed_attr,
+	);
+
+	return wp_kses( $string, $allowed );
+}

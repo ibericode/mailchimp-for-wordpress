@@ -246,89 +246,9 @@ class MC4WP_Forms_Admin {
 
 		// if current user can not post unfiltered HTML, run HTML through whitelist using wp_kses
 		if ( ! current_user_can( 'unfiltered_html' ) ) {
-			$always_allowed_attr = array_fill_keys(
-				array(
-				'aria-describedby',
-				'aria-details',
-				'aria-label',
-				'aria-labelledby',
-				'aria-hidden',
-				'class',
-				'id',
-				'style',
-				'title',
-				'role',
-				'data-*',
-				'tabindex',
-				),
-				true
-			);
-			$input_allowed_attr  = array_merge(
-				$always_allowed_attr,
-				array_fill_keys(
-					array(
-					'type',
-					'required',
-					'placeholder',
-					'value',
-					'name',
-					'step',
-					'min',
-					'max',
-					'checked',
-					'width',
-					'autocomplete',
-					'autofocus',
-					'minlength',
-					'maxlength',
-					'size',
-					'pattern',
-					'disabled',
-					'readonly',
-					),
-					true
-				)
-			);
-
-			$allowed         = array(
-				'p'        => $always_allowed_attr,
-				'label'    => array_merge( $always_allowed_attr, array( 'for' => true ) ),
-				'input'    => $input_allowed_attr,
-				'button'   => $input_allowed_attr,
-				'fieldset' => $always_allowed_attr,
-				'legend'   => $always_allowed_attr,
-				'ul'       => $always_allowed_attr,
-				'ol'       => $always_allowed_attr,
-				'li'       => $always_allowed_attr,
-				'select'   => array_merge( $input_allowed_attr, array( 'multiple' => true ) ),
-				'option'   => array_merge( $input_allowed_attr, array( 'selected' => true ) ),
-				'optgroup' => array(
-				'disabled' => true,
-				'label' => true,
-				),
-				'textarea' => array_merge(
-					$input_allowed_attr,
-					array(
-					'rows' => true,
-					'cols' => true,
-					)
-				),
-				'div'      => $always_allowed_attr,
-				'strong'   => $always_allowed_attr,
-				'em'       => $always_allowed_attr,
-				'span'     => $always_allowed_attr,
-				'a'        => array_merge( $always_allowed_attr, array( 'href' => true ) ),
-				'img'      => array_merge(
-					$always_allowed_attr,
-					array(
-						'src' => true,
-						'alt' => '',
-					)
-				),
-			);
-			$data['content'] = wp_kses( $data['content'], $allowed );
+			$data['content'] = mc4wp_kses( $data['content'] );
 			foreach ( $data['messages'] as $key => $message ) {
-				$data['messages'][ $key ] = wp_kses( $data['messages'][ $key ], $allowed );
+				$data['messages'][ $key ] = mc4wp_kses( $data['messages'][ $key ] );
 			}
 		}
 

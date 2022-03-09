@@ -138,6 +138,12 @@ class MC4WP_Integration_Admin {
 			$settings['lists'] = array();
 		}
 
+
+		$settings['label'] = strip_tags( $settings['label'], '<strong><b><br><a><script><u><em><i><span><img>' );
+		if ( ! current_user_can( 'unfiltered_html' ) ) {
+			$settings['label'] = mc4wp_kses( $settings['label'] );
+		}
+
 		return $settings;
 	}
 
