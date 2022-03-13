@@ -13,7 +13,7 @@ class MC4WP_Give_Integration extends MC4WP_Integration {
 
 	public function add_hooks() {
 		if ( ! $this->options['implicit'] ) {
-			add_action( 'give_donation_form_top', array( $this, 'output_checkbox' ), 50 );
+			add_action( 'give_purchase_form_register_login_fields', array( $this, 'output_checkbox' ), 50 );
 		}
 
 		add_action( 'give_checkout_before_gateway', array( $this, 'subscribe_from_give' ), 90, 2 );
