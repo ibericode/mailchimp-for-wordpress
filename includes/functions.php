@@ -227,7 +227,7 @@ function mc4wp_get_request_ip_address() {
 		return $_SERVER['REMOTE_ADDR'];
 	}
 
-	if ( isset ( $ip_address ) ) {
+	if ( isset( $ip_address ) ) {
 		if ( ! is_array( $ip_address ) ) {
 			$ip_address = explode( ',', $ip_address );
 		}
