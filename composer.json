@@ -42,5 +42,10 @@
       "includes/forms/admin-functions.php",
       "includes/integrations/functions.php"
     ]
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   }
 }
