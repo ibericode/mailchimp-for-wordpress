@@ -1,6 +1,11 @@
 Changelog
 =========
 
+#### 4.8.8 - Aug 25, 2022
+
+- Fix mc4wp_get_request_ip_address() to pass new Mailchimp validation format. This fixes the "This value is not a valid IP." error some users using a proxy may have been seeing.
+
+
 #### 4.8.7 - Mar 2, 2022
 
 - Fix PHP 8.1 deprecation warnings in `MC4WP_Container` class.
