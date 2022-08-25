@@ -220,15 +220,19 @@ function mc4wp_get_request_path() {
 */
 function mc4wp_get_request_ip_address() {
 	if ( isset( $_SERVER['X-Forwarded-For'] ) ) {
-		return $_SERVER['X-Forwarded-For'];
-	}
-
-	if ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
-		return $_SERVER['HTTP_X_FORWARDED_FOR'];
-	}
-
-	if ( isset( $_SERVER['REMOTE_ADDR'] ) ) {
+		$ip_address = $_SERVER['X-Forwarded-For'];
+	} else if ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+		$ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
+	} else if ( isset( $_SERVER['REMOTE_ADDR'] ) ) {
 		return $_SERVER['REMOTE_ADDR'];
+	}
+
+	if ( isset ( $ip_address ) ) {
+		if ( ! is_array( $ip_address ) ) {
+			$ip_address = explode( ',', $ip_address );
+		}
+
+		return trim( $ip_address[0] );
 	}
 
 	return null;
