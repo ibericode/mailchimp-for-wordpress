@@ -232,7 +232,13 @@ function mc4wp_get_request_ip_address() {
 			$ip_address = explode( ',', $ip_address );
 		}
 
-		return trim( $ip_address[0] );
+		// use first IP in list
+		$ip_address = trim($ip_address[0]);
+
+		// strip ports and stuff
+		$ip_address = parse_url( 'http://' . $ip_address, PHP_URL_HOST );
+
+		return $ip_address;
 	}
 
 	return null;

@@ -108,4 +108,22 @@ class FunctionsTest extends TestCase
         self::assertEquals(mc4wp_array_get(array( 'foo' => array( 'bar' => 'foobar' ) ), 'foo.bar'), 'foobar');
         self::assertEquals(mc4wp_array_get(array( 'foo' => array( 'bar' => 'foobar' ) ), 'foo.foo', 'default'), 'default');
     }
+
+	public function test_mc4wp_get_request_ip_address()
+	{
+		$_SERVER = array( 'REMOTE_ADDR' => '127.0.0.1' );
+		self::assertEquals('127.0.0.1', mc4wp_get_request_ip_address() );
+
+		$_SERVER = array( 'HTTP_X_FORWARDED_FOR' => '127.0.0.1', 'REMOTE_ADDR' => '1.1.1.1' );
+		self::assertEquals('127.0.0.1', mc4wp_get_request_ip_address() );
+
+		$_SERVER = array( 'X-Forwarded-For' => '127.0.0.1', 'HTTP_X_FORWARDED_FOR' => '1.1.1.2', 'REMOTE_ADDR' => '1.1.1.1' );
+		self::assertEquals('127.0.0.1', mc4wp_get_request_ip_address() );
+
+		$_SERVER = array( 'X-Forwarded-For' => '127.0.0.1,127.0.0.2', 'HTTP_X_FORWARDED_FOR' => '1.1.1.2', 'REMOTE_ADDR' => '1.1.1.1' );
+		self::assertEquals('127.0.0.1', mc4wp_get_request_ip_address() );
+
+		$_SERVER = array( 'X-Forwarded-For' => '127.0.0.1:5000,127.0.0.2', 'HTTP_X_FORWARDED_FOR' => '1.1.1.2', 'REMOTE_ADDR' => '1.1.1.1' );
+		self::assertEquals('127.0.0.1', mc4wp_get_request_ip_address() );
+	}
 }
