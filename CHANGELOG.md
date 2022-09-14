@@ -1,6 +1,11 @@
 Changelog
 =========
 
+#### 4.8.9 - Sep 14, 2022
+
+- Fix mc4wp_get_request_ip_address() to return an IP address that matches Mailchimp's validation format when X-Forwarded-For header contains a port component.
+
+
 #### 4.8.8 - Aug 25, 2022
 
 - Fix mc4wp_get_request_ip_address() to pass new Mailchimp validation format. This fixes the "This value is not a valid IP." error some users using a proxy may have been seeing.
