@@ -235,8 +235,10 @@ function mc4wp_get_request_ip_address() {
 		// use first IP in list
 		$ip_address = trim( $ip_address[0] );
 
-		// strip ports and stuff
-		$ip_address = parse_url( 'http://' . $ip_address, PHP_URL_HOST );
+		// if IP address is not valid, simply return null
+		if ( ! filter_var( $ip_address, FILTER_VALIDATE_IP ) ) {
+			return null;
+		}
 
 		return $ip_address;
 	}
