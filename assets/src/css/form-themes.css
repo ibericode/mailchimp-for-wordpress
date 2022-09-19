@@ -27,9 +27,6 @@
 }
 
 /* Form Elements */
-.mc4wp-form-theme input.placeholdersjs {
-	color: #aaa !important;
-}
 .mc4wp-form-theme input[type="text"],
 .mc4wp-form-theme input[type="email"],
 .mc4wp-form-theme input[type="tel"],
