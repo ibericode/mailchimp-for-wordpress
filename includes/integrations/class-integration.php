@@ -45,6 +45,11 @@ abstract class MC4WP_Integration {
 	public $checkbox_classes = array();
 
 	/**
+	 * @var string[]
+	 */
+	public $wrapper_classes = array();
+
+	/**
 	 * Constructor
 	 *
 	 * @param string $slug
@@ -187,6 +192,18 @@ abstract class MC4WP_Integration {
 	}
 
 	/**
+	 * Get a string of attributes for the HTML element wrapping the checkbox + label
+	 *
+	 * @return string
+	 */
+	protected function get_wrapper_attributes() {
+		$html_attrs = array(
+			'class' => sprintf( 'mc4wp-checkbox mc4wp-checkbox-%s %s', $this->slug, join( ' ', $this->wrapper_classes ) ),
+		);
+		return $this->array_to_attr_string( $html_attrs );
+	}
+
+	/**
 	 * Get a string of attributes for the checkbox element.
 	 *
 	 * @return string
@@ -225,12 +242,7 @@ abstract class MC4WP_Integration {
 		 */
 		$attributes = (array) apply_filters( 'mc4wp_integration_' . $slug . '_checkbox_attributes', $attributes, $integration );
 
-		$string = '';
-		foreach ( $attributes as $key => $value ) {
-			$string .= sprintf( '%s="%s"', $key, esc_attr( $value ) );
-		}
-
-		return $string;
+		return $this->array_to_attr_string( $attributes );
 	}
 
 	/**
@@ -241,11 +253,11 @@ abstract class MC4WP_Integration {
 	}
 
 	/**
-	 * Get HTML for the checkbox
-	 * @param array $html_attrs
+	 * Get HTML string for the checkbox row (incl. wrapper, label, etc.)
+	 *
 	 * @return string
 	 */
-	public function get_checkbox_html( array $html_attrs = array() ) {
+	public function get_checkbox_html() {
 		$show_checkbox    = empty( $this->options['implicit'] );
 		$integration_slug = $this->slug;
 
@@ -256,7 +268,6 @@ abstract class MC4WP_Integration {
 		 * @param string $integration_slug
 		 */
 		$show_checkbox = (bool) apply_filters( 'mc4wp_integration_show_checkbox', $show_checkbox, $integration_slug );
-
 		if ( ! $show_checkbox ) {
 			return '';
 		}
@@ -272,24 +283,11 @@ abstract class MC4WP_Integration {
 		do_action( 'mc4wp_integration_' . $this->slug . '_before_checkbox_wrapper', $this );
 
 		$wrapper_tag = $this->options['wrap_p'] ? 'p' : 'span';
-
-		// setup array of HTML attributes for the wrapper element
-		$html_attrs          = array_merge(
-			array(
-				'class' => '',
-			),
-			$html_attrs
-		);
-		$html_attrs['class'] =  sprintf( '%s mc4wp-checkbox mc4wp-checkbox-%s', $html_attrs['class'], $this->slug );
-
-		$html_attr_str = '';
-		foreach ( $html_attrs as $key => $value ) {
-			$html_attr_str .= sprintf( '%s="%s" ', $key, esc_attr( $value ) );
-		}
+		$wrapper_attrs = $this->get_wrapper_attributes();
 
 		// Hidden field to make sure "0" is sent to server
 		echo sprintf( '<input type="hidden" name="%s" value="0" />', esc_attr( $this->checkbox_name ) );
-		echo sprintf( '<%s %s>', $wrapper_tag, $html_attr_str );
+		echo sprintf( '<%s %s>', $wrapper_tag, $wrapper_attrs );
 		echo '<label>';
 		echo sprintf( '<input type="checkbox" name="%s" value="1" %s />', esc_attr( $this->checkbox_name ), $this->get_checkbox_attributes() );
 		echo sprintf( '<span>%s</span>', $this->get_label_text() );
@@ -558,6 +556,20 @@ abstract class MC4WP_Integration {
 	public function get_data() {
 		$data = array_merge( (array) $_GET, (array) $_POST );
 		return $data;
+	}
+
+	/**
+	 * Converts an array to an attribute string (foo="bar" bar="foo") with escaped values.
+	 *
+	 * @param array $attrs
+	 * @return string
+	 */
+	protected function array_to_attr_string( array $attrs ) {
+		$str = '';
+		foreach ( $attrs as $key => $value ) {
+			$str .= sprintf( '%s="%s" ', $key, esc_attr( $value ) );
+		}
+		return $str;
 	}
 
 	/**
