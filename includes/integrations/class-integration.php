@@ -40,6 +40,11 @@ abstract class MC4WP_Integration {
 	protected $checkbox_name = '';
 
 	/**
+	 * @var string[]
+	 */
+	public $checkbox_classes = array();
+
+	/**
 	 * Constructor
 	 *
 	 * @param string $slug
@@ -196,6 +201,10 @@ abstract class MC4WP_Integration {
 			$attributes['checked'] = 'checked';
 		}
 
+		if ( ! empty( $this->checkbox_classes ) ) {
+			$attributes['class'] = join( ' ', $this->checkbox_classes );
+		}
+
 		/**
 		 * Filters the attributes array.
 		 *
@@ -264,13 +273,14 @@ abstract class MC4WP_Integration {
 
 		$wrapper_tag = $this->options['wrap_p'] ? 'p' : 'span';
 
+		// setup array of HTML attributes for the wrapper element
 		$html_attrs          = array_merge(
 			array(
 				'class' => '',
 			),
 			$html_attrs
 		);
-		$html_attrs['class'] = $html_attrs['class'] . sprintf( ' mc4wp-checkbox mc4wp-checkbox-%s', $this->slug );
+		$html_attrs['class'] =  sprintf( '%s mc4wp-checkbox mc4wp-checkbox-%s', $html_attrs['class'], $this->slug );
 
 		$html_attr_str = '';
 		foreach ( $html_attrs as $key => $value ) {

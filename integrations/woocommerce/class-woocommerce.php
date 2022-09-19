@@ -21,6 +21,13 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 	public $description = "Subscribes people from WooCommerce's checkout form.";
 
 	/**
+	 * @var string[]
+	 */
+	public $checkbox_classes = array(
+		'input-checkbox',
+	);
+
+	/**
 	 * Add hooks
 	 */
 	public function add_hooks() {
