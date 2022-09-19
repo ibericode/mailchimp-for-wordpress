@@ -29,7 +29,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 
 	public $wrapper_classes = array(
 		'form-row',
-		'form-row-wide'
+		'form-row-wide',
 	);
 
 	/**
@@ -85,7 +85,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 			return $field;
 		}
 
-		return sprintf('%s%s%s', $field, PHP_EOL, $this->get_checkbox_html());
+		return sprintf( '%s%s%s', $field, PHP_EOL, $this->get_checkbox_html() );
 	}
 
 	/**

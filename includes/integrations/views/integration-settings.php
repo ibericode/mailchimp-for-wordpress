@@ -181,15 +181,16 @@
 									echo esc_html__( 'Select "yes" if the checkbox should be pre-checked.', 'mailchimp-for-wp' );
 									echo '<br />';
 									echo sprintf(
-											wp_kses(
-													__( '<strong>Warning: </strong> enabling this may affect your <a href="%s">GDPR compliance</a>.', 'mailchimp-for-wp' ),
-													array(
-															'a' => array( 'href' => array() ),
-															'strong' => array(),
-													)
-											),
-											'https://www.mc4wp.com/kb/gdpr-compliance/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page'
-									);									?>
+										wp_kses(
+											__( '<strong>Warning: </strong> enabling this may affect your <a href="%s">GDPR compliance</a>.', 'mailchimp-for-wp' ),
+											array(
+													'a'      => array( 'href' => array() ),
+													'strong' => array(),
+											)
+										),
+										'https://www.mc4wp.com/kb/gdpr-compliance/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page'
+									);
+									?>
 								</p>
 							</td>
 						<?php
