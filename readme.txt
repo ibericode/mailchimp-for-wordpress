@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp form
 Requires at least: 4.6
 Tested up to: 6.0
-Stable tag: 4.8.10
+Stable tag: 4.8.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.3
@@ -195,6 +195,14 @@ The plugin provides various filter & action hooks that allow you to modify or ex
 6. Dive into detailed sign-up statistics (premium feature).
 
 == Changelog ==
+
+
+#### 4.8.11 - Nov 1, 2022
+
+- Improved default styling for the WooCommerce sign-up checkbox integration.
+- Add `<strong>` to allowed HTML elements for GDPR disclaimer text on settings pages.
+- Remove all references to obsolete placeholders.js polyfill.
+- Move the GiveWP sign-up checkbox closer to the email input field. Thanks [Matthew Lewis](https://github.com/Matthew-Lewis).
 
 
 #### 4.8.10 - Sep 14, 2022
