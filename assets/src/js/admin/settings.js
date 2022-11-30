@@ -16,9 +16,10 @@ function getSelectedLists () {
 }
 
 function updateSelectedLists () {
-  selectedLists = [];
+  selectedLists = []
+  for (let i = 0; i < listInputs.length; i++) {
+    const input = listInputs[i]
 
-  [].forEach.call(listInputs, function (input) {
     // skip unchecked checkboxes
     if (typeof (input.checked) === 'boolean' && !input.checked) {
       return
@@ -27,7 +28,7 @@ function updateSelectedLists () {
     if (typeof (lists[input.value]) === 'object') {
       selectedLists.push(lists[input.value])
     }
-  })
+  }
 
   toggleVisibleLists()
   emit('selectedLists.change', [selectedLists])
@@ -35,17 +36,19 @@ function updateSelectedLists () {
 }
 
 function toggleVisibleLists () {
-  const rows = document.querySelectorAll('.lists--only-selected > *');
-  [].forEach.call(rows, function (el) {
-    const listId = el.getAttribute('data-list-id')
+  const rows = document.querySelectorAll('.lists--only-selected > *')
+  for (let i = 0; i < rows.length; i++) {
+    const listId = rows[i].getAttribute('data-list-id')
     const isSelected = getSelectedListsWhere('id', listId).length > 0
-    el.style.display = isSelected ? '' : 'none'
-  })
+    rows[i].style.display = isSelected ? '' : 'none'
+  }
 }
 
 function emit (event, args) {
   listeners[event] = listeners[event] || []
-  listeners[event].forEach(f => f.apply(null, args))
+  for (let i = 0; i < listeners[event].length; i++) {
+    listeners[event][i].apply(null, args)
+  }
 }
 
 function on (event, func) {

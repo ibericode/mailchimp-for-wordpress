@@ -4,7 +4,10 @@ const m = require('mithril')
 
 // wrap row in div element with margin class
 function wrap (rows) {
-  return rows.map(r => m('div.mc4wp-margin-s', r))
+  for (let i = 0; i < rows.length; i++) {
+    rows[i] = m('div.mc4wp-margin-s', rows[i])
+  }
+  return rows
 }
 
 // route to one of the other form configs, default to "text"

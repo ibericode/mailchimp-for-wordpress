@@ -4,7 +4,9 @@ const listeners = {}
 
 function emit (event, args) {
   listeners[event] = listeners[event] || []
-  listeners[event].forEach(f => f.apply(null, args))
+  for (let i = 0; i < listeners[event].length; i++) {
+    listeners[event][i].apply(null, args)
+  }
 }
 
 function on (event, func) {
@@ -63,7 +65,7 @@ function trigger (eventName, eventArgs) {
     // process in separate thread to prevent errors from breaking core functionality
     window.setTimeout(function () {
       emit(eventName, eventArgs)
-    }, 1)
+    }, 10)
   }
 }
 

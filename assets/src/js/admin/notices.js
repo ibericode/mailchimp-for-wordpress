@@ -15,7 +15,7 @@ function hide (id) {
 
 function render () {
   let html = ''
-  for (const key in notices) {
+  for (const key in Object.keys(notices)) {
     html += '<div class="notice notice-warning inline"><p>' + notices[key] + '</p></div>'
   }
 
@@ -32,15 +32,12 @@ function render () {
 
 const groupingsNotice = function () {
   const text = 'Your form contains deprecated <code>GROUPINGS</code> fields. <br /><br />Please remove these fields from your form and then re-add them through the available field buttons to make sure your data is getting through to Mailchimp correctly.'
-  const formCode = editor.getValue().toLowerCase();
-  (formCode.indexOf('name="groupings') > -1) ? show('deprecated_groupings', text) : hide('deprecated_groupings')
+  const hasGroupingsField = editor.getValue().toLowerCase().indexOf('name="groupings') > -1
+  hasGroupingsField ? show('deprecated_groupings', text) : hide('deprecated_groupings')
 }
 
 const requiredFieldsNotice = function () {
-  const requiredFields = fields.getAllWhere('forceRequired', true)
-  const missingFields = requiredFields.filter(function (f) {
-    return !editor.containsField(f.name.toUpperCase())
-  })
+  const missingFields = fields.getAll().filter(f => f.forceRequired === true && !editor.containsField(f.name.toUpperCase()))
 
   let text = '<strong>Heads up!</strong> Your form is missing list fields that are required in Mailchimp. Either add these fields to your form or mark them as optional in Mailchimp.'
   text += '<br /><ul class="ul-square" style="margin-bottom: 0;"><li>' + missingFields.map(function (f) { return f.title }).join('</li><li>') + '</li></ul>';

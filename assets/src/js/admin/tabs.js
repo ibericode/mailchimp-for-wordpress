@@ -10,7 +10,7 @@ if (!Element.prototype.matches) {
     Element.prototype.webkitMatchesSelector
 }
 
-[].forEach.call(tabElements, (t, i) => {
+[].forEach.call(tabElements, t => {
   const id = t.id.split('-').pop()
   const title = t.querySelector('h2:first-of-type').textContent
 
@@ -19,7 +19,7 @@ if (!Element.prototype.matches) {
     title: title,
     element: t,
     nav: context.querySelectorAll('.nav-tab-' + id),
-    open: () => open(id)
+    open: open.bind(null, id)
   })
 })
 
@@ -30,38 +30,38 @@ function get (id) {
     }
   }
 
-  return null
+  throw new Error('get() called with invalid tab id: ' + id)
+}
+
+function removeNavTabActiveClass (el) {
+  el.className = el.className.replace('nav-tab-active', '')
+}
+
+function addNavTabActiveClass (el) {
+  el.className += ' nav-tab-active'
+  el.blur()
+}
+
+function hideTab (t) {
+  t.className = t.className.replace('mc4wp-tab-active', '')
+  t.style.display = ' none'
 }
 
 function open (tab, updateState) {
-  // make sure we have a tab object
-  if (typeof (tab) === 'string') {
-    tab = get(tab)
-  }
-
+  tab = typeof tab === 'string' ? get(tab) : tab
   if (!tab) {
     return false
   }
+  updateState = updateState === undefined ? true : updateState;
 
-  // should we update state?
-  if (updateState === undefined) {
-    updateState = true
-  }
+  // hide all tabs
+  [].forEach.call(tabElements, hideTab);
 
-  // hide all tabs & remove active class
-  [].forEach.call(tabElements, t => {
-    t.className = t.className.replace('mc4wp-tab-active', '')
-    t.style.display = ' none'
-  });
-  [].forEach.call(tabNavElements, t => {
-    t.className = t.className.replace('nav-tab-active', '')
-  });
+  // remove .nav-tab-active from all tab navs
+  [].forEach.call(tabNavElements, removeNavTabActiveClass);
 
-  // add `nav-tab-active` to this tab
-  [].forEach.call(tab.nav, function (nav) {
-    nav.className += ' nav-tab-active'
-    nav.blur()
-  })
+  // add .nav-tab-active to current tab nav
+  [].forEach.call(tab.nav, addNavTabActiveClass)
 
   // show target tab
   tab.element.style.display = 'block'
@@ -132,17 +132,18 @@ function switchTab (evt) {
 }
 
 function init () {
+  // check offsetParent to determine whether tab is visible
   const activeTab = tabs.filter(t => t.element.offsetParent !== null).shift()
   if (!activeTab) {
     return
   }
 
-  const tab = get(activeTab.id.substring(4))
+  const tab = get(activeTab.id)
   if (!tab) {
     return
   }
 
-  // check if tab is in html5 history
+  // check if tab is in history
   if (history.replaceState && history.state === null) {
     history.replaceState(tab.id, '')
   }
@@ -151,24 +152,28 @@ function init () {
   title(tab)
 }
 
-[].forEach.call(tabNavElements, el => el.addEventListener('click', switchTab))
-document.body.addEventListener('click', evt => {
-  if (!evt.target.matches('.tab-link')) {
-    return
+function onDocumentClick (evt) {
+  if (evt.target.matches('.tab-link')) {
+    switchTab(evt)
   }
+}
 
-  switchTab(evt)
-})
+function onPopState (evt) {
+  if (evt.state) {
+    open(evt.state, false)
+  }
+}
+
+// add event listeners
+for (let i = 0; i < tabNavElements.length; i++) {
+  tabNavElements[i].addEventListener('click', switchTab)
+}
+document.body.addEventListener('click', onDocumentClick)
+if (window.addEventListener && history.pushState) {
+  window.addEventListener('popstate', onPopState)
+}
 
 init()
-
-if (window.addEventListener && history.pushState) {
-  window.addEventListener('popstate', function (e) {
-    if (!e.state) return true
-    const tabId = e.state
-    return open(tabId, false)
-  })
-}
 
 module.exports = {
   open: open,

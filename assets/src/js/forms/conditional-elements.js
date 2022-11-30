@@ -43,7 +43,6 @@ function toggleElement (el) {
 
     // condition is met when value is in array of expected values OR expected values contains a wildcard and value is not empty
     conditionMet = expectedValues.indexOf(value) > -1 || (expectedValues.indexOf('*') > -1 && value.length > 0)
-
     if (conditionMet) {
       break
     }
@@ -57,24 +56,27 @@ function toggleElement (el) {
   }
 
   // find all inputs inside this element and toggle [required] attr (to prevent HTML5 validation on hidden elements)
-  const inputs = el.querySelectorAll('input,select,textarea');
-  [].forEach.call(inputs, (el) => {
-    if ((conditionMet || show) && el.getAttribute('data-was-required')) {
-      el.required = true
-      el.removeAttribute('data-was-required')
+  const inputs = el.querySelectorAll('input,select,textarea')
+  for (let i = 0; i < inputs.length; i++) {
+    const input = inputs[i]
+    if ((conditionMet || show) && input.getAttribute('data-was-required')) {
+      input.required = true
+      input.removeAttribute('data-was-required')
     }
 
-    if ((!conditionMet || !show) && el.required) {
-      el.setAttribute('data-was-required', 'true')
-      el.required = false
+    if ((!conditionMet || !show) && input.required) {
+      input.setAttribute('data-was-required', 'true')
+      input.required = false
     }
-  })
+  }
 }
 
 // evaluate conditional elements globally
 function evaluate () {
-  const elements = document.querySelectorAll('.mc4wp-form [data-show-if],.mc4wp-form [data-hide-if]');
-  [].forEach.call(elements, toggleElement)
+  const elements = document.querySelectorAll('.mc4wp-form [data-show-if],.mc4wp-form [data-hide-if]')
+  for (let i = 0; i < elements.length; i++) {
+    toggleElement(elements[i])
+  }
 }
 
 // re-evaluate conditional elements for change events on forms
@@ -84,8 +86,10 @@ function handleInputEvent (evt) {
   }
 
   const form = evt.target.form
-  const elements = form.querySelectorAll('[data-show-if],[data-hide-if]');
-  [].forEach.call(elements, toggleElement)
+  const elements = form.querySelectorAll('[data-show-if],[data-hide-if]')
+  for (let i = 0; i < elements.length; i++) {
+    toggleElement(elements[i])
+  }
 }
 
 document.addEventListener('keyup', handleInputEvent, true)

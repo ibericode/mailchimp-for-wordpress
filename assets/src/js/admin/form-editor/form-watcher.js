@@ -41,7 +41,7 @@ function updateFields () {
 
 function findRequiredFields () {
   // query fields required by Mailchimp
-  const requiredFields = fields.getAllWhere('forceRequired', true)
+  const requiredFields = fields.getAll().filter(f => f.forceRequired === true)
     .map(f => f.name.toUpperCase().replace(REGEX_ARRAY_BRACKETS_WITH_KEY, '.$1'))
 
   // query fields in form with [required] attribute

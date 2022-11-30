@@ -23,9 +23,9 @@ function fetch (evt) {
     if (data) {
       window.setTimeout(function () { window.location.reload() }, 3000)
     }
-  }).catch(function (data) {
+  }).catch(function () {
     state.success = false
-  }).finally(function (data) {
+  }).finally(function () {
     state.working = false
     state.done = true
 

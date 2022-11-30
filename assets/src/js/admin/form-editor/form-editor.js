@@ -116,7 +116,7 @@ if (element) {
     })
 
     // dispatch regular "change" on element event every time editor changes (IE9+ only)
-    window.dispatchEvent && editor.on('change', function () {
+    editor.on('change', function () {
       if (typeof (Event) === 'function') {
         // Create a new 'change' event
         const event = new Event('change', { bubbles: true })

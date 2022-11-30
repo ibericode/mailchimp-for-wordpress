@@ -1,6 +1,7 @@
 const path = require('path')
 
 module.exports = {
+  mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
   entry: {
     admin: './assets/src/js/admin.js',
     'integrations-admin': './assets/src/js/integrations-admin.js',

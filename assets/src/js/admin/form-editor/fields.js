@@ -109,14 +109,9 @@ function getAll () {
   return Object.values(fields)
 }
 
-function getAllWhere (searchKey, searchValue) {
-  return getAll().filter(field => field[searchKey] === searchValue)
-}
-
 module.exports = {
   get: get,
   getAll: getAll,
-  getAllWhere: getAllWhere,
   deregister: deregister,
   register: register,
   on
