@@ -110,9 +110,9 @@ function getAll () {
 }
 
 module.exports = {
-  get: get,
-  getAll: getAll,
-  deregister: deregister,
-  register: register,
+  get,
+  getAll,
+  deregister,
+  register,
   on
 }

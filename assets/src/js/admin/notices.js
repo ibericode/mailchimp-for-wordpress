@@ -14,11 +14,7 @@ function hide (id) {
 }
 
 function render () {
-  let html = ''
-  for (const key in Object.keys(notices)) {
-    html += '<div class="notice notice-warning inline"><p>' + notices[key] + '</p></div>'
-  }
-
+  const html = Object.values(notices).map(text => '<div class="notice notice-warning inline"><p>' + text + '</p></div>').join()
   let container = document.querySelector('.mc4wp-notices')
   if (!container) {
     container = document.createElement('div')

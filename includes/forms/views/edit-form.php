@@ -76,7 +76,7 @@ $tabs = apply_filters( 'mc4wp_admin_edit_form_tabs', $tabs );
 						<?php
 						foreach ( $tabs as $tab => $name ) {
 							$class = ( $active_tab === $tab ) ? 'nav-tab-active' : '';
-							echo sprintf( '<a class="nav-tab nav-tab-%s %s" href="%s">%s</a>', $tab, $class, esc_attr( $this->tab_url( $tab ) ), $name );
+							echo sprintf( '<a class="nav-tab nav-tab-%s %s"  data-tab="%s" href="%s">%s</a>', $tab, $class, $tab, esc_attr( $this->tab_url( $tab ) ), $name );
 						}
 						?>
 					</h2>

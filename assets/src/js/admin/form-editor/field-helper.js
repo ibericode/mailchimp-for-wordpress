@@ -75,7 +75,7 @@ function view () {
           }
 
           return m('button', {
-            className: className,
+            className,
             type: 'button',
             onclick: (evt) => setActiveField(evt.target.value),
             value: field.name

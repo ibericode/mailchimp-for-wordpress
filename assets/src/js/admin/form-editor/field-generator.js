@@ -89,11 +89,11 @@ generators.checkbox = function (config) {
 
     return m('label', [
       m('input', {
-        name: name,
+        name,
         type: config.type,
         value: choice.value,
         checked: choice.selected,
-        required: required,
+        required,
         oncreate: setAttributes
       }),
       ' ',

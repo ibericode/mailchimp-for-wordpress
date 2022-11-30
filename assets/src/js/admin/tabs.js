@@ -1,27 +1,23 @@
-const URL = require('./url.js')
 const context = document.getElementById('mc4wp-admin')
 const tabElements = context.querySelectorAll('.mc4wp-tab')
 const tabNavElements = context.querySelectorAll('.nav-tab')
 const refererField = context.querySelector('input[name="_wp_http_referer"]')
-const tabs = []
+const tabs = [].map.call(tabElements, el => {
+  const id = el.id.split('-').pop()
+  const title = el.querySelector('h2:first-of-type').textContent
+  return {
+    id,
+    title,
+    element: el,
+    nav: context.querySelectorAll('.nav-tab-' + id),
+    open: open.bind(null, id)
+  }
+})
 
 if (!Element.prototype.matches) {
   Element.prototype.matches = Element.prototype.msMatchesSelector ||
     Element.prototype.webkitMatchesSelector
 }
-
-[].forEach.call(tabElements, t => {
-  const id = t.id.split('-').pop()
-  const title = t.querySelector('h2:first-of-type').textContent
-
-  tabs.push({
-    id: id,
-    title: title,
-    element: t,
-    nav: context.querySelectorAll('.nav-tab-' + id),
-    open: open.bind(null, id)
-  })
-})
 
 function get (id) {
   for (let i = 0; i < tabs.length; i++) {
@@ -52,7 +48,6 @@ function open (tab, updateState) {
   if (!tab) {
     return false
   }
-  updateState = updateState === undefined ? true : updateState;
 
   // hide all tabs
   [].forEach.call(tabElements, hideTab);
@@ -68,7 +63,9 @@ function open (tab, updateState) {
   tab.element.className += ' mc4wp-tab-active'
 
   // create new URL
-  const url = URL.setParameter(window.location.href, 'tab', tab.id)
+  const params = new URLSearchParams(window.location.search)
+  params.set('tab', tab.id)
+  const url = window.location.pathname + '?' + params.toString()
 
   // update hash
   if (history.pushState && updateState) {
@@ -78,7 +75,7 @@ function open (tab, updateState) {
   // update document title
   title(tab)
 
-  // update referer field
+  // update _wp_http_referer field
   refererField.value = url
 
   // if thickbox is open, close it.
@@ -86,7 +83,8 @@ function open (tab, updateState) {
     window.tb_remove()
   }
 
-  // refresh editor if open
+  // refresh form editor if open
+  // this fixes an issue with CodeMirror staying blank after switching to its tab
   if (window.mc4wp && window.mc4wp.forms && window.mc4wp.forms.editor) {
     window.mc4wp.forms.editor.refresh()
   }
@@ -102,10 +100,11 @@ function title (tab) {
 function switchTab (evt) {
   const link = evt.target
 
-  // get from data attribute
+  // get tab ID data attribute
   let tabId = link.getAttribute('data-tab')
 
-  // get from classname
+  // alternatively, get tab ID from classname
+  // TODO: Remove this once MailChimp Top Bar 1.5.6 has been out for at least 3 months
   if (!tabId) {
     const match = link.className.match(/nav-tab-(\w+)?/)
     if (match) {
@@ -113,15 +112,7 @@ function switchTab (evt) {
     }
   }
 
-  // get from href
-  if (!tabId) {
-    const urlParams = URL.parse(link.href)
-    if (!urlParams.tab) { return }
-    tabId = urlParams.tab
-  }
-
-  const opened = open(tabId)
-
+  const opened = open(tabId, true)
   if (opened) {
     evt.preventDefault()
     evt.returnValue = false
@@ -169,13 +160,10 @@ for (let i = 0; i < tabNavElements.length; i++) {
   tabNavElements[i].addEventListener('click', switchTab)
 }
 document.body.addEventListener('click', onDocumentClick)
-if (window.addEventListener && history.pushState) {
-  window.addEventListener('popstate', onPopState)
-}
-
+window.addEventListener('popstate', onPopState)
 init()
 
 module.exports = {
-  open: open,
-  get: get
+  open,
+  get
 }

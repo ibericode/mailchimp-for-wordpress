@@ -137,7 +137,7 @@ function registerListsFields (lists) {
   const url = ajaxurl + '?action=mc4wp_get_list_details&ids=' + lists.map(l => l.id).join(',')
 
   m.request({
-    url: url,
+    url,
     method: 'GET'
   }).then(lists => {
     reset()
@@ -175,7 +175,7 @@ function registerCustomFields (lists) {
     name: '_mc4wp_lists',
     type: 'checkbox',
     title: i18n.listChoice,
-    choices: choices,
+    choices,
     help: i18n.listChoiceDescription,
     acceptsMultipleValues: true
   }, true)
@@ -188,7 +188,7 @@ function registerCustomFields (lists) {
     name: '_mc4wp_action',
     type: 'radio',
     title: i18n.formAction,
-    choices: choices,
+    choices,
     value: 'subscribe',
     help: i18n.formActionDescription
   }, true)

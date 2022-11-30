@@ -4,13 +4,6 @@ const lists = window.mc4wp_vars.mailchimp.lists
 let selectedLists = []
 const listeners = {}
 
-// functions
-function getSelectedListsWhere (searchKey, searchValue) {
-  return selectedLists.filter(function (el) {
-    return el[searchKey] === searchValue
-  })
-}
-
 function getSelectedLists () {
   return selectedLists
 }
@@ -22,7 +15,7 @@ function updateSelectedLists () {
 
     // skip unchecked checkboxes
     if (typeof (input.checked) === 'boolean' && !input.checked) {
-      return
+      continue
     }
 
     if (typeof (lists[input.value]) === 'object') {
@@ -39,7 +32,7 @@ function toggleVisibleLists () {
   const rows = document.querySelectorAll('.lists--only-selected > *')
   for (let i = 0; i < rows.length; i++) {
     const listId = rows[i].getAttribute('data-list-id')
-    const isSelected = getSelectedListsWhere('id', listId).length > 0
+    const isSelected = selectedLists.filter(list => list.id === listId).length > 0
     rows[i].style.display = isSelected ? '' : 'none'
   }
 }
@@ -56,9 +49,9 @@ function on (event, func) {
   listeners[event].push(func)
 }
 
-[].forEach.call(listInputs, el => {
-  el.addEventListener('change', updateSelectedLists)
-})
+const listsWrapperEl = document.getElementById('mc4wp-lists')
+if (listsWrapperEl) listsWrapperEl.addEventListener('change', updateSelectedLists)
+
 updateSelectedLists()
 
 module.exports = {
