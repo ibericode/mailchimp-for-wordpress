@@ -34,19 +34,7 @@ function FieldChoice (data) {
 }
 
 function createChoices (data) {
-  let choices
-  if (typeof (data.map) === 'function') {
-    choices = data.map(function (choiceLabel) {
-      return new FieldChoice({ label: choiceLabel })
-    })
-  } else {
-    choices = Object.keys(data).map(function (key) {
-      const choiceLabel = data[key]
-      return new FieldChoice({ label: choiceLabel, value: key })
-    })
-  }
-
-  return choices
+  return Object.keys(data).map((key) => new FieldChoice({ label: data[key], value: key }))
 }
 
 function register (category, data) {
