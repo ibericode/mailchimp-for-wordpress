@@ -2,7 +2,8 @@ const context = document.getElementById('mc4wp-admin')
 const listInputs = context.querySelectorAll('.mc4wp-list-input')
 const lists = window.mc4wp_vars.mailchimp.lists
 let selectedLists = []
-const listeners = {}
+const EventEmitter = require('../events.js')
+const events = new EventEmitter()
 
 function getSelectedLists () {
   return selectedLists
@@ -24,7 +25,7 @@ function updateSelectedLists () {
   }
 
   toggleVisibleLists()
-  emit('selectedLists.change', [selectedLists])
+  events.emit('selectedLists.change', [selectedLists])
   return selectedLists
 }
 
@@ -37,18 +38,6 @@ function toggleVisibleLists () {
   }
 }
 
-function emit (event, args) {
-  listeners[event] = listeners[event] || []
-  for (let i = 0; i < listeners[event].length; i++) {
-    listeners[event][i].apply(null, args)
-  }
-}
-
-function on (event, func) {
-  listeners[event] = listeners[event] || []
-  listeners[event].push(func)
-}
-
 const listsWrapperEl = document.getElementById('mc4wp-lists')
 if (listsWrapperEl) listsWrapperEl.addEventListener('change', updateSelectedLists)
 
@@ -56,5 +45,5 @@ updateSelectedLists()
 
 module.exports = {
   getSelectedLists,
-  on
+  on: events.on.bind(events)
 }

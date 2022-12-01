@@ -208,5 +208,6 @@ function registerCustomFields (lists) {
  * Init
  */
 settings.on('selectedLists.change', registerListsFields)
+
 registerListsFields(settings.getSelectedLists())
 registerCustomFields(mailchimp.lists)

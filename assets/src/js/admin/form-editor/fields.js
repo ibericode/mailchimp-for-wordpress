@@ -1,5 +1,6 @@
+const EventEmitter = require('../../events.js')
+const events = new EventEmitter()
 const fields = {}
-const listeners = {}
 
 function Field (data) {
   return {
@@ -71,18 +72,8 @@ function register (category, data) {
   fields[data.name] = field
 
   // trigger event
-  emit('change')
+  events.emit('change')
   return field
-}
-
-function emit (event, args) {
-  listeners[event] = listeners[event] || []
-  listeners[event].forEach(f => f.apply(null, args))
-}
-
-function on (event, func) {
-  listeners[event] = listeners[event] || []
-  listeners[event].push(func)
 }
 
 function deregister (field) {
@@ -102,5 +93,5 @@ module.exports = {
   getAll,
   deregister,
   register,
-  on
+  on: events.on.bind(events)
 }

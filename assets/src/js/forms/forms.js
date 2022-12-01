@@ -1,23 +1,7 @@
 const Form = require('./form.js')
 const forms = []
-const listeners = {}
-
-function emit (event, args) {
-  listeners[event] = listeners[event] || []
-  for (let i = 0; i < listeners[event].length; i++) {
-    listeners[event][i].apply(null, args)
-  }
-}
-
-function on (event, func) {
-  listeners[event] = listeners[event] || []
-  listeners[event].push(func)
-}
-
-function off (event, func) {
-  listeners[event] = listeners[event] || []
-  listeners[event] = listeners[event].filter(f => f !== func)
-}
+const EventEmitter = require('./../events.js')
+const events = new EventEmitter()
 
 // get form by its id
 // please note that this will get the FIRST occurence of the form with that ID on the page
@@ -60,13 +44,13 @@ function createFromElement (formElement, id) {
 function trigger (eventName, eventArgs) {
   if (eventName === 'submit' || eventName.indexOf('.submit') > 0) {
     // don't spin up new thread for submit event as we want to preventDefault()...
-    emit(eventName, eventArgs)
+    events.emit(eventName, eventArgs)
   } else {
     // process in separate thread to prevent errors from breaking core functionality
     window.setTimeout(function () {
-      emit(eventName, eventArgs)
+      events.emit(eventName, eventArgs)
     }, 10)
   }
 }
 
-module.exports = { get, getByElement, on, off, trigger }
+module.exports = { get, getByElement, on: events.on.bind(events), trigger }
