@@ -2,11 +2,6 @@ import scrollToElement from './misc/scroll-to-element.js'
 const submittedForm = window.mc4wp_submitted_form
 const forms = window.mc4wp.forms
 
-function trigger (event, args) {
-  forms.trigger(args[0].id + '.' + event, args)
-  forms.trigger(event, args)
-}
-
 function handleFormRequest (form, eventName, errors, data) {
   const timeStart = Date.now()
   const pageHeight = document.body.clientHeight
@@ -23,20 +18,20 @@ function handleFormRequest (form, eventName, errors, data) {
 
   // trigger events on window.load so all other scripts have loaded
   window.addEventListener('load', function () {
-    trigger('submitted', [form])
+    forms.trigger('submitted', [form])
 
     if (errors) {
-      trigger('error', [form, errors])
+      forms.trigger('error', [form, errors])
     } else {
       // form was successfully submitted
-      trigger('success', [form, data])
+      forms.trigger('success', [form, data])
 
       // subscribed / unsubscribed
-      trigger(eventName, [form, data])
+      forms.trigger(eventName, [form, data])
 
       // for BC: always trigger "subscribed" event when firing "updated_subscriber" event
       if (eventName === 'updated_subscriber') {
-        trigger('subscribed', [form, data, true])
+        forms.trigger('subscribed', [form, data, true])
       }
     }
 

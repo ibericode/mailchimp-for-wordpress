@@ -2,12 +2,12 @@ const mc4wp = window.mc4wp || {}
 const forms = require('./forms/forms.js')
 require('./forms/conditional-elements.js')
 
-function trigger (event, args) {
-  forms.trigger(args[0].id + '.' + event, args)
-  forms.trigger(event, args)
-}
-
-// binds event to document but only fire if event was triggered inside a .mc4wp-form element
+/**
+ * Binds event to document but only fires if event was triggered inside a .mc4wp-form element
+ * @param {string} evtName
+ * @param {function} cb
+ * @private
+ */
 function bind (evtName, cb) {
   document.addEventListener(evtName, evt => {
     if (!evt.target) {
@@ -22,6 +22,11 @@ function bind (evtName, cb) {
   }, true)
 }
 
+/**
+ * Handles 'submit' events for any .mc4wp-form element
+ * @param {Event} evt
+ * @private
+ */
 function onSubmit (evt) {
   if (evt.defaultPrevented) {
     return
@@ -29,27 +34,39 @@ function onSubmit (evt) {
 
   const form = forms.getByElement(evt.target)
   if (!evt.defaultPrevented) {
-    forms.trigger(form.id + '.submit', [form, evt])
-  }
-
-  if (!evt.defaultPrevented) {
     forms.trigger('submit', [form, evt])
   }
 }
 
+/**
+ * Handles 'focus' events for any relevant element inside a .mc4wp-form
+ * @param {Event} evt
+ * @private
+ */
 function onFocus (evt) {
   const form = forms.getByElement(evt.target)
   if (!form.started) {
-    trigger('started', [form, evt])
+    forms.trigger('started', [form, evt])
     form.started = true
   }
 }
 
+/**
+ * Handles 'change' events for any relevant element inside a .mc4wp-form
+ * @param {Event} evt
+ * @private
+ */
 function onChange (evt) {
   const form = forms.getByElement(evt.target)
-  trigger('change', [form, evt])
+  forms.trigger('change', [form, evt])
 }
 
+/**
+ * Copies over listeners which were added before this script was loaded
+ * These are stored in a temporary variable called `mc4wp.listeners` which we print very early on in wp_head().
+ * @param {object} lstnr
+ * @private
+ */
 function registerListener (lstnr) {
   forms.on(lstnr.event, lstnr.callback)
 }
