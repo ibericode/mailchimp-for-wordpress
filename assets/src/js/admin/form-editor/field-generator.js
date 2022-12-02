@@ -146,8 +146,8 @@ generators.default = function (config) {
 /**
  * Generates an HTML string based on a field (config) object
  *
- * @param config
- * @returns {*}
+ * @param {object} config
+ * @returns {string}
  */
 function generate (config) {
   const labelAtts = {}

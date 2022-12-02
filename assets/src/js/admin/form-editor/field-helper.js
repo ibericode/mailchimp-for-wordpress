@@ -7,7 +7,7 @@ const Overlay = require('../overlay.js')
 const forms = require('./field-forms.js')
 let fieldConfig
 
-editor.on('blur', m.redraw)
+editor.on('blur', () => m.redraw())
 
 /**
  * Choose a field to open the helper form for

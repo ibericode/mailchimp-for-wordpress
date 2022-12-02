@@ -72,7 +72,7 @@ function register (category, data) {
   fields[data.name] = field
 
   // trigger event
-  events.emit('change')
+  events.emit('change', [])
   return field
 }
 

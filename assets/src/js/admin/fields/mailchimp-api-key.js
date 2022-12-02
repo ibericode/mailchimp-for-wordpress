@@ -1,4 +1,4 @@
-function validate (evt) {
+function validate () {
   const node = document.createElement('p')
   node.className = 'help red'
   node.innerText = window.mc4wp_vars.i18n.invalid_api_key

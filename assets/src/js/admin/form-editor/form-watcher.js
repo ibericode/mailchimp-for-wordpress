@@ -1,5 +1,4 @@
 const m = require('mithril')
-const helpers = require('../helpers.js')
 const editor = require('./form-editor.js')
 const fields = require('./fields.js')
 
@@ -74,7 +73,18 @@ function findRequiredFields () {
   // update meta
   requiredFieldsInput.value = requiredFields.join(',')
 }
+/**
+ * @param {function} callback
+ * @param {int} delay in ms
+ */
+function debounce (callback, delay) {
+  let timeout
+  return () => {
+    if (timeout) clearTimeout(timeout)
+    timeout = window.setTimeout(callback, delay)
+  }
+}
 
 // events
-editor.on('change', helpers.debounce(updateFields, 600))
-fields.on('change', helpers.debounce(updateFields, 600))
+editor.on('change', debounce(updateFields, 500))
+fields.on('change', debounce(updateFields, 100))
