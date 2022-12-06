@@ -1,6 +1,11 @@
 Changelog
 =========
 
+#### 4.8.12 - Dec 06, 2022
+
+- Minor performance, memory usage & size optimizations for all JavaScript code bundled with this plugin.
+
+
 #### 4.8.11 - Nov 1, 2022
 
 - Improved default styling for the WooCommerce sign-up checkbox integration.
