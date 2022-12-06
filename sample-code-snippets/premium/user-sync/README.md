@@ -1,0 +1,1 @@
+The code snippets in this directory are related to User Sync, a [premium feature](https://mc4wp.com/premium-features/) in our Mailchimp for WordPress plugin.

@@ -1,0 +1,1 @@
+### Misc snippets for MailChimp for WordPress

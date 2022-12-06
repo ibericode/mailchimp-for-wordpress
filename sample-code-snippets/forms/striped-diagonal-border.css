@@ -1,0 +1,35 @@
+/**
+Adds a striped diagonal border to all forms, alternating between red, blue & white-ish.
+*/
+
+.mc4wp-form {
+	text-align: center;
+	background: #FFF2D8;
+	max-width: 520px;
+}
+
+.mc4wp-form-fields {
+	padding: 0 20px;
+}
+
+.mc4wp-form input {
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
+.mc4wp-form:before,
+.mc4wp-form:after {
+	content: "";
+	display: block;
+	height: 20px;
+	background-color: #FFF2D8;
+	background-image: repeating-linear-gradient(135deg, #6495ED, #6495ED 20px, #FFF2D8 20px, #FFF2D8 40px, #CD5C5C 40px, #CD5C5C 60px, #FFF2D8 60px, #FFF2D8 80px);
+}
+
+.mc4wp-form:before {
+	margin-bottom: 20px;
+}
+.mc4wp-form:after {
+	margin-top: 20px;
+}
+

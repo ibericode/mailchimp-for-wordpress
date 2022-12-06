@@ -1,0 +1,26 @@
+<script>
+	// "success" fires for all successful form submission events: subscribed, updated_subscriber, unsubscribed
+	mc4wp.forms.on('success', function(form, data) {
+		// your code goes here
+		console.log("Form successfully submitted.")
+		console.log("Form name: " + form.name);
+		console.log("Email field: " + data.EMAIL);
+	});
+
+	// "subscribed" fires for subscribe-type events: subscribed, updated_subscriber
+	mc4wp.forms.on('subscribed', function(form, data, subscriberWasUpdated) {
+		// your code goes here
+		console.log("New or updated subscriber.")
+		console.log("Form name: ", form.name);
+		console.log("Email field: ", data.EMAIL);
+		console.log("Subscriber was already on list: ", subscriberWasUpdated)
+	});
+
+	// "updated_subscriber" fires for updated subscribers
+	mc4wp.forms.on('updated_subscriber', function(form, data) {
+		// your code goes here
+		console.log("Subscriber updated.")
+		console.log("Form name: ", form.name);
+		console.log("Email field: ", data.EMAIL);
+	});
+</script>

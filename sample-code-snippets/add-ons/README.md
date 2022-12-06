@@ -1,0 +1,1 @@
+### Snippets specific to [add-on plugins for MailChimp for WordPress](https://mc4wp.com/add-ons/)

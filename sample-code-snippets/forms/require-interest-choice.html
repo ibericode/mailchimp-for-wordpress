@@ -1,0 +1,22 @@
+<!-- see https://www.mc4wp.com/kb/interest-groupings-required-field/ -->
+
+<p>
+    <label>Checkbox Groups</label>
+    <label>
+        <input name="INTERESTS[c503c0f57d][]" type="checkbox" value="0f8a0ed3bd"> <span>Group 1</span><br />
+    </label>
+    <label>
+        <input name="INTERESTS[c503c0f57d][]" type="checkbox" value="9446882237" checked> <span>Group 2</span><br />
+    </label>
+    <label>
+        <input name="INTERESTS[c503c0f57d][]" type="checkbox" value="c12429b8e8"> <span>Group 3</span><br />
+    </label>
+</p>
+
+<script>
+  jQuery('.mc4wp-form').on('change', function(evt) {
+    let checkboxFields = jQuery(this).find('[name^="INTERESTS"]');
+    let checkedCount = checkboxFields.filter(':checked').length;
+    checkboxFields.prop('required', checkedCount == 0);
+  });
+</script>
