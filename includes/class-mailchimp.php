@@ -48,7 +48,6 @@ class MC4WP_MailChimp {
 		// first, check if subscriber is already on the given list
 		try {
 			$existing_member_data = $api->get_list_member( $list_id, $email_address );
-
 			if ( $existing_member_data->status === 'subscribed' ) {
 
 				// if we're not supposed to update, bail.
@@ -310,6 +309,42 @@ class MC4WP_MailChimp {
 
 		set_transient( $transient_key, $interest_categories, HOUR_IN_SECONDS * 24 );
 		return $interest_categories;
+	}
+
+	/**
+	 * Gets marketing permissions from a Mailchimp list.
+	 * The list needs to have at least 1 member for this to work.
+	 *
+	 * @param string $list_id
+	 * @return array
+	 * @throws Exception
+	 */
+	public function get_list_marketing_permissions( $list_id ) {
+		$transient_key = sprintf( 'mc4wp_list_%s_mp', $list_id );
+		$cached        = get_transient( $transient_key );
+		if ( is_array( $cached ) ) {
+			return $cached;
+		}
+
+		$api = $this->get_api();
+		$data = $api->get_list_members( $list_id, array(
+				'fields' => array( 'members.marketing_permissions' ),
+				'count' => 1
+			)
+		);
+
+		$marketing_permissions = array();
+		if (count($data->members) > 0 && $data->members[0]->marketing_permissions) {
+			foreach($data->members[0]->marketing_permissions as $mp) {
+				$marketing_permissions[] = (object) array(
+					'marketing_permission_id' => $mp->marketing_permission_id,
+					'text'=> $mp->text,
+				);
+			}
+		}
+
+		set_transient( $transient_key, $marketing_permissions, HOUR_IN_SECONDS * 24 );
+		return $marketing_permissions;
 	}
 
 	/**

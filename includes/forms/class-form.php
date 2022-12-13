@@ -547,7 +547,7 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * Get Mailchimp lists this form subscribes to
+	 * Get ID's of Mailchimp lists this form subscribes to
 	 *
 	 * @return array
 	 */

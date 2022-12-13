@@ -8,8 +8,6 @@
 * @ignore
 */
 class MC4WP_List_Data_Mapper {
-
-
 	/**
 	* @var array
 	*/

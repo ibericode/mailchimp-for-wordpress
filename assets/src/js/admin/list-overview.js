@@ -97,7 +97,25 @@ function view (data) {
                 ])
               ))
             ])
+          ])
+        )))
+      ])
+    ],
 
+    data.marketing_permissions.length > 0 && [
+      m('h3', 'Marketing Permissions'),
+
+      m('table.striped.widefat', [
+        m('thead', [
+          m('tr', [
+            m('th', 'ID'),
+            m('th', 'Name')
+          ])
+        ]),
+        m('tbody', data.marketing_permissions.map(mp => (
+          m('tr', [
+            m('td', m('code', mp.marketing_permission_id)),
+            m('td', mp.text)
           ])
         )))
       ])

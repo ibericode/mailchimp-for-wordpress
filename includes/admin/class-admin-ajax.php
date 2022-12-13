@@ -54,12 +54,11 @@ class MC4WP_Admin_Ajax {
 		$data      = array();
 		$mailchimp = new MC4WP_MailChimp();
 		foreach ( $list_ids as $list_id ) {
-			$merge_fields        = $mailchimp->get_list_merge_fields( $list_id );
-			$interest_categories = $mailchimp->get_list_interest_categories( $list_id );
 			$data[]              = (object) array(
 				'id'                  => $list_id,
-				'merge_fields'        => $merge_fields,
-				'interest_categories' => $interest_categories,
+				'merge_fields'        => $mailchimp->get_list_merge_fields( $list_id ),
+				'interest_categories' => $mailchimp->get_list_interest_categories( $list_id ),
+				'marketing_permissions' => $mailchimp->get_list_marketing_permissions( $list_id ),
 			);
 		}
 		wp_send_json( $data );
