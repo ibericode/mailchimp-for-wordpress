@@ -183,6 +183,17 @@ class MC4WP_Form_Listener {
 			$form->last_event = 'subscribed';
 			$form->add_notice( $form->messages['subscribed'], 'success' );
 			$log->info( sprintf( 'Form %d > Successfully subscribed %s', $form->ID, $data['EMAIL'] ) );
+
+			/**
+			 * Fires right after a form was used to add a new subscriber.
+			 *
+			 * @since 4.8.13
+			 *
+			 * @param MC4WP_Form $form Instance of the submitted form
+			 * @param string $email
+			 * @param array $data
+			 */
+			do_action( 'mc4wp_form_added_subscriber', $form, $subscriber->email_address, $data );
 		}
 
 		/**
