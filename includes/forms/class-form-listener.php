@@ -114,8 +114,9 @@ class MC4WP_Form_Listener {
 			 * Filters subscriber data before it is sent to Mailchimp. Fires for both form & integration requests.
 			 *
 			 * @param MC4WP_MailChimp_Subscriber $subscriber
+			 * @param string $list_id ID of the Mailchimp list this subscriber will be added/updated in
 			 */
-			$subscriber = apply_filters( 'mc4wp_subscriber_data', $subscriber );
+			$subscriber = apply_filters( 'mc4wp_subscriber_data', $subscriber, $list_id );
 			if ( ! $subscriber instanceof MC4WP_MailChimp_Subscriber ) {
 				continue;
 			}
@@ -124,8 +125,9 @@ class MC4WP_Form_Listener {
 			 * Filters subscriber data before it is sent to Mailchimp. Only fires for form requests.
 			 *
 			 * @param MC4WP_MailChimp_Subscriber $subscriber
+			 * @param string $list_id ID of the Mailchimp list this subscriber will be added/updated in
 			 */
-			$subscriber = apply_filters( 'mc4wp_form_subscriber_data', $subscriber );
+			$subscriber = apply_filters( 'mc4wp_form_subscriber_data', $subscriber, $list_id );
 			if ( ! $subscriber instanceof MC4WP_MailChimp_Subscriber ) {
 				continue;
 			}
