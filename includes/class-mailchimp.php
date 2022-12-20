@@ -1,12 +1,7 @@
 <?php
 
 /**
- * Internal class for dealing with common API requests.
- * Please don't use directly as this code can be subject to backwards incompatible changes.
- *
- * @access private
- * @ignore
- * @internal
+ * Helper class for dealing with common API requests.
  */
 class MC4WP_MailChimp {
 

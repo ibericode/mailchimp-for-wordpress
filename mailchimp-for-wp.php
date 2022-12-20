@@ -107,7 +107,7 @@ function _mc4wp_load_plugin() {
 
 function _mc4wp_on_plugin_activation() {
 	// schedule the action hook to refresh the stored Mailchimp lists on a daily basis
-	$time_string = sprintf( 'tomorrow %d:%d%d am', rand( 0, 7 ), rand( 0, 5 ), rand( 0, 9 ) );
+	$time_string = sprintf( 'tomorrow %d:%d am', rand( 0, 7 ), rand( 0, 59 ) );
 	wp_schedule_event( strtotime( $time_string ), 'daily', 'mc4wp_refresh_mailchimp_lists' );
 }
 

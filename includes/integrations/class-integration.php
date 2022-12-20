@@ -156,7 +156,7 @@ abstract class MC4WP_Integration {
 		// replace selector by integration specific selector so the css affects just this checkbox
 		$css = str_ireplace( '__INTEGRATION_SLUG__', $this->slug, $css );
 
-		printf( '<style type="text/css">%s</style>', $css );
+		printf( '<style>%s</style>', $css );
 	}
 
 	/**
@@ -496,7 +496,7 @@ abstract class MC4WP_Integration {
 		 */
 		do_action( 'mc4wp_integration_subscribed', $integration, $subscriber->email_address, $subscriber->merge_fields, $map, $related_object_id );
 
-		return $result;
+		return true;
 	}
 
 	/**
@@ -554,8 +554,7 @@ abstract class MC4WP_Integration {
 	 * @return array
 	 */
 	public function get_data() {
-		$data = array_merge( (array) $_GET, (array) $_POST );
-		return $data;
+		return array_merge( (array) $_GET, (array) $_POST );
 	}
 
 	/**

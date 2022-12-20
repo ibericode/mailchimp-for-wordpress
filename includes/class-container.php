@@ -20,7 +20,7 @@ class MC4WP_Container implements ArrayAccess {
 	protected $resolved_services = array();
 
 	/**
-	 * @param $name
+	 * @param string $name
 	 * @return boolean
 	 */
 	public function has( $name ) {
@@ -28,7 +28,7 @@ class MC4WP_Container implements ArrayAccess {
 	}
 
 	/**
-	 * @param $name
+	 * @param string $name
 	 *
 	 * @return mixed
 	 * @throws Exception

@@ -52,7 +52,7 @@ class MC4WP_Integration_Admin {
 	 *
 	 * @return void
 	 */
-	public function enqueue_assets( $suffix, $page = '' ) {
+	public function enqueue_assets( $suffix, $page ) {
 		// only load on integrations pages
 		if ( $page !== 'integrations' ) {
 			return;

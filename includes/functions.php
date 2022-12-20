@@ -86,8 +86,7 @@ function mc4wp_get_api_key() {
  */
 function mc4wp_get_api_v3() {
 	$api_key  = mc4wp_get_api_key();
-	$instance = new MC4WP_API_V3( $api_key );
-	return $instance;
+	return new MC4WP_API_V3( $api_key );
 }
 
 /**
@@ -104,8 +103,7 @@ function mc4wp_get_api_v3() {
 function mc4wp_get_api() {
 	_deprecated_function( __FUNCTION__, '4.0', 'mc4wp_get_api_v3' );
 	$api_key  = mc4wp_get_api_key();
-	$instance = new MC4WP_API( $api_key );
-	return $instance;
+	return new MC4WP_API( $api_key );
 }
 
 /**
@@ -365,7 +363,7 @@ function _mc4wp_update_groupings_data( $data = array() ) {
  *
  * @return array
  */
-function mc4wp_add_name_data( $data = array() ) {
+function mc4wp_add_name_data( $data ) {
 
 	// Guess first and last name
 	if ( ! empty( $data['NAME'] ) && empty( $data['FNAME'] ) && empty( $data['LNAME'] ) ) {

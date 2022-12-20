@@ -89,7 +89,7 @@ class MC4WP_Google_Recaptcha {
 						})
 				}
 
-				for(var i=0; i<formIds.length; i++) {
+				for(var i=0; i < formIds.length; i++) {
 					mc4wp.forms.on(formIds[i]+'.submit', addGoogleReCaptchaTokenToForm)
 				}
 			})();
