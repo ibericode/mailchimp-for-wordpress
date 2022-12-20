@@ -89,16 +89,6 @@ class FunctionsTest extends TestCase
     }
 
     /**
-     * @covers mc4wp_guess_merge_vars
-     */
-    public function test_mc4wp_guess_merge_vars()
-    {
-        foreach ($this->tests as $test) {
-            self::assertEquals(mc4wp_guess_merge_vars($test['input']), $test['output']);
-        }
-    }
-
-    /**
      * @covers mc4wp_array_get
      */
     public function test_mc4wp_array_get()

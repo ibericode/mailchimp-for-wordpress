@@ -90,23 +90,6 @@ function mc4wp_get_api_v3() {
 }
 
 /**
- * Gets the Mailchimp for WP API class and injects it with the API key
- *
- * @deprecated 4.0
- * @use mc4wp_get_api_v3
- *
- * @since 1.0
- * @access public
- *
- * @return MC4WP_API
- */
-function mc4wp_get_api() {
-	_deprecated_function( __FUNCTION__, '4.0', 'mc4wp_get_api_v3' );
-	$api_key  = mc4wp_get_api_key();
-	return new MC4WP_API( $api_key );
-}
-
-/**
  * Creates a new instance of the Debug Log
  *
  * @return MC4WP_Debug_Log

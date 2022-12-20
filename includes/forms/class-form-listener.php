@@ -85,18 +85,6 @@ class MC4WP_Form_Listener {
 		/** @var MC4WP_MailChimp_Subscriber $subscriber */
 		$subscriber = null;
 
-		/**
-		 * @ignore
-		 * @deprecated 4.0
-		 */
-		$data = apply_filters( 'mc4wp_merge_vars', $data );
-
-		/**
-		 * @ignore
-		 * @deprecated 4.0
-		 */
-		$data = (array) apply_filters( 'mc4wp_form_merge_vars', $data, $form );
-
 		// create a map of all lists with list-specific data
 		$mapper = new MC4WP_List_Data_Mapper( $data, $form->get_lists() );
 

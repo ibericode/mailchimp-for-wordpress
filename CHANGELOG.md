@@ -1,6 +1,18 @@
 Changelog
 =========
 
+#### Trunk (not yet released)
+
+- Removed deprecated filter hook `mc4wp_settings_cap`, use `mc4wp_admin_required_capability` instead.
+- Removed deprecated filter hook `mc4wp_merge_vars`, use `mc4wp_form_data` or `mc4wp_integration_data` instead.
+- Removed deprecated filter hook `mc4wp_form_merge_vars`, use `mc4wp_form_data` instead.
+- Removed deprecated filter hook `mc4wp_integration_merge_vars`, use `mc4wp_integration_data` instead.
+- Removed deprecated filter hook `mc4wp_valid_form_request`, use `mc4wp_form_errors` instead.
+- Removed deprecated function `mc4wp_get_api()` and deprecated class `MC4WP_API`.
+- Removed deprecated function `mc4wp_checkbox()`, use `mc4wp_get_integration( 'wp-comment-form' )->output_checkbox();` instead.
+- Removed deprecated function `mc4wp_form()`, use `mc4wp_show_form()` instead.
+
+
 #### 4.8.12 - Dec 06, 2022
 
 - Minor performance, memory usage & size optimizations for all JavaScript code bundled with this plugin.

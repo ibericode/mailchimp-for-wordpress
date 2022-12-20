@@ -97,11 +97,6 @@ abstract class MC4WP_Integration {
 		$options         = array_merge( $default_options, $options );
 
 		/**
-		 * @deprecated Use mc4wp_integration_{$slug}_options instead
-		 */
-		$options = (array) apply_filters( 'mc4wp_' . $slug . '_integration_options', $options );
-
-		/**
 		 * Filters options for a specific integration
 		 *
 		 * The dynamic portion of the hook, `$slug`, refers to the slug of the ingration.
@@ -404,24 +399,6 @@ abstract class MC4WP_Integration {
 		 * @param int $related_object_id
 		 */
 		$data = apply_filters( "mc4wp_integration_{$slug}_data", $data, $related_object_id );
-
-		/**
-		 * @ignore
-		 * @deprecated 4.0
-		 */
-		$data = apply_filters( 'mc4wp_merge_vars', $data );
-
-		/**
-		 * @deprecated 4.0
-		 * @ignore
-		 */
-		$data = apply_filters( 'mc4wp_integration_merge_vars', $data, $integration );
-
-		/**
-		 * @deprecated 4.0
-		 * @ignore
-		 */
-		$data = apply_filters( "mc4wp_integration_{$slug}_merge_vars", $data, $integration );
 
 		$email_type = mc4wp_get_email_type();
 

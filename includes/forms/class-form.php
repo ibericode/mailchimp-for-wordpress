@@ -413,15 +413,6 @@ class MC4WP_Form {
 		 */
 		$errors = (array) apply_filters( 'mc4wp_form_errors', $errors, $form );
 
-		/**
-		 * @ignore
-		 * @deprecated 3.0 Use `mc4wp_form_errors` instead
-		 */
-		$form_validity = apply_filters( 'mc4wp_valid_form_request', true, $this->data );
-		if ( is_string( $form_validity ) ) {
-			$errors[] = $form_validity;
-		}
-
 		// filter out all non-string values
 		$errors = array_filter( $errors, 'is_string' );
 
@@ -732,28 +723,6 @@ class MC4WP_Form {
 		}
 
 		return $message;
-	}
-
-	/**
-	 * Get HTML string for a message, including wrapper element.
-	 *
-	 * @deprecated 3.1
-	 *
-	 * @param string $key
-	 *
-	 * @return string
-	 */
-	public function get_message_html( $key ) {
-		_deprecated_function( __METHOD__, '3.2' );
-		return '';
-	}
-
-	/**
-	* Add a notice to this form
-	*/
-	public function add_message( $key ) {
-		_deprecated_function( __METHOD__, '3.3' );
-		$this->add_notice( $this->get_message( $key ) );
 	}
 
 	/**
