@@ -11,7 +11,7 @@ Changelog
 - Removed deprecated function `mc4wp_get_api()` and deprecated class `MC4WP_API`.
 - Removed deprecated function `mc4wp_checkbox()`.
 - Removed deprecated function `mc4wp_form()`, use `mc4wp_show_form()` instead.
-
+- Added filter `mc4wp_debug_log_message` to modify or disable messages that are written to the debug log.
 
 #### 4.8.12 - Dec 06, 2022
 

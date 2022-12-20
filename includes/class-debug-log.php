@@ -93,6 +93,17 @@ class MC4WP_Debug_Log {
 		$message = strip_tags( $message );
 		$message = trim( $message );
 
+		/**
+		 * Modifies the message that is written to the debug log.
+		 * Return an empty string to skip logging this message altogether.
+		 *
+		 * @param string $message
+		 */
+		$message = apply_filters( 'mc4wp_debug_log_message', $message );
+		if ( empty( $message ) ) {
+			return false;
+		}
+
 		// generate line
 		$level_name = self::get_level_name( $level );
 		$datetime   = gmdate( 'Y-m-d H:i:s', time() + ( get_option( 'gmt_offset', 0 ) * HOUR_IN_SECONDS ) );
