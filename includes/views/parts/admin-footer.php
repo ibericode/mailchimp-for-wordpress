@@ -21,7 +21,7 @@ function _mc4wp_admin_github_notice() {
 		return;
 	}
 
-	echo '<p class="description">Developer? Follow <a href="https://github.com/ibericode/mailchimp-for-wordpress">Mailchimp for WordPress on GitHub</a> or have a look at our repository of <a href="https://github.com/ibericode/mc4wp-snippets">sample code snippets</a>.</p>';
+	echo '<p class="description">Developer? Follow <a href="https://github.com/ibericode/mailchimp-for-wordpress">Mailchimp for WordPress on GitHub</a> or have a look at our repository of <a href="https://github.com/ibericode/mailchimp-for-wordpress/tree/master/sample-code-snippets">sample code snippets</a>.</p>';
 }
 
 /**

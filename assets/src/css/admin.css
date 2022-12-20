@@ -1,4 +1,7 @@
 /** GRID */
+#mc4wp-admin .main-content {
+	width: 100%;
+}
 .mc4wp-row {
 	display: flex;
 }
@@ -31,12 +34,6 @@
 	width: 100%;
 }
 
-
-@media( max-width: 1200px ) {
-	.mc4wp-col {
-
-	}
-}
 
 /* TABS */
 .mc4wp-tab {
@@ -183,24 +180,9 @@
 	width: 100%;
 }
 
-@media (min-width: 1260px) {
-	.mc4wp-form-markup-wrap {
-		display: flex;
-	}
-
-	.mc4wp-form-editor-wrap,
-	.mc4wp-form-preview-wrap {
-		width: 50%;
-		margin-top: 0;
-	}
-
-	#mc4wp-form-preview {
-		border-left: 0;
-	}
-}
-
 /** ADMIN SIDEBAR */
 .mc4wp-sidebar {
+	display: none;
 	border-left: 1px solid #DDD;
 }
 .mc4wp-sidebar h3,
@@ -348,6 +330,33 @@
 	margin-left: 3px;
 	margin-right: 3px;
 }
+
+
+@media (min-width: 1260px) {
+	/* unhide the sidebar */
+	.mc4wp-sidebar {
+		display: block;
+		width: 33.333%;
+	}
+	/* shrink main content to width specified by grid classes */
+	#mc4wp-admin .main-content {
+		width: 66.666%;
+	}
+	.mc4wp-form-markup-wrap {
+		display: flex;
+	}
+
+	.mc4wp-form-editor-wrap,
+	.mc4wp-form-preview-wrap {
+		width: 50%;
+		margin-top: 0;
+	}
+
+	#mc4wp-form-preview {
+		border-left: 0;
+	}
+}
+
 
 @-webkit-keyframes load8 {
 	0% {

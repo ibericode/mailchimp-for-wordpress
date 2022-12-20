@@ -101,7 +101,7 @@ function _mc4wp_integrations_table( $integrations ) {
 		<span class="current-crumb"><strong><?php echo esc_html__( 'Integrations', 'mailchimp-for-wp' ); ?></strong></span>
 	</p>
 
-	<div class="main-content mc4wp-row">
+	<div class="mc4wp-row">
 
 		<!-- Main Content -->
 		<div class="mc4wp-col mc4wp-col-4">
@@ -131,7 +131,7 @@ function _mc4wp_integrations_table( $integrations ) {
 		</div>
 
 		<!-- Sidebar -->
-		<div class="mc4wp-sidebar mc4wp-col mc4wp-col-2">
+		<div class="mc4wp-sidebar mc4wp-col">
 			<?php include MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-sidebar.php'; ?>
 		</div>
 

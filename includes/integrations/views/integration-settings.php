@@ -11,10 +11,10 @@
 		<span class="current-crumb"><strong><?php echo esc_html( $integration->name ); ?></strong></span>
 	</p>
 
-	<div class="main-content mc4wp-row">
+	<div class="mc4wp-row">
 
 		<!-- Main Content -->
-		<div class="main-content mc4wp-col mc4wp-col-4">
+		<div class="main-content mc4wp-col">
 
 			<h1 class="mc4wp-page-title">
 				<?php printf( esc_html__( '%s integration', 'mailchimp-for-wp' ), esc_html( $integration->name ) ); ?>
@@ -320,7 +320,7 @@
 		</div>
 
 		<!-- Sidebar -->
-		<div class="mc4wp-sidebar mc4wp-col mc4wp-col-2">
+		<div class="mc4wp-sidebar mc4wp-col">
 			<?php include MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-sidebar.php'; ?>
 		</div>
 

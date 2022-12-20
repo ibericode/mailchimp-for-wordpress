@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) or exit;
 	<div class="mc4wp-row">
 
 		<!-- Main Content -->
-		<div class="main-content mc4wp-col mc4wp-col-4">
+		<div class="main-content mc4wp-col">
 
 			<h1 class="mc4wp-page-title">
 				Mailchimp for WordPress: <?php echo esc_html__( 'API Settings', 'mailchimp-for-wp' ); ?>
@@ -94,7 +94,7 @@ defined( 'ABSPATH' ) or exit;
 		</div>
 
 		<!-- Sidebar -->
-		<div class="mc4wp-sidebar mc4wp-col mc4wp-col-2">
+		<div class="mc4wp-sidebar mc4wp-col">
 			<?php include __DIR__ . '/parts/admin-sidebar.php'; ?>
 		</div>
 

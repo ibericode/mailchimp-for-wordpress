@@ -48,7 +48,7 @@ class MC4WP_Admin_Ads {
 	 * Add text row to "Form > Appearance" tab.
 	 */
 	public function after_form_appearance_settings_rows() {
-		echo '<tr valign="top">';
+		echo '<tr>';
 		echo '<td colspan="2">';
 		echo '<p class="description">';
 		echo sprintf( __( 'Want to customize the style of your form? <a href="%s">Try our Styles Builder</a> & edit the look of your forms with just a few clicks.', 'mailchimp-for-wp' ), 'https://www.mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=form-settings-link' );
@@ -61,7 +61,7 @@ class MC4WP_Admin_Ads {
 	 * Add text row to "Form > Settings" tab.
 	 */
 	public function after_form_settings_rows() {
-		echo '<tr valign="top">';
+		echo '<tr>';
 		echo '<td colspan="2">';
 		echo '<p class="description">';
 
@@ -111,10 +111,22 @@ class MC4WP_Admin_Ads {
 	 * Add email opt-in form to sidebar
 	 */
 	public function admin_sidebar() {
+		echo '<style>.mc4wp-premium-box {
+  background: #fff8c5;
+  border: 1px solid #d4a72c66;
+  padding: 1em;
+}</style>';
 		echo '<div class="mc4wp-box">';
-		echo '<div style="border: 2px dashed #cc4444; padding: 20px; background: white;">';
+		echo '<div class="mc4wp-premium-box">';
 		echo '<h3>Mailchimp for WordPress Premium</h3>';
-		echo '<p>This plugin has a Premium add-on, unlocking several powerful features. <a href="https://www.mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=upgrade-box">Have a look at its benefits</a>!</p>';
+		echo '<p>';
+		echo 'You are currently using the free version of Mailchimp for WordPress. ';
+		echo 'Did you know there is a Premium add-on? ';
+		echo '</p>';
+		echo '<p>';
+		echo 'It adds several powerful features like multiple and improved forms, e-commerce integration and storing sign-up attempts in your local database.';
+		echo '</p>';
+		echo '<p><a href="https://www.mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=upgrade-box">Have a look at its benefits</a>!</p>';
 		echo '</div>';
 		echo '</div>';
 	}

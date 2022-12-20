@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: config/default-form-content.php:3, includes/class-mailchimp.php:251, includes/forms/class-admin.php:82
+#: config/default-form-content.php:3, includes/class-mailchimp.php:257, includes/forms/class-admin.php:82
 msgid "Email address"
 msgstr ""
 
@@ -205,11 +205,11 @@ msgstr ""
 msgid "Are you enjoying this plugin? The Premium add-on unlocks several powerful features. <a href=\"%s\">Find out about all benefits now</a>."
 msgstr ""
 
-#: includes/admin/class-ads.php:134
+#: includes/admin/class-ads.php:146
 msgid "Do you want to track all WooCommerce orders in Mailchimp so you can send emails based on the purchase activity of your subscribers?"
 msgstr ""
 
-#: includes/admin/class-ads.php:137
+#: includes/admin/class-ads.php:149
 msgid "<a href=\"%1$s\">Upgrade to Mailchimp for WordPress Premium</a> or <a href=\"%2$s\">read more about Mailchimp's E-Commerce features</a>."
 msgstr ""
 
