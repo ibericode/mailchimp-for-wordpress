@@ -591,3 +591,17 @@ function mc4wp_kses( $string ) {
 
 	return wp_kses( $string, $allowed );
 }
+
+/**
+ * Helper function for safely deprecating a changed filter hook.
+ *
+ * @param string $old_hook
+ * @param string $new_hook
+ *
+ * @return void
+ */
+function mc4wp_apply_deprecated_filters( $old_hook, $new_hook ) {
+	add_filter( $new_hook, function ( $value, $a = null, $b = null, $c = null ) use ( $new_hook, $old_hook ) {
+		return apply_filters_deprecated( $old_hook, array( $value, $a, $b, $c ), '4.9.0', $new_hook );
+	}, 10, 3 );
+}
