@@ -17,7 +17,7 @@ Mailchimp for WordPress, the #1 unofficial Mailchimp plugin.
 
 *Allowing your visitors to subscribe to your newsletter should be easy. With this plugin, it finally is.*
 
-This plugin helps you grow your Mailchimp lists and write better newsletters through various methods. You can create good looking opt-in forms or integrate with any existing form on your site, like your comment, contact or checkout form.
+This plugins helps you grow your email list in Mailchimp. You can use it to create good looking and accessible sign-up forms or integrate with any other existing form on your WordPress site, like your contact, comment or checkout form. 
 
 [youtube https://www.youtube.com/watch?v=fZCYPnFybqU]
 
@@ -28,48 +28,37 @@ This plugin helps you grow your Mailchimp lists and write better newsletters thr
 - Sign-up forms which are good looking, user-friendly and mobile optimized. You have complete control over the form fields and can send anything you like to Mailchimp.
 
 - Seamless integration with the following plugins:
-	- Default WordPress Comment Form
-	- Default WordPress Registration Form
-	- Contact Form 7
-	- WooCommerce
-	- Gravity Forms
-	- Ninja Forms 3
-	- WPForms
-	- BuddyPress
+    - Default WordPress Comment Form
+    - Default WordPress Registration Form
+    - Contact Form 7
+    - WooCommerce
+    - Gravity Forms
+    - Ninja Forms 3
+    - WPForms
+    - BuddyPress
     - MemberPress
-	- Events Manager
-	- Easy Digital Downloads
-	- Give
-	- UltimateMember
+    - Events Manager
+    - Easy Digital Downloads
+    - Give
+    - UltimateMember
+    - HTML Forms
+    - AffiliateWP
+
+- Is the plugin you want to integrate with not listed above? You can probably still use our [custom integration](https://www.mc4wp.com/kb/add-subscribe-checkbox-custom-form/) feature. Alternatively, the plugin comes with a PHP API to programmatically add a new subscriber to Mailchimp.
 
 - A multitude of available add-on plugins and integrations:
 	- [Mailchimp for WordPress Premium](https://www.mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=add-on-list)
 	- [Mailchimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/)
-	- [Mailchimp Activity](https://wordpress.org/plugins/mc4wp-activity/)
 	- [Boxzilla Pop-ups](https://wordpress.org/plugins/boxzilla/)
-	- [Google reCAPTCHA](https://www.google.com/recaptcha/)
 	- [WPBruiser anti-spam](https://wordpress.org/plugins/goodbye-captcha/)
 
-- Well documented. Our [knowledge base](https://www.mc4wp.com/kb/) is updated daily.
+- Well documented through our [knowledge base](https://www.mc4wp.com/kb/).
 
-- Developer friendly. For inspiration, check out our [repository of example code snippets](https://github.com/ibericode/mailchimp-for-wordpress/tree/master/sample-code-snippets).
-
-<blockquote>
-<h4>Become a Premium user</h4>
-<p>Mailchimp for WordPress has a Premium add-on which comes with several additional benefits.</p>
-<ul>
-<li>Multiple forms</li>
-<li>Advanced e-commerce integration for WooCommerce</li>
-<li>Email notifications</li>
-<li>An easy way to style your forms</li>
-<li>Detailed reports & statistics</li>
-</ul>
-<p><a href="https://www.mc4wp.com/features/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=after-features-link">View more Premium features</a></p>
-</blockquote>
+- Developer friendly. For some inspiration, check out our [repository of example code snippets](https://github.com/ibericode/mailchimp-for-wordpress/tree/master/sample-code-snippets).
 
 #### What is Mailchimp?
 
-Mailchimp is a newsletter service that allows you to send out email campaigns to a list of email subscribers. It is free for lists up to 2000 subscribers, which is why it is the newsletter-service of choice for thousands of businesses.
+Mailchimp is a newsletter service that allows you to send out email campaigns to a list of email subscribers. It is free for lists with up to 500 email subscribers, which is why it is the newsletter-service of choice for thousands of small businesses across the globe.
 
 This plugin allows you to tightly integrate your WordPress site with your Mailchimp account.
 
