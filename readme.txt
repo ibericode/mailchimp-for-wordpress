@@ -189,12 +189,14 @@ The plugin provides various filter & action hooks that allow you to modify or ex
 
 == Screenshots ==
 
-1. Create beautiful sign-up forms that blend in with your theme.
-2. Integrate with any other plugin out there.
-3. Add a highly converting top bar form to your site.
-4. Style your form with our Styles Builder (premium feature).
-5. Integrate your WooCommerce store with Mailchimp (premium feature).
-6. Dive into detailed sign-up statistics (premium feature).
+1. Example sign-up form in the TwentyTwenty theme.
+2. Example sign-up integration with a contact form. 
+3. Settings page to connect with your Mailchimp account.
+4. Overview of sign-up integrations.
+5. Overview of sign-up forms.
+6. Settings page to configure an integration.
+7. Page where you edit your sign-up forms.
+8. Page where you modify your form messages.
 
 == Changelog ==
 
