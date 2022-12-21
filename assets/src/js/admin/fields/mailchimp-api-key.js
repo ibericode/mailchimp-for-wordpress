@@ -1,6 +1,6 @@
 function validate () {
   const node = document.createElement('p')
-  node.className = 'help red'
+  node.className = 'mc4wp-red'
   node.innerText = window.mc4wp_vars.i18n.invalid_api_key
 
   if (field.nextElementSibling.innerText === node.innerText) {
