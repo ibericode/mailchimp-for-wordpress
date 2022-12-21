@@ -52,7 +52,7 @@ This plugin helps you grow your Mailchimp lists and write better newsletters thr
 
 - Well documented. Our [knowledge base](https://www.mc4wp.com/kb/) is updated daily.
 
-- Developer friendly. For inspiration, check out our [repository of example code snippets](https://github.com/ibericode/mc4wp-snippets).
+- Developer friendly. For inspiration, check out our [repository of example code snippets](https://github.com/ibericode/mailchimp-for-wordpress/tree/master/sample-code-snippets).
 
 <blockquote>
 <h4>Become a Premium user</h4>
