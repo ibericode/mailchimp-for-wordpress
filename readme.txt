@@ -95,11 +95,8 @@ If you can't find an answer there, please look through the [plugin support forum
 
 == Frequently Asked Questions ==
 
-#### More documentation
-More detailed documentation can be found in the [Mailchimp for WordPress knowledge base](https://www.mc4wp.com/kb/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=faq).
-
 #### How to display a form in posts or pages?
-Use the `[mc4wp_form]` shortcode.
+Use the `[mc4wp_form]` shortcode or the Gutenberg block.
 
 #### How to display a form in widget areas like the sidebar or footer?
 Go to **Appearance > Widgets** and use the **Mailchimp for WP Form** widget that comes with the plugin.
@@ -114,8 +111,11 @@ Use the following shortcode in your CF7 form to display a newsletter sign-up che
 [mc4wp_checkbox "Subscribe to our newsletter?"]
 `
 
+Our knowledge base has more information on [connecting Contact Form 7 and Mailchimp](https://www.mc4wp.com/kb/connecting-contact-form-7-and-mailchimp/).
+
+
 #### The form shows a success message but subscribers are not added to my list(s)?
-If the form shows a success message, there is no doubt that the sign-up request succeeded. Mailchimp could have a slight delay sending the confirmation email though, please just be patient and make sure to check your SPAM folder.
+If the form shows a success message, there is no doubt that the sign-up request succeeded. Mailchimp could have a slight delay sending the confirmation email though. Please check again in a few minutes (sometimes hours) and don't forget to check your junk folder too.
 
 When you have double opt-in disabled, new subscribers will be seen as *imports* by Mailchimp. They will not show up in your daily digest emails or statistics. [We always recommend leaving double opt-in enabled](http://blog.mailchimp.com/double-opt-in-vs-single-opt-in-stats/).
 
@@ -138,11 +138,24 @@ You can add your custom CSS to your theme stylesheet or (easier) by using a plug
 
 #### I'm getting an "HTTP Error" when trying to connect to Mailchimp
 
-If you're getting an `HTTP Error` after entering your API key, please contact your webhost and ask them if they have PHP CURL installed and updated to the latest version (7.58.x). Make sure requests to `https://api.mailchimp.com/` are allowed as well.
+the "HTTP Error" type is usually because of a firewall configuration issue or outdated software on your web server. 
+
+Please contact your webhost and ask them to check the following:
+
+- Whether remote HTTP requests to `https://api.mailchimp.com` are allowed.
+- Whether cURL and the PHP-cURL extension are installed and updated to a recent version.
 
 #### How do I show a sign-up form in a pop-up?
 
 We recommend the [Boxzilla pop-up plugin](https://wordpress.org/plugins/boxzilla/) for this. You can use the form shortcode in your pop-up box to show a sign-up form.
+
+### How do I subscribe from my WooCommerce checkout form?
+
+You can use our WooCommerce integration for that. [How to subscribe to Mailchimp from the WooCommerce checkout form](https://www.mc4wp.com/kb/connect-woocommerce-store-mailchimp/).
+
+### How to connect my WooCommerce store with Mailchimp?
+
+You can find instructions for [connecting your WooCommerce store with Mailchimp](https://www.mc4wp.com/kb/connect-woocommerce-store-mailchimp/) on our website.
 
 #### My question is not listed
 
