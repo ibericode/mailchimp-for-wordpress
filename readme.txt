@@ -44,6 +44,8 @@ This plugins helps you grow your email list in Mailchimp. You can use it to crea
 
 - Is the plugin you want to integrate with not listed above? You can probably still use our [custom integration](https://www.mc4wp.com/kb/add-subscribe-checkbox-custom-form/) feature. Alternatively, the plugin comes with a PHP API to programmatically add a new subscriber to Mailchimp.
 
+- Send your WooCommerce orders to Mailchimp so you can see exactly what each subscriber purchased and how much revenue your email campaigns are generating.
+
 - A multitude of available add-on plugins and integrations:
 	- [Mailchimp for WordPress Premium](https://www.mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=add-on-list)
 	- [Mailchimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/)
