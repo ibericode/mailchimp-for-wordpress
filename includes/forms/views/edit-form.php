@@ -56,12 +56,12 @@ $tabs = apply_filters( 'mc4wp_admin_edit_form_tabs', $tabs );
 			<div id="titlediv" class="mc4wp-margin-s">
 				<div id="titlewrap">
 					<label class="screen-reader-text"
-						   for="title"><?php echo esc_html__( 'Enter form title here', 'mailchimp-for-wp' ); ?></label>
+							for="title"><?php echo esc_html__( 'Enter form title here', 'mailchimp-for-wp' ); ?></label>
 					<input type="text" name="mc4wp_form[name]" size="30"
-						   value="<?php echo esc_attr( $form->name ); ?>" id="title" spellcheck="true"
-						   autocomplete="off"
-						   placeholder="<?php echo esc_html__( 'Enter the title of your sign-up form', 'mailchimp-for-wp' ); ?>"
-						   style="line-height: initial;">
+							value="<?php echo esc_attr( $form->name ); ?>" id="title" spellcheck="true"
+							autocomplete="off"
+							placeholder="<?php echo esc_html__( 'Enter the title of your sign-up form', 'mailchimp-for-wp' ); ?>"
+							style="line-height: initial;">
 				</div>
 				<div>
 					<?php echo sprintf( esc_html__( 'Use the shortcode %s to display this form inside a post, page or text widget.', 'mailchimp-for-wp' ), '<input type="text" onfocus="this.select();" readonly="readonly" value="' . esc_attr( sprintf( '[mc4wp_form id=%d]', $form->ID ) ) . '" size="' . ( strlen( $form->ID ) + 15 ) . '">' ); ?>
@@ -113,7 +113,7 @@ $tabs = apply_filters( 'mc4wp_admin_edit_form_tabs', $tabs );
 
 		</form><!-- Entire page form wrap -->
 
-		<?php include MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-footer.php'; ?>
+		<?php require MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-footer.php'; ?>
 
 	</div>
 </div>

@@ -3,7 +3,7 @@
 class MC4WP_Admin_Tools {
 
 
-	 /**
+	/**
 	 * @return string
 	 */
 	public function get_plugin_page() {

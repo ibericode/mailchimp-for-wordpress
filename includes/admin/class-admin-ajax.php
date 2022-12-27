@@ -54,7 +54,7 @@ class MC4WP_Admin_Ajax {
 		$data      = array();
 		$mailchimp = new MC4WP_MailChimp();
 		foreach ( $list_ids as $list_id ) {
-			$data[]              = (object) array(
+			$data[] = (object) array(
 				'id'                  => $list_id,
 				'merge_fields'        => $mailchimp->get_list_merge_fields( $list_id ),
 				'interest_categories' => $mailchimp->get_list_interest_categories( $list_id ),

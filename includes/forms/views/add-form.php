@@ -74,13 +74,13 @@
 			</div>
 
 
-			<?php include MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-footer.php'; ?>
+			<?php require MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-footer.php'; ?>
 
 		</div><!-- / Main content -->
 
 		<!-- Sidebar -->
 		<div class="mc4wp-sidebar mc4wp-col">
-			<?php include MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-sidebar.php'; ?>
+			<?php require MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-sidebar.php'; ?>
 		</div>
 
 

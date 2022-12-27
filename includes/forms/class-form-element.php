@@ -46,7 +46,7 @@ class MC4WP_Form_Element {
 		$this->config = $config;
 
 		$this->is_submitted = $this->form->is_submitted
-							  && $this->form->config['element_id'] === $this->ID;
+								&& $this->form->config['element_id'] === $this->ID;
 	}
 
 
@@ -307,10 +307,10 @@ class MC4WP_Form_Element {
 
 		// concatenate everything
 		$output = $opening_html .
-				  $before_fields .
-				  $fields .
-				  $after_fields .
-				  $closing_html;
+					$before_fields .
+					$fields .
+					$after_fields .
+					$closing_html;
 
 		return $output;
 	}

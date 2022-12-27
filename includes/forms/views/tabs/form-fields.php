@@ -41,9 +41,9 @@
 
 <?php // Content for Thickboxes ?>
 <div id="mc4wp-form-variables" style="display: none;">
-	<?php include __DIR__ . '/../parts/dynamic-content-tags.php'; ?>
+	<?php require __DIR__ . '/../parts/dynamic-content-tags.php'; ?>
 </div>
 
 <div id="mc4wp-add-field-help" style="display: none;">
-	<?php include __DIR__ . '/../parts/add-fields-help.php'; ?>
+	<?php require __DIR__ . '/../parts/add-fields-help.php'; ?>
 </div>

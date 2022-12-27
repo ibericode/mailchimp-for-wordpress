@@ -25,7 +25,7 @@ $GLOBALS['post'] = new \WP_Post( (object) array( 'filter' => 'raw' ) );
 			width: 100%;
 			max-width: 100%;
 			text-align: left;
-		 }
+		}
 
 		/* hide all other elements */
 		body::before,

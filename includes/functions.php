@@ -85,7 +85,7 @@ function mc4wp_get_api_key() {
  * @return MC4WP_API_V3
  */
 function mc4wp_get_api_v3() {
-	$api_key  = mc4wp_get_api_key();
+	$api_key = mc4wp_get_api_key();
 	return new MC4WP_API_V3( $api_key );
 }
 
@@ -202,9 +202,9 @@ function mc4wp_get_request_path() {
 function mc4wp_get_request_ip_address() {
 	if ( isset( $_SERVER['X-Forwarded-For'] ) ) {
 		$ip_address = $_SERVER['X-Forwarded-For'];
-	} else if ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+	} elseif ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
 		$ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
-	} else if ( isset( $_SERVER['REMOTE_ADDR'] ) ) {
+	} elseif ( isset( $_SERVER['REMOTE_ADDR'] ) ) {
 		return $_SERVER['REMOTE_ADDR'];
 	}
 
@@ -312,7 +312,7 @@ function _mc4wp_update_groupings_data( $data = array() ) {
 
 			// add to interests data
 			if ( ! in_array( $interest_id, $data['INTERESTS'], false ) ) {
-				$migrated++;
+				++$migrated;
 				$data['INTERESTS'][] = $interest_id;
 			}
 		}
@@ -543,7 +543,7 @@ function mc4wp_kses( $string ) {
 		)
 	);
 
-	$allowed         = array(
+	$allowed = array(
 		'p'        => $always_allowed_attr,
 		'label'    => array_merge( $always_allowed_attr, array( 'for' => true ) ),
 		'input'    => $input_allowed_attr,

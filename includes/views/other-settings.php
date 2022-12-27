@@ -187,12 +187,12 @@ add_action( 'mc4wp_admin_other_settings', '_mc4wp_usage_tracking_setting', 70 );
 				</script>
 			</div>
 			<!-- / Debug Log -->
-			<?php include __DIR__ . '/parts/admin-footer.php'; ?>
+			<?php require __DIR__ . '/parts/admin-footer.php'; ?>
 		</div>
 
 		<!-- Sidebar -->
 		<div class="mc4wp-sidebar mc4wp-col">
-			<?php include __DIR__ . '/parts/admin-sidebar.php'; ?>
+			<?php require __DIR__ . '/parts/admin-sidebar.php'; ?>
 		</div>
 
 

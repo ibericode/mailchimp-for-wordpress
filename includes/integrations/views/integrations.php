@@ -132,7 +132,7 @@ function _mc4wp_integrations_table( $integrations ) {
 
 		<!-- Sidebar -->
 		<div class="mc4wp-sidebar mc4wp-col">
-			<?php include MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-sidebar.php'; ?>
+			<?php require MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-sidebar.php'; ?>
 		</div>
 
 	</div>

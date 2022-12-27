@@ -53,7 +53,7 @@ class MC4WP_Debug_Log_Reader {
 		// get line count
 		while ( ! feof( $this->handle ) ) {
 			fgets( $this->handle );
-			$line_count++;
+			++$line_count;
 		}
 
 		// rewind to beginning
@@ -67,7 +67,7 @@ class MC4WP_Debug_Log_Reader {
 		// keep reading until we're at target
 		while ( $current < $target ) {
 			fgets( $this->handle );
-			$current++;
+			++$current;
 		}
 	}
 

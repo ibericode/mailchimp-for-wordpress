@@ -23,13 +23,13 @@
 	"require-dev": {
 		"phpunit/phpunit": "^9.0",
 		"brain/monkey": "^2.2",
-		"wp-coding-standards/wpcs": "^2.3",
-		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.1"
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+		"wp-coding-standards/wpcs": "dev-develop"
 	},
 	"scripts": {
 		"make-pot": "wp i18n make-pot . languages/mailchimp-for-wp.pot --exclude=assets/js",
-		"test": "php vendor/bin/phpunit tests/",
-		"codestyle": "php vendor/bin/phpcs -n -s"
+		"test": "phpunit tests/",
+		"codestyle": "phpcs -n -s"
 	},
 	"autoload": {
 		"classmap": [
@@ -48,5 +48,6 @@
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
-	}
+	},
+	"minimum-stability": "dev"
 }

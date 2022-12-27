@@ -80,7 +80,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 		return $create;
 	}
 
-	function add_checkbox_after_email_field( $field, $key, $args, $value ) {
+	public function add_checkbox_after_email_field( $field, $key, $args, $value ) {
 		if ( $key !== 'billing_email' ) {
 			return $field;
 		}

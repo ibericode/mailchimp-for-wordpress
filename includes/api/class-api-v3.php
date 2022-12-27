@@ -197,7 +197,7 @@ class MC4WP_API_V3 {
 	 * @throws MC4WP_API_Exception
 	 */
 	public function get_list_members( $list_id, array $args = array() ) {
-		$resource        = sprintf( '/lists/%s/members', $list_id );
+		$resource = sprintf( '/lists/%s/members', $list_id );
 		return $this->client->get( $resource, $args );
 	}
 

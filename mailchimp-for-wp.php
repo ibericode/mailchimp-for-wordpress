@@ -32,7 +32,7 @@ defined( 'ABSPATH' ) or exit;
 
 /** @ignore */
 function _mc4wp_load_plugin() {
-	 global $mc4wp;
+	global $mc4wp;
 
 	// don't run if Mailchimp for WP Pro 2.x is activated
 	if ( defined( 'MC4WP_VERSION' ) ) {

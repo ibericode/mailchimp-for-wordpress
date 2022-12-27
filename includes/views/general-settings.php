@@ -88,14 +88,14 @@ defined( 'ABSPATH' ) or exit;
 				include __DIR__ . '/parts/lists-overview.php';
 			}
 
-			include __DIR__ . '/parts/admin-footer.php';
+			require __DIR__ . '/parts/admin-footer.php';
 
 			?>
 		</div>
 
 		<!-- Sidebar -->
 		<div class="mc4wp-sidebar mc4wp-col">
-			<?php include __DIR__ . '/parts/admin-sidebar.php'; ?>
+			<?php require __DIR__ . '/parts/admin-sidebar.php'; ?>
 		</div>
 
 

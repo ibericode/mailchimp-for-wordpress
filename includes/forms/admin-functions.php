@@ -39,27 +39,27 @@ function mc4wp_get_add_form_url() {
 //function mc4wp_form_message_setting_row( $key, $label, $value = '', $help_text = '' ) {
 //
 //
-//	$id = 'mc4wp_form_message_' . $key;
-//	echo $name = sprintf( 'mc4wp_form[messages][%s]', $key );
+//  $id = 'mc4wp_form_message_' . $key;
+//  echo $name = sprintf( 'mc4wp_form[messages][%s]', $key );
 //
-//	echo '<tr valign="top">';
+//  echo '<tr valign="top">';
 //
-//	# Label
-//	echo '<th scope="row">';
-//	echo sprintf( '<label for="%s">%s</label>', $id, $label );
-//	echo '</th>';
+//  # Label
+//  echo '<th scope="row">';
+//  echo sprintf( '<label for="%s">%s</label>', $id, $label );
+//  echo '</th>';
 //
-//	# Input
-//	echo '<td>';
-//	echo sprintf( '<input type="text" class="widefat" id="%s" name="%s" value="%s" />', $id, $name, esc_attr( $value ) );
+//  # Input
+//  echo '<td>';
+//  echo sprintf( '<input type="text" class="widefat" id="%s" name="%s" value="%s" />', $id, $name, esc_attr( $value ) );
 //
-//	# Help text
-//	if( ! empty( $help_text ) ) {
-//		echo sprintf( '<p class="description">%s</p>', $help_text );
-//	}
+//  # Help text
+//  if( ! empty( $help_text ) ) {
+//      echo sprintf( '<p class="description">%s</p>', $help_text );
+//  }
 //
-//	echo '</td>';
-//	echo '</tr>';
+//  echo '</td>';
+//  echo '</tr>';
 //
-//	return '';
+//  return '';
 //}
