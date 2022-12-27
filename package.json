@@ -6,7 +6,7 @@
     "url": "https://github.com/ibericode/mailchimp-for-wordpress"
   },
   "scripts": {
-    "lint": "eslint assets/src/js gulpfile.js",
+    "lint": "eslint assets/src/js webpack.config.js gulpfile.js",
     "watch": "webpack --mode=development --watch",
     "build": "webpack --mode=production"
   },
