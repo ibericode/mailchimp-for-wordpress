@@ -1,6 +1,6 @@
 const path = require('path')
-const CopyPlugin = require('copy-webpack-plugin');
-const css = require('lightningcss');
+const CopyPlugin = require('copy-webpack-plugin')
+const css = require('lightningcss')
 
 module.exports = {
   mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
@@ -39,16 +39,16 @@ module.exports = {
           from: './assets/src/css',
           to: path.resolve(__dirname, './assets/css'),
           transform: (content, path) => {
-            let {code, map} = css.transform({
+            const { code } = css.transform({
               filename: path.split('/').pop(),
               code: Buffer.from(content),
               minify: true,
-              sourceMap: false,
-            });
-            return code;
-          },
-        },
-      ],
-    }),
-  ],
+              sourceMap: false
+            })
+            return code
+          }
+        }
+      ]
+    })
+  ]
 }
