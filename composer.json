@@ -1,51 +1,52 @@
 {
-  "name": "ibericode/mailchimp-for-wordpress",
-  "description": "Mailchimp plugin for WordPress",
-  "keywords": ["wordpress", "mailchimp"],
-  "homepage": "https://www.mc4wp.com/",
-  "license": "GPL-2.0+",
-  "type": "wordpress-plugin",
-  "authors": [
-    {
-      "name": "Danny van Kooten",
-      "email": "hi@dannyvankooten.com",
-      "homepage": "https://dannyvankooten.com"
-    }
-  ],
-  "support": {
-    "issues": "https://github.com/ibericode/mailchimp-for-wordpress/issues",
-    "forum": "https://wordpress.org/support/plugin/mailchimp-for-wp",
-    "source": "https://github.com/ibericode/mailchimp-for-wordpress"
-  },
-  "require": {
-    "php": ">=5.3"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^9.0",
-    "brain/monkey": "^2.2",
-    "wp-coding-standards/wpcs": "^2.3",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1"
-  },
-  "scripts": {
-	"test": "php vendor/bin/phpunit tests/",
-	"codestyle": "php vendor/bin/phpcs -n -s"
-  },
-  "autoload": {
-    "classmap": [
-      "includes/",
-      "integrations/"
-    ],
-    "files": [
-      "includes/functions.php",
-      "includes/deprecated-functions.php",
-      "includes/forms/functions.php",
-      "includes/forms/admin-functions.php",
-      "includes/integrations/functions.php"
-    ]
-  },
-  "config": {
-    "allow-plugins": {
-      "dealerdirect/phpcodesniffer-composer-installer": true
-    }
-  }
+	"name": "ibericode/mailchimp-for-wordpress",
+	"description": "Mailchimp plugin for WordPress",
+	"keywords": ["wordpress", "mailchimp"],
+	"homepage": "https://www.mc4wp.com/",
+	"license": "GPL-2.0+",
+	"type": "wordpress-plugin",
+	"authors": [
+		{
+			"name": "Danny van Kooten",
+			"email": "hi@dannyvankooten.com",
+			"homepage": "https://dannyvankooten.com"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/ibericode/mailchimp-for-wordpress/issues",
+		"forum": "https://wordpress.org/support/plugin/mailchimp-for-wp",
+		"source": "https://github.com/ibericode/mailchimp-for-wordpress"
+	},
+	"require": {
+		"php": ">=5.3"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^9.0",
+		"brain/monkey": "^2.2",
+		"wp-coding-standards/wpcs": "^2.3",
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.1"
+	},
+	"scripts": {
+		"make-pot": "wp i18n make-pot . languages/mailchimp-for-wp.pot --exclude=assets/js",
+		"test": "php vendor/bin/phpunit tests/",
+		"codestyle": "php vendor/bin/phpcs -n -s"
+	},
+	"autoload": {
+		"classmap": [
+			"includes/",
+			"integrations/"
+		],
+		"files": [
+			"includes/functions.php",
+			"includes/deprecated-functions.php",
+			"includes/forms/functions.php",
+			"includes/forms/admin-functions.php",
+			"includes/integrations/functions.php"
+	]
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
 }
