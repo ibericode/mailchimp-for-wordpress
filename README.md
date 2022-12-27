@@ -17,30 +17,26 @@ If you just want to install this plugin on your WordPress site, please download 
 To install the development version, take the following steps:
 
 1. Clone the GitHub repository:
+	```
+	git clone https://github.com/ibericode/mailchimp-for-wordpress.git mailchimp-for-wp
+	```
 
-```
-git clone https://github.com/ibericode/mailchimp-for-wordpress.git mailchimp-for-wp
-```
+1. Install Composer dependencies:
+	```sh 
+	composer install 
+	```
 
-2. Install NPM dependencies:
+1. Install NPM dependencies:
+	```
+	npm install
+	```
 
-```
-npm install
-```
+1. Generate plugin asset files:
+	```
+	npm run build 
+	```
 
-3. Install Composer dependencies:
-
-```
-composer install
-```
-
-4. Generate plugin asset files:
-
-```
-npx gulp
-```
-
-5. Activate the plugin in your WordPress admin.
+1. Activate the plugin in your WordPress admin panel.
 
 Bugs
 ----
@@ -61,8 +57,4 @@ Developers
 ----------
 
 Looking for code snippets? Have a look at the [sample code snippets directory](https://github.com/ibericode/mailchimp-for-wordpress/tree/master/sample-code-snippets) for a collection of modification examples.
-
-We recommend going through the (documented) source code of the plugin itself to find integration or extension possibilities.
-
-
 
