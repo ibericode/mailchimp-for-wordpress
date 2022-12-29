@@ -5,7 +5,7 @@ Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, 
 Requires at least: 4.6
 Tested up to: 6.1
 Stable tag: 4.8.12
-License: GPLv2 or later
+License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.3
 
@@ -15,7 +15,7 @@ The #1 (unofficial) Mailchimp plugin. Allows you to add various sign-up methods 
 
 *Allowing your visitors to subscribe to your newsletter should be easy. With this plugin, it finally is.*
 
-This plugins helps you grow your email list in Mailchimp. You can use it to create good looking and accessible sign-up forms or integrate with any other existing form on your WordPress site, like your contact, comment or checkout form. 
+This plugins helps you grow your email list in Mailchimp. You can use it to create good looking and accessible sign-up forms or integrate with any other existing form on your WordPress site, like your contact, comment or checkout form.
 
 [youtube https://www.youtube.com/watch?v=fZCYPnFybqU]
 
@@ -139,7 +139,7 @@ You can find instructions for [connecting your WooCommerce store with Mailchimp]
 
 #### I'm getting an "HTTP Error" when trying to connect to Mailchimp.
 
-the "HTTP Error" type is usually because of a firewall configuration issue or outdated software on your web server. 
+the "HTTP Error" type is usually because of a firewall configuration issue or outdated software on your web server.
 
 Please contact your webhost and ask them to check the following:
 
@@ -176,7 +176,7 @@ The plugin provides various filter and action hooks that allow you to modify or 
 == Screenshots ==
 
 1. Example sign-up form in the TwentyTwenty theme.
-2. Example sign-up integration with a contact form. 
+2. Example sign-up integration with a contact form.
 3. Settings page to connect with your Mailchimp account.
 4. Overview of sign-up integrations.
 5. Overview of sign-up forms.
