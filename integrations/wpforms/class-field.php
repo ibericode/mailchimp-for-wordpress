@@ -1,14 +1,5 @@
 <?php
 
-/**
- * Checkbox field.
- *
- * @package    WPForms
- * @author     WPForms
- * @since      1.0.0
- * @license    GPL-2.0+
- * @copyright  Copyright (c) 2016, WPForms LLC
- */
 class MC4WP_WPForms_Field extends WPForms_Field {
 
 
@@ -18,14 +9,12 @@ class MC4WP_WPForms_Field extends WPForms_Field {
 	 * @since 1.0.0
 	 */
 	public function init() {
-
-		// Define field type information
 		$this->name     = 'Mailchimp';
 		$this->type     = 'mailchimp';
 		$this->icon     = 'fa-envelope-o';
 		$this->order    = 21;
 		$this->defaults = array(
-			0 => array(
+			array(
 				'label'   => __( 'Sign-up to our newsletter?', 'mailchimp-for-wp' ),
 				'value'   => '1',
 				'default' => '',
