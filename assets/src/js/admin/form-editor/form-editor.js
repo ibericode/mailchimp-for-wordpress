@@ -3,15 +3,8 @@
  * @type {CodeMirror}
  */
 const CodeMirror = require('codemirror')
-require('codemirror/mode/xml/xml')
-require('codemirror/mode/javascript/javascript')
-require('codemirror/mode/css/css')
 require('codemirror/mode/htmlmixed/htmlmixed')
-require('codemirror/addon/fold/xml-fold.js')
 require('codemirror/addon/edit/matchtags.js')
-require('codemirror/addon/edit/closetag.js')
-require('codemirror/addon/selection/active-line.js')
-require('codemirror/addon/edit/matchbrackets.js')
 
 /* variables */
 const FormEditor = {}
