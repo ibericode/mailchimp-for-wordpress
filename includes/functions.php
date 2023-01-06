@@ -205,7 +205,7 @@ function mc4wp_get_request_ip_address() {
 	} elseif ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
 		$ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
 	} elseif ( isset( $_SERVER['REMOTE_ADDR'] ) ) {
-		return $_SERVER['REMOTE_ADDR'];
+		$ip_address = $_SERVER['REMOTE_ADDR'];
 	}
 
 	if ( isset( $ip_address ) ) {
