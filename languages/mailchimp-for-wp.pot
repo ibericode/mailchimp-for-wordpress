@@ -1,4 +1,4 @@
-# Copyright (C) 2022 ibericode
+# Copyright (C) 2023 ibericode
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-27T10:14:25+00:00\n"
+"POT-Creation-Date: 2023-01-13T08:09:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: mailchimp-for-wp\n"
@@ -507,7 +507,7 @@ msgstr ""
 #: integrations/contact-form-7/class-contact-form-7.php:74
 #: integrations/gravity-forms/class-gravity-forms.php:112
 #: integrations/gravity-forms/class-gravity-forms.php:124
-#: integrations/wpforms/class-field.php:253
+#: integrations/wpforms/class-field.php:242
 msgid "Yes"
 msgstr ""
 
@@ -527,7 +527,7 @@ msgstr ""
 #: integrations/contact-form-7/class-contact-form-7.php:74
 #: integrations/gravity-forms/class-gravity-forms.php:113
 #: integrations/gravity-forms/class-gravity-forms.php:125
-#: integrations/wpforms/class-field.php:253
+#: integrations/wpforms/class-field.php:242
 msgid "No"
 msgstr ""
 
@@ -1255,7 +1255,7 @@ msgid "Mailchimp for WordPress"
 msgstr ""
 
 #: integrations/gravity-forms/class-gravity-forms.php:93
-#: integrations/wpforms/class-field.php:90
+#: integrations/wpforms/class-field.php:79
 msgid "Mailchimp list"
 msgstr ""
 
@@ -1327,18 +1327,18 @@ msgstr ""
 msgid "Use this integration by adding the \"Mailchimp\" field to <a href=\"%s\">your WPForms forms</a>."
 msgstr ""
 
-#: integrations/wpforms/class-field.php:29
+#: integrations/wpforms/class-field.php:18
 msgid "Sign-up to our newsletter?"
 msgstr ""
 
-#: integrations/wpforms/class-field.php:84
+#: integrations/wpforms/class-field.php:73
 msgid "Select the Mailchimp list to subscribe to."
 msgstr ""
 
-#: integrations/wpforms/class-field.php:115
+#: integrations/wpforms/class-field.php:104
 msgid "Set your sign-up label text and whether it should be pre-checked."
 msgstr ""
 
-#: integrations/wpforms/class-field.php:126
+#: integrations/wpforms/class-field.php:115
 msgid "Sign-up checkbox"
 msgstr ""
