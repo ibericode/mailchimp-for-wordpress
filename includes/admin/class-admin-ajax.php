@@ -61,6 +61,13 @@ class MC4WP_Admin_Ajax {
 				'marketing_permissions' => $mailchimp->get_list_marketing_permissions( $list_id ),
 			);
 		}
-		wp_send_json( $data );
+
+		if (isset($_GET['format']) && $_GET['format'] === 'html') {
+			extract((array) $data[0]);
+			require MC4WP_PLUGIN_DIR . '/includes/views/parts/lists-overview-details.php';
+		} else {
+			wp_send_json( $data );
+		}
+		exit;
 	}
 }
