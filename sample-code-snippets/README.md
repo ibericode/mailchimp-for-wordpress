@@ -1,6 +1,6 @@
 # Sample code snippets for Mailchimp for WordPress
 
-This is a repository of code snippets that help modify the default behaviour of the [MailChimp for WordPress](https://www.mc4wp.com/) plugin &amp; its [add-ons](https://www.mc4wp.com/add-ons/).
+This is a repository of code snippets that help modify the default behaviour of the [Mailchimp for WordPress](https://www.mc4wp.com/) plugin &amp; its [add-ons](https://www.mc4wp.com/add-ons/).
 
 Snippets are organized into categories (folders) and each snippet is placed in its own file with a name that describes what it does.
 
@@ -20,7 +20,7 @@ If you're looking to do something but are unable to find a snippet for it, pleas
 
 ## Notes
 
-This is not a knowledge base. Please see the [knowledge base of the MailChimp for WordPress site](https://www.mc4wp.com/kb/) if you're looking for instructions on how to implement these snippets (and others).
+This is not a knowledge base. Please see the [knowledge base of the Mailchimp for WordPress site](https://www.mc4wp.com/kb/) if you're looking for instructions on how to implement these snippets (and others).
 
 These snippets come with no guarantees. Due to the constant evolution of our codebase, it is possible that the behavior of these snippets may change overtime.
 
