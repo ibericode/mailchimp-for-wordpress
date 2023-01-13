@@ -15,21 +15,30 @@
 	</tr>
 	</thead>
 	<tbody>
-	<?php foreach ($merge_fields as $f) { ?>
+	<?php foreach ( $merge_fields as $f ) { ?>
 		<tr>
-			<td><?php echo $f->name; ?> <?php if ($f->required) { ?><span class="mc4wp-red">*</span><?php } ?></td>
+			<td><?php echo $f->name; ?> <?php
+			if ( $f->required ) {
+				?>
+				<span class="mc4wp-red">*</span><?php } ?></td>
 			<td><code><?php echo $f->tag; ?></code></td>
 			<td>
 				<?php echo $f->type; ?>
-				<?php if ($f->options && $f->options->date_format) {  echo '(' . $f->options->date_format . ')'; } ?>
-				<?php if ($f->options && $f->options->choices) {  echo '(' . join( ', ', $f->options->choices ) . ')'; } ?>
+				<?php
+				if ( $f->options && $f->options->date_format ) {
+					echo '(' . $f->options->date_format . ')'; }
+				?>
+				<?php
+				if ( $f->options && $f->options->choices ) {
+					echo '(' . join( ', ', $f->options->choices ) . ')'; }
+				?>
 			</td>
 		</tr>
 	<?php } ?>
 	</tbody>
 </table>
 
-<?php if ($interest_categories) { ?>
+<?php if ( $interest_categories ) { ?>
 <h3>Interest Categories</h3>
 <table class="striped widefat">
 	<thead>
@@ -40,7 +49,7 @@
 	</tr>
 	</thead>
 	<tbody>
-	<?php foreach ($interest_categories as $f) { ?>
+	<?php foreach ( $interest_categories as $f ) { ?>
 		<tr>
 			<td>
 				<strong><?php echo $f->title; ?></strong>
@@ -55,7 +64,7 @@
 						<tr><th>Name</th><th>ID</th></tr>
 					</thead>
 					<tbody>
-					<?php foreach ($f->interests as $id => $name) { ?>
+					<?php foreach ( $f->interests as $id => $name ) { ?>
 						<tr>
 							<td><?php echo $name; ?></td>
 							<td><code><?php echo $id; ?></code></td>
@@ -71,7 +80,7 @@
 </table>
 <?php } // end if interest categories ?>
 
-<?php if ($marketing_permissions) { ?>
+<?php if ( $marketing_permissions ) { ?>
 <h3>Marketing Permissions</h3>
 <table class="striped widefat">
 	<thead>
@@ -81,7 +90,7 @@
 	</tr>
 	</thead>
 	<tbody>
-	<?php foreach ($marketing_permissions as $mp) { ?>
+	<?php foreach ( $marketing_permissions as $mp ) { ?>
 		<tr>
 			<td><code><?php echo $mp->marketing_permission_id; ?></code></td>
 			<td><?php echo $mp->text; ?></td>
