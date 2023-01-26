@@ -240,7 +240,7 @@ class MC4WP_API_V3 {
 		}
 
 		if ( isset( $args['marketing_permissions'] ) ) {
-			$args['marketing_permissions'] = (object) $args['marketing_permissions'];
+			$args['marketing_permissions'] = (array) $args['marketing_permissions'];
 		}
 
 		return $this->client->post( $resource, $args );
@@ -276,7 +276,7 @@ class MC4WP_API_V3 {
 		}
 
 		if ( isset( $args['marketing_permissions'] ) ) {
-			$args['marketing_permissions'] = (object) $args['marketing_permissions'];
+			$args['marketing_permissions'] = (array) $args['marketing_permissions'];
 		}
 
 		// "put" updates the member if it's already on the list... take notice
@@ -307,7 +307,7 @@ class MC4WP_API_V3 {
 		}
 
 		if ( isset( $args['marketing_permissions'] ) ) {
-			$args['marketing_permissions'] = (object) $args['marketing_permissions'];
+			$args['marketing_permissions'] = (array) $args['marketing_permissions'];
 		}
 
 		return $this->client->patch( $resource, $args );
