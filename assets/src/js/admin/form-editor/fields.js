@@ -35,7 +35,14 @@ function FieldChoice (data) {
 }
 
 function createChoices (data) {
-  return Object.keys(data).map((key) => new FieldChoice({ label: data[key], value: key }))
+  return Object.keys(data).map((key) => {
+    const fc = { label: data[key] }
+    if (typeof (key) === 'number' && isFinite(key)) {
+      fc.value = key
+    }
+
+    return new FieldChoice(fc)
+  })
 }
 
 function register (category, data) {
