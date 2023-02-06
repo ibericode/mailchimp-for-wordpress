@@ -83,7 +83,6 @@ class MC4WP_MailChimp {
 			// other errors.
 			$this->error_code    = $e->getCode();
 			$this->error_message = $e;
-
 			return null;
 		}
 
@@ -102,7 +101,6 @@ class MC4WP_MailChimp {
 		} catch ( MC4WP_API_Exception $e ) {
 			$this->error_code    = $e->getCode();
 			$this->error_message = $e;
-
 			return null;
 		}
 
@@ -356,7 +354,6 @@ class MC4WP_MailChimp {
 		}
 
 		set_transient( $transient_key, $marketing_permissions, HOUR_IN_SECONDS * 24 );
-
 		return $marketing_permissions;
 	}
 
@@ -463,10 +460,16 @@ class MC4WP_MailChimp {
 		$lists = $this->get_lists( true );
 
 		foreach ( $lists as $list_id => $list ) {
+			// delete cached merge fields
 			$transient_key = sprintf( 'mc4wp_list_%s_mf', $list_id );
 			delete_transient( $transient_key );
 
+			// delete cached interest categories
 			$transient_key = sprintf( 'mc4wp_list_%s_ic', $list_id );
+			delete_transient( $transient_key );
+
+			// delete cached marketing permissions
+			$transient_key = sprintf( 'mc4wp_list_%s_mp', $list_id );
 			delete_transient( $transient_key );
 		}
 
