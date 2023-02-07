@@ -1,6 +1,15 @@
 Changelog
 =========
 
+#### 4.9.1 - Feb 7, 2023
+
+- Fix generated value attribute for fields of type choice (dropdown, checkboxes, radio fields).
+- Fix type of `marketing_permissions` field in API requests. Thanks to [George Korakas](https://github.com/gkorakas-eli).
+- Refactor list overview JS to not depend on Mithril.js anymore.
+- Simplify admin footer text asking for a plugin review.
+- When renewing lists, renew cached marketing permissions too.
+
+
 #### 4.9.0 - Jan 13, 2023 
 
 - Removed deprecated filter hook `mc4wp_settings_cap`, use `mc4wp_admin_required_capability` instead.
