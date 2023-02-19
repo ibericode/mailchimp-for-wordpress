@@ -9,7 +9,7 @@ add_filter( 'mc4wp_integration_show_checkbox', function( $show, $integration_slu
 /**
  * This snippet adds the HTML for a MailChimp interest groups to your WooCommerce checkout.
  */
-//add_action( 'woocommerce_after_order_notes', 'mc4wp_show_interest_group_in_checkout' );
+add_action( 'woocommerce_after_order_notes', 'mc4wp_show_interest_group_in_checkout' );
 function mc4wp_show_interest_group_in_checkout() { ?>
 
 	<!-- Subscription Checkbox -->
