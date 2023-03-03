@@ -121,6 +121,22 @@ class MC4WP_List_Data_Mapper {
 			}
 		}
 
+		// add GDPR marketing permissions
+		if ( ! empty( $this->data['MARKETING_PERMISSIONS'] ) ) {
+			$values = $this->data['MARKETING_PERMISSIONS'];
+			$values = is_array( $values ) ? $values : explode( ',', $values );
+			$values = array_map( 'trim', $values );
+			$marketing_permissions = $this->mailchimp->get_list_marketing_permissions( $list_id );
+			foreach ( $marketing_permissions as $mp ) {
+				if ( in_array( $mp->marketing_permission_id, $values, true ) || in_array( $mp->text, $values, true ) ) {
+					$subscriber->marketing_permissions[] = (object) array(
+						'marketing_permission_id' => $mp->marketing_permission_id,
+						'enabled'                 => true,
+					);
+				}
+			}
+		}
+
 		// find language
 		/* @see http://kb.mailchimp.com/lists/managing-subscribers/view-and-edit-subscriber-languages?utm_source=mc-api&utm_medium=docs&utm_campaign=apidocs&_ga=1.211519638.2083589671.1469697070 */
 		if ( ! empty( $this->data['MC_LANGUAGE'] ) ) {
