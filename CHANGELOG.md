@@ -1,6 +1,12 @@
 Changelog
 =========
 
+#### 4.9.2 - Mar 21, 2023
+
+- Add support for a field named `MARKETING_PERMISSIONS` to enable GDPR fields configured in Mailchimp. A [sample code snippet can be found here](https://github.com/ibericode/mailchimp-for-wordpress/blob/master/sample-code-snippets/forms/gdpr-marketing-permissions.md).
+- Remove Google reCaptcha feature. This was already disabled if you were not already using it.
+
+
 #### 4.9.1 - Feb 7, 2023
 
 - Fix generated value attribute for fields of type choice (dropdown, checkboxes, radio fields).
