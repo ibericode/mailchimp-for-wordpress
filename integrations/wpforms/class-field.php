@@ -191,7 +191,7 @@ class MC4WP_WPForms_Field extends WPForms_Field {
 		$field_atts = array_merge( array(
 			'input_class' => array(),
 			'input_id' => array(),
-			), $field_atts );
+		), $field_atts );
 
 		// Setup and sanitize the necessary data
 		$field_required = ! empty( $field['required'] ) ? ' required' : '';
