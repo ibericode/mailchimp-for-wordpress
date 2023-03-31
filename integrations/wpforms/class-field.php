@@ -187,13 +187,18 @@ class MC4WP_WPForms_Field extends WPForms_Field {
 	 * @param array $form_data
 	 */
 	public function field_display( $field, $field_atts, $form_data ) {
+		// Setup some defaults because WPForms broke their integration in v1.8.1.1
+		$field_atts = array_merge( array(
+			'input_class' => array(),
+			'input_id' => array(),
+			), $field_atts );
 
 		// Setup and sanitize the necessary data
 		$field_required = ! empty( $field['required'] ) ? ' required' : '';
-		$field_class    = implode( ' ', array_map( 'sanitize_html_class', $field_atts['input_class'] ) );
-		$field_id       = implode( ' ', array_map( 'sanitize_html_class', $field_atts['input_id'] ) );
+		$field_class    = implode( ' ', array_map( 'sanitize_html_class', (array) $field_atts['input_class'] ) );
+		$field_id       = implode( ' ', array_map( 'sanitize_html_class', (array) $field_atts['input_id'] ) );
 		$form_id        = $form_data['id'];
-		$choices        = $field['choices'];
+		$choices        = (array) $field['choices'];
 
 		// List
 		printf( '<ul id="%s" class="%s">', $field_id, $field_class );
