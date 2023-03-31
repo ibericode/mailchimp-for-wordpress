@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: MC4WP: Mailchimp for WordPress 4.9.1\n"
+"Project-Id-Version: MC4WP: Mailchimp for WordPress 4.9.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-03-21T08:14:53+00:00\n"
+"POT-Creation-Date: 2023-03-31T11:24:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: mailchimp-for-wp\n"
@@ -795,7 +795,7 @@ msgstr ""
 #: integrations/contact-form-7/class-contact-form-7.php:74
 #: integrations/gravity-forms/class-gravity-forms.php:112
 #: integrations/gravity-forms/class-gravity-forms.php:124
-#: integrations/wpforms/class-field.php:242
+#: integrations/wpforms/class-field.php:247
 msgid "Yes"
 msgstr ""
 
@@ -818,7 +818,7 @@ msgstr ""
 #: integrations/contact-form-7/class-contact-form-7.php:74
 #: integrations/gravity-forms/class-gravity-forms.php:113
 #: integrations/gravity-forms/class-gravity-forms.php:125
-#: integrations/wpforms/class-field.php:242
+#: integrations/wpforms/class-field.php:247
 msgid "No"
 msgstr ""
 
