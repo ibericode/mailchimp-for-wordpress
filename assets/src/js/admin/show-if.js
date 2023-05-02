@@ -13,6 +13,7 @@ function toggleElement (el, hide, input, condition) {
     el.style.visibility = conditionMet ? '' : 'hidden'
   } else {
     el.style.opacity = conditionMet ? '' : '0.4'
+    el.style.pointerEvents = conditionMet ? '' : 'none'
   }
 
   // disable input fields inside this element to stop sending their values to server
