@@ -187,6 +187,13 @@ The plugin provides various filter and action hooks that allow you to modify or 
 == Changelog ==
 
 
+#### 4.9.4 - May 2, 2023
+
+- Fallback to default checkbox label if none given. Thanks to [Shojib Khan](https://github.com/kshojib).
+- Improve WooCommerce integration settings page by disabling position field if integration is disabled. Thanks to [Shojib Khan](https://github.com/kshojib).
+- Update JavaScript dependencies.
+
+
 #### 4.9.3 - Mar 31, 2023
 
 - Defend against breaking change in latest WPForms update.
