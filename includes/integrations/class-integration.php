@@ -163,6 +163,10 @@ abstract class MC4WP_Integration {
 		$integration = $this;
 		$label       = $this->options['label'];
 
+		if(!$label){
+			$label = $this->get_default_options()['label'];
+		}
+
 		/**
 		 * Filters the checkbox label
 		 *
