@@ -35,14 +35,10 @@ function FieldChoice (data) {
 }
 
 function createChoices (data) {
-  return Object.keys(data).map((key) => {
-    const fc = { label: data[key] }
-    if (typeof (key) === 'number' && isFinite(key)) {
-      fc.value = key
-    }
-
-    return new FieldChoice(fc)
-  })
+  // Here we create FieldChoice object for each choice item
+  // If we got an associate array / dictionary / object then we use keys as values
+  // Otherwise, we leave it to the rendering phase to set the value attribute
+  return Object.keys(data).map((key) => new FieldChoice({ label: data[key], value: Array.isArray(data) ? null : key }))
 }
 
 function register (category, data) {
