@@ -78,7 +78,10 @@ class MC4WP_Admin_Review_Notice {
 	 * @return int
 	 */
 	private function time_since_first_use() {
-		$options = get_option( 'mc4wp' );
+		$options = get_option( 'mc4wp', array( ) );
+		if ( ! is_array( $options ) ) {
+			$options = array();
+		}
 
 		// option was never added before, do it now.
 		if ( empty( $options['first_activated_on'] ) ) {
