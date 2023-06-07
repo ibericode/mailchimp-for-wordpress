@@ -1,4 +1,9 @@
-
+/**
+ * @param {HTMLElement} el
+ * @param {boolean} hide
+ * @param {HTMLInputElement} input
+ * @param {boolean|string} condition
+ */
 function toggleElement (el, hide, input, condition) {
   // do nothing with unchecked radio inputs
   if (input.type === 'radio' && !input.checked) {
