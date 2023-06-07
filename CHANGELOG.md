@@ -1,6 +1,13 @@
 Changelog
 =========
 
+#### 4.9.4 - Jun 7, 2023
+
+- Fix generated HTML for list/audience choice fields.
+- Fix deprecation warning in includes/admin/class-review-notice.php.
+- Update JavaScript dependencies.
+
+
 #### 4.9.3 - Mar 31, 2023
 
 - Defend against breaking change in latest WPForms update.
