@@ -17,6 +17,7 @@
         <exclude name="WordPress.Arrays.ArrayIndentation.ItemNotAligned" />
         <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase" />
 		<exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.NoSpacesAroundArrayKeys" />
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
         <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning" />
 		<exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
 		<exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
