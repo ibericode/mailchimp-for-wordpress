@@ -29,7 +29,7 @@
     "codemirror": "^5.61.0",
     "form-serialize": "^0.7.2",
     "html": "^1.0.0",
-    "mithril": "^2.0.4",
+    "mithril": "^2.2.2",
     "populate.js": "^1.2.2"
   }
 }
