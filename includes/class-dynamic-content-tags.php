@@ -247,5 +247,4 @@ abstract class MC4WP_Dynamic_Content_Tags {
 		// TODO: Read from cookie? Or add $_COOKIE support to {data} tag?
 		return '';
 	}
-
 }

@@ -118,6 +118,4 @@ class MC4WP_Form_Tags extends MC4WP_Dynamic_Content_Tags {
 
 		return esc_html( $value );
 	}
-
-
 }
