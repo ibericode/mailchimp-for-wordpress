@@ -47,7 +47,7 @@
 			echo sprintf( '<tr class="list-details list-%s-details" style="display: none;">', $list->id );
 			echo '<td colspan="3" style="padding: 0 20px 40px;">';
 			echo sprintf( '<p class="alignright" style="margin: 20px 0;"><a href="https://admin.mailchimp.com/lists/members/?id=%s" target="_blank"><span class="dashicons dashicons-edit"></span> ' . esc_html__( 'Edit this list in Mailchimp', 'mailchimp-for-wp' ) . '</a></p>', $list->web_id );
-			echo '<div><div>', esc_html__( 'Loading... Please wait.', 'mailchimp-for-wp' ) , '</div></div>';
+			echo '<div><div>', esc_html__( 'Loading... Please wait.', 'mailchimp-for-wp' ), '</div></div>';
 			echo '</td>';
 			echo '</tr>';
 			?>
