@@ -1,6 +1,13 @@
 Changelog
 =========
 
+#### 4.9.7 - Aug 29, 2023
+
+- Update third-party JS dependencies.
+- Minor textual improvements.
+- Bump tested WordPress version.
+
+
 #### 4.9.6 - Jul 12, 2023
 
 - Update third-party JS dependencies.

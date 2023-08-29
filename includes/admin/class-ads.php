@@ -121,12 +121,11 @@ class MC4WP_Admin_Ads {
 		echo '<h3>Mailchimp for WordPress Premium</h3>';
 		echo '<p>';
 		echo 'You are currently using the free version of Mailchimp for WordPress. ';
-		echo 'Did you know there is a Premium add-on? ';
 		echo '</p>';
 		echo '<p>';
-		echo 'It adds several powerful features like multiple and improved forms, e-commerce integration and storing sign-up attempts in your local database.';
+		echo 'There is a Premium version of this plugin that adds several powerful features. Like multiple and improved sign-up forms, an easier way to visually enhance those forms, advanced e-commerce integration and keeping track of all sign-up attempts in your local WordPress database.';
 		echo '</p>';
-		echo '<p><a href="https://www.mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=upgrade-box">Have a look at its benefits</a>!</p>';
+		echo '<p>You can have all those benefits for a small yearly fee. <a href="https://www.mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=upgrade-box">Take a look at Mailchimp for WordPress Premium here</a>.</p>';
 		echo '</div>';
 		echo '</div>';
 	}
