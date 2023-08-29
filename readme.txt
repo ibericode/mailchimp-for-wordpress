@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp form
 Requires at least: 4.6
 Tested up to: 6.3
-Stable tag: 4.9.6
+Stable tag: 4.9.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.3
@@ -187,6 +187,13 @@ The plugin provides various filter and action hooks that allow you to modify or 
 == Changelog ==
 
 
+#### 4.9.7 - Aug 29, 2023
+
+- Update third-party JS dependencies.
+- Minor textual improvements.
+- Bump tested WordPress version.
+
+
 #### 4.9.6 - Jul 12, 2023
 
 - Update third-party JS dependencies.
@@ -227,7 +234,7 @@ The plugin provides various filter and action hooks that allow you to modify or 
 - When renewing lists, renew cached marketing permissions too.
 
 
-#### 4.9.0 - Jan 13, 2023
+#### 4.9.0 - Jan 13, 2023 
 
 - Removed deprecated filter hook `mc4wp_settings_cap`, use `mc4wp_admin_required_capability` instead.
 - Removed deprecated filter hook `mc4wp_merge_vars`, use `mc4wp_form_data` or `mc4wp_integration_data` instead.
