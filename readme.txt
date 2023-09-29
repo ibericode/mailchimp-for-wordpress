@@ -9,7 +9,7 @@ License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.3
 
-The #1 (unofficial) Mailchimp plugin. Allows you to add various sign-up methods to your WordPress site.
+The #1 Mailchimp plugin for WordPress. Allows you to add a multitude of newsletter sign-up methods to your site.
 
 == Description ==
 
@@ -55,6 +55,8 @@ This plugins helps you grow your email list in Mailchimp. You can use it to crea
 - Well documented through our [knowledge base](https://www.mc4wp.com/kb/).
 
 - Developer friendly. For some inspiration, check out our [repository of example code snippets](https://github.com/ibericode/mailchimp-for-wordpress/tree/master/sample-code-snippets).
+
+- Ready for PHP 8.3, but backwards-compatible all the way down to PHP 5.6.
 
 #### What is Mailchimp?
 
@@ -234,7 +236,7 @@ The plugin provides various filter and action hooks that allow you to modify or 
 - When renewing lists, renew cached marketing permissions too.
 
 
-#### 4.9.0 - Jan 13, 2023 
+#### 4.9.0 - Jan 13, 2023
 
 - Removed deprecated filter hook `mc4wp_settings_cap`, use `mc4wp_admin_required_capability` instead.
 - Removed deprecated filter hook `mc4wp_merge_vars`, use `mc4wp_form_data` or `mc4wp_integration_data` instead.
