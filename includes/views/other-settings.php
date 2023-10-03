@@ -1,36 +1,10 @@
 <?php
 defined( 'ABSPATH' ) or exit;
 
+/** @var array $opts */
 /** @var MC4WP_Debug_Log $log */
 /** @var MC4WP_Debug_Log_Reader $log_reader */
 
-/**
- * @ignore
- * @param array $opts
- */
-function _mc4wp_add_logging_setting( $opts ) {
-	?>
-	<div class="mc4wp-margin-m" >
-		<h3><?php echo esc_html__( 'Miscellaneous settings', 'mailchimp-for-wp' ); ?></h3>
-		<table class="form-table">
-			<tr>
-				<th><?php echo esc_html__( 'Logging', 'mailchimp-for-wp' ); ?></th>
-				<td>
-					<select name="mc4wp[debug_log_level]">
-						<option value="warning" <?php selected( 'warning', $opts['debug_log_level'] ); ?>><?php echo esc_html__( 'Errors & warnings only', 'mailchimp-for-wp' ); ?></option>
-						<option value="debug" <?php selected( 'debug', $opts['debug_log_level'] ); ?>><?php echo esc_html__( 'Everything', 'mailchimp-for-wp' ); ?></option>
-					</select>
-					<p class="description">
-						<?php echo sprintf( wp_kses( __( 'Determines what events should be written to <a href="%s">the debug log</a> (see below).', 'mailchimp-for-wp' ), array( 'a' => array( 'href' => array() ) ) ), 'https://www.mc4wp.com/kb/how-to-enable-log-debugging/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page' ); ?>
-					</p>
-				</td>
-			</tr>
-		</table>
-	</div>
-	<?php
-}
-
-add_action( 'mc4wp_admin_other_settings', '_mc4wp_add_logging_setting', 70 );
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
@@ -63,6 +37,24 @@ add_action( 'mc4wp_admin_other_settings', '_mc4wp_add_logging_setting', 70 );
 			<!-- Settings -->
 			<form action="<?php echo admin_url( 'options.php' ); ?>" method="post">
 				<?php settings_fields( 'mc4wp_settings' ); ?>
+
+				<div class="mc4wp-margin-m" >
+					<h3><?php echo esc_html__( 'Miscellaneous settings', 'mailchimp-for-wp' ); ?></h3>
+					<table class="form-table">
+						<tr>
+							<th><label for="mc4wp-debug-log-level"><?php echo esc_html__( 'Logging', 'mailchimp-for-wp' ); ?></label></th>
+							<td>
+								<select id="mc4wp-debug-log-level" name="mc4wp[debug_log_level]">
+									<option value="warning" <?php selected( 'warning', $opts['debug_log_level'] ); ?>><?php echo esc_html__( 'Errors & warnings only', 'mailchimp-for-wp' ); ?></option>
+									<option value="debug" <?php selected( 'debug', $opts['debug_log_level'] ); ?>><?php echo esc_html__( 'Everything', 'mailchimp-for-wp' ); ?></option>
+								</select>
+								<p class="description">
+									<?php echo sprintf( wp_kses( __( 'Determines what events should be written to <a href="%s">the debug log</a> (see below).', 'mailchimp-for-wp' ), array( 'a' => array( 'href' => array() ) ) ), 'https://www.mc4wp.com/kb/how-to-enable-log-debugging/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page' ); ?>
+								</p>
+							</td>
+						</tr>
+					</table>
+				</div>
 
 				<?php
 				/**
