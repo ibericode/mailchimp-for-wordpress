@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: MC4WP: Mailchimp for WordPress 4.9.6\n"
+"Project-Id-Version: MC4WP: Mailchimp for WordPress 4.9.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-29T13:17:58+00:00\n"
+"POT-Creation-Date: 2023-10-03T12:25:52+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: mailchimp-for-wp\n"
@@ -93,71 +93,71 @@ msgstr ""
 msgid "Documentation"
 msgstr ""
 
-#: includes/admin/class-admin.php:223
+#: includes/admin/class-admin.php:209
 msgid "Success! The cached configuration for your Mailchimp lists has been renewed."
 msgstr ""
 
-#: includes/admin/class-admin.php:312
+#: includes/admin/class-admin.php:289
 msgid "The given value does not look like a valid Mailchimp API key."
 msgstr ""
 
-#: includes/admin/class-admin.php:313
+#: includes/admin/class-admin.php:290
 msgid "This is a premium feature. Please upgrade to Mailchimp for WordPress Premium to be able to use it."
 msgstr ""
 
-#: includes/admin/class-admin.php:314
+#: includes/admin/class-admin.php:291
 #: includes/forms/views/parts/add-fields-help.php:58
 #: includes/views/parts/lists-overview.php:10
 msgid "Renew Mailchimp lists"
 msgstr ""
 
-#: includes/admin/class-admin.php:315
+#: includes/admin/class-admin.php:292
 msgid "Fetching Mailchimp lists"
 msgstr ""
 
-#: includes/admin/class-admin.php:316
+#: includes/admin/class-admin.php:293
 msgid "Done! Mailchimp lists renewed."
 msgstr ""
 
-#: includes/admin/class-admin.php:317
+#: includes/admin/class-admin.php:294
 msgid "Failed to renew your lists. An error occured."
 msgstr ""
 
-#: includes/admin/class-admin.php:345
+#: includes/admin/class-admin.php:320
 msgid "Mailchimp API Settings"
 msgstr ""
 
-#: includes/admin/class-admin.php:352
-#: includes/views/other-settings.php:60
-#: includes/views/other-settings.php:70
+#: includes/admin/class-admin.php:327
+#: includes/views/other-settings.php:14
+#: includes/views/other-settings.php:24
 msgid "Other Settings"
 msgstr ""
 
-#: includes/admin/class-admin.php:353
+#: includes/admin/class-admin.php:328
 msgid "Other"
 msgstr ""
 
-#: includes/admin/class-admin.php:431
+#: includes/admin/class-admin.php:406
 msgid "Error connecting to Mailchimp:"
 msgstr ""
 
-#: includes/admin/class-admin.php:434
+#: includes/admin/class-admin.php:409
 msgid "Looks like your server is blocked by Mailchimp's firewall. Please contact Mailchimp support and include the following reference number: %s"
 msgstr ""
 
-#: includes/admin/class-admin.php:437
+#: includes/admin/class-admin.php:412
 msgid "Here's some info on solving common connectivity issues."
 msgstr ""
 
-#: includes/admin/class-admin.php:442
+#: includes/admin/class-admin.php:417
 msgid "Mailchimp returned the following error:"
 msgstr ""
 
-#: includes/admin/class-admin.php:481
+#: includes/admin/class-admin.php:456
 msgid "Log successfully emptied."
 msgstr ""
 
-#: includes/admin/class-admin.php:511
+#: includes/admin/class-admin.php:486
 msgid "To get started with Mailchimp for WordPress, please <a href=\"%s\">enter your Mailchimp API key on the settings page of the plugin</a>."
 msgstr ""
 
@@ -212,10 +212,6 @@ msgstr ""
 
 #: includes/admin/class-review-notice.php:72
 msgid "Dismiss this notice."
-msgstr ""
-
-#: includes/admin/class-usage-tracking.php:52
-msgid "Once a month"
 msgstr ""
 
 #: includes/admin/migrations/3.0.0-form-1-post-type.php:35
@@ -540,7 +536,7 @@ msgstr ""
 #: includes/integrations/views/integration-settings.php:8
 #: includes/integrations/views/integrations.php:99
 #: includes/views/general-settings.php:7
-#: includes/views/other-settings.php:58
+#: includes/views/other-settings.php:12
 msgid "You are here: "
 msgstr ""
 
@@ -791,7 +787,6 @@ msgstr ""
 #: includes/integrations/views/integration-settings.php:227
 #: includes/integrations/views/integration-settings.php:250
 #: includes/integrations/views/integration-settings.php:275
-#: includes/views/other-settings.php:21
 #: integrations/contact-form-7/class-contact-form-7.php:74
 #: integrations/gravity-forms/class-gravity-forms.php:112
 #: integrations/gravity-forms/class-gravity-forms.php:124
@@ -814,7 +809,6 @@ msgstr ""
 #: includes/integrations/views/integration-settings.php:231
 #: includes/integrations/views/integration-settings.php:254
 #: includes/integrations/views/integration-settings.php:279
-#: includes/views/other-settings.php:25
 #: integrations/contact-form-7/class-contact-form-7.php:74
 #: integrations/gravity-forms/class-gravity-forms.php:113
 #: integrations/gravity-forms/class-gravity-forms.php:125
@@ -1066,63 +1060,51 @@ msgstr ""
 msgid "You defined your Mailchimp API key using the <code>MC4WP_API_KEY</code> constant."
 msgstr ""
 
-#: includes/views/other-settings.php:14
+#: includes/views/other-settings.php:42
 msgid "Miscellaneous settings"
 msgstr ""
 
-#: includes/views/other-settings.php:17
-msgid "Usage Tracking"
-msgstr ""
-
-#: includes/views/other-settings.php:29
-msgid "Allow us to anonymously track how this plugin is used to help us make it better fit your needs."
-msgstr ""
-
-#: includes/views/other-settings.php:31
-msgid "This is what we track."
-msgstr ""
-
-#: includes/views/other-settings.php:37
+#: includes/views/other-settings.php:45
 msgid "Logging"
 msgstr ""
 
-#: includes/views/other-settings.php:40
+#: includes/views/other-settings.php:48
 msgid "Errors & warnings only"
 msgstr ""
 
-#: includes/views/other-settings.php:41
+#: includes/views/other-settings.php:49
 msgid "Everything"
 msgstr ""
 
-#: includes/views/other-settings.php:44
+#: includes/views/other-settings.php:52
 msgid "Determines what events should be written to <a href=\"%s\">the debug log</a> (see below)."
 msgstr ""
 
-#: includes/views/other-settings.php:99
+#: includes/views/other-settings.php:71
 msgid "Debug Log"
 msgstr ""
 
-#: includes/views/other-settings.php:99
+#: includes/views/other-settings.php:71
 msgid "Filter.."
 msgstr ""
 
-#: includes/views/other-settings.php:104
+#: includes/views/other-settings.php:76
 msgid "Log file is not writable."
 msgstr ""
 
-#: includes/views/other-settings.php:105
+#: includes/views/other-settings.php:77
 msgid "Please ensure %1$s has the proper <a href=\"%2$s\">file permissions</a>."
 msgstr ""
 
-#: includes/views/other-settings.php:126
+#: includes/views/other-settings.php:98
 msgid "Nothing here. Which means there are no errors!"
 msgstr ""
 
-#: includes/views/other-settings.php:136
+#: includes/views/other-settings.php:108
 msgid "Empty Log"
 msgstr ""
 
-#: includes/views/other-settings.php:144
+#: includes/views/other-settings.php:116
 msgid "Right now, the plugin is configured to only log errors and warnings."
 msgstr ""
 
