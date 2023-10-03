@@ -8,7 +8,9 @@ $GLOBALS['post'] = new \WP_Post( (object) array( 'filter' => 'raw' ) );
 ?><!DOCTYPE html>
 <html>
 <head>
+	<title>Mailchimp for WordPress Form Preview</title>
 	<meta charset="utf-8" />
+	<meta name="robots" content="noindex" />
 	<link type="text/css" rel="stylesheet" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 	<?php
 	wp_enqueue_scripts();
@@ -19,8 +21,8 @@ $GLOBALS['post'] = new \WP_Post( (object) array( 'filter' => 'raw' ) );
 		wp_custom_css_cb();
 	}
 	?>
-	<style type="text/css">
-		body{ 
+	<style>
+		body{
 			background: white;
 			width: 100%;
 			max-width: 100%;
@@ -30,8 +32,8 @@ $GLOBALS['post'] = new \WP_Post( (object) array( 'filter' => 'raw' ) );
 		/* hide all other elements */
 		body::before,
 		body::after,
-		body > *:not(#form-preview) { 
-			display:none !important; 
+		body > *:not(#form-preview) {
+			display:none !important;
 		}
 
 		#form-preview {
@@ -40,7 +42,7 @@ $GLOBALS['post'] = new \WP_Post( (object) array( 'filter' => 'raw' ) );
 			height: 100%;
 			padding: 20px;
 			border: 0;
-			margin: 0; 
+			margin: 0;
 		}
 	</style>
 </head>
