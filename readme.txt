@@ -50,7 +50,6 @@ This plugins helps you grow your email list in Mailchimp. You can use it to crea
 	- [Mailchimp for WordPress Premium](https://www.mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=add-on-list)
 	- [Mailchimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/)
 	- [Boxzilla Pop-ups](https://wordpress.org/plugins/boxzilla/)
-	- [WPBruiser anti-spam](https://wordpress.org/plugins/goodbye-captcha/)
 
 - Well documented through our [knowledge base](https://www.mc4wp.com/kb/).
 
