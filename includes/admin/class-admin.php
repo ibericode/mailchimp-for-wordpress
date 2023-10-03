@@ -425,8 +425,8 @@ class MC4WP_Admin {
 			} catch ( MC4WP_API_Connection_Exception $e ) {
 				$message = sprintf( '<strong>%s</strong> %s %s ', esc_html__( 'Error connecting to Mailchimp:', 'mailchimp-for-wp' ), $e->getCode(), $e->getMessage() );
 
-				if ( is_object( $e->data ) && ! empty( $e->data->ref_no ) ) {
-					$message .= '<br />' . sprintf( esc_html__( 'Looks like your server is blocked by Mailchimp\'s firewall. Please contact Mailchimp support and include the following reference number: %s', 'mailchimp-for-wp' ), $e->data->ref_no );
+				if ( is_object( $e->response_data ) && ! empty( $e->response_data->ref_no ) ) {
+					$message .= '<br />' . sprintf( esc_html__( 'Looks like your server is blocked by Mailchimp\'s firewall. Please contact Mailchimp support and include the following reference number: %s', 'mailchimp-for-wp' ), $e->response_data->ref_no );
 				}
 
 				$message .= '<br /><br />' . sprintf( '<a href="%s">' . esc_html__( 'Here\'s some info on solving common connectivity issues.', 'mailchimp-for-wp' ) . '</a>', 'https://www.mc4wp.com/kb/solving-connectivity-issues/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-notice' );
