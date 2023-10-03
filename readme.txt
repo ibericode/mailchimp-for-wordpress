@@ -160,7 +160,7 @@ If you need some help in setting up the plugin, you have various options:
 
 - Search through our [knowledge base](https://www.mc4wp.com/kb/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=description).
 - Open a topic in the [WordPress.org plugin support forums](https://wordpress.org/support/plugin/mailchimp-for-wp)
-- If you're a premium user, send am email to the email address listed inside the plugin.
+- If you're a premium user, send an email to the email address listed inside the plugin.
 
 #### Translations
 
@@ -192,7 +192,7 @@ The plugin provides various filter and action hooks that allow you to modify or 
 
 - Remove the opt-in usage tracking functionality as we're not really using it for decision making anymore.
 - Add missing label element to the select element for setting the logging level.
-- Our JavaScript assets are now transpiled to support the same set of browsers as WordPress core. 
+- Our JavaScript assets are now transpiled to support the same set of browsers as WordPress core.
 This drops support for some very old browsers, but results in smaller bundle sizes for the supported set of browsers.
 - Update third-party JS dependencies to their latest versions.
 
@@ -244,7 +244,7 @@ This drops support for some very old browsers, but results in smaller bundle siz
 - When renewing lists, renew cached marketing permissions too.
 
 
-#### 4.9.0 - Jan 13, 2023 
+#### 4.9.0 - Jan 13, 2023
 
 - Removed deprecated filter hook `mc4wp_settings_cap`, use `mc4wp_admin_required_capability` instead.
 - Removed deprecated filter hook `mc4wp_merge_vars`, use `mc4wp_form_data` or `mc4wp_integration_data` instead.
