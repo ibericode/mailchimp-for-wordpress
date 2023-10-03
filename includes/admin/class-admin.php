@@ -243,11 +243,6 @@ class MC4WP_Admin {
 		// merge with current settings to allow passing partial arrays to this method
 		$settings = array_merge( $current, $settings );
 
-		// toggle usage tracking
-		if ( $settings['allow_usage_tracking'] !== $current['allow_usage_tracking'] ) {
-			MC4WP_Usage_Tracking::instance()->toggle( $settings['allow_usage_tracking'] );
-		}
-
 		// Make sure not to use obfuscated key
 		if ( strpos( $settings['api_key'], '*' ) !== false ) {
 			$settings['api_key'] = $current['api_key'];

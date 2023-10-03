@@ -8,31 +8,11 @@ defined( 'ABSPATH' ) or exit;
  * @ignore
  * @param array $opts
  */
-function _mc4wp_usage_tracking_setting( $opts ) {
+function _mc4wp_add_logging_setting( $opts ) {
 	?>
 	<div class="mc4wp-margin-m" >
 		<h3><?php echo esc_html__( 'Miscellaneous settings', 'mailchimp-for-wp' ); ?></h3>
 		<table class="form-table">
-			<tr>
-				<th><?php echo esc_html__( 'Usage Tracking', 'mailchimp-for-wp' ); ?></th>
-				<td>
-					<label>
-						<input type="radio" name="mc4wp[allow_usage_tracking]" value="1" <?php checked( $opts['allow_usage_tracking'], 1 ); ?> />
-						<?php echo esc_html__( 'Yes', 'mailchimp-for-wp' ); ?>
-					</label> &nbsp;
-					<label>
-						<input type="radio" name="mc4wp[allow_usage_tracking]" value="0" <?php checked( $opts['allow_usage_tracking'], 0 ); ?>  />
-						<?php echo esc_html__( 'No', 'mailchimp-for-wp' ); ?>
-					</label>
-
-					<p class="description">
-						<?php echo esc_html__( 'Allow us to anonymously track how this plugin is used to help us make it better fit your needs.', 'mailchimp-for-wp' ); ?>
-						<a href="https://www.mc4wp.com/kb/what-is-usage-tracking/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page" target="_blank">
-							<?php echo esc_html__( 'This is what we track.', 'mailchimp-for-wp' ); ?>
-						</a>
-					</p>
-				</td>
-			</tr>
 			<tr>
 				<th><?php echo esc_html__( 'Logging', 'mailchimp-for-wp' ); ?></th>
 				<td>
@@ -50,7 +30,7 @@ function _mc4wp_usage_tracking_setting( $opts ) {
 	<?php
 }
 
-add_action( 'mc4wp_admin_other_settings', '_mc4wp_usage_tracking_setting', 70 );
+add_action( 'mc4wp_admin_other_settings', '_mc4wp_add_logging_setting', 70 );
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
