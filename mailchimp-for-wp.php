@@ -70,12 +70,14 @@ function _mc4wp_load_plugin() {
 	$mc4wp['log'] = 'mc4wp_get_debug_log';
 
 	// forms
-	$mc4wp['forms'] = new MC4WP_Form_Manager();
-	$mc4wp['forms']->add_hooks();
+	$form_manager = new MC4WP_Form_Manager();
+	$form_manager->add_hooks();
+	$mc4wp['forms'] = $form_manager;
 
 	// integration core
-	$mc4wp['integrations'] = new MC4WP_Integration_Manager();
-	$mc4wp['integrations']->add_hooks();
+	$integration_manager = new MC4WP_Integration_Manager();
+	$integration_manager->add_hooks();
+	$mc4wp['integrations'] = $integration_manager;
 
 	// Initialize admin section of plugin
 	if ( is_admin() ) {
