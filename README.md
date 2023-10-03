@@ -7,7 +7,7 @@ MC4WP: Mailchimp for WordPress
 [![Rating](https://img.shields.io/wordpress/plugin/r/mailchimp-for-wp.svg)](https://wordpress.org/support/plugin/mailchimp-for-wp/reviews/)
 [![License: GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-Here, you can browse the source code of the [Mailchimp for WordPress Plugin](https://wordpress.org/plugins/mailchimp-for-wp/), find and discuss open issues or contribute code to the plugin.
+Here, you can browse the source code of the [MC4WP: Mailchimp for WordPress Plugin](https://wordpress.org/plugins/mailchimp-for-wp/), find and discuss open issues or contribute code to the plugin.
 
 Installation
 ------------

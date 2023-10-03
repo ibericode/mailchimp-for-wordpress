@@ -26,6 +26,7 @@
     "webpack-cli": "^5.0.0"
   },
   "dependencies": {
+    "@wordpress/browserslist-config": "^5.25.0",
     "codemirror": "^5.61.0",
     "form-serialize": "^0.7.2",
     "html": "^1.0.0",

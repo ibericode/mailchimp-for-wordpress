@@ -1,4 +1,2 @@
-> 0.2%
-last 2 versions
-not dead
-Firefox ESR
+# Browsers that we support
+extends @wordpress/browserslist-config
