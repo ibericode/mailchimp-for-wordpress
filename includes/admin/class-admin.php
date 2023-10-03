@@ -141,7 +141,7 @@ class MC4WP_Admin {
 	*/
 	public function register_dashboard_widgets() {
 		if ( ! $this->tools->is_user_authorized() ) {
-			return false;
+			return;
 		}
 
 		/**
@@ -153,15 +153,12 @@ class MC4WP_Admin {
 		* @ignore
 		*/
 		do_action( 'mc4wp_dashboard_setup' );
-
-		return true;
 	}
 
 	/**
 	* Upgrade routine
 	*/
 	private function init_upgrade_routines() {
-
 		// upgrade routine for upgrade routine....
 		$previous_version = get_option( 'mc4wp_lite_version', 0 );
 		if ( $previous_version ) {
@@ -170,11 +167,6 @@ class MC4WP_Admin {
 		}
 
 		$previous_version = get_option( 'mc4wp_version', 0 );
-
-		// allow setting migration version from URL, to easily re-run previous migrations.
-		if ( isset( $_GET['mc4wp_run_migration'] ) ) {
-			$previous_version = $_GET['mc4wp_run_migration'];
-		}
 
 		// Ran upgrade routines before?
 		if ( empty( $previous_version ) ) {
@@ -188,21 +180,15 @@ class MC4WP_Admin {
 				)
 			);
 			if ( empty( $posts ) ) {
-				return false;
+				return;
 			}
 
 			$previous_version = '3.9';
 		}
 
-		// Rollback'ed?
-		if ( version_compare( $previous_version, MC4WP_VERSION, '>' ) ) {
-			update_option( 'mc4wp_version', MC4WP_VERSION );
-			return false;
-		}
-
 		// This means we're good!
-		if ( version_compare( $previous_version, MC4WP_VERSION ) > -1 ) {
-			return false;
+		if ( version_compare( $previous_version, MC4WP_VERSION, '>=' ) ) {
+			return;
 		}
 
 		define( 'MC4WP_DOING_UPGRADE', true );
@@ -269,14 +255,10 @@ class MC4WP_Admin {
 
 	/**
 	* Load scripts and stylesheet on Mailchimp for WP Admin pages
-	*
-	* @return bool
 	*/
 	public function enqueue_assets() {
-		global $wp_scripts;
-
 		if ( ! $this->tools->on_plugin_page() ) {
-			return false;
+			return;
 		}
 
 		$opts      = mc4wp_get_options();
@@ -323,8 +305,6 @@ class MC4WP_Admin {
 		* @param string $page
 		*/
 		do_action( 'mc4wp_admin_enqueue_assets', '', $page );
-
-		return true;
 	}
 
 
