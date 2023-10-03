@@ -1,6 +1,11 @@
 Changelog
 =========
 
+#### 4.9.9 - Oct 3, 2023 
+
+- Fix class "MC4WP_Usage_Tracking" not found error for WP Cron / WP CLI processes.
+
+
 #### 4.9.8 - Oct 3, 2023
 
 - Remove the opt-in usage tracking functionality as we're not really using it for decision making anymore.
