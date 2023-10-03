@@ -1,6 +1,15 @@
 Changelog
 =========
 
+#### 4.9.8 - Oct 3, 2023
+
+- Remove the opt-in usage tracking functionality as we're not really using it for decision making anymore.
+- Add missing label element to the select element for setting the logging level.
+- Our JavaScript assets are now transpiled to support the same set of browsers as WordPress core. 
+This drops support for some very old browsers, but results in smaller bundle sizes for the supported set of browsers.
+- Update third-party JS dependencies to their latest versions.
+
+
 #### 4.9.7 - Aug 29, 2023
 
 - Update third-party JS dependencies.
