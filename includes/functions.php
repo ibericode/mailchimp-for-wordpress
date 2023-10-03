@@ -13,19 +13,18 @@
  * @ignore
  * @access private
  *
- * @param string $service (optional)
+ * @param null|string $service (optional)
  * @return mixed
  *
  * @throws Exception when service is not found
  */
 function mc4wp( $service = null ) {
-	static $mc4wp;
-
-	if ( ! $mc4wp ) {
+	static $mc4wp = null;
+	if ( null === $mc4wp ) {
 		$mc4wp = new MC4WP_Container();
 	}
 
-	if ( $service ) {
+	if ( null !== $service ) {
 		return $mc4wp->get( $service );
 	}
 
