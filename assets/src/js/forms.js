@@ -33,9 +33,7 @@ function onSubmit (evt) {
   }
 
   const form = forms.getByElement(evt.target)
-  if (!evt.defaultPrevented) {
-    forms.trigger('submit', [form, evt])
-  }
+  forms.trigger('submit', [form, evt])
 }
 
 /**

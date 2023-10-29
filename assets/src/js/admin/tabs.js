@@ -14,11 +14,6 @@ const tabs = [].map.call(tabElements, el => {
   }
 })
 
-if (!Element.prototype.matches) {
-  Element.prototype.matches = Element.prototype.msMatchesSelector ||
-    Element.prototype.webkitMatchesSelector
-}
-
 function get (id) {
   for (let i = 0; i < tabs.length; i++) {
     if (tabs[i].id === id) {
@@ -99,27 +94,11 @@ function title (tab) {
 
 function switchTab (evt) {
   const link = evt.target
-
-  // get tab ID data attribute
-  let tabId = link.getAttribute('data-tab')
-
-  // alternatively, get tab ID from classname
-  // TODO: Remove this once MailChimp Top Bar 1.5.6 has been out for at least 3 months
-  if (!tabId) {
-    const match = link.className.match(/nav-tab-(\w+)?/)
-    if (match) {
-      tabId = match[1]
-    }
-  }
-
+  const tabId = link.getAttribute('data-tab')
   const opened = open(tabId, true)
   if (opened) {
     evt.preventDefault()
-    evt.returnValue = false
-    return false
   }
-
-  return true
 }
 
 function init () {
@@ -143,8 +122,11 @@ function init () {
   title(tab)
 }
 
+/**
+ * @param {MouseEvent} evt
+ */
 function onDocumentClick (evt) {
-  if (evt.target.matches('.tab-link')) {
+  if (evt.target.hasAttribute('data-tab')) {
     switchTab(evt)
   }
 }
@@ -155,11 +137,7 @@ function onPopState (evt) {
   }
 }
 
-// add event listeners
-for (let i = 0; i < tabNavElements.length; i++) {
-  tabNavElements[i].addEventListener('click', switchTab)
-}
-document.body.addEventListener('click', onDocumentClick)
+document.addEventListener('click', onDocumentClick)
 window.addEventListener('popstate', onPopState)
 init()
 
