@@ -38,13 +38,13 @@ class MC4WP_Admin_Texts {
 	/**
 	 * Ask for a plugin review in the WP Admin footer, if this is one of the plugin pages.
 	 *
-	 * @param $text
+	 * @param string $text
 	 *
 	 * @return string
 	 */
 	public function footer_text( $text ) {
 		if ( ! empty( $_GET['page'] ) && strpos( $_GET['page'], 'mailchimp-for-wp' ) === 0 ) {
-			$text = sprintf( 'If you enjoy using <strong>Mailchimp for WordPress</strong>, please <a href="%s" target="_blank">leave us a ★★★★★ rating</a>.', 'https://wordpress.org/support/view/plugin-reviews/mailchimp-for-wp?rate=5#postform' );
+			$text = sprintf( 'If you enjoy using <strong>Mailchimp for WordPress</strong>, please <a href="%s" target="_blank">leave us a ★★★★★ plugin review on WordPress.org</a>.', 'https://wordpress.org/support/plugin/mailchimp-for-wp/reviews/#new-post' );
 		}
 
 		return $text;
