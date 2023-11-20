@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp form
 Requires at least: 4.6
 Tested up to: 6.3
-Stable tag: 4.9.9
+Stable tag: 4.9.10
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.3
@@ -186,6 +186,15 @@ The plugin provides various filter and action hooks that allow you to modify or 
 8. Page where you modify your form messages.
 
 == Changelog ==
+
+
+#### 4.9.10 - Nov 20, 2023
+
+- Integrations: Update CheckoutWC hook name for WooCommerce checkbox integration.
+- Forms: Don't show form preview to users without `edit_posts` capability.
+- Forms: Explicitly exclude form preview from search engine indexing.
+- General: Don't unnecessarily go through service contrainer while bootstrapping plugin.
+- General: Remove some unnecessary JavaScript now that browser support has caught up.
 
 
 #### 4.9.9 - Oct 3, 2023 
