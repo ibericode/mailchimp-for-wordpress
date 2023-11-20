@@ -11,6 +11,10 @@ class MC4WP_Form_Previewer {
 			return;
 		}
 
+		if (! current_user_can( 'edit_posts' ) ) {
+			return;
+		}
+
 		show_admin_bar( false );
 		add_filter( 'pre_handle_404', '__return_true' );
 		remove_all_actions( 'template_redirect' );
