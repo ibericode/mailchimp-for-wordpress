@@ -11,7 +11,7 @@ $position_options = array(
 
 if ( defined( 'CFW_NAME' ) ) {
 	$position_options['cfw_checkout_before_payment_method_tab_nav'] = __( 'Checkout for WooCommerce: Before complete order button', 'mailchimp-for-wp' );
-	$position_options['cfw_checkout_after_login'] = __( 'Checkout for WooCommerce: After account info', 'mailchimp-for-wp' );
+	$position_options['cfw_after_customer_info_account_details'] = __( 'Checkout for WooCommerce: After account info', 'mailchimp-for-wp' );
 	$position_options['cfw_checkout_after_customer_info_address'] = __( 'Checkout for WooCommerce: After customer info', 'mailchimp-for-wp' );
 }
 

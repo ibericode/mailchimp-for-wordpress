@@ -42,6 +42,9 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration {
 
 				// create hook name based on position setting
 				$hook = $this->options['position'];
+
+				// prefix hook with woocommerce_ if not already properly prefixed
+				// note: we check for cfw_ prefix here to not override the Checkout for WC hook names
 				if ( strpos( $hook, 'cfw_' ) !== 0 && strpos( $hook, 'woocommerce_' ) !== 0 ) {
 					$hook = sprintf( 'woocommerce_%s', $hook );
 				}
