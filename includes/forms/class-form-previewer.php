@@ -11,7 +11,7 @@ class MC4WP_Form_Previewer {
 			return;
 		}
 
-		if (! current_user_can( 'edit_posts' ) ) {
+		if ( ! current_user_can( 'edit_posts' ) ) {
 			return;
 		}
 
