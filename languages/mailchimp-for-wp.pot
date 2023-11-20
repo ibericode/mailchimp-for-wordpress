@@ -2,16 +2,16 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: MC4WP: Mailchimp for WordPress 4.9.8\n"
+"Project-Id-Version: MC4WP: Mailchimp for WordPress 4.9.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mailchimp-for-wp\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-03T16:42:33+00:00\n"
+"POT-Creation-Date: 2023-11-20T08:15:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.8.1\n"
+"X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: mailchimp-for-wp\n"
 
 #. Plugin Name of the plugin
@@ -1279,7 +1279,7 @@ msgstr ""
 msgid "Position"
 msgstr ""
 
-#: integrations/woocommerce/class-woocommerce.php:176
+#: integrations/woocommerce/class-woocommerce.php:179
 msgid "Order #%d"
 msgstr ""
 
