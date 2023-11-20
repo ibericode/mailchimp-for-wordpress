@@ -1,6 +1,15 @@
 Changelog
 =========
 
+#### 4.9.10 - Nov 20, 2023
+
+- Integrations: Update CheckoutWC hook name for WooCommerce checkbox integration.
+- Forms: Don't show form preview to users without `edit_posts` capability.
+- Forms: Explicitly exclude form preview from search engine indexing.
+- General: Don't unnecessarily go through service contrainer while bootstrapping plugin.
+- General: Remove some unnecessary JavaScript now that browser support has caught up.
+
+
 #### 4.9.9 - Oct 3, 2023 
 
 - Fix class "MC4WP_Usage_Tracking" not found error for WP Cron / WP CLI processes.
