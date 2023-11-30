@@ -3,7 +3,7 @@ Contributors: Ibericode, DvanKooten, hchouhan, lapzor
 Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=donate-link
 Tags: mailchimp, mc4wp, email, marketing, newsletter, subscribe, widget, mc4wp, contact form 7, woocommerce, buddypress, ibericode, mailchimp form
 Requires at least: 4.6
-Tested up to: 6.3
+Tested up to: 6.4
 Stable tag: 4.9.10
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -197,7 +197,7 @@ The plugin provides various filter and action hooks that allow you to modify or 
 - General: Remove some unnecessary JavaScript now that browser support has caught up.
 
 
-#### 4.9.9 - Oct 3, 2023 
+#### 4.9.9 - Oct 3, 2023
 
 - Fix class "MC4WP_Usage_Tracking" not found error for WP Cron / WP CLI processes.
 
@@ -206,7 +206,7 @@ The plugin provides various filter and action hooks that allow you to modify or 
 
 - Remove the opt-in usage tracking functionality as we're not really using it for decision making anymore.
 - Add missing label element to the select element for setting the logging level.
-- Our JavaScript assets are now transpiled to support the same set of browsers as WordPress core. 
+- Our JavaScript assets are now transpiled to support the same set of browsers as WordPress core.
 This drops support for some very old browsers, but results in smaller bundle sizes for the supported set of browsers.
 - Update third-party JS dependencies to their latest versions.
 
@@ -258,7 +258,7 @@ This drops support for some very old browsers, but results in smaller bundle siz
 - When renewing lists, renew cached marketing permissions too.
 
 
-#### 4.9.0 - Jan 13, 2023 
+#### 4.9.0 - Jan 13, 2023
 
 - Removed deprecated filter hook `mc4wp_settings_cap`, use `mc4wp_admin_required_capability` instead.
 - Removed deprecated filter hook `mc4wp_merge_vars`, use `mc4wp_form_data` or `mc4wp_integration_data` instead.
