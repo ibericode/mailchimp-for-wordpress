@@ -8,10 +8,10 @@
 //     - refunded: sends refund confirmation
 //
 // fullfilment_status:
-//		- shipped: sends shipping confirmation    
+//		- shipped: sends shipping confirmation
 
 add_filter( 'mc4wp_ecommerce_order_data', function( $data, $order ) {
-	switch( $order->get_status ) {
+	switch( $order->get_status() ) {
 		case "pending":
 			$data['financial_status'] =  'pending';
 			break;
