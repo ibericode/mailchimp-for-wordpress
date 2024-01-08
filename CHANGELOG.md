@@ -1,6 +1,12 @@
 Changelog
 =========
 
+#### 4.9.11 - Jan 8, 2023
+
+- Update third-party JS dependencies.
+- Bump tested WordPress version.
+
+
 #### 4.9.10 - Nov 20, 2023
 
 - Integrations: Update CheckoutWC hook name for WooCommerce checkbox integration.
