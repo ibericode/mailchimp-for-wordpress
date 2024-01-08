@@ -1,4 +1,4 @@
-# Copyright (C) 2023 ibericode
+# Copyright (C) 2024 ibericode
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-20T08:19:09+00:00\n"
+"POT-Creation-Date: 2024-01-08T10:53:21+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: mailchimp-for-wp\n"
