@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 4.6
 Tested up to: 6.5
-Stable tag: 4.9.11
+Stable tag: 4.9.12
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.3
@@ -188,7 +188,12 @@ The plugin provides various filter and action hooks that allow you to modify or 
 == Changelog ==
 
 
-#### 4.9.11 - Jan 8, 2023
+#### 4.9.12 - Apr 22, 2024 
+
+- Fix last 10 Mailchimp lists not being pulled-in when having more than 10 lists.
+
+
+#### 4.9.11 - Jan 8, 2024
 
 - Update third-party JS dependencies.
 - Bump tested WordPress version.
@@ -1203,12 +1208,7 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 - Scroll to form after form submission now uses native browser method `scrollIntoView()`.
 - Various improvements for right-to-left (RTL) sites.
 - The Mailchimp API key is now obfuscated on the settings page.
-- Contact Form 7 integration now uses an early hook priority to ensure we run before any page redirects.
-
-**Additions**
-
-- Add position option for WooCommerce integration.
-- Add `{post}` tag whch can be used in form ...
+- Contact Form 7 integration now uses an early hook priority to ensure we ...
 
 == Upgrade Notice ==
 
