@@ -1,7 +1,12 @@
 Changelog
 =========
 
-#### 4.9.11 - Jan 8, 2023
+#### 4.9.12 - Apr 22, 2024 
+
+- Fix last 10 Mailchimp lists not being pulled-in when having more than 10 lists.
+
+
+#### 4.9.11 - Jan 8, 2024
 
 - Update third-party JS dependencies.
 - Bump tested WordPress version.
