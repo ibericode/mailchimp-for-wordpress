@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 4.6
 Tested up to: 6.5
-Stable tag: 4.9.12
+Stable tag: 4.9.13
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.3
@@ -186,6 +186,11 @@ The plugin provides various filter and action hooks that allow you to modify or 
 8. Page where you modify your form messages.
 
 == Changelog ==
+
+
+#### 4.9.13 - Apr 25, 2024
+
+- Fix issue with Composer classmap throwing a fatal error when an older version of Composer is already loaded.
 
 
 #### 4.9.12 - Apr 22, 2024 
@@ -1207,8 +1212,7 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 
 - Scroll to form after form submission now uses native browser method `scrollIntoView()`.
 - Various improvements for right-to-left (RTL) sites.
-- The Mailchimp API key is now obfuscated on the settings page.
-- Contact Form 7 integration now uses an early hook priority to ensure we ...
+- The ...
 
 == Upgrade Notice ==
 
