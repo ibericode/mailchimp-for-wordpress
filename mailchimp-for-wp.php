@@ -52,16 +52,8 @@ function _mc4wp_load_plugin()
     define('MC4WP_PLUGIN_FILE', __FILE__);
 
     require __DIR__ . '/autoload.php';
-    require __DIR__ . '/includes/functions.php';
-    require __DIR__ . '/includes/deprecated-functions.php';
-    require __DIR__ . '/includes/forms/functions.php';
-    require __DIR__ . '/includes/forms/admin-functions.php';
-    require __DIR__ . '/includes/integrations/functions.php';
     require __DIR__ . '/includes/default-actions.php';
     require __DIR__ . '/includes/default-filters.php';
-
-    // require API class manually because Composer's classloader is case-sensitive
-    require __DIR__ . '/includes/api/class-api-v3.php';
 
     /**
      * @global MC4WP_Container $GLOBALS['mc4wp']

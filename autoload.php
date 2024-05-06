@@ -1,5 +1,15 @@
 <?php
 
+require __DIR__ . '/includes/functions.php';
+require __DIR__ . '/includes/deprecated-functions.php';
+require __DIR__ . '/includes/forms/functions.php';
+require __DIR__ . '/includes/forms/admin-functions.php';
+require __DIR__ . '/includes/integrations/functions.php';
+
+// require API class manually because Composer's classloader is case-sensitive
+require __DIR__ . '/includes/api/class-api-v3.php';
+
+// load other classes dynamically
 spl_autoload_register(function ($class) {
 	static $classmap = array(
 		'MC4WP_API_Connection_Exception' => __DIR__ . '/includes/api/class-connection-exception.php',
