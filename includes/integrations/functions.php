@@ -8,8 +8,9 @@
  *
  * @return MC4WP_Integration[]
  */
-function mc4wp_get_integrations() {
-	return mc4wp( 'integrations' )->get_all();
+function mc4wp_get_integrations()
+{
+    return mc4wp('integrations')->get_all();
 }
 
 /**
@@ -22,8 +23,9 @@ function mc4wp_get_integrations() {
  *
  * @return MC4WP_Integration
  */
-function mc4wp_get_integration( $slug ) {
-	return mc4wp( 'integrations' )->get( $slug );
+function mc4wp_get_integration($slug)
+{
+    return mc4wp('integrations')->get($slug);
 }
 
 /**
@@ -37,8 +39,9 @@ function mc4wp_get_integration( $slug ) {
  *
  * @param bool $always_enabled
  */
-function mc4wp_register_integration( $slug, $class, $always_enabled = false ) {
-	return mc4wp( 'integrations' )->register_integration( $slug, $class, $always_enabled );
+function mc4wp_register_integration($slug, $class, $always_enabled = false)
+{
+    return mc4wp('integrations')->register_integration($slug, $class, $always_enabled);
 }
 
 /**
@@ -48,6 +51,7 @@ function mc4wp_register_integration( $slug, $class, $always_enabled = false ) {
  * @access public
  * @param string $slug
  */
-function mc4wp_deregister_integration( $slug ) {
-	mc4wp( 'integrations' )->deregister_integration( $slug );
+function mc4wp_deregister_integration($slug)
+{
+    mc4wp('integrations')->deregister_integration($slug);
 }

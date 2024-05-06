@@ -1,116 +1,119 @@
 <?php
 
-defined( 'ABSPATH' ) or exit;
+defined('ABSPATH') or exit;
 
 /**
  * Class MC4WP_Easy_Digital_Downloads_Integration
  *
  * @ignore
  */
-class MC4WP_Easy_Digital_Downloads_Integration extends MC4WP_Integration {
+class MC4WP_Easy_Digital_Downloads_Integration extends MC4WP_Integration
+{
+    /**
+     * @var string
+     */
+    public $name = 'Easy Digital Downloads';
 
+    /**
+     * @var string
+     */
+    public $description = 'Subscribes your Easy Digital Downloads customers.';
 
-	/**
-	 * @var string
-	 */
-	public $name = 'Easy Digital Downloads';
+    /**
+     *
+     */
+    public function add_hooks()
+    {
+        if (! $this->options['implicit']) {
+            // TODO: Allow more positions
+            add_action('edd_purchase_form_user_info_fields', array( $this, 'output_checkbox' ), 1);
+            add_action('edd_payment_meta', array( $this, 'save_checkbox_value' ));
+        }
 
-	/**
-	 * @var string
-	 */
-	public $description = 'Subscribes your Easy Digital Downloads customers.';
+        add_action('edd_complete_purchase', array( $this, 'subscribe_from_edd' ), 50);
+    }
 
-	/**
-	 *
-	 */
-	public function add_hooks() {
-		if ( ! $this->options['implicit'] ) {
+    /**
+     * @param array $meta
+     *
+     * @return array
+     */
+    public function save_checkbox_value($meta)
+    {
 
-			// TODO: Allow more positions
-			add_action( 'edd_purchase_form_user_info_fields', array( $this, 'output_checkbox' ), 1 );
-			add_action( 'edd_payment_meta', array( $this, 'save_checkbox_value' ) );
-		}
+        // don't save anything if the checkbox was not checked
+        if (! $this->checkbox_was_checked()) {
+            return $meta;
+        }
 
-		add_action( 'edd_complete_purchase', array( $this, 'subscribe_from_edd' ), 50 );
-	}
+        $meta['_mc4wp_optin'] = 1;
+        return $meta;
+    }
 
-	/**
-	 * @param array $meta
-	 *
-	 * @return array
-	 */
-	public function save_checkbox_value( $meta ) {
+    /**
+     * {@inheritdoc}
+     *
+     * @param $object_id
+     *
+     * @return bool
+     */
+    public function triggered($object_id = null)
+    {
+        if ($this->options['implicit']) {
+            return true;
+        }
 
-		// don't save anything if the checkbox was not checked
-		if ( ! $this->checkbox_was_checked() ) {
-			return $meta;
-		}
+        if (! $object_id) {
+            return false;
+        }
 
-		$meta['_mc4wp_optin'] = 1;
-		return $meta;
-	}
+        $meta = edd_get_payment_meta($object_id);
+        if (is_array($meta) && isset($meta['_mc4wp_optin']) && $meta['_mc4wp_optin']) {
+            return true;
+        }
 
-	/**
-	 * {@inheritdoc}
-	 *
-	 * @param $object_id
-	 *
-	 * @return bool
-	 */
-	public function triggered( $object_id = null ) {
-		if ( $this->options['implicit'] ) {
-			return true;
-		}
+        return false;
+    }
 
-		if ( ! $object_id ) {
-			return false;
-		}
+    /**
+     * @param int $payment_id The ID of the payment
+     *
+     * @return bool|string
+     */
+    public function subscribe_from_edd($payment_id)
+    {
+        if (! $this->triggered($payment_id)) {
+            return false;
+        }
 
-		$meta = edd_get_payment_meta( $object_id );
-		if ( is_array( $meta ) && isset( $meta['_mc4wp_optin'] ) && $meta['_mc4wp_optin'] ) {
-			return true;
-		}
+        $email = (string) edd_get_payment_user_email($payment_id);
+        $data  = array(
+            'EMAIL' => $email,
+        );
 
-		return false;
-	}
+        // add first and last name to merge vars, if given
+        $user_info = (array) edd_get_payment_meta_user_info($payment_id);
 
-	/**
-	 * @param int $payment_id The ID of the payment
-	 *
-	 * @return bool|string
-	 */
-	public function subscribe_from_edd( $payment_id ) {
-		if ( ! $this->triggered( $payment_id ) ) {
-			return false;
-		}
+        if (! empty($user_info['first_name']) && ! empty($user_info['last_name'])) {
+            $data['NAME'] = $user_info['first_name'] . ' ' . $user_info['last_name'];
+        }
 
-		$email = (string) edd_get_payment_user_email( $payment_id );
-		$data  = array(
-			'EMAIL' => $email,
-		);
+        if (! empty($user_info['first_name'])) {
+            $data['FNAME'] = $user_info['first_name'];
+        }
 
-		// add first and last name to merge vars, if given
-		$user_info = (array) edd_get_payment_meta_user_info( $payment_id );
+        if (! empty($user_info['last_name'])) {
+            $data['LNAME'] = $user_info['last_name'];
+        }
 
-		if ( ! empty( $user_info['first_name'] ) && ! empty( $user_info['last_name'] ) ) {
-			$data['NAME'] = $user_info['first_name'] . ' ' . $user_info['last_name'];
-		}
+        return $this->subscribe($data, $payment_id);
+    }
 
-		if ( ! empty( $user_info['first_name'] ) ) {
-			$data['FNAME'] = $user_info['first_name'];
-		}
-
-		if ( ! empty( $user_info['last_name'] ) ) {
-			$data['LNAME'] = $user_info['last_name'];
-		}
-
-		return $this->subscribe( $data, $payment_id );
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function is_installed() {
-		return class_exists( 'Easy_Digital_Downloads' );
-	}
+    /**
+     * @return bool
+     */
+    public function is_installed()
+    {
+        return class_exists('Easy_Digital_Downloads');
+    }
 }

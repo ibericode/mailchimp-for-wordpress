@@ -6,95 +6,99 @@
  * @since 3.0
  * @ignore
  */
-class MC4WP_Integration_Fixture {
+class MC4WP_Integration_Fixture
+{
+    /**
+     * @var string
+     */
+    public $slug;
 
+    /**
+     * @var string
+     */
+    public $class;
 
-	/**
-	 * @var string
-	 */
-	public $slug;
+    /**
+     * @var bool
+     */
+    public $enabled;
 
-	/**
-	 * @var string
-	 */
-	public $class;
+    /**
+     * @var bool
+     */
+    public $enabled_by_default;
 
-	/**
-	 * @var bool
-	 */
-	public $enabled;
+    /**
+     * @var MC4WP_Integration
+     */
+    public $instance;
 
-	/**
-	 * @var bool
-	 */
-	public $enabled_by_default;
+    /**
+     * @var array
+     */
+    public $options;
 
-	/**
-	 * @var MC4WP_Integration
-	 */
-	public $instance;
+    /**
+     * @param string $slug
+     * @param string $class
+     * @param bool $enabled_by_default
+     * @param array $options
+     */
+    public function __construct($slug, $class, $enabled_by_default, array $options)
+    {
+        $this->slug               = $slug;
+        $this->class              = $class;
+        $this->enabled_by_default = $enabled_by_default;
+        $this->enabled            = $enabled_by_default;
+        $this->options            = $options;
 
-	/**
-	 * @var array
-	 */
-	public $options;
+        if (! empty($options['enabled'])) {
+            $this->enabled = true;
+        }
+    }
 
-	/**
-	 * @param string $slug
-	 * @param string $class
-	 * @param bool $enabled_by_default
-	 * @param array $options
-	 */
-	public function __construct( $slug, $class, $enabled_by_default, array $options ) {
-		$this->slug               = $slug;
-		$this->class              = $class;
-		$this->enabled_by_default = $enabled_by_default;
-		$this->enabled            = $enabled_by_default;
-		$this->options            = $options;
+    /**
+     * Returns the actual instance
+     *
+     * @return MC4WP_Integration
+     */
+    public function load()
+    {
+        if (! $this->instance instanceof MC4WP_Integration) {
+            $this->instance = new $this->class($this->slug, $this->options);
+        }
 
-		if ( ! empty( $options['enabled'] ) ) {
-			$this->enabled = true;
-		}
-	}
+        return $this->instance;
+    }
 
-	/**
-	 * Returns the actual instance
-	 *
-	 * @return MC4WP_Integration
-	 */
-	public function load() {
-		if ( ! $this->instance instanceof MC4WP_Integration ) {
-			$this->instance = new $this->class( $this->slug, $this->options );
-		}
+    /**
+     * Tunnel everything to MC4WP_Integration class
+     *
+     * @param string $name
+     * @param array $arguments
+     *
+     * @return MC4WP_Integration
+     */
+    public function __call($name, $arguments)
+    {
+        return call_user_func_array(array( $this->load(), $name ), $arguments);
+    }
 
-		return $this->instance;
-	}
+    /**
+     * @param string $name
+     *
+     * @return string
+     */
+    public function __get($name)
+    {
+        return $this->load()->$name;
+    }
 
-	/**
-	 * Tunnel everything to MC4WP_Integration class
-	 *
-	 * @param string $name
-	 * @param array $arguments
-	 *
-	 * @return MC4WP_Integration
-	 */
-	public function __call( $name, $arguments ) {
-		return call_user_func_array( array( $this->load(), $name ), $arguments );
-	}
-
-	/**
-	 * @param string $name
-	 *
-	 * @return string
-	 */
-	public function __get( $name ) {
-		return $this->load()->$name;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function __toString() {
-		return $this->slug;
-	}
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->slug;
+    }
 }

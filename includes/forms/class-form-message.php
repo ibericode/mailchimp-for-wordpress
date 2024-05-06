@@ -6,35 +6,36 @@
  * @ignore
  * @access private
  */
-class MC4WP_Form_Notice {
+class MC4WP_Form_Notice
+{
+    /**
+     * @var string
+     */
+    public $type = 'error';
 
+    /**
+     * @var string
+     */
+    public $text;
 
-	/**
-	 * @var string
-	 */
-	public $type = 'error';
+    /**
+     * @param string $text
+     * @param string $type
+     */
+    public function __construct($text, $type = 'error')
+    {
+        $this->text = $text;
 
-	/**
-	 * @var string
-	 */
-	public $text;
+        if (! empty($type)) {
+            $this->type = $type;
+        }
+    }
 
-	/**
-	 * @param string $text
-	 * @param string $type
-	 */
-	public function __construct( $text, $type = 'error' ) {
-		$this->text = $text;
-
-		if ( ! empty( $type ) ) {
-			$this->type = $type;
-		}
-	}
-
-	/**
-	 * @return string
-	 */
-	public function __toString() {
-		return $this->text;
-	}
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->text;
+    }
 }
