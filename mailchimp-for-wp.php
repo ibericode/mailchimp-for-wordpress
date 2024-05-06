@@ -12,7 +12,7 @@ Domain Path: /languages
 License: GPL v3
 
 Mailchimp for WordPress
-Copyright (C) 2012-2024, Danny van Kooten, hi@dannyvankooten.com
+Copyright (C) 2012 - 2024, Danny van Kooten, hi@dannyvankooten.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -41,9 +41,9 @@ function _mc4wp_load_plugin()
         return;
     }
 
-    // don't run if PHP version is lower than 5.3
-    if (! function_exists('array_replace')) {
-        return;
+    // don't run if PHP version is lower than 5.6
+    if (PHP_VERSION_ID < 50600) {
+    	return;
     }
 
     // bootstrap the core plugin
@@ -51,17 +51,17 @@ function _mc4wp_load_plugin()
     define('MC4WP_PLUGIN_DIR', __DIR__);
     define('MC4WP_PLUGIN_FILE', __FILE__);
 
-    // load autoloader if function not yet exists (for compat with sitewide autoloader)
-    if (! function_exists('mc4wp')) {
-        require_once MC4WP_PLUGIN_DIR . '/vendor/autoload.php';
-    }
-
-    require MC4WP_PLUGIN_DIR . '/includes/default-actions.php';
-    require MC4WP_PLUGIN_DIR . '/includes/default-filters.php';
+    require __DIR__ . '/autoload.php';
+    require __DIR__ . '/includes/functions.php';
+    require __DIR__ . '/includes/deprecated-functions.php';
+    require __DIR__ . '/includes/forms/functions.php';
+    require __DIR__ . '/includes/forms/admin-functions.php';
+    require __DIR__ . '/includes/integrations/functions.php';
+    require __DIR__ . '/includes/default-actions.php';
+    require __DIR__ . '/includes/default-filters.php';
 
     // require API class manually because Composer's classloader is case-sensitive
-    // but we need it to pass class_exists condition
-    require MC4WP_PLUGIN_DIR . '/includes/api/class-api-v3.php';
+    require __DIR__ . '/includes/api/class-api-v3.php';
 
     /**
      * @global MC4WP_Container $GLOBALS['mc4wp']
@@ -98,7 +98,7 @@ function _mc4wp_load_plugin()
             $forms_admin = new MC4WP_Forms_Admin($messages);
             $forms_admin->add_hooks();
 
-            $integrations_admin = new MC4WP_Integration_Admin($mc4wp['integrations'], $messages);
+            $integrations_admin = new MC4WP_Integration_Admin($integration_manager, $messages);
             $integrations_admin->add_hooks();
         }
     }
