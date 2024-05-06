@@ -29,4 +29,3 @@ function mc4wp_get_add_form_url()
     $url = admin_url('admin.php?page=mailchimp-for-wp-forms&view=add-form');
     return $url;
 }
-

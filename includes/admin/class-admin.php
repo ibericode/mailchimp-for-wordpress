@@ -281,7 +281,7 @@ class MC4WP_Admin
         // js
         wp_register_script('mc4wp-admin', mc4wp_plugin_url('assets/js/admin.js'), array(), MC4WP_VERSION, true);
         wp_enqueue_script('mc4wp-admin');
-        $connected = ! empty($opts['api_key']);
+        $connected       = ! empty($opts['api_key']);
         $mailchimp_lists = $connected ? $mailchimp->get_lists() : array();
         wp_localize_script(
             'mc4wp-admin',

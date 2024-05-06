@@ -102,7 +102,7 @@ class MC4WP_Form_Asset_Manager
             }
 
             $handle = 'mc4wp-form-' . $stylesheet;
-            $url = $this->get_stylesheet_url($stylesheet);
+            $url    = $this->get_stylesheet_url($stylesheet);
             wp_enqueue_style($handle, $url, array(), MC4WP_VERSION);
             add_editor_style($url);
         }

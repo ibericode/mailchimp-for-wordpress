@@ -172,7 +172,7 @@ abstract class MC4WP_Integration
 
         if (empty($label)) {
             $default_options = $this->get_default_options();
-            $label = $default_options['label'];
+            $label           = $default_options['label'];
         }
 
         /**
@@ -294,7 +294,7 @@ abstract class MC4WP_Integration
         /** @ignore */
         do_action('mc4wp_integration_' . $this->slug . '_before_checkbox_wrapper', $this);
 
-        $wrapper_tag = $this->options['wrap_p'] ? 'p' : 'span';
+        $wrapper_tag   = $this->options['wrap_p'] ? 'p' : 'span';
         $wrapper_attrs = $this->get_wrapper_attributes();
 
         // Hidden field to make sure "0" is sent to server

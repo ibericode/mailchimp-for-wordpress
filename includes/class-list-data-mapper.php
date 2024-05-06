@@ -126,9 +126,9 @@ class MC4WP_List_Data_Mapper
 
         // add GDPR marketing permissions
         if (! empty($this->data['MARKETING_PERMISSIONS'])) {
-            $values = $this->data['MARKETING_PERMISSIONS'];
-            $values = is_array($values) ? $values : explode(',', $values);
-            $values = array_map('trim', $values);
+            $values                = $this->data['MARKETING_PERMISSIONS'];
+            $values                = is_array($values) ? $values : explode(',', $values);
+            $values                = array_map('trim', $values);
             $marketing_permissions = $this->mailchimp->get_list_marketing_permissions($list_id);
             foreach ($marketing_permissions as $mp) {
                 if (in_array($mp->marketing_permission_id, $values, true) || in_array($mp->text, $values, true)) {

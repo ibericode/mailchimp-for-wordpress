@@ -59,7 +59,7 @@ class MC4WP_MailChimp_Subscriber
      */
     public function to_array()
     {
-        $all = get_object_vars($this);
+        $all   = get_object_vars($this);
         $array = array();
 
         foreach ($all as $key => $value) {

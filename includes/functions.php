@@ -103,8 +103,8 @@ function mc4wp_get_debug_log()
     $opts = mc4wp_get_options();
 
     // get default log file location
-    $upload_dir = wp_upload_dir(null, false);
-    $file       = $upload_dir['basedir'] . '/mailchimp-for-wp/debug-log.php';
+    $upload_dir   = wp_upload_dir(null, false);
+    $file         = $upload_dir['basedir'] . '/mailchimp-for-wp/debug-log.php';
     $default_file = $file;
 
     /**

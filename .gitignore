@@ -10,6 +10,5 @@ vendor/
 npm-debug.log
 yarn.lock
 *.swp
-
 assets/*
 !assets/src

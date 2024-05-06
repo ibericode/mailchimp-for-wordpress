@@ -67,8 +67,8 @@ class MC4WP_Admin_Ajax
         }
 
         if (isset($_GET['format']) && $_GET['format'] === 'html') {
-            $merge_fields = $data[0]->merge_fields;
-            $interest_categories = $data[0]->interest_categories;
+            $merge_fields          = $data[0]->merge_fields;
+            $interest_categories   = $data[0]->interest_categories;
             $marketing_permissions = $data[0]->marketing_permissions;
             require MC4WP_PLUGIN_DIR . '/includes/views/parts/lists-overview-details.php';
         } else {

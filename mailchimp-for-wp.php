@@ -67,7 +67,7 @@ function _mc4wp_load_plugin()
      * @global MC4WP_Container $GLOBALS['mc4wp']
      * @name $mc4wp
      */
-    $mc4wp = mc4wp();
+    $mc4wp        = mc4wp();
     $mc4wp['api'] = 'mc4wp_get_api_v3';
     $mc4wp['log'] = 'mc4wp_get_debug_log';
 
@@ -89,7 +89,7 @@ function _mc4wp_load_plugin()
             $ajax = new MC4WP_Admin_Ajax($admin_tools);
             $ajax->add_hooks();
         } else {
-            $messages = new MC4WP_Admin_Messages();
+            $messages                = new MC4WP_Admin_Messages();
             $mc4wp['admin.messages'] = $messages;
 
             $admin = new MC4WP_Admin($admin_tools, $messages);
