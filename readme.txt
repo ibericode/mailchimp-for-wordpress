@@ -7,7 +7,7 @@ Tested up to: 6.5
 Stable tag: 4.9.13
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires PHP: 5.3
+Requires PHP: 5.6
 
 The #1 Mailchimp plugin for WordPress. Allows you to add a multitude of newsletter sign-up methods to your site.
 
