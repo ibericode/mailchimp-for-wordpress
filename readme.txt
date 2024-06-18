@@ -184,6 +184,7 @@ The plugin provides various filter and action hooks that allow you to modify or 
 6. Settings page to configure an integration.
 7. Page where you edit your sign-up forms.
 8. Page where you modify your form messages.
+9. Settings page for e-commerce integration with Mailchimp. Requires [Mailchimp for WordPress Premium](https://www.mc4wp.com/).
 
 == Changelog ==
 
