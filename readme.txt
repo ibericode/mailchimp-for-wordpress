@@ -26,8 +26,8 @@ This plugins helps you grow your email list in Mailchimp. You can use it to crea
 - Sign-up forms which are good looking, user-friendly and mobile optimized. You have complete control over the form fields and can build your forms using native HTML.
 
 - Seamless integration with the following plugins:
-    - Default WordPress Comment Form
-    - Default WordPress Registration Form
+    - WordPress Comment Form
+    - WordPress Registration Form
     - Contact Form 7
     - WooCommerce
     - Gravity Forms
@@ -44,10 +44,10 @@ This plugins helps you grow your email list in Mailchimp. You can use it to crea
 
 - Is the plugin you want to integrate with not listed above? You can probably still use our [custom integration](https://www.mc4wp.com/kb/add-subscribe-checkbox-custom-form/) feature. Alternatively, the plugin comes with a PHP API to programmatically add a new subscriber to Mailchimp.
 
-- Send your WooCommerce orders to Mailchimp so you can see exactly what each subscriber purchased and how much revenue your email campaigns are generating.
+- [Mailchimp for WordPress Premium](https://www.mc4wp.com/): Send your WooCommerce orders to Mailchimp so you can see exactly what each subscriber purchased and how much revenue your email campaigns are generating.
 
 - A multitude of available add-on plugins and integrations:
-	- [Mailchimp for WordPress Premium](https://www.mc4wp.com/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=add-on-list)
+	- [Mailchimp for WordPress Premium](https://www.mc4wp.com/)
 	- [Mailchimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/)
 	- [Boxzilla Pop-ups](https://wordpress.org/plugins/boxzilla/)
 
@@ -55,7 +55,7 @@ This plugins helps you grow your email list in Mailchimp. You can use it to crea
 
 - Developer friendly. For some inspiration, check out our [repository of example code snippets](https://github.com/ibericode/mailchimp-for-wordpress/tree/master/sample-code-snippets).
 
-- Ready for PHP 8.3, but backwards-compatible all the way down to PHP 5.6.
+- Ready for PHP 8.4, but backwards-compatible all the way down to PHP 5.6.
 
 #### What is Mailchimp?
 
