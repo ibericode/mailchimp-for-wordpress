@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 4.6
 Tested up to: 6.6
-Stable tag: 4.9.13
+Stable tag: 4.9.14
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.6
@@ -187,6 +187,13 @@ The plugin provides various filter and action hooks that allow you to modify or 
 9. Settings page for e-commerce integration with Mailchimp. Requires [Mailchimp for WordPress Premium](https://www.mc4wp.com/).
 
 == Changelog ==
+
+
+#### 4.9.14 - Jul 17, 2024
+
+- Very minor code-size improvements to public forms related JavaScript.
+- Update third-party JS dependencies.
+- Bump tested WordPress version to 6.6.
 
 
 #### 4.9.13 - Apr 25, 2024
@@ -1207,13 +1214,7 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 
 **Fixes**
 
-- Response message was shown for unsubmitted forms when using `{response}` in the form mark-up with multiple forms on the same page.
-
-**Improvements**
-
-- Scroll to form after form submission now uses native browser method `scrollIntoView()`.
-- Various improvements for right-to-left (RTL) sites.
-- The ...
+- Response message was shown for unsubmitted forms when using `{response}` in the form mark-up with multiple ...
 
 == Upgrade Notice ==
 
