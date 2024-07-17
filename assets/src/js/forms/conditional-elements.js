@@ -3,12 +3,11 @@ function getFieldValues (form, fieldName) {
   const inputs = form.querySelectorAll('input[name="' + fieldName + '"],select[name="' + fieldName + '"],textarea[name="' + fieldName + '"]')
 
   for (let i = 0; i < inputs.length; i++) {
-    const input = inputs[i]
-    if ((input.type === 'radio' || input.type === 'checkbox') && !input.checked) {
+    if ((inputs[i].type === 'radio' || inputs[i].type === 'checkbox') && !inputs[i].checked) {
       continue
     }
 
-    values.push(input.value)
+    values.push(inputs[i].value)
   }
 
   return values
@@ -38,35 +37,29 @@ function toggleElement (el) {
 
   // determine whether condition is met
   let conditionMet = false
-  for (let i = 0; i < values.length; i++) {
-    const value = values[i]
-
+  for (let i = 0; i < values.length && !conditionMet; i++) {
     // condition is met when value is in array of expected values OR expected values contains a wildcard and value is not empty
-    conditionMet = expectedValues.indexOf(value) > -1 || (expectedValues.indexOf('*') > -1 && value.length > 0)
-    if (conditionMet) {
-      break
-    }
+    conditionMet = expectedValues.indexOf(values[i]) > -1 || (expectedValues.indexOf('*') > -1 && values[i].length > 0)
   }
 
   // toggle element display
   if (show) {
-    el.style.display = (conditionMet) ? '' : 'none'
+    el.style.display = conditionMet ? '' : 'none'
   } else {
-    el.style.display = (conditionMet) ? 'none' : ''
+    el.style.display = conditionMet ? 'none' : ''
   }
 
   // find all inputs inside this element and toggle [required] attr (to prevent HTML5 validation on hidden elements)
   const inputs = el.querySelectorAll('input,select,textarea')
   for (let i = 0; i < inputs.length; i++) {
-    const input = inputs[i]
-    if ((conditionMet || show) && input.getAttribute('data-was-required')) {
-      input.required = true
-      input.removeAttribute('data-was-required')
+    if ((conditionMet || show) && inputs[i].getAttribute('data-was-required')) {
+      inputs[i].required = true
+      inputs[i].removeAttribute('data-was-required')
     }
 
-    if ((!conditionMet || !show) && input.required) {
-      input.setAttribute('data-was-required', 'true')
-      input.required = false
+    if ((!conditionMet || !show) && inputs[i].required) {
+      inputs[i].setAttribute('data-was-required', 'true')
+      inputs[i].required = false
     }
   }
 }
@@ -85,8 +78,7 @@ function handleInputEvent (evt) {
     return
   }
 
-  const form = evt.target.form
-  const elements = form.querySelectorAll('[data-show-if],[data-hide-if]')
+  const elements = evt.target.form.querySelectorAll('[data-show-if],[data-hide-if]')
   for (let i = 0; i < elements.length; i++) {
     toggleElement(elements[i])
   }

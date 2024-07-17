@@ -1,6 +1,12 @@
 Changelog
 =========
 
+#### 4.9.14 - Jul 17, 2024
+
+- Update third-party JS dependencies.
+- Bump tested WordPress version.
+
+
 #### 4.9.13 - Apr 25, 2024
 
 - Fix issue with Composer classmap throwing a fatal error when an older version of Composer is already loaded.
