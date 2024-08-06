@@ -68,7 +68,6 @@ class MC4WP_Gravity_Forms_Field extends GF_Field
 
     private function apply_mc4wp_options_filters($options)
     {
-        $options = apply_filters('mc4wp_gravity-forms_integration_options', $options);
         $options = apply_filters('mc4wp_integration_gravity-forms_options', $options);
         return $options;
     }
