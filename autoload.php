@@ -6,7 +6,7 @@ require __DIR__ . '/includes/forms/functions.php';
 require __DIR__ . '/includes/forms/admin-functions.php';
 require __DIR__ . '/includes/integrations/functions.php';
 
-// require API class manually because Composer's classloader is case-sensitive
+// require API class manually because our classloader is case-sensitive
 require __DIR__ . '/includes/api/class-api-v3.php';
 
 // load other classes dynamically
