@@ -46,12 +46,30 @@ class MC4WP_Custom_Integration extends MC4WP_Integration
 
     /**
      * Maybe fire a general subscription request
+     *
+     * @return bool|string
      */
     public function listen()
     {
         if (! $this->checkbox_was_checked()) {
             return false;
         }
+
+		// ignore requests from bots, crawlers and link previews
+	    if (empty($_SERVER['HTTP_USER_AGENT']) || preg_match("/bot|crawl|spider|seo|lighthouse|facebookexternalhit|preview/i", $_SERVER['HTTP_USER_AGENT'])) {
+	        return false;
+	    }
+
+	    // ignore requests without an HTTP referrer
+	    if (empty($_SERVER['HTTP_REFERER'])) {
+	    	return false;
+	    }
+
+	    // ignore requests where HTTP Referer does not contain hostname from home_url
+	    $site_hostname = parse_url(get_home_url(), PHP_URL_HOST);
+	    if (strpos($_SERVER['HTTP_REFERER'], $site_hostname) === false) {
+	    	return false;
+	    }
 
         $data = $this->get_data();
 
