@@ -189,6 +189,13 @@ The plugin provides various filter and action hooks that allow you to modify or 
 == Changelog ==
 
 
+#### 4.9.15 - Aug 13, 2024
+
+- Improved anti-spam measures on the [custom form integration](https://www.mc4wp.com/kb/subscribe-mailchimp-custom-html-form/). If you are using the custom form integration (using the `mc4wp-subscribe` checkbox), please test your forms after upgrading and report any issues to us.
+- Improved anti-spam measures on all sign-up forms.
+- Remove unsupported filter hook from Gravity Forms integration. 
+
+
 #### 4.9.14 - Jul 17, 2024
 
 - Very minor code-size improvements to public forms related JavaScript.
@@ -1201,20 +1208,7 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 
 **Improvements**
 
-- Some preparations for the upcoming migration to the new Mailchimp API (version 3).
-- Consistent hook parameters for `mc4wp_form_subscribed` action.
-- Improved logic for rendering form response.
-
-**Additions**
-
-- New checkbox position for WooCommerce checkout integration.
-
-
-#### 3.1.5 - March 22, 2016
-
-**Fixes**
-
-- Response message was shown for unsubmitted forms when using `{response}` in the form mark-up with multiple ...
+- ...
 
 == Upgrade Notice ==
 
