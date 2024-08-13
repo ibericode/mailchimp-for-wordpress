@@ -56,7 +56,7 @@ class MC4WP_Custom_Integration extends MC4WP_Integration
         }
 
 		// ignore requests from bots, crawlers and link previews
-	    if (empty($_SERVER['HTTP_USER_AGENT']) || preg_match("/bot|crawl|spider|seo|lighthouse|facebookexternalhit|preview/i", $_SERVER['HTTP_USER_AGENT'])) {
+	    if (empty($_SERVER['HTTP_USER_AGENT']) || preg_match('/bot|crawl|spider|seo|lighthouse|facebookexternalhit|preview/i', $_SERVER['HTTP_USER_AGENT'])) {
 	        return false;
 	    }
 
