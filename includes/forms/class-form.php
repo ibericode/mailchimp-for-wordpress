@@ -389,9 +389,15 @@ class MC4WP_Form
             $errors[] = 'no_lists_selected';
         }
 
-        if (! isset($this->raw_data['_mc4wp_timestamp']) || $this->raw_data['_mc4wp_timestamp'] > ( time() - 2 )) {
+        // perform some basic anti-spam checks
+        // User-Agent header should be set and not bot-like
+	    if (empty($_SERVER['HTTP_USER_AGENT']) || preg_match("/bot|crawl|spider|seo|lighthouse|facebookexternalhit|preview/i", $_SERVER['HTTP_USER_AGENT'])) {
+	       	$errors[] = 'spam';
+	    // _mc4wp_timestamp field should be between 1 week old (to deal with aggressively cached pages) and 2 seconds ago
+	    } elseif (! isset($this->raw_data['_mc4wp_timestamp']) || $this->raw_data['_mc4wp_timestamp'] < (time() - DAY_IN_SECONDS * 7) || $this->raw_data['_mc4wp_timestamp'] > ( time() - 2 )) {
             $errors[] = 'spam';
-        } elseif (! isset($this->raw_data['_mc4wp_honeypot']) || ! empty($this->raw_data['_mc4wp_honeypot'])) {
+        // _mc4wp_honeypot field should be submitted and empty
+        } elseif (! isset($this->raw_data['_mc4wp_honeypot']) || '' !== $this->raw_data['_mc4wp_honeypot']) {
             $errors[] = 'spam';
         }
 
@@ -427,10 +433,7 @@ class MC4WP_Form
         $errors = (array) apply_filters('mc4wp_form_errors', $errors, $form);
 
         // filter out all non-string values
-        $errors = array_filter($errors, 'is_string');
-
-        // set property on self
-        $this->errors = $errors;
+        $this->errors = array_filter($errors, 'is_string');
 
         // return whether we have errors
         return ! $this->has_errors();
