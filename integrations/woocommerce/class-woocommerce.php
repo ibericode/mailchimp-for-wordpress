@@ -2,6 +2,9 @@
 
 defined('ABSPATH') or exit;
 
+use Automattic\WooCommerce\Blocks\Package;
+use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
+
 /**
  * Class MC4WP_WooCommerce_Integration
  *
@@ -17,7 +20,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
     /**
      * @var string
      */
-    public $description = "Subscribes people from WooCommerce's checkout form.";
+    public $description = "Subscribes people from WooCommerce's Checkout form or Checkout Block.";
 
     /**
      * @var string[]
@@ -58,42 +61,13 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
             add_filter('kco_create_order', array($this, 'add_klarna_field'));
             add_filter('klarna_after_kco_confirmation', array($this, 'subscribe_from_klarna_checkout'), 10, 2);
 
-            // hooks for when using WooCommerce Blocks
-            // TODO: Wait for this to stabilize in WooCommerce core and then work from the below
-            // add_action('woocommerce_init',
-            //  function () {
-            //      $params = array(
-            //          'id'       => 'marketing/'.$this->checkbox_name,
-            //          'label'    => $this->get_label_text(),
-            //          'location' => 'contact',
-            //          'type'     => 'checkbox',
-            //          'required' => false,
-            //      );
-            //      // Function was marked experimental from between WooCommerce v8.3 - v8.8
-            //      if (function_exists('__experimental_woocommerce_blocks_register_checkout_field')) {
-            //          __experimental_woocommerce_blocks_register_checkout_field($params);
-            //      }
-            //      if (function_exists('woocommerce_blocks_register_checkout_field')) {
-            //          woocommerce_blocks_register_checkout_field($params);
-            //      }
-            //  }
-            // );
-            // add_action('woocommerce_set_additional_field_value', array($this, 'woocommerce_set_additional_field_value'), 10, 4);
+            // hooks for when using WooCommerce Checkout Block
+            add_action('woocommerce_init', array($this, 'add_checkout_block_field'));
         }
 
         add_action('woocommerce_checkout_order_processed', array($this, 'subscribe_from_woocommerce_checkout'));
+        add_action('woocommerce_store_api_checkout_order_processed', array($this, 'subscribe_from_woocommerce_checkout'));
     }
-
-    // public function woocommerce_set_additional_field_value( $key, $value, $group, $wc_object ) {
-    //  if ( 'marketing/'.$this->checkbox_name !== $key ) {
-    //      return;
-    //  }
-
-    //  if ($value) {
-    //      $wc_object->update_meta_data( '_mc4wp_optin', $value, true );
-    //  }
-
-    // }
 
     /**
      * Add default value for "position" setting
@@ -105,6 +79,24 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
         $defaults             = parent::get_default_options();
         $defaults['position'] = 'billing';
         return $defaults;
+    }
+
+    public function add_checkout_block_field() {
+    	// for compatibility with older WooCommerce versions
+    	// check if function exists before calling
+    	if (!function_exists('woocommerce_register_additional_checkout_field')) {
+    		return;
+    	}
+
+		woocommerce_register_additional_checkout_field(
+			array(
+				'id' => 'mc4wp/optin',
+				'location' => 'contact',
+				'type' => 'checkbox',
+				'label' => $this->get_label_text(),
+				'optionalLabel' => $this->get_label_text(),
+			),
+		);
     }
 
     public function add_klarna_field($create)
@@ -141,8 +133,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
     /**
      * {@inheritdoc}
      *
-     * @param $order_id
-     *
+     * @param int|\WC_Order $order_id
      * @return bool|mixed
      */
     public function triggered($order_id = null)
@@ -156,7 +147,20 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
             return false;
         }
 
-        return $order->get_meta('_mc4wp_optin');
+        // value from default checkout form (shortcode)
+        $a = $order->get_meta('_mc4wp_optin');
+
+        // alternatively, value from Checkout Block field
+        $b = false;
+        if (class_exists(Package::class) && class_exists(CheckoutFields::class)) {
+			$checkout_fields = Package::container()->get(CheckoutFields::class);
+
+			if ($checkout_fields && method_exists($checkout_fields, 'get_field_from_object')) {
+				$b = $checkout_fields->get_field_from_object('mc4wp/optin', $order, 'contact');
+			}
+        }
+
+        return $a || $b;
     }
 
     public function subscribe_from_klarna_checkout($order_id, $klarna_order)
@@ -181,14 +185,14 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
     }
 
     /**
-     * @param int $order_id
+     * @param int|\WC_Order $order_id
      * @return boolean
      */
     public function subscribe_from_woocommerce_checkout($order_id)
     {
-        if (!$this->triggered($order_id)) {
-            return false;
-        }
+    	if (!$this->triggered($order_id)) {
+    		return false;
+    	}
 
         $order = wc_get_order($order_id);
         if (!$order) {

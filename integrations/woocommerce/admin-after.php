@@ -45,6 +45,7 @@ $config = array(
                     ?>
 
                 </select>
+                <p class="description"><?php esc_html_e('Select the location where you would like to show the sign-up checkbox. Note that only works if not using WooCommerce Checkout Block.', 'mailchimp-for-wp'); ?></p>
             </td>
         </tr>
     </tbody>
