@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 4.6
 Tested up to: 6.6
-Stable tag: 4.9.15
+Stable tag: 4.9.16
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.6
@@ -187,6 +187,11 @@ The plugin provides various filter and action hooks that allow you to modify or 
 9. Settings page for e-commerce integration with Mailchimp. Requires [Mailchimp for WordPress Premium](https://www.mc4wp.com/).
 
 == Changelog ==
+
+
+#### 4.9.16 - Sep 11, 2024
+
+- Add support for WooCommerce Checkout Block in sign-up checkbox integration.
 
 
 #### 4.9.15 - Aug 13, 2024
@@ -1203,10 +1208,6 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 #### 3.1.6 - April 12, 2016
 
 **Fixes**
-
-- Form event for starting a form was named `start` where it should have been `started`.
-
-**Improvements**
 
 - ...
 
