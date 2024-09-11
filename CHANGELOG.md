@@ -1,6 +1,11 @@
 Changelog
 =========
 
+#### 4.9.16 - Sep 11, 2024
+
+- Add support for WooCommerce Checkout Block in sign-up checkbox integration.
+
+
 #### 4.9.15 - Aug 13, 2024
 
 - Improved anti-spam measures on the [custom form integration](https://www.mc4wp.com/kb/subscribe-mailchimp-custom-html-form/). If you are using the custom form integration (using the `mc4wp-subscribe` checkbox), please test your forms after upgrading and report any issues to us.
