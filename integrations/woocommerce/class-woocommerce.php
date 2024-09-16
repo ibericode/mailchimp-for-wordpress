@@ -47,7 +47,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
                 // prefix hook with woocommerce_ if not already properly prefixed
                 // note: we check for cfw_ prefix here to not override the Checkout for WC hook names
                 if (strpos($hook, 'cfw_') !== 0 && strpos($hook, 'woocommerce_') !== 0) {
-                    $hook = sprintf('woocommerce_%s', $hook);
+                    $hook = "woocommerce_{$hook}";
                 }
 
                 add_action($hook, array($this, 'output_checkbox'), 20);
@@ -155,7 +155,12 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
         if (class_exists(Package::class) && class_exists(CheckoutFields::class)) {
 			$checkout_fields = Package::container()->get(CheckoutFields::class);
 
-			if ($checkout_fields && method_exists($checkout_fields, 'get_field_from_object')) {
+			if ($checkout_fields
+				&& method_exists($checkout_fields, 'get_field_from_object')
+
+				// method was private in earlier versions of WooCommerce, so check if callable
+				&& is_callable(array($checkout_fields, 'get_field_from_object'))
+			) {
 				$b = $checkout_fields->get_field_from_object('mc4wp/optin', $order, 'contact');
 			}
         }
