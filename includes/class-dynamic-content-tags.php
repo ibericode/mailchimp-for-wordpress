@@ -245,7 +245,7 @@ abstract class MC4WP_Dynamic_Content_Tags
     protected function get_email()
     {
         if (! empty($_REQUEST['EMAIL'])) {
-            return $_REQUEST['EMAIL'];
+            return strip_tags($_REQUEST['EMAIL']);
         }
 
         // then , try logged-in user
