@@ -1,6 +1,13 @@
 Changelog
 =========
 
+#### 4.9.17 - Sep 17, 2024
+
+- Fix compatibility with WooCommerce versions 8.5 to 8.8 because of private method that was later made public.
+- Fix potential reflected XSS by stripping and escaping all HTML from `{email}` tag replacements. Thanks to kauenavarro for responsibly disclosing.
+- Fix potential stored XSS for attackers with both administrator access and Mailchimp account access by escaping HTML from interest group name. Thanks to Jorge Diaz (ddiax) for responsibly disclosing.
+
+
 #### 4.9.16 - Sep 11, 2024
 
 - Add support for WooCommerce Checkout Block in sign-up checkbox integration.
