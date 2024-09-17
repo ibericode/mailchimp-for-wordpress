@@ -155,9 +155,10 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
         if (class_exists(Package::class) && class_exists(CheckoutFields::class)) {
 			$checkout_fields = Package::container()->get(CheckoutFields::class);
 
-			if ($checkout_fields
-				&& method_exists($checkout_fields, 'get_field_from_object')
+			if (
+				$checkout_fields
 
+				&& method_exists($checkout_fields, 'get_field_from_object')
 				// method was private in earlier versions of WooCommerce, so check if callable
 				&& is_callable(array($checkout_fields, 'get_field_from_object'))
 			) {
