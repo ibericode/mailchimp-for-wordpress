@@ -9,9 +9,9 @@ $GLOBALS['post'] = new \WP_Post((object) array( 'filter' => 'raw' ));
 <html>
 <head>
     <title>Mailchimp for WordPress Form Preview</title>
-    <meta charset="utf-8" />
-    <meta name="robots" content="noindex" />
-    <link type="text/css" rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>" />
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex">
+    <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>">
     <?php
     wp_enqueue_scripts();
     wp_print_styles();
@@ -28,14 +28,12 @@ $GLOBALS['post'] = new \WP_Post((object) array( 'filter' => 'raw' ));
             max-width: 100%;
             text-align: left;
         }
-
-        /* hide all other elements */
+        <?php // hide all other elements except the form preview ?>
         body::before,
         body::after,
         body > *:not(#form-preview) {
             display:none !important;
         }
-
         #form-preview {
             display: block !important;
             width: 100%;
@@ -46,10 +44,10 @@ $GLOBALS['post'] = new \WP_Post((object) array( 'filter' => 'raw' ));
         }
     </style>
 </head>
-<body class="page-template-default page ">
+<body class="page-template-default page">
     <div id="form-preview" class="page type-page status-publish hentry post post-content">
         <?php mc4wp_show_form($form_id); ?>
     </div>
-    <?php wp_footer(); ?>
+    <?php do_action('wp_footer'); ?>
 </body>
 </html>

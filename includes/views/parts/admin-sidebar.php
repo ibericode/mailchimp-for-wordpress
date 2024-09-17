@@ -32,20 +32,14 @@ function _mc4wp_admin_sidebar_other_plugins()
 
     // Koko Analytics
     echo '<li style="margin: 12px 0;">';
-    echo sprintf('<strong><a href="%s">Koko Analytics</a></strong><br />', 'https://wordpress.org/plugins/koko-analytics/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=sidebar');
+    echo '<strong><a href="https://wordpress.org/plugins/koko-analytics/">Koko Analytics</a></strong><br />';
     echo esc_html__('Privacy-friendly analytics plugin that does not use any external services.', 'mailchimp-for-wp');
     echo '</li>';
 
     // Boxzilla
     echo '<li style="margin: 12px 0;">';
-    echo sprintf('<strong><a href="%s">Boxzilla Pop-ups</a></strong><br />', 'https://wordpress.org/plugins/boxzilla/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=sidebar');
+    echo '<strong><a href="https://wordpress.org/plugins/boxzilla/">Boxzilla Pop-ups</a></strong><br />';
     echo esc_html__('Pop-ups or boxes that slide-in with a newsletter sign-up form. A sure-fire way to grow your email lists.', 'mailchimp-for-wp');
-    echo '</li>';
-
-    // HTML Forms
-    echo '<li style="margin: 12px 0;">';
-    echo sprintf('<strong><a href="%s">HTML Forms</a></strong><br />', 'https://wordpress.org/plugins/html-forms/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=sidebar');
-    echo esc_html__('Super flexible forms using native HTML. Just like Mailchimp for WordPress forms but for other purposes, like a contact form.', 'mailchimp-for-wp');
     echo '</li>';
 
     echo '</ul>';

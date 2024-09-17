@@ -400,7 +400,7 @@ class MC4WP_Forms_Admin
      */
     public function show_edit_page()
     {
-        $form_id   = ( ! empty($_GET['form_id']) ) ? (int) $_GET['form_id'] : 0;
+        $form_id   = ! empty($_GET['form_id']) ? (int) $_GET['form_id'] : 0;
         $mailchimp = new MC4WP_MailChimp();
         $lists     = $mailchimp->get_lists();
 
@@ -414,7 +414,7 @@ class MC4WP_Forms_Admin
         }
 
         $opts       = $form->settings;
-        $active_tab = ( isset($_GET['tab']) ) ? $_GET['tab'] : 'fields';
+        $active_tab = isset($_GET['tab']) ? trim($_GET['tab']) : 'fields';
 
         $form_preview_url = add_query_arg(
             array(
