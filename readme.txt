@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 4.6
 Tested up to: 6.6
-Stable tag: 4.9.16
+Stable tag: 4.9.17
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.6
@@ -187,6 +187,13 @@ The plugin provides various filter and action hooks that allow you to modify or 
 9. Settings page for e-commerce integration with Mailchimp. Requires [Mailchimp for WordPress Premium](https://www.mc4wp.com/).
 
 == Changelog ==
+
+
+#### 4.9.17 - Sep 17, 2024
+
+- Fix compatibility with WooCommerce versions 8.5 to 8.8 because of private method that was later made public.
+- Fix potential reflected XSS by stripping and escaping all HTML from `{email}` tag replacements. Thanks to kauenavarro for responsibly disclosing.
+- Fix potential stored XSS for attackers with both administrator access and Mailchimp account access by escaping HTML from interest group name. Thanks to Jorge Diaz (ddiax) for responsibly disclosing.
 
 
 #### 4.9.16 - Sep 11, 2024
@@ -1183,33 +1190,7 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 **Improvements**
 
 - Show dismissible notice when API key is not set.
-- Show empty API key errors in plugin log.
-- Friendlier error message for re-subscribe failures.
-
-**Additions**
-
-- Add `form.reset()` method to JS API.
-
-#### 3.1.7 - May 9, 2016
-
-**Fixes**
-
-- Shortcode wasn't accepting `element_id` as a valid attribute.
-- Take array style fields into account when checking if a form contains a given field.
-
-
-**Improvements**
-
-- Nested fields will now be properly validated when they're marked as required.
-- If plugin is installed using Composer, autoloader won't be loaded (again).
-
-
-
-#### 3.1.6 - April 12, 2016
-
-**Fixes**
-
-- ...
+- Show empty API key errors ...
 
 == Upgrade Notice ==
 
