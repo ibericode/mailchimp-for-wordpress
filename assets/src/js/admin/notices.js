@@ -35,14 +35,14 @@ const groupingsNotice = function () {
 const requiredFieldsNotice = function () {
   const missingFields = fields.getAll().filter(f => f.forceRequired === true && !editor.containsField(f.name.toUpperCase()))
 
-  let text = '<strong>Heads up!</strong> Your form is missing list fields that are required in Mailchimp. Either add these fields to your form or mark them as optional in Mailchimp.'
+  let text = '<strong>Heads up!</strong> Your form is missing fields that are required in Mailchimp. Either add these fields to your form or mark them as optional in Mailchimp.'
   text += '<br /><ul class="ul-square" style="margin-bottom: 0;"><li>' + missingFields.map(function (f) { return f.title }).join('</li><li>') + '</li></ul>';
 
   (missingFields.length > 0) ? show('required_fields_missing', text) : hide('required_fields_missing')
 }
 
 const mailchimpListsNotice = function () {
-  const text = '<strong>Heads up!</strong> You have not yet selected a Mailchimp list to subscribe people to. Please select at least one list from the <a href="javascript:void(0)" data-tab="settings" class="tab-link">settings tab</a>.'
+  const text = '<strong>Heads up!</strong> You have not yet selected a Mailchimp audience to subscribe people to. Please select at least one audience from the <a href="javascript:void(0)" data-tab="settings" class="tab-link">settings tab</a>.'
 
   if (settings.getSelectedLists().length > 0) {
     hide('no_lists_selected')
