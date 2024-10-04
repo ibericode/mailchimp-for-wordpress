@@ -7,7 +7,7 @@ Tested up to: 6.6
 Stable tag: 4.9.17
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Requires PHP: 5.6
+Requires PHP: 7.2
 
 The #1 Mailchimp plugin for WordPress. Allows you to add a multitude of newsletter sign-up methods to your site.
 
@@ -26,21 +26,21 @@ This plugins helps you grow your email list in Mailchimp. You can use it to crea
 - Sign-up forms which are good looking, user-friendly and mobile optimized. You have complete control over the form fields and can build your forms using native HTML.
 
 - Seamless integration with the following plugins:
-    - WordPress Comment Form
-    - WordPress Registration Form
-    - Contact Form 7
-    - WooCommerce
-    - Gravity Forms
-    - Ninja Forms 3
-    - WPForms
-    - BuddyPress
-    - MemberPress
-    - Events Manager
-    - Easy Digital Downloads
-    - Give
-    - UltimateMember
-    - HTML Forms
-    - AffiliateWP
+	- WordPress Comment Form
+	- WordPress Registration Form
+	- Contact Form 7
+	- WooCommerce
+	- Gravity Forms
+	- Ninja Forms 3
+	- WPForms
+	- BuddyPress
+	- MemberPress
+	- Events Manager
+	- Easy Digital Downloads
+	- Give
+	- UltimateMember
+	- HTML Forms
+	- AffiliateWP
 
 - Is the plugin you want to integrate with not listed above? You can probably still use our [custom integration](https://www.mc4wp.com/kb/add-subscribe-checkbox-custom-form/) feature. Alternatively, the plugin comes with a PHP API to programmatically add a new subscriber to Mailchimp.
 

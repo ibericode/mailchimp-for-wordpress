@@ -41,8 +41,8 @@ function _mc4wp_load_plugin()
         return;
     }
 
-    // don't run if PHP version is lower than 5.6
-    if (PHP_VERSION_ID < 50600) {
+    // don't run if PHP version is lower than 7.2.0
+    if (PHP_VERSION_ID < 70200) {
     	return;
     }
 

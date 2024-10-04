@@ -1,6 +1,11 @@
 Changelog
 =========
 
+#### Development
+
+- Bump required PHP version to 7.2.
+
+
 #### 4.9.17 - Sep 17, 2024
 
 - Fix compatibility with WooCommerce versions 8.5 to 8.8 because of private method that was later made public.
