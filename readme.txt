@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 4.6
 Tested up to: 6.6
-Stable tag: 4.9.17
+Stable tag: 4.9.18
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.2
@@ -187,6 +187,15 @@ The plugin provides various filter and action hooks that allow you to modify or 
 9. Settings page for e-commerce integration with Mailchimp. Requires [Mailchimp for WordPress Premium](https://www.mc4wp.com/).
 
 == Changelog ==
+
+
+#### 4.9.18 - Oct 21, 2024
+
+- Bump required PHP version to 7.2.
+- Prevent non-functional checkbox from showing up on WooCommerce my account page if WooCommerce checkout integration is enabled.
+- Update default form content to include a "for" attribute on the label element.
+- Minor performance optimizations to `MC4WP_Form::get_subscriber_tags()`
+- Begrudgingly rename Mailchimp lists to Mailchimp audiences throughout the plugin's admin interfaces.
 
 
 #### 4.9.17 - Sep 17, 2024
@@ -1172,25 +1181,7 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 
 - Don't write to debug log if it is not writable.
 - Reset some CSS properties for commonly used class names in Form Editor & Debug Log.
-- Do not unnecessarily register styles which are then immediately enqueued.
-
-**Additions**
-
-- Add "is required field" option for dropdown & radio fields in Field Helper.
-- Link to [Boxzilla plugin](https://boxzillaplugin.com/) from admin sidebar.
-
-
-#### 3.1.8 - May 23, 2016
-
-**Fixes**
-
-- Form Preview mode replaced all titles on that page with "Form Preview".
-- API class fix for [eCommerce360 functionality](https://www.mc4wp.com/kb/what-is-ecommerce/).
-
-**Improvements**
-
-- Show dismissible notice when API key is not set.
-- Show empty API key errors ...
+- Do not unnecessarily register styles which are then immediately ...
 
 == Upgrade Notice ==
 
