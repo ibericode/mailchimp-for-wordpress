@@ -1,9 +1,13 @@
 Changelog
 =========
 
-#### Development
+#### 4.9.18 - Oct 21, 2024
 
 - Bump required PHP version to 7.2.
+- Prevent non-functional checkbox from showing up on WooCommerce my account page if WooCommerce checkout integration is enabled.
+- Update default form content to include a "for" attribute on the label element.
+- Minor performance optimizations to `MC4WP_Form::get_subscriber_tags()`
+- Begrudgingly rename Mailchimp lists to Mailchimp audiences throughout the plugin's admin interfaces.
 
 
 #### 4.9.17 - Sep 17, 2024
