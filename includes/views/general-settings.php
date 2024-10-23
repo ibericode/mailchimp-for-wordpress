@@ -65,6 +65,26 @@ defined('ABSPATH') or exit;
                             ?>
                         </td>
 
+					<tr valign="top">
+						<th scope="row"><label><?php echo esc_html__('Procaptcha', 'mailchimp-for-wp'); ?></label></th>
+						<td>
+							<?php
+							if (true === $is_procaptcha_configured) {
+							?>
+							<span class="mc4wp-status positive"><?php echo esc_html__('CONFIGURED', 'mailchimp-for-wp'); ?></span>
+							<?php
+							} else {
+							?>
+							<span class="mc4wp-status neutral"><?php echo esc_html__('NOT CONFIGURED', 'mailchimp-for-wp'); ?></span>
+							<?php
+                            }
+							?>
+							<p class="description" style="padding:15px;">
+								<a target="_self" href="<?php echo esc_url(admin_url('admin.php?page=mailchimp-for-wp-integrations&integration=prosopo-procaptcha')); ?>"><?php echo esc_html__('Click here', 'mailchimp-for-wp'); ?></a>
+								<?php echo esc_html__('to configure privacy-friendly and GDPR-compliant anti-bot protection.', 'mailchimp-for-wp'); ?>
+							</p>
+						</td>
+
                     </tr>
 
                 </table>

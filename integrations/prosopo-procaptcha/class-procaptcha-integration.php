@@ -24,39 +24,6 @@ class MC4WP_Procaptcha_Integration extends MC4WP_Integration
 	 */
 	protected function add_hooks()
 	{
-		add_action('mc4wp_form_content', array($this, 'inject_captcha_element'));
-	}
-
-	/**
-	 * @return bool
-	 */
-	protected function is_enabled()
-	{
-		$enabled_setting = $this->options['enabled'] ?? '';
-
-		return '1' === $enabled_setting;
-	}
-
-	/**
-	 * @param string $html
-	 * @return string
-	 */
-	public function inject_captcha_element($html)
-	{
-		$stub = '<input type="hidden" name="procaptcha">';
-
-		if (false === strpos($html, $stub)) {
-			return $html;
-		}
-
-		$captcha_element = '';
-
-		// fixme
-		if (true === $this->is_enabled()) {
-			$captcha_element = 'test';
-		}
-
-		return str_replace($stub, $captcha_element, $html);
 	}
 
 	/**
@@ -84,12 +51,13 @@ class MC4WP_Procaptcha_Integration extends MC4WP_Integration
 	protected function get_default_options()
 	{
 		return array(
-			'enabled' => 0,
-			'css' => 0,
+			'enabled' => '0',
+			'css' => '0',
 			'site_key' => '',
 			'secret_key' => '',
 			'theme' => 'light',
 			'type' => 'frictionless',
+			'display_for_authorized' => '0',
 		);
 	}
 }

@@ -5,11 +5,12 @@ $opts = true === is_array($opts) ?
 	$opts :
     array();
 
-$site_key   = $opts['site_key'] ?? '';
-$secret_key = $opts['secret_key'] ?? '';
-$enabled    = $opts['enabled'] ?? 0;
-$theme      = $opts['theme'] ?? '';
-$type       = $opts['type'] ?? '';
+$site_key               = $opts['site_key'] ?? '';
+$secret_key             = $opts['secret_key'] ?? '';
+$enabled                = $opts['enabled'] ?? '0';
+$display_for_authorized = $opts['display_for_authorized'] ?? '0';
+$theme                  = $opts['theme'] ?? '';
+$type                   = $opts['type'] ?? '';
 
 $theme_options = array(
 	'light' => esc_html__('Light', 'mailchimp-for-wp'),
@@ -32,12 +33,7 @@ if ('1' === $enabled) {
 <?php
 }
 $procaptcha_api = MC4WP_Procaptcha::get_instance();
-$procaptcha_api->render_captcha_element();
-$procaptcha_api->render_captcha_js(array(
-	'siteKey' => $site_key,
-	'theme' => $theme,
-	'type' => $type,
-));
+echo $procaptcha_api->print_captcha_element(true, true);
 ?>
 
 <input class="prosopo-procaptcha__enabled-setting" type="hidden" name="mc4wp_integrations[prosopo-procaptcha][enabled]" value="<?php echo esc_attr($enabled); ?>">
@@ -103,6 +99,20 @@ $procaptcha_api->render_captcha_js(array(
 			?>
 			</select>
 		</label>
+	</td>
+</tr>
+<tr valign="top">
+	<th scope="row"><?php echo esc_html__('Display for authorized users', 'mailchimp-for-wp'); ?></th>
+	<td class="nowrap integration-toggles-wrap">
+		<label>
+			<input type="radio" name="mc4wp_integrations[prosopo-procaptcha][display_for_authorized]" value="1" <?php checked($display_for_authorized, '1'); ?> />&rlm;
+			<?php echo esc_html__('Yes', 'mailchimp-for-wp'); ?>
+		</label> &nbsp;
+		<label>
+			<input type="radio" name="mc4wp_integrations[prosopo-procaptcha][display_for_authorized]" value="0" <?php checked($display_for_authorized, '0'); ?> />&rlm;
+			<?php echo esc_html__('No', 'mailchimp-for-wp'); ?>
+		</label>
+		<p class="description"><?php echo esc_html__('Select "yes" to require the captcha even from authorized users.', 'mailchimp-for-wp'); ?></p>
 	</td>
 </tr>
 </tbody>
