@@ -93,4 +93,14 @@ forms.number = function (config) {
   ]
 }
 
+forms.procaptcha = function (config) {
+  config.placeholder = ''
+  config.label = ''
+  config.wrap = false
+  config.required = false
+  config.type = 'hidden'
+
+  return []
+}
+
 module.exports = forms

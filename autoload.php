@@ -66,6 +66,8 @@ spl_autoload_register(function ($class) {
 		'MC4WP_Ninja_Forms_Integration' => __DIR__ . '/integrations/ninja-forms/class-ninja-forms.php',
 		'MC4WP_Ninja_Forms_V2_Integration' => __DIR__ . '/integrations/ninja-forms-2/class-ninja-forms.php',
 		'MC4WP_Plugin' => __DIR__ . '/includes/class-plugin.php',
+		'MC4WP_Procaptcha_Integration' => __DIR__ . '/integrations/prosopo-procaptcha/class-procaptcha-integration.php',
+		'MC4WP_Procaptcha' => __DIR__ . '/integrations/prosopo-procaptcha/class-procaptcha.php',
 		'MC4WP_Queue' => __DIR__ . '/includes/class-queue.php',
 		'MC4WP_Queue_Job' => __DIR__ . '/includes/class-queue-job.php',
 		'MC4WP_Registration_Form_Integration' => __DIR__ . '/integrations/wp-registration-form/class-registration-form.php',

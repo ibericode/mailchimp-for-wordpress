@@ -165,6 +165,15 @@ function registerCustomFields (lists) {
     title: i18n.submitButton
   }, true)
 
+  register(i18n.formFields, {
+    name: 'procaptcha',
+    type: 'procaptcha',
+    label: 'Procaptcha',
+    title: 'Procaptcha',
+    showLabel: false,
+    required: true
+  }, true)
+
   // register lists choice field
   choices = {}
   for (const key in lists) {
