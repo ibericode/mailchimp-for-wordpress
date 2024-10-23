@@ -79,9 +79,23 @@ defined('ABSPATH') or exit;
 							<?php
                             }
 							?>
+							<?php
+							$procaptcha_settings_url = admin_url('admin.php?page=mailchimp-for-wp-integrations&integration=prosopo-procaptcha');
+							?>
 							<p class="description" style="padding:15px;">
-								<a target="_self" href="<?php echo esc_url(admin_url('admin.php?page=mailchimp-for-wp-integrations&integration=prosopo-procaptcha')); ?>"><?php echo esc_html__('Click here', 'mailchimp-for-wp'); ?></a>
-								<?php echo esc_html__('to configure privacy-friendly and GDPR-compliant anti-bot protection.', 'mailchimp-for-wp'); ?>
+								<?php
+								printf(
+									// translators: %1$s is the opening <a> tag, %2$s is the closing </a> tag, %3$s is the opening <a> tag, %4$s is the closing </a> tag.
+                                    esc_html__(
+                                        'Click %1$s here %2$s to configure %3$s Procaptcha%4$s, privacy-friendly and GDPR-compliant anti-bot protection.',
+                                        'mailchimp-for-wp'
+                                    ),
+									'<a href="' . esc_html($procaptcha_settings_url) . '">',
+                                    '</a>',
+                                    '<a target="_blank" href="https://prosopo.io/">',
+                                    '</a>'
+								);
+								?>
 							</p>
 						</td>
 
