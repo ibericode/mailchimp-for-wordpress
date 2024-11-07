@@ -65,41 +65,7 @@ defined('ABSPATH') or exit;
                             ?>
                         </td>
 
-					<tr valign="top">
-						<th scope="row"><label><?php echo esc_html__('Procaptcha', 'mailchimp-for-wp'); ?></label></th>
-						<td>
-							<?php
-							if (true === $is_procaptcha_configured) {
-							?>
-							<span class="mc4wp-status positive"><?php echo esc_html__('CONFIGURED', 'mailchimp-for-wp'); ?></span>
-							<?php
-							} else {
-							?>
-							<span class="mc4wp-status neutral"><?php echo esc_html__('NOT CONFIGURED', 'mailchimp-for-wp'); ?></span>
-							<?php
-                            }
-							?>
-							<?php
-							$procaptcha_settings_url = admin_url('admin.php?page=mailchimp-for-wp-integrations&integration=prosopo-procaptcha');
-							?>
-							<p class="description" style="padding:15px;">
-								<?php
-								printf(
-									// translators: %1$s is the opening <a> tag, %2$s is the closing </a> tag, %3$s is the opening <a> tag, %4$s is the closing </a> tag.
-                                    esc_html__(
-                                        'Click %1$s here %2$s to configure %3$s Procaptcha%4$s, privacy-friendly and GDPR-compliant anti-bot protection.',
-                                        'mailchimp-for-wp'
-                                    ),
-									'<a href="' . esc_html($procaptcha_settings_url) . '">',
-                                    '</a>',
-                                    '<a target="_blank" href="https://prosopo.io/">',
-                                    '</a>'
-								);
-								?>
-							</p>
-						</td>
-
-                    </tr>
+					</tr>
 
                 </table>
 
