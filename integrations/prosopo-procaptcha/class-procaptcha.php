@@ -219,8 +219,7 @@ class MC4WP_Procaptcha
 
 		$body = wp_remote_retrieve_body($response);
 		$body = json_decode($body, true);
-
-		$is_verified = $body['verified'] ?? false;
+		$is_verified = is_array($body) && isset($body['verified']) && $body['verified'];
 
 		return true === $is_verified;
 	}
