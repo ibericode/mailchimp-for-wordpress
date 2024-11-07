@@ -93,14 +93,11 @@ forms.number = function (config) {
   ]
 }
 
+// renders the UI for the procaptcha field
 forms.procaptcha = function (config) {
-  config.placeholder = ''
-  config.label = ''
-  config.wrap = false
-  config.required = false
-  config.type = 'hidden'
-
-  return []
+  return [
+    rows.description(config)
+  ]
 }
 
 module.exports = forms

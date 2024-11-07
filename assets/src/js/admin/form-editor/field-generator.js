@@ -143,6 +143,11 @@ generators.default = function (config) {
   return m('input', attributes)
 }
 
+// generates HTML for the procaptcha stub field
+generators.procaptcha = function (config) {
+  return m('input', { type: 'hidden', name: 'procaptcha' })
+}
+
 /**
  * Generates an HTML string based on a field (config) object
  *

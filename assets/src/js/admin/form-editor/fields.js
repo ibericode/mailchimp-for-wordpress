@@ -21,7 +21,8 @@ function Field (data) {
     choices: data.choices || [],
     inFormContent: null,
     acceptsMultipleValues: data.acceptsMultipleValues,
-    link: data.link || ''
+    link: data.link || '',
+    description: data.description || ''
   }
 }
 

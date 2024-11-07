@@ -165,13 +165,15 @@ function registerCustomFields (lists) {
     title: i18n.submitButton
   }, true)
 
+  // register stub field for Procaptcha integration
   register(i18n.formFields, {
     name: 'procaptcha',
     type: 'procaptcha',
     label: 'Procaptcha',
     title: 'Procaptcha',
+    wrap: false,
     showLabel: false,
-    required: true
+    description: 'Privacy-friendly and GDPR-compliant anti-bot protection. Go to <strong>MC4WP > Integrations > Procaptcha</strong> to configure it.'
   }, true)
 
   // register lists choice field

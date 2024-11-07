@@ -231,4 +231,12 @@ r.linkToTerms = function (config) {
   ])
 }
 
+r.description = function (config) {
+  if (config.description === '') {
+    return []
+  }
+
+  return m('p', m.trust(config.description))
+}
+
 module.exports = r
