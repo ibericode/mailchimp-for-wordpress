@@ -235,7 +235,7 @@ class MC4WP_Procaptcha
 		// for old WP versions.
 		$tag = str_replace(' type="text/javascript"', '', $tag);
 
-		return str_replace('src', 'type="module" src', $tag);
+		return str_replace(' src', ' type="module" src', $tag);
 	}
 
 	/**
