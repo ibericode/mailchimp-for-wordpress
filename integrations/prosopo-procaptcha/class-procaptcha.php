@@ -224,7 +224,7 @@ class MC4WP_Procaptcha
 		return true === $is_verified;
 	}
 
-	public function maybe_add_async_attribute(string $tag, string $handle, string $src): string
+	public function maybe_add_type_module_attribute(string $tag, string $handle, string $src): string
 	{
 		if (
 			'prosopo-procaptcha' !== $handle ||
@@ -372,7 +372,7 @@ class MC4WP_Procaptcha
 		add_action('mc4wp_form_content', array($this, 'inject_captcha_element'));
 		add_filter('mc4wp_form_errors', array($this, 'validate_form'), 10, 2);
 
-		add_filter('script_loader_tag', array($this, 'maybe_add_async_attribute'), 10, 3);
+		add_filter('script_loader_tag', array($this, 'maybe_add_type_module_attribute'), 10, 3);
 
 		$hook = true === is_admin() ?
 			'admin_print_footer_scripts' :
