@@ -173,7 +173,7 @@ function registerCustomFields (lists) {
     title: 'Procaptcha',
     wrap: false,
     showLabel: false,
-    description: 'Privacy-friendly and GDPR-compliant anti-bot protection. Go to <strong>MC4WP > Integrations > Procaptcha</strong> to configure it.'
+    description: 'Privacy-friendly and GDPR-compliant anti-bot protection. Go to <a href="admin.php?page=mailchimp-for-wp-integrations&integration=prosopo-procaptcha">MC4WP > Integrations > Procaptcha</a> to configure it.'
   }, true)
 
   // register lists choice field
