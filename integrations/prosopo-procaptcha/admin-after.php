@@ -18,8 +18,8 @@ $theme_options = array(
 );
 $type_options  = array(
 	'frictionless' => esc_html__('Frictionless', 'mailchimp-for-wp'),
-	'pow' => esc_html__('Pow', 'mailchimp-for-wp'),
-	'image' => esc_html__('Image', 'mailchimp-for-wp'),
+	'pow' => esc_html__('Proof of Work', 'mailchimp-for-wp'),
+	'image' => esc_html__('Image Captcha', 'mailchimp-for-wp'),
 );
 
 ?>
