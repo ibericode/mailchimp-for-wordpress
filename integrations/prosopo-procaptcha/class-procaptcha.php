@@ -209,8 +209,11 @@ class MC4WP_Procaptcha
 			)
 		);
 
-		if (true === is_wp_error($response)) {
-			// something went wrong, maybe connection issue, but we still shouldn't allow the request.
+		// Check if request failed, either locally or remotely
+		if (true === is_wp_error($response) || wp_remote_retrieve_response_code($response) >= 400) {
+			/** @var MC4WP_Debug_Log */
+			$logger = mc4wp('log');
+			$logger->error(sprintf('ProCaptcha request error: %d %s - %s', wp_remote_retrieve_response_code($response), wp_remote_retrieve_response_message($response), wp_remote_retrieve_body($response)));
 			return false;
 		}
 
