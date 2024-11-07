@@ -122,7 +122,7 @@ class MC4WP_Procaptcha
 		);
 		?>
 		<script data-name="prosopo-procaptcha-element" type="module">
-			let attributes = JSON.parse('<?php echo wp_json_encode($attributes); ?>');
+			let attributes = <?php echo json_encode($attributes); ?>;
 
 			class MC4WPProcaptcha extends HTMLElement {
 				constructor() {
