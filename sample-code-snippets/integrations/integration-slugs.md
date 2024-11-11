@@ -17,7 +17,7 @@ The following integration slugs are used by the MailChimp for WordPress plugin.
 - wp-registration-form
 - wpforms
 
-[View source](https://github.com/ibericode/mailchimp-for-wordpress/tree/master/integrations)
+[View source](https://github.com/ibericode/mailchimp-for-wordpress/tree/main/integrations)
 
 You can use these slugs in the following filter or action hooks.
 

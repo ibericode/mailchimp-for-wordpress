@@ -63,5 +63,5 @@ If you need priority support, [upgrade to Mailchimp for WordPress Premium](https
 Developers
 ----------
 
-Looking for code snippets? Have a look at the [sample code snippets directory](https://github.com/ibericode/mailchimp-for-wordpress/tree/master/sample-code-snippets) for a collection of modification examples.
+Looking for code snippets? Have a look at the [sample code snippets directory](https://github.com/ibericode/mailchimp-for-wordpress/tree/main/sample-code-snippets) for a collection of modification examples.
 

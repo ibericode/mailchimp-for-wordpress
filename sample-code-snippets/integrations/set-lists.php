@@ -1,7 +1,7 @@
 <?php 
 /*
 Can be used with any integration slug, showing gravity-forms as example.
-See https://github.com/ibericode/mc4wp-snippets/blob/master/integrations/integration-slugs.md
+See https://github.com/ibericode/mc4wp-snippets/blob/main/integrations/integration-slugs.md
 
 You can either return an Array with multiple list IDs or you can return a string with 1 list ID. 
 You can get the list IDs from MailChimp for WP > MailChimp. 

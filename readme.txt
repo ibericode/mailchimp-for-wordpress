@@ -53,7 +53,7 @@ This plugins helps you grow your email list in Mailchimp. You can use it to crea
 
 - Well documented through our [knowledge base](https://www.mc4wp.com/kb/).
 
-- Developer friendly. For some inspiration, check out our [repository of example code snippets](https://github.com/ibericode/mailchimp-for-wordpress/tree/master/sample-code-snippets).
+- Developer friendly. For some inspiration, check out our [repository of example code snippets](https://github.com/ibericode/mailchimp-for-wordpress/tree/main/sample-code-snippets).
 
 - Ready for PHP 8.4, but backwards-compatible all the way down to PHP 5.6.
 
@@ -172,7 +172,7 @@ This plugin is being developed on GitHub. If you want to collaborate, please loo
 
 #### Customizing the plugin
 
-The plugin provides various filter and action hooks that allow you to modify or extend the default behavior. We're also maintaining a [collection of sample code snippets](https://github.com/ibericode/mailchimp-for-wordpress/tree/master/sample-code-snippets).
+The plugin provides various filter and action hooks that allow you to modify or extend the default behavior. We're also maintaining a [collection of sample code snippets](https://github.com/ibericode/mailchimp-for-wordpress/tree/main/sample-code-snippets).
 
 == Screenshots ==
 
@@ -297,7 +297,7 @@ This drops support for some very old browsers, but results in smaller bundle siz
 
 #### 4.9.2 - Mar 21, 2023
 
-- Add support for a field named `MARKETING_PERMISSIONS` to enable GDPR fields configured in Mailchimp. A [sample code snippet can be found here](https://github.com/ibericode/mailchimp-for-wordpress/blob/master/sample-code-snippets/forms/gdpr-marketing-permissions.md).
+- Add support for a field named `MARKETING_PERMISSIONS` to enable GDPR fields configured in Mailchimp. A [sample code snippet can be found here](https://github.com/ibericode/mailchimp-for-wordpress/blob/main/sample-code-snippets/forms/gdpr-marketing-permissions.md).
 - Remove Google reCaptcha feature. This was already disabled if you were not already using it.
 
 
