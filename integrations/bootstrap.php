@@ -9,11 +9,10 @@
  */
 function mc4wp_admin_before_integration_settings(MC4WP_Integration $integration, $opts)
 {
-    $file = __DIR__ . sprintf('/%s/admin-before.php', $integration->slug);
-
-    if (file_exists($file)) {
-        include $file;
-    }
+	$file = __DIR__ . '/' . $integration->slug . '/admin-before.php';
+	if (file_exists($file)) {
+		include $file;
+	}
 }
 
 /**
@@ -25,11 +24,10 @@ function mc4wp_admin_before_integration_settings(MC4WP_Integration $integration,
  */
 function mc4wp_admin_after_integration_settings(MC4WP_Integration $integration, $opts)
 {
-    $file = __DIR__ . sprintf('/%s/admin-after.php', $integration->slug);
-
-    if (file_exists($file)) {
-        include $file;
-    }
+	$file = __DIR__ . '/' . $integration->slug . '/admin-after.php';
+	if (file_exists($file)) {
+		include $file;
+	}
 }
 
 add_action('mc4wp_admin_before_integration_settings', 'mc4wp_admin_before_integration_settings', 30, 2);
