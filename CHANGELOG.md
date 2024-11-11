@@ -1,6 +1,11 @@
 Changelog
 =========
 
+#### 4.9.19 - Nov 11, 2024
+
+- Add integration with [Prosopo](https://prosopo.io/), a GDPR compliant anti-spam solution for protecting your sign-up forms against bot sign-ups. Thanks [Maxim Akimov](https://github.com/light-source)!
+
+
 #### 4.9.18 - Oct 21, 2024
 
 - Bump required PHP version to 7.2.
