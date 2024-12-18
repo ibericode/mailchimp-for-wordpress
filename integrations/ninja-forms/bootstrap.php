@@ -7,7 +7,7 @@ add_filter('ninja_forms_register_fields', function($fields) {
 	return $fields;
 });
 
-add_action('ninja_forms_register_actions', function($actions) {
+add_filter('ninja_forms_register_actions', function($actions) {
 	$actions['mc4wp_subscribe'] = new MC4WP_Ninja_Forms_Action();
 	return $actions;
 });

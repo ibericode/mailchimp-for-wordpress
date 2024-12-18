@@ -44,9 +44,9 @@ mc4wp_register_integration('memberpress', 'MC4WP_MemberPress_Integration');
 mc4wp_register_integration('affiliatewp', 'MC4WP_AffiliateWP_Integration');
 mc4wp_register_integration('give', 'MC4WP_Give_Integration');
 mc4wp_register_integration('custom', 'MC4WP_Custom_Integration', true);
+mc4wp_register_integration('woocommerce', 'MC4WP_WooCommerce_Integration');
 
-require __DIR__ . '/woocommerce/woocommerce.php';
 require __DIR__ . '/prosopo-procaptcha/bootstrap.php';
-require __DIR__ . '/ninja-forms/bootstrap.php';
 require __DIR__ . '/wpforms/bootstrap.php';
 require __DIR__ . '/gravity-forms/bootstrap.php';
+require __DIR__ . '/ninja-forms/bootstrap.php';
