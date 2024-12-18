@@ -9,12 +9,12 @@ if (! defined('ABSPATH')) {
  */
 class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
 {
-	protected $_name = 'mc4wp_subscribe';
-	protected $_nicename = 'Mailchimp';
-	protected $_tags = array( 'newsletter' );
-	protected $_timing = 'normal';
-	protected $_priority = '10';
-	protected $_settings = array();
+	protected $_name           = 'mc4wp_subscribe';
+	protected $_nicename       = 'Mailchimp';
+	protected $_tags           = array( 'newsletter' );
+	protected $_timing         = 'normal';
+	protected $_priority       = '10';
+	protected $_settings       = array();
     protected $_setting_labels = array(
         'list'   => 'List',
         'fields' => 'List Field Mapping',
@@ -24,7 +24,7 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
 	{
 		parent::__construct();
 
-		$this->_settings['double_optin'] = array(
+		$this->_settings['double_optin']    = array(
 			'name'    => 'double_optin',
 			'type'    => 'select',
 			'label'   => 'Use double opt-in?',
@@ -61,7 +61,7 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
 			),
 		);
 
-		add_action( 'wp_ajax_nf_' . $this->_name . '_get_lists', array($this, '_get_lists'));
+		add_action('wp_ajax_nf_' . $this->_name . '_get_lists', array($this, '_get_lists'));
 		add_action('init', array($this, 'translate_props'));
 
         $this->get_list_settings();
@@ -69,7 +69,7 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
 
 	public function translate_props()
 	{
-		$this->_settings['double_optin']['label'] = __('Use double opt-in?', 'mailchimp-for-wp');
+		$this->_settings['double_optin']['label']    = __('Use double opt-in?', 'mailchimp-for-wp');
 		$this->_settings['update_existing']['label'] = __('Update existing subscribers?', 'mailchimp-for-wp');
 
 		$this->_settings[ $this->get_name() . 'newsletter_list_fields' ]['label'] = __('List Field Mapping', 'mailchimp-for-wp');
@@ -116,10 +116,10 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
 
 	public function ajax_get_lists_handler()
 	{
-		check_ajax_referer( 'ninja_forms_builder_nonce', 'security' );
+		check_ajax_referer('ninja_forms_builder_nonce', 'security');
 		$lists = $this->get_lists();
-		array_unshift( $return, array( 'value' => 0, 'label' => '-', 'fields' => array(), 'groups' => array() ) );
-        echo wp_json_encode( array( 'lists' => $return ) );
+		array_unshift($return, array( 'value' => 0, 'label' => '-', 'fields' => array(), 'groups' => array() ));
+        echo wp_json_encode(array( 'lists' => $return ));
         wp_die();
 	}
 
@@ -158,11 +158,13 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
             'list'   => 'List',
             'fields' => 'List Field Mapping',
         );
-        $labels = array_merge( $label_defaults, $this->_setting_labels );
-        $prefix = $this->get_name();
-     	$lists = $this->get_lists();
+        $labels         = array_merge($label_defaults, $this->_setting_labels);
+        $prefix         = $this->get_name();
+     	$lists          = $this->get_lists();
 
-        if( empty( $lists ) ) return;
+        if (empty($lists)) {
+return;
+        }
 
         $this->_settings[ $prefix . 'newsletter_list' ] = array(
             'name' => 'newsletter_list',
@@ -175,14 +177,13 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
         );
 
         $fields = array();
-        foreach( $lists as $list ) {
+        foreach ($lists as $list) {
             $this->_settings[ $prefix . 'newsletter_list' ][ 'options' ][] = $list;
 
             //Check to see if list has fields array set.
-            if ( isset( $list[ 'fields' ] ) ) {
-
-                foreach ( $list[ 'fields' ] as $field ) {
-                    $name = $list[ 'value' ] . '_' . $field[ 'value' ];
+            if (isset($list[ 'fields' ])) {
+                foreach ($list[ 'fields' ] as $field) {
+                    $name     = $list[ 'value' ] . '_' . $field[ 'value' ];
                     $fields[] = array(
                         'name' => $name,
                         'type' => 'textbox',
@@ -190,9 +191,9 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
                         'width' => 'full',
                         'use_merge_tags' => array(
                             'exclude' => array(
-                                'user', 'post', 'system', 'querystrings'
-                            )
-                        )
+                                'user', 'post', 'system', 'querystrings',
+                            ),
+                        ),
                     );
                 }
             }
@@ -203,7 +204,7 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
             'label' => 'List Field Mapping',
             'type' => 'fieldset',
             'group' => 'primary',
-            'settings' => array()
+            'settings' => array(),
         );
     }
 }

@@ -37,7 +37,7 @@
 
 		foreach ($lists as $list) {
 			$attr_data_list_id = esc_attr($list->id);
-			$list_name = esc_html($list->name);
+			$list_name         = esc_html($list->name);
 			echo '<tr>';
 			echo '<td><a href="#" class="mc4wp-mailchimp-list" data-list-id="', $attr_data_list_id, '">', $list_name, '</a><span class="row-actions alignright"></span></td>';
 			echo '<td><code>', esc_html($list->id), '</code></td>';

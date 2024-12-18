@@ -73,7 +73,7 @@ $tabs = apply_filters('mc4wp_admin_edit_form_tabs', $tabs);
                     <?php
                     foreach ($tabs as $tab => $name) {
                         $class = ( $active_tab === $tab ) ? 'nav-tab-active' : '';
-                        $href = esc_attr($this->tab_url($tab));
+                        $href  = esc_attr($this->tab_url($tab));
                         echo "<a class=\"nav-tab nav-tab-{$tab} {$class}\" data-tab=\"{$tab}\" href=\"{$href}\">{$name}</a>";
                     }
                     ?>

@@ -217,8 +217,8 @@ class MC4WP_Procaptcha
 			return false;
 		}
 
-		$body = wp_remote_retrieve_body($response);
-		$body = json_decode($body, true);
+		$body        = wp_remote_retrieve_body($response);
+		$body        = json_decode($body, true);
 		$is_verified = is_array($body) && isset($body['verified']) && $body['verified'];
 
 		return true === $is_verified;

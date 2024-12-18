@@ -122,7 +122,7 @@
 								echo '<ul style="margin-bottom: 20px; max-height: 300px; overflow-y: auto;">';
 								foreach ($lists as $list) {
 									$checked = checked(in_array($list->id, $opts['lists'], true), true, false);
-									$value = esc_attr($list->id);
+									$value   = esc_attr($list->id);
 									echo '<li><label>';
 									echo "<input type=\"checkbox\" name=\"mc4wp_integrations[{$integration->slug}][lists][]\" value=\"{$value}\" class=\"mc4wp-list-input\" {$checked}> ";
 									echo esc_html($list->name);

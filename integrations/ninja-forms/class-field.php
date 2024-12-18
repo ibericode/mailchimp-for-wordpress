@@ -9,14 +9,14 @@ if (! defined('ABSPATH')) {
  */
 class MC4WP_Ninja_Forms_Field extends NF_Abstracts_Input
 {
-	protected $_name = 'mc4wp_optin';
-	protected $_nicename = 'Mailchimp opt-in';
-	protected $_section = 'misc';
-	protected $_type = 'checkbox';
-	protected $_icon = 'check-square-o';
-	protected $_templates = 'checkbox';
-	protected $_test_value = 0;
-	protected $_settings = array( 'checkbox_default_value', 'checked_calc_value', 'unchecked_calc_value' );
+	protected $_name             = 'mc4wp_optin';
+	protected $_nicename         = 'Mailchimp opt-in';
+	protected $_section          = 'misc';
+	protected $_type             = 'checkbox';
+	protected $_icon             = 'check-square-o';
+	protected $_templates        = 'checkbox';
+	protected $_test_value       = 0;
+	protected $_settings         = array( 'checkbox_default_value', 'checked_calc_value', 'unchecked_calc_value' );
 	protected $_settings_exclude = array( 'default', 'placeholder', 'input_limit_set', 'checkbox_values' );
 
 	/**

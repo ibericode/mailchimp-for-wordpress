@@ -1,6 +1,11 @@
 Changelog
 =========
 
+#### 4.9.15 - Dec 18, 2024
+
+- 
+
+
 #### 4.9.19 - Nov 11, 2024
 
 - Add integration with [Prosopo](https://prosopo.io/), a GDPR compliant anti-spam solution for protecting your sign-up forms against bot sign-ups. Thanks [Maxim Akimov](https://github.com/light-source)!

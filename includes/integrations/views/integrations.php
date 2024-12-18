@@ -11,7 +11,7 @@ function _mc4wp_integrations_table_row($integration)
         <td>
             <?php
             if ($integration->is_installed()) {
-            	$href = esc_attr(add_query_arg(array( 'integration' => $integration->slug )));
+            	$href  = esc_attr(add_query_arg(array( 'integration' => $integration->slug )));
             	$title = esc_attr__('Configure this integration', 'mailchimp-for-wp');
             	echo "<strong><a href=\"{$href}\" title=\"{$title}\">{$integration->name}</a></strong>";
             } else {

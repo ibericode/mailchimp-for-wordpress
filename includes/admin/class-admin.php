@@ -432,7 +432,7 @@ class MC4WP_Admin
 			}
 		}
 
-		$obfuscated_api_key = mc4wp_obfuscate_string($api_key);
+		$obfuscated_api_key       = mc4wp_obfuscate_string($api_key);
 		$is_procaptcha_configured = MC4WP_Procaptcha::get_instance()->is_enabled();
 
 		require MC4WP_PLUGIN_DIR . '/includes/views/general-settings.php';
