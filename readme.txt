@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 4.6
 Tested up to: 6.7
-Stable tag: 4.9.19
+Stable tag: 4.9.20
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.2
@@ -187,6 +187,13 @@ The plugin provides various filter and action hooks that allow you to modify or 
 9. Settings page for e-commerce integration with Mailchimp. Requires [Mailchimp for WordPress Premium](https://www.mc4wp.com/).
 
 == Changelog ==
+
+
+#### 4.9.20 - Dec 18, 2024
+
+- Fix Ninja Forms integration field no longer showing up.
+- Fix "link is expired" message because of missing nonce on button to dismiss API key notice.
+- [WPML] Added text_no_lists_selected to the config file so it can be translated. Thanks [Diego Pereira](https://github.com/diiegopereira)!
 
 
 #### 4.9.19 - Nov 11, 2024
@@ -1172,19 +1179,7 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 
 **Improvements**
 
-- Don't show position option for WooCommerce integration when sign-up is implicit.
-- Improvements to form previewer logic.
-- Make sure admin notifications are always shown exactly one time.
-
-#### 3.1.9 - June 7, 2016
-
-**Fixes**
-
-- Placeholder polyfill wasn't loaded (only in IE8 and below).
-
-**Improvements**
-
-- Don't write to debug log if it is not ...
+- Don't show position option ...
 
 == Upgrade Notice ==
 
