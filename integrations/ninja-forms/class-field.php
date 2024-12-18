@@ -10,7 +10,7 @@ if (! defined('ABSPATH')) {
 class MC4WP_Ninja_Forms_Field extends NF_Abstracts_Input
 {
 	protected $_name = 'mc4wp_optin';
-	protected $_nicename = 'Mailchimp';
+	protected $_nicename = 'Mailchimp opt-in';
 	protected $_section = 'misc';
 	protected $_type = 'checkbox';
 	protected $_icon = 'check-square-o';
@@ -27,11 +27,15 @@ class MC4WP_Ninja_Forms_Field extends NF_Abstracts_Input
 	{
 		parent::__construct();
 
-		$this->_nicename = __('Mailchimp opt-in', 'mailchimp-for-wp');
-
 		$this->_settings['label_pos']['value'] = 'right';
 
 		add_filter('ninja_forms_custom_columns', array( $this, 'custom_columns' ), 10, 2);
+		add_action('init', array($this, 'translate_nicename'));
+	}
+
+	public function translate_nicename()
+	{
+		$this->_nicename = __('Mailchimp opt-in', 'mailchimp-for-wp');
 	}
 
 	/**
