@@ -24,10 +24,6 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
 	{
 		parent::__construct();
 
-		$prefix          = $this->get_name();
-
-		unset($this->_settings[ $prefix . 'newsletter_list_groups' ]);
-
 		$this->_settings['double_optin'] = array(
 			'name'    => 'double_optin',
 			'type'    => 'select',
@@ -46,7 +42,6 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
 				),
 			),
 		);
-
 		$this->_settings['update_existing'] = array(
 			'name'    => 'update_existing',
 			'type'    => 'select',
@@ -66,26 +61,7 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
 			),
 		);
 
-		//        $this->_settings[ 'replace_interests' ] = array(
-		//            'name' => 'replace_interests',
-		//            'type' => 'select',
-		//            'label' => __( 'Replace existing interest groups?', 'mailchimp-for-wp'),
-		//            'width' => 'full',
-		//            'group' => 'primary',
-		//            'value' => 0,
-		//            'options' => array(
-		//                array(
-		//                    'value' => 1,
-		//                    'label' => 'Yes',
-		//                ),
-		//                array(
-		//                    'value' => 0,
-		//                    'label' => 'No',
-		//                ),
-		//            ),
-		//        );
-
-		add_action( 'wp_ajax_nf_' . $this->_name . '_get_lists', array( $this, '_get_lists' ) );
+		add_action( 'wp_ajax_nf_' . $this->_name . '_get_lists', array($this, '_get_lists'));
 		add_action('init', array($this, 'translate_props'));
 
         $this->get_list_settings();
@@ -95,6 +71,8 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
 	{
 		$this->_settings['double_optin']['label'] = __('Use double opt-in?', 'mailchimp-for-wp');
 		$this->_settings['update_existing']['label'] = __('Update existing subscribers?', 'mailchimp-for-wp');
+
+		$this->_settings[ $this->get_name() . 'newsletter_list_fields' ]['label'] = __('List Field Mapping', 'mailchimp-for-wp');
 	}
 
 	/*
@@ -222,7 +200,7 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
 
         $this->_settings[ $prefix . 'newsletter_list_fields' ] = array(
             'name' => 'newsletter_list_fields',
-            'label' => esc_html__( 'List Field Mapping', 'ninja-forms' ),
+            'label' => 'List Field Mapping',
             'type' => 'fieldset',
             'group' => 'primary',
             'settings' => array()
