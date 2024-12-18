@@ -107,7 +107,7 @@ function _mc4wp_on_plugin_activation()
 // bootstrap custom integrations
 function _mc4wp_bootstrap_integrations()
 {
-	require_once MC4WP_PLUGIN_DIR . '/integrations/bootstrap.php';
+	require MC4WP_PLUGIN_DIR . '/integrations/bootstrap.php';
 }
 
 add_action('plugins_loaded', '_mc4wp_load_plugin', 8);

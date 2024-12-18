@@ -2,14 +2,12 @@
 
 mc4wp_register_integration('ninja-forms', 'MC4WP_Ninja_Forms_Integration', true);
 
-if (class_exists('Ninja_Forms') && method_exists('Ninja_Forms', 'instance')) {
-    $ninja_forms = Ninja_Forms::instance();
+add_filter('ninja_forms_register_fields', function($fields) {
+	$fields['mc4wp_optin'] = new MC4WP_Ninja_Forms_Field();
+	return $fields;
+});
 
-    if (isset($ninja_forms->fields)) {
-        $ninja_forms->fields['mc4wp_optin'] = new MC4WP_Ninja_Forms_Field();
-    }
-
-    if (isset($ninja_forms->actions)) {
-        $ninja_forms->actions['mc4wp_subscribe'] = new MC4WP_Ninja_Forms_Action();
-    }
-}
+add_action('ninja_forms_register_actions', function($actions) {
+	$actions['mc4wp_subscribe'] = new MC4WP_Ninja_Forms_Action();
+	return $actions;
+});
