@@ -68,6 +68,12 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
 
 		add_action('woocommerce_checkout_order_processed', array($this, 'subscribe_from_woocommerce_checkout'));
 		add_action('woocommerce_store_api_checkout_order_processed', array($this, 'subscribe_from_woocommerce_checkout'));
+		if ($this->options['precheck']) {
+			add_filter("woocommerce_get_default_value_for_mc4wp/optin", function ($value) {
+				return '1';
+			});
+		}
+
 	}
 
 	/**
