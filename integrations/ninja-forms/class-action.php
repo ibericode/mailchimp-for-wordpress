@@ -1,11 +1,5 @@
 <?php
 
-use ParagonIE\Sodium\Core\Curve25519\Ge\P2;
-
-if (! defined('ABSPATH')) {
-	exit;
-}
-
 /**
  * Class MC4WP_Ninja_Forms_Action
  */
