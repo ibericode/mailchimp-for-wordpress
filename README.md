@@ -1,11 +1,9 @@
 MC4WP: Mailchimp for WordPress
 ======================
-![PHP status](https://github.com/ibericode/mailchimp-for-wordpress/workflows/PHP/badge.svg)
-![ESLint status](https://github.com/ibericode/mailchimp-for-wordpress/workflows/ESLint/badge.svg)
+[![License: GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![Active installs](https://img.shields.io/wordpress/plugin/installs/mailchimp-for-wp.svg)
 ![Downloads](https://img.shields.io/wordpress/plugin/dt/mailchimp-for-wp.svg)
 [![Rating](https://img.shields.io/wordpress/plugin/r/mailchimp-for-wp.svg)](https://wordpress.org/support/plugin/mailchimp-for-wp/reviews/)
-[![License: GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 Here, you can browse the source code of the [MC4WP: Mailchimp for WordPress Plugin](https://wordpress.org/plugins/mailchimp-for-wp/), find and discuss open issues or contribute code to the plugin.
 

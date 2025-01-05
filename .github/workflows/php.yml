@@ -13,7 +13,7 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           tools: composer
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
+        run: composer install --no-progress
       - name: Run test suite
         run: composer run-script test
       - name: Run codestyle sniffer
