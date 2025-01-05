@@ -100,7 +100,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
 				'location' => 'order',
 				'type' => 'checkbox',
 				'label' => $this->get_label_text(),
-				'optionalLabel' => $this->get_label_text()
+				'optionalLabel' => $this->get_label_text(),
 			)
 		);
 	}
