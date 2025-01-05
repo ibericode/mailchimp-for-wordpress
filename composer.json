@@ -29,7 +29,8 @@
 	"scripts": {
 		"make-pot": "wp i18n make-pot . languages/mailchimp-for-wp.pot --exclude=assets/js",
 		"test": "phpunit tests/",
-		"codestyle": "phpcs -n -s"
+		"codestyle": "phpcs -n -s",
+	    "check-syntax": "find . -name '*.php' -not -path './vendor/*' -not -path './var/cache/*' -print0 | xargs -0 -n1 php -l"
 	},
 	"config": {
 		"allow-plugins": {
