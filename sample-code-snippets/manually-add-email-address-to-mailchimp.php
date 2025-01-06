@@ -20,6 +20,6 @@ try {
 	));
 } catch( \MC4WP_API_Exception $e ) {
 	// an error occured
-	// you can handle it here by inspecting the expection object and removing the line bwlo
+	// you can handle it here by inspecting the expection object and removing the line below
 	throw $e;
 }
