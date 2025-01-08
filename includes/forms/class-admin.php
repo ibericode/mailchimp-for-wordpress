@@ -291,6 +291,7 @@ class MC4WP_Forms_Admin
 		// update form, settings and messages
 		$form_id   = (int) $_POST['mc4wp_form_id'];
 		$form_data = $_POST['mc4wp_form'];
+
 		$this->save_form($form_id, $form_data);
 		$this->set_default_form_id($form_id);
 		$this->messages->flash(esc_html__('Form saved.', 'mailchimp-for-wp'));

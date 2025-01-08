@@ -104,12 +104,12 @@ function _mc4wp_load_plugin()
 add_action('plugins_loaded', '_mc4wp_load_plugin', 8);
 
 // schedule the action hook to refresh the stored Mailchimp lists on a daily basis
-register_activation_hook(__FILE__, function() {
+register_activation_hook(__FILE__, function () {
 	$time_string = sprintf('tomorrow %d:%d am', rand(0, 7), rand(0, 59));
 	wp_schedule_event(strtotime($time_string), 'daily', 'mc4wp_refresh_mailchimp_lists');
 });
 
 // remove scheduled hook when plugin is deactivated
-register_deactivation_hook(__FILE__, function() {
+register_deactivation_hook(__FILE__, function () {
 	wp_clear_scheduled_hook('mc4wp_refresh_mailchimp_lists');
 });
