@@ -1,6 +1,13 @@
 Changelog
 =========
 
+#### 4.9.21 - Jan 08, 2025
+
+- [Forms] Rename "list choice" to "audience choice" in available form fields.
+- [Ninja Forms] Fix gettext being called too early warning in Ninja Forms base class.
+- [WooCommerce] Allow pre-checking of sign-up checkbox in Checkout Block.
+
+
 #### 4.9.20 - Dec 18, 2024
 
 - Fix Ninja Forms integration field no longer showing up.
