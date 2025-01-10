@@ -439,11 +439,13 @@ function _mc4wp_use_sslverify()
  */
 function mc4wp_obfuscate_string($string)
 {
-	if (strlen($string) <= 2) return $string;
+	if (strlen($string) <= 2) {
+return $string;
+    }
 	$length = strlen($string);
-	$keep = floor(strlen($string) / 3);
-	$keep = min($keep, 4);
-	return substr($string, 0, $keep) . str_repeat('*', $length - ($keep*2)) . substr($string, -$keep);
+	$keep   = floor(strlen($string) / 3);
+	$keep   = min($keep, 4);
+	return substr($string, 0, $keep) . str_repeat('*', $length - ($keep * 2)) . substr($string, -$keep);
 }
 
 /**
