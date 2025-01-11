@@ -59,9 +59,9 @@ class MC4WP_Form_Manager
      */
     public function add_hooks()
     {
-        add_action('init', array( $this, 'initialize' ));
-        add_action('widgets_init', array( $this, 'register_widget' ));
-        add_action('rest_api_init', array( $this, 'register_endpoint' ));
+        add_action('init', [ $this, 'initialize' ]);
+        add_action('widgets_init', [ $this, 'register_widget' ]);
+        add_action('rest_api_init', [ $this, 'register_endpoint' ]);
 
         $this->listener->add_hooks();
         $this->output_manager->add_hooks();
@@ -89,9 +89,9 @@ class MC4WP_Form_Manager
 
         register_block_type(
             'mailchimp-for-wp/form',
-            array(
-                'render_callback' => array( $this->output_manager, 'shortcode' ),
-            )
+            [
+                'render_callback' => [ $this->output_manager, 'shortcode' ],
+            ]
         );
     }
 
@@ -103,13 +103,13 @@ class MC4WP_Form_Manager
         // register post type
         register_post_type(
             'mc4wp-form',
-            array(
-                'labels' => array(
+            [
+                'labels' => [
                     'name'          => 'Mailchimp Sign-up Forms',
                     'singular_name' => 'Sign-up Form',
-                ),
+                ],
                 'public' => false,
-            )
+            ]
         );
     }
 
@@ -129,11 +129,11 @@ class MC4WP_Form_Manager
         register_rest_route(
             'mc4wp/v1',
             '/form',
-            array(
+            [
                 'methods'  => 'POST',
                 'permission_callback' => '__return_true',
-                'callback' => array( $this, 'handle_endpoint' ),
-            )
+                'callback' => [ $this, 'handle_endpoint' ],
+            ]
         );
     }
 
@@ -149,9 +149,9 @@ class MC4WP_Form_Manager
             return new WP_Error(
                 'not_found',
                 esc_html__('Resource does not exist.', 'mailchimp-for-wp'),
-                array(
+                [
                     'status' => 404,
-                )
+                ]
             );
         }
 
@@ -161,9 +161,9 @@ class MC4WP_Form_Manager
             return new WP_Error(
                 $message_key,
                 $message,
-                array(
+                [
                 'status' => 400,
-                )
+                ]
             );
         }
 
@@ -177,7 +177,7 @@ class MC4WP_Form_Manager
      *
      * @return string
      */
-    public function output_form($form_id, $config = array(), $echo = true)
+    public function output_form($form_id, $config = [], $echo = true)
     {
         return $this->output_manager->output_form($form_id, $config, $echo);
     }

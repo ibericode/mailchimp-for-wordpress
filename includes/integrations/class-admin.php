@@ -33,9 +33,9 @@ class MC4WP_Integration_Admin
      */
     public function add_hooks()
     {
-        add_action('admin_init', array( $this, 'register_setting' ));
-        add_action('mc4wp_admin_enqueue_assets', array( $this, 'enqueue_assets' ), 10, 2);
-        add_filter('mc4wp_admin_menu_items', array( $this, 'add_menu_item' ));
+        add_action('admin_init', [ $this, 'register_setting' ]);
+        add_action('mc4wp_admin_enqueue_assets', [ $this, 'enqueue_assets' ], 10, 2);
+        add_filter('mc4wp_admin_menu_items', [ $this, 'add_menu_item' ]);
     }
 
     /**
@@ -43,7 +43,7 @@ class MC4WP_Integration_Admin
      */
     public function register_setting()
     {
-        register_setting('mc4wp_integrations_settings', 'mc4wp_integrations', array( $this, 'save_integration_settings' ));
+        register_setting('mc4wp_integrations_settings', 'mc4wp_integrations', [ $this, 'save_integration_settings' ]);
     }
 
     /**
@@ -61,7 +61,7 @@ class MC4WP_Integration_Admin
             return;
         }
 
-        wp_register_script('mc4wp-integrations-admin', mc4wp_plugin_url('assets/js/integrations-admin.js'), array( 'mc4wp-admin' ), MC4WP_VERSION, true);
+        wp_register_script('mc4wp-integrations-admin', mc4wp_plugin_url('assets/js/integrations-admin.js'), [ 'mc4wp-admin' ], MC4WP_VERSION, true);
         wp_enqueue_script('mc4wp-integrations-admin');
     }
 
@@ -72,13 +72,13 @@ class MC4WP_Integration_Admin
      */
     public function add_menu_item($items)
     {
-        $items[] = array(
+        $items[] = [
             'title'    => esc_html__('Integrations', 'mailchimp-for-wp'),
             'text'     => esc_html__('Integrations', 'mailchimp-for-wp'),
             'slug'     => 'integrations',
-            'callback' => array( $this, 'show_integrations_page' ),
+            'callback' => [ $this, 'show_integrations_page' ],
             'position' => 20,
-        );
+        ];
 
         return $items;
     }
@@ -90,8 +90,8 @@ class MC4WP_Integration_Admin
     public function save_integration_settings(array $new_settings)
     {
         $integrations     = $this->integrations->get_all();
-        $current_settings = (array) get_option('mc4wp_integrations', array());
-        $settings         = array();
+        $current_settings = (array) get_option('mc4wp_integrations', []);
+        $settings         = [];
 
         foreach ($integrations as $slug => $integration) {
             $settings[ $slug ] = $this->parse_integration_settings($slug, $current_settings, $new_settings);
@@ -110,7 +110,7 @@ class MC4WP_Integration_Admin
      */
     protected function parse_integration_settings($slug, $current, $new)
     {
-        $settings = array();
+        $settings = [];
 
         // start with current settings
         if (! empty($current[ $slug ])) {
@@ -142,7 +142,7 @@ class MC4WP_Integration_Admin
         if (! empty($settings['lists'])) {
             $settings['lists'] = array_filter($settings['lists']);
         } else {
-            $settings['lists'] = array();
+            $settings['lists'] = [];
         }
 
         $settings['label'] = strip_tags($settings['label'], '<strong><b><br><a><script><u><em><i><span><img>');

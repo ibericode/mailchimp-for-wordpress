@@ -22,19 +22,19 @@ class MC4WP_Field_Formatter
             $address_pieces = array_values($address_pieces);
 
             // try to fill it.... this is a long shot
-            $value = array(
+            $value = [
                 'addr1' => $address_pieces[0],
                 'city'  => isset($address_pieces[1]) ? $address_pieces[1] : '',
                 'state' => isset($address_pieces[2]) ? $address_pieces[2] : '',
                 'zip'   => isset($address_pieces[3]) ? $address_pieces[3] : '',
-            );
+            ];
 
             if (! empty($address_pieces[4])) {
                 $value['country'] = $address_pieces[4];
             }
         } elseif (is_array($value)) {
             // merge with array of empty defaults to allow skipping certain fields
-            $default = array_fill_keys(array( 'addr1', 'city', 'state', 'zip' ), '');
+            $default = array_fill_keys([ 'addr1', 'city', 'state', 'zip' ], '');
             $value   = array_merge($default, $value);
         }
 
@@ -66,7 +66,7 @@ class MC4WP_Field_Formatter
         }
 
         // always use slashes as delimiter, so next part works
-        $value = str_replace(array( '.', '-' ), '/', $value);
+        $value = str_replace([ '.', '-' ], '/', $value);
 
         // if format = DD/MM  OR if first part is definitely a day value (>12), then flip order
         // this allows `strtotime` to understand `dd/mm` values
@@ -116,11 +116,11 @@ class MC4WP_Field_Formatter
     {
         $value = trim($value);
 
-        $exceptions = array(
+        $exceptions = [
             'pt_PT',
             'es_ES',
             'fr_CA',
-        );
+        ];
 
         if (! in_array($value, $exceptions, true)) {
             $value = substr($value, 0, 2);
@@ -136,7 +136,7 @@ class MC4WP_Field_Formatter
      */
     public function boolean($value, $options = null)
     {
-        $falsey = array( 'false', '0' );
+        $falsey = [ 'false', '0' ];
 
         if (in_array($value, $falsey, true)) {
             return false;

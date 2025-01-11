@@ -25,7 +25,7 @@ class MC4WP_Ninja_Forms_Integration extends MC4WP_Integration
      */
     public function add_hooks()
     {
-        add_action('mc4wp_integration_ninja_forms_subscribe', array( $this, 'subscribe_from_ninja_forms' ), 10, 7);
+        add_action('mc4wp_integration_ninja_forms_subscribe', [ $this, 'subscribe_from_ninja_forms' ], 10, 7);
     }
 
     public function subscribe_from_ninja_forms($email_address, $merge_fields, $list_id, $double_optin = true, $update_existing = false, $replace_interests = false, $form_id = 0)
@@ -35,7 +35,7 @@ class MC4WP_Ninja_Forms_Integration extends MC4WP_Integration
         $this->options['double_optin']      = $double_optin;
         $this->options['update_existing']   = $update_existing;
         $this->options['replace_interests'] = $replace_interests;
-        $this->options['lists']             = array( $list_id );
+        $this->options['lists']             = [ $list_id ];
 
         $data          = $merge_fields;
         $data['EMAIL'] = $email_address;
@@ -60,7 +60,7 @@ class MC4WP_Ninja_Forms_Integration extends MC4WP_Integration
      */
     public function get_ui_elements()
     {
-        return array();
+        return [];
     }
 
     /**

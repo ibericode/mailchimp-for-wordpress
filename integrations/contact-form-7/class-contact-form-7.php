@@ -25,9 +25,9 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration
      */
     public function add_hooks()
     {
-        add_action('wpcf7_init', array( $this, 'init' ));
-        add_action('wpcf7_mail_sent', array( $this, 'process' ), 1);
-        add_action('wpcf7_posted_data', array( $this, 'alter_cf7_data' ));
+        add_action('wpcf7_init', [ $this, 'init' ]);
+        add_action('wpcf7_mail_sent', [ $this, 'process' ], 1);
+        add_action('wpcf7_posted_data', [ $this, 'alter_cf7_data' ]);
     }
 
     /**
@@ -38,9 +38,9 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration
     public function init()
     {
         if (function_exists('wpcf7_add_form_tag')) {
-            wpcf7_add_form_tag('mc4wp_checkbox', array( $this, 'shortcode' ));
+            wpcf7_add_form_tag('mc4wp_checkbox', [ $this, 'shortcode' ]);
         } else {
-            wpcf7_add_shortcode('mc4wp_checkbox', array( $this, 'shortcode' ));
+            wpcf7_add_shortcode('mc4wp_checkbox', [ $this, 'shortcode' ]);
         }
 
         return true;
@@ -72,7 +72,7 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration
     * @param array $data
     * @return array
     */
-    public function alter_cf7_data($data = array())
+    public function alter_cf7_data($data = [])
     {
         $data['mc4wp_checkbox'] = $this->checkbox_was_checked() ? __('Yes', 'mailchimp-for-wp') : __('No', 'mailchimp-for-wp');
         return $data;
@@ -95,7 +95,7 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration
         }
 
         $parser = new MC4WP_Field_Guesser($this->get_data());
-        $data   = $parser->combine(array( 'guessed', 'namespaced' ));
+        $data   = $parser->combine([ 'guessed', 'namespaced' ]);
 
         // do nothing if no email was found
         if (empty($data['EMAIL'])) {
@@ -111,7 +111,7 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration
      *
      * @return string
      */
-    public function shortcode($args = array())
+    public function shortcode($args = [])
     {
         if (! empty($args['labels'][0])) {
             $this->options['label'] = $args['labels'][0];
@@ -146,7 +146,7 @@ class MC4WP_Contact_Form_7_Integration extends MC4WP_Integration
      */
     public function get_ui_elements()
     {
-        return array_diff(parent::get_ui_elements(), array( 'enabled', 'implicit' ));
+        return array_diff(parent::get_ui_elements(), [ 'enabled', 'implicit' ]);
     }
 
     /**

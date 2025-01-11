@@ -28,10 +28,10 @@ function _mc4wp_400_find_group_for_interest($groups, $interest)
 {
     foreach ($groups as $group_id => $group_name) {
         if ($group_name === $interest->name) {
-            return (object) array(
+            return (object) [
                 'name' => $group_name,
                 'id'   => $group_id,
-            );
+            ];
         }
     }
 
@@ -43,7 +43,7 @@ if (! class_exists('MC4WP_API_V3')) {
     return;
 }
 
-$options = get_option('mc4wp', array());
+$options = get_option('mc4wp', []);
 if (empty($options['api_key'])) {
     return;
 }
@@ -56,7 +56,7 @@ if (empty($lists)) {
 
 @set_time_limit(600);
 $api_v3 = new MC4WP_API_V3($options['api_key']);
-$map    = array();
+$map    = [];
 
 foreach ($lists as $list) {
     // cast to stdClass because of missing classes
@@ -82,7 +82,7 @@ foreach ($lists as $list) {
             continue;
         }
 
-        $groups = array();
+        $groups = [];
 
         try {
             $interests = $api_v3->get_list_interest_category_interests($list->id, $interest_category->id);
@@ -99,10 +99,10 @@ foreach ($lists as $list) {
             }
         }
 
-        $map[ (string) $grouping->id ] = array(
+        $map[ (string) $grouping->id ] = [
             'id'     => $interest_category->id,
             'groups' => $groups,
-        );
+        ];
     }
 }
 

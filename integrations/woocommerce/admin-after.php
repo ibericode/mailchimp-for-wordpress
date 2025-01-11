@@ -1,13 +1,13 @@
 <?php
 
-$position_options = array(
+$position_options = [
     'after_email_field'               => __('After email field', 'mailchimp-for-wp'),
     'checkout_billing'                => __('After billing details', 'mailchimp-for-wp'),
     'checkout_shipping'               => __('After shipping details', 'mailchimp-for-wp'),
     'checkout_after_customer_details' => __('After customer details', 'mailchimp-for-wp'),
     'review_order_before_submit'      => __('Before submit button', 'mailchimp-for-wp'),
     'after_order_notes'               => __('After order notes', 'mailchimp-for-wp'),
-);
+];
 
 if (defined('CFW_NAME')) {
     $position_options['cfw_checkout_before_payment_method_tab_nav'] = __('Checkout for WooCommerce: Before complete order button', 'mailchimp-for-wp');
@@ -17,16 +17,16 @@ if (defined('CFW_NAME')) {
 
 /** @var MC4WP_Integration $integration */
 
-$body_config = array(
+$body_config = [
     'element' => 'mc4wp_integrations[' . $integration->slug . '][enabled]',
     'value'   => '1',
     'hide'    => false,
-);
+];
 
-$config = array(
+$config = [
     'element' => 'mc4wp_integrations[' . $integration->slug . '][implicit]',
     'value'   => '0',
-);
+];
 
 ?>
 <table class="form-table">

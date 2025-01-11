@@ -2,7 +2,7 @@
 
 defined('ABSPATH') or exit;
 
-$section_widgets = get_option('sidebars_widgets', array());
+$section_widgets = get_option('sidebars_widgets', []);
 $replaced        = false;
 
 foreach ($section_widgets as $section => $widgets) {

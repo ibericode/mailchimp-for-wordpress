@@ -25,7 +25,7 @@ class MC4WP_WPForms_Integration extends MC4WP_Integration
      */
     public function add_hooks()
     {
-        add_action('wpforms_process', array( $this, 'listen_to_wpforms' ), 20, 3);
+        add_action('wpforms_process', [ $this, 'listen_to_wpforms' ], 20, 3);
     }
 
     /**
@@ -42,7 +42,7 @@ class MC4WP_WPForms_Integration extends MC4WP_Integration
      */
     public function get_ui_elements()
     {
-        return array();
+        return [];
     }
 
     public function listen_to_wpforms($fields, $entry, $form_data)
@@ -63,10 +63,10 @@ class MC4WP_WPForms_Integration extends MC4WP_Integration
         }
 
         $mailchimp_list_id      = $form_data['fields'][ $checkbox_field_id ]['mailchimp_list'];
-        $this->options['lists'] = array( $mailchimp_list_id );
+        $this->options['lists'] = [ $mailchimp_list_id ];
 
         if (! empty($email_address)) {
-            return $this->subscribe(array( 'EMAIL' => $email_address ), $form_data['id']);
+            return $this->subscribe([ 'EMAIL' => $email_address ], $form_data['id']);
         }
     }
 

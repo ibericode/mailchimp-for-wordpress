@@ -36,7 +36,7 @@ class MC4WP_Queue
     {
         $this->option_name = $option_name;
 
-        register_shutdown_function(array( $this, 'save' ));
+        register_shutdown_function([ $this, 'save' ]);
     }
 
     /**
@@ -48,12 +48,12 @@ class MC4WP_Queue
             return;
         }
 
-        $jobs = get_option($this->option_name, array());
+        $jobs = get_option($this->option_name, []);
 
         if (! is_array($jobs)) {
-            $jobs = array();
+            $jobs = [];
         } else {
-            $valid_jobs = array();
+            $valid_jobs = [];
 
             foreach ($jobs as $i => $obj) {
                 // filter invalid data from array
@@ -174,7 +174,7 @@ class MC4WP_Queue
      */
     public function reset()
     {
-        $this->jobs  = array();
+        $this->jobs  = [];
         $this->dirty = true;
     }
 

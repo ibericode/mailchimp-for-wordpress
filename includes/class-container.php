@@ -11,12 +11,12 @@ class MC4WP_Container implements ArrayAccess
     /**
      * @var array
      */
-    protected $services = array();
+    protected $services = [];
 
     /**
      * @var array
      */
-    protected $resolved_services = array();
+    protected $resolved_services = [];
 
     /**
      * @param string $name

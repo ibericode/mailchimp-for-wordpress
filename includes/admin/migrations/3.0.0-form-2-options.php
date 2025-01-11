@@ -2,18 +2,18 @@
 
 defined('ABSPATH') or exit;
 
-$global_options = (array) get_option('mc4wp_form', array());
+$global_options = (array) get_option('mc4wp_form', []);
 
 // find all form posts
 $posts = get_posts(
-    array(
+    [
         'post_type'   => 'mc4wp-form',
         'post_status' => 'publish',
         'numberposts' => -1,
-    )
+    ]
 );
 
-$css_map = array(
+$css_map = [
     'default'      => 'basic',
     'custom'       => 'styles-builder',
     'light'        => 'theme-light',
@@ -22,9 +22,9 @@ $css_map = array(
     'green'        => 'theme-green',
     'blue'         => 'theme-blue',
     'custom-color' => 'theme-custom-color',
-);
+];
 
-$stylesheets = array();
+$stylesheets = [];
 
 foreach ($posts as $post) {
     // get form options from post meta directly

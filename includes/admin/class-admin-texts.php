@@ -28,12 +28,12 @@ class MC4WP_Admin_Texts
     {
         global $pagenow;
 
-        add_filter('admin_footer_text', array( $this, 'footer_text' ));
+        add_filter('admin_footer_text', [ $this, 'footer_text' ]);
 
         // Hooks for Plugins overview page
         if ($pagenow === 'plugins.php') {
-            add_filter('plugin_action_links_' . $this->plugin_file, array( $this, 'add_plugin_settings_link' ), 10, 2);
-            add_filter('plugin_row_meta', array( $this, 'add_plugin_meta_links' ), 10, 2);
+            add_filter('plugin_action_links_' . $this->plugin_file, [ $this, 'add_plugin_settings_link' ], 10, 2);
+            add_filter('plugin_row_meta', [ $this, 'add_plugin_meta_links' ], 10, 2);
         }
     }
 

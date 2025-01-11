@@ -42,7 +42,7 @@ class MC4WP_Gravity_Forms_Field extends GF_Field
 
     public function get_form_editor_field_settings()
     {
-        return array(
+        return [
             'label_setting',
             'description_setting',
             'css_class_setting',
@@ -50,7 +50,7 @@ class MC4WP_Gravity_Forms_Field extends GF_Field
             'mailchimp_double_optin',
             'mailchimp_precheck',
             'rules_setting',
-        );
+        ];
     }
 
     public function get_field_input($form, $value = '', $entry = null)
@@ -79,18 +79,18 @@ class MC4WP_Gravity_Forms_Field extends GF_Field
         $is_entry_detail = $this->is_entry_detail();
         $is_form_editor  = $this->is_form_editor();
 
-        $options = array(
+        $options = [
             'label'    => $this->get_field_label(false, $value),
             'precheck' => isset($this->mailchimp_precheck) ? $this->mailchimp_precheck : false,
-        );
+        ];
         $options = $this->apply_mc4wp_options_filters($options);
 
         // generate html
-        $choice = array(
+        $choice = [
             'text'       => $options['label'],
             'value'      => '1',
             'isSelected' => $options['precheck'],
-        );
+        ];
 
         $input_id = $this->id;
         if ($is_entry_detail || $is_form_editor || 0 === (int) $form_id) {
@@ -118,17 +118,17 @@ class MC4WP_Gravity_Forms_Field extends GF_Field
                     </li>";
 
         $choices .= gf_apply_filters(
-            array(
+            [
                 'gform_field_choice_markup_pre_render',
                 $this->formId,
                 $this->id,
-            ),
+            ],
             $choice_markup,
             $choice,
             $this,
             $value
         );
 
-        return gf_apply_filters(array( 'gform_field_choices', $this->formId, $this->id ), $choices, $this);
+        return gf_apply_filters([ 'gform_field_choices', $this->formId, $this->id ], $choices, $this);
     }
 }

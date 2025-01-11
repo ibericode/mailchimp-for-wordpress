@@ -44,7 +44,7 @@ class MC4WP_Upgrade_Routines
         $migrations = $this->find_migrations();
 
         // run in sub-function for scope
-        array_map(array( $this, 'run_migration' ), $migrations);
+        array_map([ $this, 'run_migration' ], $migrations);
     }
 
     /**
@@ -53,7 +53,7 @@ class MC4WP_Upgrade_Routines
     public function find_migrations()
     {
         $files      = glob(rtrim($this->migrations_dir, '/') . '/*.php');
-        $migrations = array();
+        $migrations = [];
 
         // return empty array when glob returns non-array value.
         if (! is_array($files)) {

@@ -12,10 +12,10 @@ function _mc4wp_400_replace_comma_with_pipe($matches)
 
 // get all forms
 $posts = get_posts(
-    array(
+    [
         'post_type'   => 'mc4wp-form',
         'numberposts' => -1,
-    )
+    ]
 );
 
 foreach ($posts as $post) {

@@ -14,10 +14,10 @@ class MC4WP_Give_Integration extends MC4WP_Integration
     public function add_hooks()
     {
         if (! $this->options['implicit']) {
-            add_action('give_purchase_form_register_login_fields', array( $this, 'output_checkbox' ), 50);
+            add_action('give_purchase_form_register_login_fields', [ $this, 'output_checkbox' ], 50);
         }
 
-        add_action('give_checkout_before_gateway', array( $this, 'subscribe_from_give' ), 90, 2);
+        add_action('give_checkout_before_gateway', [ $this, 'subscribe_from_give' ], 90, 2);
     }
 
     public function subscribe_from_give($posted, $user)
@@ -27,9 +27,9 @@ class MC4WP_Give_Integration extends MC4WP_Integration
             return;
         }
 
-        $merge_fields = array(
+        $merge_fields = [
             'EMAIL' => $user['email'],
-        );
+        ];
 
         if (! empty($user['first_name'])) {
             $merge_fields['FNAME'] = $user['first_name'];

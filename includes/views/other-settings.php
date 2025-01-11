@@ -17,7 +17,7 @@ defined('ABSPATH') or exit;
 
     <div class="mc4wp-row">
 
-        <!-- Main Content -->
+        <?php /* main content */ ?>
         <div class="main-content mc4wp-col">
 
             <h1 class="mc4wp-page-title">
@@ -26,17 +26,8 @@ defined('ABSPATH') or exit;
 
             <h2 style="display: none;"></h2>
             <?php settings_errors(); ?>
+            <?php do_action('mc4wp_admin_before_other_settings', $opts); ?>
 
-            <?php
-
-            /**
-             * @ignore
-             */
-
-            do_action('mc4wp_admin_before_other_settings', $opts);
-            ?>
-
-            <!-- Settings -->
             <form action="<?php echo admin_url('options.php'); ?>" method="post">
                 <?php settings_fields('mc4wp_settings'); ?>
 
@@ -51,19 +42,14 @@ defined('ABSPATH') or exit;
                                     <option value="debug" <?php selected('debug', $opts['debug_log_level']); ?>><?php echo esc_html__('Everything', 'mailchimp-for-wp'); ?></option>
                                 </select>
                                 <p class="description">
-                                    <?php echo sprintf(wp_kses(__('Determines what events should be written to <a href="%s">the debug log</a> (see below).', 'mailchimp-for-wp'), array( 'a' => array( 'href' => array() ) )), 'https://www.mc4wp.com/kb/how-to-enable-log-debugging/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page'); ?>
+                                    <?php echo sprintf(wp_kses(__('Determines what events should be written to <a href="%s">the debug log</a> (see below).', 'mailchimp-for-wp'), [ 'a' => [ 'href' => [] ] ]), 'https://www.mc4wp.com/kb/how-to-enable-log-debugging/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page'); ?>
                                 </p>
                             </td>
                         </tr>
                     </table>
                 </div>
 
-                <?php
-                /**
-                 * @ignore
-                 */
-                do_action('mc4wp_admin_other_settings', $opts);
-                ?>
+                <?php do_action('mc4wp_admin_other_settings', $opts); ?>
 
                 <div style="margin-top: -20px;"><?php submit_button(); ?></div>
             </form>
@@ -76,7 +62,7 @@ defined('ABSPATH') or exit;
                 if (! $log->test()) {
                     echo '<p>';
                     echo esc_html__('Log file is not writable.', 'mailchimp-for-wp') . ' ';
-                    echo sprintf(wp_kses(__('Please ensure %1$s has the proper <a href="%2$s">file permissions</a>.', 'mailchimp-for-wp'), array( 'a' => array( 'href' => array() ) )), '<code>' . $log->file . '</code>', 'https://codex.wordpress.org/Changing_File_Permissions');
+                    echo sprintf(wp_kses(__('Please ensure %1$s has the proper <a href="%2$s">file permissions</a>.', 'mailchimp-for-wp'), [ 'a' => [ 'href' => [] ] ]), '<code>' . $log->file . '</code>', 'https://codex.wordpress.org/Changing_File_Permissions');
                     echo '</p>';
 
                     // hack to hide filter input
@@ -160,17 +146,11 @@ defined('ABSPATH') or exit;
                     })();
                 </script>
             </div>
-            <!-- / Debug Log -->
             <?php require __DIR__ . '/parts/admin-footer.php'; ?>
         </div>
 
-        <!-- Sidebar -->
         <div class="mc4wp-sidebar mc4wp-col">
             <?php require __DIR__ . '/parts/admin-sidebar.php'; ?>
         </div>
-
-
     </div>
-
 </div>
-

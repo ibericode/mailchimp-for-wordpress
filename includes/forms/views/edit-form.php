@@ -1,17 +1,16 @@
 <?php defined('ABSPATH') or exit;
 
-$tabs = array(
+$tabs = [
     'fields'     => esc_html__('Fields', 'mailchimp-for-wp'),
     'messages'   => esc_html__('Messages', 'mailchimp-for-wp'),
     'settings'   => esc_html__('Settings', 'mailchimp-for-wp'),
     'appearance' => esc_html__('Appearance', 'mailchimp-for-wp'),
-);
+];
 
 /**
  * Filters the setting tabs on the "edit form" screen.
  *
  * @param array $tabs
- * @ignore
  */
 $tabs = apply_filters('mc4wp_admin_edit_form_tabs', $tabs);
 
@@ -31,14 +30,7 @@ $tabs = apply_filters('mc4wp_admin_edit_form_tabs', $tabs);
         <h1 class="mc4wp-page-title">
             <?php echo esc_html__('Edit Form', 'mailchimp-for-wp'); ?>
 
-            <?php
-
-            /**
-             * @ignore
-             */
-
-            do_action('mc4wp_admin_edit_form_after_title');
-            ?>
+            <?php do_action('mc4wp_admin_edit_form_after_title'); ?>
         </h1>
 
         <?php // fake h2 for admin notices ?>
@@ -90,7 +82,6 @@ $tabs = apply_filters('mc4wp_admin_edit_form_tabs', $tabs);
                          * Runs when outputting a tab section on the "edit form" screen
                          *
                          * @param string $tab
-                         * @ignore
                          */
                         do_action('mc4wp_admin_edit_form_output_' . $tab . '_tab', $opts, $form);
 
@@ -108,6 +99,6 @@ $tabs = apply_filters('mc4wp_admin_edit_form_tabs', $tabs);
             </div>
         </form>
 
-        <?php require MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-footer.php'; ?>
+        <?php include MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-footer.php'; ?>
     </div>
 </div>

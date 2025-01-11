@@ -25,7 +25,7 @@ class MC4WP_Form_Output_Manager
     {
         // enable shortcodes in form content
         add_filter('mc4wp_form_content', 'do_shortcode');
-        add_action('init', array( $this, 'register_shortcode' ));
+        add_action('init', [ $this, 'register_shortcode' ]);
     }
 
     /**
@@ -33,7 +33,7 @@ class MC4WP_Form_Output_Manager
      */
     public function register_shortcode()
     {
-        add_shortcode(self::SHORTCODE, array( $this, 'shortcode' ));
+        add_shortcode(self::SHORTCODE, [ $this, 'shortcode' ]);
     }
 
     /**
@@ -41,15 +41,15 @@ class MC4WP_Form_Output_Manager
      * @param string $content
      * @return string
      */
-    public function shortcode($attributes = array(), $content = '')
+    public function shortcode($attributes = [], $content = '')
     {
-        $default_attributes = array(
+        $default_attributes = [
             'id'            => '',
             'lists'         => '',
             'email_type'    => '',
             'element_id'    => '',
             'element_class' => '',
-        );
+        ];
 
         $attributes = shortcode_atts(
             $default_attributes,
@@ -57,12 +57,12 @@ class MC4WP_Form_Output_Manager
             self::SHORTCODE
         );
 
-        $config = array(
+        $config = [
             'element_id'    => $attributes['element_id'],
             'lists'         => $attributes['lists'],
             'email_type'    => $attributes['email_type'],
             'element_class' => $attributes['element_class'],
-        );
+        ];
 
         return $this->output_form($attributes['id'], $config, false);
     }
@@ -74,7 +74,7 @@ class MC4WP_Form_Output_Manager
      *
      * @return string
      */
-    public function output_form($id = 0, $config = array(), $echo = true)
+    public function output_form($id = 0, $config = [], $echo = true)
     {
         try {
             $form = mc4wp_get_form($id);

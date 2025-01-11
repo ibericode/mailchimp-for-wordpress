@@ -12,17 +12,17 @@ class MC4WP_API_Exception extends Exception
     /**
     * @var object
     */
-    public $response = array();
+    public $response = [];
 
     /**
     * @var object
     */
-    public $request = array();
+    public $request = [];
 
     /**
     * @var array
     */
-    public $response_data = array();
+    public $response_data = [];
 
     /**
      * MC4WP_API_Exception constructor.
@@ -50,7 +50,7 @@ class MC4WP_API_Exception extends Exception
     */
     public function __get($property)
     {
-        if (in_array($property, array( 'title', 'detail', 'errors' ), true)) {
+        if (in_array($property, [ 'title', 'detail', 'errors' ], true)) {
             if (! empty($this->response_data) && isset($this->response_data->{$property})) {
                 return $this->response_data->{$property};
             }
@@ -83,7 +83,7 @@ class MC4WP_API_Exception extends Exception
                 $string = str_replace('For field-specific details, see the \'errors\' array.', '', $string);
 
                 // generate list of field errors
-                $field_errors = array();
+                $field_errors = [];
                 foreach ($this->response_data->errors as $error) {
                     if (! empty($error->field)) {
                         $field_errors[] = sprintf('- %s : %s', $error->field, $error->message);

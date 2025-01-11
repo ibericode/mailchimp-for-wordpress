@@ -4,15 +4,15 @@ defined('ABSPATH') or exit;
 
 // find all form posts
 $posts = get_posts(
-    array(
+    [
         'post_type'   => 'mc4wp-form',
         'post_status' => 'publish',
         'numberposts' => -1,
-    )
+    ]
 );
 
 // set form message texts
-$message_keys = array(
+$message_keys = [
     'text_subscribed',
     'text_error',
     'text_invalid_email',
@@ -20,7 +20,7 @@ $message_keys = array(
     'text_required_field_missing',
     'text_unsubscribed',
     'text_not_subscribed',
-);
+];
 
 foreach ($posts as $post) {
     $settings = get_post_meta($post->ID, '_mc4wp_settings', true);

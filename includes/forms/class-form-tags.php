@@ -20,9 +20,9 @@ class MC4WP_Form_Tags extends MC4WP_Dynamic_Content_Tags
 
     public function add_hooks()
     {
-        add_filter('mc4wp_form_response_html', array( $this, 'replace_in_form_response' ), 10, 2);
-        add_filter('mc4wp_form_content', array( $this, 'replace_in_form_content' ), 10, 3);
-        add_filter('mc4wp_form_redirect_url', array( $this, 'replace_in_form_redirect_url' ), 10, 2);
+        add_filter('mc4wp_form_response_html', [ $this, 'replace_in_form_response' ], 10, 2);
+        add_filter('mc4wp_form_content', [ $this, 'replace_in_form_content' ], 10, 3);
+        add_filter('mc4wp_form_redirect_url', [ $this, 'replace_in_form_redirect_url' ], 10, 2);
     }
 
     /**
@@ -32,21 +32,21 @@ class MC4WP_Form_Tags extends MC4WP_Dynamic_Content_Tags
     {
         parent::register();
 
-        $this->tags['response'] = array(
+        $this->tags['response'] = [
             'description' => __('Replaced with the form response (error or success messages).', 'mailchimp-for-wp'),
-            'callback'    => array( $this, 'get_form_response' ),
-        );
+            'callback'    => [ $this, 'get_form_response' ],
+        ];
 
-        $this->tags['data'] = array(
+        $this->tags['data'] = [
             'description' => sprintf(__('Data from the URL or a submitted form.', 'mailchimp-for-wp')),
-            'callback'    => array( $this, 'get_data' ),
+            'callback'    => [ $this, 'get_data' ],
             'example'     => "data key='UTM_SOURCE' default='Default Source'",
-        );
+        ];
 
-        $this->tags['subscriber_count'] = array(
+        $this->tags['subscriber_count'] = [
             'description' => __('Replaced with the number of subscribers on the selected list(s)', 'mailchimp-for-wp'),
-            'callback'    => array( $this, 'get_subscriber_count' ),
-        );
+            'callback'    => [ $this, 'get_subscriber_count' ],
+        ];
     }
 
 
@@ -106,7 +106,7 @@ class MC4WP_Form_Tags extends MC4WP_Dynamic_Content_Tags
      * @param array $args
      * @return string
      */
-    public function get_data(array $args = array())
+    public function get_data(array $args = [])
     {
         if (empty($args['key'])) {
             return '';

@@ -38,7 +38,7 @@ class MC4WP_API_V3
      */
     public function is_connected()
     {
-        $data      = $this->client->get('/', array( 'fields' => 'account_id' ));
+        $data      = $this->client->get('/', [ 'fields' => 'account_id' ]);
         $connected = is_object($data) && isset($data->account_id);
         return $connected;
     }
@@ -64,7 +64,7 @@ class MC4WP_API_V3
      * @return array
      * @throws MC4WP_API_Exception
      */
-    public function get_list_activity($list_id, array $args = array())
+    public function get_list_activity($list_id, array $args = [])
     {
         $resource = sprintf('/lists/%s/activity', $list_id);
         $data     = $this->client->get($resource, $args);
@@ -73,7 +73,7 @@ class MC4WP_API_V3
             return $data->activity;
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -87,7 +87,7 @@ class MC4WP_API_V3
      * @return array
      * @throws MC4WP_API_Exception
      */
-    public function get_list_interest_categories($list_id, array $args = array())
+    public function get_list_interest_categories($list_id, array $args = [])
     {
         $resource = sprintf('/lists/%s/interest-categories', $list_id);
         $data     = $this->client->get($resource, $args);
@@ -96,7 +96,7 @@ class MC4WP_API_V3
             return $data->categories;
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -109,7 +109,7 @@ class MC4WP_API_V3
      * @return array
      * @throws MC4WP_API_Exception
      */
-    public function get_list_interest_category_interests($list_id, $interest_category_id, array $args = array())
+    public function get_list_interest_category_interests($list_id, $interest_category_id, array $args = [])
     {
         $resource = sprintf('/lists/%s/interest-categories/%s/interests', $list_id, $interest_category_id);
         $data     = $this->client->get($resource, $args);
@@ -118,7 +118,7 @@ class MC4WP_API_V3
             return $data->interests;
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -132,7 +132,7 @@ class MC4WP_API_V3
      * @return array
      * @throws MC4WP_API_Exception
      */
-    public function get_list_merge_fields($list_id, array $args = array())
+    public function get_list_merge_fields($list_id, array $args = [])
     {
         $resource = sprintf('/lists/%s/merge-fields', $list_id);
         $data     = $this->client->get($resource, $args);
@@ -141,7 +141,7 @@ class MC4WP_API_V3
             return $data->merge_fields;
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -153,7 +153,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_list($list_id, array $args = array())
+    public function get_list($list_id, array $args = [])
     {
         $resource = sprintf('/lists/%s', $list_id);
         $data     = $this->client->get($resource, $args);
@@ -168,7 +168,7 @@ class MC4WP_API_V3
      * @return array
      * @throws MC4WP_API_Exception
      */
-    public function get_lists(array $args = array())
+    public function get_lists(array $args = [])
     {
         $resource = '/lists';
         $data     = $this->client->get($resource, $args);
@@ -177,7 +177,7 @@ class MC4WP_API_V3
             return $data->lists;
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -190,7 +190,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_list_member($list_id, $email_address, array $args = array())
+    public function get_list_member($list_id, $email_address, array $args = [])
     {
         $subscriber_hash = $this->get_subscriber_hash($email_address);
         $resource        = sprintf('/lists/%s/members/%s', $list_id, $subscriber_hash);
@@ -207,7 +207,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_list_members($list_id, array $args = array())
+    public function get_list_members($list_id, array $args = [])
     {
         $resource = sprintf('/lists/%s/members', $list_id);
         return $this->client->get($resource, $args);
@@ -278,7 +278,7 @@ class MC4WP_API_V3
         $resource        = sprintf('/lists/%s/members/%s', $list_id, $subscriber_hash);
 
         if ($skip_merge_validation) {
-            $resource = add_query_arg(array( 'skip_merge_validation' => 'true' ), $resource);
+            $resource = add_query_arg([ 'skip_merge_validation' => 'true' ], $resource);
         }
 
         // make sure we're sending an object as the Mailchimp schema requires this
@@ -388,7 +388,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_list_segments($list_id, array $args = array())
+    public function get_list_segments($list_id, array $args = [])
     {
         $resource = sprintf('/lists/%s/segments', $list_id);
         return $this->client->get($resource, $args);
@@ -402,7 +402,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_stores(array $args = array())
+    public function get_ecommerce_stores(array $args = [])
     {
         $resource = '/ecommerce/stores';
         return $this->client->get($resource, $args);
@@ -417,7 +417,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store($store_id, array $args = array())
+    public function get_ecommerce_store($store_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s', $store_id);
         return $this->client->get($resource, $args);
@@ -475,7 +475,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store_customers($store_id, array $args = array())
+    public function get_ecommerce_store_customers($store_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s/customers', $store_id);
         return $this->client->get($resource, $args);
@@ -491,7 +491,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store_customer($store_id, $customer_id, array $args = array())
+    public function get_ecommerce_store_customer($store_id, $customer_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s/customers/%s', $store_id, $customer_id);
         return $this->client->get($resource, $args);
@@ -554,7 +554,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store_products($store_id, array $args = array())
+    public function get_ecommerce_store_products($store_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s/products', $store_id);
         return $this->client->get($resource, $args);
@@ -570,7 +570,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store_product($store_id, $product_id, array $args = array())
+    public function get_ecommerce_store_product($store_id, $product_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s/products/%s', $store_id, $product_id);
         return $this->client->get($resource, $args);
@@ -634,7 +634,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store_product_variants($store_id, $product_id, array $args = array())
+    public function get_ecommerce_store_product_variants($store_id, $product_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s/products/%s/variants', $store_id, $product_id);
         return $this->client->get($resource, $args);
@@ -651,7 +651,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store_product_variant($store_id, $product_id, $variant_id, array $args = array())
+    public function get_ecommerce_store_product_variant($store_id, $product_id, $variant_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s/products/%s/variants/%s', $store_id, $product_id, $variant_id);
         return $this->client->get($resource, $args);
@@ -717,7 +717,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store_orders($store_id, array $args = array())
+    public function get_ecommerce_store_orders($store_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s/orders', $store_id);
         return $this->client->get($resource, $args);
@@ -733,7 +733,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store_order($store_id, $order_id, array $args = array())
+    public function get_ecommerce_store_order($store_id, $order_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s/orders/%s', $store_id, $order_id);
         return $this->client->get($resource, $args);
@@ -811,7 +811,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store_order_lines($store_id, $order_id, array $args = array())
+    public function get_ecommerce_store_order_lines($store_id, $order_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s/orders/%s/lines', $store_id, $order_id);
         return $this->client->get($resource, $args);
@@ -828,7 +828,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store_order_line($store_id, $order_id, $line_id, array $args = array())
+    public function get_ecommerce_store_order_line($store_id, $order_id, $line_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s/orders/%s/lines/%s', $store_id, $order_id, $line_id);
         return $this->client->get($resource, $args);
@@ -876,7 +876,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store_carts($store_id, array $args = array())
+    public function get_ecommerce_store_carts($store_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s/carts', $store_id);
         return $this->client->get($resource, $args);
@@ -892,7 +892,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store_cart($store_id, $cart_id, array $args = array())
+    public function get_ecommerce_store_cart($store_id, $cart_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s/carts/%s', $store_id, $cart_id);
         return $this->client->get($resource, $args);
@@ -952,7 +952,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store_cart_lines($store_id, $cart_id, array $args = array())
+    public function get_ecommerce_store_cart_lines($store_id, $cart_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s/carts/%/lines', $store_id, $cart_id);
         return $this->client->get($resource, $args);
@@ -969,7 +969,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store_cart_line($store_id, $cart_id, $line_id, array $args = array())
+    public function get_ecommerce_store_cart_line($store_id, $cart_id, $line_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s/carts/%s/lines/%s', $store_id, $cart_id, $line_id);
         return $this->client->get($resource, $args);
@@ -1048,7 +1048,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store_promo_rules($store_id, array $args = array())
+    public function get_ecommerce_store_promo_rules($store_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s/promo-rules', $store_id);
         return $this->client->get($resource, $args);
@@ -1064,7 +1064,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store_promo_rule($store_id, $promo_rule_id, array $args = array())
+    public function get_ecommerce_store_promo_rule($store_id, $promo_rule_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s/promo-rules/%s', $store_id, $promo_rule_id);
         return $this->client->get($resource, $args);
@@ -1127,7 +1127,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store_promo_rule_promo_codes($store_id, $promo_rule_id, array $args = array())
+    public function get_ecommerce_store_promo_rule_promo_codes($store_id, $promo_rule_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s/promo-rules/%s/promo-codes', $store_id, $promo_rule_id);
         return $this->client->get($resource, $args);
@@ -1144,7 +1144,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_ecommerce_store_promo_rule_promo_code($store_id, $promo_rule_id, $promo_code_id, array $args = array())
+    public function get_ecommerce_store_promo_rule_promo_code($store_id, $promo_rule_id, $promo_code_id, array $args = [])
     {
         $resource = sprintf('/ecommerce/stores/%s/promo-rules/%s/promo-codes/%s', $store_id, $promo_rule_id, $promo_code_id);
         return $this->client->get($resource, $args);
@@ -1191,7 +1191,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_templates(array $args = array())
+    public function get_templates(array $args = [])
     {
         $resource = '/templates';
         return $this->client->get($resource, $args);
@@ -1206,7 +1206,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_template($template_id, array $args = array())
+    public function get_template($template_id, array $args = [])
     {
         $resource = sprintf('/templates/%s', $template_id);
         return $this->client->get($resource, $args);
@@ -1233,7 +1233,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_template_default_content($template_id, array $args = array())
+    public function get_template_default_content($template_id, array $args = [])
     {
         $resource = sprintf('/templates/%s/default-content', $template_id);
         return $this->client->get($resource, $args);
@@ -1261,7 +1261,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_campaigns(array $args = array())
+    public function get_campaigns(array $args = [])
     {
         $resource = '/campaigns';
         return $this->client->get($resource, $args);
@@ -1276,7 +1276,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_campaign($campaign_id, array $args = array())
+    public function get_campaign($campaign_id, array $args = [])
     {
         $resource = sprintf('/campaigns/%s', $campaign_id);
         return $this->client->get($resource, $args);
@@ -1322,7 +1322,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function campaign_action($campaign_id, $action, array $args = array())
+    public function campaign_action($campaign_id, $action, array $args = [])
     {
         $resource = sprintf('/campaigns/%s/actions/%s', $campaign_id, $action);
         return $this->client->post($resource, $args);
@@ -1337,7 +1337,7 @@ class MC4WP_API_V3
      * @return object
      * @throws MC4WP_API_Exception
      */
-    public function get_campaign_content($campaign_id, array $args = array())
+    public function get_campaign_content($campaign_id, array $args = [])
     {
         $resource = sprintf('/campaigns/%s/content', $campaign_id);
         return $this->client->get($resource, $args);

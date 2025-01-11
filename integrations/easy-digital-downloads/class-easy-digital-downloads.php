@@ -26,11 +26,11 @@ class MC4WP_Easy_Digital_Downloads_Integration extends MC4WP_Integration
     {
         if (! $this->options['implicit']) {
             // TODO: Allow more positions
-            add_action('edd_purchase_form_user_info_fields', array( $this, 'output_checkbox' ), 1);
-            add_action('edd_payment_meta', array( $this, 'save_checkbox_value' ));
+            add_action('edd_purchase_form_user_info_fields', [ $this, 'output_checkbox' ], 1);
+            add_action('edd_payment_meta', [ $this, 'save_checkbox_value' ]);
         }
 
-        add_action('edd_complete_purchase', array( $this, 'subscribe_from_edd' ), 50);
+        add_action('edd_complete_purchase', [ $this, 'subscribe_from_edd' ], 50);
     }
 
     /**
@@ -87,9 +87,9 @@ class MC4WP_Easy_Digital_Downloads_Integration extends MC4WP_Integration
         }
 
         $email = (string) edd_get_payment_user_email($payment_id);
-        $data  = array(
+        $data  = [
             'EMAIL' => $email,
-        );
+        ];
 
         // add first and last name to merge vars, if given
         $user_info = (array) edd_get_payment_meta_user_info($payment_id);

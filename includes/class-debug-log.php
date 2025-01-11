@@ -36,12 +36,12 @@ class MC4WP_Debug_Log
      *
      * @var array $levels Logging levels
      */
-    protected static $levels = array(
+    protected static $levels = [
         self::DEBUG   => 'DEBUG',
         self::INFO    => 'INFO',
         self::WARNING => 'WARNING',
         self::ERROR   => 'ERROR',
-    );
+    ];
 
     /**
      * @var string The file to which messages should be written.

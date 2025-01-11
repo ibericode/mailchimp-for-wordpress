@@ -15,7 +15,7 @@ class MC4WP_Form
     /**
      * @var array Array of instantiated form objects.
      */
-    public static $instances = array();
+    public static $instances = [];
 
     /**
      * @param int $post_id
@@ -92,22 +92,22 @@ class MC4WP_Form
     /**
      * @var array Array of settings
      */
-    public $settings = array();
+    public $settings = [];
 
     /**
      * @var array Array of messages
      */
-    public $messages = array();
+    public $messages = [];
 
     /**
      * @var array Array of notices to be shown when this form is rendered
      */
-    public $notices = array();
+    public $notices = [];
 
     /**
      * @var array Array of error codes
      */
-    public $errors = array();
+    public $errors = [];
 
     /**
      * @var bool Was this form submitted?
@@ -119,22 +119,22 @@ class MC4WP_Form
      *
      * Keys in this array are uppercased and keys starting with _ are stripped.
      */
-    private $data = array();
+    private $data = [];
 
     /**
      * @var array Array of the raw form data that was submitted.
      */
-    public $raw_data = array();
+    public $raw_data = [];
 
     /**
      * @var array
      */
-    public $config = array(
+    public $config = [
         'action'     => 'subscribe',
-        'lists'      => array(),
+        'lists'      => [],
         'email_type' => '',
         'element_id' => '',
-    );
+    ];
 
     /**
     * @var string
@@ -151,7 +151,7 @@ class MC4WP_Form
      * @param WP_Post $post
      * @param array $post_meta
      */
-    public function __construct($id, WP_Post $post, array $post_meta = array())
+    public function __construct($id, WP_Post $post, array $post_meta = [])
     {
         $this->ID       = (int) $id;
         $this->name     = $post->post_title;
@@ -197,7 +197,7 @@ class MC4WP_Form
      * @param array $config
      * @return MC4WP_Form_element
      */
-    public function get_element($element_id = 'mc4wp-form', array $config = array())
+    public function get_element($element_id = 'mc4wp-form', array $config = [])
     {
         return new MC4WP_Form_Element($this, $element_id, $config);
     }
@@ -212,7 +212,7 @@ class MC4WP_Form
      *
      * @return string
      */
-    public function get_html($element_id = 'mc4wp-form', array $config = array())
+    public function get_html($element_id = 'mc4wp-form', array $config = [])
     {
         $element = $this->get_element($element_id, $config);
         $html    = $element->generate_html();
@@ -224,7 +224,7 @@ class MC4WP_Form
      * @param array $post_meta
      * @return array
      */
-    protected function load_settings(array $post_meta = array())
+    protected function load_settings(array $post_meta = [])
     {
         $form             = $this;
         $default_settings = include MC4WP_PLUGIN_DIR . '/config/default-form-settings.php';
@@ -239,7 +239,7 @@ class MC4WP_Form
 
             // ensure lists is an array
             if (empty($meta['lists'])) {
-                $meta['lists'] = array();
+                $meta['lists'] = [];
             }
 
             // merge with current settings (defaults)
@@ -263,7 +263,7 @@ class MC4WP_Form
      * @param array $post_meta
      * @return array
      */
-    protected function load_messages(array $post_meta = array())
+    protected function load_messages(array $post_meta = [])
     {
         $form = $this;
 
@@ -343,7 +343,7 @@ class MC4WP_Form
      */
     public function __toString()
     {
-        return mc4wp_show_form($this->ID, array(), false);
+        return mc4wp_show_form($this->ID, [], false);
     }
 
     /**
@@ -383,7 +383,7 @@ class MC4WP_Form
         }
 
         $form   = $this;
-        $errors = array();
+        $errors = [];
 
         if (empty($this->config['lists'])) {
             $errors[] = 'no_lists_selected';
@@ -391,10 +391,10 @@ class MC4WP_Form
 
         // perform some basic anti-spam checks
         // User-Agent header should be set and not bot-like
-	    if (empty($_SERVER['HTTP_USER_AGENT']) || preg_match('/bot|crawl|spider|seo|lighthouse|facebookexternalhit|preview/i', $_SERVER['HTTP_USER_AGENT'])) {
-	       	$errors[] = 'spam';
-	    // _mc4wp_timestamp field should be between 1 week old (to deal with aggressively cached pages) and 2 seconds ago
-	    } elseif (! isset($this->raw_data['_mc4wp_timestamp']) || $this->raw_data['_mc4wp_timestamp'] < (time() - DAY_IN_SECONDS * 7) || $this->raw_data['_mc4wp_timestamp'] > ( time() - 2 )) {
+        if (empty($_SERVER['HTTP_USER_AGENT']) || preg_match('/bot|crawl|spider|seo|lighthouse|facebookexternalhit|preview/i', $_SERVER['HTTP_USER_AGENT'])) {
+            $errors[] = 'spam';
+        // _mc4wp_timestamp field should be between 1 week old (to deal with aggressively cached pages) and 2 seconds ago
+        } elseif (! isset($this->raw_data['_mc4wp_timestamp']) || $this->raw_data['_mc4wp_timestamp'] < (time() - DAY_IN_SECONDS * 7) || $this->raw_data['_mc4wp_timestamp'] > ( time() - 2 )) {
             $errors[] = 'spam';
         // _mc4wp_honeypot field should be submitted and empty
         } elseif (! isset($this->raw_data['_mc4wp_honeypot']) || '' !== $this->raw_data['_mc4wp_honeypot']) {
@@ -412,7 +412,7 @@ class MC4WP_Form
                 $value = mc4wp_array_get($this->data, $field);
 
                 // check for empty string or array here instead of empty() since we want to allow for "0" values.
-                if ($value === '' || $value === array()) {
+                if ($value === '' || $value === []) {
                     $errors[] = 'required_field_missing';
                     break;
                 }
@@ -454,13 +454,13 @@ class MC4WP_Form
         $this->last_event   = '';
 
         // update form configuration from given data
-        $config = array();
-        $map    = array(
+        $config = [];
+        $map    = [
             '_mc4wp_lists'           => 'lists',
             '_mc4wp_action'          => 'action',
             '_mc4wp_form_element_id' => 'element_id',
             '_mc4wp_email_type'      => 'email_type',
-        );
+        ];
 
         // use isset here to allow empty lists (which should show a notice)
         foreach ($map as $param_key => $config_key) {
@@ -495,8 +495,8 @@ class MC4WP_Form
     protected function parse_request_data(array $data)
     {
         $form                = $this;
-        $filtered            = array();
-        $ignored_field_names = array();
+        $filtered            = [];
+        $ignored_field_names = [];
 
         /**
         * Filters field names which should be ignored when showing data.
@@ -544,12 +544,12 @@ class MC4WP_Form
         }
 
         // make sure action is valid
-        if (! in_array($this->config['action'], array( 'subscribe', 'unsubscribe' ), true)) {
+        if (! in_array($this->config['action'], [ 'subscribe', 'unsubscribe' ], true)) {
             $this->config['action'] = 'subscribe';
         }
 
         // email_type should be a valid value
-        if (! in_array($this->config['email_type'], array( 'html', 'text' ), true)) {
+        if (! in_array($this->config['email_type'], [ 'html', 'text' ], true)) {
             $this->config['email_type'] = '';
         }
 
@@ -672,7 +672,7 @@ class MC4WP_Form
         $required_fields = explode(',', $required_fields_string);
 
         // EMAIL is not a required field as it has its own validation rules
-        $required_fields = array_diff($required_fields, array( 'EMAIL' ));
+        $required_fields = array_diff($required_fields, [ 'EMAIL' ]);
 
         // filter duplicate & empty values
         $required_fields = array_unique($required_fields);
@@ -760,14 +760,14 @@ class MC4WP_Form
      */
     public function get_subscriber_tags()
     {
-    	$tags = array();
-	    foreach (explode(',', $this->settings['subscriber_tags']) as $v) {
-	        $v = trim($v);
-	        if ($v == '') {
-	        	continue;
-	        }
-	        $tags[] = $v;
-	    }
-	    return $tags;
+        $tags = [];
+        foreach (explode(',', $this->settings['subscriber_tags']) as $v) {
+            $v = trim($v);
+            if ($v == '') {
+                continue;
+            }
+            $tags[] = $v;
+        }
+        return $tags;
     }
 }

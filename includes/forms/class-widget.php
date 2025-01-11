@@ -12,10 +12,10 @@ class MC4WP_Form_Widget extends WP_Widget
     /**
      * @var array
      */
-    private $default_instance_settings = array(
+    private $default_instance_settings = [
         'title'   => '',
         'form_id' => '',
-    );
+    ];
 
     /**
      * Register widget with WordPress.
@@ -29,9 +29,9 @@ class MC4WP_Form_Widget extends WP_Widget
         parent::__construct(
             'mc4wp_form_widget', // Base ID
             __('Mailchimp Sign-Up Form', 'mailchimp-for-wp'), // Name
-            array(
+            [
                 'description' => __('Displays your Mailchimp for WordPress sign-up form', 'mailchimp-for-wp'),
-            )
+            ]
         );
     }
 
@@ -48,7 +48,7 @@ class MC4WP_Form_Widget extends WP_Widget
 
         // ensure $instance_settings is an array
         if (! is_array($instance_settings)) {
-            $instance_settings = array();
+            $instance_settings = [];
         }
 
         $instance_settings = array_merge($this->default_instance_settings, $instance_settings);

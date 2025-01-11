@@ -26,10 +26,10 @@ class MC4WP_Events_Manager_Integration extends MC4WP_Integration
     public function add_hooks()
     {
         if (! $this->options['implicit']) {
-            add_action('em_booking_form_footer', array( $this, 'output_checkbox' ));
+            add_action('em_booking_form_footer', [ $this, 'output_checkbox' ]);
         }
 
-        add_action('em_bookings_added', array( $this, 'subscribe_from_events_manager' ), 5);
+        add_action('em_bookings_added', [ $this, 'subscribe_from_events_manager' ], 5);
     }
 
 
@@ -61,10 +61,10 @@ class MC4WP_Events_Manager_Integration extends MC4WP_Integration
             return false;
         }
 
-        $data = array(
+        $data = [
             'EMAIL' => $em_data['user_email'],
             'NAME'  => $em_data['user_name'],
-        );
+        ];
 
         // subscribe using email and name
         return $this->subscribe($data, $args->booking_id);

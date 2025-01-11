@@ -19,28 +19,28 @@ class MC4WP_Admin_Ads
             return false;
         }
 
-        add_filter('mc4wp_admin_plugin_meta_links', array( $this, 'plugin_meta_links' ));
-        add_action('mc4wp_admin_form_after_behaviour_settings_rows', array( $this, 'after_form_settings_rows' ));
-        add_action('mc4wp_admin_form_after_appearance_settings_rows', array( $this, 'after_form_appearance_settings_rows' ));
-        add_action('mc4wp_admin_sidebar', array( $this, 'admin_sidebar' ));
-        add_action('mc4wp_admin_footer', array( $this, 'admin_footer' ));
-        add_action('mc4wp_admin_other_settings', array( $this, 'ecommerce' ), 90);
+        add_filter('mc4wp_admin_plugin_meta_links', [ $this, 'plugin_meta_links' ]);
+        add_action('mc4wp_admin_form_after_behaviour_settings_rows', [ $this, 'after_form_settings_rows' ]);
+        add_action('mc4wp_admin_form_after_appearance_settings_rows', [ $this, 'after_form_appearance_settings_rows' ]);
+        add_action('mc4wp_admin_sidebar', [ $this, 'admin_sidebar' ]);
+        add_action('mc4wp_admin_footer', [ $this, 'admin_footer' ]);
+        add_action('mc4wp_admin_other_settings', [ $this, 'ecommerce' ], 90);
 
-        add_filter('mc4wp_admin_menu_items', array( $this, 'add_menu_item' ));
+        add_filter('mc4wp_admin_menu_items', [ $this, 'add_menu_item' ]);
 
-        add_action('mc4wp_admin_after_woocommerce_integration_settings', array( $this, 'ecommerce' ));
+        add_action('mc4wp_admin_after_woocommerce_integration_settings', [ $this, 'ecommerce' ]);
         return true;
     }
 
     public function add_menu_item($items)
     {
-        $items['extensions'] = array(
+        $items['extensions'] = [
             'title'    => __('Add-ons', 'mailchimp-for-wp'),
             'text'     => __('Add-ons', 'mailchimp-for-wp'),
             'slug'     => 'extensions',
-            'callback' => array( $this, 'show_extensions_page' ),
+            'callback' => [ $this, 'show_extensions_page' ],
             'position' => 100,
-        );
+        ];
 
         return $items;
     }

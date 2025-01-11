@@ -18,7 +18,7 @@ class MC4WP_Integration_Tags extends MC4WP_Dynamic_Content_Tags
      */
     public function add_hooks()
     {
-        add_filter('mc4wp_integration_checkbox_label', array( $this, 'replace_in_checkbox_label' ), 10, 2);
+        add_filter('mc4wp_integration_checkbox_label', [ $this, 'replace_in_checkbox_label' ], 10, 2);
     }
 
     /**
@@ -28,10 +28,10 @@ class MC4WP_Integration_Tags extends MC4WP_Dynamic_Content_Tags
     {
         parent::register();
 
-        $this->tags['subscriber_count'] = array(
+        $this->tags['subscriber_count'] = [
             'description' => __('Replaced with the number of subscribers on the selected list(s)', 'mailchimp-for-wp'),
-            'callback'    => array( $this, 'get_subscriber_count' ),
-        );
+            'callback'    => [ $this, 'get_subscriber_count' ],
+        ];
     }
 
     /**

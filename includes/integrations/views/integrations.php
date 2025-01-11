@@ -4,16 +4,16 @@
 /** @var MC4WP_Integration_Fixture $integration */
 function _mc4wp_integrations_table_row($integration)
 {
-	$style_attr = ! $integration->is_installed() ? 'style="opacity: 0.6;"' : '';
+    $style_attr = ! $integration->is_installed() ? 'style="opacity: 0.6;"' : '';
     ?>
     <tr <?php echo $style_attr; ?>>
 
         <td>
             <?php
             if ($integration->is_installed()) {
-            	$href  = esc_attr(add_query_arg(array( 'integration' => $integration->slug )));
-            	$title = esc_attr__('Configure this integration', 'mailchimp-for-wp');
-            	echo "<strong><a href=\"{$href}\" title=\"{$title}\">{$integration->name}</a></strong>";
+                $href  = esc_attr(add_query_arg([ 'integration' => $integration->slug ]));
+                $title = esc_attr__('Configure this integration', 'mailchimp-for-wp');
+                echo "<strong><a href=\"{$href}\" title=\"{$title}\">{$integration->name}</a></strong>";
             } else {
                 echo esc_html($integration->name);
             }

@@ -23,21 +23,21 @@ class MC4WP_Admin_Messages
      */
     public function add_hooks()
     {
-        add_action('admin_notices', array( $this, 'show' ));
-        register_shutdown_function(array( $this, 'save' ));
+        add_action('admin_notices', [ $this, 'show' ]);
+        register_shutdown_function([ $this, 'save' ]);
     }
 
     private function load()
     {
         if (is_null($this->bag)) {
-            $this->bag = get_option('mc4wp_flash_messages', array());
+            $this->bag = get_option('mc4wp_flash_messages', []);
         }
     }
 
     // empty flash bag
     private function reset()
     {
-        $this->bag   = array();
+        $this->bag   = [];
         $this->dirty = true;
     }
 
@@ -50,10 +50,10 @@ class MC4WP_Admin_Messages
     public function flash($message, $type = 'success')
     {
         $this->load();
-        $this->bag[] = array(
+        $this->bag[] = [
             'text' => $message,
             'type' => $type,
-        );
+        ];
         $this->dirty = true;
     }
 

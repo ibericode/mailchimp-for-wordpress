@@ -32,7 +32,7 @@ class MC4WP_Field_Guesser
     public function namespaced($namespace = 'mc4wp-')
     {
         $prefix = strtoupper($namespace);
-        $return = array();
+        $return = [];
         $length = strlen($prefix);
 
         foreach ($this->fields as $key => $value) {
@@ -56,11 +56,11 @@ class MC4WP_Field_Guesser
      */
     public function guessed()
     {
-        $guessed = array();
+        $guessed = [];
 
         foreach ($this->fields as $field => $value) {
             // transform value into array to support 1-level arrays
-            $sub_fields = is_array($value) ? $value : array( $value );
+            $sub_fields = is_array($value) ? $value : [ $value ];
 
             foreach ($sub_fields as $sub_field_value) {
                 // poor man's urldecode, to get Enfold theme's contact element to work.
@@ -73,12 +73,12 @@ class MC4WP_Field_Guesser
                 }
 
                 // remove special characters from field name
-                $simple_key = str_replace(array( '-', '_', ' ' ), '', $field);
+                $simple_key = str_replace([ '-', '_', ' ' ], '', $field);
 
-                if (empty($guessed['FNAME']) && $this->string_contains($simple_key, array( 'FIRSTNAME', 'FNAME', 'GIVENNAME', 'FORENAME' ))) {
+                if (empty($guessed['FNAME']) && $this->string_contains($simple_key, [ 'FIRSTNAME', 'FNAME', 'GIVENNAME', 'FORENAME' ])) {
                     // find first name field
                     $guessed['FNAME'] = $sub_field_value;
-                } elseif (empty($guessed['LNAME']) && $this->string_contains($simple_key, array( 'LASTNAME', 'LNAME', 'SURNAME', 'FAMILYNAME' ))) {
+                } elseif (empty($guessed['LNAME']) && $this->string_contains($simple_key, [ 'LASTNAME', 'LNAME', 'SURNAME', 'FAMILYNAME' ])) {
                     // find last name field
                     $guessed['LNAME'] = $sub_field_value;
                 } elseif (empty($guessed['NAME']) && $this->string_contains($simple_key, 'NAME')) {
@@ -98,11 +98,11 @@ class MC4WP_Field_Guesser
      */
     public function combine(array $methods)
     {
-        $combined = array();
+        $combined = [];
 
         foreach ($methods as $method) {
             if (method_exists($this, $method)) {
-                $combined = array_merge($combined, call_user_func(array( $this, $method )));
+                $combined = array_merge($combined, call_user_func([ $this, $method ]));
             }
         }
 
@@ -118,7 +118,7 @@ class MC4WP_Field_Guesser
     private function string_contains($haystack, $needles)
     {
         if (! is_array($needles)) {
-            $needles = array( $needles );
+            $needles = [ $needles ];
         }
 
         foreach ($needles as $needle) {

@@ -1,38 +1,16 @@
 <?xml version="1.0"?>
 <ruleset name="rules">
-    <description>rules</description>
+	<description>Code standard rules for Mailchimp for WordPress</description>
+	<arg name="colors" />
 	<file>mailchimp-for-wp.php</file>
-    <file>includes/</file>
-    <file>integrations/</file>
-    <file>config/</file>
-
-	<config name="minimum_supported_wp_version" value="4.6"/>
-
-	<exclude-pattern>**/*.js</exclude-pattern>
-
-    <rule ref="PSR12">
-        <exclude name="PSR1.Methods.CamelCapsMethodName" />
-        <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace" />
-        <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
-        <exclude name="PSR12.Files.FileHeader.HeaderPosition" />
-    </rule>
-
-    <rule ref="WordPress-Core">
-		<exclude name="WordPress.WhiteSpace" />
-		<exclude name="Generic.WhiteSpace" />
-		<exclude name="Generic.Classes.OpeningBraceSameLine" />
-        <exclude name="WordPress.PHP.YodaConditions" />
-        <exclude name="PEAR.Functions.FunctionCallSignature" />
-        <exclude name="NormalizedArrays.Arrays.ArrayBraceSpacing" />
-        <exclude name="WordPress.Files.FileName.InvalidClassFileName" />
-        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
-        <exclude name="WordPress.Arrays" />
-        <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase" />
-        <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
-        <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing" />
-    </rule>
-
-
-
-    <arg name="colors" />
+	<file>includes/</file>
+	<file>integrations/</file>
+	<file>config/</file>
+    <exclude-pattern>*\.(html|css|js)</exclude-pattern>
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax.Found"/>
+	<rule ref="PSR12">
+		<exclude name="PSR1.Methods.CamelCapsMethodName" />
+		<exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace" />
+		<exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
+	</rule>
 </ruleset>

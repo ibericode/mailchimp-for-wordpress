@@ -2,7 +2,7 @@
 
 defined('ABSPATH') or exit;
 
-$options = get_option('mc4wp_integrations', array());
+$options = get_option('mc4wp_integrations', []);
 
 if (! empty($options['woocommerce']) && ! empty($options['woocommerce']['position'])) {
     $options['woocommerce']['position'] = sprintf('checkout_%s', $options['woocommerce']['position']);

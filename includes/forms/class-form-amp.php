@@ -10,9 +10,9 @@ class MC4WP_Form_AMP
      */
     public function add_hooks()
     {
-        add_filter('mc4wp_form_content', array( $this, 'add_response_templates' ), 10, 2);
-        add_filter('mc4wp_form_element_attributes', array( $this, 'add_amp_request' ));
-        add_filter('mc4wp_load_form_scripts', array( $this, 'suppress_scripts' ));
+        add_filter('mc4wp_form_content', [ $this, 'add_response_templates' ], 10, 2);
+        add_filter('mc4wp_form_element_attributes', [ $this, 'add_amp_request' ]);
+        add_filter('mc4wp_load_form_scripts', [ $this, 'suppress_scripts' ]);
     }
 
     /**
@@ -40,11 +40,11 @@ class MC4WP_Form_AMP
                 <?php
                 echo wp_kses(
                     $form->get_message('subscribed'),
-                    array(
-                    'a' => array(),
-                    'strong' => array(),
-                    'em' => array(),
-                    )
+                    [
+                    'a' => [],
+                    'strong' => [],
+                    'em' => [],
+                    ]
                 );
                 ?>
             </template>

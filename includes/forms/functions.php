@@ -23,15 +23,15 @@ function mc4wp_get_form($form_id = 0)
  *
  * @return MC4WP_Form[]
  */
-function mc4wp_get_forms(array $args = array())
+function mc4wp_get_forms(array $args = [])
 {
     // parse function arguments
-    $default_args = array(
+    $default_args = [
         'post_status'         => 'publish',
         'posts_per_page'      => -1,
         'ignore_sticky_posts' => true,
         'no_found_rows'       => true,
-    );
+    ];
     $args         = array_merge($default_args, $args);
 
     // set post_type here so it can't be overwritten using function arguments
@@ -39,7 +39,7 @@ function mc4wp_get_forms(array $args = array())
 
     $q     = new WP_Query();
     $posts = $q->query($args);
-    $forms = array();
+    $forms = [];
     foreach ($posts as $post) {
         try {
             $form = mc4wp_get_form($post);
@@ -63,7 +63,7 @@ function mc4wp_get_forms(array $args = array())
  *
  * @return string
  */
-function mc4wp_show_form($form_id = 0, $config = array(), $echo = true)
+function mc4wp_show_form($form_id = 0, $config = [], $echo = true)
 {
     /** @var MC4WP_Form_Manager $forms */
     $forms = mc4wp('forms');

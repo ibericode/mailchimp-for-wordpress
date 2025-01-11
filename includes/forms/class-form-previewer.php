@@ -4,7 +4,7 @@ class MC4WP_Form_Previewer
 {
     public function add_hooks()
     {
-        add_action('parse_request', array( $this, 'listen' ));
+        add_action('parse_request', [ $this, 'listen' ]);
     }
 
     public function listen()
@@ -20,7 +20,7 @@ class MC4WP_Form_Previewer
         show_admin_bar(false);
         add_filter('pre_handle_404', '__return_true');
         remove_all_actions('template_redirect');
-        add_action('template_redirect', array( $this, 'load_preview' ));
+        add_action('template_redirect', [ $this, 'load_preview' ]);
     }
 
     public function load_preview()

@@ -25,9 +25,9 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration
      */
     public function add_hooks()
     {
-        add_action('gform_field_standard_settings', array( $this, 'settings_fields' ), 10, 2);
-        add_action('gform_editor_js', array( $this, 'editor_js' ));
-        add_action('gform_after_submission', array( $this, 'after_submission' ), 10, 2);
+        add_action('gform_field_standard_settings', [ $this, 'settings_fields' ], 10, 2);
+        add_action('gform_editor_js', [ $this, 'editor_js' ]);
+        add_action('gform_after_submission', [ $this, 'after_submission' ], 10, 2);
     }
 
     public function after_submission($submission, $form)
@@ -59,11 +59,11 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration
 
         // override integration settings with field options
         $orig_options                  = $this->options;
-        $this->options['lists']        = array( $mailchimp_list_id );
+        $this->options['lists']        = [ $mailchimp_list_id ];
         $this->options['double_optin'] = $double_optin;
 
         // perform the sign-up
-        $this->subscribe(array( 'EMAIL' => $email_address ), $submission['form_id']);
+        $this->subscribe([ 'EMAIL' => $email_address ], $submission['form_id']);
 
         // revert back to original options in case request lives on
         $this->options = $orig_options;
@@ -152,7 +152,7 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration
      */
     public function get_ui_elements()
     {
-        return array();
+        return [];
     }
 
     /**

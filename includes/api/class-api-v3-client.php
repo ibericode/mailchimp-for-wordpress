@@ -45,7 +45,7 @@ class MC4WP_API_V3_Client
     * @return mixed
     * @throws MC4WP_API_Exception
     */
-    public function get($resource, array $args = array())
+    public function get($resource, array $args = [])
     {
         return $this->request('GET', $resource, $args);
     }
@@ -103,7 +103,7 @@ class MC4WP_API_V3_Client
     *
     * @throws MC4WP_API_Exception
     */
-    private function request($method, $resource, array $data = array())
+    private function request($method, $resource, array $data = [])
     {
         $this->reset();
 
@@ -114,15 +114,15 @@ class MC4WP_API_V3_Client
 
         $method = strtoupper(trim($method));
         $url    = $this->api_url . ltrim($resource, '/');
-        $args   = array(
+        $args   = [
             'method'    => $method,
             'headers'   => $this->get_headers(),
             'timeout'   => 20,
             'sslverify' => apply_filters('mc4wp_use_sslverify', true),
-        );
+        ];
 
         if (! empty($data)) {
-            if (in_array($method, array( 'GET', 'DELETE' ), true)) {
+            if (in_array($method, [ 'GET', 'DELETE' ], true)) {
                 $url = add_query_arg($data, $url);
             } else {
                 $args['headers']['Content-Type'] = 'application/json';
@@ -158,10 +158,10 @@ class MC4WP_API_V3_Client
     {
         global $wp_version;
 
-        $headers = array(
+        $headers = [
             'Authorization' => sprintf('Basic %s', base64_encode('mc4wp:' . $this->api_key)),
             'User-Agent'    => sprintf('mc4wp/%s; WordPress/%s; %s', MC4WP_VERSION, $wp_version, home_url()),
-        );
+        ];
 
         // Copy Accept-Language from browser headers
         if (! empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {

@@ -11,7 +11,7 @@ class MC4WP_Integration_Manager
     /**
      * @var MC4WP_Integration_Fixture[]
      */
-    protected $integrations = array();
+    protected $integrations = [];
 
     /**
      * @var MC4WP_Integration_Tags
@@ -31,7 +31,7 @@ class MC4WP_Integration_Manager
      */
     public function add_hooks()
     {
-        add_action('after_setup_theme', array( $this, 'initialize' ));
+        add_action('after_setup_theme', [ $this, 'initialize' ]);
 
         $this->tags->add_hooks();
     }
@@ -138,13 +138,13 @@ class MC4WP_Integration_Manager
     public function get_enabled_integrations()
     {
         // get all enabled integrations
-        $enabled_integrations = array_filter($this->integrations, array( $this, 'is_enabled' ));
+        $enabled_integrations = array_filter($this->integrations, [ $this, 'is_enabled' ]);
 
         // remove duplicate values, for whatever reason..
         $enabled_integrations = array_unique($enabled_integrations);
 
         // filter out integrations which are not installed
-        $installed_enabled_integrations = array_filter($enabled_integrations, array( $this, 'is_installed' ));
+        $installed_enabled_integrations = array_filter($enabled_integrations, [ $this, 'is_installed' ]);
 
         return $installed_enabled_integrations;
     }
@@ -156,7 +156,7 @@ class MC4WP_Integration_Manager
      */
     private function load_options()
     {
-        $options = (array) get_option('mc4wp_integrations', array());
+        $options = (array) get_option('mc4wp_integrations', []);
 
         /**
          * Filters global integration options
@@ -183,6 +183,6 @@ class MC4WP_Integration_Manager
             $options = $this->load_options();
         }
 
-        return isset($options[ $slug ]) ? $options[ $slug ] : array();
+        return isset($options[ $slug ]) ? $options[ $slug ] : [];
     }
 }

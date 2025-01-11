@@ -10,12 +10,12 @@ class MC4WP_MailChimp_Subscriber
     /**
      * @var array The key of this object’s properties is the ID of the interest in question.
      */
-    public $interests = array();
+    public $interests = [];
 
     /**
      * @var array An individual merge var and value for a member.
      */
-    public $merge_fields = array();
+    public $merge_fields = [];
 
     /**
      * @var string Subscriber’s status.
@@ -45,12 +45,12 @@ class MC4WP_MailChimp_Subscriber
     /**
      * @var array The tags applied to this member.
      */
-    public $tags = array();
+    public $tags = [];
 
     /**
      * @var array The marketing permissions for the subscriber.
      */
-    public $marketing_permissions = array();
+    public $marketing_permissions = [];
 
     /**
      * Retrieves member data as an array, without null values.
@@ -60,7 +60,7 @@ class MC4WP_MailChimp_Subscriber
     public function to_array()
     {
         $all   = get_object_vars($this);
-        $array = array();
+        $array = [];
 
         foreach ($all as $key => $value) {
             // skip null values

@@ -19,10 +19,10 @@ abstract class MC4WP_User_Integration extends MC4WP_Integration
     {
 
         // start with user_login as name, since that's always known
-        $data = array(
+        $data = [
             'EMAIL' => $user->user_email,
             'NAME'  => $user->user_login,
-        );
+        ];
 
         if ('' !== $user->first_name) {
             $data['NAME']  = $user->first_name;

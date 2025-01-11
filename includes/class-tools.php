@@ -13,7 +13,7 @@ class MC4WP_Tools
      */
     public static function get_countries()
     {
-        return array(
+        return [
             'AF' => 'Afghanistan',
             'AX' => 'Aland Islands',
             'AL' => 'Albania',
@@ -264,6 +264,6 @@ class MC4WP_Tools
             'YE' => 'Yemen',
             'ZM' => 'Zambia',
             'ZW' => 'Zimbabwe',
-        );
+        ];
     }
 }

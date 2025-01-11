@@ -30,10 +30,10 @@ class MC4WP_AffiliateWP_Integration extends MC4WP_User_Integration
     public function add_hooks()
     {
         if (! $this->options['implicit']) {
-            add_action('affwp_register_fields_before_tos', array( $this, 'maybe_output_checkbox' ), 20);
+            add_action('affwp_register_fields_before_tos', [ $this, 'maybe_output_checkbox' ], 20);
         }
 
-        add_action('affwp_register_user', array( $this, 'subscribe_from_registration' ), 90, 1);
+        add_action('affwp_register_user', [ $this, 'subscribe_from_registration' ], 90, 1);
     }
 
     /**

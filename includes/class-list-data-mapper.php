@@ -12,12 +12,12 @@ class MC4WP_List_Data_Mapper
     /**
     * @var array
     */
-    private $data = array();
+    private $data = [];
 
     /**
     * @var array
     */
-    private $list_ids = array();
+    private $list_ids = [];
 
     /**
     * @var MC4WP_Field_Formatter
@@ -50,7 +50,7 @@ class MC4WP_List_Data_Mapper
     */
     public function map()
     {
-        $map = array();
+        $map = [];
 
         foreach ($this->list_ids as $list_id) {
             $map[ "$list_id" ] = $this->map_list($list_id);
@@ -132,10 +132,10 @@ class MC4WP_List_Data_Mapper
             $marketing_permissions = $this->mailchimp->get_list_marketing_permissions($list_id);
             foreach ($marketing_permissions as $mp) {
                 if (in_array($mp->marketing_permission_id, $values, true) || in_array($mp->text, $values, true)) {
-                    $subscriber->marketing_permissions[] = (object) array(
+                    $subscriber->marketing_permissions[] = (object) [
                         'marketing_permission_id' => $mp->marketing_permission_id,
                         'enabled'                 => true,
-                    );
+                    ];
                 }
             }
         }
@@ -161,7 +161,7 @@ class MC4WP_List_Data_Mapper
         $field_type = strtolower($merge_field->type);
 
         if (method_exists($this->formatter, $field_type)) {
-            $value = call_user_func(array( $this->formatter, $field_type ), $value, $merge_field->options);
+            $value = call_user_func([ $this->formatter, $field_type ], $value, $merge_field->options);
         }
 
         /**
