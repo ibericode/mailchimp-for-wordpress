@@ -13,8 +13,8 @@ $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(".", Re
 
 foreach ($iterator as $file) {
   if (
-    str_starts_with($file->getPathname(), './vendor/')
-    || str_starts_with($file->getPathname(), './node_modules/')
+    strpos($file->getPathname(), './vendor/') === 0
+    || strpos($file->getPathname(), './node_modules/') === 0
     || false == $file->isFile()
     || $file->getExtension() !== 'php'
   ) {
@@ -23,11 +23,11 @@ foreach ($iterator as $file) {
 
   $exit_code = 0;
   $output = [];
-  exec("php -l {$file->getPathname()}", $output, $exit_code);
+  exec("php --define error_reporting=-1 -l {$file->getPathname()}", $output, $exit_code);
   $output = join("\n", $output);
   echo $output . "\n";
 
-  if ($exit_code || str_contains($output, 'Deprecated')) {
+  if ($exit_code || strpos($output, 'Deprecated') !== false) {
     $global_exit_code = 1;
   }
 }
