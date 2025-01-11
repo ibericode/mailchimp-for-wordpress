@@ -1,0 +1,35 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * Checks all PHP files in this project recursively
+ * and passes them to PHP's built-in linter.
+ *
+ * If the output contains "deprecated", the final status code will be 1.
+ */
+
+$global_exit_code = 0;
+$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(".", RecursiveDirectoryIterator::SKIP_DOTS));
+
+foreach ($iterator as $file) {
+  if (
+    str_starts_with($file->getPathname(), './vendor/')
+    || str_starts_with($file->getPathname(), './node_modules/')
+    || false == $file->isFile()
+    || $file->getExtension() !== 'php'
+  ) {
+    continue;
+  }
+
+  $exit_code = 0;
+  $output = [];
+  exec("php -l {$file->getPathname()}", $output, $exit_code);
+  $output = join("\n", $output);
+  echo $output . "\n";
+
+  if ($exit_code || str_contains($output, 'Deprecated')) {
+    $global_exit_code = 1;
+  }
+}
+
+exit($global_exit_code);

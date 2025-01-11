@@ -29,7 +29,7 @@
     "make-pot": "wp i18n make-pot . languages/mailchimp-for-wp.pot --exclude=assets/js",
     "test": "phpunit tests/",
     "codestyle": "phpcs -n -s",
-    "check-syntax": "find . -name '*.php' -not -path './vendor/*' -not -path './node_modules/*' -not -path './assets/*' -print0 | xargs -0 -n1 php -l"
+    "check-syntax": "./bin/check-php-syntax"
   },
   "config": {
   },
