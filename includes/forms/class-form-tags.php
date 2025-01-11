@@ -50,7 +50,7 @@ class MC4WP_Form_Tags extends MC4WP_Dynamic_Content_Tags
     }
 
 
-    public function replace_in_form_content($string, MC4WP_Form $form, MC4WP_Form_Element $element = null)
+    public function replace_in_form_content($string, MC4WP_Form $form, MC4WP_Form_Element $element)
     {
         $this->form         = $form;
         $this->form_element = $element;
