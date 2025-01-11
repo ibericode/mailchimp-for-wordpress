@@ -10,7 +10,7 @@ Here, you can browse the source code of the [MC4WP: Mailchimp for WordPress Plug
 Requirements
 --------------
 
-- PHP version 7.2 or higher
+- PHP version 7.4 or higher
 - WordPress version 4.6 or higher
 
 
@@ -22,24 +22,24 @@ If you just want to install this plugin on your WordPress site, please download 
 To install the development version, take the following steps:
 
 1. Clone the GitHub repository:
-	```
-	git clone https://github.com/ibericode/mailchimp-for-wordpress.git mailchimp-for-wp
-	```
+  ```
+  git clone https://github.com/ibericode/mailchimp-for-wordpress.git mailchimp-for-wp
+  ```
 
 1. Install Composer dependencies:
-	```sh 
-	composer install 
-	```
+  ```sh 
+  composer install 
+  ```
 
 1. Install NPM dependencies:
-	```
-	npm install
-	```
+  ```
+  npm install
+  ```
 
 1. Generate plugin asset files:
-	```
-	npm run build 
-	```
+  ```
+  npm run build 
+  ```
 
 1. Activate the plugin in your WordPress admin panel.
 

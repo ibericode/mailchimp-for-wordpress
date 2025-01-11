@@ -7,7 +7,7 @@ Tested up to: 6.7
 Stable tag: 4.9.21
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
-Requires PHP: 7.2
+Requires PHP: 7.4
 
 The #1 Mailchimp plugin for WordPress. Allows you to add a multitude of newsletter sign-up methods to your site.
 
@@ -26,36 +26,36 @@ This plugins helps you grow your email list in Mailchimp. You can use it to crea
 - Sign-up forms which are good looking, user-friendly and mobile optimized. You have complete control over the form fields and can build your forms using native HTML.
 
 - Seamless integration with the following plugins:
-	- WordPress Comment Form
-	- WordPress Registration Form
-	- Contact Form 7
-	- WooCommerce
-	- Gravity Forms
-	- Ninja Forms 3
-	- WPForms
-	- BuddyPress
-	- MemberPress
-	- Events Manager
-	- Easy Digital Downloads
-	- Give
-	- UltimateMember
-	- HTML Forms
-	- AffiliateWP
+  - WordPress Comment Form
+  - WordPress Registration Form
+  - Contact Form 7
+  - WooCommerce
+  - Gravity Forms
+  - Ninja Forms 3
+  - WPForms
+  - BuddyPress
+  - MemberPress
+  - Events Manager
+  - Easy Digital Downloads
+  - Give
+  - UltimateMember
+  - HTML Forms
+  - AffiliateWP
 
 - Is the plugin you want to integrate with not listed above? You can probably still use our [custom integration](https://www.mc4wp.com/kb/add-subscribe-checkbox-custom-form/) feature. Alternatively, the plugin comes with a PHP API to programmatically add a new subscriber to Mailchimp.
 
 - [Mailchimp for WordPress Premium](https://www.mc4wp.com/): Send your WooCommerce orders to Mailchimp so you can see exactly what each subscriber purchased and how much revenue your email campaigns are generating.
 
 - A multitude of available add-on plugins and integrations:
-	- [Mailchimp for WordPress Premium](https://www.mc4wp.com/)
-	- [Mailchimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/)
-	- [Boxzilla Pop-ups](https://wordpress.org/plugins/boxzilla/)
+  - [Mailchimp for WordPress Premium](https://www.mc4wp.com/)
+  - [Mailchimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/)
+  - [Boxzilla Pop-ups](https://wordpress.org/plugins/boxzilla/)
 
 - Well documented through our [knowledge base](https://www.mc4wp.com/kb/).
 
 - Developer friendly. For some inspiration, check out our [repository of example code snippets](https://github.com/ibericode/mailchimp-for-wordpress/tree/main/sample-code-snippets).
 
-- Ready for PHP 8.4, but backwards-compatible all the way down to PHP 7.2.
+- Ready for PHP 8.4, but backwards-compatible all the way down to PHP 7.4.
 
 #### What is Mailchimp?
 
