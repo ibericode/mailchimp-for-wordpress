@@ -1,6 +1,6 @@
 <?php
 
-add_filter( 'mc4wp_integration_woocommerce_subscriber_data', function( MC4WP_MailChimp_Subscriber $subscriber ) {
+add_filter('mc4wp_integration_woocommerce_subscriber_data', function (MC4WP_MailChimp_Subscriber $subscriber) {
     // replace "interest-id" with the actual ID of your interest.
     $subscriber->interests[ "interest-id" ] = true;
 

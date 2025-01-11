@@ -8,8 +8,9 @@
  *
  * @return array Our modified data array
  */
-add_filter( 'mc4wp_user_sync_subscriber_data', function( \MC4WP_MailChimp_Subscriber $subscriber, \WP_User $user ) {
+
+add_filter('mc4wp_user_sync_subscriber_data', function (\MC4WP_MailChimp_Subscriber $subscriber, \WP_User $user) {
     $subscriber->interests[ "interest-id-1" ] = true;
     $subscriber->interests[ "interest-id-2" ] = true;
     return $subscriber;
-}, 10, 2 );
+}, 10, 2);

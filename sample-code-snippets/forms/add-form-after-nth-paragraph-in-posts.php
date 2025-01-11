@@ -3,13 +3,14 @@
 /**
  * Insert a sign-up form after the 3rd paragraph.
  */
-add_filter( 'the_content', function( $content ) {
 
-	if( is_single() ) {
-		$content = mc4wp_insert_after_paragraph( $content, mc4wp_get_form(), 2 );
-	}
+add_filter('the_content', function ($content) {
 
-	return $content;
+    if (is_single()) {
+        $content = mc4wp_insert_after_paragraph($content, mc4wp_get_form(), 2);
+    }
+
+    return $content;
 });
 
 
@@ -24,20 +25,21 @@ add_filter( 'the_content', function( $content ) {
  * @return string
  */
 
-function mc4wp_insert_after_paragraph( $content, $insertion, $paragraph_number = 2 ) {
-	static $closing_p = '</p>';
+function mc4wp_insert_after_paragraph($content, $insertion, $paragraph_number = 2)
+{
+    static $closing_p = '</p>';
 
-	$paragraphs = explode( $closing_p, $content );
-	$new_content = '';
-	$target_index = $paragraph_number - 1;
+    $paragraphs = explode($closing_p, $content);
+    $new_content = '';
+    $target_index = $paragraph_number - 1;
 
-	foreach( $paragraphs as $index => $paragraph ) {
-		$new_content .= $paragraph;
+    foreach ($paragraphs as $index => $paragraph) {
+        $new_content .= $paragraph;
 
-		if( $index == $target_index ) {
-			$new_content .= $insertion;
-		}
-	}
+        if ($index == $target_index) {
+            $new_content .= $insertion;
+        }
+    }
 
-	return $new_content;
+    return $new_content;
 }

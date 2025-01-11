@@ -1,4 +1,5 @@
 <?php
+
 /*
 Plugin Name: MailChimp for WordPress - Selectively send e-commerce data
 Plugin URI: https://mc4wp.com/
@@ -15,13 +16,14 @@ Author URI: https://ibericode.com/
  * @param string $email
  * @return bool `true` when the mailchimp list member has the status pending or subscribed
  */
-function mc4wp_mailchimp_list_member_has_status_pending_or_subscribed($email) {
+function mc4wp_mailchimp_list_member_has_status_pending_or_subscribed($email)
+{
 
-	if(!is_string($email)) {
-		throw new InvalidArgumentException(
-			sprintf("mailchimp_list_member_has_status_pending_or_subscribed() expects parameter 1 to be string, %s given", gettype($email))
-		);
-	}
+    if (!is_string($email)) {
+        throw new InvalidArgumentException(
+            sprintf("mailchimp_list_member_has_status_pending_or_subscribed() expects parameter 1 to be string, %s given", gettype($email))
+        );
+    }
 
     $options = mc4wp('ecommerce.options');
 
@@ -32,16 +34,16 @@ function mc4wp_mailchimp_list_member_has_status_pending_or_subscribed($email) {
     //Get the list id from mailchimp used in the E-commerce module
     $mailchimp_list_id = $options['store']['list_id'];
 
-	try {
-	    //Send the request to get the status
-		$list_member = mc4wp_get_api_v3()->get_list_member($mailchimp_list_id, $email);
-	} catch (Exception $e) {
-	    //In case of an exception return false
-		return false;
-	}
+    try {
+        //Send the request to get the status
+        $list_member = mc4wp_get_api_v3()->get_list_member($mailchimp_list_id, $email);
+    } catch (Exception $e) {
+        //In case of an exception return false
+        return false;
+    }
 
     //Compare the status
-	return in_array($list_member->status, array('subscribed', 'pending'), true);
+    return in_array($list_member->status, ['subscribed', 'pending'], true);
 }
 
 /**
@@ -52,7 +54,8 @@ function mc4wp_mailchimp_list_member_has_status_pending_or_subscribed($email) {
  *
  * @return string the email address of the customer
  */
-function mc4wp_get_customer_email($customer) {
+function mc4wp_get_customer_email($customer)
+{
     switch (get_class($customer)) {
         case stdClass::class:
             if (! isset($customer->billing_email)) {
@@ -83,7 +86,7 @@ function mc4wp_get_customer_email($customer) {
 add_filter('mc4wp_ecommerce_send_cart_to_mailchimp', function ($value, $customer) {
     $customer_email = mc4wp_get_customer_email($customer);
 
-	return mc4wp_mailchimp_list_member_has_status_pending_or_subscribed($customer_email);
+    return mc4wp_mailchimp_list_member_has_status_pending_or_subscribed($customer_email);
 }, 10, 2);
 
 /**
@@ -96,7 +99,7 @@ add_filter('mc4wp_ecommerce_send_cart_to_mailchimp', function ($value, $customer
 add_filter('mc4wp_ecommerce_send_customer_to_mailchimp', function ($value, $customer) {
     $customer_email = mc4wp_get_customer_email($customer);
 
-	return mc4wp_mailchimp_list_member_has_status_pending_or_subscribed($customer_email);
+    return mc4wp_mailchimp_list_member_has_status_pending_or_subscribed($customer_email);
 }, 10, 2);
 
 /**
@@ -111,5 +114,5 @@ add_filter('mc4wp_ecommerce_send_order_to_mailchimp', function ($value, WC_Order
         return false;
     }
 
-	return mc4wp_mailchimp_list_member_has_status_pending_or_subscribed($order->get_billing_email());
+    return mc4wp_mailchimp_list_member_has_status_pending_or_subscribed($order->get_billing_email());
 }, 10, 2);

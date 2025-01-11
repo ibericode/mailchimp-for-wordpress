@@ -8,11 +8,12 @@
  *
  * If you're only subscribing to a single MailChimp list, consider filtering on `mc4wp_subscriber_data` instead.
  */
-add_filter( 'mc4wp_form_data', function( $data ) {
+
+add_filter('mc4wp_form_data', function ($data) {
 
     // make sure we have an array to work with
-    if( ! isset( $data['INTERESTS'] ) ) {
-        $data['INTERESTS'] = array();
+    if (! isset($data['INTERESTS'])) {
+        $data['INTERESTS'] = [];
     }
 
     // by interest ID
@@ -25,7 +26,7 @@ add_filter( 'mc4wp_form_data', function( $data ) {
     $data['INTERESTS'][ "category-id" ] = "Group";
 
     // or, for multiple groups
-    $data['INTERESTS'][ "category-id" ] = array( "Group 1", "Group 2" );
+    $data['INTERESTS'][ "category-id" ] = [ "Group 1", "Group 2" ];
 
-   return $data;
+    return $data;
 });

@@ -3,15 +3,16 @@
 /**
  * This code adds support for custom fields added by OptimizeMember.
  */
-add_filter( 'mc4wp_user_sync_get_user_field', function( $value, $field, $user ) {
 
-	$custom_fields = get_user_option( 'optimizemember_custom_fields', $user->ID );
+add_filter('mc4wp_user_sync_get_user_field', function ($value, $field, $user) {
 
-	if( $custom_fields ) {
-		if( isset( $custom_fields[ $field ] ) ) {
-			return $custom_fields[ $field ];
-		}
-	}
+    $custom_fields = get_user_option('optimizemember_custom_fields', $user->ID);
 
-	return $value;
-}, 10, 3 );
+    if ($custom_fields) {
+        if (isset($custom_fields[ $field ])) {
+            return $custom_fields[ $field ];
+        }
+    }
+
+    return $value;
+}, 10, 3);

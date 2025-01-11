@@ -8,7 +8,8 @@
  *
  * @return array
  */
-function myprefix_add_css_class_to_form(array $classes, MC4WP_Form $form) {
+function myprefix_add_css_class_to_form(array $classes, MC4WP_Form $form)
+{
     $classes[] = 'my-class';
     return $classes;
 }

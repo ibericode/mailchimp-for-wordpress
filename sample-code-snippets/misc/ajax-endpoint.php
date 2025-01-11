@@ -6,7 +6,7 @@
  * Point your AJAX request at: /wp-admin/admin-ajax.php?action=my_mailchimp_subscribe
  */
 
-add_action( 'wp_ajax_my_mailchimp_subscribe', function() {
+add_action('wp_ajax_my_mailchimp_subscribe', function () {
     // get API class instance
     $api = mc4wp('api');
 
@@ -18,16 +18,16 @@ add_action( 'wp_ajax_my_mailchimp_subscribe', function() {
     $first_name = $_POST['first_name'];
 
     try {
-        $subscriber = $api->add_list_member( $list_id, array(
+        $subscriber = $api->add_list_member($list_id, [
             'email_address' => $email_address,
             'status' => $double_optin ? 'pending' : 'subscribed',
-            'merge_fields' => array(
+            'merge_fields' => [
                 'FNAME' => $first_name,
-            )
-        ));
-    } catch( MC4WP_API_Exception $e ) {
+            ]
+        ]);
+    } catch (MC4WP_API_Exception $e) {
         // an error occured
-        wp_send_json_error( $e->getMessage(), $e->getCode() );
+        wp_send_json_error($e->getMessage(), $e->getCode());
     }
 
     // successfully subscribed

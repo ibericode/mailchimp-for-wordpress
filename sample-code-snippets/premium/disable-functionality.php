@@ -1,4 +1,5 @@
 <?php
+
 /*
 Plugin Name: MailChimp for WordPress - Disable Reports Log
 Plugin URI: https://mc4wp.com/
@@ -12,6 +13,7 @@ Author URI: https://ibericode.com/
 /**
  * This disables the "logging" functionality in the Premium add-on.
  */
-add_filter( 'mc4wp_premium_enabled_plugins', function( $plugins ) {
-	return array_diff( $plugins, array( 'logging' ) );
+
+add_filter('mc4wp_premium_enabled_plugins', function ($plugins) {
+    return array_diff($plugins, [ 'logging' ]);
 });
