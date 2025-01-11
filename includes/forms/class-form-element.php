@@ -284,7 +284,7 @@ class MC4WP_Form_Element
      * @param array|null $config Use this to override the configuration for this form element
      * @return string
      */
-    public function generate_html(array $config = null)
+    public function generate_html(?array $config = null)
     {
         if ($config) {
             $this->config = $config;
