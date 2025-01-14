@@ -25,7 +25,7 @@ class MC4WP_Queue
     /**
      * @var int
      */
-    const MAX_JOB_COUNT = 1000;
+    private const MAX_JOB_COUNT = 1000;
 
     /**
      * MC4WP_Ecommerce_Queue constructor.

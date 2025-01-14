@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
  */
 class ContainerTest extends TestCase
 {
-
     /**
      * @covers MC4WP_Container::get
      */

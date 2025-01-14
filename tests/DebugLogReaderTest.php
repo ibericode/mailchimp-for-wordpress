@@ -4,7 +4,6 @@ use PHPUnit\Framework\TestCase;
 
 class DebugLogReaderTest extends TestCase
 {
-
     /**
      * @var string
      */
@@ -13,10 +12,10 @@ class DebugLogReaderTest extends TestCase
     /**
      * @var string
      */
-    protected array $sample_log_lines = array(
+    protected array $sample_log_lines = [
         'eCommerce360 > Successfully added order 101',
         'eCommerce360 > Order 101 deleted',
-    );
+    ];
 
     /**
      * DebugLogReaderTest constructor.

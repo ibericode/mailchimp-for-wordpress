@@ -1,4 +1,5 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Assert;
 
@@ -8,7 +9,6 @@ use PHPUnit\Framework\Assert;
  */
 class IntegrationTest extends TestCase
 {
-
     /**
      * @covers MC4WP_Integration::__construct
      */
@@ -16,10 +16,10 @@ class IntegrationTest extends TestCase
     {
         $slug = 'my-integration';
 
-        $instance = $this->getMockForAbstractClass('MC4WP_Integration', array(
+        $instance = $this->getMockForAbstractClass('MC4WP_Integration', [
             $slug,
-            array()
-        ));
+            []
+        ]);
 
         self::assertEquals($slug, $instance->slug);
     }
@@ -32,14 +32,14 @@ class IntegrationTest extends TestCase
         $slug = 'my-integration';
 
         /** @var MC4WP_Integration $instance */
-        $instance = $this->getMockForAbstractClass('MC4WP_Integration', array(
+        $instance = $this->getMockForAbstractClass('MC4WP_Integration', [
             $slug,
-            array()
-        ));
+            []
+        ]);
         self::assertFalse($instance->checkbox_was_checked());
 
         // copy of request data is stored in constructor so we should create a new instance to replicate
-        $_POST[ '_mc4wp_subscribe_'. $slug ] = 1;
+        $_POST[ '_mc4wp_subscribe_' . $slug ] = 1;
         self::assertTrue($instance->checkbox_was_checked());
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -7,7 +8,6 @@ use PHPUnit\Framework\TestCase;
  */
 class PluginTest extends TestCase
 {
-
     /**
      * @covers MC4WP_Plugin::file
      */

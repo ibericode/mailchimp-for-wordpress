@@ -7,6 +7,7 @@
   <file>includes/</file>
   <file>integrations/</file>
   <file>config/</file>
+  <file>tests/</file>
   <file>sample-code-snippets/</file>
   <exclude-pattern>*\.(html|css|js|md|json|xml|sh)</exclude-pattern>
   <rule ref="Generic.Arrays.DisallowLongArraySyntax.Found"/>

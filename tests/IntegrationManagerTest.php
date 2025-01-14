@@ -1,4 +1,5 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Assert;
 
@@ -64,16 +65,5 @@ class IntegrationManagerTest extends TestCase
         $instance->register_integration('slug', 'MC4WP_Sample_Integration', true);
         self::expectException('');
         self::assertInstanceOf('MC4WP_Sample_Integration', $instance->get('slug'));
-    }
-}
-
-class MC4WP_Sample_Integration extends MC4WP_Integration
-{
-    public function add_hooks()
-    {
-    }
-    public function is_installed()
-    {
-        return true;
     }
 }

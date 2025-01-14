@@ -4,14 +4,13 @@ use PHPUnit\Framework\TestCase;
 
 class QueueTest extends TestCase
 {
-
     /**
      * @covers MC4WP_Queue::all
      */
     public function test_all()
     {
         $queue = new MC4WP_Queue('option');
-        self::assertEquals($queue->all(), array());
+        self::assertEquals($queue->all(), []);
 
         $queue->put('one');
         $queue->put('two');
@@ -24,7 +23,7 @@ class QueueTest extends TestCase
     public function test_put()
     {
         $queue = new MC4WP_Queue('option');
-        $data = array( 'sample' => 'data' );
+        $data = [ 'sample' => 'data' ];
         $queue->put($data);
 
         $job = $queue->get();
@@ -50,7 +49,7 @@ class QueueTest extends TestCase
     public function test_delete()
     {
         $queue = new MC4WP_Queue('option');
-        $queue->put(array( 'sample' => 'data' ));
+        $queue->put([ 'sample' => 'data' ]);
 
         // get job then delete it from queue
         $job = $queue->get();
@@ -67,7 +66,7 @@ class QueueTest extends TestCase
     public function test_reset()
     {
         $queue = new MC4WP_Queue('option');
-        $queue->put(array( 'sample' => 'data' ));
+        $queue->put([ 'sample' => 'data' ]);
         $queue->reset();
 
         self::assertEmpty($queue->all());
@@ -85,7 +84,7 @@ class QueueTest extends TestCase
         self::assertFalse($queue->save());
 
         // add something, then save
-        $queue->put(array( 'key' => 'value' ));
+        $queue->put([ 'key' => 'value' ]);
         self::assertTrue($queue->save());
     }
 }

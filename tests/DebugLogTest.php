@@ -4,7 +4,6 @@ use PHPUnit\Framework\TestCase;
 
 class DebugLogTest extends TestCase
 {
-
     /**
      * @var string
      */
@@ -121,7 +120,7 @@ class DebugLogTest extends TestCase
     /**
      * Remove log files after each test.
      */
-    public function tearDown() : void
+    public function tearDown(): void
     {
         if (file_exists($this->file)) {
             unlink($this->file);

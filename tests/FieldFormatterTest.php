@@ -1,4 +1,5 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -8,7 +9,6 @@ use PHPUnit\Framework\TestCase;
  */
 class FieldFormatterTest extends TestCase
 {
-
     /**
      * @covers MC4WP_Field_Formatter::address
      */
@@ -16,14 +16,14 @@ class FieldFormatterTest extends TestCase
     {
         $formatter = new MC4WP_Field_Formatter();
 
-        $address = array(
+        $address = [
             'addr1' => "795 E DRAGRAM",
             'addr2' => '',
             'city' => 'TUCSON',
             'state' => 'AZ',
             'zip' => '85705',
             'country' => 'USA'
-        );
+        ];
 
         // should accept string
         $value = $formatter->address(join(',', $address));
@@ -39,7 +39,7 @@ class FieldFormatterTest extends TestCase
         self::assertArrayHasKey('city', $value);
 
         // partial array value
-        $value = $formatter->address(array( 'city' => $address['city'] ));
+        $value = $formatter->address([ 'city' => $address['city'] ]);
         self::assertEquals($value['city'], $address['city']);
         self::assertArrayHasKey('addr1', $value);
     }
@@ -62,11 +62,11 @@ class FieldFormatterTest extends TestCase
         self::assertEquals($birthday, $value);
 
         // array with "day" and "month"
-        $value = $formatter->birthday(array( 'day' => 29, 'month' => 7 ));
+        $value = $formatter->birthday([ 'day' => 29, 'month' => 7 ]);
         self::assertEquals($birthday, $value);
 
         // simple array
-        $value = $formatter->birthday(array( 29, 7 ));
+        $value = $formatter->birthday([ 29, 7 ]);
         self::assertEquals($birthday, $value);
 
         // full year
@@ -95,7 +95,7 @@ class FieldFormatterTest extends TestCase
         self::assertEquals($date, $value);
 
         // array keys
-        $value = $formatter->date(array( 'day' => 5, 'month' => 5, 'year' => 2016 ));
+        $value = $formatter->date([ 'day' => 5, 'month' => 5, 'year' => 2016 ]);
         self::assertEquals($date, $value);
     }
 
@@ -106,12 +106,12 @@ class FieldFormatterTest extends TestCase
     {
         $formatter = new MC4WP_Field_Formatter();
 
-        $falsey_tests = array( 'false', '0', 0, false );
+        $falsey_tests = [ 'false', '0', 0, false ];
         foreach ($falsey_tests as $test) {
             self::assertEquals(false, $formatter->boolean($test));
         }
 
-        $truthy_tests = array( 'true', '1', 1, true );
+        $truthy_tests = [ 'true', '1', 1, true ];
         foreach ($truthy_tests as $test) {
             self::assertEquals(true, $formatter->boolean($test));
         }
@@ -124,7 +124,7 @@ class FieldFormatterTest extends TestCase
     {
         $formatter = new MC4WP_Field_Formatter();
 
-        $tests = array(
+        $tests = [
             'pt_PT' => 'pt_PT',
             'es_ES' => 'es_ES',
             'fr_CA' => 'fr_CA',
@@ -132,7 +132,7 @@ class FieldFormatterTest extends TestCase
             'fr_FR' => 'fr',
             'nl_NL' => 'nl',
             'en_US' => 'en',
-        );
+        ];
 
         foreach ($tests as $input => $output) {
             self::assertEquals($formatter->language($input), $output);

@@ -1,7 +1,5 @@
 <?php
 
-defined('ABSPATH') or exit;
-
 /**
  * Class MC4WP_Procaptcha
  *
@@ -9,9 +7,9 @@ defined('ABSPATH') or exit;
  */
 class MC4WP_Procaptcha
 {
-    const SCRIPT_URL      = 'https://js.prosopo.io/js/procaptcha.bundle.js';
-    const FORM_FIELD_NAME = 'procaptcha-response';
-    const API_URL         = 'https://api.prosopo.io/siteverify';
+    private const SCRIPT_URL      = 'https://js.prosopo.io/js/procaptcha.bundle.js';
+    private const FORM_FIELD_NAME = 'procaptcha-response';
+    private const API_URL         = 'https://api.prosopo.io/siteverify';
 
     /**
      * @var MC4WP_Procaptcha

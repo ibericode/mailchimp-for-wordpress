@@ -16,7 +16,7 @@ class MC4WP_Form_Output_Manager
     /**
      * @const string
      */
-    const SHORTCODE = 'mc4wp_form';
+    private const SHORTCODE = 'mc4wp_form';
 
     /**
      * Add hooks

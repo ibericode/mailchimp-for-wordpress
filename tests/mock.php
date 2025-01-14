@@ -115,17 +115,17 @@ function get_post($id)
 }
 
 /** @ignore */
-function mock_post(array $props) : WP_Post
+function mock_post(array $props): WP_Post
 {
     $post = new WP_Post();
     $props = array_merge(
-        array(
+        [
             'ID' => 1,
             'post_type' => 'mc4wp-form',
             'post_title' => 'Form Title',
             'post_content' => '',
             'post_status' => 'publish',
-        ),
+        ],
         $props
     );
     foreach ($props as $key => $value) {
@@ -168,7 +168,7 @@ function is_email($email)
  */
 function shortcode_parse_atts($text)
 {
-    $atts = array();
+    $atts = [];
     $pattern = '/([\w-]+)\s*=\s*"([^"]*)"(?:\s|$)|([\w-]+)\s*=\s*\'([^\']*)\'(?:\s|$)|([\w-]+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|(\S+)(?:\s|$)/';
     $text = preg_replace("/[\x{00a0}\x{200b}]+/u", " ", $text);
     if (preg_match_all($pattern, $text, $match, PREG_SET_ORDER)) {

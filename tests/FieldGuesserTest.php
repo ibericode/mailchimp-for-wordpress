@@ -1,4 +1,5 @@
 <?php
+
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -8,22 +9,21 @@ use PHPUnit\Framework\TestCase;
  */
 class FieldGuesserTest extends TestCase
 {
-
     /**
      * @covers MC4WP_Field_Guesser::namespaced
      */
     public function test_namespaced()
     {
-        $data = array(
+        $data = [
             'prefix-foo' => 'bar',
             'foo' => 'barbar'
-        );
+        ];
 
         $instance = new MC4WP_Field_Guesser($data);
         self::assertEquals(
-            array(
+            [
             'FOO' => 'bar'
-            ),
+            ],
             $instance->namespaced('prefix-')
         );
     }
@@ -33,19 +33,19 @@ class FieldGuesserTest extends TestCase
      */
     public function test_guessed()
     {
-        $data = array(
+        $data = [
             'name' => 'Danny van Kooten',
             'first-name' => 'Danny',
             'lname' => 'van Kooten'
-        );
+        ];
 
         $instance = new MC4WP_Field_Guesser($data);
         self::assertEquals(
-            array(
+            [
                 'NAME' => 'Danny van Kooten',
                 'FNAME' => 'Danny',
                 'LNAME' => "van Kooten"
-            ),
+            ],
             $instance->guessed()
         );
     }
@@ -55,30 +55,30 @@ class FieldGuesserTest extends TestCase
      */
     public function test_combine()
     {
-        $data = array(
+        $data = [
             'name' => 'Danny van Kooten',
             'prefix-email' => 'johndoe@email.com',
             'foo' => 'bar'
-        );
+        ];
 
         $instance = new MC4WP_Field_Guesser($data);
-        $result = $instance->combine(array( 'namespaced', 'guessed' ));
+        $result = $instance->combine([ 'namespaced', 'guessed' ]);
 
         self::assertEquals($result['NAME'], $data['name']);
         self::assertEquals($result['EMAIL'], $data['prefix-email']);
         self::assertArrayNotHasKey('foo', $result);
 
         // test order (latter overwrites former)
-        $data = array(
+        $data = [
             'name' => 'Danny van Kooten',
             'mc4wp-name' => 'Danny Janssen'
-        );
+        ];
 
         $instance = new MC4WP_Field_Guesser($data);
-        $result = $instance->combine(array( 'namespaced', 'guessed' ));
+        $result = $instance->combine([ 'namespaced', 'guessed' ]);
         self::assertEquals($result['NAME'], $data['name']);
 
-        $result = $instance->combine(array( 'guessed', 'namespaced' ));
+        $result = $instance->combine([ 'guessed', 'namespaced' ]);
         self::assertEquals($result['NAME'], $data['mc4wp-name']);
     }
 }
