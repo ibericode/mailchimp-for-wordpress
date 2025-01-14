@@ -1,13 +1,17 @@
 <?php
 
-if (! defined('ABSPATH')) {
-    define('ABSPATH', '/');
-}
-
+define('ABSPATH', '/');
 define('HOUR_IN_SECONDS', 3600);
-define('MC4WP_PLUGIN_DIR', __DIR__ . '/..');
+define('MC4WP_PLUGIN_DIR', dirname(__DIR__));
 
-class WP_Post {}
+class WP_Post
+{
+    public $ID;
+    public $post_type;
+    public $post_title;
+    public $post_content;
+    public $post_status;
+}
 
 
 /** @ignore */
@@ -32,15 +36,19 @@ function get_option($option, $default = null)
 }
 
 /** @ignore */
-function absint($v) { return $v; }
+function absint($v)
+{
+    return $v;
+}
 
 /** @ignore */
 function update_option($a, $b, $c)
 {
+    return true;
 }
 
 /** @ignore */
-function apply_filters($hook, $value, $parameter_1 = null)
+function apply_filters($hook, $value, $a = null, $b = null, $c = null)
 {
     return $value;
 }
@@ -88,8 +96,9 @@ function __($string, $text_domain = '')
     return $string;
 }
 
-function esc_html__($string, $text_domain) {
-	return $string;
+function esc_html__($string, $text_domain)
+{
+    return $string;
 }
 
 /** @ignore */
@@ -108,7 +117,7 @@ function get_post($id)
 /** @ignore */
 function mock_post(array $props) : WP_Post
 {
-    $post = new WP_Post;
+    $post = new WP_Post();
     $props = array_merge(
         array(
             'ID' => 1,
@@ -119,7 +128,7 @@ function mock_post(array $props) : WP_Post
         ),
         $props
     );
-    foreach($props as $key => $value) {
+    foreach ($props as $key => $value) {
         $post->$key = $value;
     }
 

@@ -62,7 +62,7 @@ class IntegrationManagerTest extends TestCase
 
 
         $instance->register_integration('slug', 'MC4WP_Sample_Integration', true);
-        self::expectException(null);
+        self::expectException('');
         self::assertInstanceOf('MC4WP_Sample_Integration', $instance->get('slug'));
     }
 }

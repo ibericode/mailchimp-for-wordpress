@@ -30,6 +30,8 @@ class IntegrationTest extends TestCase
     public function test_checkbox_was_checked()
     {
         $slug = 'my-integration';
+
+        /** @var MC4WP_Integration $instance */
         $instance = $this->getMockForAbstractClass('MC4WP_Integration', array(
             $slug,
             array()

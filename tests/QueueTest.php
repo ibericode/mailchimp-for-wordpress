@@ -1,23 +1,9 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Brain\Monkey;
-use Brain\Monkey\Functions;
 
 class QueueTest extends TestCase
 {
-    protected function setUp() : void
-    {
-        parent::setUp();
-
-        Monkey\setUp();
-    }
-
-    protected function tearDown() : void
-    {
-        Monkey\tearDown();
-        parent::tearDown();
-    }
 
     /**
      * @covers MC4WP_Queue::all
@@ -100,7 +86,6 @@ class QueueTest extends TestCase
 
         // add something, then save
         $queue->put(array( 'key' => 'value' ));
-        Functions\when('update_option')->justReturn(true);
         self::assertTrue($queue->save());
     }
 }

@@ -32,10 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Prevent direct file access
 defined('ABSPATH') or exit;
 
-// don't run if PHP version is lower than 7.4.0
-if (PHP_VERSION_ID < 70400) {
-    return;
-}
 
 /** @ignore */
 function _mc4wp_load_plugin()
@@ -44,6 +40,11 @@ function _mc4wp_load_plugin()
 
     // don't run if Mailchimp for WP Pro 2.x is activated
     if (defined('MC4WP_VERSION')) {
+        return;
+    }
+
+    // don't run if PHP version is lower than 7.4.0
+    if (PHP_VERSION_ID < 70400) {
         return;
     }
 

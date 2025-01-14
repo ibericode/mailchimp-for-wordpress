@@ -13,7 +13,7 @@ class DebugLogReaderTest extends TestCase
     /**
      * @var string
      */
-    protected $sample_log_lines = array(
+    protected array $sample_log_lines = array(
         'eCommerce360 > Successfully added order 101',
         'eCommerce360 > Order 101 deleted',
     );
