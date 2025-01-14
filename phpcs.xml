@@ -4,6 +4,7 @@
   <arg name="colors" />
   <file>mailchimp-for-wp.php</file>
   <file>uninstall.php</file>
+  <file>autoload.php</file>
   <file>includes/</file>
   <file>integrations/</file>
   <file>config/</file>
