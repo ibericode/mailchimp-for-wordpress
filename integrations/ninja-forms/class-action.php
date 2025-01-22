@@ -57,9 +57,7 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
 
         add_action('wp_ajax_nf_' . $this->_name . '_get_lists', [$this, '_get_lists']);
         add_action('init', [$this, 'translate_props']);
-
-
-        $this->get_list_settings();
+        add_action('init', [$this, 'get_list_settings']);
     }
 
     public function translate_props()
@@ -147,7 +145,7 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
         return $return;
     }
 
-    private function get_list_settings()
+    public function get_list_settings()
     {
         $label_defaults = [
             'list'   => 'List',
