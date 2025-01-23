@@ -1,6 +1,16 @@
 Changelog
 =========
 
+#### 4.10.0 - Jan 23, 2025
+
+- Bump required PHP version to 7.4 or higher.
+- Obfuscate API key the same way as in the Mailchimp.com interface.
+- Delete all plugin data when plugin is uninstalled / deleted via WP Admin.
+- Fix several PHP 8.4 deprecation warnings.
+- Address warning about translations being loaded too early if using Ninja Forms integration.
+- Run stored setting values related to user-facing textual messages through i18n functions to allow translating them through plugins like Loco Translate or WPML.
+
+
 #### 4.9.21 - Jan 08, 2025
 
 - [Forms] Rename "list choice" to "audience choice" in available form fields.

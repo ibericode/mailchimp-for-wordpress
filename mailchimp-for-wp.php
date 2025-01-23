@@ -33,6 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 defined('ABSPATH') or exit;
 
 
+
+
 /** @ignore */
 function _mc4wp_load_plugin()
 {
