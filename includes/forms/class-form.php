@@ -296,7 +296,8 @@ class MC4WP_Form
                 $message_text = $post_meta[ 'text_' . $key ][0];
             }
 
-            $messages[ $key ] = $message_text;
+            // run final value through gettext filter to allow translation of stored setting values
+            $messages[ $key ] = __($message_text, 'mailchimp-for-wp');
         }
 
         return $messages;
