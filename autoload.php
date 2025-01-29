@@ -6,6 +6,8 @@ require __DIR__ . '/includes/forms/functions.php';
 require __DIR__ . '/includes/forms/admin-functions.php';
 require __DIR__ . '/includes/integrations/functions.php';
 
+require __DIR__ . '/includes/api/class-api-v3.php';
+
 spl_autoload_register(function ($class) {
     static $classmap = [
         'MC4WP_API_Connection_Exception' => '/includes/api/class-connection-exception.php',
