@@ -161,12 +161,13 @@ function register_post_type()
 {
 }
 
-function wp_register_script($handle, $src, $deps = [], $in_footer = true)
+function wp_register_script($handle, $src, $deps = [], $version = '', $in_footer = true)
 {
 }
 
 function plugins_url($path, $plugin = '')
 {
+    return $path;
 }
 
 
