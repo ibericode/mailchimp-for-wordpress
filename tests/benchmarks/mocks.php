@@ -5,7 +5,7 @@
  * phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
 */
 
-define('ABSPATH', dirname(__DIR__, 1));
+define('ABSPATH', dirname(__DIR__, 2));
 define('HOUR_IN_SECONDS', 3600);
 
 $options = [];
@@ -147,23 +147,28 @@ function is_wp_error($thing)
     return false;
 }
 
-function __($string, $text_domain)
+function __($text, $domain)
 {
-    return $string;
+    return $text;
 }
 
-function register_post_type($name, $args)
+function _e($text, $domain)
+{
+    echo $text;
+}
+
+function register_post_type()
 {
 }
 
-function wp_register_script($handle, $src, $deps = [], $version = '')
+function wp_register_script($handle, $src, $deps = [], $in_footer = true)
 {
 }
 
-function plugins_url($file, $path)
+function plugins_url($path, $plugin = '')
 {
-    return $path;
 }
+
 
 class wpdb_mock
 {

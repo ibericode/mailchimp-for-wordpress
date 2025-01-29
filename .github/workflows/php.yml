@@ -19,4 +19,4 @@ jobs:
       - name: Run codestyle sniffer
         run: composer run-script codestyle
       - name: Run benchmark
-        run: php tests/benchmark.php
+        run: php tests/benchmarks/run.php
