@@ -211,8 +211,9 @@ abstract class MC4WP_Integration
      */
     protected function get_wrapper_attributes()
     {
+        $classes = join(' ', $this->wrapper_classes);
         $html_attrs = [
-            'class' => sprintf('mc4wp-checkbox mc4wp-checkbox-%s %s', $this->slug, join(' ', $this->wrapper_classes)),
+            'class' => "mc4wp-checkbox mc4wp-checkbox-{$this->slug} $classes",
         ];
         return $this->array_to_attr_string($html_attrs);
     }
@@ -291,7 +292,7 @@ abstract class MC4WP_Integration
 
         ob_start();
 
-        echo sprintf('<!-- Mailchimp for WordPress v%s - https://www.mc4wp.com/ -->', MC4WP_VERSION);
+        echo '<!-- Mailchimp for WordPress v', MC4WP_VERSION,' - https://www.mc4wp.com/ -->';
 
         /** @ignore */
         do_action('mc4wp_integration_before_checkbox_wrapper', $this);
@@ -303,13 +304,13 @@ abstract class MC4WP_Integration
         $wrapper_attrs = $this->get_wrapper_attributes();
 
         // Hidden field to make sure "0" is sent to server
-        echo sprintf('<input type="hidden" name="%s" value="0" />', esc_attr($this->checkbox_name));
-        echo sprintf('<%s %s>', $wrapper_tag, $wrapper_attrs);
+        echo '<input type="hidden" name="', esc_attr($this->checkbox_name), '" value="0" />';
+        echo "<$wrapper_tag $wrapper_attrs>";
         echo '<label>';
-        echo sprintf('<input type="checkbox" name="%s" value="1" %s />', esc_attr($this->checkbox_name), $this->get_checkbox_attributes());
-        echo sprintf('<span>%s</span>', $this->get_label_text());
+        echo '<input type="checkbox" name="', esc_attr($this->checkbox_name), '" value="1" ', $this->get_checkbox_attributes(), '>';
+        echo '<span>', $this->get_label_text(), '</span>';
         echo '</label>';
-        echo sprintf('</%s>', $wrapper_tag);
+        echo "</$wrapper_tag>";
 
         /** @ignore */
         do_action('mc4wp_integration_after_checkbox_wrapper', $this);
@@ -572,7 +573,10 @@ abstract class MC4WP_Integration
     {
         $str = '';
         foreach ($attrs as $key => $value) {
-            $str .= sprintf('%s="%s" ', $key, esc_attr($value));
+            $str .= $key;
+            $str .= '="';
+            $str .= esc_attr($value);
+            $str .= '"';
         }
         return $str;
     }
