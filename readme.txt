@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 4.6
 Tested up to: 6.7
-Stable tag: 4.10.0
+Stable tag: 4.10.1
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.4
@@ -187,6 +187,15 @@ The plugin provides various filter and action hooks that allow you to modify or 
 9. Settings page for e-commerce integration with Mailchimp. Requires [Mailchimp for WordPress Premium](https://www.mc4wp.com/).
 
 == Changelog ==
+
+
+#### 4.10.1 - Feb 06, 2025
+
+- Fix JS error breaking Ninja Forms edit form page when not connected to a Mailchimp account or account has no audiences.
+- Remove `sprintf` usage in hot path.
+- Lazy load `MC4WP_API_V3` class to save some memory and parse time.
+- Save a tiny bit of memory in autoloader implementation by not repeatedly storing plugin directory.
+- Remove unused setting key from default options.
 
 
 #### 4.10.0 - Jan 23, 2025
@@ -1151,17 +1160,7 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 **Improvements**
 
 - The plugin now communicates with the latest & greatest Mailchimp API.
-- Previously unsubscribed subscribers can now be re-added without errors.
-- Add `User-Agent` header to all API requests.
-- Available fields in form editor are now split-up by category.
-- Birthday fields now accept a broader range of values and delimiters.
-
-**Fixes**
-
-- Issue with only 10 Mailchimp lists / fields / interests being returned.
-- Incorrect form message showing when double opt-in is disabled.
-- Error in upgrade routine when API request fails.
-- List fields not ...
+- Previously unsubscribed subscribers can ...
 
 == Upgrade Notice ==
 
