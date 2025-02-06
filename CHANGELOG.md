@@ -1,6 +1,15 @@
 Changelog
 =========
 
+#### 4.10.1 - Feb 06, 2025
+
+- Fix JS error breaking Ninja Forms edit form page when not connected to a Mailchimp account or account has no audiences.
+- Remove `sprintf` usage in hot path.
+- Lazy load `MC4WP_API_V3` class to save some memory and parse time.
+- Save a tiny bit of memory in autoloader implementation by not repeatedly storing plugin directory.
+- Remove unused setting key from default options.
+
+
 #### 4.10.0 - Jan 23, 2025
 
 - Bump required PHP version to 7.4 or higher.
