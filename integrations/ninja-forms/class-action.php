@@ -65,7 +65,9 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
         $this->_settings['double_optin']['label']    = __('Use double opt-in?', 'mailchimp-for-wp');
         $this->_settings['update_existing']['label'] = __('Update existing subscribers?', 'mailchimp-for-wp');
 
-        $this->_settings[ $this->get_name() . 'newsletter_list_fields' ]['label'] = __('List Field Mapping', 'mailchimp-for-wp');
+        if (isset($this->_settings[ $this->get_name() . 'newsletter_list_fields' ])) {
+            $this->_settings[ $this->get_name() . 'newsletter_list_fields' ]['label'] = __('List Field Mapping', 'mailchimp-for-wp');
+        }
     }
 
     /*
@@ -155,10 +157,6 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
         $prefix         = $this->get_name();
         $lists          = $this->get_lists();
 
-        if (empty($lists)) {
-            return;
-        }
-
         $this->_settings[ $prefix . 'newsletter_list' ] = [
             'name' => 'newsletter_list',
             'type' => 'select',
@@ -168,6 +166,10 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
             'value' => '0',
             'options' => [],
         ];
+
+        if (empty($lists)) {
+            return;
+        }
 
         $fields = [];
         foreach ($lists as $list) {
