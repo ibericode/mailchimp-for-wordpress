@@ -10,6 +10,7 @@ add_filter('mc4wp_form_data', '_mc4wp_update_groupings_data', PHP_INT_MAX);
 add_filter('mc4wp_integration_data', '_mc4wp_update_groupings_data', PHP_INT_MAX);
 add_filter('mailchimp_sync_user_data', '_mc4wp_update_groupings_data', PHP_INT_MAX);
 add_filter('mc4wp_use_sslverify', '_mc4wp_use_sslverify', 1);
+add_filter('wp_privacy_personal_data_exporters', [MC4WP_Personal_Data_Exporter::class, 'add_mailchimp_to_privacy_export']);
 
 mc4wp_apply_deprecated_filters('mc4wp_merge_vars', 'mc4wp_form_data');
 mc4wp_apply_deprecated_filters('mc4wp_form_merge_vars', 'mc4wp_form_data');

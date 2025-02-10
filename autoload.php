@@ -31,6 +31,7 @@ spl_autoload_register(function ($class) {
         'MC4WP_Dynamic_Content_Tags' => '/includes/class-dynamic-content-tags.php',
         'MC4WP_Easy_Digital_Downloads_Integration' => '/integrations/easy-digital-downloads/class-easy-digital-downloads.php',
         'MC4WP_Events_Manager_Integration' => '/integrations/events-manager/class-events-manager.php',
+        'MC4WP_Personal_Data_Exporter' => '/includes/class-personal-data-exporter.php',
         'MC4WP_Field_Formatter' => '/includes/class-field-formatter.php',
         'MC4WP_Field_Guesser' => '/includes/class-field-guesser.php',
         'MC4WP_Form' => '/includes/forms/class-form.php',

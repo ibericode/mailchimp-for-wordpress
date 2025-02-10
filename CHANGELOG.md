@@ -1,6 +1,11 @@
 Changelog
 =========
 
+#### In development
+
+- Add Mailchimp data to Personal Data exporter. Contributed by [David Anderson from UpdraftPlus](https://updraftplus.com/).
+
+
 #### 4.10.1 - Feb 06, 2025
 
 - Fix JS error breaking Ninja Forms edit form page when not connected to a Mailchimp account or account has no audiences.
