@@ -347,7 +347,7 @@ class MC4WP_MailChimp
             );
 
             $marketing_permissions = [];
-            if (count($data->members) > 0 && $data->members[0]->marketing_permissions) {
+            if (count($data->members) > 0 && isset($data->members[0]->marketing_permissions)) {
                 foreach ($data->members[0]->marketing_permissions as $mp) {
                     $marketing_permissions[] = (object) [
                         'marketing_permission_id' => $mp->marketing_permission_id,
