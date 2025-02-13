@@ -26,12 +26,12 @@
             <td>
                 <?php echo esc_html($f->type); ?>
                 <?php
-                if ($f->options && $f->options->date_format) {
+                if (isset($f->options->date_format)) {
                     echo esc_html('(' . $f->options->date_format . ')');
                 }
                 ?>
                 <?php
-                if ($f->options && $f->options->choices) {
+                if (isset($f->options->choices)) {
                     echo esc_html('(' . join(', ', $f->options->choices) . ')');
                 }
                 ?>
