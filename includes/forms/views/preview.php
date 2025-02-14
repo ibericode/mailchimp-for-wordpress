@@ -3,6 +3,7 @@ defined('ABSPATH') or exit;
 
 // fake post to prevent notices in wp_enqueue_scripts call
 $GLOBALS['post'] = new \WP_Post((object) [ 'filter' => 'raw' ]);
+$GLOBALS['wp_query'] = new \WP_Query();
 
 // render simple page with form in it.
 ?><!DOCTYPE html>
@@ -13,22 +14,18 @@ $GLOBALS['post'] = new \WP_Post((object) [ 'filter' => 'raw' ]);
     <meta name="robots" content="noindex">
     <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>">
     <?php
-    wp_enqueue_scripts();
-    wp_print_styles();
-    wp_print_head_scripts();
-
-    if (function_exists('wp_custom_css_cb')) {
-        wp_custom_css_cb();
-    }
+    wp_head();
     ?>
     <style>
+        html,
         body{
             background: white;
             width: 100%;
-            max-width: 100%;
             text-align: left;
         }
         <?php // hide all other elements except the form preview ?>
+        html::before,
+        html::after,
         body::before,
         body::after,
         body > *:not(#form-preview) {
@@ -41,6 +38,7 @@ $GLOBALS['post'] = new \WP_Post((object) [ 'filter' => 'raw' ]);
             padding: 20px;
             border: 0;
             margin: 0;
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -48,6 +46,6 @@ $GLOBALS['post'] = new \WP_Post((object) [ 'filter' => 'raw' ]);
     <div id="form-preview" class="page type-page status-publish hentry post post-content">
         <?php mc4wp_show_form($form_id); ?>
     </div>
-    <?php do_action('wp_footer'); ?>
+    <?php wp_footer(); ?>
 </body>
 </html>
