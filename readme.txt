@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 4.6
 Tested up to: 6.7
-Stable tag: 4.10.1
+Stable tag: 4.10.2
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.4
@@ -187,6 +187,13 @@ The plugin provides various filter and action hooks that allow you to modify or 
 9. Settings page for e-commerce integration with Mailchimp. Requires [Mailchimp for WordPress Premium](https://www.mc4wp.com/).
 
 == Changelog ==
+
+
+#### 4.10.2 - Feb 28, 2025
+
+- Fix WPForms parameter type change causing a fatal error if using WPForms with a Mailchimp sign-up field.
+- Add Mailchimp data to Personal Data exporter. Contributed by [David Anderson from UpdraftPlus](https://updraftplus.com/).
+- Prevent PHP notices in lists overview on general settings page.
 
 
 #### 4.10.1 - Feb 06, 2025
@@ -1148,19 +1155,7 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 - "Send welcome email" is now handled from your list settings in Mailchimp.
 - Filter `mc4wp_form_merge_vars` is now called `mc4wp_form_data`.
 - Filter `mc4wp_integration_merge_vars` is now called `mc4wp_integration_data`.
-- New format for GROUPING fields in forms & filter hooks.
-- Value delimiter in hidden fields is now a pipe `|` character.
-
-**Additions**
-
-- New filter: `mc4wp_form_subscriber_data`.
-- New filter: `mc4wp_integration_subscriber_data`.
-- New form tag: `{cookie name="mycookie"}`
-
-**Improvements**
-
-- The plugin now communicates with the latest & greatest Mailchimp API.
-- Previously unsubscribed subscribers can ...
+- New format ...
 
 == Upgrade Notice ==
 
