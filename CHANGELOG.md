@@ -1,9 +1,11 @@
 Changelog
 =========
 
-#### In development
+#### 4.10.2 - Feb 28, 2025
 
+- Fix WPForms parameter type change causing a fatal error if using WPForms with a Mailchimp sign-up field.
 - Add Mailchimp data to Personal Data exporter. Contributed by [David Anderson from UpdraftPlus](https://updraftplus.com/).
+- Prevent PHP notices in lists overview on general settings page.
 
 
 #### 4.10.1 - Feb 06, 2025
