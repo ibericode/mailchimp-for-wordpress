@@ -187,7 +187,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
      * Field display on the form front-end.
      *
      * @since 1.0.0
-     * @param array $field
+     * @param null $field (deprecated)
      * @param array $form_data
      */
     public function field_display($field, $field_atts, $form_data)
@@ -196,7 +196,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
         $field_atts = array_merge([
             'input_class' => [],
             'input_id' => [],
-        ], $field_atts);
+        ], is_array($field_atts) ? $field_atts : []);
 
         // Setup and sanitize the necessary data
         $field_required = ! empty($field['required']) ? ' required' : '';
