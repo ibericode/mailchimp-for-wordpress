@@ -15,11 +15,18 @@ class MC4WP_WPForms_Field extends WPForms_Field
         $this->order    = 21;
         $this->defaults = [
             [
-                'label'   => __('Sign-up to our newsletter?', 'mailchimp-for-wp'),
+                'label'   => 'Sign-up to our newsletter?',
                 'value'   => '1',
                 'default' => '',
             ],
         ];
+
+        add_action('init', [$this, 'translate_label']);
+    }
+
+    public function translate_label(): void
+    {
+        $this->defaults[0]['label'] = __('Sign-up to our newsletter?', 'mailchimp-for-wp');
     }
 
     /**
