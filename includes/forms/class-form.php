@@ -394,8 +394,8 @@ class MC4WP_Form
         // User-Agent header should be set and not bot-like
         if (empty($_SERVER['HTTP_USER_AGENT']) || preg_match('/bot|crawl|spider|seo|lighthouse|facebookexternalhit|preview/i', $_SERVER['HTTP_USER_AGENT'])) {
             $errors[] = 'spam';
-        // _mc4wp_timestamp field should be between 1 week old (to deal with aggressively cached pages) and 2 seconds ago
-        } elseif (! isset($this->raw_data['_mc4wp_timestamp']) || $this->raw_data['_mc4wp_timestamp'] < (time() - DAY_IN_SECONDS * 7) || $this->raw_data['_mc4wp_timestamp'] > ( time() - 2 )) {
+        // _mc4wp_timestamp field should be between 30 days ago (to deal with aggressively cached pages) and 2 seconds ago
+        } elseif (! isset($this->raw_data['_mc4wp_timestamp']) || $this->raw_data['_mc4wp_timestamp'] < (time() - DAY_IN_SECONDS * 30) || $this->raw_data['_mc4wp_timestamp'] > ( time() - 2 )) {
             $errors[] = 'spam';
         // _mc4wp_honeypot field should be submitted and empty
         } elseif (! isset($this->raw_data['_mc4wp_honeypot']) || '' !== $this->raw_data['_mc4wp_honeypot']) {
