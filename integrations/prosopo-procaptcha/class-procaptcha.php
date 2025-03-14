@@ -64,8 +64,7 @@ class MC4WP_Procaptcha
     protected function read_settings()
     {
         $integrations = get_option('mc4wp_integrations', []);
-        if (
-            false === is_array($integrations) ||
+        if (false === is_array($integrations) ||
             false === key_exists('prosopo-procaptcha', $integrations) ||
             false === is_array($integrations['prosopo-procaptcha'])
         ) {
@@ -212,20 +211,29 @@ class MC4WP_Procaptcha
             /** @var MC4WP_Debug_Log */
             $logger = mc4wp('log');
             $logger->error(sprintf('ProCaptcha request error: %d %s - %s', wp_remote_retrieve_response_code($response), wp_remote_retrieve_response_message($response), wp_remote_retrieve_body($response)));
-            return false;
+
+            // the check failed, but we don't want to break the form in case of Prosopo having server issues
+            // so we write to log and act as if this user is human...
+            return true;
         }
 
         $body        = wp_remote_retrieve_body($response);
-        $body        = json_decode($body, true);
-        $is_verified = is_array($body) && isset($body['verified']) && $body['verified'];
+        $data        = json_decode($body, true);
 
+        // check if Prosopo API returned a correct JSON response
+        if ($data === null || !is_array($data)) {
+            $logger = mc4wp('log');
+            $logger->error(sprintf('ProCaptcha returned a non-JSON response: %s', $body));
+            return true;
+        }
+
+        $is_verified = isset($data['verified']) && $data['verified'];
         return true === $is_verified;
     }
 
     public function maybe_add_type_module_attribute(string $tag, string $handle, string $src): string
     {
-        if (
-            'prosopo-procaptcha' !== $handle ||
+        if ('prosopo-procaptcha' !== $handle ||
             // make sure we don't make it twice if other Procaptcha integrations are present.
             false !== strpos('type="module"', $tag)
         ) {
@@ -254,8 +262,7 @@ class MC4WP_Procaptcha
      */
     public function print_captcha_element($is_without_validation_element = false, $is_forced_render = false)
     {
-        if (
-            false === $this->is_displayed_for_authorized &&
+        if (false === $this->is_displayed_for_authorized &&
             true === is_user_logged_in() &&
             false === $is_forced_render
         ) {
@@ -322,8 +329,7 @@ class MC4WP_Procaptcha
      */
     public function validate_form($error_keys, $form)
     {
-        if (
-            false === strpos($form->content, $this->get_field_stub()) ||
+        if (false === strpos($form->content, $this->get_field_stub()) ||
             (false === $this->is_displayed_for_authorized && true === is_user_logged_in()) ||
             true === $this->is_human_made_request()
         ) {
