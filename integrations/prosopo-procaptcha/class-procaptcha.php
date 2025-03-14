@@ -64,7 +64,8 @@ class MC4WP_Procaptcha
     protected function read_settings()
     {
         $integrations = get_option('mc4wp_integrations', []);
-        if (false === is_array($integrations) ||
+        if (
+            false === is_array($integrations) ||
             false === key_exists('prosopo-procaptcha', $integrations) ||
             false === is_array($integrations['prosopo-procaptcha'])
         ) {
@@ -233,7 +234,8 @@ class MC4WP_Procaptcha
 
     public function maybe_add_type_module_attribute(string $tag, string $handle, string $src): string
     {
-        if ('prosopo-procaptcha' !== $handle ||
+        if (
+            'prosopo-procaptcha' !== $handle ||
             // make sure we don't make it twice if other Procaptcha integrations are present.
             false !== strpos('type="module"', $tag)
         ) {
@@ -262,7 +264,8 @@ class MC4WP_Procaptcha
      */
     public function print_captcha_element($is_without_validation_element = false, $is_forced_render = false)
     {
-        if (false === $this->is_displayed_for_authorized &&
+        if (
+            false === $this->is_displayed_for_authorized &&
             true === is_user_logged_in() &&
             false === $is_forced_render
         ) {
@@ -329,7 +332,8 @@ class MC4WP_Procaptcha
      */
     public function validate_form($error_keys, $form)
     {
-        if (false === strpos($form->content, $this->get_field_stub()) ||
+        if (
+            false === strpos($form->content, $this->get_field_stub()) ||
             (false === $this->is_displayed_for_authorized && true === is_user_logged_in()) ||
             true === $this->is_human_made_request()
         ) {
