@@ -392,14 +392,14 @@ class MC4WP_Form
 
         // perform some basic anti-spam checks
         // User-Agent header should be set and not bot-like
-        if (empty($_SERVER['HTTP_USER_AGENT']) || preg_match('/bot|crawl|spider|seo|lighthouse|facebookexternalhit|preview/i', $_SERVER['HTTP_USER_AGENT'])) {
-            $errors[] = 'spam';
+        if (empty($_SERVER['HTTP_USER_AGENT']) || preg_match('/bot|crawl|spider|seo|lighthouse|facebookexternalhit|preview/', strtolower($_SERVER['HTTP_USER_AGENT']))) {
+            $errors[] = 'spam.user_agent';
         // _mc4wp_timestamp field should be between 30 days ago (to deal with aggressively cached pages) and 2 seconds ago
-        } elseif (! isset($this->raw_data['_mc4wp_timestamp']) || $this->raw_data['_mc4wp_timestamp'] < (time() - DAY_IN_SECONDS * 30) || $this->raw_data['_mc4wp_timestamp'] > ( time() - 2 )) {
-            $errors[] = 'spam';
+        } elseif (! isset($this->raw_data['_mc4wp_timestamp']) || $this->raw_data['_mc4wp_timestamp'] < (time() - DAY_IN_SECONDS * 90) || $this->raw_data['_mc4wp_timestamp'] > ( time() - 2 )) {
+            $errors[] = 'spam.timestamp';
         // _mc4wp_honeypot field should be submitted and empty
         } elseif (! isset($this->raw_data['_mc4wp_honeypot']) || '' !== $this->raw_data['_mc4wp_honeypot']) {
-            $errors[] = 'spam';
+            $errors[] = 'spam.honeypot';
         }
 
         if (empty($errors)) {
@@ -746,7 +746,18 @@ class MC4WP_Form
     */
     public function get_message($key)
     {
-        $message = isset($this->messages[ $key ]) ? $this->messages[ $key ] : $this->messages['error'];
+        // default to generic error message
+        $message = $this->messages['error'];
+
+        // if error key contains a dot, use only part before the dot (example: spam.honeypot)
+        if (($dot_pos = strpos($key, '.')) !== false) {
+            $key = substr($key, 0, $dot_pos);
+        }
+
+        // if a more specific message exists for this error key, use that
+        if (isset($this->messages[$key])) {
+            $message = $this->messages[$key];
+        }
 
         if ($key === 'no_lists_selected' && current_user_can('manage_options')) {
             $message .= sprintf(' (<a href="%s">%s</a>)', mc4wp_get_edit_form_url($this->ID, 'settings'), 'edit form settings');
