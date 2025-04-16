@@ -1,6 +1,14 @@
 Changelog
 =========
 
+#### 4.10.3 - Apr 16, 2025
+
+- Update third-party JS dependencies.
+- Add message setting for when a form submission is marked as spam.
+- Log exact anti-spam rule when a form submission is marked as spam.
+- Handle potential Prosopo connection errors gracefully.
+
+
 #### 4.10.2 - Feb 28, 2025
 
 - Fix WPForms parameter type change causing a fatal error if using WPForms with a Mailchimp sign-up field.
