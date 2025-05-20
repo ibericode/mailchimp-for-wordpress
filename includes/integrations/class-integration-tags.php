@@ -43,8 +43,7 @@ class MC4WP_Integration_Tags extends MC4WP_Dynamic_Content_Tags
     public function replace_in_checkbox_label($string, MC4WP_Integration $integration)
     {
         $this->integration = $integration;
-        $string            = $this->replace($string, 'esc_html');
-        return $string;
+        return $this->replace_in_html($string);
     }
 
     /**

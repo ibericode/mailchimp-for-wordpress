@@ -171,7 +171,7 @@ class MC4WP_Form
      */
     public function __get($name)
     {
-        $method_name = sprintf('get_%s', $name);
+        $method_name = "get_$name";
         if (method_exists($this, $method_name)) {
             return $this->$method_name();
         }
