@@ -1,6 +1,11 @@
 Changelog
 =========
 
+#### 4.10.4 - May 26, 2025
+
+- Improved context-dependent escaping in dynamic content tags. 
+
+
 #### 4.10.3 - Apr 16, 2025
 
 - Update third-party JS dependencies.
