@@ -124,7 +124,13 @@ class MC4WP_Ninja_Forms_Action extends NF_Abstracts_Action
 
         /** @var array $lists */
         $lists  = $mailchimp->get_lists();
-        $return = [];
+        $return = [
+            [
+                'label' => '-',
+                'value' => 0,
+                'fields' => [],
+            ]
+        ];
 
         foreach ($lists as $list) {
             $list_fields = [];
