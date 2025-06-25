@@ -1,6 +1,13 @@
 Changelog
 =========
 
+#### 4.10.5 - Jun 25, 2025
+
+- [Ninja Forms] Always show at least one list option so that onchange event fires properly (to load Audience fields).
+- Update third-party JS dependencies.
+- Optimize SVG icons for reduced file sizes.
+
+
 #### 4.10.4 - May 26, 2025
 
 - Improved context-dependent escaping in dynamic content tags. 
