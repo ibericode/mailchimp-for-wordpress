@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 4.6
 Tested up to: 6.8
-Stable tag: 4.10.4
+Stable tag: 4.10.5
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.4
@@ -187,6 +187,13 @@ The plugin provides various filter and action hooks that allow you to modify or 
 9. Settings page for e-commerce integration with Mailchimp. Requires [Mailchimp for WordPress Premium](https://www.mc4wp.com/).
 
 == Changelog ==
+
+
+#### 4.10.5 - Jun 25, 2025
+
+- [Ninja Forms] Always show at least one list option so that onchange event fires properly (to load Audience fields).
+- Update third-party JS dependencies.
+- Optimize SVG icons for reduced file sizes.
 
 
 #### 4.10.4 - May 26, 2025
@@ -1151,17 +1158,7 @@ Please note that installing this update requires you to also update any add-ons 
 
 **Fixes**
 
-- Hidden fields which referenced interest groups by name were not sent to Mailchimp.
-- Adding hidden field to form would reset value on every change.
-
-**Improvements**
-
-- Decrease file size of JavaScript for forms by about 30%.
-
-
-#### 4.0 & 4.0.1 - August 9, 2016
-
-This release updates the ...
+- Hidden fields which referenced interest groups by name were ...
 
 == Upgrade Notice ==
 
