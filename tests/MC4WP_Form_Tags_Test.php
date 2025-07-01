@@ -13,7 +13,7 @@ class MC4WP_Form_Tags_Test extends TestCase
         $t = new MC4WP_Form_Tags();
         $t->register();
 
-        $p = new WP_Post;
+        $p = new WP_Post();
         $p->ID = 1;
         global $post;
         $post = $p;
