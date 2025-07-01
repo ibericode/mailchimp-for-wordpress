@@ -74,7 +74,7 @@ function sanitize_text_field($value)
 /** @ignore */
 function esc_html($value)
 {
-    return $value;
+    return htmlspecialchars($value);
 }
 
 
@@ -159,6 +159,11 @@ function wp_verify_nonce($nonce, $action)
 function is_email($email)
 {
     return filter_var($email, FILTER_VALIDATE_EMAIL);
+}
+
+function get_locale(): string
+{
+    return 'en_US';
 }
 
 /**
