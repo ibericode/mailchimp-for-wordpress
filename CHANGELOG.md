@@ -1,6 +1,12 @@
 Changelog
 =========
 
+#### 4.10.6 - Jul 23, 2025
+
+- [WooCommerce Checkout] Fix checkbox from showing up in order confirmation email if using Checkout Block.
+- [Forms] Fix `{response}` tag being escaped.
+
+
 #### 4.10.5 - Jun 25, 2025
 
 - [Ninja Forms] Always show at least one list option so that onchange event fires properly (to load Audience fields).
