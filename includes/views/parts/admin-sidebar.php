@@ -33,7 +33,7 @@ function _mc4wp_admin_sidebar_other_plugins()
     // Koko Analytics
     echo '<li style="margin: 12px 0;">';
     echo '<strong><a href="https://wordpress.org/plugins/koko-analytics/">Koko Analytics</a></strong><br />';
-    echo esc_html__('Privacy-friendly analytics plugin that does not use any external services.', 'mailchimp-for-wp');
+    echo esc_html__('Plug and play, privacy-friendly and GDPR/CCPA compliant statistics for WordPress.', 'mailchimp-for-wp');
     echo '</li>';
 
     // Boxzilla
