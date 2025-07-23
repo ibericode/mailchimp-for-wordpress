@@ -118,8 +118,10 @@ abstract class MC4WP_Dynamic_Content_Tags
                 $replacement = call_user_func($config['callback'], $attributes);
             }
 
-            // escape replacement value
-            $replacement = call_user_func($this->escape_function, $replacement);
+            // escape replacement value, unless it's configured as providing raw HTML (like {response})
+            if (!isset($config['raw_html']) || !$config['raw_html']) {
+                $replacement = call_user_func($this->escape_function, $replacement);
+            }
 
             return $replacement;
         }
