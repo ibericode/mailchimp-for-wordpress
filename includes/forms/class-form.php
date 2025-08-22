@@ -274,11 +274,11 @@ class MC4WP_Form
         $messages = $default_messages;
 
         /**
-         * Filters the form messages
+         * Filters the default form messages
          *
          * @since 3.0
          *
-         * @param array $registered_messages
+         * @param array $messages
          * @param MC4WP_Form $form
          */
         $messages = (array) apply_filters('mc4wp_form_messages', $messages, $form);
