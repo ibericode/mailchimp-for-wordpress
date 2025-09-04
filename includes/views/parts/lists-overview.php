@@ -2,8 +2,9 @@
 <p><?php echo esc_html__('The table below shows your Mailchimp audiences and their details. If you just applied changes to your Mailchimp account, please use the following button to renew the cache.', 'mailchimp-for-wp'); ?></p>
 
 <div id="mc4wp-list-fetcher">
-    <form method="post">
+    <form method="post" action="">
         <input type="hidden" name="_mc4wp_action" value="empty_lists_cache" />
+        <?php echo wp_nonce_field('_mc4wp_action'); ?>
         <p>
             <input type="submit" value="<?php echo esc_attr__('Renew Mailchimp audiences', 'mailchimp-for-wp'); ?>" class="button">
         </p>
