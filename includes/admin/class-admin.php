@@ -297,10 +297,6 @@ class MC4WP_Admin
                 'i18n'      => [
                     'invalid_api_key'                => __('The given value does not look like a valid Mailchimp API key.', 'mailchimp-for-wp'),
                     'pro_only'                       => __('This is a premium feature. Please upgrade to Mailchimp for WordPress Premium to be able to use it.', 'mailchimp-for-wp'),
-                    'renew_mailchimp_lists'          => __('Renew Mailchimp audiences', 'mailchimp-for-wp'),
-                    'fetching_mailchimp_lists'       => __('Fetching Mailchimp audiences', 'mailchimp-for-wp'),
-                    'fetching_mailchimp_lists_done'  => __('Done! Mailchimp audiences renewed.', 'mailchimp-for-wp'),
-                    'fetching_mailchimp_lists_error' => __('Failed to renew your audiences. An error occured.', 'mailchimp-for-wp'),
                 ],
             ]
         );
