@@ -1,6 +1,11 @@
 Changelog
 =========
 
+#### 4.10.7 - Sep 05, 2025
+
+- Handle renewing lists through server-side redirect instead of JS component.
+
+
 #### 4.10.6 - Jul 23, 2025
 
 - [WooCommerce Checkout] Fix checkbox from showing up in order confirmation email if using Checkout Block.
