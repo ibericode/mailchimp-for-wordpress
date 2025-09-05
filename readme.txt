@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 4.6
 Tested up to: 6.8
-Stable tag: 4.10.6
+Stable tag: 4.10.7
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.4
@@ -187,6 +187,11 @@ The plugin provides various filter and action hooks that allow you to modify or 
 9. Settings page for e-commerce integration with Mailchimp. Requires [Mailchimp for WordPress Premium](https://www.mc4wp.com/).
 
 == Changelog ==
+
+
+#### 4.10.7 - Sep 05, 2025
+
+- Handle renewing lists through server-side redirect instead of JS component.
 
 
 #### 4.10.6 - Jul 23, 2025
@@ -1148,16 +1153,7 @@ Please note that installing this update requires you to also update any add-ons 
 
 **Fixes**
 
-- Ninja Forms integration not working when using PayPal integration.
-
-**Improvements**
-
-- Show connection errors on Mailchimp settings page.
-
-**Additions**
-
-- Add pre-checked option to Ninja Forms integration.
-- ...
+- Ninja Forms integration not working when using PayPal ...
 
 == Upgrade Notice ==
 
