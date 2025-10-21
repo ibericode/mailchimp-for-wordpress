@@ -76,14 +76,38 @@ class MC4WP_Form_Output_Manager
      */
     public function output_form($id = 0, $config = [], $echo = true)
     {
+        $html = $this->generate_html($id, $config);
+
+        // echo content if necessary
+        if ($echo) {
+            echo $html;
+        }
+
+        return $html;
+    }
+
+    protected function generate_html($id = 0, $config = [])
+    {
         try {
             $form = mc4wp_get_form($id);
         } catch (Exception $e) {
             if (current_user_can('manage_options')) {
-                return sprintf('<strong>Mailchimp for WordPress error:</strong> %s', $e->getMessage());
+                return sprintf('<strong style="color: indianred;">Mailchimp for WordPress error:</strong> %s', $e->getMessage());
             }
 
             return '';
+        }
+
+        $html = '';
+
+        if (!mc4wp_get_api_key()) {
+            if (current_user_can('manage_options')) {
+                $html .= '<p style="color: indianred;">' . __('You need to configure your Mailchimp API key for this form to work properly.', 'mailchimp-for-wp') . '</p>';
+            } else {
+                // if no API key set and request is for an unauthorized user
+                // show nothing
+                return '';
+            }
         }
 
         ++$this->count;
@@ -112,14 +136,9 @@ class MC4WP_Form_Output_Manager
             echo $form_html;
 
             // grab all contents in current output buffer & then clean + end it.
-            $html = ob_get_clean();
+            $html .= ob_get_clean();
         } catch (Error $e) {
-            $html = $form_html;
-        }
-
-        // echo content if necessary
-        if ($echo) {
-            echo $html;
+            $html .= $form_html;
         }
 
         return $html;
