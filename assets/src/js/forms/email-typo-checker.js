@@ -6,24 +6,9 @@
  */
 
 // Common email domains to check against
-const COMMON_DOMAINS = [
-  'gmail.com',
-  'yahoo.com',
-  'hotmail.com',
-  'outlook.com',
-  'icloud.com',
-  'aol.com',
-  'live.com',
-  'msn.com',
-  'me.com',
-  'mac.com',
-  'googlemail.com',
-  'ymail.com',
-  'protonmail.com',
-  'mail.com',
-  'gmx.com',
-  'zoho.com'
-]
+const COMMON_DOMAINS = (window.mc4wp_email_typo_checker && window.mc4wp_email_typo_checker.domains)
+  ? window.mc4wp_email_typo_checker.domains
+  : []
 
 /**
  * Calculate Levenshtein distance between two strings
@@ -116,7 +101,7 @@ function extractDomain(email) {
 function createSuggestionElement(suggestedEmail, emailField) {
   const suggestion = document.createElement('div')
   suggestion.className = 'mc4wp-email-suggestion'
-  suggestion.style.cssText = 'margin-top: 5px; font-size: 13px; color: #666;'
+  suggestion.style.cssText = 'margin-bottom: 5px; font-size: 13px; color: #666;'
 
   const link = document.createElement('a')
   link.href = '#'
@@ -178,7 +163,7 @@ function checkEmailTypo(emailField) {
     const suggestedEmail = emailParts[0] + '@' + suggestedDomain
 
     const suggestion = createSuggestionElement(suggestedEmail, emailField)
-    emailField.parentElement.appendChild(suggestion)
+    emailField.parentElement.insertBefore(suggestion, emailField)
   }
 }
 

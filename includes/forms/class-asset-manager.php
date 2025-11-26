@@ -191,6 +191,24 @@ class MC4WP_Form_Asset_Manager
         wp_enqueue_script('mc4wp-email-typo-checker');
         wp_localize_script('mc4wp-email-typo-checker', 'mc4wp_email_typo_checker', [
             'suggestion_text' => __('Did you mean %s?', 'mailchimp-for-wp'),
+            'domains'         => apply_filters('mc4wp_email_typo_checker_domains', [
+                'gmail.com',
+                'yahoo.com',
+                'hotmail.com',
+                'outlook.com',
+                'icloud.com',
+                'aol.com',
+                'live.com',
+                'msn.com',
+                'me.com',
+                'mac.com',
+                'googlemail.com',
+                'ymail.com',
+                'protonmail.com',
+                'mail.com',
+                'gmx.com',
+                'zoho.com',
+            ]),
         ]);
 
         // maybe load JS file for when a form was submitted over HTTP POST
