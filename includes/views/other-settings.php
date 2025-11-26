@@ -47,6 +47,17 @@ defined('ABSPATH') or exit;
                             </td>
                         </tr>
                     </table>
+                    <table class="form-table">
+                        <tr>
+                            <th><label for="mc4wp-email-on-error"><?php echo esc_html__('Send email on critical error', 'mailchimp-for-wp'); ?></label></th>
+                            <td>
+                                <input type="email" id="mc4wp-email-on-error" name="mc4wp[email_on_error]" value="<?php echo esc_attr($opts['email_on_error']); ?>" class="regular-text" placeholder="your@email.com" />
+                                <p class="description">
+                                    <?php echo esc_html__('Enter an email address to receive a notification when a critical error occurs. Max 1 email per 24 hours.', 'mailchimp-for-wp'); ?>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
 
                 <?php do_action('mc4wp_admin_other_settings', $opts); ?>
