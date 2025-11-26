@@ -31,6 +31,7 @@ class MC4WP_Form_Asset_Manager
     public function register_scripts()
     {
         wp_register_script('mc4wp-forms-api', mc4wp_plugin_url('assets/js/forms.js'), [], MC4WP_VERSION, true);
+        wp_register_script('mc4wp-email-typo-checker', mc4wp_plugin_url('assets/js/email-typo-checker.js'), [], MC4WP_VERSION, true);
     }
 
     /**
@@ -186,6 +187,12 @@ class MC4WP_Form_Asset_Manager
         // load general client-side form API
         wp_enqueue_script('mc4wp-forms-api');
 
+        // load email typo checker script
+        wp_enqueue_script('mc4wp-email-typo-checker');
+        wp_localize_script('mc4wp-email-typo-checker', 'mc4wp_email_typo_checker', [
+            'suggestion_text' => __('Did you mean %s?', 'mailchimp-for-wp'),
+        ]);
+
         // maybe load JS file for when a form was submitted over HTTP POST
         $submitted_form_data = $this->get_submitted_form_data();
         if ($submitted_form_data !== null) {
@@ -214,7 +221,7 @@ class MC4WP_Form_Asset_Manager
     public function add_defer_attribute($tag, $handle)
     {
         // only act on scripts registered with any of these handles
-        if ($handle !== 'mc4wp-forms-api' && $handle !== 'mc4wp-forms-submitted') {
+        if ($handle !== 'mc4wp-forms-api' && $handle !== 'mc4wp-forms-submitted' && $handle !== 'mc4wp-email-typo-checker') {
             return $tag;
         }
 

@@ -10,4 +10,5 @@ return [
     'required_fields'    => '',
     'update_existing'    => 0,
     'subscriber_tags'    => '',
+    'email_typo_check'   => 0,
 ];
