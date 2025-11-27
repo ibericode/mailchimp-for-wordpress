@@ -139,6 +139,20 @@ class MC4WP_Debug_Log
         // unlock file again, but don't close it for remainder of this request
         flock($this->stream, LOCK_UN);
 
+        // Maybe send email on level errors and up
+        if ($level >= self::ERROR) {
+            $opts = mc4wp_get_options();
+            if (! empty($opts['email_on_error'])) {
+                $last_sent = get_transient('mc4wp_error_email_sent');
+                if (! $last_sent) {
+                    $subject = sprintf('[%s] MC4WP Error on your site', get_bloginfo('name'));
+                    $body    = sprintf('A MC4WP error occurred on your site: %s', $message);
+                    wp_mail($opts['email_on_error'], $subject, $body);
+                    set_transient('mc4wp_error_email_sent', time(), DAY_IN_SECONDS);
+                }
+            }
+        }
+
         return true;
     }
 
