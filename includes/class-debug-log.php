@@ -139,6 +139,7 @@ class MC4WP_Debug_Log
         // unlock file again, but don't close it for remainder of this request
         flock($this->stream, LOCK_UN);
 
+        // Maybe send email on level errors and up
         if ($level >= self::ERROR) {
             $opts = mc4wp_get_options();
             if (! empty($opts['email_on_error'])) {
