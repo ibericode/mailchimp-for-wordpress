@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * Contact Form 7 checkboxes are passed as an array.  
+ * To be able to forward their values to Mailchimp we need to change the selection(s) into a string
+ * to prevent an error such "Contact Form 7 > MailChimp API Error: Bad Request. The resource submitted could not be validated."
+ *
+ * This code takes the checkbox names CHECKBOX1 in the CF7 form, and translates it to a semicolon separated string and send it to the Mailchimp field MMERGE8
+ * 
+ * Change MMERGE8 to your Mailchimp field and CHECKBOX1 to your CF7 field. 
+ */
+
+add_filter( 'mc4wp_integration_contact-form-7_data', function( $data ) {
+   $data['MMERGE8'] = join( ';', $data['CHECKBOX1'] );
+   return $data;
+});
