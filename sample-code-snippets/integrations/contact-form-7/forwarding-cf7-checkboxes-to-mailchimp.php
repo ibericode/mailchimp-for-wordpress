@@ -12,5 +12,6 @@
 
 add_filter( 'mc4wp_integration_contact-form-7_data', function( $data ) {
    $data['MMERGE8'] = join( ';', $data['CHECKBOX1'] );
+   unset($data['CHECKBOX1']); 
    return $data;
 });
