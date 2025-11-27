@@ -14,6 +14,11 @@ class MC4WP_Form_Asset_Manager
     private $load_scripts = false;
 
     /**
+     * @var bool Flag to determine whether email typo checker script should be enqueued.
+     */
+    private $load_typo_checker = false;
+
+    /**
      * Add hooks
      */
     public function add_hooks()
@@ -31,7 +36,7 @@ class MC4WP_Form_Asset_Manager
     public function register_scripts()
     {
         wp_register_script('mc4wp-forms-api', mc4wp_plugin_url('assets/js/forms.js'), [], MC4WP_VERSION, true);
-        wp_register_script('mc4wp-email-typo-checker', mc4wp_plugin_url('assets/js/email-typo-checker.js'), [], MC4WP_VERSION, true);
+        wp_register_script('mc4wp-email-typo-checker', mc4wp_plugin_url('assets/js/email-typo-checker.js'), [], MC4WP_VERSION, ['strategy' => 'defer', 'in_footer' => true]);
     }
 
     /**
@@ -153,7 +158,7 @@ class MC4WP_Form_Asset_Manager
     /**
      * Load JavaScript files
      */
-    public function before_output_form()
+    public function before_output_form($form)
     {
         $load_scripts = apply_filters('mc4wp_load_form_scripts', true);
         if (! $load_scripts) {
@@ -162,6 +167,11 @@ class MC4WP_Form_Asset_Manager
 
         $this->print_dummy_javascript();
         $this->load_scripts = true;
+
+        // check if this form has typo checker enabled
+        if (! empty($form->settings['email_typo_check'])) {
+            $this->load_typo_checker = true;
+        }
     }
 
     /**
@@ -187,29 +197,31 @@ class MC4WP_Form_Asset_Manager
         // load general client-side form API
         wp_enqueue_script('mc4wp-forms-api');
 
-        // load email typo checker script
-        wp_enqueue_script('mc4wp-email-typo-checker');
-        wp_localize_script('mc4wp-email-typo-checker', 'mc4wp_email_typo_checker', [
-            'suggestion_text' => __('Did you mean %s?', 'mailchimp-for-wp'),
-            'domains'         => apply_filters('mc4wp_email_typo_checker_domains', [
-                'gmail.com',
-                'yahoo.com',
-                'hotmail.com',
-                'outlook.com',
-                'icloud.com',
-                'aol.com',
-                'live.com',
-                'msn.com',
-                'me.com',
-                'mac.com',
-                'googlemail.com',
-                'ymail.com',
-                'protonmail.com',
-                'mail.com',
-                'gmx.com',
-                'zoho.com',
-            ]),
-        ]);
+        // load email typo checker script only if at least one form has it enabled
+        if ($this->load_typo_checker) {
+            wp_enqueue_script('mc4wp-email-typo-checker');
+            wp_localize_script('mc4wp-email-typo-checker', 'mc4wp_email_typo_checker', [
+                'suggestion_text' => __('Did you mean %s?', 'mailchimp-for-wp'),
+                'domains'         => apply_filters('mc4wp_email_typo_checker_domains', [
+                    'gmail.com',
+                    'yahoo.com',
+                    'hotmail.com',
+                    'outlook.com',
+                    'icloud.com',
+                    'aol.com',
+                    'live.com',
+                    'msn.com',
+                    'me.com',
+                    'mac.com',
+                    'googlemail.com',
+                    'ymail.com',
+                    'protonmail.com',
+                    'mail.com',
+                    'gmx.com',
+                    'zoho.com',
+                ]),
+            ]);
+        }
 
         // maybe load JS file for when a form was submitted over HTTP POST
         $submitted_form_data = $this->get_submitted_form_data();
@@ -239,7 +251,7 @@ class MC4WP_Form_Asset_Manager
     public function add_defer_attribute($tag, $handle)
     {
         // only act on scripts registered with any of these handles
-        if ($handle !== 'mc4wp-forms-api' && $handle !== 'mc4wp-forms-submitted' && $handle !== 'mc4wp-email-typo-checker') {
+        if ($handle !== 'mc4wp-forms-api' && $handle !== 'mc4wp-forms-submitted') {
             return $tag;
         }
 
