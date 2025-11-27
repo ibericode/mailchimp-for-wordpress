@@ -176,11 +176,9 @@ function extractDomain(email) {
 function createSuggestionElement(suggestedEmail, emailField) {
   const suggestion = document.createElement('div')
   suggestion.className = 'mc4wp-email-suggestion'
-  suggestion.style.cssText = 'margin-bottom: 5px; font-size: 13px; color: #666;'
 
   const link = document.createElement('a')
   link.href = '#'
-  link.style.cssText = 'color: #0073aa; text-decoration: none; cursor: pointer;'
 
   // Use translatable string from WordPress
   const suggestionText = window.mc4wp_email_typo_checker && window.mc4wp_email_typo_checker.suggestion_text
@@ -238,7 +236,7 @@ function checkEmailTypo(emailField) {
     const suggestedEmail = emailParts[0] + '@' + suggestedDomain
 
     const suggestion = createSuggestionElement(suggestedEmail, emailField)
-    emailField.parentElement.insertBefore(suggestion, emailField)
+    emailField.after(suggestion)
   }
 }
 
