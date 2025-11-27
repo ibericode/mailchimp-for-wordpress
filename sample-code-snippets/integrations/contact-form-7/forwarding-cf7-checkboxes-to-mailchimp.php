@@ -5,7 +5,7 @@
  * To be able to forward their values to Mailchimp we need to change the selection(s) into a string
  * to prevent an error such "Contact Form 7 > MailChimp API Error: Bad Request. The resource submitted could not be validated."
  *
- * This code takes the checkbox names CHECKBOX1 in the CF7 form, and translates it to a semicolon separated string and send it to the Mailchimp field MMERGE8
+ * This code takes the checkbox named CHECKBOX1 from the CF7 form, and translates it to a semicolon separated string and send that to the Mailchimp field MMERGE8
  * 
  * Change MMERGE8 to your Mailchimp field and CHECKBOX1 to your CF7 field. 
  */
