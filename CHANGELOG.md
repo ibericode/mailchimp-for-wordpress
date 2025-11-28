@@ -1,6 +1,12 @@
 Changelog
 =========
 
+#### 4.10.9 - Nov 28, 2025
+
+- Specify `apiVersion` in call to `registerBlockType` so that WordPress 6.9 knows it can use the new iframe based editor.
+- Add new setting to send an email for critical errors, like API errors returned by Mailchimp.
+
+
 #### 4.10.8 - Oct 21, 2025
 
 - Show warning to administrators if a form is showing but Mailchimp API key is not set.
