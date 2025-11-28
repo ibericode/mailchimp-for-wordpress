@@ -4,6 +4,7 @@ const { SelectControl } = window.wp.components // eslint-disable-line no-unused-
 const forms = window.mc4wp_forms
 
 registerBlockType('mailchimp-for-wp/form', {
+  apiVersion: 3,
   title: __('Mailchimp for WordPress Form'),
   description: __('Block showing a Mailchimp for WordPress sign-up form'),
   category: 'widgets',
