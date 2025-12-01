@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 4.6
 Tested up to: 6.9
-Stable tag: 4.10.8
+Stable tag: 4.10.9
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.4
@@ -187,6 +187,12 @@ The plugin provides various filter and action hooks that allow you to modify or 
 9. Settings page for e-commerce integration with Mailchimp. Requires [Mailchimp for WordPress Premium](https://www.mc4wp.com/).
 
 == Changelog ==
+
+
+#### 4.10.9 - Nov 28, 2025
+
+- Specify `apiVersion` in call to `registerBlockType` so that WordPress 6.9 knows it can use the new iframe based editor.
+- Add new setting to send an email for critical errors, like API errors returned by Mailchimp.
 
 
 #### 4.10.8 - Oct 21, 2025
@@ -560,17 +566,7 @@ After installing this update, make sure to also update any add-on plugins like [
 
 - Update MemberPress hook names. Thanks [Ian Heggaton](https://github.com/pixelated-au)!
 - Use WordPress.org translations instead of bundling translation files in plugin itself.
-- Write .htaccess to directory of debug log file, to prevent file access.
-- Add some convenient hooks for Checkout for WooCommerce.
-- Stop parsing shortcodes in text widgets as WordPress core does this since version 4.9.
-
-
-#### 4.7 - Nov 7, 2019
-
-**Improvements**
-
-- Add role=alert to form notices.
-- Add setting to pre-check sign-up ...
+- Write .htaccess to directory of debug log file, to ...
 
 == Upgrade Notice ==
 
