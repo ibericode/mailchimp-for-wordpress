@@ -1,17 +1,18 @@
 <?php
 
 /**
- * Contact Form 7 checkboxes are passed as an array.  
- * To be able to forward their values to Mailchimp we need to change the selection(s) into a string
- * to prevent an error such "Contact Form 7 > MailChimp API Error: Bad Request. The resource submitted could not be validated."
+ * This code snippet will check if any of the CF7 forms is an array (checkboxes) and convert it to a comma separated string
+ * This way it can be saved in a normal text field in your Mailchimp audience.
  *
- * This code takes the checkbox named CHECKBOX1 from the CF7 form, and translates it to a semicolon separated string and send that to the Mailchimp field MMERGE8
- * 
- * Change MMERGE8 to your Mailchimp field and CHECKBOX1 to your CF7 field. 
- * The checkbox name in CF7 still needs the mc4wp- prefix, eg mc4wp-checkbox-1
+ * In your CF7 form make sure the Checkbox name has the mc4wp- prefix.
+ * For example if you want to save the values of the checkbox in text field called MMERGE9 in Mailchimp, name the checkbox mc4wp-MMERGE9
  */
 
-add_filter( 'mc4wp_integration_contact-form-7_data', function( $data ) {
-   $data['MMERGE8'] = join( ';', $data['CHECKBOX-1'] ?? [] );
-   return $data;
-});
+add_filter('mc4wp_integration_contact-form-7_subscriber_data', function (MC4WP_MailChimp_Subscriber $subscriber, $cf7_form_id) {
+    foreach ($subscriber->merge_fields as $key => &$value) {
+        if (is_array($value)) {
+            $value = join(', ', $value);
+        }
+    }
+    return $subscriber;
+}, 10, 2);
