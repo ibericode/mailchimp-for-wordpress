@@ -1,6 +1,6 @@
 /**
  * Email Domain Typo Checker
- * 
+ *
  * Detects common typos in email domains and suggests corrections
  * using Levenshtein distance algorithm (similar to the abandoned Mailcheck library)
  */
@@ -17,7 +17,7 @@ const COMMON_DOMAINS = (window.mc4wp_email_typo_checker && window.mc4wp_email_ty
  * @param {string} b - Second string
  * @returns {number} Edit distance between the strings
  */
-function levenshteinDistance(a, b) {
+function levenshteinDistance (a, b) {
   // Early exit for identical strings
   if (a === b) {
     return 0
@@ -115,7 +115,7 @@ function levenshteinDistance(a, b) {
  * Helper function for calculating minimum distance
  * @private
  */
-function _min(d0, d1, d2, bx, ay) {
+function _min (d0, d1, d2, bx, ay) {
   return d0 < d1 || d2 < d1
     ? d0 > d2
       ? d2 + 1
@@ -130,7 +130,7 @@ function _min(d0, d1, d2, bx, ay) {
  * @param {string} domain - The domain to check
  * @returns {string|null} Suggested domain or null if no close match found
  */
-function findClosestDomain(domain) {
+function findClosestDomain (domain) {
   if (!domain) return null
 
   const domainLower = domain.toLowerCase()
@@ -162,7 +162,7 @@ function findClosestDomain(domain) {
  * @param {string} email - Email address
  * @returns {string|null} Domain part of email or null
  */
-function extractDomain(email) {
+function extractDomain (email) {
   const parts = email.split('@')
   return parts.length === 2 ? parts[1] : null
 }
@@ -173,7 +173,7 @@ function extractDomain(email) {
  * @param {HTMLInputElement} emailField - The email input field
  * @returns {HTMLElement} The suggestion element
  */
-function createSuggestionElement(suggestedEmail, emailField) {
+function createSuggestionElement (suggestedEmail, emailField) {
   const suggestion = document.createElement('div')
   suggestion.className = 'mc4wp-email-suggestion'
 
@@ -203,7 +203,7 @@ function createSuggestionElement(suggestedEmail, emailField) {
  * Remove existing suggestion element
  * @param {HTMLInputElement} emailField - The email input field
  */
-function removeSuggestion(emailField) {
+function removeSuggestion (emailField) {
   const existingSuggestion = emailField.parentElement.querySelector('.mc4wp-email-suggestion')
   if (existingSuggestion) {
     existingSuggestion.remove()
@@ -214,7 +214,7 @@ function removeSuggestion(emailField) {
  * Check email for typos and show suggestion if needed
  * @param {HTMLInputElement} emailField - The email input field
  */
-function checkEmailTypo(emailField) {
+function checkEmailTypo (emailField) {
   const email = emailField.value.trim()
 
   // Remove any existing suggestion first
@@ -244,7 +244,7 @@ function checkEmailTypo(emailField) {
  * Initialize typo checker for a form
  * @param {HTMLFormElement} formElement - The form element
  */
-function initTypoChecker(formElement) {
+function initTypoChecker (formElement) {
   // Find all email fields in the form
   const emailFields = formElement.querySelectorAll('input[type="email"]')
 
@@ -264,7 +264,7 @@ function initTypoChecker(formElement) {
 /**
  * Initialize on all MC4WP forms with typo checking enabled
  */
-function init() {
+function init () {
   // Find all MC4WP forms with typo checking enabled
   const forms = document.querySelectorAll('.mc4wp-form[data-typo-check="1"]')
 
