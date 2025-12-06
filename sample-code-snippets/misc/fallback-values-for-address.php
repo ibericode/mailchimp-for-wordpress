@@ -20,10 +20,7 @@ add_filter('mc4wp_format_field_value', function ($value, $field_type) {
 
         // Fill missing values from fallbacks
         foreach ($fallbacks as $k => $fallback) {
-            $value[$k] = $value[$k] ?? $fallback;
-            if ($value[$k] === '') {
-                $value[$k] = $fallback;
-            }
+            $value[$k] = isset($value[$k]) && $value[$k] !== '' ? $value[$k] : $fallback;
         }
     }
     return $value;
