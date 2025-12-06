@@ -271,6 +271,11 @@ class MC4WP_Form_Element
         $attributes['data-id']   = $this->form->ID;
         $attributes['data-name'] = $this->form->name;
 
+        // add typo checker data attribute if enabled
+        if (! empty($this->form->settings['email_typo_check'])) {
+            $attributes['data-typo-check'] = '1';
+        }
+
         // build string of key="value" from array
         $string = '';
         foreach ($attributes as $name => $value) {
