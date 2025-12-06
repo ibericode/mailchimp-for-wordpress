@@ -160,6 +160,11 @@ class MC4WP_List_Data_Mapper
     {
         $field_type = strtolower($merge_field->type);
 
+        // Convert arrays to comma-separated strings for all non-address fields
+        if (is_array($value) && $field_type == 'text') {
+            $value = join(', ', $value);
+        }
+
         if (method_exists($this->formatter, $field_type)) {
             $value = call_user_func([ $this->formatter, $field_type ], $value, $merge_field->options);
         }
