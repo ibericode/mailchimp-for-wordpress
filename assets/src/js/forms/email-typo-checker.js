@@ -178,7 +178,7 @@ function createSuggestionElement (suggestedEmail, emailField) {
   suggestion.className = 'mc4wp-email-suggestion'
 
   const link = document.createElement('a')
-  link.href = '#'
+  link.setAttribute('href', '#')
 
   // Use translatable string from WordPress
   const suggestionText = window.mc4wp_email_typo_checker && window.mc4wp_email_typo_checker.suggestion_text
@@ -186,8 +186,8 @@ function createSuggestionElement (suggestedEmail, emailField) {
     : 'Did you mean %s?'
   link.textContent = suggestionText.replace('%s', suggestedEmail)
 
-  link.addEventListener('mousedown', function (e) {
-    e.preventDefault()
+  link.addEventListener('click', function (evt) {
+    evt.preventDefault()
     emailField.value = suggestedEmail
     removeSuggestion(emailField)
     // Trigger change event so other scripts can react
@@ -245,10 +245,7 @@ function checkEmailTypo (emailField) {
  * @param {HTMLFormElement} formElement - The form element
  */
 function initTypoChecker (formElement) {
-  // Find all email fields in the form
-  const emailFields = formElement.querySelectorAll('input[type="email"]')
-
-  emailFields.forEach(function (emailField) {
+  formElement.querySelectorAll('input[type="email"]').forEach(function (emailField) {
     // Add keyup event listener
     emailField.addEventListener('keyup', function () {
       checkEmailTypo(emailField)
@@ -261,20 +258,7 @@ function initTypoChecker (formElement) {
   })
 }
 
-/**
- * Initialize on all MC4WP forms with typo checking enabled
- */
-function init () {
-  // Find all MC4WP forms with typo checking enabled
-  const forms = document.querySelectorAll('.mc4wp-form[data-typo-check="1"]')
-
-  forms.forEach(initTypoChecker)
-}
-
 // Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', init)
-
-// Export for potential use by other scripts
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { init, checkEmailTypo, levenshteinDistance, findClosestDomain }
-}
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.mc4wp-form[data-typo-check="1"]').forEach(initTypoChecker)
+})
