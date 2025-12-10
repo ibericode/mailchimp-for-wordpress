@@ -48,7 +48,7 @@ forms.choice = function (config) {
   }
 
   if (config.type !== 'checkbox') {
-  visibleRows.push(rows.useParagraphs(config))
+    visibleRows.push(rows.useParagraphs(config))
   }
 
   if (config.type === 'select' || config.type === 'radio') {

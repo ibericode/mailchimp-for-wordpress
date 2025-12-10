@@ -158,15 +158,21 @@ function generate (config) {
   const isNested = !['checkbox', 'radio'].includes(config.type)
   const field = (generators[config.type] || generators.default)(config)
   const hasLabel = config.label.length > 0 && config.showLabel
-  
-  const content = config.type === 'terms-checkbox' ? field :
-    isNested ? (hasLabel ? m('label', [config.label, field]) : field) :
-    m('fieldset', [hasLabel ? m('legend', config.label) : '', field])
-  
+
+  const content = config.type === 'terms-checkbox'
+    ? field
+    : isNested
+      ? (hasLabel
+          ? m('label', [config.label, field])
+          : field)
+      : m('fieldset', [hasLabel
+        ? m('legend', config.label)
+        : '', field])
+
   const htmlTemplate = (config.wrap && isNested) ? m('p', content) : content
   const vdom = document.createElement('div')
   m.render(vdom, htmlTemplate)
-  
+
   return htmlutil.prettyPrint(vdom.innerHTML).replace(/<\/label>/g, '\n</label>') + '\n'
 }
 
