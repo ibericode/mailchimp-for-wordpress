@@ -154,7 +154,7 @@ generators.procaptcha = function (config) {
  * @param {object} config
  * @returns {string}
  */
-function generate(config) {
+function generate (config) {
   const isNested = !['checkbox', 'radio'].includes(config.type)
   const field = (generators[config.type] || generators.default)(config)
   const hasLabel = config.label.length > 0 && config.showLabel
@@ -167,7 +167,7 @@ function generate(config) {
   const vdom = document.createElement('div')
   m.render(vdom, htmlTemplate)
   
-  return htmlutil.prettyPrint(vdom.innerHTML) + '\n'
+  return htmlutil.prettyPrint(vdom.innerHTML).replace(/<\/label>/g, '\n</label>') + '\n'
 }
 
 module.exports = generate
