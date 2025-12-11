@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Plugin Name: Fix WPML Product Permalink in Mailchimp products
+ *
  * This snippet sets the product permalink to its translated version when using WooCommerce + WPML
  *
  * See https://github.com/ibericode/mailchimp-for-wordpress/issues/775
