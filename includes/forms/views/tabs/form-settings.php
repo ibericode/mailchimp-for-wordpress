@@ -95,7 +95,7 @@
     </tr>
 
     <tr valign="top">
-        <th scope="row"><label for="mc4wp_form_subscriber_tags"><?php echo esc_html__('Add Subscriber tags', 'mailchimp-for-wp'); ?></label></th>
+        <th scope="row"><label for="mc4wp_form_subscriber_tags"><?php echo esc_html__('Add tags', 'mailchimp-for-wp'); ?></label></th>
         <td>
             <input type="text" class="widefat" name="mc4wp_form[settings][subscriber_tags]" id="mc4wp_form_subscriber_tags" placeholder="<?php echo esc_attr__('Example: My tag, another tag', 'mailchimp-for-wp'); ?>" value="<?php echo esc_attr($opts['subscriber_tags']); ?>" />
             <p class="description">
@@ -107,9 +107,9 @@
     </tr>
 
     <tr valign="top">
-        <th scope="row"><label for="mc4wp_form_remove_subscriber_tags"><?php echo esc_html__('Remove subscriber tags', 'mailchimp-for-wp'); ?></label></th>
+        <th scope="row"><label for="mc4wp_form_remove_subscriber_tags"><?php echo esc_html__('Remove tags', 'mailchimp-for-wp'); ?></label></th>
         <td>
-            <input type="text" class="widefat" name="mc4wp_form[settings][remove_subscriber_tags]" id="mc4wp_form_remove_subscriber_tags" placeholder="<?php echo esc_attr__('Example: Old tag, another tag', 'mailchimp-for-wp'); ?>" value="<?php echo esc_attr($opts['remove_subscriber_tags']); ?>" />
+            <input type="text" class="widefat" name="mc4wp_form[settings][remove_subscriber_tags]" id="mc4wp_form_remove_subscriber_tags" placeholder="<?php echo esc_attr__('Example: My tag, another tag', 'mailchimp-for-wp'); ?>" value="<?php echo esc_attr($opts['remove_subscriber_tags']); ?>" />
             <p class="description">
                 <?php echo esc_html__('The listed tags will be removed from all subscribers updated by this form.', 'mailchimp-for-wp'); ?>
                 <?php echo esc_html__('Separate multiple values with a comma.', 'mailchimp-for-wp'); ?>
