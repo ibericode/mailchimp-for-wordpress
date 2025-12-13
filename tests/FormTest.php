@@ -287,6 +287,4 @@ class FormTest extends TestCase
             ['name' => 'tag', 'status' => 'inactive']
         ]);
     }
-
-
 }
