@@ -72,7 +72,7 @@ generators['terms-checkbox'] = function (config) {
       required: config.required
     }),
     ' ',
-    label
+    m('span', label)
   ])
 }
 
@@ -155,19 +155,25 @@ generators.procaptcha = function (config) {
  * @returns {string}
  */
 function generate (config) {
-  const labelAtts = {}
-  const label = config.label.length > 0 && config.showLabel ? m('label', labelAtts, config.label) : ''
-  const field = typeof (generators[config.type]) === 'function' ? generators[config.type](config) : generators.default(config)
-  const htmlTemplate = config.wrap ? m('p', [label, field]) : [label, field]
+  const isNested = !['checkbox', 'radio'].includes(config.type)
+  const field = (generators[config.type] || generators.default)(config)
+  const hasLabel = config.label.length > 0 && config.showLabel
 
-  // render in vdom
+  const content = config.type === 'terms-checkbox'
+    ? field
+    : isNested
+      ? (hasLabel
+          ? m('label', [config.label, field])
+          : field)
+      : m('fieldset', [hasLabel
+        ? m('legend', config.label)
+        : '', field])
+
+  const htmlTemplate = (config.wrap && isNested) ? m('p', content) : content
   const vdom = document.createElement('div')
   m.render(vdom, htmlTemplate)
 
-  // prettify html
-  const html = htmlutil.prettyPrint(vdom.innerHTML)
-
-  return html + '\n'
+  return htmlutil.prettyPrint(vdom.innerHTML) + '\n'
 }
 
 module.exports = generate
