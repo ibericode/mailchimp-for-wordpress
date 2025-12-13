@@ -72,7 +72,7 @@ generators['terms-checkbox'] = function (config) {
       required: config.required
     }),
     ' ',
-    label
+    m('span', label)
   ])
 }
 
@@ -173,7 +173,7 @@ function generate (config) {
   const vdom = document.createElement('div')
   m.render(vdom, htmlTemplate)
 
-  return htmlutil.prettyPrint(vdom.innerHTML).replace(/<\/label>/g, '\n</label>') + '\n'
+  return htmlutil.prettyPrint(vdom.innerHTML) + '\n'
 }
 
 module.exports = generate
