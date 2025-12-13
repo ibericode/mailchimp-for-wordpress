@@ -276,9 +276,17 @@ class FormTest extends TestCase
         $post = get_post(1);
         $form = new MC4WP_Form(1, $post);
         $form->settings = [
-            'subscriber_tags' => 'foo,,bar'
+            'subscriber_tags' => 'foo,bar',
+            'remove_subscriber_tags' => 'old,,tag'
         ];
 
-        $this->assertEquals($form->get_subscriber_tags(), ['foo', 'bar']);
+        $this->assertEquals($form->get_subscriber_tags(), [
+            ['name' => 'foo', 'status' => 'active'],
+            ['name' => 'bar', 'status' => 'active'],
+            ['name' => 'old', 'status' => 'inactive'],
+            ['name' => 'tag', 'status' => 'inactive']
+        ]);
     }
+
+
 }
