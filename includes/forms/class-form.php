@@ -773,12 +773,33 @@ class MC4WP_Form
     public function get_subscriber_tags()
     {
         $tags = [];
-        foreach (explode(',', $this->settings['subscriber_tags']) as $v) {
+
+        // Add active tags
+        $tags = array_merge($tags, $this->parse_tags_from_setting($this->settings['subscriber_tags'], 'active'));
+
+        // Add inactive (remove) tags
+        $tags = array_merge($tags, $this->parse_tags_from_setting($this->settings['remove_subscriber_tags'], 'inactive'));
+
+        return $tags;
+    }
+
+    /**
+     * Parse comma-separated tags from a setting into Mailchimp API format
+     *
+     * @since 4.10.10
+     * @param string $setting_value
+     * @param string $status
+     * @return array
+     */
+    private function parse_tags_from_setting($setting_value, $status)
+    {
+        $tags = [];
+        foreach (explode(',', $setting_value) as $v) {
             $v = trim($v);
             if ($v == '') {
                 continue;
             }
-            $tags[] = $v;
+            $tags[] = ['name' => $v, 'status' => $status];
         }
         return $tags;
     }
