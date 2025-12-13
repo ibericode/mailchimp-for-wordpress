@@ -110,31 +110,29 @@ class MC4WP_MailChimp
      * Format tags to send to Mailchimp.
      *
      * @param $mailchimp_tags array existent user tags
-     * @param $new_tags array new tags to add
+     * @param $tags array new tags to add
      *
      * @return array
      * @since 4.7.9
      */
-    private function merge_and_format_member_tags($mailchimp_tags, $new_tags)
+    private function merge_and_format_member_tags($mailchimp_tags, $tags)
     {
-        $mailchimp_tags = array_map(
-            function ($tag) {
-                return $tag->name;
-            },
-            $mailchimp_tags
-        );
-
-        $tags = array_unique(array_merge($mailchimp_tags, $new_tags), SORT_REGULAR);
-
-        return array_map(
-            function ($tag) {
-                return [
-                    'name'   => $tag,
-                    'status' => 'active',
+        $formatted_tags = [];
+        foreach ($tags as $tag) {
+            if (is_string($tag)) {
+                $formatted_tags[] = [
+                    'name' => $tag,
+                    'status' => 'active'
                 ];
-            },
-            $tags
-        );
+            } elseif (is_array($tag) && isset($tag['name'])) {
+                $formatted_tags[] = [
+                    'name' => $tag['name'],
+                    'status' => isset($tag['status']) ? $tag['status'] : 'active'
+                ];
+            }
+        }
+
+        return $formatted_tags;
     }
 
     /**
@@ -157,24 +155,8 @@ class MC4WP_MailChimp
 
         $api = $this->get_api();
 
-        // Format tags - handle both string tags (old style, default to active) and array tags with explicit status
-        $formatted_tags = [];
-        foreach ($tags as $tag) {
-            if (is_string($tag)) {
-                $formatted_tags[] = [
-                    'name' => $tag,
-                    'status' => 'active'
-                ];
-            } elseif (is_array($tag) && isset($tag['name'])) {
-                $formatted_tags[] = [
-                    'name' => $tag['name'],
-                    'status' => isset($tag['status']) ? $tag['status'] : 'active'
-                ];
-            }
-        }
-
         $data = [
-            'tags' => $formatted_tags,
+              'tags' => $this->merge_and_format_member_tags($mailchimp_member->tags, $tags),
         ];
 
         try {
