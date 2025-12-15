@@ -4,7 +4,7 @@
 .mc4wp-form-theme {
 	margin: 1em 0;
 }
-.mc4wp-form-theme label,
+.mc4wp-form-theme label span,
 .mc4wp-form-theme input {
 	width: auto;
 	display: block;
@@ -14,13 +14,13 @@
 	vertical-align: baseline;
 	line-height: normal;
 }
-.mc4wp-form-theme label:after,
+.mc4wp-form-theme label span:after,
 .mc4wp-form-theme input:after {
 	content:"";
 	display:table;
 	clear:both;
 }
-.mc4wp-form-theme label {
+.mc4wp-form-theme label span {
 	font-weight: bold;
 	margin-bottom: 6px;
 	display: block;
