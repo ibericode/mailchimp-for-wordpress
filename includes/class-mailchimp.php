@@ -86,16 +86,23 @@ class MC4WP_MailChimp
         }
 
         try {
+            // Extract tags from args before subscriber creation/update
+            $tags = [];
+            if (isset($args['tags']) && is_array($args['tags'])) {
+                $tags = $args['tags'];
+                unset($args['tags']);
+            }
+
             if ($existing_member_data) {
                 $data                      = $api->update_list_member($list_id, $email_address, $args);
                 $data->was_already_on_list = $existing_member_data->status === 'subscribed';
-
-                if (isset($args['tags']) && is_array($args['tags'])) {
-                    $this->list_tags_to_subscriber($list_id, $data, $args['tags']);
-                }
             } else {
                 $data                      = $api->add_new_list_member($list_id, $args);
                 $data->was_already_on_list = false;
+            }
+
+            if (!empty($tags)) {
+                $this->list_tags_to_subscriber($list_id, $data, $tags);
             }
         } catch (MC4WP_API_Exception $e) {
             $this->error_code    = $e->getCode();
