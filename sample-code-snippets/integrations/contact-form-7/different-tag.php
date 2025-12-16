@@ -5,6 +5,9 @@
  * In this example CF7 form with ID 500 will get the tag ES.
  * The form ID 510 will get the tag NL
  *
+ * NOTE: The ID in this case is the POST ID that you see in the URL when you edit a form.
+ * That means the ID is always a number and not the ID you see in the CF shortcode.
+ *
  * It is also possible to remove tags, see the subscriber-tags.php snippet under /forms/
  */
 
