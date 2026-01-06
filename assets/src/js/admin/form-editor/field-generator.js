@@ -130,19 +130,19 @@ generators.default = function (config) {
     attributes.name = config.name
   }
 
-  if (config.min.length) {
+  if (config.min !== undefined && config.min.length) {
     attributes.min = config.min
   }
 
-  if (config.max.length) {
+  if (config.max !== undefined && config.max.length) {
     attributes.max = config.max
   }
 
-  if (config.value.length) {
+  if (config.value !== undefined && config.value.length) {
     attributes.value = config.value
   }
 
-  if (config.placeholder.length) {
+  if (config.placeholder !== undefined && config.placeholder.length) {
     attributes.placeholder = config.placeholder
   }
 

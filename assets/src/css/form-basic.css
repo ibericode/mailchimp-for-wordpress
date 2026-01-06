@@ -4,26 +4,40 @@
 .mc4wp-form-basic {
 	margin: 1em 0;
 }
-.mc4wp-form-basic label span,
+
+.mc4wp-form-basic label,
 .mc4wp-form-basic input {
 	width: auto;
-	display: block;
 	box-sizing: border-box;
 	cursor: auto;
 	height: auto;
 	vertical-align: baseline;
 	line-height: normal;
 }
-.mc4wp-form-basic label span:after,
+
+.mc4wp-form-basic label:after,
 .mc4wp-form-basic input:after {
-	content:"";
-	display:table;
-	clear:both;
+	content: "";
+	display: table;
+	clear: both;
 }
-.mc4wp-form-basic label span {
+
+.mc4wp-form-basic label {
 	font-weight: bold;
 	margin-bottom: 6px;
 	display: block;
+}
+
+/* OLD STYLE: When input is a sibling (not nested) */
+.mc4wp-form-basic label + input {
+	display: block;
+}
+
+/* NEW STYLE: When input is nested inside label */
+.mc4wp-form-basic label > input {
+	display: block;
+	margin-top: 6px;
+	font-weight: normal;
 }
 
 /* Form Elements */
@@ -38,9 +52,11 @@
 	width: 100%;
 	max-width: 480px;
 }
+
 .mc4wp-form-basic input[type="number"] {
 	min-width: 40px;
 }
+
 .mc4wp-form-basic input[type="checkbox"],
 .mc4wp-form-basic input[type="radio"] {
 	position: relative;
@@ -51,16 +67,26 @@
 	display: inline-block;
 	border: 0;
 }
+
+/* NEW STYLE: Checkbox/radio nested in label - override inline-block */
+.mc4wp-form-basic label > input[type="checkbox"],
+.mc4wp-form-basic label > input[type="radio"] {
+	display: inline-block;
+	margin-top: 0;
+}
+
 .mc4wp-form-basic input[type="checkbox"] {
 	-webkit-appearance: checkbox;
 	-moz-appearance: checkbox;
 	appearance: checkbox;
 }
+
 .mc4wp-form-basic input[type="radio"] {
 	-webkit-appearance: radio;
 	-moz-appearance: radio;
 	appearance: radio;
 }
+
 .mc4wp-form-basic input[type="submit"],
 .mc4wp-form-basic button,
 .mc4wp-form-basic input[type="button"] {
@@ -78,16 +104,19 @@
 }
 
 /* Alert */
-.mc4wp-alert{
+.mc4wp-alert {
 	color: #c09853;
 	clear: both;
 }
+
 .mc4wp-success {
 	color: #468847;
 }
+
 .mc4wp-notice {
 	color: #3a87ad;
 }
+
 .mc4wp-error {
 	color: #CD5C5C;
 }
