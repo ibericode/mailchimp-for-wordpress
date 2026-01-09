@@ -52,6 +52,13 @@ generators.select = function (config) {
     )
   }
 
+  if (config.label && config.showLabel) {
+    return m('label', [
+      config.label,
+      m('select', attributes, options)
+    ])
+  }
+
   return m('select', attributes, options)
 }
 
@@ -72,7 +79,7 @@ generators['terms-checkbox'] = function (config) {
       required: config.required
     }),
     ' ',
-    label
+    m('span', label)
   ])
 }
 
@@ -83,24 +90,26 @@ generators['terms-checkbox'] = function (config) {
  * @returns {*}
  */
 generators.checkbox = function (config) {
-  return config.choices.map(function (choice) {
-    const name = config.name + (config.type === 'checkbox' ? '[]' : '')
-    const required = config.required && config.type === 'radio'
+  return m('fieldset', [
+    config.label && config.showLabel ? m('legend', config.label) : null,
+    config.choices.map(function (choice) {
+      const name = config.name + (config.type === 'checkbox' ? '[]' : '')
+      const required = config.required && config.type === 'radio'
 
-    return m('label', [
-      m('input', {
-        name,
-        type: config.type,
-        value: choice.value,
-        checked: choice.selected,
-        required,
-        oncreate: setAttributes
-      }),
-      ' ',
-      m('span', choice.label)
-    ]
-    )
-  })
+      return m('label', [
+        m('input', {
+          name,
+          type: config.type,
+          value: choice.value,
+          checked: choice.selected,
+          required,
+          oncreate: setAttributes
+        }),
+        ' ',
+        m('span', choice.label)
+      ])
+    })
+  ])
 }
 generators.radio = generators.checkbox
 
@@ -121,24 +130,31 @@ generators.default = function (config) {
     attributes.name = config.name
   }
 
-  if (config.min) {
+  if (config.min !== undefined && config.min.length) {
     attributes.min = config.min
   }
 
-  if (config.max) {
+  if (config.max !== undefined && config.max.length) {
     attributes.max = config.max
   }
 
-  if (config.value.length > 0) {
+  if (config.value !== undefined && config.value.length) {
     attributes.value = config.value
   }
 
-  if (config.placeholder.length > 0) {
+  if (config.placeholder !== undefined && config.placeholder.length) {
     attributes.placeholder = config.placeholder
   }
 
   attributes.required = config.required
   attributes.oncreate = setAttributes
+
+  if (config.label && config.showLabel) {
+    return m('label', [
+      config.label,
+      m('input', attributes)
+    ])
+  }
 
   return m('input', attributes)
 }
@@ -155,19 +171,12 @@ generators.procaptcha = function (config) {
  * @returns {string}
  */
 function generate (config) {
-  const labelAtts = {}
-  const label = config.label.length > 0 && config.showLabel ? m('label', labelAtts, config.label) : ''
-  const field = typeof (generators[config.type]) === 'function' ? generators[config.type](config) : generators.default(config)
-  const htmlTemplate = config.wrap ? m('p', [label, field]) : [label, field]
-
-  // render in vdom
+  const content = (generators[config.type] || generators.default)(config)
+  const wrap = config.wrap && config.type !== 'radio' && config.type !== 'checkbox'
+  const htmlTemplate = wrap ? m('p', content) : content
   const vdom = document.createElement('div')
   m.render(vdom, htmlTemplate)
-
-  // prettify html
-  const html = htmlutil.prettyPrint(vdom.innerHTML)
-
-  return html + '\n'
+  return htmlutil.prettyPrint(vdom.innerHTML) + '\n'
 }
 
 module.exports = generate
