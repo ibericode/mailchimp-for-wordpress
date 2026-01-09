@@ -86,17 +86,23 @@ class MC4WP_MailChimp
         }
 
         try {
+            // Extract tags from args before subscriber creation/update
+            $tags = [];
+            if (isset($args['tags']) && is_array($args['tags'])) {
+                $tags = $args['tags'];
+                unset($args['tags']);
+            }
+
             if ($existing_member_data) {
                 $data                      = $api->update_list_member($list_id, $email_address, $args);
                 $data->was_already_on_list = $existing_member_data->status === 'subscribed';
-
-                if (isset($args['tags']) && is_array($args['tags'])) {
-                    $this->list_add_tags_to_subscriber($list_id, $data, $args['tags']);
-                }
             } else {
                 $data                      = $api->add_new_list_member($list_id, $args);
                 $data->was_already_on_list = false;
             }
+
+            // update subscriber tags, if supplied
+            $this->update_subscriber_tags($list_id, $email_address, $tags);
         } catch (MC4WP_API_Exception $e) {
             $this->error_code    = $e->getCode();
             $this->error_message = $e;
@@ -109,59 +115,54 @@ class MC4WP_MailChimp
     /**
      * Format tags to send to Mailchimp.
      *
-     * @param $mailchimp_tags array existent user tags
-     * @param $new_tags array new tags to add
-     *
+     * @param $tags array new tags to add
      * @return array
      * @since 4.7.9
      */
-    private function merge_and_format_member_tags($mailchimp_tags, $new_tags)
+    private function merge_and_format_member_tags($tags)
     {
-        $mailchimp_tags = array_map(
-            function ($tag) {
-                return $tag->name;
-            },
-            $mailchimp_tags
-        );
-
-        $tags = array_unique(array_merge($mailchimp_tags, $new_tags), SORT_REGULAR);
-
-        return array_map(
-            function ($tag) {
-                return [
-                    'name'   => $tag,
-                    'status' => 'active',
+        $formatted_tags = [];
+        foreach ($tags as $tag) {
+            if (is_string($tag)) {
+                $formatted_tags[] = [
+                    'name' => $tag,
+                    'status' => 'active'
                 ];
-            },
-            $tags
-        );
+            } elseif (is_array($tag) && isset($tag['name'])) {
+                $formatted_tags[] = [
+                    'name' => $tag['name'],
+                    'status' => isset($tag['status']) ? $tag['status'] : 'active'
+                ];
+            }
+        }
+
+        return $formatted_tags;
     }
 
     /**
-     *  Post the tags on a list member.
+     * Post the tags on a list member.
      *
      * @param $mailchimp_list_id string The list id to subscribe to
-     * @param $mailchimp_member stdClass mailchimp user informations
-     * @param $new_tags array tags to add to the user
-     *
+     * @param $email_address Email of the Mailchimp susbcriber
+     * @param $tags array tags to set for the user (can include 'status' key)
      * @return bool
      * @throws Exception
-     * @since 4.7.9
+     * @since 4.10.10
      */
-    private function list_add_tags_to_subscriber($mailchimp_list_id, $mailchimp_member, array $new_tags)
+    private function update_subscriber_tags($mailchimp_list_id, $email_address, array $tags)
     {
         // do nothing if no tags given
-        if (count($new_tags) === 0) {
+        if (count($tags) === 0) {
             return true;
         }
 
-        $api  = $this->get_api();
+        $api = $this->get_api();
         $data = [
-            'tags' => $this->merge_and_format_member_tags($mailchimp_member->tags, $new_tags),
+              'tags' => $this->merge_and_format_member_tags($tags),
         ];
 
         try {
-            $api->update_list_member_tags($mailchimp_list_id, $mailchimp_member->email_address, $data);
+            $api->update_list_member_tags($mailchimp_list_id, $email_address, $data);
         } catch (MC4WP_API_Exception $ex) {
             // fail silently
             return false;
