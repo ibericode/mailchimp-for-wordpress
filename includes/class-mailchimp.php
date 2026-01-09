@@ -101,9 +101,8 @@ class MC4WP_MailChimp
                 $data->was_already_on_list = false;
             }
 
-            if (!empty($tags)) {
-                $this->list_tags_to_subscriber($list_id, $data, $tags);
-            }
+            // update subscriber tags, if supplied
+            $this->update_subscriber_tags($list_id, $email_address, $tags);
         } catch (MC4WP_API_Exception $e) {
             $this->error_code    = $e->getCode();
             $this->error_message = $e;
@@ -116,13 +115,11 @@ class MC4WP_MailChimp
     /**
      * Format tags to send to Mailchimp.
      *
-     * @param $mailchimp_tags array existent user tags
      * @param $tags array new tags to add
-     *
      * @return array
      * @since 4.7.9
      */
-    private function merge_and_format_member_tags($mailchimp_tags, $tags)
+    private function merge_and_format_member_tags($tags)
     {
         $formatted_tags = [];
         foreach ($tags as $tag) {
@@ -146,14 +143,13 @@ class MC4WP_MailChimp
      * Post the tags on a list member.
      *
      * @param $mailchimp_list_id string The list id to subscribe to
-     * @param $mailchimp_member stdClass mailchimp user informations
+     * @param $email_address Email of the Mailchimp susbcriber
      * @param $tags array tags to set for the user (can include 'status' key)
-     *
      * @return bool
      * @throws Exception
      * @since 4.10.10
      */
-    private function list_tags_to_subscriber($mailchimp_list_id, $mailchimp_member, array $tags)
+    private function update_subscriber_tags($mailchimp_list_id, $email_address, array $tags)
     {
         // do nothing if no tags given
         if (count($tags) === 0) {
@@ -161,13 +157,12 @@ class MC4WP_MailChimp
         }
 
         $api = $this->get_api();
-
         $data = [
-              'tags' => $this->merge_and_format_member_tags($mailchimp_member->tags, $tags),
+              'tags' => $this->merge_and_format_member_tags($tags),
         ];
 
         try {
-            $api->update_list_member_tags($mailchimp_list_id, $mailchimp_member->email_address, $data);
+            $api->update_list_member_tags($mailchimp_list_id, $email_address, $data);
         } catch (MC4WP_API_Exception $ex) {
             // fail silently
             return false;
