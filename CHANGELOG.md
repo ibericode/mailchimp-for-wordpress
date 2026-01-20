@@ -1,6 +1,15 @@
 Changelog
 =========
 
+#### 4.11.0 - Jan 20, 2026
+
+- Add form setting to remove tags from existing subscribers.
+- Add form setting to check for common email typos.
+- In Prosopo integration, link directly to API key screen instead of user profile.
+- Automatically convert string fields to a comma-separated string if an array value is received.
+- Fix undefined key warning for new setting that emails to site administrator on errors.
+
+
 #### 4.10.9 - Nov 28, 2025
 
 - Specify `apiVersion` in call to `registerBlockType` so that WordPress 6.9 knows it can use the new iframe based editor.
