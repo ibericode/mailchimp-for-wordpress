@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 4.6
 Tested up to: 6.9
-Stable tag: 4.10.9
+Stable tag: 4.11.0
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.4
@@ -187,6 +187,15 @@ The plugin provides various filter and action hooks that allow you to modify or 
 9. Settings page for e-commerce integration with Mailchimp. Requires [Mailchimp for WordPress Premium](https://www.mc4wp.com/).
 
 == Changelog ==
+
+
+#### 4.11.0 - Jan 20, 2026
+
+- Add form setting to remove tags from existing subscribers.
+- Add form setting to check for common email typos.
+- In Prosopo integration, link directly to API key screen instead of user profile.
+- Automatically convert string fields to a comma-separated string if an array value is received.
+- Fix undefined key warning for new setting that emails to site administrator on errors.
 
 
 #### 4.10.9 - Nov 28, 2025
@@ -566,7 +575,581 @@ After installing this update, make sure to also update any add-on plugins like [
 
 - Update MemberPress hook names. Thanks [Ian Heggaton](https://github.com/pixelated-au)!
 - Use WordPress.org translations instead of bundling translation files in plugin itself.
-- Write .htaccess to directory of debug log file, to ...
+- Write .htaccess to directory of debug log file, to prevent file access.
+- Add some convenient hooks for Checkout for WooCommerce.
+- Stop parsing shortcodes in text widgets as WordPress core does this since version 4.9.
+
+
+#### 4.7 - Nov 7, 2019
+
+**Improvements**
+
+- Add role=alert to form notices.
+- Add setting to pre-check sign-up checkbox for Gravity Forms integrations.
+- Add new position for WooCommerce integration: directly after the billing_email field.
+- Fix PHP notices for submitting a form and saving a form as an administrator.
+- Add link to [Koko Analytics plugin](https://wordpress.org/plugins/koko-analytics/).
+
+
+#### 4.6.2 - Oct 24, 2019
+
+**Fixes**
+
+- Address fields in forms would always be required (even if really optional).
+
+**Improvements**
+
+- Add proper SVG admin menu icon.
+- Minor overall performance and memory usage improvements.
+
+
+#### 4.6.1 - Oct 7, 2019
+
+**Fixes**
+
+- Fixed list cache usage for WPForms, Gravity Forms and Ninja Forms integrations.
+
+
+#### 4.6.0 - Oct 7, 2019
+
+**Improvements**
+
+- Improved fetch and cache mechanism for retrieving Mailchimp account details, fetching data only when it is required.
+- Updated [Mithril](https://mithril.js.org/) and [CodeMirror](https://codemirror.net/) dependencies.
+- Decreased size of `forms.js` from 22KB to 9KB.
+- No longer requiring jQuery anywhere.
+- Increase API HTTP request timeout to 15 seconds.
+
+Please note that installing this update requires you to also update any add-ons like [Mailchimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/) and [Mailchimp for WordPress Premium](https://www.mc4wp.com/premium-features/) (if installed).
+
+
+#### 4.5.5 - Sep 12, 2019
+
+**Fixes**
+
+- Google reCAPTCHA script was still loading even if no forms have it enabled.
+
+
+#### 4.5.4 - Sep 11, 2019
+
+**Improvements**
+
+- Removed custom color from menu item for improved accessibility.
+- Take birthday field format into account when sending data to Mailchimp.
+- Print Google reCAPTCHA script in footer.
+
+**Changes**
+
+- Changed plugin name to MC4WP instead of Mailchimp for WordPress.
+
+
+#### 4.5.3 - July 23, 2019
+
+**Fixes**
+
+- Temporarily switch status of pending subscribers to "unsubscribe" versus deleting susbcriber before re-subscribing.
+- Deprecation notice for Gravity Forms version 2.4 and higher.
+
+**Improvements**
+
+- Filter out empty tags when applying tags to new subscribers.
+- Show all not installed integrations.
+- Show notice when form doesn't have a Mailchimp list selected to subscribe people to.
+- Check function existence for compatibility with WordPress 4.7
+- Don't submit form when Google reCAPTCHA is enabled but errors.
+- Update third-party JavaScript dependencies.
+
+
+#### 4.5.2 - May 8, 2019
+
+**Improvements**
+
+- Accept more truthy values in custom integration for improved compatibility with third-party forms.
+- Update JavaScript dependencies.
+- Load Google reCaptcha script in footer (if needed).
+
+
+#### 4.5.1 - April 8, 2019
+
+**Additions**
+
+- Add sign-up integration for [Give](https://wordpress.org/plugins/give/)
+- Add sign-up integration for [UltimateMember](https://wordpress.org/plugins/ultimate-member/)
+
+**Improvements**
+
+- Write to debug log if Google reCAPTCHA secret key is incorrect.
+- Validate reCAPTCHA keys when savings form settings.
+- Allow setting an empty "successfully subscribed" message.
+
+
+#### 4.5.0 - March 27, 2019
+
+**Additions**
+
+- Built-in integration with Google reCAPTCHA to prevent bots from subscribing to your Mailchimp lists.
+
+**Improvements**
+
+- Minor improvements to the JavaScript that is loaded on admin pages.
+
+
+#### 4.4.0 - March 1, 2019
+
+**Fixes**
+
+- AffiliateWP integration subscribing the wrong user if affiliate ID differs from user ID.
+
+**Improvements**
+
+- Renamed "MailChimp" to "Mailchimp" to match Mailchimp's new branding.
+- More accurate handling of timeouts for accounts with many MailChimp lists.
+- UX improvements for integrations overview page.
+- Validate MailChimp API key format when it's entered.
+- Improved compatibility with Klarna Checkout in the WooCommerce checkout integration.
+- Bumped required PHP version to 5.3 (soft requirement for now).
+
+**Additions**
+
+- Added Gutenberg block for easily adding a form to a post or page.
+- Added subscriber tags setting to forms.
+
+
+#### 4.3.3 - December 31, 2018
+
+**Fixes**
+
+- Update WPForms integration to properly detect if the WPForms plugin is activated.
+
+**Improvements**
+
+- Write API request parameters to the debug log in case of connection timeouts.
+- Update JavaScript dependencies.
+
+
+#### 4.3.2 - December 11, 2018
+
+**Fixes**
+
+- Use of `readonly` function, which is only available in WordPress 4.9 or later.
+
+
+#### 4.3.1 - November 28, 2018
+
+**Fixes**
+
+- Fatal error on PHP versions older than 5.5
+
+
+#### 4.3 - November 28, 2018
+
+**Additions**
+
+- Added `MC4WP_API_KEY` PHP constant which can be used to set your Mailchimp API key.
+- Add `mc4wp_mailchimp_list_limit` filter hook to modify the maximum number of Mailchimp lists to fetch. Defaults to 200.
+
+**Improvements**
+
+- Apply `mc4wp_integration_gravity-forms_options` filter hook on Gravity Forms integration options so the checkbox can be prechecked and the checkbox label text modified.
+- The `updated_subscriber` JS event is now fired forms not using AJAX as well (when applicable).
+
+
+#### 4.2.5 - Sep 11, 2018
+
+**Improvements**
+
+- Only re-add subscriber to list if we want to re-trigger a double opt-in confirmation email.
+- Change Gravity Forms field name to "Mailchimp for WordPress"
+- Get rid of cached result of Mailchimp API connection.
+
+
+#### 4.2.4 - July 9, 2018
+
+**Improvements**
+
+- Ensure type-safety on some global variables.
+- Stop showing trashed forms immediately.
+- Pre-check Mailchimp list when creating a new form if there is only 1 list.
+- Send `null` for unknown values in usage tracking data (only when opted-in).
+
+**Additions**
+
+- Add methods for accessing Mailchimp's e-commerce promo code endpoints to API class.
+
+
+#### 4.2.3 - June 11, 2018
+
+**Fixes**
+
+- Don't wrap "agree to terms" input in hyperlink element.
+- Allow [ENTER] key again after field helper overlay is closed.
+
+**Improvements**
+
+- Fallback to meta-refresh if redirect fails because of "headers already sent" error.
+
+
+
+#### 4.2.2 - May 22, 2018
+
+**Fixes**
+
+- Events Manager integration was not working with logged-in users.
+- Form preview URL should respect admin HTTP(S) scheme.
+- Removed use of PHP 5.4 function.
+
+**Improvements**
+
+- Add "agree to terms" checkbox to field helper.
+
+**Additions**
+
+- Add filter `mc4wp_http_request_args`.
+
+
+#### 4.2.1 - April 11, 2018
+
+**Fixes**
+
+- Namespace usage warning when running PHP 5.2
+
+**Improvements**
+
+- Remove obsolete `type` attribute from all `<script>` tags printed by the plugin.
+- Improved tooltips on settings pages.
+- Do not pre-check integration checkboxes by default.
+- Add textual warnings to settings that may affect [GDPR compliance](https://www.mc4wp.com/kb/gdpr-compliance/).
+- Update translation files.
+
+#### 4.2 - March 5, 2018
+
+**Additions**
+
+- Live form preview while editing form.
+
+**Improvements**
+
+- Improved [conditional fields logic](https://www.mc4wp.com/kb/conditional-fields-elements/).
+- Debug log now includes request & response data.
+- [Form JavaScript events](https://www.mc4wp.com/kb/javascript-form-events/) are fired in an isolated thread now, to prevent errors in event callbacks from breaking form functionality.
+- Don't send empty field values to Mailchimp when updating subscribers.
+- Show interest grouping ID in list overview on settings page.
+
+**Fixes**
+
+- Ninja Forms export checkbox would always state "checked" when form contained a Mailchimp sign-up checkbox.
+
+
+
+#### 4.1.15 - February 7, 2018
+
+**Fixes**
+
+- Dropdown fields with special characters were not properly passed to Mailchimp.
+- Interest groups with an all-numeric ID were not properly passed to Mailchimp.
+
+**Improvements**
+
+- Various minor code optimizations
+- Do not redirect when showing "already subscribed" warning.
+- Improved scroll to form handling after a form is submitted without AJAX.
+
+
+#### 4.1.14 - January 8, 2018
+
+**Fixes**
+
+- Validate method was incorrectly checking required array fields.
+
+**Improvements**
+
+- Wrap some missing strings in translate calls. Thanks [morlor](https://github.com/morloi).
+- Make it clear that redirecting after successful form submissions will not show the "subscribed" message.
+
+
+
+#### 4.1.13 - December 28, 2017
+
+**Fixes**
+
+- Array to string conversion in default form messages.
+
+**Additions**
+
+- Allow marking Gravity Forms sign-up checkbox as a required field.
+
+
+#### 4.1.12 - December 11, 2017
+
+**Fixes**
+
+- Ninja Forms double opt-in setting was incorrectly inversed.
+
+**Improvements**
+
+- Simplified form processing & notice logic.
+- Prevent 404 errors by proactively replacing lowercased `name="name"` input attributes.
+- Updated JavaScript dependencies.
+
+**Additions**
+
+- Integration for AffiliateWP.
+
+
+#### 4.1.11 - November 2, 2017
+
+**Fixes**
+
+- Filter out empty array values when overriding selected Mailchimp lists via `_mc4wp_lists`.
+
+**Improvements**
+
+- Updated JavaScript dependencies.
+
+**Additions**
+
+- Link to the [HTML Forms](https://www.htmlforms.io/) from the plugin settings pages.
+
+
+#### 4.1.10 - October 19, 2017
+
+**Improvements**
+
+- Remove unused options from Ninja Forms integration.
+- Now logging all sign-ups from Ninja Forms integrations when using [Mailchimp for WordPress Premium](https://www.mc4wp.com/premium-features/).
+
+**Additions**
+
+- Added Gravity Forms integration. You can now integrate with Gravity Forms by adding the "Mailchimp" field to your forms.
+
+
+#### 4.1.9 - September 19, 2017
+
+**Improvements**
+
+- Add `<label>` element to sign-up checkbox for WCAG compatibility.
+- Custom integration now works with Enfold theme's contact form element.
+
+
+#### 4.1.7 & 4.1.8 - September 8, 2017
+
+**Fixes**
+
+- Properly escape the return value of `add_query_arg` when it is used in HTML attributes to prevent cross-site scripting. Thanks to [Karim Ouerghemmi of RIPS](https://www.ripstech.com/) for responsibly disclosing.
+- Now loading integrations after WPML so that String Translations work properly.
+
+**Additions**
+
+- Add sign-up integration for WPForms forms.
+
+**Improvements**
+
+- Updated internal JS dependencies.
+- Form tag `{data key="foo.bar"}` now allows you to access nested array values.
+
+
+#### 4.1.6 - July 31, 2017
+
+**Fixes**
+
+- Method on API class for retrieving campaign data.
+
+**Improvements**
+
+- Show Akamai reference number when an API request is blocked by Mailchimp's firewall.
+- Minor output buffering improvements in form previewer.
+
+
+#### 4.1.5 - June 27, 2017
+
+**Fixes**
+
+- Failsafe against outputting sign-up checkbox twice in registration forms.
+- Properly close HTML anchor element in French translation files.
+- Fix BuddyPress sign-ups when using WordPress Multisite.
+
+**Improvements**
+
+- Fire action hook `mc4wp_form_updated_subscriber` whenever a form was used to update a subscriber in Mailchimp.
+- Increase browser timeout for AJAX request when fetching Mailchimp lists.
+
+**Additions**
+
+- Added campaign & template methods to API client class.
+
+
+
+#### 4.1.4 - June 15, 2017
+
+**Fixes**
+
+- Some form specific JS events were not firing due to incorrect event names.
+- Registration form integration now works with WooCommerce registration form.
+- Notice that asks for a plugin review would re-appear after dismissing it.
+
+
+#### 4.1.3 - May 24, 2017
+
+**Improvements**
+
+- Randomise time of cron event that renews Mailchimp lists.
+- Always try to show Mailchimp list info when API key is given.
+
+
+#### 4.1.2 - May 8, 2017
+
+**Fixes**
+
+- Use earlier hook priority for Ninja Forms 3 integration so action is registered on time.
+
+**Improvements**
+
+- Improved Mailchimp list fetching & memory usage for accounts with many lists.
+- Show error message when fetching lists fails.
+- Updated plugin translations.
+
+#### 4.1.1 - April 11, 2017
+
+**Fixes**
+
+- WPML String Translation not working with the checkbox label for sign-up integrations.
+
+**Improvements**
+
+- Use updated order methods when using WooCommerce 3.0, thanks to Liam McArthur.
+- Updated JavaScript dependencies.
+
+
+#### 4.1.0 - March 14, 2017
+
+**Improvements**
+
+- Updated all JavaScript dependencies in the plugin.
+- Failsafed filter hooks to prevent invalid variable types.
+- Explain that greyed out integrations means that specific plugin is not activated.
+- Conditional form elements now uses event delegation, so it works with forms in [Boxzilla pop-ups](https://boxzillaplugin.com/).
+- Updated language files.
+
+**Additions**
+
+- Added support for Ninja Forms 3.
+- Added `mc4wp_integration_show_checkbox` filter.
+
+
+#### 4.0.13 - February 8, 2017
+
+**Improvements**
+
+- Ensure fields are HTML decoded before sending to Mailchimp.
+- Better OptimizePress compatibility.
+- Show all address-type fields as required when form contains 1 or more fields of the same address group.
+
+
+#### 4.0.12 - January 16, 2017
+
+**Fixes**
+
+- Don't call `stripslashes` on POST data twice.
+
+**Improvements**
+
+- Plugin review notice is now dismissible over AJAX.
+- Improved formatting of birthday fields.
+- Updated Polish translations, thanks to Mateusz Lomber.
+- Updated German translations, thanks to Sven de Vries.
+
+**Additions**
+
+- Add `update_ecommerce_store_product` method to API class.
+- Throw form specific JavaScript events, like `15.subscribed` to hook into "subscribed" events for form with ID 15.
+
+
+#### 4.0.11 - December 9, 2016
+
+**Fixes**
+
+- Unescaped request variable on integration settings page, allowing for authenticated XSS. Thanks to [dxwsecurity](https://security.dxw.com/) for responsibly disclosing.
+
+**Improvements**
+
+- Add `$args` parameter to `API::get_lists_activity` method. Relates to the [Mailchimp Activity](https://wordpress.org/plugins/mc4wp-activity/) plugin.
+
+
+#### 4.0.10 - December 6, 2016
+
+**Improvements**
+
+- You can now enable or disable debug logging from the "Other" settings page.
+- No longer using deprecated function in Contact Form 7, thanks to [stodorovic](https://github.com/stodorovic).
+- Improved UI for adding hidden interest groupings fields to a form.
+
+
+#### 4.0.9 - November 23, 2016
+
+**Fixes**
+
+- Issue with escaped HTML when using form tags introduced by previous update.
+
+
+#### 4.0.8 - November 23, 2016
+
+**Improvements**
+
+- Improved handling of large debug logs.
+- Improved error messages when writing exceptions to debug log.
+- Show notice when form is missing required Mailchimp fields.
+- Custom form integration now handles arrays with 1-level depth. Thanks to [Mardari Igor](https://github.com/GarryOne).
+- You can now use nested tags in your form code, eg `{data key="utm_source" default="{current_path}"}`
+
+**Additions**
+
+- Add `data-hide-if` attribute logic to forms. See [conditionally hide form fields](https://www.mc4wp.com/kb/conditional-fields-elements/). Thanks to [Kurt Zenisek](http://kurtzenisek.com/).
+- Add hooks for delayed BuddyPress sign-up. Thanks to [Christian Wach](https://profiles.wordpress.org/needle).
+
+
+#### 4.0.7 - October 25, 2016
+
+**Improvements**
+
+- Obfuscate all email addresses in debug log. Thanks [Sauli Lepola](https://twitter.com/SJLfi).
+- Ask for confirmation before disabling double opt-in, which we do not recommend.
+- Allow vertical resizing of debug log.
+- Failsafe against including JavaScript file twice.
+- No longer wrapping CF7 checkbox in paragraph tags.
+
+**Additions**
+
+- Added `mc4wp_form_api_error` action hook for API errors encountered by forms.
+- Added `element_class` argument to `[mc4wp_form]` shortcode for adding CSS classes.
+
+
+#### 4.0.6 - October 10, 2016
+
+**Fixes**
+
+- Issue with lists not showing when using W3 Total Cache with APCu object cache enabled.
+
+**Improvements**
+
+- We're no longer stripping newlines from text fields.
+
+**Additions**
+
+- Added missing e-commerce related API methods to API class.
+
+
+#### 4.0.5 - September 29, 2016
+
+**Fixes**
+
+- Allow checkbox option for the List Choice field (again).
+
+**Improvements**
+
+- Fetch Mailchimp lists over AJAX, to speed up perceived performance (especially when your account has many lists).
+- Periodically fetch Mailchimp lists, so cache is always fresh.
+- Improved `<label>` element accessibility for checkbox integrations.
+- Stop using double ...
 
 == Upgrade Notice ==
 
