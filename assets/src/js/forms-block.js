@@ -1,5 +1,6 @@
 const __ = window.wp.i18n.__
 const { registerBlockType } = window.wp.blocks
+const { useBlockProps } = window.wp.blockEditor
 const { SelectControl } = window.wp.components // eslint-disable-line no-unused-vars
 const forms = window.mc4wp_forms
 
@@ -18,7 +19,7 @@ registerBlockType('mailchimp-for-wp/form', {
     html: false
   },
 
-  edit: function (props) {
+  edit: function ({ attributes, setAttributes }) {
     const options = forms.map(f => {
       return {
         label: f.name,
@@ -26,18 +27,18 @@ registerBlockType('mailchimp-for-wp/form', {
       }
     })
 
-    if (props.attributes.id === undefined && forms.length > 0) {
-      props.setAttributes({ id: forms[0].id })
+    if (attributes.id === undefined && forms.length > 0) {
+      setAttributes({ id: forms[0].id })
     }
 
     return (
-      <div style={{ backgroundColor: '#f8f9f9', padding: '14px' }}>
+      <div style={{ backgroundColor: '#f8f9f9', padding: '14px' }} {...useBlockProps()}>
         <SelectControl
           label={__('Mailchimp for WordPress Sign-up Form')}
-          value={props.attributes.id}
+          value={attributes.id}
           options={options}
           onChange={value => {
-            props.setAttributes({ id: value })
+            setAttributes({ id: value })
           }}
         />
       </div>
