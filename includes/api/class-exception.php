@@ -10,18 +10,18 @@
 class MC4WP_API_Exception extends Exception
 {
     /**
-    * @var object
-    */
+     * @var object
+     */
     public $response = [];
 
     /**
-    * @var object
-    */
+     * @var object
+     */
     public $request = [];
 
     /**
-    * @var array
-    */
+     * @var object
+     */
     public $response_data = [];
 
     /**
@@ -44,13 +44,13 @@ class MC4WP_API_Exception extends Exception
     }
 
     /**
-    * Backwards compatibility for direct property access.
-    * @param string $property
-    * @return mixed
-    */
+     * Backwards compatibility for direct property access.
+     * @param string $property
+     * @return mixed
+     */
     public function __get($property)
     {
-        if (in_array($property, [ 'title', 'detail', 'errors' ], true)) {
+        if (in_array($property, ['title', 'detail', 'errors'], true)) {
             if (! empty($this->response_data) && isset($this->response_data->{$property})) {
                 return $this->response_data->{$property};
             }
