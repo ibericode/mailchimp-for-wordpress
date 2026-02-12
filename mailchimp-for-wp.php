@@ -82,14 +82,9 @@ add_action('plugins_loaded', function () {
             $messages                = new MC4WP_Admin_Messages();
             $mc4wp['admin.messages'] = $messages;
 
-            $admin = new MC4WP_Admin($admin_tools, $messages);
-            $admin->add_hooks();
-
-            $forms_admin = new MC4WP_Forms_Admin($messages);
-            $forms_admin->add_hooks();
-
-            $integrations_admin = new MC4WP_Integration_Admin($integration_manager, $messages);
-            $integrations_admin->add_hooks();
+            (new MC4WP_Admin($admin_tools, $messages))->add_hooks();
+            (new MC4WP_Forms_Admin($messages))->add_hooks();
+            (new MC4WP_Integration_Admin($integration_manager, $messages))->add_hooks();
         }
     }
 
