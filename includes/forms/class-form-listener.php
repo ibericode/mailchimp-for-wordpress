@@ -206,38 +206,16 @@ class MC4WP_Form_Listener
      */
     public function process_unsubscribe_form(MC4WP_Form $form)
     {
-        $mailchimp = new MC4WP_MailChimp();
-        $log       = $this->get_log();
-        $result    = null;
-        $data      = $form->get_data();
+        $form->add_error('unauthorized');
+        $this->get_log()->warning(
+            sprintf('Form %d > Unsubscribe forms used but this feature is no longer supported because of security implications', $form->ID)
+        );
+        _deprecated_function('MC4WP_Form_Listener::process_unsubscribe_form', '4.11.2', 'Unsubscribe forms are no longer supported');
 
-        // unsubscribe from each list
-        foreach ($form->get_lists() as $list_id) {
-            $result = $mailchimp->list_unsubscribe($list_id, $data['EMAIL']);
-        }
-
-        if (! $result) {
-            $form->add_notice($form->messages['error'], 'error');
-            $log->error(sprintf('Form %d > Mailchimp API error: %s', $form->ID, $mailchimp->get_error_message()));
-
-            // bail
-            return;
-        }
-
-        // Success! Unsubscribed.
-        $form->last_event = 'unsubscribed';
-        $form->add_notice($form->messages['unsubscribed'], 'notice');
-        $log->info(sprintf('Form %d > Successfully unsubscribed %s', $form->ID, $data['EMAIL']));
-
-        /**
-         * Fires right after a form was used to unsubscribe.
-         *
-         * @since 3.0
-         *
-         * @param MC4WP_Form $form Instance of the submitted form.
-         * @param string $email
-         */
-        do_action('mc4wp_form_unsubscribed', $form, $data['EMAIL']);
+        // This feature was removed in version 4.11.2 and unsubscribe forms are now no longer functional
+        // We log the message here to give site admins a chance to remove the forms from their site
+        // and we don't want to silently turn them into subscribe forms
+        // TODO (Mar 2027): Remove this method entirely in a future major release, along with the "unsubscribe" action and related code in the MC4WP_Form class.
     }
 
     /**

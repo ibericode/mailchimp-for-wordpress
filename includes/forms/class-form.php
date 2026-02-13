@@ -1,5 +1,7 @@
 <?php
 
+// TODO (March 2027): Remove the "unsubscribe" action and related code in this class, as well as the "action" config setting, since the unsubscribe form type is no longer supported as of version 4.11.2.
+
 /**
  * Class MC4WP_Form
  *

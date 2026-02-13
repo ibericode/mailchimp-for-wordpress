@@ -191,19 +191,6 @@ function registerCustomFields (lists) {
     acceptsMultipleValues: true
   }, true)
 
-  choices = {
-    subscribe: 'Subscribe',
-    unsubscribe: 'Unsubscribe'
-  }
-  register(i18n.formFields, {
-    name: '_mc4wp_action',
-    type: 'radio',
-    title: i18n.formAction,
-    choices,
-    value: 'subscribe',
-    help: i18n.formActionDescription
-  }, true)
-
   register(i18n.formFields, {
     name: 'AGREE_TO_TERMS',
     value: 1,
