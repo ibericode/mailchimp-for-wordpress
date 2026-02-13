@@ -147,8 +147,6 @@ function registerListsFields (lists) {
 }
 
 function registerCustomFields (lists) {
-  let choices
-
   register(i18n.listFields, {
     name: 'EMAIL',
     title: i18n.emailAddress,
@@ -177,7 +175,7 @@ function registerCustomFields (lists) {
   }, true)
 
   // register lists choice field
-  choices = {}
+  const choices = {}
   for (const key in lists) {
     choices[lists[key].id] = lists[key].name
   }
