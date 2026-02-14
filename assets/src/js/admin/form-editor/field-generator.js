@@ -137,6 +137,10 @@ generators.default = function (config) {
     attributes.placeholder = config.placeholder
   }
 
+  if (config.autocomplete && config.autocomplete.length > 0) {
+    attributes.autocomplete = config.autocomplete
+  }
+
   attributes.required = config.required
   attributes.oncreate = setAttributes
 
@@ -154,7 +158,7 @@ generators.procaptcha = function (config) {
  * @param {object} config
  * @returns {string}
  */
-function generate (config) {
+function generate(config) {
   const labelAtts = {}
   const label = config.label.length > 0 && config.showLabel ? m('label', labelAtts, config.label) : ''
   const field = typeof (generators[config.type]) === 'function' ? generators[config.type](config) : generators.default(config)
