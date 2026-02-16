@@ -158,7 +158,7 @@ generators.procaptcha = function (config) {
  * @param {object} config
  * @returns {string}
  */
-function generate(config) {
+function generate (config) {
   const labelAtts = {}
   const label = config.label.length > 0 && config.showLabel ? m('label', labelAtts, config.label) : ''
   const field = typeof (generators[config.type]) === 'function' ? generators[config.type](config) : generators.default(config)

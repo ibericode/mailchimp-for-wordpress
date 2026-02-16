@@ -10,7 +10,7 @@ const registeredFields = []
 /**
  * Reset all previously registered fields
  */
-function reset() {
+function reset () {
   // clear all of our fields
   registeredFields.forEach(fields.deregister)
   m.redraw()
@@ -23,7 +23,7 @@ function reset() {
  * @param {object} data
  * @param {boolean} sticky
  */
-function register(category, data, sticky) {
+function register (category, data, sticky) {
   const field = fields.register(category, data)
 
   if (!sticky) {
@@ -37,7 +37,7 @@ function register(category, data, sticky) {
  * @param type
  * @returns {*}
  */
-function getFieldType(type) {
+function getFieldType (type) {
   const map = {
     phone: 'tel',
     dropdown: 'select',
@@ -54,7 +54,7 @@ function getFieldType(type) {
  * @param mergeField
  * @returns {boolean}
  */
-function registerMergeField(mergeField) {
+function registerMergeField (mergeField) {
   const category = i18n.listFields
   const fieldType = getFieldType(mergeField.type)
 
@@ -65,7 +65,6 @@ function registerMergeField(mergeField) {
     required: mergeField.required,
     forceRequired: mergeField.required,
     type: fieldType,
-    choices: mergeField.options.choices,
     choices: mergeField.options.choices,
     acceptsMultipleValues: false, // merge fields never accept multiple values.
     autocomplete: (function (tag) {
@@ -99,7 +98,7 @@ function registerMergeField(mergeField) {
  *
  * @param interestCategory
  */
-function registerInterestCategory(interestCategory) {
+function registerInterestCategory (interestCategory) {
   const fieldType = getFieldType(interestCategory.type)
 
   const data = {
@@ -117,7 +116,7 @@ function registerInterestCategory(interestCategory) {
  *
  * @param list
  */
-function registerListFields(list) {
+function registerListFields (list) {
   // make sure EMAIL && public fields come first
   list.merge_fields = list.merge_fields.sort(function (a, b) {
     if (a.tag === 'EMAIL' || (a.public && !b.public)) {
@@ -145,7 +144,7 @@ function registerListFields(list) {
  *
  * @param lists
  */
-function registerListsFields(lists) {
+function registerListsFields (lists) {
   const url = ajaxurl + '?action=mc4wp_get_list_details&ids=' + lists.map(l => l.id).join(',')
 
   m.request({
@@ -158,7 +157,7 @@ function registerListsFields(lists) {
   })
 }
 
-function registerCustomFields(lists) {
+function registerCustomFields (lists) {
   register(i18n.listFields, {
     name: 'EMAIL',
     title: i18n.emailAddress,
