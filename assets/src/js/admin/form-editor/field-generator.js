@@ -137,6 +137,10 @@ generators.default = function (config) {
     attributes.placeholder = config.placeholder
   }
 
+  if (config.autocomplete && config.autocomplete.length > 0) {
+    attributes.autocomplete = config.autocomplete
+  }
+
   attributes.required = config.required
   attributes.oncreate = setAttributes
 
