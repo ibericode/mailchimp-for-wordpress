@@ -5,6 +5,7 @@ require __DIR__ . '/includes/deprecated-functions.php';
 require __DIR__ . '/includes/forms/functions.php';
 require __DIR__ . '/includes/forms/admin-functions.php';
 require __DIR__ . '/includes/integrations/functions.php';
+require __DIR__ . '/includes/integrations/wpml-ecommerce.php';
 
 spl_autoload_register(function ($class) {
     static $classmap = [

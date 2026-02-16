@@ -15,3 +15,7 @@ add_filter('wp_privacy_personal_data_exporters', [MC4WP_Personal_Data_Exporter::
 mc4wp_apply_deprecated_filters('mc4wp_merge_vars', 'mc4wp_form_data');
 mc4wp_apply_deprecated_filters('mc4wp_form_merge_vars', 'mc4wp_form_data');
 mc4wp_apply_deprecated_filters('mc4wp_integration_merge_vars', 'mc4wp_integration_data');
+
+// WPML: fix product permalinks in ecommerce data synced to Mailchimp
+add_filter('mc4wp_ecommerce_product_data', 'mc4wp_wpml_ecommerce_product_permalink');
+add_filter('mc4wp_ecommerce_product_variants_data', 'mc4wp_wpml_ecommerce_product_variants_permalink');
