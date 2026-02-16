@@ -78,6 +78,15 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration
                 jQuery('#field_mailchimp_double_optin').val(field.mailchimp_double_optin || "1");
                 jQuery('#field_mailchimp_precheck').val(field.mailchimp_precheck || "0");
             });
+
+            // Sync label changes to checkbox label text in real-time.
+            if (window.gform) {
+                gform.addAction('gform_post_set_field_property', function(name, field) {
+                    if (name === 'label' && field.type === 'mailchimp') {
+                        jQuery('#field_' + field.id + ' .gfield_checkbox label').text(field.label);
+                    }
+                });
+            }
         </script>
         <?php
     }
