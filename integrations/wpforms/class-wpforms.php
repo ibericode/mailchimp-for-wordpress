@@ -62,12 +62,23 @@ class MC4WP_WPForms_Integration extends MC4WP_Integration
             }
         }
 
-        $mailchimp_list_id      = $form_data['fields'][ $checkbox_field_id ]['mailchimp_list'];
-        $this->options['lists'] = [ $mailchimp_list_id ];
+        $field_config     = $form_data['fields'][ $checkbox_field_id ];
+        $mailchimp_list_id = $field_config['mailchimp_list'];
+        $double_optin      = isset($field_config['mailchimp_double_optin']) ? $field_config['mailchimp_double_optin'] : '1';
 
+        // Override integration settings with per-field options
+        $orig_options                  = $this->options;
+        $this->options['lists']        = [ $mailchimp_list_id ];
+        $this->options['double_optin'] = $double_optin;
+
+        $result = false;
         if (! empty($email_address)) {
-            return $this->subscribe([ 'EMAIL' => $email_address ], $form_data['id']);
+            $result = $this->subscribe([ 'EMAIL' => $email_address ], $form_data['id']);
         }
+
+        // Restore original options to avoid side effects
+        $this->options = $orig_options;
+        return $result;
     }
 
     /**

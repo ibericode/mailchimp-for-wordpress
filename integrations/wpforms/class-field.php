@@ -48,6 +48,9 @@ class MC4WP_WPForms_Field extends WPForms_Field
         // Mailchimp list
         $this->field_option_mailchimp_list($field);
 
+        // Double opt-in
+        $this->field_option_double_optin($field);
+
         // Choices
         $this->field_option_choices($field);
 
@@ -104,6 +107,43 @@ class MC4WP_WPForms_Field extends WPForms_Field
             $field,
             [
                 'slug'    => 'mailchimp-list',
+                'content' => $option_label . $option_select,
+            ]
+        );
+    }
+
+    /**
+     * Renders the "Double opt-in?" select field option in the form builder.
+     *
+     * @since 4.9
+     * @param array $field Field data.
+     */
+    private function field_option_double_optin($field)
+    {
+        $tooltip      = __('Select "yes" if you want people to confirm their email address before being subscribed (recommended).', 'mailchimp-for-wp');
+        $option_label = $this->field_element(
+            'label',
+            $field,
+            [
+                'slug'    => 'mailchimp-double-optin',
+                'value'   => __('Double opt-in?', 'mailchimp-for-wp'),
+                'tooltip' => $tooltip,
+            ],
+            false
+        );
+
+        $current_value = isset($field['mailchimp_double_optin']) ? $field['mailchimp_double_optin'] : '1';
+        $option_select = sprintf('<select name="fields[%s][mailchimp_double_optin]" data-field-id="%d" data-field-type="%s">', $field['id'], $field['id'], $this->type);
+        $option_select .= sprintf('<option value="1" %s>%s</option>', selected('1', $current_value, false), __('Yes', 'mailchimp-for-wp'));
+        $option_select .= sprintf('<option value="0" %s>%s</option>', selected('0', $current_value, false), __('No', 'mailchimp-for-wp'));
+        $option_select .= '</select>';
+
+        // Field option row (markup) including label and input.
+        $output = $this->field_element(
+            'row',
+            $field,
+            [
+                'slug'    => 'mailchimp-double-optin',
                 'content' => $option_label . $option_select,
             ]
         );
