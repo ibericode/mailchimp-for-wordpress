@@ -62,6 +62,7 @@ spl_autoload_register(function ($class) {
         'MC4WP_Ninja_Forms_Field' => '/integrations/ninja-forms/class-field.php',
         'MC4WP_Ninja_Forms_Integration' => '/integrations/ninja-forms/class-ninja-forms.php',
         'MC4WP_Ninja_Forms_V2_Integration' => '/integrations/ninja-forms-2/class-ninja-forms.php',
+        'MC4WP_PeepSo_Integration' => '/integrations/peepso/class-peepso.php',
         'MC4WP_Plugin' => '/includes/class-plugin.php',
         'MC4WP_Procaptcha_Integration' => '/integrations/prosopo-procaptcha/class-procaptcha-integration.php',
         'MC4WP_Procaptcha' => '/integrations/prosopo-procaptcha/class-procaptcha.php',
