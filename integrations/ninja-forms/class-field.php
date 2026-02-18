@@ -16,8 +16,8 @@ class MC4WP_Ninja_Forms_Field extends NF_Abstracts_Input
     protected $_icon             = 'check-square-o';
     protected $_templates        = 'checkbox';
     protected $_test_value       = 0;
-    protected $_settings         = [ 'checkbox_default_value', 'checked_calc_value', 'unchecked_calc_value' ];
-    protected $_settings_exclude = [ 'default', 'placeholder', 'input_limit_set', 'checkbox_values' ];
+    protected $_settings         = ['checkbox_default_value', 'checked_calc_value', 'unchecked_calc_value'];
+    protected $_settings_exclude = ['default', 'placeholder', 'input_limit_set', 'checkbox_values'];
 
     /**
      * NF_Fields_Checkbox constructor.
@@ -29,7 +29,7 @@ class MC4WP_Ninja_Forms_Field extends NF_Abstracts_Input
 
         $this->_settings['label_pos']['value'] = 'right';
 
-        add_filter('ninja_forms_custom_columns', [ $this, 'custom_columns' ], 10, 2);
+        add_filter('ninja_forms_custom_columns', [$this, 'custom_columns'], 10, 2);
         add_action('init', [$this, 'translate_nicename']);
     }
 
@@ -63,14 +63,38 @@ class MC4WP_Ninja_Forms_Field extends NF_Abstracts_Input
     }
 
     /**
-    * Custom Columns
-    * Creates what is displayed in the columns on the submissions page.
-    * @since 3.0
-    *
-    * @param string $value checkbox value
-    * @param MC4WP_Ninja_Forms_Field $field field model.
-    * @return $value string|void
-    */
+     * Validate the field value.
+     *
+     * Overrides parent to handle checkbox-specific required validation,
+     * since checkboxes submit '0' when unchecked which the parent considers valid.
+     *
+     * @since 4.9
+     *
+     * @param array $field The field data.
+     * @param array $data  The form data.
+     * @return array Array of validation errors, empty if valid.
+     */
+    public function validate($field, $data)
+    {
+        $errors = parent::validate($field, $data);
+
+        if (isset($field['required']) && 1 == intval($field['required']) && empty($field['value'])) {
+            $errors['slug']    = 'required-error';
+            $errors['message'] = esc_html__('This field is required.', 'mailchimp-for-wp');
+        }
+
+        return $errors;
+    }
+
+    /**
+     * Custom Columns
+     * Creates what is displayed in the columns on the submissions page.
+     * @since 3.0
+     *
+     * @param string $value checkbox value
+     * @param MC4WP_Ninja_Forms_Field $field field model.
+     * @return $value string|void
+     */
     public function custom_columns($value, $field)
     {
         // If the field type is equal to checkbox...
