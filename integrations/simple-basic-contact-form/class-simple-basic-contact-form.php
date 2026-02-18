@@ -27,8 +27,8 @@ class MC4WP_Simple_Basic_Contact_Form_Integration extends MC4WP_Integration
      */
     public function add_hooks()
     {
-        add_filter('scf_filter_contact_form', [ $this, 'add_checkbox' ], 20);
-        add_action('scf_send_email', [ $this, 'process' ], 10, 5);
+        add_filter('scf_filter_contact_form', [$this, 'add_checkbox'], 20);
+        add_action('scf_send_email', [$this, 'process'], 10, 5);
     }
 
     /**
@@ -47,10 +47,15 @@ class MC4WP_Simple_Basic_Contact_Form_Integration extends MC4WP_Integration
             return $form_html;
         }
 
+        global $scf_options;
         $checkbox_html = $this->get_checkbox_html();
 
+        if (($scf_options['scf_gdpr_position'] ?? '') === 'before_submit') {
+            $form_html = str_replace('<div class="scf-submit">', $checkbox_html . PHP_EOL . '<div class="scf-submit">', $form_html);
+        } else {
+            $form_html = str_replace('</form>', $checkbox_html . PHP_EOL . '</form>', $form_html);
+        }
         // insert the checkbox just before the closing </form> tag
-        $form_html = str_ireplace('</form>', $checkbox_html . '</form>', $form_html);
 
         return $form_html;
     }
@@ -76,7 +81,7 @@ class MC4WP_Simple_Basic_Contact_Form_Integration extends MC4WP_Integration
         }
 
         $parser = new MC4WP_Field_Guesser($this->get_data());
-        $data   = $parser->combine([ 'guessed', 'namespaced' ]);
+        $data   = $parser->combine(['guessed', 'namespaced']);
 
         // use the email from the action parameter if not found via field guesser
         if (empty($data['EMAIL']) && ! empty($email)) {
@@ -112,6 +117,6 @@ class MC4WP_Simple_Basic_Contact_Form_Integration extends MC4WP_Integration
      */
     public function get_ui_elements()
     {
-        return array_diff(parent::get_ui_elements(), [ 'implicit' ]);
+        return array_diff(parent::get_ui_elements(), ['implicit']);
     }
 }
