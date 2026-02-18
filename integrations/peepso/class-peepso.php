@@ -25,10 +25,10 @@ class MC4WP_PeepSo_Integration extends MC4WP_User_Integration
     public function add_hooks()
     {
         if (! $this->options['implicit']) {
-            add_action('peepso_register_extended_fields', [ $this, 'output_checkbox' ], 20);
+            add_action('peepso_register_extended_fields', [$this, 'output_checkbox'], 20);
         }
 
-        add_action('peepso_register_new_user', [ $this, 'subscribe_from_peepso' ], 10, 1);
+        add_action('peepso_register_new_user', [$this, 'subscribe_from_peepso'], 10, 1);
     }
 
     /**
