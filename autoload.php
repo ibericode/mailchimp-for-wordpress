@@ -69,6 +69,7 @@ spl_autoload_register(function ($class) {
         'MC4WP_Queue' => '/includes/class-queue.php',
         'MC4WP_Queue_Job' => '/includes/class-queue-job.php',
         'MC4WP_Registration_Form_Integration' => '/integrations/wp-registration-form/class-registration-form.php',
+        'MC4WP_Simple_Basic_Contact_Form_Integration' => '/integrations/simple-basic-contact-form/class-simple-basic-contact-form.php',
         'MC4WP_Tools' => '/includes/class-tools.php',
         'MC4WP_Upgrade_Routines' => '/includes/admin/class-upgrade-routines.php',
         'MC4WP_User_Integration' => '/includes/integrations/class-user-integration.php',
