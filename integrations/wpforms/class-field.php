@@ -12,7 +12,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
         $this->name     = 'Mailchimp';
         $this->type     = 'mailchimp';
         $this->icon     = 'fa-envelope-o';
-        $this->order    = 21;
+        $this->order    = 500;
         $this->defaults = [
             [
                 'label'   => 'Sign-up to our newsletter?',
@@ -43,7 +43,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
         //--------------------------------------------------------------------//
 
         // Options open markup
-        $this->field_option('basic-options', $field, [ 'markup' => 'open' ]);
+        $this->field_option('basic-options', $field, ['markup' => 'open']);
 
         // Mailchimp list
         $this->field_option_mailchimp_list($field);
@@ -61,20 +61,20 @@ class MC4WP_WPForms_Field extends WPForms_Field
         $this->field_option('required', $field);
 
         // Options close markup
-        $this->field_option('basic-options', $field, [ 'markup' => 'close' ]);
+        $this->field_option('basic-options', $field, ['markup' => 'close']);
 
         //--------------------------------------------------------------------//
         // Advanced field options
         //--------------------------------------------------------------------//
 
         // Options open markup
-        $this->field_option('advanced-options', $field, [ 'markup' => 'open' ]);
+        $this->field_option('advanced-options', $field, ['markup' => 'open']);
 
         // Custom CSS classes
         $this->field_option('css', $field);
 
         // Options close markup
-        $this->field_option('advanced-options', $field, [ 'markup' => 'close' ]);
+        $this->field_option('advanced-options', $field, ['markup' => 'close']);
     }
 
     private function field_option_mailchimp_list($field)
@@ -102,7 +102,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
         $option_select .= '</select>';
 
         // Field option row (markup) including label and input.
-        $output = $this->field_element(
+        $this->field_element(
             'row',
             $field,
             [
@@ -139,7 +139,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
         $option_select .= '</select>';
 
         // Field option row (markup) including label and input.
-        $output = $this->field_element(
+        $this->field_element(
             'row',
             $field,
             [
@@ -181,7 +181,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
         $option_choices .= '</ul>';
 
         // Field option row (markup) including label and input.
-        $output = $this->field_element(
+        $this->field_element(
             'row',
             $field,
             [
@@ -206,7 +206,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
 
         // Notify if currently empty
         if (empty($values)) {
-            $values = [ 'label' => __('(empty)', 'wpforms') ];
+            $values = ['label' => __('(empty)', 'wpforms')];
         }
 
         // Individual checkbox options
@@ -291,7 +291,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
      */
     public function format($field_id, $field_submit, $form_data)
     {
-        $field  = $form_data['fields'][ $field_id ];
+        $field  = $form_data['fields'][$field_id];
         $choice = array_pop($field['choices']);
         $name   = sanitize_text_field($choice['label']);
 
@@ -303,6 +303,6 @@ class MC4WP_WPForms_Field extends WPForms_Field
             'type'      => $this->type,
         ];
 
-        wpforms()->process->fields[ $field_id ] = $data;
+        wpforms()->process->fields[$field_id] = $data;
     }
 }
