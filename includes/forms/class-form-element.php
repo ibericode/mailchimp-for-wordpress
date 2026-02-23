@@ -250,8 +250,8 @@ class MC4WP_Form_Element
          *
          * Defaults to `null`, which means no `action` attribute will be printed.
          *
-         * @param string $form_action_attribute
-         * @param MC4WP_Form $form
+         * @param null|string $form_action_attribute
+         * @param MC4WP_Form_Element $form
          */
         $form_action_attribute = apply_filters('mc4wp_form_action', $form_action_attribute, $form);
         if (is_string($form_action_attribute)) {
@@ -262,7 +262,7 @@ class MC4WP_Form_Element
          * Filters all attributes to be added to the `<form>` element
          *
          * @param array $attributes Key-value pairs of attributes.
-         * @param MC4WP_Form $form
+         * @param MC4WP_Form_Element $form
          */
         $attributes = (array) apply_filters('mc4wp_form_element_attributes', $attributes, $form);
 

@@ -21,13 +21,13 @@ class MC4WP_Form_Asset_Manager
     /**
      * Add hooks
      */
-    public function add_hooks()
+    public function add_hooks(): void
     {
         add_action('init', [ $this, 'register_scripts' ]);
         add_action('wp_enqueue_scripts', [ $this, 'load_stylesheets' ]);
         add_action('wp_footer', [ $this, 'load_scripts' ]);
         add_action('mc4wp_output_form', [ $this, 'before_output_form' ]);
-        add_action('script_loader_tag', [ $this, 'add_defer_attribute' ], 10, 2);
+        add_filter('script_loader_tag', [ $this, 'add_defer_attribute' ], 10, 2);
     }
 
     /**

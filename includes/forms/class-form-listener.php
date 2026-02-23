@@ -15,17 +15,13 @@ class MC4WP_Form_Listener
 
     public function add_hooks()
     {
-        add_action('init', [ $this, 'listen' ]);
+        add_action('init', [$this, 'action_init'], 10, 0);
     }
 
-    /**
-     * Listen for submitted forms
-     * @return bool
-     */
-    public function listen()
+    public function action_init()
     {
         if (empty($_POST['_mc4wp_form_id'])) {
-            return false;
+            return;
         }
 
         // get form instance
@@ -33,7 +29,7 @@ class MC4WP_Form_Listener
             $form_id = (int) $_POST['_mc4wp_form_id'];
             $form    = mc4wp_get_form($form_id);
         } catch (Exception $e) {
-            return false;
+            return;
         }
 
         // sanitize request data
@@ -68,7 +64,6 @@ class MC4WP_Form_Listener
         }
 
         $this->respond($form);
-        return true;
     }
 
     /**
@@ -76,7 +71,7 @@ class MC4WP_Form_Listener
      *
      * @param MC4WP_Form $form
      */
-    public function process_subscribe_form(MC4WP_Form $form)
+    public function process_subscribe_form(MC4WP_Form $form): void
     {
         $result     = false;
         $mailchimp  = new MC4WP_MailChimp();
@@ -204,7 +199,7 @@ class MC4WP_Form_Listener
     /**
      * @param MC4WP_Form $form
      */
-    public function process_unsubscribe_form(MC4WP_Form $form)
+    public function process_unsubscribe_form(MC4WP_Form $form): void
     {
         $form->add_error('unauthorized');
         $this->get_log()->warning(

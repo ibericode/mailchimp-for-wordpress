@@ -3,20 +3,15 @@ on: [ push, pull_request ]
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php-versions: [ '8.3' ]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-versions }}
+          php-version: highest
           tools: composer
-      - name: Install dependencies
-        run: composer install --no-progress
-      - name: Run test suite
-        run: composer run-script test
-      - name: Run codestyle sniffer
-        run: composer run-script codestyle
-      - name: Run benchmark
-        run: php tests/benchmarks/run.php
+      - run: composer run-script check-syntax
+      - run: composer install --no-progress
+      - run: composer run-script check-codestyle
+      - run: composer run-script static-analysis
+      - run: composer run-script test
+      - run: php tests/benchmarks/run.php

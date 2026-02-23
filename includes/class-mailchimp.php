@@ -525,7 +525,7 @@ class MC4WP_MailChimp
         /**
          * Filters the total subscriber_count for the given List ID's.
          *
-         * @param string $count
+         * @param float|int $count
          * @param array $list_ids
          *
          * @since 2.0

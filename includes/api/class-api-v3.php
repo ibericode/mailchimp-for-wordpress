@@ -954,7 +954,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_cart_lines($store_id, $cart_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/carts/%/lines', $store_id, $cart_id);
+        $resource = sprintf('/ecommerce/stores/%s/carts/%s/lines', $store_id, $cart_id);
         return $this->client->get($resource, $args);
     }
 

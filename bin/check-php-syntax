@@ -10,6 +10,7 @@
 
 $global_exit_code = 0;
 $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(".", RecursiveDirectoryIterator::SKIP_DOTS));
+$fileCount = 0;
 
 foreach ($iterator as $file) {
   if (
@@ -25,11 +26,18 @@ foreach ($iterator as $file) {
   $output = [];
   exec("php --define error_reporting=-1 -l {$file->getPathname()}", $output, $exit_code);
   $output = join("\n", $output);
-  echo $output . "\n";
+  $fileCount += 1;
 
-  if ($exit_code || strpos($output, 'Deprecated') !== false) {
-    $global_exit_code = 1;
+  if (strpos($output, "No syntax errors detected") === 0) {
+    continue;
   }
+
+  // otherwise: print output
+  echo $output . "\n";
+  $global_exit_code = 1;
 }
 
+if ($global_exit_code === 0) {
+  echo "✅ No syntax errors detected in {$fileCount} files\n";
+}
 exit($global_exit_code);

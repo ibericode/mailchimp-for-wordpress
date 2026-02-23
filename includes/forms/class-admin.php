@@ -21,12 +21,8 @@ class MC4WP_Forms_Admin
         $this->messages = $messages;
     }
 
-    /**
-     * Add hooks
-     */
-    public function add_hooks()
+    public function add_hooks(): void
     {
-        add_action('register_shortcode_ui', [$this, 'register_shortcake_ui']);
         add_action('mc4wp_save_form', [$this, 'update_form_stylesheets']);
         add_action('mc4wp_admin_edit_form', [$this, 'process_save_form']);
         add_action('mc4wp_admin_add_form', [$this, 'process_add_form']);
@@ -457,42 +453,5 @@ class MC4WP_Forms_Admin
     public function tab_url($tab)
     {
         return add_query_arg(['tab' => $tab], remove_query_arg('tab'));
-    }
-
-    /**
-     * Registers UI for when shortcake is activated
-     */
-    public function register_shortcake_ui()
-    {
-        $assets = new MC4WP_Form_Asset_Manager();
-        $assets->load_stylesheets();
-
-        $forms   = mc4wp_get_forms();
-        $options = [];
-        foreach ($forms as $form) {
-            $options[$form->ID] = $form->name;
-        }
-
-        /**
-         * Register UI for your shortcode
-         *
-         * @param string $shortcode_tag
-         * @param array $ui_args
-         */
-        shortcode_ui_register_for_shortcode(
-            'mc4wp_form',
-            [
-                'label'         => esc_html__('Mailchimp Sign-Up Form', 'mailchimp-for-wp'),
-                'listItemImage' => 'dashicons-feedback',
-                'attrs'         => [
-                    [
-                        'label'   => esc_html__('Select the form to show', 'mailchimp-for-wp'),
-                        'attr'    => 'id',
-                        'type'    => 'select',
-                        'options' => $options,
-                    ],
-                ],
-            ]
-        );
     }
 }

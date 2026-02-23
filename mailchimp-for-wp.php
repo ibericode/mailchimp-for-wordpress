@@ -75,7 +75,7 @@ add_action('plugins_loaded', function () {
     if (is_admin()) {
         $admin_tools = new MC4WP_Admin_Tools();
 
-        if (defined('DOING_AJAX') && DOING_AJAX) {
+        if (wp_doing_ajax()) {
             $ajax = new MC4WP_Admin_Ajax($admin_tools);
             $ajax->add_hooks();
         } else {

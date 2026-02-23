@@ -84,14 +84,15 @@ class MC4WP_Form_Widget extends WP_Widget
 
 
         <?php
+        $widget = $this;
         /**
          * Runs right after the widget settings form is outputted
          *
          * @param array $settings
-         * @param MC4WP_Form_Widget $this
+         * @param MC4WP_Form_Widget $widget
          * @ignore
          */
-        do_action('mc4wp_form_widget_form', $settings, $this);
+        do_action('mc4wp_form_widget_form', $settings, $widget);
         ?>
 
         <p class="description">

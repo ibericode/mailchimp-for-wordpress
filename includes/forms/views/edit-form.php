@@ -81,7 +81,8 @@ $tabs = apply_filters('mc4wp_admin_edit_form_tabs', $tabs);
                         /**
                          * Runs when outputting a tab section on the "edit form" screen
                          *
-                         * @param string $tab
+                         * @param array $opts
+                         * @param MC4WP_Form $form
                          */
                         do_action('mc4wp_admin_edit_form_output_' . $tab . '_tab', $opts, $form);
 
