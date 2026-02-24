@@ -1,5 +1,5 @@
 parameters:
-    level: 3
+    level: 4
     paths:
       - mailchimp-for-wp.php
       - autoload.php
@@ -13,6 +13,10 @@ parameters:
       - identifier: function.notFound
         path: sample-code-snippets/
       - identifier: class.notFound
+        path: sample-code-snippets/
+      - identifier: ternary.alwaysTrue
+        path: sample-code-snippets/
+      - identifier: booleanNot.alwaysTrue
         path: sample-code-snippets/
       - identifier: variable.undefined
         path: 'includes/*views/*'
