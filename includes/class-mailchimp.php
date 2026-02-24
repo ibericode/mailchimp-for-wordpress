@@ -416,6 +416,7 @@ class MC4WP_MailChimp
 
         // collect all lists in separate HTTP requests
         do {
+            $data = null;
             try {
                 $data = $client->get(
                     '/lists',
@@ -445,7 +446,7 @@ class MC4WP_MailChimp
                 // break on other errors, like "API key missing"etc.
                 break;
             }
-        } while ($data->total_items >= $offset);
+        } while ($data && $data->total_items >= $offset);
 
         // key by list ID
         $lists = [];

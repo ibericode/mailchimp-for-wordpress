@@ -10,7 +10,7 @@ Author URI: http://dvk.co/
 add_action('rcp_after_password_registration_field', 'rcp_mailchimp_add_profile_fields');
 add_action('rcp_profile_editor_after', 'rcp_mailchimp_add_profile_fields');
 add_action('rcp_form_processing', 'rcp_mailchimp_save_profile_fields', 10, 2);
-add_action('rcp_user_profile_updated', 'rcp_mailchimp_save_profile_fields', 10);
+add_action('rcp_user_profile_updated', 'rcp_mailchimp_save_profile_fields', 10, 2);
 
 add_filter('mailchimp_sync_should_sync_user', 'rcp_mailchimp_should_subscribe', 10, 2);
 add_filter('mailchimp_sync_subscriber_data', 'rcp_mailchimp_user_data', 10, 2);
@@ -78,5 +78,3 @@ function rcp_mailchimp_subscriber_data(MC4WP_MailChimp_Subscriber $subscriber, W
     // return modified subscriber object
     return $subscriber;
 }
-
-

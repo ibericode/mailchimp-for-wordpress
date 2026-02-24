@@ -1,8 +1,18 @@
 parameters:
-    level: 0
+    level: 1
     paths:
       - mailchimp-for-wp.php
       - autoload.php
       - includes/
+      - config/
+      - sample-code-snippets/
     scanDirectories:
       - integrations/
+    treatPhpDocTypesAsCertain: false
+    ignoreErrors:
+      - identifier: function.notFound
+        path: sample-code-snippets/
+      - identifier: class.notFound
+        path: sample-code-snippets/
+      - identifier: variable.undefined
+        path: 'includes/*views/*'
