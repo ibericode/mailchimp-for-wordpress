@@ -4,7 +4,9 @@
  * Class MC4WP_Integration_Fixture
  *
  * @since 3.0
- * @ignore
+ * @method is_installed()
+ * @property string $name
+ * @property string $description
  */
 class MC4WP_Integration_Fixture
 {

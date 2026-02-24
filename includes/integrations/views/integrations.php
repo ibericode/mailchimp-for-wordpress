@@ -1,7 +1,8 @@
-<?php defined('ABSPATH') or exit;
-/** @var MC4WP_Integration_Fixture[] $enabled_integrations */
-/** @var MC4WP_Integration_Fixture[] $available_integrations */
-/** @var MC4WP_Integration_Fixture $integration */
+<?php
+
+defined('ABSPATH') or exit;
+
+/** @param MC4WP_Integration_Fixture $integration */
 function _mc4wp_integrations_table_row($integration)
 {
     $style_attr = ! $integration->is_installed() ? 'style="opacity: 0.6;"' : '';

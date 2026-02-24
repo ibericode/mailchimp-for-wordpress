@@ -9,7 +9,6 @@
  *
  * To get a form instance, use `mc4wp_get_form( $id );` where `$id` is the post ID.
  *
- * @access public
  * @since 3.0
  */
 class MC4WP_Form
@@ -197,7 +196,7 @@ class MC4WP_Form
     /**
      * @param string $element_id
      * @param array $config
-     * @return MC4WP_Form_element
+     * @return MC4WP_Form_Element
      */
     public function get_element($element_id = 'mc4wp-form', array $config = [])
     {

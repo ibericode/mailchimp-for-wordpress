@@ -195,7 +195,7 @@ class MC4WP_Debug_Log
     /**
      * Converts PSR-3 levels to local ones if necessary
      *
-     * @param string|int Level number or name (PSR-3)
+     * @param string|int $level Number or name of logging level (PSR-3)
      * @return int
      */
     public static function to_level($level)

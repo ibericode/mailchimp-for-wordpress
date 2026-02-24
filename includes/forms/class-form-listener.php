@@ -79,7 +79,7 @@ class MC4WP_Form_Listener
         $data       = $form->get_data();
         $ip_address = mc4wp_get_request_ip_address();
 
-        /** @var MC4WP_MailChimp_Subscriber $subscriber */
+        /** @var null|MC4WP_MailChimp_Subscriber $subscriber */
         $subscriber = null;
 
         // create a map of all lists with list-specific data

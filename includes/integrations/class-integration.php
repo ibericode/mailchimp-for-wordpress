@@ -7,9 +7,7 @@
  *
  * Extend this class and implement the `add_hooks` method to get a settings page.
  *
- * @access public
  * @since 3.0
- * @abstract
  */
 abstract class MC4WP_Integration
 {
@@ -398,7 +396,7 @@ abstract class MC4WP_Integration
         $log         = $this->get_log();
         $list_ids    = $this->get_lists();
 
-        /** @var MC4WP_MailChimp_Subscriber $subscriber */
+        /** @var null|MC4WP_MailChimp_Subscriber $subscriber */
         $subscriber = null;
         $result     = false;
 
@@ -437,7 +435,7 @@ abstract class MC4WP_Integration
             $subscriber->email_type = $email_type;
             $subscriber->ip_signup  = mc4wp_get_request_ip_address();
 
-            /** @ignore (documented elsewhere) */
+            /** @ignore documented elsewhere */
             $subscriber = apply_filters('mc4wp_subscriber_data', $subscriber);
             if (! $subscriber instanceof MC4WP_MailChimp_Subscriber) {
                 continue;

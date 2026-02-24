@@ -38,10 +38,10 @@ abstract class MC4WP_User_Integration extends MC4WP_Integration
         }
 
         /**
-         * @use mc4wp_integration_user_data
          * @since 3.0
-         * @deprecated 4.0
-         * @ignore
+         * @deprecated 4.0 Use mc4wp_integration_user_data instead
+         * @param array $data
+         * @param WP_User $user
          */
         $data = (array) apply_filters('mc4wp_user_merge_vars', $data, $user);
 
