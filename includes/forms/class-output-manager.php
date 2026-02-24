@@ -4,7 +4,6 @@
  * Class MC4WP_Form_Output_Manager
  *
  * @ignore
- * @access private
  */
 class MC4WP_Form_Output_Manager
 {
@@ -64,7 +63,8 @@ class MC4WP_Form_Output_Manager
             'element_class' => $attributes['element_class'],
         ];
 
-        return $this->output_form($attributes['id'], $config, false);
+        $form_id = (int) $attributes['id'];
+        return $this->output_form($form_id, $config, false);
     }
 
     /**

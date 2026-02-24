@@ -5,7 +5,6 @@
  *
  * @since 3.0
  * @ignore
- * @access private
  */
 class MC4WP_Form_Element
 {
@@ -83,8 +82,8 @@ class MC4WP_Form_Element
         // hidden fields
         $hidden_fields  = '<label style="display: none !important;">' . __('Leave this field empty if you\'re human:', 'mailchimp-for-wp') . ' ' . '<input type="text" name="_mc4wp_honeypot" value="" tabindex="-1" autocomplete="off" /></label>';
         $hidden_fields .= '<input type="hidden" name="_mc4wp_timestamp" value="' . time() . '" />';
-        $hidden_fields .= '<input type="hidden" name="_mc4wp_form_id" value="' . esc_attr($this->form->ID) . '" />';
-        $hidden_fields .= '<input type="hidden" name="_mc4wp_form_element_id" value="' . esc_attr($this->ID) . '" />';
+        $hidden_fields .= '<input type="hidden" name="_mc4wp_form_id" value="' . esc_attr((string) $this->form->ID) . '" />';
+        $hidden_fields .= '<input type="hidden" name="_mc4wp_form_element_id" value="' . esc_attr((string) $this->ID) . '" />';
 
         // was "lists" parameter passed in shortcode arguments?
         if (! empty($this->config['lists'])) {
