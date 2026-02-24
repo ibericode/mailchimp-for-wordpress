@@ -8,7 +8,7 @@ class MC4WP_MailChimp_Subscriber
     public $email_address = '';
 
     /**
-     * @var array The key of this object’s properties is the ID of the interest in question.
+     * @var null|array The key of this object’s properties is the ID of the interest in question.
      */
     public $interests = [];
 
@@ -18,37 +18,37 @@ class MC4WP_MailChimp_Subscriber
     public $merge_fields = [];
 
     /**
-     * @var string Subscriber’s status.
+     * @var null|string Subscriber’s status.
      */
     public $status = 'pending';
 
     /**
-     * @var string Type of email this member asked to get (‘html’ or ‘text’).
+     * @var null|string Type of email this member asked to get (‘html’ or ‘text’).
      */
     public $email_type = 'html';
 
     /**
-     * @var string IP address the subscriber signed up from.
+     * @var null|string IP address the subscriber signed up from.
      */
     public $ip_signup;
 
     /**
-     * @var string The subscriber's language
+     * @var null|string The subscriber's language
      */
     public $language;
 
     /**
-     * @var boolean VIP status for subscriber.
+     * @var null|boolean VIP status for subscriber.
      */
     public $vip;
 
     /**
-     * @var array The tags applied to this member.
+     * @var null|array The tags applied to this member.
      */
     public $tags = [];
 
     /**
-     * @var array The marketing permissions for the subscriber.
+     * @var null|array The marketing permissions for the subscriber.
      */
     public $marketing_permissions = [];
 
