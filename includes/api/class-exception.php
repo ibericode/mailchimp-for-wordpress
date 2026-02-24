@@ -10,19 +10,19 @@
 class MC4WP_API_Exception extends Exception
 {
     /**
-     * @var object
+     * @var null|array
      */
-    public $response = [];
+    public $response;
 
     /**
-     * @var object
+     * @var null|array
      */
-    public $request = [];
+    public $request;
 
     /**
-     * @var object
+     * @var null|object
      */
-    public $response_data = [];
+    public $response_data;
 
     /**
      * MC4WP_API_Exception constructor.
@@ -39,7 +39,6 @@ class MC4WP_API_Exception extends Exception
 
         $this->request  = $request;
         $this->response = $response;
-
         $this->response_data = $data;
     }
 

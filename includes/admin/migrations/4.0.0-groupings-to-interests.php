@@ -4,7 +4,7 @@ defined('ABSPATH') or exit;
 
 /**
  * @ignore
- * @return object
+ * @return null|object
  */
 function _mc4wp_400_find_grouping_for_interest_category($groupings, $interest_category)
 {
@@ -22,7 +22,7 @@ function _mc4wp_400_find_grouping_for_interest_category($groupings, $interest_ca
 
 /**
  * @ignore
- * @return object
+ * @return null|object
  */
 function _mc4wp_400_find_group_for_interest($groups, $interest)
 {

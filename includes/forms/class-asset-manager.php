@@ -32,6 +32,7 @@ class MC4WP_Form_Asset_Manager
 
     /**
      * Register scripts to be enqueued later.
+     * @return void
      */
     public function register_scripts()
     {
@@ -41,7 +42,6 @@ class MC4WP_Form_Asset_Manager
 
     /**
      * @param string $stylesheet
-     *
      * @return bool
      */
     public function is_registered_stylesheet($stylesheet)
@@ -122,7 +122,7 @@ class MC4WP_Form_Asset_Manager
     /**
      * Get data object for client-side use for after a form is submitted over HTTP POST (not AJAX).
      *
-     * @return array
+     * @return null|array
      */
     public function get_submitted_form_data()
     {

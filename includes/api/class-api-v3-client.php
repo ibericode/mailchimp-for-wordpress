@@ -13,14 +13,14 @@ class MC4WP_API_V3_Client
     private $api_url = 'https://api.mailchimp.com/3.0/';
 
     /**
-    * @var array
+    * @var null|array
     */
-    private $last_response;
+    private $last_response = null;
 
     /**
-    * @var array
+    * @var null|array
     */
-    private $last_request;
+    private $last_request = null;
 
     /**
     * Constructor

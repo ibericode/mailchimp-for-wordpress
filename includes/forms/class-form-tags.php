@@ -18,7 +18,7 @@ class MC4WP_Form_Tags extends MC4WP_Dynamic_Content_Tags
      */
     protected $form_element;
 
-    public function add_hooks()
+    public function add_hooks(): void
     {
         add_filter('mc4wp_form_response_html', [ $this, 'replace_in_form_response' ], 10, 2);
         add_filter('mc4wp_form_content', [ $this, 'replace_in_form_content' ], 10, 3);
@@ -28,7 +28,7 @@ class MC4WP_Form_Tags extends MC4WP_Dynamic_Content_Tags
     /**
      * Register template tags
      */
-    public function register()
+    public function register(): void
     {
         parent::register();
 
@@ -77,10 +77,8 @@ class MC4WP_Form_Tags extends MC4WP_Dynamic_Content_Tags
 
     /**
      * Returns the number of subscribers on the selected lists (for the form context)
-     *
-     * @return int
      */
-    public function get_subscriber_count()
+    public function get_subscriber_count(): string
     {
         $mailchimp = new MC4WP_MailChimp();
         $count     = $mailchimp->get_subscriber_count($this->form->get_lists());
@@ -89,10 +87,8 @@ class MC4WP_Form_Tags extends MC4WP_Dynamic_Content_Tags
 
     /**
      * Returns the form response
-     *
-     * @return string
      */
-    public function get_form_response()
+    public function get_form_response(): string
     {
         if ($this->form_element instanceof MC4WP_Form_Element) {
             return $this->form_element->get_response_html();

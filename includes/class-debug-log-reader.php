@@ -115,7 +115,7 @@ class MC4WP_Debug_Log_Reader
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function read_as_html()
     {

@@ -6,7 +6,7 @@
 class MC4WP_MailChimp
 {
     /**
-     * @var string
+     * @var mixed
      */
     public $error_code = '';
 
@@ -25,7 +25,7 @@ class MC4WP_MailChimp
      * @param bool $update_existing Update information if this email is already on list?
      * @param bool $replace_interests Replace interest groupings, only if update_existing is true.
      *
-     * @return object
+     * @return null|object
      * @throws Exception
      */
     public function list_subscribe($list_id, $email_address, array $args = [], $update_existing = false, $replace_interests = true)
