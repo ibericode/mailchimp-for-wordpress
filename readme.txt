@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 4.6
 Tested up to: 6.9.1
-Stable tag: 4.11.1
+Stable tag: 4.12.0
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.4
@@ -187,6 +187,23 @@ The plugin provides various filter and action hooks that allow you to modify or 
 9. Settings page for e-commerce integration with Mailchimp. Requires [Mailchimp for WordPress Premium](https://www.mc4wp.com/).
 
 == Changelog ==
+
+
+#### 4.12.0 - Mar 9, 2026
+
+- Remove the ability to unsubscribe through a form. You should migrate to the Mailchimp hosted form for this, which does email verification.
+- Add block properties so the form block can be reordered inside the Gutenberg editor.
+- Fix redirect not occuring after running MC4WP actions.
+- Various type fixes, PHPDoc improvements and removal of unused code.
+
+The following fixes and improvements were contributed by [Faisal Ahammad](https://faisalahammad.com/):
+
+- Add WP Forms field setting for configuring double opt-in.
+- Add PeepSo registration form integration. 
+- Fix required validation for Ninja Forms integration. 
+- Add autocomplete attribute to form fields.
+- Enable live updates in Gravity Forms editor.
+
 
 
 #### 4.11.0 - Jan 20, 2026
@@ -1119,37 +1136,7 @@ Please note that installing this update requires you to also update any add-ons 
 
 **Additions**
 
-- Added `mc4wp_form_api_error` action hook for API errors encountered by forms.
-- Added `element_class` argument to `[mc4wp_form]` shortcode for adding CSS classes.
-
-
-#### 4.0.6 - October 10, 2016
-
-**Fixes**
-
-- Issue with lists not showing when using W3 Total Cache with APCu object cache enabled.
-
-**Improvements**
-
-- We're no longer stripping newlines from text fields.
-
-**Additions**
-
-- Added missing e-commerce related API methods to API class.
-
-
-#### 4.0.5 - September 29, 2016
-
-**Fixes**
-
-- Allow checkbox option for the List Choice field (again).
-
-**Improvements**
-
-- Fetch Mailchimp lists over AJAX, to speed up perceived performance (especially when your account has many lists).
-- Periodically fetch Mailchimp lists, so cache is always fresh.
-- Improved `<label>` element accessibility for checkbox integrations.
-- Stop using double ...
+- Added `mc4wp_form_api_error` action ...
 
 == Upgrade Notice ==
 
