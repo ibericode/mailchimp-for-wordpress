@@ -1,6 +1,23 @@
 Changelog
 =========
 
+#### 4.12.0 - Mar 9, 2026
+
+- Remove the ability to unsubscribe through a form. You should migrate to the Mailchimp hosted form for this, which does email verification.
+- Add block properties so the form block can be reordered inside the Gutenberg editor.
+- Fix redirect not occuring after running MC4WP actions.
+- Various type fixes, PHPDoc improvements and removal of unused code.
+
+The following fixes and improvements were contributed by [Faisal Ahammad](https://faisalahammad.com/):
+
+- Add WP Forms field setting for configuring double opt-in.
+- Add PeepSo registration form integration. 
+- Fix required validation for Ninja Forms integration. 
+- Add autocomplete attribute to form fields.
+- Enable live updates in Gravity Forms editor.
+
+
+
 #### 4.11.0 - Jan 20, 2026
 
 - Add form setting to remove tags from existing subscribers.
