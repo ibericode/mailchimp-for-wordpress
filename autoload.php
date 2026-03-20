@@ -16,6 +16,7 @@ spl_autoload_register(function ($class) {
         'MC4WP_Admin' => '/includes/admin/class-admin.php',
         'MC4WP_Admin_Ads' => '/includes/admin/class-ads.php',
         'MC4WP_Admin_Ajax' => '/includes/admin/class-admin-ajax.php',
+        'MC4WP_Admin_Cron_Notice' => '/includes/admin/class-cron-notice.php',
         'MC4WP_Admin_Messages' => '/includes/admin/class-admin-messages.php',
         'MC4WP_Admin_Review_Notice' => '/includes/admin/class-review-notice.php',
         'MC4WP_Admin_Texts' => '/includes/admin/class-admin-texts.php',
