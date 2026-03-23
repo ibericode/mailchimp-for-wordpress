@@ -1,7 +1,7 @@
 const __ = window.wp.i18n.__
 const { registerBlockType } = window.wp.blocks
-const { useBlockProps, InspectorControls } = window.wp.blockEditor
-const { PanelBody, RangeControl, SelectControl, ToggleControl } = window.wp.components
+const { useBlockProps, InspectorControls } = window.wp.blockEditor // eslint-disable-line no-unused-vars
+const { PanelBody, RangeControl, SelectControl, ToggleControl } = window.wp.components // eslint-disable-line no-unused-vars
 
 registerBlockType('mailchimp-for-wp/campaigns', {
   apiVersion: 3,
