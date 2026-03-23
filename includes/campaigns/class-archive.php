@@ -192,10 +192,6 @@ class MC4WP_Campaign_Archive
             return current_user_can('manage_options') ? '<!-- MC4WP Campaign Archive Error: ' . esc_html($e->getMessage()) . ' -->' : '';
         }
 
-        if (! is_array($campaigns)) {
-            return current_user_can('manage_options') ? '<!-- MC4WP Campaign Archive: No campaigns array found. -->' : '';
-        }
-
         if (empty($campaigns)) {
             return current_user_can('manage_options') ? '<!-- MC4WP Campaign Archive: Zero campaigns returned from Mailchimp. -->' : '';
         }
