@@ -66,6 +66,9 @@ add_action('plugins_loaded', function () {
     $form_manager->add_hooks();
     $mc4wp['forms'] = $form_manager;
 
+    // campaign archive
+    ( new MC4WP_Campaign_Archive() )->add_hooks();
+
     // integration core
     $integration_manager = new MC4WP_Integration_Manager();
     $integration_manager->add_hooks();
