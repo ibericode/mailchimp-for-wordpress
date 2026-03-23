@@ -244,6 +244,11 @@ class MC4WP_Admin
         // Sanitize API key
         $settings['api_key'] = sanitize_text_field($settings['api_key']);
 
+        // Sanitize tracking pixel ID (alphanumeric and hyphens only)
+        if (isset($settings['tracking_pixel_id'])) {
+            $settings['tracking_pixel_id'] = preg_replace('/[^a-zA-Z0-9\-]/', '', $settings['tracking_pixel_id']);
+        }
+
         // if API key changed, empty Mailchimp cache
         if ($settings['api_key'] !== $current['api_key']) {
             delete_transient('mc4wp_mailchimp_lists');
