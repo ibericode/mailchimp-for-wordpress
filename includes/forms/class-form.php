@@ -291,10 +291,14 @@ class MC4WP_Form
             }
         }
 
+        // restrict allowed HTML in messages to a safe subset
+        $allowed_attributes = array_fill_keys([ 'class', 'id', 'style', 'href', 'target', 'src', 'width', 'height', 'alt' ], true);
+        $allowed_html = array_fill_keys([ 'strong', 'b', 'em', 'i', 'a', 'br', 'span', 'img' ], $allowed_attributes);
+
         foreach ($messages as $key => $message_text) {
             // overwrite default text with text in form meta.
             if (isset($post_meta[ 'text_' . $key ][0])) {
-                $message_text = $post_meta[ 'text_' . $key ][0];
+                $message_text = wp_kses($post_meta[ 'text_' . $key ][0], $allowed_html);
             }
 
             // run final value through gettext filter to allow translation of stored setting values
