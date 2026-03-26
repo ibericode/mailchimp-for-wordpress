@@ -60,6 +60,25 @@ defined('ABSPATH') or exit;
                     </table>
                 </div>
 
+                <div class="mc4wp-margin-m">
+                    <h3><?php echo esc_html__('Site Tracking Pixel', 'mailchimp-for-wp'); ?></h3>
+                    <table class="form-table">
+                        <tr>
+                            <th><label for="mc4wp-tracking-pixel-id"><?php echo esc_html__('Tracking Pixel ID', 'mailchimp-for-wp'); ?></label></th>
+                            <td>
+                                <input type="text" id="mc4wp-tracking-pixel-id" name="mc4wp[tracking_pixel_id]" value="<?php echo esc_attr($opts['tracking_pixel_id']); ?>" class="regular-text" placeholder="" />
+                                <p class="description">
+                                    <?php echo esc_html__('Enter your Mailchimp Site Tracking Pixel ID to enable visitor tracking on your site.', 'mailchimp-for-wp'); ?>
+                                    <a href="https://mailchimp.com/help/mailchimp-site-tracking-pixel-integration-guidance/" target="_blank"><?php echo esc_html__('Learn more about the tracking pixel.', 'mailchimp-for-wp'); ?></a>
+                                </p>
+                                <p class="description">
+                                    <?php echo esc_html__('When configured, the Mailchimp tracking script will be loaded on all frontend pages. Subscribers who sign up via your forms will be automatically identified.', 'mailchimp-for-wp'); ?>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
                 <?php do_action('mc4wp_admin_other_settings', $opts); ?>
 
                 <div style="margin-top: -20px;"><?php submit_button(); ?></div>
