@@ -34,6 +34,11 @@ class MC4WP_Admin
     protected $review_notice;
 
     /**
+     * @var MC4WP_Admin_Cron_Notice
+     */
+    protected $cron_notice;
+
+    /**
      * Constructor
      *
      * @param MC4WP_Admin_Tools $tools
@@ -46,6 +51,7 @@ class MC4WP_Admin
         $this->plugin_file   = plugin_basename(MC4WP_PLUGIN_FILE);
         $this->ads           = new MC4WP_Admin_Ads();
         $this->review_notice = new MC4WP_Admin_Review_Notice($tools);
+        $this->cron_notice   = new MC4WP_Admin_Cron_Notice($tools);
     }
 
     /**
@@ -70,6 +76,7 @@ class MC4WP_Admin
         $this->ads->add_hooks();
         $this->messages->add_hooks();
         $this->review_notice->add_hooks();
+        $this->cron_notice->add_hooks();
     }
 
     /**

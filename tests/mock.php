@@ -204,3 +204,84 @@ function shortcode_parse_atts($text)
     }
     return $atts;
 }
+
+/**
+ * @ignore
+ * @var int|false
+ */
+$mock_wp_next_scheduled = false;
+
+/** @ignore */
+function wp_next_scheduled($hook, $args = [])
+{
+    global $mock_wp_next_scheduled;
+    return $mock_wp_next_scheduled;
+}
+
+/**
+ * @ignore
+ * @var bool
+ */
+$mock_current_user_can = true;
+
+/** @ignore */
+function current_user_can($capability)
+{
+    global $mock_current_user_can;
+    return $mock_current_user_can;
+}
+
+/**
+ * @ignore
+ * @var array
+ */
+$mock_user_meta = [];
+
+/** @ignore */
+function get_user_meta($user_id, $key = '', $single = false)
+{
+    global $mock_user_meta;
+    $meta_key = $user_id . ':' . $key;
+    if (isset($mock_user_meta[$meta_key])) {
+        return $mock_user_meta[$meta_key];
+    }
+    return false;
+}
+
+/** @ignore */
+function update_user_meta($user_id, $meta_key, $meta_value)
+{
+    global $mock_user_meta;
+    $mock_user_meta[$user_id . ':' . $meta_key] = $meta_value;
+    return true;
+}
+
+/** @ignore */
+function wp_get_current_user()
+{
+    $user     = new stdClass();
+    $user->ID = 1;
+    return $user;
+}
+
+/** @ignore */
+function wp_nonce_field($action, $name, $referer = true, $display = true)
+{
+    $field = '<input type="hidden" name="' . $name . '" value="nonce" />';
+    if ($display) {
+        echo $field;
+    }
+    return $field;
+}
+
+/** @ignore */
+function wp_kses($content, $allowed_html, $allowed_protocols = [])
+{
+    return $content;
+}
+
+/** @ignore */
+function plugin_basename($file)
+{
+    return basename($file);
+}
