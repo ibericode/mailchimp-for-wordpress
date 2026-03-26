@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 4.6
 Tested up to: 6.9.1
-Stable tag: 4.12.0
+Stable tag: 4.12.1
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.4
@@ -189,6 +189,13 @@ The plugin provides various filter and action hooks that allow you to modify or 
 == Changelog ==
 
 
+
+#### 4.12.1 - Mar 26, 2026
+
+- Supply a custom capability type to `register_post_type` for the `mc4wp-form` post type.
+- Limit allowed HTML in the various form messages to a safe subset on load (versus only on update).
+
+
 #### 4.12.0 - Mar 9, 2026
 
 - Remove the ability to unsubscribe through a form. You should migrate to the Mailchimp hosted form for this, which does email verification.
@@ -203,7 +210,6 @@ The following fixes and improvements were contributed by [Faisal Ahammad](https:
 - Fix required validation for Ninja Forms integration. 
 - Add autocomplete attribute to form fields.
 - Enable live updates in Gravity Forms editor.
-
 
 
 #### 4.11.0 - Jan 20, 2026
@@ -1129,14 +1135,7 @@ Please note that installing this update requires you to also update any add-ons 
 **Improvements**
 
 - Obfuscate all email addresses in debug log. Thanks [Sauli Lepola](https://twitter.com/SJLfi).
-- Ask for confirmation before disabling double opt-in, which we do not recommend.
-- Allow vertical resizing of debug log.
-- Failsafe against including JavaScript file twice.
-- No longer wrapping CF7 checkbox in paragraph tags.
-
-**Additions**
-
-- Added `mc4wp_form_api_error` action ...
+- ...
 
 == Upgrade Notice ==
 
