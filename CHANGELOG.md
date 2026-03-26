@@ -1,6 +1,13 @@
 Changelog
 =========
 
+
+#### 4.12.1 - Mar 26, 2026
+
+- Supply a custom capability type to `register_post_type` for the `mc4wp-form` post type.
+- Limit allowed HTML in the various form messages to a safe subset on load (versus only on update).
+
+
 #### 4.12.0 - Mar 9, 2026
 
 - Remove the ability to unsubscribe through a form. You should migrate to the Mailchimp hosted form for this, which does email verification.
@@ -15,7 +22,6 @@ The following fixes and improvements were contributed by [Faisal Ahammad](https:
 - Fix required validation for Ninja Forms integration. 
 - Add autocomplete attribute to form fields.
 - Enable live updates in Gravity Forms editor.
-
 
 
 #### 4.11.0 - Jan 20, 2026
