@@ -25,6 +25,7 @@ spl_autoload_register(function ($class) {
         'MC4WP_BuddyPress_Integration' => '/integrations/buddypress/class-buddypress.php',
         'MC4WP_Comment_Form_Integration' => '/integrations/wp-comment-form/class-comment-form.php',
         'MC4WP_Contact_Form_7_Integration' => '/integrations/contact-form-7/class-contact-form-7.php',
+        'MC4WP_Campaign_Archive' => '/includes/campaigns/class-archive.php',
         'MC4WP_Container' => '/includes/class-container.php',
         'MC4WP_Custom_Integration' => '/integrations/custom/class-custom.php',
         'MC4WP_Debug_Log' => '/includes/class-debug-log.php',
