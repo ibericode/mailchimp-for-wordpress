@@ -15,7 +15,9 @@ function _mc4wp_admin_sidebar_support_notice()
             <li><a href="https://www.mc4wp.com/kb/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=sidebar"><?php echo esc_html__('Knowledge Base', 'mailchimp-for-wp'); ?></a></li>
             <li><a href="https://wordpress.org/plugins/mailchimp-for-wp/faq/"><?php echo esc_html__('Frequently Asked Questions', 'mailchimp-for-wp'); ?></a></li>
         </ul>
+        <?php // translators: %s is the URL to the WordPress.org support forum for this plugin. ?>
         <p><?php echo sprintf(wp_kses(__('If your answer can not be found in the resources listed above, please use the <a href="%s">support forums on WordPress.org</a>.', 'mailchimp-for-wp'), [ 'a' => [ 'href' => [] ] ]), 'https://wordpress.org/support/plugin/mailchimp-for-wp'); ?></p>
+        <?php // translators: %s is the URL to the GitHub issues page. ?>
         <p><?php echo sprintf(wp_kses(__('Found a bug? Please <a href="%s">open an issue on GitHub</a>.', 'mailchimp-for-wp'), [ 'a' => [ 'href' => [] ] ]), 'https://github.com/ibericode/mailchimp-for-wordpress/issues'); ?></p>
     </div>
     <?php

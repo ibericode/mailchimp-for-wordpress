@@ -46,21 +46,25 @@ abstract class MC4WP_Dynamic_Content_Tags
         ];
 
         $this->tags['date'] = [
+        // translators: %s is an example of the current date, e.g. 2024/01/15.
         'description' => sprintf(__('The current date. Example: %s.', 'mailchimp-for-wp'), '<strong>' . gmdate('Y/m/d', time() + ( get_option('gmt_offset') * HOUR_IN_SECONDS )) . '</strong>'),
         'replacement' => gmdate('Y/m/d', time() + ( get_option('gmt_offset') * HOUR_IN_SECONDS )),
         ];
 
         $this->tags['time'] = [
+        // translators: %s is an example of the current time, e.g. 14:30:00.
         'description' => sprintf(__('The current time. Example: %s.', 'mailchimp-for-wp'), '<strong>' . gmdate('H:i:s', time() + ( get_option('gmt_offset') * HOUR_IN_SECONDS )) . '</strong>'),
         'replacement' => gmdate('H:i:s', time() + ( get_option('gmt_offset') * HOUR_IN_SECONDS )),
         ];
 
         $this->tags['language'] = [
+        // translators: %s is an example of the site's locale, e.g. en_US.
         'description' => sprintf(__('The site\'s language. Example: %s.', 'mailchimp-for-wp'), '<strong>' . get_locale() . '</strong>'),
         'callback'    => 'get_locale',
         ];
 
         $this->tags['ip'] = [
+        // translators: %s is an example of the visitor's IP address.
         'description' => sprintf(__('The visitor\'s IP address. Example: %s.', 'mailchimp-for-wp'), '<strong>' . mc4wp_get_request_ip_address() . '</strong>'),
         'callback'    => 'mc4wp_get_request_ip_address',
         ];

@@ -425,6 +425,7 @@ class MC4WP_Admin
                 $message = sprintf('<strong>%s</strong> %s %s ', esc_html__('Error connecting to Mailchimp:', 'mailchimp-for-wp'), $e->getCode(), $e->getMessage());
 
                 if (is_object($e->response_data) && ! empty($e->response_data->ref_no)) {
+                    // translators: %s is the Mailchimp firewall reference number.
                     $message .= '<br />' . sprintf(esc_html__('Looks like your server is blocked by Mailchimp\'s firewall. Please contact Mailchimp support and include the following reference number: %s', 'mailchimp-for-wp'), $e->response_data->ref_no);
                 }
 
@@ -508,6 +509,7 @@ class MC4WP_Admin
         }
 
         echo '<div class="notice notice-warning mc4wp-is-dismissible">';
+        // translators: %s is the URL to the plugin settings page.
         echo '<p>', sprintf(wp_kses(__('To get started with Mailchimp for WordPress, please <a href="%s">enter your Mailchimp API key on the settings page of the plugin</a>.', 'mailchimp-for-wp'), ['a' => ['href' => []]]), admin_url('admin.php?page=mailchimp-for-wp')), '</p>';
         echo '<form method="post">';
         wp_nonce_field('_mc4wp_action', '_wpnonce');

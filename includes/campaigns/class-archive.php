@@ -135,8 +135,8 @@ class MC4WP_Campaign_Archive
                 $timestamp = strtotime($campaign->send_time);
                 if ($timestamp) {
                     $html .= ' <span class="mc4wp-campaign-archive__date">';
-                    /* translators: %s: Campaign send date. */
                     $html .= sprintf(
+                        // translators: %s is the campaign send date.
                         esc_html__('(%s)', 'mailchimp-for-wp'),
                         esc_html(date_i18n(get_option('date_format'), $timestamp))
                     );

@@ -2,6 +2,7 @@
 
 $theme       = wp_get_theme();
 $css_options = [
+    // translators: %s is the name of the active WordPress theme.
     '0'                                     => sprintf(esc_html__('Inherit from %s theme', 'mailchimp-for-wp'), $theme->Name), // @phpstan-ignore-line WP_Theme::$name is a dynamic property
     'basic'                                 => esc_html__('Basic', 'mailchimp-for-wp'),
     esc_html__('Form Themes', 'mailchimp-for-wp') => [

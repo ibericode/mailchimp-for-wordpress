@@ -222,6 +222,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
         // Dynamic population is enabled and contains more than 20 items
         if (isset($total) && $total > 20) {
             echo '<div class="wpforms-alert-dynamic wpforms-alert wpforms-alert-warning">';
+            // translators: %d is the total number of choices available.
             printf(__('Showing the first 20 choices.<br> All %d choices will be displayed when viewing the form.', 'wpforms'), absint($total));
             echo '</div>';
         }

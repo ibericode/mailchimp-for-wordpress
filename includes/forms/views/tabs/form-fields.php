@@ -36,7 +36,10 @@
 
 <?php submit_button(); ?>
 
-<p class="mc4wp-form-usage"><?php printf(esc_html__('Use the shortcode %s to display this form inside a post, page or text widget.', 'mailchimp-for-wp'), '<input type="text" onfocus="this.select();" readonly="readonly" value="' . esc_attr(sprintf('[mc4wp_form id=%d]', $form->ID)) . '" size="' . ( strlen($form->ID) + 15 ) . '">'); ?></p>
+<p class="mc4wp-form-usage"><?php
+    // translators: %s is the shortcode to display the form (e.g. [mc4wp_form id=123]).
+    printf(esc_html__('Use the shortcode %s to display this form inside a post, page or text widget.', 'mailchimp-for-wp'), '<input type="text" onfocus="this.select();" readonly="readonly" value="' . esc_attr(sprintf('[mc4wp_form id=%d]', $form->ID)) . '" size="' . ( strlen($form->ID) + 15 ) . '">');
+?></p>
 
 
 <?php // Content for Thickboxes ?>

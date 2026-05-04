@@ -18,6 +18,7 @@
         <p><?php echo esc_html__('No audiences were found in your Mailchimp account', 'mailchimp-for-wp'); ?>.</p>
         <?php
     } else {
+        // translators: %d is the number of Mailchimp audiences found.
         echo '<p>', sprintf(esc_html__('A total of %d audiences were found in your Mailchimp account.', 'mailchimp-for-wp'), count($lists)), '</p>';
         echo '<table class="widefat striped" id="mc4wp-mailchimp-lists-overview">';
 

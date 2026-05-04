@@ -201,6 +201,7 @@ class MC4WP_Form_Asset_Manager
         if ($this->load_typo_checker) {
             wp_enqueue_script('mc4wp-email-typo-checker');
             wp_localize_script('mc4wp-email-typo-checker', 'mc4wp_email_typo_checker', [
+                // translators: %s is the suggested correct email address.
                 'suggestion_text' => __('Did you mean %s?', 'mailchimp-for-wp'),
                 'domains'         => apply_filters('mc4wp_email_typo_checker_domains', [
                     'gmail.com',
