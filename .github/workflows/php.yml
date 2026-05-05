@@ -14,4 +14,10 @@ jobs:
       - run: composer run-script check-codestyle
       - run: composer run-script static-analysis
       - run: composer run-script test
+      - name: Run plugin check
+        uses: wordpress/plugin-check-action@v1
+        with:
+          exclude-directories: "sample-code-snippets,tests,vendor"
+          ignore-warnings: true 
+          ignore-codes: "hidden_files,application_detected"
       - run: php tests/benchmarks/run.php
