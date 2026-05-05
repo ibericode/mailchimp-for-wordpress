@@ -101,9 +101,9 @@ class MC4WP_Ninja_Forms_Field extends NF_Abstracts_Input
         if ('mc4wp_optin' === $field->get_setting('type')) {
             // Backwards compatibility check for the new checked value setting.
             if (null === $field->get_setting('checked_value') && 1 === (int) $value) {
-                return __('Checked', 'ninja-forms');
+                return __('Checked', 'mailchimp-for-wp');
             } elseif (null === $field->get_setting('unchecked_value') && 0 === (int) $value) {
-                return __('Unchecked', 'ninja-forms');
+                return __('Unchecked', 'mailchimp-for-wp');
             }
 
             // If the field value is set to 1....

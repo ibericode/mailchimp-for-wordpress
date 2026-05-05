@@ -209,7 +209,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
 
         // Notify if currently empty
         if (empty($values)) {
-            $values = ['label' => __('(empty)', 'wpforms')];
+            $values = ['label' => __('(empty)', 'mailchimp-for-wp')];
         }
 
         // Individual checkbox options
@@ -226,7 +226,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
         if (isset($total) && $total > 20) {
             echo '<div class="wpforms-alert-dynamic wpforms-alert wpforms-alert-warning">';
             // translators: %d is the total number of choices available.
-            printf(__('Showing the first 20 choices.<br> All %d choices will be displayed when viewing the form.', 'wpforms'), absint($total));
+            printf(__('Showing the first 20 choices.<br> All %d choices will be displayed when viewing the form.', 'mailchimp-for-wp'), absint($total));
             echo '</div>';
         }
 
