@@ -65,22 +65,40 @@ defined('ABSPATH') or exit;
 
                 <div class="mc4wp-margin-m">
                     <h3><?php echo esc_html__('Site Tracking Pixel', 'mailchimp-for-wp'); ?></h3>
+                    <?php if (MC4WP_Tracking_Pixel::is_premium_ecommerce_pixel_active()) : ?>
+                        <p class="description">
+                            <?php echo wp_kses(
+                                __('<strong>Note:</strong> Site tracking is currently managed by the <strong>MC4WP Premium E-Commerce</strong> integration. You do not need to configure it here.', 'mailchimp-for-wp'),
+                                ['strong' => []]
+                            ); ?>
+                        </p>
+                    <?php else : ?>
                     <table class="form-table">
                         <tr>
-                            <th><label for="mc4wp-tracking-pixel-id"><?php echo esc_html__('Tracking Pixel ID', 'mailchimp-for-wp'); ?></label></th>
+                            <th><label for="mc4wp-tracking-pixel-enabled"><?php echo esc_html__('Enable Site Tracking', 'mailchimp-for-wp'); ?></label></th>
                             <td>
-                                <input type="text" id="mc4wp-tracking-pixel-id" name="mc4wp[tracking_pixel_id]" value="<?php echo esc_attr($opts['tracking_pixel_id']); ?>" class="regular-text" placeholder="" />
+                                <label>
+                                    <input type="checkbox" id="mc4wp-tracking-pixel-enabled" name="mc4wp[tracking_pixel_enabled]" value="1" <?php checked(true, ! empty($opts['tracking_pixel_enabled'])); ?> />
+                                    <?php echo esc_html__('Load the Mailchimp Site Tracking Pixel on all frontend pages.', 'mailchimp-for-wp'); ?>
+                                </label>
                                 <p class="description">
-                                    <?php echo esc_html__('Enter your Mailchimp Site Tracking Pixel ID to enable visitor tracking on your site.', 'mailchimp-for-wp'); ?>
-                                    <a href="https://mailchimp.com/help/mailchimp-site-tracking-pixel-integration-guidance/" target="_blank"><?php echo esc_html__('Learn more about the tracking pixel.', 'mailchimp-for-wp'); ?></a>
+                                    <?php echo esc_html__('When enabled, the plugin automatically finds or registers your site in Mailchimp and loads the tracking script. Subscribers who sign up via your forms will be automatically identified.', 'mailchimp-for-wp'); ?>
+                                    <a href="https://mailchimp.com/help/mailchimp-site-tracking-pixel-integration-guidance/" target="_blank"><?php echo esc_html__('Learn more.', 'mailchimp-for-wp'); ?></a>
                                 </p>
-                                <p class="description">
-                                    <?php echo esc_html__('When configured, the Mailchimp tracking script will be loaded on all frontend pages. Subscribers who sign up via your forms will be automatically identified.', 'mailchimp-for-wp'); ?>
-                                </p>
+                                <?php if (! empty($opts['tracking_pixel_site_id'])) : ?>
+                                    <p class="description">
+                                        <strong><?php echo esc_html__('Connected Site ID:', 'mailchimp-for-wp'); ?></strong>
+                                        <code><?php echo esc_html($opts['tracking_pixel_site_id']); ?></code>
+                                        &nbsp;&mdash;&nbsp;
+                                        <a href="<?php echo esc_url(wp_nonce_url(add_query_arg(['_mc4wp_action' => 'connect_tracking_pixel']), '_mc4wp_action')); ?>"><?php echo esc_html__('Re-connect', 'mailchimp-for-wp'); ?></a>
+                                    </p>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     </table>
+                    <?php endif; ?>
                 </div>
+
 
                 <?php do_action('mc4wp_admin_other_settings', $opts); ?>
 

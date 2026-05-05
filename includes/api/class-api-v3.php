@@ -395,6 +395,42 @@ class MC4WP_API_V3
     }
 
     /**
+     * Get all connected sites for the Mailchimp account.
+     *
+     * @link https://mailchimp.com/developer/marketing/api/connected-sites/get-connected-site/
+     *
+     * @param array $args
+     *
+     * @return array
+     * @throws MC4WP_API_Exception
+     */
+    public function get_connected_sites(array $args = [])
+    {
+        $data = $this->client->get('/connected-sites', $args);
+
+        if (is_object($data) && isset($data->sites)) {
+            return $data->sites;
+        }
+
+        return [];
+    }
+
+    /**
+     * Add (register) a new connected site.
+     *
+     * @link https://mailchimp.com/developer/marketing/api/connected-sites/add-connected-site/
+     *
+     * @param array $args  Must include 'foreign_id' and 'domain'.
+     *
+     * @return object
+     * @throws MC4WP_API_Exception
+     */
+    public function add_connected_site(array $args)
+    {
+        return $this->client->post('/connected-sites', $args);
+    }
+
+    /**
      * @link https://developer.mailchimp.com/documentation/mailchimp/reference/ecommerce/stores/#read-get_ecommerce_stores
      *
      * @param array $args

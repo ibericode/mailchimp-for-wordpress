@@ -94,8 +94,16 @@ add_action('plugins_loaded', function () {
     // Initialize tracking pixel on frontend
     if (! is_admin()) {
         $opts = mc4wp_get_options();
-        if (! empty($opts['tracking_pixel_id'])) {
-            $tracking_pixel = new MC4WP_Tracking_Pixel($opts['tracking_pixel_id']);
+
+        // Determine the site ID: prefer new auto-connected value, fall back to legacy manual ID
+        $site_id = ! empty($opts['tracking_pixel_site_id']) ? $opts['tracking_pixel_site_id'] : ($opts['tracking_pixel_id'] ?? '');
+
+        if (
+            (! empty($opts['tracking_pixel_enabled']) || ! empty($opts['tracking_pixel_id']))
+            && ! empty($site_id)
+            && ! MC4WP_Tracking_Pixel::is_premium_ecommerce_pixel_active()
+        ) {
+            $tracking_pixel = new MC4WP_Tracking_Pixel($site_id);
             $tracking_pixel->add_hooks();
         }
     }

@@ -71,6 +71,7 @@ class MC4WP_Admin
         add_action('wp_dashboard_setup', [$this, 'register_dashboard_widgets']);
         add_action('mc4wp_admin_empty_lists_cache', [$this, 'renew_lists_cache']);
         add_action('mc4wp_admin_empty_debug_log', [$this, 'empty_debug_log']);
+        add_action('mc4wp_admin_connect_tracking_pixel', [$this, 'connect_tracking_pixel']);
 
         add_action('admin_notices', [$this, 'show_api_key_notice']);
         add_action('mc4wp_admin_dismiss_api_key_notice', [$this, 'dismiss_api_key_notice']);
@@ -254,9 +255,25 @@ class MC4WP_Admin
         // Sanitize API key
         $settings['api_key'] = sanitize_text_field($settings['api_key']);
 
-        // Sanitize tracking pixel ID (alphanumeric and hyphens only)
-        if (isset($settings['tracking_pixel_id'])) {
-            $settings['tracking_pixel_id'] = preg_replace('/[^a-zA-Z0-9\-]/', '', $settings['tracking_pixel_id']);
+        // Sanitize tracking pixel enabled toggle
+        $settings['tracking_pixel_enabled'] = ! empty($settings['tracking_pixel_enabled']);
+
+        // If the toggle was just switched on, trigger auto-connect to fetch/create the connected site
+        if ($settings['tracking_pixel_enabled'] && empty($settings['tracking_pixel_site_id'])) {
+            $result = MC4WP_Tracking_Pixel::fetch_or_create_connected_site();
+            if ($result !== false) {
+                $settings['tracking_pixel_site_id']   = $result['site_id'];
+                $settings['tracking_pixel_script_url'] = $result['script_url'];
+            } else {
+                $this->messages->flash(esc_html__('Could not automatically connect your site to Mailchimp. Please check your API key and try again.', 'mailchimp-for-wp'), 'error');
+                $settings['tracking_pixel_enabled'] = false;
+            }
+        }
+
+        // If the toggle is turned off, clear stored site info
+        if (! $settings['tracking_pixel_enabled']) {
+            $settings['tracking_pixel_site_id']   = '';
+            $settings['tracking_pixel_script_url'] = '';
         }
 
         // if API key changed, empty Mailchimp cache
@@ -471,6 +488,25 @@ class MC4WP_Admin
         $pos_a = isset($a['position']) ? $a['position'] : 80;
         $pos_b = isset($b['position']) ? $b['position'] : 90;
         return $pos_a < $pos_b ? -1 : 1;
+    }
+
+    /**
+     * Re-runs the connected site auto-connect flow (useful if the site was
+     * registered under a different domain or the stored site_id is stale).
+     */
+    public function connect_tracking_pixel()
+    {
+        $result = MC4WP_Tracking_Pixel::fetch_or_create_connected_site();
+        if ($result !== false) {
+            $opts = mc4wp_get_options();
+            $opts['tracking_pixel_enabled']    = true;
+            $opts['tracking_pixel_site_id']    = $result['site_id'];
+            $opts['tracking_pixel_script_url'] = $result['script_url'];
+            update_option('mc4wp', $opts);
+            $this->messages->flash(esc_html__('Site tracking pixel successfully connected.', 'mailchimp-for-wp'));
+        } else {
+            $this->messages->flash(esc_html__('Could not connect site tracking pixel. Please check your API key and try again.', 'mailchimp-for-wp'), 'error');
+        }
     }
 
     /**
