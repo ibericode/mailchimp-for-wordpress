@@ -26,6 +26,7 @@ class MC4WP_Form
     {
         // translators: %d is the form post ID.
         $message = sprintf(__('There is no form with ID %d, perhaps it was deleted?', 'mailchimp-for-wp'), $post_id);
+        // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception text is not direct output and is escaped at render time.
         throw new Exception($message);
     }
 

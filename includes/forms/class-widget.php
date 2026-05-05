@@ -54,14 +54,17 @@ class MC4WP_Form_Widget extends WP_Widget
         $instance_settings = array_merge($this->default_instance_settings, $instance_settings);
         $title             = apply_filters('widget_title', $instance_settings['title'], $instance_settings, $this->id_base);
 
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Core/theme widget wrappers are trusted HTML.
         echo $args['before_widget'];
 
         if (! empty($title)) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Widget title and wrappers intentionally allow filtered markup.
             echo $args['before_title'] . $title . $args['after_title'];
         }
 
         mc4wp_show_form($instance_settings['form_id']);
 
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Core/theme widget wrappers are trusted HTML.
         echo $args['after_widget'];
     }
 

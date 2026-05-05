@@ -206,6 +206,7 @@ class MC4WP_Debug_Log
                 return constant(__CLASS__ . '::' . $level);
             }
 
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception text is not direct output and is escaped at render time.
             throw new InvalidArgumentException('Level "' . $level . '" is not defined, use one of: ' . implode(', ', array_keys(self::$levels)));
         }
 
@@ -221,6 +222,7 @@ class MC4WP_Debug_Log
     public static function get_level_name($level)
     {
         if (! isset(self::$levels[ $level ])) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception text is not direct output and is escaped at render time.
             throw new InvalidArgumentException('Level "' . $level . '" is not defined, use one of: ' . implode(', ', array_keys(self::$levels)));
         }
 

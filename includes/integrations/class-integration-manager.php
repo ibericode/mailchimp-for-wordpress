@@ -93,6 +93,7 @@ class MC4WP_Integration_Manager
     public function get($slug)
     {
         if (! isset($this->integrations[ $slug ])) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception text is not direct output and is escaped at render time.
             throw new Exception(sprintf('No integration with slug %s has been registered.', $slug));
         }
 

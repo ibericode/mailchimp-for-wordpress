@@ -96,7 +96,18 @@ defined('ABSPATH') or exit;
                     echo '<p>';
                     echo esc_html__('Log file is not writable.', 'mailchimp-for-wp') . ' ';
                     // translators: 1: the log file path, 2: URL to the WordPress file permissions documentation.
-                    echo sprintf(wp_kses(__('Please ensure %1$s has the proper <a href="%2$s">file permissions</a>.', 'mailchimp-for-wp'), [ 'a' => [ 'href' => [] ] ]), '<code>' . $log->file . '</code>', 'https://codex.wordpress.org/Changing_File_Permissions');
+                    echo wp_kses(
+                        sprintf(
+                            /* translators: 1: log file path wrapped in code tags, 2: URL to WordPress file permissions docs. */
+                            __('Please ensure %1$s has the proper <a href="%2$s">file permissions</a>.', 'mailchimp-for-wp'),
+                            '<code>' . esc_html($log->file) . '</code>',
+                            esc_url('https://codex.wordpress.org/Changing_File_Permissions')
+                        ),
+                        [
+                            'a'    => [ 'href' => [] ],
+                            'code' => [],
+                        ]
+                    );
                     echo '</p>';
 
                     // hack to hide filter input
@@ -110,7 +121,12 @@ defined('ABSPATH') or exit;
                         if (! empty($line)) {
                             while (is_string($line)) {
                                 if (! empty($line)) {
-                                    echo '<div class="debug-log-line">' . $line . '</div>';
+                                    echo '<div class="debug-log-line">' . wp_kses(
+                                        $line,
+                                        [
+                                            'span' => [ 'class' => [] ],
+                                        ]
+                                    ) . '</div>';
                                 }
 
                                 $line = $log_reader->read_as_html();

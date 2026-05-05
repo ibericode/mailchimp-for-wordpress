@@ -157,6 +157,7 @@ abstract class MC4WP_Integration
         // replace selector by integration specific selector so the css affects just this checkbox
         $css = str_ireplace('__INTEGRATION_SLUG__', $this->slug, $css);
 
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS must be printed as raw stylesheet content.
         printf('<style>%s</style>', $css);
     }
 
@@ -266,6 +267,7 @@ abstract class MC4WP_Integration
      */
     public function output_checkbox()
     {
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Checkbox HTML is intentionally rendered.
         echo $this->get_checkbox_html();
     }
 
@@ -292,7 +294,7 @@ abstract class MC4WP_Integration
 
         ob_start();
 
-        echo '<!-- Mailchimp for WordPress v', MC4WP_VERSION,' - https://www.mc4wp.com/ -->';
+        echo '<!-- Mailchimp for WordPress v', esc_html(MC4WP_VERSION), ' - https://www.mc4wp.com/ -->';
 
         /** @ignore */
         do_action('mc4wp_integration_before_checkbox_wrapper', $this);
@@ -305,12 +307,14 @@ abstract class MC4WP_Integration
 
         // Hidden field to make sure "0" is sent to server
         echo '<input type="hidden" name="', esc_attr($this->checkbox_name), '" value="0" />';
-        echo "<$wrapper_tag $wrapper_attrs>";
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Wrapper attributes are escaped in array_to_attr_string().
+        printf('<%1$s %2$s>', tag_escape($wrapper_tag), $wrapper_attrs);
         echo '<label>';
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Checkbox attributes are escaped in array_to_attr_string().
         echo '<input type="checkbox" name="', esc_attr($this->checkbox_name), '" value="1" ', $this->get_checkbox_attributes(), '>';
-        echo '<span>', $this->get_label_text(), '</span>';
+        echo '<span>', wp_kses_post($this->get_label_text()), '</span>';
         echo '</label>';
-        echo "</$wrapper_tag>";
+        printf('</%s>', tag_escape($wrapper_tag));
 
         /** @ignore */
         do_action('mc4wp_integration_after_checkbox_wrapper', $this);

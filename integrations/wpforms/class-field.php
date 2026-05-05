@@ -215,9 +215,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
         // Individual checkbox options
         foreach ($values as $key => $value) {
             $default  = isset($value['default']) ? $value['default'] : '';
-            $selected = checked('1', $default, false);
-
-            printf('<li><input type="checkbox" %s disabled>%s</li>', $selected, $value['label']);
+            printf('<li><input type="checkbox" %s disabled>%s</li>', checked('1', $default, false), esc_html($value['label']));
         }
 
         echo '</ul>';
@@ -226,7 +224,14 @@ class MC4WP_WPForms_Field extends WPForms_Field
         if (isset($total) && $total > 20) {
             echo '<div class="wpforms-alert-dynamic wpforms-alert wpforms-alert-warning">';
             // translators: %d is the total number of choices available.
-            printf(__('Showing the first 20 choices.<br> All %d choices will be displayed when viewing the form.', 'mailchimp-for-wp'), absint($total));
+            echo wp_kses(
+                sprintf(
+                    /* translators: %d is the total number of choices available. */
+                    __('Showing the first 20 choices.<br> All %d choices will be displayed when viewing the form.', 'mailchimp-for-wp'),
+                    absint($total)
+                ),
+                [ 'br' => [] ]
+            );
             echo '</div>';
         }
 
@@ -250,34 +255,38 @@ class MC4WP_WPForms_Field extends WPForms_Field
         ], is_array($field_atts) ? $field_atts : []);
 
         // Setup and sanitize the necessary data
-        $field_required = ! empty($field['required']) ? ' required' : '';
+        $field_required = ! empty($field['required']);
         $field_class    = implode(' ', array_map('sanitize_html_class', (array) $field_atts['input_class']));
         $field_id       = implode(' ', array_map('sanitize_html_class', (array) $field_atts['input_id']));
-        $form_id        = $form_data['id'];
+        $form_id        = absint($form_data['id']);
+        $field_id_int   = absint($field['id']);
         $choices        = (array) $field['choices'];
 
         // List
-        printf('<ul id="%s" class="%s">', $field_id, $field_class);
+        printf('<ul id="%s" class="%s">', esc_attr($field_id), esc_attr($field_class));
 
         foreach ($choices as $key => $choice) {
             $selected = isset($choice['default']) ? '1' : '0';
             $depth    = isset($choice['depth']) ? absint($choice['depth']) : 1;
+            $key      = absint($key);
+            $list_item_class = sprintf('choice-%d depth-%d', $key, $depth);
 
-            printf('<li class="choice-%d depth-%d">', $key, $depth);
+            echo '<li class="', esc_attr($list_item_class), '">';
+
+            $input_id = sprintf('wpforms-%d-field_%d_%d', $form_id, $field_id_int, $key);
 
             // Checkbox elements
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- checked() and required flag return safe attribute fragments.
             printf(
-                '<input type="checkbox" id="wpforms-%d-field_%d_%d" name="wpforms[fields][%d]" value="%s" %s %s>',
-                $form_id,
-                $field['id'],
-                $key,
-                $field['id'],
+                '<input type="checkbox" id="%s" name="%s" value="%s" %s %s>',
+                esc_attr($input_id),
+                esc_attr(sprintf('wpforms[fields][%d]', $field_id_int)),
                 esc_attr($choice['value']),
                 checked('1', $selected, false),
-                $field_required
+                $field_required ? 'required' : ''
             );
 
-            printf('<label class="wpforms-field-label-inline" for="wpforms-%d-field_%d_%d">%s</label>', $form_id, $field['id'], $key, esc_html($choice['label']));
+            printf('<label class="wpforms-field-label-inline" for="%s">%s</label>', esc_attr($input_id), esc_html($choice['label']));
 
             echo '</li>';
         }

@@ -182,6 +182,7 @@ class MC4WP_API_V3_Client
     private function parse_response($response)
     {
         if ($response instanceof WP_Error) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception text is not direct output and is escaped at render time.
             throw new MC4WP_API_Connection_Exception($response->get_error_message(), (int) $response->get_error_code(), $this->last_request);
         }
 
@@ -200,19 +201,23 @@ class MC4WP_API_V3_Client
             // check for akamai errors
             // {"type":"akamai_error_message","title":"akamai_503","status":503,"ref_no":"Reference Number: 00.950e16c3.1498559813.1450dbe2"}
             if (is_object($data) && isset($data->type) && $data->type === 'akamai_error_message') {
+                // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception text is not direct output and is escaped at render time.
                 throw new MC4WP_API_Connection_Exception($message, $code, $this->last_request, $this->last_response, $data);
             }
 
             if ($code === 404) {
+                // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception text is not direct output and is escaped at render time.
                 throw new MC4WP_API_Resource_Not_Found_Exception($message, $code, $this->last_request, $this->last_response, $data);
             }
 
             // mailchimp returned an error..
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception text is not direct output and is escaped at render time.
             throw new MC4WP_API_Exception($message, $code, $this->last_request, $this->last_response, $data);
         }
 
         // throw exception if unable to decode response
         if ($data === null) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception text is not direct output and is escaped at render time.
             throw new MC4WP_API_Exception($message, $code, $this->last_request, $this->last_response);
         }
 
