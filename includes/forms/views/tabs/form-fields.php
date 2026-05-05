@@ -1,7 +1,7 @@
-<?php add_thickbox(); ?>
-
+<?php
 defined('ABSPATH') or exit;
 
+add_thickbox(); ?>
 
 <div class="alignright">
     <a href="#TB_inline?width=0&height=550&inlineId=mc4wp-form-variables" class="thickbox button-secondary">
@@ -40,9 +40,9 @@ defined('ABSPATH') or exit;
 <?php submit_button(); ?>
 
 <p class="mc4wp-form-usage"><?php
-    // translators: %s is the shortcode to display the form (e.g. [mc4wp_form id=123]).
     echo wp_kses(
         sprintf(
+            // translators: %s is the shortcode to display the form (e.g. [mc4wp_form id=123]).
             esc_html__('Use the shortcode %s to display this form inside a post, page or text widget.', 'mailchimp-for-wp'),
             '<input type="text" onfocus="this.select();" readonly="readonly" value="' . esc_attr(sprintf('[mc4wp_form id=%d]', $form->ID)) . '" size="' . esc_attr((string) ( strlen((string) $form->ID) + 15 )) . '">'
         ),

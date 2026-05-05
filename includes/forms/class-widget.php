@@ -97,9 +97,9 @@ class MC4WP_Form_Widget extends WP_Widget
 
         <p class="description">
             <?php
-            // translators: %s is the URL to the plugin form settings page.
             echo wp_kses(
                 sprintf(
+                    // translators: %s is the URL to the plugin form settings page.
                     __('You can edit your sign-up form in the <a href="%s">Mailchimp for WordPress form settings</a>.', 'mailchimp-for-wp'),
                     esc_url(admin_url('admin.php?page=mailchimp-for-wp-forms'))
                 ),

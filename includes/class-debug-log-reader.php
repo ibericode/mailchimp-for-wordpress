@@ -86,7 +86,7 @@ class MC4WP_Debug_Log_Reader
                 return null;
             }
 
-            $this->handle = @fopen($this->file, 'r');
+            $this->handle = @fopen($this->file, 'r'); // phpcs:ignore 
 
             // unable to read?
             if (! is_resource($this->handle)) {
@@ -99,7 +99,7 @@ class MC4WP_Debug_Log_Reader
 
         // stop reading once we're at the end
         if (feof($this->handle)) {
-            fclose($this->handle);
+            fclose($this->handle); // phpcs:ignore 
             $this->handle = null;
             return null;
         }

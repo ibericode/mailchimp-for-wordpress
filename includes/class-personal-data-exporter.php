@@ -14,7 +14,7 @@ class MC4WP_Personal_Data_Exporter
     public static function add_mailchimp_to_privacy_export($exporters)
     {
         $exporters['mailchimp-subscriptions'] = [
-            'exporter_friendly_name' => __('Mailchimp Subscriptions'),
+            'exporter_friendly_name' => __('Mailchimp Subscriptions', 'mailchimp-for-wp'),
             'callback' => [self::class, 'get_mailchimp_subscription_data']
         ];
 

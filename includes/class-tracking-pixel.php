@@ -55,7 +55,7 @@ class MC4WP_Tracking_Pixel
         }
 
         $url = 'https://mc.mailchimp.com/mcjs/' . urlencode($this->tracking_id) . '.js';
-        wp_enqueue_script('mc4wp-site-tracking-pixel', $url, [], false, [
+        wp_enqueue_script('mc4wp-site-tracking-pixel', $url, [], MC4WP_VERSION, [
             'strategy' => 'defer'
         ]);
     }

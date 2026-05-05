@@ -120,7 +120,7 @@ function mc4wp_get_debug_log()
     if ($file === $default_file) {
         $dir = dirname($file);
         if (! is_dir($dir)) {
-            mkdir($dir, 0755, true);
+            wp_mkdir_p($dir);
         }
 
         if (! is_file($dir . '/.htaccess')) {

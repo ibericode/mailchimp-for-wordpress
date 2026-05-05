@@ -11,15 +11,11 @@ defined('ABSPATH') or exit;
  */
 class MC4WP_Admin_Ads
 {
-    /**
-     * @return bool Adds hooks
-     */
-    public function add_hooks()
+    public function add_hooks(): void
     {
-
         // don't hook if Premium is activated
         if (defined('MC4WP_PREMIUM_VERSION')) {
-            return false;
+            return;
         }
 
         add_filter('mc4wp_admin_plugin_meta_links', [ $this, 'plugin_meta_links' ]);
@@ -32,7 +28,6 @@ class MC4WP_Admin_Ads
         add_filter('mc4wp_admin_menu_items', [ $this, 'add_menu_item' ]);
 
         add_action('mc4wp_admin_after_woocommerce_integration_settings', [ $this, 'ecommerce' ]);
-        return true;
     }
 
     public function add_menu_item($items)
@@ -73,6 +68,7 @@ class MC4WP_Admin_Ads
         echo '<p class="description">';
 
         if (wp_rand(1, 2) === 1) {
+            // translators: %s is a URL to the premium features page.
             echo sprintf(__('Be notified whenever someone subscribes? <a href="%s">Mailchimp for WordPress Premium</a> allows you to set up email notifications for your forms.', 'mailchimp-for-wp'), 'https://www.mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=footer-link');
         } else {
             // translators: %s is a URL to the premium features page.

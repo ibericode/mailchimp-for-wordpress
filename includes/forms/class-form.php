@@ -303,7 +303,7 @@ class MC4WP_Form
             }
 
             // run final value through gettext filter to allow translation of stored setting values
-            $messages[ $key ] = __($message_text, 'mailchimp-for-wp');
+            $messages[ $key ] = __($message_text, 'mailchimp-for-wp'); // phpcs:ignore
         }
 
         return $messages;

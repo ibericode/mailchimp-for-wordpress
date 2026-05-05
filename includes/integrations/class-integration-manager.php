@@ -2,8 +2,6 @@
 
 defined('ABSPATH') or exit;
 
-// phpcs:ignore missing_direct_file_access_protection
-
 /**
  * Class MC4WP_Integration_Manager
  *

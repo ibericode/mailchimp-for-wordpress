@@ -113,7 +113,7 @@ class MC4WP_Debug_Log
         // did we open stream yet?
         if (! is_resource($this->stream)) {
             // attempt to open stream
-            $this->stream = @fopen($this->file, 'c+');
+            $this->stream = @fopen($this->file, 'c+'); // phpcs:ignore
             if (! is_resource($this->stream)) {
                 return false;
             }
@@ -123,7 +123,7 @@ class MC4WP_Debug_Log
             $php_exit_string = '<?php exit; ?>';
             if (strpos($line, $php_exit_string) !== 0) {
                 rewind($this->stream);
-                fwrite($this->stream, $php_exit_string . PHP_EOL . $line);
+                fwrite($this->stream, $php_exit_string . PHP_EOL . $line); // phpcs:ignore
             }
 
             // place pointer at end of file
@@ -134,7 +134,7 @@ class MC4WP_Debug_Log
         flock($this->stream, LOCK_EX);
 
         // write the message to the file
-        fwrite($this->stream, $message);
+        fwrite($this->stream, $message); // phpcs:ignore
 
         // unlock file again, but don't close it for remainder of this request
         flock($this->stream, LOCK_UN);
@@ -234,12 +234,12 @@ class MC4WP_Debug_Log
      */
     public function test()
     {
-        $handle   = @fopen($this->file, 'a');
+        $handle   = @fopen($this->file, 'a'); // phpcs:ignore
         $writable = false;
 
         if (is_resource($handle)) {
             $writable = true;
-            fclose($handle);
+            fclose($handle); // phpcs:ignore
         }
 
         return $writable;

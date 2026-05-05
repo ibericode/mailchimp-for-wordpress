@@ -178,7 +178,7 @@ abstract class MC4WP_Integration
         // run saved value through gettext filter
         // this allows people to use a plugin like Loco Translate to translate this message
         // without updating the setting itself
-        $label = __($label, 'mailchimp-for-wp');
+        $label = __($label, 'mailchimp-for-wp'); // phpcs:ignore
 
         /**
          * Filters the checkbox label
