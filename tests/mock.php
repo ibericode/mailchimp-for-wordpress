@@ -281,6 +281,18 @@ function wp_kses($content, $allowed_html, $allowed_protocols = [])
 }
 
 /** @ignore */
+function wp_strip_all_tags($html) 
+{
+    return $html;
+}
+
+/** @ignore */
+function wp_rand($min, $max) 
+{
+    return rand($min, $max);
+}
+
+/** @ignore */
 function plugin_basename($file)
 {
     return basename($file);
