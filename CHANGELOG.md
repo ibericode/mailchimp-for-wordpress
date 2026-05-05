@@ -1,6 +1,15 @@
 Changelog
 =========
 
+#### 4.12.3 - May 5, 2026
+
+- Improved Mailchimp Site Tracking Pixel support. Site is now automatically discovered or registered in Mailchimp when feature is enabled.
+- Sign-up attempts for integrations are now processed asynchronously (via a scheduled event).
+- Ensure mc4wp_refresh_mailchimp_lists is scheduled in site's local timezone.
+- Added missing translator comments to all translatable strings.
+- General code hardening and minor improvements as reported by the Plugin Check tool.
+
+
 #### 4.12.2 - Apr 20, 2026
 
 - Add Mailchimp Campaign Archive block and [mc4wp_campaigns] shortcode to show an archive Mailchimp email campaigns. Thanks to [Faisal Ahammad](https://faisalahammad.com/)!
