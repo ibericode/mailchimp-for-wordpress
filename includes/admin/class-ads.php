@@ -71,7 +71,7 @@ class MC4WP_Admin_Ads
         echo '<td colspan="2">';
         echo '<p class="description">';
 
-        if (rand(1, 2) === 1) {
+        if (wp_rand(1, 2) === 1) {
             echo sprintf(__('Be notified whenever someone subscribes? <a href="%s">Mailchimp for WordPress Premium</a> allows you to set up email notifications for your forms.', 'mailchimp-for-wp'), 'https://www.mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=footer-link');
         } else {
             echo sprintf(__('Increased conversions? <a href="%s">Mailchimp for WordPress Premium</a> submits forms without reloading the entire page, resulting in a much better experience for your visitors.', 'mailchimp-for-wp'), 'https://www.mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=form-settings-link');
