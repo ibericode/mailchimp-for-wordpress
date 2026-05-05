@@ -32,7 +32,8 @@
     "test": "phpunit tests/",
     "check-syntax": "bin/check-php-syntax",
     "check-codestyle": "vendor/bin/phpcs -n -s",
-    "static-analysis": "vendor/bin/phpstan analyse"
+    "static-analysis": "vendor/bin/phpstan analyse",
+    "wp-plugin-checks": "wp plugin check mailchimp-for-wp --exclude-directories=sample-code-snippets,tests,vendor --ignore-warnings --ignore-codes=hidden_files,application_detected"
   },
   "config": {
     "allow-plugins": {

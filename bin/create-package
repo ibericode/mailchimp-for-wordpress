@@ -33,6 +33,7 @@ fi;
 composer run check-syntax
 composer run check-codestyle
 composer run static-analysis
+composer run wp-plugin-checks
 
 # Build (optimized) client-side assets
 npm run build
