@@ -104,14 +104,11 @@ class MC4WP_Debug_Log_Reader
             return null;
         }
 
-        // read line, up to 8kb
         $text = fgets($this->handle);
-
-        // strip tags & trim
-        $text = strip_tags($text);
-        $text = trim($text);
-
-        return $text;
+        if ($text === false || $text === null) {
+            return null;
+        }
+        return trim($text);
     }
 
     /**

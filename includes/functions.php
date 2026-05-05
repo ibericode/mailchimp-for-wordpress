@@ -251,7 +251,7 @@ function mc4wp_sanitize_deep($value)
 {
     if (is_scalar($value)) {
         // strip all HTML tags & whitespace
-        $value = trim(strip_tags($value));
+        $value = trim(wp_strip_all_tags($value));
 
         // convert &amp; back to &
         $value = html_entity_decode($value, ENT_NOQUOTES);

@@ -91,7 +91,7 @@ class MC4WP_Debug_Log
         $message = preg_replace('/<(?:style|script|head)>.+?<\/(?:style|script|head)>/is', '', $message);
 
         // then, strip tags (while retaining content of these tags)
-        $message = strip_tags($message);
+        $message = wp_strip_all_tags($message);
         $message = trim($message);
 
         /**
