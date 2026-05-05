@@ -46,10 +46,10 @@ $config = [
     <tbody class="integration-toggled-settings" data-showif="<?php echo esc_attr(json_encode($body_config)); ?>">
         <tr valign="top" data-showif="<?php echo esc_attr(json_encode($config)); ?>">
             <th scope="row">
-                <?php _e('Position', 'mailchimp-for-wp'); ?>
+                <?php esc_html_e('Position', 'mailchimp-for-wp'); ?>
             </th>
             <td>
-                <select name="mc4wp_integrations[<?php echo $integration->slug; ?>][position]">
+                <select name="mc4wp_integrations[<?php echo esc_attr($integration->slug); ?>][position]">
                     <?php
 
                     foreach ($position_options as $value => $label) {

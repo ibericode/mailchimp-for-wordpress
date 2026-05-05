@@ -57,7 +57,21 @@ $tabs = apply_filters('mc4wp_admin_edit_form_tabs', $tabs);
                 <div>
                     <?php
                     // translators: %s is the shortcode to display the form (e.g. [mc4wp_form id=123]).
-                    echo sprintf(esc_html__('Use the shortcode %s to display this form inside a post, page or text widget.', 'mailchimp-for-wp'), '<input type="text" onfocus="this.select();" readonly="readonly" value="' . esc_attr(sprintf('[mc4wp_form id=%d]', $form->ID)) . '" size="' . ( strlen($form->ID) + 15 ) . '">');
+                    echo wp_kses(
+                        sprintf(
+                            esc_html__('Use the shortcode %s to display this form inside a post, page or text widget.', 'mailchimp-for-wp'),
+                            '<input type="text" onfocus="this.select();" readonly="readonly" value="' . esc_attr(sprintf('[mc4wp_form id=%d]', $form->ID)) . '" size="' . esc_attr((string) ( strlen((string) $form->ID) + 15 )) . '">'
+                        ),
+                        [
+                            'input' => [
+                                'type' => [],
+                                'onfocus' => [],
+                                'readonly' => [],
+                                'value' => [],
+                                'size' => [],
+                            ],
+                        ]
+                    );
                     ?>
                 </div>
             </div>
@@ -68,8 +82,8 @@ $tabs = apply_filters('mc4wp_admin_edit_form_tabs', $tabs);
                     <?php
                     foreach ($tabs as $tab => $name) {
                         $class = ( $active_tab === $tab ) ? 'nav-tab-active' : '';
-                        $href  = esc_attr($this->tab_url($tab));
-                        echo "<a class=\"nav-tab nav-tab-{$tab} {$class}\" data-tab=\"{$tab}\" href=\"{$href}\">{$name}</a>";
+                        $href  = $this->tab_url($tab);
+                        printf('<a class="nav-tab nav-tab-%1$s %2$s" data-tab="%1$s" href="%3$s">%4$s</a>', esc_attr($tab), esc_attr($class), esc_url($href), esc_html($name));
                     }
                     ?>
                 </h2>
@@ -79,7 +93,7 @@ $tabs = apply_filters('mc4wp_admin_edit_form_tabs', $tabs);
                     <?php
                     foreach ($tabs as $tab => $name) {
                         $class = ( $active_tab === $tab ) ? 'mc4wp-tab-active' : '';
-                        echo "<div class=\"mc4wp-tab {$class}\" id=\"mc4wp-tab-{$tab}\">";
+                        printf('<div class="mc4wp-tab %1$s" id="mc4wp-tab-%2$s">', esc_attr($class), esc_attr($tab));
 
                         /**
                          * Runs when outputting a tab section on the "edit form" screen

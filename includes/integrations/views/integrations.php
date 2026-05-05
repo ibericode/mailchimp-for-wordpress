@@ -5,16 +5,17 @@ defined('ABSPATH') or exit;
 /** @param MC4WP_Integration_Fixture $integration */
 function _mc4wp_integrations_table_row($integration)
 {
-    $style_attr = ! $integration->is_installed() ? 'style="opacity: 0.6;"' : '';
     ?>
-    <tr <?php echo $style_attr; ?>>
+    <tr<?php if (! $integration->is_installed()) {
+        echo ' style="opacity: 0.6;"';
+       } ?>>
 
         <td>
             <?php
             if ($integration->is_installed()) {
-                $href  = esc_attr(add_query_arg([ 'integration' => $integration->slug ]));
+                $href  = add_query_arg([ 'integration' => $integration->slug ]);
                 $title = esc_attr__('Configure this integration', 'mailchimp-for-wp');
-                echo "<strong><a href=\"{$href}\" title=\"{$title}\">{$integration->name}</a></strong>";
+                printf('<strong><a href="%s" title="%s">%s</a></strong>', esc_url($href), esc_attr($title), esc_html($integration->name));
             } else {
                 echo esc_html($integration->name);
             }
@@ -89,7 +90,7 @@ function _mc4wp_integrations_table($integrations)
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
     <p class="mc4wp-breadcrumbs">
         <span class="prefix"><?php echo esc_html__('You are here: ', 'mailchimp-for-wp'); ?></span>
-        <a href="<?php echo admin_url('admin.php?page=mailchimp-for-wp'); ?>">Mailchimp for WordPress</a> &rsaquo;
+        <a href="<?php echo esc_url(admin_url('admin.php?page=mailchimp-for-wp')); ?>">Mailchimp for WordPress</a> &rsaquo;
         <span class="current-crumb"><strong><?php echo esc_html__('Integrations', 'mailchimp-for-wp'); ?></strong></span>
     </p>
 
@@ -105,7 +106,7 @@ function _mc4wp_integrations_table($integrations)
                 <?php echo esc_html__('Click on the name of an integration to edit all settings specific to that integration.', 'mailchimp-for-wp'); ?>
             </p>
 
-            <form action="<?php echo admin_url('options.php'); ?>" method="post">
+            <form action="<?php echo esc_url(admin_url('options.php')); ?>" method="post">
                 <?php settings_fields('mc4wp_integrations_settings'); ?>
                 <h3><?php echo esc_html__('Integrations', 'mailchimp-for-wp'); ?></h3>
                 <?php _mc4wp_integrations_table($integrations); ?>

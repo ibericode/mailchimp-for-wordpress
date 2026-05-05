@@ -221,7 +221,7 @@ class MC4WP_Admin
         $lists     = $mailchimp->refresh_lists();
 
         if (! empty($lists)) {
-            $this->messages->flash(esc_html__('Success! The cached configuration for your Mailchimp lists has been renewed.', 'mailchimp-for-wp'));
+            $this->messages->flash(__('Success! The cached configuration for your Mailchimp lists has been renewed.', 'mailchimp-for-wp'));
         }
     }
 
@@ -425,19 +425,19 @@ class MC4WP_Admin
                 $mailchimp = new MC4WP_MailChimp();
                 $lists     = $mailchimp->get_lists();
             } catch (MC4WP_API_Connection_Exception $e) {
-                $message = sprintf('<strong>%s</strong> %s %s ', esc_html__('Error connecting to Mailchimp:', 'mailchimp-for-wp'), $e->getCode(), $e->getMessage());
+                $message = sprintf('<strong>%s</strong> %s %s ', __('Error connecting to Mailchimp:', 'mailchimp-for-wp'), $e->getCode(), $e->getMessage());
 
                 if (is_object($e->response_data) && ! empty($e->response_data->ref_no)) {
                     // translators: %s is the Mailchimp firewall reference number.
-                    $message .= '<br />' . sprintf(esc_html__('Looks like your server is blocked by Mailchimp\'s firewall. Please contact Mailchimp support and include the following reference number: %s', 'mailchimp-for-wp'), $e->response_data->ref_no);
+                    $message .= '<br />' . sprintf(__('Looks like your server is blocked by Mailchimp\'s firewall. Please contact Mailchimp support and include the following reference number: %s', 'mailchimp-for-wp'), $e->response_data->ref_no);
                 }
 
-                $message .= '<br /><br />' . sprintf('<a href="%s">' . esc_html__('Here\'s some info on solving common connectivity issues.', 'mailchimp-for-wp') . '</a>', 'https://www.mc4wp.com/kb/solving-connectivity-issues/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-notice');
+                $message .= '<br /><br />' . sprintf('<a href="%s">' . __('Here\'s some info on solving common connectivity issues.', 'mailchimp-for-wp') . '</a>', 'https://www.mc4wp.com/kb/solving-connectivity-issues/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-notice');
 
                 $this->messages->flash($message, 'error');
                 $connected = false;
             } catch (MC4WP_API_Exception $e) {
-                $message = sprintf('<strong>%s</strong><br /> %s', esc_html__('Mailchimp returned the following error:', 'mailchimp-for-wp'), nl2br((string) $e));
+                $message = sprintf('<strong>%s</strong><br /> %s', __('Mailchimp returned the following error:', 'mailchimp-for-wp'), nl2br((string) $e));
                 $this->messages->flash($message, 'error');
                 $connected = false;
             }
@@ -481,7 +481,7 @@ class MC4WP_Admin
         $log = $this->get_log();
         file_put_contents($log->file, '');
 
-        $this->messages->flash(esc_html__('Log successfully emptied.', 'mailchimp-for-wp'));
+        $this->messages->flash(__('Log successfully emptied.', 'mailchimp-for-wp'));
     }
 
     /**
@@ -513,7 +513,7 @@ class MC4WP_Admin
 
         echo '<div class="notice notice-warning mc4wp-is-dismissible">';
         // translators: %s is the URL to the plugin settings page.
-        echo '<p>', sprintf(wp_kses(__('To get started with Mailchimp for WordPress, please <a href="%s">enter your Mailchimp API key on the settings page of the plugin</a>.', 'mailchimp-for-wp'), ['a' => ['href' => []]]), admin_url('admin.php?page=mailchimp-for-wp')), '</p>';
+        echo '<p>', sprintf(wp_kses(__('To get started with Mailchimp for WordPress, please <a href="%s">enter your Mailchimp API key on the settings page of the plugin</a>.', 'mailchimp-for-wp'), ['a' => ['href' => []]]), esc_url(admin_url('admin.php?page=mailchimp-for-wp'))), '</p>';
         echo '<form method="post">';
         wp_nonce_field('_mc4wp_action', '_wpnonce');
         echo '<input type="hidden" name="_mc4wp_action" value="dismiss_api_key_notice" />';

@@ -277,7 +277,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
                 $field_required
             );
 
-            printf('<label class="wpforms-field-label-inline" for="wpforms-%d-field_%d_%d">%s</label>', $form_id, $field['id'], $key, wp_kses_post($choice['label']));
+            printf('<label class="wpforms-field-label-inline" for="wpforms-%d-field_%d_%d">%s</label>', $form_id, $field['id'], $key, esc_html($choice['label']));
 
             echo '</li>';
         }

@@ -6,7 +6,7 @@
 <div id="mc4wp-list-fetcher">
     <form method="post" action="">
         <input type="hidden" name="_mc4wp_action" value="empty_lists_cache" />
-        <?php echo wp_nonce_field('_mc4wp_action'); ?>
+        <?php wp_nonce_field('_mc4wp_action'); ?>
         <p>
             <input type="submit" value="<?php echo esc_attr__('Renew Mailchimp audiences', 'mailchimp-for-wp'); ?>" class="button">
         </p>

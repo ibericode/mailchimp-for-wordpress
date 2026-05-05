@@ -26,10 +26,10 @@
                     <?php
                     foreach ($lists as $list) {
                         ?>
-                    <li data-list-id="<?php echo $list->id; ?>" style="display: <?php echo in_array($list->id, $opts['lists']) ? '' : 'none'; ?>">
-                        <a href="https://admin.mailchimp.com/lists/settings/merge-tags?id=<?php echo $list->web_id; ?>">
+                    <li data-list-id="<?php echo esc_attr($list->id); ?>" style="display: <?php echo in_array($list->id, $opts['lists'], true) ? '' : 'none'; ?>">
+                        <a href="https://admin.mailchimp.com/lists/settings/merge-tags?id=<?php echo esc_attr($list->web_id); ?>">
                             <span class="screen-reader-text"><?php echo esc_html__('Edit list fields for', 'mailchimp-for-wp'); ?> </span>
-                            <?php echo $list->name; ?>
+                            <?php echo esc_html($list->name); ?>
                         </a>
                     </li>
                         <?php

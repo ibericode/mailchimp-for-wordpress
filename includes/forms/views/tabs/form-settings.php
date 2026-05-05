@@ -18,7 +18,7 @@
             ?>
             <td colspan="2"><?php
                 // translators: %s is the URL to the Mailchimp for WordPress settings page.
-                echo sprintf(wp_kses(__('No audiences found, <a href="%s">are you connected to Mailchimp</a>?', 'mailchimp-for-wp'), [ 'a' => [ 'href' => [] ] ]), admin_url('admin.php?page=mailchimp-for-wp'));
+                echo sprintf(wp_kses(__('No audiences found, <a href="%s">are you connected to Mailchimp</a>?', 'mailchimp-for-wp'), [ 'a' => [ 'href' => [] ] ]), esc_url(admin_url('admin.php?page=mailchimp-for-wp')));
             ?></td>
             <?php
         } else {

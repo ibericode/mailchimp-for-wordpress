@@ -10,7 +10,7 @@ defined('ABSPATH') or exit;
 
     <p class="mc4wp-breadcrumbs">
         <span class="prefix"><?php echo esc_html__('You are here: ', 'mailchimp-for-wp'); ?></span>
-        <a href="<?php echo admin_url('admin.php?page=mailchimp-for-wp'); ?>">Mailchimp for WordPress</a> &rsaquo;
+        <a href="<?php echo esc_url(admin_url('admin.php?page=mailchimp-for-wp')); ?>">Mailchimp for WordPress</a> &rsaquo;
         <span class="current-crumb"><strong><?php echo esc_html__('Other Settings', 'mailchimp-for-wp'); ?></strong></span>
     </p>
 
@@ -28,7 +28,7 @@ defined('ABSPATH') or exit;
             <?php settings_errors(); ?>
             <?php do_action('mc4wp_admin_before_other_settings', $opts); ?>
 
-            <form action="<?php echo admin_url('options.php'); ?>" method="post">
+            <form action="<?php echo esc_url(admin_url('options.php')); ?>" method="post">
                 <?php settings_fields('mc4wp_settings'); ?>
 
                 <div class="mc4wp-margin-m" >

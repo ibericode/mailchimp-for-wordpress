@@ -47,7 +47,7 @@ class MC4WP_Admin_Messages
     /**
      * Flash a message (shows on next pageload)
      *
-     * @param        $message
+     * @param string $message
      * @param string $type
      */
     public function flash($message, $type = 'success')
@@ -69,8 +69,14 @@ class MC4WP_Admin_Messages
     {
         $this->load();
 
+        $allowed_html = [
+            'a' => [ 'href' => [] ],
+            'br' => [],
+            'strong' => [],
+        ];
+
         foreach ($this->bag as $message) {
-            echo sprintf('<div class="notice notice-%s is-dismissible"><p>%s</p></div>', $message['type'], $message['text']);
+            printf('<div class="notice notice-%s is-dismissible"><p>%s</p></div>', esc_attr($message['type']), wp_kses($message['text'], $allowed_html));
         }
 
         $this->reset();

@@ -73,7 +73,9 @@ class MC4WP_Admin_Review_Notice
         // translators: %s is the URL to the WordPress.org plugin review page.
         echo sprintf(wp_kses(__('If you do, please <a href="%s">leave us a 5★ rating on WordPress.org</a>. It would be of great help to us.', 'mailchimp-for-wp'), [ 'a' => [ 'href' => [] ] ]), 'https://wordpress.org/support/view/plugin-reviews/mailchimp-for-wp?rate=5#new-post');
         echo '</p>';
-        echo '<form method="POST" id="mc4wp-dismiss-review-form"><button type="submit" class="notice-dismiss"><span class="screen-reader-text">', esc_html__('Dismiss this notice.', 'mailchimp-for-wp'), '</span></button><input type="hidden" name="_mc4wp_action" value="dismiss_review_notice" />', wp_nonce_field('_mc4wp_action', '_wpnonce', true, false), '</form>';
+        echo '<form method="POST" id="mc4wp-dismiss-review-form"><button type="submit" class="notice-dismiss"><span class="screen-reader-text">', esc_html__('Dismiss this notice.', 'mailchimp-for-wp'), '</span></button><input type="hidden" name="_mc4wp_action" value="dismiss_review_notice" />';
+        wp_nonce_field('_mc4wp_action');
+        echo '</form>';
         echo '</div>';
     }
 
