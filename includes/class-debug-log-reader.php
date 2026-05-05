@@ -105,7 +105,7 @@ class MC4WP_Debug_Log_Reader
         }
 
         $text = fgets($this->handle);
-        if ($text === false || $text === null) {
+        if ($text === false) {
             return null;
         }
         return trim($text);

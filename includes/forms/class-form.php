@@ -24,6 +24,7 @@ class MC4WP_Form
      */
     public static function throw_not_found_exception($post_id)
     {
+        // translators: %d is the form post ID.
         $message = sprintf(__('There is no form with ID %d, perhaps it was deleted?', 'mailchimp-for-wp'), $post_id);
         throw new Exception($message);
     }

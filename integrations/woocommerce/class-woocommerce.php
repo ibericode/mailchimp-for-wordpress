@@ -249,6 +249,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
      */
     public function get_object_link($object_id)
     {
+        // translators: %d is the WooCommerce order number.
         return sprintf('<a href="%s">%s</a>', get_edit_post_link($object_id), sprintf(__('Order #%d', 'mailchimp-for-wp'), $object_id));
     }
 }

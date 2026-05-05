@@ -96,7 +96,10 @@ class MC4WP_Form_Widget extends WP_Widget
         ?>
 
         <p class="description">
-            <?php printf(__('You can edit your sign-up form in the <a href="%s">Mailchimp for WordPress form settings</a>.', 'mailchimp-for-wp'), admin_url('admin.php?page=mailchimp-for-wp-forms')); ?>
+            <?php
+            // translators: %s is the URL to the plugin form settings page.
+            printf(__('You can edit your sign-up form in the <a href="%s">Mailchimp for WordPress form settings</a>.', 'mailchimp-for-wp'), admin_url('admin.php?page=mailchimp-for-wp-forms'));
+            ?>
         </p>
         <?php
     }

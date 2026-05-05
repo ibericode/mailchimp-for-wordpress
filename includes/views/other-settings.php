@@ -42,7 +42,10 @@ defined('ABSPATH') or exit;
                                     <option value="debug" <?php selected('debug', $opts['debug_log_level']); ?>><?php echo esc_html__('Everything', 'mailchimp-for-wp'); ?></option>
                                 </select>
                                 <p class="description">
-                                    <?php echo sprintf(wp_kses(__('Determines what events should be written to <a href="%s">the debug log</a> (see below).', 'mailchimp-for-wp'), [ 'a' => [ 'href' => [] ] ]), 'https://www.mc4wp.com/kb/how-to-enable-log-debugging/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page'); ?>
+                                    <?php
+                                    // translators: %s is a URL to the debug log documentation.
+                                    echo sprintf(wp_kses(__('Determines what events should be written to <a href="%s">the debug log</a> (see below).', 'mailchimp-for-wp'), [ 'a' => [ 'href' => [] ] ]), 'https://www.mc4wp.com/kb/how-to-enable-log-debugging/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page');
+                                    ?>
                                 </p>
                             </td>
                         </tr>
@@ -92,6 +95,7 @@ defined('ABSPATH') or exit;
                 if (! $log->test()) {
                     echo '<p>';
                     echo esc_html__('Log file is not writable.', 'mailchimp-for-wp') . ' ';
+                    // translators: 1: the log file path, 2: URL to the WordPress file permissions documentation.
                     echo sprintf(wp_kses(__('Please ensure %1$s has the proper <a href="%2$s">file permissions</a>.', 'mailchimp-for-wp'), [ 'a' => [ 'href' => [] ] ]), '<code>' . $log->file . '</code>', 'https://codex.wordpress.org/Changing_File_Permissions');
                     echo '</p>';
 
