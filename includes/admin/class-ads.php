@@ -202,7 +202,7 @@ class MC4WP_Admin_Ads
                 /* translators: 1: URL to the premium upgrade page, 2: URL to the e-commerce features documentation. */
                 __('<a href="%1$s">Upgrade to Mailchimp for WordPress Premium</a> or <a href="%2$s">read more about Mailchimp\'s E-Commerce features</a>.', 'mailchimp-for-wp'),
                 esc_url('https://www.mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=other-settings-link'),
-                esc_url('https://www.mc4wp.com/kb/what-is-ecommerce360/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=other-settings-link')
+                esc_url('https://www.mc4wp.com/kb/what-is-ecommerce/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=other-settings-link')
             ),
             [ 'a' => [ 'href' => [] ] ]
         );
