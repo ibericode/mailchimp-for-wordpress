@@ -20,4 +20,5 @@ jobs:
           exclude-directories: "sample-code-snippets,tests,vendor"
           ignore-warnings: true 
           ignore-codes: "hidden_files,application_detected"
+          slug: mailchimp-for-wp
       - run: php tests/benchmarks/run.php
