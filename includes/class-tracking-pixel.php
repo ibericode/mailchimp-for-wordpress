@@ -55,11 +55,9 @@ class MC4WP_Tracking_Pixel
         }
 
         $url = 'https://mc.mailchimp.com/mcjs/' . urlencode($this->tracking_id) . '.js';
-
-        printf(
-            '<script id="mcjs" defer src="%s"></script>' . "\n",
-            esc_url($url)
-        );
+        wp_enqueue_script('mc4wp-site-tracking-pixel', $url, [], false, [
+            'strategy' => 'defer'
+        ]);
     }
 
     /**
@@ -93,10 +91,9 @@ class MC4WP_Tracking_Pixel
             return;
         }
 
-        $email = esc_js($this->identify_email);
         echo '<script>';
         echo 'if(window.$mcSite&&window.$mcSite.pixel&&window.$mcSite.pixel.api){';
-        echo 'window.$mcSite.pixel.api.identify({type:"EMAIL",value:"' . $email . '"});';
+        echo 'window.$mcSite.pixel.api.identify({type:"EMAIL",value:"' . esc_js($this->identify_email) . '"});';
         echo '}';
         echo '</script>' . "\n";
     }
