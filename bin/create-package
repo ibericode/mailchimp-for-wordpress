@@ -64,6 +64,8 @@ zip -r "$PACKAGE_FILE" "$PLUGIN_SLUG" \
   -x "$PLUGIN_SLUG/phpcs.xml.dist" \
   -x "$PLUGIN_SLUG/phpunit.xml.dist" \
   -x "$PLUGIN_SLUG/phpstan.neon.dist" \
+  -x "$PLUGIN_SLUG/README.md" \
+  -x "$PLUGIN_SLUG/AGENTS.md" \
   -x "$PLUGIN_SLUG/*.sh" \
   -x "$PLUGIN_SLUG/bin/*" \
   -x "$PLUGIN_SLUG/.github/*" \
