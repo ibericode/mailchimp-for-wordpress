@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 $opts = $opts ?? [];
 $opts = true === is_array($opts) ?
     $opts :

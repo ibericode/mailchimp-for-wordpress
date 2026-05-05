@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 $email_label            = esc_html__('Email address', 'mailchimp-for-wp');
 $email_placeholder_attr = esc_attr__('Your email address', 'mailchimp-for-wp');
 $signup_button_value    = esc_attr__('Sign up', 'mailchimp-for-wp');

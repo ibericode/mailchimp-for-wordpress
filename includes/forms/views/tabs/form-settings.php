@@ -1,3 +1,5 @@
+<?php defined('ABSPATH') or exit; ?>
+
 <h2><?php echo esc_html__('Form Settings', 'mailchimp-for-wp'); ?></h2>
 
 <div class="mc4wp-margin-m"></div>

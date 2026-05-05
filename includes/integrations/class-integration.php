@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') or exit;
+
 /**
  * Class MC4WP_Integration
  *

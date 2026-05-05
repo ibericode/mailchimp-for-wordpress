@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 // translators: %1$s is opening anchor tag, %2$s is closing anchor tag
 echo sprintf(
     esc_html__(

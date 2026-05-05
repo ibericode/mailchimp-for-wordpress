@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 /**
  * Handles the Mailchimp campaign archive shortcode and Gutenberg block.
  *

@@ -1,4 +1,7 @@
 <?php
+
+defined('ABSPATH') or exit;
+
 /**
  * @var object[] $merge_fields
  * @var object[] $interest_categories

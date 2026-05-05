@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 /**
  * Outputs the Mailchimp Site Tracking Pixel SDK script
  * and identifies subscribers after successful form submissions.

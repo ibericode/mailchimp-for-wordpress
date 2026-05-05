@@ -1,5 +1,8 @@
 <?php add_thickbox(); ?>
 
+defined('ABSPATH') or exit;
+
+
 <div class="alignright">
     <a href="#TB_inline?width=0&height=550&inlineId=mc4wp-form-variables" class="thickbox button-secondary">
         <span class="dashicons dashicons-info"></span>

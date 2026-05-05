@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 mc4wp_register_integration('ninja-forms', 'MC4WP_Ninja_Forms_Integration', true);
 
 add_filter('ninja_forms_register_fields', function ($fields) {

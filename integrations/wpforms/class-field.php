@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 class MC4WP_WPForms_Field extends WPForms_Field
 {
     /**

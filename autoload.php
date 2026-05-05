@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') or exit;
+
 require __DIR__ . '/includes/functions.php';
 require __DIR__ . '/includes/deprecated-functions.php';
 require __DIR__ . '/includes/forms/functions.php';

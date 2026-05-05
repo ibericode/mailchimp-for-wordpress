@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 use Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils;
 
 // if Checkout Block is used, we have less available options for where to show the sign-up checkbox

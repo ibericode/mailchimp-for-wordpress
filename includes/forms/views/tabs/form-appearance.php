@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 $theme       = wp_get_theme();
 $css_options = [
     '0'                                     => sprintf(esc_html__('Inherit from %s theme', 'mailchimp-for-wp'), $theme->Name), // @phpstan-ignore-line WP_Theme::$name is a dynamic property

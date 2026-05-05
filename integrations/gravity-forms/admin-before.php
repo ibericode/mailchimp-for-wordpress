@@ -1,3 +1,5 @@
+<?php defined('ABSPATH') or exit; ?>
+
 <p>
     <?php
     /* translators: %s links to the Gravity Forms overview page */
