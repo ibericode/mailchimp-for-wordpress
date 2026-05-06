@@ -46,11 +46,19 @@ class MC4WP_Tracking_Pixel
     /**
      * Output the Mailchimp Site Tracking Pixel SDK script tag.
      *
+     * Skips output when Premium E-Commerce is already loading the script,
+     * to avoid injecting it twice.
+     *
      * @return void
      */
     public function output_tracking_script(): void
     {
         if (empty($this->site_id)) {
+            return;
+        }
+
+        // If Premium E-Commerce is already loading the mcjs script, skip to avoid duplicates.
+        if (self::is_premium_ecommerce_pixel_active()) {
             return;
         }
 
@@ -62,7 +70,13 @@ class MC4WP_Tracking_Pixel
             // BC: support legacy tracking_pixel_id for users who configured it before this auto-connect feature
             $url = sprintf('https://chimpstatic.com/mcjs-connected/js/users/%s.js', $opts['tracking_pixel_id']);
         } else {
-            return;
+            // Try to reuse the script URL from Premium E-Commerce settings
+            $ecommerce_settings = get_option('mc4wp_ecommerce', []);
+            if (! empty($ecommerce_settings['mcjs_url'])) {
+                $url = $ecommerce_settings['mcjs_url'];
+            } else {
+                return;
+            }
         }
 
         wp_enqueue_script('mc4wp-mailchimp-site-tracking-pixel', $url, [], MC4WP_VERSION, [
