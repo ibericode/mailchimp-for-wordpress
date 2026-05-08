@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 4.6
 Tested up to: 7.0
-Stable tag: 4.12.3
+Stable tag: 4.12.4
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.4
@@ -187,6 +187,11 @@ The plugin provides various filter and action hooks that allow you to modify or 
 9. Settings page for e-commerce integration with Mailchimp. Requires [Mailchimp for WordPress Premium](https://www.mc4wp.com/).
 
 == Changelog ==
+
+
+#### 4.12.4 - May 8, 2026
+
+- Fix fatal error on plugin activation in some cases when wp_rand() returns a value below 10 for the minute part. Thanks [Tim Carr](https://www.wpzinc.com/)!
 
 
 #### 4.12.3 - May 5, 2026
@@ -1112,15 +1117,7 @@ Please note that installing this update requires you to also update any add-ons 
 
 **Improvements**
 
-- Add `$args` parameter to `API::get_lists_activity` method. Relates to the [Mailchimp Activity](https://wordpress.org/plugins/mc4wp-activity/) plugin.
-
-
-#### 4.0.10 - December 6, 2016
-
-**Improvements**
-
-- You can now enable or disable debug logging from the "Other" settings page.
-- No ...
+- Add `$args` parameter ...
 
 == Upgrade Notice ==
 
