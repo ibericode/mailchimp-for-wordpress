@@ -115,7 +115,7 @@ add_action('plugins_loaded', function () {
 // schedule the action hook to refresh the stored Mailchimp lists on a daily basis
 register_activation_hook(__FILE__, function () {
     $timezone = wp_timezone();
-    $time_str = sprintf('tomorrow %d:%d am', wp_rand(0, 6), wp_rand(0, 59));
+    $time_str = sprintf('tomorrow %02d:%02d am', wp_rand(0, 6), wp_rand(0, 59));
     $datetime = new DateTimeImmutable($time_str, $timezone);
     wp_schedule_event($datetime->getTimestamp(), 'daily', 'mc4wp_refresh_mailchimp_lists');
 });
