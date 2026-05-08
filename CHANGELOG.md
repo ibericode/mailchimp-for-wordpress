@@ -1,7 +1,7 @@
 Changelog
 =========
 
-#### 4.12.4 - May 8, 2026
+#### 4.12.5 - May 8, 2026
 
 - Fix fatal error on plugin activation in some cases when wp_rand() returns a value below 10 for the minute part. Thanks [Tim Carr](https://www.wpzinc.com/)!
 
