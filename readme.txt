@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 4.6
 Tested up to: 7.0
-Stable tag: 4.12.4
+Stable tag: 4.12.5
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.4
@@ -189,7 +189,7 @@ The plugin provides various filter and action hooks that allow you to modify or 
 == Changelog ==
 
 
-#### 4.12.4 - May 8, 2026
+#### 4.12.5 - May 8, 2026
 
 - Fix fatal error on plugin activation in some cases when wp_rand() returns a value below 10 for the minute part. Thanks [Tim Carr](https://www.wpzinc.com/)!
 
