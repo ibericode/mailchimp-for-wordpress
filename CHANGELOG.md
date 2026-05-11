@@ -1,12 +1,16 @@
 Changelog
 =========
 
-#### 4.12.5 - May 8, 2026
+= 4.12.5 =
+
+_Release date: May 8, 2026_
 
 - Fix fatal error on plugin activation in some cases when wp_rand() returns a value below 10 for the minute part. Thanks [Tim Carr](https://www.wpzinc.com/)!
 
 
-#### 4.12.3 - May 5, 2026
+= 4.12.3 =
+
+_Release date: May 5, 2026_
 
 - Improved Mailchimp Site Tracking Pixel support. Site is now automatically discovered or registered in Mailchimp when feature is enabled.
 - Sign-up attempts for integrations are now processed asynchronously (via a scheduled event).
@@ -15,7 +19,9 @@ Changelog
 - General code hardening and minor improvements as reported by the Plugin Check tool.
 
 
-#### 4.12.2 - Apr 20, 2026
+= 4.12.2 =
+
+_Release date: Apr 20, 2026_
 
 - Add Mailchimp Campaign Archive block and [mc4wp_campaigns] shortcode to show an archive Mailchimp email campaigns. Thanks to [Faisal Ahammad](https://faisalahammad.com/)!
 - WooCommerce: Allow "after email" position for sign-up checkbox when using Checkout Block.
@@ -24,13 +30,17 @@ Changelog
 - Add preliminary support for [Mailchimp Site Tracking Pixel](https://mailchimp.com/help/about-mailchimp-site-tracking-pixel/). Thanks to [Faisal Ahammad](https://faisalahammad.com/)!
 
 
-#### 4.12.1 - Mar 26, 2026
+= 4.12.1 =
+
+_Release date: Mar 26, 2026_
 
 - Supply a custom capability type to `register_post_type` for the `mc4wp-form` post type.
 - Limit allowed HTML in the various form messages to a safe subset on load (versus only on update).
 
 
-#### 4.12.0 - Mar 9, 2026
+= 4.12.0 =
+
+_Release date: Mar 9, 2026_
 
 - Remove the ability to unsubscribe through a form. You should migrate to the Mailchimp hosted form for this, which does email verification.
 - Add block properties so the form block can be reordered inside the Gutenberg editor.
@@ -46,7 +56,9 @@ The following fixes and improvements were contributed by [Faisal Ahammad](https:
 - Enable live updates in Gravity Forms editor.
 
 
-#### 4.11.0 - Jan 20, 2026
+= 4.11.0 =
+
+_Release date: Jan 20, 2026_
 
 - Add form setting to remove tags from existing subscribers.
 - Add form setting to check for common email typos.
@@ -55,42 +67,56 @@ The following fixes and improvements were contributed by [Faisal Ahammad](https:
 - Fix undefined key warning for new setting that emails to site administrator on errors.
 
 
-#### 4.10.9 - Nov 28, 2025
+= 4.10.9 =
+
+_Release date: Nov 28, 2025_
 
 - Specify `apiVersion` in call to `registerBlockType` so that WordPress 6.9 knows it can use the new iframe based editor.
 - Add new setting to send an email for critical errors, like API errors returned by Mailchimp.
 
 
-#### 4.10.8 - Oct 21, 2025
+= 4.10.8 =
+
+_Release date: Oct 21, 2025_
 
 - Show warning to administrators if a form is showing but Mailchimp API key is not set.
 - Update third-party JS dependencies.
 
 
-#### 4.10.7 - Sep 05, 2025
+= 4.10.7 =
+
+_Release date: Sep 05, 2025_
 
 - Handle renewing lists through server-side redirect instead of JS component.
 
 
-#### 4.10.6 - Jul 23, 2025
+= 4.10.6 =
+
+_Release date: Jul 23, 2025_
 
 - [WooCommerce Checkout] Fix checkbox from showing up in order confirmation email if using Checkout Block.
 - [Forms] Fix `{response}` tag being escaped.
 
 
-#### 4.10.5 - Jun 25, 2025
+= 4.10.5 =
+
+_Release date: Jun 25, 2025_
 
 - [Ninja Forms] Always show at least one list option so that onchange event fires properly (to load Audience fields).
 - Update third-party JS dependencies.
 - Optimize SVG icons for reduced file sizes.
 
 
-#### 4.10.4 - May 26, 2025
+= 4.10.4 =
+
+_Release date: May 26, 2025_
 
 - Improved context-dependent escaping in dynamic content tags. 
 
 
-#### 4.10.3 - Apr 16, 2025
+= 4.10.3 =
+
+_Release date: Apr 16, 2025_
 
 - Update third-party JS dependencies.
 - Add message setting for when a form submission is marked as spam.
@@ -98,14 +124,18 @@ The following fixes and improvements were contributed by [Faisal Ahammad](https:
 - Handle potential Prosopo connection errors gracefully.
 
 
-#### 4.10.2 - Feb 28, 2025
+= 4.10.2 =
+
+_Release date: Feb 28, 2025_
 
 - Fix WPForms parameter type change causing a fatal error if using WPForms with a Mailchimp sign-up field.
 - Add Mailchimp data to Personal Data exporter. Contributed by [David Anderson from UpdraftPlus](https://updraftplus.com/).
 - Prevent PHP notices in lists overview on general settings page.
 
 
-#### 4.10.1 - Feb 06, 2025
+= 4.10.1 =
+
+_Release date: Feb 06, 2025_
 
 - Fix JS error breaking Ninja Forms edit form page when not connected to a Mailchimp account or account has no audiences.
 - Remove `sprintf` usage in hot path.
@@ -114,7 +144,9 @@ The following fixes and improvements were contributed by [Faisal Ahammad](https:
 - Remove unused setting key from default options.
 
 
-#### 4.10.0 - Jan 23, 2025
+= 4.10.0 =
+
+_Release date: Jan 23, 2025_
 
 - Bump required PHP version to 7.4 or higher.
 - Obfuscate API key the same way as in the Mailchimp.com interface.
@@ -124,26 +156,34 @@ The following fixes and improvements were contributed by [Faisal Ahammad](https:
 - Run stored setting values related to user-facing textual messages through i18n functions to allow translating them through plugins like Loco Translate or WPML.
 
 
-#### 4.9.21 - Jan 08, 2025
+= 4.9.21 =
+
+_Release date: Jan 08, 2025_
 
 - [Forms] Rename "list choice" to "audience choice" in available form fields.
 - [Ninja Forms] Fix gettext being called too early warning in Ninja Forms base class.
 - [WooCommerce] Allow pre-checking of sign-up checkbox in Checkout Block.
 
 
-#### 4.9.20 - Dec 18, 2024
+= 4.9.20 =
+
+_Release date: Dec 18, 2024_
 
 - Fix Ninja Forms integration field no longer showing up.
 - Fix "link is expired" message because of missing nonce on button to dismiss API key notice.
 - [WPML] Added text_no_lists_selected to the config file so it can be translated. Thanks [Diego Pereira](https://github.com/diiegopereira)!
 
 
-#### 4.9.19 - Nov 11, 2024
+= 4.9.19 =
+
+_Release date: Nov 11, 2024_
 
 - Add integration with [Prosopo](https://prosopo.io/), a GDPR compliant anti-spam solution for protecting your sign-up forms against bot sign-ups. Thanks [Maxim Akimov](https://github.com/light-source)!
 
 
-#### 4.9.18 - Oct 21, 2024
+= 4.9.18 =
+
+_Release date: Oct 21, 2024_
 
 - Bump required PHP version to 7.2.
 - Prevent non-functional checkbox from showing up on WooCommerce my account page if WooCommerce checkout integration is enabled.
@@ -152,49 +192,65 @@ The following fixes and improvements were contributed by [Faisal Ahammad](https:
 - Begrudgingly rename Mailchimp lists to Mailchimp audiences throughout the plugin's admin interfaces.
 
 
-#### 4.9.17 - Sep 17, 2024
+= 4.9.17 =
+
+_Release date: Sep 17, 2024_
 
 - Fix compatibility with WooCommerce versions 8.5 to 8.8 because of private method that was later made public.
 - Fix potential reflected XSS by stripping and escaping all HTML from `{email}` tag replacements. Thanks to kauenavarro for responsibly disclosing.
 - Fix potential stored XSS for attackers with both administrator access and Mailchimp account access by escaping HTML from interest group name. Thanks to Jorge Diaz (ddiax) for responsibly disclosing.
 
 
-#### 4.9.16 - Sep 11, 2024
+= 4.9.16 =
+
+_Release date: Sep 11, 2024_
 
 - Add support for WooCommerce Checkout Block in sign-up checkbox integration.
 
 
-#### 4.9.15 - Aug 13, 2024
+= 4.9.15 =
+
+_Release date: Aug 13, 2024_
 
 - Improved anti-spam measures on the [custom form integration](https://www.mc4wp.com/kb/subscribe-mailchimp-custom-html-form/). If you are using the custom form integration (using the `mc4wp-subscribe` checkbox), please test your forms after upgrading and report any issues to us.
 - Improved anti-spam measures on all sign-up forms.
 - Remove unsupported filter hook from Gravity Forms integration. 
 
 
-#### 4.9.14 - Jul 17, 2024
+= 4.9.14 =
+
+_Release date: Jul 17, 2024_
 
 - Very minor code-size improvements to public forms related JavaScript.
 - Update third-party JS dependencies.
 - Bump tested WordPress version to 6.6.
 
 
-#### 4.9.13 - Apr 25, 2024
+= 4.9.13 =
+
+_Release date: Apr 25, 2024_
 
 - Fix issue with Composer classmap throwing a fatal error when an older version of Composer is already loaded.
 
 
-#### 4.9.12 - Apr 22, 2024 
+= 4.9.12 =
+
+_Release date: Apr 22, 2024 _
 
 - Fix last 10 Mailchimp lists not being pulled-in when having more than 10 lists.
 
 
-#### 4.9.11 - Jan 8, 2024
+= 4.9.11 =
+
+_Release date: Jan 8, 2024_
 
 - Update third-party JS dependencies.
 - Bump tested WordPress version.
 
 
-#### 4.9.10 - Nov 20, 2023
+= 4.9.10 =
+
+_Release date: Nov 20, 2023_
 
 - Integrations: Update CheckoutWC hook name for WooCommerce checkbox integration.
 - Forms: Don't show form preview to users without `edit_posts` capability.
@@ -203,12 +259,16 @@ The following fixes and improvements were contributed by [Faisal Ahammad](https:
 - General: Remove some unnecessary JavaScript now that browser support has caught up.
 
 
-#### 4.9.9 - Oct 3, 2023 
+= 4.9.9 =
+
+_Release date: Oct 3, 2023 _
 
 - Fix class "MC4WP_Usage_Tracking" not found error for WP Cron / WP CLI processes.
 
 
-#### 4.9.8 - Oct 3, 2023
+= 4.9.8 =
+
+_Release date: Oct 3, 2023_
 
 - Remove the opt-in usage tracking functionality as we're not really using it for decision making anymore.
 - Add missing label element to the select element for setting the logging level.
@@ -217,45 +277,59 @@ This drops support for some very old browsers, but results in smaller bundle siz
 - Update third-party JS dependencies to their latest versions.
 
 
-#### 4.9.7 - Aug 29, 2023
+= 4.9.7 =
+
+_Release date: Aug 29, 2023_
 
 - Update third-party JS dependencies.
 - Minor textual improvements.
 - Bump tested WordPress version.
 
 
-#### 4.9.6 - Jul 12, 2023
+= 4.9.6 =
+
+_Release date: Jul 12, 2023_
 
 - Update third-party JS dependencies.
 - Address some minor codestyle issues.
 
 
-#### 4.9.5 - Jun 7, 2023
+= 4.9.5 =
+
+_Release date: Jun 7, 2023_
 
 - Fix generated HTML for list/audience choice fields.
 - Fix deprecation warning in includes/admin/class-review-notice.php.
 - Update JavaScript dependencies.
 
 
-#### 4.9.4 - May 2, 2023
+= 4.9.4 =
+
+_Release date: May 2, 2023_
 
 - Fallback to default checkbox label if none given. Thanks to [Shojib Khan](https://github.com/kshojib).
 - Improve WooCommerce integration settings page by disabling position field if integration is disabled. Thanks to [Shojib Khan](https://github.com/kshojib).
 - Update JavaScript dependencies.
 
 
-#### 4.9.3 - Mar 31, 2023
+= 4.9.3 =
+
+_Release date: Mar 31, 2023_
 
 - Defend against breaking change in latest WPForms update.
 
 
-#### 4.9.2 - Mar 21, 2023
+= 4.9.2 =
+
+_Release date: Mar 21, 2023_
 
 - Add support for a field named `MARKETING_PERMISSIONS` to enable GDPR fields configured in Mailchimp. A [sample code snippet can be found here](https://github.com/ibericode/mailchimp-for-wordpress/blob/main/sample-code-snippets/forms/gdpr-marketing-permissions.md).
 - Remove Google reCaptcha feature. This was already disabled if you were not already using it.
 
 
-#### 4.9.1 - Feb 7, 2023
+= 4.9.1 =
+
+_Release date: Feb 7, 2023_
 
 - Fix generated value attribute for fields of type choice (dropdown, checkboxes, radio fields).
 - Fix type of `marketing_permissions` field in API requests. Thanks to [George Korakas](https://github.com/gkorakas-eli).
@@ -264,7 +338,9 @@ This drops support for some very old browsers, but results in smaller bundle siz
 - When renewing lists, renew cached marketing permissions too.
 
 
-#### 4.9.0 - Jan 13, 2023 
+= 4.9.0 =
+
+_Release date: Jan 13, 2023 _
 
 - Removed deprecated filter hook `mc4wp_settings_cap`, use `mc4wp_admin_required_capability` instead.
 - Removed deprecated filter hook `mc4wp_merge_vars`, use `mc4wp_form_data` or `mc4wp_integration_data` instead.
@@ -280,12 +356,16 @@ This drops support for some very old browsers, but results in smaller bundle siz
 - Fetch GDPR marketing permissions via first subscriber on list and show them in lists overview table.
 
 
-#### 4.8.12 - Dec 06, 2022
+= 4.8.12 =
+
+_Release date: Dec 06, 2022_
 
 - Minor performance, memory usage & size optimizations for all JavaScript code bundled with this plugin.
 
 
-#### 4.8.11 - Nov 1, 2022
+= 4.8.11 =
+
+_Release date: Nov 1, 2022_
 
 - Improved default styling for the WooCommerce sign-up checkbox integration.
 - Add `<strong>` to allowed HTML elements for GDPR disclaimer text on settings pages.
@@ -293,17 +373,23 @@ This drops support for some very old browsers, but results in smaller bundle siz
 - Move the GiveWP sign-up checkbox closer to the email input field. Thanks [Matthew Lewis](https://github.com/Matthew-Lewis).
 
 
-#### 4.8.10 - Sep 14, 2022
+= 4.8.10 =
+
+_Release date: Sep 14, 2022_
 
 - Fix mc4wp_get_request_ip_address() to return an IP address that matches Mailchimp's validation format when X-Forwarded-For header contains a port component.
 
 
-#### 4.8.8 - Aug 25, 2022
+= 4.8.8 =
+
+_Release date: Aug 25, 2022_
 
 - Fix mc4wp_get_request_ip_address() to pass new Mailchimp validation format. This fixes the "This value is not a valid IP." error some users using a proxy may have been seeing.
 
 
-#### 4.8.7 - Mar 2, 2022
+= 4.8.7 =
+
+_Release date: Mar 2, 2022_
 
 - Fix PHP 8.1 deprecation warnings in `MC4WP_Container` class.
 - Fix name of action hook that fires before Mailchimp settings rows are displayed on the settings page. Thanks [LoonSongSoftware](https://github.com/LoonSongSoftware).
@@ -315,7 +401,9 @@ Despite extensive testing, we may have missed some more obscure HTML elements or
 If you notice that some of your form HTML is stripped after saving your form, please get in touch with our support team and provide the HTML you attempted to save.
 
 
-#### 4.8.6 - Jun 24, 2021
+= 4.8.6 =
+
+_Release date: Jun 24, 2021_
 
 - Add nonce field to button for dismissing notice asking for plugin review.
 - Add strings from config/ directory to POT file.
@@ -326,7 +414,9 @@ If you notice that some of your form HTML is stripped after saving your form, pl
 Thanks to the team over at [pluginvulnerabilities.com](https://www.pluginvulnerabilities.com/) for bringing some of these changes to our attention.
 
 
-#### 4.8.5 - Jun 1, 2021
+= 4.8.5 =
+
+_Release date: Jun 1, 2021_
 
 Add nonce verification to all URL's using `_mc4wp_action` query parameter.
 This fixes a CSRF vulnerability where a malicious website could trick a logged-in admin user in performing unwanted actions.
@@ -334,7 +424,9 @@ This fixes a CSRF vulnerability where a malicious website could trick a logged-i
 A special thanks to Erwan from [WPScan](https://wpscan.com/) for bringing this issue to our attention.
 
 
-#### 4.8.4 - May 7, 2021
+= 4.8.4 =
+
+_Release date: May 7, 2021_
 
 - Add `defer` attribute to JS file, so page parsing isn't blocked at all.
 - Rewrite plugin CSS to optimize for selector performance and get rid of some duplication.
@@ -342,25 +434,33 @@ A special thanks to Erwan from [WPScan](https://wpscan.com/) for bringing this i
 After installing this update, make sure to also update any add-on plugins like [Mailchimp for WordPress Premium](https://www.mc4wp.com/premium-features/) and [Mailchimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/).
 
 
-#### 4.8.3 - Jan 21, 2021
+= 4.8.3 =
+
+_Release date: Jan 21, 2021_
 
 - Fix fatal error on older PHP versions when submitting form without any subscriber tags set in the form settings.
 - Minor performance improvement in bootstrap method of the plugin.
 
 
-#### 4.8.2 - Jan 20, 2021
+= 4.8.2 =
+
+_Release date: Jan 20, 2021_
 
 - Allow short-circuiting `mc4wp_subscriber_data` filter by returning `null` or `false`.
 - Use a subdirectory for the default debug log file location, so that it's easier to protect using htaccess.
 - Improved reliability for fetching lists from mailchimp when lists have high stats.member_count property.
 
 
-#### 4.8.1 - Aug 25, 2020
+= 4.8.1 =
+
+_Release date: Aug 25, 2020_
 
 - Fix notice by explicitly setting `permission_callback` on registered REST route.
 - Minor internal code improvements.
 
-#### 4.8 - Jul 9, 2020
+= 4.8 =
+
+_Release date: Jul 9, 2020_
 
 - Plugin now requires PHP 5.3 or higher.
 - Prefix overlay classname to prevent styling collissions with other plugins.
@@ -369,7 +469,9 @@ After installing this update, make sure to also update any add-on plugins like [
 - Register script early to work with Gutenberg preview.
 
 
-#### 4.7.8 - Jun 04, 2020
+= 4.7.8 =
+
+_Release date: Jun 04, 2020_
 
 - Add `MC4WP_API_V3::add_template` method.
 - Minor code hardening to ensure a default form is always set.
@@ -377,21 +479,27 @@ After installing this update, make sure to also update any add-on plugins like [
 - Fix icon for Gutenberg block.
 
 
-#### 4.7.7 - Apr 28, 2020
+= 4.7.7 =
+
+_Release date: Apr 28, 2020_
 
 - Update JS dependencies to their latest versions.
 - API client `add_list_member` method now has an additional parameter to skip merge field validation.
 - Simplify code for updating an existing form.
 
 
-#### 4.7.6 - Apr 9, 2020
+= 4.7.6 =
+
+_Release date: Apr 9, 2020_
 
 - Update JS dependencies to their latest versions.
 - Check if className is of type string, fixes a console warning when clicking inside a SVG element.
 - Minor improvements to the AMP implementation to address harmless validation warnings.
 
 
-#### 4.7.5 - Feb 10, 2020
+= 4.7.5 =
+
+_Release date: Feb 10, 2020_
 
 - Add AMP compatibility to sign-up forms, thanks to Claudiu Lodromanean. This uses the [official AMP plugin for WordPress](https://amp-wp.org).
 - Add settings key to WPML config so settings can easily by copied over to translated versions of a form.
@@ -400,14 +508,18 @@ After installing this update, make sure to also update any add-on plugins like [
 - Escape all string translations.
 
 
-#### 4.7.4 - Dec 7, 2019
+= 4.7.4 =
+
+_Release date: Dec 7, 2019_
 
 **Fixes**
 
 - htaccess config for servers running Apache 2.4 or later.
 
 
-#### 4.7.3 - Dec 4, 2019
+= 4.7.3 =
+
+_Release date: Dec 4, 2019_
 
 **Fixes**
 
@@ -419,14 +531,18 @@ After installing this update, make sure to also update any add-on plugins like [
 - Add getter method for raw (unmodified) data on form class.
 
 
-#### 4.7.2 - Nov 27, 2019
+= 4.7.2 =
+
+_Release date: Nov 27, 2019_
 
 **Fixes**
 
 - Invalid .htaccess file in case there already is one in the uploads directory.
 
 
-#### 4.7.1 - Nov 26, 2019
+= 4.7.1 =
+
+_Release date: Nov 26, 2019_
 
 **Improvements**
 
@@ -437,7 +553,9 @@ After installing this update, make sure to also update any add-on plugins like [
 - Stop parsing shortcodes in text widgets as WordPress core does this since version 4.9.
 
 
-#### 4.7 - Nov 7, 2019
+= 4.7 =
+
+_Release date: Nov 7, 2019_
 
 **Improvements**
 
@@ -448,7 +566,9 @@ After installing this update, make sure to also update any add-on plugins like [
 - Add link to [Koko Analytics plugin](https://wordpress.org/plugins/koko-analytics/).
 
 
-#### 4.6.2 - Oct 24, 2019
+= 4.6.2 =
+
+_Release date: Oct 24, 2019_
 
 **Fixes**
 
@@ -460,14 +580,18 @@ After installing this update, make sure to also update any add-on plugins like [
 - Minor overall performance and memory usage improvements.
 
 
-#### 4.6.1 - Oct 7, 2019
+= 4.6.1 =
+
+_Release date: Oct 7, 2019_
 
 **Fixes**
 
 - Fixed list cache usage for WPForms, Gravity Forms and Ninja Forms integrations.
 
 
-#### 4.6.0 - Oct 7, 2019
+= 4.6.0 =
+
+_Release date: Oct 7, 2019_
 
 **Improvements**
 
@@ -480,14 +604,18 @@ After installing this update, make sure to also update any add-on plugins like [
 Please note that installing this update requires you to also update any add-ons like [Mailchimp Top Bar](https://wordpress.org/plugins/mailchimp-top-bar/) and [Mailchimp for WordPress Premium](https://www.mc4wp.com/premium-features/) (if installed).
 
 
-#### 4.5.5 - Sep 12, 2019
+= 4.5.5 =
+
+_Release date: Sep 12, 2019_
 
 **Fixes**
 
 - Google reCAPTCHA script was still loading even if no forms have it enabled.
 
 
-#### 4.5.4 - Sep 11, 2019
+= 4.5.4 =
+
+_Release date: Sep 11, 2019_
 
 **Improvements**
 
@@ -500,7 +628,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Changed plugin name to MC4WP instead of Mailchimp for WordPress.
 
 
-#### 4.5.3 - July 23, 2019
+= 4.5.3 =
+
+_Release date: July 23, 2019_
 
 **Fixes**
 
@@ -517,7 +647,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Update third-party JavaScript dependencies.
 
 
-#### 4.5.2 - May 8, 2019
+= 4.5.2 =
+
+_Release date: May 8, 2019_
 
 **Improvements**
 
@@ -526,7 +658,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Load Google reCaptcha script in footer (if needed).
 
 
-#### 4.5.1 - April 8, 2019
+= 4.5.1 =
+
+_Release date: April 8, 2019_
 
 **Additions**
 
@@ -540,7 +674,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Allow setting an empty "successfully subscribed" message.
 
 
-#### 4.5.0 - March 27, 2019
+= 4.5.0 =
+
+_Release date: March 27, 2019_
 
 **Additions**
 
@@ -551,7 +687,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Minor improvements to the JavaScript that is loaded on admin pages.
 
 
-#### 4.4.0 - March 1, 2019
+= 4.4.0 =
+
+_Release date: March 1, 2019_
 
 **Fixes**
 
@@ -572,7 +710,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Added subscriber tags setting to forms.
 
 
-#### 4.3.3 - December 31, 2018
+= 4.3.3 =
+
+_Release date: December 31, 2018_
 
 **Fixes**
 
@@ -584,21 +724,27 @@ Please note that installing this update requires you to also update any add-ons 
 - Update JavaScript dependencies.
 
 
-#### 4.3.2 - December 11, 2018
+= 4.3.2 =
+
+_Release date: December 11, 2018_
 
 **Fixes**
 
 - Use of `readonly` function, which is only available in WordPress 4.9 or later.
 
 
-#### 4.3.1 - November 28, 2018
+= 4.3.1 =
+
+_Release date: November 28, 2018_
 
 **Fixes**
 
 - Fatal error on PHP versions older than 5.5
 
 
-#### 4.3 - November 28, 2018
+= 4.3 =
+
+_Release date: November 28, 2018_
 
 **Additions**
 
@@ -611,7 +757,9 @@ Please note that installing this update requires you to also update any add-ons 
 - The `updated_subscriber` JS event is now fired forms not using AJAX as well (when applicable).
 
 
-#### 4.2.5 - Sep 11, 2018
+= 4.2.5 =
+
+_Release date: Sep 11, 2018_
 
 **Improvements**
 
@@ -620,7 +768,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Get rid of cached result of Mailchimp API connection.
 
 
-#### 4.2.4 - July 9, 2018
+= 4.2.4 =
+
+_Release date: July 9, 2018_
 
 **Improvements**
 
@@ -634,7 +784,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Add methods for accessing Mailchimp's e-commerce promo code endpoints to API class.
 
 
-#### 4.2.3 - June 11, 2018
+= 4.2.3 =
+
+_Release date: June 11, 2018_
 
 **Fixes**
 
@@ -647,7 +799,9 @@ Please note that installing this update requires you to also update any add-ons 
 
 
 
-#### 4.2.2 - May 22, 2018
+= 4.2.2 =
+
+_Release date: May 22, 2018_
 
 **Fixes**
 
@@ -664,7 +818,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Add filter `mc4wp_http_request_args`.
 
 
-#### 4.2.1 - April 11, 2018
+= 4.2.1 =
+
+_Release date: April 11, 2018_
 
 **Fixes**
 
@@ -678,7 +834,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Add textual warnings to settings that may affect [GDPR compliance](https://www.mc4wp.com/kb/gdpr-compliance/).
 - Update translation files.
 
-#### 4.2 - March 5, 2018
+= 4.2 =
+
+_Release date: March 5, 2018_
 
 **Additions**
 
@@ -698,7 +856,9 @@ Please note that installing this update requires you to also update any add-ons 
 
 
 
-#### 4.1.15 - February 7, 2018
+= 4.1.15 =
+
+_Release date: February 7, 2018_
 
 **Fixes**
 
@@ -712,7 +872,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Improved scroll to form handling after a form is submitted without AJAX.
 
 
-#### 4.1.14 - January 8, 2018
+= 4.1.14 =
+
+_Release date: January 8, 2018_
 
 **Fixes**
 
@@ -725,7 +887,9 @@ Please note that installing this update requires you to also update any add-ons 
 
 
 
-#### 4.1.13 - December 28, 2017
+= 4.1.13 =
+
+_Release date: December 28, 2017_
 
 **Fixes**
 
@@ -736,7 +900,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Allow marking Gravity Forms sign-up checkbox as a required field.
 
 
-#### 4.1.12 - December 11, 2017
+= 4.1.12 =
+
+_Release date: December 11, 2017_
 
 **Fixes**
 
@@ -753,7 +919,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Integration for AffiliateWP.
 
 
-#### 4.1.11 - November 2, 2017
+= 4.1.11 =
+
+_Release date: November 2, 2017_
 
 **Fixes**
 
@@ -768,7 +936,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Link to the [HTML Forms](https://www.htmlforms.io/) from the plugin settings pages.
 
 
-#### 4.1.10 - October 19, 2017
+= 4.1.10 =
+
+_Release date: October 19, 2017_
 
 **Improvements**
 
@@ -780,7 +950,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Added Gravity Forms integration. You can now integrate with Gravity Forms by adding the "Mailchimp" field to your forms.
 
 
-#### 4.1.9 - September 19, 2017
+= 4.1.9 =
+
+_Release date: September 19, 2017_
 
 **Improvements**
 
@@ -788,7 +960,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Custom integration now works with Enfold theme's contact form element.
 
 
-#### 4.1.7 & 4.1.8 - September 8, 2017
+= 4.1.7 & 4.1.8 =
+
+_Release date: September 8, 2017_
 
 **Fixes**
 
@@ -805,7 +979,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Form tag `{data key="foo.bar"}` now allows you to access nested array values.
 
 
-#### 4.1.6 - July 31, 2017
+= 4.1.6 =
+
+_Release date: July 31, 2017_
 
 **Fixes**
 
@@ -817,7 +993,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Minor output buffering improvements in form previewer.
 
 
-#### 4.1.5 - June 27, 2017
+= 4.1.5 =
+
+_Release date: June 27, 2017_
 
 **Fixes**
 
@@ -836,7 +1014,9 @@ Please note that installing this update requires you to also update any add-ons 
 
 
 
-#### 4.1.4 - June 15, 2017
+= 4.1.4 =
+
+_Release date: June 15, 2017_
 
 **Fixes**
 
@@ -845,7 +1025,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Notice that asks for a plugin review would re-appear after dismissing it.
 
 
-#### 4.1.3 - May 24, 2017
+= 4.1.3 =
+
+_Release date: May 24, 2017_
 
 **Improvements**
 
@@ -853,7 +1035,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Always try to show Mailchimp list info when API key is given.
 
 
-#### 4.1.2 - May 8, 2017
+= 4.1.2 =
+
+_Release date: May 8, 2017_
 
 **Fixes**
 
@@ -865,7 +1049,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Show error message when fetching lists fails.
 - Updated plugin translations.
 
-#### 4.1.1 - April 11, 2017
+= 4.1.1 =
+
+_Release date: April 11, 2017_
 
 **Fixes**
 
@@ -877,7 +1063,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Updated JavaScript dependencies.
 
 
-#### 4.1.0 - March 14, 2017
+= 4.1.0 =
+
+_Release date: March 14, 2017_
 
 **Improvements**
 
@@ -893,7 +1081,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Added `mc4wp_integration_show_checkbox` filter.
 
 
-#### 4.0.13 - February 8, 2017
+= 4.0.13 =
+
+_Release date: February 8, 2017_
 
 **Improvements**
 
@@ -902,7 +1092,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Show all address-type fields as required when form contains 1 or more fields of the same address group.
 
 
-#### 4.0.12 - January 16, 2017
+= 4.0.12 =
+
+_Release date: January 16, 2017_
 
 **Fixes**
 
@@ -921,7 +1113,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Throw form specific JavaScript events, like `15.subscribed` to hook into "subscribed" events for form with ID 15.
 
 
-#### 4.0.11 - December 9, 2016
+= 4.0.11 =
+
+_Release date: December 9, 2016_
 
 **Fixes**
 
@@ -932,7 +1126,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Add `$args` parameter to `API::get_lists_activity` method. Relates to the [Mailchimp Activity](https://wordpress.org/plugins/mc4wp-activity/) plugin.
 
 
-#### 4.0.10 - December 6, 2016
+= 4.0.10 =
+
+_Release date: December 6, 2016_
 
 **Improvements**
 
@@ -941,14 +1137,18 @@ Please note that installing this update requires you to also update any add-ons 
 - Improved UI for adding hidden interest groupings fields to a form.
 
 
-#### 4.0.9 - November 23, 2016
+= 4.0.9 =
+
+_Release date: November 23, 2016_
 
 **Fixes**
 
 - Issue with escaped HTML when using form tags introduced by previous update.
 
 
-#### 4.0.8 - November 23, 2016
+= 4.0.8 =
+
+_Release date: November 23, 2016_
 
 **Improvements**
 
@@ -964,7 +1164,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Add hooks for delayed BuddyPress sign-up. Thanks to [Christian Wach](https://profiles.wordpress.org/needle).
 
 
-#### 4.0.7 - October 25, 2016
+= 4.0.7 =
+
+_Release date: October 25, 2016_
 
 **Improvements**
 
@@ -980,7 +1182,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Added `element_class` argument to `[mc4wp_form]` shortcode for adding CSS classes.
 
 
-#### 4.0.6 - October 10, 2016
+= 4.0.6 =
+
+_Release date: October 10, 2016_
 
 **Fixes**
 
@@ -995,7 +1199,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Added missing e-commerce related API methods to API class.
 
 
-#### 4.0.5 - September 29, 2016
+= 4.0.5 =
+
+_Release date: September 29, 2016_
 
 **Fixes**
 
@@ -1015,7 +1221,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Add missing e-commerce related API methods for next week's [WooCommerce Mailchimp e-commerce integration](https://www.mc4wp.com/kb/what-is-ecommerce/) release.
 
 
-#### 4.0.4 - September 7, 2016
+= 4.0.4 =
+
+_Release date: September 7, 2016_
 
 **Improvements**
 
@@ -1027,7 +1235,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Bump limit of number of Mailchimp lists to fetch from 100 to 500.
 
 
-#### 4.0.3 - August 24, 2016
+= 4.0.3 =
+
+_Release date: August 24, 2016_
 
 **Fixes**
 
@@ -1043,7 +1253,9 @@ Please note that installing this update requires you to also update any add-ons 
 - You can now [conditionally hide fields or elements](https://www.mc4wp.com/kb/conditional-fields-elements/) using the `data-show-if` attribute.
 
 
-#### 4.0.2 - August 10, 2016
+= 4.0.2 =
+
+_Release date: August 10, 2016_
 
 **Fixes**
 
@@ -1055,7 +1267,9 @@ Please note that installing this update requires you to also update any add-ons 
 - Decrease file size of JavaScript for forms by about 30%.
 
 
-#### 4.0 & 4.0.1 - August 9, 2016
+= 4.0 & 4.0.1 =
+
+_Release date: August 9, 2016_
 
 This release updates the plugin to version 3 of the Mailchimp API. Please [read through the upgrade guide](https://www.mc4wp.com/kb/upgrading-to-4-0/) before updating to make sure things keep working as expected for you.
 
@@ -1089,7 +1303,9 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 - List fields not fetched when list has just 1 non-default merge field.
 
 
-#### 3.1.12 - July 28, 2016
+= 3.1.12 =
+
+_Release date: July 28, 2016_
 
 **Improvements**
 
@@ -1101,7 +1317,9 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 - Make sure value of MC_LANGUAGE field is limited to 2 characters.
 
 
-#### 3.1.11 - July 5, 2016
+= 3.1.11 =
+
+_Release date: July 5, 2016_
 
 **Improvements**
 
@@ -1113,7 +1331,9 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 - Add "placeholder" option for dropdown fields.
 
 
-#### 3.1.10 - June 21, 2016
+= 3.1.10 =
+
+_Release date: June 21, 2016_
 
 **Fixes**
 
@@ -1125,7 +1345,9 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 - Improvements to form previewer logic.
 - Make sure admin notifications are always shown exactly one time.
 
-#### 3.1.9 - June 7, 2016
+= 3.1.9 =
+
+_Release date: June 7, 2016_
 
 **Fixes**
 
@@ -1143,7 +1365,9 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 - Link to [Boxzilla plugin](https://boxzillaplugin.com/) from admin sidebar.
 
 
-#### 3.1.8 - May 23, 2016
+= 3.1.8 =
+
+_Release date: May 23, 2016_
 
 **Fixes**
 
@@ -1160,7 +1384,9 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 
 - Add `form.reset()` method to JS API.
 
-#### 3.1.7 - May 9, 2016
+= 3.1.7 =
+
+_Release date: May 9, 2016_
 
 **Fixes**
 
@@ -1175,7 +1401,9 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 
 
 
-#### 3.1.6 - April 12, 2016
+= 3.1.6 =
+
+_Release date: April 12, 2016_
 
 **Fixes**
 
@@ -1192,7 +1420,9 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 - New checkbox position for WooCommerce checkout integration.
 
 
-#### 3.1.5 - March 22, 2016
+= 3.1.5 =
+
+_Release date: March 22, 2016_
 
 **Fixes**
 
@@ -1210,7 +1440,9 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 - Add position option for WooCommerce integration.
 - Add `{post}` tag whch can be used in form mark-up to fetch properties of the current page or post.
 
-#### 3.1.4 - February 29, 2016
+= 3.1.4 =
+
+_Release date: February 29, 2016_
 
 **Fixes**
 
@@ -1223,7 +1455,9 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 - Updated Russian translations.
 
 
-#### 3.1.3 - February 17, 2016
+= 3.1.3 =
+
+_Release date: February 17, 2016_
 
 **Fixes**
 
@@ -1234,7 +1468,9 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 - Updated Dutch, Portugese, Spanish and Italian translations.
 
 
-#### 3.1.2 - February 15, 2016
+= 3.1.2 =
+
+_Release date: February 15, 2016_
 
 **Fixes**
 
@@ -1256,7 +1492,9 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 - Error message for when no list is selected can now be customized from the form message settings.
 
 
-#### 3.1.1 - February 1, 2016
+= 3.1.1 =
+
+_Release date: February 1, 2016_
 
 **Fixes**
 
@@ -1270,7 +1508,9 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 - Field Helper now always shows both placeholder and value fields.
 
 
-#### 3.1 - January 26, 2016
+= 3.1 =
+
+_Release date: January 26, 2016_
 
 **Fixes**
 
@@ -1292,13 +1532,17 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 - Add `get_lists_for_email( $email )` method to API class.
 - Add `MC4WP_Queue` class for better background processing of expensive operations.
 
-#### 3.0.12 - January 15, 2016
+= 3.0.12 =
+
+_Release date: January 15, 2016_
 
 **Fixes**
 
 - Incorrect hooks being fired for successful and unsuccessful form sign-ups (which also broke the success redirect).
 
-#### 3.0.11 - January 14, 2016
+= 3.0.11 =
+
+_Release date: January 14, 2016_
 
 **Improvements**
 
@@ -1311,7 +1555,9 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 
 - `add_ecommerce_order()` and `delete_ecommerce_order()` methods to API class.
 
-#### 3.0.10 - January 6, 2016
+= 3.0.10 =
+
+_Release date: January 6, 2016_
 
 **Fixes**
 
@@ -1326,13 +1572,17 @@ This release updates the plugin to version 3 of the Mailchimp API. Please [read 
 - Remove invalid `autofill` attribute from honeypot field.
 
 
-#### 3.0.9 - December 17, 2015
+= 3.0.9 =
+
+_Release date: December 17, 2015_
 
 **Fixes**
 
 Not being able to select a list when creating a new form.
 
-#### 3.0.8 - December 15, 2015
+= 3.0.8 =
+
+_Release date: December 15, 2015_
 
 **Fixes**
 
@@ -1345,7 +1595,9 @@ Not being able to select a list when creating a new form.
 - Add `position` key to `mc4wp_admin_menu_items` filter to set a menu position.
 - Various minor code improvements.
 
-#### 3.0.7 - December 10, 2015
+= 3.0.7 =
+
+_Release date: December 10, 2015_
 
 **Fixes**
 
@@ -1356,7 +1608,9 @@ Workaround for [SSL certification bug in WordPress 4.4](https://core.trac.wordpr
 Added `mc4wp_use_sslverify` filter to disable or explicitly enable SSL certificate verification.
 
 
-#### 3.0.4 - December 7, 2015
+= 3.0.4 =
+
+_Release date: December 7, 2015_
 
 **Fixes**
 
@@ -1373,7 +1627,9 @@ Added `mc4wp_use_sslverify` filter to disable or explicitly enable SSL certifica
 - Add filter: `mc4wp_form_data`, filters form data before it is processed.
 
 
-#### 3.0.3 - November 30, 2015
+= 3.0.3 =
+
+_Release date: November 30, 2015_
 
 **Fixes**
 
@@ -1388,7 +1644,9 @@ Added `mc4wp_use_sslverify` filter to disable or explicitly enable SSL certifica
 - Pre-select Mailchimp list if there's just one list in the connected account.
 - Added missing translation calls for Form Editor.
 
-#### 3.0.2 - November 25, 2015
+= 3.0.2 =
+
+_Release date: November 25, 2015_
 
 **Fixes**
 
@@ -1402,7 +1660,9 @@ Added `mc4wp_use_sslverify` filter to disable or explicitly enable SSL certifica
 - Form events are now triggered _after_ the page has finished loading, so all scripts are loaded & ready to use.
 - Reset background-color in Form Themes stylesheets.
 
-#### 3.0.0 & 3.0.1 - November 23, 2015
+= 3.0.0 & 3.0.1 =
+
+_Release date: November 23, 2015_
 
 Version 3.0 is a total revamp of the plugin. For a quick overview of the changes, please [read this post on our blog](https://www.mc4wp.com/blog/whats-new-in-mailchimp-for-wordpress-the-big-three-o/).
 
@@ -1435,7 +1695,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 - Ninja Forms integration
 - Introduced various new filter & action hooks, please see the new [code reference for developers](http://developer.mc4wp.com/) for more information.
 
-#### 2.3.18 - November 2, 2015
+= 2.3.18 =
+
+_Release date: November 2, 2015_
 
 **Fixes**
 
@@ -1447,7 +1709,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 - Preparations for [the upcoming Mailchimp for WordPress version 3.0 release](https://www.mc4wp.com/blog/breaking-backwards-compatibility-in-version-3-0/).
 - Tested compatibility with WordPress 4.4
 
-#### 2.3.17 - October 22, 2015
+= 2.3.17 =
+
+_Release date: October 22, 2015_
 
 **Fixes**
 
@@ -1458,7 +1722,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 - Updated Portugese translations.
 
 
-#### 2.3.16 - October 14, 2015
+= 2.3.16 =
+
+_Release date: October 14, 2015_
 
 **Fixes**
 
@@ -1470,7 +1736,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 - Connectivity issues with Mailchimp will now _always_ show an error message.
 - Renewing Mailchimp lists will now also update the output of the `{subscriber_count}` tag.
 
-#### 2.3.15 - October 9, 2015
+= 2.3.15 =
+
+_Release date: October 9, 2015_
 
 **Fixes**
 
@@ -1489,13 +1757,17 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 
 - Added opt-in usage tracking to help us make the plugin better. No sensitive data is tracked.
 
-#### 2.3.14 - September 25
+= 2.3.14 =
+
+_Release date: September 25_
 
 **Fixes**
 
 - Use of undefined constant in previous update.
 
-#### 2.3.13 - September 25, 2015
+= 2.3.13 =
+
+_Release date: September 25, 2015_
 
 **Fixes**
 
@@ -1508,13 +1780,17 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 - Mailchimp list fields of type "website" will now become HTML5 `url` type fields.
 - Auto-prefix fields of type `url` with `http://`
 
-#### 2.3.12 - September 21, 2015
+= 2.3.12 =
+
+_Release date: September 21, 2015_
 
 **Fixes**
 
 - Issue with interest groupings not being fetched after updating to version 2.3.11
 
-#### 2.3.11 - September 21, 2015
+= 2.3.11 =
+
+_Release date: September 21, 2015_
 
 **Fixes**
 
@@ -1531,7 +1807,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 
 - You can now use shortcodes in the form content.
 
-#### 2.3.10 - September 7, 2015
+= 2.3.10 =
+
+_Release date: September 7, 2015_
 
 **Fixes**
 
@@ -1545,7 +1823,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 - Add default CSS styles for `number` fields.
 - Placeholders will now work in older version of IE as well.
 
-#### 2.3.9 - September 1, 2015
+= 2.3.9 =
+
+_Release date: September 1, 2015_
 
 **Improvements**
 
@@ -1562,7 +1842,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 
 - Add `mc4wp_form_action` filter to set a custom `action` attribute on the form element.
 
-#### 2.3.8 - August 18, 2015
+= 2.3.8 =
+
+_Release date: August 18, 2015_
 
 **Fixes**
 
@@ -1583,7 +1865,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 
 - Added `mc4wp_form_is_submitted()` and `mc4wp_form_get_response_html()` functions.
 
-#### 2.3.7 - July 13, 2015
+= 2.3.7 =
+
+_Release date: July 13, 2015_
 
 **Improvements**
 
@@ -1596,7 +1880,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 - Add `{current_path}` variable to use in form templates.
 - Add `default` attribute to `{data_name}` variables, usage: `{data_something default="The default value"}`
 
-#### 2.3.6 - July 6, 2015
+= 2.3.6 =
+
+_Release date: July 6, 2015_
 
 **Fixes**
 
@@ -1608,7 +1894,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 - Better CSS for form reset
 - Updated HTML5 placeholder polyfill
 
-#### 2.3.5 - June 24, 2015
+= 2.3.5 =
+
+_Release date: June 24, 2015_
 
 **Fixes**
 
@@ -1619,7 +1907,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 - Updated language files.
 - Now passing the form as a parameter to `mc4wp_form_css_classes` filter.
 
-#### 2.3.4 - May 29, 2015
+= 2.3.4 =
+
+_Release date: May 29, 2015_
 
 **Fixes**
 
@@ -1629,7 +1919,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 
 - Code preview in Field Builder is now read-only
 
-#### 2.3.3 - May 27, 2015
+= 2.3.3 =
+
+_Release date: May 27, 2015_
 
 **Fixes**
 
@@ -1641,7 +1933,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 - Add `contactemail` and `contactname` to field name guesses when integrating with third-party form.
 - Re-enable `sslverify`
 
-#### 2.3.2 - May 12, 2015
+= 2.3.2 =
+
+_Release date: May 12, 2015_
 
 **Fixes**
 
@@ -1652,13 +1946,17 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 
 - IE8 compatibility for honeypot fallback script.
 
-#### 2.3.1 - May 6, 2015
+= 2.3.1 =
+
+_Release date: May 6, 2015_
 
 **Fixes**
 
 - PHP notice in `includes/class-tools.php`, introduced by version 2.3.
 
-#### 2.3 - May 6, 2015
+= 2.3 =
+
+_Release date: May 6, 2015_
 
 **Fixes**
 
@@ -1679,7 +1977,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 - You can now handle unsubscribe calls with our forms too.
 - Added Portugese, Indonesian, German (CH) and Spanish (PR) translations.
 
-#### 2.2.9 - April 15, 2015
+= 2.2.9 =
+
+_Release date: April 15, 2015_
 
 **Fixes**
 
@@ -1689,7 +1989,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 
 - Updated Italian, Russian & Turkish translations.
 
-#### 2.2.8 - March 24, 2015
+= 2.2.8 =
+
+_Release date: March 24, 2015_
 
 **Fixes**
 
@@ -1707,7 +2009,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 - Added some helper methods related to interest groupings to `MC4WP_MailChimp` class.
 - Allow setting custom Mailchimp lists to subscribe to using `lists` attribute on shortcode.
 
-#### 2.2.7 - March 11, 2015
+= 2.2.7 =
+
+_Release date: March 11, 2015_
 
 **Fixes**
 
@@ -1724,7 +2028,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 - Added [mc4wp_form_data](https://github.com/ibericode/mailchimp-for-wordpress/blob/06f0c833027f347a288d2cb9805e0614767409b6/includes/class-form-request.php#L138-L142) filter hook to modify all form data before processing
 
 
-#### 2.2.6 - February 26, 2015
+= 2.2.6 =
+
+_Release date: February 26, 2015_
 
 **Fixes**
 
@@ -1744,7 +2050,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 - Custom fallback for browsers not supporting `input[type="date"]`
 
 
-#### 2.2.5 - February 13, 2015
+= 2.2.5 =
+
+_Release date: February 13, 2015_
 
 **Fixed**
 
@@ -1767,7 +2075,9 @@ Before upgrading, please go through the [upgrade guide](https://www.mc4wp.com/kb
 A huge thank you to [Stefan Oderbolz](http://metaodi.ch/) for various fixed and improvements related to translations in this release.
 
 
-#### 2.2.4 - February 4, 2015
+= 2.2.4 =
+
+_Release date: February 4, 2015_
 
 **Fixed**
 
@@ -1785,17 +2095,23 @@ A huge thank you to [Stefan Oderbolz](http://metaodi.ch/) for various fixed and 
 - Added `wpml-config.xml` file for better WPML compatibility
 - Added filter `mc4wp_menu_items` for adding & removing menu items from add-ons
 
-#### 2.2.3 - January 24, 2015
+= 2.2.3 =
+
+_Release date: January 24, 2015_
 
 Minor improvements and additions for compatibility with the [Mailchimp User Sync plugin](https://www.mc4wp.com/premium-features/).
 
-#### 2.2.2 - January 13, 2015
+= 2.2.2 =
+
+_Release date: January 13, 2015_
 
 **Fixes**
 
 - Plugin wasn't connecting to Mailchimp for users on Mailchimp server `us10` (API keys ending in `-us10`)
 
-#### 2.2.1 - January 12, 2015
+= 2.2.1 =
+
+_Release date: January 12, 2015_
 
 **Improvements**
 
@@ -1810,7 +2126,9 @@ Minor improvements and additions for compatibility with the [Mailchimp User Sync
 - You can now set `MC_LOCATION`, `MC_NOTES` and `MC_LANGUAGE` from your form HTML
 - The submit button now has a default value when generating HTML for it
 
-#### 2.2 - December 9, 2014
+= 2.2 =
+
+_Release date: December 9, 2014_
 
 **Fixes**
 
