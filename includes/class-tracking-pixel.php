@@ -57,8 +57,11 @@ class MC4WP_Tracking_Pixel
             return;
         }
 
-        // If Premium E-Commerce is already loading the mcjs script, skip to avoid duplicates.
-        if (self::is_premium_ecommerce_pixel_active()) {
+        // Defensive check: If the user is running an older version of Premium
+        // that still has the e-commerce pixel enabled, yield to prevent double-loading.
+        // (Newer versions of Premium will migrate and set load_mcjs_script to 0).
+        $ecommerce_opts = get_option('mc4wp_ecommerce', []);
+        if (! empty($ecommerce_opts['load_mcjs_script'])) {
             return;
         }
 
@@ -204,18 +207,5 @@ class MC4WP_Tracking_Pixel
         }
 
         return 'mc4wp-' . sanitize_title(get_bloginfo('name')) . '-' . get_current_blog_id();
-    }
-
-    /**
-     * Returns true if the MC4WP Premium e-commerce integration is already
-     * managing the tracking pixel (mcjs script), so we avoid injecting a
-     * duplicate script on the frontend.
-     *
-     * @return bool
-     */
-    public static function is_premium_ecommerce_pixel_active(): bool
-    {
-        $ecommerce_settings = get_option('mc4wp_ecommerce', []);
-        return ! empty($ecommerce_settings['load_mcjs_script']);
     }
 }
