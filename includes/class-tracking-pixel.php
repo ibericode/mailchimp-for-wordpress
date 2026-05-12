@@ -46,9 +46,6 @@ class MC4WP_Tracking_Pixel
     /**
      * Output the Mailchimp Site Tracking Pixel SDK script tag.
      *
-     * Skips output when Premium E-Commerce is already loading the script,
-     * to avoid injecting it twice.
-     *
      * @return void
      */
     public function output_tracking_script(): void
@@ -57,32 +54,12 @@ class MC4WP_Tracking_Pixel
             return;
         }
 
-        // Defensive check: If the user is running an older version of Premium
-        // that still has the e-commerce pixel enabled, yield to prevent double-loading.
-        // (Newer versions of Premium will migrate and set load_mcjs_script to 0).
-        $ecommerce_opts = get_option('mc4wp_ecommerce', []);
-        if (! empty($ecommerce_opts['load_mcjs_script'])) {
+        $opts = mc4wp_get_options();
+        if (empty($opts['tracking_pixel_script_url'])) {
             return;
         }
 
-        $opts = mc4wp_get_options();
-
-        if (! empty($opts['tracking_pixel_script_url'])) {
-            $url = $opts['tracking_pixel_script_url'];
-        } else if (! empty($opts['tracking_pixel_id'])) {
-            // BC: support legacy tracking_pixel_id for users who configured it before this auto-connect feature
-            $url = sprintf('https://chimpstatic.com/mcjs-connected/js/users/%s.js', $opts['tracking_pixel_id']);
-        } else {
-            // Try to reuse the script URL from Premium E-Commerce settings
-            $ecommerce_settings = get_option('mc4wp_ecommerce', []);
-            if (! empty($ecommerce_settings['mcjs_url'])) {
-                $url = $ecommerce_settings['mcjs_url'];
-            } else {
-                return;
-            }
-        }
-
-        wp_enqueue_script('mc4wp-mailchimp-site-tracking-pixel', $url, [], MC4WP_VERSION, [
+        wp_enqueue_script('mc4wp-mailchimp-site-tracking-pixel', $opts['tracking_pixel_script_url'], [], MC4WP_VERSION, [
             'strategy' => 'defer',
         ]);
     }

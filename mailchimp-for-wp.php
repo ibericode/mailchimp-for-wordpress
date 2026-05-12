@@ -74,6 +74,8 @@ add_action('plugins_loaded', function () {
     $integration_manager->add_hooks();
     $mc4wp['integrations'] = $integration_manager;
 
+    $opts = mc4wp_get_options();
+
     // Initialize admin section of plugin
     if (is_admin()) {
         $admin_tools = new MC4WP_Admin_Tools();
@@ -89,21 +91,10 @@ add_action('plugins_loaded', function () {
             (new MC4WP_Forms_Admin($messages))->add_hooks();
             (new MC4WP_Integration_Admin($integration_manager, $messages))->add_hooks();
         }
-    }
-
-    // Initialize tracking pixel on frontend
-    if (! is_admin()) {
-        $opts = mc4wp_get_options();
-
-        // Determine the site ID: prefer new auto-connected value, fall back to legacy manual ID
-        $site_id = ! empty($opts['tracking_pixel_site_id']) ? $opts['tracking_pixel_site_id'] : ($opts['tracking_pixel_id'] ?? '');
-
-        if (
-            (! empty($opts['tracking_pixel_enabled']) || ! empty($opts['tracking_pixel_id']))
-            && ! empty($site_id)
-        ) {
-            $tracking_pixel = new MC4WP_Tracking_Pixel($site_id);
-            $tracking_pixel->add_hooks();
+    } else {
+        // Initialize tracking pixel on frontend
+        if (! empty($opts['tracking_pixel_enabled']) && !empty($opts['tracking_pixel_site_id'])) {
+            (new MC4WP_Tracking_Pixel($opts['tracking_pixel_site_id']))->add_hooks();
         }
     }
 
