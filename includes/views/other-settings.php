@@ -65,14 +65,6 @@ defined('ABSPATH') or exit;
 
                 <div class="mc4wp-margin-m">
                     <h3><?php echo esc_html__('Site Tracking Pixel', 'mailchimp-for-wp'); ?></h3>
-                    <?php if (MC4WP_Tracking_Pixel::is_premium_ecommerce_pixel_active()) : ?>
-                        <p class="description">
-                            <?php echo wp_kses(
-                                __('<strong>Note:</strong> Site tracking is currently managed by the <strong>MC4WP Premium E-Commerce</strong> integration. You do not need to configure it here.', 'mailchimp-for-wp'),
-                                ['strong' => []]
-                            ); ?>
-                        </p>
-                    <?php else : ?>
                     <table class="form-table">
                         <tr>
                             <th><label for="mc4wp-tracking-pixel-enabled"><?php echo esc_html__('Enable Site Tracking', 'mailchimp-for-wp'); ?></label></th>
@@ -85,6 +77,14 @@ defined('ABSPATH') or exit;
                                     <?php echo esc_html__('When enabled, the plugin automatically finds or registers your site in Mailchimp and loads the tracking script. Subscribers who sign up via your forms will be automatically identified.', 'mailchimp-for-wp'); ?>
                                     <a href="https://mailchimp.com/help/mailchimp-site-tracking-pixel-integration-guidance/" target="_blank"><?php echo esc_html__('Learn more.', 'mailchimp-for-wp'); ?></a>
                                 </p>
+                                <?php if (MC4WP_Tracking_Pixel::is_premium_ecommerce_pixel_active()) : ?>
+                                <p class="description">
+                                    <?php echo wp_kses(
+                                        __('<strong>Note:</strong> The tracking script is already being loaded by the <strong>MC4WP Premium E-Commerce</strong> integration. Enabling this setting will still identify subscribers after form sign-ups, but will not load a duplicate tracking script.', 'mailchimp-for-wp'),
+                                        ['strong' => []]
+                                    ); ?>
+                                </p>
+                                <?php endif; ?>
                                 <?php if (! empty($opts['tracking_pixel_site_id'])) : ?>
                                     <p class="description">
                                         <strong><?php echo esc_html__('Connected Site ID:', 'mailchimp-for-wp'); ?></strong>
@@ -96,7 +96,6 @@ defined('ABSPATH') or exit;
                             </td>
                         </tr>
                     </table>
-                    <?php endif; ?>
                 </div>
 
 
