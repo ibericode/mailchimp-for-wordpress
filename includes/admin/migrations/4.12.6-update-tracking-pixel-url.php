@@ -16,4 +16,3 @@ if (! empty($opts['tracking_pixel_id'])) {
     unset($opts['tracking_pixel_id']);
     update_option('mc4wp', $opts);
 }
-
