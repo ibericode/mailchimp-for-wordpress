@@ -178,7 +178,14 @@ class MC4WP_Form_Asset_Manager
         $this->print_dummy_javascript();
         $this->load_scripts = true;
 
-        // check if this form has AJAX enabled (skip if premium AJAX module is active)
+        // Check if this form has AJAX enabled.
+        // Primary guard: skip if Premium's ajax-forms module is active — it handles its own
+        // script enqueuing and uses mc4wp_ajax_vars + admin-ajax.php. Once Premium removes
+        // MC4WP_AJAX_Forms (dropping the class), this guard falls through and the free plugin's
+        // REST-based AJAX activates automatically. No free plugin code changes are needed for
+        // that migration. Premium must declare Requires Plugins: mailchimp-for-wp (>=4.13.0)
+        // when it drops MC4WP_AJAX_Forms to avoid a version-gap breakage for users who update
+        // Premium without updating the free plugin.
         if (! empty($form->settings['ajax']) && ! $this->load_ajax && ! class_exists('MC4WP_AJAX_Forms')) {
             $this->load_ajax = true;
             $this->ajax_error_text = $form->get_message('error');

@@ -1,8 +1,13 @@
 const forms = require('./forms.js')
 const Loader = require('./ajax-form-loader.js')
 
+// Do not activate if Premium's AJAX module has already initialized via mc4wp_ajax_vars.
+// This is a secondary guard: the PHP class_exists('MC4WP_AJAX_Forms') check in
+// class-asset-manager.php is the primary guard and prevents mc4wp.ajax from being
+// localized when Premium is active. This JS check handles any edge case where
+// plugin load order causes both to be present simultaneously.
 const ajaxConfig = window.mc4wp && window.mc4wp.ajax
-if (ajaxConfig) {
+if (ajaxConfig && !(window.mc4wp_ajax_vars && window.mc4wp_ajax_vars.inited)) {
   let busy = false
 
   /**
