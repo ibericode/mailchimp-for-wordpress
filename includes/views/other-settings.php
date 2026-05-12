@@ -70,6 +70,7 @@ defined('ABSPATH') or exit;
                             <th><label for="mc4wp-tracking-pixel-enabled"><?php echo esc_html__('Enable Site Tracking', 'mailchimp-for-wp'); ?></label></th>
                             <td>
                                 <label>
+                                    <input type="hidden" name="mc4wp[tracking_pixel_enabled]" value="0" />
                                     <input type="checkbox" id="mc4wp-tracking-pixel-enabled" name="mc4wp[tracking_pixel_enabled]" value="1" <?php checked(true, ! empty($opts['tracking_pixel_enabled'])); ?> />
                                     <?php echo esc_html__('Load the Mailchimp Site Tracking Pixel on all frontend pages.', 'mailchimp-for-wp'); ?>
                                 </label>
