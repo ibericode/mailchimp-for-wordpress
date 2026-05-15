@@ -1,44 +1,52 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 /**
-* Class MC4WP_Admin
-*
-* @ignore
-* @access private
-*/
+ * Class MC4WP_Admin
+ *
+ * @ignore
+ * @access private
+ */
 class MC4WP_Admin
 {
     /**
-    * @var string The relative path to the main plugin file from the plugins dir
-    */
+     * @var string The relative path to the main plugin file from the plugins dir
+     */
     protected $plugin_file;
 
     /**
-    * @var MC4WP_Admin_Messages
-    */
+     * @var MC4WP_Admin_Messages
+     */
     protected $messages;
 
     /**
-    * @var MC4WP_Admin_Ads
-    */
+     * @var MC4WP_Admin_Ads
+     */
     protected $ads;
 
     /**
-    * @var MC4WP_Admin_Tools
-    */
+     * @var MC4WP_Admin_Tools
+     */
     protected $tools;
 
     /**
-    * @var MC4WP_Admin_Review_Notice
-    */
+     * @var MC4WP_Admin_Review_Notice
+     */
     protected $review_notice;
 
     /**
-    * Constructor
-    *
-    * @param MC4WP_Admin_Tools $tools
-    * @param MC4WP_Admin_Messages $messages
-    */
+     * @var MC4WP_Admin_Cron_Notice
+     */
+    protected $cron_notice;
+
+    /**
+     * Constructor
+     *
+     * @param MC4WP_Admin_Tools $tools
+     * @param MC4WP_Admin_Messages $messages
+     */
     public function __construct(MC4WP_Admin_Tools $tools, MC4WP_Admin_Messages $messages)
     {
         $this->tools         = $tools;
@@ -46,42 +54,45 @@ class MC4WP_Admin
         $this->plugin_file   = plugin_basename(MC4WP_PLUGIN_FILE);
         $this->ads           = new MC4WP_Admin_Ads();
         $this->review_notice = new MC4WP_Admin_Review_Notice($tools);
+        $this->cron_notice   = new MC4WP_Admin_Cron_Notice($tools);
     }
 
     /**
-    * Registers all hooks
-    */
+     * Registers all hooks
+     */
     public function add_hooks()
     {
 
         // Actions used globally throughout WP Admin
-        add_action('admin_menu', [ $this, 'build_menu' ]);
-        add_action('admin_init', [ $this, 'initialize' ]);
+        add_action('admin_menu', [$this, 'build_menu']);
+        add_action('admin_init', [$this, 'initialize']);
 
-        add_action('current_screen', [ $this, 'customize_admin_texts' ]);
-        add_action('wp_dashboard_setup', [ $this, 'register_dashboard_widgets' ]);
-        add_action('mc4wp_admin_empty_lists_cache', [ $this, 'renew_lists_cache' ]);
-        add_action('mc4wp_admin_empty_debug_log', [ $this, 'empty_debug_log' ]);
+        add_action('current_screen', [$this, 'customize_admin_texts']);
+        add_action('wp_dashboard_setup', [$this, 'register_dashboard_widgets']);
+        add_action('mc4wp_admin_empty_lists_cache', [$this, 'renew_lists_cache']);
+        add_action('mc4wp_admin_empty_debug_log', [$this, 'empty_debug_log']);
+        add_action('mc4wp_admin_connect_tracking_pixel', [$this, 'connect_tracking_pixel']);
 
-        add_action('admin_notices', [ $this, 'show_api_key_notice' ]);
-        add_action('mc4wp_admin_dismiss_api_key_notice', [ $this, 'dismiss_api_key_notice' ]);
-        add_action('admin_enqueue_scripts', [ $this, 'enqueue_assets' ]);
+        add_action('admin_notices', [$this, 'show_api_key_notice']);
+        add_action('mc4wp_admin_dismiss_api_key_notice', [$this, 'dismiss_api_key_notice']);
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_assets']);
 
         $this->ads->add_hooks();
         $this->messages->add_hooks();
         $this->review_notice->add_hooks();
+        $this->cron_notice->add_hooks();
     }
 
     /**
-    * Initializes various stuff used in WP Admin
-    *
-    * - Registers settings
-    */
+     * Initializes various stuff used in WP Admin
+     *
+     * - Registers settings
+     */
     public function initialize()
     {
 
         // register settings
-        register_setting('mc4wp_settings', 'mc4wp', [ $this, 'save_general_settings' ]);
+        register_setting('mc4wp_settings', 'mc4wp', [$this, 'save_general_settings']);
 
         // Load upgrader
         $this->init_upgrade_routines();
@@ -92,8 +103,8 @@ class MC4WP_Admin
 
 
     /**
-    * Listen for `_mc4wp_action` requests
-    */
+     * Listen for `_mc4wp_action` requests
+     */
     public function listen_for_actions()
     {
         // do nothing if _mc4wp_action was not in the request parameters
@@ -109,27 +120,26 @@ class MC4WP_Admin
         // verify nonce
         if (! isset($_REQUEST['_wpnonce']) || false === wp_verify_nonce($_REQUEST['_wpnonce'], '_mc4wp_action')) {
             wp_nonce_ays('_mc4wp_action');
-            exit;
         }
 
         $action = (string) $_REQUEST['_mc4wp_action'];
 
         /**
-        * Allows you to hook into requests containing `_mc4wp_action` => action name.
-        *
-        * The dynamic portion of the hook name, `$action`, refers to the action name.
-        *
-        * By the time this hook is fired, the user is already authorized. After processing all the registered hooks,
-        * the request is redirected back to the referring URL.
-        *
-        * @since 3.0
-        */
+         * Allows you to hook into requests containing `_mc4wp_action` => action name.
+         *
+         * The dynamic portion of the hook name, `$action`, refers to the action name.
+         *
+         * By the time this hook is fired, the user is already authorized. After processing all the registered hooks,
+         * the request is redirected back to the referring URL.
+         *
+         * @since 3.0
+         */
         do_action('mc4wp_admin_' . $action);
 
         // redirect back to where we came from (to prevent double submit)
-        if (isset($_POST['_redirect_to'])) {
+        if (! empty($_POST['_redirect_to'])) {
             $redirect_url = $_POST['_redirect_to'];
-        } elseif (isset($_GET['_redirect_to'])) {
+        } elseif (! empty($_GET['_redirect_to'])) {
             $redirect_url = $_GET['_redirect_to'];
         } else {
             $redirect_url = remove_query_arg('_mc4wp_action');
@@ -140,8 +150,8 @@ class MC4WP_Admin
     }
 
     /**
-    * Register dashboard widgets
-    */
+     * Register dashboard widgets
+     */
     public function register_dashboard_widgets()
     {
         if (! $this->tools->is_user_authorized()) {
@@ -149,19 +159,19 @@ class MC4WP_Admin
         }
 
         /**
-        * Setup dashboard widget, users are authorized by now.
-        *
-        * Use this hook to register your own dashboard widgets for users with the required capability.
-        *
-        * @since 3.0
-        * @ignore
-        */
+         * Setup dashboard widget, users are authorized by now.
+         *
+         * Use this hook to register your own dashboard widgets for users with the required capability.
+         *
+         * @since 3.0
+         * @ignore
+         */
         do_action('mc4wp_dashboard_setup');
     }
 
     /**
-    * Upgrade routine
-    */
+     * Upgrade routine
+     */
     private function init_upgrade_routines()
     {
         // upgrade routine for upgrade routine....
@@ -203,8 +213,8 @@ class MC4WP_Admin
     }
 
     /**
-    * Renew Mailchimp lists cache
-    */
+     * Renew Mailchimp lists cache
+     */
     public function renew_lists_cache()
     {
         // try getting new lists to fill cache again
@@ -212,13 +222,13 @@ class MC4WP_Admin
         $lists     = $mailchimp->refresh_lists();
 
         if (! empty($lists)) {
-            $this->messages->flash(esc_html__('Success! The cached configuration for your Mailchimp lists has been renewed.', 'mailchimp-for-wp'));
+            $this->messages->flash(__('Success! The cached configuration for your Mailchimp lists has been renewed.', 'mailchimp-for-wp'));
         }
     }
 
     /**
-    * Customize texts throughout WP Admin
-    */
+     * Customize texts throughout WP Admin
+     */
     public function customize_admin_texts()
     {
         $texts = new MC4WP_Admin_Texts($this->plugin_file);
@@ -226,10 +236,10 @@ class MC4WP_Admin
     }
 
     /**
-    * Validates the General settings
-    * @param array $settings
-    * @return array
-    */
+     * Validates the General settings
+     * @param array $settings
+     * @return array
+     */
     public function save_general_settings(array $settings)
     {
         $current = mc4wp_get_options();
@@ -245,25 +255,46 @@ class MC4WP_Admin
         // Sanitize API key
         $settings['api_key'] = sanitize_text_field($settings['api_key']);
 
+        // Sanitize tracking pixel enabled toggle
+        $settings['tracking_pixel_enabled'] = ! empty($settings['tracking_pixel_enabled']);
+
+        // If the toggle was just switched on, trigger auto-connect to fetch/create the connected site
+        if ($settings['tracking_pixel_enabled'] && empty($settings['tracking_pixel_site_id'])) {
+            $result = MC4WP_Tracking_Pixel::fetch_or_create_connected_site();
+            if ($result !== false) {
+                $settings['tracking_pixel_site_id']   = $result['site_id'];
+                $settings['tracking_pixel_script_url'] = $result['script_url'];
+            } else {
+                $this->messages->flash(esc_html__('Could not automatically connect your site to Mailchimp. Please check your API key and try again.', 'mailchimp-for-wp'), 'error');
+                $settings['tracking_pixel_enabled'] = false;
+            }
+        }
+
+        // If the toggle is turned off, clear stored site info
+        if (! $settings['tracking_pixel_enabled']) {
+            $settings['tracking_pixel_site_id']   = '';
+            $settings['tracking_pixel_script_url'] = '';
+        }
+
         // if API key changed, empty Mailchimp cache
         if ($settings['api_key'] !== $current['api_key']) {
             delete_transient('mc4wp_mailchimp_lists');
         }
 
         /**
-        * Runs right before general settings are saved.
-        *
-        * @param array $settings The updated settings array
-        * @param array $current The old settings array
-        */
+         * Runs right before general settings are saved.
+         *
+         * @param array $settings The updated settings array
+         * @param array $current The old settings array
+         */
         do_action('mc4wp_save_settings', $settings, $current);
 
         return $settings;
     }
 
     /**
-    * Load scripts and stylesheet on Mailchimp for WP Admin pages
-    */
+     * Load scripts and stylesheet on Mailchimp for WP Admin pages
+     */
     public function enqueue_assets()
     {
         if (! $this->tools->on_plugin_page()) {
@@ -302,21 +333,21 @@ class MC4WP_Admin
         );
 
         /**
-        * Hook to enqueue your own custom assets on the Mailchimp for WordPress setting pages.
-        *
-        * @since 3.0
-        *
-        * @param string $suffix
-        * @param string $page
-        */
+         * Hook to enqueue your own custom assets on the Mailchimp for WordPress setting pages.
+         *
+         * @since 3.0
+         *
+         * @param string $suffix
+         * @param string $page
+         */
         do_action('mc4wp_admin_enqueue_assets', '', $page);
     }
 
 
 
     /**
-    * Register the setting pages and their menu items
-    */
+     * Register the setting pages and their menu items
+     */
     public function build_menu()
     {
         $required_cap = $this->tools->get_required_capability();
@@ -326,43 +357,43 @@ class MC4WP_Admin
                 'title'    => esc_html__('Mailchimp API Settings', 'mailchimp-for-wp'),
                 'text'     => 'Mailchimp',
                 'slug'     => '',
-                'callback' => [ $this, 'show_generals_setting_page' ],
+                'callback' => [$this, 'show_generals_setting_page'],
                 'position' => 0,
             ],
             [
                 'title'    => esc_html__('Other Settings', 'mailchimp-for-wp'),
                 'text'     => esc_html__('Other', 'mailchimp-for-wp'),
                 'slug'     => 'other',
-                'callback' => [ $this, 'show_other_setting_page' ],
+                'callback' => [$this, 'show_other_setting_page'],
                 'position' => 90,
             ],
 
         ];
 
         /**
-        * Filters the menu items to appear under the main menu item.
-        *
-        * To add your own item, add an associative array in the following format.
-        *
-        * $menu_items[] = array(
-        *     'title' => 'Page title',
-        *     'text'  => 'Menu text',
-        *     'slug' => 'Page slug',
-        *     'callback' => 'my_page_function',
-        *     'position' => 50
-        * );
-        *
-        * @param array $menu_items
-        * @since 3.0
-        */
+         * Filters the menu items to appear under the main menu item.
+         *
+         * To add your own item, add an associative array in the following format.
+         *
+         * $menu_items[] = array(
+         *     'title' => 'Page title',
+         *     'text'  => 'Menu text',
+         *     'slug' => 'Page slug',
+         *     'callback' => 'my_page_function',
+         *     'position' => 50
+         * );
+         *
+         * @param array $menu_items
+         * @since 3.0
+         */
         $menu_items = (array) apply_filters('mc4wp_admin_menu_items', $menu_items);
 
         // add top menu item
         $icon = file_get_contents(MC4WP_PLUGIN_DIR . '/assets/img/icon.svg');
-        add_menu_page('Mailchimp for WP', 'MC4WP', $required_cap, 'mailchimp-for-wp', [ $this, 'show_generals_setting_page' ], 'data:image/svg+xml;base64,' . base64_encode($icon), '99.68491');
+        add_menu_page('Mailchimp for WP', 'MC4WP', $required_cap, 'mailchimp-for-wp', [$this, 'show_generals_setting_page'], 'data:image/svg+xml;base64,' . base64_encode($icon), 99.68491);
 
         // sort submenu items by 'position'
-        usort($menu_items, [ $this, 'sort_menu_items_by_position' ]);
+        usort($menu_items, [$this, 'sort_menu_items_by_position']);
 
         // add sub-menu items
         foreach ($menu_items as $item) {
@@ -371,8 +402,8 @@ class MC4WP_Admin
     }
 
     /**
-    * @param array $item
-    */
+     * @param array $item
+     */
     public function add_menu_item(array $item)
     {
 
@@ -396,8 +427,8 @@ class MC4WP_Admin
     }
 
     /**
-    * Show the API Settings page
-    */
+     * Show the API Settings page
+     */
     public function show_generals_setting_page()
     {
         $opts      = mc4wp_get_options();
@@ -411,18 +442,19 @@ class MC4WP_Admin
                 $mailchimp = new MC4WP_MailChimp();
                 $lists     = $mailchimp->get_lists();
             } catch (MC4WP_API_Connection_Exception $e) {
-                $message = sprintf('<strong>%s</strong> %s %s ', esc_html__('Error connecting to Mailchimp:', 'mailchimp-for-wp'), $e->getCode(), $e->getMessage());
+                $message = sprintf('<strong>%s</strong> %s %s ', __('Error connecting to Mailchimp:', 'mailchimp-for-wp'), $e->getCode(), $e->getMessage());
 
                 if (is_object($e->response_data) && ! empty($e->response_data->ref_no)) {
-                    $message .= '<br />' . sprintf(esc_html__('Looks like your server is blocked by Mailchimp\'s firewall. Please contact Mailchimp support and include the following reference number: %s', 'mailchimp-for-wp'), $e->response_data->ref_no);
+                    // translators: %s is the Mailchimp firewall reference number.
+                    $message .= '<br />' . sprintf(__('Looks like your server is blocked by Mailchimp\'s firewall. Please contact Mailchimp support and include the following reference number: %s', 'mailchimp-for-wp'), $e->response_data->ref_no);
                 }
 
-                $message .= '<br /><br />' . sprintf('<a href="%s">' . esc_html__('Here\'s some info on solving common connectivity issues.', 'mailchimp-for-wp') . '</a>', 'https://www.mc4wp.com/kb/solving-connectivity-issues/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-notice');
+                $message .= '<br /><br />' . sprintf('<a href="%s">' . __('Here\'s some info on solving common connectivity issues.', 'mailchimp-for-wp') . '</a>', 'https://www.mc4wp.com/kb/solving-connectivity-issues/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-notice');
 
                 $this->messages->flash($message, 'error');
                 $connected = false;
             } catch (MC4WP_API_Exception $e) {
-                $message = sprintf('<strong>%s</strong><br /> %s', esc_html__('Mailchimp returned the following error:', 'mailchimp-for-wp'), nl2br((string) $e));
+                $message = sprintf('<strong>%s</strong><br /> %s', __('Mailchimp returned the following error:', 'mailchimp-for-wp'), nl2br((string) $e));
                 $this->messages->flash($message, 'error');
                 $connected = false;
             }
@@ -435,8 +467,8 @@ class MC4WP_Admin
     }
 
     /**
-    * Show the Other Settings page
-    */
+     * Show the Other Settings page
+     */
     public function show_other_setting_page()
     {
         $opts       = mc4wp_get_options();
@@ -446,11 +478,11 @@ class MC4WP_Admin
     }
 
     /**
-    * @param $a
-    * @param $b
-    *
-    * @return int
-    */
+     * @param $a
+     * @param $b
+     *
+     * @return int
+     */
     public function sort_menu_items_by_position($a, $b)
     {
         $pos_a = isset($a['position']) ? $a['position'] : 80;
@@ -459,19 +491,38 @@ class MC4WP_Admin
     }
 
     /**
-    * Empties the log file
-    */
+     * Re-runs the connected site auto-connect flow (useful if the site was
+     * registered under a different domain or the stored site_id is stale).
+     */
+    public function connect_tracking_pixel()
+    {
+        $result = MC4WP_Tracking_Pixel::fetch_or_create_connected_site();
+        if ($result !== false) {
+            $opts = mc4wp_get_options();
+            $opts['tracking_pixel_enabled']    = true;
+            $opts['tracking_pixel_site_id']    = $result['site_id'];
+            $opts['tracking_pixel_script_url'] = $result['script_url'];
+            update_option('mc4wp', $opts);
+            $this->messages->flash(esc_html__('Site tracking pixel successfully connected.', 'mailchimp-for-wp'));
+        } else {
+            $this->messages->flash(esc_html__('Could not connect site tracking pixel. Please check your API key and try again.', 'mailchimp-for-wp'), 'error');
+        }
+    }
+
+    /**
+     * Empties the log file
+     */
     public function empty_debug_log()
     {
         $log = $this->get_log();
         file_put_contents($log->file, '');
 
-        $this->messages->flash(esc_html__('Log successfully emptied.', 'mailchimp-for-wp'));
+        $this->messages->flash(__('Log successfully emptied.', 'mailchimp-for-wp'));
     }
 
     /**
-    * Shows a notice when API key is not set.
-    */
+     * Shows a notice when API key is not set.
+     */
     public function show_api_key_notice()
     {
 
@@ -497,7 +548,8 @@ class MC4WP_Admin
         }
 
         echo '<div class="notice notice-warning mc4wp-is-dismissible">';
-        echo '<p>', sprintf(wp_kses(__('To get started with Mailchimp for WordPress, please <a href="%s">enter your Mailchimp API key on the settings page of the plugin</a>.', 'mailchimp-for-wp'), [ 'a' => [ 'href' => [] ] ]), admin_url('admin.php?page=mailchimp-for-wp')), '</p>';
+        // translators: %s is the URL to the plugin settings page.
+        echo '<p>', sprintf(wp_kses(__('To get started with Mailchimp for WordPress, please <a href="%s">enter your Mailchimp API key on the settings page of the plugin</a>.', 'mailchimp-for-wp'), ['a' => ['href' => []]]), esc_url(admin_url('admin.php?page=mailchimp-for-wp'))), '</p>';
         echo '<form method="post">';
         wp_nonce_field('_mc4wp_action', '_wpnonce');
         echo '<input type="hidden" name="_mc4wp_action" value="dismiss_api_key_notice" />';
@@ -507,24 +559,24 @@ class MC4WP_Admin
     }
 
     /**
-    * Dismisses the API key notice for 1 week
-    */
+     * Dismisses the API key notice for 1 week
+     */
     public function dismiss_api_key_notice()
     {
         set_transient('mc4wp_api_key_notice_dismissed', 1, 3600 * 24 * 7);
     }
 
     /**
-    * @return MC4WP_Debug_Log
-    */
+     * @return MC4WP_Debug_Log
+     */
     protected function get_log()
     {
         return mc4wp('log');
     }
 
     /**
-    * @return MC4WP_API_V3
-    */
+     * @return MC4WP_API_V3
+     */
     protected function get_api()
     {
         return mc4wp('api');

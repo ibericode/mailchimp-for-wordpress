@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 class MC4WP_Form_Previewer
 {
     public function add_hooks()

@@ -86,7 +86,7 @@ class MC4WP_Debug_Log_Reader
                 return null;
             }
 
-            $this->handle = @fopen($this->file, 'r');
+            $this->handle = @fopen($this->file, 'r'); // phpcs:ignore 
 
             // unable to read?
             if (! is_resource($this->handle)) {
@@ -99,23 +99,20 @@ class MC4WP_Debug_Log_Reader
 
         // stop reading once we're at the end
         if (feof($this->handle)) {
-            fclose($this->handle);
+            fclose($this->handle); // phpcs:ignore 
             $this->handle = null;
             return null;
         }
 
-        // read line, up to 8kb
         $text = fgets($this->handle);
-
-        // strip tags & trim
-        $text = strip_tags($text);
-        $text = trim($text);
-
-        return $text;
+        if ($text === false) {
+            return null;
+        }
+        return trim($text);
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function read_as_html()
     {
@@ -133,28 +130,5 @@ class MC4WP_Debug_Log_Reader
 
         $line = preg_replace(self::$regex, self::$html_template, $line);
         return $line;
-    }
-
-    /**
-     * Reads X number of lines.
-     *
-     * If $start is negative, reads from end of log file.
-     *
-     * @param int $start
-     * @param int $number
-     * @return string
-     */
-    public function lines($start, $number)
-    {
-        $handle = fopen($start, 'r');
-        $lines  = '';
-
-        $current_line = 0;
-        while ($current_line < $number) {
-            $lines .= fgets($handle);
-        }
-
-        fclose($handle);
-        return $lines;
     }
 }

@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 /**
  * Class MC4WP_Integration_Tags
  *
@@ -16,7 +19,7 @@ class MC4WP_Integration_Tags extends MC4WP_Dynamic_Content_Tags
     /**
      * Add hooks
      */
-    public function add_hooks()
+    public function add_hooks(): void
     {
         add_filter('mc4wp_integration_checkbox_label', [ $this, 'replace_in_checkbox_label' ], 10, 2);
     }
@@ -24,7 +27,7 @@ class MC4WP_Integration_Tags extends MC4WP_Dynamic_Content_Tags
     /**
      * Register template tags for integrations
      */
-    public function register()
+    public function register(): void
     {
         parent::register();
 
@@ -48,10 +51,8 @@ class MC4WP_Integration_Tags extends MC4WP_Dynamic_Content_Tags
 
     /**
      * Returns the number of subscribers on the selected lists (for the form context)
-     *
-     * @return int
      */
-    public function get_subscriber_count()
+    public function get_subscriber_count(): string
     {
         $mailchimp = new MC4WP_MailChimp();
         $list_ids  = $this->integration->get_lists();

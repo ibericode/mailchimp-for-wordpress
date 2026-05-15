@@ -10,4 +10,5 @@ add_filter('mc4wp_user_sync_subscriber_data', function ($subscriber) {
     $subscriber->merge_fields = array_filter($subscriber->merge_fields, function ($value) {
         return $value !== '';
     });
+    return $subscriber;
 });

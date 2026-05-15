@@ -10,7 +10,9 @@ module.exports = {
     forms: './assets/src/js/forms.js',
     'forms-submitted': './assets/src/js/forms-submitted.js',
     'forms-admin': './assets/src/js/forms-admin.js',
-    'forms-block': './assets/src/js/forms-block.js'
+    'forms-block': './assets/src/js/forms-block.js',
+    'campaigns-block': './assets/src/js/campaigns-block.js',
+    'email-typo-checker': './assets/src/js/forms/email-typo-checker.js'
   },
   output: {
     path: path.resolve(__dirname, 'assets/js'),

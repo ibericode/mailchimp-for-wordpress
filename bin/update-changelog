@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+PLUGIN_DIR=$(dirname "$(dirname "$(realpath "$0")")")
+CHANGELOG_FILE="$PLUGIN_DIR/CHANGELOG.md"
+README_FILE="$PLUGIN_DIR/readme.txt"
+
+# Read the 5 most recent changelog entries from CHANGELOG.md
+CHANGELOG_CONTENT=$(awk '/^= [0-9]+/{ if(++c==6) exit; start=1 } start { print }' "$CHANGELOG_FILE")
+
+# Append a link to the full changelog
+CHANGELOG_CONTENT="$CHANGELOG_CONTENT
+
+[View the full changelog on GitHub](https://github.com/ibericode/mailchimp-for-wordpress/blob/main/CHANGELOG.md)"
+
+# Replace the changelog section in readme.txt
+sed -i '/== Changelog ==/q' "$README_FILE"
+echo "" >> "$README_FILE"
+echo "$CHANGELOG_CONTENT" >> "$README_FILE"

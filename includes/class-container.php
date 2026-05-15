@@ -36,6 +36,7 @@ class MC4WP_Container implements ArrayAccess
     public function get($name)
     {
         if (! $this->has($name)) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception text is not direct output and is escaped at render time.
             throw new Exception(sprintf('No service named %s was registered.', $name));
         }
 

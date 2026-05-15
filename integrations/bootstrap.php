@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 /**
  * Try to include a file before each integration's settings page
  *
@@ -41,8 +44,10 @@ mc4wp_register_integration('easy-digital-downloads', 'MC4WP_Easy_Digital_Downloa
 mc4wp_register_integration('contact-form-7', 'MC4WP_Contact_Form_7_Integration', true);
 mc4wp_register_integration('events-manager', 'MC4WP_Events_Manager_Integration');
 mc4wp_register_integration('memberpress', 'MC4WP_MemberPress_Integration');
+mc4wp_register_integration('peepso', 'MC4WP_PeepSo_Integration');
 mc4wp_register_integration('affiliatewp', 'MC4WP_AffiliateWP_Integration');
 mc4wp_register_integration('give', 'MC4WP_Give_Integration');
+mc4wp_register_integration('simple-basic-contact-form', 'MC4WP_Simple_Basic_Contact_Form_Integration');
 mc4wp_register_integration('custom', 'MC4WP_Custom_Integration', true);
 mc4wp_register_integration('woocommerce', 'MC4WP_WooCommerce_Integration');
 

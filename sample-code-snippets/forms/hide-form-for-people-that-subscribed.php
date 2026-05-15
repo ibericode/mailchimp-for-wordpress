@@ -5,7 +5,7 @@
  */
 
 add_action('mc4wp_form_subscribed', function () {
-    setcookie('mc4wp_subscribed', 1, time() + 3600 * 24 * 90, '/');
+    setcookie('mc4wp_subscribed', '1', time() + 3600 * 24 * 90, '/');
 });
 
 /**

@@ -84,7 +84,7 @@ if (defined('WP_CLI') && WP_CLI) {
                         // increment progress bar
                         $progress->tick();
                     } catch (Exception $e) {
-                        $this->get_log()->info(sprintf('WP CLI Guest Orders: Exception: %s Order ID: %s', $e->getMessage()));
+                        $this->get_log()->info(sprintf('WP CLI Guest Orders: Exception: %s Order ID: %s', $e->getMessage(), $order_id));
                     }
                 }
 

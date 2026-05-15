@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 class MC4WP_Admin_Ajax
 {
     /**
@@ -19,6 +22,8 @@ class MC4WP_Admin_Ajax
 
     /**
      * Hook AJAX actions
+     *
+     * @return void
      */
     public function add_hooks()
     {
@@ -34,7 +39,6 @@ class MC4WP_Admin_Ajax
     {
         if (! $this->tools->is_user_authorized()) {
             wp_send_json_error();
-            return;
         }
 
         $list_ids  = (array) explode(',', $_GET['ids']);

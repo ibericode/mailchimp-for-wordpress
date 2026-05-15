@@ -1,8 +1,12 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 $theme       = wp_get_theme();
 $css_options = [
-    '0'                                     => sprintf(esc_html__('Inherit from %s theme', 'mailchimp-for-wp'), $theme->Name),
+    // translators: %s is the name of the active WordPress theme.
+    '0'                                     => sprintf(esc_html__('Inherit from %s theme', 'mailchimp-for-wp'), esc_html($theme->Name)), // @phpstan-ignore-line WP_Theme::$name is a dynamic property
     'basic'                                 => esc_html__('Basic', 'mailchimp-for-wp'),
     esc_html__('Form Themes', 'mailchimp-for-wp') => [
         'theme-light' => esc_html__('Light Theme', 'mailchimp-for-wp'),
@@ -33,13 +37,13 @@ $css_options = apply_filters('mc4wp_admin_form_css_options', $css_options);
                     if (is_array($option)) {
                         $label   = $key;
                         $options = $option;
-                        printf('<optgroup label="%s">', $label);
+                        printf('<optgroup label="%s">', esc_attr($label));
                         foreach ($options as $key => $option) {
-                            printf('<option value="%s" %s>%s</option>', $key, selected($opts['css'], $key, false), $option);
+                            printf('<option value="%s" %s>%s</option>', esc_attr($key), selected($opts['css'], $key, false), esc_html($option));
                         }
                         print( '</optgroup>' );
                     } else {
-                        printf('<option value="%s" %s>%s</option>', $key, selected($opts['css'], $key, false), $option);
+                        printf('<option value="%s" %s>%s</option>', esc_attr($key), selected($opts['css'], $key, false), esc_html($option));
                     }
                 }
                 ?>

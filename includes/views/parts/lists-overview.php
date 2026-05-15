@@ -1,10 +1,12 @@
+<?php defined('ABSPATH') or exit; ?>
+
 <h3><?php echo esc_html__('Your Mailchimp Account', 'mailchimp-for-wp'); ?></h3>
 <p><?php echo esc_html__('The table below shows your Mailchimp audiences and their details. If you just applied changes to your Mailchimp account, please use the following button to renew the cache.', 'mailchimp-for-wp'); ?></p>
 
 <div id="mc4wp-list-fetcher">
     <form method="post" action="">
         <input type="hidden" name="_mc4wp_action" value="empty_lists_cache" />
-        <?php echo wp_nonce_field('_mc4wp_action'); ?>
+        <?php wp_nonce_field('_mc4wp_action'); ?>
         <p>
             <input type="submit" value="<?php echo esc_attr__('Renew Mailchimp audiences', 'mailchimp-for-wp'); ?>" class="button">
         </p>
@@ -18,6 +20,7 @@
         <p><?php echo esc_html__('No audiences were found in your Mailchimp account', 'mailchimp-for-wp'); ?>.</p>
         <?php
     } else {
+        // translators: %d is the number of Mailchimp audiences found.
         echo '<p>', sprintf(esc_html__('A total of %d audiences were found in your Mailchimp account.', 'mailchimp-for-wp'), count($lists)), '</p>';
         echo '<table class="widefat striped" id="mc4wp-mailchimp-lists-overview">';
 
@@ -30,24 +33,22 @@
         echo '<thead>';
         echo '<tr>';
         foreach ($headings as $heading) {
-            echo '<th>', $heading, '</th>';
+            echo '<th>', esc_html($heading), '</th>';
         }
         echo '</tr>';
         echo '</thead>';
         echo '<tbody>';
 
         foreach ($lists as $list) {
-            $attr_data_list_id = esc_attr($list->id);
-            $list_name         = esc_html($list->name);
             echo '<tr>';
-            echo '<td><a href="#" class="mc4wp-mailchimp-list" data-list-id="', $attr_data_list_id, '">', $list_name, '</a><span class="row-actions alignright"></span></td>';
+            echo '<td><a href="#" class="mc4wp-mailchimp-list" data-list-id="', esc_attr($list->id), '">', esc_html($list->name), '</a><span class="row-actions alignright"></span></td>';
             echo '<td><code>', esc_html($list->id), '</code></td>';
             echo '<td>', esc_html($list->stats->member_count), '</td>';
             echo '</tr>';
 
-            echo '<tr class="list-details list-', $list->id, '-details" style="display: none;">';
+            echo '<tr class="list-details list-', esc_attr($list->id), '-details" style="display: none;">';
             echo '<td colspan="3" style="padding: 0 20px 40px;">';
-            echo '<p class="alignright" style="margin: 20px 0;"><a href="https://admin.mailchimp.com/audience/contacts/?id=', $list->web_id, '" target="_blank"><span class="dashicons dashicons-edit"></span> ', esc_html__('Edit this audience in Mailchimp', 'mailchimp-for-wp'), '</a></p>';
+            echo '<p class="alignright" style="margin: 20px 0;"><a href="', esc_url('https://admin.mailchimp.com/audience/contacts/?id=' . rawurlencode((string) $list->web_id)), '" target="_blank"><span class="dashicons dashicons-edit"></span> ', esc_html__('Edit this audience in Mailchimp', 'mailchimp-for-wp'), '</a></p>';
             echo '<div><div>', esc_html__('Loading... Please wait.', 'mailchimp-for-wp'), '</div></div>';
             echo '</td>';
             echo '</tr>';

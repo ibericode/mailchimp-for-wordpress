@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 class MC4WP_WPForms_Field extends WPForms_Field
 {
     /**
@@ -12,7 +15,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
         $this->name     = 'Mailchimp';
         $this->type     = 'mailchimp';
         $this->icon     = 'fa-envelope-o';
-        $this->order    = 21;
+        $this->order    = 500;
         $this->defaults = [
             [
                 'label'   => 'Sign-up to our newsletter?',
@@ -43,10 +46,13 @@ class MC4WP_WPForms_Field extends WPForms_Field
         //--------------------------------------------------------------------//
 
         // Options open markup
-        $this->field_option('basic-options', $field, [ 'markup' => 'open' ]);
+        $this->field_option('basic-options', $field, ['markup' => 'open']);
 
         // Mailchimp list
         $this->field_option_mailchimp_list($field);
+
+        // Double opt-in
+        $this->field_option_double_optin($field);
 
         // Choices
         $this->field_option_choices($field);
@@ -58,20 +64,20 @@ class MC4WP_WPForms_Field extends WPForms_Field
         $this->field_option('required', $field);
 
         // Options close markup
-        $this->field_option('basic-options', $field, [ 'markup' => 'close' ]);
+        $this->field_option('basic-options', $field, ['markup' => 'close']);
 
         //--------------------------------------------------------------------//
         // Advanced field options
         //--------------------------------------------------------------------//
 
         // Options open markup
-        $this->field_option('advanced-options', $field, [ 'markup' => 'open' ]);
+        $this->field_option('advanced-options', $field, ['markup' => 'open']);
 
         // Custom CSS classes
         $this->field_option('css', $field);
 
         // Options close markup
-        $this->field_option('advanced-options', $field, [ 'markup' => 'close' ]);
+        $this->field_option('advanced-options', $field, ['markup' => 'close']);
     }
 
     private function field_option_mailchimp_list($field)
@@ -99,11 +105,48 @@ class MC4WP_WPForms_Field extends WPForms_Field
         $option_select .= '</select>';
 
         // Field option row (markup) including label and input.
-        $output = $this->field_element(
+        $this->field_element(
             'row',
             $field,
             [
                 'slug'    => 'mailchimp-list',
+                'content' => $option_label . $option_select,
+            ]
+        );
+    }
+
+    /**
+     * Renders the "Double opt-in?" select field option in the form builder.
+     *
+     * @since 4.9
+     * @param array $field Field data.
+     */
+    private function field_option_double_optin($field)
+    {
+        $tooltip      = __('Select "yes" if you want people to confirm their email address before being subscribed (recommended).', 'mailchimp-for-wp');
+        $option_label = $this->field_element(
+            'label',
+            $field,
+            [
+                'slug'    => 'mailchimp-double-optin',
+                'value'   => __('Double opt-in?', 'mailchimp-for-wp'),
+                'tooltip' => $tooltip,
+            ],
+            false
+        );
+
+        $current_value = isset($field['mailchimp_double_optin']) ? $field['mailchimp_double_optin'] : '1';
+        $option_select = sprintf('<select name="fields[%s][mailchimp_double_optin]" data-field-id="%d" data-field-type="%s">', $field['id'], $field['id'], $this->type);
+        $option_select .= sprintf('<option value="1" %s>%s</option>', selected('1', $current_value, false), __('Yes', 'mailchimp-for-wp'));
+        $option_select .= sprintf('<option value="0" %s>%s</option>', selected('0', $current_value, false), __('No', 'mailchimp-for-wp'));
+        $option_select .= '</select>';
+
+        // Field option row (markup) including label and input.
+        $this->field_element(
+            'row',
+            $field,
+            [
+                'slug'    => 'mailchimp-double-optin',
                 'content' => $option_label . $option_select,
             ]
         );
@@ -141,7 +184,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
         $option_choices .= '</ul>';
 
         // Field option row (markup) including label and input.
-        $output = $this->field_element(
+        $this->field_element(
             'row',
             $field,
             [
@@ -166,15 +209,13 @@ class MC4WP_WPForms_Field extends WPForms_Field
 
         // Notify if currently empty
         if (empty($values)) {
-            $values = [ 'label' => __('(empty)', 'wpforms') ];
+            $values = ['label' => __('(empty)', 'mailchimp-for-wp')];
         }
 
         // Individual checkbox options
         foreach ($values as $key => $value) {
             $default  = isset($value['default']) ? $value['default'] : '';
-            $selected = checked('1', $default, false);
-
-            printf('<li><input type="checkbox" %s disabled>%s</li>', $selected, $value['label']);
+            printf('<li><input type="checkbox" %s disabled>%s</li>', checked('1', $default, false), esc_html($value['label']));
         }
 
         echo '</ul>';
@@ -182,7 +223,15 @@ class MC4WP_WPForms_Field extends WPForms_Field
         // Dynamic population is enabled and contains more than 20 items
         if (isset($total) && $total > 20) {
             echo '<div class="wpforms-alert-dynamic wpforms-alert wpforms-alert-warning">';
-            printf(__('Showing the first 20 choices.<br> All %d choices will be displayed when viewing the form.', 'wpforms'), absint($total));
+            // translators: %d is the total number of choices available.
+            echo wp_kses(
+                sprintf(
+                    /* translators: %d is the total number of choices available. */
+                    __('Showing the first 20 choices.<br> All %d choices will be displayed when viewing the form.', 'mailchimp-for-wp'),
+                    absint($total)
+                ),
+                [ 'br' => [] ]
+            );
             echo '</div>';
         }
 
@@ -206,34 +255,38 @@ class MC4WP_WPForms_Field extends WPForms_Field
         ], is_array($field_atts) ? $field_atts : []);
 
         // Setup and sanitize the necessary data
-        $field_required = ! empty($field['required']) ? ' required' : '';
+        $field_required = ! empty($field['required']);
         $field_class    = implode(' ', array_map('sanitize_html_class', (array) $field_atts['input_class']));
         $field_id       = implode(' ', array_map('sanitize_html_class', (array) $field_atts['input_id']));
-        $form_id        = $form_data['id'];
+        $form_id        = absint($form_data['id']);
+        $field_id_int   = absint($field['id']);
         $choices        = (array) $field['choices'];
 
         // List
-        printf('<ul id="%s" class="%s">', $field_id, $field_class);
+        printf('<ul id="%s" class="%s">', esc_attr($field_id), esc_attr($field_class));
 
         foreach ($choices as $key => $choice) {
             $selected = isset($choice['default']) ? '1' : '0';
             $depth    = isset($choice['depth']) ? absint($choice['depth']) : 1;
+            $key      = absint($key);
+            $list_item_class = sprintf('choice-%d depth-%d', $key, $depth);
 
-            printf('<li class="choice-%d depth-%d">', $key, $depth);
+            echo '<li class="', esc_attr($list_item_class), '">';
+
+            $input_id = sprintf('wpforms-%d-field_%d_%d', $form_id, $field_id_int, $key);
 
             // Checkbox elements
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- checked() and required flag return safe attribute fragments.
             printf(
-                '<input type="checkbox" id="wpforms-%d-field_%d_%d" name="wpforms[fields][%d]" value="%s" %s %s>',
-                $form_id,
-                $field['id'],
-                $key,
-                $field['id'],
+                '<input type="checkbox" id="%s" name="%s" value="%s" %s %s>',
+                esc_attr($input_id),
+                esc_attr(sprintf('wpforms[fields][%d]', $field_id_int)),
                 esc_attr($choice['value']),
                 checked('1', $selected, false),
-                $field_required
+                $field_required ? 'required' : ''
             );
 
-            printf('<label class="wpforms-field-label-inline" for="wpforms-%d-field_%d_%d">%s</label>', $form_id, $field['id'], $key, wp_kses_post($choice['label']));
+            printf('<label class="wpforms-field-label-inline" for="%s">%s</label>', esc_attr($input_id), esc_html($choice['label']));
 
             echo '</li>';
         }
@@ -251,7 +304,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
      */
     public function format($field_id, $field_submit, $form_data)
     {
-        $field  = $form_data['fields'][ $field_id ];
+        $field  = $form_data['fields'][$field_id];
         $choice = array_pop($field['choices']);
         $name   = sanitize_text_field($choice['label']);
 
@@ -263,6 +316,6 @@ class MC4WP_WPForms_Field extends WPForms_Field
             'type'      => $this->type,
         ];
 
-        wpforms()->process->fields[ $field_id ] = $data;
+        wpforms()->process->fields[$field_id] = $data;
     }
 }

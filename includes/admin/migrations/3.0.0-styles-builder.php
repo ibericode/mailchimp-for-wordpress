@@ -27,14 +27,14 @@ if (file_exists($file)) {
     // create directory, if necessary
     $dir = $uploads['basedir'] . '/mc4wp-stylesheets';
     if (! file_exists($dir)) {
-        @mkdir($dir, 0755);
+        wp_mkdir_p($dir);
     }
 
-    @chmod($dir, 0755);
+    @chmod($dir, 0755); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_chmod
 
     // Move file to new location
     $new_file = $dir . '/bundle.css';
-    $success  = rename($file, $new_file);
+    $success  = rename($file, $new_file); // phpcs:ignore WordPress.WP.AlternativeFunctions.rename_rename
 }
 
 // remove old option

@@ -12,6 +12,7 @@ function Field (data) {
     showLabel: typeof (data.showLabel) === 'boolean' ? data.showLabel : true,
     value: data.value || '',
     placeholder: data.placeholder || '',
+    autocomplete: data.autocomplete || '',
     required: typeof (data.required) === 'boolean' ? data.required : false,
     forceRequired: typeof (data.forceRequired) === 'boolean' ? data.forceRequired : false,
     wrap: typeof (data.wrap) === 'boolean' ? data.wrap : true,

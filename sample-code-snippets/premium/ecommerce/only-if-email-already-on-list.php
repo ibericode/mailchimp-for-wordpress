@@ -18,7 +18,6 @@ Author URI: https://ibericode.com/
  */
 function mc4wp_mailchimp_list_member_has_status_pending_or_subscribed($email)
 {
-
     if (!is_string($email)) {
         throw new InvalidArgumentException(
             sprintf("mailchimp_list_member_has_status_pending_or_subscribed() expects parameter 1 to be string, %s given", gettype($email))
@@ -64,7 +63,6 @@ function mc4wp_get_customer_email($customer)
                 );
             }
             return $customer->billing_email;
-            break;
         case WP_User::class:
             return $customer->user_email;
         case WC_Customer::class:

@@ -78,6 +78,15 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration
                 jQuery('#field_mailchimp_double_optin').val(field.mailchimp_double_optin || "1");
                 jQuery('#field_mailchimp_precheck').val(field.mailchimp_precheck || "0");
             });
+
+            // Sync label changes to checkbox label text in real-time.
+            if (window.gform) {
+                gform.addAction('gform_post_set_field_property', function(name, field) {
+                    if (name === 'label' && field.type === 'mailchimp') {
+                        jQuery('#field_' + field.id + ' .gfield_checkbox label').text(field.label);
+                    }
+                });
+            }
         </script>
         <?php
     }
@@ -96,15 +105,15 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration
                 <?php esc_html_e('Mailchimp list', 'mailchimp-for-wp'); ?>
             </label>
             <select id="field_mailchimp_list" onchange="SetFieldProperty('mailchimp_list', this.value)">
-                <option value="" disabled><?php _e('Select a Mailchimp list', 'mailchimp-for-wp'); ?></option>
+                <option value="" disabled><?php esc_html_e('Select a Mailchimp list', 'mailchimp-for-wp'); ?></option>
                 <?php
                 foreach ($lists as $list) {
-                    echo sprintf('<option value="%s">%s</option>', $list->id, $list->name);
+                    printf('<option value="%s">%s</option>', esc_attr($list->id), esc_html($list->name));
                 }
                 ?>
             </select>
             <p class="help">
-                <?php echo __('Select the list(s) to which people who check the checkbox should be subscribed.', 'mailchimp-for-wp'); ?>
+                <?php echo esc_html__('Select the list(s) to which people who check the checkbox should be subscribed.', 'mailchimp-for-wp'); ?>
             </p>
         </li>
         <li class="mailchimp_double_optin field_setting">
@@ -112,11 +121,11 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration
                 <?php esc_html_e('Double opt-in?', 'mailchimp-for-wp'); ?>
             </label>
             <select id="field_mailchimp_double_optin" onchange="SetFieldProperty('mailchimp_double_optin', this.value)">
-                <option value="1"><?php echo __('Yes', 'mailchimp-for-wp'); ?></option>
-                <option value="0"><?php echo __('No', 'mailchimp-for-wp'); ?></option>
+                <option value="1"><?php echo esc_html__('Yes', 'mailchimp-for-wp'); ?></option>
+                <option value="0"><?php echo esc_html__('No', 'mailchimp-for-wp'); ?></option>
             </select>
             <p class="help">
-                <?php _e('Select "yes" if you want people to confirm their email address before being subscribed (recommended)', 'mailchimp-for-wp'); ?>
+                <?php esc_html_e('Select "yes" if you want people to confirm their email address before being subscribed (recommended)', 'mailchimp-for-wp'); ?>
             </p>
         </li>
         <li class="mailchimp_precheck field_setting">
@@ -124,14 +133,25 @@ class MC4WP_Gravity_Forms_Integration extends MC4WP_Integration
                 <?php esc_html_e('Pre-check the checkbox?', 'mailchimp-for-wp'); ?>
             </label>
             <select id="field_mailchimp_precheck" onchange="SetFieldProperty('mailchimp_precheck', this.value)">
-                <option value="1"><?php echo __('Yes', 'mailchimp-for-wp'); ?></option>
-                <option value="0"><?php echo __('No', 'mailchimp-for-wp'); ?></option>
+                <option value="1"><?php echo esc_html__('Yes', 'mailchimp-for-wp'); ?></option>
+                <option value="0"><?php echo esc_html__('No', 'mailchimp-for-wp'); ?></option>
             </select>
             <p class="help">
                 <?php
-                _e('Select "yes" if the checkbox should be pre-checked.', 'mailchimp-for-wp');
+                esc_html_e('Select "yes" if the checkbox should be pre-checked.', 'mailchimp-for-wp');
                 echo '<br />';
-                printf(__('<strong>Warning: </strong> enabling this may affect your <a href="%s">GDPR compliance</a>.', 'mailchimp-for-wp'), 'https://www.mc4wp.com/kb/gdpr-compliance/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page');
+                // translators: %s is the URL to the GDPR compliance documentation.
+                echo wp_kses(
+                    sprintf(
+                        /* translators: %s is the URL to the GDPR compliance documentation. */
+                        __('<strong>Warning: </strong> enabling this may affect your <a href="%s">GDPR compliance</a>.', 'mailchimp-for-wp'),
+                        esc_url('https://www.mc4wp.com/kb/gdpr-compliance/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page')
+                    ),
+                    [
+                        'strong' => [],
+                        'a'      => [ 'href' => [] ],
+                    ]
+                );
                 ?>
             </p>
         </li>

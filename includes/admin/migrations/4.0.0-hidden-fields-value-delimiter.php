@@ -26,6 +26,6 @@ foreach ($posts as $post) {
     // update post if we replaced something
     if ($new != $old) {
         $post->post_content = $new;
-        wp_update_post($post);
+        wp_update_post(get_object_vars($post));
     }
 }

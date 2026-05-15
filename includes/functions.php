@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 /**
  * Get a service by its name
  *
@@ -117,7 +120,7 @@ function mc4wp_get_debug_log()
     if ($file === $default_file) {
         $dir = dirname($file);
         if (! is_dir($dir)) {
-            mkdir($dir, 0755, true);
+            wp_mkdir_p($dir);
         }
 
         if (! is_file($dir . '/.htaccess')) {
@@ -248,7 +251,7 @@ function mc4wp_sanitize_deep($value)
 {
     if (is_scalar($value)) {
         // strip all HTML tags & whitespace
-        $value = trim(strip_tags($value));
+        $value = trim(wp_strip_all_tags($value));
 
         // convert &amp; back to &
         $value = html_entity_decode($value, ENT_NOQUOTES);

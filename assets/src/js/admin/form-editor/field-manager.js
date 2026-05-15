@@ -66,17 +66,28 @@ function registerMergeField (mergeField) {
     forceRequired: mergeField.required,
     type: fieldType,
     choices: mergeField.options.choices,
-    acceptsMultipleValues: false // merge fields never accept multiple values.
+    acceptsMultipleValues: false, // merge fields never accept multiple values.
+    autocomplete: (function (tag) {
+      if (tag === 'FNAME') {
+        return 'given-name'
+      }
+
+      if (tag === 'LNAME') {
+        return 'family-name'
+      }
+
+      return ''
+    }(mergeField.tag))
   }
 
   if (data.type !== 'address') {
     register(category, data, false)
   } else {
-    register(category, { name: data.name + '[addr1]', type: 'text', mailchimpType: 'address', title: i18n.streetAddress }, false)
-    register(category, { name: data.name + '[city]', type: 'text', mailchimpType: 'address', title: i18n.city }, false)
-    register(category, { name: data.name + '[state]', type: 'text', mailchimpType: 'address', title: i18n.state }, false)
-    register(category, { name: data.name + '[zip]', type: 'text', mailchimpType: 'address', title: i18n.zip }, false)
-    register(category, { name: data.name + '[country]', type: 'select', mailchimpType: 'address', title: i18n.country, choices: countries }, false)
+    register(category, { name: data.name + '[addr1]', type: 'text', mailchimpType: 'address', title: i18n.streetAddress, autocomplete: 'address-line1' }, false)
+    register(category, { name: data.name + '[city]', type: 'text', mailchimpType: 'address', title: i18n.city, autocomplete: 'address-level2' }, false)
+    register(category, { name: data.name + '[state]', type: 'text', mailchimpType: 'address', title: i18n.state, autocomplete: 'address-level1' }, false)
+    register(category, { name: data.name + '[zip]', type: 'text', mailchimpType: 'address', title: i18n.zip, autocomplete: 'postal-code' }, false)
+    register(category, { name: data.name + '[country]', type: 'select', mailchimpType: 'address', title: i18n.country, choices: countries, autocomplete: 'country' }, false)
   }
 
   return true
@@ -147,14 +158,13 @@ function registerListsFields (lists) {
 }
 
 function registerCustomFields (lists) {
-  let choices
-
   register(i18n.listFields, {
     name: 'EMAIL',
     title: i18n.emailAddress,
     required: true,
     forceRequired: true,
-    type: 'email'
+    type: 'email',
+    autocomplete: 'email'
   }, true)
 
   // register submit button
@@ -177,7 +187,7 @@ function registerCustomFields (lists) {
   }, true)
 
   // register lists choice field
-  choices = {}
+  const choices = {}
   for (const key in lists) {
     choices[lists[key].id] = lists[key].name
   }
@@ -189,19 +199,6 @@ function registerCustomFields (lists) {
     choices,
     help: i18n.listChoiceDescription,
     acceptsMultipleValues: true
-  }, true)
-
-  choices = {
-    subscribe: 'Subscribe',
-    unsubscribe: 'Unsubscribe'
-  }
-  register(i18n.formFields, {
-    name: '_mc4wp_action',
-    type: 'radio',
-    title: i18n.formAction,
-    choices,
-    value: 'subscribe',
-    help: i18n.formActionDescription
   }, true)
 
   register(i18n.formFields, {

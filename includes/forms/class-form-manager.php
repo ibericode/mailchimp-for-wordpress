@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 /**
  * This class takes care of all form related functionality
  *
@@ -109,6 +112,8 @@ class MC4WP_Form_Manager
                     'singular_name' => 'Sign-up Form',
                 ],
                 'public' => false,
+                'capability_type' => 'mc4wp-form',
+                'map_meta_cap' => true,
             ]
         );
     }

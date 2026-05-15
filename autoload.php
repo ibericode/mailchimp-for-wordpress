@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') or exit;
+
 require __DIR__ . '/includes/functions.php';
 require __DIR__ . '/includes/deprecated-functions.php';
 require __DIR__ . '/includes/forms/functions.php';
@@ -16,6 +18,7 @@ spl_autoload_register(function ($class) {
         'MC4WP_Admin' => '/includes/admin/class-admin.php',
         'MC4WP_Admin_Ads' => '/includes/admin/class-ads.php',
         'MC4WP_Admin_Ajax' => '/includes/admin/class-admin-ajax.php',
+        'MC4WP_Admin_Cron_Notice' => '/includes/admin/class-cron-notice.php',
         'MC4WP_Admin_Messages' => '/includes/admin/class-admin-messages.php',
         'MC4WP_Admin_Review_Notice' => '/includes/admin/class-review-notice.php',
         'MC4WP_Admin_Texts' => '/includes/admin/class-admin-texts.php',
@@ -24,6 +27,7 @@ spl_autoload_register(function ($class) {
         'MC4WP_BuddyPress_Integration' => '/integrations/buddypress/class-buddypress.php',
         'MC4WP_Comment_Form_Integration' => '/integrations/wp-comment-form/class-comment-form.php',
         'MC4WP_Contact_Form_7_Integration' => '/integrations/contact-form-7/class-contact-form-7.php',
+        'MC4WP_Campaign_Archive' => '/includes/campaigns/class-archive.php',
         'MC4WP_Container' => '/includes/class-container.php',
         'MC4WP_Custom_Integration' => '/integrations/custom/class-custom.php',
         'MC4WP_Debug_Log' => '/includes/class-debug-log.php',
@@ -62,13 +66,16 @@ spl_autoload_register(function ($class) {
         'MC4WP_Ninja_Forms_Field' => '/integrations/ninja-forms/class-field.php',
         'MC4WP_Ninja_Forms_Integration' => '/integrations/ninja-forms/class-ninja-forms.php',
         'MC4WP_Ninja_Forms_V2_Integration' => '/integrations/ninja-forms-2/class-ninja-forms.php',
+        'MC4WP_PeepSo_Integration' => '/integrations/peepso/class-peepso.php',
         'MC4WP_Plugin' => '/includes/class-plugin.php',
         'MC4WP_Procaptcha_Integration' => '/integrations/prosopo-procaptcha/class-procaptcha-integration.php',
         'MC4WP_Procaptcha' => '/integrations/prosopo-procaptcha/class-procaptcha.php',
         'MC4WP_Queue' => '/includes/class-queue.php',
         'MC4WP_Queue_Job' => '/includes/class-queue-job.php',
         'MC4WP_Registration_Form_Integration' => '/integrations/wp-registration-form/class-registration-form.php',
+        'MC4WP_Simple_Basic_Contact_Form_Integration' => '/integrations/simple-basic-contact-form/class-simple-basic-contact-form.php',
         'MC4WP_Tools' => '/includes/class-tools.php',
+        'MC4WP_Tracking_Pixel' => '/includes/class-tracking-pixel.php',
         'MC4WP_Upgrade_Routines' => '/includes/admin/class-upgrade-routines.php',
         'MC4WP_User_Integration' => '/includes/integrations/class-user-integration.php',
         'MC4WP_WPForms_Field' => '/integrations/wpforms/class-field.php',

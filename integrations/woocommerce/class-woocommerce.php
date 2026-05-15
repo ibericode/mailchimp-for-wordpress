@@ -39,7 +39,6 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
      */
     public function add_hooks()
     {
-
         if (!$this->options['implicit']) {
             if ($this->options['position'] !== 'after_email_field') {
                 // create hook name based on position setting
@@ -98,7 +97,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
         woocommerce_register_additional_checkout_field(
             [
                 'id' => 'mc4wp/optin',
-                'location' => 'order',
+                'location' => $this->options['position'] === 'after_email_field' ? 'contact' : 'order',
                 'type' => 'checkbox',
                 'label' => $this->get_label_text(),
                 'optionalLabel' => $this->get_label_text(),
@@ -250,6 +249,7 @@ class MC4WP_WooCommerce_Integration extends MC4WP_Integration
      */
     public function get_object_link($object_id)
     {
+        // translators: %d is the WooCommerce order number.
         return sprintf('<a href="%s">%s</a>', get_edit_post_link($object_id), sprintf(__('Order #%d', 'mailchimp-for-wp'), $object_id));
     }
 }

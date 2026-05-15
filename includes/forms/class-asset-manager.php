@@ -1,5 +1,8 @@
 <?php
 
+defined('ABSPATH') or exit;
+
+
 /**
 * This class takes care of all form assets related functionality
  *
@@ -14,28 +17,34 @@ class MC4WP_Form_Asset_Manager
     private $load_scripts = false;
 
     /**
+     * @var bool Flag to determine whether email typo checker script should be enqueued.
+     */
+    private $load_typo_checker = false;
+
+    /**
      * Add hooks
      */
-    public function add_hooks()
+    public function add_hooks(): void
     {
         add_action('init', [ $this, 'register_scripts' ]);
         add_action('wp_enqueue_scripts', [ $this, 'load_stylesheets' ]);
         add_action('wp_footer', [ $this, 'load_scripts' ]);
         add_action('mc4wp_output_form', [ $this, 'before_output_form' ]);
-        add_action('script_loader_tag', [ $this, 'add_defer_attribute' ], 10, 2);
+        add_filter('script_loader_tag', [ $this, 'add_defer_attribute' ], 10, 2);
     }
 
     /**
      * Register scripts to be enqueued later.
+     * @return void
      */
     public function register_scripts()
     {
         wp_register_script('mc4wp-forms-api', mc4wp_plugin_url('assets/js/forms.js'), [], MC4WP_VERSION, true);
+        wp_register_script('mc4wp-email-typo-checker', mc4wp_plugin_url('assets/js/email-typo-checker.js'), [], MC4WP_VERSION, ['strategy' => 'defer', 'in_footer' => true]);
     }
 
     /**
      * @param string $stylesheet
-     *
      * @return bool
      */
     public function is_registered_stylesheet($stylesheet)
@@ -116,7 +125,7 @@ class MC4WP_Form_Asset_Manager
     /**
      * Get data object for client-side use for after a form is submitted over HTTP POST (not AJAX).
      *
-     * @return array
+     * @return null|array
      */
     public function get_submitted_form_data()
     {
@@ -152,7 +161,7 @@ class MC4WP_Form_Asset_Manager
     /**
      * Load JavaScript files
      */
-    public function before_output_form()
+    public function before_output_form($form)
     {
         $load_scripts = apply_filters('mc4wp_load_form_scripts', true);
         if (! $load_scripts) {
@@ -161,6 +170,11 @@ class MC4WP_Form_Asset_Manager
 
         $this->print_dummy_javascript();
         $this->load_scripts = true;
+
+        // check if this form has typo checker enabled
+        if (! empty($form->settings['email_typo_check'])) {
+            $this->load_typo_checker = true;
+        }
     }
 
     /**
@@ -185,6 +199,33 @@ class MC4WP_Form_Asset_Manager
 
         // load general client-side form API
         wp_enqueue_script('mc4wp-forms-api');
+
+        // load email typo checker script only if at least one form has it enabled
+        if ($this->load_typo_checker) {
+            wp_enqueue_script('mc4wp-email-typo-checker');
+            wp_localize_script('mc4wp-email-typo-checker', 'mc4wp_email_typo_checker', [
+                // translators: %s is the suggested correct email address.
+                'suggestion_text' => __('Did you mean %s?', 'mailchimp-for-wp'),
+                'domains'         => apply_filters('mc4wp_email_typo_checker_domains', [
+                    'gmail.com',
+                    'yahoo.com',
+                    'hotmail.com',
+                    'outlook.com',
+                    'icloud.com',
+                    'aol.com',
+                    'live.com',
+                    'msn.com',
+                    'me.com',
+                    'mac.com',
+                    'googlemail.com',
+                    'ymail.com',
+                    'protonmail.com',
+                    'mail.com',
+                    'gmx.com',
+                    'zoho.com',
+                ]),
+            ]);
+        }
 
         // maybe load JS file for when a form was submitted over HTTP POST
         $submitted_form_data = $this->get_submitted_form_data();

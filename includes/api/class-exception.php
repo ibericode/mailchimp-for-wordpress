@@ -10,19 +10,19 @@
 class MC4WP_API_Exception extends Exception
 {
     /**
-    * @var object
-    */
-    public $response = [];
+     * @var null|array
+     */
+    public $response;
 
     /**
-    * @var object
-    */
-    public $request = [];
+     * @var null|array
+     */
+    public $request;
 
     /**
-    * @var array
-    */
-    public $response_data = [];
+     * @var null|object
+     */
+    public $response_data;
 
     /**
      * MC4WP_API_Exception constructor.
@@ -39,18 +39,17 @@ class MC4WP_API_Exception extends Exception
 
         $this->request  = $request;
         $this->response = $response;
-
         $this->response_data = $data;
     }
 
     /**
-    * Backwards compatibility for direct property access.
-    * @param string $property
-    * @return mixed
-    */
+     * Backwards compatibility for direct property access.
+     * @param string $property
+     * @return mixed
+     */
     public function __get($property)
     {
-        if (in_array($property, [ 'title', 'detail', 'errors' ], true)) {
+        if (in_array($property, ['title', 'detail', 'errors'], true)) {
             if (! empty($this->response_data) && isset($this->response_data->{$property})) {
                 return $this->response_data->{$property};
             }

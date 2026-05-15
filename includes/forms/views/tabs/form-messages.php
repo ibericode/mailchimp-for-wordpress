@@ -93,7 +93,10 @@
     <tr valign="top">
         <th></th>
         <td>
-            <p class="description"><?php echo sprintf(esc_html__('HTML tags like %s are allowed in the message fields.', 'mailchimp-for-wp'), '<code>' . esc_html('<strong><em><a>') . '</code>'); ?></p>
+            <p class="description"><?php
+                // translators: %s is a list of allowed HTML tags (e.g. <strong><em><a>).
+                echo sprintf(esc_html__('HTML tags like %s are allowed in the message fields.', 'mailchimp-for-wp'), '<code>' . esc_html('<strong><em><a>') . '</code>');
+            ?></p>
         </td>
     </tr>
 

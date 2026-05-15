@@ -1,10 +1,11 @@
 <?php
 
+defined('ABSPATH') or exit;
+
 /**
  * Class MC4WP_Integration_Manager
  *
  * @ignore
- * @access private
  */
 class MC4WP_Integration_Manager
 {
@@ -32,8 +33,28 @@ class MC4WP_Integration_Manager
     public function add_hooks()
     {
         add_action('after_setup_theme', [ $this, 'initialize' ]);
+        add_action('mc4wp_integration_subscribe', [ $this, 'process_subscribe' ]);
 
         $this->tags->add_hooks();
+    }
+
+    /**
+     * Process background subscription
+     *
+     * @param array $args
+     */
+    public function process_subscribe($args)
+    {
+        if (empty($args['integration_slug'])) {
+            return;
+        }
+
+        try {
+            $integration = $this->get($args['integration_slug']);
+            $integration->process_background_subscribe($args);
+        } catch (Exception $e) {
+            // Integration not found
+        }
     }
 
 
@@ -72,6 +93,7 @@ class MC4WP_Integration_Manager
     public function get($slug)
     {
         if (! isset($this->integrations[ $slug ])) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception text is not direct output and is escaped at render time.
             throw new Exception(sprintf('No integration with slug %s has been registered.', $slug));
         }
 
@@ -118,7 +140,7 @@ class MC4WP_Integration_Manager
     }
 
     /**
-     * @param MC4WP_Integration $integration
+     * @param MC4WP_Integration|MC4WP_Integration_Fixture $integration
      * @return bool
      */
     public function is_installed($integration)
@@ -144,7 +166,9 @@ class MC4WP_Integration_Manager
         $enabled_integrations = array_unique($enabled_integrations);
 
         // filter out integrations which are not installed
-        $installed_enabled_integrations = array_filter($enabled_integrations, [ $this, 'is_installed' ]);
+        $installed_enabled_integrations = array_filter($enabled_integrations, function ($integration) {
+            return $this->is_installed($integration);
+        });
 
         return $installed_enabled_integrations;
     }

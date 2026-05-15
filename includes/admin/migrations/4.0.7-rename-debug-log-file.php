@@ -13,11 +13,11 @@ if (! file_exists($old_filename)) {
 }
 
 // rename to new file.
-@rename($old_filename, $new_filename);
+@rename($old_filename, $new_filename); // phpcs:ignore WordPress.WP.AlternativeFunctions.rename_rename
 
 // if success, insert php exit tag as first line
 if (file_exists($new_filename)) {
-    $handle = fopen($new_filename, 'r+');
+    $handle = fopen($new_filename, 'r+'); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen
 
     if (is_resource($handle)) {
         // make sure first line of log file is a PHP tag + exit statement (to prevent direct file access)
@@ -25,9 +25,9 @@ if (file_exists($new_filename)) {
         $php_exit_string = '<?php exit; ?>';
         if (strpos($line, $php_exit_string) !== 0) {
             rewind($handle);
-            fwrite($handle, $php_exit_string . PHP_EOL . $line);
+            fwrite($handle, $php_exit_string . PHP_EOL . $line); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fwrite
         }
 
-        fclose($handle);
+        fclose($handle); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
     }
 }

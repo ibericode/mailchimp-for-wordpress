@@ -91,7 +91,7 @@ class MC4WP_Debug_Log
         $message = preg_replace('/<(?:style|script|head)>.+?<\/(?:style|script|head)>/is', '', $message);
 
         // then, strip tags (while retaining content of these tags)
-        $message = strip_tags($message);
+        $message = wp_strip_all_tags($message);
         $message = trim($message);
 
         /**
@@ -113,7 +113,7 @@ class MC4WP_Debug_Log
         // did we open stream yet?
         if (! is_resource($this->stream)) {
             // attempt to open stream
-            $this->stream = @fopen($this->file, 'c+');
+            $this->stream = @fopen($this->file, 'c+'); // phpcs:ignore
             if (! is_resource($this->stream)) {
                 return false;
             }
@@ -123,7 +123,7 @@ class MC4WP_Debug_Log
             $php_exit_string = '<?php exit; ?>';
             if (strpos($line, $php_exit_string) !== 0) {
                 rewind($this->stream);
-                fwrite($this->stream, $php_exit_string . PHP_EOL . $line);
+                fwrite($this->stream, $php_exit_string . PHP_EOL . $line); // phpcs:ignore
             }
 
             // place pointer at end of file
@@ -134,7 +134,7 @@ class MC4WP_Debug_Log
         flock($this->stream, LOCK_EX);
 
         // write the message to the file
-        fwrite($this->stream, $message);
+        fwrite($this->stream, $message); // phpcs:ignore
 
         // unlock file again, but don't close it for remainder of this request
         flock($this->stream, LOCK_UN);
@@ -195,7 +195,7 @@ class MC4WP_Debug_Log
     /**
      * Converts PSR-3 levels to local ones if necessary
      *
-     * @param string|int Level number or name (PSR-3)
+     * @param string|int $level Number or name of logging level (PSR-3)
      * @return int
      */
     public static function to_level($level)
@@ -206,6 +206,7 @@ class MC4WP_Debug_Log
                 return constant(__CLASS__ . '::' . $level);
             }
 
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception text is not direct output and is escaped at render time.
             throw new InvalidArgumentException('Level "' . $level . '" is not defined, use one of: ' . implode(', ', array_keys(self::$levels)));
         }
 
@@ -221,6 +222,7 @@ class MC4WP_Debug_Log
     public static function get_level_name($level)
     {
         if (! isset(self::$levels[ $level ])) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception text is not direct output and is escaped at render time.
             throw new InvalidArgumentException('Level "' . $level . '" is not defined, use one of: ' . implode(', ', array_keys(self::$levels)));
         }
 
@@ -234,12 +236,12 @@ class MC4WP_Debug_Log
      */
     public function test()
     {
-        $handle   = @fopen($this->file, 'a');
+        $handle   = @fopen($this->file, 'a'); // phpcs:ignore
         $writable = false;
 
         if (is_resource($handle)) {
             $writable = true;
-            fclose($handle);
+            fclose($handle); // phpcs:ignore
         }
 
         return $writable;
