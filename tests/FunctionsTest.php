@@ -105,6 +105,32 @@ class FunctionsTest extends TestCase
         self::assertEquals(mc4wp_array_get([ 'foo' => [ 'bar' => 'foobar' ] ], 'foo.foo', 'default'), 'default');
     }
 
+    /**
+     * @covers mc4wp_is_email
+     */
+    public function test_mc4wp_is_email()
+    {
+        self::assertTrue(mc4wp_is_email('john@example.com'));
+        self::assertTrue(mc4wp_is_email('john.doe+tag@example.co.uk'));
+
+        self::assertFalse(mc4wp_is_email(''));
+        self::assertFalse(mc4wp_is_email('not-an-email'));
+        self::assertFalse(mc4wp_is_email('john@example'));
+        self::assertFalse(mc4wp_is_email('john@@example.com'));
+        self::assertFalse(mc4wp_is_email('john@example.com '));
+        self::assertFalse(mc4wp_is_email(' john@example.com'));
+
+        self::assertFalse(mc4wp_is_email(null));
+        self::assertFalse(mc4wp_is_email(false));
+        self::assertFalse(mc4wp_is_email(123));
+        self::assertFalse(mc4wp_is_email([]));
+        self::assertFalse(mc4wp_is_email((object) []));
+
+        $email = str_repeat('a', 65) . '@' . str_repeat('b', 63) . '.' . str_repeat('c', 63) . '.' . str_repeat('d', 63) . '.' . str_repeat('e', 63);
+        self::assertSame(321, strlen($email));
+        self::assertFalse(mc4wp_is_email($email));
+    }
+
     public function test_mc4wp_get_request_ip_address()
     {
         $_SERVER = [ ];

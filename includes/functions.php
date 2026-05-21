@@ -268,6 +268,25 @@ function mc4wp_sanitize_deep($value)
 }
 
 /**
+ * Returns true if (and only if) the value is a valid RFC 822 email address
+ *
+ * @param mixed $value
+ * @return bool
+ */
+function mc4wp_is_email($value): bool
+{
+    if (! is_string($value) || $value === '') {
+        return false;
+    }
+
+    if (strlen($value) > 320) {
+        return false;
+    }
+
+    return filter_var($value, FILTER_VALIDATE_EMAIL) !== false;
+}
+
+/**
  *
  * @since 4.0
  * @ignore
@@ -466,7 +485,7 @@ function _mc4wp_obfuscate_email_addresses_callback($m)
 /**
  * Obfuscates email addresses in a string.
  *
- * @param $string String possibly containing email address
+ * @param string $string String possibly containing email address
  * @return string
  */
 function mc4wp_obfuscate_email_addresses($string)
