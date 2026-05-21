@@ -115,6 +115,21 @@ class DebugLogTest extends TestCase
         self::assertTrue($logger->error($message));
     }
 
+    /**
+     * @covers MC4WP_Debug_Log::log
+     */
+    public function test_log_truncates_long_messages()
+    {
+        $logger = new MC4WP_Debug_Log($this->file, 0);
+        $message = str_repeat('a', 8193);
+
+        self::assertTrue($logger->log(200, $message));
+
+        $contents = file_get_contents($this->file);
+        self::assertStringContainsString('... [truncated, original length: 8193 bytes]', $contents);
+        self::assertStringNotContainsString(str_repeat('a', 8193), $contents);
+    }
+
 
 
     /**

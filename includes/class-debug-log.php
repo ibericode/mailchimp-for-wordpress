@@ -84,8 +84,10 @@ class MC4WP_Debug_Log
             return false;
         }
 
+        $message = mc4wp_truncate_log_message((string) $message);
+
         // obfuscate email addresses in log message since log might be public.
-        $message = mc4wp_obfuscate_email_addresses((string) $message);
+        $message = mc4wp_obfuscate_email_addresses($message);
 
         // first, get rid of everything between "invisible" tags
         $message = preg_replace('/<(?:style|script|head)>.+?<\/(?:style|script|head)>/is', '', $message);
@@ -104,6 +106,8 @@ class MC4WP_Debug_Log
         if (empty($message)) {
             return false;
         }
+
+        $message = mc4wp_truncate_log_message($message);
 
         // generate line
         $level_name = self::get_level_name($level);

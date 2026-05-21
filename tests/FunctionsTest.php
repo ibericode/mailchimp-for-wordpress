@@ -108,6 +108,18 @@ class FunctionsTest extends TestCase
     }
 
     /**
+     * @covers mc4wp_truncate_log_message
+     */
+    public function test_mc4wp_truncate_log_message()
+    {
+        $message = str_repeat('a', 8193);
+        $truncated = mc4wp_truncate_log_message($message);
+
+        self::assertEquals(8192, strlen($truncated));
+        self::assertStringEndsWith('... [truncated, original length: 8193 bytes]', $truncated);
+    }
+
+    /**
      * @covers mc4wp_add_name_data
      */
     public function test_mc4wp_add_name_data()

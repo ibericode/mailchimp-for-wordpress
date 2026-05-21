@@ -507,6 +507,41 @@ function mc4wp_obfuscate_email_addresses($string)
 }
 
 /**
+ * Truncates a debug log message to a reasonable maximum size.
+ *
+ * @param string $message
+ * @return string
+ */
+function mc4wp_truncate_log_message($message)
+{
+    /**
+     * Filters the maximum length of a debug log message in bytes.
+     *
+     * Return 0 or a negative value to disable truncation.
+     *
+     * @param int $max_length Maximum message length in bytes.
+     */
+    $max_length = (int) apply_filters('mc4wp_debug_log_message_max_length', 8192);
+
+    if ($max_length <= 0) {
+        return $message;
+    }
+
+    $length = strlen($message);
+    if ($length <= $max_length) {
+        return $message;
+    }
+
+    $suffix = sprintf('... [truncated, original length: %d bytes]', $length);
+
+    if (strlen($suffix) >= $max_length) {
+        return substr($message, 0, $max_length);
+    }
+
+    return substr($message, 0, $max_length - strlen($suffix)) . $suffix;
+}
+
+/**
  * Refreshes Mailchimp lists. This can take a while if the connected Mailchimp account has many lists.
  *
  * @return void
