@@ -36,9 +36,7 @@ class MC4WP_Form_Listener
         }
 
         // sanitize request data
-        $request_data = $_POST;
-        $request_data = mc4wp_sanitize_deep($request_data);
-        $request_data = stripslashes_deep($request_data);
+        $request_data = mc4wp_sanitize_deep($_POST);
 
         // bind request to form & validate
         $form->handle_request($request_data);

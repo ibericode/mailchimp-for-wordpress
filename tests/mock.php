@@ -66,6 +66,24 @@ function stripslashes_deep($data)
 }
 
 /** @ignore */
+function map_deep($value, $callback)
+{
+    if (is_array($value)) {
+        foreach ($value as $index => $item) {
+            $value[$index] = map_deep($item, $callback);
+        }
+    } elseif (is_object($value)) {
+        foreach (get_object_vars($value) as $property_name => $property_value) {
+            $value->{$property_name} = map_deep($property_value, $callback);
+        }
+    } else {
+        $value = call_user_func($callback, $value);
+    }
+
+    return $value;
+}
+
+/** @ignore */
 function sanitize_text_field($value)
 {
     return $value;
@@ -283,7 +301,7 @@ function wp_kses($content, $allowed_html, $allowed_protocols = [])
 /** @ignore */
 function wp_strip_all_tags($html)
 {
-    return $html;
+    return strip_tags($html);
 }
 
 /** @ignore */

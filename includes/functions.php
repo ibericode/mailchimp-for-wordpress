@@ -240,7 +240,12 @@ function mc4wp_get_request_ip_address()
 }
 
 /**
- * Strips all HTML tags from all values in a mixed variable, then trims the result.
+ * Performs opinionated sanitization of all string values inside the passed value.
+ * - Strips all tags
+ * - Strips slashes
+ * - Trims whitespace
+ * - Decodes HTML entities
+ * - Limits string values to 1024 bytes
  *
  * @access public
  * @param mixed $value
@@ -249,22 +254,27 @@ function mc4wp_get_request_ip_address()
  */
 function mc4wp_sanitize_deep($value)
 {
-    if (is_scalar($value)) {
-        // strip all HTML tags & whitespace
-        $value = trim(wp_strip_all_tags($value));
+    return map_deep($value, static function ($value) {
+        if (is_string($value)) {
+            // strip tags
+            $value = wp_strip_all_tags($value);
 
-        // convert &amp; back to &
-        $value = html_entity_decode($value, ENT_NOQUOTES);
-    } elseif (is_array($value)) {
-        $value = array_map('mc4wp_sanitize_deep', $value);
-    } elseif (is_object($value)) {
-        $vars = get_object_vars($value);
-        foreach ($vars as $key => $data) {
-            $value->{$key} = mc4wp_sanitize_deep($data);
+            // strip slashes
+            $value = stripslashes($value);
+
+            // trim whitespace
+            $value = trim($value);
+
+            // convert &amp; back to &
+            $value = html_entity_decode($value, ENT_NOQUOTES);
+
+            // limit value to 1024 characters
+            // see https://mailchimp.com/help/manage-audience-signup-form-fields/#Limits_for_audience_fields
+            $value = substr($value, 0, 1024);
         }
-    }
 
-    return $value;
+        return $value;
+    });
 }
 
 /**

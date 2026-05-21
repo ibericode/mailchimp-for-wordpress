@@ -106,6 +106,48 @@ class FunctionsTest extends TestCase
     }
 
     /**
+     * @covers mc4wp_sanitize_deep
+     */
+    public function test_mc4wp_sanitize_deep()
+    {
+        self::assertEquals('John & Jane', mc4wp_sanitize_deep(' <strong>John &amp; Jane</strong> '));
+        self::assertEquals('John "Nickname" Doe', mc4wp_sanitize_deep('John \"Nickname\" Doe'));
+        self::assertEquals(str_repeat('a', 1024), mc4wp_sanitize_deep(str_repeat('a', 1025)));
+
+        self::assertSame(123, mc4wp_sanitize_deep(123));
+        self::assertSame(false, mc4wp_sanitize_deep(false));
+        self::assertSame(null, mc4wp_sanitize_deep(null));
+    }
+
+    /**
+     * @covers mc4wp_sanitize_deep
+     */
+    public function test_mc4wp_sanitize_deep_recurses_into_arrays_and_objects()
+    {
+        $object        = new stdClass();
+        $object->name  = ' <em>Jane</em> ';
+        $object->quote = 'Jane \"Nickname\" Doe';
+
+        $input = [
+            'html_key' => ' <strong>John</strong> ',
+            'nested'   => [
+                'entity' => 'Tom &amp; Jerry',
+                'long'   => str_repeat('b', 1025),
+            ],
+            'object'   => $object,
+        ];
+
+        $sanitized = mc4wp_sanitize_deep($input);
+
+        self::assertEquals('John', $sanitized['html_key']);
+        self::assertEquals('Tom & Jerry', $sanitized['nested']['entity']);
+        self::assertEquals(str_repeat('b', 1024), $sanitized['nested']['long']);
+        self::assertEquals('Jane', $sanitized['object']->name);
+        self::assertEquals('Jane "Nickname" Doe', $sanitized['object']->quote);
+        self::assertArrayHasKey('html_key', $sanitized);
+    }
+
+    /**
      * @covers mc4wp_is_email
      */
     public function test_mc4wp_is_email()
