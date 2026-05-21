@@ -63,6 +63,29 @@ class FunctionsTest extends TestCase
     }
 
     /**
+     * @covers mc4wp_obfuscate_email_addresses()
+     * @dataProvider email_address_obfuscation_provider
+     */
+    public function test_mc4wp_obfuscate_email_addresses_handles_common_valid_addresses($email_address, $expected)
+    {
+        $obfuscated = mc4wp_obfuscate_email_addresses($email_address);
+
+        self::assertEquals($expected, $obfuscated);
+    }
+
+    public function email_address_obfuscation_provider()
+    {
+        return [
+            [ 'john.doe+tag@gmail.com', 'john****+tag@gma***com' ],
+            [ 'john-doe@gmail.com', 'jo****oe@gma***com' ],
+            [ 'test_alias@example.com', 'tes****ias@exa*****com' ],
+            [ 'test@example-domain.com', 't**t@exam**********.com' ],
+            [ 'test@example.co.uk', 't**t@exam*****o.uk' ],
+            [ 'test@example.travel', 't**t@exam******avel' ],
+        ];
+    }
+
+    /**
      * @covers mc4wp_obfuscate_string
      */
     public function test_mc4wp_obfuscate_string()

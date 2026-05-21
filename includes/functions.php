@@ -471,25 +471,28 @@ function _mc4wp_use_sslverify()
  */
 function mc4wp_obfuscate_string($string)
 {
-    if (strlen($string) <= 2) {
+    if (false === is_string($string) || $string === '') {
+        return;
+    }
+
+    $length = strlen($string);
+    if ($length <= 2) {
         return $string;
     }
-    $length = strlen($string);
-    $keep   = floor(strlen($string) / 3);
-    $keep   = min($keep, 4);
+    $keep   = (int) floor($length / 3);
+    $keep   = (int) min($keep, 4);
     return substr($string, 0, $keep) . str_repeat('*', $length - ($keep * 2)) . substr($string, -$keep);
 }
 
 /**
+ * @param array $m
+ * @return string
  * @internal
  * @ignore
  */
 function _mc4wp_obfuscate_email_addresses_callback($m)
 {
-    $one   = $m[1] . str_repeat('*', strlen($m[2]));
-    $two   = $m[3] . str_repeat('*', strlen($m[4]));
-    $three = $m[5];
-    return sprintf('%s@%s.%s', $one, $two, $three);
+    return mc4wp_obfuscate_string($m[1]) . '@' . mc4wp_obfuscate_string($m[2]);
 }
 
 /**
@@ -500,7 +503,7 @@ function _mc4wp_obfuscate_email_addresses_callback($m)
  */
 function mc4wp_obfuscate_email_addresses($string)
 {
-    return preg_replace_callback('/([\w\.]{1,4})([\w\.]*)\@(\w{1,2})(\w*)\.(\w+)/', '_mc4wp_obfuscate_email_addresses_callback', $string);
+    return preg_replace_callback('/([A-Z0-9._%+-]{1,64})@([A-Z0-9.-]{1,253}\.[A-Z]{2,63})/i', '_mc4wp_obfuscate_email_addresses_callback', $string);
 }
 
 /**
