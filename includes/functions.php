@@ -472,7 +472,7 @@ function _mc4wp_use_sslverify()
 function mc4wp_obfuscate_string($string)
 {
     if (false === is_string($string) || $string === '') {
-        return;
+        return $string;
     }
 
     $length = strlen($string);
