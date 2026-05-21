@@ -175,6 +175,33 @@ class FormTest extends TestCase
     }
 
     /**
+     * @covers MC4WP_Form::handle_request
+     */
+    public function test_handle_request_ignores_empty_and_overlong_field_names()
+    {
+        mock_get_post([ 'ID' => 15 ]);
+        $post = get_post(15);
+        $form = new MC4WP_Form(15, $post);
+
+        $max_length_field_name = str_repeat('a', 191);
+        $overlong_field_name   = str_repeat('b', 192);
+
+        $form->handle_request([
+            'email'                => 'john@example.com',
+            $max_length_field_name => 'kept',
+            $overlong_field_name   => 'ignored',
+            ''                     => 'ignored',
+        ]);
+
+        $form_data = $form->get_data();
+
+        self::assertEquals('john@example.com', $form_data['EMAIL']);
+        self::assertEquals('kept', $form_data[strtoupper($max_length_field_name)]);
+        self::assertArrayNotHasKey(strtoupper($overlong_field_name), $form_data);
+        self::assertArrayNotHasKey('', $form_data);
+    }
+
+    /**
      * @covers MC4WP_Form::get_required_fields
      */
     public function test_get_required_fields()
