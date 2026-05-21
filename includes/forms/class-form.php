@@ -411,7 +411,12 @@ class MC4WP_Form
 
         if (empty($errors)) {
             // validate email field
-            if (empty($this->data['EMAIL']) || ! is_email($this->data['EMAIL']) || filter_var($this->data['EMAIL'], FILTER_VALIDATE_EMAIL) === false) {
+            if (
+                empty($this->data['EMAIL'])
+                || false === is_string($this->data['EMAIL'])
+                || strlen($this->data['EMAIL']) > 320
+                || false === filter_var($this->data['EMAIL'], FILTER_VALIDATE_EMAIL)
+            ) {
                 $errors[] = 'invalid_email';
             }
 

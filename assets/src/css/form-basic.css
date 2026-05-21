@@ -76,14 +76,10 @@
 }
 
 .mc4wp-form-basic input[type="checkbox"] {
-	-webkit-appearance: checkbox;
-	-moz-appearance: checkbox;
 	appearance: checkbox;
 }
 
 .mc4wp-form-basic input[type="radio"] {
-	-webkit-appearance: radio;
-	-moz-appearance: radio;
 	appearance: radio;
 }
 
@@ -92,8 +88,6 @@
 .mc4wp-form-basic input[type="button"] {
 	cursor: pointer;
 	display: inline-block;
-	-webkit-appearance: none;
-	-moz-appearance: none;
 	appearance: none;
 }
 
