@@ -238,6 +238,25 @@ function wp_next_scheduled($hook, $args = [])
 
 /**
  * @ignore
+ * @var array
+ */
+$mock_scheduled_events = [];
+
+/** @ignore */
+function wp_schedule_single_event($timestamp, $hook, $args = [])
+{
+    global $mock_scheduled_events;
+    $mock_scheduled_events[] = [
+        'timestamp' => $timestamp,
+        'hook'      => $hook,
+        'args'      => $args,
+    ];
+
+    return true;
+}
+
+/**
+ * @ignore
  * @var bool
  */
 $mock_current_user_can = true;
