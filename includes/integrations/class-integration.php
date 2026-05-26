@@ -429,6 +429,11 @@ abstract class MC4WP_Integration
             'list_ids'          => $list_ids,
             'ip_signup'         => mc4wp_get_request_ip_address(),
             'email_type'        => mc4wp_get_email_type(),
+            'options'           => [
+                'double_optin'      => $this->options['double_optin'],
+                'update_existing'   => $this->options['update_existing'],
+                'replace_interests' => $this->options['replace_interests'],
+            ],
         ];
 
         if (function_exists('as_enqueue_async_action')) {
@@ -453,6 +458,11 @@ abstract class MC4WP_Integration
         $list_ids          = $args['list_ids'];
         $email_type        = $args['email_type'];
         $ip_signup         = $args['ip_signup'];
+        $options           = $this->options;
+
+        if (! empty($args['options']) && is_array($args['options'])) {
+            $options = array_merge($options, $args['options']);
+        }
 
         $integration = $this;
         $slug        = $this->slug;
@@ -469,7 +479,7 @@ abstract class MC4WP_Integration
         $map = $mapper->map();
 
         foreach ($map as $list_id => $subscriber) {
-            $subscriber->status     = $this->options['double_optin'] ? 'pending' : 'subscribed';
+            $subscriber->status     = $options['double_optin'] ? 'pending' : 'subscribed';
             $subscriber->email_type = $email_type;
             $subscriber->ip_signup  = $ip_signup;
 
@@ -502,7 +512,7 @@ abstract class MC4WP_Integration
                 continue;
             }
 
-            $result = $mailchimp->list_subscribe($list_id, $subscriber->email_address, $subscriber->to_array(), $this->options['update_existing'], $this->options['replace_interests']);
+            $result = $mailchimp->list_subscribe($list_id, $subscriber->email_address, $subscriber->to_array(), $options['update_existing'], $options['replace_interests']);
         }
 
         // if result failed, show error message
