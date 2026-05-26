@@ -1,6 +1,17 @@
 Changelog
 =========
 
+= 4.12.6 =
+
+_Release date: May 26, 2026_
+
+- Fix integrations losing runtime options like double opt-in when sign-up attempts are processed asynchronously. Thanks [Jon Parker](https://github.com/jnpkr)!
+- Fix Site Tracking Pixel setting not being saved when disabling it.
+- Improve accessibility of generated form fields by wrapping inputs in labels and using fieldsets for checkbox and radio fields.
+- Improve validation and sanitization of submitted form data.
+- Improve debug log safety by truncating overly long messages and improving email address obfuscation.
+
+
 = 4.12.5 =
 
 _Release date: May 8, 2026_
