@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 4.6
 Tested up to: 7.0
-Stable tag: 4.12.5
+Stable tag: 4.12.6
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.4
@@ -193,6 +193,17 @@ Minor improvements and re-added support for Goodbye Captcha integration.
 
 == Changelog ==
 
+= 4.12.6 =
+
+_Release date: May 26, 2026_
+
+- Fix integrations losing runtime options like double opt-in when sign-up attempts are processed asynchronously. Thanks [Jon Parker](https://github.com/jnpkr)!
+- Fix Site Tracking Pixel setting not being saved when disabling it.
+- Improve accessibility of generated form fields by wrapping inputs in labels and using fieldsets for checkbox and radio fields.
+- Improve validation and sanitization of submitted form data.
+- Improve debug log safety by truncating overly long messages and improving email address obfuscation.
+
+
 = 4.12.5 =
 
 _Release date: May 8, 2026_
@@ -228,23 +239,5 @@ _Release date: Mar 26, 2026_
 
 - Supply a custom capability type to `register_post_type` for the `mc4wp-form` post type.
 - Limit allowed HTML in the various form messages to a safe subset on load (versus only on update).
-
-
-= 4.12.0 =
-
-_Release date: Mar 9, 2026_
-
-- Remove the ability to unsubscribe through a form. You should migrate to the Mailchimp hosted form for this, which does email verification.
-- Add block properties so the form block can be reordered inside the Gutenberg editor.
-- Fix redirect not occuring after running MC4WP actions.
-- Various type fixes, PHPDoc improvements and removal of unused code.
-
-The following fixes and improvements were contributed by [Faisal Ahammad](https://faisalahammad.com/):
-
-- Add WP Forms field setting for configuring double opt-in.
-- Add PeepSo registration form integration. 
-- Fix required validation for Ninja Forms integration. 
-- Add autocomplete attribute to form fields.
-- Enable live updates in Gravity Forms editor.
 
 [View the full changelog on GitHub](https://github.com/ibericode/mailchimp-for-wordpress/blob/main/CHANGELOG.md)
