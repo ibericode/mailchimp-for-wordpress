@@ -67,7 +67,7 @@ class MC4WP_Field_Guesser
                 $sub_field_value = str_replace('%40', '@', $sub_field_value);
 
                 // is this an email value? if so, assume it's the EMAIL field
-                if (empty($guessed['EMAIL']) && is_string($sub_field_value) && is_email($sub_field_value)) {
+                if (empty($guessed['EMAIL']) && is_string($sub_field_value) && mc4wp_is_email($sub_field_value)) {
                     $guessed['EMAIL'] = $sub_field_value;
                     continue 2;
                 }
