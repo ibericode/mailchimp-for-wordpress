@@ -9,9 +9,9 @@ $GLOBALS['wp_query'] = new \WP_Query();
 ?><!DOCTYPE html>
 <html>
 <head>
-    <title>Mailchimp for WordPress Form Preview</title>
     <meta charset="utf-8">
-    <meta name="robots" content="noindex">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Mailchimp for WordPress Form Preview</title>
     <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>"> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet ?>
     <?php
     wp_head();
