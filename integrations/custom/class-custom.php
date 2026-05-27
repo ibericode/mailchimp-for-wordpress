@@ -66,7 +66,7 @@ class MC4WP_Custom_Integration extends MC4WP_Integration
         }
 
         // ignore requests where HTTP Referer does not contain hostname from home_url
-        $site_hostname = parse_url(get_home_url(), PHP_URL_HOST);
+        $site_hostname = wp_parse_url(get_home_url(), PHP_URL_HOST);
         if (strpos($_SERVER['HTTP_REFERER'], $site_hostname) === false) {
             return false;
         }
