@@ -2,7 +2,7 @@
 Contributors: Ibericode, DvanKooten, hchouhan, lapzor
 Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=donate-link
 Tags: mailchimp, subscribe, email, newsletter, form
-Requires at least: 4.6
+Requires at least: 5.3
 Tested up to: 7.0
 Stable tag: 4.12.6
 License: GPL-3.0-or-later
