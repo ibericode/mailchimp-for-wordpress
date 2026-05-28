@@ -37,11 +37,13 @@ class MC4WP_Admin_Ajax
      */
     public function get_list_details()
     {
-        if (! $this->tools->is_user_authorized()) {
+        if (! $this->tools->is_user_authorized() || empty($_GET['ids'])) {
             wp_send_json_error();
         }
 
-        $list_ids  = (array) explode(',', $_GET['ids']);
+        $list_ids  = array_map(function ($raw) {
+            return preg_replace('/[^a-z0-9]/', '', $raw);
+        }, (array) explode(',', $_GET['ids']));
         $data      = [];
         $mailchimp = new MC4WP_MailChimp();
         foreach ($list_ids as $list_id) {
