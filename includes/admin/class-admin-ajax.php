@@ -37,6 +37,8 @@ class MC4WP_Admin_Ajax
      */
     public function get_list_details()
     {
+        check_ajax_referer('mc4wp-ajax');
+
         if (! $this->tools->is_user_authorized() || empty($_GET['ids'])) {
             wp_send_json_error();
         }
