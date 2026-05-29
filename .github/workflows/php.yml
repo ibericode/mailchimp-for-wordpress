@@ -7,7 +7,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: highest
+          php-version: '8.5'
           tools: composer
       - run: composer run-script check-syntax
       - run: composer install --no-progress
