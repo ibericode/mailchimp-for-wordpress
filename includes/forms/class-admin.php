@@ -56,7 +56,11 @@ class MC4WP_Forms_Admin
                 'id'   => $form->ID,
             ];
         }
-        wp_localize_script('mc4wp-form-block', 'mc4wp_forms', $data);
+        wp_add_inline_script(
+            'mc4wp-form-block',
+            'var mc4wp_forms = ' . wp_json_encode($data) . ';',
+            'before'
+        );
     }
 
     /**
@@ -69,8 +73,7 @@ class MC4WP_Forms_Admin
             return;
         }
 
-        wp_register_script('mc4wp-forms-admin', mc4wp_plugin_url('assets/js/forms-admin.js'), ['mc4wp-admin'], MC4WP_VERSION, true);
-        wp_enqueue_script('mc4wp-forms-admin');
+        wp_enqueue_script('mc4wp-forms-admin', mc4wp_plugin_url('assets/js/forms-admin.js'), ['mc4wp-admin'], MC4WP_VERSION, true);
         wp_localize_script(
             'mc4wp-forms-admin',
             'mc4wp_forms_i18n',
@@ -122,7 +125,7 @@ class MC4WP_Forms_Admin
     }
 
     /**
-     * @param $items
+     * @param array $items
      *
      * @return mixed
      */
@@ -177,7 +180,6 @@ class MC4WP_Forms_Admin
     /**
      * Saves a form to the database
      * @param int $form_id
-     * @param array $data
      * @return int
      */
     private function save_form($form_id, array $data)
@@ -228,7 +230,6 @@ class MC4WP_Forms_Admin
     }
 
     /**
-     * @param array $data
      * @return array
      */
     public function sanitize_form_data(array $data)

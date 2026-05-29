@@ -231,7 +231,11 @@ class MC4WP_Form_Asset_Manager
         $submitted_form_data = $this->get_submitted_form_data();
         if ($submitted_form_data !== null) {
             wp_enqueue_script('mc4wp-forms-submitted', mc4wp_plugin_url('assets/js/forms-submitted.js'), [ 'mc4wp-forms-api' ], MC4WP_VERSION, true);
-            wp_localize_script('mc4wp-forms-submitted', 'mc4wp_submitted_form', $submitted_form_data);
+            wp_add_inline_script(
+                'mc4wp-forms-submitted',
+                'var mc4wp_submitted_form = ' . wp_json_encode($submitted_form_data) . ';',
+                'before'
+            );
         }
 
         // print inline scripts
