@@ -141,6 +141,11 @@ abstract class MC4WP_Dynamic_Content_Tags
      */
     private function replace($string, $escape_function = 'esc_html')
     {
+        // cheap check for tags, before going into recursive regex
+        if (strpos($string, '{') === false) {
+            return $string;
+        }
+
         $this->escape_function = $escape_function;
         return preg_replace_callback('/\{(\w+)(\ +(?:(?!\{)[^}\n])+)*\}/', [$this, 'replace_tag'], $string);
     }
