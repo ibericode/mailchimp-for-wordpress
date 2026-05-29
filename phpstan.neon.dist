@@ -20,3 +20,5 @@ parameters:
         path: sample-code-snippets/
       - identifier: variable.undefined
         path: 'includes/*views/*'
+      - identifier: constant.notFound 
+        message: '#MC4WP_(VERSION|PLUGIN_DIR|PLUGIN_FILE)#'
