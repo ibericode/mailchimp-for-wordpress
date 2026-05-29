@@ -2,6 +2,7 @@ const m = require('mithril')
 const fields = require('./fields.js')
 const settings = window.mc4wp.settings
 const ajaxurl = window.mc4wp_vars.ajaxurl
+const nonce = window.mc4wp_vars.nonce
 const i18n = window.mc4wp_forms_i18n
 const mailchimp = window.mc4wp_vars.mailchimp
 const countries = window.mc4wp_vars.countries
@@ -145,7 +146,7 @@ function registerListFields (list) {
  * @param lists
  */
 function registerListsFields (lists) {
-  const url = ajaxurl + '?action=mc4wp_get_list_details&ids=' + lists.map(l => l.id).join(',')
+  const url = ajaxurl + '?action=mc4wp_get_list_details&_ajax_nonce=' + nonce + '&ids=' + lists.map(l => l.id).join(',')
 
   m.request({
     url,

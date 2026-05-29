@@ -1,4 +1,5 @@
 const ajaxurl = window.mc4wp_vars.ajaxurl
+const nonce = window.mc4wp_vars.nonce
 
 function showDetails (evt) {
   evt.preventDefault()
@@ -10,7 +11,7 @@ function showDetails (evt) {
 
   if (next.style.display === 'none') {
     const xhr = new XMLHttpRequest()
-    xhr.open('GET', ajaxurl + '?action=mc4wp_get_list_details&format=html&ids=' + listID, true)
+    xhr.open('GET', ajaxurl + '?action=mc4wp_get_list_details&_ajax_nonce=' + nonce + '&format=html&ids=' + listID, true)
     xhr.onload = function () {
       if (this.status >= 400) {
         return

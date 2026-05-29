@@ -1,4 +1,5 @@
 const ajaxurl = window.mc4wp_vars.ajaxurl
+const nonce = window.mc4wp_vars.nonce
 const settings = window.mc4wp.settings
 const notice = document.getElementById('notice-additional-fields')
 
@@ -7,7 +8,7 @@ function checkRequiredListFields () {
   const allowedFields = ['EMAIL', 'FNAME', 'NAME', 'LNAME']
   let showNotice = false
 
-  window.fetch(`${ajaxurl}?action=mc4wp_get_list_details&ids=${ids}`)
+  window.fetch(`${ajaxurl}?action=mc4wp_get_list_details&_ajax_nonce=${nonce}&ids=${ids}`)
     .then(r => r.json())
     .then(lists => {
       lists.forEach(list => {
