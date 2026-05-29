@@ -124,6 +124,6 @@ class MC4WP_Form_Tags extends MC4WP_Dynamic_Content_Tags
             $value = join(', ', $value);
         }
 
-        return $value;
+        return stripslashes($value);
     }
 }
