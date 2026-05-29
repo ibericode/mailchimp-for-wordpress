@@ -93,7 +93,7 @@ class MC4WP_Debug_Log_Reader
                 return null;
             }
 
-            // set pointer to 1000 files from EOF
+            // set pointer to 1000 lines from EOF
             $this->seek_line_from_end(1000);
         }
 
@@ -119,16 +119,15 @@ class MC4WP_Debug_Log_Reader
         $line = $this->read();
 
         // null means end of file
-        if (is_null($line)) {
+        if (null === $line) {
             return null;
         }
 
         // empty string means empty line, but not yet eof
-        if (empty($line)) {
+        if ('' === $line) {
             return '';
         }
 
-        $line = preg_replace(self::$regex, self::$html_template, $line);
-        return $line;
+        return preg_replace(self::$regex, self::$html_template, $line);
     }
 }

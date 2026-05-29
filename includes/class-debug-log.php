@@ -84,10 +84,7 @@ class MC4WP_Debug_Log
             return false;
         }
 
-        $message = mc4wp_truncate_log_message((string) $message);
-
-        // obfuscate email addresses in log message since log might be public.
-        $message = mc4wp_obfuscate_email_addresses($message);
+        $message = (string) $message;
 
         // first, get rid of everything between "invisible" tags
         $message = preg_replace('/<(?:style|script|head)>.+?<\/(?:style|script|head)>/is', '', $message);
@@ -95,6 +92,9 @@ class MC4WP_Debug_Log
         // then, strip tags (while retaining content of these tags)
         $message = wp_strip_all_tags($message);
         $message = trim($message);
+
+        // obfuscate email addresses in log message since log might be public.
+        $message = mc4wp_obfuscate_email_addresses($message);
 
         /**
          * Modifies the message that is written to the debug log.
