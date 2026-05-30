@@ -7,6 +7,19 @@ require __DIR__ . '/includes/deprecated-functions.php';
 require __DIR__ . '/includes/forms/functions.php';
 require __DIR__ . '/includes/forms/admin-functions.php';
 require __DIR__ . '/includes/integrations/functions.php';
+require __DIR__ . '/includes/class-container.php';
+require __DIR__ . '/includes/class-dynamic-content-tags.php';
+require __DIR__ . '/includes/campaigns/class-archive.php';
+require __DIR__ . '/includes/forms/class-output-manager.php';
+require __DIR__ . '/includes/forms/class-form-tags.php';
+require __DIR__ . '/includes/forms/class-form-listener.php';
+require __DIR__ . '/includes/forms/class-form-previewer.php';
+require __DIR__ . '/includes/forms/class-asset-manager.php';
+require __DIR__ . '/includes/forms/class-form-amp.php';
+require __DIR__ . '/includes/forms/class-form-manager.php';
+require __DIR__ . '/includes/integrations/class-integration-fixture.php';
+require __DIR__ . '/includes/integrations/class-integration-tags.php';
+require __DIR__ . '/includes/integrations/class-integration-manager.php';
 
 spl_autoload_register(function ($class) {
     static $classmap = [
@@ -27,27 +40,17 @@ spl_autoload_register(function ($class) {
         'MC4WP_BuddyPress_Integration' => '/integrations/buddypress/class-buddypress.php',
         'MC4WP_Comment_Form_Integration' => '/integrations/wp-comment-form/class-comment-form.php',
         'MC4WP_Contact_Form_7_Integration' => '/integrations/contact-form-7/class-contact-form-7.php',
-        'MC4WP_Campaign_Archive' => '/includes/campaigns/class-archive.php',
-        'MC4WP_Container' => '/includes/class-container.php',
         'MC4WP_Custom_Integration' => '/integrations/custom/class-custom.php',
         'MC4WP_Debug_Log' => '/includes/class-debug-log.php',
         'MC4WP_Debug_Log_Reader' => '/includes/class-debug-log-reader.php',
-        'MC4WP_Dynamic_Content_Tags' => '/includes/class-dynamic-content-tags.php',
         'MC4WP_Easy_Digital_Downloads_Integration' => '/integrations/easy-digital-downloads/class-easy-digital-downloads.php',
         'MC4WP_Events_Manager_Integration' => '/integrations/events-manager/class-events-manager.php',
         'MC4WP_Personal_Data_Exporter' => '/includes/class-personal-data-exporter.php',
         'MC4WP_Field_Formatter' => '/includes/class-field-formatter.php',
         'MC4WP_Field_Guesser' => '/includes/class-field-guesser.php',
         'MC4WP_Form' => '/includes/forms/class-form.php',
-        'MC4WP_Form_AMP' => '/includes/forms/class-form-amp.php',
-        'MC4WP_Form_Asset_Manager' => '/includes/forms/class-asset-manager.php',
         'MC4WP_Form_Element' => '/includes/forms/class-form-element.php',
-        'MC4WP_Form_Listener' => '/includes/forms/class-form-listener.php',
-        'MC4WP_Form_Manager' => '/includes/forms/class-form-manager.php',
         'MC4WP_Form_Notice' => '/includes/forms/class-form-message.php',
-        'MC4WP_Form_Output_Manager' => '/includes/forms/class-output-manager.php',
-        'MC4WP_Form_Previewer' => '/includes/forms/class-form-previewer.php',
-        'MC4WP_Form_Tags' => '/includes/forms/class-form-tags.php',
         'MC4WP_Form_Widget' => '/includes/forms/class-widget.php',
         'MC4WP_Forms_Admin' => '/includes/forms/class-admin.php',
         'MC4WP_Give_Integration' => '/integrations/give/class-give.php',
@@ -55,9 +58,6 @@ spl_autoload_register(function ($class) {
         'MC4WP_Gravity_Forms_Integration' => '/integrations/gravity-forms/class-gravity-forms.php',
         'MC4WP_Integration' => '/includes/integrations/class-integration.php',
         'MC4WP_Integration_Admin' => '/includes/integrations/class-admin.php',
-        'MC4WP_Integration_Fixture' => '/includes/integrations/class-integration-fixture.php',
-        'MC4WP_Integration_Manager' => '/includes/integrations/class-integration-manager.php',
-        'MC4WP_Integration_Tags' => '/includes/integrations/class-integration-tags.php',
         'MC4WP_List_Data_Mapper' => '/includes/class-list-data-mapper.php',
         'MC4WP_MailChimp' => '/includes/class-mailchimp.php',
         'MC4WP_MailChimp_Subscriber' => '/includes/class-mailchimp-subscriber.php',
