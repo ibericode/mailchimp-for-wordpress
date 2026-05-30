@@ -24,8 +24,8 @@
     "phpunit/phpunit": "^9.6",
     "squizlabs/php_codesniffer": "^3.11",
     "phpstan/phpstan": "^2.2.1",
-    "szepeviktor/phpstan-wordpress": "^2.0",
-    "phpstan/extension-installer": "^1.4"
+    "szepeviktor/phpstan-wordpress": "^2.0.3",
+    "phpstan/extension-installer": "^1.4.3"
   },
   "scripts": {
     "make-pot": "wp i18n make-pot . languages/mailchimp-for-wp.pot --exclude=assets/js",

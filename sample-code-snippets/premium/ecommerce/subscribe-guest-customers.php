@@ -98,7 +98,7 @@ if (defined('WP_CLI') && WP_CLI) {
              */
             private function get_log()
             {
-                return mc4wp('log');
+                return mc4wp_get_service('log');
             }
         }
     }

@@ -571,7 +571,7 @@ class MC4WP_Admin
      */
     protected function get_log()
     {
-        return mc4wp('log');
+        return mc4wp_get_service('log');
     }
 
     /**
@@ -579,6 +579,6 @@ class MC4WP_Admin
      */
     protected function get_api()
     {
-        return mc4wp('api');
+        return mc4wp_get_service('api');
     }
 }

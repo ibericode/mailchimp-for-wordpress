@@ -54,10 +54,9 @@ add_action('plugins_loaded', function () {
     require __DIR__ . '/includes/default-filters.php';
 
     /**
-     * @global MC4WP_Container $GLOBALS['mc4wp']
-     * @name $mc4wp
+     * @var MC4WP_Container $mc4wp
      */
-    $mc4wp        = mc4wp();
+    $mc4wp        = mc4wp_get_container();
     $mc4wp['api'] = 'mc4wp_get_api_v3';
     $mc4wp['log'] = 'mc4wp_get_debug_log';
 

@@ -15,7 +15,7 @@ add_action('template_redirect', function () {
     }
 
     // get integration manager
-    $integrations = mc4wp('integrations');
+    $integrations = mc4wp_get_service('integrations');
     if (! $integrations instanceof MC4WP_Integration_Manager) {
         return;
     }

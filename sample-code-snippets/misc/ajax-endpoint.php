@@ -8,7 +8,7 @@
 
 add_action('wp_ajax_my_mailchimp_subscribe', function () {
     // get API class instance
-    $api = mc4wp('api');
+    $api = mc4wp_get_service('api');
 
     $list_id = 'your-list-id-here'; // the mailchimp list to subscribe to
     $double_optin = true;           // whether to use double opt-in or not

@@ -191,7 +191,7 @@ class MC4WP_Campaign_Archive
             }
         } catch (MC4WP_API_Exception $e) {
             // Log API errors gracefully, do not break the page.
-            mc4wp('log')->error('Campaign Archive: ' . $e->getMessage());
+            mc4wp_get_service('log')->error('Campaign Archive: ' . $e->getMessage());
             return current_user_can('manage_options') ? '<!-- MC4WP Campaign Archive Error: ' . esc_html($e->getMessage()) . ' -->' : '';
         }
 

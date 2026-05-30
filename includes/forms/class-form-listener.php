@@ -300,7 +300,7 @@ class MC4WP_Form_Listener
      */
     protected function get_api()
     {
-        return mc4wp('api');
+        return mc4wp_get_service('api');
     }
 
     /**
@@ -308,6 +308,6 @@ class MC4WP_Form_Listener
      */
     protected function get_log()
     {
-        return mc4wp('log');
+        return mc4wp_get_service('log');
     }
 }

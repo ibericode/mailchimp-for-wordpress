@@ -114,7 +114,7 @@ class MC4WP_Tracking_Pixel
     {
         try {
             /** @var MC4WP_API_V3 $api */
-            $api    = mc4wp('api');
+            $api    = mc4wp_get_service('api');
             $domain = self::get_site_domain();
             $sites  = $api->get_connected_sites();
 
@@ -143,7 +143,7 @@ class MC4WP_Tracking_Pixel
                 'script_url' => esc_url_raw($matched_site->site_script->url ?? ''),
             ];
         } catch (Exception $e) {
-            mc4wp('log')->error(sprintf('Tracking Pixel: error fetching/creating connected site. %s', $e->getMessage()));
+            mc4wp_get_service('log')->error(sprintf('Tracking Pixel: error fetching/creating connected site. %s', $e->getMessage()));
             return false;
         }
     }

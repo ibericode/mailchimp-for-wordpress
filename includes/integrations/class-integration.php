@@ -632,7 +632,7 @@ abstract class MC4WP_Integration
      */
     protected function get_log()
     {
-        return mc4wp('log');
+        return mc4wp_get_service('log');
     }
 
     /**
@@ -640,6 +640,6 @@ abstract class MC4WP_Integration
      */
     protected function get_api()
     {
-        return mc4wp('api');
+        return mc4wp_get_service('api');
     }
 }

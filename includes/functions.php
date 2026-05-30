@@ -8,8 +8,8 @@ defined('ABSPATH') or exit;
  *
  * _Example:_
  *
- * $forms = mc4wp('forms');
- * $api = mc4wp('api');
+ * $forms = mc4wp_get_service('forms');
+ * $api = mc4wp_get_service('api');
  *
  * When no service parameter is given, the entire container will be returned.
  *
@@ -18,21 +18,40 @@ defined('ABSPATH') or exit;
  *
  * @param null|string $service (optional)
  * @return mixed
- *
  * @throws Exception when service is not found
+ * @deprecated Use mc4wp_get_container() or mc4wp_get_service() instead.
  */
 function mc4wp($service = null)
 {
-    static $mc4wp = null;
-    if (null === $mc4wp) {
-        $mc4wp = new MC4WP_Container();
-    }
-
+    $container = mc4wp_get_container();
     if (null !== $service) {
-        return $mc4wp->get($service);
+        return $container->get($service);
     }
+    return $container;
+}
 
-    return $mc4wp;
+/**
+ * @since 4.13
+ * @return MC4WP_Container
+ */
+function mc4wp_get_container(): MC4WP_Container
+{
+    static $container;
+    if (null === $container) {
+        $container = new MC4WP_Container();
+    }
+    return $container;
+}
+
+/**
+ * @since 4.13
+ * @param string $service
+ * @return mixed
+ * @throws Exception when service is not found
+ */
+function mc4wp_get_service(string $service)
+{
+    return mc4wp_get_container()->get($service);
 }
 
 /**

@@ -576,6 +576,6 @@ class MC4WP_MailChimp
      */
     private function get_api()
     {
-        return mc4wp('api');
+        return mc4wp_get_service('api');
     }
 }
