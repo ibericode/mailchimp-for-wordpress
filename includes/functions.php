@@ -176,26 +176,17 @@ function mc4wp_get_debug_log()
  * Get URL to a file inside the plugin directory
  *
  * @since 4.8.3
- * @param string $path
- * @return string
  */
-function mc4wp_plugin_url($path)
+function mc4wp_plugin_url(string $path): string
 {
-    static $base = null;
-    if ($base === null) {
-        $base = plugins_url('/', MC4WP_PLUGIN_FILE);
-    }
-
-    return $base . $path;
+    return plugins_url($path, MC4WP_PLUGIN_FILE);
 }
 
 
 /**
- * Get current URL (full)
- *
- * @return string
+ * Get absolute URL for current request
  */
-function mc4wp_get_request_url()
+function mc4wp_get_request_url(): string
 {
     global $wp;
 
@@ -209,19 +200,15 @@ function mc4wp_get_request_url()
 
     // concatenate request url to home url
     $url = home_url($site_request_uri);
-    $url = trailingslashit($url);
-
-    return esc_url($url);
+    return trailingslashit($url);
 }
 
 /**
- * Get current URL path.
- *
- * @return string
+ * Get relative URL path for current request
  */
-function mc4wp_get_request_path()
+function mc4wp_get_request_path(): string
 {
-    return $_SERVER['REQUEST_URI'];
+    return (string) ($_SERVER['REQUEST_URI'] ?? '');
 }
 
 /**
@@ -300,7 +287,6 @@ function mc4wp_sanitize_deep($value)
  * Returns true if (and only if) the value is a valid RFC 822 email address
  *
  * @param mixed $value
- * @return bool
  */
 function mc4wp_is_email($value): bool
 {
