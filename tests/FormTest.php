@@ -231,12 +231,19 @@ class FormTest extends TestCase
         $form->settings['css'] = false;
         self::assertEmpty($form->get_stylesheet());
 
-        $form->settings['css'] = 'some-stylesheet';
-        self::assertEquals($form->get_stylesheet(), 'some-stylesheet');
+        $form->settings['css'] = 'basic';
+        self::assertEquals($form->get_stylesheet(), 'basic');
 
-        // themes are bundled
-        $form->settings['css'] = 'theme-something';
-        self::assertEquals($form->get_stylesheet(), 'themes');
+        // Legacy theme-* values fall back to basic.
+        $form->settings['css'] = 'theme-red';
+        self::assertEquals($form->get_stylesheet(), 'basic');
+
+        $form->settings['css'] = 'theme-blue';
+        self::assertEquals($form->get_stylesheet(), 'basic');
+
+        // Custom stylesheet values pass through as-is.
+        $form->settings['css'] = 'custom-stylesheet';
+        self::assertEquals($form->get_stylesheet(), 'custom-stylesheet');
     }
 
     /**

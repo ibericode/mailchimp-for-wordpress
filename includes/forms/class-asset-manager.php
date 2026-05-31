@@ -60,7 +60,6 @@ class MC4WP_Form_Asset_Manager
     {
         return [
             'basic',
-            'themes',
         ];
     }
 
