@@ -22,6 +22,11 @@ class MC4WP_Form_Asset_Manager
     private $load_typo_checker = false;
 
     /**
+     * @var bool Flag to determine whether conditional elements JS should be printed inline.
+     */
+    private $has_conditional_elements = false;
+
+    /**
      * Add hooks
      */
     public function add_hooks(): void
@@ -175,6 +180,11 @@ class MC4WP_Form_Asset_Manager
         if (! empty($form->settings['email_typo_check'])) {
             $this->load_typo_checker = true;
         }
+
+        // check if this form uses conditional elements
+        if (strpos($form->content, 'data-show-if') !== false || strpos($form->content, 'data-hide-if') !== false) {
+            $this->has_conditional_elements = true;
+        }
     }
 
     /**
@@ -244,6 +254,13 @@ class MC4WP_Form_Asset_Manager
         include __DIR__ . '/views/js/url-fields.js';
         echo '})();';
         echo '</script>';
+
+        // print conditional elements JS inline if any form on this page uses it
+        if ($this->has_conditional_elements) {
+            echo '<script>';
+            include __DIR__ . '/views/js/conditional-elements.js';
+            echo '</script>';
+        }
 
         /** @ignore */
         do_action('mc4wp_load_form_scripts');
