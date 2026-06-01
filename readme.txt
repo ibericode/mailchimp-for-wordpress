@@ -193,6 +193,17 @@ Minor improvements and re-added support for Goodbye Captcha integration.
 
 == Changelog ==
 
+= 4.13.0 =
+
+_Release date: Jun 1, 2026_
+
+- Improve performance by preloading core plugin classes and skipping dynamic content tag parsing when no tags are present.
+- Improve security for admin AJAX requests by adding a nonce check and stricter audience ID handling.
+- Improve dynamic content tag replacement by removing broken regular expressions.
+- Improve form preview output by disabling PHP error display during preview rendering.
+- Update JavaScript dependencies and pass admin script data using `wp_add_inline_script()`.
+
+
 = 4.12.6 =
 
 _Release date: May 26, 2026_
@@ -231,13 +242,5 @@ _Release date: Apr 20, 2026_
 - WooCommerce: Detect use of Checkout Block and only show available positions.
 - Show warning when cron is behind schedule. Thanks to [Faisal Ahammad](https://faisalahammad.com/)!
 - Add preliminary support for [Mailchimp Site Tracking Pixel](https://mailchimp.com/help/about-mailchimp-site-tracking-pixel/). Thanks to [Faisal Ahammad](https://faisalahammad.com/)!
-
-
-= 4.12.1 =
-
-_Release date: Mar 26, 2026_
-
-- Supply a custom capability type to `register_post_type` for the `mc4wp-form` post type.
-- Limit allowed HTML in the various form messages to a safe subset on load (versus only on update).
 
 [View the full changelog on GitHub](https://github.com/ibericode/mailchimp-for-wordpress/blob/main/CHANGELOG.md)

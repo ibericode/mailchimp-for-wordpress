@@ -1,6 +1,17 @@
 Changelog
 =========
 
+= 4.13.0 =
+
+_Release date: Jun 1, 2026_
+
+- Improve performance by preloading core plugin classes and skipping dynamic content tag parsing when no tags are present.
+- Improve security for admin AJAX requests by adding a nonce check and stricter audience ID handling.
+- Improve dynamic content tag replacement by removing broken regular expressions.
+- Improve form preview output by disabling PHP error display during preview rendering.
+- Update JavaScript dependencies and pass admin script data using `wp_add_inline_script()`.
+
+
 = 4.12.6 =
 
 _Release date: May 26, 2026_
