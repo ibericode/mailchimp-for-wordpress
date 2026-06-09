@@ -181,6 +181,30 @@
         </td>
     </tr>
 
+    <?php
+    // Only show AJAX settings if the premium AJAX module is not active, to avoid duplicate settings.
+    if (! class_exists('MC4WP_AJAX_Forms')) {
+        ?>
+        <tr valign="top">
+            <th scope="row"><?php echo esc_html__('Enable AJAX form submission?', 'mailchimp-for-wp'); ?></th>
+            <td class="nowrap">
+                <label>
+                    <input type="radio" name="mc4wp_form[settings][ajax]" value="1" <?php checked($opts['ajax'], 1); ?> />&rlm;
+                    <?php echo esc_html__('Yes', 'mailchimp-for-wp'); ?>
+                </label> &nbsp;
+                <label>
+                    <input type="radio" name="mc4wp_form[settings][ajax]" value="0" <?php checked($opts['ajax'], 0); ?> />&rlm;
+                    <?php echo esc_html__('No', 'mailchimp-for-wp'); ?>
+                </label>
+                <p class="description">
+                    <?php echo esc_html__('Select "yes" if you want to use AJAX (JavaScript) to submit forms.', 'mailchimp-for-wp'); ?>
+                </p>
+            </td>
+        </tr>
+        <?php
+    }
+    ?>
+
     <?php do_action('mc4wp_admin_form_after_behaviour_settings_rows', $opts, $form); ?>
 
 </table>

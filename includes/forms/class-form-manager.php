@@ -146,6 +146,8 @@ class MC4WP_Form_Manager
      * Process requests to the form endpoint.
      *
      * A listener checks every request for a form submit, so we just need to fetch the listener and get its status.
+     *
+     * @return WP_REST_Response|WP_Error
      */
     public function handle_endpoint()
     {
@@ -161,18 +163,30 @@ class MC4WP_Form_Manager
         }
 
         if ($form->has_errors()) {
-            $message_key = $form->errors[0];
-            $message     = $form->get_message($message_key);
-            return new WP_Error(
-                $message_key,
-                $message,
+            return new WP_REST_Response(
                 [
-                'status' => 400,
-                ]
+                    'error' => [
+                        'type'    => $form->errors[0],
+                        'message' => $form->get_response_html(),
+                        'errors'  => $form->errors,
+                    ],
+                ],
+                400
             );
         }
 
-        return new WP_REST_Response(true, 200);
+        $data = [
+            'event'       => $form->last_event,
+            'message'     => $form->get_response_html(),
+            'hide_fields' => (bool) $form->settings['hide_after_success'],
+        ];
+
+        $redirect_url = $form->get_redirect_url();
+        if (! empty($redirect_url)) {
+            $data['redirect_to'] = $redirect_url;
+        }
+
+        return new WP_REST_Response([ 'data' => $data ], 200);
     }
 
     /**
