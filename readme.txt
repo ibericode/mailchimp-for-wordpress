@@ -212,7 +212,7 @@ _Release date: May 26, 2026_
 - Fix Site Tracking Pixel setting not being saved when disabling it.
 - Improve accessibility of generated form fields by wrapping inputs in labels and using fieldsets for checkbox and radio fields.
 - Improve validation and sanitization of submitted form data.
-- Improve debug log safety by truncating overly long messages and improving email address obfuscation. Thanks [Jack Felcher](https://github.com/jjf404)!
+- Improve debug log safety by truncating overly long messages and improving email address obfuscation. Thanks [Jack Feldcher](https://github.com/jjf404)!
 
 
 = 4.12.5 =
