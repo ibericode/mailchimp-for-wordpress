@@ -96,7 +96,7 @@ class MC4WP_Form_Output_Manager
             $form = mc4wp_get_form($id);
         } catch (Exception $e) {
             if (current_user_can('manage_options')) {
-                return sprintf('<strong style="color: indianred;">Mailchimp for WordPress error:</strong> %s', $e->getMessage());
+                return '<p><strong style="color: indianred;">Mailchimp for WordPress error:</strong> ' . esc_html($e->getMessage()) . '.</p>';
             }
 
             return '';
@@ -106,10 +106,9 @@ class MC4WP_Form_Output_Manager
 
         if (!mc4wp_get_api_key()) {
             if (current_user_can('manage_options')) {
-                $html .= '<p style="color: indianred;">' . __('You need to configure your Mailchimp API key for this form to work properly.', 'mailchimp-for-wp') . '</p>';
+                $html .= '<p style="color: indianred;">' . esc_html__('You need to configure your Mailchimp API key for this form to work properly.', 'mailchimp-for-wp') . '</p>';
             } else {
-                // if no API key set and request is for an unauthorized user
-                // show nothing
+                // show nothing if no API key set and request is for an unauthorized user
                 return '';
             }
         }

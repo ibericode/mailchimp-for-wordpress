@@ -36,9 +36,6 @@ $id = wp_insert_post(
     ]
 );
 
-// set default_form_id
-update_option('mc4wp_default_form_id', $id);
-
 // set form settings
 $setting_keys = [
     'css',

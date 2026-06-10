@@ -26,6 +26,7 @@ class MC4WP_Form
     {
         // translators: %d is the form post ID.
         $message = sprintf(__('There is no form with ID %d, perhaps it was deleted?', 'mailchimp-for-wp'), $post_id);
+
         // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception text is not direct output and is escaped at render time.
         throw new Exception($message);
     }
@@ -44,8 +45,19 @@ class MC4WP_Form
         } else {
             $post_id = (int) $post;
 
+            // if no explicit ID given, query the first published form
             if ($post_id === 0) {
-                $post_id = (int) get_option('mc4wp_default_form_id', 0);
+                $posts = get_posts([
+                    'post_type' => 'mc4wp-form',
+                    'numberposts' => 1,
+                    'post_status' => 'publish',
+                    'orderby' => 'ID',
+                    'order' => 'ASC',
+                ]);
+                if ($posts) {
+                    $post = $posts[0];
+                    $post_id = $post->ID;
+                }
             }
         }
 
