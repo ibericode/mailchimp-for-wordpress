@@ -17,7 +17,7 @@ add_action('wp_head', function () {
         $form_id = (int) $_COOKIE['mc4wp_subscribed'];
         ?>
         <style type="text/css">
-            .mc4wp-form-<?php echo $form_id; ?> {
+            .mc4wp-form-<?php echo (int) $form_id; ?> {
                 display: none !important;
             }
         </style>

@@ -20,7 +20,7 @@ function mc4wp_mailchimp_list_member_has_status_pending_or_subscribed($email)
 {
     if (!is_string($email)) {
         throw new InvalidArgumentException(
-            sprintf("mailchimp_list_member_has_status_pending_or_subscribed() expects parameter 1 to be string, %s given", gettype($email))
+            esc_html(sprintf("mailchimp_list_member_has_status_pending_or_subscribed() expects parameter 1 to be string, %s given", gettype($email)))
         );
     }
 
@@ -70,7 +70,7 @@ function mc4wp_get_customer_email($customer)
     }
 
     throw new InvalidArgumentException(
-        sprintf("get_customer_email() expects to be parameter 1 to be an instance of %s, %s or %s, given %s", stdClass::class, WP_User::class, WC_Customer::class, gettype($customer))
+        esc_html(sprintf("get_customer_email() expects to be parameter 1 to be an instance of %s, %s or %s, given %s", stdClass::class, WP_User::class, WC_Customer::class, gettype($customer)))
     );
 }
 

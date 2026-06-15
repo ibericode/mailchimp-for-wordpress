@@ -102,7 +102,7 @@ Use the following shortcode in your CF7 form to display a newsletter sign-up che
 [mc4wp_checkbox "Subscribe to our newsletter?"]
 `
 
-Our knowledge base has more information on [connecting Contact Form 7 and Mailchimp](https://www.mc4wp.com/kb/connecting-contact-form-7-and-mailchimp/).
+Our knowledge base has more information on [connecting Contact Form 7 and Mailchimp](https://www.mc4wp.com/kb/subscribe-mailchimp-contact-form-7/).
 
 #### The form shows a success message but subscribers are not added to my list(s)?
 If the form shows a success message, there is no doubt that the sign-up request succeeded. Mailchimp could have a slight delay sending the confirmation email though. Please check again in a few minutes (sometimes hours) and don't forget to check your junk folder too.

@@ -39,7 +39,7 @@ if (is_admin() && isset($_GET['mc4wp-fetch-user-subscriber-status'])) {
             } catch (MC4WP_API_Resource_Not_Found_Exception $e) {
                 $opted_in = false;
             } catch (Exception $e) {
-                die($e);
+                wp_die(esc_html($e->getMessage()));
             }
 
             // set meta value

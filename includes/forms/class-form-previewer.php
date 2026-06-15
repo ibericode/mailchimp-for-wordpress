@@ -28,7 +28,7 @@ class MC4WP_Form_Previewer
 
     public function load_preview()
     {
-        @ini_set('display_errors', 0);
+        @ini_set('display_errors', 0); // phpcs:ignore
 
         // clear output, some plugin or hooked code might have thrown errors by now.
         if (ob_get_level() > 0) {
