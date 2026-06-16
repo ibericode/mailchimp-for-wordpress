@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 wp_clear_scheduled_hook('mc4wp_refresh_mailchimp_lists');
 

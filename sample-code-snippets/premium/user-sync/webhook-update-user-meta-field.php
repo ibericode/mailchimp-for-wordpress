@@ -1,9 +1,9 @@
 <?php
 
 /*
-This will allow you to update a Wordpress user meta field with the Interest groups that are set in MailChimp
-when syncing data from MailChimp to Wordpress via the 2 way sync webhook.
-For syncing interest groups from Wordpress to MailChimp please see:
+This will allow you to update a WordPress user meta field with the Interest groups that are set in MailChimp
+when syncing data from MailChimp to WordPress via the 2 way sync webhook.
+For syncing interest groups from WordPress to MailChimp please see:
 https://github.com/ibericode/mailchimp-for-wordpress/blob/main/sample-code-snippets/premium/user-sync/custom-field-map-setting.php
 */
 add_action('mc4wp_user_sync_webhook', function ($data, $user) {

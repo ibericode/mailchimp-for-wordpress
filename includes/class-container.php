@@ -58,6 +58,7 @@ class MC4WP_Container implements ArrayAccess
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Whether a offset exists
+     *
      * @link http://php.net/manual/en/arrayaccess.offsetexists.php
      *
      * @param mixed $offset <p>
@@ -77,6 +78,7 @@ class MC4WP_Container implements ArrayAccess
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Offset to retrieve
+     *
      * @link http://php.net/manual/en/arrayaccess.offsetget.php
      *
      * @param mixed $offset <p>
@@ -95,6 +97,7 @@ class MC4WP_Container implements ArrayAccess
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Offset to set
+     *
      * @link http://php.net/manual/en/arrayaccess.offsetset.php
      *
      * @param mixed $offset <p>
@@ -114,6 +117,7 @@ class MC4WP_Container implements ArrayAccess
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Offset to unset
+     *
      * @link http://php.net/manual/en/arrayaccess.offsetunset.php
      *
      * @param mixed $offset <p>

@@ -1,4 +1,4 @@
-<?php defined('ABSPATH') or exit; ?>
+<?php defined('ABSPATH') || exit; ?>
 
 <div class="mc4wp-admin">
     <h2><?php echo esc_html__('Add more fields', 'mailchimp-for-wp'); ?></h2>

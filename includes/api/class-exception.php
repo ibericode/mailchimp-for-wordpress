@@ -37,13 +37,14 @@ class MC4WP_API_Exception extends Exception
     {
         parent::__construct($message, $code);
 
-        $this->request  = $request;
-        $this->response = $response;
+        $this->request       = $request;
+        $this->response      = $response;
         $this->response_data = $data;
     }
 
     /**
      * Backwards compatibility for direct property access.
+     *
      * @param string $property
      * @return mixed
      */

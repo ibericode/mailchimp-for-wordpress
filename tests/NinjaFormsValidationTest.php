@@ -1,6 +1,8 @@
 <?php
 
 // phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+// phpcs:disable Generic.Files.OneObjectStructurePerFile.MultipleFound
+// phpcs:disable Universal.Files.SeparateFunctionsFromOO.Mixed
 
 // Mock WP functions
 if (! function_exists('add_filter')) {
@@ -59,7 +61,7 @@ class NinjaFormsValidationTest extends \PHPUnit\Framework\TestCase
             'required' => 1,
             'value' => 0,
         ];
-        $form_data = [];
+        $form_data  = [];
 
         $errors = $field->validate($field_data, $form_data);
 
@@ -76,7 +78,7 @@ class NinjaFormsValidationTest extends \PHPUnit\Framework\TestCase
             'required' => 1,
             'value' => 1,
         ];
-        $form_data = [];
+        $form_data  = [];
 
         $errors = $field->validate($field_data, $form_data);
 
@@ -91,7 +93,7 @@ class NinjaFormsValidationTest extends \PHPUnit\Framework\TestCase
             'required' => 0,
             'value' => 0,
         ];
-        $form_data = [];
+        $form_data  = [];
 
         $errors = $field->validate($field_data, $form_data);
 

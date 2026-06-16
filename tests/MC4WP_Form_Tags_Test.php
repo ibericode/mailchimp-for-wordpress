@@ -4,6 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Class FormTest
+ *
  * @ignore
  */
 class MC4WP_Form_Tags_Test extends TestCase
@@ -13,12 +14,12 @@ class MC4WP_Form_Tags_Test extends TestCase
         $t = new MC4WP_Form_Tags();
         $t->register();
 
-        $p = new WP_Post();
+        $p     = new WP_Post();
         $p->ID = 1;
         global $post;
         $post = $p;
-        $f = new MC4WP_Form(1, $p, []);
-        $e = new MC4WP_Form_Element($f, 1, []);
+        $f    = new MC4WP_Form(1, $p, []);
+        $e    = new MC4WP_Form_Element($f, 1, []);
 
         self::assertEquals('<script>alert(1);</script>', $t->replace_in_form_content('<script>alert(1);</script>', $f, $e));
         self::assertEquals('Post ID: 1', $t->replace_in_form_content('Post ID: {post property=\'ID\'}', $f, $e));

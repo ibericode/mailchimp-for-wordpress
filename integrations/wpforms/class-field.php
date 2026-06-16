@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 
 class MC4WP_WPForms_Field extends WPForms_Field
@@ -135,8 +135,8 @@ class MC4WP_WPForms_Field extends WPForms_Field
             false
         );
 
-        $current_value = isset($field['mailchimp_double_optin']) ? $field['mailchimp_double_optin'] : '1';
-        $option_select = sprintf('<select name="fields[%s][mailchimp_double_optin]" data-field-id="%d" data-field-type="%s">', $field['id'], $field['id'], $this->type);
+        $current_value  = isset($field['mailchimp_double_optin']) ? $field['mailchimp_double_optin'] : '1';
+        $option_select  = sprintf('<select name="fields[%s][mailchimp_double_optin]" data-field-id="%d" data-field-type="%s">', $field['id'], $field['id'], $this->type);
         $option_select .= sprintf('<option value="1" %s>%s</option>', selected('1', $current_value, false), __('Yes', 'mailchimp-for-wp'));
         $option_select .= sprintf('<option value="0" %s>%s</option>', selected('0', $current_value, false), __('No', 'mailchimp-for-wp'));
         $option_select .= '</select>';
@@ -214,7 +214,7 @@ class MC4WP_WPForms_Field extends WPForms_Field
 
         // Individual checkbox options
         foreach ($values as $key => $value) {
-            $default  = isset($value['default']) ? $value['default'] : '';
+            $default = isset($value['default']) ? $value['default'] : '';
             printf('<li><input type="checkbox" %s disabled>%s</li>', checked('1', $default, false), esc_html($value['label']));
         }
 
@@ -266,9 +266,9 @@ class MC4WP_WPForms_Field extends WPForms_Field
         printf('<ul id="%s" class="%s">', esc_attr($field_id), esc_attr($field_class));
 
         foreach ($choices as $key => $choice) {
-            $selected = isset($choice['default']) ? '1' : '0';
-            $depth    = isset($choice['depth']) ? absint($choice['depth']) : 1;
-            $key      = absint($key);
+            $selected        = isset($choice['default']) ? '1' : '0';
+            $depth           = isset($choice['depth']) ? absint($choice['depth']) : 1;
+            $key             = absint($key);
             $list_item_class = sprintf('choice-%d depth-%d', $key, $depth);
 
             echo '<li class="', esc_attr($list_item_class), '">';

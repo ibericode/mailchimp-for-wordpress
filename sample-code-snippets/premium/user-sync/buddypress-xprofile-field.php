@@ -7,7 +7,7 @@ add_filter('mc4wp_user_sync_subscriber_data', function (\MC4WP_MailChimp_Subscri
     $field_value = bp_get_profile_field_data(
         [
             'field' => 'buddypress_field_name',
-            'user_id' => $user->ID
+            'user_id' => $user->ID,
         ]
     );
 

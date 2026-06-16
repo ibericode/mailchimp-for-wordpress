@@ -2,7 +2,6 @@
 
 /**
  * Add and or remove tags from subscribers added using WooCommerce Checkout integration.
- *
  */
 
 //Add the tag "My tag" to all new subscribers added using WooCommerce Checkout integration.

@@ -7,7 +7,7 @@
 add_filter('mc4wp_user_sync_should_sync_user', function ($sync, WP_User $user) {
     $roles_to_sync = [
         'editor',
-        'customer'
+        'customer',
     ];
 
     // if user has any of the above roles, return true

@@ -16,7 +16,7 @@ add_filter('mc4wp_ecommerce_product_data', function ($data, $product) {
     $priority_categories = [
         'Test1',
         'Test2',
-        'Test3'
+        'Test3',
     ];
 
     if (empty($data['vendor'])) {
@@ -24,7 +24,7 @@ add_filter('mc4wp_ecommerce_product_data', function ($data, $product) {
     }
 
     $single_category = [];
-    $categories = explode('|', $data['vendor']);
+    $categories      = explode('|', $data['vendor']);
     $single_category = array_intersect($categories, $priority_categories);
 
 

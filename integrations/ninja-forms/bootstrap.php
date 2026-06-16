@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 
 mc4wp_register_integration('ninja-forms', 'MC4WP_Ninja_Forms_Integration', true);

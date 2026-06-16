@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 // transfer option
 $options = (array) get_option('mc4wp_lite', []);

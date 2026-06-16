@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 
 /**
@@ -484,8 +484,8 @@ function mc4wp_obfuscate_string($string)
     if ($length <= 2) {
         return $string;
     }
-    $keep   = (int) floor($length / 3);
-    $keep   = (int) min($keep, 4);
+    $keep = (int) floor($length / 3);
+    $keep = (int) min($keep, 4);
     return substr($string, 0, $keep) . str_repeat('*', $length - ($keep * 2)) . substr($string, -$keep);
 }
 

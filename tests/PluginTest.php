@@ -4,6 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Class PluginTest
+ *
  * @ignore
  */
 class PluginTest extends TestCase
@@ -16,7 +17,7 @@ class PluginTest extends TestCase
         $plugin = new MC4WP_Plugin(__FILE__, '2.5.3');
         self::assertEquals($plugin->file(), __FILE__);
 
-        $file = '/some/other/file.php';
+        $file   = '/some/other/file.php';
         $plugin = new MC4WP_Plugin($file, '2.5.3');
         self::assertEquals($plugin->file(), $file);
     }
@@ -27,15 +28,15 @@ class PluginTest extends TestCase
     public function test_dir()
     {
         $plugin = new MC4WP_Plugin(__FILE__, '2.5.3');
-        self::assertEquals($plugin->dir(), dirname(__FILE__));
+        self::assertEquals($plugin->dir(), __DIR__);
 
-        $file = '/some/other/file.php';
-        $dir = dirname($file);
+        $file   = '/some/other/file.php';
+        $dir    = dirname($file);
         $plugin = new MC4WP_Plugin($file, '2.5.3');
         self::assertEquals($plugin->dir(), $dir);
 
         $plugin = new MC4WP_Plugin(__FILE__, '2.5.3');
-        self::assertEquals($plugin->dir('leading-slash'), dirname(__FILE__) . '/leading-slash');
+        self::assertEquals($plugin->dir('leading-slash'), __DIR__ . '/leading-slash');
     }
 
     /**
@@ -44,11 +45,11 @@ class PluginTest extends TestCase
     public function test_version()
     {
         $version = '2.5.3';
-        $plugin = new MC4WP_Plugin(__FILE__, $version);
+        $plugin  = new MC4WP_Plugin(__FILE__, $version);
         self::assertEquals($plugin->version(), $version);
 
         $version = '1.0';
-        $plugin = new MC4WP_Plugin(__FILE__, $version);
+        $plugin  = new MC4WP_Plugin(__FILE__, $version);
         self::assertEquals($plugin->version(), $version);
     }
 }

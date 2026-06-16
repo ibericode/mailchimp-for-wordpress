@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 
 /**
@@ -35,6 +35,7 @@ class MC4WP_Form_Asset_Manager
 
     /**
      * Register scripts to be enqueued later.
+     *
      * @return void
      */
     public function register_scripts()

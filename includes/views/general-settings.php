@@ -1,5 +1,5 @@
 <?php
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 

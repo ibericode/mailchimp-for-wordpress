@@ -4,11 +4,11 @@
  * This snippet allows you to manually add an email address to a Mailchimp list.
  */
 
-$api = mc4wp_get_api_v3();
+$api               = mc4wp_get_api_v3();
 $mailchimp_list_id = 'your-list-id-here'; // the mailchimp list to subscribe to
-$use_double_optin = true;           // whether to use double opt-in or not
-$email_address = 'johndoe@email.com';
-$merge_fields = [
+$use_double_optin  = true;           // whether to use double opt-in or not
+$email_address     = 'johndoe@email.com';
+$merge_fields      = [
     'FNAME' => 'John',
 ];
 

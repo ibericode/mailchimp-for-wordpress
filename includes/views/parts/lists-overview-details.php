@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 /**
  * @var object[] $merge_fields
@@ -20,7 +20,8 @@ defined('ABSPATH') or exit;
     <tbody>
     <?php foreach ($merge_fields as $f) { ?>
         <tr>
-            <td><?php echo esc_html($f->name); ?> <?php
+            <td><?php echo esc_html($f->name); ?>
+            <?php
             if ($f->required) {
                 ?>
                 <span class="mc4wp-red">*</span>

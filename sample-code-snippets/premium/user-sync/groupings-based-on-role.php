@@ -5,7 +5,7 @@
  */
 
 add_filter('mc4wp_user_sync_subscriber_data', function (\MC4WP_MailChimp_Subscriber $subscriber, \WP_User $user) {
-    $subscriber->interests[ 'interest-group-id' ] = in_array('role_1', $user->roles);
+    $subscriber->interests[ 'interest-group-id' ]       = in_array('role_1', $user->roles);
     $subscriber->interests[ 'other-interest-group-id' ] = in_array('role_2', $user->roles);
     //you can repeat this line for more groups / roles.
 
@@ -28,7 +28,7 @@ add_filter('mc4wp_user_sync_subscriber_data', function (\MC4WP_MailChimp_Subscri
 }, 10, 2);
 
 /**
- * A simple example how to include your own function in a Wordpress theme for setting Interest group.
+ * A simple example how to include your own function in a WordPress theme for setting Interest group.
  * The code below is not needed for the code above to work.
  */
 add_filter('mc4wp_user_sync_subscriber_data', function (\MC4WP_MailChimp_Subscriber $subscriber) {

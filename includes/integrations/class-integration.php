@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 /**
  * Class MC4WP_Integration
@@ -212,7 +212,7 @@ abstract class MC4WP_Integration
      */
     protected function get_wrapper_attributes()
     {
-        $classes = join(' ', $this->wrapper_classes);
+        $classes    = join(' ', $this->wrapper_classes);
         $html_attrs = [
             'class' => "mc4wp-checkbox mc4wp-checkbox-{$this->slug} $classes",
         ];
@@ -396,8 +396,8 @@ abstract class MC4WP_Integration
      */
     protected function subscribe(array $data, $related_object_id = 0)
     {
-        $log         = $this->get_log();
-        $list_ids    = $this->get_lists();
+        $log      = $this->get_log();
+        $list_ids = $this->get_lists();
 
         // validate lists
         if (empty($list_ids)) {

@@ -5,7 +5,7 @@
 */
 
 add_filter('mc4wp_form_content', function ($content) {
-    $posts = get_posts([ 'post_status' => 'publish' ]);
+    $posts   = get_posts([ 'post_status' => 'publish' ]);
     $options = [];
     foreach ($posts as $post) {
         $options[] = sprintf('<option value="%d">%s</option>', $post->ID, $post->post_title);

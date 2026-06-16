@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 
 $email_label            = esc_html__('Email address', 'mailchimp-for-wp');

@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 
 /**
@@ -129,12 +129,12 @@ class MC4WP_MailChimp
             if (is_string($tag)) {
                 $formatted_tags[] = [
                     'name' => $tag,
-                    'status' => 'active'
+                    'status' => 'active',
                 ];
             } elseif (is_array($tag) && isset($tag['name'])) {
                 $formatted_tags[] = [
                     'name' => $tag['name'],
-                    'status' => isset($tag['status']) ? $tag['status'] : 'active'
+                    'status' => isset($tag['status']) ? $tag['status'] : 'active',
                 ];
             }
         }
@@ -159,9 +159,9 @@ class MC4WP_MailChimp
             return true;
         }
 
-        $api = $this->get_api();
+        $api  = $this->get_api();
         $data = [
-              'tags' => $this->merge_and_format_member_tags($tags),
+                'tags' => $this->merge_and_format_member_tags($tags),
         ];
 
         try {

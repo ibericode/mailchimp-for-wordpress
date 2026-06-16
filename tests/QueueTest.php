@@ -23,7 +23,7 @@ class QueueTest extends TestCase
     public function test_put()
     {
         $queue = new MC4WP_Queue('option');
-        $data = [ 'sample' => 'data' ];
+        $data  = [ 'sample' => 'data' ];
         $queue->put($data);
 
         $job = $queue->get();

@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 /**
  * Class MC4WP_WPForms_Integration
@@ -62,7 +62,7 @@ class MC4WP_WPForms_Integration extends MC4WP_Integration
             }
         }
 
-        $field_config     = $form_data['fields'][$checkbox_field_id];
+        $field_config      = $form_data['fields'][$checkbox_field_id];
         $mailchimp_list_id = $field_config['mailchimp_list'];
         $double_optin      = isset($field_config['mailchimp_double_optin']) ? $field_config['mailchimp_double_optin'] : $this->options['double_optin'];
 

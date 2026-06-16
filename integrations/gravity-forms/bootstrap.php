@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 mc4wp_register_integration('gravity-forms', 'MC4WP_Gravity_Forms_Integration', true);
 

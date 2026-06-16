@@ -1,4 +1,4 @@
-<?php defined('ABSPATH') or exit;
+<?php defined('ABSPATH') || exit;
 
 $tabs = [
     'fields'     => esc_html__('Fields', 'mailchimp-for-wp'),
@@ -117,6 +117,6 @@ $tabs = apply_filters('mc4wp_admin_edit_form_tabs', $tabs);
             </div>
         </form>
 
-        <?php include MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-footer.php'; ?>
+        <?php require MC4WP_PLUGIN_DIR . '/includes/views/parts/admin-footer.php'; ?>
     </div>
 </div>

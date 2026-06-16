@@ -1,5 +1,5 @@
 <?php
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 /** @var array $opts */
 /** @var MC4WP_Debug_Log $log */
@@ -44,7 +44,7 @@ defined('ABSPATH') or exit;
                                 <p class="description">
                                     <?php
                                     // translators: %s is a URL to the debug log documentation.
-                                    echo sprintf(wp_kses(__('Determines what events should be written to <a href="%s">the debug log</a> (see below).', 'mailchimp-for-wp'), [ 'a' => [ 'href' => [] ] ]), 'https://www.mc4wp.com/kb/how-to-enable-log-debugging/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page');
+                                    printf(wp_kses(__('Determines what events should be written to <a href="%s">the debug log</a> (see below).', 'mailchimp-for-wp'), [ 'a' => [ 'href' => [] ] ]), 'https://www.mc4wp.com/kb/how-to-enable-log-debugging/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=settings-page');
                                     ?>
                                 </p>
                             </td>

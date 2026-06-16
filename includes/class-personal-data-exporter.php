@@ -15,7 +15,7 @@ class MC4WP_Personal_Data_Exporter
     {
         $exporters['mailchimp-subscriptions'] = [
             'exporter_friendly_name' => __('Mailchimp Subscriptions', 'mailchimp-for-wp'),
-            'callback' => [self::class, 'get_mailchimp_subscription_data']
+            'callback' => [self::class, 'get_mailchimp_subscription_data'],
         ];
 
         return $exporters;
@@ -41,13 +41,13 @@ class MC4WP_Personal_Data_Exporter
      */
     public static function get_mailchimp_subscription_data($email_address)
     {
-        $api = mc4wp_get_api_v3();
+        $api    = mc4wp_get_api_v3();
         $client = $api->get_client();
-        $data = $client->get('search-members?query=' . urlencode($email_address));
+        $data   = $client->get('search-members?query=' . urlencode($email_address));
 
         // Parse the API response to get the lists the user is subscribed to.
         $subscribed_lists = [];
-        $data_to_export = [];
+        $data_to_export   = [];
 
         if (!empty($data->exact_matches->members)) {
             $lists = $api->get_lists();
@@ -73,8 +73,8 @@ class MC4WP_Personal_Data_Exporter
                     [
                         'name'  => __('Mailchimp Lists', 'mailchimp-for-wp'),
                         'value' => implode(', ', $subscribed_lists),
-                    ]
-                ]
+                    ],
+                ],
             ];
         }
 

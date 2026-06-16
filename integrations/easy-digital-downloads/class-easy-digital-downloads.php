@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 /**
  * Class MC4WP_Easy_Digital_Downloads_Integration
@@ -19,9 +19,6 @@ class MC4WP_Easy_Digital_Downloads_Integration extends MC4WP_Integration
      */
     public $description = 'Subscribes your Easy Digital Downloads customers.';
 
-    /**
-     *
-     */
     public function add_hooks()
     {
         if (! $this->options['implicit']) {

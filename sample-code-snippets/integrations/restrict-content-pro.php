@@ -32,7 +32,7 @@ function rcp_mailchimp_save_profile_fields($posted, $user_id)
 
     if (is_numeric($posted)) {
         $user_id = $posted;
-        $posted = $_POST;
+        $posted  = $_POST;
     }
 
     if ($posted['rcp_mailchimp']) {
@@ -71,7 +71,7 @@ function rcp_mailchimp_subscriber_data(MC4WP_MailChimp_Subscriber $subscriber, W
 
     // see if this maps to a known interest
     if (isset($map[ $subscription_id ])) {
-        $interest_id = $map[ $subscription_id ];
+        $interest_id                           = $map[ $subscription_id ];
         $subscriber->interests[ $interest_id ] = true;
     }
 

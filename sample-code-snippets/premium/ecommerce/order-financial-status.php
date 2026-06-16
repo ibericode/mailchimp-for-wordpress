@@ -25,7 +25,7 @@ add_filter('mc4wp_ecommerce_order_data', function ($data, $order) {
             break;
 
         case "completed":
-            $data['financial_status'] =  'paid';
+            $data['financial_status']   =  'paid';
             $data['fulfillment_status'] = 'shipped';
             break;
     }

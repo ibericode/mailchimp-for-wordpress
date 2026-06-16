@@ -29,7 +29,7 @@ add_filter('mc4wp_integration_data', function ($data) {
     $field_names = [
         'TELEPHONE',
         'WEBSITE',
-        'STORENAME'
+        'STORENAME',
     ];
 
     foreach ($field_names as $field_name) {

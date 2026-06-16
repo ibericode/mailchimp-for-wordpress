@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 
 /**
@@ -221,8 +221,8 @@ class MC4WP_Procaptcha
             return true;
         }
 
-        $body        = wp_remote_retrieve_body($response);
-        $data        = json_decode($body, true);
+        $body = wp_remote_retrieve_body($response);
+        $data = json_decode($body, true);
 
         // check if Prosopo API returned a correct JSON response
         if ($data === null || !is_array($data)) {

@@ -22,7 +22,7 @@ class FieldFormatterTest extends TestCase
             'city' => 'TUCSON',
             'state' => 'AZ',
             'zip' => '85705',
-            'country' => 'USA'
+            'country' => 'USA',
         ];
 
         // should accept string

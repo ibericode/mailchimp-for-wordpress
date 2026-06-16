@@ -4,7 +4,7 @@
 // The only way to do it is if you manually map those field names (you can get them via “right click > inspect” when you view the form) to the correct MailChimp fields with some custom code.
 
 add_filter('mc4wp_integration_gravity-forms_subscriber_data', function (MC4WP_MailChimp_Subscriber $subscriber) {
-    $subscriber->merge_fields[ "FNAME" ] = sanitize_text_field($_POST['input_2']);
+    $subscriber->merge_fields[ "FNAME" ]   = sanitize_text_field($_POST['input_2']);
     $subscriber->merge_fields[ "COUNTRY" ] = sanitize_text_field($_POST['input_4']);
     return $subscriber;
 });

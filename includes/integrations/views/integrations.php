@@ -1,14 +1,18 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 /** @param MC4WP_Integration_Fixture $integration */
 function _mc4wp_integrations_table_row($integration)
 {
     ?>
-    <tr<?php if (! $integration->is_installed()) {
+    <tr
+    <?php
+    if (! $integration->is_installed()) {
         echo ' style="opacity: 0.6;"';
-       } ?>>
+    }
+    ?>
+        >
 
         <td>
             <?php

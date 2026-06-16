@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 
 use Automattic\WooCommerce\Blocks\Utils\CartCheckoutUtils;

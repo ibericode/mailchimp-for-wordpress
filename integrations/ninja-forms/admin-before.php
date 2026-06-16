@@ -1,4 +1,4 @@
-<?php defined('ABSPATH') or exit; ?>
+<?php defined('ABSPATH') || exit; ?>
 
 <p>
     <?php

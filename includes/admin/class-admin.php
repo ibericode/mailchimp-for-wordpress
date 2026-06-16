@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 
 /**
@@ -237,6 +237,7 @@ class MC4WP_Admin
 
     /**
      * Validates the General settings
+     *
      * @param array $settings
      * @return array
      */
@@ -262,7 +263,7 @@ class MC4WP_Admin
         if ($settings['tracking_pixel_enabled'] && empty($settings['tracking_pixel_site_id'])) {
             $result = MC4WP_Tracking_Pixel::fetch_or_create_connected_site();
             if ($result !== false) {
-                $settings['tracking_pixel_site_id']   = $result['site_id'];
+                $settings['tracking_pixel_site_id']    = $result['site_id'];
                 $settings['tracking_pixel_script_url'] = $result['script_url'];
             } else {
                 $this->messages->flash(esc_html__('Could not automatically connect your site to Mailchimp. Please check your API key and try again.', 'mailchimp-for-wp'), 'error');
@@ -272,7 +273,7 @@ class MC4WP_Admin
 
         // If the toggle is turned off, clear stored site info
         if (! $settings['tracking_pixel_enabled']) {
-            $settings['tracking_pixel_site_id']   = '';
+            $settings['tracking_pixel_site_id']    = '';
             $settings['tracking_pixel_script_url'] = '';
         }
 
@@ -498,7 +499,7 @@ class MC4WP_Admin
     {
         $result = MC4WP_Tracking_Pixel::fetch_or_create_connected_site();
         if ($result !== false) {
-            $opts = mc4wp_get_options();
+            $opts                              = mc4wp_get_options();
             $opts['tracking_pixel_enabled']    = true;
             $opts['tracking_pixel_site_id']    = $result['site_id'];
             $opts['tracking_pixel_script_url'] = $result['script_url'];

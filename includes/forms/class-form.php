@@ -55,7 +55,7 @@ class MC4WP_Form
                     'order' => 'ASC',
                 ]);
                 if ($posts) {
-                    $post = $posts[0];
+                    $post    = $posts[0];
                     $post_id = $post->ID;
                 }
             }
@@ -307,7 +307,7 @@ class MC4WP_Form
 
         // restrict allowed HTML in messages to a safe subset
         $allowed_attributes = array_fill_keys([ 'class', 'id', 'style', 'href', 'target', 'src', 'width', 'height', 'alt' ], true);
-        $allowed_html = array_fill_keys([ 'strong', 'b', 'em', 'i', 'a', 'br', 'span', 'img' ], $allowed_attributes);
+        $allowed_html       = array_fill_keys([ 'strong', 'b', 'em', 'i', 'a', 'br', 'span', 'img' ], $allowed_attributes);
 
         foreach ($messages as $key => $message_text) {
             // overwrite default text with text in form meta.
@@ -348,6 +348,7 @@ class MC4WP_Form
 
     /**
     * Add notice to this form when it is rendered
+     *
     * @param string $text
     * @param string $type
     */
@@ -413,10 +414,10 @@ class MC4WP_Form
         // User-Agent header should be set and not bot-like
         if (empty($_SERVER['HTTP_USER_AGENT']) || preg_match('/bot|crawl|spider|seo|lighthouse|facebookexternalhit|preview/', strtolower($_SERVER['HTTP_USER_AGENT']))) {
             $errors[] = 'spam.user_agent';
-        // _mc4wp_timestamp field should be between 30 days ago (to deal with aggressively cached pages) and 2 seconds ago
+            // _mc4wp_timestamp field should be between 30 days ago (to deal with aggressively cached pages) and 2 seconds ago
         } elseif (! isset($this->raw_data['_mc4wp_timestamp']) || $this->raw_data['_mc4wp_timestamp'] < (time() - DAY_IN_SECONDS * 90) || $this->raw_data['_mc4wp_timestamp'] > ( time() - 2 )) {
             $errors[] = 'spam.timestamp';
-        // _mc4wp_honeypot field should be submitted and empty
+            // _mc4wp_honeypot field should be submitted and empty
         } elseif (! isset($this->raw_data['_mc4wp_honeypot']) || '' !== $this->raw_data['_mc4wp_honeypot']) {
             $errors[] = 'spam.honeypot';
         }
@@ -773,7 +774,8 @@ class MC4WP_Form
         $message = $this->messages['error'];
 
         // if error key contains a dot, use only part before the dot (example: spam.honeypot)
-        if (($dot_pos = strpos($key, '.')) !== false) {
+        $dot_pos = strpos($key, '.');
+        if ($dot_pos !== false) {
             $key = substr($key, 0, $dot_pos);
         }
 

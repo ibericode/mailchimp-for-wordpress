@@ -45,7 +45,7 @@ class ContainerTest extends TestCase
     public function test_resolving_service()
     {
         // assert services are resolved
-        $container = new MC4WP_Container();
+        $container            = new MC4WP_Container();
         $container['service'] = function () {
             return 'resolved';
         };
@@ -54,12 +54,12 @@ class ContainerTest extends TestCase
 
         // assert resolved services return the same instance
         $container['instance'] = function () {
-            $instance = new StdClass();
+            $instance       = new StdClass();
             $instance->prop = 'value';
             return $instance;
         };
-        $one = $container['instance'];
-        $two = $container['instance'];
+        $one                   = $container['instance'];
+        $two                   = $container['instance'];
         self::assertTrue($one === $two);
     }
 }

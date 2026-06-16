@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 $old_options = get_option('mc4wp_lite_checkbox', []);
 $pro_options = get_option('mc4wp_checkbox', []);

@@ -15,7 +15,7 @@ function mc4wp_dlm_dynamic_url($url, $form)
         try {
             /** @var DLM_Download $download */
             $download = download_monitor()->service('download_repository')->retrieve_single(absint($_POST['mc4wp_dlm_download_id']));
-            $url = $download->get_the_download_link();
+            $url      = $download->get_the_download_link();
         } catch (Exception $exception) {
             // no download with given ID found
         }

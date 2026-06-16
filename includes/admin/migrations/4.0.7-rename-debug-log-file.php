@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 // get old log filename
 $upload_dir   = wp_upload_dir(null, false);

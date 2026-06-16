@@ -5,7 +5,7 @@
  */
 
 add_filter('mc4wp_form_errors', function ($errors, MC4WP_Form $form) {
-    $data = $form->get_data();
+    $data  = $form->get_data();
     $email = strtolower($data['EMAIL']);
 
     // add your blocked email addresses here.

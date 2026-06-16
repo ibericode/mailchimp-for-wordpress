@@ -120,7 +120,7 @@ class DebugLogTest extends TestCase
      */
     public function test_log_truncates_long_messages()
     {
-        $logger = new MC4WP_Debug_Log($this->file, 0);
+        $logger  = new MC4WP_Debug_Log($this->file, 0);
         $message = str_repeat('a', 8193);
 
         self::assertTrue($logger->log(200, $message));

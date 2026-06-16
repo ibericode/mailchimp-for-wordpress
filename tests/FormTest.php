@@ -4,6 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Class FormTest
+ *
  * @ignore
  */
 class FormTest extends TestCase
@@ -56,7 +57,7 @@ class FormTest extends TestCase
     {
         mock_get_post(
             [
-                'post_content' => '<input type="email" name="EMAIL" />'
+                'post_content' => '<input type="email" name="EMAIL" />',
             ]
         );
 
@@ -68,7 +69,7 @@ class FormTest extends TestCase
 
         mock_get_post(
             [
-                'post_content' => '<input type="email" name="EMAIL" /><input type="date" name="EMAIL" /><input type="url" name="EMAIL" />'
+                'post_content' => '<input type="email" name="EMAIL" /><input type="date" name="EMAIL" /><input type="url" name="EMAIL" />',
             ]
         );
         $post = get_post(1);
@@ -87,7 +88,7 @@ class FormTest extends TestCase
         $types = [ 'number', 'email', 'date', 'url' ];
         mock_get_post(
             [
-                'post_content' => '<input type="number"><input type="email" name="EMAIL" /><input type="date" name="EMAIL" /><input type="url" name="EMAIL" />'
+                'post_content' => '<input type="number"><input type="email" name="EMAIL" /><input type="date" name="EMAIL" /><input type="url" name="EMAIL" />',
             ]
         );
         $post = get_post(15);
@@ -131,8 +132,8 @@ class FormTest extends TestCase
     public function test_has_errors()
     {
         mock_get_post([ 'ID' => 1 ]);
-        $post = get_post(1);
-        $form = new MC4WP_Form(1, $post);
+        $post         = get_post(1);
+        $form         = new MC4WP_Form(1, $post);
         $form->errors = [ 'required_field_missing' ];
         self::assertTrue($form->has_errors());
 
@@ -149,7 +150,7 @@ class FormTest extends TestCase
         $post = get_post(15);
         $form = new MC4WP_Form(15, $post);
         $data = [
-            'EMAIL' => 'value'
+            'EMAIL' => 'value',
         ];
 
         $form->handle_request($data);
@@ -164,9 +165,9 @@ class FormTest extends TestCase
 
 
         // data should have been uppercased
-        $form = new MC4WP_Form(15, $post);
-        $data = [
-            'email' => 'value'
+        $form            = new MC4WP_Form(15, $post);
+        $data            = [
+            'email' => 'value',
         ];
         $data_uppercased = array_change_key_case($data, CASE_UPPER);
         $form->handle_request($data);
@@ -207,8 +208,8 @@ class FormTest extends TestCase
     public function test_get_required_fields()
     {
         mock_get_post([ 'ID' => 15 ]);
-        $post = get_post(15);
-        $form = new MC4WP_Form(15, $post);
+        $post                              = get_post(15);
+        $form                              = new MC4WP_Form(15, $post);
         $form->settings['required_fields'] = 'EMAIL';
         self::assertEquals($form->get_required_fields(), []);
 
@@ -226,8 +227,8 @@ class FormTest extends TestCase
     public function test_get_stylesheet()
     {
         mock_get_post([ 'ID' => 15 ]);
-        $post = get_post(15);
-        $form = new MC4WP_Form(15, $post);
+        $post                  = get_post(15);
+        $form                  = new MC4WP_Form(15, $post);
         $form->settings['css'] = false;
         self::assertEmpty($form->get_stylesheet());
 
@@ -300,18 +301,18 @@ class FormTest extends TestCase
     public function test_get_subscriber_tags()
     {
         mock_get_post([ 'ID' => 1 ]);
-        $post = get_post(1);
-        $form = new MC4WP_Form(1, $post);
+        $post           = get_post(1);
+        $form           = new MC4WP_Form(1, $post);
         $form->settings = [
             'subscriber_tags' => 'foo,bar',
-            'remove_subscriber_tags' => 'old,,tag'
+            'remove_subscriber_tags' => 'old,,tag',
         ];
 
         $this->assertEquals($form->get_subscriber_tags(), [
             ['name' => 'foo', 'status' => 'active'],
             ['name' => 'bar', 'status' => 'active'],
             ['name' => 'old', 'status' => 'inactive'],
-            ['name' => 'tag', 'status' => 'inactive']
+            ['name' => 'tag', 'status' => 'inactive'],
         ]);
     }
 }

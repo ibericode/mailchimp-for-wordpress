@@ -1,4 +1,4 @@
-<?php defined('ABSPATH') or exit; ?>
+<?php defined('ABSPATH') || exit; ?>
 
 <h3><?php echo esc_html__('Your Mailchimp Account', 'mailchimp-for-wp'); ?></h3>
 <p><?php echo esc_html__('The table below shows your Mailchimp audiences and their details. If you just applied changes to your Mailchimp account, please use the following button to renew the cache.', 'mailchimp-for-wp'); ?></p>

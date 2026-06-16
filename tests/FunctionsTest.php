@@ -4,6 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Class Functions_Test
+ *
  * @ignore
  */
 class FunctionsTest extends TestCase
@@ -16,26 +17,26 @@ class FunctionsTest extends TestCase
         [
             'input' => [
                 'SOME_FIELD' => 'Some value',
-                'SOME_OTHER_FIELD' => 'Some other value'
+                'SOME_OTHER_FIELD' => 'Some other value',
             ],
             'output' => [
                 'SOME_FIELD' => 'Some value',
-                'SOME_OTHER_FIELD' => 'Some other value'
+                'SOME_OTHER_FIELD' => 'Some other value',
             ],
         ],
         [
             'input' => [
-                'NAME' => 'Danny van Kooten'
+                'NAME' => 'Danny van Kooten',
             ],
             'output' => [
                 'NAME' => 'Danny van Kooten',
                 'FNAME' => 'Danny',
-                'LNAME' => 'van Kooten'
+                'LNAME' => 'van Kooten',
             ],
         ],
         [
             'input' => [
-                'NAME' => 'Danny'
+                'NAME' => 'Danny',
             ],
             'output' => [
                 'NAME' => 'Danny',
@@ -51,12 +52,12 @@ class FunctionsTest extends TestCase
     public function test_mc4wp_obfuscate_email_addresses()
     {
         // by no means should the two strings be similar
-        $string = 'Mailchimp API error: Recipient "johnnydoe@gmail.com" has too many recent signup requests';
+        $string     = 'Mailchimp API error: Recipient "johnnydoe@gmail.com" has too many recent signup requests';
         $obfuscated = mc4wp_obfuscate_email_addresses($string);
         self::assertNotEquals($string, $obfuscated);
 
         // less than 70% of the string should be similar
-        $string = 'johnnydoe@gmail.com';
+        $string     = 'johnnydoe@gmail.com';
         $obfuscated = mc4wp_obfuscate_email_addresses($string);
         similar_text($string, $obfuscated, $percentage);
         self::assertTrue($percentage <= 70);
@@ -98,7 +99,7 @@ class FunctionsTest extends TestCase
         self::assertEquals('abcd****************************-us1', mc4wp_obfuscate_string('abcdefghijklmnopqrstuvwxyzabcdef-us1'));
 
         // by no means should the two strings be similar
-        $string = 'super-secret-string';
+        $string     = 'super-secret-string';
         $obfuscated = mc4wp_obfuscate_string($string);
         self::assertNotEquals($string, $obfuscated);
 
@@ -112,7 +113,7 @@ class FunctionsTest extends TestCase
      */
     public function test_mc4wp_truncate_log_message()
     {
-        $message = str_repeat('a', 8193);
+        $message   = str_repeat('a', 8193);
         $truncated = mc4wp_truncate_log_message($message);
 
         self::assertEquals(8192, strlen($truncated));
@@ -210,7 +211,7 @@ class FunctionsTest extends TestCase
 
     public function test_mc4wp_get_request_ip_address()
     {
-        $_SERVER = [ ];
+        $_SERVER = [];
         self::assertEquals('', mc4wp_get_request_ip_address());
 
         $_SERVER = [ 'REMOTE_ADDR' => '127.0.0.1' ];

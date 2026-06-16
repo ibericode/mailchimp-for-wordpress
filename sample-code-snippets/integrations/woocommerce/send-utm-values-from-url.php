@@ -2,8 +2,8 @@
 
 // store URL values in a cookie
 add_action('init', function () {
-    $params = [ 'adid', 'marketer', 'publisher' ];
-    $cookie_path = '/';
+    $params         = [ 'adid', 'marketer', 'publisher' ];
+    $cookie_path    = '/';
     $cookie_expires = time() + (60 * 60 * 24 );
 
     foreach ($params as $key) {

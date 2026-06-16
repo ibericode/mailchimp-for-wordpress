@@ -16,7 +16,7 @@ If you use WPML you may want to use https://wordpress.org/plugins/mc4wp-wpml/ to
 
 
 add_filter('mc4wp_subscriber_data', function (MC4WP_MailChimp_Subscriber $subscriber) {
-    $language_code = sanitize_text_field($_POST[ 'language' ]);
+    $language_code        = sanitize_text_field($_POST[ 'language' ]);
     $subscriber->language = strtolower(substr($language_code, 0, 2));
     return $subscriber;
 });

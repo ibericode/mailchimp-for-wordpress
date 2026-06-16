@@ -343,7 +343,7 @@ class MC4WP_API_V3
         $subscriber_hash = $this->get_subscriber_hash($email_address);
         $resource        = sprintf('/lists/%s/members/%s', $list_id, $subscriber_hash);
         $data            = $this->client->delete($resource);
-        return ! ! $data;
+        return (bool) $data;
     }
 
     /**
@@ -499,7 +499,7 @@ class MC4WP_API_V3
     public function delete_ecommerce_store($store_id)
     {
         $resource = sprintf('/ecommerce/stores/%s', $store_id);
-        return ! ! $this->client->delete($resource);
+        return (bool) $this->client->delete($resource);
     }
 
     /**
@@ -578,7 +578,7 @@ class MC4WP_API_V3
     public function delete_ecommerce_store_customer($store_id, $customer_id)
     {
         $resource = sprintf('/ecommerce/stores/%s/customers/%s', $store_id, $customer_id);
-        return ! ! $this->client->delete($resource);
+        return (bool) $this->client->delete($resource);
     }
 
     /**
@@ -657,7 +657,7 @@ class MC4WP_API_V3
     public function delete_ecommerce_store_product($store_id, $product_id)
     {
         $resource = sprintf('/ecommerce/stores/%s/products/%s', $store_id, $product_id);
-        return ! ! $this->client->delete($resource);
+        return (bool) $this->client->delete($resource);
     }
 
     /**
@@ -741,7 +741,7 @@ class MC4WP_API_V3
     public function delete_ecommerce_store_product_variant($store_id, $product_id, $variant_id)
     {
         $resource = sprintf('/ecommerce/stores/%s/products/%s/variants/%s', $store_id, $product_id, $variant_id);
-        return ! ! $this->client->delete($resource);
+        return (bool) $this->client->delete($resource);
     }
 
     /**
@@ -817,7 +817,7 @@ class MC4WP_API_V3
      */
     public function delete_ecommerce_store_order($store_id, $order_id)
     {
-        return ! ! $this->client->delete(sprintf('/ecommerce/stores/%s/orders/%s', $store_id, $order_id));
+        return (bool) $this->client->delete(sprintf('/ecommerce/stores/%s/orders/%s', $store_id, $order_id));
     }
 
     /**
@@ -900,7 +900,7 @@ class MC4WP_API_V3
     public function delete_ecommerce_store_order_line($store_id, $order_id, $line_id)
     {
         $resource = sprintf('/ecommerce/stores/%s/orders/%s/lines/%s', $store_id, $order_id, $line_id);
-        return ! ! $this->client->delete($resource);
+        return (bool) $this->client->delete($resource);
     }
 
     /**
@@ -975,7 +975,7 @@ class MC4WP_API_V3
      */
     public function delete_ecommerce_store_cart($store_id, $cart_id)
     {
-        return ! ! $this->client->delete(sprintf('/ecommerce/stores/%s/carts/%s', $store_id, $cart_id));
+        return (bool) $this->client->delete(sprintf('/ecommerce/stores/%s/carts/%s', $store_id, $cart_id));
     }
 
     /**
@@ -1057,7 +1057,7 @@ class MC4WP_API_V3
     public function delete_ecommerce_store_cart_line($store_id, $cart_id, $line_id)
     {
         $resource = sprintf('/ecommerce/stores/%s/carts/%s/lines/%s', $store_id, $cart_id, $line_id);
-        return ! ! $this->client->delete($resource);
+        return (bool) $this->client->delete($resource);
     }
 
     /**
@@ -1134,7 +1134,7 @@ class MC4WP_API_V3
     public function delete_ecommerce_store_promo_rule($store_id, $promo_rule_id)
     {
         $resource = sprintf('/ecommerce/stores/%s/promo-rules/%s', $store_id, $promo_rule_id);
-        return ! ! $this->client->delete($resource);
+        return (bool) $this->client->delete($resource);
     }
 
     /**
@@ -1216,7 +1216,7 @@ class MC4WP_API_V3
     public function delete_ecommerce_store_promo_rule_promo_code($store_id, $promo_rule_id, $promo_code_id)
     {
         $resource = sprintf('/ecommerce/stores/%s/promo-rules/%s/promo-codes/%s', $store_id, $promo_rule_id, $promo_code_id);
-        return ! ! $this->client->delete($resource);
+        return (bool) $this->client->delete($resource);
     }
 
     /**
@@ -1344,7 +1344,7 @@ class MC4WP_API_V3
     public function delete_campaign($campaign_id)
     {
         $resource = sprintf('/campaigns/%s', $campaign_id);
-        return ! ! $this->client->delete($resource);
+        return (bool) $this->client->delete($resource);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 // move stylebuilders file to bundle
 $file = (string) get_option('mc4wp_custom_css_file', '');

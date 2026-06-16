@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 /**
  * Class MC4WP_User_Integration
@@ -47,6 +47,7 @@ abstract class MC4WP_User_Integration extends MC4WP_Integration
 
         /**
          * Filters the data for user-related integrations
+         *
          * @since 4.2
          * @param array $data
          * @param WP_User $user

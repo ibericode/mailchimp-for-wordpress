@@ -1,10 +1,10 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\Assert;
 
 /**
  * Class IntegrationTest
+ *
  * @ignore
  */
 class IntegrationTest extends TestCase
@@ -18,7 +18,7 @@ class IntegrationTest extends TestCase
 
         $instance = $this->getMockForAbstractClass('MC4WP_Integration', [
             $slug,
-            []
+            [],
         ]);
 
         self::assertEquals($slug, $instance->slug);
@@ -34,7 +34,7 @@ class IntegrationTest extends TestCase
         /** @var MC4WP_Integration $instance */
         $instance = $this->getMockForAbstractClass('MC4WP_Integration', [
             $slug,
-            []
+            [],
         ]);
         self::assertFalse($instance->checkbox_was_checked());
 
@@ -64,7 +64,7 @@ class IntegrationTest extends TestCase
 
             protected function get_log()
             {
-                return new class {
+                return new class () {
                     public function warning($message)
                     {
                     }

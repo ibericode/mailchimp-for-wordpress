@@ -1,8 +1,8 @@
 <?php
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 // fake post to prevent notices in wp_enqueue_scripts call
-$GLOBALS['post'] = new \WP_Post((object) [ 'filter' => 'raw' ]);
+$GLOBALS['post']     = new \WP_Post((object) [ 'filter' => 'raw' ]);
 $GLOBALS['wp_query'] = new \WP_Query();
 
 // render simple page with form in it.

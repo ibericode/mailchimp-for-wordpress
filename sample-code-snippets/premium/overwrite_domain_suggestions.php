@@ -27,7 +27,7 @@ add_filter(
             "gmail.com",
             "yahoo.com",
             "hotmail.com",
-            "aol.com"
+            "aol.com",
         ];
         return $domains;
     }

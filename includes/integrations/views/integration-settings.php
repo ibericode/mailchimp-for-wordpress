@@ -1,4 +1,4 @@
-<?php defined('ABSPATH') or exit;
+<?php defined('ABSPATH') || exit;
 /** @var MC4WP_Integration $integration */
 /** @var array $opts */
 ?>
@@ -23,10 +23,12 @@
 
             <div id="notice-additional-fields" class="notice notice-warning" style="display: none;">
                 <p><?php echo esc_html__('The selected Mailchimp audience requires custom fields, which may prevent this integration from working.', 'mailchimp-for-wp'); ?></p>
-                <p><?php
+                <p>
+                <?php
                     // translators: 1: URL to the MC4WP documentation on sending additional fields, 2: URL to the Mailchimp audience settings page.
-                    echo sprintf(wp_kses(__('Please ensure you <a href="%1$s">configure the plugin to send all required fields</a> or <a href="%2$s">log into your Mailchimp account</a> and make sure only the email & name fields are marked as required fields for the selected audiences.', 'mailchimp-for-wp'), [ 'a' => [ 'href' => [] ] ]), 'https://www.mc4wp.com/kb/send-additional-fields-from-integrations/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page', 'https://admin.mailchimp.com/lists/');
-                ?></p>
+                    printf(wp_kses(__('Please ensure you <a href="%1$s">configure the plugin to send all required fields</a> or <a href="%2$s">log into your Mailchimp account</a> and make sure only the email & name fields are marked as required fields for the selected audiences.', 'mailchimp-for-wp'), [ 'a' => [ 'href' => [] ] ]), 'https://www.mc4wp.com/kb/send-additional-fields-from-integrations/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page', 'https://admin.mailchimp.com/lists/');
+                ?>
+                </p>
             </div>
 
             <p>
@@ -51,10 +53,12 @@
                             <td class="nowrap integration-toggles-wrap">
                                 <label><input type="radio" name="mc4wp_integrations[<?php echo esc_attr($integration->slug); ?>][enabled]" value="1" <?php checked($opts['enabled'], 1); ?> /> <?php echo esc_html__('Yes', 'mailchimp-for-wp'); ?></label> &nbsp;
                                 <label><input type="radio" name="mc4wp_integrations[<?php echo esc_attr($integration->slug); ?>][enabled]" value="0" <?php checked($opts['enabled'], 0); ?> /> <?php echo esc_html__('No', 'mailchimp-for-wp'); ?></label>
-                                <p class="description"><?php
+                                <p class="description">
+                                <?php
                                     // translators: %s is the name of the integration (e.g. Contact Form 7, WooCommerce).
-                                    echo sprintf(esc_html__('Enable the %s integration? This will add a sign-up checkbox to the form.', 'mailchimp-for-wp'), esc_html($integration->name));
-                                ?></p>
+                                    printf(esc_html__('Enable the %s integration? This will add a sign-up checkbox to the form.', 'mailchimp-for-wp'), esc_html($integration->name));
+                                ?>
+                                </p>
                             </td>
                         </tr>
                         </tbody>
@@ -85,7 +89,7 @@
                                     echo esc_html__('Select "yes" if you want to subscribe people without asking them explicitly.', 'mailchimp-for-wp');
                                     echo '<br />';
 
-                                    echo sprintf(
+                                    printf(
                                         wp_kses(
                                             // translators: %s is a URL to the GDPR compliance documentation.
                                             __('<strong>Warning: </strong> enabling this may affect your <a href="%s">GDPR compliance</a>.', 'mailchimp-for-wp'),
@@ -132,7 +136,7 @@
                             } else {
                                 echo '<td>';
                                 // translators: %s is the URL to the Mailchimp for WordPress settings page.
-                                echo sprintf(wp_kses(__('No audiences found, <a href="%s">are you connected to Mailchimp</a>?', 'mailchimp-for-wp'), [ 'a' => [ 'href' => [] ] ]), esc_url(admin_url('admin.php?page=mailchimp-for-wp')));
+                                printf(wp_kses(__('No audiences found, <a href="%s">are you connected to Mailchimp</a>?', 'mailchimp-for-wp'), [ 'a' => [ 'href' => [] ] ]), esc_url(admin_url('admin.php?page=mailchimp-for-wp')));
                                 echo '</td>';
                             }
                             ?>
@@ -152,10 +156,12 @@
                             <th scope="row"><label for="mc4wp_checkbox_label"><?php echo esc_html__('Checkbox label text', 'mailchimp-for-wp'); ?></label></th>
                             <td>
                                 <input type="text"  class="widefat" id="mc4wp_checkbox_label" name="mc4wp_integrations[<?php echo esc_attr($integration->slug); ?>][label]" value="<?php echo esc_attr($opts['label']); ?>" required />
-                                <p class="description"><?php
+                                <p class="description">
+                                <?php
                                     // translators: %s is a list of allowed HTML tags (e.g. <strong><em><a>).
                                     printf(esc_html__('HTML tags like %s are allowed in the label text.', 'mailchimp-for-wp'), '<code>' . esc_html('<strong><em><a>') . '</code>');
-                                ?></p>
+                                ?>
+                                </p>
                             </td>
                         </tr>
                         <?php
@@ -179,7 +185,7 @@
                                     <?php
                                     echo esc_html__('Select "yes" if the checkbox should be pre-checked.', 'mailchimp-for-wp');
                                     echo '<br />';
-                                    echo sprintf(
+                                    printf(
                                         wp_kses(
                                             // translators: %s is a URL to the GDPR compliance documentation.
                                             __('<strong>Warning: </strong> enabling this may affect your <a href="%s">GDPR compliance</a>.', 'mailchimp-for-wp'),
@@ -280,7 +286,7 @@
                                 </label>
                                 <p class="description">
                                     <?php echo esc_html__('Select "no" if you want to add the selected interests to any previously selected interests when updating a subscriber.', 'mailchimp-for-wp'); ?>
-                                    <?php echo sprintf('<a href="%s" target="_blank">' . esc_html__('What does this do?', 'mailchimp-for-wp') . '</a>', 'https://www.mc4wp.com/kb/what-does-replace-groupings-mean/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page'); ?>
+                                    <?php printf('<a href="%s" target="_blank">' . esc_html__('What does this do?', 'mailchimp-for-wp') . '</a>', 'https://www.mc4wp.com/kb/what-does-replace-groupings-mean/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=integrations-page'); ?>
                                 </p>
                             </td>
                         </tr>

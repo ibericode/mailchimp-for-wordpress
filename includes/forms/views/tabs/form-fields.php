@@ -1,5 +1,5 @@
 <?php
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 add_thickbox(); ?>
 
@@ -39,7 +39,8 @@ add_thickbox(); ?>
 
 <?php submit_button(); ?>
 
-<p class="mc4wp-form-usage"><?php
+<p class="mc4wp-form-usage">
+<?php
     echo wp_kses(
         sprintf(
             // translators: %s is the shortcode to display the form (e.g. [mc4wp_form id=123]).
@@ -56,7 +57,8 @@ add_thickbox(); ?>
             ],
         ]
     );
-    ?></p>
+    ?>
+    </p>
 
 
 <?php // Content for Thickboxes ?>

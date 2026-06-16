@@ -1,4 +1,4 @@
-<?php defined('ABSPATH') or exit;
+<?php defined('ABSPATH') || exit;
 
 function _mc4wp_admin_translation_notice()
 {

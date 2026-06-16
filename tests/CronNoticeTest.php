@@ -84,7 +84,7 @@ class CronNoticeTest extends PHPUnit\Framework\TestCase
     public function test_show_outputs_nothing_when_dismissed(): void
     {
         global $mock_wp_next_scheduled, $mock_user_meta;
-        $mock_wp_next_scheduled   = time() - 90001;
+        $mock_wp_next_scheduled                           = time() - 90001;
         $mock_user_meta['1:_mc4wp_cron_notice_dismissed'] = 1;
 
         ob_start();

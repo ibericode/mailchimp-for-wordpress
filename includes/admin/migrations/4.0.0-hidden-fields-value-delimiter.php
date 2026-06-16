@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 /** @ignore */
 function _mc4wp_400_replace_comma_with_pipe($matches)

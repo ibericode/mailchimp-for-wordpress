@@ -6,7 +6,7 @@
 
 add_action('mc4wp_integration_subscribed', function ($integration, $email_address, $merge_vars) {
     // email variables
-    $email_to = 'email@email.com';
+    $email_to      = 'email@email.com';
     $email_subject = 'Someone subscribed through an integration';
     $email_message = sprintf('Integration %s used by %s', $integration->name, $email_address);
 

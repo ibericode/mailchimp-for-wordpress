@@ -29,8 +29,8 @@ function mc4wp_insert_after_paragraph($content, $insertion, $paragraph_number = 
 {
     static $closing_p = '</p>';
 
-    $paragraphs = explode($closing_p, $content);
-    $new_content = '';
+    $paragraphs   = explode($closing_p, $content);
+    $new_content  = '';
     $target_index = $paragraph_number - 1;
 
     foreach ($paragraphs as $index => $paragraph) {

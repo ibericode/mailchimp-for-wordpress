@@ -1,4 +1,4 @@
-<?php defined('ABSPATH') or exit; ?>
+<?php defined('ABSPATH') || exit; ?>
 
 <p>
     <?php esc_html_e('To get a custom integration to work, include the following HTML in the form you are trying to integrate with.', 'mailchimp-for-wp'); ?>

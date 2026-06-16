@@ -16,13 +16,13 @@ class FieldGuesserTest extends TestCase
     {
         $data = [
             'prefix-foo' => 'bar',
-            'foo' => 'barbar'
+            'foo' => 'barbar',
         ];
 
         $instance = new MC4WP_Field_Guesser($data);
         self::assertEquals(
             [
-            'FOO' => 'bar'
+            'FOO' => 'bar',
             ],
             $instance->namespaced('prefix-')
         );
@@ -36,7 +36,7 @@ class FieldGuesserTest extends TestCase
         $data = [
             'name' => 'Danny van Kooten',
             'first-name' => 'Danny',
-            'lname' => 'van Kooten'
+            'lname' => 'van Kooten',
         ];
 
         $instance = new MC4WP_Field_Guesser($data);
@@ -44,7 +44,7 @@ class FieldGuesserTest extends TestCase
             [
                 'NAME' => 'Danny van Kooten',
                 'FNAME' => 'Danny',
-                'LNAME' => "van Kooten"
+                'LNAME' => "van Kooten",
             ],
             $instance->guessed()
         );
@@ -58,11 +58,11 @@ class FieldGuesserTest extends TestCase
         $data = [
             'name' => 'Danny van Kooten',
             'prefix-email' => 'johndoe@email.com',
-            'foo' => 'bar'
+            'foo' => 'bar',
         ];
 
         $instance = new MC4WP_Field_Guesser($data);
-        $result = $instance->combine([ 'namespaced', 'guessed' ]);
+        $result   = $instance->combine([ 'namespaced', 'guessed' ]);
 
         self::assertEquals($result['NAME'], $data['name']);
         self::assertEquals($result['EMAIL'], $data['prefix-email']);
@@ -71,11 +71,11 @@ class FieldGuesserTest extends TestCase
         // test order (latter overwrites former)
         $data = [
             'name' => 'Danny van Kooten',
-            'mc4wp-name' => 'Danny Janssen'
+            'mc4wp-name' => 'Danny Janssen',
         ];
 
         $instance = new MC4WP_Field_Guesser($data);
-        $result = $instance->combine([ 'namespaced', 'guessed' ]);
+        $result   = $instance->combine([ 'namespaced', 'guessed' ]);
         self::assertEquals($result['NAME'], $data['name']);
 
         $result = $instance->combine([ 'guessed', 'namespaced' ]);

@@ -11,8 +11,8 @@ Author URI: https://mc4wp.com/
 
 if (is_admin() && isset($_GET['mc4wp-fetch-user-subscriber-status'])) {
     add_action('admin_init', function () {
-        $offset = isset($_GET['offset']) ? (int) $_GET['offset'] : 0;
-        $limit = isset($_GET['limit']) ? (int) $_GET['limit'] : 20; // TODO: Change this
+        $offset            = isset($_GET['offset']) ? (int) $_GET['offset'] : 0;
+        $limit             = isset($_GET['limit']) ? (int) $_GET['limit'] : 20; // TODO: Change this
         $mailchimp_list_id = isset($_GET['mailchimp_list_id']) ? $_GET['mailchimp_list_id'] : "bc502db480";
 
         $api = mc4wp_get_api_v3();
@@ -35,7 +35,7 @@ if (is_admin() && isset($_GET['mc4wp-fetch-user-subscriber-status'])) {
             try {
                 // make remote API call
                 $subscriber = $api->get_list_member($mailchimp_list_id, $user->user_email);
-                $opted_in = ( $subscriber && in_array($subscriber->status, [ 'pending', 'subscribed' ]) );
+                $opted_in   = ( $subscriber && in_array($subscriber->status, [ 'pending', 'subscribed' ]) );
             } catch (MC4WP_API_Resource_Not_Found_Exception $e) {
                 $opted_in = false;
             } catch (Exception $e) {

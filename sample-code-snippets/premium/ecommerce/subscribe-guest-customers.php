@@ -46,9 +46,9 @@ if (defined('WP_CLI') && WP_CLI) {
                 $total_guest_orders = count($guest_orders);
                 WP_CLI::log(sprintf('%d guest orders found.', $total_guest_orders));
 
-                $mailchimp = new MC4WP_MailChimp();
+                $mailchimp         = new MC4WP_MailChimp();
                 $mailchimp_list_id = $assoc_args['list_id'];
-                $args = [
+                $args              = [
                     'status'        => 'pending', // default: "pending", set to "subscribed" to skip double opt-in (not recommended)
                 ];
 
@@ -56,7 +56,7 @@ if (defined('WP_CLI') && WP_CLI) {
 
                 foreach ($guest_orders as $order_id) {
                     try {
-                        $order = wc_get_order($order_id);
+                        $order         = wc_get_order($order_id);
                         $email_address = $order->get_billing_email();
 
                         if (empty($email_address)) {

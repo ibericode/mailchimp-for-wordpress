@@ -10,12 +10,12 @@ add_action('wp_ajax_my_mailchimp_subscribe', function () {
     // get API class instance
     $api = mc4wp_get_service('api');
 
-    $list_id = 'your-list-id-here'; // the mailchimp list to subscribe to
+    $list_id      = 'your-list-id-here'; // the mailchimp list to subscribe to
     $double_optin = true;           // whether to use double opt-in or not
 
     // get vars from POST data
     $email_address = $_POST['email'];
-    $first_name = $_POST['first_name'];
+    $first_name    = $_POST['first_name'];
 
     try {
         $subscriber = $api->add_list_member($list_id, [
@@ -23,7 +23,7 @@ add_action('wp_ajax_my_mailchimp_subscribe', function () {
             'status' => $double_optin ? 'pending' : 'subscribed',
             'merge_fields' => [
                 'FNAME' => $first_name,
-            ]
+            ],
         ]);
     } catch (MC4WP_API_Exception $e) {
         // an error occured

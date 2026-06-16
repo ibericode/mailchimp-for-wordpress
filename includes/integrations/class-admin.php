@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 
 /**
@@ -187,7 +187,7 @@ class MC4WP_Integration_Admin
         try {
             $integration = $this->integrations->get($slug);
         } catch (Exception $e) {
-            echo sprintf('<h3>Integration not found.</h3><p>No integration with slug <strong>%s</strong> was found.</p>', esc_html($slug));
+            printf('<h3>Integration not found.</h3><p>No integration with slug <strong>%s</strong> was found.</p>', esc_html($slug));
             return;
         }
 

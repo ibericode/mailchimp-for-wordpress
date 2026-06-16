@@ -167,7 +167,7 @@ class WPFormsDoubleOptinTest extends TestCase
      */
     public function test_listen_to_wpforms_triggers_subscription()
     {
-        $fields = $this->build_fields(2);
+        $fields    = $this->build_fields(2);
         $form_data = $this->build_form_data(2, '0');
 
         $mock = $this->getMockBuilder(MC4WP_WPForms_Integration::class)
@@ -188,7 +188,7 @@ class WPFormsDoubleOptinTest extends TestCase
      */
     public function test_listen_to_wpforms_skips_unchecked()
     {
-        $fields = [
+        $fields    = [
             1 => [
                 'type'  => 'email',
                 'value' => 'test@example.com',

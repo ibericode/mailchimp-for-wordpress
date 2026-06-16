@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 add_filter('mc4wp_form_data', 'mc4wp_add_name_data', 60);
 add_filter('mc4wp_integration_data', 'mc4wp_add_name_data', 60);

@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 
 /**
@@ -176,6 +176,7 @@ class MC4WP_Forms_Admin
 
     /**
      * Saves a form to the database
+     *
      * @param int $form_id
      * @return int
      */
@@ -356,7 +357,7 @@ class MC4WP_Forms_Admin
         }
 
         if (headers_sent()) {
-            echo sprintf('<meta http-equiv="refresh" content="0;url=%s" />', esc_url($redirect_url));
+            printf('<meta http-equiv="refresh" content="0;url=%s" />', esc_url($redirect_url));
         } else {
             wp_redirect($redirect_url);
         }

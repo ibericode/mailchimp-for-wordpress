@@ -1,6 +1,6 @@
 <?php
 
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 // get options
 $form_options = get_option('mc4wp_lite_form', []);

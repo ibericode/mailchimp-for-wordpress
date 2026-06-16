@@ -1,5 +1,5 @@
 <?php
-defined('ABSPATH') or exit;
+defined('ABSPATH') || exit;
 
 $tags = mc4wp_get_service('forms')->get_tags();
 ?>
