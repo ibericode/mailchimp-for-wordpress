@@ -606,6 +606,7 @@ abstract class MC4WP_Integration
      */
     public function get_data()
     {
+        // phpcs:ignore WordPress.Security.NonceVerification -- explicitly not using a nonce here
         return array_merge((array) $_GET, (array) $_POST);
     }
 

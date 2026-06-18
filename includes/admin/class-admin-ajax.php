@@ -46,7 +46,7 @@ class MC4WP_Admin_Ajax
 
         $list_ids  = array_map(function ($raw) {
             return preg_replace('/[^a-z0-9]/', '', $raw);
-        }, (array) explode(',', $_GET['ids']));
+        }, (array) explode(',', wp_unslash($_GET['ids'])));
         $data      = [];
         $mailchimp = new MC4WP_MailChimp();
         foreach ($list_ids as $list_id) {

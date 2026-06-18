@@ -44,7 +44,7 @@ class MC4WP_Queue
      */
     protected function load()
     {
-        if (! is_null($this->jobs)) {
+        if ($this->jobs !== null) {
             return;
         }
 
@@ -183,7 +183,7 @@ class MC4WP_Queue
      */
     public function save()
     {
-        if (! $this->dirty || is_null($this->jobs)) {
+        if (! $this->dirty || $this->jobs === null) {
             return false;
         }
 

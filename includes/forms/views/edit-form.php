@@ -1,5 +1,13 @@
 <?php defined('ABSPATH') || exit;
 
+
+/**
+ * @var MC4WP_Form $form
+ * @var string $active_tab
+ * @var array $opts
+ * @var int $form_id
+ */
+
 $tabs = [
     'fields'     => esc_html__('Fields', 'mailchimp-for-wp'),
     'messages'   => esc_html__('Messages', 'mailchimp-for-wp'),

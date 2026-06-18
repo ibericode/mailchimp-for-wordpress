@@ -35,8 +35,8 @@ class MC4WP_Form_Previewer
             ob_end_clean();
         }
 
-
-        $form_id = (int) $_GET['mc4wp_preview_form'];
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+        $form_id = (int) ($_GET['mc4wp_preview_form'] ?? 0);
         status_header(200);
 
         require __DIR__ . '/views/preview.php';

@@ -99,6 +99,7 @@ class MC4WP_Gravity_Forms_Field extends GF_Field
             $id = $form_id . '_' . $this->id;
         }
 
+        // phpcs:ignore WordPress.Security.NonceVerification -- we leave it to Gravity Forms 
         if (! isset($_GET['gf_token']) && empty($_POST) && rgar($choice, 'isSelected')) {
             $checked = "checked='checked'";
         } elseif (is_array($value) && RGFormsModel::choice_value_match($this, $choice, rgget($input_id, $value))) {

@@ -164,7 +164,7 @@ class MC4WP_Integration_Admin
     public function show_integrations_page()
     {
         if (! empty($_GET['integration'])) {
-            $this->show_integration_settings_page($_GET['integration']);
+            $this->show_integration_settings_page(wp_unslash($_GET['integration']));
             return;
         }
 

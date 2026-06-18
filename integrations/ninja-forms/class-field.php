@@ -80,7 +80,7 @@ class MC4WP_Ninja_Forms_Field extends NF_Abstracts_Input
     {
         $errors = parent::validate($field, $data);
 
-        if (isset($field['required']) && 1 == intval($field['required']) && empty($field['value'])) {
+        if (isset($field['required']) && 1 == (int) $field['required'] && empty($field['value'])) {
             $errors['slug']    = 'required-error';
             $errors['message'] = esc_html__('This field is required.', 'mailchimp-for-wp');
         }

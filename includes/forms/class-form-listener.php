@@ -23,20 +23,22 @@ class MC4WP_Form_Listener
 
     public function action_init()
     {
-        if (empty($_POST['_mc4wp_form_id'])) {
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing -- forms are for logged-out visitors, explicitly not using a nonce here
+        $form_data = $_POST;
+        if (empty($form_data['_mc4wp_form_id'])) {
             return;
         }
 
         // get form instance
         try {
-            $form_id = (int) $_POST['_mc4wp_form_id'];
+            $form_id = (int) $form_data['_mc4wp_form_id'];
             $form    = mc4wp_get_form($form_id);
         } catch (Exception $e) {
             return;
         }
 
         // sanitize request data
-        $request_data = mc4wp_sanitize_deep($_POST);
+        $request_data = mc4wp_sanitize_deep($form_data);
 
         // bind request to form & validate
         $form->handle_request($request_data);
@@ -288,7 +290,7 @@ class MC4WP_Form_Listener
 
     private function request_wants_json()
     {
-        if (isset($_SERVER['HTTP_ACCEPT']) && false !== strpos($_SERVER['HTTP_ACCEPT'], 'application/json')) {
+        if (isset($_SERVER['HTTP_ACCEPT']) && false !== strpos(wp_unslash($_SERVER['HTTP_ACCEPT']), 'application/json')) {
             return true;
         }
 

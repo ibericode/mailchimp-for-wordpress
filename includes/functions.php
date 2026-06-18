@@ -194,7 +194,8 @@ function mc4wp_get_request_url(): string
     $site_request_uri = $wp->request;
 
     // fix for IIS servers using index.php in the URL
-    if (false !== strpos($_SERVER['REQUEST_URI'], '/index.php/' . $site_request_uri)) {
+    $request_path = wp_unslash($_SERVER['REQUEST_URI'] ?? '');
+    if (false !== strpos($request_path, '/index.php/' . $site_request_uri)) {
         $site_request_uri = 'index.php/' . $site_request_uri;
     }
 
@@ -208,7 +209,7 @@ function mc4wp_get_request_url(): string
  */
 function mc4wp_get_request_path(): string
 {
-    return (string) ($_SERVER['REQUEST_URI'] ?? '');
+    return (string) wp_unslash($_SERVER['REQUEST_URI'] ?? '');
 }
 
 /**
@@ -219,11 +220,11 @@ function mc4wp_get_request_path(): string
 function mc4wp_get_request_ip_address()
 {
     if (isset($_SERVER['X-Forwarded-For'])) {
-        $ip_address = $_SERVER['X-Forwarded-For'];
+        $ip_address = wp_unslash($_SERVER['X-Forwarded-For']);
     } elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        $ip_address = wp_unslash($_SERVER['HTTP_X_FORWARDED_FOR']);
     } elseif (isset($_SERVER['REMOTE_ADDR'])) {
-        $ip_address = $_SERVER['REMOTE_ADDR'];
+        $ip_address = wp_unslash($_SERVER['REMOTE_ADDR']);
     }
 
     if (isset($ip_address)) {
@@ -561,13 +562,13 @@ function mc4wp_refresh_mailchimp_lists()
 * Get element from array, allows for dot notation eg: "foo.bar"
 *
 * @param array $array
-* @param string $key
+* @param string|null $key
 * @param mixed $default
 * @return mixed
 */
 function mc4wp_array_get($array, $key, $default = null)
 {
-    if (is_null($key)) {
+    if ($key === null) {
         return $array;
     }
 

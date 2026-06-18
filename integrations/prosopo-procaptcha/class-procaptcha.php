@@ -182,10 +182,9 @@ class MC4WP_Procaptcha
      */
     protected function is_human_made_request()
     {
-        $token = $_POST[self::FORM_FIELD_NAME] ?? '';
-        $token = true === is_string($token) ?
-            $token :
-            '';
+        // phpcs:ignore WordPress.Security.NonceVerification -- explicitly not using a nonce here
+        $token = wp_unslash($_POST[self::FORM_FIELD_NAME] ?? '');
+        $token = true === is_string($token) ? $token : '';
 
         // bail early if the token is empty.
         if ('' === $token) {

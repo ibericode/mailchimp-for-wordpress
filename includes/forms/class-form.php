@@ -412,7 +412,7 @@ class MC4WP_Form
 
         // perform some basic anti-spam checks
         // User-Agent header should be set and not bot-like
-        if (empty($_SERVER['HTTP_USER_AGENT']) || preg_match('/bot|crawl|spider|seo|lighthouse|facebookexternalhit|preview/', strtolower($_SERVER['HTTP_USER_AGENT']))) {
+        if (empty($_SERVER['HTTP_USER_AGENT']) || preg_match('/bot|crawl|spider|seo|lighthouse|facebookexternalhit|preview/i', wp_unslash($_SERVER['HTTP_USER_AGENT']))) {
             $errors[] = 'spam.user_agent';
             // _mc4wp_timestamp field should be between 30 days ago (to deal with aggressively cached pages) and 2 seconds ago
         } elseif (! isset($this->raw_data['_mc4wp_timestamp']) || $this->raw_data['_mc4wp_timestamp'] < (time() - DAY_IN_SECONDS * 90) || $this->raw_data['_mc4wp_timestamp'] > ( time() - 2 )) {

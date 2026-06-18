@@ -11,9 +11,7 @@ class MC4WP_Admin_Tools
             return '';
         }
 
-        $prefix = 'mailchimp-for-wp';
-        $page   = ltrim(substr($_GET['page'], strlen($prefix)), '-');
-        return $page;
+        return ltrim(substr(wp_unslash($_GET['page']), strlen('mailchimp-for-wp')), '-');
     }
 
     /**
@@ -24,8 +22,8 @@ class MC4WP_Admin_Tools
     public function on_plugin_page($page = null)
     {
         // any settings page
-        if (is_null($page)) {
-            return isset($_GET['page']) && strpos($_GET['page'], 'mailchimp-for-wp') === 0;
+        if ($page === null) {
+            return isset($_GET['page']) && strpos(wp_unslash($_GET['page']), 'mailchimp-for-wp') === 0;
         }
 
         // specific page

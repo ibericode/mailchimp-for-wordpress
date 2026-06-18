@@ -164,9 +164,9 @@ class MC4WP_API_V3_Client
             'User-Agent'    => sprintf('mc4wp/%s; WordPress/%s; %s', MC4WP_VERSION, $wp_version, home_url()),
         ];
 
-        // Copy Accept-Language from browser headers
+        // Copy Accept-Language from browser headers because Mailchimp uses is to determine subscriber language
         if (! empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            $headers['Accept-Language'] = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+            $headers['Accept-Language'] = wp_unslash($_SERVER['HTTP_ACCEPT_LANGUAGE']);
         }
 
         return $headers;

@@ -197,7 +197,7 @@ abstract class MC4WP_Dynamic_Content_Tags
         $default = isset($args['default']) ? $args['default'] : '';
 
         if (isset($_COOKIE[$name])) {
-            return $_COOKIE[$name];
+            return wp_unslash($_COOKIE[$name]);
         }
 
         return $default;
@@ -248,15 +248,20 @@ abstract class MC4WP_Dynamic_Content_Tags
      */
     protected function get_email()
     {
-        if (! empty($_REQUEST['EMAIL'])) {
-            return sanitize_email($_REQUEST['EMAIL']);
+        // first, try to get from request data
+        $keys = [ 'EMAIL', 'email', 'email_address', 'email-address' ];
+        foreach ($keys as $k) {
+            if (! empty($_REQUEST[$k])) {
+                return sanitize_email(wp_unslash($_REQUEST[$k]));
+            }
         }
 
-        // then , try logged-in user
+        // then, try logged-in user
         if (is_user_logged_in()) {
             $user = wp_get_current_user();
             return $user->user_email;
         }
+
 
         // TODO: Read from cookie? Or add $_COOKIE support to {data} tag?
         return '';

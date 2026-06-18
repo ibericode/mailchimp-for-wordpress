@@ -118,11 +118,11 @@ class MC4WP_Admin
         }
 
         // verify nonce
-        if (! isset($_REQUEST['_wpnonce']) || false === wp_verify_nonce($_REQUEST['_wpnonce'], '_mc4wp_action')) {
+        if (! isset($_REQUEST['_wpnonce']) || false === wp_verify_nonce(wp_unslash($_REQUEST['_wpnonce']), '_mc4wp_action')) {
             wp_nonce_ays('_mc4wp_action');
         }
 
-        $action = (string) $_REQUEST['_mc4wp_action'];
+        $action = (string) wp_unslash($_REQUEST['_mc4wp_action']);
 
         /**
          * Allows you to hook into requests containing `_mc4wp_action` => action name.
@@ -138,9 +138,9 @@ class MC4WP_Admin
 
         // redirect back to where we came from (to prevent double submit)
         if (! empty($_POST['_redirect_to'])) {
-            $redirect_url = $_POST['_redirect_to'];
+            $redirect_url = wp_unslash($_POST['_redirect_to']);
         } elseif (! empty($_GET['_redirect_to'])) {
-            $redirect_url = $_GET['_redirect_to'];
+            $redirect_url = wp_unslash($_GET['_redirect_to']);
         } else {
             $redirect_url = remove_query_arg('_mc4wp_action');
         }

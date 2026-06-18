@@ -67,6 +67,11 @@ function stripslashes_deep($data)
 }
 
 /** @ignore */
+function wp_unslash($data) { 
+    return $data; 
+}
+
+/** @ignore */
 function map_deep($value, $callback)
 {
     if (is_array($value)) {

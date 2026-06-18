@@ -1,60 +1,80 @@
 <?xml version="1.0"?>
 <ruleset name="rules">
   <description>Code standard rules for Mailchimp for WordPress</description>
+
   <arg name="colors" />
-  <arg name="extensions" value="php"/>
-  <arg name="parallel" value="8"/>
-  <file>uninstall.php</file>
-  <file>autoload.php</file>
-  <file>includes/</file>
-  <file>integrations/</file>
-  <file>config/</file>
-  <file>tests/</file>
-  <file>sample-code-snippets/</file>
-  <rule ref="Generic.Arrays.DisallowLongArraySyntax.Found" />
+  <arg name="extensions" value="php" />
+  <arg name="parallel" value="8" />
+  <arg value="ns" />
+
+  <file>.</file>
+  <exclude-pattern>vendor</exclude-pattern>
+  <exclude-pattern>node_modules</exclude-pattern>
+  <exclude-pattern>\.git</exclude-pattern>
+
+  <config name="minimum_wp_version" value="5.3" />
+
+  <!-- PSR12 formatting -->
   <rule ref="PSR12">
+    <exclude name="PSR1.Files.SideEffects.FoundWithSymbols" />
     <exclude name="PSR1.Methods.CamelCapsMethodName" />
     <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace" />
     <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
     <exclude name="Generic.Files.LineLength.TooLong" />
-    <exclude name="PSR1.Files.SideEffects.FoundWithSymbols" />
   </rule>
-  <rule ref="WordPress">
-      <exclude-pattern>sample-code-snippets/*\.php$</exclude-pattern>
-      <exclude name="PEAR.Functions.FunctionCallSignature"/>
-      <exclude name="PEAR.NamingConventions.ValidClassName.Invalid"/>
-      <exclude name="Generic.Commenting.DocComment.MissingShort"/>
-      <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedCatch"/>
-      <exclude name="Generic.Classes.OpeningBraceSameLine.BraceOnNewLine"/>
-      <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie.BraceOnNewLine"/>
-      <exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing.SpaceAfterOpen"/>
-      <exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing.SpaceBeforeClose"/>
-      <exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed"/>
-      <exclude name="NormalizedArrays.Arrays.ArrayBraceSpacing.SpaceAfterArrayOpenerSingleLine"/>
-      <exclude name="NormalizedArrays.Arrays.ArrayBraceSpacing.SpaceBeforeArrayCloserSingleLine"/>
-      <exclude name="Universal.Arrays.DisallowShortArraySyntax.Found"/>
-      <exclude name="Universal.Operators.DisallowShortTernary.Found"/>
-      <exclude name="Universal.ControlStructures.DisallowLonelyIf.Found"/>
-      <exclude name="Universal.WhiteSpace.AnonClassKeywordSpacing.Incorrect"/>
-      <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingAfterOpen"/>
-      <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingBeforeClose"/>
-      <exclude name="Squiz.Commenting"/>
-      <exclude name="Squiz.PHP.DisallowSizeFunctionsInLoops.Found"/>
-      <exclude name="Squiz.Strings.DoubleQuoteUsage.NotRequired"/>
-      <exclude name="WordPress.Arrays"/>
-      <exclude name="WordPress.WhiteSpace"/>
-      <exclude name="WordPress.WP.GlobalVariablesOverride.Prohibited"/>
-      <exclude name="WordPress.WP.DeprecatedFunctions.get_settingsFound"/>
-      <exclude name="WordPress.WP.EnqueuedResources.NonEnqueuedScript"/>
-      <exclude name="WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet"/>
-      <exclude name="WordPress.NamingConventions"/>
-      <exclude name="WordPress.Files"/>
-      <exclude name="WordPress.PHP.YodaConditions"/>
-      <exclude name="WordPress.PHP.POSIXFunctions"/>
-      <exclude name="WordPress.Security.EscapeOutput.ExceptionNotEscaped"/>
-      <exclude name="WordPress.Security.ValidatedSanitizedInput.MissingUnslash"/>
-      <exclude name="WordPress.Security.ValidatedSanitizedInput.InputNotValidated"/>
-      <exclude name="WordPress.Security.ValidatedSanitizedInput.InputNotSanitized"/>
-      <exclude name="WordPress.Security.NonceVerification.Missing"/>
-    </rule>
+   
+  <!-- Generic PHP sniffs-->
+  <rule ref="Generic.Arrays.DisallowLongArraySyntax.Found" />
+  <rule ref="Generic.PHP.Syntax" />
+  <rule ref="Generic.PHP.DeprecatedFunctions" />
+  <rule ref="Generic.PHP.ForbiddenFunctions">
+    <properties>
+      <property name="forbiddenFunctions" type="array">
+        <element key="create_function" value="null" />
+        <element key="eval" value="null" />
+        <element key="sizeof" value="count" />
+        <element key="delete" value="unset" />
+        <element key="print" value="echo" />
+        <element key="mt_rand" value="random_int"/>
+        <element key="rand" value="random_int"/>
+
+        <!-- Debugging functions -->
+        <element key="var_dump" value="null" />
+        <element key="each" value="null" />
+        <element key="ray" value="null" />
+        <element key="dd" value="null" />
+        <element key="die" value="null" />
+        
+        <!-- Type checking and converting function -->
+        <element key="boolval" value="(bool)"/>
+        <element key="doubleval" value="(float)"/>
+        <element key="doubleval" value="floatval"/>
+        <element key="floatval" value="(float)"/>
+        <element key="intval" value="(int)"/>
+        <element key="is_double" value="is_float"/>
+        <element key="is_integer" value="is_int"/>
+        <element key="is_long" value="is_int"/>
+        <element key="is_null" value="null"/>
+        <element key="is_real" value="is_float"/>
+        <element key="strval" value="(string)"/>
+      </property>
+    </properties>
+  </rule>
+
+  <!-- WordPress sniffs -->
+  <rule ref="WordPress.DB" />
+  <rule ref="WordPress.WP.I18n">
+    <properties>
+      <property name="text_domain" type="array">
+        <element value="mailchimp-for-wp" />
+      </property>
+    </properties>
+  </rule>
+  <rule ref="WordPress.Security">
+    <exclude-pattern>sample-code-snippets/</exclude-pattern>
+    <exclude name="WordPress.Security.ValidatedSanitizedInput.InputNotSanitized"/>
+  </rule>
+  <rule ref="WordPress.NamingConventions">
+    <exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase"/>
+  </rule>
 </ruleset>

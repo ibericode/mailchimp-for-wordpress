@@ -41,7 +41,7 @@ $css_options = apply_filters('mc4wp_admin_form_css_options', $css_options);
                         foreach ($options as $key => $option) {
                             printf('<option value="%s" %s>%s</option>', esc_attr($key), selected($opts['css'], $key, false), esc_html($option));
                         }
-                        print( '</optgroup>' );
+                        echo '</optgroup>';
                     } else {
                         printf('<option value="%s" %s>%s</option>', esc_attr($key), selected($opts['css'], $key, false), esc_html($option));
                     }
