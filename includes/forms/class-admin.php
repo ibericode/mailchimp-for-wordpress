@@ -184,6 +184,7 @@ class MC4WP_Forms_Admin
      * Saves a form to the database
      *
      * @param int $form_id
+     * @param array $data The form data. Expects slashed content.
      * @return int
      */
     private function save_form($form_id, array $data)
