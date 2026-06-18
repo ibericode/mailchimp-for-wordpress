@@ -30,8 +30,7 @@ $tabs = apply_filters('mc4wp_admin_edit_form_tabs', $tabs);
         <a href="<?php echo esc_url(admin_url('admin.php?page=mailchimp-for-wp')); ?>">Mailchimp for WordPress</a> &rsaquo;
         <a href="<?php echo esc_url(admin_url('admin.php?page=mailchimp-for-wp-forms')); ?>"><?php echo esc_html__('Forms', 'mailchimp-for-wp'); ?></a>
         &rsaquo;
-        <span class="current-crumb"><strong><?php echo esc_html__('Form', 'mailchimp-for-wp'); ?> <?php echo esc_html($form_id); ?>
-                | <?php echo esc_html($form->name); ?></strong></span>
+        <span class="current-crumb"><strong><?php echo esc_html__('Form', 'mailchimp-for-wp'); ?> <?php echo esc_html((string) $form_id); ?> <?php echo esc_html($form->name); ?></strong></span>
     </p>
 
     <div>
@@ -50,7 +49,7 @@ $tabs = apply_filters('mc4wp_admin_edit_form_tabs', $tabs);
             <input type="submit" style="display: none;" />
             <input type="hidden" name="_mc4wp_action" value="edit_form"/>
             <?php wp_nonce_field('_mc4wp_action', '_wpnonce'); ?>
-            <input type="hidden" name="mc4wp_form_id" value="<?php echo esc_attr($form->ID); ?>"/>
+            <input type="hidden" name="mc4wp_form_id" value="<?php echo esc_attr((string) $form->ID); ?>"/>
 
             <div id="titlediv" class="mc4wp-margin-s">
                 <div id="titlewrap">
