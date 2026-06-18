@@ -244,7 +244,7 @@ class MC4WP_Forms_Admin
         $data['content'] = preg_replace('/<\/?form\b[^>]{0,1024}>/i', '', $data['content']);
 
         // replace lowercased name="name" to prevent 404
-        $data['content'] = str_ireplace(' name="name"', ' name="NAME"', $data['content']);
+        $data['content'] = str_ireplace(' name=\"name\"', ' name=\"NAME\"', $data['content']);
 
         // sanitize text fields
         $data['settings']['redirect'] = sanitize_text_field($data['settings']['redirect']);
