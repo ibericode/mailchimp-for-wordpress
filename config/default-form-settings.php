@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') || exit;
+
 return [
     'css'                => 0,
     'double_optin'       => 1,

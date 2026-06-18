@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') || exit;
+
 return [
     'subscribed'             => [
         'type' => 'success',
