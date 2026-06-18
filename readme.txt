@@ -86,16 +86,20 @@ If you can't find an answer there, please look through the [plugin support forum
 
 == Frequently Asked Questions ==
 
-#### Where can I find my Mailchimp API key?
-You can [find your API key here](http://kb.mailchimp.com/accounts/management/about-api-keys#Find-or-Generate-Your-API-Key)
+= Where can I find my Mailchimp API key? =
 
-#### How to display a form in posts or pages?
+You can [find your Mailchimp API key here](http://kb.mailchimp.com/accounts/management/about-api-keys#Find-or-Generate-Your-API-Key)
+
+= How to display a form in posts or pages? =
+
 Use the `[mc4wp_form]` shortcode or the Gutenberg block.
 
-#### How to display a form in widget areas like the sidebar or footer?
+= How to display a form in widget areas like the sidebar or footer? =
+
 Go to **Appearance > Widgets** and use the **Mailchimp for WP Form** widget that comes with the plugin.
 
-#### How to add a sign-up checkbox to my Contact Form 7 form?
+= How to add a sign-up checkbox to my Contact Form 7 form? =
+
 Use the following shortcode in your CF7 form to display a newsletter sign-up checkbox.
 
 `
@@ -104,12 +108,14 @@ Use the following shortcode in your CF7 form to display a newsletter sign-up che
 
 Our knowledge base has more information on [connecting Contact Form 7 and Mailchimp](https://www.mc4wp.com/kb/subscribe-mailchimp-contact-form-7/).
 
-#### The form shows a success message but subscribers are not added to my list(s)?
+=  The form shows a success message but subscribers are not added to my list(s)? =
+
 If the form shows a success message, there is no doubt that the sign-up request succeeded. Mailchimp could have a slight delay sending the confirmation email though. Please check again in a few minutes (sometimes hours) and don't forget to check your junk folder too.
 
 When you have double opt-in disabled, new subscribers will be seen as *imports* by Mailchimp. They will not show up in your daily digest emails or statistics. [We always recommend leaving double opt-in enabled](http://blog.mailchimp.com/double-opt-in-vs-single-opt-in-stats/).
 
-#### How can I style the sign-up form?
+= How can I style the sign-up form? =
+
 You can use custom CSS to style the sign-up form if you do not like the themes that come with the plugin. The following selectors can be used to target the various form elements.
 
 `
@@ -126,19 +132,19 @@ You can use custom CSS to style the sign-up form if you do not like the themes t
 
 You can add your custom CSS to your theme stylesheet or (easier) by using a plugin like [Simple Custom CSS](https://wordpress.org/plugins/simple-custom-css/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=after-css-link)
 
-#### How do I show a sign-up form in a pop-up?
+= How do I show a sign-up form in a pop-up? =
 
 We recommend the [Boxzilla pop-up plugin](https://wordpress.org/plugins/boxzilla/) for this. You can use the form shortcode in your pop-up box to show a sign-up form.
 
-### How do I subscribe from my WooCommerce checkout form?
+= How do I subscribe from my WooCommerce checkout form? =
 
 You can use our WooCommerce integration for that. [How to subscribe to Mailchimp from the WooCommerce checkout form](https://www.mc4wp.com/kb/connect-woocommerce-store-mailchimp/).
 
-### How to connect my WooCommerce store with Mailchimp?
+= How to connect my WooCommerce store with Mailchimp? =
 
 You can find instructions for [connecting your WooCommerce store with Mailchimp](https://www.mc4wp.com/kb/connect-woocommerce-store-mailchimp/) on our website.
 
-#### I'm getting an "HTTP Error" when trying to connect to Mailchimp.
+= I'm getting an "HTTP Error" when trying to connect to Mailchimp. =
 
 the "HTTP Error" type is usually because of a firewall configuration issue or outdated software on your web server.
 
@@ -147,7 +153,11 @@ Please contact your webhost and ask them to check the following:
 - Whether remote HTTP requests to `https://api.mailchimp.com` are allowed.
 - Whether cURL and the PHP-cURL extension are installed and updated to a recent version.
 
-#### My question is not listed here.
+= Where do I report security bugs found in this plugin? =
+
+Please report security bugs found in the source code of the Mailchimp for WordPress plugin through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/8c215d34-dc57-4167-8af8-a9863cb63668). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
+
+= My question is not listed here. =
 
 Please search through our [knowledge base](https://www.mc4wp.com/kb/#utm_source=wp-plugin-repo&utm_medium=mailchimp-for-wp&utm_campaign=faq).
 
