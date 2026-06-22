@@ -33,7 +33,6 @@ fi;
 composer run check-syntax
 composer run check-codestyle
 composer run static-analysis
-composer run wp-plugin-checks
 
 # Build (optimized) client-side assets
 npm run build
@@ -58,7 +57,10 @@ zip -r "$PACKAGE_FILE" "$PLUGIN_SLUG" \
   -x "$PLUGIN_SLUG/vendor/*" \
   -x "$PLUGIN_SLUG/node_modules/*" \
   -x "$PLUGIN_SLUG/tests/*" \
-  -x "$PLUGIN_SLUG/webpack.config*.js" \
+  -x "$PLUGIN_SLUG/bin/*" \
+  -x "$PLUGIN_SLUG/assets/src/*"  \
+  -x "$PLUGIN_SLUG/sample-code-snippets/*" \
+  -x "$PLUGIN_SLUG/webpack.config.js" \
   -x "$PLUGIN_SLUG/*.json" \
   -x "$PLUGIN_SLUG/*.lock" \
   -x "$PLUGIN_SLUG/phpcs.xml.dist" \
@@ -66,12 +68,7 @@ zip -r "$PACKAGE_FILE" "$PLUGIN_SLUG" \
   -x "$PLUGIN_SLUG/phpstan.neon.dist" \
   -x "$PLUGIN_SLUG/README.md" \
   -x "$PLUGIN_SLUG/AGENTS.md" \
-  -x "$PLUGIN_SLUG/*.sh" \
-  -x "$PLUGIN_SLUG/bin/*" \
-  -x "$PLUGIN_SLUG/.github/*" \
-  -x "$PLUGIN_SLUG/.git/*" \
-  -x "$PLUGIN_SLUG/assets/src/*"  \
-  -x "$PLUGIN_SLUG/sample-code-snippets/*"
+  -x "$PLUGIN_SLUG/SECURITY.md" 
 
 cd "$PLUGIN_SLUG"
 

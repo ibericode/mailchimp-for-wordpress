@@ -1,6 +1,19 @@
 Changelog
 =========
 
+= 4.13.1 =
+
+_Release date: Jun 22, 2026_
+
+- Forms: Improve handling of pasted `<form>` wrapper tags in form content.
+- Forms: Remove `mc4wp_default_form_id` option. We now default to first available form.
+- Forms: Improve the `{email}` dynamic content tag by detecting common lowercase email field names.
+- Misc: Adhere to DB, Security, I18n sniffs from WordPress Coding Standards.
+- Misc: Prevent direct access to plugin configuration files.
+- Misc: Remove the plugin review request from the footer of plugin admin pages.
+- Security: Add Patchstack vulnerability disclosure instructions to the plugin FAQ and security policy.
+
+
 = 4.13.0 =
 
 _Release date: Jun 1, 2026_
