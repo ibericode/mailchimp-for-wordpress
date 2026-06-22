@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 5.3
 Tested up to: 7.0
-Stable tag: 4.13.0
+Stable tag: 4.13.1
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.4
@@ -203,6 +203,19 @@ Minor improvements and re-added support for Goodbye Captcha integration.
 
 == Changelog ==
 
+= 4.13.1 =
+
+_Release date: Jun 22, 2026_
+
+- Forms: Improve handling of pasted `<form>` wrapper tags in form content.
+- Forms: Remove `mc4wp_default_form_id` option. We now default to first available form.
+- Forms: Improve the `{email}` dynamic content tag by detecting common lowercase email field names.
+- Misc: Adhere to DB, Security, I18n sniffs from WordPress Coding Standards.
+- Misc: Prevent direct access to plugin configuration files.
+- Misc: Remove the plugin review request from the footer of plugin admin pages.
+- Security: Add Patchstack vulnerability disclosure instructions to the plugin FAQ and security policy.
+
+
 = 4.13.0 =
 
 _Release date: Jun 1, 2026_
@@ -241,16 +254,5 @@ _Release date: May 5, 2026_
 - Ensure mc4wp_refresh_mailchimp_lists is scheduled in site's local timezone.
 - Added missing translator comments to all translatable strings.
 - General code hardening and minor improvements as reported by the Plugin Check tool.
-
-
-= 4.12.2 =
-
-_Release date: Apr 20, 2026_
-
-- Add Mailchimp Campaign Archive block and [mc4wp_campaigns] shortcode to show an archive Mailchimp email campaigns. Thanks to [Faisal Ahammad](https://faisalahammad.com/)!
-- WooCommerce: Allow "after email" position for sign-up checkbox when using Checkout Block.
-- WooCommerce: Detect use of Checkout Block and only show available positions.
-- Show warning when cron is behind schedule. Thanks to [Faisal Ahammad](https://faisalahammad.com/)!
-- Add preliminary support for [Mailchimp Site Tracking Pixel](https://mailchimp.com/help/about-mailchimp-site-tracking-pixel/). Thanks to [Faisal Ahammad](https://faisalahammad.com/)!
 
 [View the full changelog on GitHub](https://github.com/ibericode/mailchimp-for-wordpress/blob/main/CHANGELOG.md)
