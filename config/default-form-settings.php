@@ -3,6 +3,7 @@
 defined('ABSPATH') || exit;
 
 return [
+    'ajax'               => 1,
     'css'                => 0,
     'double_optin'       => 1,
     'hide_after_success' => 0,

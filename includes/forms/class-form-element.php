@@ -361,6 +361,11 @@ class MC4WP_Form_Element
             $classes[] = 'mc4wp-form-' . $form->settings['css'];
         }
 
+        // add AJAX class if enabled
+        if (! empty($form->settings['ajax'])) {
+            $classes[] = 'mc4wp-ajax';
+        }
+
         // add classes from config array
         if (! empty($this->config['element_class'])) {
             $classes = array_merge($classes, explode(' ', $this->config['element_class']));
