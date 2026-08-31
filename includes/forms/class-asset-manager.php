@@ -22,6 +22,16 @@ class MC4WP_Form_Asset_Manager
     private $load_typo_checker = false;
 
     /**
+     * @var bool Flag to determine whether AJAX form script should be enqueued.
+     */
+    private $load_ajax = false;
+
+    /**
+     * @var string Error text from first AJAX-enabled form, used as fallback in JavaScript.
+     */
+    private $ajax_error_text = '';
+
+    /**
      * Add hooks
      */
     public function add_hooks(): void
@@ -172,6 +182,19 @@ class MC4WP_Form_Asset_Manager
         $this->print_dummy_javascript();
         $this->load_scripts = true;
 
+        // Check if this form has AJAX enabled.
+        // Primary guard: skip if Premium's ajax-forms module is active — it handles its own
+        // script enqueuing and uses mc4wp_ajax_vars + admin-ajax.php. Once Premium removes
+        // MC4WP_AJAX_Forms (dropping the class), this guard falls through and the free plugin's
+        // REST-based AJAX activates automatically. No free plugin code changes are needed for
+        // that migration. Premium must declare Requires Plugins: mailchimp-for-wp (>=4.13.0)
+        // when it drops MC4WP_AJAX_Forms to avoid a version-gap breakage for users who update
+        // Premium without updating the free plugin.
+        if (! empty($form->settings['ajax']) && ! $this->load_ajax && ! class_exists('MC4WP_AJAX_Forms')) {
+            $this->load_ajax = true;
+            $this->ajax_error_text = $form->get_message('error');
+        }
+
         // check if this form has typo checker enabled
         if (! empty($form->settings['email_typo_check'])) {
             $this->load_typo_checker = true;
@@ -235,6 +258,34 @@ class MC4WP_Form_Asset_Manager
             wp_add_inline_script(
                 'mc4wp-forms-submitted',
                 'var mc4wp_submitted_form = ' . wp_json_encode($submitted_form_data) . ';',
+                'before'
+            );
+        }
+
+        // maybe load AJAX forms script
+        if ($this->load_ajax) {
+            // default loading character (bullet)
+            $character = '&bull;';
+
+            /**
+             * Filters the loading character used for AJAX form requests.
+             *
+             * @since 4.13.0
+             *
+             * @param string $character The loading character.
+             */
+            $loading_character = (string) apply_filters('mc4wp_forms_ajax_loading_character', $character);
+
+            wp_add_inline_script(
+                'mc4wp-forms-api',
+                sprintf(
+                    'window.mc4wp = window.mc4wp || {}; window.mc4wp.ajax = %s;',
+                    wp_json_encode([
+                        'loading_character' => $loading_character,
+                        'ajax_url'          => rest_url('mc4wp/v1/form'),
+                        'error_text'        => $this->ajax_error_text,
+                    ])
+                ),
                 'before'
             );
         }

@@ -85,3 +85,6 @@ mc4wp.forms = forms
 
 // expose mc4wp object globally
 window.mc4wp = mc4wp
+
+// Initialize AJAX form submission if configured
+require('./forms/ajax-forms.js')
