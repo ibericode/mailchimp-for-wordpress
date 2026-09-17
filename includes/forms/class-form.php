@@ -756,9 +756,9 @@ class MC4WP_Form
             return '';
         }
 
-        // form themes live in the same stylesheet
-        if (strpos($stylesheet, 'theme-') !== false) {
-            $stylesheet = 'themes';
+        // Safety net: un-migrated forms may still have a theme-* value.
+        if (strpos($stylesheet, 'theme-') === 0) {
+            return 'basic';
         }
 
         return $stylesheet;
