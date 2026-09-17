@@ -284,6 +284,18 @@ class MC4WP_Form_Element
     }
 
     /**
+     * Check if the form content contains conditional element attributes.
+     *
+     * @since 4.13.0
+     * @return bool
+     */
+    protected function has_conditional_elements()
+    {
+        return strpos($this->form->content, 'data-show-if') !== false
+            || strpos($this->form->content, 'data-hide-if') !== false;
+    }
+
+    /**
      * @param array|null $config Use this to override the configuration for this form element
      * @return string
      */
