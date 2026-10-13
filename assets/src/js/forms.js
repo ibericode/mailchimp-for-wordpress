@@ -1,6 +1,5 @@
 const mc4wp = window.mc4wp || {}
 const forms = require('./forms/forms.js')
-require('./forms/conditional-elements.js')
 
 /**
  * Binds event to document but only fires if event was triggered inside a .mc4wp-form element
