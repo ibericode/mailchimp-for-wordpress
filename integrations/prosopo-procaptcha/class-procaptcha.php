@@ -297,8 +297,11 @@ class MC4WP_Procaptcha
 
         $this->is_in_use = true;
 
-        // inline-block lets the parent form's text-align propagate to the widget.
-        $html  = '<mc4wp-procaptcha class="mc4wp-procaptcha" style="display: inline-block;">';
+        // inline-block lets the parent form's text-align propagate to the widget, but it is
+        // shrink-to-fit: the widget's own styles are all percentage-based, so without a definite
+        // width here the wrapper collapses to the widget's min-width. 302px is the widget's
+        // natural width; max-width keeps it shrinking inside parents narrower than that.
+        $html  = '<mc4wp-procaptcha class="mc4wp-procaptcha" style="display: inline-block; width: 302px; max-width: 100%;">';
         $html .= '<div class="mc4wp-procaptcha__captcha"></div>';
 
         // The element is optional, e.g. should be missing on the settings page.
