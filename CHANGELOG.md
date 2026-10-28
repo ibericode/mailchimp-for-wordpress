@@ -1,14 +1,20 @@
 Changelog
 =========
 
-= 4.14.2 =
+= 4.15.0 =
 
 _Release date: TBD_
 
 - Security: Only accept lists from the `_mc4wp_lists` request parameter when the site owner chose them for that form or integration. A visitor could otherwise subscribe an email address to any audience in the connected Mailchimp account. Thanks to Harry Nguyen and Karthik Ramakrishnan for reporting this.
 - Security: Encode square brackets in the values of dynamic content tags, so that a value like `{data key="..."}` can not run a shortcode when the form is shown with the form block. Thanks to Jakub Herman for reporting this.
 - Security: URL-encode the IDs in all Mailchimp API resource paths.
-- Compatibility: Custom HTML that sends `_mc4wp_lists` to an integration now only works for lists that are selected in the settings of that integration. Pages that were cached before this update and use a `lists` attribute on the `[mc4wp_form]` shortcode subscribe to the lists in the form settings until the cache is cleared.
+- Security: Ignore submissions to sign-up forms that are not published.
+- Security: Escape the Contact Form 7 form title in the admin.
+- Compatibility: Custom HTML that sends `_mc4wp_lists` to an integration now only works for lists that are selected in the settings of that integration. List choice fields can no longer be added to a form through the `mc4wp_form_content` filter; add them to the form content instead. Pages that were cached before this update and use a `lists` attribute on the `[mc4wp_form]` shortcode subscribe to the lists in the form settings until the cache is cleared.
+- Forms & Integrations: New "Update only empty fields?" setting. When updating an existing subscriber, it keeps the field values that are already set in Mailchimp and only fills in empty fields. Thanks [arnelap](https://github.com/arnelap)!
+- Misc: Fix a fatal error when the data for a Mailchimp API request can not be encoded as JSON. The request now fails with an error instead. Thanks [Robert Staddon](https://github.com/robertstaddon)!
+- Misc: The WPML code snippets now also work with language codes that include a country, like `en-us`. Thanks [arnelap](https://github.com/arnelap)!
+- Misc: Bump tested WordPress version to 7.1.
 
 
 = 4.14.1 =
