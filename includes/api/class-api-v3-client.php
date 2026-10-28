@@ -125,8 +125,13 @@ class MC4WP_API_V3_Client
             if (in_array($method, [ 'GET', 'DELETE' ], true)) {
                 $url = add_query_arg($data, $url);
             } else {
+                $body = wp_json_encode($data);
+                if (! is_string($body)) {
+                    throw new MC4WP_API_Exception('Unable to encode request body', 001);
+                }
+
                 $args['headers']['Content-Type'] = 'application/json';
-                $args['body']                    = json_encode($data);
+                $args['body']                    = $body;
             }
         }
 
@@ -137,6 +142,11 @@ class MC4WP_API_V3_Client
         * @param string $url
         */
         $args = apply_filters('mc4wp_http_request_args', $args, $url);
+
+        // wp_remote_request() accepts a string or array body. json_encode() returns false on failure.
+        if (isset($args['body']) && ! is_string($args['body']) && ! is_array($args['body'])) {
+            throw new MC4WP_API_Exception('Request body must be a string or array', 001);
+        }
 
         // perform request
         $response = wp_remote_request($url, $args);
