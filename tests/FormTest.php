@@ -204,6 +204,38 @@ class FormTest extends TestCase
     }
 
     /**
+     * @covers MC4WP_Form::handle_request
+     */
+    public function test_handle_request_only_accepts_lists_chosen_by_site_owner()
+    {
+        $post = mock_post([ 'ID' => 15, 'post_content' => '<input type="checkbox" name="_mc4wp_lists[]" value="choice1" />' ]);
+        $get_lists = function (array $data) use ($post) {
+            $form                    = new MC4WP_Form(15, $post);
+            $form->settings['lists'] = [ 'configured1' ];
+            $form->config['lists']   = [ 'configured1' ];
+            $form->handle_request($data);
+            return $form->get_lists();
+        };
+
+        // lists from the form settings or the form content are accepted
+        self::assertEquals([ 'configured1', 'choice1' ], $get_lists([ '_mc4wp_lists' => [ 'configured1', 'choice1', 'other1' ] ]));
+        self::assertEquals([ 'choice1' ], $get_lists([ '_mc4wp_lists' => 'choice1' ]));
+
+        // any other list is ignored
+        self::assertEquals([ 'configured1' ], $get_lists([ '_mc4wp_lists' => 'other1' ]));
+        self::assertEquals([ 'configured1' ], $get_lists([ '_mc4wp_lists' => 'choice' ]));
+        self::assertEquals([ 'configured1' ], $get_lists([ '_mc4wp_lists' => 'abc/members/' . md5('victim@example.com') . '#' ]));
+        self::assertEquals([ 'configured1' ], $get_lists([ '_mc4wp_lists' => [ [ 'choice1' ] ] ]));
+
+        // lists from a shortcode argument are accepted with a valid signature
+        $form = new MC4WP_Form(15, $post);
+        self::assertEquals([ 'signed1', 'signed2' ], $get_lists([ '_mc4wp_lists' => 'signed1, signed2', '_mc4wp_lists_signature' => $form->get_lists_signature('signed1, signed2') ]));
+        self::assertEquals([ 'configured1' ], $get_lists([ '_mc4wp_lists' => 'signed1,other1', '_mc4wp_lists_signature' => $form->get_lists_signature('signed1, signed2') ]));
+        self::assertEquals([ 'configured1' ], $get_lists([ '_mc4wp_lists' => 'signed1', '_mc4wp_lists_signature' => '' ]));
+        self::assertEquals([ 'configured1' ], $get_lists([ '_mc4wp_lists' => 'signed1', '_mc4wp_lists_signature' => (new MC4WP_Form(16, $post))->get_lists_signature('signed1') ]));
+    }
+
+    /**
      * @covers MC4WP_Form::get_required_fields
      */
     public function test_get_required_fields()

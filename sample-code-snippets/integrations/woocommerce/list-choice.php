@@ -2,6 +2,9 @@
 
 /**
  * This snippet adds the HTML for a MailChimp list-choice to your WooCommerce checkout.
+ *
+ * The lists in this snippet must also be selected in the settings of the WooCommerce integration,
+ * as lists that are not selected there are ignored.
  */
 
 add_action('woocommerce_after_order_notes', function () {

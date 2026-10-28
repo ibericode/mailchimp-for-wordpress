@@ -495,9 +495,60 @@ class MC4WP_Form
             }
         }
 
+        // only accept lists the site owner chose for this form, ignore the requested lists otherwise
+        if (isset($config['lists'])) {
+            $config['lists'] = $this->filter_requested_lists($config['lists']);
+            if (empty($config['lists'])) {
+                unset($config['lists']);
+            }
+        }
+
         if (! empty($config)) {
             $this->set_config($config);
         }
+    }
+
+    /**
+     * Filters lists from the request down to the lists the site owner chose for this form: the lists in the form settings,
+     * lists in the form content (like a list choice field) or lists from a signed shortcode argument.
+     *
+     * @param string|array $lists
+     * @return array
+     */
+    private function filter_requested_lists($lists): array
+    {
+        $signature = isset($this->raw_data['_mc4wp_lists_signature']) ? (string) $this->raw_data['_mc4wp_lists_signature'] : '';
+        $signed    = is_string($lists) && $signature !== '' && hash_equals($this->get_lists_signature($lists), $signature);
+
+        if (! is_array($lists)) {
+            $lists = array_map('trim', explode(',', (string) $lists));
+        }
+
+        $allowed = (array) $this->settings['lists'];
+        $content = $this->content;
+        $lists   = array_filter(
+            $lists,
+            function ($list_id) use ($signed, $allowed, $content) {
+                if (! is_string($list_id) || ! preg_match('/^[a-z0-9]+$/i', $list_id)) {
+                    return false;
+                }
+
+                return $signed || in_array($list_id, $allowed, true) || preg_match('/\b' . $list_id . '\b/', $content);
+            }
+        );
+
+        return array_values($lists);
+    }
+
+    /**
+     * Returns the signature for a lists argument of this form, so that it can be trusted when submitted.
+     *
+     * @param string $lists Comma-separated list ID's
+     * @return string
+     */
+    public function get_lists_signature(string $lists): string
+    {
+        return wp_hash($this->ID . '|' . $lists);
     }
 
     /**

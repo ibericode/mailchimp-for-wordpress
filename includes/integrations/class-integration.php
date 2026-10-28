@@ -344,12 +344,24 @@ abstract class MC4WP_Integration
 
         // get lists from request, if set.
         if (! empty($data['_mc4wp_lists'])) {
-            $lists = $data['_mc4wp_lists'];
+            $requested_lists = $data['_mc4wp_lists'];
 
             // ensure lists is an array
-            if (! is_array($lists)) {
-                $lists = explode(',', $lists);
-                $lists = array_map('trim', $lists);
+            if (! is_array($requested_lists)) {
+                $requested_lists = explode(',', (string) $requested_lists);
+                $requested_lists = array_map('trim', $requested_lists);
+            }
+
+            // only accept lists that are selected in the integration settings
+            $requested_lists = array_filter(
+                $requested_lists,
+                function ($list_id) use ($lists) {
+                    return is_string($list_id) && in_array($list_id, (array) $lists, true);
+                }
+            );
+
+            if (! empty($requested_lists)) {
+                $lists = array_values($requested_lists);
             }
         }
 

@@ -31,6 +31,18 @@ class MC4WP_API_V3
     }
 
     /**
+     * Builds a resource path, URL-encoding each argument so that it can only ever be a single path segment.
+     *
+     * @param string $format
+     * @param mixed ...$args
+     * @return string
+     */
+    private function resource(string $format, ...$args): string
+    {
+        return vsprintf($format, array_map('rawurlencode', array_map('strval', $args)));
+    }
+
+    /**
      * Pings the Mailchimp API to see if we're connected
      *
      * @return boolean
@@ -66,7 +78,7 @@ class MC4WP_API_V3
      */
     public function get_list_activity($list_id, array $args = [])
     {
-        $resource = sprintf('/lists/%s/activity', $list_id);
+        $resource = $this->resource('/lists/%s/activity', $list_id);
         $data     = $this->client->get($resource, $args);
 
         if (is_object($data) && isset($data->activity)) {
@@ -89,7 +101,7 @@ class MC4WP_API_V3
      */
     public function get_list_interest_categories($list_id, array $args = [])
     {
-        $resource = sprintf('/lists/%s/interest-categories', $list_id);
+        $resource = $this->resource('/lists/%s/interest-categories', $list_id);
         $data     = $this->client->get($resource, $args);
 
         if (is_object($data) && isset($data->categories)) {
@@ -111,7 +123,7 @@ class MC4WP_API_V3
      */
     public function get_list_interest_category_interests($list_id, $interest_category_id, array $args = [])
     {
-        $resource = sprintf('/lists/%s/interest-categories/%s/interests', $list_id, $interest_category_id);
+        $resource = $this->resource('/lists/%s/interest-categories/%s/interests', $list_id, $interest_category_id);
         $data     = $this->client->get($resource, $args);
 
         if (is_object($data) && isset($data->interests)) {
@@ -134,7 +146,7 @@ class MC4WP_API_V3
      */
     public function get_list_merge_fields($list_id, array $args = [])
     {
-        $resource = sprintf('/lists/%s/merge-fields', $list_id);
+        $resource = $this->resource('/lists/%s/merge-fields', $list_id);
         $data     = $this->client->get($resource, $args);
 
         if (is_object($data) && isset($data->merge_fields)) {
@@ -155,7 +167,7 @@ class MC4WP_API_V3
      */
     public function get_list($list_id, array $args = [])
     {
-        $resource = sprintf('/lists/%s', $list_id);
+        $resource = $this->resource('/lists/%s', $list_id);
         $data     = $this->client->get($resource, $args);
         return $data;
     }
@@ -193,7 +205,7 @@ class MC4WP_API_V3
     public function get_list_member($list_id, $email_address, array $args = [])
     {
         $subscriber_hash = $this->get_subscriber_hash($email_address);
-        $resource        = sprintf('/lists/%s/members/%s', $list_id, $subscriber_hash);
+        $resource        = $this->resource('/lists/%s/members/%s', $list_id, $subscriber_hash);
         $data            = $this->client->get($resource, $args);
         return $data;
     }
@@ -209,7 +221,7 @@ class MC4WP_API_V3
      */
     public function get_list_members($list_id, array $args = [])
     {
-        $resource = sprintf('/lists/%s/members', $list_id);
+        $resource = $this->resource('/lists/%s/members', $list_id);
         return $this->client->get($resource, $args);
     }
 
@@ -225,7 +237,7 @@ class MC4WP_API_V3
      */
     public function add_list_members($list_id, array $args)
     {
-        $resource = sprintf('/lists/%s', $list_id);
+        $resource = $this->resource('/lists/%s', $list_id);
         return $this->client->post($resource, $args);
     }
 
@@ -242,7 +254,7 @@ class MC4WP_API_V3
      */
     public function add_new_list_member($list_id, array $args)
     {
-        $resource = sprintf('/lists/%s/members', $list_id);
+        $resource = $this->resource('/lists/%s/members', $list_id);
 
         // make sure we're sending an object as the Mailchimp schema requires this
         if (isset($args['merge_fields'])) {
@@ -275,7 +287,7 @@ class MC4WP_API_V3
     public function add_list_member($list_id, array $args, $skip_merge_validation = false)
     {
         $subscriber_hash = $this->get_subscriber_hash($args['email_address']);
-        $resource        = sprintf('/lists/%s/members/%s', $list_id, $subscriber_hash);
+        $resource        = $this->resource('/lists/%s/members/%s', $list_id, $subscriber_hash);
 
         if ($skip_merge_validation) {
             $resource = add_query_arg([ 'skip_merge_validation' => 'true' ], $resource);
@@ -311,7 +323,7 @@ class MC4WP_API_V3
     public function update_list_member($list_id, $email_address, array $args)
     {
         $subscriber_hash = $this->get_subscriber_hash($email_address);
-        $resource        = sprintf('/lists/%s/members/%s', $list_id, $subscriber_hash);
+        $resource        = $this->resource('/lists/%s/members/%s', $list_id, $subscriber_hash);
 
         // make sure we're sending an object as the Mailchimp schema requires this
         if (isset($args['merge_fields'])) {
@@ -341,7 +353,7 @@ class MC4WP_API_V3
     public function delete_list_member($list_id, $email_address)
     {
         $subscriber_hash = $this->get_subscriber_hash($email_address);
-        $resource        = sprintf('/lists/%s/members/%s', $list_id, $subscriber_hash);
+        $resource        = $this->resource('/lists/%s/members/%s', $list_id, $subscriber_hash);
         $data            = $this->client->delete($resource);
         return (bool) $data;
     }
@@ -358,7 +370,7 @@ class MC4WP_API_V3
     public function get_list_member_tags($list_id, $email_address)
     {
         $subscriber_hash = $this->get_subscriber_hash($email_address);
-        $resource        = sprintf('/lists/%s/members/%s/tags', $list_id, $subscriber_hash);
+        $resource        = $this->resource('/lists/%s/members/%s/tags', $list_id, $subscriber_hash);
         return $this->client->get($resource);
     }
 
@@ -375,7 +387,7 @@ class MC4WP_API_V3
     public function update_list_member_tags($list_id, $email_address, array $data)
     {
         $subscriber_hash = $this->get_subscriber_hash($email_address);
-        $resource        = sprintf('/lists/%s/members/%s/tags', $list_id, $subscriber_hash);
+        $resource        = $this->resource('/lists/%s/members/%s/tags', $list_id, $subscriber_hash);
         return $this->client->post($resource, $data);
     }
 
@@ -390,7 +402,7 @@ class MC4WP_API_V3
      */
     public function get_list_segments($list_id, array $args = [])
     {
-        $resource = sprintf('/lists/%s/segments', $list_id);
+        $resource = $this->resource('/lists/%s/segments', $list_id);
         return $this->client->get($resource, $args);
     }
 
@@ -407,7 +419,7 @@ class MC4WP_API_V3
      */
     public function get_connected_site($site_id, array $args = [])
     {
-        $resource = sprintf('/connected-sites/%s', $site_id);
+        $resource = $this->resource('/connected-sites/%s', $site_id);
         return $this->client->get($resource, $args);
     }
 
@@ -473,7 +485,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store($store_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s', $store_id);
+        $resource = $this->resource('/ecommerce/stores/%s', $store_id);
         return $this->client->get($resource, $args);
     }
 
@@ -502,7 +514,7 @@ class MC4WP_API_V3
      */
     public function update_ecommerce_store($store_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s', $store_id);
+        $resource = $this->resource('/ecommerce/stores/%s', $store_id);
         return $this->client->patch($resource, $args);
     }
 
@@ -516,7 +528,7 @@ class MC4WP_API_V3
      */
     public function delete_ecommerce_store($store_id)
     {
-        $resource = sprintf('/ecommerce/stores/%s', $store_id);
+        $resource = $this->resource('/ecommerce/stores/%s', $store_id);
         return (bool) $this->client->delete($resource);
     }
 
@@ -531,7 +543,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_customers($store_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/customers', $store_id);
+        $resource = $this->resource('/ecommerce/stores/%s/customers', $store_id);
         return $this->client->get($resource, $args);
     }
 
@@ -547,7 +559,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_customer($store_id, $customer_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/customers/%s', $store_id, $customer_id);
+        $resource = $this->resource('/ecommerce/stores/%s/customers/%s', $store_id, $customer_id);
         return $this->client->get($resource, $args);
     }
 
@@ -564,7 +576,7 @@ class MC4WP_API_V3
      */
     public function add_ecommerce_store_customer($store_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s/customers/%s', $store_id, $args['id']);
+        $resource = $this->resource('/ecommerce/stores/%s/customers/%s', $store_id, $args['id']);
         return $this->client->put($resource, $args);
     }
 
@@ -580,7 +592,7 @@ class MC4WP_API_V3
      */
     public function update_ecommerce_store_customer($store_id, $customer_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s/customers/%s', $store_id, $customer_id);
+        $resource = $this->resource('/ecommerce/stores/%s/customers/%s', $store_id, $customer_id);
         return $this->client->patch($resource, $args);
     }
 
@@ -595,7 +607,7 @@ class MC4WP_API_V3
      */
     public function delete_ecommerce_store_customer($store_id, $customer_id)
     {
-        $resource = sprintf('/ecommerce/stores/%s/customers/%s', $store_id, $customer_id);
+        $resource = $this->resource('/ecommerce/stores/%s/customers/%s', $store_id, $customer_id);
         return (bool) $this->client->delete($resource);
     }
 
@@ -610,7 +622,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_products($store_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/products', $store_id);
+        $resource = $this->resource('/ecommerce/stores/%s/products', $store_id);
         return $this->client->get($resource, $args);
     }
 
@@ -626,7 +638,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_product($store_id, $product_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/products/%s', $store_id, $product_id);
+        $resource = $this->resource('/ecommerce/stores/%s/products/%s', $store_id, $product_id);
         return $this->client->get($resource, $args);
     }
 
@@ -643,7 +655,7 @@ class MC4WP_API_V3
      */
     public function add_ecommerce_store_product($store_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s/products', $store_id);
+        $resource = $this->resource('/ecommerce/stores/%s/products', $store_id);
         return $this->client->post($resource, $args);
     }
 
@@ -659,7 +671,7 @@ class MC4WP_API_V3
      */
     public function update_ecommerce_store_product($store_id, $product_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s/products/%s', $store_id, $product_id);
+        $resource = $this->resource('/ecommerce/stores/%s/products/%s', $store_id, $product_id);
         return $this->client->patch($resource, $args);
     }
 
@@ -674,7 +686,7 @@ class MC4WP_API_V3
      */
     public function delete_ecommerce_store_product($store_id, $product_id)
     {
-        $resource = sprintf('/ecommerce/stores/%s/products/%s', $store_id, $product_id);
+        $resource = $this->resource('/ecommerce/stores/%s/products/%s', $store_id, $product_id);
         return (bool) $this->client->delete($resource);
     }
 
@@ -690,7 +702,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_product_variants($store_id, $product_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/products/%s/variants', $store_id, $product_id);
+        $resource = $this->resource('/ecommerce/stores/%s/products/%s/variants', $store_id, $product_id);
         return $this->client->get($resource, $args);
     }
 
@@ -707,7 +719,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_product_variant($store_id, $product_id, $variant_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/products/%s/variants/%s', $store_id, $product_id, $variant_id);
+        $resource = $this->resource('/ecommerce/stores/%s/products/%s/variants/%s', $store_id, $product_id, $variant_id);
         return $this->client->get($resource, $args);
     }
 
@@ -725,7 +737,7 @@ class MC4WP_API_V3
      */
     public function add_ecommerce_store_product_variant($store_id, $product_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s/products/%s/variants/%s', $store_id, $product_id, $args['id']);
+        $resource = $this->resource('/ecommerce/stores/%s/products/%s/variants/%s', $store_id, $product_id, $args['id']);
         return $this->client->put($resource, $args);
     }
 
@@ -742,7 +754,7 @@ class MC4WP_API_V3
      */
     public function update_ecommerce_store_product_variant($store_id, $product_id, $variant_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s/products/%s/variants/%s', $store_id, $product_id, $variant_id);
+        $resource = $this->resource('/ecommerce/stores/%s/products/%s/variants/%s', $store_id, $product_id, $variant_id);
         return $this->client->patch($resource, $args);
     }
 
@@ -758,7 +770,7 @@ class MC4WP_API_V3
      */
     public function delete_ecommerce_store_product_variant($store_id, $product_id, $variant_id)
     {
-        $resource = sprintf('/ecommerce/stores/%s/products/%s/variants/%s', $store_id, $product_id, $variant_id);
+        $resource = $this->resource('/ecommerce/stores/%s/products/%s/variants/%s', $store_id, $product_id, $variant_id);
         return (bool) $this->client->delete($resource);
     }
 
@@ -773,7 +785,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_orders($store_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/orders', $store_id);
+        $resource = $this->resource('/ecommerce/stores/%s/orders', $store_id);
         return $this->client->get($resource, $args);
     }
 
@@ -789,7 +801,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_order($store_id, $order_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/orders/%s', $store_id, $order_id);
+        $resource = $this->resource('/ecommerce/stores/%s/orders/%s', $store_id, $order_id);
         return $this->client->get($resource, $args);
     }
 
@@ -804,7 +816,7 @@ class MC4WP_API_V3
      */
     public function add_ecommerce_store_order($store_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s/orders', $store_id);
+        $resource = $this->resource('/ecommerce/stores/%s/orders', $store_id);
         return $this->client->post($resource, $args);
     }
 
@@ -820,7 +832,7 @@ class MC4WP_API_V3
      */
     public function update_ecommerce_store_order($store_id, $order_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s/orders/%s', $store_id, $order_id);
+        $resource = $this->resource('/ecommerce/stores/%s/orders/%s', $store_id, $order_id);
         return $this->client->patch($resource, $args);
     }
 
@@ -835,7 +847,7 @@ class MC4WP_API_V3
      */
     public function delete_ecommerce_store_order($store_id, $order_id)
     {
-        return (bool) $this->client->delete(sprintf('/ecommerce/stores/%s/orders/%s', $store_id, $order_id));
+        return (bool) $this->client->delete($this->resource('/ecommerce/stores/%s/orders/%s', $store_id, $order_id));
     }
 
     /**
@@ -850,7 +862,7 @@ class MC4WP_API_V3
      */
     public function add_ecommerce_store_order_line($store_id, $order_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s/orders/%s/lines', $store_id, $order_id);
+        $resource = $this->resource('/ecommerce/stores/%s/orders/%s/lines', $store_id, $order_id);
         return $this->client->post($resource, $args);
     }
 
@@ -867,7 +879,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_order_lines($store_id, $order_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/orders/%s/lines', $store_id, $order_id);
+        $resource = $this->resource('/ecommerce/stores/%s/orders/%s/lines', $store_id, $order_id);
         return $this->client->get($resource, $args);
     }
 
@@ -884,7 +896,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_order_line($store_id, $order_id, $line_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/orders/%s/lines/%s', $store_id, $order_id, $line_id);
+        $resource = $this->resource('/ecommerce/stores/%s/orders/%s/lines/%s', $store_id, $order_id, $line_id);
         return $this->client->get($resource, $args);
     }
 
@@ -901,7 +913,7 @@ class MC4WP_API_V3
      */
     public function update_ecommerce_store_order_line($store_id, $order_id, $line_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s/orders/%s/lines/%s', $store_id, $order_id, $line_id);
+        $resource = $this->resource('/ecommerce/stores/%s/orders/%s/lines/%s', $store_id, $order_id, $line_id);
         return $this->client->patch($resource, $args);
     }
 
@@ -917,7 +929,7 @@ class MC4WP_API_V3
      */
     public function delete_ecommerce_store_order_line($store_id, $order_id, $line_id)
     {
-        $resource = sprintf('/ecommerce/stores/%s/orders/%s/lines/%s', $store_id, $order_id, $line_id);
+        $resource = $this->resource('/ecommerce/stores/%s/orders/%s/lines/%s', $store_id, $order_id, $line_id);
         return (bool) $this->client->delete($resource);
     }
 
@@ -932,7 +944,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_carts($store_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/carts', $store_id);
+        $resource = $this->resource('/ecommerce/stores/%s/carts', $store_id);
         return $this->client->get($resource, $args);
     }
 
@@ -948,7 +960,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_cart($store_id, $cart_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/carts/%s', $store_id, $cart_id);
+        $resource = $this->resource('/ecommerce/stores/%s/carts/%s', $store_id, $cart_id);
         return $this->client->get($resource, $args);
     }
 
@@ -963,7 +975,7 @@ class MC4WP_API_V3
      */
     public function add_ecommerce_store_cart($store_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s/carts', $store_id);
+        $resource = $this->resource('/ecommerce/stores/%s/carts', $store_id);
         return $this->client->post($resource, $args);
     }
 
@@ -979,7 +991,7 @@ class MC4WP_API_V3
      */
     public function update_ecommerce_store_cart($store_id, $cart_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s/carts/%s', $store_id, $cart_id);
+        $resource = $this->resource('/ecommerce/stores/%s/carts/%s', $store_id, $cart_id);
         return $this->client->patch($resource, $args);
     }
 
@@ -993,7 +1005,7 @@ class MC4WP_API_V3
      */
     public function delete_ecommerce_store_cart($store_id, $cart_id)
     {
-        return (bool) $this->client->delete(sprintf('/ecommerce/stores/%s/carts/%s', $store_id, $cart_id));
+        return (bool) $this->client->delete($this->resource('/ecommerce/stores/%s/carts/%s', $store_id, $cart_id));
     }
 
     /**
@@ -1008,7 +1020,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_cart_lines($store_id, $cart_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/carts/%s/lines', $store_id, $cart_id);
+        $resource = $this->resource('/ecommerce/stores/%s/carts/%s/lines', $store_id, $cart_id);
         return $this->client->get($resource, $args);
     }
 
@@ -1025,7 +1037,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_cart_line($store_id, $cart_id, $line_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/carts/%s/lines/%s', $store_id, $cart_id, $line_id);
+        $resource = $this->resource('/ecommerce/stores/%s/carts/%s/lines/%s', $store_id, $cart_id, $line_id);
         return $this->client->get($resource, $args);
     }
 
@@ -1041,7 +1053,7 @@ class MC4WP_API_V3
      */
     public function add_ecommerce_store_cart_line($store_id, $cart_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s/carts/%s/lines', $store_id, $cart_id);
+        $resource = $this->resource('/ecommerce/stores/%s/carts/%s/lines', $store_id, $cart_id);
         return $this->client->post($resource, $args);
     }
 
@@ -1058,7 +1070,7 @@ class MC4WP_API_V3
      */
     public function update_ecommerce_store_cart_line($store_id, $cart_id, $line_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s/carts/%s/lines/%s', $store_id, $cart_id, $line_id);
+        $resource = $this->resource('/ecommerce/stores/%s/carts/%s/lines/%s', $store_id, $cart_id, $line_id);
         return $this->client->patch($resource, $args);
     }
 
@@ -1074,7 +1086,7 @@ class MC4WP_API_V3
      */
     public function delete_ecommerce_store_cart_line($store_id, $cart_id, $line_id)
     {
-        $resource = sprintf('/ecommerce/stores/%s/carts/%s/lines/%s', $store_id, $cart_id, $line_id);
+        $resource = $this->resource('/ecommerce/stores/%s/carts/%s/lines/%s', $store_id, $cart_id, $line_id);
         return (bool) $this->client->delete($resource);
     }
 
@@ -1089,7 +1101,7 @@ class MC4WP_API_V3
      */
     public function add_ecommerce_store_promo_rule($store_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s/promo-rules', $store_id);
+        $resource = $this->resource('/ecommerce/stores/%s/promo-rules', $store_id);
         return $this->client->post($resource, $args);
     }
 
@@ -1104,7 +1116,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_promo_rules($store_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/promo-rules', $store_id);
+        $resource = $this->resource('/ecommerce/stores/%s/promo-rules', $store_id);
         return $this->client->get($resource, $args);
     }
 
@@ -1120,7 +1132,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_promo_rule($store_id, $promo_rule_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/promo-rules/%s', $store_id, $promo_rule_id);
+        $resource = $this->resource('/ecommerce/stores/%s/promo-rules/%s', $store_id, $promo_rule_id);
         return $this->client->get($resource, $args);
     }
 
@@ -1136,7 +1148,7 @@ class MC4WP_API_V3
      */
     public function update_ecommerce_store_promo_rule($store_id, $promo_rule_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s/promo-rules/%s', $store_id, $promo_rule_id);
+        $resource = $this->resource('/ecommerce/stores/%s/promo-rules/%s', $store_id, $promo_rule_id);
         return $this->client->patch($resource, $args);
     }
 
@@ -1151,7 +1163,7 @@ class MC4WP_API_V3
      */
     public function delete_ecommerce_store_promo_rule($store_id, $promo_rule_id)
     {
-        $resource = sprintf('/ecommerce/stores/%s/promo-rules/%s', $store_id, $promo_rule_id);
+        $resource = $this->resource('/ecommerce/stores/%s/promo-rules/%s', $store_id, $promo_rule_id);
         return (bool) $this->client->delete($resource);
     }
 
@@ -1167,7 +1179,7 @@ class MC4WP_API_V3
      */
     public function add_ecommerce_store_promo_rule_promo_code($store_id, $promo_rule_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s/promo-rules/%s/promo-codes', $store_id, $promo_rule_id);
+        $resource = $this->resource('/ecommerce/stores/%s/promo-rules/%s/promo-codes', $store_id, $promo_rule_id);
         return $this->client->post($resource, $args);
     }
 
@@ -1183,7 +1195,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_promo_rule_promo_codes($store_id, $promo_rule_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/promo-rules/%s/promo-codes', $store_id, $promo_rule_id);
+        $resource = $this->resource('/ecommerce/stores/%s/promo-rules/%s/promo-codes', $store_id, $promo_rule_id);
         return $this->client->get($resource, $args);
     }
 
@@ -1200,7 +1212,7 @@ class MC4WP_API_V3
      */
     public function get_ecommerce_store_promo_rule_promo_code($store_id, $promo_rule_id, $promo_code_id, array $args = [])
     {
-        $resource = sprintf('/ecommerce/stores/%s/promo-rules/%s/promo-codes/%s', $store_id, $promo_rule_id, $promo_code_id);
+        $resource = $this->resource('/ecommerce/stores/%s/promo-rules/%s/promo-codes/%s', $store_id, $promo_rule_id, $promo_code_id);
         return $this->client->get($resource, $args);
     }
 
@@ -1217,7 +1229,7 @@ class MC4WP_API_V3
      */
     public function update_ecommerce_store_promo_rule_promo_code($store_id, $promo_rule_id, $promo_code_id, array $args)
     {
-        $resource = sprintf('/ecommerce/stores/%s/promo-rules/%s/promo-codes/%s', $store_id, $promo_rule_id, $promo_code_id);
+        $resource = $this->resource('/ecommerce/stores/%s/promo-rules/%s/promo-codes/%s', $store_id, $promo_rule_id, $promo_code_id);
         return $this->client->patch($resource, $args);
     }
 
@@ -1233,7 +1245,7 @@ class MC4WP_API_V3
      */
     public function delete_ecommerce_store_promo_rule_promo_code($store_id, $promo_rule_id, $promo_code_id)
     {
-        $resource = sprintf('/ecommerce/stores/%s/promo-rules/%s/promo-codes/%s', $store_id, $promo_rule_id, $promo_code_id);
+        $resource = $this->resource('/ecommerce/stores/%s/promo-rules/%s/promo-codes/%s', $store_id, $promo_rule_id, $promo_code_id);
         return (bool) $this->client->delete($resource);
     }
 
@@ -1262,7 +1274,7 @@ class MC4WP_API_V3
      */
     public function get_template($template_id, array $args = [])
     {
-        $resource = sprintf('/templates/%s', $template_id);
+        $resource = $this->resource('/templates/%s', $template_id);
         return $this->client->get($resource, $args);
     }
 
@@ -1289,7 +1301,7 @@ class MC4WP_API_V3
      */
     public function get_template_default_content($template_id, array $args = [])
     {
-        $resource = sprintf('/templates/%s/default-content', $template_id);
+        $resource = $this->resource('/templates/%s/default-content', $template_id);
         return $this->client->get($resource, $args);
     }
 
@@ -1332,7 +1344,7 @@ class MC4WP_API_V3
      */
     public function get_campaign($campaign_id, array $args = [])
     {
-        $resource = sprintf('/campaigns/%s', $campaign_id);
+        $resource = $this->resource('/campaigns/%s', $campaign_id);
         return $this->client->get($resource, $args);
     }
 
@@ -1347,7 +1359,7 @@ class MC4WP_API_V3
      */
     public function update_campaign($campaign_id, array $args)
     {
-        $resource = sprintf('/campaigns/%s', $campaign_id);
+        $resource = $this->resource('/campaigns/%s', $campaign_id);
         return $this->client->patch($resource, $args);
     }
 
@@ -1361,7 +1373,7 @@ class MC4WP_API_V3
      */
     public function delete_campaign($campaign_id)
     {
-        $resource = sprintf('/campaigns/%s', $campaign_id);
+        $resource = $this->resource('/campaigns/%s', $campaign_id);
         return (bool) $this->client->delete($resource);
     }
 
@@ -1378,7 +1390,7 @@ class MC4WP_API_V3
      */
     public function campaign_action($campaign_id, $action, array $args = [])
     {
-        $resource = sprintf('/campaigns/%s/actions/%s', $campaign_id, $action);
+        $resource = $this->resource('/campaigns/%s/actions/%s', $campaign_id, $action);
         return $this->client->post($resource, $args);
     }
 
@@ -1393,7 +1405,7 @@ class MC4WP_API_V3
      */
     public function get_campaign_content($campaign_id, array $args = [])
     {
-        $resource = sprintf('/campaigns/%s/content', $campaign_id);
+        $resource = $this->resource('/campaigns/%s/content', $campaign_id);
         return $this->client->get($resource, $args);
     }
 
@@ -1408,7 +1420,7 @@ class MC4WP_API_V3
      */
     public function update_campaign_content($campaign_id, array $args)
     {
-        $resource = sprintf('/campaigns/%s/content', $campaign_id);
+        $resource = $this->resource('/campaigns/%s/content', $campaign_id);
         return $this->client->put($resource, $args);
     }
 

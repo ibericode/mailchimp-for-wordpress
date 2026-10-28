@@ -45,6 +45,27 @@ class IntegrationTest extends TestCase
     }
 
     /**
+     * @covers MC4WP_Integration::get_lists
+     */
+    public function test_get_lists_only_accepts_lists_from_settings()
+    {
+        $instance = new MC4WP_Sample_Integration('my-integration', [ 'lists' => [ 'abc123', 'def456' ] ]);
+
+        self::assertEquals([ 'abc123', 'def456' ], $instance->get_lists());
+
+        $_POST['_mc4wp_lists'] = 'def456, other1';
+        self::assertEquals([ 'def456' ], $instance->get_lists());
+
+        $_POST['_mc4wp_lists'] = [ 'abc123', [ 'def456' ] ];
+        self::assertEquals([ 'abc123' ], $instance->get_lists());
+
+        $_POST['_mc4wp_lists'] = 'other1';
+        self::assertEquals([ 'abc123', 'def456' ], $instance->get_lists());
+
+        unset($_POST['_mc4wp_lists']);
+    }
+
+    /**
      * @covers MC4WP_Integration::subscribe
      */
     public function test_subscribe_queues_runtime_options()

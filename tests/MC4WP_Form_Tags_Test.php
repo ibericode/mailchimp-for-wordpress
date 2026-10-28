@@ -43,6 +43,12 @@ class MC4WP_Form_Tags_Test extends TestCase
             return $t->replace_in_form_content($html, $f, $e);
         };
 
+        // square brackets are encoded, so that a value can not form a shortcode
+        self::assertEquals('<p>&#91;caption&#93;x&#91;/caption&#93;</p>', $replace('<p>{data key="x"}</p>', '[caption]x[/caption]'));
+        self::assertEquals('<input value="&#91;x&#93;">', $replace('<input value="{data key=x}">', '[x]'));
+        self::assertEquals('<input value=&#91;x&#93;>', $replace('<input value={data key=x}>', '[x]'));
+        self::assertEquals('<a href="/?a=&#91;x&#93;">Continue</a>', $replace('<a href="/?a={data key=x}">Continue</a>', '[x]'));
+
         // text: colons are kept
         self::assertEquals('Subject: Re: hello', $replace('Subject: {data key="x"}', 'Re: hello'));
         self::assertEquals('<textarea>&lt;b&gt;</textarea>', $replace('<textarea>{data key="x"}</textarea>', '<b>'));

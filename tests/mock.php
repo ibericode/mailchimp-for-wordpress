@@ -386,6 +386,12 @@ function wp_strip_all_tags($html)
 }
 
 /** @ignore */
+function wp_hash($data, $scheme = 'auth')
+{
+    return hash_hmac('md5', $data, 'mock-salt-' . $scheme);
+}
+
+/** @ignore */
 function wp_rand($min, $max)
 {
     return rand($min, $max);

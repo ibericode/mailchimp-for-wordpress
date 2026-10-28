@@ -12,6 +12,10 @@ abstract class MC4WP_Dynamic_Content_Tags
 
     private const WHITESPACE_REFERENCES = [' ' => '&#32;', "\t" => '&#9;', "\n" => '&#10;', "\r" => '&#13;', "\f" => '&#12;'];
 
+    // Square brackets are encoded in every replacement value, so that a value can not form a shortcode when the output is
+    // passed through do_shortcode, like for the form block.
+    private const SHORTCODE_REFERENCES = ['[' => '&#91;', ']' => '&#93;'];
+
     /**
      * @var callable The escape function for replacement values.
      */
@@ -113,7 +117,7 @@ abstract class MC4WP_Dynamic_Content_Tags
 
             // escape replacement value, unless it's configured as providing raw HTML (like {response})
             if (!isset($tags[$tag]['raw_html']) || !$tags[$tag]['raw_html']) {
-                $replacement = call_user_func($this->escape_function, $replacement);
+                $replacement = strtr(call_user_func($this->escape_function, $replacement), self::SHORTCODE_REFERENCES);
             }
 
             return $replacement;
@@ -230,7 +234,7 @@ abstract class MC4WP_Dynamic_Content_Tags
 
                 // In text, or in a comment, script, style or textarea.
                 // Escape the value, unless it's configured as providing raw HTML (like {response}).
-                return empty($tags[$matches[$i][1]]['raw_html']) ? esc_html($values[$i]) : $values[$i];
+                return empty($tags[$matches[$i][1]]['raw_html']) ? strtr(esc_html($values[$i]), self::SHORTCODE_REFERENCES) : $values[$i];
             },
             $html
         );
@@ -321,7 +325,7 @@ abstract class MC4WP_Dynamic_Content_Tags
 
     /**
      * Escapes a value for an attribute value. Encodes every ampersand, so that the browser sees the same value that was
-     * checked, and whitespace, which would otherwise end an unquoted attribute value.
+     * checked, whitespace, which would otherwise end an unquoted attribute value, and square brackets.
      *
      * @param mixed $value
      *
@@ -329,7 +333,7 @@ abstract class MC4WP_Dynamic_Content_Tags
      */
     private function escape_attribute($value)
     {
-        return strtr(htmlspecialchars((string) $value, ENT_QUOTES), self::WHITESPACE_REFERENCES);
+        return strtr(htmlspecialchars((string) $value, ENT_QUOTES), self::WHITESPACE_REFERENCES + self::SHORTCODE_REFERENCES);
     }
 
     /**

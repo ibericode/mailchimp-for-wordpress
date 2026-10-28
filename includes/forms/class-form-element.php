@@ -89,6 +89,7 @@ class MC4WP_Form_Element
         if (! empty($this->config['lists'])) {
             $lists_string   = is_array($this->config['lists']) ? join(',', $this->config['lists']) : $this->config['lists'];
             $hidden_fields .= '<input type="hidden" name="_mc4wp_lists" value="' . esc_attr($lists_string) . '" />';
+            $hidden_fields .= '<input type="hidden" name="_mc4wp_lists_signature" value="' . esc_attr($this->form->get_lists_signature($lists_string)) . '" />';
         }
 
         // was "lists" parameter passed in shortcode arguments?
