@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 5.3
 Tested up to: 7.1
-Stable tag: 4.14.1
+Stable tag: 4.15.0-rc1
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.4
@@ -203,6 +203,22 @@ Minor improvements and re-added support for Goodbye Captcha integration.
 
 == Changelog ==
 
+= 4.15.0 =
+
+_Release date: TBD_
+
+- Security: Only accept lists from the `_mc4wp_lists` request parameter when the site owner chose them for that form or integration. A visitor could otherwise subscribe an email address to any audience in the connected Mailchimp account. Thanks to Harry Nguyen and Karthik Ramakrishnan for reporting this.
+- Security: Encode square brackets in the values of dynamic content tags, so that a value like `{data key="..."}` can not run a shortcode when the form is shown with the form block. Thanks to Jakub Herman for reporting this.
+- Security: URL-encode the IDs in all Mailchimp API resource paths.
+- Security: Ignore submissions to sign-up forms that are not published.
+- Security: Escape the Contact Form 7 form title in the admin.
+- Compatibility: Custom HTML that sends `_mc4wp_lists` to an integration now only works for lists that are selected in the settings of that integration. List choice fields can no longer be added to a form through the `mc4wp_form_content` filter; add them to the form content instead. Pages that were cached before this update and use a `lists` attribute on the `[mc4wp_form]` shortcode subscribe to the lists in the form settings until the cache is cleared.
+- Forms & Integrations: New "Update only empty fields?" setting. When updating an existing subscriber, it keeps the field values that are already set in Mailchimp and only fills in empty fields. Thanks [arnelap](https://github.com/arnelap)!
+- Misc: Fix a fatal error when the data for a Mailchimp API request can not be encoded as JSON. The request now fails with an error instead. Thanks [Robert Staddon](https://github.com/robertstaddon)!
+- Misc: The WPML code snippets now also work with language codes that include a country, like `en-us`. Thanks [arnelap](https://github.com/arnelap)!
+- Misc: Bump tested WordPress version to 7.1.
+
+
 = 4.14.1 =
 
 _Release date: Sep 10, 2026_
@@ -245,16 +261,5 @@ _Release date: Jun 1, 2026_
 - Improve dynamic content tag replacement by removing broken regular expressions.
 - Improve form preview output by disabling PHP error display during preview rendering.
 - Update JavaScript dependencies and pass admin script data using `wp_add_inline_script()`.
-
-
-= 4.12.6 =
-
-_Release date: May 26, 2026_
-
-- Fix integrations losing runtime options like double opt-in when sign-up attempts are processed asynchronously. Thanks [Jon Parker](https://github.com/jnpkr)!
-- Fix Site Tracking Pixel setting not being saved when disabling it.
-- Improve accessibility of generated form fields by wrapping inputs in labels and using fieldsets for checkbox and radio fields.
-- Improve validation and sanitization of submitted form data.
-- Improve debug log safety by truncating overly long messages and improving email address obfuscation. Thanks [Jack Feldcher](https://github.com/jjf404)!
 
 [View the full changelog on GitHub](https://github.com/ibericode/mailchimp-for-wordpress/blob/main/CHANGELOG.md)
