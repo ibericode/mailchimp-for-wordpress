@@ -57,7 +57,7 @@ echo $procaptcha_api->print_captcha_element(true, true);
             printf(
                 // translators: %1$s: opening anchor tag, %2$s: closing anchor tag
                 esc_html__('The API key for connecting with your Procaptcha account. %1$s Get your Site key here %2$s', 'mailchimp-for-wp'),
-                '<a href="https://portal.prosopo.io/site-management" target="_blank">',
+                '<a href="https://portal.prosopo.io/site-management?utm_source=mc4wp&utm_medium=plugin&utm_campaign=integration-settings" target="_blank">',
                 '</a>'
             );
             ?>
