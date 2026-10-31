@@ -6,15 +6,8 @@ defined('ABSPATH') || exit;
 $theme       = wp_get_theme();
 $css_options = [
     // translators: %s is the name of the active WordPress theme.
-    '0'                                     => sprintf(esc_html__('Inherit from %s theme', 'mailchimp-for-wp'), esc_html($theme->Name)), // @phpstan-ignore-line WP_Theme::$name is a dynamic property
-    'basic'                                 => esc_html__('Basic', 'mailchimp-for-wp'),
-    esc_html__('Form Themes', 'mailchimp-for-wp') => [
-        'theme-light' => esc_html__('Light Theme', 'mailchimp-for-wp'),
-        'theme-dark'  => esc_html__('Dark Theme', 'mailchimp-for-wp'),
-        'theme-red'   => esc_html__('Red Theme', 'mailchimp-for-wp'),
-        'theme-green' => esc_html__('Green Theme', 'mailchimp-for-wp'),
-        'theme-blue'  => esc_html__('Blue Theme', 'mailchimp-for-wp'),
-    ],
+    '0'     => sprintf(esc_html__('Inherit from %s theme', 'mailchimp-for-wp'), esc_html($theme->Name)), // @phpstan-ignore-line WP_Theme::$name is a dynamic property
+    'basic' => esc_html__('Basic (minimal reset)', 'mailchimp-for-wp'),
 ];
 
 /**
@@ -49,7 +42,7 @@ $css_options = apply_filters('mc4wp_admin_form_css_options', $css_options);
                 ?>
             </select>
             <p class="description">
-                <?php echo esc_html__('If you want to load some default CSS styles, select "basic formatting styles" or choose one of the color themes', 'mailchimp-for-wp'); ?>
+                <?php echo esc_html__('Select "Basic" for a minimal, zero-specificity CSS reset. Use your theme\'s CSS or add custom styles to style forms.', 'mailchimp-for-wp'); ?>
             </p>
         </td>
     </tr>

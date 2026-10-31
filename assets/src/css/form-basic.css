@@ -1,103 +1,61 @@
-.mc4wp-form input[name^="_mc4wp_honey"] { display: none !important; }
+/* Mailchimp for WP - Form Reset */
 
-/* Mailchimp for WP - Default Form Styles */
-.mc4wp-form-basic {
+/* Hide honeypot field */
+.mc4wp-form input[name^="_mc4wp_honey"] {
+	display: none !important;
+}
+
+/* Zero-specificity reset via :where() — themes/plugins always win */
+:where(.mc4wp-form) {
 	margin: 1em 0;
 }
 
-.mc4wp-form-basic label,
-.mc4wp-form-basic input {
-	width: auto;
-	box-sizing: border-box;
-	cursor: auto;
-	height: auto;
-	vertical-align: baseline;
-	line-height: normal;
-}
-
-.mc4wp-form-basic label:after,
-.mc4wp-form-basic input:after {
-	content: "";
-	display: table;
-	clear: both;
-}
-
-.mc4wp-form-basic label {
+:where(.mc4wp-form label) {
+	display: block;
 	font-weight: bold;
 	margin-bottom: 6px;
-	display: block;
 }
 
-/* OLD STYLE: When input is a sibling (not nested) */
-.mc4wp-form-basic label + input {
-	display: block;
-}
-
-/* NEW STYLE: When input is nested inside label */
-.mc4wp-form-basic label > input {
+:where(.mc4wp-form label > input),
+:where(.mc4wp-form label > textarea),
+:where(.mc4wp-form label > select) {
 	display: block;
 	margin-top: 6px;
 	font-weight: normal;
 }
 
-/* Form Elements */
-.mc4wp-form-basic input[type="text"],
-.mc4wp-form-basic input[type="email"],
-.mc4wp-form-basic input[type="tel"],
-.mc4wp-form-basic input[type="url"],
-.mc4wp-form-basic input[type="date"],
-.mc4wp-form-basic textarea,
-.mc4wp-form-basic select {
-	min-height: 32px;
+:where(.mc4wp-form input[type="text"]),
+:where(.mc4wp-form input[type="email"]),
+:where(.mc4wp-form input[type="tel"]),
+:where(.mc4wp-form input[type="url"]),
+:where(.mc4wp-form input[type="date"]),
+:where(.mc4wp-form textarea),
+:where(.mc4wp-form select) {
+	box-sizing: border-box;
 	width: 100%;
 	max-width: 480px;
+	min-height: 32px;
 }
 
-.mc4wp-form-basic input[type="number"] {
+:where(.mc4wp-form input[type="number"]) {
 	min-width: 40px;
 }
 
-.mc4wp-form-basic input[type="checkbox"],
-.mc4wp-form-basic input[type="radio"] {
-	position: relative;
-	margin: 0 6px 0 0;
-	padding: 0;
-	height: 13px;
-	width: 13px;
+:where(.mc4wp-form input[type="checkbox"]),
+:where(.mc4wp-form input[type="radio"]) {
 	display: inline-block;
-	border: 0;
+	margin-block: 0;
+	margin-inline-end: 6px;
 }
 
-/* NEW STYLE: Checkbox/radio nested in label - override inline-block */
-.mc4wp-form-basic label > input[type="checkbox"],
-.mc4wp-form-basic label > input[type="radio"] {
-	display: inline-block;
-	margin-top: 0;
-}
-
-.mc4wp-form-basic input[type="checkbox"] {
-	appearance: checkbox;
-}
-
-.mc4wp-form-basic input[type="radio"] {
-	appearance: radio;
-}
-
-.mc4wp-form-basic input[type="submit"],
-.mc4wp-form-basic button,
-.mc4wp-form-basic input[type="button"] {
+:where(.mc4wp-form input[type="submit"]),
+:where(.mc4wp-form button) {
 	cursor: pointer;
 	display: inline-block;
 	appearance: none;
 }
 
-/* Remove font-weight bold from nested elements */
-.mc4wp-form-basic label > span,
-.mc4wp-form-basic li > label {
-	font-weight: normal;
-}
-
-/* Alert */
+/* Alert colors — functional, normal specificity */
 .mc4wp-alert {
 	color: #c09853;
 	clear: both;
@@ -112,11 +70,5 @@
 }
 
 .mc4wp-error {
-	color: #CD5C5C;
-}
-
-/* Right-To-Left specific styles */
-.rtl .mc4wp-form-basic input[type="checkbox"],
-.rtl .mc4wp-form-basic input[type="radio"] {
-	margin: 0 0 0 6px;
+	color: #cd5c5c;
 }
