@@ -3,7 +3,7 @@ Changelog
 
 = 4.15.0 =
 
-_Release date: TBD_
+_Release date: Nov 3, 2026_
 
 - Security: Only accept lists from the `_mc4wp_lists` request parameter when the site owner chose them for that form or integration. A visitor could otherwise subscribe an email address to any audience in the connected Mailchimp account. Thanks to Harry Nguyen and Karthik Ramakrishnan for reporting this.
 - Security: Encode square brackets in the values of dynamic content tags, so that a value like `{data key="..."}` can not run a shortcode when the form is shown with the form block. Thanks to Jakub Herman for reporting this.
