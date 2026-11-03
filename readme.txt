@@ -4,7 +4,7 @@ Donate link: https://www.mc4wp.com/contribute/#utm_source=wp-plugin-repo&utm_med
 Tags: mailchimp, subscribe, email, newsletter, form
 Requires at least: 5.3
 Tested up to: 7.1
-Stable tag: 4.15.0-rc1
+Stable tag: 4.15.0
 License: GPL-3.0-or-later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires PHP: 7.4
@@ -205,7 +205,7 @@ Minor improvements and re-added support for Goodbye Captcha integration.
 
 = 4.15.0 =
 
-_Release date: TBD_
+_Release date: Nov 3, 2026_
 
 - Security: Only accept lists from the `_mc4wp_lists` request parameter when the site owner chose them for that form or integration. A visitor could otherwise subscribe an email address to any audience in the connected Mailchimp account. Thanks to Harry Nguyen and Karthik Ramakrishnan for reporting this.
 - Security: Encode square brackets in the values of dynamic content tags, so that a value like `{data key="..."}` can not run a shortcode when the form is shown with the form block. Thanks to Jakub Herman for reporting this.
