@@ -164,21 +164,12 @@ class MC4WP_Procaptcha
                 }
 
                 setup() {
-                    // Fall back to the enclosing form: some themes (or `wpautop`)
-                    // wrap the custom element in a `<p>`, and the HTML parser then
-                    // auto-closes that `<p>` before the child `<div>`, hoisting the
-                    // captcha container out to become a sibling. Without the
-                    // fallback the querySelector returns null and render() crashes.
                     const form = this.closest('form');
-                    this.validationErrorElement =
-                        this.querySelector('.mc4wp-procaptcha__validation-error') ||
-                        (form && form.querySelector('.mc4wp-procaptcha__validation-error'));
+                    this.validationErrorElement = this.querySelector('.mc4wp-procaptcha__validation-error');
 
                     attributes.callback = this.validatedCallback.bind(this);
 
-                    const captchaContainer =
-                        this.querySelector('.mc4wp-procaptcha__captcha') ||
-                        (form && form.querySelector('.mc4wp-procaptcha__captcha'));
+                    const captchaContainer = this.querySelector('.mc4wp-procaptcha__captcha');
 
                     if (null === captchaContainer) {
                         console.warn('[mc4wp-procaptcha] captcha container not found; skipping render');
@@ -297,15 +288,21 @@ class MC4WP_Procaptcha
 
         $this->is_in_use = true;
 
-        // inline-block lets the parent form's text-align propagate to the widget.
-        $html  = '<mc4wp-procaptcha class="mc4wp-procaptcha" style="display: inline-block;">';
-        $html .= '<div class="mc4wp-procaptcha__captcha"></div>';
+        // inline-block lets the parent form's text-align propagate to the widget, but it is
+        // shrink-to-fit: the widget's own styles are all percentage-based, so without a definite
+        // width here the wrapper collapses to the widget's min-width. 302px is the widget's
+        // natural width; max-width keeps it shrinking inside parents narrower than that.
+        $html  = '<mc4wp-procaptcha class="mc4wp-procaptcha" style="display: inline-block; width: 302px; max-width: 100%;">';
+        // Children are spans, not div/p: form authors often wrap the field in a `<p>`, and the
+        // HTML parser closes a `<p>` at the first block-level tag, which would hoist these out of
+        // the custom element and away from the inline-block wrapper above.
+        $html .= '<span class="mc4wp-procaptcha__captcha" style="display: block;"></span>';
 
         // The element is optional, e.g. should be missing on the settings page.
         if (false === $is_without_validation_element) {
-            $html .= '<p class="mc4wp-procaptcha__validation-error" style="visibility: hidden;color:red;line-height:1;font-size: 12px;padding: 7px 0 10px 10px;margin:0;">';
+            $html .= '<span class="mc4wp-procaptcha__validation-error" style="display: block;visibility: hidden;color:red;line-height:1;font-size: 12px;padding: 7px 0 10px 10px;margin:0;">';
             $html .= esc_html__('Please verify that you are human.', 'mailchimp-for-wp');
-            $html .= '</p>';
+            $html .= '</span>';
         }
 
         $html .= '</mc4wp-procaptcha>';

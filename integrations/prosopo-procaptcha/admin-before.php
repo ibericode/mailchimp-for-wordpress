@@ -9,6 +9,6 @@ printf(
         '%1$s Procaptcha (by Prosopo) %2$s is offering seamless bot protection without compromising user data. You can customize settings and algorithms, ensuring optimal defense against all types of malicious bots.',
         'mailchimp-for-wp'
     ),
-    '<a href="https://prosopo.io/" target="_blank">',
+    '<a href="https://prosopo.io/wordpress/mc4wp/?utm_source=mc4wp&utm_medium=plugin&utm_campaign=integration-settings" target="_blank">',
     '</a>'
 );
