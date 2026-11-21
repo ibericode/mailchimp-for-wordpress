@@ -187,6 +187,17 @@ function registerCustomFields (lists) {
     description: 'Privacy-friendly and GDPR-compliant anti-bot protection. Go to <a href="admin.php?page=mailchimp-for-wp-integrations&integration=prosopo-procaptcha">MC4WP > Integrations > Procaptcha</a> to configure it.'
   }, true)
 
+  // register stub field for InfoPeak Captcha integration
+  register(i18n.formFields, {
+    name: 'infopeak-captcha',
+    type: 'infopeak-captcha',
+    label: 'InfoPeak Captcha',
+    title: 'InfoPeak Captcha',
+    wrap: false,
+    showLabel: false,
+    description: 'EU-hosted, cookieless proof-of-work captcha. Go to <a href="admin.php?page=mailchimp-for-wp-integrations&integration=infopeak-captcha">MC4WP > Integrations > InfoPeak Captcha</a> to configure it.'
+  }, true)
+
   // register lists choice field
   const choices = {}
   for (const key in lists) {

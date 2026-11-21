@@ -102,4 +102,11 @@ forms.procaptcha = function (config) {
   ]
 }
 
+// renders the UI for the InfoPeak Captcha field
+forms['infopeak-captcha'] = function (config) {
+  return [
+    rows.description(config)
+  ]
+}
+
 module.exports = forms

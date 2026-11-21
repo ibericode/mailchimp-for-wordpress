@@ -45,6 +45,8 @@ spl_autoload_register(function ($class) {
         'MC4WP_Debug_Log_Reader' => '/includes/class-debug-log-reader.php',
         'MC4WP_Easy_Digital_Downloads_Integration' => '/integrations/easy-digital-downloads/class-easy-digital-downloads.php',
         'MC4WP_Events_Manager_Integration' => '/integrations/events-manager/class-events-manager.php',
+        'MC4WP_InfoPeak_Captcha' => '/integrations/infopeak-captcha/class-infopeak-captcha.php',
+        'MC4WP_InfoPeak_Captcha_Integration' => '/integrations/infopeak-captcha/class-infopeak-captcha-integration.php',
         'MC4WP_Personal_Data_Exporter' => '/includes/class-personal-data-exporter.php',
         'MC4WP_Field_Formatter' => '/includes/class-field-formatter.php',
         'MC4WP_Field_Guesser' => '/includes/class-field-guesser.php',

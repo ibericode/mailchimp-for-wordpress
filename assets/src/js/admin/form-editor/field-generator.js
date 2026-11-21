@@ -168,6 +168,11 @@ generators.procaptcha = function (config) {
   return m('input', { type: 'hidden', name: 'procaptcha' })
 }
 
+// generates HTML for the InfoPeak Captcha stub field
+generators['infopeak-captcha'] = function (config) {
+  return m('input', { type: 'hidden', name: 'infopeak-captcha' })
+}
+
 /**
  * Generates an HTML string based on a field (config) object
  *
