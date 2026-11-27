@@ -29,7 +29,8 @@ add_thickbox(); ?>
             <?php echo esc_html__('Form preview', 'mailchimp-for-wp'); ?>
             <span class="dashicons dashicons-editor-help" title="<?php echo esc_attr__('The form may look slightly different than this when shown in a post, page or widget area.', 'mailchimp-for-wp'); ?>"></span>
         </h4>
-        <iframe id="mc4wp-form-preview" src="<?php echo esc_attr($form_preview_url); ?>"></iframe>
+        <?php // sandbox keeps scripts in the preview (ads, analytics) from navigating the editor window ?>
+        <iframe id="mc4wp-form-preview" src="<?php echo esc_attr($form_preview_url); ?>" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
     </div>
 </div>
 
