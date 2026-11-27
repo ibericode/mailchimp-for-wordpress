@@ -471,7 +471,7 @@ class MC4WP_MailChimp
         $exceptions_skipped = 0;
 
         // increase total time limit to 3 minutes
-        @set_time_limit(180);
+        mc4wp_set_time_limit(180);
 
         // increase HTTP timeout to 30s as MailChimp is super slow to calculate dynamic fields
         add_filter(

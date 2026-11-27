@@ -703,3 +703,16 @@ function mc4wp_apply_deprecated_filters($old_hook, $new_hook)
         return apply_filters_deprecated($old_hook, [ $value, $a, $b, $c ], '4.9.0', $new_hook);
     }, 10, 3);
 }
+
+/**
+ * Wrapper for set_time_limit to see if it is enabled.
+ *
+ * @param int $limit Time limit.
+ * @return void
+ */
+function mc4wp_set_time_limit($limit = 0)
+{
+    if (function_exists('set_time_limit') && false === strpos(ini_get('disable_functions'), 'set_time_limit') && ! ini_get('safe_mode')) { // phpcs:ignore PHPCompatibility.IniDirectives.RemovedIniDirectives.safe_modeDeprecatedRemoved
+		@set_time_limit( $limit ); // @codingStandardsIgnoreLine
+    }
+}

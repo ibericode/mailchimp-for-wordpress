@@ -54,7 +54,7 @@ if (empty($lists)) {
     return;
 }
 
-@set_time_limit(600);
+mc4wp_set_time_limit(600);
 $api_v3 = new MC4WP_API_V3($options['api_key']);
 $map    = [];
 
